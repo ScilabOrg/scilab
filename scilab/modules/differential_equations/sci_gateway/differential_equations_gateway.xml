@@ -4,11 +4,11 @@
  * Copyright (C) 2007 - INRIA - Allan CORNET
  * Copyright (C) 2007 - INRIA - Sylvestre LEDRU
  * ...
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
@@ -34,12 +34,13 @@
     <!-- =================== -->
     
     <PRIMITIVE gatewayId="12" primitiveId="1" primitiveName="ode" />
-    <!-- =================== -->  
+    <!-- =================== -->
     <PRIMITIVE gatewayId="26" primitiveId="1" primitiveName="impl" />
     <PRIMITIVE gatewayId="26" primitiveId="2" primitiveName="dassl" />
     <PRIMITIVE gatewayId="26" primitiveId="3" primitiveName="dasrt" />
     <PRIMITIVE gatewayId="26" primitiveId="4" primitiveName="daskr" />
-    <!-- =================== -->  
+    <PRIMITIVE gatewayId="26" primitiveId="5" primitiveName="daskrres" />
+    <!-- =================== -->
     <PRIMITIVE gatewayId="29" primitiveId="1" primitiveName="odedc" />
     <!-- =================== -->
     <PRIMITIVE gatewayId="30" primitiveId="1" primitiveName="intg" />

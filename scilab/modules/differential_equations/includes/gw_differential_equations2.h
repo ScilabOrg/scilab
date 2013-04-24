@@ -23,6 +23,7 @@ int C2F(sciimpl)(char *fname, unsigned long fname_len);
 int C2F(dassli)(char *fname, unsigned long fname_len);
 int C2F(dasrti)(char *fname, unsigned long fname_len);
 int C2F(daskri)(char *fname, unsigned long fname_len);
+int sci_daskr_res(char *fname, unsigned long fname_len);
 /*--------------------------------------------------------------------------*/
 #endif  /* __GW_DIFFERENTIAL_EQUATIONS2__ */
 /*--------------------------------------------------------------------------*/

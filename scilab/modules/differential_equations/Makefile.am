@@ -90,7 +90,8 @@ sci_gateway/c/gw_differential_equations3.c \
 sci_gateway/c/gw_differential_equations4.c \
 sci_gateway/c/sci_bvode.c \
 sci_gateway/c/Ex-daskr.c \
-sci_gateway/c/gw_differential_equations6.c
+sci_gateway/c/gw_differential_equations6.c \
+sci_gateway/c/sci_daskr_res.c
 
 GATEWAY_FORTRAN_SOURCES = \
 sci_gateway/fortran/sci_f_daskr.f \
@@ -166,7 +167,7 @@ modulename=differential_equations
 
 #### differential_equations : Conf files ####
 libscidifferential_equations_la_rootdir = $(mydatadir)
-libscidifferential_equations_la_root_DATA =  license.txt 
+libscidifferential_equations_la_root_DATA =  license.txt
 
 #### differential_equations : init scripts ####
 libscidifferential_equations_la_etcdir = $(mydatadir)/etc
