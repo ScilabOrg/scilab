@@ -72,6 +72,12 @@ Obsolete
   Use nicholschart() instead.
 
 
+Demos
+=====
+
+* Bug #8210 fixed - Added UMFPACK example to the Demo gui as demo.
+
+
 Xcos
 ====
 
