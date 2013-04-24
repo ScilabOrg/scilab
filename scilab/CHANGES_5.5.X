@@ -95,6 +95,12 @@ SciNotes
 * Autosave feature can now use %date to append the current date to the backup filename (See bug #12712).
 
 
+Demos
+=====
+
+* Bug #8210 fixed - Added UMFPACK example to the Demo gui as demo.
+
+
 Xcos
 ====
 
