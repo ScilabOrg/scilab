@@ -88,6 +88,12 @@ Differential_equations
 * Netlib's Quadpack, used for definite integration, has been updated to match the upstream.
 
 
+Demos
+=====
+
+* Bug #8210 fixed - Added UMFPACK example to the Demo gui as demo.
+
+
 Xcos
 ====
 
