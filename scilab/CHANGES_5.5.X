@@ -111,12 +111,15 @@ Bug fixes
 
 * Bug #6752 fixed - unit test scilab.tst has been split in different tests.
 
+<<<<<<< HEAD
 * Bug #6988 fixed - Error messages in modules/data_structures/src/c/hmops.c were not standard.
 
 * Bug #7026 fixed - There was no unit test for plot2d.
 
 * Bug #7206 fixed - If the second input argument of meanf function was an hypermat, this function 
                     returned an error.
+
+* Bug #7596 fixed - Same error happening in different places now yield the same error message in Scilab console.
 
 * Bug #7655 fixed - An example added in help page of type, for type(X)=11 and type(X)=13.
 
