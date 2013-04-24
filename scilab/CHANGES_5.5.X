@@ -79,6 +79,8 @@ Bug fixes
 
 * Bug #6752 fixed - unit test scilab.tst has been split in different tests.
 
+* Bug #6988 fixed - Error messages in modules/data_structures/src/c/hmops.c were not standard.
+
 * Bug #7684 fixed - Introduction demo splitted in subsections.
 
 * Bug #7828 fixed - Slight improvements in nicholschart.
