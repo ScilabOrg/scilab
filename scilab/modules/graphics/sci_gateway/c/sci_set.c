@@ -95,9 +95,10 @@ int sci_set(char *fname, unsigned long fname_len)
         sciErr = getVarType(pvApiCtx, piAddr1, &iType1);
         if (sciErr.iErr)
         {
-            //error
+            printError(&sciErr, 0);
             return 1;
         }
+
         switch (iType1)
         {
             case sci_handles:
@@ -111,14 +112,33 @@ int sci_set(char *fname, unsigned long fname_len)
                     return 0;
                 }
 
-                getScalarHandle(pvApiCtx, piAddr1, (long long*)&hdl);
+                if (getScalarHandle(pvApiCtx, piAddr1, (long long*)&hdl))
+                {
+                    return 1;
+                }
+
                 pobjUID = (char*)getObjectFromHandle(hdl);
 
-                getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
-                getAllocatedSingleString(pvApiCtx, piAddr2, &pstProperty);
+                sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+                if (sciErr.iErr)
+                {
+                    //error
+                    return 1;
+                }
+
+                if (getAllocatedSingleString(pvApiCtx, piAddr2, &pstProperty))
+                {
+                    return 1;
+                }
                 valueType = getInputArgumentType(pvApiCtx, 3);
 
-                getVarAddressFromPosition(pvApiCtx, 3, &piAddr3);
+                sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3);
+                if (sciErr.iErr)
+                {
+                    //error
+                    return 1;
+                }
+
                 if ((strcmp(pstProperty, "user_data") == 0) || (stricmp(pstProperty, "userdata") == 0))
                 {
                     /* in this case set_user_data_property
@@ -132,15 +152,30 @@ int sci_set(char *fname, unsigned long fname_len)
                 }
                 else if (valueType == sci_matrix)
                 {
-                    getMatrixOfDouble(pvApiCtx, piAddr3, &iRows3, &iCols3, (double**)&_pvData);
+                    sciErr = getMatrixOfDouble(pvApiCtx, piAddr3, &iRows3, &iCols3, (double**)&_pvData);
+                    if (sciErr.iErr)
+                    {
+                        printError(&sciErr, 0);
+                        return sciErr.iErr;
+                    }
                 }
                 else if (valueType == sci_boolean)
                 {
-                    getMatrixOfBoolean(pvApiCtx, piAddr3, &iRows3, &iCols3, (int**)&_pvData);
+                    sciErr = getMatrixOfBoolean(pvApiCtx, piAddr3, &iRows3, &iCols3, (int**)&_pvData);
+                    if (sciErr.iErr)
+                    {
+                        printError(&sciErr, 0);
+                        return sciErr.iErr;
+                    }
                 }
                 else if (valueType == sci_handles)
                 {
-                    getMatrixOfHandle(pvApiCtx, piAddr3, &iRows3, &iCols3, (long long**)&_pvData);
+                    sciErr = getMatrixOfHandle(pvApiCtx, piAddr3, &iRows3, &iCols3, (long long**)&_pvData);
+                    if (sciErr.iErr)
+                    {
+                        printError(&sciErr, 0);
+                        return sciErr.iErr;
+                    }
                 }
                 else if (valueType == sci_strings)
                 {
@@ -149,39 +184,69 @@ int sci_set(char *fname, unsigned long fname_len)
                             strcmp(pstProperty, "text") != 0 && stricmp(pstProperty, "string") != 0 &&
                             stricmp(pstProperty, "tooltipstring") != 0) /* Added for uicontrols */
                     {
-                        getAllocatedSingleString(pvApiCtx, piAddr3, (char**)&_pvData);
+                        if (getAllocatedSingleString(pvApiCtx, piAddr3, (char**)&_pvData))
+                        {
+                            return 1;
+                        }
                         iRows3 = (int)strlen((char*)_pvData);
                         iCols3 = 1;
                     }
                     else
                     {
                         isMatrixOfString = 1;
-                        getAllocatedMatrixOfString(pvApiCtx, piAddr3, &iRows3, &iCols3, (char***)&_pvData);
+                        if (getAllocatedMatrixOfString(pvApiCtx, piAddr3, &iRows3, &iCols3, (char***)&_pvData))
+                        {
+                            return 1;
+                        }
                     }
                 }
                 else if (valueType == sci_list) /* Added for callbacks */
                 {
                     iCols3 = 1;
-                    getListItemNumber(pvApiCtx, piAddr3, &iRows3);
+                    sciErr = getListItemNumber(pvApiCtx, piAddr3, &iRows3);
+                    if (sciErr.iErr)
+                    {
+                        printError(&sciErr, 0);
+                        return sciErr.iErr;
+                    }
                     _pvData = (void*)piAddr3;         /* In this case l3 is the list position in stack */
                 }
                 break;
 
             case sci_strings:      /* first is a string argument so it's a set("command",[param]) */
                 CheckRhs(2, 2);
-                getAllocatedSingleString(pvApiCtx, piAddr1, &pstProperty);
+                if (getAllocatedSingleString(pvApiCtx, piAddr1, &pstProperty))
+                {
+                    return 1;
+                }
+
                 hdl = 0;
                 pobjUID = NULL;
                 valueType = getInputArgumentType(pvApiCtx, 2);
-                getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+                sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+                if (sciErr.iErr)
+                {
+                    //error
+                    return 1;
+                }
 
                 if (valueType == sci_matrix)
                 {
-                    getMatrixOfDouble(pvApiCtx, piAddr2, &iRows3, &iCols3, (double**)&_pvData);
+                    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows3, &iCols3, (double**)&_pvData);
+                    if (sciErr.iErr)
+                    {
+                        printError(&sciErr, 0);
+                        return sciErr.iErr;
+                    }
                 }
                 else if (valueType == sci_handles)
                 {
-                    getMatrixOfHandle(pvApiCtx, piAddr2, &iRows3, &iCols3, (long long**)&_pvData);
+                    sciErr = getMatrixOfHandle(pvApiCtx, piAddr2, &iRows3, &iCols3, (long long**)&_pvData);
+                    if (sciErr.iErr)
+                    {
+                        printError(&sciErr, 0);
+                        return 1;
+                    }
                 }
                 else if (valueType == sci_strings)
                 {
@@ -190,11 +255,17 @@ int sci_set(char *fname, unsigned long fname_len)
                             strcmp(pstProperty, "text") == 0)
                     {
                         isMatrixOfString = 1;
-                        getAllocatedMatrixOfString(pvApiCtx, piAddr2, &iRows3, &iCols3, (char***)&_pvData);
+                        if (getAllocatedMatrixOfString(pvApiCtx, piAddr2, &iRows3, &iCols3, (char***)&_pvData))
+                        {
+                            return 1;
+                        }
                     }
                     else
                     {
-                        getAllocatedSingleString(pvApiCtx, piAddr2, (char**)&_pvData);
+                        if (getAllocatedSingleString(pvApiCtx, piAddr2, (char**)&_pvData))
+                        {
+                            return 1;
+                        }
                         iRows3 = (int)strlen((char*)_pvData);
                         iCols3 = 1;
                     }
