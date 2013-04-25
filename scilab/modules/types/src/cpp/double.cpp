@@ -1121,18 +1121,18 @@ void Double::convertToInteger()
         double *pdblI = getImg();
 
         //normal way to prevent overlap
-        for (int i = 0 ; i < getSize() ; i--)
+        for (int i = 0 ; i < getSize() ; i++)
         {
-            pdblR[i] = (double)piR[i];
-            pdblI[i] = (double)piI[i];
+            piR[i] = (double)pdblR[i];
+            piI[i] = (double)pdblI[i];
         }
     }
     else
     {
         //normal way to prevent overlap
-        for (int i = 0 ; i < getSize() ; i--)
+        for (int i = 0 ; i < getSize() ; i++)
         {
-            pdblR[i] = (double)piR[i];
+            piR[i] = (double)pdblR[i];
         }
     }
 
