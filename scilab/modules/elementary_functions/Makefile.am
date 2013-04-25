@@ -267,6 +267,7 @@ sci_gateway/c/sci_eye.c \
 sci_gateway/c/sci_clean.c \
 sci_gateway/c/sci_tan.c \
 sci_gateway/c/sci_atan.c \
+sci_gateway/c/sci_atan2.c \
 sci_gateway/c/sci_triu.c \
 sci_gateway/c/sci_frexp.c \
 sci_gateway/c/sci_cos.c \
@@ -323,6 +324,7 @@ sci_gateway/fortran/sci_f_clean.f \
 sci_gateway/fortran/sci_f_eye.f \
 sci_gateway/fortran/sci_f_tan.f \
 sci_gateway/fortran/sci_f_atan.f \
+sci_gateway/fortran/sci_f_atan2.f \
 sci_gateway/fortran/sci_f_triu.f \
 sci_gateway/fortran/sci_f_frexp.f \
 sci_gateway/fortran/sci_f_cos.f \

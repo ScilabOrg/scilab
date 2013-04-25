@@ -218,6 +218,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClCompile Include="..\..\sci_gateway\c\sci_acos.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_asin.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_atan.c" />
+    <ClCompile Include="..\..\sci_gateway\c\sci_atan2.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_ceil.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_chinesehat.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_clean.c" />
