@@ -83,6 +83,9 @@
     <ClCompile Include="..\..\sci_gateway\c\sci_atan.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_atan2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\sci_gateway\c\sci_ceil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
