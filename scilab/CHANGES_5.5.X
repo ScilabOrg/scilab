@@ -123,6 +123,8 @@ Bug fixes
 
 * Bug #9780 fixed - gmres solver did not run with complex systems.
 
+* Bug #9851 fixed - Error message occurred because of a cut-off frequency of 0.25Hz with irr.
+
 * Bug #10254 fixed - Slight improvements in help page of ones.
 
 * Bug #10862 fixed - Add a without internet connection installation
