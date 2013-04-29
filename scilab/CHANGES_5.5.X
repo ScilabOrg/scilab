@@ -72,6 +72,8 @@ Bug fixes
 
 * paramfplot2d: When input argument theta was column vector, an error occurred.
 
+* Bug #4481 fixed - Help page of iir updated: frq can be a scalar.
+
 * Bug #4731 fixed - lqr() failed when time domain of input was a number.
 
 * Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
