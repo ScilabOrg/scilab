@@ -74,6 +74,8 @@ Bug fixes
 
 * Bug #4731 fixed - lqr() failed when time domain of input was a number.
 
+* Bug #5017 fixed - Rewrote norm() to benefit from the Lapack package performance.
+
 * Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
 
 * Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear.
