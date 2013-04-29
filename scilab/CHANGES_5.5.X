@@ -749,7 +749,9 @@ Scilab Bug Fixes
 * Bug #5365 fixed - makecell help page was in the "compatibility functions" directory
                     instead of being in "data_structures".
 
-* Bug #5539 fixed - sylv help page was wrong in discrete-time cases.
+* Bug #5017 fixed - Rewrote norm() to benefit from the Lapack package performance.
+
+* Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
 
 * Bug #5616 fixed - typeof(uiCreateTree(...)) returned "Tree" instead of "uitree".
 
