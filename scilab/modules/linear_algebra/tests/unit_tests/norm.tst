@@ -11,7 +11,7 @@
 eps=100*%eps;
 
 
-// inf 
+// inf
 assert_checkequal ( norm([1,2,3,-1,-2,-3],0) , %inf );
 assert_checkequal ( norm([1,2,3,-1,-2,-3],%nan) , %nan );
 assert_checkequal ( norm([]) , 0 );
@@ -27,7 +27,7 @@ assert_checkalmostequal ( norm(x,p) ,     sum(abs(x).^p).^(1/p)   , eps );
 assert_checkalmostequal ( norm(x,'inf') , max(abs(x))           , eps );
 assert_checkalmostequal ( norm(x,'inf') , norm(x,%inf)          , eps );
 assert_checkalmostequal ( norm(x,'fro') , norm(x,2)             , eps );
-// complex 
+// complex
 x=x+%i*x;
 assert_checkalmostequal ( norm(x,1) , sum(abs(x))               , eps );
 assert_checkalmostequal ( norm(x,2) , sqrt(sum(abs(x).*abs(x))) , eps );
@@ -44,12 +44,12 @@ assert_checkalmostequal ( norm(x,'inf') , norm(x,%inf)  , 100*%eps);
 // see http://bugzilla.scilab.org/show_bug.cgi?id=9204
 // assert_checkalmostequal ( norm(x,'fro') , norm(x,2)     , 100*%eps  , %eps );
 
-// scalar 
+// scalar
 
 x=[1.23];
 assert_checkalmostequal ( norm(x,1) , sum(abs(x))               , 100*%eps );
 assert_checkalmostequal ( norm(x,2) , sqrt(sum(abs(x).*abs(x))) , 100*%eps );
-assert_checkalmostequal ( norm(x,2) , norm(x)                   , 100*%eps ); 
+assert_checkalmostequal ( norm(x,2) , norm(x)                   , 100*%eps );
 p=0.5;
 assert_checkalmostequal ( norm(x,p) , sum(abs(x)^p)^(1/p) ,  100*%eps );
 p=2.5;
