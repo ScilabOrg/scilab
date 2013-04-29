@@ -1,0 +1,23 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+//
+// <-- ENGLISH IMPOSED -->
+//
+// <-- Non-regression test for bug 4383 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=4383
+//
+// <-- Short Description -->
+// show which time response is given by csim when direct feedthrough is set to zero
+
+s = poly(0,'s');
+t = 0:5;
+G = syslin('c',1+s,2+s);
+assert_checktrue(execstr("y = csim(''step'',t,G);","errcatch") == 0);

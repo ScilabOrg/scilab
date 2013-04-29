@@ -93,12 +93,15 @@
         </para>
         <para>
             3. the string <literal>"impuls"</literal> for impulse response calculation
-            (here <literal>sl</literal> is assumed SISO without direct feed through and <literal>x0=0</literal>)
+            (here <literal>sl</literal> is assumed SISO without direct feed-through and <literal>x0=0</literal>.
+            If it is not the case, <varname>x0</varname> and the direct feed-through 
+            term in <varname>sl</varname> will be set to zero.)
         </para>
         <para>
             4. the string <literal>"step"</literal> for step response calculation 
             (here <literal>sl</literal> is assumed SISO without direct feed-through and
-            <literal>x0=0</literal>)
+            <literal>x0=0</literal>. If it is not the case, <varname>x0</varname>
+            and the direct feed-through term in <varname>sl</varname> will be the set to zero.)
         </para>
         <para>
             5. a vector giving the values of u corresponding to each t value.
