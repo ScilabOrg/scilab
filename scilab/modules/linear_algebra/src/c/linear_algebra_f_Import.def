@@ -54,3 +54,5 @@ intzgesvd1_
 intdgesvd1_
 intzoldsvd_
 intdoldsvd_
+intnorm_
+norm_
