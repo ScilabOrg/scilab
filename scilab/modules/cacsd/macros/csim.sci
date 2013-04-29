@@ -71,12 +71,18 @@ function [y,x]=csim(u,dt,sl,x0,tol)
             if norm(d,1)<>0 then
                 warning(msprintf(gettext("%s: Direct feedthrough set to zero.\n"),"csim"));
                 d=0*d;
+                sl_computed=syslin(sl.dt,a,b,c,d);
+                H_computed=ss2tf(sl_computed);
+                warning(msprintf(_("%s: Time response of %s/%s will be computed.\n"),"csim",sci2exp(numer(H_computed)),sci2exp(denom(H_computed))));
             end;
         elseif part(u,1)=='s' then
             step=1
             if norm(d,1)<>0 then
                 warning(msprintf(gettext("%s: Direct feedthrough set to zero.\n"),"csim"));
                 d=0*d;
+                sl_computed=syslin(sl.dt,a,b,c,d);
+                H_computed=ss2tf(sl_computed);
+                warning(msprintf(_("%s: Time response of %s/%s will be computed.\n"),"csim",sci2exp(numer(H_computed)),sci2exp(denom(H_computed))));
             end;
         else
             error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),"csim",1,"""step"",""impuls"""))
