@@ -136,6 +136,8 @@ Bug fixes
 
 * paramfplot2d: When input argument theta was column vector, an error occurred.
 
+* Bug #4383 fixed - csim with "step" and "impuls" works now with direct feedthrough.
+                    
 * Bug #4481 fixed - Help page of iir updated: frq can be a scalar.
 
 * Bug #4731 fixed - lqr() failed when time domain of input was a number.
