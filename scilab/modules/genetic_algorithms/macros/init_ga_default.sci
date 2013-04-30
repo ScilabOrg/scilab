@@ -20,6 +20,6 @@ end
 // Pop_init must be a list()
 Pop_init = list();
 for i=1:popsize
-  Pop_init(i) = (MaxBounds - MinBounds).*rand(size(MaxBounds,1),size(MaxBounds,2)) + MinBounds;
+  Pop_init(i) = (MaxBounds - MinBounds).*grand(size(MaxBounds,1),size(MaxBounds,2),"def") + MinBounds;
 end
 endfunction

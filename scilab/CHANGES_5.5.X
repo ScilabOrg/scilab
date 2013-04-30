@@ -148,6 +148,8 @@ Bug fixes
 * Bug #11343 fixed - The "isoview" figure property did not work when the axes
                      margins had been modified.
 
+* Bug #11885 fixed - Each rand has been changed to grand in genetic algorithms and simulated annealing functions.
+
 * Bug #11891 fixed - Fisher ratio could be inaccurate for one-way ANOVA.
 
 * Bug #12045 fixed - repmat returned wrong result if numbers of input matrix were not double.
