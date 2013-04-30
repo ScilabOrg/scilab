@@ -7,20 +7,19 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function xnumb(x,y,nums,box,angle) 
-  if and(argn(2)<>[3:5]) then
-    error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "xnumb", 3, 5));
-  end
+    if and(argn(2)<>[3:5]) then
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "xnumb", 3, 5));
+    end
 
-  n=size(x,'*');
-  if argn(2)<5 then angle=zeros(1,n),end
-  if argn(2)<4 then box=0,end
+    n=size(x,'*');
+    if argn(2)<5 then angle=zeros(1,n),end
+    if argn(2)<4 then box=0,end
 
-  if size(y,'*') >n|size(nums,'*' )<>n|size(angle,'*' )<>n then 
-    error('xnumb : the first three arguments should have the same number'+.. 
-	  " of entries")
-  end
-  
-  for k=1:n
-    xstring(x(k),y(k),msprintf("%-5.2g",nums(k)),angle(k),box)
-  end
+    if size(y,'*') >n|size(nums,'*' )<>n|size(angle,'*' )<>n then 
+        error(msprintf(_("%s: Wrong size for input arguments #%d, #%d and #%d: they must have the same dimensions.\n"),"xnumb",1,2,3));
+    end
+
+    for k=1:n
+        xstring(x(k),y(k),msprintf("%-5.4g",nums(k)),angle(k),box)
+    end
 endfunction
