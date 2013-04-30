@@ -198,6 +198,12 @@ Function::ReturnValue sci_sparse(typed_list &in, int _piRetCount, typed_list &ou
             return Function::Error;
         }
 
+        if (pGT1->getRows() == 0)
+        {
+            out.push_back(types::Double::Empty());
+            return types::Function::OK;
+        }
+
         if (in[1]->isDouble())
         {
             pRetVal = buildSparse(*in[0]->getAs<Double>(), *in[1]->getAs<Double>(), pDims);
