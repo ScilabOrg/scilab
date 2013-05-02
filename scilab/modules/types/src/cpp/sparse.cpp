@@ -640,6 +640,11 @@ bool Sparse::resize(int _iNewRows, int _iNewCols)
         m_iRows = _iNewRows;
         m_iCols = _iNewCols;
         m_iSize = _iNewRows * _iNewCols;
+
+        m_iDims = 2;
+        m_piDims[0] = m_iRows;
+        m_piDims[1] = m_iCols;
+
         res = true;
     }
     catch (...)
