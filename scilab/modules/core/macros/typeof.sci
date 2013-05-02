@@ -46,6 +46,8 @@ function [tf]=typeof(object)
             tf='rational';
         case 'lss' then 
             tf='state-space';
+        case 'Tree' then
+            tf='uitree';
         else
             tf=o1(1)
         end

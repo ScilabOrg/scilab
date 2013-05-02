@@ -9,33 +9,33 @@
 
 function myNewTree = uiConcatTree(tree1, tree2)
 
-	[lhs,rhs]=argn(0);
-	
+    [lhs,rhs]=argn(0);
 
-	//Input arguments checking
-	if rhs <> 2 then
-		error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "uiConcatTree",2));
-		return;
-	end
 
-	// Check 1st and 2nd inputs : tree1 & tree2
-	if rhs == 2 then
-		if (typeof(tree1) == 'Tree') then
-			myTree1 = tree1;
-		else
-			error(msprintf(gettext("%s: Wrong type for input argument #%d: Tree expected.\n"), "uiConcatTree",1));
-			return;
-		end
-		
-		if (typeof(tree2) == 'Tree') then
-				myTree2 = tree2;
-		else
-			error(msprintf(gettext("%s: Wrong type for input argument #%d: Tree expected.\n"), "uiConcatTree",2));
-			return;				
-		end
-	end
-	
-	tree1($+1) = tree2;
-	myNewTree = tree1;
-	
+    //Input arguments checking
+    if rhs <> 2 then
+        error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "uiConcatTree",2));
+        return;
+    end
+
+    // Check 1st and 2nd inputs : tree1 & tree2
+    if rhs == 2 then
+        if (typeof(tree1) == 'uitree') then
+            myTree1 = tree1;
+        else
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: uitree expected.\n"), "uiConcatTree",1));
+            return;
+        end
+
+        if (typeof(tree2) == 'uitree') then
+            myTree2 = tree2;
+        else
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: uitree expected.\n"), "uiConcatTree",2));
+            return;				
+        end
+    end
+
+    tree1($+1) = tree2;
+    myNewTree = tree1;
+
 endfunction

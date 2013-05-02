@@ -76,6 +76,8 @@ Bug fixes
 
 * Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
 
+* Bug #5616 fixed - typeof(uiCreateTree(...)) returned "Tree" instead of "uitree".
+
 * Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear.
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.

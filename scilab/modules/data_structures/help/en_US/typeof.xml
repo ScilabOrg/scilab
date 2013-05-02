@@ -116,6 +116,14 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>"uitree"</term>
+                <listitem>
+                    <para>
+                        if <varname>object</varname> is a tree (see <link linkend="uiCreateTree">uiCreateTree</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>"sparse"</term>
                 <listitem>
                     <para>
