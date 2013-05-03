@@ -204,6 +204,8 @@ Bug fixes
                      
 * Bug #10818 fixed - The following help pages have been added: hom, %e, %t, %f, %z and %s.
 
+* Bug #11139 fixed - conj was not defined for sparse matrices (+ unit test added).
+
 * Bug #11308 fixed - Calling sequences in help page of dsearch were wrong.
 
 * Bug #11343 fixed - The "isoview" figure property did not work when the axes
