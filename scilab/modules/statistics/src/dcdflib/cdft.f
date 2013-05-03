@@ -106,6 +106,19 @@ C     .. Executable Statements ..
 C
 C     Check arguments
 C
+C     Testing t for NaN, +Inf, or -Inf
+      IF (t.GT.1.0D300) THEN
+         p = 1
+         q = 0
+         RETURN
+      ENDIF
+      ISNAN = t /= t
+      IF (ISNAN.EQ.1) THEN
+         div = 0
+         p = div/div
+         q = div/div
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.3))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0
