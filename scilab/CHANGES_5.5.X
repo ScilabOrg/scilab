@@ -143,6 +143,8 @@ Bug fixes
 * Bug #10226 fixed - When a // <empty session> line is delete, all sessions
                      histories are folded.
 
+* Bug #11139 fixed - conj was not defined for sparse matrices (+ unit test added).
+
 * Bug #11308 fixed - Calling sequences in help page of dsearch were wrong.
 
 * Bug #11343 fixed - The "isoview" figure property did not work when the axes
