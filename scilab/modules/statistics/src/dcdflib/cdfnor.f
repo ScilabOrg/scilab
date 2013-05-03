@@ -108,6 +108,7 @@ C     .. Local Scalars ..
 C     ..
 C     .. External Functions ..
 
+      INTEGER vfinite
       DOUBLE PRECISION dinvnr,spmpar
       EXTERNAL dinvnr,spmpar
 C     ..
@@ -119,6 +120,23 @@ C
 C     Check arguments
 C
       status = 0
+C     Testing x for NaN, +Inf and -Inf
+      IF (vfinite(1,x).EQ.0) THEN
+         IF (x.GT.0) THEN
+            p = 1
+            q = 0
+            RETURN
+         ELSE
+            p = 0
+            q = 1
+            RETURN
+         ENDIF
+      ENDIF
+      IF (ISANAN(x).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.4))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0

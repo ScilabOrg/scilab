@@ -129,6 +129,12 @@ C     .. Executable Statements ..
 C
 C     Check arguments
 C
+C     Testing s for NaN
+      IF (ISANAN(x).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.4))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0

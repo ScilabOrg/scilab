@@ -106,6 +106,17 @@ C     .. Executable Statements ..
 C
 C     Check arguments
 C
+C     Testing t for NaN, +Inf or -Inf
+      IF (t.GT.inf) THEN
+         p = 1
+         q = 0
+         RETURN
+      ENDIF
+      IF (ISANAN(t).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.3))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0
