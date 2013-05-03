@@ -1,3 +1,18 @@
+                    Changes between version 5.4.1 and 5.5.0
+                    =======================================
+
+
+Bug fixes
+==========
+
+Scilab
+-------
+
+* Bug #12547 fixed - In SciNotes, bad line numbering with splitted function
+                     declaration.
+
+
+
                     Changes between version 5.4.0 and 5.4.1
                     =======================================
 
