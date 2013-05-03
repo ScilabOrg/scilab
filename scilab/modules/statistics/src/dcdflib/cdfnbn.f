@@ -119,6 +119,7 @@ C     .. Local Scalars ..
       LOGICAL qhi,qleft,qporq
 C     ..
 C     .. External Functions ..
+      INTEGER vfinite
       DOUBLE PRECISION spmpar
       EXTERNAL spmpar
 C     ..
@@ -142,6 +143,13 @@ C
 C
 C     P
 C
+      IF (ISANAN(p).EQ.1) THEN
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(xn)
+         CALL RETURNANANFORTRAN(pr)
+         CALL RETURNANANFORTRAN(ompr)
+         RETURN
+      ENDIF
       IF (.NOT. ((p.LT.0.0D0).OR. (p.GT.1.0D0))) GO TO 60
       IF (.NOT. (p.LT.0.0D0)) GO TO 40
       bound = 0.0D0
@@ -156,6 +164,13 @@ C
 C
 C     Q
 C
+      IF (ISANAN(q).EQ.1) THEN
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(xn)
+         CALL RETURNANANFORTRAN(pr)
+         CALL RETURNANANFORTRAN(ompr)
+         RETURN
+      ENDIF
       IF (.NOT. ((q.LE.0.0D0).OR. (q.GT.1.0D0))) GO TO 100
       IF (.NOT. (q.LE.0.0D0)) GO TO 80
       bound = 0.0D0
@@ -170,6 +185,15 @@ C
 C
 C     S
 C
+      IF (ISANAN(s).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(xn)
+         CALL RETURNANANFORTRAN(pr)
+         CALL RETURNANANFORTRAN(ompr)
+         RETURN
+      ENDIF
+      IF (vfinite(1,s).EQ.0) s = SIGN(inf,s)
       IF (.NOT. (s.LT.0.0D0)) GO TO 120
       bound = 0.0D0
       status = -4
@@ -180,6 +204,15 @@ C
 C
 C     XN
 C
+      IF (ISANAN(xn).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(pr)
+         CALL RETURNANANFORTRAN(ompr)
+         RETURN
+      ENDIF
+      IF (vfinite(1,xn).EQ.0) xn = SIGN(inf,xn)
       IF (.NOT. (xn.LT.0.0D0)) GO TO 140
       bound = 0.0D0
       status = -5
@@ -190,6 +223,13 @@ C
 C
 C     PR
 C
+      IF (ISANAN(pr).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(xn)
+         RETURN
+      ENDIF
       IF (.NOT. ((pr.LT.0.0D0).OR. (pr.GT.1.0D0))) GO TO 180
       IF (.NOT. (pr.LT.0.0D0)) GO TO 160
       bound = 0.0D0
@@ -204,6 +244,13 @@ C
 C
 C     OMPR
 C
+      IF (ISANAN(ompr).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(xn)
+         RETURN
+      ENDIF
       IF (.NOT. ((ompr.LT.0.0D0).OR. (ompr.GT.1.0D0))) GO TO 220
       IF (.NOT. (ompr.LT.0.0D0)) GO TO 200
       bound = 0.0D0
