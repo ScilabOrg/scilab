@@ -86,6 +86,8 @@ Bug fixes
 
 * Bug #6988 fixed - Error messages in modules/data_structures/src/c/hmops.c were not standard.
 
+* Bug #7296 fixed - Enabled %nan, %inf and -%inf for the cdf* functions.
+
 * Bug #7684 fixed - Introduction demo splitted in subsections.
 
 * Bug #7828 fixed - Slight improvements in nicholschart.
