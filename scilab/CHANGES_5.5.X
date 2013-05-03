@@ -207,6 +207,9 @@ Bug fixes
 
 * Bug #12527 fixed - Scilab user functions were not listed in browsevar.
 
+* Bug #12547 fixed - In SciNotes, bad line numbering with splitted function
+                     declaration.
+
 * Bug #12548 fixed - Duplicated code in xmltoformat.
 
 * Bug #12550 fixed - Optimbase and optimsimplex help pages were not standard.
