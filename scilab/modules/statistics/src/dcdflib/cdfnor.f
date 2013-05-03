@@ -119,6 +119,23 @@ C
 C     Check arguments
 C
       status = 0
+C     Testing x for NaN, +Inf and -Inf
+      IF (x.GE.1.7D308) THEN
+         p = 1
+         q = 0
+         RETURN
+      ENDIF
+      IF (x.LE.-1.7D308) THEN
+         p = 0
+         q = 1
+         RETURN
+      ENDIF
+      IF (ISANAN(x).EQ.1) THEN
+         div = 0
+         p = div/div
+         q = div/div
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.4))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0

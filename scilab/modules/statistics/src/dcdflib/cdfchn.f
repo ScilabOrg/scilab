@@ -116,6 +116,19 @@ C     .. Executable Statements ..
 C
 C     Check arguments
 C
+C     Testing x for NaN or +Inf. Not for -Inf because the lower limit is 0
+C     The NaN case if already handled, with NaN returns
+      IF (x.GT.inf) THEN
+         p = 1
+         q = 0
+         RETURN
+      ENDIF
+      IF (ISANAN(x).EQ.1) THEN
+         div = 0
+         p = div/div
+         q = div/div
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.4))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0
