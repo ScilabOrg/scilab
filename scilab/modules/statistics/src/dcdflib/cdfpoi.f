@@ -117,6 +117,11 @@ C
 C
 C     P
 C
+      IF (ISANAN(p).EQ.1) THEN
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(xlam)
+         RETURN
+      ENDIF
       IF (.NOT. ((p.LT.0.0D0).OR. (p.GT.1.0D0))) GO TO 60
       IF (.NOT. (p.LT.0.0D0)) GO TO 40
       bound = 0.0D0
@@ -131,6 +136,11 @@ C
 C
 C     Q
 C
+      IF (ISANAN(q).EQ.1) THEN
+         CALL RETURNANANFORTRAN(s)
+         CALL RETURNANANFORTRAN(xlam)
+         RETURN
+      ENDIF
       IF (.NOT. ((q.LE.0.0D0).OR. (q.GT.1.0D0))) GO TO 100
       IF (.NOT. (q.LE.0.0D0)) GO TO 80
       bound = 0.0D0
@@ -145,6 +155,12 @@ C
 C
 C     S
 C
+      IF (ISANAN(s).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(xlam)
+         RETURN
+      ENDIF
       IF (.NOT. (s.LT.0.0D0)) GO TO 120
       bound = 0.0D0
       status = -4
@@ -155,6 +171,12 @@ C
 C
 C     XLAM
 C
+      IF (ISANAN(xlam).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(s)
+         RETURN
+      ENDIF
       IF (.NOT. (xlam.LT.0.0D0)) GO TO 140
       bound = 0.0D0
       status = -5

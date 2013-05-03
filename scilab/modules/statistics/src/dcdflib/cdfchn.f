@@ -129,7 +129,12 @@ C
 C
 C     P
 C
-
+      IF (ISANAN(p).EQ.1) THEN
+         CALL RETURNANANFORTRAN(df)
+         CALL RETURNANANFORTRAN(pnonc)
+         CALL RETURNANANFORTRAN(x)
+         RETURN
+      ENDIF
       IF (.NOT. ((p.LT.0.0D0).OR. (p.GT.one))) GO TO 60
       IF (.NOT. (p.LT.0.0D0)) GO TO 40
       bound = 0.0D0
@@ -144,6 +149,13 @@ C
 C
 C     X
 C
+      IF (ISANAN(x).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(df)
+         CALL RETURNANANFORTRAN(pnonc)
+         RETURN
+      ENDIF
       IF (.NOT. (x.LT.0.0D0)) GO TO 80
       bound = 0.0D0
       status = -4
@@ -154,6 +166,13 @@ C
 C
 C     DF
 C
+      IF (ISANAN(df).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(x)
+         CALL RETURNANANFORTRAN(pnonc)
+         RETURN
+      ENDIF
       IF (.NOT. (df.LE.0.0D0)) GO TO 100
       bound = 0.0D0
       status = -5
@@ -164,6 +183,13 @@ C
 C
 C     PNONC
 C
+      IF (ISANAN(pnonc).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(x)
+         CALL RETURNANANFORTRAN(df)
+         RETURN
+      ENDIF
       IF (.NOT. (pnonc.LT.0.0D0)) GO TO 120
       bound = 0.0D0
       status = -6

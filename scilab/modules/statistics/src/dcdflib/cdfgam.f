@@ -143,6 +143,12 @@ C
 C
 C     P
 C
+      IF (ISANAN(p).EQ.1) THEN
+         CALL RETURNANANFORTRAN(shape)
+         CALL RETURNANANFORTRAN(x)
+         CALL RETURNANANFORTRAN(scale)
+         RETURN
+      ENDIF
       IF (.NOT. ((p.LT.0.0D0).OR. (p.GT.1.0D0))) GO TO 60
       IF (.NOT. (p.LT.0.0D0)) GO TO 40
       bound = 0.0D0
@@ -157,6 +163,12 @@ C
 C
 C     Q
 C
+      IF (ISANAN(q).EQ.1) THEN
+         CALL RETURNANANFORTRAN(shape)
+         CALL RETURNANANFORTRAN(x)
+         CALL RETURNANANFORTRAN(scale)
+         RETURN
+      ENDIF
       IF (.NOT. ((q.LE.0.0D0).OR. (q.GT.1.0D0))) GO TO 100
       IF (.NOT. (q.LE.0.0D0)) GO TO 80
       bound = 0.0D0
@@ -171,6 +183,13 @@ C
 C
 C     X
 C
+      IF (ISANAN(x).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(shape)
+         CALL RETURNANANFORTRAN(scale)
+         RETURN
+      ENDIF
       IF (.NOT. (x.LT.0.0D0)) GO TO 120
       bound = 0.0D0
       status = -4
@@ -181,6 +200,13 @@ C
 C
 C     SHAPE
 C
+      IF (ISANAN(shape).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(x)
+         CALL RETURNANANFORTRAN(scale)
+         RETURN
+      ENDIF
       IF (.NOT. (shape.LE.0.0D0)) GO TO 140
       bound = 0.0D0
       status = -5
@@ -191,6 +217,13 @@ C
 C
 C     SCALE
 C
+      IF (ISANAN(scale).EQ.1) THEN
+         CALL RETURNANANFORTRAN(p)
+         CALL RETURNANANFORTRAN(q)
+         CALL RETURNANANFORTRAN(shape)
+         CALL RETURNANANFORTRAN(x)
+         RETURN
+      ENDIF
       IF (.NOT. (scale.LE.0.0D0)) GO TO 160
       bound = 0.0D0
       status = -6
