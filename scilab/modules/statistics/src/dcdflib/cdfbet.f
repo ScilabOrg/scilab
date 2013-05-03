@@ -128,6 +128,19 @@ C     .. Executable Statements ..
 C
 C     Check arguments
 C
+C     Testing x and y for NaN. Not for +Inf or -Inf because they are restricted to [0,1]
+      IF (ISANAN(x).EQ.1) THEN
+         div = 0
+         p = div/div
+         q = div/div
+         RETURN
+      ENDIF
+      IF (ISANAN(y).EQ.1) THEN
+         div = 0
+         p = div/div
+         q = div/div
+         RETURN
+      ENDIF
       IF (.NOT. ((which.LT.1).OR. (which.GT.4))) GO TO 30
       IF (.NOT. (which.LT.1)) GO TO 10
       bound = 1.0D0
