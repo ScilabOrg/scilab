@@ -361,6 +361,8 @@ Bug fixes
 
 * Bug #12589 fixed - Call sequence for spzeros & spones were missing in the french help pages.
 
+* Bug #12593 fixed - Wrong error message when running genlib with an error in the sci file.
+
 * Bug #12606 fixed - Overloads for grand were not standard.
 
 * Bug #12613 fixed - gsort did not return correct results with %nan.
@@ -396,5 +398,4 @@ Bug fixes
 * Bug #12679 fixed - Argument type check added in gcd and lcm.
 
 * Bug #12686 fixed - Error returned by diff() fixed.
-
 
