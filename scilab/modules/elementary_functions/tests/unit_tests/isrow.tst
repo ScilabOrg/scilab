@@ -1,0 +1,50 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// unit tests for isrow function
+// =============================================================================
+
+// Constants
+assert_checkequal(isrow([1 2 3]), %t);
+assert_checkequal(isrow([1 2 3]'), %f);
+assert_checkequal(isrow([1 2 3; 1 2 3]), %f);
+assert_checkequal(isrow(1), %f);
+
+// Strings
+assert_checkequal(isrow(["s" "t" "u"]), %t);
+assert_checkequal(isrow(["s" "t" "u"]'), %f);
+assert_checkequal(isrow(["s" "t" "u";"s" "t" "u"]), %f);
+assert_checkequal(isrow("s"), %f);
+
+// Polynomials
+s=poly(0,"s");
+assert_checkequal(isrow([1+s 2+s]), %t);
+assert_checkequal(isrow([1+s 2+s]'), %f);
+assert_checkequal(isrow([1+s 2+s; 3+s 4+s]), %f);
+assert_checkequal(isrow(1+s), %f);
+
+// Booleans
+assert_checkequal(isrow([%t %f]), %t);
+assert_checkequal(isrow([%t %f]'), %f);
+assert_checkequal(isrow([%t %f; %f %t]), %f);
+assert_checkequal(isrow(%t), %f);
+
+// Sparses
+assert_checkequal(isrow(sparse([1 0 2])), %t);
+assert_checkequal(isrow(sparse([1 0 2])'), %f);
+assert_checkequal(isrow(sparse([1 0 2; 0 1 3])), %f);
+assert_checkequal(isrow(sparse(0)), %f);
+
+// Error messages
+errmsg1 = msprintf(_("%s: Wrong number of input argument(s): %d expected.\n"),"isrow", 1);
+assert_checkerror("isrow()", errmsg1);
+errmsg2 = msprintf(_("Wrong number of input arguments."));
+assert_checkerror("isrow(1,2)", errmsg2);
+errmsg3 = msprintf(_("Wrong number of output arguments.\n"));
+assert_checkerror("[r,b]=isrow([1 2 3]);", errmsg3);

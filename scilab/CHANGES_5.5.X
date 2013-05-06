@@ -143,6 +143,8 @@ Bug fixes
 * Bug #10226 fixed - When a // <empty session> line is delete, all sessions
                      histories are folded.
 
+* Bug #10456 fixed - Functions ismatrix, isrow, iscolumn and issquare added (SEP 095).
+
 * Bug #11308 fixed - Calling sequences in help page of dsearch were wrong.
 
 * Bug #11343 fixed - The "isoview" figure property did not work when the axes
