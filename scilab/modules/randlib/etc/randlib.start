@@ -7,3 +7,18 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+function randliblib = startModule()
+
+// =============================================================================
+// Load functions libraries
+// =============================================================================
+  if ~isfile('SCI/modules/randlib/macros/lib') then
+    error(msprintf(gettext("%s: Could not find ''%s'': Please check that macros have been built.\n"), ..
+          "startModule", "SCI/modules/randlib/macros/lib"));
+  end
+  load('SCI/modules/randlib/macros/lib');
+endfunction
+
+randliblib = startModule();
+clear startModule;
