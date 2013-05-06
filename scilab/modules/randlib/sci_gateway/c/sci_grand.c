@@ -128,14 +128,14 @@ double C2F(ignuin)(double *a, double *b)
 int sci_Rand(char *fname, unsigned long fname_len)
 {
     int minrhs = 1, maxrhs = 10, minlhs = 1, maxlhs = 2;
-    int ResL, ResC, suite, m2, n2, l2, m1, n1, l1, ls, ms, ns, la, lr, lb, lc;
+    int ResL, ResC, suite, m3, n3, l5, m2, n2, l2, m1, n1, l1, ls, ms, ns, la, lr, lb, lc;
     int l3, l4;
     int i;
 
     Nbvars = 0;
     CheckRhs(minrhs, maxrhs);
     CheckLhs(minlhs, maxlhs);
-    if (GetType(1) != sci_matrix)
+    if (GetType(1) != sci_matrix && GetType(1) != 17)
     {
         int un = 1, deux = 2, dim_state_mt = 625, dim_state_fsultra = 40, dim_state_4 = 4;
         GetRhsVar(1, STRING_DATATYPE, &ms, &ns, &ls);
@@ -593,6 +593,19 @@ int sci_Rand(char *fname, unsigned long fname_len)
         ResC = *istk(l2);
         minrhs = 3;
         CheckRhs(minrhs, maxrhs);
+        if ( GetType(3) == sci_matrix )
+        {
+            GetRhsVar(3, MATRIX_OF_INTEGER_DATATYPE, &m3, &n3, &l5);
+            if ( m3*n3 != 1)
+            {
+                Scierror(999, _("%s: Wrong type for input argument #%d: Scalar expected.\n"), fname, 3);
+                return 0;
+            }
+            // At least three integers at the start: calling %s_Rand(),
+            // which regorganizes the arguments and calls grand() again.
+            OverLoad(3);
+            return 0;
+        }
         if ( GetType(3) != sci_strings )
         {
             Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 3);
@@ -614,9 +627,18 @@ int sci_Rand(char *fname, unsigned long fname_len)
     }
     else
     {
-        GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &ResL, &ResC, &l1);
-        GetRhsVar(2, STRING_DATATYPE, &ms, &ns, &ls);
-        suite = 3;
+        // If rhs(1) is hypermatrix, then call %hm_Rand(), else pursue.
+        if ( GetType(1) == 17 )
+        {
+            OverLoad(1);
+            return 0;
+        }
+        else
+        {
+            GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &ResL, &ResC, &l1);
+            GetRhsVar(2, STRING_DATATYPE, &ms, &ns, &ls);
+            suite = 3;
+        }
     }
     if ( strcmp(cstk(ls), "bet") == 0)
     {
