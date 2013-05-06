@@ -593,6 +593,18 @@ int sci_Rand(char *fname, unsigned long fname_len)
         ResC = *istk(l2);
         minrhs = 3;
         CheckRhs(minrhs, maxrhs);
+        if ( GetType(3) == sci_matrix )
+        {
+            minrhs = 4;
+            CheckRhs(minrhs, maxrhs);
+            if ( GetType(4) != sci_strings )
+            {
+                Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 4);
+                return 0;
+            }
+            OverLoad(0);
+            return 0;
+        }
         if ( GetType(3) != sci_strings )
         {
             Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 3);

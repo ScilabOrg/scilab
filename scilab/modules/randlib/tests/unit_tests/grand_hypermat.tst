@@ -1,0 +1,15 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH INPOSED -->
+
+// Run with test_run('randlib', 'grand_hypermat', ['no_check_error_output'])
+
+// Dimensions
+mat = grand(100, 101, 102, 'unf', 0, 1);
+assert_checktrue(size(mat) == [100 101 102]);
