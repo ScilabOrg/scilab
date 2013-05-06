@@ -25,7 +25,8 @@ sci_gateway/cpp/sci_spcompack.cpp \
 sci_gateway/cpp/sci_spget.cpp \
 sci_gateway/cpp/sci_spzeros.cpp \
 sci_gateway/cpp/sci_spones.cpp \
-sci_gateway/cpp/sci_ordmmd.cpp
+sci_gateway/cpp/sci_ordmmd.cpp \
+sci_gateway/cpp/sci_spchol.cpp
 
 
 libscisparse_la_CPPFLAGS = -I$(srcdir)/includes/ \
@@ -33,6 +34,7 @@ libscisparse_la_CPPFLAGS = -I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/types/includes/ \
 				-I$(top_srcdir)/modules/symbol/includes/ \
 				-I$(top_srcdir)/modules/dynamic_link/includes/ \
+				-I$(top_srcdir)/modules/system_env/includes/ \
 				-I$(top_srcdir)/modules/localization/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes/ \
 				-I$(top_srcdir)/modules/elementary_functions/includes/ \
