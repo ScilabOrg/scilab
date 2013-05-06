@@ -74,20 +74,23 @@ assert_checkalmostequal ( variance(values) , 1/12 , 1.e-2 );
 
 rand("seed",0);
 grand("setsd",0);
-kmax = 1000;
+kmax = 1;
 ncols=100;
 nrows=100;
 density=0.01;
 typ="uniform";
 C=zeros(nrows,ncols);
 R=[];
+
 for k=1:kmax
   M=sprand(nrows,ncols,density,typ);
-  NZ=find(M<>0);
-  NZratio = size(NZ,"*")/(nrows*ncols);
-  R=[R NZratio];
-  C(NZ)=C(NZ)+1;
+  m = full(M);
+  NZ=find(m<>0);
+  //NZratio = size(NZ,"*")/(nrows*ncols);
+  //R=[R NZratio];
+  //C(NZ)=C(NZ)+1;
 end
+
 // Now that this algorithm has been performed (which may require some time), 
 // we can compute elementary statistics to check that the algorithm performed well.
 
