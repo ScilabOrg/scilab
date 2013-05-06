@@ -36,6 +36,8 @@
             Y = grand(m, n, "uin", Low, High)
             Y = grand(m, n, "lgi")
             
+            Y = grand(m, n, o, ...)
+            
             Y = grand(X, ...)
             
             Y = grand(n,  "mn", Mean, Cov)
@@ -65,7 +67,7 @@
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>m, n</term>
+                <term>m, n, o</term>
                 <listitem>
                     <para>
                         integers, size of the wanted matrix <varname>Y</varname>.
@@ -85,7 +87,7 @@
                 <term>Y</term>
                 <listitem>
                     <para>
-                        a <varname>m</varname>-by-<varname>n</varname> matrix of doubles, with random entries.
+                        a <varname>m</varname>-by-<varname>n</varname>-by-<varname>o</varname> matrix of doubles, with random entries.
                     </para>
                 </listitem>
             </varlistentry>
@@ -128,6 +130,18 @@
         </para>
         <para>
             produce a <varname>m</varname>-by-<varname>n</varname> matrix
+            with random entries.
+        </para>
+        <para>
+            The calling sequence:
+        </para>
+        <para>
+            <programlisting role="no-scilab-exec"><![CDATA[
+                Y = grand(m, n, o, ...)
+            ]]></programlisting>
+        </para>
+        <para>
+            produce a <varname>m</varname>-by-<varname>n</varname>-by-<varname>o</varname> matrix
             with random entries.
         </para>
         <para>
@@ -895,6 +909,29 @@ grand(10,1,"uin",1,365)
         <programlisting role="example"><![CDATA[ 
 grand(12,"prm",(1:7)')
  ]]></programlisting>
+        <para>
+            In the following example, we generate random numbers from various distributions
+            and plot the associated histograms. Showing the first and last layers.
+        </para>
+        <programlisting role="example"><![CDATA[ 
+// Returns a 400-by-800-by-10 matrix of random doubles, 
+// with normal distribution and average 0 and standard deviation 1.
+// Showing the first and last layers.
+R = grand(10,10,10,"nor",0,1);
+scf();
+hist3d(R(:,:,1));
+scf();
+hist3d(R(:,:,10));
+xtitle("Normal random numbers from grand","X","Frequency");
+ ]]></programlisting>
+        <scilab:image localized="true">
+            R = grand(10,10,10,"nor",0,1);
+            subplot(2,1,1)
+            hist3d(R(:,:,1));
+            subplot(2,1,2)
+            hist3d(R(:,:,10));
+            xtitle("Normal random numbers from grand","X","Frequency");
+        </scilab:image>
     </refsection>
     <refsection>
         <title>Get predictible or less predictible numbers</title>
