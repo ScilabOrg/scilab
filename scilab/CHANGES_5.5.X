@@ -189,3 +189,5 @@ Bug fixes
 * Bug #12556 fixed - A fatal error occurred when calling set() with wrong instructions.
 
 * Bug #12564 fixed - Javasci compile & run help page is not clear about needed packages.
+
+* Bug #12593 fixed - Wrong error message when running genlib with an error in the sci file.
