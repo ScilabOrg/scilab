@@ -55,8 +55,6 @@ Obsolete
 Xcos
 ====
 
-* Update Sundials to lastest "2.5.0", keeping our modifications
-
 * Bug #7350 fixed - The superblock I/O ports numbering was not updated
                     when a new port was dropped.
 
@@ -67,6 +65,9 @@ Xcos
 
 * Bug #12568 fixed - "Recent files" menu entry should be placed next to the 
                      "Open" one.
+
+* Bug #12603 fixed - ZCOS files may contains blocs with modified (eg. invalid)
+                     parameters.
 
 
 Toolbox skeleton
