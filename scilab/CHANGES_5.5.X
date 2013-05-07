@@ -6,6 +6,8 @@ Scilab Bug Fixes
 
 * Bug #7549 fixed - edit_curv did not disable standard plot menus.
 
+* Bug #8646 fixed - The datatips contextual menu opened a selection list which was not ergonomic (non regression test).
+
 * Bug #10555 fixed - Scilab failed to build with some configure options.
 
 * Bug #12700 fixed - edit_curv (used by CURV_f) was broken.
@@ -3018,6 +3020,8 @@ Scilab Bug Fixes
 
 * Bug #8234 fixed - strtod did not return an empty matrix when the input argument was an
                     empty matrix.
+
+* Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
 
 * Bug #8264 fixed - Matlab to Scilab dictionary help page updated for atan2.
 
