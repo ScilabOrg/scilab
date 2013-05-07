@@ -590,7 +590,14 @@ int sci_Rand(char *fname, unsigned long fname_len)
             Scierror(999, _("%s: Wrong type for input argument #%d: Scalar expected.\n"), fname, 2);
             return 0;
         }
-        ResC = *istk(l2);
+        ResC = *istk(l2);  // test
+        minrhs = 3;
+        CheckRhs(minrhs, maxrhs);
+        if ( GetType(3) != sci_strings )
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 3);
+            return 0;
+        }
         GetRhsVar(3, STRING_DATATYPE, &ms, &ns, &ls);
         suite = 4;
         if (ResL < 0 && (ResL != -1 || ResC != -1)) //ResL=-1 & ResC=-1 => eye
