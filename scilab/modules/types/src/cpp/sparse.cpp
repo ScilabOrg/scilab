@@ -10,6 +10,11 @@
 *
 */
 
+#include <Eigen/Core>
+#include <Eigen/IterativeLinearSolvers>
+
+#include <Eigen/SparseCholesky>
+
 #include <sstream>
 #include <math.h>
 #include "sparse.hxx"
@@ -1701,6 +1706,27 @@ Sparse* Sparse::newTransposed() const
 {
     return new Sparse( matrixReal ? new RealSparse_t(matrixReal->adjoint()) : 0
                        , matrixCplx ? new CplxSparse_t(matrixCplx->adjoint()) : 0);
+}
+
+int Sparse::newCholLLT(Sparse* CONST& _SpPermut, Sparse* CONST& _SpFactor) const
+{
+    // Constructs and performs the LLT factorization of sparse
+    Eigen::SimplicialLLT<RealSparse_t>* pLLT = new Eigen::SimplicialLLT<RealSparse_t>((const RealSparse_t&)*matrixReal);
+
+    // Get the lower matrix of factorization.
+    _SpFactor = new Sparse(new RealSparse_t(pLLT->matrixL()), NULL);
+
+    // Get the permutation matrix.
+    Eigen::PermutationMatrix<Eigen::Dynamic, Eigen::Dynamic, int> p = pLLT->permutationP();
+    _SpPermut = new Sparse(p.rows(), p.cols());
+    for (int i = 0; i < p.rows(); i++)
+    {
+        _SpPermut->set(i, p.indices()[i], 1, false);
+    }
+
+    _SpPermut->finalize();
+
+    return pLLT->info();
 }
 
 struct BoolCast
