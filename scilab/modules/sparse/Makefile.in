@@ -146,7 +146,8 @@ am__objects_3 = libscisparse_la-sparse_gw.lo \
 	libscisparse_la-sci_nnz.lo libscisparse_la-sci_sp2adj.lo \
 	libscisparse_la-sci_sparse.lo libscisparse_la-sci_spcompack.lo \
 	libscisparse_la-sci_spget.lo libscisparse_la-sci_spzeros.lo \
-	libscisparse_la-sci_spones.lo libscisparse_la-sci_ordmmd.lo
+	libscisparse_la-sci_spones.lo libscisparse_la-sci_ordmmd.lo \
+	libscisparse_la-sci_spchol.lo
 am_libscisparse_la_OBJECTS = $(am__objects_1) $(am__objects_3)
 libscisparse_la_OBJECTS = $(am_libscisparse_la_OBJECTS)
 @MAINTAINER_MODE_FALSE@am_libscisparse_la_rpath =
@@ -469,13 +470,15 @@ sci_gateway/cpp/sci_spcompack.cpp \
 sci_gateway/cpp/sci_spget.cpp \
 sci_gateway/cpp/sci_spzeros.cpp \
 sci_gateway/cpp/sci_spones.cpp \
-sci_gateway/cpp/sci_ordmmd.cpp
+sci_gateway/cpp/sci_ordmmd.cpp \
+sci_gateway/cpp/sci_spchol.cpp
 
 libscisparse_la_CPPFLAGS = -I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/ast/includes/ \
 				-I$(top_srcdir)/modules/types/includes/ \
 				-I$(top_srcdir)/modules/symbol/includes/ \
 				-I$(top_srcdir)/modules/dynamic_link/includes/ \
+				-I$(top_srcdir)/modules/system_env/includes/ \
 				-I$(top_srcdir)/modules/localization/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes/ \
 				-I$(top_srcdir)/modules/elementary_functions/includes/ \
@@ -676,6 +679,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_ordmmd.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_sp2adj.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_sparse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_spchol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_spcompack.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_spget.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisparse_la-sci_spones.Plo@am__quote@
@@ -779,6 +783,13 @@ libscisparse_la-sci_ordmmd.lo: sci_gateway/cpp/sci_ordmmd.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_ordmmd.cpp' object='libscisparse_la-sci_ordmmd.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisparse_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscisparse_la-sci_ordmmd.lo `test -f 'sci_gateway/cpp/sci_ordmmd.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_ordmmd.cpp
+
+libscisparse_la-sci_spchol.lo: sci_gateway/cpp/sci_spchol.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisparse_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscisparse_la-sci_spchol.lo -MD -MP -MF $(DEPDIR)/libscisparse_la-sci_spchol.Tpo -c -o libscisparse_la-sci_spchol.lo `test -f 'sci_gateway/cpp/sci_spchol.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_spchol.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscisparse_la-sci_spchol.Tpo $(DEPDIR)/libscisparse_la-sci_spchol.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_spchol.cpp' object='libscisparse_la-sci_spchol.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisparse_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscisparse_la-sci_spchol.lo `test -f 'sci_gateway/cpp/sci_spchol.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_spchol.cpp
 
 .f.o:
 	$(F77COMPILE) -c -o $@ $<
