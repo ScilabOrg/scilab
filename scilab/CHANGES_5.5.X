@@ -18,6 +18,7 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
  - getURL - Download an URL (HTTP, HTTPS, FTP...)
  - splitURL - Split a URL (HTTP, HTTPS, FTP...)
  - cov - Covariance matrix. Deprecates 'mvvacov'. See bug #11896 fixed.
+ - cross - Vector cross product. See bug #9941 fixed.
 
 * Add a complete set of functions to read and write any HDF5 file from Scilab.
 
