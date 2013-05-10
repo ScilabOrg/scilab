@@ -17,6 +17,10 @@
 #include <iterator>
 #include <algorithm>
 
+#include <Eigen/Core>
+#include <Eigen/IterativeLinearSolvers>
+#include <Eigen/SparseCholesky>
+
 #include "sparse.hxx"
 #include "types.hxx"
 #include "tostring_common.hxx"
@@ -1827,6 +1831,29 @@ Sparse* Sparse::dotDivide(Sparse SPARSE_CONST& o) const
     return new Sparse(realSp, cplxSp);
 }
 
+int Sparse::newCholLLT(Sparse* _SpPermut, Sparse* _SpFactor) const
+{
+    // Constructs and performs the LLT factorization of sparse
+    Eigen::SimplicialLLT<RealSparse_t>* pLLT = new Eigen::SimplicialLLT<RealSparse_t>((const RealSparse_t&)*matrixReal);
+
+    // Get the lower matrix of factorization.
+    RealSparse_t* newSP = new RealSparse_t(pLLT->matrixL());
+    _SpFactor = new Sparse(newSP, NULL);
+    // delete newSP ??
+
+    // Get the permutation matrix.
+    Eigen::PermutationMatrix<Eigen::Dynamic, Eigen::Dynamic, int> p = pLLT->permutationP();
+    _SpPermut = new Sparse(p.rows(), p.cols());
+    for (int i = 0; i < p.rows(); i++)
+    {
+        _SpPermut->set(i, p.indices()[i], 1, false);
+    }
+
+    _SpPermut->finalize();
+
+    return pLLT->info();
+}
+
 struct BoolCast
 {
     BoolCast(std::complex<double> const& c): b(c.real() || c.imag()) {}
@@ -1948,7 +1975,7 @@ template<typename S> struct GetReal: std::unary_function<typename S::InnerIterat
     }
 };
 template<> struct GetReal< Eigen::SparseMatrix<std::complex<double >, Eigen::RowMajor > >
-    : std::unary_function<Sparse::CplxSparse_t::InnerIterator, double>
+        : std::unary_function<Sparse::CplxSparse_t::InnerIterator, double>
 {
     double operator()( Sparse::CplxSparse_t::InnerIterator it) const
     {
