@@ -221,6 +221,7 @@
     <ClInclude Include="includes\functiondec.hxx" />
     <ClInclude Include="includes\ifexp.hxx" />
     <ClInclude Include="includes\intexp.hxx" />
+    <ClInclude Include="includes\listvoid.hxx" />
     <ClInclude Include="includes\macrovarvisitor.hxx" />
     <ClInclude Include="includes\stepvisitor.hxx" />
     <ClInclude Include="src\cpp\libAst.hxx" />

@@ -378,6 +378,11 @@ public :
         */
     }
 
+    void visitprivate(const ListVoid &e)
+    {
+        result_set(new types::ListEmpty());
+    }
+
 
     void visitprivate(const SimpleVar &e)
     {

@@ -35,48 +35,48 @@
 namespace ast
 {
 
-  /** \name Allow const selection. */
-  /** \{ */
-  /** \brief Select const methods. */
-  struct const_kind {};
-  /** \brief Select non-const methods. */
-  struct non_const_kind {};
-  /** \} */
+/** \name Allow const selection. */
+/** \{ */
+/** \brief Select const methods. */
+struct const_kind {};
+/** \brief Select non-const methods. */
+struct non_const_kind {};
+/** \} */
 
-  template <typename K, typename T>
-  /** \brief select_const<SELECTOR, TYPE>.
-   **
-   ** We use template to be able to select the const or not
-   ** const variety of a TYPE.\n
-   ** SELECTOR must be `const_kind' or `non_const_kind'. */
-  struct select_const
-  {
+template <typename K, typename T>
+/** \brief select_const<SELECTOR, TYPE>.
+ **
+ ** We use template to be able to select the const or not
+ ** const variety of a TYPE.\n
+ ** SELECTOR must be `const_kind' or `non_const_kind'. */
+struct select_const
+{
     /** \brief \a t is non-const, just like T. */
     typedef T t;
-  };
+};
 
-  template <typename T>
-  /** \brief select_const<const_kind, TYPE>
-   **
-   ** Specialized version of select_const for const_kind.
-   ** \see select_const */
-  struct select_const<const_kind, T>
-  {
+template <typename T>
+/** \brief select_const<const_kind, TYPE>
+ **
+ ** Specialized version of select_const for const_kind.
+ ** \see select_const */
+struct select_const<const_kind, T>
+{
     /** \brief \a t is the const version of type T. */
     typedef const T t;
-  };
+};
 
 
-  template <typename K>
-  /** \brief Root class of all visitors.
-   **
-   ** GenVisitor<CONSTNESS-SELECTOR> is the root class of all
-   ** visitors. */
-  class GenVisitor
-  {
+template <typename K>
+/** \brief Root class of all visitors.
+ **
+ ** GenVisitor<CONSTNESS-SELECTOR> is the root class of all
+ ** visitors. */
+class GenVisitor
+{
     /** \name Ctor & dtor.
      ** \{ */
-  public:
+public:
     /** \brief Destroys a GenVisitor */
     virtual ~GenVisitor ()
     {
@@ -85,7 +85,7 @@ namespace ast
 
     /** \name Visit Variable related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, SimpleVar>::t & e) = 0;
     virtual void visit (typename select_const<K, DollarVar>::t & e) = 0;
     virtual void visit (typename select_const<K, ColonVar>::t & e) = 0;
@@ -94,7 +94,7 @@ namespace ast
 
     /** \name Visit Constant Expressions related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, IntExp>::t & e) = 0;
     virtual void visit (typename select_const<K, FloatExp>::t & e) = 0;
     virtual void visit (typename select_const<K, DoubleExp>::t & e) = 0;
@@ -102,11 +102,12 @@ namespace ast
     virtual void visit (typename select_const<K, StringExp>::t & e) = 0;
     virtual void visit (typename select_const<K, CommentExp>::t & e) = 0;
     virtual void visit (typename select_const<K, NilExp>::t & e) = 0;
+    virtual void visit (typename select_const<K, ListVoid>::t & e) = 0;
     /** \} */
 
     /** \name Visit Instructions related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, CallExp>::t & e) = 0;
     virtual void visit (typename select_const<K, CellCallExp>::t & e) = 0;
     virtual void visit (typename select_const<K, OpExp>::t & e) = 0;
@@ -126,27 +127,27 @@ namespace ast
 
     /** \name Visit Single Operation related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, NotExp>::t & e) = 0;
     virtual void visit (typename select_const<K, TransposeExp>::t & e) = 0;
     /** \} */
 
     /** \name Visit Matrix related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, MatrixExp>::t & e) = 0;
     virtual void visit (typename select_const<K, MatrixLineExp>::t & e) = 0;
     /** \} */
 
     /** \name Visit Cell related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, CellExp>::t & e) = 0;
     /** \} */
 
-   /** \name Visit List of Expressions related nodes.
-     ** \{ */
-  public:
+    /** \name Visit List of Expressions related nodes.
+      ** \{ */
+public:
     virtual void visit (typename select_const<K, SeqExp>::t & e) = 0;
     virtual void visit (typename select_const<K, ArrayListExp>::t & e) = 0;
     virtual void visit (typename select_const<K, AssignListExp>::t & e) = 0;
@@ -155,22 +156,22 @@ namespace ast
 
     /** \name Visit Declaration related nodes.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, VarDec>::t & e) = 0;
     virtual void visit (typename select_const<K, FunctionDec>::t & e) = 0;
     /** \} */
 
     /** \name Visit Type dedicated Expressions related node.
      ** \{ */
-  public:
+public:
     virtual void visit (typename select_const<K, ListExp>::t & e) = 0;
     /** \} */
-  };
+};
 
-  /** \brief Define shortand type for a const visitor */
-  typedef GenVisitor<const_kind> ConstVisitor;
-  /** \brief Define shortand type for a non const visitor */
-  typedef GenVisitor<non_const_kind> Visitor;
+/** \brief Define shortand type for a const visitor */
+typedef GenVisitor<const_kind> ConstVisitor;
+/** \brief Define shortand type for a non const visitor */
+typedef GenVisitor<non_const_kind> Visitor;
 
 } // namespace ast
 

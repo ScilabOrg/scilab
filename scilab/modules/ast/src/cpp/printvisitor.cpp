@@ -167,6 +167,10 @@ void PrintVisitor::visit (const NilExp &e)
 }
 /** \} */
 
+void PrintVisitor::visit (const ListVoid &e)
+{
+}
+
 /** \name Visit Variable related nodes.
  ** \{ */
 void PrintVisitor::visit (const SimpleVar &e)

@@ -40,6 +40,7 @@ public:
     virtual void visit (const StringExp &/*e*/) {}
     virtual void visit (const CommentExp &/*e*/) {}
     virtual void visit (const NilExp &/*e*/) {}
+    virtual void visit (const ListVoid &e) {}
     virtual void visit (const CallExp &/*e*/) {}
     virtual void visit (const CellCallExp &/*e*/) {}
     virtual void visit (const OpExp &/*e*/) {}

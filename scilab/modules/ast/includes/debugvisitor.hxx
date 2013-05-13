@@ -23,27 +23,27 @@
 
 namespace ast
 {
-  class EXTERN_AST DebugVisitor : public GenVisitor<const_kind>
-  {
-  public:
+class EXTERN_AST DebugVisitor : public GenVisitor<const_kind>
+{
+public:
     DebugVisitor() {}
 
     /** \name Visit Matrix Expressions nodes.
      ** \{ */
-  public :
+public :
     virtual void visit (const MatrixExp &e);
     virtual void visit (const MatrixLineExp &e);
     /** \} */
 
     /** \name Visit Cell Expressions nodes.
      ** \{ */
-  public :
+public :
     virtual void visit (const CellExp &e);
     /** \} */
 
     /** \name Visit Constant Expressions nodes.
      ** \{ */
-  public :
+public :
     virtual void visit (const StringExp &e);
     virtual void visit (const CommentExp &e);
     virtual void visit (const IntExp  &e);
@@ -51,6 +51,7 @@ namespace ast
     virtual void visit (const DoubleExp  &e);
     virtual void visit (const BoolExp  &e);
     virtual void visit (const NilExp &e);
+    virtual void visit (const ListVoid &e);
     /** \} */
 
     /** \name Visit Variable related nodes.
@@ -98,9 +99,9 @@ namespace ast
 
     /** \name Visit Type dedicated Expressions related node.
      ** \{ */
-  public:
+public:
     virtual void visit(const ListExp &e);
     /** \} */
-  };
+};
 }
 #endif // !AST_DEBUGVISITOR_HXX

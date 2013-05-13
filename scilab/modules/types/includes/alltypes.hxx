@@ -13,11 +13,11 @@
 #define ALL_TYPES_HXX
 
 #ifdef getType
-    #undef getType
+#undef getType
 #endif
 
 #ifdef isComplex
-    #undef isComplex
+#undef isComplex
 #endif
 
 #include "internal.hxx"
@@ -39,6 +39,7 @@
 #include "listdelete.hxx"
 #include "listinsert.hxx"
 #include "listundefined.hxx"
+#include "listempty.hxx"
 #include "tlist.hxx"
 #include "mlist.hxx"
 #include "file.hxx"
