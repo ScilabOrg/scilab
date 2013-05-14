@@ -62,6 +62,12 @@ Obsolete
   Use isscalar() instead.
 
 
+Differential_equations
+======================
+
+* Netlib's Quadpack, used for definite integration, has been updated to match the upstream.
+
+
 Xcos
 ====
 
