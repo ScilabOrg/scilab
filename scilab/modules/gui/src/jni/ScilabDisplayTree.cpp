@@ -197,7 +197,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( treeData_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidscilabDisplayTreejobjectArray_java_lang_Stringjava_lang_StringID ,treeData_);

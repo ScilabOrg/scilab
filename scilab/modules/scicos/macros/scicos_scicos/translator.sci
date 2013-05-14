@@ -68,7 +68,7 @@ function [ok]=translator(filemo,Mblocks,_Modelica_libs,Flat)
   if getos() == 'Windows' then, Limit=1000;else, Limit=3500;end
   if (length(translator_libs)>Limit) then 
     // OS limitation may restrict the length of shell command line
-    // arguments. If there are to many .mo file we catenate them into a
+    // arguments. If there are too many .mo file we catenate them into a
     // single MYMOPACKAGE.mo file
     messagebox(msprintf(_('There are too many Modelica files.\n' + ..
 			  'it would be better to define several \n' + ..

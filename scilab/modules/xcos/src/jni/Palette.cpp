@@ -198,7 +198,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( category_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidloadPaljstringjava_lang_StringjobjectArray_java_lang_Stringjava_lang_StringID ,name_, category_);
@@ -267,7 +267,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( name_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
 jboolean visible_ = (static_cast<bool>(visible) ? JNI_TRUE : JNI_FALSE);
@@ -311,7 +311,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( name_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidremovejobjectArray_java_lang_Stringjava_lang_StringID ,name_);
@@ -353,7 +353,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( name_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
 jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
@@ -397,7 +397,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( source_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
 
@@ -419,7 +419,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( target_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidmovejobjectArray_java_lang_Stringjava_lang_StringjobjectArray_java_lang_Stringjava_lang_StringID ,source_, target_);
@@ -488,7 +488,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( path_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidgenerateAllImagesjobjectArray_java_lang_Stringjava_lang_StringID ,path_);

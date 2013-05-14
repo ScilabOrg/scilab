@@ -227,7 +227,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( uids_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
 jstring message_ = curEnv->NewStringUTF( message );
@@ -323,7 +323,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( UID_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidxcosDiagramOpenjobjectArray_java_lang_Stringjava_lang_StringID ,UID_);
@@ -365,7 +365,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( UID_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidxcosDiagramClosejobjectArray_java_lang_Stringjava_lang_StringID ,UID_);

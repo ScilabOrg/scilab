@@ -281,7 +281,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( option_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidscinotesjstringjava_lang_StringjobjectArray_java_lang_Stringjava_lang_StringID ,fileName_, option_);

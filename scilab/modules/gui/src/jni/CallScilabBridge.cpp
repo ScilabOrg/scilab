@@ -520,7 +520,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( message_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxMessagejintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, message_);
@@ -668,7 +668,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( labels_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxButtonsLabelsjintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, labels_);
@@ -710,7 +710,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( value_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxInitialValuejintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, value_);
@@ -813,7 +813,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( items_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxListBoxItemsjintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, items_);
@@ -875,7 +875,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( labels_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxLineLabelsjintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, labels_);
@@ -917,7 +917,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( labels_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxColumnLabelsjintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, labels_);
@@ -959,7 +959,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( values_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                          curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxDefaultInputjintintjobjectArray_java_lang_Stringjava_lang_StringID ,id, values_);
@@ -1103,7 +1103,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( helps_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
 jstring language_ = curEnv->NewStringUTF( language );
@@ -1153,7 +1153,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( helps_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
 jstring keyword_ = curEnv->NewStringUTF( keyword );

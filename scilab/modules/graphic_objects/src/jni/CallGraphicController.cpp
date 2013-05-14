@@ -518,7 +518,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 
 curEnv->SetObjectArrayElement( value_, i, TempString);
 
-// avoid keeping reference on to many strings
+// avoid keeping reference on too many strings
 curEnv->DeleteLocalRef(TempString);
 }
                         jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleansetGraphicObjectPropertyjstringjava_lang_StringjintintjobjectArray_java_lang_Stringjava_lang_StringID ,id_, propertyName, value_));
