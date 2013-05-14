@@ -7,7 +7,6 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-
 function x = iconvert(a,typeToConvert)
 
     [lhs, rhs] = argn();
@@ -21,7 +20,25 @@ function x = iconvert(a,typeToConvert)
     end
 
     if typeof(a) <> "constant" & type(a) <> 8 & typeof(a) <> "boolean" then
-        error(msprintf(_("%s: Wrong type for input argument #%d: ''%s'', ''%s'' or ''%s'' expected."), "iconvert", 1, "integer", "boolean", "double"));
+        // Overload
+        [val str]=typename();
+        if type(a) == 17 | type(a) == 16 then // mlist or tlist
+            funcName = "%" + typeof(a) + "_iconvert";
+        else
+            ind = find(type(a) == val);
+            funcName = "%" + str(ind) + "_iconvert";
+        end
+        // If the overload function is not defined whereis return []
+        // The functions exists and isdef will return false if the overload is a gateway
+        // that's why whereis is used.
+        if whereis(funcName) == [] then
+            error(msprintf(_("Function not defined for given argument type(s),\n  check arguments or define function %s for overloading."), funcName));
+        end
+        ierr = execstr("x = " + funcName + "(a,typeToConvert);","errcatch");
+        if ierr then
+            error(ierr, lasterror());
+        end
+        return
     end
 
     if typeof(a) == "constant" & isreal(a) == %f then
