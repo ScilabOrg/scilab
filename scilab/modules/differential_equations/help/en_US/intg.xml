@@ -189,6 +189,6 @@ abs(exact-I)
         <para>The associated routines can be found in SCI/modules/differential_equations/src/fortran directory
             :
         </para>
-        <para>dqag0.f and dqags.f from quadpack</para>
+        <para>dqag0.f and dqagse.f from quadpack</para>
     </refsection>
 </refentry>
