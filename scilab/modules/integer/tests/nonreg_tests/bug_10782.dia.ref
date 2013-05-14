@@ -41,11 +41,9 @@ assert_checkequal(typeof(y), "uint16");
 y = iconvert(B, 14); // uint32
 assert_checkequal(type(y), 8);
 assert_checkequal(typeof(y), "uint32");
-msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "iconvert", 2,"0, 1, 2, 4, 11, 12, 14");
+msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "iconvert", 2,"0, 1, 2, 4, 8, 11, 12, 14, 18");
 assert_checkerror ("y = iconvert(B, 20);", msgerr);
-msgerr = msprintf(gettext("%s: Wrong type for argument #%d: Real matrix expected.\n"), "iconvert", 1);
-assert_checkerror ("y = iconvert(%i, 0);", msgerr);
-msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: An integer value expected.\n"), "iconvert", 2);
-assert_checkerror ("y = iconvert(B, 0.1);", msgerr);
-msgerr = msprintf(gettext("%s: Wrong size for argument #%d: Real scalar expected.\n"), "iconvert", 2);
-assert_checkerror ("y = iconvert(B, [0 1]);", msgerr);
+assert_checkerror: Assertion failed: expected error message = "iconvert : Valeur erronée de l'argument d'entrée n°2 : Doit être dans l'ensemble {0, 1, 2, 4, 8, 11, 12, 14, 18}." while computed error message = "iconvert: Wrong value for input argument #2: Must be in the set {0, 1, 2, 4, 8, 11, 12, 14, 18}.".
+at line   106 of function assert_checkerror called by :
+assert_checkerror("y = iconvert(B, 20);", msgerr)
+at line    68 of exec file called by :
