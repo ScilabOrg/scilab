@@ -88,8 +88,33 @@ c
       endif
       if(err.gt.0.or.err1.gt.0)return
       if(ifail.gt.0) then
-         call error(24)
-         return
+         select case (ifail)
+            case (1)
+               call erro('Error: Maximum number of subdivisons '//
+     &            'achieved. Splitting the interval could help.')
+               return
+            case (2)
+               call erro('Error: Roundoff error detected, the '//
+     &           'requested tolerance (or default) cannot be achieved.')
+               return
+            case (3)
+               call erro('Error: Bad integrand behavior occurs at '//
+     &            'some points of the integration interval.')
+               return
+            case (4)
+               call erro('Error: Convergence problem, '//
+     &            'roundoff error detected.')
+               return
+            case (5)
+               call erro('Error: The integral is probably '//
+     &            'divergent, or slowly convergent.')
+               return
+c           case (6)
+            case default
+               call erro('Error: Invalid input, either '//
+     &        'absolute tolerance <= 0 or relative tolerance < 1.e-17.')
+               return
+         endselect
       endif
       top=top2-rhs+1
       stk(lra)=val

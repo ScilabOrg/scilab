@@ -8,9 +8,9 @@ c     an approximation to the integral of a function over a finite
 c     interval (a,b)
 c
 c     dqag0 itself is essentially a dummy routine whose function is to
-c     partition the work arrays work and iwork for use by dqags.
+c     partition the work arrays work and iwork for use by dqagse.
 c     work is partitioned into 4 arrays each of size lwork/4.
-c     iwork is a single array in dqags.
+c     iwork is a single array in dqagse.
 c
 c     .. scalar arguments ..
       double precision a, abserr, b, epsabs, epsrel, result
@@ -26,7 +26,7 @@ c
       integer ibl, iel, ier, irl, limit
 c     .. function references ..
 c     .. subroutine references ..
-c     dqags
+c     dqagse
 c     ..
       external f
 c     check that minimum workspace requirements are met
@@ -39,13 +39,14 @@ c     set up base addresses for work arrays
       iel = limit + ibl
       irl = limit + iel
 c     perform integration
-      call dqags(f, a, b, abs(epsabs), abs(epsrel), work(1),work(ibl)
-     *, work(iel), work(irl), limit, iwork, liwork,result, abserr, ier)
+      call dqagse(f, a, b, abs(epsabs), abs(epsrel), limit, result,
+     * abserr, neval, ier, work(1),work(ibl), work(iel), work(irl),
+     * iwork, liwork)
       if (ier.ne.0) go to 40
       ifail = 0
       go to 60
 c     error 6 = insufficient workspace
    20 ier = 6
-   40 ifail = 1
+   40 ifail = ier
    60 return
       end
