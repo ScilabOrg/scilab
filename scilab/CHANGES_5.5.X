@@ -192,4 +192,6 @@ Bug fixes
 
 * Bug #12564 fixed - Javasci compile & run help page is not clear about needed packages.
 
+* Bug #12581 fixed - isfield could not support mlist or tlist.
+
 * Bug #12598 fixed - Call sequence for spzeros & spones were missing in the french help pages.
