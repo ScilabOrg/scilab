@@ -191,3 +191,5 @@ Bug fixes
 * Bug #12556 fixed - A fatal error occurred when calling set() with wrong instructions.
 
 * Bug #12564 fixed - Javasci compile & run help page is not clear about needed packages.
+
+* Bug #12598 fixed - Call sequence for spzeros & spones were missing in the french help pages.
