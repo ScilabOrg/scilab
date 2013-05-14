@@ -177,7 +177,7 @@ abs(exact-I)
     </refsection>
     <refsection>
         <title>Fonctions Utilisées</title>
-        <para>Les programmes correspondants (dqag0.f et dqags.f de quadpack) se
+        <para>Les programmes correspondants (dqags.f et dqagse.f de quadpack) se
             trouvent dans le répertoire SCI/modules/differential_equations/src/fortran/.
         </para>
     </refsection>
