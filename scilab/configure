@@ -25345,7 +25345,7 @@ CHK_TCL_MIN=$TCL_MINOR_VERSION
 TCL_LIB_OK=0
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tcl library tcl$TCL_MAJOR_VERSION.$TCL_MINOR_VERSION" >&5
 $as_echo_n "checking for tcl library tcl$TCL_MAJOR_VERSION.$TCL_MINOR_VERSION... " >&6; }
-dirs="$USER_TCL_LIB_PATH /lib /usr/lib /usr/lib64 /usr/lib/tcl /usr/lib/tcl8.* /shlib /shlib/tcl /shlib/tcl8.* /usr/shlib /shlib/tcl /usr//shlib/tcl8.* /usr/local/lib /usr/local/lib/tcl /usr/local/lib/tcl8.* /usr/local/shlib /usr/X11/lib/tcl /usr/X11/lib/tcl8.* /usr/lib/X11 /usr/lib/X11/tcl /usr/lib/X11/tcl8.* ../lib ../../lib  /usr/local/tcl /usr/tcl /usr/tcl/lib /usr/local/tcl/lib /sw/lib/ ."
+dirs="$USER_TCL_LIB_PATH /lib /usr/lib /usr/lib64 /usr/lib/tcl /usr/lib/tcl8.* /shlib /shlib/tcl /shlib/tcl8.* /usr/shlib /shlib/tcl /usr//shlib/tcl8.* /usr/local/lib /usr/local/lib/tcl /usr/local/lib/tcl8.* /usr/local/shlib /usr/X11/lib/tcl /usr/X11/lib/tcl8.* /usr/lib/X11 /usr/lib/X11/tcl /usr/lib/X11/tcl8.* ../lib ../../lib  /usr/local/tcl /usr/tcl /usr/tcl/lib /usr/local/tcl/lib /sw/lib/ /usr/lib/x86_64-linux-gnu ."
 libexts="so so.1.0 sl dylib a"
 libnames="tcl$CHK_TCL_MAJ.$CHK_TCL_MIN tcl.$CHK_TCL_MAJ.$CHK_TCL_MIN tcl$CHK_TCL_MAJ$CHK_TCL_MIN tcl.$CHK_TCL_MAJ$CHK_TCL_MIN"
 for e in $libexts; do
@@ -25641,7 +25641,7 @@ TK_LIB_OK=0
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tk library tk$TK_MAJOR_VERSION.$TK_MINOR_VERSION" >&5
 $as_echo_n "checking for tk library tk$TK_MAJOR_VERSION.$TK_MINOR_VERSION... " >&6; }
-dirs="$USER_TK_LIB_PATH /lib /usr/lib /usr/lib64 /usr/lib/tk /usr/lib/tk8.* /shlib /shlib/tk /shlib/tk8.* /usr/shlib /shlib/tk /usr/shlib/tk8.* /usr/local/lib /usr/local/lib/tk /usr/local/lib/tk8.* /usr/local/shlib /usr/X11/lib/tk /usr/X11/lib/tk8.*  /usr/lib/X11 /usr/lib/X11/tk /usr/lib/X11/tk8.* ../lib ../../lib /usr/tk /usr/local/tk /usr/local/tk/lib /usr/tk/lib /usr/local/tcl /usr/tcl /usr/local/tcl/lib /usr/tcl/lib /sw/lib "
+dirs="$USER_TK_LIB_PATH /lib /usr/lib /usr/lib64 /usr/lib/tk /usr/lib/tk8.* /shlib /shlib/tk /shlib/tk8.* /usr/shlib /shlib/tk /usr/shlib/tk8.* /usr/local/lib /usr/local/lib/tk /usr/local/lib/tk8.* /usr/local/shlib /usr/X11/lib/tk /usr/X11/lib/tk8.*  /usr/lib/X11 /usr/lib/X11/tk /usr/lib/X11/tk8.* ../lib ../../lib /usr/tk /usr/local/tk /usr/local/tk/lib /usr/tk/lib /usr/local/tcl /usr/tcl /usr/local/tcl/lib /usr/tcl/lib /sw/lib /usr/lib/x86_64-linux-gnu ."
 libexts="so so.1.0 sl dylib a"
 libnames="tk$CHK_TK_MAJ.$CHK_TK_MIN tk.$CHK_TK_MAJ.$CHK_TK_MIN tk$CHK_TK_MAJ$CHK_TK_MIN tk.$CHK_TK_MAJ$CHK_TK_MIN"
 
