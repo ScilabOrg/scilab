@@ -8,6 +8,7 @@
 // <-- Non-regression test for bug 10814 -->
 //
 // <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
 //
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=10814
