@@ -862,6 +862,14 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     }
     else if (*flag__ == 4)     /*linear*/
     {
+        /* blocks initialization */
+        for (kf = 0; kf < nblk; ++kf)
+        {
+            *(Blocks[kf].work) = NULL;
+        }
+        cosini(t0);
+
+        /* linearization */
         phase = 1;
         idoit(t0);
         if (*ierr == 0)
@@ -903,6 +911,9 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             }
             FREE(W);
         }
+
+        /* blocks closing */
+        cosend(t0);
     }
     else if (*flag__ == 5)     /* initial_KINSOL= "Kinsol" */
     {
