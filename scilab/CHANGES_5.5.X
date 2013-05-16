@@ -207,3 +207,5 @@ Bug fixes
 * Bug #12564 fixed - Javasci compile & run help page is not clear about needed packages.
 
 * Bug #12606 fixed - Overloads for grand were not standard.
+
+* Bug #12614 fixed - Helpbrowser was not launched in EDT.
