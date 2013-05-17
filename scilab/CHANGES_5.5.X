@@ -125,6 +125,8 @@ Bug fixes
 
 * Bug #8607 fixed - Some error messages in modules/overloading/macros were not standard and not localized.
 
+* Bug #8636 fixed - Update the roots() function's doc.
+
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
 
 * Bug #8680 fixed - Output argument "end" of the regexp function has been changed.
