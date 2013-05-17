@@ -39,7 +39,7 @@
                 <term>algo</term>
                 <listitem>
                     <para>
-                        une chaîne de caractères, l'algorithme à utiliser (défaut algo="f").
+                        une chaîne de caractères, l'algorithme à utiliser (défaut algo="e").
                         Si algo="e", alors les valeurs propres de la matrice compagnion sont utilisées.
                         Si algo="f", alors l'algorithme de Jenkins-Traub est utilisé (si les coefficients 
                         du polynôme sont réels et que le degré du polynôme est plus petit que 100).
@@ -116,6 +116,15 @@ roots(p)
  roots(p,"f")
  // Le cas suivant produit une erreur
  p = ones(101,1);
+ roots(p,"f")
+ ]]></programlisting>
+        <para>
+            L'exemple suivant présente la limitation de RPOLY mentionnée dans la Description,
+            pour un polynôme aux valeurs extrêmes.
+        </para>
+        <programlisting role="example"><![CDATA[
+ // The following case loops indefinitely.
+ p=poly([1.e300,1.e0,1.e-300],'x');
  roots(p,"f")
  ]]></programlisting>
     </refsection>
