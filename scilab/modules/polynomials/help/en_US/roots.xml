@@ -39,7 +39,7 @@
                 <term>algo</term>
                 <listitem>
                     <para>
-                        a string, the algorithm to be used (default algo="f").
+                        a string, the algorithm to be used (default algo="e").
                         If algo="e", then the eigenvalues of the companion matrix are returned.
                         If algo="f", then the Jenkins-Traub method is used (if the polynomial is real and 
                         has degree lower than 100).
@@ -119,6 +119,15 @@ roots(p)
  roots(p,"f")
  // The following case produces an error.
  p = ones(101,1);
+ roots(p,"f")
+ ]]></programlisting>
+        <para>
+            The next example presents the limitation of the RPOLY algorithm mentioned in the Description,
+            for an extreme values coefficients polynomial.
+        </para>
+        <programlisting role="example"><![CDATA[
+ // The following case loops indefinitely.
+ p=poly([1.e300,1.e0,1.e-300],'x');
  roots(p,"f")
  ]]></programlisting>
     </refsection>
