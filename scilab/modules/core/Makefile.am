@@ -198,8 +198,7 @@ GATEWAY_C_SOURCES = \
 	sci_gateway/c/gw_user.c \
 	sci_gateway/c/gw_user2.c \
 	sci_gateway/c/sci_getvariablesonstack.c \
-	sci_gateway/c/sci_readgateway.c \
-	sci_gateway/c/sci_comp.c
+	sci_gateway/c/sci_readgateway.c
 
 GATEWAY_FORTRAN_SOURCES =  \
 sci_gateway/fortran/sci_f_mtlb_mode.f \
