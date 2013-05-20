@@ -183,7 +183,6 @@ GATEWAY_C_SOURCES = \
 	sci_gateway/c/sci_gstacksize.c \
 	sci_gateway/c/sci_funptr.c \
 	sci_gateway/c/sci_return.c \
-	sci_gateway/c/sci_clearfun.c \
 	sci_gateway/c/sci_setbpt.c \
 	sci_gateway/c/sci_what.c \
 	sci_gateway/c/sci_predef.c \
@@ -240,7 +239,8 @@ GATEWAY_CPP_SOURCES = 	\
 	sci_gateway/cpp/sci_format.cpp \
 	sci_gateway/cpp/sci_sciargs.cpp \
 	sci_gateway/cpp/sci_ieee.cpp \
-	sci_gateway/cpp/sci_funcprot.cpp
+	sci_gateway/cpp/sci_funcprot.cpp \
+	sci_gateway/cpp/sci_clearfun.cpp
 
 
 libscicore_la_CPPFLAGS = \
