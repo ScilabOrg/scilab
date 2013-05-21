@@ -249,3 +249,5 @@ Bug fixes
 * Bug #12606 fixed - Overloads for grand were not standard.
 
 * Bug #12614 fixed - Helpbrowser was not launched in EDT.
+
+* Bug #12629 fixed - Last example of csim help page defined a function input() overwriting the Scilab one.
