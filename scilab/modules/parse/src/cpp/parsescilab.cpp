@@ -621,7 +621,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  65
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  411
+#define YYNRULES  412
 /* YYNRULES -- Number of states.  */
 #define YYNSTATES  631
 
@@ -715,9 +715,9 @@ static const yytype_uint16 yyprhs[] =
     1287,  1288,  1290,  1292,  1294,  1297,  1300,  1302,  1305,  1308,
     1311,  1313,  1316,  1319,  1322,  1326,  1330,  1333,  1337,  1341,
     1347,  1351,  1353,  1356,  1359,  1361,  1362,  1364,  1367,  1370,
-    1374,  1376,  1379,  1381,  1383,  1385,  1387,  1389,  1391,  1393,
-    1395,  1397,  1399,  1401,  1403,  1405,  1407,  1409,  1411,  1413,
-    1415,  1417
+    1373,  1377,  1379,  1382,  1384,  1386,  1388,  1390,  1392,  1394,
+    1396,  1398,  1400,  1402,  1404,  1406,  1408,  1410,  1412,  1414,
+    1416,  1418,  1420
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -859,12 +859,13 @@ static const yytype_int16 yyrhs[] =
     50,     4,    -1,    50,    11,     4,    -1,    50,    13,     4,
     -1,    67,   144,    68,   144,    53,    -1,    67,   144,    53,
     -1,    86,    -1,     4,    86,    -1,    11,    86,    -1,     4,
-    -1,    -1,    69,    -1,    69,   109,    -1,    76,     4,    -1,
-    146,    76,     4,    -1,     4,    -1,    76,     4,    -1,    49,
-    -1,    50,    -1,    51,    -1,    52,    -1,    53,    -1,    54,
-    -1,    55,    -1,    57,    -1,    56,    -1,    58,    -1,    59,
-    -1,    60,    -1,    61,    -1,    62,    -1,    63,    -1,    64,
-    -1,    65,    -1,    67,    -1,    68,    -1,    69,    -1
+    -1,    -1,    69,    -1,    69,   109,    -1,    69,    92,    -1,
+    76,     4,    -1,   146,    76,     4,    -1,     4,    -1,    76,
+    4,    -1,    49,    -1,    50,    -1,    51,    -1,    52,    -1,
+    53,    -1,    54,    -1,    55,    -1,    57,    -1,    56,    -1,
+    58,    -1,    59,    -1,    60,    -1,    61,    -1,    62,    -1,
+    63,    -1,    64,    -1,    65,    -1,    67,    -1,    68,    -1,
+    69,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
@@ -908,10 +909,10 @@ static const yytype_uint16 yyrline[] =
     1561,  1562,  1563,  1564,  1565,  1566,  1570,  1571,  1585,  1593,
     1594,  1608,  1609,  1610,  1611,  1612,  1613,  1614,  1615,  1616,
     1617,  1618,  1619,  1620,  1621,  1622,  1623,  1624,  1625,  1633,
-    1634,  1648,  1649,  1650,  1651,  1658,  1672,  1673,  1680,  1681,
-    1689,  1690,  1698,  1699,  1700,  1701,  1702,  1703,  1704,  1705,
+    1634,  1648,  1649,  1650,  1651,  1658,  1672,  1673,  1674,  1681,
+    1682,  1690,  1691,  1699,  1700,  1701,  1702,  1703,  1704,  1705,
     1706,  1707,  1708,  1709,  1710,  1711,  1712,  1713,  1714,  1715,
-    1716,  1717
+    1716,  1717,  1718
 };
 #endif
 
@@ -1014,10 +1015,10 @@ static const yytype_uint8 yyr1[] =
     138,   138,   138,   138,   138,   138,   139,   139,   140,   141,
     141,   142,   142,   142,   142,   142,   142,   142,   142,   142,
     142,   142,   142,   142,   142,   142,   142,   142,   142,   143,
-    143,   144,   144,   144,   144,   144,   145,   145,   146,   146,
-    147,   147,   148,   148,   148,   148,   148,   148,   148,   148,
+    143,   144,   144,   144,   144,   144,   145,   145,   145,   146,
+    146,   147,   147,   148,   148,   148,   148,   148,   148,   148,
     148,   148,   148,   148,   148,   148,   148,   148,   148,   148,
-    148,   148
+    148,   148,   148
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -1061,10 +1062,10 @@ static const yytype_uint8 yyr2[] =
     2,     1,     2,     1,     2,     0,     1,     0,     5,     1,
     0,     1,     1,     1,     2,     2,     1,     2,     2,     2,
     1,     2,     2,     2,     3,     3,     2,     3,     3,     5,
-    3,     1,     2,     2,     1,     0,     1,     2,     2,     3,
-    1,     2,     1,     1,     1,     1,     1,     1,     1,     1,
+    3,     1,     2,     2,     1,     0,     1,     2,     2,     2,
+    3,     1,     2,     1,     1,     1,     1,     1,     1,     1,
     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-    1,     1
+    1,     1,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -1081,7 +1082,7 @@ static const yytype_uint16 yydefact[] =
     0,   205,   193,   192,     0,     0,     0,     0,   239,   255,
     254,   253,     0,   241,     0,     0,   231,     0,     0,   146,
     145,   144,   143,   107,   294,   108,     0,    97,     0,    97,
-    0,     0,     0,     0,     0,     0,   381,     0,     0,   387,
+    0,     0,     0,     0,     0,     0,   381,     0,   388,   387,
     44,    45,    43,    63,    63,    42,    38,    39,    41,    40,
     50,    37,    48,     1,     7,    20,    19,    18,    17,    10,
     14,    36,   157,     0,    63,     0,   158,     0,     0,     0,
@@ -1097,9 +1098,9 @@ static const yytype_uint16 yydefact[] =
     94,     0,     0,     0,     0,     0,     0,     0,     0,    97,
     0,     0,   370,   361,   362,   366,   363,     0,     0,   382,
     383,   380,     0,     0,     0,     0,    49,     8,    11,    13,
-    188,   187,     0,   392,   393,   394,   395,   396,   397,   398,
-    400,   399,   401,   402,   403,   404,   405,   406,   407,   408,
-    409,   410,   411,   199,   197,   198,   160,   159,   162,   161,
+    188,   187,     0,   393,   394,   395,   396,   397,   398,   399,
+    401,   400,   402,   403,   404,   405,   406,   407,   408,   409,
+    410,   411,   412,   199,   197,   198,   160,   159,   162,   161,
     164,   163,   166,   165,   168,   167,   170,   169,   172,   171,
     174,   173,   178,   177,   176,   175,   180,   179,   182,   181,
     186,   185,   184,   183,   150,   149,   154,   153,   125,   124,
@@ -1112,22 +1113,22 @@ static const yytype_uint16 yydefact[] =
     197,   198,     0,   194,   196,   195,   221,   222,   223,   220,
     219,   218,   233,     0,   237,   234,   244,   245,   256,   249,
     248,   247,   225,     0,   229,   226,   287,   285,   292,   290,
-    280,     0,     0,     0,     0,    96,     0,    97,   390,   103,
+    280,     0,     0,     0,     0,    96,     0,    97,   391,   103,
     101,     0,     0,   100,     0,     0,    97,     0,     0,     0,
     0,     0,     0,   346,   347,   355,   371,   372,   376,   367,
     368,   373,   364,   365,   369,   359,     0,     0,    56,    57,
     46,    47,    12,   217,   190,   189,   216,     0,     0,   320,
     321,     0,     0,     0,     0,     0,    66,    65,    64,    67,
     217,   216,   235,   227,   291,   295,     0,   277,     0,     0,
-    97,     0,    98,    95,     0,   104,   102,   391,   105,     0,
+    97,     0,    98,    95,     0,   104,   102,   392,   105,     0,
     97,     0,     0,     0,     0,     0,    97,     0,     0,   348,
     351,   349,   353,     0,   377,   378,   374,   375,   358,   379,
-    0,   343,   343,   388,   304,     0,   311,   310,     0,     0,
+    0,   343,   343,   389,   304,     0,   311,   310,     0,     0,
     0,   298,   296,   297,   294,   282,     0,   279,     0,    97,
     0,    77,    73,     0,    97,     0,    85,    81,    97,     0,
     0,     0,   355,   352,   350,   354,   356,     0,   306,     0,
     335,   333,   334,   332,     0,     0,   343,   343,   314,   312,
-    313,     0,   343,   343,   389,   299,   300,     0,   278,     0,
+    313,     0,   343,   343,   390,   299,   300,     0,   278,     0,
     0,     0,     0,     0,     0,     0,    97,     0,    93,    89,
     0,   344,     0,   337,   338,   336,   339,   341,   330,   325,
     324,     0,     0,   315,   316,   305,     0,     0,   301,     0,
@@ -5969,140 +5970,148 @@ yyreduce:
         }
         break;
 
-        case 392:
+        case 388:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"if"));
+            printf("RETURN functionCall\n");
+            (yyval.t_return_exp) = new ast::ReturnExp((yyloc), (yyvsp[(2) - (2)].t_call_exp));
         }
         break;
 
         case 393:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"then"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"if"));
         }
         break;
 
         case 394:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"else"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"then"));
         }
         break;
 
         case 395:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"elseif"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"else"));
         }
         break;
 
         case 396:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"end"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"elseif"));
         }
         break;
 
         case 397:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"select"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"end"));
         }
         break;
 
         case 398:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"switch"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"select"));
         }
         break;
 
         case 399:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"otherwise"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"switch"));
         }
         break;
 
         case 400:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"case"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"otherwise"));
         }
         break;
 
         case 401:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"function"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"case"));
         }
         break;
 
         case 402:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"endfunction"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"function"));
         }
         break;
 
         case 403:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"#function"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"endfunction"));
         }
         break;
 
         case 404:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"hidden"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"#function"));
         }
         break;
 
         case 405:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"for"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"hidden"));
         }
         break;
 
         case 406:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"while"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"for"));
         }
         break;
 
         case 407:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"do"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"while"));
         }
         break;
 
         case 408:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"break"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"do"));
         }
         break;
 
         case 409:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"try"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"break"));
         }
         break;
 
         case 410:
 
         {
-            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"catch"));
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"try"));
         }
         break;
 
         case 411:
+
+        {
+            (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"catch"));
+        }
+        break;
+
+        case 412:
 
         {
             (yyval.t_simple_var) = new ast::SimpleVar((yyloc), *new symbol::Symbol(L"return"));
