@@ -323,8 +323,18 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
         }
 
         List* pVarOut = pOut->getAs<List>();
-        const int size = std::max(pVarOut->getSize(), _iRetCount);
-        for (int i = 0 ; i < size ; ++i)
+
+        // exec(func)
+        if (_iRetCount == -1)
+        {
+            iCount = pVarOut->getSize();
+        }
+        else
+        {
+            iCount = std::max(pVarOut->getSize(), _iRetCount);
+        }
+
+        for (int i = 0 ; i < iCount; ++i)
         {
             InternalType* pIT = pVarOut->get(i);
             if (pIT->isListUndefined())

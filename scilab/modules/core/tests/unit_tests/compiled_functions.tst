@@ -7,15 +7,14 @@
 
 // compiled functions
 
-deff('y=foo(a)','x=a+1000,stacksize(x),y=stacksize();y=y(1)')
+deff('y=foo(a)','y=a+1000')
 
-a = stacksize();
-a = a(1);
+a = 500;
 y = foo(a);
 
 if y<>a+1000 then pause,end
 a=y;
-deff('y=toto()','a=stacksize();a=a(1);y=foo(a)')
+deff('y=toto()','y=foo(a)')
 y=toto();
 if y<>a+1000 then pause,end
 a=y;

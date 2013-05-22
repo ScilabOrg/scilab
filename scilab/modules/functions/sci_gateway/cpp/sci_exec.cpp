@@ -173,23 +173,56 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             pExp = parser.getTree();
         }
     }
-    else if (in[0]->isMacro())
+    else if (in[0]->isMacro() || in[0]->isMacroFile())
     {
-        //1st argument is a macro name, execute it in the current environnement
-        pExp = in[0]->getAs<Macro>()->getBody();
-    }
-    else if (in[0]->isMacroFile())
-    {
-        //1st argument is a macro name, parse and execute it in the current environnement
-        if (in[0]->getAs<MacroFile>()->parse() == false)
+        types::Macro* pMacro = NULL;
+        typed_list input;
+        optional_list optional;
+        typed_list output;
+        ast::ExecVisitor execFunc;
+
+        if (in[0]->isMacroFile())
         {
-            char* pstMacro = wide_string_to_UTF8(in[0]->getAs<MacroFile>()->getName().c_str());
-            Scierror(999, _("%s: Unable to parse macro '%s'"), "exec", pstMacro);
-            FREE(pstMacro);
-            mclose(iID);
-            return Function::Error;
+            //1st argument is a macro name, parse and execute it in the current environnement
+            if (in[0]->getAs<MacroFile>()->parse() == false)
+            {
+                char* pstMacro = wide_string_to_UTF8(in[0]->getAs<MacroFile>()->getName().c_str());
+                Scierror(999, _("%s: Unable to parse macro '%s'"), "exec", pstMacro);
+                FREE(pstMacro);
+                mclose(iID);
+                return Function::Error;
+            }
+            pMacro = in[0]->getAs<MacroFile>()->getMacro();
         }
-        pExp = in[0]->getAs<MacroFile>()->getMacro()->getBody();
+        else //1st argument is a macro name, execute it in the current environnement
+        {
+            pMacro = in[0]->getAs<Macro>();
+        }
+
+        // If output arguments is varargout, the number of output argument will be
+        // defined in the call of macro as the max number of output arguments.
+        int iCount = pMacro->outputs_get()->size();
+        if (iCount == 1 && pMacro->outputs_get()->back()->getSymbol().getName() == L"varargout")
+        {
+            iCount = -1;
+        }
+
+        if (pMacro->call(input, optional, iCount, output, &execFunc) != Callable::OK)
+        {
+            char* pstMacro = wide_string_to_UTF8(pMacro->getName().c_str());
+            Scierror(999, _("%s: Unable to call macro '%s'"), "exec", pstMacro);
+            FREE(pstMacro);
+            return types::Function::Error;
+        }
+
+        // set all output in context
+        std::list<symbol::Variable*>::iterator it = pMacro->outputs_get()->begin();
+        for (int i = 0; i < output.size(); it++, i++)
+        {
+            symbol::Context::getInstance()->put(*it, output[i]);
+        }
+
+        return types::Function::OK;
     }
     else
     {
