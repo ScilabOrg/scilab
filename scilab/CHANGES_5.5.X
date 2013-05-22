@@ -196,6 +196,8 @@ Bug fixes
 
 * Bug #12045 fixed - repmat returned wrong result if numbers of input matrix were not double.
 
+* Bug #12080 fixed - lsqrsolve always printed messages.
+
 * Bug #12085 fixed - On Windows csvWrite wrote wrong EOL.
 
 * Bug #12150 fixed - datatipCreate failed with one single point.
