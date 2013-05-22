@@ -1,21 +1,30 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Allan CORNET
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 #include "gw_core.h"
+#include "sciprint.h"
+#include "warningmode.h"
+#include "localization.h"
 /*--------------------------------------------------------------------------*/
 extern int C2F(intintppty)(void);
 /*--------------------------------------------------------------------------*/
-int C2F(sci_intppty)(char *fname,unsigned long fname_len)
+int C2F(sci_intppty)(char *fname, unsigned long fname_len)
 {
-	C2F(intintppty)();
-	return 0;
+    if (getWarningMode())
+    {
+        sciprint(_("WARNING: Feature %s is obsolete.\n"), fname);
+        sciprint(_("WARNING: This feature will be permanently removed in Scilab %s.\n"), "6");
+    }
+
+    C2F(intintppty)();
+    return 0;
 }
 /*--------------------------------------------------------------------------*/
