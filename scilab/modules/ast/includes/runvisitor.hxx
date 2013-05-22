@@ -881,7 +881,26 @@ public :
 
     void visitprivate(const ReturnExp &e)
     {
-        if (e.is_global() == false)
+        //
+        if (e.is_global())
+        {
+            //return or resume
+            if (ConfigVariable::getPauseLevel() != 0)
+            {
+                ThreadId* pThreadId = ConfigVariable::getLastPausedThread();
+                if (pThreadId == NULL)
+                {
+                    //no paused thread, so just go leave
+                    return;
+                }
+
+                __threadId id = pThreadId->getId();
+                pThreadId->resume();
+                __WaitThreadDie(id);
+                return;
+            }
+        }
+        else
         {
             //return(x)
             e.exp_get().accept(*this);
@@ -899,21 +918,22 @@ public :
                     result_get(i)->IncreaseRef();
                 }
             }
-        }
 
-        if (result_getSize() == 1)
-        {
-            //unprotect variable
-            result_get()->DecreaseRef();
-        }
-        else
-        {
-            for (int i = 0 ; i < result_getSize() ; i++)
+            if (result_getSize() == 1)
             {
                 //unprotect variable
-                result_get(i)->DecreaseRef();
+                result_get()->DecreaseRef();
+            }
+            else
+            {
+                for (int i = 0 ; i < result_getSize() ; i++)
+                {
+                    //unprotect variable
+                    result_get(i)->DecreaseRef();
+                }
             }
         }
+
         const_cast<ReturnExp*>(&e)->return_set();
     }
 

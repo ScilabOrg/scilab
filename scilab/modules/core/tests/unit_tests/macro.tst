@@ -47,19 +47,23 @@ if z<>1 then pause,end
 //
 // macro + clauses
 //
-text = ['if n>0 then x=1'
-                                'y=0;for k=1:n,y=y+k,end'
-                            'else x=-1'
-                                 'if n==4 then y=''yes'' '
-                                         'else y=''no'' '
-                                 'end'
-                    'end'
-                   'if n==-1 then return,end'
-                   'if n==-2 then tt=resume(n),end'
-                    'select x,'
-                    'case 1 then x=''pos'' ,tt=resume(''ok''),'
-                    'case -1 then x=''neg'' ,'
-                    'end'];
+text = [
+    'if n>0 then x=1'
+        'y=0;'
+        'for k=1:n,y=y+k,end'
+    'else'
+        'x=-1'
+        'if n==4 then y=''yes'''
+        'else y=''no'' '
+        'end'
+    'end'
+    
+    'if n==-1 then return,end'
+    'if n==-2 then tt=resume(n),end'
+    'select x,'
+        'case 1 then x=''pos'' ,tt=resume(''ok''),'
+        'case -1 then x=''neg'' ,'
+    'end'];
 //
 deff('[x,y]=t5(n)',text,'n')
 [u,v]=t5(5);
@@ -100,19 +104,28 @@ if exists('tt')==1 then pause,end
 //
 // complex clauses
 //
-text = ['if n>0 then x=1'
-                                'y=0;for k=1:b(n),y=y+b(k),end'
-                            'else x=-1'
-                                 'if n==4 then y=b(''yes'') '
-                                         'else y=b(''no'') '
-                                 'end'
-                    'end'
-                   'if n==b(-1) then return,end'
-                   'if n==b(-2) then tt=resume(b(n)),end'
-                    'select x,'
-                    'case 1 then x=b(''pos'') ,tt=resume(b(''ok'')),'
-                    'case b(-1) then x=b(''neg'') ,'
-                    'end'];
+text = ['if n>0 then'
+            'x=1'
+            'y=0;'
+            'for k=1:b(n),y=y+b(k),end'
+        'else'
+            'x=-1'
+            'if n==4 then'
+                'y=b(''yes'')'
+            'else'
+                'y=b(''no'')'
+            'end'
+        'end'
+        'if n==b(-1) then'
+            'return'
+        'end'
+        'if n==b(-2) then'
+            'tt=resume(b(n))'
+        'end'
+        'select x,'
+        'case 1 then x=b(''pos'');tt=resume(b(''ok''));'
+        'case b(-1) then x=b(''neg'');'
+    'end'];
 deff('[x]=b(a)','x=a,prod([1 1])','n')
 deff('[x,y]=t5(n)',text,'n')
 [u,v]=t5(5);

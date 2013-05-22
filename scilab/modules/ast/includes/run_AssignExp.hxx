@@ -67,7 +67,7 @@ void visitprivate(const AssignExp  &e)
             {
                 //ReturnExp so, put the value in the previous scope
                 symbol::Context::getInstance()->putInPreviousScope(pVar->name_get(), *pIT);
-                ((AssignExp*)&e)->break_set();
+                ((AssignExp*)&e)->return_set();
             }
             else
             {

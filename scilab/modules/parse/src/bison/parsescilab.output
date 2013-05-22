@@ -468,33 +468,34 @@ Grammaire
 
   385 returnControl: "return"
   386              | "return" variable
+  387              | "return" functionCall
 
-  387 comments: "line comment" "end of line"
-  388         | comments "line comment" "end of line"
+  388 comments: "line comment" "end of line"
+  389         | comments "line comment" "end of line"
 
-  389 lineEnd: "end of line"
-  390        | "line comment" "end of line"
+  390 lineEnd: "end of line"
+  391        | "line comment" "end of line"
 
-  391 keywords: "if"
-  392         | "then"
-  393         | "else"
-  394         | "elseif"
-  395         | "end"
-  396         | "select"
-  397         | "switch"
-  398         | "otherwise"
-  399         | "case"
-  400         | "function"
-  401         | "endfunction"
-  402         | "#function"
-  403         | "hidden"
-  404         | "for"
-  405         | "while"
-  406         | "do"
-  407         | "break"
-  408         | "try"
-  409         | "catch"
-  410         | "return"
+  392 keywords: "if"
+  393         | "then"
+  394         | "else"
+  395         | "elseif"
+  396         | "end"
+  397         | "select"
+  398         | "switch"
+  399         | "otherwise"
+  400         | "case"
+  401         | "function"
+  402         | "endfunction"
+  403         | "#function"
+  404         | "hidden"
+  405         | "for"
+  406         | "while"
+  407         | "do"
+  408         | "break"
+  409         | "try"
+  410         | "catch"
+  411         | "return"
 
 
 Terminaux, suivis des règles où ils apparaissent
@@ -505,7 +506,7 @@ error (256) 34
 "end of line" (259) 2 16 19 101 103 224 226 228 229 232 234 236 237
     242 243 284 286 287 290 297 298 299 313 314 315 318 319 320 334
     335 336 337 339 341 347 349 351 353 368 369 370 371 372 373 374
-    375 376 377 381 383 387 388 389 390
+    375 376 377 381 383 388 389 390 391
 "spaces" (260)
 "%t or %T" (261) 43 53 210
 "%f or %F" (262) 44 54 211
@@ -557,29 +558,29 @@ error (256) 34
 "||" (302) 119 120 121
 "=" (303) 69 70 71 73 74 75 77 78 79 81 82 83 85 86 87 89 90 91 257
     258 259 260 261 262 263 264 343 344
-"if" (304) 276 277 278 391
+"if" (304) 276 277 278 392
 "then" (305) 288 289 290 291 331 335 338 339 340 341 365 366 367 375
-    376 377 392
-"else" (306) 294 295 296 297 298 299 393
-"elseif" (307) 300 301 302 394
+    376 377 393
+"else" (306) 294 295 296 297 298 299 394
+"elseif" (307) 300 301 302 395
 "end" (308) 73 74 75 76 81 82 83 84 89 90 91 92 276 277 278 303 304
-    305 306 343 344 357 378 379 395
-"select" (309) 307 396
-"switch" (310) 308 397
-"case" (311) 323 324 325 326 327 328 399
-"otherwise" (312) 310 311 312 313 314 315 398
-"function" (313) 69 70 71 72 73 74 75 76 85 86 87 88 89 90 91 92 400
-"endfunction" (314) 69 70 71 72 77 78 79 80 85 86 87 88 401
-"#function" (315) 77 78 79 80 81 82 83 84 402
-"hidden" (316) 85 86 87 88 89 90 91 92 403
-"for" (317) 343 344 404
-"while" (318) 357 405
-"do" (319) 352 353 362 363 364 372 373 374 406
-"break" (320) 30 407
+    305 306 343 344 357 378 379 396
+"select" (309) 307 397
+"switch" (310) 308 398
+"case" (311) 323 324 325 326 327 328 400
+"otherwise" (312) 310 311 312 313 314 315 399
+"function" (313) 69 70 71 72 73 74 75 76 85 86 87 88 89 90 91 92 401
+"endfunction" (314) 69 70 71 72 77 78 79 80 85 86 87 88 402
+"#function" (315) 77 78 79 80 81 82 83 84 403
+"hidden" (316) 85 86 87 88 89 90 91 92 404
+"for" (317) 343 344 405
+"while" (318) 357 406
+"do" (319) 352 353 362 363 364 372 373 374 407
+"break" (320) 30 408
 "continue" (321) 31
-"try" (322) 378 379 408
-"catch" (323) 378 409
-"return" (324) 385 386 410
+"try" (322) 378 379 409
+"catch" (323) 378 410
+"return" (324) 385 386 387 411
 "string" (325) 41 208
 "identifier" (326) 36 37 45 55 56 69 70 71 72 73 74 75 76 77 78 79
     80 81 82 83 84 85 86 87 88 89 90 91 92 97 98 193 204 265 271 343
@@ -588,7 +589,7 @@ error (256) 34
 "float" (328) 40 207
 "number" (329) 39 206
 "path" (330) 49
-"line comment" (331) 7 9 11 12 33 251 254 305 306 368 387 388 390
+"line comment" (331) 7 9 11 12 33 251 254 305 306 368 388 389 391
 "block comment" (332)
 TOPLEVEL (333)
 HIGHLEVEL (334)
@@ -625,6 +626,7 @@ functionCall (92)
     153 156 157 159 161 163 165 167 169 171 173 175 177 179 181 183
     185 187 189 192 195 196 197 198 200 216 218 220 221 222 248 250
     253 258 259 260 262 264 267 268 269 270 274 317 324 326 328 345
+    387
 specificFunctionCall (93)
     à gauche: 53 54, à droite: 51
 simpleFunctionCall (94)
@@ -753,14 +755,14 @@ tryControl (143)
 catchBody (144)
     à gauche: 380 381 382 383 384, à droite: 378 379
 returnControl (145)
-    à gauche: 385 386, à droite: 32 263 264
+    à gauche: 385 386 387, à droite: 32 263 264
 comments (146)
-    à gauche: 387 388, à droite: 325 326 388
+    à gauche: 388 389, à droite: 325 326 389
 lineEnd (147)
-    à gauche: 389 390, à droite: 99
+    à gauche: 390 391, à droite: 99
 keywords (148)
-    à gauche: 391 392 393 394 395 396 397 398 399 400 401 402 403
-    404 405 406 407 408 409 410, à droite: 194 197 266 269
+    à gauche: 392 393 394 395 396 397 398 399 400 401 402 403 404
+    405 406 407 408 409 410 411, à droite: 194 197 266 269
 
 
 état 0
@@ -930,6 +932,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "end of line"   décalage et aller à l'état 2
@@ -1157,6 +1160,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -2361,6 +2365,7 @@ keywords (148)
   384          | .  ["end", "catch"]
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "end of line"   décalage et aller à l'état 94
@@ -2495,6 +2500,7 @@ keywords (148)
   238       | . "[" "]"
   385 returnControl: "return" .  ["end of file", "end of line", ",", ";", ")", "}", "else", "elseif", "end", "case", "otherwise", "endfunction", "catch", "line comment"]
   386              | "return" . variable
+  387              | "return" . functionCall
 
     "%t or %T"    décalage et aller à l'état 3
     "%f or %F"    décalage et aller à l'état 4
@@ -2768,6 +2774,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -6392,6 +6399,7 @@ keywords (148)
   383          | "end of line" .  ["end", "catch"]
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -6607,6 +6615,7 @@ keywords (148)
   382 catchBody: "," . expressions
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -6756,6 +6765,7 @@ keywords (148)
   198         | functionCall . "." functionCall
   200         | functionCall . listableEnd
   216         | functionCall . "(" functionArgs ")"
+  387 returnControl: "return" functionCall .  ["end of file", "end of line", ",", ";", ")", "}", "else", "elseif", "end", "case", "otherwise", "endfunction", "catch", "line comment"]
 
     "'"         décalage et aller à l'état 122
     ":"         décalage et aller à l'état 123
@@ -6788,6 +6798,8 @@ keywords (148)
     "&&"        décalage et aller à l'état 150
     "|"         décalage et aller à l'état 151
     "||"        décalage et aller à l'état 152
+
+    $défaut  réduction par utilisation de la règle 387 (returnControl)
 
     rightComparable  aller à l'état 154
     rightOperand     aller à l'état 155
@@ -7792,26 +7804,26 @@ keywords (148)
   268 assignable: functionCall "." . variable
   269           | functionCall "." . keywords
   270           | functionCall "." . functionCall
-  391 keywords: . "if"
-  392         | . "then"
-  393         | . "else"
-  394         | . "elseif"
-  395         | . "end"
-  396         | . "select"
-  397         | . "switch"
-  398         | . "otherwise"
-  399         | . "case"
-  400         | . "function"
-  401         | . "endfunction"
-  402         | . "#function"
-  403         | . "hidden"
-  404         | . "for"
-  405         | . "while"
-  406         | . "do"
-  407         | . "break"
-  408         | . "try"
-  409         | . "catch"
-  410         | . "return"
+  392 keywords: . "if"
+  393         | . "then"
+  394         | . "else"
+  395         | . "elseif"
+  396         | . "end"
+  397         | . "select"
+  398         | . "switch"
+  399         | . "otherwise"
+  400         | . "case"
+  401         | . "function"
+  402         | . "endfunction"
+  403         | . "#function"
+  404         | . "hidden"
+  405         | . "for"
+  406         | . "while"
+  407         | . "do"
+  408         | . "break"
+  409         | . "try"
+  410         | . "catch"
+  411         | . "return"
 
     "%t or %T"     décalage et aller à l'état 3
     "%f or %F"     décalage et aller à l'état 4
@@ -10537,6 +10549,7 @@ keywords (148)
   264                    | functionCall "=" . returnControl
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     "%t or %T"    décalage et aller à l'état 3
     "%f or %F"    décalage et aller à l'état 4
@@ -10761,26 +10774,26 @@ keywords (148)
   265 assignable: variable "." . "identifier"
   266           | variable "." . keywords
   267           | variable "." . functionCall
-  391 keywords: . "if"
-  392         | . "then"
-  393         | . "else"
-  394         | . "elseif"
-  395         | . "end"
-  396         | . "select"
-  397         | . "switch"
-  398         | . "otherwise"
-  399         | . "case"
-  400         | . "function"
-  401         | . "endfunction"
-  402         | . "#function"
-  403         | . "hidden"
-  404         | . "for"
-  405         | . "while"
-  406         | . "do"
-  407         | . "break"
-  408         | . "try"
-  409         | . "catch"
-  410         | . "return"
+  392 keywords: . "if"
+  393         | . "then"
+  394         | . "else"
+  395         | . "elseif"
+  396         | . "end"
+  397         | . "select"
+  398         | . "switch"
+  399         | . "otherwise"
+  400         | . "case"
+  401         | . "function"
+  402         | . "endfunction"
+  403         | . "#function"
+  404         | . "hidden"
+  405         | . "for"
+  406         | . "while"
+  407         | . "do"
+  408         | . "break"
+  409         | . "try"
+  410         | . "catch"
+  411         | . "return"
 
     "%t or %T"     décalage et aller à l'état 344
     "%f or %F"     décalage et aller à l'état 345
@@ -11116,6 +11129,7 @@ keywords (148)
   263                    | assignable "=" . returnControl
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     "%t or %T"    décalage et aller à l'état 3
     "%f or %F"    décalage et aller à l'état 4
@@ -12188,26 +12202,26 @@ keywords (148)
   236       | . "[" "end of line" matrixOrCellColumns "]"
   237       | . "[" "end of line" "]"
   238       | . "[" "]"
-  391 keywords: . "if"
-  392         | . "then"
-  393         | . "else"
-  394         | . "elseif"
-  395         | . "end"
-  396         | . "select"
-  397         | . "switch"
-  398         | . "otherwise"
-  399         | . "case"
-  400         | . "function"
-  401         | . "endfunction"
-  402         | . "#function"
-  403         | . "hidden"
-  404         | . "for"
-  405         | . "while"
-  406         | . "do"
-  407         | . "break"
-  408         | . "try"
-  409         | . "catch"
-  410         | . "return"
+  392 keywords: . "if"
+  393         | . "then"
+  394         | . "else"
+  395         | . "elseif"
+  396         | . "end"
+  397         | . "select"
+  398         | . "switch"
+  399         | . "otherwise"
+  400         | . "case"
+  401         | . "function"
+  402         | . "endfunction"
+  403         | . "#function"
+  404         | . "hidden"
+  405         | . "for"
+  406         | . "while"
+  407         | . "do"
+  408         | . "break"
+  409         | . "try"
+  410         | . "catch"
+  411         | . "return"
 
     "%t or %T"     décalage et aller à l'état 3
     "%f or %F"     décalage et aller à l'état 4
@@ -12405,26 +12419,26 @@ keywords (148)
   193 variable: variable "." . "identifier"
   194         | variable "." . keywords
   195         | variable "." . functionCall
-  391 keywords: . "if"
-  392         | . "then"
-  393         | . "else"
-  394         | . "elseif"
-  395         | . "end"
-  396         | . "select"
-  397         | . "switch"
-  398         | . "otherwise"
-  399         | . "case"
-  400         | . "function"
-  401         | . "endfunction"
-  402         | . "#function"
-  403         | . "hidden"
-  404         | . "for"
-  405         | . "while"
-  406         | . "do"
-  407         | . "break"
-  408         | . "try"
-  409         | . "catch"
-  410         | . "return"
+  392 keywords: . "if"
+  393         | . "then"
+  394         | . "else"
+  395         | . "elseif"
+  396         | . "end"
+  397         | . "select"
+  398         | . "switch"
+  399         | . "otherwise"
+  400         | . "case"
+  401         | . "function"
+  402         | . "endfunction"
+  403         | . "#function"
+  404         | . "hidden"
+  405         | . "for"
+  406         | . "while"
+  407         | . "do"
+  408         | . "break"
+  409         | . "try"
+  410         | . "catch"
+  411         | . "return"
 
     "%t or %T"     décalage et aller à l'état 344
     "%f or %F"     décalage et aller à l'état 345
@@ -14141,6 +14155,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -14264,8 +14279,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -14309,8 +14324,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -14689,6 +14704,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -14930,6 +14946,7 @@ keywords (148)
   384          | .  ["end"]
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "end of line"   décalage et aller à l'état 94
@@ -15403,142 +15420,142 @@ keywords (148)
 
 état 253
 
-  391 keywords: "if" .
-
-    $défaut  réduction par utilisation de la règle 391 (keywords)
-
-
-état 254
-
-  392 keywords: "then" .
+  392 keywords: "if" .
 
     $défaut  réduction par utilisation de la règle 392 (keywords)
 
 
-état 255
+état 254
 
-  393 keywords: "else" .
+  393 keywords: "then" .
 
     $défaut  réduction par utilisation de la règle 393 (keywords)
 
 
-état 256
+état 255
 
-  394 keywords: "elseif" .
+  394 keywords: "else" .
 
     $défaut  réduction par utilisation de la règle 394 (keywords)
 
 
-état 257
+état 256
 
-  395 keywords: "end" .
+  395 keywords: "elseif" .
 
     $défaut  réduction par utilisation de la règle 395 (keywords)
 
 
-état 258
+état 257
 
-  396 keywords: "select" .
+  396 keywords: "end" .
 
     $défaut  réduction par utilisation de la règle 396 (keywords)
 
 
-état 259
+état 258
 
-  397 keywords: "switch" .
+  397 keywords: "select" .
 
     $défaut  réduction par utilisation de la règle 397 (keywords)
 
 
-état 260
+état 259
 
-  399 keywords: "case" .
-
-    $défaut  réduction par utilisation de la règle 399 (keywords)
-
-
-état 261
-
-  398 keywords: "otherwise" .
+  398 keywords: "switch" .
 
     $défaut  réduction par utilisation de la règle 398 (keywords)
 
 
-état 262
+état 260
 
-  400 keywords: "function" .
+  400 keywords: "case" .
 
     $défaut  réduction par utilisation de la règle 400 (keywords)
 
 
-état 263
+état 261
 
-  401 keywords: "endfunction" .
+  399 keywords: "otherwise" .
+
+    $défaut  réduction par utilisation de la règle 399 (keywords)
+
+
+état 262
+
+  401 keywords: "function" .
 
     $défaut  réduction par utilisation de la règle 401 (keywords)
 
 
-état 264
+état 263
 
-  402 keywords: "#function" .
+  402 keywords: "endfunction" .
 
     $défaut  réduction par utilisation de la règle 402 (keywords)
 
 
-état 265
+état 264
 
-  403 keywords: "hidden" .
+  403 keywords: "#function" .
 
     $défaut  réduction par utilisation de la règle 403 (keywords)
 
 
-état 266
+état 265
 
-  404 keywords: "for" .
+  404 keywords: "hidden" .
 
     $défaut  réduction par utilisation de la règle 404 (keywords)
 
 
-état 267
+état 266
 
-  405 keywords: "while" .
+  405 keywords: "for" .
 
     $défaut  réduction par utilisation de la règle 405 (keywords)
 
 
-état 268
+état 267
 
-  406 keywords: "do" .
+  406 keywords: "while" .
 
     $défaut  réduction par utilisation de la règle 406 (keywords)
 
 
-état 269
+état 268
 
-  407 keywords: "break" .
+  407 keywords: "do" .
 
     $défaut  réduction par utilisation de la règle 407 (keywords)
 
 
-état 270
+état 269
 
-  408 keywords: "try" .
+  408 keywords: "break" .
 
     $défaut  réduction par utilisation de la règle 408 (keywords)
 
 
-état 271
+état 270
 
-  409 keywords: "catch" .
+  409 keywords: "try" .
 
     $défaut  réduction par utilisation de la règle 409 (keywords)
 
 
-état 272
+état 271
 
-  410 keywords: "return" .
+  410 keywords: "catch" .
 
     $défaut  réduction par utilisation de la règle 410 (keywords)
+
+
+état 272
+
+  411 keywords: "return" .
+
+    $défaut  réduction par utilisation de la règle 411 (keywords)
 
 
 état 273
@@ -24100,8 +24117,8 @@ keywords (148)
   326             | . comments "case" functionCall caseControlBreak caseBody
   327             | . casesControl "case" variable caseControlBreak caseBody
   328             | . casesControl "case" functionCall caseControlBreak caseBody
-  387 comments: . "line comment" "end of line"
-  388         | . comments "line comment" "end of line"
+  388 comments: . "line comment" "end of line"
+  389         | . comments "line comment" "end of line"
 
     "case"          décalage et aller à l'état 452
     "line comment"  décalage et aller à l'état 453
@@ -25975,9 +25992,9 @@ keywords (148)
 
 état 408
 
-  389 lineEnd: "end of line" .
+  390 lineEnd: "end of line" .
 
-    $défaut  réduction par utilisation de la règle 389 (lineEnd)
+    $défaut  réduction par utilisation de la règle 390 (lineEnd)
 
 
 état 409
@@ -26002,7 +26019,7 @@ keywords (148)
 
 état 411
 
-  390 lineEnd: "line comment" . "end of line"
+  391 lineEnd: "line comment" . "end of line"
 
     "end of line"  décalage et aller à l'état 477
 
@@ -26167,6 +26184,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -26424,6 +26442,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -26516,8 +26535,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -27394,8 +27413,8 @@ keywords (148)
   326             | . comments "case" functionCall caseControlBreak caseBody
   327             | . casesControl "case" variable caseControlBreak caseBody
   328             | . casesControl "case" functionCall caseControlBreak caseBody
-  387 comments: . "line comment" "end of line"
-  388         | . comments "line comment" "end of line"
+  388 comments: . "line comment" "end of line"
+  389         | . comments "line comment" "end of line"
 
     "case"          décalage et aller à l'état 452
     "line comment"  décalage et aller à l'état 453
@@ -27505,7 +27524,7 @@ keywords (148)
 
 état 453
 
-  387 comments: "line comment" . "end of line"
+  388 comments: "line comment" . "end of line"
 
     "end of line"  décalage et aller à l'état 503
 
@@ -27543,7 +27562,7 @@ keywords (148)
 
   325 casesControl: comments . "case" variable caseControlBreak caseBody
   326             | comments . "case" functionCall caseControlBreak caseBody
-  388 comments: comments . "line comment" "end of line"
+  389 comments: comments . "line comment" "end of line"
 
     "case"          décalage et aller à l'état 509
     "line comment"  décalage et aller à l'état 510
@@ -28136,6 +28155,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -28247,8 +28267,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -28275,9 +28295,9 @@ keywords (148)
 
 état 477
 
-  390 lineEnd: "line comment" "end of line" .
+  391 lineEnd: "line comment" "end of line" .
 
-    $défaut  réduction par utilisation de la règle 390 (lineEnd)
+    $défaut  réduction par utilisation de la règle 391 (lineEnd)
 
 
 état 478
@@ -28328,8 +28348,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -28540,6 +28560,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -28802,6 +28823,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -29215,9 +29237,9 @@ keywords (148)
 
 état 503
 
-  387 comments: "line comment" "end of line" .
+  388 comments: "line comment" "end of line" .
 
-    $défaut  réduction par utilisation de la règle 387 (comments)
+    $défaut  réduction par utilisation de la règle 388 (comments)
 
 
 état 504
@@ -29508,6 +29530,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -29667,7 +29690,7 @@ keywords (148)
 
 état 510
 
-  388 comments: comments "line comment" . "end of line"
+  389 comments: comments "line comment" . "end of line"
 
     "end of line"  décalage et aller à l'état 554
 
@@ -29757,8 +29780,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -29944,6 +29967,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -30026,8 +30050,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -30213,6 +30237,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -30318,8 +30343,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -30562,6 +30587,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -30822,6 +30848,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -31042,6 +31069,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -31703,9 +31731,9 @@ keywords (148)
 
 état 554
 
-  388 comments: comments "line comment" "end of line" .
+  389 comments: comments "line comment" "end of line" .
 
-    $défaut  réduction par utilisation de la règle 388 (comments)
+    $défaut  réduction par utilisation de la règle 389 (comments)
 
 
 état 555
@@ -31883,6 +31911,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -32110,6 +32139,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -32178,8 +32208,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -32359,6 +32389,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -32427,8 +32458,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -32457,8 +32488,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -32644,6 +32675,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -32876,6 +32908,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -33169,6 +33202,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -33389,6 +33423,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -33630,6 +33665,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -33850,6 +33886,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -34104,6 +34141,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -34346,6 +34384,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -34579,6 +34618,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -34647,8 +34687,8 @@ keywords (148)
   101                         | . ";" "end of line"
   102                         | . ","
   103                         | . "," "end of line"
-  389 lineEnd: . "end of line"
-  390        | . "line comment" "end of line"
+  390 lineEnd: . "end of line"
+  391        | . "line comment" "end of line"
 
     "end of line"   décalage et aller à l'état 408
     ","             décalage et aller à l'état 409
@@ -34883,6 +34923,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3
@@ -35163,6 +35204,7 @@ keywords (148)
   379           | . "try" catchBody "end"
   385 returnControl: . "return"
   386              | . "return" variable
+  387              | . "return" functionCall
 
     error           décalage et aller à l'état 1
     "%t or %T"      décalage et aller à l'état 3

@@ -1670,7 +1670,8 @@ expressions                     { $$ = $1; }
 /* Make a break in a function or make the variable getting one scope up. */
 returnControl :
 RETURN				{ $$ = new ast::ReturnExp(@$); }
-| RETURN variable		{ $$ = new ast::ReturnExp(@$, $2); }
+| RETURN variable   { $$ = new ast::ReturnExp(@$, $2); }
+| RETURN functionCall   {printf("RETURN functionCall\n"); $$ = new ast::ReturnExp(@$, $2); }
 ;
 
 /*
