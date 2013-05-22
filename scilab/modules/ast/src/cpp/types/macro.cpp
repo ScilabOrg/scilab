@@ -71,12 +71,17 @@ Macro::~Macro()
     }
 }
 
-void Macro::cleanCall(symbol::Context * pContext, int oldPromptMode)
+void Macro::cleanCall(symbol::Context * pContext, int oldPromptMode, int _iRetCount)
 {
     //restore previous prompt mode
     ConfigVariable::setPromptMode(oldPromptMode);
     //close the current scope
-    pContext->scope_end();
+    // _iRetCount == -1 in case exec(macro)
+    if (_iRetCount > -1)
+    {
+        pContext->scope_end();
+    }
+
     ConfigVariable::macroFirstLine_end();
 }
 
@@ -149,8 +154,12 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
     ReturnValue RetVal = Callable::OK;
     symbol::Context *pContext = symbol::Context::getInstance();
 
-    //open a new scope
-    pContext->scope_begin();
+    //open a new scope exept in case exec(macro) (_iRetCount == -1)
+    if (_iRetCount > -1)
+    {
+        pContext->scope_begin();
+    }
+
     //store the line number where is stored this macro in file.
     ConfigVariable::macroFirstLine_begin(getFirstLine());
 
@@ -294,12 +303,12 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
     }
     catch (ast::ScilabMessage & sm)
     {
-        cleanCall(pContext, oldVal);
+        cleanCall(pContext, oldVal, _iRetCount);
         throw sm;
     }
     catch (ast::InternalAbort & ia)
     {
-        cleanCall(pContext, oldVal);
+        cleanCall(pContext, oldVal, _iRetCount);
         throw ia;
     }
     // Normally, seqexp throws only SM so no need to catch SErr
@@ -310,14 +319,14 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
         InternalType* pOut = pContext->get(m_Varargout);
         if (pOut == NULL)
         {
-            cleanCall(pContext, oldVal);
+            cleanCall(pContext, oldVal, _iRetCount);
             Scierror(999, _("Invalid index.\n"));
             return Callable::Error;
         }
 
         if (pOut->isList() == false || pOut->getAs<List>()->getSize() == 0)
         {
-            cleanCall(pContext, oldVal);
+            cleanCall(pContext, oldVal, _iRetCount);
             Scierror(999, _("Invalid index.\n"));
             return Callable::Error;
         }
@@ -335,7 +344,7 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
                     out[j]->killMe();
                 }
                 out.clear();
-                cleanCall(pContext, oldVal);
+                cleanCall(pContext, oldVal, _iRetCount);
 
                 Scierror(999, _("List element number %d is Undefined.\n"), i + 1);
                 return Callable::Error;
@@ -364,7 +373,7 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
                     out[j]->killMe();
                 }
                 out.clear();
-                cleanCall(pContext, oldVal);
+                cleanCall(pContext, oldVal, _iRetCount);
 
                 char* pst = wide_string_to_UTF8((*i)->getSymbol().getName().c_str());
                 Scierror(999, _("Undefined variable %s.\n"), pst);
@@ -375,7 +384,7 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
     }
 
     //close the current scope
-    cleanCall(pContext, oldVal);
+    cleanCall(pContext, oldVal, _iRetCount);
 
     for (typed_list::iterator i = out.begin(), end = out.end(); i != end; ++i)
     {

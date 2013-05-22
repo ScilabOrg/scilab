@@ -173,23 +173,48 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             pExp = parser.getTree();
         }
     }
-    else if (in[0]->isMacro())
+    else if (in[0]->isMacro() || in[0]->isMacroFile())
     {
-        //1st argument is a macro name, execute it in the current environnement
-        pExp = in[0]->getAs<Macro>()->getBody();
-    }
-    else if (in[0]->isMacroFile())
-    {
-        //1st argument is a macro name, parse and execute it in the current environnement
-        if (in[0]->getAs<MacroFile>()->parse() == false)
+        types::Macro* pMacro = NULL;
+        typed_list input;
+        optional_list optional;
+        typed_list output;
+        ast::ExecVisitor execFunc;
+
+        if (in[0]->isMacroFile())
         {
-            char* pstMacro = wide_string_to_UTF8(in[0]->getAs<MacroFile>()->getName().c_str());
-            Scierror(999, _("%s: Unable to parse macro '%s'"), "exec", pstMacro);
-            FREE(pstMacro);
-            mclose(iID);
+            //1st argument is a macro name, parse and execute it in the current environnement
+            if (in[0]->getAs<MacroFile>()->parse() == false)
+            {
+                char* pstMacro = wide_string_to_UTF8(in[0]->getAs<MacroFile>()->getName().c_str());
+                Scierror(999, _("%s: Unable to parse macro '%s'"), "exec", pstMacro);
+                FREE(pstMacro);
+                mclose(iID);
+                return Function::Error;
+            }
+            pMacro = in[0]->getAs<MacroFile>()->getMacro();
+        }
+        else //1st argument is a macro name, execute it in the current environnement
+        {
+            pMacro = in[0]->getAs<Macro>();
+        }
+
+        // If output arguments is varargout, the number of output argument will be
+        if (pMacro->outputs_get()->empty() == false || pMacro->inputs_get()->empty() == false)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A macro without input and output argument expected.\n"), "exec", 1);
             return Function::Error;
         }
-        pExp = in[0]->getAs<MacroFile>()->getMacro()->getBody();
+
+        if (pMacro->call(input, optional, -1, output, &execFunc) != Callable::OK)
+        {
+            char* pstMacro = wide_string_to_UTF8(pMacro->getName().c_str());
+            Scierror(999, _("%s: Unable to call macro '%s'"), "exec", pstMacro);
+            FREE(pstMacro);
+            return types::Function::Error;
+        }
+
+        return types::Function::OK;
     }
     else
     {
