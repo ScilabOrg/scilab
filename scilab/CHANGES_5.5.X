@@ -249,3 +249,5 @@ Bug fixes
 * Bug #12606 fixed - Overloads for grand were not standard.
 
 * Bug #12614 fixed - Helpbrowser was not launched in EDT.
+
+* Bug #12631 fixed - A "see also" link added from progressionbar to waitbar and vice versa.
