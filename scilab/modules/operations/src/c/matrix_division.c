@@ -10,6 +10,7 @@
  *
  */
 
+#include "stdio.h"
 #include "sci_ieee.h"
 #include "matrix_division.h"
 #include <string.h>
@@ -707,18 +708,11 @@ int	iLeftDivisionOfComplexMatrix(
     /* Array allocations*/
     poVar1		= oGetDoubleComplexFromPointer(_pdblReal1,	_pdblImg1,		_iRows1 * _iCols1);
     poVar2		= oGetDoubleComplexFromPointer(_pdblReal2,	_pdblImg2,		_iRows2 * _iCols2);
-    poOut		= oGetDoubleComplexFromPointer(_pdblRealOut, _pdblImgOut,	_iRowsOut * _iColsOut);
-
-    pAf			= (doublecomplex*)malloc(sizeof(doublecomplex) * _iRows1 * _iCols1);
-    pXb			= (doublecomplex*)malloc(sizeof(doublecomplex) * Max(_iRows1, _iCols1) * _iColsOut);
 
     pRank		= (int*)malloc(sizeof(int));
     pIpiv		= (int*)malloc(sizeof(int) * _iCols1);
     pJpvt		= (int*)malloc(sizeof(int) * _iCols1);
     pRwork		= (double*)malloc(sizeof(double) * _iCols1 * 2);
-
-
-    //C'est du grand nawak ca, on reserve toute la stack ! Oo
 
     cNorm		= '1';
     pDwork		= (doublecomplex*)malloc(sizeof(doublecomplex) * iWorkMin);
@@ -727,21 +721,15 @@ int	iLeftDivisionOfComplexMatrix(
 
     if (_iRows1 == _iCols1)
     {
-        cNorm		= 'F';
-        C2F(zlacpy)(&cNorm, &_iCols1, &_iCols1,	(double*)poVar1, &_iCols1, (double*)pAf, &_iCols1);
-        C2F(zlacpy)(&cNorm, &_iCols1, &_iCols2,	(double*)poVar2, &_iCols1, (double*)pXb, &_iCols1);
-        C2F(zgetrf)(&_iCols1, &_iCols1, (double*)pAf, &_iCols1, pIpiv, &iInfo);
+        C2F(zgetrf)(&_iCols1, &_iCols1, (double*)poVar1, &_iCols1, pIpiv, &iInfo);
         if (iInfo == 0)
         {
-            cNorm = '1';
-            C2F(zgecon)(&cNorm, &_iCols1, pAf, &_iCols1, &dblAnorm, &dblRcond, pDwork, pRwork, &iInfo);
+            C2F(zgecon)(&cNorm, &_iCols1, poVar1, &_iCols1, &dblAnorm, &dblRcond, pDwork, pRwork, &iInfo);
             if (dblRcond > dsqrts(dblEps))
             {
                 cNorm	= 'N';
-                C2F(zgetrs)(&cNorm, &_iCols1, &_iCols2, (double*)pAf, &_iCols1, pIpiv, (double*)pXb, &_iCols1, &iInfo);
-                cNorm	= 'F';
-                C2F(zlacpy)(&cNorm, &_iCols1, &_iCols2, (double*)pXb, &_iCols1, (double*)poOut, &_iCols1);
-                vGetPointerFromDoubleComplex(poOut, _iRowsOut * _iColsOut, _pdblRealOut, _pdblImgOut);
+                C2F(zgetrs)(&cNorm, &_iCols1, &_iCols2, (double*)poVar1, &_iCols1, pIpiv, (double*)poVar2, &_iCols1, &iInfo);
+                vGetPointerFromDoubleComplex(poVar2, _iRowsOut * _iColsOut, _pdblRealOut, _pdblImgOut);
                 iExit = 1;
             }
             else
@@ -758,9 +746,8 @@ int	iLeftDivisionOfComplexMatrix(
         dblRcond = dsqrts(dblEps);
         cNorm = 'F';
         iMax = Max(_iRows1, _iCols1);
-        C2F(zlacpy)(&cNorm, &_iRows1, &_iCols2, (double*)poVar2, &_iRows1, (double*)pXb, &iMax);
         memset(pJpvt, 0x00, sizeof(int) * _iCols1);
-        C2F(zgelsy1)(	&_iRows1, &_iCols1, &_iCols2, poVar1, &_iRows1, pXb, &iMax,
+        C2F(zgelsy1)(	&_iRows1, &_iCols1, &_iCols2, poVar1, &_iRows1, poVar2, &iMax,
                         pJpvt, &dblRcond, &pRank[0], pDwork, &iWorkMin, pRwork, &iInfo);
 
         if (iInfo == 0)
@@ -773,18 +760,13 @@ int	iLeftDivisionOfComplexMatrix(
             }
 
             cNorm = 'F';
-            C2F(zlacpy)(&cNorm, &_iCols1, &_iCols2, (double*)pXb, &iMax, (double*)poOut, &_iCols1);
-            vGetPointerFromDoubleComplex(poOut, _iRowsOut * _iColsOut, _pdblRealOut, _pdblImgOut);
+            vGetPointerFromDoubleComplex(poVar2, _iRowsOut * _iColsOut, _pdblRealOut, _pdblImgOut);
         }
     }
 
 
     vFreeDoubleComplexFromPointer(poVar1);
     vFreeDoubleComplexFromPointer(poVar2);
-    vFreeDoubleComplexFromPointer(poOut);
-
-    free(pAf);
-    free(pXb);
     free(pRank);
     free(pIpiv);
     free(pJpvt);
