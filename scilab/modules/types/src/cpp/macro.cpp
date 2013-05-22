@@ -222,8 +222,20 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
                 return Callable::Error;
             }
 
+            int iCount = 0;
             List* pVarOut = pOut->getAs<List>();
-            for (int i = 0 ; i < Min(pVarOut->getSize(), _iRetCount) ; i++)
+
+            // exec(func)
+            if (_iRetCount == -1)
+            {
+                iCount = pVarOut->getSize();
+            }
+            else
+            {
+                iCount = Min(pVarOut->getSize(), _iRetCount);
+            }
+
+            for (int i = 0 ; i < iCount ; i++)
             {
                 InternalType* pIT = pVarOut->get(i)->clone();
                 if (pIT->isListUndefined())
