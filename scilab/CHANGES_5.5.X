@@ -54,6 +54,12 @@ Obsolete
 * nfreq() tagged as obsolete. Will be removed for Scilab 5.5.1.
   Use tabul() instead.
 
+* funptr() tagged as obsolete. Will be removed for Scilab 6.
+
+* newfun() tagged as obsolete. Will be removed for Scilab 6.
+  Use newfun = fun instead.
+
+* intppty() tagged as obsolete. Will be removed for Scilab 6.
 
 Xcos
 ====
@@ -68,7 +74,7 @@ Xcos
 * Bug #12384 fixed - Using a modelica part linked with explicit link to
                      another modelica part lead to an algebraic loop error.
 
-* Bug #12568 fixed - "Recent files" menu entry should be placed next to the 
+* Bug #12568 fixed - "Recent files" menu entry should be placed next to the
                      "Open" one.
 
 * Bug #12603 fixed - ZCOS files may contain blocs with modified (eg. invalid)
@@ -113,7 +119,7 @@ Bug fixes
 
 * Bug #7026 fixed - There was no unit test for plot2d.
 
-* Bug #7206 fixed - If the second input argument of meanf function was an hypermat, this function 
+* Bug #7206 fixed - If the second input argument of meanf function was an hypermat, this function
                     returned an error.
 
 * Bug #7655 fixed - An example added in help page of type, for type(X)=11 and type(X)=13.
@@ -178,7 +184,7 @@ Bug fixes
 
 * Bug #10226 fixed - When a // <empty session> line is delete, all sessions
                      histories are folded.
-                     
+
 * Bug #10818 fixed - The following help pages have been added: hom, %e, %t, %f, %z and %s.
 
 * Bug #11308 fixed - Calling sequences in help page of dsearch were wrong.
