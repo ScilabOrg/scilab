@@ -62,7 +62,7 @@ void visitprivate(const CallExp &e)
                 continue;
             }
 
-            expected_size_set(1);
+            expected_setSize(1);
             (*itExp)->accept (*this);
 
             if (result_get() == NULL)
@@ -105,7 +105,7 @@ void visitprivate(const CallExp &e)
         try
         {
             int iSaveExpectedSize = iRetCount;
-            expected_size_set(iSaveExpectedSize);
+            expected_setSize(iSaveExpectedSize);
             iRetCount = Max(1, iRetCount);
 
             //reset previous error before call function
@@ -114,7 +114,7 @@ void visitprivate(const CallExp &e)
             ConfigVariable::setVerbose(e.is_verbose());
             //call function
             types::Function::ReturnValue Ret = pCall->call(in, opt, iRetCount, out, this);
-            expected_size_set(iSaveExpectedSize);
+            expected_setSize(iSaveExpectedSize);
             result_clear();
 
             if (Ret == types::Callable::OK)

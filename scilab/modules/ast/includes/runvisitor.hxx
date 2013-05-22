@@ -132,7 +132,7 @@ public:
         }
     }
 
-    void expected_size_set(int _iSize)
+    void expected_setSize(int _iSize)
     {
         _excepted_result = _iSize;
     }
@@ -881,10 +881,34 @@ public :
 
     void visitprivate(const ReturnExp &e)
     {
-        if (e.is_global() == false)
+        //
+        if (e.is_global())
+        {
+            //return or resume
+            if (ConfigVariable::getPauseLevel() != 0)
+            {
+                ThreadId* pThreadId = ConfigVariable::getLastPausedThread();
+                if (pThreadId == NULL)
+                {
+                    //no paused thread, so just go leave
+                    return;
+                }
+
+                __threadId id = pThreadId->getId();
+                pThreadId->resume();
+                __WaitThreadDie(id);
+                return;
+            }
+        }
+        else
         {
             //return(x)
+
+            //in case of CallExp, we can return only one values
+            int iSaveExpectedSize = expected_getSize();
+            expected_setSize(1);
             e.exp_get().accept(*this);
+            expected_setSize(iSaveExpectedSize);
 
             if (result_getSize() == 1)
             {
@@ -899,21 +923,22 @@ public :
                     result_get(i)->IncreaseRef();
                 }
             }
-        }
 
-        if (result_getSize() == 1)
-        {
-            //unprotect variable
-            result_get()->DecreaseRef();
-        }
-        else
-        {
-            for (int i = 0 ; i < result_getSize() ; i++)
+            if (result_getSize() == 1)
             {
                 //unprotect variable
-                result_get(i)->DecreaseRef();
+                result_get()->DecreaseRef();
+            }
+            else
+            {
+                for (int i = 0 ; i < result_getSize() ; i++)
+                {
+                    //unprotect variable
+                    result_get(i)->DecreaseRef();
+                }
             }
         }
+
         const_cast<ReturnExp*>(&e)->return_set();
     }
 
@@ -1070,7 +1095,7 @@ public :
             {
                 //reset default values
                 result_set(NULL);
-                expected_size_set(-1);
+                expected_setSize(-1);
                 (*itExp)->accept(*this);
 
                 if (result_get() != NULL)
@@ -1087,9 +1112,9 @@ public :
                         {
                             //in this case of calling, we can return only one values
                             int iSaveExpectedSize = expected_getSize();
-                            expected_size_set(1);
+                            expected_setSize(1);
                             Function::ReturnValue Ret = pCall->call(in, opt, expected_getSize(), out, this);
-                            expected_size_set(iSaveExpectedSize);
+                            expected_setSize(iSaveExpectedSize);
 
                             if (Ret == Callable::OK)
                             {
@@ -1259,8 +1284,9 @@ public :
         int i = 0;
         for (it = e.exps_get().begin() ; it != e.exps_get().end() ; it++)
         {
-            (*it)->accept(*this);
-            result_set(i, result_get()->clone());
+            ExecVisitor execMe;
+            (*it)->accept(execMe);
+            result_set(i, execMe.result_get()->clone());
             i++;
         }
     }

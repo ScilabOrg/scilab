@@ -30,7 +30,7 @@ void visitprivate(const AssignExp  &e)
             InternalType *pIT = e.right_val_get();
             if (pIT == NULL)
             {
-                expected_size_set(1);
+                expected_setSize(1);
                 e.right_exp_get().accept(*this);
 
                 if (result_getSize() != 1)
@@ -67,7 +67,7 @@ void visitprivate(const AssignExp  &e)
             {
                 //ReturnExp so, put the value in the previous scope
                 symbol::Context::getInstance()->putInPreviousScope(pVar->name_get(), *pIT);
-                ((AssignExp*)&e)->break_set();
+                ((AssignExp*)&e)->return_set();
             }
             else
             {
@@ -820,7 +820,7 @@ void visitprivate(const AssignExp  &e)
 
             /*getting what to assign*/
             T exec;
-            exec.expected_size_set(iLhsCount);
+            exec.expected_setSize(iLhsCount);
             e.right_exp_get().accept(exec);
 
             if (exec.result_getSize() != iLhsCount)
@@ -853,7 +853,7 @@ void visitprivate(const AssignExp  &e)
             //a.b = x
             //a.b can be a struct or a tlist/mlist or a handle
             /*getting what to assign*/
-            expected_size_set(1);
+            expected_setSize(1);
             e.right_exp_get().accept(*this);
             InternalType *pIT = result_get();
             if (pIT->isImplicitList())
