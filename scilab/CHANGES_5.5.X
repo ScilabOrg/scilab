@@ -194,6 +194,8 @@ Bug fixes
 
 * Bug #11891 fixed - Fisher ratio could be inaccurate for one-way ANOVA.
 
+* Bug #11894 fixed - Error messages in template "spreadsheet" did not follow convention about checking size.
+
 * Bug #12045 fixed - repmat returned wrong result if numbers of input matrix were not double.
 
 * Bug #12085 fixed - On Windows csvWrite wrote wrong EOL.

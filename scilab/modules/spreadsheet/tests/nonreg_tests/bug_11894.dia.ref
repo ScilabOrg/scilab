@@ -1,0 +1,19 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 11894 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11894
+//
+// <-- Short Description -->
+// Error messages in template "spreadsheeet" do not follow convention about
+// checking size
+errmsg = msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "csvDefault", 2, 1, 1);
+assert_checkerror("csvDefault(""field"",[""."","",""]);", errmsg);

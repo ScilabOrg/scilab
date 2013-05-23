@@ -80,7 +80,7 @@ char *csv_getArgumentAsStringWithEmptyManagement(void* _pvCtx, int _iVar, const 
         if (*iErr == 0 )
         {
             *iErr = API_ERROR_CHECK_VAR_DIMENSION;
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, _iVar);
+            Scierror(999, _("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), fname, _iVar, 1, 1);
             return NULL;
         }
 
@@ -134,7 +134,7 @@ char *csv_getArgumentAsString(void* _pvCtx, int _iVar,
     if (*iErr == 0 )
     {
         *iErr = API_ERROR_CHECK_VAR_DIMENSION;
-        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, _iVar);
+        Scierror(999, _("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), fname, _iVar, 1, 1);
         return NULL;
     }
 
@@ -184,7 +184,7 @@ double csv_getArgumentAsScalarDouble(void* _pvCtx, int _iVar,
     if (*iErr == 0 )
     {
         *iErr = API_ERROR_CHECK_VAR_DIMENSION;
-        Scierror(999, _("%s: Wrong size for input argument #%d: A double expected.\n"), fname, _iVar);
+        Scierror(999, _("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), fname, _iVar, 1, 1);
         return 0;
     }
 
@@ -229,7 +229,7 @@ int csv_getArgumentAsScalarBoolean(void* _pvCtx, int _iVar,
     if (*iErr == 0 )
     {
         *iErr = API_ERROR_CHECK_VAR_DIMENSION;
-        Scierror(999, _("%s: Wrong size for input argument #%d: A boolean expected.\n"), fname, _iVar);
+        Scierror(999, _("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), fname, _iVar, 1, 1);
         return 0;
     }
 
