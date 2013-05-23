@@ -54,6 +54,9 @@ Obsolete
 * nfreq() tagged as obsolete. Will be removed for Scilab 5.5.1.
   Use tabul() instead.
 
+* chart() tagged as obsolete. Will be removed for Scilab 5.5.1.
+  Use nicholschart() instead.
+
 
 Xcos
 ====
@@ -121,6 +124,8 @@ Bug fixes
 * Bug #7655 fixed - An example added in help page of type, for type(X)=11 and type(X)=13.
 
 * Bug #7684 fixed - Introduction demo splitted in subsections.
+
+* Bug #7826 fixed - chart tagged as obsolete.
 
 * Bug #7828 fixed - Slight improvements in nicholschart.
 
