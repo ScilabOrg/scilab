@@ -12,7 +12,8 @@ OPERATIONS_C_SOURCES = 	src/c/doublecomplex.c \
 			src/c/matrix_finite.c \
             src/c/matrix_kronecker.c \
             src/c/matrix_transpose.c \
-			src/c/operations_tools.c
+			src/c/operations_tools.c \
+            src/c/invert_matrix.c
 
 OPERATIONS_CPP_SOURCES =  src/cpp/operations.cpp \
 			src/cpp/types_substraction.cpp \
@@ -43,7 +44,6 @@ libscioperations_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/elementary_functions/includes \
 	-I$(top_srcdir)/modules/output_stream/includes \
 	-I$(top_srcdir)/modules/system_env/includes \
-	-I$(top_srcdir)/modules/linear_algebra/includes \
 	$(EIGEN_CPPFLAGS) \
 	$(AM_CPPFLAGS)
 
