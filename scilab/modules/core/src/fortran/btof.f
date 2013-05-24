@@ -23,6 +23,7 @@ c
       if(istk(il).ne.1) goto 10
       hsize=4
       n=istk(il+1)*istk(il+2)*(istk(il+3)+1)
+      print *,'n btof',n, istk(il+1), istk(il+2), istk(il+3)
    40 if(n.ne.nx) then
          call error(98)
          return
