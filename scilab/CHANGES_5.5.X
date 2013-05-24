@@ -164,6 +164,9 @@ Bug fixes
 
 * Bug #8824 fixed - taucs_chfact returned a segfault (not the case in mode nwni).
 
+* Bug #8856 fixed - Non regression test for [k,l,m,...]=find(a==5) which works with matrices (not hypermat)
+                    + non regression test of bug #476 updated.
+
 * Bug #8862 fixed - mget and mput couldn't read and write 64 bit data from
                     binary files.
 
