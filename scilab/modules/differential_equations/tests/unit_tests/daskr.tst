@@ -34,7 +34,7 @@ info=list([],0,[],[],[],0,[],0,[],0,0,[],[],1);
 if abs(nn(1)-2.53)>0.001 then pause,end
 
 // Same problem, but using macro for the derivative evaluation function 'res1'
-deff('[delta,ires]=res1(t,y,ydot)','ires=0;delta=ydot-((2*log(y)+8)/t-5)*y')
+deff('[delta,ires]=res1(t,y,ydot)','ires=0;delta=ydot-((2.*log(y)+8)./t-5).*y')
 deff('[rts]=gr1(t,y,yd)','rts=[((2*log(y)+8)/t-5)*y;log(y)-2.2491]')
 
 y0=1;t=2:6;t0=1;y0d=3;
@@ -79,8 +79,8 @@ function [wp, iwp, ires] = pjac(neq, t, y, ydot, h, cj, rewt, savr)
         delinv = 1/del;
         for j=1:neq
             wp(nrow+j) = delinv*(e(j)-savr(j));
-            iwp(nrow+j,1) = i;
-            iwp(nrow+j,2) = j;
+            iwp(nrow+j,1) = nrow + j;
+            iwp(nrow+j,2) = nrow + j;
         end
         nrow = nrow + neq;
         y(i) = ysave;
@@ -113,6 +113,7 @@ info=list([],0,[],[],[],0,[],0,[],0,0,[],[],1);
 //C to 15 figures for purposes of checking the accuracy.
 //C-----------------------------------------------------------------------
 rtol=[1.d-6;1.d-6];atol=[1.d-6;1.d-4];
+info=list([],0,[],[],[],0,[],0,[],0,0,[],[],1);
 t0=0;y0=[2;0];y0d=[0;-2];t=[20:20:200];ng=1;
 [yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,'res2','jac2',ng,'gr2',info);
 if abs(nn(1)-81.163512)>0.001 then pause,end
