@@ -24,7 +24,8 @@ c
       double precision res(*), t, y(*), ydot(*), rewt(*), savr(*),
      *                  wk(*), h, cj, wp(*), rpar(*)
       integer ires, neq, iwp(*), ier, ipar(*)
-      double precision dneq, diwp(2*neq*neq)
+c!      double precision dneq, diwp(2*neq*neq)
+      double precision dneq
       integer vol,tops,nordre
       data nordre/5/,mlhs/3/
 c
@@ -153,13 +154,13 @@ c+
 c     Transferring the output to Fortran
       call btof(ier,1)
       if(err.gt.0.or.err1.gt.0) return
-      call btof(diwp,2*neq*neq)
+c!      call btof(diwp,2*neq*neq)
       if(err.gt.0.or.err1.gt.0) return
       call btof(wp,neq*neq)
       if(err.gt.0.or.err1.gt.0) return
 c+
       do 100 i=1, 2*neq*neq
-        iwp(i) = diwp(i)
+c!       iwp(i) = diwp(i)
  100  continue
 
 c     Normal return iero set to 0
