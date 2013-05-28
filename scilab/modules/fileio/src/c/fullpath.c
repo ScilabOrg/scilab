@@ -22,6 +22,7 @@
 #include "MALLOC.h"
 #include "machine.h"
 #include "PATH_MAX.h"
+#include "strsubst.h"
 /*--------------------------------------------------------------------------*/
 #ifndef _MSC_VER
 static unsigned int isDirSeparator(const char c);
@@ -68,10 +69,47 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
 
     if (!rp)
     {
-        strcpy(_FullPath, _Path);
-        normalizePath(_FullPath);
+        char * tofind;
+        char * toadd;
+        char * _Path_tmp;
+        char * _Path_start;
+        char * _FullPath_start;
+        lenFullPath = (int)strlen(_FullPath);
+        _Path_tmp = (char *)MALLOC(sizeof(char) * (lenPath + 1));
+        _Path_start = (char *)MALLOC(sizeof(char) * (lenPath + 1));
+        _FullPath_start = (char *)MALLOC(sizeof(char) * (lenFullPath + 1));
+//First case: fullpath(TMPDIR+"/a/b/c"), second case: fullpath("a/b/c")
+        strcpy(_Path_start, _Path); // _Path_start=TMPDIR+"/a/b/c" (first case) or _Path_start="a/b/c" (second case) 
+        strcpy(_FullPath_start, _FullPath); // _Fullpath_Start=TMPDIR+"/a" (first case) or _FullPath_start=SCI+"/a" (second case)
+        strtok(_Path_start, "/"); // _Path_start=/tmp  (first case) or _Path_start="a" (second case)
+        strtok(_FullPath_start, "/"); // _FullPath_start=/tmp (first case) or _FullPath_start=/home (second case)
+        if (strcmp(_Path_start, _FullPath_start) == 0) // For case: fullpath(TMPDIR+"/a/b/c")
+        {
+            strcpy(_FullPath, _Path);
+            normalizePath(_FullPath);
+            FREE(_Path_start);
+            _Path_start = NULL;
+            FREE(_FullPath_start);
+            _FullPath_start = NULL;
+            FREE(_Path_tmp);
+            _Path_tmp = NULL;
+        }
+
+        else if (strcmp(_Path, _FullPath) != 0) // For case: fullpath("a/b/c")
+        {
+            strcpy(_Path_tmp, _Path); //_Path_tmp="a/b/c"
+            tofind = strtok(_Path_tmp, "/"); //tofind="a"
+            toadd = strsub(_Path, tofind, ""); //to add="/b/c"
+            strcat(_FullPath, toadd); //_FullPath=_Fullpath+toadd: _FullPath=SCI+"/a/b/c"
+            FREE(_Path_tmp);
+            _Path_tmp = NULL;
+            FREE(_Path_start);
+            _Path_start = NULL;
+            FREE(_FullPath_start);
+            _FullPath_start = NULL;
+        }
     }
-    lenFullPath = (int)strlen(_FullPath);
+
     addFileSep = ((lenFullPath > 1) && (!isDirSeparator(_FullPath[lenFullPath - 1])) && haveFileSep);
     if (addFileSep)
     {
