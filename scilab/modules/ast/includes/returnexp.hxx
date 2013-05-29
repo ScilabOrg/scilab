@@ -37,7 +37,7 @@ public:
     ReturnExp (const Location& location, Exp  *exp)
         : ControlExp (location),
           _exp (exp),
-          _is_global(true)
+          _is_global(false)
     {
         if (exp)
         {

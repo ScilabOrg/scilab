@@ -1504,7 +1504,7 @@ extern int yylex (void);
 YY_DECL
 {
     register yy_state_type yy_current_state;
-    register char *yy_cp, *yy_bp;
+    register char * yy_cp, *yy_bp;
     register int yy_act;
 
     if ( !(yy_init) )
@@ -4161,9 +4161,7 @@ static int yy_flex_strlen (yyconst char * s )
 {
     register int n;
     for ( n = 0; s[n]; ++n )
-    {
         ;
-    }
 
     return n;
 }

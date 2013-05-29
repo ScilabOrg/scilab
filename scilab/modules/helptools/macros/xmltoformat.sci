@@ -35,9 +35,9 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
     global %helps;
     global %helps_modules;
 
-    if %helps_modules == [] then
-        x2f_reset_help_mod_var(my_wanted_language);
-    end
+//    if %helps_modules == [] then
+//        x2f_reset_help_mod_var(my_wanted_language);
+//    end
 
     %HELPS = [%helps_modules; %helps];
 
@@ -969,6 +969,8 @@ function tree = x2f_dir_to_tree(directory,level)
 
     // get the directory list
     directories = x2f_get_directories(directory);
+
+    pause
 
     for i=1:size(directories,"*")
         this_dir_tree = x2f_dir_to_tree(directory+directories(i),tree("level") + 1);
