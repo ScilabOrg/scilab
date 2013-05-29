@@ -27,19 +27,21 @@ extern "C"
 
 types::Function::ReturnValue sci_pause(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    if(in.size() != 0)
+    if (in.size() != 0)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d expected.\n"), "pause", 0);
         return types::Function::Error;
     }
 
     ConfigVariable::IncreasePauseLevel();
+    printf("\nsci_pause Unlock Prompt : %d\n", ConfigVariable::getLastRunningThread()->getKey());
     Runner::UnlockPrompt();
     ThreadId* pThread = ConfigVariable::getLastRunningThread();
 
     //return to console so change mode to 2
     int iOldMode = ConfigVariable::getPromptMode();
     ConfigVariable::setPromptMode(2);
+    printf("\nsci_pause Pause Thread : %d ( me %d )\n", pThread->getKey(), __GetCurrentThreadKey());
     pThread->suspend();
     ConfigVariable::setPromptMode(iOldMode);
     //return from console so change mode to initial

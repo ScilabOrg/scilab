@@ -477,7 +477,7 @@ public :
                 {
                     if (psValue->getSize() != 1)
                     {
-                        std::list<std::wstring> wstFields;
+                        std::vector<std::wstring> wstFields;
                         wstFields.push_back(psvRightMember->name_get().name_get());
 
                         std::vector<InternalType*> result;
@@ -894,9 +894,16 @@ public :
                 }
 
                 __threadId id = pThreadId->getId();
+                printf("Resume thread : %d\n", pThreadId->getKey());
                 pThreadId->resume();
+                printf("\nPause thread : %d\n", __GetCurrentThreadKey());
                 __WaitThreadDie(id);
+                printf("thread is dead\n");
                 return;
+            }
+            else
+            {
+                const_cast<ReturnExp*>(&e)->return_set();
             }
         }
         else
@@ -936,9 +943,10 @@ public :
                     result_get(i)->DecreaseRef();
                 }
             }
+
+            const_cast<ReturnExp*>(&e)->return_set();
         }
 
-        const_cast<ReturnExp*>(&e)->return_set();
     }
 
 
