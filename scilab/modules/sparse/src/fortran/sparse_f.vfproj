@@ -64,5 +64,4 @@
 		<File RelativePath="spt.f"/>
 		<File RelativePath="sz2ptr.f"/></Filter>
 		<File RelativePath="..\..\Makefile.am"/>
-		<File RelativePath="..\..\sci_gateway\sparse_gateway.xml"/></Files>
 	<Globals/></VisualStudioProject>
