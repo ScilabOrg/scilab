@@ -219,6 +219,5 @@ lib /DEF:&quot;$(InputDir)core_f_Import.def&quot; /SUBSYSTEM:WINDOWS /MACHINE:X6
 		<File RelativePath="wspt.f"/>
 		<File RelativePath="wspxs.f"/>
 		<File RelativePath="wspxsp.f"/></Filter>
-		<File RelativePath="..\..\Makefile.am"/>
-		<File RelativePath="..\..\sci_gateway\sparse_gateway.xml"/></Files>
+		<File RelativePath="..\..\Makefile.am"/></Files>
 	<Globals/></VisualStudioProject>
