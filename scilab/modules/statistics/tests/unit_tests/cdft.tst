@@ -26,3 +26,10 @@ Df1   = cdft("Df",P,Q,Th);
 
 if norm(Th1-Th) > prec then pause,end
 if norm(Df1-Df) > prec then pause,end
+
+// Df should be an integer matrix
+Df      = Df - 0.5;
+refMsg2 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdft", 2);
+refMsg3 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdft", 3);
+assert_checkerror("cdft(""PQ"",Th,Df);",refMsg3);
+assert_checkerror("cdft(""T"",Df,P,Q);",refMsg2);

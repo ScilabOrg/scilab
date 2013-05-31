@@ -29,3 +29,10 @@ df       = [1,2,3,4,5,6];
 
 if norm(x1-x)   > prec then pause,end
 if norm(df1-df) > prec then pause,end
+
+// Df should be an integer matrix
+df      = df - 0.5;
+refMsg2 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfchi", 2);
+refMsg3 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfchi", 3);
+assert_checkerror("cdfchi(""PQ"",x,df);",refMsg3);
+assert_checkerror("cdfchi(""X"",df,P,Q);",refMsg2);

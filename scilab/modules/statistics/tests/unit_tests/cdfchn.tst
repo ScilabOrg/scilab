@@ -24,3 +24,12 @@ pno    = df/10;
 
 if norm(x1-x)   > prec then pause,end
 if norm(df1-df) > prec then pause,end
+
+// Df should be an integer matrix
+df      = df - 0.5;
+refMsg2 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfchn", 2);
+refMsg3 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfchn", 3);
+refMsg5 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfchn", 5);
+assert_checkerror("cdfchn(""PQ"",x,df,pno);",refMsg3);
+assert_checkerror("cdfchn(""X"",df,pno,P,Q);",refMsg2);
+assert_checkerror("cdfchn(""Pnonc"",P,Q,x,df);",refMsg5);

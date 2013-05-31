@@ -33,19 +33,36 @@ static void cdfchiErr(int status, double bound);
 /*--------------------------------------------------------------------------*/
 int cdfchiI(char* fname, unsigned long l)
 {
-    int m1, n1, l1;
+    int m1, n1, l1, mDf, nDf, lDf, i;
+    double *Df;
     Nbvars = 0;
     CheckRhs(3, 4);
     CheckLhs(1, 2);
     GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
     if ( strcmp(cstk(l1), "PQ") == 0)
     {
+        GetRhsVar(3, MATRIX_OF_DOUBLE_DATATYPE, &mDf, &nDf, &lDf);
+        Df = stk(lDf);
+        for (i = 0; i < mDf * nDf; ++i)
+            if ((int) Df[i] - Df[i] != 0)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), fname, 3);
+                return 0;
+            }
         static int callpos[4] = {2, 3, 0, 1};
         CdfBase(fname, 2, 2, callpos, "PQ", _("X and Df"), 1, C2F(cdfchi),
                 cdfchiErr);
     }
     else if ( strcmp(cstk(l1), "X") == 0)
     {
+        GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &mDf, &nDf, &lDf);
+        Df = stk(lDf);
+        for (i = 0; i < mDf * nDf; ++i)
+            if ((int) Df[i] - Df[i] != 0)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), fname, 2);
+                return 0;
+            }
         static int callpos[4] = {1, 2, 3, 0};
         CdfBase(fname, 3, 1, callpos, "X", _("Df, P and Q"), 2, C2F(cdfchi),
                 cdfchiErr);

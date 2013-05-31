@@ -87,3 +87,9 @@ for k = 1 : nt
     mprintf("Test #%3d/%3d: Digits p1= %.1f, q1=%.1f, X=%.1f, Lambda=%.1f\n",k,nt,dP,dQ,dx,dl);
   end
 end
+// S should be an integer matrix
+x      = x - 0.5;
+refMsg2 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfpoi", 2);
+refMsg4 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfpoi", 4);
+assert_checkerror("cdfpoi(""PQ"",x,lambda);",refMsg2);
+assert_checkerror("cdfpoi(""Xlam"",p,q,x);",refMsg4);

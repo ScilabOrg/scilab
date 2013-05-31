@@ -26,3 +26,16 @@ if norm(f1-f)       > prec then pause,end
 if norm(dfn1-dfn)   > prec then pause,end
 //if norm(dfd1-dfd) > prec then pause,end
 if norm(pnonc-pn)   > prec then pause,end
+
+// Dfd and Dfd should be integers
+dfn      = [0.5:1.5];
+dfd      = 2.5*dfn;
+refMsg2 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdffnc", 2);
+refMsg3 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdffnc", 3);
+refMsg5 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdffnc", 5);
+refMsg6 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdffnc", 6);
+assert_checkerror("cdffnc(""PQ"",f,dfn,dfd,pn)",refMsg3);
+assert_checkerror("cdffnc(""F"",dfn,dfd,pn,P,Q)",refMsg2);
+assert_checkerror("cdffnc(""Dfn"",dfd,pn,P,Q,f)",refMsg2);
+//assert_checkerror("cdffnc(""Dfd"",pn,P,Q,f,dfn)",refMsg6);
+assert_checkerror("cdffnc(""Pnonc"",P,Q,f,dfn,dfd)",refMsg5);

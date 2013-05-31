@@ -95,4 +95,9 @@ for k = 1 : nt
   end
 end
 
-
+// S should be an integer matrix
+x      = x - 0.5;
+refMsg2 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfpoi", 2);
+refMsg4 = msprintf(_("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), "cdfpoi", 4);
+assert_checkerror("cdfpoi(""PQ"",x,lambda);",refMsg2);
+assert_checkerror("cdfpoi(""Xlam"",p,q,x);",refMsg4);
