@@ -156,6 +156,8 @@ Bug fixes
 
 * Bug #7486 fixed - DGELSY and ZGELSY closer to the upstream, to propose our modifications to LAPACK.
 
+* Bug #7648 fixed - CDF functions can now only take integers as "degrees of freedom" arguments
+
 * Bug #7655 fixed - An example added in help page of type, for type(X)=11 and type(X)=13.
 
 * Bug #7684 fixed - Introduction demo splitted in subsections.
