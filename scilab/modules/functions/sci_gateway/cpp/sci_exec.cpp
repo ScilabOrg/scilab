@@ -314,8 +314,9 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
                         }
                     }
                 }
+
                 //update ans variable.
-                if (execMe.result_get() != NULL && execMe.result_get()->isDeletable())
+                if (execMe.result_get() != NULL && execMe.result_get()->isDeletable() == false)
                 {
                     InternalType* pITAns = execMe.result_get();
                     symbol::Context::getInstance()->put(symbol::Symbol(L"ans"), *pITAns);
