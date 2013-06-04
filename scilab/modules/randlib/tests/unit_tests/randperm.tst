@@ -1,0 +1,21 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- ENGLISH IMPOSED -->
+
+// Run with test_run('randlib', 'randperm', ['no_check_error_output'])
+
+// Dimensions
+vec = randperm(200, 100);
+assert_checktrue(size(vec) == [1 100]);
+
+// Bounds
+assert_checktrue(vec >= 1 & vec <= 200);
+
+// Uniqueness
+freq = tabul(vec);
+assert_checktrue(freq(:, 2) == 1);

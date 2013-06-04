@@ -772,6 +772,9 @@
             <member>
                 <link linkend="rand">rand</link>
             </member>
+            <member>
+                <link linkend="randperm">randperm</link>
+            </member>
         </simplelist>
     </refsection>
 </refentry>
