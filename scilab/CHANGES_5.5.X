@@ -238,6 +238,8 @@ Bug fixes
 
 * Bug #11648 fixed - Copy graphic to clipboard did not work.
 
+* Bug #11792 fixed - List was accessed with non integer numbers. 
+
 * Bug #11869 fixed - "Environment" was not localized in preferences.
 
 * Bug #11891 fixed - Fisher ratio could be inaccurate for one-way ANOVA.

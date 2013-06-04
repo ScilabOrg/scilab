@@ -86,6 +86,10 @@ c     get arg1
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
       m1=istk(il1+1)
+      if (abs(mod(stk(sadr(il1+4)),1.0)).gt.1E-10) then
+         buf = 'Insertion: Wrong type of indice: An integer expected.'
+         call error(999)
+      endif
       if (abs(istk(il1)).eq.1.and.m1.eq.0)  then
 c     .  arg3([])=arg2 -->overloading
          top=top3
