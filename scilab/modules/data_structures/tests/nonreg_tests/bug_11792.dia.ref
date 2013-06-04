@@ -1,0 +1,16 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- Non-regression test for bug 11792 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11792
+//
+// <-- Short Description -->
+// list can be accessed with non integer real numbers
+a=list();
+errmsg=msprintf("Insertion: Wrong type of indice: An integer expected.");
+assert_checktrue(execstr("a(%pi)=1","errcatch") == 999);
