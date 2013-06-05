@@ -45,6 +45,13 @@ Syntax changes
 * Vector ^ scalar syntax declared obsolete. See bug #11524
 
 
+Improvements
+=============
+
+* graypolarplot has been improved in term of performance and rendering.
+  See bug #12641
+
+
 Obsolete
 =========
 
@@ -326,3 +333,4 @@ Bug fixes
                      already existing in SCI/contrib/archives in offline mode.
 
 * Bug #12639 fixed - justify([], position) returned an error instead of [].
+
