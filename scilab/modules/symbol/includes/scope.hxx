@@ -11,9 +11,8 @@
 *
 */
 
-#ifndef __SCOPE_HXX__
-#define __SCOPE_HXX__
-
+#ifndef __SCOPEOLD_HXX__
+#define __SCOPEOLD_HXX__
 #include <iostream>
 #include <map>
 #include <list>
@@ -32,7 +31,7 @@ namespace symbol
 {
 
 //template< class Entry_T, class Key_T = Symbol >
-class EXTERN_SYMBOL Scope
+class EXTERN_SYMBOL ScopeOld
 {
 private:
     typedef std::map<symbol::Symbol, types::InternalType*> ScopeMap;
@@ -42,13 +41,13 @@ private:
 public:
     /** Constructor & Destructor */
     /** \brief Construct a Scope */
-    explicit Scope()
+    explicit ScopeOld()
     {
         _scope = new ScopeMap();
         _name = L"";
     }
 
-    ~Scope()
+    ~ScopeOld()
     {
         ScopeMap::iterator i;
         for (i = _scope->begin() ; i != _scope->end() ; ++i)
@@ -191,8 +190,7 @@ public:
     }
 };
 
-inline std::wostream& operator<< (std::wostream& ostr,
-                                  const Scope &scope)
+inline std::wostream& operator<< (std::wostream& ostr, const ScopeOld &scope)
 {
     scope.print(ostr);
     return ostr;
@@ -200,5 +198,5 @@ inline std::wostream& operator<< (std::wostream& ostr,
 }
 
 
-#endif /* ! __SCOPE_HX__ */
+#endif /* ! __SCOPEOLD_HXX__ */
 

@@ -36,7 +36,7 @@ class EXTERN_SYMBOL Heap
 {
 private :
     types::Bool *m_True;
-    typedef std::list<Scope*> ListScope;
+    typedef std::list<ScopeOld*> ListScope;
     typedef std::map<Symbol, ListScope* > MapScope;
     MapScope namespaces;
     ListScope globals;
@@ -58,11 +58,11 @@ public:
 
     void scope_begin()
     {
-        globals.push_front(new Scope());
+        globals.push_front(new ScopeOld());
         MapScope::iterator it = namespaces.begin();
         for (; it != namespaces.end() ; it++)
         {
-            it->second->push_front(new Scope());
+            it->second->push_front(new ScopeOld());
         }
     }
 

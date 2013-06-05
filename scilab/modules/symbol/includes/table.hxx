@@ -49,7 +49,7 @@ public:
     void	print (std::wostream& ostr) const;
 
 protected:
-    std::list<Scope*> l_scope;
+    std::list<ScopeOld*> l_scope;
 };
 
 }

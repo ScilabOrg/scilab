@@ -61,15 +61,7 @@ types::Function::ReturnValue sci_global(types::typed_list &in, int _iRetCount, t
             if (pCtx->isGlobalExists(pstVar) == false)
             {
                 InternalType* pIT = pCtx->get(pstVar);
-                if (pIT)
-                {
-                    //variable have already a value in current local scope
-
-                    //set global at local value
-                    pCtx->setGlobalValue(pstVar, *pIT);
-                    pCtx->remove(pstVar);
-                }
-                else
+                if (pIT == NULL)
                 {
                     //create global variable with default value []
                     pCtx->createEmptyGlobalValue(pstVar);
