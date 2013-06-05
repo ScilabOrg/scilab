@@ -36,14 +36,14 @@ public:
     /** Open a new scope */
     void scope_begin()
     {
-        this->l_scope.push_front(new Scope());
+        this->l_scope.push_front(new ScopeOld());
     }
 
     /** Close the last scope, forgetting everything since the latest
     **	scope_begin (). */
     void scope_end()
     {
-        Scope* scope = this->l_scope.front();
+        ScopeOld* scope = this->l_scope.front();
         delete scope;
         this->l_scope.pop_front();
     }
@@ -52,7 +52,7 @@ public:
     {
         if (l_scope.size() > 1)
         {
-            std::list<Scope*>::iterator i;
+            std::list<ScopeOld*>::iterator i;
             i = l_scope.begin();
             i++;
             (*i)->put(key, value);
@@ -77,7 +77,7 @@ public:
     {
         types::InternalType* result = NULL;
 
-        std::list<Scope*>::const_iterator it_list_scope = this->l_scope.begin();
+        std::list<ScopeOld*>::const_iterator it_list_scope = this->l_scope.begin();
 
         for (; it_list_scope != this->l_scope.end(); it_list_scope++)
         {
@@ -107,7 +107,7 @@ public:
         /*
         ** else look in all previous scopes but not in the current one.
         */
-        std::list<Scope*>::const_iterator it_list_scope = this->l_scope.begin();
+        std::list<ScopeOld*>::const_iterator it_list_scope = this->l_scope.begin();
         ++it_list_scope;
         for ( ; it_list_scope != this->l_scope.end(); ++it_list_scope)
         {
@@ -132,7 +132,7 @@ public:
     std::list<symbol::Symbol>& getFunctionList(const std::wstring& _stModuleName, bool _bFromEnd)
     {
         //get hightest scope
-        std::list<Scope*>::iterator i;
+        std::list<ScopeOld*>::iterator i;
 
         if (_bFromEnd)
         {
