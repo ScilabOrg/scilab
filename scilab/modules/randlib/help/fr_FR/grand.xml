@@ -291,7 +291,7 @@
                 <term>gamma</term>
                 <listitem>
                     <para>
-                      <literal>Y = grand(m, n, "gam", shape, rate)</literal> génère des nombres aléatoires suivant la loi
+                        <literal>Y = grand(m, n, "gam", shape, rate)</literal> génère des nombres aléatoires suivant la loi
                         gamma de paramètres <literal>shape</literal> (réel &gt; 0) et <literal>scale</literal>
                         (réel &gt; 0). La densité est :
                     </para>
@@ -390,8 +390,8 @@
                 <term>permutations aléatoires</term>
                 <listitem>
                     <para>
-                        <literal>Y = grand(n, "prm", vect)</literal> génère <literal>n</literal> permutations aléatoire du
-                        vecteur colonne (<literal>m x 1</literal>) <literal>vect</literal>.
+                        <literal>Y = grand(n, "prm", vect)</literal> génère <literal>n</literal> permutations aléatoires du
+                        vecteur ligne (ou colonne) (<literal>1 x m</literal> ou <literal>m x 1</literal>) <literal>vect</literal>.
                     </para>
                 </listitem>
             </varlistentry>

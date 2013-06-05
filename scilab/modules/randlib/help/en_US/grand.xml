@@ -418,8 +418,8 @@
                 <listitem>
                     <para>
                         <code>Y = grand(n, "prm", vect)</code> generates
-                        <varname>n</varname> random permutations of the column
-                        vector (<literal>m x 1</literal>)
+                        <varname>n</varname> random permutations of the row (or column)
+                        vector (<literal>1 x m</literal> or <literal>m x 1</literal>)
                         <varname>vect</varname>.
                     </para>
                 </listitem>

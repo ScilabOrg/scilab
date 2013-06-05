@@ -139,6 +139,7 @@ int sci_Rand(char *fname, unsigned long fname_len)
     int iDims = 0;
     int* piDims = NULL;
     double* pdblData = NULL;
+    int row_or_col;
 
     Nbvars = 0;
     CheckRhs(minrhs, maxrhs);
@@ -1029,20 +1030,28 @@ int sci_Rand(char *fname, unsigned long fname_len)
             return 0;
         }
         GetRhsVar(suite, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &la);
-        if ( n1 != 1)
+        if ( n1 != 1 && m1 != 1)
         {
-            Scierror(999, _("%s: Wrong type for input argument: Column vector expected.\n"), fname);
+            Scierror(999, _("%s: Wrong type for input argument: Row or Column vector expected.\n"), fname);
             return 0;
         }
-        CreateVar(suite + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &nn, &lr);
+        row_or_col = (m1 == 1) ? n1 : m1;
+        if (n1 == 1)
+        {
+            CreateVar(suite + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &nn, &lr);
+        }
+        else
+        {
+            CreateVar(suite + 1, MATRIX_OF_DOUBLE_DATATYPE, &nn, &n1, &lr);
+        }
         for ( i = 0 ; i < nn ; i++)
         {
             int j ;
-            for (j = 0; j < m1 ; j++ )
+            for (j = 0; j < row_or_col ; j++ )
             {
-                *stk(lr + (m1)*i + j) = *stk(la + j);
+                *stk(lr + (row_or_col)*i + j) = *stk(la + j);
             }
-            C2F(genprm)(stk(lr + (m1)*i), &m1);
+            C2F(genprm)(stk(lr + (row_or_col)*i), &row_or_col);
         }
         LhsVar(1) = suite + 1;
         PutLhsVar();

@@ -65,6 +65,13 @@ Obsolete
   Use nicholschart() instead.
 
 
+Randlib
+=======
+
+* In grand(n, 'prm', vec), vec can now be a row vector (only column before).
+  The command still yields n random permutations of vec.
+
+
 Xcos
 ====
 
