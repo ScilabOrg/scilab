@@ -254,6 +254,8 @@ Bug fixes
 
 * Bug #9851 fixed - Error message occurred because of a cut-off frequency of 0.25Hz with irr.
 
+* Bug #10180 fixed - det was not defined for sparse matrices.
+
 * Bug #10213 fixed - sci2exp can be impacted by format which has been mentionned in its help page.
 
 * Bug #10226 fixed - When a // <empty session> line is delete, all sessions
