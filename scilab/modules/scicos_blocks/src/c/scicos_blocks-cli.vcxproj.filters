@@ -38,9 +38,6 @@
     <ClCompile Include="..\cpp\affich2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\jni\AfficheBlock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="andlog.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -974,14 +971,11 @@
     <ClCompile Include="..\cpp\scoUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cpp\HelpersJNI.cpp">
+    <ClCompile Include="..\cpp\HelpersCLI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\jni\AfficheBlock.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\includes\blocks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1026,7 +1020,7 @@
     <None Include="Output_stream_Import.def">
       <Filter>Libraries Dependencies\Import</Filter>
     </None>
-    <None Include="Scicos_Import.def">
+    <None Include="scicos-cli_Import.def">
       <Filter>Libraries Dependencies\Import</Filter>
     </None>
     <None Include="Slicot_Import.def">
