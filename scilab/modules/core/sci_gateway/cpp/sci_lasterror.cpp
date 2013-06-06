@@ -52,7 +52,7 @@ types::Function::ReturnValue sci_lasterror(types::typed_list &in, int _iRetCount
     }
 
     std::wstring wstLastErrorMessage = ConfigVariable::getLastErrorMessage();
-    if (wstLastErrorMessage.size() == 0)
+    if (wstLastErrorMessage.size() == 0 && ConfigVariable::getLastErrorNumber() == 0)
     {
         out.push_back(Double::Empty());
     }
