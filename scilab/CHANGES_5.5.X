@@ -207,6 +207,8 @@ Bug fixes
 
 * Bug #9780 fixed - gmres solver did not run with complex systems.
 
+* Bug #9821 fixed - getrelativefilename did not manage matrix of string.
+
 * Bug #9851 fixed - Error message occurred because of a cut-off frequency of 0.25Hz with irr.
 
 * Bug #10213 fixed - sci2exp can be impacted by format which has been mentionned in its help page.
