@@ -318,3 +318,6 @@ Bug fixes
                      already existing in SCI/contrib/archives in offline mode.
 
 * Bug #12639 fixed - justify([], position) returned an error instead of [].
+
+* Bug #12657 fixed - Computation of v1.^v2 is now done in place,
+                     when v1 and v2 are real arrays, v1 >= 0 and v2 integer.
