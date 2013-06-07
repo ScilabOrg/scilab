@@ -69,27 +69,57 @@ c
          n=n1
       endif
       mn=m*n
+c     We can do the calculation in place if:
+c        - the arrays are real
+c        - the exponents are integers
+c        - the base numbers are positive
+c     Otherwise, the result may contain an imaginary part.
+      complexRes = 0
+      do 5 i=0,m2*n2-1
+         if (int(stk(l2+i)).ne.stk(l2+i).or.stk(l1+i).lt.0) then
+            complexRes = 1
+            exit
+         endif
+5     continue
       err=lw+mn*2-lstk(bot)
-      if(err.gt.0) then
+      if(err.gt.0.and.complexRes.eq.1) then
          call error(17)
          return
       endif
       itr=max(it1,it2)
-      if(it2.eq.0) then
-         if(it1.eq.0) then
-            call ddpow1(mn,stk(l1),inc1,stk(l2),inc2,
+c     Calculation not done in place (result can have an imaginary part)
+      if (complexRes.eq.1.or.itr.ne.0) then
+         if(it2.eq.0) then
+            if(it1.eq.0) then
+               call ddpow1(mn,stk(l1),inc1,stk(l2),inc2,
      $           stk(lw),stk(lw+mn),1,ierr,itr)
-         else
-            call wdpow1(mn,stk(l1),stk(l1+mn1),inc1,stk(l2),inc2,
+            else
+               call wdpow1(mn,stk(l1),stk(l1+mn1),inc1,stk(l2),inc2,
      $           stk(lw),stk(lw+mn),1,ierr)
+            endif
+         else
+            if(it1.eq.0) then
+               call dwpow1(mn,stk(l1),inc1,stk(l2),stk(l2+mn2),inc2,
+     &           stk(lw),stk(lw+mn),1,ierr)
+            else
+               call wwpow1(mn,stk(l1),stk(l1+mn1),inc1,stk(l2),
+     &           stk(l2+mn2),inc2,stk(lw),stk(lw+mn),1,ierr)
+            endif
          endif
       else
-         if(it1.eq.0) then
-            call dwpow1(mn,stk(l1),inc1,stk(l2),stk(l2+mn2),inc2,
-     &           stk(lw),stk(lw+mn),1,ierr)
+c     Calculation done in place
+         if (m1.eq.m.and.n1.eq.n) then
+c        [x1 x2 x3 ...].^n
+            do 20 i=0,mn-1
+               call dipowe(stk(l1+i*inc1),int(stk(l2+i*inc2)),
+     & stk(l1+i*inc1),ierr)
+20          continue
          else
-            call wwpow1(mn,stk(l1),stk(l1+mn1),inc1,stk(l2),stk(l2+mn2),
-     &           inc2,stk(lw),stk(lw+mn),1,ierr)
+c        [x].^[n1 n2 n3 ...], result is put in [n1 n2 n3 ...]
+            do 25 i=0,mn-1
+               call dipowe(stk(l1+i*inc1),int(stk(l2+i*inc2)),
+     & stk(l2+i*inc2),ierr)
+25          continue
          endif
       endif
       if(ierr.eq.1) then
@@ -105,11 +135,23 @@ c
          endif
          err=0
       endif
-      istk(il1+1)=m
-      istk(il1+2)=n
-      istk(il1+3)=itr
-      call unsfdcopy(mn*(itr+1),stk(lw),1,stk(l1),1)
-      lstk(top+1)=l1+mn*(itr+1)
-      return
+      if (complexRes.eq.1.or.itr.ne.0) then
+         istk(il1+1)=m
+         istk(il1+2)=n
+         istk(il1+3)=itr
+         call unsfdcopy(mn*(itr+1),stk(lw),1,stk(l1),1)
+         lstk(top+1)=l1+mn*(itr+1)
+         return
+      else
+c     The result is either stored in the first argument, then just return,
+c     or it is in the exponent argument, then copy it in the first argument and return.
+         if (m1.ne.m.or.n1.ne.n) then
+            istk(il1+1)=m
+            istk(il1+2)=n
+            call unsfdcopy(mn,stk(l2),1,stk(l1),1)
+            lstk(top+1)=l1+mn
+            return
+         endif
+      endif
       end
 c			================================================
