@@ -334,3 +334,5 @@ Bug fixes
                      section of the help pages.
 
 * Bug #12639 fixed - justify([], position) returned an error instead of [].
+
+* Bug #12678 fixed - nthroot() now accepts vector/matrix as second argument
