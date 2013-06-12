@@ -48,7 +48,8 @@ Syntax changes
 Improvements
 =============
 
-* New calling sequence allowed for nicholschart: nicholschart(gains, phases, colors).
+* 
+New calling sequence allowed for nicholschart: nicholschart(gains, phases, colors).
   See bug #7828.
 
 * qp_solve can now take up to 5 output arguments. The last one is an error flag,
@@ -124,6 +125,8 @@ Xcos
 * Bug #12651 fixed - The 'nw' scicos_simulate option did not work while
                      passing a previous Info simulation status.
 
+* Bug #12685 fixed - The lincos and steadycos functions do not load the XcosLibs,
+                     error fixed in minimization criterion and help pages improved.
 
 Toolbox skeleton
 =================
@@ -315,8 +318,6 @@ Bug fixes
 * Bug #12463 fixed - Bad specification for rect=[x,y,w,h] argument in french help
                      page of xstringb.
 
-* Bug #12470 fixed - Variable browser is not refreshed after loading an environment.
-
 * Bug #12473 fixed - Problems with "é" in french help page of mkdir.
 
 * Bug #12475 fixed - csvRead() does not support double quoted fields.
@@ -382,9 +383,3 @@ Bug fixes
                      when v1 and v2 are real arrays, v1 >= 0 and v2 integer.
 
 * Bug #12678 fixed - nthroot() now accepts vector/matrix as second argument.
-
-* Bug #12679 fixed - Argument type check added in gcd and lcm.
-
-* Bug #12686 fixed - Error returned by diff() fixed.
-
-

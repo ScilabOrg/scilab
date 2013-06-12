@@ -21,15 +21,140 @@
  * 
  * See the file ./license.txt
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="steadycos">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="steadycos" xml:lang="en">
     <refnamediv>
         <refname>steadycos</refname>
-        <refpurpose>Finds an equilibrium state of a general dynamical system described by a xcos diagram</refpurpose>
+        <refpurpose>Finds an equilibrium state of a general dynamical
+        system described by a xcos diagram</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>[X,U,Y,XP]=steadycos(scs_m,X,U,Y,Indx,Indu,Indy [,Indxp [,param ] ])</synopsis>
+        <synopsis>[X,U,Y,Xd]=steadycos(scs_m,X0,U0,Y0,IndX,IndU,IndY [,IndXd [,param ] ])</synopsis>
     </refsynopsisdiv>
+    <refsection id="Parameters_steadycos">
+        <title>Arguments</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">scs_m :</emphasis> a xcos data structure
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">X0:</emphasis> a column
+                    vector which gives the initial values for all the
+                    continuous states of the system. It
+                    size must be equal to the sum of the sizes of the
+                    block's continuous states. X0 can be set to [] if all initial
+                    states are supposed to be zero.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">X:</emphasis> a column
+                    vector, the final values of the continuous states
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">IndX:</emphasis> a vector
+                    which gives the index of the entries of X that are
+                    not imposed by the given values in X0. If there is
+                    not imposed value, IndX can be set to 1:$.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">U0:</emphasis> a column
+                    vector which gives the initial values for all the
+                    inputs of the system (the inputs correspond to the
+                    input ports). It size must be equal to the sum of
+                    the sizes of the signals expected on the input
+                    ports <link linkend="IN_f">inputs</link>. U0
+                    entries corresponds to the catenation of the input
+                    port signals ordered according to the port's
+                    number. U0 can be set to [] if all initial inputs
+                    are supposed to be zero.
+                </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis role="bold">U:</emphasis> column vector,
+                    the final values of the inputs.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis role="bold">IndU :</emphasis> a vector which
+                gives the index of the entries of U that are not
+                imposed to be equal to the corresponding values in
+                U0. If there is not imposed value, IndU can be set to
+                1:$.
+              </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Y0:</emphasis> a column
+                    vector which gives the initial values for all the
+                    outputs of the system. It size must be equal to
+                    the sum of the sizes of the signals expected on
+                    the output ports <link
+                    linkend="OUT_f">outputs</link>. Y0 entries
+                    corresponds to the catenation of the output port
+                    signals ordered according to the port's number. Y0
+                    can be set to [] if all initial outputs are
+                    supposed to be zero.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  <emphasis role="bold">Y:</emphasis> a column
+                  vector, the final values of the outputs states.
+                </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis role="bold">IndY:</emphasis> a vector which
+                gives the index of the entries of Y that are not
+                imposed by the given values in Y0. If there is not
+                imposed value, IndY can be set to 1:$.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  <emphasis role="bold">Xd :</emphasis> derivative
+                  of the state corresponding to the steady state found.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">IndXd :</emphasis> index of
+                    entries of Xd (derivative of X) that need not be
+                    zero. If all can vary, set to 1:$. The default
+                    value is [] (all derivatives must be 0).
+                </para>
+            </listitem>
+            <listitem>
+              <para>
+                <emphasis role="bold">param :</emphasis> list with two
+                elements (default list(1.d-6,0)). </para>
+                <itemizedlist>
+                  <listitem>
+                    <para>param(1): a scalar. Perturbation level for
+                    linearization; the following variation is used
+                    del([x;u])_i =param(1)+param(1)*1d-4*abs([x;u])_i. 
+                    </para>
+                  </listitem>
+                  <listitem>
+                    <para> param(2): a scalar. The value of time which
+                    needs to be specified is the model of the system
+                    depends on the time.
+                    </para>
+                  </listitem>
+                </itemizedlist>
+            </listitem>
+        </itemizedlist>
+    </refsection>
     <refsection id="Module_steadycos">
         <title>Module</title>
         <itemizedlist>
@@ -43,7 +168,19 @@
     <refsection id="Description_steadycos">
         <title>Description</title>
         <para>
-            This function finds the steady state for a given system described by a xcos diagram or <link linkend="SUPER_f">sub-diagram</link>. The diagram should have <link linkend="IN_f">inputs</link> and <link linkend="OUT_f">outputs</link>.The steady state concern only the continuous-time dynamics.  
+            This function finds the steady state for a given system
+            described by an explicit Xcos diagram or <link
+            linkend="SUPER_f">sub-diagram</link>. The diagram should
+            have <link linkend="IN_f">inputs</link> and <link
+            linkend="OUT_f">outputs</link>. The steady state concern
+            only the continuous-time dynamics. The function looks for
+            a solution that minimize norm(Xd(KXd))^2+norm(Y(KY))^2 where
+            KXd is the complementary of IndX and HY is the
+            complementary of IndY.
+        </para>
+        <para>
+           <emphasis role="bold">Caution the Xcos diagram shoud not
+           contain implicit or Modelica blocs.</emphasis>
         </para>
     </refsection>
     <refsection>
@@ -73,76 +210,7 @@ end
 [X,U,Y,XP] = steadycos(scs_m,[],[],[],[],1,1:$);
  ]]></programlisting>
     </refsection>
-    <refsection id="Parameters_steadycos">
-        <title>Arguments</title>
-        <itemizedlist>
-            <listitem>
-                <para>
-                    <emphasis role="bold">scs_m :</emphasis> a xcos data structure
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">X:</emphasis> column vector. Continuous state. Can be set to [] if zero.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">U:</emphasis> column vector. Input. Can be set to [] if zero.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">Y:</emphasis> column vector. Output. Can be set to [] if zero.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">Indx :</emphasis> index of entries of X that are not fixed. If all can vary, set to 1:$
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">Indu :</emphasis> index of entries of U that are not fixed. If all can vary, set to 1:$
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">Indy :</emphasis> index of entries of Y that are not fixed. If all can vary, set to 1:$
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">Indxp :</emphasis> index of entries of XP (derivative of x) that need not be zero. If all can vary, set to 1:$. Default [].
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">param :</emphasis> list with two elements (default list(1.d-6,0)). param(1): scalar. Perturbation level for linearization; the following variation is used del([x;u])_i = param(1)+param(1)*1d-4*abs([x;u])_i. param(2): scalar. Time t.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">X:</emphasis> steady state X
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">U:</emphasis> stationary input U
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">Y:</emphasis> output corresponding to steady state found
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">XP :</emphasis> derivative of the state corresponding to steady state found
-                </para>
-            </listitem>
-        </itemizedlist>
-    </refsection>
+
     <refsection id="Filecontent_steadycos">
         <title>File content</title>
         <itemizedlist>
@@ -156,17 +224,24 @@ end
         <itemizedlist>
             <listitem>
                 <para>
-                    <link linkend="lincos">lincos - Constructs by linearization a linear state-space model from a general dynamical system described by a xcos diagram (Scilab Function)</link>
+                    <link linkend="lincos">lincos</link> - Constructs by
+                    linearization a linear state-space model from a
+                    general dynamical system described by a xcos
+                    diagram (Scilab Function)
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link linkend="scicos_simulate">scicos_simulate - Function for running xcos simulation in batch mode (Scilab Function)</link>
+                    <link linkend="xcos_simulate">xcos_simulate</link> -
+                    Function for running xcos simulation in batch mode
+                    (Scilab Function)
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link linkend="xcos">xcos - Block diagram editor and GUI for the hybrid simulator (Scilab Function)</link>
+                    <link linkend="xcos">xcos</link> - Block diagram editor
+                    and GUI for the hybrid simulator (Scilab
+                    Function)
                 </para>
             </listitem>
         </itemizedlist>
