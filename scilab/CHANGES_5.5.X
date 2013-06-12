@@ -114,6 +114,9 @@ Xcos
 * Bug #12651 fixed - The 'nw' scicos_simulate option did not work while
                      passing a previous Info simulation status.
 
+* Bug #12685 fixed - The lincos and steadycos functions did not load
+                     the XcosLibs so all the blocs were unknown.
+
 
 Toolbox skeleton
 =================

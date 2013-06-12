@@ -48,6 +48,9 @@ function [X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)
     //** inside a Scicos "context". In order to handle the different situations,
     //** the required library are loaded if not already present in the
     //** "semiglobal-local-environment".
+    if ~exists("scicos_diagram") then
+        loadXcosLibs();
+    end
 
     if exists("scicos_scicoslib")==0 then
         load("SCI/modules/scicos/macros/scicos_scicos/lib") ;
@@ -112,7 +115,7 @@ function [X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)
         else
             error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"), "steadycos", 7, 9));
         end
-
+        //Check input and output ports
         for i=1:length(scs_m.objs)
             if typeof(scs_m.objs(i))=="Block" then
                 if or(scs_m.objs(i).gui==["IN_f", "INPUTPORT"]) then
@@ -164,6 +167,9 @@ function [X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)
     outlnk=sim.outlnk;outptr=sim.outptr;ipptr=sim.ipptr;
 
     ki=[];ko=[];nyptr=1;
+    //collect the input ports in ki and output ports in ko
+    //  first column of ko contain ouput block index in funs, second  the output index
+    //  first column of ki contain input block index in funs, second  the input index
     for kfun=1:length(sim.funs)
         if sim.funs(kfun)=="output" then
             sim.funs(kfun)="bidon"
@@ -172,22 +178,26 @@ function [X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)
         elseif sim.funs(kfun)=="input" then
             sim.funs(kfun)="bidon"
             ki=[ki;[kfun,sim.ipar(ipptr(kfun))]];
-
         end
     end
-    [junk,ind]=gsort(-ko(:,2));ko=ko(ind,1);
-    [junk,ind]=gsort(-ki(:,2));ki=ki(ind,1);
+    //Sort the ports table according to the port index
+    [junk,ind]=gsort(ko(:,2),"g","i");ko=ko(ind,1);
+    [junk,ind]=gsort(ki(:,2),"g","i");ki=ki(ind,1);
 
+    //Build table of "pointers" on storage of outputs  values
     pointo=[];
     for k=ko'
         pointo=[pointo;inplnk(inpptr(k))]
     end
+    //Build table of "pointers" on storage of inputs  values
     pointi=[];
     for k=ki'
         pointi=[pointi;outlnk(outptr(k))]
     end
     nx=size(state.x,"*");
+    //total number of input values
     nu=0; for k=pointi', nu=nu+size(state.outtb(k),"*"), end
+    //total number of output values
     ny=0; for k=pointo', ny=ny+size(state.outtb(k),"*"), end
 
     if X==[] then X=zeros(nx,1);end
@@ -200,24 +210,30 @@ function [X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)
     ux0 = [U(Indu);X(Indx)];
     sindu = size(U(Indu),"*");
     sindx = size(X(Indx),"*");
+    //call the optimizer to find a steady state point (U(Indu),X(Indx))
+    //such that ||X(KX)||+||Y(KY)|| is minimum
+    //where KX is the complement of Indx et KY the complement of Indy
     [err,uxopt,gopt] = optim(cost,ux0)
     U(Indu) = uxopt(1:sindu);
+
+    //Assign system continuous state
     X(Indx) = uxopt(sindu+1:sindx+sindu);
     state.x = X;
-    Uind=1
 
+    //Compute continuous state derivative
+    //set system inputs
+    Uind=1
     for k=pointi'
         state.outtb(k) = matrix(U(Uind:Uind+size(state.outtb(k),"*")-1),size(state.outtb(k)));
         Uind = size(state.outtb(k),"*")+1;
     end
-
-    [state,t] = scicosim(state,t,t,sim,"start",[.1,.1,.1,.1]);
     [state,t] = scicosim(state,t,t,sim,"linear",[.1,.1,.1,.1]);
-    [state,t] = scicosim(state,t,t,sim,"finish",[.1,.1,.1,.1]);
 
+    //Assign system continuous state derivative
     XP=state.x;
-    Yind=1
 
+    //Assign the outputs
+    Yind=1
     for k=pointo'
         Y(Yind:Yind+size(state.outtb(k),"*")-1) = state.outtb(k)(:);
         Yind = size(state.outtb(k),"*")+1
@@ -232,31 +248,35 @@ function [f,g,ind]=cost(ux,ind)
     U;
     X(Indx)=ux(sindu+1:sindx+sindu);
     U(Indu)=ux(1:sindu);
+    //set system continuous state
     state.x=X;
+
+    //set system inputs
     Uind=1
     for k=pointi'
         state.outtb(k) = matrix(U(Uind:Uind+size(state.outtb(k),"*")-1),size(state.outtb(k)));
         Uind = size(state.outtb(k),"*")+1;
     end
-    // state.outtb(pointi)=U;
 
-    [state,t] = scicosim(state,t,t,sim,"start",[.1,.1,.1,.1]);
+    //update blocks derivative of continuous time block
     [state,t] = scicosim(state,t,t,sim,"linear",[.1,.1,.1,.1]);
-    [state,t] = scicosim(state,t,t,sim,"finish",[.1,.1,.1,.1]);
 
-    zer=ones(X);zer(Indxp)=0;xp=zer.*state.x;
+    // Ignore derivative of x  that need not be zero.
+    xp=state.x;xp(Indxp)=0;
 
+    //Assign the outputs
     Yind=1
     for k=pointo'
         y(Yind:Yind+size(state.outtb(k),"*")-1)=state.outtb(k)(:);
         Yind = size(state.outtb(k),"*")+1
     end
     // y=state.outtb(pointo);
-    zer = ones(y);
-    zer(Indy) = 0;
-    err       = zer.*(Y-y);
+    //ignore outputs that can vary (not imposed)
+    err=Y-y;err(Indy)=0;
+    //Compute criterion
     f=.5*(norm(xp,2)+norm(err,2));
 
+    //Compute gradient using linear tangent approximation
     sys = lincos(%cpr,X,U,param); //** lincos is used here
 
     g  = xp'*[sys.B(:,Indu) sys.A(:,Indx)] - err'*[sys.D(:,Indu) sys.C(:,Indx)];

@@ -62,6 +62,9 @@ function sys = lincos(scs_m,x0,u0,param)
     //** inside a Scicos "context". In order to handle the different situations,
     //** the required library are loaded if not already present in the
     //** "semiglobal-local-environment".
+    if ~exists("scicos_diagram") then
+        loadXcosLibs();
+    end
 
     if exists("scicos_scicoslib")==0 then
         load("SCI/modules/scicos/macros/scicos_scicos/lib") ;
@@ -246,7 +249,6 @@ function sys = lincos(scs_m,x0,u0,param)
         Uind = size(state.outtb(k),"*")+1;
     end
 
-    [state,t]=scicosim(state,t,t,sim,"start",[.1,.1,.1,.1]);
     [state,t]=scicosim(state,t,t,sim,"linear",[.1,.1,.1,.1]);
     Yind=1
     for k=pointo'
@@ -279,7 +281,6 @@ function sys = lincos(scs_m,x0,u0,param)
         zo=[state.x;zo];
         F(:,i)=(zo-zo0)/del(i);
     end
-    [state,t]=scicosim(state,t,t,sim,"finish",[.1,.1,.1,.1]);
 
     sys = syslin("c",F(1:nx,1:nx),F(1:nx,nx+1:nx+nu),F(nx+1:nx+ny,1:nx),F(nx+1:nx+ny,nx+1:nx+nu));
 

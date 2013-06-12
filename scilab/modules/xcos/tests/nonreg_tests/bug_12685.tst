@@ -1,0 +1,27 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - INRIA - Serge Steer
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- XCOS TEST -->
+
+
+assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/IVPD.zcos"));
+
+//Spécification du point initial
+X0=[0;0;0;%pi/2]; //Valeur initiale des états
+U0=0;            //Valeur initiale des entrées
+Y0=[0;%pi/2];       //Valeur initiale des sorties
+
+//Spécification des variables à déterminer
+IndX=1:4;     //Tous les états
+IndU=1;        //Toutes les entrées
+IndY=2;         //La deuxième sortie (Theta) est libre, la première (x) est imposée
+IndXd=[];      //Toutes les dérivés  des états doivent être nulles
+
+//Recherche d'un état stationnaire
+[X,U,Y,Xd]=steadycos(scs_m,X0,U0,Y0,IndX,IndU,IndY,IndXd);
+sys=lincos(scs_m,X,U);
+
