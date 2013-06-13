@@ -9,10 +9,11 @@
 #include <api_scilab.h>
 #include <Scierror.h>
 #include <localization.h>
+#include <xerbla.hxx>
 // =============================================================================
-extern C2F(xerbla)(char *srname, int *info);
+//extern C2F(xerbla)(char *srname, int *info);
 // =============================================================================
-int sci_call_xerbla(char *fname)
+int sci_call_xerbla(char *fname, void* pvApiCtx)
 {
     SciErr sciErr;
     int *piAddressVarOne = NULL;
@@ -84,7 +85,7 @@ int sci_call_xerbla(char *fname)
         return 0;
     }
 
-    retXerbla = C2F(xerbla)(param1, &param2);
+    C2F(xerbla)(param1, &param2);
 
     if (param1)
     {
