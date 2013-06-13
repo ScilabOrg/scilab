@@ -389,6 +389,9 @@
     <ClCompile Include="hashtable\hashtable_utility.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\cpp\xerbla.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\core.iss" />
@@ -760,6 +763,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\includes\hashtable_utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\xerbla.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -226,6 +226,7 @@ cd ..
     <ClCompile Include="..\cpp\storeCommand.cpp" />
     <ClCompile Include="..\cpp\with_module.cpp" />
     <ClCompile Include="..\cpp\backtrace_print.cpp" />
+    <ClCompile Include="..\cpp\xerbla.cpp" />
     <ClCompile Include="backtrace.c" />
     <ClCompile Include="callFunctionFromGateway.c" />
     <ClCompile Include="callinterf.c" />
@@ -568,6 +569,7 @@ cd ..
     <ClInclude Include="..\..\includes\version.h" />
     <ClInclude Include="..\..\includes\win_mem_alloc.h" />
     <ClInclude Include="..\..\includes\with_module.h" />
+    <ClInclude Include="..\..\includes\xerbla.hxx" />
     <ClInclude Include="..\..\includes\xscion.h" />
     <ClInclude Include="..\cpp\partition.hxx" />
     <ClInclude Include="..\cpp\unrolled_algorithms.hxx" />

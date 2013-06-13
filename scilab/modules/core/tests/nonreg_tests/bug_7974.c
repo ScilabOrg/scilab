@@ -12,7 +12,7 @@
 // =============================================================================
 extern C2F(xerbla)(char *srname, int *info);
 // =============================================================================
-int sci_call_xerbla(char *fname)
+int sci_call_xerbla(char *fname, void* pvApiCtx)
 {
     SciErr sciErr;
     int *piAddressVarOne = NULL;
