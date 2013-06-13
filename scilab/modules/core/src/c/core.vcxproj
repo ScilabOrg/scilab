@@ -226,6 +226,7 @@ cd ..
     <ClCompile Include="..\cpp\storeCommand.cpp" />
     <ClCompile Include="..\cpp\with_module.cpp" />
     <ClCompile Include="..\cpp\backtrace_print.cpp" />
+    <ClCompile Include="..\cpp\xerbla.cpp" />
     <ClCompile Include="backtrace.c" />
     <ClCompile Include="callFunctionFromGateway.c" />
     <ClCompile Include="callinterf.c" />
