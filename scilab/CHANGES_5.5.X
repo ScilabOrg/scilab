@@ -371,3 +371,5 @@ Bug fixes
                      when v1 and v2 are real arrays, v1 >= 0 and v2 integer.
 
 * Bug #12678 fixed - nthroot() now accepts vector/matrix as second argument.
+
+* Bug #12679 fixed - Checking gcd and lcm arguments.
