@@ -88,7 +88,8 @@ src/cpp/backtrace_print.cpp \
 src/cpp/storeCommand.cpp \
 src/cpp/banner.cpp \
 src/cpp/with_module.cpp \
-src/cpp/runner.cpp
+src/cpp/runner.cpp \
+src/cpp/xerbla.cpp
 
 if USE_DYNAMIC_STACK
 CORE_C_SOURCES += src/c/scimem64.c
@@ -126,7 +127,6 @@ src/fortran/mrknmd.f \
 src/fortran/ref2val.f \
 src/fortran/stack.f \
 src/fortran/isbrk.f \
-src/fortran/xerbla.f \
 src/fortran/dtosci.f \
 src/fortran/bexec.f \
 src/fortran/varfunptr.f \

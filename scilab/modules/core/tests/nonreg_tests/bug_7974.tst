@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 7974 -->
 //
 // <-- CLI SHELL MODE -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=7974
 //
@@ -24,11 +24,11 @@ if haveacompiler() then
   if ~isfile(TMPDIR + "/bug_7974/bug_7974.c") then pause, end
   ilib_build("build_c",["call_xerbla","sci_call_xerbla"], "bug_7974.c", []);
   exec loader.sce;
-  
+
   if execstr("call_xerbla(""FUN123"", 10)", "errcatch") <> 998 then pause, end
   [msg, err] = lasterror();
   if err <> 998 then pause, end
-  refline = "  if execstr(""call_xerbla(""""FUN123"""", 10)"", ""errcatch"") <> 998 then pause, end";
+  refline = "xerbla: On entry to FUN123 parameter number 10 had an illegal value (lapack library probem)";
   if msg <> refline then pause, end
 
 end

@@ -181,7 +181,7 @@ am__libscicore_algo_la_SOURCES_DIST = src/c/inffic.c src/c/cs2st.c \
 	src/cpp/search_functions.cpp src/cpp/demangle.cpp \
 	src/cpp/backtrace_print.cpp src/cpp/storeCommand.cpp \
 	src/cpp/banner.cpp src/cpp/with_module.cpp src/cpp/runner.cpp \
-	src/fortran/clunit.f src/fortran/getlin.f \
+	src/cpp/xerbla.cpp src/fortran/clunit.f src/fortran/getlin.f \
 	src/fortran/allowptr.f src/fortran/isany.f \
 	src/fortran/hmcreate.f src/fortran/nextj.f \
 	src/fortran/setgetmode.f src/fortran/showstack.f \
@@ -194,14 +194,14 @@ am__libscicore_algo_la_SOURCES_DIST = src/c/inffic.c src/c/cs2st.c \
 	src/fortran/getsym.f src/fortran/findequal.f \
 	src/fortran/stackg.f src/fortran/find.f src/fortran/setlnb.f \
 	src/fortran/mrknmd.f src/fortran/ref2val.f src/fortran/stack.f \
-	src/fortran/isbrk.f src/fortran/xerbla.f src/fortran/dtosci.f \
-	src/fortran/bexec.f src/fortran/varfunptr.f \
-	src/fortran/getfun.f src/fortran/savlod.f src/fortran/error.f \
-	src/fortran/cvdm.f src/fortran/tradsl.f src/fortran/mkindx.f \
-	src/fortran/whatln.f src/fortran/errmgr.f src/fortran/defmat.f \
-	src/fortran/mklist.f src/fortran/sigbas.f src/fortran/indxg.f \
-	src/fortran/istrue.f src/fortran/getfunction.f \
-	src/fortran/extlarg.f src/fortran/getstr.f src/fortran/cvwm.f \
+	src/fortran/isbrk.f src/fortran/dtosci.f src/fortran/bexec.f \
+	src/fortran/varfunptr.f src/fortran/getfun.f \
+	src/fortran/savlod.f src/fortran/error.f src/fortran/cvdm.f \
+	src/fortran/tradsl.f src/fortran/mkindx.f src/fortran/whatln.f \
+	src/fortran/errmgr.f src/fortran/defmat.f src/fortran/mklist.f \
+	src/fortran/sigbas.f src/fortran/indxg.f src/fortran/istrue.f \
+	src/fortran/getfunction.f src/fortran/extlarg.f \
+	src/fortran/getstr.f src/fortran/cvwm.f \
 	src/fortran/storeglobal.f src/fortran/lst2vars.f \
 	src/fortran/basnms.f src/fortran/ptrback.f src/fortran/getch.f \
 	src/fortran/ftob.f src/fortran/seteol.f src/fortran/compcl.f \
@@ -272,21 +272,21 @@ am__objects_3 = libscicore_algo_la-hashtable_core.lo \
 	libscicore_algo_la-backtrace_print.lo \
 	libscicore_algo_la-storeCommand.lo \
 	libscicore_algo_la-banner.lo libscicore_algo_la-with_module.lo \
-	libscicore_algo_la-runner.lo
+	libscicore_algo_la-runner.lo libscicore_algo_la-xerbla.lo
 @USE_DYNAMIC_STACK_TRUE@am__objects_4 = relocstack.lo
 am__objects_5 = clunit.lo getlin.lo allowptr.lo isany.lo hmcreate.lo \
 	nextj.lo setgetmode.lo showstack.lo setippty.lo compil.lo \
 	funnam.lo cmdstr.lo cmplxt.lo skpins.lo folhp.lo cvname.lo \
 	typ2cod.lo prompt.lo intstr.lo createref.lo btof.lo getnum.lo \
 	btofm.lo getsym.lo findequal.lo stackg.lo find.lo setlnb.lo \
-	mrknmd.lo ref2val.lo stack.lo isbrk.lo xerbla.lo dtosci.lo \
-	bexec.lo varfunptr.lo getfun.lo savlod.lo error.lo cvdm.lo \
-	tradsl.lo mkindx.lo whatln.lo errmgr.lo defmat.lo mklist.lo \
-	sigbas.lo indxg.lo istrue.lo getfunction.lo extlarg.lo \
-	getstr.lo cvwm.lo storeglobal.lo lst2vars.lo basnms.lo \
-	ptrback.lo getch.lo ftob.lo seteol.lo compcl.lo expsum.lo \
-	copyvar.lo putid.lo itosci.lo stackr2d.lo stacki2d.lo \
-	stackc2i.lo isinstring.lo $(am__objects_4)
+	mrknmd.lo ref2val.lo stack.lo isbrk.lo dtosci.lo bexec.lo \
+	varfunptr.lo getfun.lo savlod.lo error.lo cvdm.lo tradsl.lo \
+	mkindx.lo whatln.lo errmgr.lo defmat.lo mklist.lo sigbas.lo \
+	indxg.lo istrue.lo getfunction.lo extlarg.lo getstr.lo cvwm.lo \
+	storeglobal.lo lst2vars.lo basnms.lo ptrback.lo getch.lo \
+	ftob.lo seteol.lo compcl.lo expsum.lo copyvar.lo putid.lo \
+	itosci.lo stackr2d.lo stacki2d.lo stackc2i.lo isinstring.lo \
+	$(am__objects_4)
 am_libscicore_algo_la_OBJECTS = $(am__objects_2) $(am__objects_3) \
 	$(am__objects_5)
 libscicore_algo_la_OBJECTS = $(am_libscicore_algo_la_OBJECTS)
@@ -681,7 +681,8 @@ src/cpp/backtrace_print.cpp \
 src/cpp/storeCommand.cpp \
 src/cpp/banner.cpp \
 src/cpp/with_module.cpp \
-src/cpp/runner.cpp
+src/cpp/runner.cpp \
+src/cpp/xerbla.cpp
 
 CORE_FORTRAN_SOURCES = src/fortran/clunit.f src/fortran/getlin.f \
 	src/fortran/allowptr.f src/fortran/isany.f \
@@ -696,14 +697,14 @@ CORE_FORTRAN_SOURCES = src/fortran/clunit.f src/fortran/getlin.f \
 	src/fortran/getsym.f src/fortran/findequal.f \
 	src/fortran/stackg.f src/fortran/find.f src/fortran/setlnb.f \
 	src/fortran/mrknmd.f src/fortran/ref2val.f src/fortran/stack.f \
-	src/fortran/isbrk.f src/fortran/xerbla.f src/fortran/dtosci.f \
-	src/fortran/bexec.f src/fortran/varfunptr.f \
-	src/fortran/getfun.f src/fortran/savlod.f src/fortran/error.f \
-	src/fortran/cvdm.f src/fortran/tradsl.f src/fortran/mkindx.f \
-	src/fortran/whatln.f src/fortran/errmgr.f src/fortran/defmat.f \
-	src/fortran/mklist.f src/fortran/sigbas.f src/fortran/indxg.f \
-	src/fortran/istrue.f src/fortran/getfunction.f \
-	src/fortran/extlarg.f src/fortran/getstr.f src/fortran/cvwm.f \
+	src/fortran/isbrk.f src/fortran/dtosci.f src/fortran/bexec.f \
+	src/fortran/varfunptr.f src/fortran/getfun.f \
+	src/fortran/savlod.f src/fortran/error.f src/fortran/cvdm.f \
+	src/fortran/tradsl.f src/fortran/mkindx.f src/fortran/whatln.f \
+	src/fortran/errmgr.f src/fortran/defmat.f src/fortran/mklist.f \
+	src/fortran/sigbas.f src/fortran/indxg.f src/fortran/istrue.f \
+	src/fortran/getfunction.f src/fortran/extlarg.f \
+	src/fortran/getstr.f src/fortran/cvwm.f \
 	src/fortran/storeglobal.f src/fortran/lst2vars.f \
 	src/fortran/basnms.f src/fortran/ptrback.f src/fortran/getch.f \
 	src/fortran/ftob.f src/fortran/seteol.f src/fortran/compcl.f \
@@ -1122,6 +1123,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-typename.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-version.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-with_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-xerbla.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-xscion.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-core_gw.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-gw_core.Plo@am__quote@
@@ -1987,6 +1989,13 @@ libscicore_algo_la-runner.lo: src/cpp/runner.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscicore_algo_la-runner.lo `test -f 'src/cpp/runner.cpp' || echo '$(srcdir)/'`src/cpp/runner.cpp
 
+libscicore_algo_la-xerbla.lo: src/cpp/xerbla.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscicore_algo_la-xerbla.lo -MD -MP -MF $(DEPDIR)/libscicore_algo_la-xerbla.Tpo -c -o libscicore_algo_la-xerbla.lo `test -f 'src/cpp/xerbla.cpp' || echo '$(srcdir)/'`src/cpp/xerbla.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscicore_algo_la-xerbla.Tpo $(DEPDIR)/libscicore_algo_la-xerbla.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/xerbla.cpp' object='libscicore_algo_la-xerbla.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscicore_algo_la-xerbla.lo `test -f 'src/cpp/xerbla.cpp' || echo '$(srcdir)/'`src/cpp/xerbla.cpp
+
 libscicore_la-core_gw.lo: sci_gateway/cpp/core_gw.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscicore_la-core_gw.lo -MD -MP -MF $(DEPDIR)/libscicore_la-core_gw.Tpo -c -o libscicore_la-core_gw.lo `test -f 'sci_gateway/cpp/core_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/core_gw.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscicore_la-core_gw.Tpo $(DEPDIR)/libscicore_la-core_gw.Plo
@@ -2287,9 +2296,6 @@ stack.lo: src/fortran/stack.f
 
 isbrk.lo: src/fortran/isbrk.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o isbrk.lo `test -f 'src/fortran/isbrk.f' || echo '$(srcdir)/'`src/fortran/isbrk.f
-
-xerbla.lo: src/fortran/xerbla.f
-	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o xerbla.lo `test -f 'src/fortran/xerbla.f' || echo '$(srcdir)/'`src/fortran/xerbla.f
 
 dtosci.lo: src/fortran/dtosci.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o dtosci.lo `test -f 'src/fortran/dtosci.f' || echo '$(srcdir)/'`src/fortran/dtosci.f
