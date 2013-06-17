@@ -431,7 +431,7 @@ void base_error_init(void)
     sigemptyset(&ToContinue.sa_mask);
     sigaction(SIGCONT, &ToContinue, NULL);
     /* Signal handlers */
-    csignal();
+    //csignal();
     memset(&act, 0, sizeof(act));
     act.sa_sigaction = sig_fatal;
     act.sa_flags = SA_SIGINFO;
