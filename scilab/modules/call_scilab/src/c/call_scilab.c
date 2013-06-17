@@ -24,7 +24,6 @@
 #include "sci_path.h"
 #include "scilabDefaults.h"
 #include "sci_tmpdir.h"
-#include "inisci-c.h"
 #include "scirun.h"
 #include "sciquit.h"
 #include "storeCommand.h"
@@ -213,7 +212,7 @@ BOOL TerminateScilab(char *ScilabQuit)
     {
         if (getScilabMode() != SCILAB_NWNI)
         {
-            ExitScilab();
+            //ExitScilab();
         }
         else
         {
