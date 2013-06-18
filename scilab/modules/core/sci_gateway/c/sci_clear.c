@@ -1,5 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
  * Copyright (C) 2006 - INRIA - Allan CORNET
  * Copyright (C) 2011 - DIGITEO - Allan CORNET
  *
@@ -74,67 +75,42 @@ static int sci_clear_no_rhs(const char *fname)
 static int sci_clear_n_rhs(const char *fname)
 {
     int k = 0;
-    int i = 0;
+    int i = 0, j = 0;
     int nbVariables = Rhs;
-    char **VariableNameToClear = (char **)MALLOC(sizeof(char*) * nbVariables);
+    int nRows = 0, nCols = 0;
+    char ** variablename = NULL;
+    int * piAddressVar = NULL;
 
-    if (!VariableNameToClear)
+    for (k = 0; k < nbVariables; ++k)
     {
-        Scierror(999, _("%s: No more memory.\n"), fname);
-        return 0;
-    }
-
-    for (k = 0; k < nbVariables; k++)
-    {
-        int *piAddressVar = NULL;
         SciErr sciErr = getVarAddressFromPosition(pvApiCtx, k + 1, &piAddressVar);
         if (!sciErr.iErr)
         {
-            if (isScalar(pvApiCtx, piAddressVar) && isStringType(pvApiCtx, piAddressVar))
+            if (isStringType(pvApiCtx, piAddressVar))
             {
-                char *variablename = NULL;
-                if (getAllocatedSingleString(pvApiCtx, piAddressVar, &variablename) == 0)
+                if (getAllocatedMatrixOfString(pvApiCtx, piAddressVar, &nRows, &nCols, &variablename) == 0)
                 {
-                    VariableNameToClear[i] =  variablename;
-                    i++;
+                    for (i = 0; i < nCols; ++i)
+                        for (j = 0; j < nRows; ++j)
+                        {
+                            deleteNamedVariable(pvApiCtx, variablename[j + i * nRows]);
+                        }
+                    freeAllocatedMatrixOfString(nRows, nCols, variablename);
                 }
                 else
                 {
-                    freeAllocatedMatrixOfString(i, 1, VariableNameToClear);
-                    VariableNameToClear = NULL;
-                    Scierror(999, _("%s: No more memory.\n"), fname);
+                    SciError(17);
                     return 0;
                 }
             }
             else
             {
-                freeAllocatedMatrixOfString(i, 1, VariableNameToClear);
-                VariableNameToClear = NULL;
-
-                if (isScalar(pvApiCtx, piAddressVar))
-                {
-                    Scierror(201, _("%s: Wrong type for input argument #%d: A single string expected.\n"), fname, k + 1);
-                    return 0;
-                }
-                else
-                {
-                    Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, k + 1);
-                    return 0;
-                }
+                Scierror(207, _("%s: Wrong type for input argument #%d: Matrix of strings expected.\n"), fname, k + 1);
+                return 0;
             }
         }
     }
 
-    for (k = 0; k < nbVariables; k++)
-    {
-        deleteNamedVariable(NULL, VariableNameToClear[k]);
-    }
-
-    if (VariableNameToClear)
-    {
-        freeAllocatedMatrixOfString(nbVariables, 1, VariableNameToClear);
-        VariableNameToClear = NULL;
-    }
     PutLhsVar();
     return 0;
 }
