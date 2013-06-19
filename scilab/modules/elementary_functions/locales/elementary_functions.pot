@@ -413,7 +413,7 @@ msgstr ""
 # File: macros/isnan.sci, line: 14
 # File: macros/isrow.sci, line: 13
 # File: macros/isscalar.sci, line: 15
-# File: macros/issquare.sci, line: 13
+# File: macros/isSquareMat.sci, line: 13
 # File: macros/isvector.sci, line: 18
 # File: macros/lex_sort.sci, line: 17
 # File: macros/linspace.sci, line: 19

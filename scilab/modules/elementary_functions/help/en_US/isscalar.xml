@@ -84,7 +84,7 @@ isscalar(s) // Column array of structures
                 <link linkend="iscolumn">iscolumn</link>
             </member>
             <member>
-                <link linkend="issquare">issquare</link>
+                <link linkend="isSquareMat">isSquareMat</link>
             </member>
             <member>
                 <link linkend="isempty">isempty</link>

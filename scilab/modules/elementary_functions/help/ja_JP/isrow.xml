@@ -147,7 +147,7 @@ isrow(s) // 構造体の3次元配列 (要素1の次元が2つ)
             
             <member>
                 
-                <link linkend="issquare">issquare</link>
+                <link linkend="isSquareMat">isSquareMat</link>
                 
             </member>
             

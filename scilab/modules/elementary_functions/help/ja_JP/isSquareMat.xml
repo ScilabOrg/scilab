@@ -12,11 +12,11 @@
  *
  -->
 
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="issquare" xml:lang="ja">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isSquareMat" xml:lang="ja">
     
     <refnamediv>
         
-        <refname>issquare</refname>
+        <refname>isSquareMat</refname>
         
         <refpurpose>変数が正方行列かどうかを確認</refpurpose>
         
@@ -26,7 +26,7 @@
         
         <title>呼び出し手順</title>
         
-        <synopsis>t=issquare(x)</synopsis>
+        <synopsis>t=isSquareMat(x)</synopsis>
         
     </refsynopsisdiv>
     
@@ -71,7 +71,7 @@
         <para>
             
             <literal>
-                issquare(<varname>x</varname>)
+                isSquareMat(<varname>x</varname>)
             </literal>
             は
             
@@ -83,7 +83,7 @@
             
             の場合にtrueを返します.. 
             
-            <literal>issquare([])</literal>はfalseを返すことに注意してください.
+            <literal>isSquareMat([])</literal>はfalseを返すことに注意してください.
             
         </para>
         
@@ -94,37 +94,37 @@
         <title>例</title>
         
         <programlisting role="example"><![CDATA[
-issquare(ones(10,10))
-issquare(1)
-issquare(["s" "t"; "t" "s"])
-issquare(rand(2,1,2))
-issquare(rand(2,2,3))
+isSquareMat(ones(10,10))
+isSquareMat(1)
+isSquareMat(["s" "t"; "t" "s"])
+isSquareMat(rand(2,1,2))
+isSquareMat(rand(2,2,3))
 s = struct();
-issquare(s) // 空の構造体
+isSquareMat(s) // 空の構造体
 clear s
 s.a = %z;
 s.b = 2;
-issquare(s); // スカラー構造体
+isSquareMat(s); // スカラー構造体
 clear s
 s(1,2).a = 3;
 s(1,3).b = %z;
-issquare(s) // 構造体の行配列
+isSquareMat(s) // 構造体の行配列
 clear s
 s(2,1).a = "w"; 
 s(3,1).b = %t;  
-issquare(s) // 構造体の列配列
+isSquareMat(s) // 構造体の列配列
 clear s
 s(1,2).a = -2;
 s(3,1).b = %pi;
-issquare(s) // 構造体の2次元非正方配列
+isSquareMat(s) // 構造体の2次元非正方配列
 clear s
 s(2,2,2).a = %f; 
 s(1,2,1).b = list(%e, %s);
-issquare(s) // 構造体の3次元 (立法) 配列
+isSquareMat(s) // 構造体の3次元 (立法) 配列
 clear s
 s(2,1,2).a = 3;
 s(1,1,2).b = "test";
-issquare(s) // 構造体の3次元配列 (要素数が1の次元を有する)
+isSquareMat(s) // 構造体の3次元配列 (要素数が1の次元を有する)
  ]]></programlisting>
         
     </refsection>
@@ -179,7 +179,7 @@ issquare(s) // 構造体の3次元配列 (要素数が1の次元を有する)
                 
                 <revnumber>5.5.0</revnumber>
                 
-                <revremark>関数issquareが導入されました.</revremark>
+                <revremark>関数isSquareMatが導入されました.</revremark>
                 
             </revision>
             
