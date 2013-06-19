@@ -36,7 +36,6 @@ function [x,y,ok,gc]=edit_curv(x,y,job,tit,gc)
     //  Abort : sortie de l'editeur et retour au donnes initiales
     //  Undo  : annulation de la derniere modification
     //  Size  : changement des bornes du graphique
-    //  Grids : changement des graduations du graphique
     //  Clear : effacement de la courbe (x=[] et y=[]) (sans quitter l'editeur)
     //  Read  : lecture de la courbe a partir d'un fichier d'extension .xy
     //  Save  : sauvegarde binaire (sur un fichier d'extension .xy) de
@@ -109,18 +108,18 @@ function [x,y,ok,gc]=edit_curv(x,y,job,tit,gc)
     curwin = max(winsid())+1;
     scf(curwin) ;
 
-    //** Default layout is changed in Scilab 5
-    //** unsetmenu(curwin,'File',1) // clear
-    //** unsetmenu(curwin,'File',2) // select
-    //** unsetmenu(curwin,'File',6) // load
-    //** unsetmenu(curwin,'File',7) // close
-    //** unsetmenu(curwin,'3D Rot.')
-
     execstr("Edit_"+string(curwin)+"=Edit");
     execstr("Data_"+string(curwin)+"=Data");
     menubar(curwin,menus)
     //
     f = gcf(); a = gca();
+    //Disable figure closure
+    function EC_close(),
+        messagebox(_("Use the figure menu to close"), "edit_curv error", "error")
+        return,
+    endfunction
+    f.closerequestfcn="EC_close";
+
     a.data_bounds = [rect(1),rect(2);rect(3),rect(4)]
     a.axes_visible="on";
     a.grid=[4 4];
@@ -157,13 +156,13 @@ function [x,y,ok,gc]=edit_curv(x,y,job,tit,gc)
         case "Ok" then    //    -- ok menu
             rect = matrix(a.data_bounds',1,4);
             gc   = list(rect,axisdata);
-            xdel(curwin);
+            delete(f)
             return;
 
         case "Abort" then //    -- abort menu
             x = xsav
             y = ysav
-            xdel(curwin)
+            delete(f)
             ok = %f;
             return
 
@@ -174,9 +173,8 @@ function [x,y,ok,gc]=edit_curv(x,y,job,tit,gc)
             return
 
         case "Undo" then
-            if hdl<>[] then hdl.visible = "on";end //erase
             x=xs;y=ys
-            if x<>[] then hdl.data=[x y];hdl.visible = "on";end
+            if x<>[] then hdl.data=[x y];end
 
         case "Size" then
             while %t
@@ -197,15 +195,6 @@ function [x,y,ok,gc]=edit_curv(x,y,job,tit,gc)
                 if dy==0 then dy=max(ymx/2,1),ymn=ymn-dy/5;ymx=ymx+dy/10;end
                 rect=[xmn,ymn,xmx,ymx];
                 a.data_bounds=[rect(1),rect(2);rect(3),rect(4)]
-            end
-
-        case "Grids" then //no more used
-            rep=x_mdialog("entrez les nouveaux nombres d''intervalles",..
-            ["axe des x";"axe des y"],..
-            string([axisdata(2);axisdata(4)]))
-            if rep<>[] then
-                rep=evstr(rep)
-                axisdata(2)=rep(1);axisdata(4)=rep(2);
             end
 
         case "Clear" then
@@ -241,7 +230,6 @@ function [x,y,ok,gc]=edit_curv(x,y,job,tit,gc)
             savexy(x,y)
 
         case "Replot" then
-            draw(f)
 
         case "edit" then
             npt=prod(size(x))
@@ -336,7 +324,7 @@ function [x,y] = addpt(c1,x,y)
                 pp=pp(:,i)
                 x=x([1:k k:npt]);x(k+1)=pp(1);
                 y=y([1:k k:npt]);y(k+1)=pp(2);
-                hdl;drawlater();hdl.data=[x y];hdl.visible = "on"; drawnow();
+                hdl;hdl.data=[x y];
                 return
             end
         end
@@ -352,7 +340,7 @@ function [x,y] = addpt(c1,x,y)
         x(npt+1)=c1(1)
         y(npt+1)=c1(2)
     end
-    hdl;drawlater();hdl.data=[x y];hdl.visible = "on"; drawnow();
+    hdl;hdl.data=[x y];
 endfunction
 
 function [x,y]=movept(x,y)
@@ -366,7 +354,6 @@ function [x,y]=movept(x,y)
         if mody==0 then c2(2)=y(k);end
         x(k)=c2(1);y(k)=c2(2)
         hdl.data=[x,y];
-        drawnow()
     end
 endfunction
 
