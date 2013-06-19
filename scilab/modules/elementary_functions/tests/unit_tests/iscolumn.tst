@@ -113,7 +113,7 @@ a(2,2,2).entries =1:3;
 assert_checkequal(iscolumn(a), %f); // Cubic case
 a = cell(2,1,2);
 a(1,1,1).entries=1:3;
-a(2,1,1).entries=1:3
+a(2,1,1).entries=1:3;
 a(1,1,2).entries=1:3;
 a(2,1,2).entries=1:3;
 assert_checkequal(iscolumn(a), %f); // Hypermatrix with singleton (square)
