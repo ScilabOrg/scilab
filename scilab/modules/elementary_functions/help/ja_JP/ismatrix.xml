@@ -153,7 +153,7 @@ ismatrix(s) // 構造体の3次元 (立法)配列
             
             <member>
                 
-                <link linkend="issquare">issquare</link>
+                <link linkend="isSquareMat">isSquareMat</link>
                 
             </member>
             

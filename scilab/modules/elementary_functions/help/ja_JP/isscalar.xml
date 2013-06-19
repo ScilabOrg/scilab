@@ -139,7 +139,7 @@ isscalar(s) // 構造体の列配列
             
             <member>
                 
-                <link linkend="issquare">issquare</link>
+                <link linkend="isSquareMat">isSquareMat</link>
                 
             </member>
             

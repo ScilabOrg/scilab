@@ -7,10 +7,10 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function r = issquare(v)
+function r = isSquareMat(v)
     rhs=argn(2);
     if rhs<>1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"issquare", 1));
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"isSquareMat", 1));
     end
     if type(v) == 15 then
         r = size(v) == 1;

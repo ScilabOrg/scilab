@@ -63,7 +63,7 @@ s(1,3).a = %e;
 assert_checkequal(isrow(s), %t); // Row structure
 clear s;
 s(1,1,3).a = %pi;
-assert_checkequal(issquare(s), %f); // Row structure
+assert_checkequal(isSquareMat(s), %f); // Row structure
 clear s;
 s(3,2).a = %z;
 assert_checkequal(isrow(s), %f); // 2D structure array (not square)

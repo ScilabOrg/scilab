@@ -89,7 +89,7 @@ isrow(s) // 3D array of structures (with 2 singleton dims)
                 <link linkend="ismatrix">ismatrix</link>
             </member>
             <member>
-                <link linkend="issquare">issquare</link>
+                <link linkend="isSquareMat">isSquareMat</link>
             </member>
             <member>
                 <link linkend="isempty">isempty</link>

@@ -90,6 +90,6 @@ SEP #090: New function to access to numerical data in HDF5 files
 SEP #091: New function daskr
 SEP #092: 
 SEP #093: New function cov
-SEP #095: New functions: ismatrix, isrow,iscolumn and issquare.
+SEP #095: New functions: ismatrix, isrow, iscolumn and isSquareMat.
 SEP #097: New argument added at strtod function (decimalseparator)
 SEP #098: New output argument for qp_solve function
