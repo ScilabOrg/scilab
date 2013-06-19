@@ -387,4 +387,4 @@ Bug fixes
 
 * Bug #12686 fixed - Error returned by diff() fixed.
 
-
+* Bug #12700 fixed - edit_curv function and CURV_f Xcos block broken.
