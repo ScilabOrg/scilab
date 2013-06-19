@@ -241,6 +241,35 @@ int sci_editvar(char * fname, unsigned long fname_len)
         return 0;
     }
 
+    if (strcmp(pStVarOne, "$")			== 0 ||
+            strcmp(pStVarOne, "%e")		== 0 ||
+            strcmp(pStVarOne, "%eps") 	== 0 ||
+            strcmp(pStVarOne, "%fftw") 	== 0 ||
+            strcmp(pStVarOne, "%f")		== 0 ||
+            strcmp(pStVarOne, "%F")		== 0 ||
+            strcmp(pStVarOne, "%gui")		== 0 ||
+            strcmp(pStVarOne, "%i")		== 0 ||
+            strcmp(pStVarOne, "%io")		== 0 ||
+            strcmp(pStVarOne, "%inf")		== 0 ||
+            strcmp(pStVarOne, "%nan")		== 0 ||
+            strcmp(pStVarOne, "%pi")		== 0 ||
+            strcmp(pStVarOne, "%s")		== 0 ||
+            strcmp(pStVarOne, "%tk")		== 0 ||
+            strcmp(pStVarOne, "%t")		== 0 ||
+            strcmp(pStVarOne, "%T")		== 0 ||
+            strcmp(pStVarOne, "%z")		== 0 ||
+            strcmp(pStVarOne, "evoid")	== 0 ||
+            strcmp(pStVarOne, "home")		== 0 ||
+            strcmp(pStVarOne, "PWD")		== 0 ||
+            strcmp(pStVarOne, "SCI")		== 0 ||
+            strcmp(pStVarOne, "SCIHOME")	== 0 ||
+            strcmp(pStVarOne, "TMPDIR")	== 0 )
+    {
+        Scierror(13, _("Redefining permanent variable.\n"), fname);
+        FREE(pStVarOne);
+        return 0;
+    }
+
     if (Rhs == 1)
     {
         /* get address of the variable*/

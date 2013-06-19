@@ -203,6 +203,8 @@ Bug fixes
 
 * Bug #8614 fixed - Unit test for barhomogenize added.
 
+* Bug #8628 fixed - Permanent variable check for editvar().
+
 * Bug #8636 fixed - roots() help page updated (default algorithm value was wrong).
 
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
