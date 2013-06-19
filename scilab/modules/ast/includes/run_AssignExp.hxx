@@ -124,7 +124,7 @@ void visitprivate(const AssignExp  &e)
                 e.right_exp_get().accept(*this);
                 pITR = result_get();
                 //reset result
-                result_set(NULL);
+                result_set(pIT);
             }
 
             if (pITR == NULL)
@@ -162,7 +162,7 @@ void visitprivate(const AssignExp  &e)
                 }
                 result_set(pIL);
             }
-            else if (result_get()->isContainer() && result_get()->isDeletable() == false)
+            else if (pITR->isContainer() && pITR->isDeletable() == false)
             {
                 InternalType* pIL = result_get()->clone();
                 result_set(pIL);
@@ -172,12 +172,12 @@ void visitprivate(const AssignExp  &e)
             if (pIT == NULL)
             {
                 //call static insert function
-                pOut = Cell::insertNewCell(pArgs, result_get());
+                pOut = Cell::insertNewCell(pArgs, pITR);
             }
             else
             {
                 //call type insert function
-                pOut = pIT->getAs<Cell>()->insertCell(pArgs, result_get());
+                pOut = pIT->getAs<Cell>()->insertCell(pArgs, pITR);
 
                 if (pOut && pOut != pIT)
                 {
