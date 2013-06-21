@@ -24,13 +24,6 @@
 
 #if defined(__APPLE__) && !defined(WITHOUT_GUI)
 
-typedef struct
-{
-    int   argc;
-    char  **argv;
-    int iFileIndex;
-} thread_parm_t;
-
 /*
 Some parts of the next three functions have been taken from simpleJavaLauncher.
 
@@ -93,7 +86,6 @@ static void setAppName(const char * name)
  */
 static int launchMacOSXEnv(thread_parm_t *param)
 {
-    thread_parm_t *p = (thread_parm_t *)param;
     int ret = -1;
     {
         CFStringRef targetJVM = CFSTR("1.5");
@@ -187,15 +179,6 @@ static int launchMacOSXEnv(thread_parm_t *param)
             fprintf(stderr, "Error: cant find bundle: com.apple.JavaVM.\n");
         }
     }
-
-    if (ret == 0)
-    {
-        /* Call the actual startup script of Scilab */
-        ret = StartScilabEngine(p->argc, p->argv, p->iFileIndex, 0);
-        free(p);
-        exit(ret);
-    }
-    free(p);
     return ret;
 
 }
@@ -207,20 +190,12 @@ static void sourceCallBack (  void *info  ) {}
 /* Specific wrapper for mac os X which is going to call realmin in a specific thread.
  * Takes the same args as realmain
  */
-int initMacOSXEnv(int argc, char *argv[], int iFileIndex)
+int initMacOSXEnv()
 {
-
     CFRunLoopSourceContext sourceContext;
     /* Start the thread that runs the VM. */
     pthread_t vmthread;
     setAppName("Scilab");
-
-    /* Create the structure which is going to be giving to the function inside the thread */
-    thread_parm_t         *param = NULL;
-    param = malloc(sizeof(thread_parm_t));
-    param->argc = argc;
-    param->argv = argv;
-    param->iFileIndex = iFileIndex;
 
     /* create a new pthread copying the stack size of the primordial pthread */
     struct rlimit limit;
@@ -243,7 +218,7 @@ int initMacOSXEnv(int argc, char *argv[], int iFileIndex)
     }
 
     /* Start the thread that we will start the JVM on. */
-    pthread_create(&vmthread, &thread_attr,  launchMacOSXEnv, (void*)param);
+    pthread_create(&vmthread, &thread_attr,  launchMacOSXEnv, NULL);
     pthread_attr_destroy(&thread_attr);
 
     /* Create a a sourceContext to be used by our source that makes */
