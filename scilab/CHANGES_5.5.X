@@ -387,4 +387,4 @@ Bug fixes
 
 * Bug #12686 fixed - Error returned by diff() fixed.
 
-
+* Bug #12705 fixed - Added an input option for intersect() to return non-unique array.
