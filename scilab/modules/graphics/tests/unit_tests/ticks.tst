@@ -8,6 +8,7 @@
 // <-- TEST WITH GRAPHIC -->
 
 // test ticks
+clf();
 
 a = gca();
 
@@ -59,3 +60,42 @@ a.z_ticks = newTicks;
 assert_checkequal(a.auto_ticks, ["on" "on" "off"])
 assert_checkalmostequal(a.z_ticks.locations, [0:0.01:1]')
 assert_checkequal(a.z_ticks.labels, [string(0:0.01:1)]')
+
+f = scf();
+x = 1:10;
+y = x.^2;
+plot(x, y);
+a = gca();
+a.x_ticks = ticks(1:10);
+assert_checkequal(a.x_ticks.locations, [1;2;3;4;5;6;7;8;9;10]);
+assert_checkequal(a.x_ticks.labels, ["1";"2";"3";"4";"5";"6";"7";"8";"9";"10"]);
+
+a.x_ticks = ticks((1:1.5:10)');
+assert_checkequal(a.x_ticks.locations,[1;2.5;4;5.5;7;8.5;10]);
+assert_checkequal(a.x_ticks.labels, ["1";"2.5";"4";"5.5";"7";"8.5";"10"]);
+
+a.y_ticks = ticks(a.x_ticks.locations.^2);
+assert_checkequal(a.y_ticks.locations,[1;6.25;16;30.25;49;72.25;100]);
+assert_checkequal(a.y_ticks.labels,["1";"6.25";"16";"30.25";"49";"72.25";"100"]);
+
+a.y_ticks = ticks([]);
+assert_checkequal(a.y_ticks.locations, []);
+assert_checkequal(a.y_ticks.labels, []);
+
+a.x_ticks = ticks(2:2:8, "<" + string(2:2:8) + ">");
+assert_checkequal(a.x_ticks.locations, [2;4;6;8]);
+assert_checkequal(a.x_ticks.labels, ["<2>";"<4>";"<6>";"<8>"]);
+
+a.log_flags = "lnn";
+
+a.x_ticks = ticks([]);
+
+
+// various errors
+// a.x_ticks = ticks();
+// a.x_ticks = ticks(string(1:10), string(1:10));
+// a.x_ticks = ticks(1:10, string(1:10)');
+
+
+
+
