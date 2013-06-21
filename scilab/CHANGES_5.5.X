@@ -62,6 +62,8 @@ Improvements
 * nthroot() is now vectorizable.
   See bug #12678.
 
+* Function ticks introduced. See SEP #XXX.
+
 
 Obsolete
 =========
