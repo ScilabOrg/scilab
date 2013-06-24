@@ -397,4 +397,5 @@ Bug fixes
 
 * Bug #12686 fixed - Error returned by diff() fixed.
 
+* Bug #12706 fixed - A wrong size matrix as input argument of cross function was not detected.
 
