@@ -1,0 +1,273 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
+
+
+// Vectors
+[nb, loc] = members([], [], %t);
+assert_checkequal(nb , []);
+assert_checkequal(loc, []);
+[nb, loc] = members([], [], %f);
+assert_checkequal(nb , []);
+assert_checkequal(loc, []);
+
+[nb, loc] = members([1 2], [3 4], %t);
+assert_checkequal(nb , [0 0]);
+assert_checkequal(loc, [0 0]);
+[nb, loc] = members([1 2], [3 4], %f);
+assert_checkequal(nb , [0 0]);
+assert_checkequal(loc, [0 0]);
+
+[nb, loc] = members([1 2; 3 4], [5 6; 7 8], %t);
+assert_checkequal(nb , [0 0; 0 0]);
+assert_checkequal(loc, [0 0; 0 0]);
+[nb, loc] = members([1 2; 3 4], [5 6; 7 8], %f);
+assert_checkequal(nb , [0 0; 0 0]);
+assert_checkequal(loc, [0 0; 0 0]);
+
+[nb, loc] = members(string([1 2; 3 4]), string([5 6; 7 8]), %t);
+assert_checkequal(nb , [0 0; 0 0]);
+assert_checkequal(loc, [0 0; 0 0]);
+[nb, loc] = members(string([1 2; 3 4]), string([5 6; 7 8]), %f);
+assert_checkequal(nb , [0 0; 0 0]);
+assert_checkequal(loc, [0 0; 0 0]);
+
+
+A = [1 8 4 5 2 1];
+S = [9 7 4 2 1 4];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , [1 0 2 0 1 1]);
+assert_checkequal(loc, [5 0 6 0 4 5]);
+[nb, loc] = members(A, S, %f);
+assert_checkequal(nb , [1 0 2 0 1 1]);
+assert_checkequal(loc, [5 0 3 0 4 5]);
+
+
+// Strings
+A = 'a'+string(A);
+S = 's'+string(S);
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , [0 0 0 0 0 0]);
+assert_checkequal(loc, [0 0 0 0 0 0]);
+[nb, loc] = members(A, S, %f);
+assert_checkequal(nb , [0 0 0 0 0 0]);
+assert_checkequal(loc, [0 0 0 0 0 0]);
+
+
+A = ["elt1" "elt3" "elt4"];
+S = ["elt5" "elt1" "elt3"];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , [1 1 0]);
+assert_checkequal(loc, [2 3 0]);
+[nb, loc] = members(A, S, %f);
+assert_checkequal(nb , [1 1 0]);
+assert_checkequal(loc, [2 3 0]);
+
+
+A = ["elt1" "elt3" "elt4"];
+S = ["elt5" "elt6" "elt2" "elt1" "elt3"];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , [1 1 0]);
+assert_checkequal(loc, [4 5 0]);
+[nb, loc] = members(A, S, %f);
+assert_checkequal(nb , [1 1 0]);
+assert_checkequal(loc, [4 5 0]);
+
+
+// Integers
+A = int16([1 8 4 5 2 1]);
+S = int16([9 7 4 2 1 4]);
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , [1 0 2 0 1 1]);
+assert_checkequal(loc, [5 0 6 0 4 5]);
+[nb, loc] = members(A, S, %f);
+assert_checkequal(nb , [1 0 2 0 1 1]);
+assert_checkequal(loc, [5 0 3 0 4 5]);
+
+
+A = uint8([1 8 4 5 2 1]);
+S = uint8([9 7 4 2 1 4]);
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , [1 0 2 0 1 1]);
+assert_checkequal(loc, [5 0 6 0 4 5]);
+[nb, loc] = members(A, S, %f);
+assert_checkequal(nb , [1 0 2 0 1 1]);
+assert_checkequal(loc, [5 0 3 0 4 5]);
+
+
+// Matrices
+A = [ 5 0 1 4 1 ;
+      0 5 3 1 9 ;
+      2 0 1 6 1 ;
+      0 2 2 2 2 ;
+      2 0 8 1 7 ;
+      6 7 1 9 3 ];
+S = [4 8 1 ;
+     1 0 2 ;
+     6 2 3 ;
+     2 9 4 ;
+     1 2 5 ;
+     3 0 6 ];
+expected = [ 17 12 13 16 13 ;
+             12 17 15 13 10 ;
+             14 12 13 18 13 ;
+             12 14 14 14 14 ;
+             14 12  7 13  0 ;
+             18  0 13 10 15 ];
+expected2 = [ 17  8  2  1  2 ;
+               8 17  6  2 10 ;
+               4  8  2  3  2 ;
+               8  4  4  4  4 ;
+               4  8  7  2  0 ;
+               3  0  2  10 6 ];
+expectednb = [ 1 2 3 2 3 ;
+               2 1 2 3 1 ;
+               4 2 3 2 3 ;
+               2 4 4 4 4 ;
+               4 2 1 3 0 ;
+               2 0 3 1 2 ];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , expectednb);
+assert_checkequal(loc, expected);
+[nb, loc2] = members(A, S, %f);
+assert_checkequal(nb  , expectednb);
+assert_checkequal(loc2, expected2);
+assert_checktrue(loc >= loc2);
+A_for_later = A;
+S_for_later = S;
+
+A = A';
+S = S';
+expected = [ 15 17 14 17 14 18 ;
+             17 15 17 14 17  0 ;
+             13 16 13 14  2 13 ;
+             12 13 18 14 13 11 ;
+             13 11 13 14  0 16 ];
+expected2 = [ 15  5  6  5  6  7 ;
+               5 15  5  6  5  0 ;
+               3  9  3  6  2  3 ;
+               1  3  7  6  3 11 ;
+               3 11  3  6  0  9 ];
+expectednb = [1 2 4 2 4 2 ;
+              2 1 2 4 2 0 ;
+              3 2 3 4 1 3 ;
+              2 3 2 4 3 1 ;
+              3 1 3 4 0 2 ];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , expectednb);
+assert_checkequal(loc, expected);
+[nb, loc2] = members(A, S, %f);
+assert_checkequal(nb  , expectednb);
+assert_checkequal(loc2, expected2);
+assert_checktrue(loc >= loc2);
+
+
+A = uint32(A);
+S = uint32(S);
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , expectednb);
+assert_checkequal(loc, expected);
+[nb, loc2] = members(A, S, %f);
+assert_checkequal(nb  , expectednb);
+assert_checkequal(loc2, expected2);
+assert_checktrue(loc >= loc2);
+
+
+// Inf
+A = [ 0 0 1 1 1;
+      0 2 2 2 2;
+      2 0 1 1 1;
+      0 0 1 %inf -%inf];
+S = [1 0 1;
+     2 0 4;
+     1 2 5;
+  %inf -%inf 6];
+expected = [6 6 9 9 9 ;
+            6 7 7 7 7 ;
+            7 6 9 9 9 ;
+            6 6 9 4 8 ];
+expected2 = [5 5 1 1 1 ;
+             5 2 2 2 2 ;
+             2 5 1 1 1 ;
+             5 5 1 4 8 ];
+expectednb = [2 2 3 3 3 ;
+              2 2 2 2 2 ;
+              2 2 3 3 3 ;
+              2 2 3 1 1 ];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , expectednb);
+assert_checkequal(loc, expected);
+[nb, loc2] = members(A, S, %f);
+assert_checkequal(nb  , expectednb);
+assert_checkequal(loc2, expected2);
+assert_checktrue(loc >= loc2);
+
+
+// Matrices of strings
+A = string(A_for_later);
+S = string(S_for_later);
+expected = [ 17 12 13 16 13 ;
+             12 17 15 13 10 ;
+             14 12 13 18 13 ;
+             12 14 14 14 14 ;
+             14 12  7 13  0 ;
+             18  0 13 10 15 ];
+expected2 = [ 17  8  2  1  2 ;
+               8 17  6  2 10 ;
+               4  8  2  3  2 ;
+               8  4  4  4  4 ;
+               4  8  7  2  0 ;
+               3  0  2  10 6 ];
+expectednb = [ 1 2 3 2 3 ;
+               2 1 2 3 1 ;
+               4 2 3 2 3 ;
+               2 4 4 4 4 ;
+               4 2 1 3 0 ;
+               2 0 3 1 2 ];
+
+[nb, loc] = members(A, S, %t);
+assert_checkequal(nb , expectednb);
+assert_checkequal(loc, expected);
+[nb, loc2] = members(A, S, %f);
+assert_checkequal(nb  , expectednb);
+assert_checkequal(loc2, expected2);
+assert_checktrue(loc >= loc2);
+
+
+// =============================================================================
+
+
+// Error checks
+A = [1 2 3; 4 5 6];
+S = string(A);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: expected same type as first argument.\n"), "members", 2);
+assert_checkerror("[nb, loc] = members(A, S, %t);", refMsg);
+S = int16(A);
+assert_checkerror("[nb, loc] = members(A, S, %t);", refMsg);
+S = uint8(A);
+assert_checkerror("[nb, loc] = members(A, S, %f);", refMsg);
+S = [7 8 9; 10 11 12];
+last = 1;
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: Boolean matrix expected.\n"), "members", 3);
+assert_checkerror("[nb, loc] = members(A, S, last);", refMsg);
+last = "yes";
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: Boolean matrix expected.\n"), "members", 3);
+assert_checkerror("[nb, loc] = members(A, S, last);", refMsg);
+refMsg = msprintf(_("%s: Wrong number of input argument(s): at least %d expected.\n"), "members", 2);
+assert_checkerror("[nb, loc] = members(A);", refMsg);
