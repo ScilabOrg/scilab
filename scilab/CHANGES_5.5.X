@@ -363,6 +363,8 @@ Bug fixes
 
 * Bug #12589 fixed - Call sequence for spzeros & spones were missing in the french help pages.
 
+* Bug #12594 fixed - Invalid SciNotes configuration file avoided SciNotes startup.
+
 * Bug #12606 fixed - Overloads for grand were not standard.
 
 * Bug #12613 fixed - gsort did not return correct results with %nan.

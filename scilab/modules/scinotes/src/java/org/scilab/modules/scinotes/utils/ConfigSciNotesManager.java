@@ -1014,6 +1014,12 @@ public final class ConfigSciNotesManager {
         }
 
         ScilabDocumentBuilderFactory.restoreDocumentBuilderFactoryImpl(factoryName);
+
+        if (document == null && fileConfig.exists()) {
+            fileConfig.delete();
+            createUserCopy();
+            readDocument(pathConfSci);
+        }
     }
 
     /**
