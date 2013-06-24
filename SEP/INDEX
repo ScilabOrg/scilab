@@ -95,3 +95,4 @@ SEP #097: New argument added at strtod function (decimalseparator)
 SEP #098: New output argument for qp_solve function
 SEP #089: New parameter added at routh_t function (normalized).
 SEP #096: cross function.
+SEP #100: ismember function.
