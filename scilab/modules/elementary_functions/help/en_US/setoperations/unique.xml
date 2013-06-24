@@ -105,6 +105,9 @@ unique(A,'c')
         <title>See Also</title>
         <simplelist type="inline">
             <member>
+                <link linkend="ismember">ismember</link>
+            </member>
+            <member>
                 <link linkend="union">union</link>
             </member>
             <member>

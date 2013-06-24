@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - Université du Maine - Samuel Gougeon
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="ismember" xml:lang="en">
+    <refnamediv>
+        <refname>ismember</refname>
+        <refpurpose>returns a vector of indexes corresponding to the common values of two vectors
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>loc = ismember(a, b, highest)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>a</term>
+                <listitem>
+                    <para>vector of numbers, polynomials, booleans or strings</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>b</term>
+                <listitem>
+                    <para>vector of numbers, polynomials, booleans or strings</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>highest</term>
+                <listitem>
+                    <para>scalar boolean</para>
+                    <para>
+                        %t => return last occurence of <literal>b</literal> elements in <literal>a</literal>
+                    </para>
+                    <para>
+                        %f => return first occurence of <literal>b</literal> elements in <literal>a</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>ismember(a, b, highest)</literal> returns a matrix of <literal>a</literal>'s size. <literal>loc(i, j)</literal> = linear
+            index in <literal>b</literal> of the first (highest == %f), or the last (highest == %t)
+            occurrence of <literal>a(i, j)</literal>. <literal>loc(i, j)</literal> returns zero if <literal>a(i, j)</literal> is not found.
+            <literal>%inf</literal> and <literal>-%inf</literal> values are supported either in <literal>a</literal> or <literal>b</literal>, but not <literal>%nan</literal>.
+        </para>
+        <para>
+            When <literal>a</literal> is a vector of doubles and <literal>b</literal> is a vector of doubles in strictly increasing order,
+            <literal>dsearch(a, b, "d")</literal> is preferred over <literal>ismember(a, b, %f)</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+A = [1 8 4 5 2 1];
+B = [9 7 4 2 1 4];
+
+loc = ismember(A, B, %t)
+// Returns [5 0 6 0 4 5] because the last occurrence in B of the third element of A (which is 4) is in sixth position
+
+loc = ismember(A, B, %f)
+// Returns [5 0 3 0 4 5] because the first occurrence in B of the third element of A (which is 4) is in third position
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="dsearch">dsearch</link>
+            </member>
+            <member>
+                <link linkend="intersect">intersect</link>
+            </member>
+            <member>
+                <link linkend="unique">unique</link>
+            </member>
+            <member>
+                <link linkend="gsort">gsort</link>
+            </member>
+            <member>
+                <link linkend="union">union</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
