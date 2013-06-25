@@ -223,6 +223,8 @@ Bug fixes
 
 * Bug #8778 fixed - Call_ScilabOpen, TerminateScilab can not be called more
                     than 80 times in a loop.
+                    
+* Bug #8820 fixed - Squeeze did not return a matrix when the resulting number of dimensions was less or equal to 2.
 
 * Bug #8824 fixed - taucs_chfact returned a segfault (not the case in mode nwni).
 
