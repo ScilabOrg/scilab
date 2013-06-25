@@ -404,3 +404,6 @@ Bug fixes
 * Bug #12686 fixed - Error returned by diff() fixed.
 
 * Bug #12708 fixed - Incorrect display in SciNotes preferences fixed (onmouseover styles).
+
+* Bug #12712 fixed - In SciNotes, autosaving can now use %date to append the current date to the
+                     backup filename.
