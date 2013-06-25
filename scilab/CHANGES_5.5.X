@@ -403,4 +403,6 @@ Bug fixes
 
 * Bug #12686 fixed - Error returned by diff() fixed.
 
+* Bug #12703 fixed - In SciNotes, add common shortcuts 'SHIFT DELETE', 'SHIFT INSERT' and others.
+
 * Bug #12708 fixed - Incorrect display in SciNotes preferences fixed (onmouseover styles).
