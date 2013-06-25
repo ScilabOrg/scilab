@@ -313,6 +313,8 @@ Bug fixes
 
 * Bug #12163 fixed - unzoom did not work with a single input argument.
 
+* Bug #12326 fixed - There was no way to set LaTeX font size in preview.
+
 * Bug #12376 fixed - Exec & edit buttons in examples in help were sometimes misplaced.
 
 * Bug #12413 fixed - ATOMS packages could not be removed if ATOMS had never been on-line.
