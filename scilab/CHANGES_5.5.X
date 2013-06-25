@@ -127,6 +127,8 @@ Xcos
 
 * Bug #12664 fixed - Inverted pendulum french translation was wrong in the Xcos demo.
 
+* Bug #12667 fixed - Recent Files french menu was not translated.
+
 
 Toolbox skeleton
 =================

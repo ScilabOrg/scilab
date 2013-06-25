@@ -573,7 +573,7 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 51
-msgid "Recent files"
+msgid "Recent Files"
 msgstr ""
 
 #
