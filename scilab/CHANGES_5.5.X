@@ -148,6 +148,9 @@ Bug fixes
 * Bug #4042 fixed - squeeze returned an hypermatrix instead of a matrix when at least one 
                     dimension was equal to 1.
 
+* Bug #4229 fixed - delip did not return an error if one element of its first input argument
+                    was negative.
+
 * Bug #4383 fixed - csim with "step" and "impuls" now works with direct feedthrough.
 
 * Bug #4481 fixed - Help page of iir updated: frq can be a scalar.
