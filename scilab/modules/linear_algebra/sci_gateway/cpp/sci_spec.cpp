@@ -61,7 +61,7 @@ types::Function::ReturnValue sci_spec(types::typed_list &in, int _iRetCount, typ
 
     if (pDblA->getCols() != pDblA->getRows())
     {
-        Scierror(20, _("%s: Wrong type for argument %d: Square matrix expected.\n"), "spec", 1);
+        Scierror(20, _("%s: Wrong type for argument #%d: Square matrix expected.\n"), "spec", 1);
         return types::Function::Error;
     }
 
