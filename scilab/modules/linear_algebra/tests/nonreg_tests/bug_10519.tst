@@ -16,7 +16,7 @@
 // Wrong error message in spec function when input arguments were not square.
 
 // First input argument is not square
-exectedMsg = msprintf(_("Wrong type for first argument: Square matrix expected.\n"));
+exectedMsg = msprintf(_("Wrong type for argument #%d: Square matrix expected.\n"), 1);
 assert_checkerror("spec(rand(1,2),rand(2,4))", exectedMsg);
 
 // Second input argument is not square
