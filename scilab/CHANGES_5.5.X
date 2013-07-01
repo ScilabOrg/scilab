@@ -147,6 +147,8 @@ Bug fixes
 
 * paramfplot2d: When input argument theta was column vector, an error occurred.
 
+* Bug #2267 fixed - Wrong error message when ticks locations and labels did not have the same size.
+
 * Bug #4042 fixed - squeeze returned an hypermatrix instead of a matrix when at least one 
                     dimension was equal to 1.
 
