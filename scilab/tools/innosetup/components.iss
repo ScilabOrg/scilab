@@ -52,8 +52,8 @@ Name: {#COMPN_FFTW_REF_LIBRARY};Description: {cm:DescriptionRefFftwLibrary}; Typ
 #define COMPN_MODULES_MANAGER 'Development_tools\modules_manager'
 #define COMPN_TOOLBOX_SKELETON 'Development_tools\toolbox_skeleton'
 #define COMPN_TESTS 'Development_tools\tests'
-Name: {#COMPN_DEVTOOLS}; Description: {cm:DescriptionDevTools}; Types: full;
-Name: {#COMPN_MODULES_MANAGER}; Description: {cm:DescriptionModulesManager}; Types: full;
+Name: {#COMPN_DEVTOOLS}; Description: {cm:DescriptionDevTools}; Types: default full;
+Name: {#COMPN_MODULES_MANAGER}; Description: {cm:DescriptionModulesManager}; Types: default full;
 Name: {#COMPN_TOOLBOX_SKELETON}; Description: {cm:DescriptionTlbxSkeleton}; Types: full;
 Name: {#COMPN_TESTS}; Description: {cm:DescriptionTests}; Types: full; ExtraDiskSpaceRequired: {#TESTS_SIZE}
 

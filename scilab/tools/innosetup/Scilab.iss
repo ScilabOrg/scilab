@@ -16,8 +16,8 @@
 #define ScilabBaseFilename "scilab-master"
 #define ScilabBaseDirectory "scilab-master"
 #define ScilabName "scilab-master"
-#define ScilabVersion "5.4.0"
-#define CurrentYear "2011"
+#define ScilabVersion "5.5.0"
+#define CurrentYear "2013"
 #define javaSpecificationVersion "1.6"
 #define javaUsed "1.6.0_XX"
 #define TESTS_SIZE 14364741
@@ -29,11 +29,11 @@
 ;-------------------------------------------------------------------------------
 #define MODULES_LIST_WEB_PAGE 'http://wiki.scilab.org/howto/install/windows'
 #define MKL_DOWNLOAD_HTTP 'http://fileexchange.scilab.org/toolboxes/MKL'
-#define MKL_BLASLAPACK_PACKAGENAME 'blas-lapack-mkl-5.4-win32.zip'
-#define MKL_COMMONS_PACKAGENAME 'commons-mkl-5.4-win32.zip'
-#define MKL_FFTW_PACKAGENAME 'fftw-mkl-5.4-win32.zip'
+#define MKL_BLASLAPACK_PACKAGENAME 'blas-lapack-mkl-5.5-win32.zip'
+#define MKL_COMMONS_PACKAGENAME 'commons-mkl-5.5-win32.zip'
+#define MKL_FFTW_PACKAGENAME 'fftw-mkl-5.5-win32.zip'
 #define CHM_DOWNLOAD_HTTP 'http://fileexchange.scilab.org/toolboxes/CHM'
-#define CHM_PACKAGENAME 'scilab-help-chm-5.4.zip'
+#define CHM_PACKAGENAME 'scilab-help-chm-5.5.zip'
 ;-------------------------------------------------------------------------------
 [CustomMessages]
 #include BinariesSourcePath + "\tools\innosetup\custommessages.iss"
