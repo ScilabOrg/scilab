@@ -9,3 +9,5 @@ a = jarray("java.lang.String", 2, 2, 3);
 // array insertion
 a(0, 0, 2) = "Hi Jims !";
 a(1, 0, 2) = "Hi Jims again !!"
+length(a(1, 0, 2));
+a(1, 0, 2)
