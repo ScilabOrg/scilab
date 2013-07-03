@@ -12,7 +12,7 @@ function r=%sp_cumsum(a,d,typ)
     if rhs==1 then
         d="*"
     elseif rhs==2 then
-        if argn(2)==2& or(d==["native","double"]) then
+        if or(d==["native","double"]) then
             d="*"
         end
     end
@@ -42,6 +42,10 @@ function r=%sp_cumsum(a,d,typ)
     if d<0 then
         error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
         "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+    end
+
+    if rhs == 3 & and(typ <> ["native", "double"]) then
+        error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumsum", 3, "native", "double"));
     end
 
     select d
