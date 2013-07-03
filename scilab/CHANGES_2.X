@@ -1,6 +1,6 @@
                      Main Changes Scilab 2.6 -> 2.7
                      ==============================
-THANKS
+qlskdjqTHANKS
 ======
 Scilab group wants to thank the increasing number of people who have
 contributed to this new version of Scilab, with special mention to 
