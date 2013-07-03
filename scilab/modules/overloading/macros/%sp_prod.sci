@@ -8,14 +8,15 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function r=%sp_prod(a,d,typ)
-    if argn(2)==1 then
+    rhs = argn(2);
+    if rhs==1 then
         d="*"
-    elseif argn(2)==2 then
-        if argn(2)==2& or(d==["native","double"]) then
+    elseif rhs==2 then
+        if or(d==["native","double"]) then
             d="*"
-
         end
     end
+    
     if size(d,"*")<>1 then
         if type(d)==10 then
             error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2))

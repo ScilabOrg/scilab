@@ -9,13 +9,19 @@
 
 function a=%r_prod(a,d,typ)
     //prod of a rational matrix
-    if argn(2)==1 then
+    rhs = argn(2)
+    if rhs==1 then
         d="*"
-    elseif argn(2)==2 then
+    elseif rhs==2 then
         if argn(2)==2& or(d==["native","double"]) then
             d="*"
         end
     end
+    
+    if and(type(d)<> [1, 10]) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"prod",2))
+    end
+    
     if size(d,"*")<>1 then
         if type(d)==10 then
             error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2))
@@ -41,6 +47,21 @@ function a=%r_prod(a,d,typ)
     if d<0 then
         error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
         "prod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+    end
+    
+    if rhs == 3  then
+        if type(typ)<>10 then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3))
+        end
+        
+        if size(typ,"*")<>1 then
+            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",3))
+        end
+        
+        if and(typ <> ["native", "double"])  then
+            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"prod", 3, "native", "double"));
+        end
+        
     end
 
     if d==0 then //'*'

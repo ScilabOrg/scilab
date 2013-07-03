@@ -12,10 +12,15 @@ function a=%sp_sum(a,d,typ)
     if rhs==1 then
         d="*"
     elseif rhs==2 then
-        if argn(2)==2& or(d==["native","double"]) then
+        if or(d==["native","double"]) then
             d="*"
         end
     end
+    
+    if and(type(d)<> [1, 10]) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"sum",2))
+    end
+    
     if size(d,"*")<>1 then
         if type(d)==10 then
             error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2))
@@ -23,6 +28,7 @@ function a=%sp_sum(a,d,typ)
             error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"sum",2))
         end
     end
+    
     dims=size(a)
     if type(d)==10 then
         d=find(d==["m","*","r","c"])

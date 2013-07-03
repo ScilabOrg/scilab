@@ -8,11 +8,12 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function r=%p_prod(a,d,typ)
-    if argn(2)==1 then
+    rhs = argn(2)
+    if rhs==1 then
         typ=list()
         d="*"
-    elseif argn(2)==2 then
-        if argn(2)==2& or(d==["native","double"]) then
+    elseif rhs==2 then
+        if or(d==["native","double"]) then
             typ=list(d)
             d="*"
         else
@@ -21,6 +22,11 @@ function r=%p_prod(a,d,typ)
     else
         typ=list(typ)
     end
+    
+    if and(type(d)<> [1, 10]) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"prod",2))
+    end
+    
     if size(d,"*")<>1 then
         if type(d)==10 then
             error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2))
@@ -46,6 +52,21 @@ function r=%p_prod(a,d,typ)
     if d<0 then
         error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
         "prod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+    end
+    
+    if rhs == 3  then
+        if type(typ(1))<>10 then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3))
+        end
+        
+        if size(typ(1),"*")<>1 then
+            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",3))
+        end
+        
+        if and(typ(1) <> ["native", "double"])  then
+            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"prod", 3, "native", "double"));
+        end
+        
     end
 
     select d
