@@ -280,8 +280,7 @@ char **getDynamicDebugInfo(int *sizeArray, int* pvApiCtx)
 {
     char *value = NULL;
     char **outputDynamicList = NULL;
-    int i, position = 0;
-    SciErr sciErr;
+    int position = 0;
     int iType = 0;
     static debug_message dynamicDebug[NB_DEBUG_ELEMENT];
 
