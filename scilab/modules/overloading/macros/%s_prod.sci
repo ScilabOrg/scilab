@@ -1,0 +1,40 @@
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+function r = %s_prod(a, orient, typ)
+    // call prod(a, orient, typ)
+    // orient must be a string or a scalar -> check type and size
+    // The third argument is optional for double matrices.
+    if and(type(orient)<> [1, 10]) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"prod",2))
+    end
+
+    if size(orient,"*")<>1 then
+        if type(orient)==10 then
+            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2))
+        else
+            error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"prod",2))
+        end
+    end
+
+    // if orient is a string, d must be equal to "m", "*", "r", "c"
+    // else orient must be an integer > 0
+    if type(orient)==10 then
+        if and(orient <> ["m","*","r","c"]) then
+            error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+            "prod",2,"""*"",""r"",""c"",""m"""))
+        end
+    else
+        if int(orient) <> orient | orient < 0 then
+            error(msprintf(_("%s: Wrong value for input argument #%d: Integer >= %d expected.\n"),"prod", 2, 1))
+        end
+    end
+
+    r = prod(a, orient);
+endfunction
