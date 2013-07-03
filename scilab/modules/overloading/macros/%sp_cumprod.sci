@@ -8,46 +8,55 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function r=%sp_cumprod(a,d,typ)
-    if argn(2)==1 then
-        typ=list()
-        d="*"
-    elseif argn(2)==2 then
-        if argn(2)==2& or(d==["native","double"]) then
-            typ=list(d)
-            d="*"
-        else
-            typ=list()
-        end
-    else
-        typ=list(typ)
-    end
-    if size(d,"*")<>1 then
-        if type(d)==10 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2))
-        else
-            error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumprod",2))
-        end
-    end
-
-    if type(d)==10 then
-        d=find(d==["m","*","r","c"])
-        if d==[] then
-            error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-            "cumprod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
-        end
-        d=d-2
-    end
+    rhs=argn(2)
     dims=size(a);
+    if rhs==1 then
+        d=0 //"*"
+    else
+        // call cumprod(a,d) or cumprod(a, d, typ)
+        // d must be a string or scalar -> check type and size
+        if and(type(d)<>[1, 10]) then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumprod",2))
+        end
 
-    if d==-1 then //'m'
-        d=find(dims>1,1)
-        if d==[] then d=0,end
-    end
-    if d<0 then
-        error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-        "cumprod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
-    end
+        if size(d,"*")<>1 then
+            if type(d)==10 then
+                error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2))
+            else
+                error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumprod",2))
+            end
+        end
 
+        // call cumprod(a, d) with d = "native" or "double"
+        if or(d==["native","double"]) then
+            d=0 //"*"
+        else
+            // If d is a string, d = "m", "r", "c", "*"
+            // Else d is an integer > 0
+            if type(d)==10 then
+                d=find(d==["m","*","r","c"])
+                if d==[] then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumprod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+                end
+                d=d-2
+            else
+                if d<0 then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumprod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+                end
+            end
+            if d==-1 then //'m'
+                d=find(dims>1,1)
+                if d==[] then d=0,end
+            end
+
+            // call cumprod(a, d, typ) but typ is omitted
+            if rhs == 3 then
+                warning(msprintf(_("%s: The argument #%d is only used for matrices of integers or booleans.\n"), "cumprod", 3));
+            end
+        end
+    end
 
     r=sparse(dims,0,dims)
     select d

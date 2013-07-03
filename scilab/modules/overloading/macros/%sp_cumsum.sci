@@ -9,39 +9,53 @@
 
 function r=%sp_cumsum(a,d,typ)
     rhs=argn(2)
-    if rhs==1 then
-        d="*"
-    elseif rhs==2 then
-        if argn(2)==2& or(d==["native","double"]) then
-            d="*"
-        end
-    end
-    if size(d,"*")<>1 then
-        if type(d)==10 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",2))
-        else
-            error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumsum",2))
-        end
-    end
-    if type(d)==10 then
-        d=find(d==["m","*","r","c"])
-        if d==[] then
-            error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-            "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
-        end
-        d=d-2
-    end
-
     dims=size(a)
+    if rhs==1 then
+        d=0 //"*"
+    else
+        // d must be a string or scalar -> check type and size
+        if and(type(d)<> [1, 10]) then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumsum",2))
+        end
 
-    if d==-1 then
-        //sum(x,'m'), determine the summation direction
-        d=find(dims>1,1)
-        if d==[] then d=0,end
-    end
-    if d<0 then
-        error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-        "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+        if size(d,"*")<>1 then
+            if type(d)==10 then
+                error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",2))
+            else
+                error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumsum",2))
+            end
+        end
+
+        // call cumsum(a, d) with d = "native" or "double"
+        if rhs == 2 & or(d == ["native","double"]) then
+            d = 0 //"*"
+        else
+            // call cumsum(a, d) or cumsum(a, d, typ) with d = "r", "m", "*" ,"c" or an integer
+            // typ is omitted
+            if type(d)==10 then
+                d=find(d==["m","*","r","c"])
+                if d==[] then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+                end
+                d=d-2
+            end
+
+            if d==-1 then
+                //sum(x,'m'), determine the summation direction
+                d=find(dims>1,1)
+                if d==[] then d=0,end
+            end
+
+            if d<0 then
+                error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+            end
+
+            if rhs == 3 then
+                warning(msprintf(_("%s: The argument #%d is only used for matrices of integers or booleans.\n"), "cumsum", 3));
+            end
+        end
     end
 
     select d
