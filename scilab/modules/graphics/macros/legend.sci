@@ -67,8 +67,7 @@ function c=legend(varargin)
         if tmpH.type=="Axes" then
             A = tmpH;
         end
-        tmpH=tmpH($:-1:1);
-        H=[getvalidchildren(tmpH);H];
+        H = [H; getvalidchildren(tmpH)];
         k0 = k0+1;
     end
 
@@ -90,7 +89,6 @@ function c=legend(varargin)
         leg=[leg; vk(:)]
     end
     nleg=size(leg,"*")
-
 
     //upper left coordinates
     if ~isempty(coords) then
@@ -153,8 +151,8 @@ function h=getvalidchildren(A)
             ax=a.children
             h=[h;getvalidchildren(ax)]
         case "Compound"
-            for k=1:1:size(a.children,"*")
-                h=[h;getvalidchildren(a.children(k))]
+            for k=size(a.children,"*"):-1:1
+                h=[getvalidchildren(a.children(k)); h]
             end
         end
     end

@@ -1,0 +1,31 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Simon MARCHETTO
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- TEST WITH GRAPHIC -->
+//
+// <-- Non-regression test for bug 12404 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=12404
+//
+// <-- Short Description -->
+// Captions plots legend are in reverse order
+
+f = gcf();
+
+plot([1,2], [1,10], "b");
+h1 = gce();
+h1 = h1.children(1);
+
+plot([1,2], [1,20], "r");
+h2 = gce();
+h2 = h2.children(1);
+
+c = captions([h1, h2], ["1"; "2"]);
+assert_checkequal(c.text, ["1"; "2"]);
+
+delete(f);

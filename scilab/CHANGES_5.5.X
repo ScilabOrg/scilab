@@ -416,6 +416,8 @@ Bug fixes
 
 * Bug #12376 fixed - Exec & edit buttons in examples in help were sometimes misplaced.
 
+* Bug #12404 fixed - captions() plots legends in reverse order.
+
 * Bug #12413 fixed - ATOMS packages could not be removed if ATOMS had never been on-line.
 
 * Bug #12415 fixed - PATH environment variable grew when using call_scilab in a loop.
