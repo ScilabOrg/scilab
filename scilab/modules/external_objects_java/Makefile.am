@@ -60,6 +60,7 @@ sci_gateway/cpp/sci_jdeff.cpp \
 sci_gateway/cpp/sci_jvoid.cpp \
 sci_gateway/cpp/sci_jarray.cpp \
 sci_gateway/cpp/sci_jcast.cpp \
+sci_gateway/cpp/sci_jsetfield.cpp \
 sci_gateway/cpp/sci_jallowClassReloading.cpp
 
 GIWS_WRAPPERS = src/jni/ScilabObjects.giws.xml

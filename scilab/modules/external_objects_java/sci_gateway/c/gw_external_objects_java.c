@@ -37,7 +37,9 @@ static gw_generic_table Tab[] =
     {sci_jvoid, "jvoid"},
     {sci_jarray, "jarray"},
     {sci_jcast, "jcast"},
-    {sci_jallowClassReloading, "jallowClassReloading"}
+    {sci_jallowClassReloading, "jallowClassReloading"},
+    {sci_jsetfield, "jsetfield"}
+
 };
 
 /*--------------------------------------------------------------------------*/
