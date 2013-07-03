@@ -8,64 +8,90 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function r=%spb_prod(a,d,typ)
-    if argn(2)==1 then
-        typ=list()
-        d="*"
-    elseif argn(2)==2 then
-        if argn(2)==2& or(d==["native","double"]) then
-            typ=list(d)
-            d="*"
-        else
-            typ=list()
-        end
-    else
-        typ=list(typ)
-    end
-    if size(d,"*")<>1 then
-        if type(d)==10 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2))
-        else
-            error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"prod",2))
-        end
-    end
-
-    if type(d)==10 then
-        d=find(d==["m","*","r","c"])
-        if d==[] then
-            error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-            "prod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
-        end
-        d=d-2
-    end
+    rhs = argn(2);
     dims=size(a);
+    if rhs==1 then
+        typ="double";
+        d=0 //"*"
+    else
+        // call prod(a, d) or prod(a, d, typ)
+        // d must be a string or scalar -> check type and size
+        if and(type(d)<> [1, 10]) then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"prod",2))
+        end
 
-    if d==-1 then //'m'
-        d=find(dims>1,1)
-        if d==[] then d=0,end
-    end
-    if d<0 then
-        error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-        "prod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+        if size(d,"*")<>1 then
+            if type(d)==10 then
+                error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2))
+            else
+                error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"prod",2))
+            end
+        end
+
+        // call prod(a, d) with d = "native" or "double"
+        if rhs == 2 & or(d==["native","double"]) then
+            typ=d;
+            d=0 //"*"
+        else
+            // If d is a string, d = "m", "*", "r" or "c"
+            // Else d is an integer > 0
+            if type(d)==10 then
+                d=find(d==["m","*","r","c"])
+                if d==[] then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "prod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+                end
+                d=d-2
+            else
+                if d<0 then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "prod",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+                end
+            end
+
+            if d==-1 then //'m'
+                d=find(dims>1,1)
+                if d==[] then d=0,end
+            end
+
+            // call prod(a, d, typ)
+            // typ must be a string, equal to "native" or "double"
+            if rhs == 3  then
+                if type(typ)<>10 then
+                    error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3))
+                end
+
+                if size(typ,"*")<>1 then
+                    error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",3))
+                end
+
+                if and(typ <> ["native", "double"])  then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"prod", 3, "native", "double"));
+                end
+            else
+                typ="double"
+            end
+        end
     end
 
     select d
     case 0 then
         ij=spget(a)
         r=size(ij,1)==prod(dims)
-        if typ<>list("native") then r=bool2s(r),end
+        if typ<>"native" then r=bool2s(r),end
     case 1 then
         for k=1:dims(2)
-            r(1,k)=prod(a(:,k),typ(:))
+            r(1,k)=prod(a(:,k),typ)
         end
         r=sparse(r)
     case 2 then
         for k=1:dims(1)
-            r(k,1)=prod(a(k,:),typ(:))
+            r(k,1)=prod(a(k,:),typ)
         end
         r=sparse(r)
     else
         r=a
-        if typ<>list("native") then r=bool2s(r),end
+        if typ<>"native" then r=bool2s(r),end
     end
 
 endfunction

@@ -8,45 +8,80 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function x=%hm_cumsum(m,d,typ)
-    if argn(2)==1 then
+    rhs = argn(2)
+    if rhs==1 then
         typ=list()
-        d="*"
-    elseif argn(2)==2 then
-        if argn(2)==2& or(d==["native","double"]) then
-            typ=list(d)
-            d="*"
-        else
-            typ=list()
-        end
+        d=0 //"*"
     else
-        typ=list(typ)
-    end
-    if size(d,"*")<>1 then
-        if type(d)==10 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",2))
+        // call cumsum(m,d) or cumsum(m,d,typ)
+        // d must be a string or scalar -> check type and size
+        if and(type(d) <> [1, 10]) then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumsum",2))
+        end
+
+        if size(d,"*")<>1 then
+            if type(d)==10 then
+                error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",2))
+            else
+                error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumsum",2))
+            end
+        end
+
+        // call cumsum(m,d) with d = "native" or "double"
+        if rhs == 2 & or(d==["native","double"]) then
+            typ=list(d)
+            d=0 //"*"
         else
-            error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumsum",2))
+            // call cumsum(m, d) or cumsum(m, d, typ) where typ is omitted if m
+            // is an hypermatrix of double
+            // If d is a string, d = "m", "r", "c", "*"
+            // Else d is an integer > 0
+            if type(d)==10 then
+                d=find(d==["m","*","r","c"])
+                if d==[] then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(m))))
+                end
+                d=d-2
+            else
+                if d<0 then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(m))))
+                end
+            end
+
+            if rhs == 3 then
+                if or(type(m.entries) == [4 8]) then
+
+                    if type(typ)<>10 then
+                        error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumsum",3))
+                    end
+
+                    if size(typ,"*")<>1 then
+                        error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",3))
+                    end
+
+                    if and(typ <> ["native", "double"])  then
+                        error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumsum", 3, "native", "double"));
+                    end
+
+                    typ=list(typ)
+                else 
+                    // else typ is omitted
+                    warning(msprintf(_("%s: The argument #%d is only used for matrices of integers or booleans.\n"), "cumsum", 3));
+                    typ=list()
+                end
+            else
+                typ=list()
+            end
         end
     end
 
-    if type(d)==10 then
-        d=find(d==["m","*","r","c"])
-        if d==[] then
-            error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-            "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
-        end
-        d=d-2
-    end
     dims=m.dims;
 
     if d==-1 then //'m'
         d=find(dims>1,1)
         if d==[] then d=0,end
-    end
-
-    if d<0 then
-        error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-        "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
     end
 
     if d==0 then// '*'
@@ -64,7 +99,6 @@ function x=%hm_cumsum(m,d,typ)
         x=m
         return
     end
-
 
     if type(dims==8) then flag=1; dims=double(dims); else flag=0;end
     N=size(dims,"*");

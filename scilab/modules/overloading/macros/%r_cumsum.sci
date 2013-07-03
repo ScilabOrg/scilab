@@ -12,35 +12,48 @@ function a=%r_cumsum(a, orient, typ)
     rhs = argn(2);
     select rhs
     case 1
-        orient = "*";
-    case 2
-        if or(orient == ["native", "double"]) then
-            orient = "*";
+        orient = 0 //"*";
+    else
+        // call cumsum(a, orient) or cumsum(a, orient, typ)
+        // orient must be a string or scalar -> check type and size
+        if and(type(orient)<> [1, 10]) then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumsum",2))
         end
-    case 3
-        if and(typ <> ["native", "double"]) then
-            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumsum", 3, "native", "double"));
-        end
-    end
 
-    if size(orient, "*") <> 1 then
-        if type(orient) == 10 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum", 2));
+        if size(orient, "*") <> 1 then
+            if type(orient) == 10 then
+                error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum", 2));
+            else
+                error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumsum", 2));
+            end
+        end
+        // call cumsum(a, orient) with orient = "native" or "double"
+        if rhs == 2  & or(orient == ["native", "double"]) then
+            orient = 0 //"*";
         else
-            error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"cumsum", 2));
+            // If orient is a string, orient = "m", "*", "r" or "c"
+            // Else orient is an integer > 0
+            if type(orient) == 10 then
+                orient = find(orient == ["m","*","r","c"]);
+                if isempty(orient) then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))));
+                end
+                orient=orient-2;
+            else
+                if orient<0 then
+                    error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
+                    "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))));
+                end
+            end
+            // call cumsum(a, orient, typ) but typ is omitted
+            if rhs == 3 then
+                warning(msprintf(_("%s: The argument #%d is only used for matrices of integers or booleans.\n"), "cumsum", 3));
+            end
         end
     end
 
     dims = size(a);
-
-    if type(orient) == 10 then
-        orient = find(orient == ["m","*","r","c"]);
-        if isempty(orient) then
-            error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-            "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(size(dims,"*"))));
-        end
-        orient=orient-2;
-    end
 
     if orient == -1 then //'m'
         orient = find(dims > 1, 1);
@@ -48,11 +61,7 @@ function a=%r_cumsum(a, orient, typ)
             orient = 0;
         end
     end
-    if orient<0 then
-        error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-        "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))));
-    end
-    
+
     select orient
     case 0 then // case "*"
         a = tril(ones(size(a,"*"), size(a, "*"))) * matrix(a, -1, 1);
