@@ -151,6 +151,8 @@ Bug fixes
 
 * Bug #2267 fixed - Wrong error message when ticks locations and labels did not have the same sizes.
 
+* Bug #2416 fixed - "string([]) returns []" added in the string help page. 
+
 * Bug #3928 fixed - An error was returned when a matrix was flipped along the third dimension.
 
 * Bug #4042 fixed - squeeze returned an hypermatrix instead of a matrix when at least one 
