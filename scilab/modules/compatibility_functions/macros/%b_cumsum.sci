@@ -14,6 +14,10 @@ function a=%b_cumsum(varargin)
         elseif size(varargin)==3 then
             d=varargin(2)
         end
+        if and(type(d)<> [1, 10]) then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumsum",2))
+        end
+
         if size(d,"*")<>1 then
             if type(d)==10 then
                 error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",2))

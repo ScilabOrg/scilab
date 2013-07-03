@@ -17,9 +17,14 @@ c     .  last argument must be "native" or "double" and previous must be
 c     .  an orientation flag
          call getresulttype(top,type)
          if (type.lt.0) then
+            top=top-1
+            call  getorient(top,orient)
+            if(err.gt.0) return
             err=3
             if (type.eq.-2) then
                call error(55)
+            elseif (type.eq.-3) then
+               call error(89)
             else
                call error(116)
             endif
@@ -112,8 +117,10 @@ c
 
       il=iadr(lstk(k))
       if (istk(il).lt.0) il=iadr(istk(il+1))
-      if (istk(il).ne.10.or.istk(il+1).ne.1.or.istk(il+2).ne.1) then
+      if (istk(il).ne.10) then
          type=-2
+      elseif (istk(il+1).ne.1.or.istk(il+2).ne.1) then
+         type=-3
       else
          n=min(7,istk(il+5)-1)
          id=il+4

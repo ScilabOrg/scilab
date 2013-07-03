@@ -17,12 +17,12 @@ function a=%r_cumsum(a, orient, typ)
         if or(orient == ["native", "double"]) then
             orient = "*";
         end
-    case 3
-        if and(typ <> ["native", "double"]) then
-            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumsum", 3, "native", "double"));
-        end
     end
 
+    if and(type(orient)<> [1, 10]) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumsum",2))
+    end
+    
     if size(orient, "*") <> 1 then
         if type(orient) == 10 then
             error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum", 2));
@@ -52,7 +52,21 @@ function a=%r_cumsum(a, orient, typ)
         error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
         "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))));
     end
-    
+
+    if rhs == 3 then
+        if type(typ)<>10 then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumsum",3))
+        end
+        
+        if size(typ,"*")<>1 then
+            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",3))
+        end
+
+        if and(typ <> ["native", "double"]) then
+            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumsum", 3, "native", "double"));
+        end
+    end
+
     select orient
     case 0 then // case "*"
         a = tril(ones(size(a,"*"), size(a, "*"))) * matrix(a, -1, 1);
