@@ -85,9 +85,9 @@ public class ScilabJavaObject {
         unwrappableType.put(char.class, 20);
         unwrappableType.put(char[].class, 21);
         unwrappableType.put(char[][].class, 22);
-        unwrappableType.put(float.class, 23);
-        unwrappableType.put(float[].class, 24);
-        unwrappableType.put(float[][].class, 25);
+        unwrappableType.put(int.class, 23); /* was float */
+        unwrappableType.put(int[].class, 24);
+        unwrappableType.put(int[][].class, 25);
         unwrappableType.put(long.class, 26);
         unwrappableType.put(long[].class, 27);
         unwrappableType.put(long[][].class, 28);

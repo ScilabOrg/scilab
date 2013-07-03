@@ -306,7 +306,9 @@ void ScilabJavaEnvironmentWrapper::unwrapmatdouble(int id, const ScilabDoubleSta
 
 void ScilabJavaEnvironmentWrapper::unwrapchar(int id, const ScilabCharStackAllocator & allocator) const
 {
-    //    pyUnwrapSingle<char>(id, allocator);
+    JavaVM *vm = getScilabJavaVM ();
+    char data = ScilabJavaObject::unwrapChar(vm, id);
+    allocator.allocate(1, 1, &data);
 }
 
 void ScilabJavaEnvironmentWrapper::unwraprowchar(int id, const ScilabCharStackAllocator & allocator) const
@@ -366,16 +368,24 @@ void ScilabJavaEnvironmentWrapper::unwrapmatushort(int id, const ScilabUShortSta
 
 void ScilabJavaEnvironmentWrapper::unwrapint(int id, const ScilabIntStackAllocator & allocator) const
 {
-    //    pyUnwrapSingle<int>(id, allocator);
+    printf("ICI 1\n");
+    JavaVM *vm = getScilabJavaVM ();
+    int data = ScilabJavaObject::unwrapInt(vm, id);
+    allocator.allocate(1, 1, &data);
+
 }
 
 void ScilabJavaEnvironmentWrapper::unwraprowint(int id, const ScilabIntStackAllocator & allocator) const
 {
-    //    pyUnwrapRow<int>(id, allocator);
+    printf("ICI\n");
+    JavaVM *vm = getScilabJavaVM ();
+    int data = ScilabJavaObject::unwrapInt(vm, id);
+    allocator.allocate(1, 1, &data);
 }
 
 void ScilabJavaEnvironmentWrapper::unwrapmatint(int id, const ScilabIntStackAllocator & allocator) const
 {
+    printf("ICI 2\n");
     //    pyUnwrapMat<int>(id, allocator);
 }
 
