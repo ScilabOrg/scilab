@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2007 - INRIA - Allan CORNET
+ * Copyright (C) 2009 - 2010 - DIGITEO - Allan CORNET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -9,15 +9,16 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-#ifndef __GETFUNCTIONSLIST_H__
-#define __GETFUNCTIONSLIST_H__
+#ifndef __GETMACROSNAME_H__
+#define __GETMACROSNAME_H__
 
 /**
- * Return the list of the functions
- * @param[out] sizeList the size of the function list
- * @return all the functions
- */
-char **GetFunctionsList(int *sizeList);
-/*--------------------------------------------------------------------------*/
-#endif /* __GETFUNCTIONSLIST_H__ */
+* get scilab macros list (sorted by name)
+* macros on scilab and in libraries
+* @param[out] size of returned array
+* @return array of strings
+*/
+char **getMacrosName(int *sizearray);
+
+#endif /* __GETMACROSNAME_H__ */
 /*--------------------------------------------------------------------------*/

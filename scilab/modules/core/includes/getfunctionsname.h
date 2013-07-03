@@ -9,15 +9,16 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-#ifndef __GETMACROSDICTIONARY_H__
-#define __GETMACROSDICTIONARY_H__
+#ifndef __GETFUNCTIONSNAME_H__
+#define __GETFUNCTIONSNAME_H__
 
 /**
-* get scilab macros dictionary
-* @param[out] size of returned array
-* @return array of strings
-*/
-char **getmacrosdictionary(int *sizearray);
+ * Return the list of the functions
+ * @param[out] sizeList the size of the function list
+ * @return all the functions
+ */
+char **getFunctionsName(int *sizeList);
 
-#endif /* __GETMACROSDICTIONARY_H__ */
+/*--------------------------------------------------------------------------*/
+#endif /* __GETFUNCTIONSNAME_H__ */
 /*--------------------------------------------------------------------------*/

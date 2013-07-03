@@ -29,7 +29,6 @@
 #include "sciquit.h"
 #include "storeCommand.h"
 #include "FigureList.h"
-#include "../../core/src/c/TerminateCore.h"
 #include "api_scilab.h"
 #include "call_scilab_engine_state.h"
 #include "os_strdup.h"
