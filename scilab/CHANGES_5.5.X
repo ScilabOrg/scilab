@@ -250,6 +250,8 @@ Bug fixes
 
 * Bug #8687 fixed - typeof() function failed on uint8, depending on the format (+ unit test added).
 
+* Bug #8694 fixed - nanmedian did not return the same result as median without nan.
+
 * Bug #8778 fixed - Call_ScilabOpen, TerminateScilab can not be called more
                     than 80 times in a loop.
 

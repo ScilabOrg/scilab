@@ -30,20 +30,20 @@ function [m]=nanmedian(x,orient)
     if type(x)<>1 then error(msprintf(gettext("%s: Wrong type for input arguments #%d: Numerical expected.\n"),"nanmedian",1)) , end
     if x==[] then m=[], return,end
     if rhs==1 then
-        p=perctl(x(~isnan(x)),50)
+        p=median(x(~isnan(x)))
         if p==[] then p=%nan,end
         m=p(1)
     elseif orient=="r"|orient==1 then
         m=[]
         for i=x
-            p=perctl(i(~isnan(i)),50)
+            p=median(i(~isnan(i)))
             if p==[] then p=%nan,end
             m=[m p(1)]
         end
     elseif orient=="c"|orient==2 then
         m=[]
         for i=x' do
-            p=perctl(i(~isnan(i)),50)
+            p=median(i(~isnan(i)))
             if p==[] then p=%nan,end
             m=[m;p(1)];
         end
