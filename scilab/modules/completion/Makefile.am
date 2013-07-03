@@ -19,7 +19,6 @@ COMPLETION_C_SOURCES = src/c/completion.c \
 src/c/completion_generic.c \
 src/c/getfilesdictionary.c \
 src/c/getfieldsdictionary.c \
-src/c/getmacrosdictionary.c \
 src/c/toolsdictionary.c \
 src/c/completion_wrap_java.c \
 src/c/getPartLine.c \
@@ -44,7 +43,6 @@ libscicompletion_la_CPPFLAGS = \
     -I$(srcdir)/src/c/ \
     -I$(srcdir)/src/cpp/ \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
-    -I$(top_srcdir)/modules/functions/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
 	-I$(top_srcdir)/modules/graphics/includes/ \
     -I$(top_srcdir)/modules/fileio/includes/ \
