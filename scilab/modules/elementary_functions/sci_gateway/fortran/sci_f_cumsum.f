@@ -36,7 +36,7 @@ c
       if(istk(il0).lt.0) il0=iadr(istk(il0+1))
       ref=ilr.ne.il0
 c
-      if(istk(il0).ne.1) then
+      if(rhs.eq.3.or.istk(il0).ne.1) then
          top=tops
          call funnam(ids(1,pt+1),'cumsum',il0)
          fun=-1
