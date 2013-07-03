@@ -152,7 +152,8 @@ function []=bode(varargin)
     xtitle("",_("Frequency (Hz)"),_("Phase (degree)"));
     // create legend
     if comments<>[] then
-        c=captions(ephi.children,comments,"lower_caption")
+        handles = ephi.children($:-1:1);
+        c=captions(handles, comments,"lower_caption")
         c.background=get(gcf(),"background")
     end
     fig.immediate_drawing=immediate_drawing;

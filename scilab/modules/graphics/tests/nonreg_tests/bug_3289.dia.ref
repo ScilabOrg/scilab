@@ -15,7 +15,8 @@
 t=linspace(0,6,100)';
 plot2d(t,[sin(t),cos(t),abs(cos(t))],[1 2 3])
 e = gce();
-c = captions(e.children,string(1:3));
+handles = e.children($:-1:1);
+c = captions(handles,string(1:3));
 l = c.links;
 c.legend_location = "in_lower_left";
 delete(e.children(2));
