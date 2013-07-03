@@ -2,6 +2,7 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2010 - INRIA - Serge Steer
 // Copyright (C) 2012 - Scilab Enterprises - Cedric Delamarre
+// Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,6 +22,31 @@ end
 //=======================================================================
 //float matrices
 d=[1 10;254 9];
+
+assert_checkfalse(execstr("cumsum(d, ""orient"")"   ,"errcatch") == 0);
+refMsg = msprintf(_("Wrong argument #%d.\n"), 2);
+assert_checkerror("cumsum(d, ""orient"")", refMsg);
+
+assert_checkfalse(execstr("cumsum(d, [""r"", ""c""])"   ,"errcatch") == 0);
+refMsg = msprintf(_("Wrong size for argument #%d.\n"), 2);
+assert_checkerror("cumsum(d, [""r"", ""c""])", refMsg);
+
+assert_checkfalse(execstr("cumsum(d,""r"", ""nat"")"   ,"errcatch") == 0);
+refMsg = msprintf(_("Wrong value for argument #%d.\n"), 3);
+assert_checkerror("cumsum(d,""r"", ""nat"")", refMsg);
+
+assert_checkfalse(execstr("cumsum(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
+refMsg = msprintf(_("Wrong size for argument #%d.\n"), 3);
+assert_checkerror("cumsum(d,""r"", [""nat"" ""dble""])", refMsg);
+
+assert_checkfalse(execstr("cumsum(d,""orient"", ""t"")"   ,"errcatch") == 0);
+refMsg = msprintf(_("Wrong argument #%d.\n"), 2);
+assert_checkerror("cumsum(d,""orient"", ""t"")", refMsg);
+
+assert_checkfalse(execstr("cumsum(d,1,1)"   ,"errcatch") == 0);
+refMsg = msprintf(_("Wrong type for argument #%d: String expected.\n"), 3);
+assert_checkerror("cumsum(d,1,1)", refMsg);
+
 T=list(list(),list('native'),list('double'));
 for typ=T
     assert_checkequal(cumsum(d,typ(:)), [1,265;255,274]);
