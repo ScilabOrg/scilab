@@ -12,10 +12,14 @@ function r=%sp_cumsum(a,d,typ)
     if rhs==1 then
         d="*"
     elseif rhs==2 then
-        if argn(2)==2& or(d==["native","double"]) then
+        if or(d==["native","double"]) then
             d="*"
-        end
+        end    
     end
+    if and(type(d)<> [1, 10]) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A string or scalar expected.\n"),"cumsum",2))
+    end
+    
     if size(d,"*")<>1 then
         if type(d)==10 then
             error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",2))
@@ -42,6 +46,20 @@ function r=%sp_cumsum(a,d,typ)
     if d<0 then
         error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
         "cumsum",2,"""*"",""r"",""c"",""m"",1:"+string(ndims(a))))
+    end
+
+    if rhs == 3 then
+        if type(typ)<>10 then
+            error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumsum",3))
+        end
+        
+        if size(typ,"*")<>1 then
+            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumsum",3))
+        end
+
+        if and(typ <> ["native", "double"]) then
+            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumsum", 3, "native", "double"));
+        end
     end
 
     select d
