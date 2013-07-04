@@ -24,7 +24,7 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc, flagsType)
     end
 
     cmd = "";
-    tbxFlag = " -D__SCILAB_TOOLBOX__ ";
+    tbxFlag = " -D__SCILAB_TOOLBOX__";
     envFlag = "";
 
     if getenv("__USE_DEPRECATED_STACK_FUNCTIONS__", "NO") == "YES" then
@@ -47,9 +47,11 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc, flagsType)
 
     // LDFLAGS
     // Do not set the LDFLAGS See bug #4787
+    ldflags=ldflags + "-static-libstdc++ -static-libgcc"
     if ldflags <> "" & flagsType <> "configure" then
         cmd = cmd +" LDFLAGS="""+ldflags+""""
     end
+    disp(cmd)
 
     // FFLAGS
     if fflags <> "" then
