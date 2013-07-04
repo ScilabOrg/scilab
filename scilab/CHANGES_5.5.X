@@ -254,6 +254,8 @@ Bug fixes
 
 * Bug #8687 fixed - typeof() function failed on uint8, depending on the format (+ unit test added).
 
+* Bug #8745 fixed - Extracting from an empty matrix automatically returned an empty matrix.
+
 * Bug #8778 fixed - Call_ScilabOpen, TerminateScilab can not be called more
                     than 80 times in a loop.
 

@@ -15,10 +15,12 @@ c ======================================================================
       integer ogettype, vt,vt1,id(nsiz),r,op,bl(nsiz)
       logical compil,ptover
       integer iadr
+      integer top2
       character tmpbuf * (bsiz)
 
 c
       iadr(l)=l+l-1
+      sadr(l)=(l/2)+1
 
       r=0
       if(pt.gt.0) r=rstk(pt)
@@ -76,6 +78,20 @@ c     .     a() -->a
             endif
             nt=1
             icall=0
+            il = iadr(lstk(top))
+            if (istk(il).lt.O) il=iadr(istk(il+1))
+            top2 = top -1
+            il2=iadr(lstk(top2))
+            ! check index if matrix is empty
+            if (abs(istk(il)).eq.1.and.                !type(matrix)=1
+     &       istk(il+1).eq.0.and.istk(il+2).eq.0.and.  !size(matrix)=(0,0)
+     &       (stk(sadr(il2+4)).lt.0.or.                !index<0
+     &       abs(istk(il2)).ne.1.and.                  !type(index)!=1 (no error if index is >0)
+     &       abs(istk(il2)).ne.2.and.                  !type(index)!=2 (no error for index=$)
+     &       abs(istk(il2)).ne.129)) then              !type(index)!=129 (no error for index=1:$)
+                call error(21)
+                return
+            endif
          else
             icall=0
             vt1=abs(ogettype(top))
