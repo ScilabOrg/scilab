@@ -48,6 +48,12 @@ public :
     virtual bool            set(int _iRows, int _iCols, wchar_t* _pwstData);
     virtual bool            set(wchar_t** _pwstData);
 
+    virtual bool            set(int _iPos, char* _pcData);
+    virtual bool            set(int _iPos, const char* _pcData);
+    virtual bool            set(int _iRows, int _iCols, const char* _pcData);
+    virtual bool            set(int _iRows, int _iCols, char* _pcData);
+    virtual bool            set(char** _pstrData);
+
     bool                    operator==(const InternalType& it);
     bool                    operator!=(const InternalType& it);
 

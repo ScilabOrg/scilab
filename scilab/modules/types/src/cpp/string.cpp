@@ -461,6 +461,55 @@ bool String::set(wchar_t** _pwstData)
     return true;
 }
 
+bool String::set(int _iPos, char* _pcData)
+{
+    if (m_pRealData == NULL || _iPos >= m_iSize)
+    {
+        return false;
+    }
+    m_pRealData[_iPos] = to_wide_string(_pcData);
+    return true;
+}
+
+bool String::set(int _iPos, const char* _pcData)
+{
+    if (m_pRealData == NULL || _iPos >= m_iSize)
+    {
+        return false;
+    }
+    m_pRealData[_iPos] = to_wide_string(_pcData);
+    return true;
+}
+
+bool String::set(int _iRows, int _iCols, const char* _pcData)
+{
+    int piIndexes[2] = {_iRows, _iCols};
+    return set(getIndex(piIndexes), _pcData);
+}
+
+bool String::set(int _iRows, int _iCols, char* _pcData)
+{
+    int piIndexes[2] = {_iRows, _iCols};
+    return set(getIndex(piIndexes), _pcData);
+}
+
+bool String::set(char** _pstrData)
+{
+    if (m_pRealData == NULL)
+    {
+        return false;
+    }
+
+    for (int i = 0 ; i < getSize() ; i++)
+    {
+        if (set(i, _pstrData[i]) == false)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 wchar_t** String::allocData(int _iSize)
 {
     wchar_t** pStr = new wchar_t*[_iSize];
