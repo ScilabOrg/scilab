@@ -145,6 +145,7 @@ int sci_listvar_in_hdf5(char *fname, unsigned long fname_len)
 
             strcpy(pInfo[i].varName, pstVarNameList[i]);
             FREE(pstVarNameList[i]);
+            pInfo[i].iSize = 0;
             b = read_data(iDataSetId, 0, NULL, &pInfo[i]) == false;
             if (b)
             {
@@ -579,9 +580,14 @@ static void generateInfo(VarInfo* _pInfo, const char* _pstType)
     {
         sprintf(pstSize, "%d by %d", _pInfo->piDims[0], _pInfo->piDims[1]);
     }
-    else
+    else if (_pInfo->iDims == 1)
     {
         sprintf(pstSize, "%d", _pInfo->piDims[0]);
     }
+    else
+    {
+        pstSize[0] = '\0';
+    }
+
     sprintf(_pInfo->pstInfo, "%-*s%-*s%-*s%-*d", 25, _pInfo->varName, 15, _pstType, 16, pstSize, 10, _pInfo->iSize);
 }
