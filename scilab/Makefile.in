@@ -99,9 +99,10 @@ DIST_COMMON = $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(top_srcdir)/modules/core/includes/machine.h.in \
 	$(top_srcdir)/modules/core/includes/version.h.in \
 	$(top_srcdir)/modules/helptools/etc/SciDocConf.xml.in COPYING \
-	config/compile config/config.guess config/config.rpath \
-	config/config.sub config/depcomp config/install-sh \
-	config/ltmain.sh config/missing config/mkinstalldirs
+	config/ar-lib config/compile config/config.guess \
+	config/config.rpath config/config.sub config/depcomp \
+	config/install-sh config/ltmain.sh config/missing \
+	config/mkinstalldirs
 check_PROGRAMS = call_scilab_c_simple$(EXEEXT) call_scilab_c$(EXEEXT) \
 	call_scilab_c_getlastjob$(EXEEXT) \
 	call_scilab_c_DisableInteractiveMode$(EXEEXT) \
@@ -402,6 +403,7 @@ CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEMOTOOLS_ENABLE = @DEMOTOOLS_ENABLE@
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
 DOCBOOK_ROOT = @DOCBOOK_ROOT@
 DOXYGEN_BIN = @DOXYGEN_BIN@
 DSYMUTIL = @DSYMUTIL@
@@ -479,6 +481,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MATIO_CFLAGS = @MATIO_CFLAGS@
 MATIO_ENABLE = @MATIO_ENABLE@
 MATIO_LIBS = @MATIO_LIBS@
@@ -571,6 +574,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -665,7 +669,7 @@ TARGETS_ALL = macros $(am__append_4) $(am__append_5)
 
 # check is performed with scilab
 TESTS_ENVIRONMENT = LANG=C $(top_builddir)/bin/scilab-cli -nb -noatomsautoload -f
-TESTS = $(top_srcdir)/modules/development_tools/tests/unit_tests/test_run_level_1.tst
+TESTS = $(top_builddir)/modules/development_tools/tests/unit_tests/test_run_level_1.tst
 rootdir = $(pkgdatadir)/etc/
 root_DATA = $(top_srcdir)/etc/scilab.start \
 $(top_srcdir)/etc/scilab.quit \

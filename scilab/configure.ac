@@ -16,7 +16,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_REVISION($Revision$)dnl
 AC_INIT([Scilab],[5],[http://bugzilla.scilab.org/])
-AC_PREREQ(2.68)
+AC_PREREQ([2.69])
 AC_CONFIG_MACRO_DIR([m4/])
 
 SCI_BUILDDIR="`pwd`"
@@ -66,6 +66,7 @@ AC_CONFIG_HEADERS([modules/core/includes/machine.h])
 # strip executable
 AM_PROG_INSTALL_STRIP
 AC_PROG_LN_S
+AM_PROG_AR
 
 AC_CUSTOM_LARGE_FILE
 
@@ -90,55 +91,55 @@ AC_CANONICAL_HOST
 
 
 AC_ARG_ENABLE(debug,
-   AC_HELP_STRING([--enable-debug],[Do not optimize and print warning messages (C/C++/Fortran/Java code)]))
+   AS_HELP_STRING([--enable-debug],[Do not optimize and print warning messages (C/C++/Fortran/Java code)]))
 
 AC_ARG_ENABLE(debug-C,
-   AC_HELP_STRING([--enable-debug-C],[Do not optimize and print warning messages (C code)]))
+   AS_HELP_STRING([--enable-debug-C],[Do not optimize and print warning messages (C code)]))
 
 AC_ARG_ENABLE(debug-CXX,
-   AC_HELP_STRING([--enable-debug-CXX],[Do not optimize and print warning messages (C++ code)]))
+   AS_HELP_STRING([--enable-debug-CXX],[Do not optimize and print warning messages (C++ code)]))
 
 AC_ARG_ENABLE(debug-java,
-   AC_HELP_STRING([--enable-debug-java],[Print warning messages and line numbers (Java code)]))
+   AS_HELP_STRING([--enable-debug-java],[Print warning messages and line numbers (Java code)]))
 
 AC_ARG_ENABLE(debug-fortran,
-   AC_HELP_STRING([--enable-debug-fortran],[Do not optimize and print warning messages (Fortran code)]))
+   AS_HELP_STRING([--enable-debug-fortran],[Do not optimize and print warning messages (Fortran code)]))
 
 AC_ARG_ENABLE(debug-linker,
-   AC_HELP_STRING([--enable-debug-linker],[Print warning messages from the linker (ld)]))
+   AS_HELP_STRING([--enable-debug-linker],[Print warning messages from the linker (ld)]))
 
 AC_ARG_ENABLE(code-coverage,
-   AC_HELP_STRING([--enable-code-coverage],[Enable code coverage]))
+   AS_HELP_STRING([--enable-code-coverage],[Enable code coverage]))
 
 AC_ARG_ENABLE(stop-on-warning,
-   AC_HELP_STRING([--enable-stop-on-warning],[Stop the compilation on the first warning found in the C/C++ code]))
+   AS_HELP_STRING([--enable-stop-on-warning],[Stop the compilation on the first warning found in the C/C++ code]))
 
 AC_ARG_WITH(gcc,
-    AC_HELP_STRING([--with-gcc],[Use gcc C compiler ]))
+    AS_HELP_STRING([--with-gcc],[Use gcc C compiler ]))
 
 AC_ARG_WITH(gfortran,
-    AC_HELP_STRING([--with-gfortran],[Use gfortran, GNU Fortran 95 compiler]))
+    AS_HELP_STRING([--with-gfortran],[Use gfortran, GNU Fortran 95 compiler]))
 
 AC_ARG_WITH(intelcompilers,
-    AC_HELP_STRING([--with-intelcompilers],[Use Intel C (icc) and Fortran (ifort) proprietary compilers (GNU/Linux only) ]))
+    AS_HELP_STRING([--with-intelcompilers],[Use Intel C (icc) and Fortran (ifort) proprietary compilers (GNU/Linux only) ]))
 
 AC_ARG_WITH(tk,
-    AC_HELP_STRING([--without-tk],[Disable the interface to Tcl/Tk ]))
+    AS_HELP_STRING([--without-tk],[Disable the interface to Tcl/Tk ]))
 
 AC_ARG_WITH(javasci,
-    AC_HELP_STRING([--without-javasci],[Disable the Java/Scilab interface (javasci)]))
+    AS_HELP_STRING([--without-javasci],[Disable the Java/Scilab interface (javasci)]))
 
 AC_ARG_ENABLE(compilation-tests,
-    AC_HELP_STRING([--enable-compilation-tests],[Enable unitary tests and checks at compilation time]))
+    AS_HELP_STRING([--enable-compilation-tests],[Enable unitary tests and checks at compilation time]))
 
 AC_ARG_WITH(gui,
-    AC_HELP_STRING([--without-gui],[Disable the Scilab Graphical User Interface (GUI). Intended for embedded/clustering/grid Scilab ]))
+    AS_HELP_STRING([--without-gui],[Disable the Scilab Graphical User Interface (GUI). Intended for embedded/clustering/grid Scilab ]))
 
 AC_ARG_ENABLE(build-swig,
-    AC_HELP_STRING([--enable-build-swig],[Regenerate Java => C wrappers produces by Swig (A Java Development Kit (JDK) is mandatory for this option)]))
+    AS_HELP_STRING([--enable-build-swig],[Regenerate Java => C wrappers produces by Swig (A Java Development Kit (JDK) is mandatory for this option)]))
 
 AC_ARG_ENABLE(build-giws,
-    AC_HELP_STRING([--enable-build-giws],[Regenerate C/C++ => Java wrappers produces by Giws (A Java Development Kit (JDK) is mandatory for this option)]))
+    AS_HELP_STRING([--enable-build-giws],[Regenerate C/C++ => Java wrappers produces by Giws (A Java Development Kit (JDK) is mandatory for this option)]))
 
 
 ################################################
@@ -153,7 +154,7 @@ AC_PROG_GREP
 ######
 
 AC_ARG_WITH(fink_prefix,
-AC_HELP_STRING([--with-fink-prefix],[Provide a fink prefix. Default: /sw/ ]))
+AS_HELP_STRING([--with-fink-prefix],[Provide a fink prefix. Default: /sw/ ]))
 # Need MacosX Version to specify some path.                                  
 case "$host_os" in
      *Darwin* | *darwin*)
@@ -187,7 +188,7 @@ case "$host" in
 esac
 
 AC_ARG_WITH(min_macosx_version,
-AC_HELP_STRING([--with-min-macosx-version],[Force compilers to generate binaries compatible with MacOSX minimal version.]))
+AS_HELP_STRING([--with-min-macosx-version],[Force compilers to generate binaries compatible with MacOSX minimal version.]))
 case "$host" in
     *darwin*)
     if test -n "$with_min_macosx_version"; then
@@ -749,7 +750,7 @@ AC_HDF5()
 #################
 
 AC_ARG_WITH(external-scirenderer,
-    AC_HELP_STRING([--with-external-scirenderer],[Disable the usage of the internal copy of scirenderer. Intended for packaging of Scilab]))
+    AS_HELP_STRING([--with-external-scirenderer],[Disable the usage of the internal copy of scirenderer. Intended for packaging of Scilab]))
 
 AM_CONDITIONAL(EXTERNAL_SCIRENDERER, test "$with_external_scirenderer" = yes)
 
@@ -759,10 +760,10 @@ AM_CONDITIONAL(EXTERNAL_SCIRENDERER, test "$with_external_scirenderer" = yes)
 #################
 
 AC_ARG_WITH(xcos,
-    AC_HELP_STRING([--without-xcos],[Disable Xcos]))
+    AS_HELP_STRING([--without-xcos],[Disable Xcos]))
 
 AC_ARG_WITH(modelica,
-    AC_HELP_STRING([--without-modelica],[Disable the OCaml module (modelica)]))
+    AS_HELP_STRING([--without-modelica],[Disable the OCaml module (modelica)]))
 
 
 if test "$with_gui" = no; then
@@ -1276,7 +1277,18 @@ AM_GNU_GETTEXT_VERSION([0.16])
 AC_FUNC_CLOSEDIR_VOID
 
 # Signals used in modules/core/src/c/realmain.c
-AC_TYPE_SIGNAL
+AC_DIAGNOSE([obsolete],[your code may safely assume C89 semantics that RETSIGTYPE is void.
+Remove this warning and the `AC_CACHE_CHECK' when you adjust the code.])dnl
+AC_CACHE_CHECK([return type of signal handlers],[ac_cv_type_signal],[AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([#include <sys/types.h>
+#include <signal.h>
+],
+		 [return *(signal (0, 0)) (0) == 1;])],
+		   [ac_cv_type_signal=int],
+		   [ac_cv_type_signal=void])])
+AC_DEFINE_UNQUOTED([RETSIGTYPE],[$ac_cv_type_signal],[Define as the return type of signal handlers
+		    (`int' or `void').])
+
 
 # struct tm used in modules/core/src/c/history.c
 AC_STRUCT_TM
@@ -1340,7 +1352,7 @@ AC_SEARCH_LIBS([pthread_join],[pthread])
 #################
 
 AC_ARG_WITH(fftw,
-    AC_HELP_STRING([--without-fftw],[Disable the interface to the FFTW 3 library]))
+    AS_HELP_STRING([--without-fftw],[Disable the interface to the FFTW 3 library]))
 
 FFTW_ENABLE=no
 if test "$with_fftw" != no; then
@@ -1371,7 +1383,7 @@ AM_CONDITIONAL(FFTW, test "$with_fftw" != no)
 #################
 
 AC_ARG_WITH(openmp,
-    AC_HELP_STRING([--without-openmp],[Disable the usage of OpenMP (parallelization of some algoritms)]))
+    AS_HELP_STRING([--without-openmp],[Disable the usage of OpenMP (parallelization of some algoritms)]))
 
 OPENMP_ENABLE=no
 if test "$with_openmp" != no; then
@@ -1407,7 +1419,7 @@ ALL_LINGUAS="en_US fr_FR zh_CN zh_TW ru_RU ca_ES de_DE es_ES pt_BR ja_JP it_IT u
 ALL_LINGUAS_DOC="en_US fr_FR pt_BR ja_JP ru_RU"
 
 AC_ARG_ENABLE(build-localization,
-        AC_HELP_STRING([--disable-build-localization],[Disable the localization build])
+        AS_HELP_STRING([--disable-build-localization],[Disable the localization build])
         )
 BUILD_LOCALIZATION_ENABLE=no
 
@@ -1422,10 +1434,10 @@ if test "$enable_build_localization" != no; then
 #   AC_PATH_PROG(XGETTEXT, xgettext, no)
 
    if test x$MSGFMT = xno; then
-      AC_ERROR([The msgfmt command is required to build Scilab.  If it is installed on your system, ensure that it is in your path.  If it is not, install GNU gettext to continue or use the option --disable-build-localization ])
+      AC_MSG_ERROR(The msgfmt command is required to build Scilab.  If it is installed on your system, ensure that it is in your path.  If it is not, install GNU gettext to continue or use the option --disable-build-localization )
       fi
     if test x$MSGCAT = xno; then
-      AC_ERROR([The msgcat command is required to build Scilab.  If it is installed on your system, ensure that it is in your path.  If it is not, install GNU gettext to continue or use the option --disable-build-localization ])
+      AC_MSG_ERROR(The msgcat command is required to build Scilab.  If it is installed on your system, ensure that it is in your path.  If it is not, install GNU gettext to continue or use the option --disable-build-localization )
     fi
     BUILD_LOCALIZATION_ENABLE=yes
 fi
@@ -1451,7 +1463,7 @@ ACX_LAPACK(
 
 
 AC_ARG_WITH(arpack-ng,
-    AC_HELP_STRING([--without-arpack-ng],[Disable the interface to ARPACK-NG]))
+    AS_HELP_STRING([--without-arpack-ng],[Disable the interface to ARPACK-NG]))
 
 ARPACK_NG=no
 if test "$with_arpack_ng" != no; then
@@ -1479,7 +1491,7 @@ AM_CONDITIONAL(ARPACK_NG, test "$ARPACK_NG" != "no")
 #################
 
 AC_ARG_WITH(umfpack,
-    AC_HELP_STRING([--without-umfpack],[Disable the interface to the UMFPACK library]))
+    AS_HELP_STRING([--without-umfpack],[Disable the interface to the UMFPACK library]))
 
 UMFPACK_ENABLE=no
 if test "$with_umfpack" != no; then
@@ -1516,11 +1528,11 @@ if test "$with_tk" != no; then
     USER_TCL_LIB_PATH=""
     USER_TCL_INC_PATH=""
     AC_ARG_WITH(tcl-library,
-        AC_HELP_STRING([--with-tcl-library=DIR],[Set the path to the TCL library]),
+        AS_HELP_STRING([--with-tcl-library=DIR],[Set the path to the TCL library]),
         [  USER_TCL_LIB_PATH=$withval
     ])
     AC_ARG_WITH(tcl-include,
-        AC_HELP_STRING([--with-tcl-include=DIR],[Set the path to the TCL headers]),
+        AS_HELP_STRING([--with-tcl-include=DIR],[Set the path to the TCL headers]),
         [  USER_TCL_INC_PATH=$withval
     ])
 
@@ -1528,12 +1540,12 @@ if test "$with_tk" != no; then
     USER_TK_INC_PATH=$USER_TCL_INC_PATH
 
     AC_ARG_WITH(tk-library,
-        AC_HELP_STRING([--with-tk-library=DIR],[Set the path to the TK library]),
+        AS_HELP_STRING([--with-tk-library=DIR],[Set the path to the TK library]),
         [  USER_TK_LIB_PATH=$withval
     ])
 
     AC_ARG_WITH(tk-include,
-        AC_HELP_STRING([--with-tk-include=DIR],[Set the path to the TK headers]),
+        AS_HELP_STRING([--with-tk-include=DIR],[Set the path to the TK headers]),
         [  USER_TK_INC_PATH=$withval
     ])
 
@@ -1572,14 +1584,14 @@ AM_CONDITIONAL(TCLTK, test "$WITH_TKSCI" = yes)
 
 
 AC_ARG_WITH(matio,
-    AC_HELP_STRING([--without-matio],[Disable the interface to Matio (MAT File I/O library)]))
+    AS_HELP_STRING([--without-matio],[Disable the interface to Matio (MAT File I/O library)]))
 
 AC_ARG_WITH(matio_include,
-        AC_HELP_STRING([--with-matio-include=DIR],[Set the path to the MATIO headers]),
+        AS_HELP_STRING([--with-matio-include=DIR],[Set the path to the MATIO headers]),
         [with_matio_include="-I$withval"], [])
 
 AC_ARG_WITH(matio_library,
-        AC_HELP_STRING([--with-matio-library=DIR],[Set the path to the MATIO libraries]),
+        AS_HELP_STRING([--with-matio-library=DIR],[Set the path to the MATIO libraries]),
         [with_matio_library="-L$withval"], [])
 
 MATIO_ENABLE=no
@@ -1624,7 +1636,7 @@ AM_CONDITIONAL(MATIO, test "$with_matio" != no)
 HELP_ENABLE=yes
 
 AC_ARG_ENABLE(build-help,
-        AC_HELP_STRING([--disable-build-help],[Disable the help build])
+        AS_HELP_STRING([--disable-build-help],[Disable the help build])
         )
 
 if test "$enable_build_help" != no; then
@@ -1644,7 +1656,7 @@ AM_CONDITIONAL(BUILD_HELP, test $HELP_ENABLE = yes)
 ## Install XML help files ###
 
 AC_ARG_WITH(install-help-xml,
-        AC_HELP_STRING([--with-install-help-xml],[make install will install XML files])
+        AS_HELP_STRING([--with-install-help-xml],[make install will install XML files])
         )
 HELP_INSTALL_ENABLE=no
 if test "$with_install_help_xml" != no -a "$with_install_help_xml" != ""; then
@@ -1654,7 +1666,7 @@ AM_CONDITIONAL(INSTALL_HELP_XML, test "$HELP_INSTALL_ENABLE" != "")
 
 ## Doxygen help generation
 AC_ARG_ENABLE(build-doxygen,
-    AC_HELP_STRING([--enable-build-doxygen],[Generate doxygen C/C++ documentation]))
+    AS_HELP_STRING([--enable-build-doxygen],[Generate doxygen C/C++ documentation]))
 
 DOXYGEN_ENABLE=yes
 if test "$enable_build_doxygen" != no -a "$enable_build_doxygen" != ""; then
@@ -1698,7 +1710,7 @@ AM_CONDITIONAL(COMPILATION_TESTS, test "$COMPILATION_TESTS" != "no")
 ##############################################################
 
 AC_ARG_ENABLE(force-full-link,
-    AC_HELP_STRING([--enable-force-full-link],[Forces the explicit link between libscilab and some "on-the-fly" loaded libraries. NOT USE IN PRODUCTION.]))
+    AS_HELP_STRING([--enable-force-full-link],[Forces the explicit link between libscilab and some "on-the-fly" loaded libraries. NOT USE IN PRODUCTION.]))
 
 FORCE_FULL_LINK="no"
 if test "$enable_force_full_link" == "yes"; then
@@ -1735,10 +1747,9 @@ AC_SUBST(GRAPHICS_ENABLE)
 ## libtool
 #########################
 
-AM_DISABLE_STATIC
 LT_PREREQ([2.2.7])
-AC_PROG_LIBTOOL([shared dlopen])
-AM_PROG_LIBTOOL
+LT_INIT([shared dlopen])
+AC_DISABLE_STATIC([])
 
 
 # Avoid to link all the dep from others libraries (*.la included by LIBADD)
@@ -1775,7 +1786,7 @@ AC_PATH_PROG(SPLINT, splint, no)
 ##########
 
 AC_ARG_ENABLE(ccache,
-        AC_HELP_STRING([--disable-ccache],[Disable the use of ccache])
+        AS_HELP_STRING([--disable-ccache],[Disable the use of ccache])
         )
 AC_PATH_PROG(CCACHE, ccache)
 if test x"$CCACHE" != x -a "$enable_ccache" != no; then
