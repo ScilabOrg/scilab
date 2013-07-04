@@ -66,6 +66,7 @@ AC_CONFIG_HEADERS([modules/core/includes/machine.h])
 # strip executable
 AM_PROG_INSTALL_STRIP
 AC_PROG_LN_S
+AM_PROG_AR
 
 AC_CUSTOM_LARGE_FILE
 
@@ -81,6 +82,8 @@ AC_LIB_RPATH
 AM_MAINTAINER_MODE
 
 AM_INIT_AUTOMAKE([-Wall foreign]) # Not using -Werror because we override {C,F}FLAGS in order to disable optimisation
+
+AC_PROG_MKDIR_P
 
 AC_CANONICAL_HOST
 
