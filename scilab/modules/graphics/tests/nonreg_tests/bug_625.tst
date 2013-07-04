@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=625
 //
 // <-- Short Description -->
-//    xget does not recognise (anymore) some of its valid keys.
+//    xget does not recognize (anymore) some of its valid keys.
 //    Side effect: getmark() is very verbose and does not show
 //    scaled marks.
 
