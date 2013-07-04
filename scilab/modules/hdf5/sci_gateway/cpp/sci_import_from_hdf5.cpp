@@ -466,7 +466,7 @@ static bool import_string(int _iDatasetId, int _iItemPos, int *_piAddress, char 
         FREE(piDims);
         for (int i = 0 ; i < iSize ; i++)
         {
-            free(pstData[i]);
+            FREE(pstData[i]);
         }
         FREE(pstData);
         return false;
@@ -475,7 +475,7 @@ static bool import_string(int _iDatasetId, int _iItemPos, int *_piAddress, char 
     FREE(piDims);
     for (int i = 0 ; i < iSize ; i++)
     {
-        free(pstData[i]);
+        FREE(pstData[i]);
     }
     FREE(pstData);
 
