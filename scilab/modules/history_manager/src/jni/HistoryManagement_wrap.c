@@ -37,7 +37,7 @@
 # endif
 #endif
 
-/* attribute recognised by some compilers to avoid 'unused' warnings */
+/* attribute recognized by some compilers to avoid 'unused' warnings */
 #ifndef SWIGUNUSED
 # if defined(__GNUC__)
 #   if !(defined(__cplusplus)) || (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))
