@@ -41,7 +41,7 @@ if r2 <> 'toolbox_skeleton' + filesep() then pause,end
 
 if size(r2,'*') <> 1 then
     // remove toolbox_skeleton.iss not in release
-    r2 = r2(1);
+    r2 = r2(2);
 end
 r = completeline(currentline,r2,getpartlevel(currentline),getfilepartlevel(currentline),%t);
 if r <> 'cd toolbox_skeleton' + filesep() then pause,end
