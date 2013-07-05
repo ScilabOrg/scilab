@@ -58,9 +58,11 @@ sci_gateway/cpp/sci_junwraprem.cpp \
 sci_gateway/cpp/sci_jenableTrace.cpp \
 sci_gateway/cpp/sci_jdisableTrace.cpp \
 sci_gateway/cpp/sci_jdeff.cpp \
+sci_gateway/cpp/sci_jinvoke.cpp \
 sci_gateway/cpp/sci_jarray.cpp \
 sci_gateway/cpp/sci_jcast.cpp \
 sci_gateway/cpp/sci_jallowClassReloading.cpp \
+sci_gateway/cpp/sci_jconvMatrixMethod.cpp \
 sci_gateway/cpp/sci_jwrapinfloat.cpp \
 sci_gateway/cpp/sci_jsetfield.cpp
 
