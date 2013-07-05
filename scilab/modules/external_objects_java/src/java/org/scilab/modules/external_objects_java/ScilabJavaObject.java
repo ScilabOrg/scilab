@@ -42,6 +42,7 @@ public class ScilabJavaObject {
 
     private static final int INITIALCAPACITY = 1024;
     private static final Map<Class, Integer> unwrappableType = new HashMap<Class, Integer>(35);
+    private static final Map<Class, Integer> listBaseType = new HashMap<Class, Integer>(35);
     private static final Class[] returnType = new Class[1];
 
     static final Map<Class, Class> primTypes = new HashMap<Class, Class>(8);
@@ -93,13 +94,31 @@ public class ScilabJavaObject {
         unwrappableType.put(float[].class, 36);
         unwrappableType.put(float[][].class, 37);
         unwrappableType.put(Double.class, 2);
+        unwrappableType.put(Double[].class, 3);
         unwrappableType.put(Integer.class, 23);
+        unwrappableType.put(Integer[].class, 24);
         unwrappableType.put(Long.class, 29);
+        unwrappableType.put(Long[].class, 30);
         unwrappableType.put(Byte.class, 11);
+        unwrappableType.put(Byte[].class, 12);
         unwrappableType.put(Character.class, 20);
+        unwrappableType.put(Character[].class, 21);
         unwrappableType.put(Boolean.class, 8);
+        unwrappableType.put(Boolean[].class, 9);
         unwrappableType.put(Float.class, 35);
+        unwrappableType.put(Float[].class, 36);
         unwrappableType.put(Short.class, 17);
+        unwrappableType.put(Short[].class, 18);
+
+        listBaseType.put(Double.class, 3);
+        listBaseType.put(Integer.class, 24);
+        listBaseType.put(Long.class, 30);
+        listBaseType.put(Byte.class, 12);
+        listBaseType.put(Character.class, 21);
+        listBaseType.put(Boolean.class, 9);
+        listBaseType.put(Float.class, 36);
+        listBaseType.put(Short.class, 18);
+        listBaseType.put(String.class, 6);
 
         arraySJO[0] = new ScilabJavaObject(null, null);
     }
@@ -163,12 +182,12 @@ public class ScilabJavaObject {
     /**
      * Do nothing !
      */
-    public static void initScilabJavaObject() { }
+    public static final void initScilabJavaObject() { }
 
     /**
      * @param filename the log file
      */
-    public static void enableTrace(String filename) throws ScilabJavaException {
+    public static final void enableTrace(String filename) throws ScilabJavaException {
         debug = true;
         logger = Logger.getLogger("JIMS");
 
@@ -190,7 +209,7 @@ public class ScilabJavaObject {
     /**
      * Disable trace
      */
-    public static void disableTrace() {
+    public static final void disableTrace() {
         if (debug) {
             logger.removeHandler(logger.getHandlers()[0]);
             debug = false;
@@ -226,7 +245,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the string to represent this object
      */
-    public static String getRepresentation(final int id) {
+    public static final String getRepresentation(final int id) {
         if (arraySJO[id] != null) {
             return arraySJO[id].toString();
         }
@@ -238,7 +257,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return true if the object is valid
      */
-    public static boolean isValidJavaObject(final int id) {
+    public static final boolean isValidJavaObject(final int id) {
         return id == 0 || (id > 0 && arraySJO[id] != null);
     }
 
@@ -247,7 +266,7 @@ public class ScilabJavaObject {
      * @param index an array of index
      * @return the id of the element at position given by index in id
      */
-    public static int getArrayElement(final int id, final int[] index) throws ScilabJavaException {
+    public static final int getArrayElement(final int id, final int[] index) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 StringBuffer buf = new StringBuffer();
@@ -278,7 +297,7 @@ public class ScilabJavaObject {
      * @param index an array of index
      * @param idArg the id of an element to put at the position given by index
      */
-    public static void setArrayElement(final int id, final int[] index, final int idArg) throws ScilabJavaException {
+    public static final void setArrayElement(final int id, final int[] index, final int idArg) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 StringBuffer buf = new StringBuffer();
@@ -309,7 +328,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the accessibles methods in the object represented by id
      */
-    public static String[] getAccessibleMethods(final int id) throws ScilabJavaException {
+    public static final String[] getAccessibleMethods(final int id) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 logger.log(Level.INFO, "Get accessible methods in object id=" + id);
@@ -328,7 +347,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the accessibles fields in the object represented by id
      */
-    public static String[] getAccessibleFields(final int id) throws ScilabJavaException {
+    public static final String[] getAccessibleFields(final int id) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 logger.log(Level.INFO, "Get accessible fields in object id=" + id);
@@ -357,7 +376,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the class name of the object represented by id
      */
-    public static String getClassName(final int id) throws ScilabJavaException {
+    public static final String getClassName(final int id) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 logger.log(Level.INFO, "Get class name of object id=" + id);
@@ -378,7 +397,7 @@ public class ScilabJavaObject {
      * @param fieldName the field name to set
      * @param idArg the id of the element to set
      */
-    public static void setField(final int id, final String fieldName, final int idarg) throws ScilabJavaException {
+    public static final void setField(final int id, final String fieldName, final int idarg) throws ScilabJavaException {
         if (id > 0) {
             Field f = null;
             try {
@@ -421,7 +440,7 @@ public class ScilabJavaObject {
      * @param fieldName the field name to set
      * @return the id of the got object
      */
-    public static int getField(final int id, final String fieldName) throws ScilabJavaException {
+    public static final int getField(final int id, final String fieldName) throws ScilabJavaException {
         if (id > 0) {
             try {
                 if (debug) {
@@ -477,7 +496,7 @@ public class ScilabJavaObject {
      *         * 0 for a method
      *         * 1 for a field
      */
-    public static int getFieldType(final int id, final String fieldName) {
+    public static final int getFieldType(final int id, final String fieldName) {
         if (id > 0 && arraySJO[id] != null) {
             if (debug) {
                 logger.log(Level.INFO, "Get field type of \'" + fieldName + "\' in object id=" + id);
@@ -512,7 +531,7 @@ public class ScilabJavaObject {
      * @param args an array containing the id of the arguments
      * @return the id of the invocation result
      */
-    public static int invoke(final int id, final String methName, final int[] args) throws ScilabJavaException {
+    public static final int invoke(final int id, final String methName, final int[] args) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 StringBuffer buf = new StringBuffer();
@@ -543,7 +562,7 @@ public class ScilabJavaObject {
      * @param args an array containing the id of the arguments
      * @return the id of the invocation result
      */
-    public static int extract(final int id, final int[] args) throws ScilabJavaException {
+    public static final int extract(final int id, final int[] args) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 StringBuffer buf = new StringBuffer();
@@ -616,7 +635,7 @@ public class ScilabJavaObject {
      * @param className the target class name
      * @return the id of the cast result
      */
-    public static int javaCast(final int id, final String className) throws ScilabJavaException {
+    public static final int javaCast(final int id, final String className) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 logger.log(Level.INFO, "Cast object id=" + id + " to class " + className);
@@ -641,7 +660,7 @@ public class ScilabJavaObject {
      * @param classId the target class id
      * @return the id of the cast result
      */
-    public static int javaCast(final int id, final int classId) throws ScilabJavaException {
+    public static final int javaCast(final int id, final int classId) throws ScilabJavaException {
         if (id > 0) {
             if (debug) {
                 logger.log(Level.INFO, "Cast object id=" + id + " to class with id=" + classId);
@@ -662,7 +681,7 @@ public class ScilabJavaObject {
      * Remove an object.
      * @param id the Java Object id
      */
-    public static void removeScilabJavaObject(final int id) {
+    public static final void removeScilabJavaObject(final int id) {
         if (id > 0 && arraySJO[id] != null) {
             if (debug) {
                 logger.log(Level.INFO, "Remove object id=" + id);
@@ -680,7 +699,7 @@ public class ScilabJavaObject {
      * Set the limit of a direct buffer to 0 to make it unusable.
      * @param id the Java Object id
      */
-    public static void limitDirectBuffer(final int id) {
+    public static final void limitDirectBuffer(final int id) {
         if (id > 0 && arraySJO[id] != null && (arraySJO[id].object instanceof Buffer)) {
             if (debug) {
                 logger.log(Level.INFO, "Limit direct buffer with id=" + id);
@@ -693,7 +712,7 @@ public class ScilabJavaObject {
     /**
      * Remove all the objects and start a garbage collection
      */
-    public static void garbageCollect() {
+    public static final void garbageCollect() {
         if (debug) {
             logger.log(Level.INFO, "Garbage collection");
         }
@@ -710,7 +729,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectByteBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectByteBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x, ByteBuffer.class).id;
     }
@@ -719,7 +738,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectDoubleBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectDoubleBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x.asDoubleBuffer(), DoubleBuffer.class).id;
     }
@@ -728,7 +747,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectIntBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectIntBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x.asIntBuffer(), IntBuffer.class).id;
     }
@@ -737,7 +756,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectCharBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectCharBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x.asCharBuffer(), CharBuffer.class).id;
     }
@@ -746,7 +765,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectFloatBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectFloatBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x.asFloatBuffer(), FloatBuffer.class).id;
     }
@@ -755,7 +774,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectLongBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectLongBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x.asLongBuffer(), LongBuffer.class).id;
     }
@@ -764,7 +783,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrapAsDirectShortBuffer(final ByteBuffer x) {
+    public static final int wrapAsDirectShortBuffer(final ByteBuffer x) {
         x.order(ByteOrder.nativeOrder());
         return new ScilabJavaObject(x.asShortBuffer(), ShortBuffer.class).id;
     }
@@ -773,7 +792,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final double x) {
+    public static final int wrap(final double x) {
         return new ScilabJavaObject(x, double.class).id;
     }
 
@@ -781,7 +800,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final double[] x) {
+    public static final int wrap(final double[] x) {
         return new ScilabJavaObject(x, double[].class).id;
     }
 
@@ -789,7 +808,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final double[][] x) {
+    public static final int wrap(final double[][] x) {
         return new ScilabJavaObject(x, double[][].class).id;
     }
 
@@ -797,7 +816,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final int x) {
+    public static final int wrap(final int x) {
         return new ScilabJavaObject(x, int.class).id;
     }
 
@@ -805,7 +824,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final int[] x) {
+    public static final int wrap(final int[] x) {
         return new ScilabJavaObject(x, int[].class).id;
     }
 
@@ -813,7 +832,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final int[][] x) {
+    public static final int wrap(final int[][] x) {
         return new ScilabJavaObject(x, int[][].class).id;
     }
 
@@ -821,7 +840,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final long x) {
+    public static final int wrap(final long x) {
         return new ScilabJavaObject(x, long.class).id;
     }
 
@@ -829,7 +848,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final long[] x) {
+    public static final int wrap(final long[] x) {
         return new ScilabJavaObject(x, long[].class).id;
     }
 
@@ -837,7 +856,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final long[][] x) {
+    public static final int wrap(final long[][] x) {
         return new ScilabJavaObject(x, long[][].class).id;
     }
 
@@ -845,7 +864,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final byte x) {
+    public static final int wrap(final byte x) {
         return new ScilabJavaObject(x, byte.class).id;
     }
 
@@ -853,7 +872,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final byte[] x) {
+    public static final int wrap(final byte[] x) {
         return new ScilabJavaObject(x, byte[].class).id;
     }
 
@@ -861,7 +880,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final byte[][] x) {
+    public static final int wrap(final byte[][] x) {
         return new ScilabJavaObject(x, byte[][].class).id;
     }
 
@@ -869,7 +888,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final short x) {
+    public static final int wrap(final short x) {
         return new ScilabJavaObject(x, short.class).id;
     }
 
@@ -877,7 +896,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final short[] x) {
+    public static final int wrap(final short[] x) {
         return new ScilabJavaObject(x, short[].class).id;
     }
 
@@ -885,7 +904,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final short[][] x) {
+    public static final int wrap(final short[][] x) {
         return new ScilabJavaObject(x, short[][].class).id;
     }
 
@@ -893,7 +912,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final String x) {
+    public static final int wrap(final String x) {
         return new ScilabJavaObject(x, String.class).id;
     }
 
@@ -901,7 +920,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final String[] x) {
+    public static final int wrap(final String[] x) {
         return new ScilabJavaObject(x, String[].class).id;
     }
 
@@ -909,7 +928,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final String[][] x) {
+    public static final int wrap(final String[][] x) {
         return new ScilabJavaObject(x, String[][].class).id;
     }
 
@@ -917,7 +936,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final boolean x) {
+    public static final int wrap(final boolean x) {
         return new ScilabJavaObject(x, boolean.class).id;
     }
 
@@ -925,7 +944,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final boolean[] x) {
+    public static final int wrap(final boolean[] x) {
         return new ScilabJavaObject(x, boolean[].class).id;
     }
 
@@ -933,7 +952,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final boolean[][] x) {
+    public static final int wrap(final boolean[][] x) {
         return new ScilabJavaObject(x, boolean[][].class).id;
     }
 
@@ -941,7 +960,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final char x) {
+    public static final int wrap(final char x) {
         return new ScilabJavaObject(x, char.class).id;
     }
 
@@ -949,7 +968,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final char[] x) {
+    public static final int wrap(final char[] x) {
         return new ScilabJavaObject(x, char[].class).id;
     }
 
@@ -957,7 +976,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final char[][] x) {
+    public static final int wrap(final char[][] x) {
         return new ScilabJavaObject(x, char[][].class).id;
     }
 
@@ -965,7 +984,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final float x) {
+    public static final int wrap(final float x) {
         return new ScilabJavaObject(x, float.class).id;
     }
 
@@ -973,7 +992,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final float[] x) {
+    public static final int wrap(final float[] x) {
         return new ScilabJavaObject(x, float[].class).id;
     }
 
@@ -981,7 +1000,7 @@ public class ScilabJavaObject {
      * @param x the variable to wrap into a Java Object
      * @return the corresponding id
      */
-    public static int wrap(final float[][] x) {
+    public static final int wrap(final float[][] x) {
         return new ScilabJavaObject(x, float[][].class).id;
     }
 
@@ -989,7 +1008,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static double unwrapDouble(final int id) {
+    public static final double unwrapDouble(final int id) {
         return ((Double) (arraySJO[id].object)).doubleValue();
     }
 
@@ -997,7 +1016,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static double[] unwrapRowDouble(final int id) {
+    public static final double[] unwrapRowDouble(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Double>) arraySJO[id].object);
+        }
+
         return (double[]) (arraySJO[id].object);
     }
 
@@ -1005,7 +1028,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static double[][] unwrapMatDouble(final int id) {
+    public static final double[][] unwrapMatDouble(final int id) {
         return (double[][]) (arraySJO[id].object);
     }
 
@@ -1013,7 +1036,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static int unwrapInt(final int id) {
+    public static final int unwrapInt(final int id) {
         return ((Integer) (arraySJO[id].object)).intValue();
     }
 
@@ -1021,7 +1044,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static int[] unwrapRowInt(final int id) {
+    public static final int[] unwrapRowInt(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Integer>) arraySJO[id].object);
+        }
+
         return (int[]) (arraySJO[id].object);
     }
 
@@ -1029,7 +1056,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static int[][] unwrapMatInt(final int id) {
+    public static final int[][] unwrapMatInt(final int id) {
         return (int[][]) (arraySJO[id].object);
     }
 
@@ -1037,7 +1064,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static short unwrapShort(final int id) {
+    public static final short unwrapShort(final int id) {
         return ((Short) (arraySJO[id].object)).shortValue();
     }
 
@@ -1045,7 +1072,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static short[] unwrapRowShort(final int id) {
+    public static final short[] unwrapRowShort(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Short>) arraySJO[id].object);
+        }
+
         return (short[]) (arraySJO[id].object);
     }
 
@@ -1053,7 +1084,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static short[][] unwrapMatShort(final int id) {
+    public static final short[][] unwrapMatShort(final int id) {
         return (short[][]) (arraySJO[id].object);
     }
 
@@ -1061,7 +1092,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static byte unwrapByte(final int id) {
+    public static final byte unwrapByte(final int id) {
         return ((Byte) (arraySJO[id].object)).byteValue();
     }
 
@@ -1069,7 +1100,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static byte[] unwrapRowByte(final int id) {
+    public static final byte[] unwrapRowByte(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Byte>) arraySJO[id].object);
+        }
+
         return (byte[]) (arraySJO[id].object);
     }
 
@@ -1077,7 +1112,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static byte[][] unwrapMatByte(final int id) {
+    public static final byte[][] unwrapMatByte(final int id) {
         return (byte[][]) (arraySJO[id].object);
     }
 
@@ -1085,7 +1120,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static String unwrapString(final int id) {
+    public static final String unwrapString(final int id) {
         return (String) (arraySJO[id].object);
     }
 
@@ -1093,7 +1128,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static String[] unwrapRowString(final int id) {
+    public static final String[] unwrapRowString(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<String>) arraySJO[id].object);
+        }
+
         return (String[]) (arraySJO[id].object);
     }
 
@@ -1101,7 +1140,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static String[][] unwrapMatString(final int id) {
+    public static final String[][] unwrapMatString(final int id) {
         return (String[][]) (arraySJO[id].object);
     }
 
@@ -1109,7 +1148,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static boolean unwrapBoolean(final int id) {
+    public static final boolean unwrapBoolean(final int id) {
         return (Boolean) (arraySJO[id].object);
     }
 
@@ -1117,7 +1156,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static boolean[] unwrapRowBoolean(final int id) {
+    public static final boolean[] unwrapRowBoolean(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Boolean>) arraySJO[id].object);
+        }
+
         return (boolean[]) (arraySJO[id].object);
     }
 
@@ -1125,7 +1168,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static boolean[][] unwrapMatBoolean(final int id) {
+    public static final boolean[][] unwrapMatBoolean(final int id) {
         return (boolean[][]) (arraySJO[id].object);
     }
 
@@ -1133,7 +1176,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static char unwrapChar(final int id) {
+    public static final char unwrapChar(final int id) {
         return (Character) (arraySJO[id].object);
     }
 
@@ -1141,7 +1184,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static char[] unwrapRowChar(final int id) {
+    public static final char[] unwrapRowChar(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Character>) arraySJO[id].object);
+        }
+
         return (char[]) (arraySJO[id].object);
     }
 
@@ -1149,7 +1196,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static char[][] unwrapMatChar(final int id) {
+    public static final char[][] unwrapMatChar(final int id) {
         return (char[][]) (arraySJO[id].object);
     }
 
@@ -1157,7 +1204,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static float unwrapFloat(final int id) {
+    public static final float unwrapFloat(final int id) {
         return (Float) (arraySJO[id].object);
     }
 
@@ -1165,7 +1212,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static float[] unwrapRowFloat(final int id) {
+    public static final float[] unwrapRowFloat(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Float>) arraySJO[id].object);
+        }
+
         return (float[]) (arraySJO[id].object);
     }
 
@@ -1173,7 +1224,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static float[][] unwrapMatFloat(final int id) {
+    public static final float[][] unwrapMatFloat(final int id) {
         return (float[][]) (arraySJO[id].object);
     }
 
@@ -1181,7 +1232,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static long unwrapLong(final int id) {
+    public static final long unwrapLong(final int id) {
         return (Long) (arraySJO[id].object);
     }
 
@@ -1189,7 +1240,11 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static long[] unwrapRowLong(final int id) {
+    public static final long[] unwrapRowLong(final int id) {
+        if (arraySJO[id].object instanceof List) {
+            return ScilabJavaArray.toArray((List<Long>) arraySJO[id].object);
+        }
+
         return (long[]) (arraySJO[id].object);
     }
 
@@ -1197,7 +1252,7 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the resulting unwrapping
      */
-    public static long[][] unwrapMatLong(final int id) {
+    public static final long[][] unwrapMatLong(final int id) {
         return (long[][]) (arraySJO[id].object);
     }
 
@@ -1205,10 +1260,31 @@ public class ScilabJavaObject {
      * @param id the Java Object id
      * @return the identifier of the unwrappable type or -1 if nothing
      */
-    public static int isUnwrappable(final int id) {
+    public static final int isUnwrappable(final int id) {
         Integer t = unwrappableType.get(arraySJO[id].clazz);
         if (t != null) {
             return t;
+        } else if (arraySJO[id].object instanceof List) {
+            List l = (List) arraySJO[id].object;
+            if (l.size() == 0 || l.get(0) == null) {
+                return -1;
+            } else {
+                Class cl = l.get(0).getClass();
+                Integer i = listBaseType.get(cl);
+                if (i != null) {
+                    for (Object o : l) {
+                        if (o.getClass() != cl) {
+                            return -1;
+                        }
+                    }
+                }
+
+                if (i == null) {
+                    return -1;
+                }
+
+                return i;
+            }
         } else {
             return -1;
         }
