@@ -95,20 +95,28 @@ public class ScilabJavaObject {
         unwrappableType.put(float[][].class, 37);
         unwrappableType.put(Double.class, 2);
         unwrappableType.put(Double[].class, 3);
+        unwrappableType.put(Double[][].class, 4);
         unwrappableType.put(Integer.class, 23);
         unwrappableType.put(Integer[].class, 24);
+        unwrappableType.put(Integer[][].class, 25);
         unwrappableType.put(Long.class, 29);
         unwrappableType.put(Long[].class, 30);
+        unwrappableType.put(Long[][].class, 31);
         unwrappableType.put(Byte.class, 11);
         unwrappableType.put(Byte[].class, 12);
+        unwrappableType.put(Byte[][].class, 13);
         unwrappableType.put(Character.class, 20);
         unwrappableType.put(Character[].class, 21);
+        unwrappableType.put(Character[][].class, 22);
         unwrappableType.put(Boolean.class, 8);
         unwrappableType.put(Boolean[].class, 9);
+        unwrappableType.put(Boolean[][].class, 10);
         unwrappableType.put(Float.class, 35);
         unwrappableType.put(Float[].class, 36);
+        unwrappableType.put(Float[][].class, 37);
         unwrappableType.put(Short.class, 17);
         unwrappableType.put(Short[].class, 18);
+        unwrappableType.put(Short[][].class, 19);
 
         listBaseType.put(Double.class, 3);
         listBaseType.put(Integer.class, 24);
@@ -1041,6 +1049,8 @@ public class ScilabJavaObject {
     public static final double[] unwrapRowDouble(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Double>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Double[]) {
+            return ScilabJavaArray.toPrimitive((Double[]) arraySJO[id].object);
         }
 
         return (double[]) (arraySJO[id].object);
@@ -1051,7 +1061,12 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final double[][] unwrapMatDouble(final int id) {
-        return (double[][]) (arraySJO[id].object);
+        if (arraySJO[id].object instanceof Double[][]) {
+            Object o = ScilabJavaArray.toPrimitive(arraySJO[id].object);
+            return (double[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
+        return (double[][]) arraySJO[id].object;
     }
 
     /**
@@ -1069,6 +1084,8 @@ public class ScilabJavaObject {
     public static final int[] unwrapRowInt(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Integer>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Integer[]) {
+            return ScilabJavaArray.toPrimitive((Integer[]) arraySJO[id].object);
         }
 
         return (int[]) (arraySJO[id].object);
@@ -1079,6 +1096,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final int[][] unwrapMatInt(final int id) {
+        if (arraySJO[id].object instanceof Integer[][]) {
+            return (int[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (int[][]) (arraySJO[id].object);
     }
 
@@ -1097,6 +1118,8 @@ public class ScilabJavaObject {
     public static final short[] unwrapRowShort(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Short>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Short[]) {
+            return ScilabJavaArray.toPrimitive((Short[]) arraySJO[id].object);
         }
 
         return (short[]) (arraySJO[id].object);
@@ -1107,6 +1130,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final short[][] unwrapMatShort(final int id) {
+        if (arraySJO[id].object instanceof Short[][]) {
+            return (short[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (short[][]) (arraySJO[id].object);
     }
 
@@ -1125,6 +1152,8 @@ public class ScilabJavaObject {
     public static final byte[] unwrapRowByte(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Byte>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Byte[]) {
+            return ScilabJavaArray.toPrimitive((Byte[]) arraySJO[id].object);
         }
 
         return (byte[]) (arraySJO[id].object);
@@ -1135,6 +1164,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final byte[][] unwrapMatByte(final int id) {
+        if (arraySJO[id].object instanceof Byte[][]) {
+            return (byte[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (byte[][]) (arraySJO[id].object);
     }
 
@@ -1181,6 +1214,8 @@ public class ScilabJavaObject {
     public static final boolean[] unwrapRowBoolean(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Boolean>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Boolean[]) {
+            return ScilabJavaArray.toPrimitive((Boolean[]) arraySJO[id].object);
         }
 
         return (boolean[]) (arraySJO[id].object);
@@ -1191,6 +1226,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final boolean[][] unwrapMatBoolean(final int id) {
+        if (arraySJO[id].object instanceof Boolean[][]) {
+            return (boolean[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (boolean[][]) (arraySJO[id].object);
     }
 
@@ -1209,6 +1248,8 @@ public class ScilabJavaObject {
     public static final char[] unwrapRowChar(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Character>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Character[]) {
+            return ScilabJavaArray.toPrimitive((Character[]) arraySJO[id].object);
         }
 
         return (char[]) (arraySJO[id].object);
@@ -1219,6 +1260,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final char[][] unwrapMatChar(final int id) {
+        if (arraySJO[id].object instanceof Character[][]) {
+            return (char[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (char[][]) (arraySJO[id].object);
     }
 
@@ -1237,6 +1282,8 @@ public class ScilabJavaObject {
     public static final float[] unwrapRowFloat(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Float>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Double[]) {
+            return ScilabJavaArray.toPrimitive((Float[]) arraySJO[id].object);
         }
 
         return (float[]) (arraySJO[id].object);
@@ -1247,6 +1294,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final float[][] unwrapMatFloat(final int id) {
+        if (arraySJO[id].object instanceof Float[][]) {
+            return (float[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (float[][]) (arraySJO[id].object);
     }
 
@@ -1265,6 +1316,8 @@ public class ScilabJavaObject {
     public static final long[] unwrapRowLong(final int id) {
         if (arraySJO[id].object instanceof List) {
             return ScilabJavaArray.toArray((List<Long>) arraySJO[id].object);
+        } else if (arraySJO[id].object instanceof Long[]) {
+            return ScilabJavaArray.toPrimitive((Long[]) arraySJO[id].object);
         }
 
         return (long[]) (arraySJO[id].object);
@@ -1275,6 +1328,10 @@ public class ScilabJavaObject {
      * @return the resulting unwrapping
      */
     public static final long[][] unwrapMatLong(final int id) {
+        if (arraySJO[id].object instanceof Long[][]) {
+            return (long[][]) ScilabJavaArray.toPrimitive(arraySJO[id].object);
+        }
+
         return (long[][]) (arraySJO[id].object);
     }
 
