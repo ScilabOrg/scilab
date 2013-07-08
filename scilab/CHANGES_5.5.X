@@ -102,6 +102,8 @@ Xcos
 
 * Added a new DAE solver : DDaskr (BDF / Newton), which includes rootfinding.
 
+* In the Modelica initialization GUI, inputs (eg. sensor) were not handled.
+
 * Bug #7350 fixed - The superblock I/O ports numbering was not updated
                     when a new port was dropped.
 
