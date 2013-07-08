@@ -276,6 +276,8 @@ Bug fixes
 
 * Bug #9004 fixed - bitcmp function called with one input argument returned an error.
 
+* Bug #9020 fixed - exists function did not accept matrix input as first argument.
+
 * Bug #9059 fixed - tbx_build_macros and genlib do not stop on error.
 
 * Bug #9109 fixed - nfreq tagged as obsolete.
