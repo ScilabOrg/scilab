@@ -61,6 +61,10 @@ public class ScilabJavaMethod {
         for (int i = 0; i < nbargs; i++) {
             argsO[i] = ScilabJavaObject.arraySJO[args[i]].object;
             cl[i] = ScilabJavaObject.arraySJO[args[i]].clazz;
+
+            if (argsO[i] != null && argsO[i] == cl[i]) {
+                cl[i] = argsO[i].getClass();
+            }
         }
 
         return call(obj, returnType, argsO, cl);
@@ -80,6 +84,12 @@ public class ScilabJavaMethod {
             final Class returned = meth.getReturnType();
             Object ret = null;
             final Object[] _args;
+
+            if (!meth.isAccessible()) {
+                try {
+                    meth.setAccessible(true);
+                } catch (SecurityException e) { }
+            }
 
             if (info.length == 2) {
                 _args = (Object[]) info[1];
@@ -143,7 +153,6 @@ public class ScilabJavaMethod {
         } catch (IllegalArgumentException e) {
             throw new ScilabJavaException("Illegal argument in the method " + name + ": \n" + e.getMessage());
         } catch (NullPointerException e) {
-            e.printStackTrace();
             throw new ScilabJavaException("The method " + name + " is called on a null object.");
         } catch (ExceptionInInitializerError e) {
             throw new ScilabJavaException("Initializer error with method " + name + ":\n" + e.getMessage());
