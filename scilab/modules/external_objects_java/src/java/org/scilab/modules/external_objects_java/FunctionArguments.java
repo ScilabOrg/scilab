@@ -30,144 +30,187 @@ public class FunctionArguments {
      * @param functions the set of the valid functions in the class
      * @param argsClass the class of the arguments
      * @param args the arguments
-     * @return a valid method
+     * @return a valid method wrapped in an array or a method and the modified args (variable args) wrapped in an array
      */
-    public static final Method findMethod(String name, Method[] functions, Class[] argsClass, Object[] args) throws NoSuchMethodException, TooManyMethodsException {
+    public static final Object[] findMethod(String name, Method[] functions, Class[] argsClass, Object[] args) throws NoSuchMethodException {
         String internName = name.intern();
-        boolean modified = false;
-        List<Method> valids = new ArrayList<Method>(functions.length);
+        Method better = null;
+        boolean mustConv = false;
+        boolean isVarArgs = false;
+        long sqd = Long.MAX_VALUE;
+        boolean[] refBools = new boolean[2];
         for (Method f : functions) {
             if (f.getName() == internName) {
                 Class[] types = f.getParameterTypes();
-                if (types.length == argsClass.length) {
-                    boolean ok = true;
-                    for (int i = 0; i < types.length; i++) {
-                        if (args[i] != null && !argsClass[i].equals(Void.class) && isCompatibleTypes(types[i], argsClass[i], args[i]) == 0) {
-                            ok = false;
-                            break;
-                        }
-                    }
-                    if (ok) {
-                        valids.add(f);
-                    }
+                refBools[0] = false;
+                refBools[1] = false;
+                long d = compareClassArgs(types, argsClass, args, refBools);
+                if (d != Long.MIN_VALUE && d < sqd) {
+                    sqd = d;
+                    better = f;
+                    mustConv = refBools[0];
+                    isVarArgs = refBools[1];
                 }
-            }
-        }
-
-        if (valids.size() == 1) {
-            Method f = valids.get(0);
-            Class[] types = f.getParameterTypes();
-            for (int i = 0; i < types.length; i++) {
-                if (args[i] != null && !argsClass[i].equals(Void.class) && isCompatibleTypes(types[i], argsClass[i], args[i]) == 3) {
-                    argsClass[i] = int.class;
-                    args[i] = ((Double) args[i]).intValue();
-                }
-            }
-            return f;
-        }
-
-        if (valids.size() == 0) {
-            throw new NoSuchMethodException("");
-        }
-
-        for (Method f : valids) {
-            Class[] types = f.getParameterTypes();
-            boolean ok = true;
-            for (int i = 0; i < types.length; i++) {
-                if (args[i] != null && !argsClass[i].equals(Void.class) && isCompatibleTypes(types[i], argsClass[i], args[i]) != 1) {
-                    ok = false;
+                if (d == 0) {
                     break;
                 }
             }
-            if (ok) {
-                return f;
-            }
         }
 
-        throw new TooManyMethodsException("");
+        if (better != null) {
+            if (mustConv) {
+                Class[] types = better.getParameterTypes();
+                for (int i = 0; i < types.length; i++) {
+                    if (types[i] == int.class && argsClass[i] == double.class) {
+                        argsClass[i] = int.class;
+                        args[i] = ((Double) args[i]).intValue();
+                    }
+                }
+            }
+            if (isVarArgs) {
+                Class[] types = better.getParameterTypes();
+                Object[] o = new Object[args.length - types.length + 1];
+                System.arraycopy(args, types.length - 1, o, 0, args.length - types.length + 1);
+
+                Object[] newArgs = new Object[types.length];
+                System.arraycopy(args, 0, newArgs, 0, types.length - 1);
+                newArgs[types.length - 1] = o;
+
+                return new Object[] {better, newArgs};
+            }
+
+            return new Object[] {better};
+        }
+
+        throw new NoSuchMethodException("");
     }
 
     /**
-     * Find a valid constructor. An argument can be null (thanks to Fabien Viale).
-     * @param functions the set of all the constructors
+     * Find a valid method. An argument can be null (thanks to Fabien Viale).
+     * @param functions the set of the valid constructors in the class
      * @param argsClass the class of the arguments
      * @param args the arguments
-     * @return a valid constructor
+     * @return a valid method wrapped in an array or a method and the modified args (variable args) wrapped in an array
      */
-    public static final Constructor findConstructor(Constructor[] functions, Class[] argsClass, Object[] args) throws NoSuchMethodException, TooManyMethodsException {
-        boolean modified = false;
-        List<Constructor> valids = new ArrayList<Constructor>(functions.length);
+    public static final Object[] findConstructor(Constructor[] functions, Class[] argsClass, Object[] args) throws NoSuchMethodException {
+        Constructor better = null;
+        boolean mustConv = false;
+        boolean isVarArgs = false;
+        long sqd = Long.MAX_VALUE;
+        boolean[] refBools = new boolean[2];
         for (Constructor f : functions) {
             Class[] types = f.getParameterTypes();
-            if (types.length == argsClass.length) {
-                boolean ok = true;
+            refBools[0] = false;
+            refBools[1] = false;
+            long d = compareClassArgs(types, argsClass, args, refBools);
+            if (d != Long.MIN_VALUE && d < sqd) {
+                sqd = d;
+                better = f;
+                mustConv = refBools[0];
+                isVarArgs = refBools[1];
+            }
+
+            if (d == 0) {
+                break;
+            }
+        }
+
+        if (better != null) {
+            if (mustConv) {
+                Class[] types = better.getParameterTypes();
                 for (int i = 0; i < types.length; i++) {
-                    if (args[i] != null && !argsClass[i].equals(Void.class) && isCompatibleTypes(types[i], argsClass[i], args[i]) == 0) {
-                        ok = false;
-                        break;
+                    if (types[i] == int.class && argsClass[i] == double.class) {
+                        argsClass[i] = int.class;
+                        args[i] = ((Double) args[i]).intValue();
                     }
                 }
-                if (ok) {
-                    valids.add(f);
-                }
             }
+            if (isVarArgs) {
+                Class[] types = better.getParameterTypes();
+                Object[] o = new Object[args.length - types.length + 1];
+                System.arraycopy(args, types.length - 1, o, 0, args.length - types.length + 1);
+
+                Object[] newArgs = new Object[types.length];
+                System.arraycopy(args, 0, newArgs, 0, types.length - 1);
+                newArgs[types.length - 1] = o;
+
+                return new Object[] {better, newArgs};
+            }
+
+            return new Object[] {better};
         }
 
-        if (valids.size() == 1) {
-            Constructor f = valids.get(0);
-            Class[] types = f.getParameterTypes();
-            for (int i = 0; i < types.length; i++) {
-                if (args[i] != null && !argsClass[i].equals(Void.class) && isCompatibleTypes(types[i], argsClass[i], args[i]) == 3) {
-                    argsClass[i] = int.class;
-                    args[i] = ((Double) args[i]).intValue();
-                }
-            }
-            return f;
-        }
-
-        if (valids.size() == 0) {
-            throw new NoSuchMethodException("");
-        }
-
-        for (Constructor f : valids) {
-            Class[] types = f.getParameterTypes();
-            boolean ok = true;
-            for (int i = 0; i < types.length; i++) {
-                if (args[i] != null && !argsClass[i].equals(Void.class) && isCompatibleTypes(types[i], argsClass[i], args[i]) != 1) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                return f;
-            }
-        }
-
-        throw new TooManyMethodsException("");
+        throw new NoSuchMethodException("");
     }
 
     /**
-     * Handle the autoboxing
+     * This function calculates the distance between thes method signatures
+     * @param A the method signature
+     * @param B the class of the passed arguments
+     * @param arr array of arguments (used to transform double in int)
+     * @param bools references on boolean
+     * @return the distance
      */
-    private static final int isCompatibleTypes(Class A, Class B, Object arg) {
-        if (A.isAssignableFrom(B)) {
-            return 1;
-        }
-        Class wrapper = ScilabJavaObject.primTypes.get(B);
-        if (wrapper != null && A.isAssignableFrom(wrapper)) {
-            return 2;
-        }
-        if (B == double.class && ((Double) arg).intValue() == ((Double) arg).doubleValue()) {
-            return 3;
+    private static final long compareClassArgs(Class[] A, Class[] B, Object[] arr, boolean[] bools) {
+        if (A.length > B.length) {
+            return Long.MIN_VALUE;
         }
 
-        return 0;
+        long s = 0;
+        int end = A.length;
+        if (A.length > 0 && ((A.length < B.length && A[A.length - 1] == Object[].class) || (A.length == B.length && A.length == 1 && A[0] == Object[].class && B[0] != Object[].class))) {
+            bools[1] = true;
+            end--;
+            s = 1 << 40;
+        } else if (A.length < B.length) {
+            return Long.MIN_VALUE;
+        }
+
+        for (int i = 0; i < end; i++) {
+            long d = dist(A[i], B[i]);
+            if (d == -1) {
+                if (A[i] == int.class && B[i] == double.class && ((Double) arr[i]).intValue() == ((Double) arr[i]).doubleValue()) {
+                    d = 2048;
+                    bools[0] = true;
+                } else {
+                    return Long.MIN_VALUE;
+                }
+            }
+            s += d * d;
+        }
+
+        return s;
     }
 
-    static class TooManyMethodsException extends Exception {
-
-        TooManyMethodsException(String str) {
-            super(str);
+    /**
+     * Calculate the distance between two classes.
+     * @param A a class
+     * @param B another class
+     * @return the distance
+     */
+    private static final long dist(Class A, Class B) {
+        if (B == null) {
+            return 0;
         }
+
+        if (!A.isPrimitive() && B.isPrimitive()) {
+            B = ScilabJavaObject.primTypes.get(B);
+        }
+
+        if (A == B) {
+            return 0;
+        }
+
+        if (A.isAssignableFrom(B)) {
+            long i = 0;
+            do {
+                i++;
+                B = B.getSuperclass();
+            } while (B != null && A.isAssignableFrom(B));
+
+            return i;
+        }
+
+        return -1;
     }
 }
