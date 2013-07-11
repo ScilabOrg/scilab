@@ -37,6 +37,7 @@ import org.scilab.modules.renderer.JoGLView.label.LabelPositioner;
 import org.scilab.modules.renderer.JoGLView.label.TitlePositioner;
 import org.scilab.modules.renderer.JoGLView.label.YAxisLabelPositioner;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
+import org.scilab.modules.renderer.JoGLView.util.ScaleUtils;
 
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
@@ -277,10 +278,10 @@ public class AxesDrawer {
         double[] matrix = transformation.getMatrix();
         try {
             return TransformationFactory.getScaleTransformation(
-                matrix[2] < 0 ? 1 : -1,
-                matrix[6] < 0 ? 1 : -1,
-                matrix[10] < 0 ? 1 : -1
-                );
+                       matrix[2] < 0 ? 1 : -1,
+                       matrix[6] < 0 ? 1 : -1,
+                       matrix[10] < 0 ? 1 : -1
+                   );
         } catch (DegenerateMatrixException e) {
             // Should never happen.
             return TransformationFactory.getIdentity();
@@ -347,26 +348,26 @@ public class AxesDrawer {
 
         // Reverse data if needed.
         Transformation transformation = TransformationFactory.getScaleTransformation(
-            axes.getAxes()[0].getReverse() ? 1 : -1,
-            axes.getAxes()[1].getReverse() ? 1 : -1,
-            axes.getAxes()[2].getReverse() ? 1 : -1
-            );
+                                            axes.getAxes()[0].getReverse() ? 1 : -1,
+                                            axes.getAxes()[1].getReverse() ? 1 : -1,
+                                            axes.getAxes()[2].getReverse() ? 1 : -1
+                                        );
 
         // Scale data.
         Transformation scaleTransformation = TransformationFactory.getScaleTransformation(
-            2.0 / (bounds[1] - bounds[0]),
-            2.0 / (bounds[3] - bounds[2]),
-            2.0 / (bounds[5] - bounds[4])
-            );
+                2.0 / (bounds[1] - bounds[0]),
+                2.0 / (bounds[3] - bounds[2]),
+                2.0 / (bounds[5] - bounds[4])
+                                             );
         transformation = transformation.rightTimes(scaleTransformation);
 
 
         // Translate data.
         Transformation translateTransformation = TransformationFactory.getTranslateTransformation(
-            -(bounds[0] + bounds[1]) / 2.0,
-            -(bounds[2] + bounds[3]) / 2.0,
-            -(bounds[4] + bounds[5]) / 2.0
-            );
+                    -(bounds[0] + bounds[1]) / 2.0,
+                    -(bounds[2] + bounds[3]) / 2.0,
+                    -(bounds[4] + bounds[5]) / 2.0
+                );
         transformation = transformation.rightTimes(translateTransformation);
         return transformation;
     }
@@ -765,6 +766,39 @@ public class AxesDrawer {
         }
 
         return coords2dView;
+    }
+
+    /**
+     * Computes and returns the pixel coordinates from a point's coordinates expressed in the current
+     * 3d view coordinate frame, using the given Axes. The returned pixel coordinates are expressed
+     * in the AWT's 2d coordinate frame.
+     * @param axes the given Axes.
+     * @param coordinates the 3d view coordinates (3-element array: x, y, z).
+     * @returns the pixel coordinates (2-element array: x, y).
+     */
+    public static double[] computePixelFrom3dCoordinates(Axes axes, double[] coordinates) {
+        DrawerVisitor currentVisitor;
+        AxesDrawer axesDrawer;
+        Transformation projection;
+        Transformation projection2d;
+        double height = 0.;
+
+        currentVisitor = DrawerVisitor.getVisitor(axes.getParentFigure());
+        boolean[] logFlags = { axes.getXAxisLogFlag(), axes.getYAxisLogFlag(), axes.getZAxisLogFlag()};
+
+        Vector3d point = new Vector3d(coordinates);
+        point = ScaleUtils.applyLogScale(point, logFlags);
+
+        if (currentVisitor != null) {
+            axesDrawer = currentVisitor.getAxesDrawer();
+            height = currentVisitor.getCanvas().getHeight();
+
+            projection = axesDrawer.computeProjection(axes, currentVisitor.getDrawingTools(), currentVisitor.getCanvas(), false);
+
+            point = projection.project(point);
+        }
+
+        return new double[] {point.getX(), height - point.getY(), point.getZ()};
     }
 
     /**
