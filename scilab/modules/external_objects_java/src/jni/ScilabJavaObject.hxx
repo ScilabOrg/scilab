@@ -80,6 +80,8 @@ private:
 protected:
     jmethodID jintinvokejintintjstringjava_lang_StringjintArray_intintID; // cache method id
     jmethodID jintextractjintintjintArray_intintID; // cache method id
+    jmethodID voidinsertjintintjintArray_intintjintintID; // cache method id
+    jmethodID jobjectArray_getInfosID; // cache method id
     jmethodID voidinitScilabJavaObjectID; // cache method id
     jmethodID voidgarbageCollectID; // cache method id
     jmethodID jstringgetRepresentationjintintID; // cache method id
@@ -191,6 +193,10 @@ public:
     static int invoke(JavaVM * jvm_, int id, char const* methodName, int const* args, int argsSize);
 
     static int extract(JavaVM * jvm_, int id, int const* args, int argsSize);
+
+    static void insert(JavaVM * jvm_, int id, int const* keys, int keysSize, int value);
+
+    static char** getInfos(JavaVM * jvm_, int *lenRow);
 
     static void initScilabJavaObject(JavaVM * jvm_);
 
