@@ -2100,7 +2100,7 @@ static void cossimdaskr(double *told)
     void *dae_mem = NULL;
     UserData data = NULL;
     IDAMem copy_IDA_mem = NULL;
-    int maxnj = 0, maxnit = 0;
+    int maxnj = 0, maxnit = 0, maxnh = 0;
     /*-------------------- Analytical Jacobian memory allocation ----------*/
     int  Jn = 0, Jnx = 0, Jno = 0, Jni = 0, Jactaille = 0;
     double uround = 0.;
@@ -2122,6 +2122,7 @@ static void cossimdaskr(double *told)
     int (* DAEGetRootInfo) (void*, int*);
     int (* DAESStolerances) (void*, realtype, realtype);
     int (* DAEGetConsistentIC) (void*, N_Vector, N_Vector);
+    int (* DAESetMaxNumSteps) (void*, int*);
     int (* DAESetMaxNumJacsIC) (void*, int);
     int (* DAESetMaxNumItersIC) (void*, int);
     int (* DAESetMaxNumStepsIC) (void*, int);
@@ -2142,6 +2143,7 @@ static void cossimdaskr(double *told)
             DAESetStopTime = &IDASetStopTime;
             DAEGetRootInfo = &IDAGetRootInfo;
             DAESStolerances = &IDASStolerances;
+            DAESetMaxNumSteps = &IDASetMaxNumSteps;
             DAEGetConsistentIC = &IDAGetConsistentIC;
             DAESetMaxNumJacsIC = &IDASetMaxNumJacsIC;
             DAESetMaxNumItersIC = &IDASetMaxNumItersIC;
@@ -2160,6 +2162,7 @@ static void cossimdaskr(double *told)
             DAESetStopTime = &DDaskrSetStopTime;
             DAEGetRootInfo = &DDaskrGetRootInfo;
             DAESStolerances = &DDaskrSStolerances;
+            DAESetMaxNumSteps = &DDaskrSetMaxNumSteps;
             DAEGetConsistentIC = &DDaskrGetConsistentIC;
             DAESetMaxNumJacsIC = &DDaskrSetMaxNumJacsIC;
             DAESetMaxNumItersIC = &DDaskrSetMaxNumItersIC;
@@ -2768,6 +2771,10 @@ static void cossimdaskr(double *told)
         }
 
         maxnit = 10; /* setting the maximum number of Newton iterations in any attempt to solve CIC */
+        if (C2F(cmsolver).solver == 102)
+        {
+            maxnit = 15;    /* By default, the Krylov max iterations should be 15 */
+        }
         flag = DAESetMaxNumItersIC(dae_mem, maxnit);
         if (check_flag(&flag, "IDASetMaxNumItersIC", 1))
         {
@@ -2777,10 +2784,8 @@ static void cossimdaskr(double *told)
         }
 
         /* setting the maximum number of steps in an integration interval */
-        if (solver == IDA_BDF_Newton)
-        {
-            flag = IDASetMaxNumSteps(dae_mem, 2000);
-        }
+        maxnh = 2000;
+        flag = DAESetMaxNumSteps(dae_mem, maxnh);
         if (check_flag(&flag, "IDASetMaxNumSteps", 1))
         {
             *ierr = 200 + (-flag);
