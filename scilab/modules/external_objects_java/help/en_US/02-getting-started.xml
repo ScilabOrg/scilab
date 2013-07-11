@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2013 - S/E - Sylvestre Ledru
+* Copyright (C) 2012 - CNES - Simon Billemont
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="jims-getting-started-2">
+    <refnamediv>
+        <refname>Getting started - Second step</refname>
+        <refpurpose>How to use the Java Scilab binding?</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            This tutorial follows the <link linked="jims-getting-started">First step</link>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Example 3: Working with Java objects in Scilab</title>
+        <para>For this example, we define a set of higher abstraction Java objects. Then we will use Scilab as a sort of Java scripting language apply various operations on these objects. A wide variation of Java functionality will be showcased such as; static methods (Factory construct), Enums, simple polymorphism, and scope of members/methods.</para>
+        <para>
+            This wide variety of functionality will be demonstrated using a set of 7 simple classes that describe a simple house;
+            
+            <programlisting role="java"><![CDATA[
+// Save under the name House.java
+package com.foo;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+public class House {
+
+	private Color			color;
+	private Door			door;
+	private List<IWindow>	windows	= new LinkedList<IWindow>();
+
+	public House(Color color, Door door, IWindow... windows) {
+		this.color = color;
+		this.door = door;
+		this.windows.addAll(Arrays.asList(windows));
+	}
+
+	public void repaint() {
+		swapDoorHouseColor();
+	}
+
+	private void swapDoorHouseColor() {
+		Color doorColor = door.getColor();
+		door.repaint(color);
+		color = doorColor;
+	}
+
+	public void addWindow(IWindow window) {
+		windows.add(window);
+	}
+
+	public void replaceDoor(Door newDoor) {
+		this.door = newDoor;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"This is a house painted in %s, has a %s door, and %d windows",
+				color.getDescr(), door.getColor().getDescr(), windows.size());
+	}
+}
+      ]]></programlisting>
+            <programlisting role="java"><![CDATA[
+package com.foo;
+
+public class HouseFactory {
+
+	public static House basicHouse() {
+		Door door = new Door(Color.WHITE);
+		IWindow window = new RectangularWindow(2, 0.8);
+		return new House(Color.WHITE, door, window);
+	}
+
+	public static House flashyHouse() {
+		Door door = new Door(Color.random());
+		IWindow window = new CircularWindow(1.2);
+		return new House(Color.random(), door, window);
+	}
+}
+      ]]></programlisting>
+            <programlisting role="java"><![CDATA[
+
+package com.foo;
+
+import java.util.Random;
+
+public enum Color {
+
+	BLACK("black"), BLUE("blue"), BROWN("brown"), GREEN("green"),
+	ORANGE("orange"), RED("red"), WHITE("white"), YELLOW("yellow");
+
+	public String	descr;
+
+	private Color(String s) {
+		descr = s;
+	}
+
+	public String getDescr() {
+		return descr;
+	}
+
+	public static Color random() {
+		Color[] allColors = values();
+		return allColors[new Random().nextInt(values().length)];
+	}
+	
+}      ]]></programlisting>
+            <programlisting role="java"><![CDATA[
+
+package com.foo;
+
+public class Door {
+
+	private Color	color;
+
+	public Door(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void repaint(Color newColor) {
+		color = newColor;
+	}
+}
+      ]]></programlisting>
+            <programlisting role="java"><![CDATA[
+package com.foo;
+
+public interface IWindow {
+
+	double getWindowArea();
+
+}
+      ]]></programlisting>
+            <programlisting role="java"><![CDATA[
+package com.foo;
+
+public class RectangularWindow implements IWindow {
+
+	double	length;
+	double	width;
+
+	public RectangularWindow(double length, double width) {
+		this.length = length;
+		this.width = width;
+	}
+
+	public double getWindowArea() {
+		return length * width;
+	}
+}
+      ]]></programlisting>
+            <programlisting role="java"><![CDATA[
+package com.foo;
+
+public class CircularWindow implements IWindow {
+
+	double	radius;
+
+	public CircularWindow(double radius) {
+		this.radius = radius;
+	}
+
+	public double getWindowArea() {
+		return Math.PI * radius * radius;
+	}
+}
+      ]]></programlisting>
+            
+            <programlisting role="example"><![CDATA[
+// The examples are shipped in the Scilab distribution.
+javacode=mgetl(SCI+"/modules/external_objects_java/examples/com/foo/HouseFactory.java");
+jcompile("com.foo.HouseFactory",javacode);
+      ]]></programlisting>
+            <para>Once the compiled version of this Java class exists, we can start Scilab and try to get Scilab to show us the various messages.
+                Now the HelloWorld class can be imported into our workspace. This is done using the already mentioned jimport:
+                <screen>
+                    -->jimport com.foo.HelloWorld
+                    
+                    -->HelloWorld
+                    HelloWorld  =
+                    
+                    class com.foo.HelloWorld
+                    
+                    -->whos -name HelloWorld
+                    Name                     Type           Size           Bytes
+                    
+                    HelloWorld               _EClass        ?              168
+                </screen>
+                <para>
+                    Upon competition, an additional variable named HelloWorld has been created. This is equivalent to a Class object in java. From this class object, new objects of the HelloWorld type can be created.
+                </para>
+                <para>
+                    Creating such an object instance can be done by invoking <link linkend="new">new</link> on the class definition. The arguments to this function are the parameters that are delegated to the Java constructor. The result of this operation is a new Java object reference which can be stored in a variable for later use.
+                </para>
+                <screen>
+                    -->object = HelloWorld.new();
+                    HelloWorld constructed!
+                    
+                    -->object
+                    object  =
+                    
+                    com.foo.HelloWorld@49aacd5f
+                    
+                    -->whos -name object
+                    Name                     Type           Size           Bytes
+                    
+                    object                   _EObj          ?              160
+                </screen>
+                <para>
+                    What one sees when the <link linkend="new">new</link> operator is called on the JClass, it transparently invokes the Java constructor, and our "HelloWorld constructed!" message appears. The resulting HelloWorld object is stored in the "object" variable. When the variable name is reentered in the command line, the details of its reference are shown. This message can be customized by overriding the toString method in the HelloWorld class.
+                </para>
+                <para>
+                    Now that a specific HelloWorld object has been created, one can try to call the public method that has been declared; <literal>HelloWorld\#message()</literal>. The same natural technique as with <link linkend="new">new</link> can then be applied to invoke the method:
+                </para>
+                <screen>
+                    -->object.message();
+                    Hello world!
+                </screen>
+                <para>
+                    The dot operator (dot between object and message) is actually a handy shortcut and expands the following snippet of Scilab code. The use of this shortcut makes it simpler and cleaner to invoke methods/get member variables.
+                </para>
+                <screen>
+                    -->jinvoke(object, 'message');
+                    Hello world!
+                </screen>
+            </para>
+        </refsection>
+        <refsection>
+            <title>Example 2: Exchanging Scilab and Java primitives</title>
+            <para>
+                This example treats the way you can exchange primitive data types and strings between Scilab and Java. We will be passing various types of objects between these two languages.
+            </para>
+            <para>
+                For this an example class (see Class Inspector) has been defined that takes and returns objects.
+                There are two methods defined. The first takes a double does some arithmetic and returns a result: Inspector#eval(double). The other methods takes any object, shows some basic information and returns it: Inspector#inspect(Object).
+            </para>
+            <programlisting role="java"><![CDATA[
+// Save under the name Inspector.java
+package com.foo;
+public class Inspector {
+	public double eval(double x) {
+		return x / 2.;
+	}
+
+	public Object inspect(Object prototype) {
+		System.err.println("Inspecting: '" + prototype + "'");
+		System.err.println("Class: " + prototype.getClass().getSimpleName());
+		return prototype;
+	}
+}
+      ]]></programlisting>
+            <para>
+                As in the previous example, this code must be compiled to Java byte-code before it can be used directly.
+            </para>
+            <programlisting role="example"><![CDATA[
+// How to compile the Java code from Scilab
+javacode= mgetl('/tmp/Inspector.java')
+jcompile("com.foo.Inspector",javacode);
+      ]]></programlisting>
+            To start, import the Inspector class and create an Inspector object:
+            <screen>
+                -->jimport('com.foo.Inspector');
+                
+                -->myInspector = Inspector.new()
+                myInspector  =
+                
+                com.foo.Inspector@2a788315
+            </screen>
+            
+            Now information between the two systems can be passing along. When passing along any of the Scilab data types into Java, it is automatically wrapped (see <link linked="jwrap">jwrap</link>) to its Java equivalent. First, an example using the most used data type in Scilab; reals (constant) is given. When passing along a real, this type gets automatically mapped to the Scilab type double. Let's try;
+            <screen>
+                -->result = myInspector.eval(12.5)
+                result  =
+                
+                6.25
+                
+                -->result * 2
+                ans  =
+                
+                12.5
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   constant       1 by 1         24
+            </screen>
+            The automatic convert is controlled by the jautoUnwrap function. Without this function, all the conversions have to be done explicitly.
+            <screen>
+                -->result = myInspector.eval(12.5)
+                result  =
+                
+                6.25
+                
+                -->result * 2
+                ans  =
+                
+                null
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   _EObj          ?              160
+            </screen>
+            The result that is returned seems to be correct at first glance ($12.5/2=6.25$). However upon closer inspection, notice that what is returned from our function call is not a number. What we received is another Java object (Double in this case). To be able to use the given data in again in Scilab, the already mentioned <link linkend="junwrap">junwrap</link> functionality can be used if the jautoUnwrap is not set to true.
+            This transforms Java types back to there equivalent Scilab form. From then onward we have a normal number again:
+            <screen>
+                -->result = junwrap(result)
+                result  =
+                
+                6.25
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   constant       1 by 1         24
+                
+                -->result * 2
+                ans  =
+                
+                12.5
+            </screen>
+            
+            From this example is clear how doubles get automatically transformed into a Double, which is used by the Java VM and returned back. When calling <link linkend="junwrap">junwrap</link> on the returned variable, it is transformed back into a native Scilab type. But how do other types work? Let's inspect several of the other primitive types;
+            <screen>
+                -->jautoUnwrap(%f) // Make sure we disable the auto Unwrap
+                
+                -->result = myInspector.inspect("Hello world!");
+                Inspecting: 'Hello world!'
+                Class: String
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   _EObj          ?              160
+                
+                -->result = junwrap(result)
+                result  =
+                
+                Hello world!
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   string         1 by 1         72
+                
+                // An Integer
+                -->result = myInspector.inspect(int32(150));
+                Inspecting: '150'
+                Class: Integer
+                
+                -->result = junwrap(result)
+                result  =
+                
+                150
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   int32          1 by 1         40
+                
+                // A boolean
+                -->result = myInspector.inspect(%t);
+                Inspecting: 'true'
+                Class: Boolean
+                
+                -->result = junwrap(result)
+                result  =
+                
+                T
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   boolean        1 by 1         16
+                
+            </screen>
+            
+            As can be seen, all relevant data types are can be transformed transparently between Scilab and Java type. However this also extends without any additional effort to matrices;
+            <screen>
+                --> jautoUnwrap(%t) // Make sure we come back in the default mode where Scilab auto unwrap all calls
+                
+                -->result = myInspector.inspect(1:5)
+                Inspecting: '[D@b05236'
+                Class: double[]
+                result  =
+                
+                1.    2.    3.    4.    5.
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   constant       1 by 5         56
+                
+                -->result = myInspector.inspect(testmatrix('magi',3))
+                Inspecting: '[[D@11d13272'
+                Class: double[][]
+                result  =
+                
+                8.    1.    6.
+                3.    5.    7.
+                4.    9.    2.
+                
+                -->whos -name result
+                Name                     Type           Size           Bytes
+                
+                result                   constant       3 by 3         88
+            </screen>
+            When looking at the class of these wrapped matrices, it is clear that Java stores them as arrays of the appropriate size. When working with 2D matrices, the data in these equivalent Java arrays can be stored in are column-major (default) or row-major mode. In column-major mode, the first array contains a pointer to each of the columns. Whereas in row-major mode, the first array contains the pointers to each row of data. For more information see <link linked="jautoTranspose">jautoTranspose</link>.
+        </refsection>
+    </refentry>
