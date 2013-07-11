@@ -986,6 +986,11 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                 JEUCLID_CORE=$PACKAGE_JAR_FILE
                 AC_SUBST(JEUCLID_CORE)
 
+                # Java compilation
+                AC_JAVA_CHECK_PACKAGE([ecj],[org.eclipse.jdt.internal.compiler.ProcessTaskManager],[Eclipse Java compiler])
+                ECJ=$PACKAGE_JAR_FILE
+                AC_SUBST(ECJ)
+
 
                 ################ Mandatory for graphic_export features #####
                 # XML to PDF/other Translator
@@ -2145,6 +2150,7 @@ echo "  Jeuclid (MathML) .... = $JEUCLID_CORE"
 echo "  Jhall  .............. = $JHALL"
 echo "  Jrosetta (API) ...... = $JROSETTA_API"
 echo "  Jrosetta (Engine) ... = $JROSETTA_ENGINE"
+echo "  ECJ ................. = $ECJ"
 echo "  Commons Logging ..... = $COMMONS_LOGGING"
 echo "  JGraph X ............ = $JGRAPHX"
 echo "  SciRenderer ......... = $SCIRENDERER"
