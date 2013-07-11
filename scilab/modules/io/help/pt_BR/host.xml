@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -13,19 +13,19 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="host" xml:lang="en">
     <refnamediv>
         <refname>host</refname>
-        <refpurpose>execução de comandos do Unix ou DOS</refpurpose>
+        <refpurpose>execuÃ§Ã£o de comandos do Unix ou DOS</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>stat=host(command-name)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>command-name</term>
                 <listitem>
-                    <para>um string contendo uma instrução sh Unix </para>
+                    <para>um string contendo uma instruÃ§Ã£o sh Unix </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -37,20 +37,20 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             Envia um string <literal>command-name</literal> para o Unix para
-            execução pelo interpretador de comando (sh em Unix, ou command.com em
-            DOS). As saídas e os erros padrões do comando do shell são escritos no
+            execuÃ§Ã£o pelo interpretador de comando (sh em Unix, ou command.com em
+            DOS). As saÃ­das e os erros padrÃµes do comando do shell sÃ£o escritos no
             shell chamado. <literal>stat</literal> fornece -1 se o "host" (significa
-            "anfitrião") não pode ser chamado (memória disponível do sistema
-            insuficiente) ou se o interpretador de comando retorna o código.
+            "anfitriÃ£o") nÃ£o pode ser chamado (memÃ³ria disponÃ­vel do sistema
+            insuficiente) ou se o interpretador de comando retorna o cÃ³digo.
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-//criando uma função getdir baseda no host
+//criando uma funÃ§Ã£o getdir baseda no host
 function wd=getdir()
   if getos() == 'Windows' then 
     host('cd>'+TMPDIR+'\path');
@@ -64,7 +64,7 @@ wd=getdir()
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="edit">edit</link>

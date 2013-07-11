@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>[v_1,...v_n]=sscanf (string,format)</synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -27,7 +27,7 @@
             <varlistentry>
                 <term>format</term>
                 <listitem>
-                    <para> especifica a conversão de formato</para>
+                    <para> especifica a conversÃ£o de formato</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -39,40 +39,40 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Esta função está obsoleta, use a função <literal>msscanf</literal>
-            de preferência, que é mais eficiente mais compatível com o procedimento C
+            Esta funÃ§Ã£o estÃ¡ obsoleta, use a funÃ§Ã£o <literal>msscanf</literal>
+            de preferÃªncia, que Ã© mais eficiente mais compatÃ­vel com o procedimento C
             <literal>sscanf</literal>.
         </para>
-        <para>A função sscanf intepreta um string de acordo com um formato, e
+        <para>A funÃ§Ã£o sscanf intepreta um string de acordo com um formato, e
             retorna os resultados convertidos.
         </para>
-        <para>O parâmetro de formato contém especificações de conversão utilizadas
-            para interpretar a saída.
+        <para>O parÃ¢metro de formato contÃ©m especificaÃ§Ãµes de conversÃ£o utilizadas
+            para interpretar a saÃ­da.
         </para>
-        <para>O parâmetro de formato pode conter caracteres em branco (espaços,
-            tabulações, novas linhas, quebra de página) os quais, exceto nos dois
-            casos seguintes, lê a entrada até o próximo caractere preenchido. A menos
-            que haja uma correspondência no string de controle, espaços em branco
-            (incluindo caractere de nova linha) vindo por último não são lidos.
+        <para>O parÃ¢metro de formato pode conter caracteres em branco (espaÃ§os,
+            tabulaÃ§Ãµes, novas linhas, quebra de pÃ¡gina) os quais, exceto nos dois
+            casos seguintes, lÃª a entrada atÃ© o prÃ³ximo caractere preenchido. A menos
+            que haja uma correspondÃªncia no string de controle, espaÃ§os em branco
+            (incluindo caractere de nova linha) vindo por Ãºltimo nÃ£o sÃ£o lidos.
         </para>
         <itemizedlist>
             <listitem>
                 <para>Qualquer caractere exceto % (sinal de porcento), que deve
-                    corresponder ao próximo caractere do fluxo de entrada.
+                    corresponder ao prÃ³ximo caractere do fluxo de entrada.
                 </para>
             </listitem>
             <listitem>
-                <para>Uma especificação de conversão que direciona a conversão do
-                    próximo campo de entrada. Ver <link linkend="scanf_conversion">scanf_conversion</link> para
+                <para>Uma especificaÃ§Ã£o de conversÃ£o que direciona a conversÃ£o do
+                    prÃ³ximo campo de entrada. Ver <link linkend="scanf_conversion">scanf_conversion</link> para
                     detalhes.
                 </para>
             </listitem>
         </itemizedlist>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="mprintf">mprintf</link>

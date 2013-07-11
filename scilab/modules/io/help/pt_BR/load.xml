@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -13,21 +13,21 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="load" xml:lang="en">
     <refnamediv>
         <refname>load</refname>
-        <refpurpose>carrega variável salva</refpurpose>
+        <refpurpose>carrega variÃ¡vel salva</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>load(filename [,x1,...,xn])
             load(fd [,x1,...,xn])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>filename</term>
                 <listitem>
-                    <para>string contendo o endereço do arquivo</para>
+                    <para>string contendo o endereÃ§o do arquivo</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -39,7 +39,7 @@
             <varlistentry>
                 <term>xi</term>
                 <listitem>
-                    <para>nome(s) de variáveis Scilab arbitrárias fornecidos como
+                    <para>nome(s) de variÃ¡veis Scilab arbitrÃ¡rias fornecidos como
                         strings
                     </para>
                 </listitem>
@@ -47,32 +47,32 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             O comando <literal>load</literal> pode ser utilizado para recarregar
-            no Scilab variáveis de sessão previamente gravadas com o comando
-            <literal>save</literal>. Se o arquivo contém variáveis correspondentes a
-            manipuladores gráficos, as <link linkend="graphics_entities">graphics_entities</link> (entidades gráficas)
-            correspondentes são desenhados.
+            no Scilab variÃ¡veis de sessÃ£o previamente gravadas com o comando
+            <literal>save</literal>. Se o arquivo contÃ©m variÃ¡veis correspondentes a
+            manipuladores grÃ¡ficos, as <link linkend="graphics_entities">graphics_entities</link> (entidades grÃ¡ficas)
+            correspondentes sÃ£o desenhados.
         </para>
         <para>
-            Desde o Scilab 5.0, todos os manipuladores <link linkend="uimenu">uimenu</link> ou <link linkend="uicontrol">uicontrol</link> também são desenhados.
+            Desde o Scilab 5.0, todos os manipuladores <link linkend="uimenu">uimenu</link> ou <link linkend="uicontrol">uicontrol</link> tambÃ©m sÃ£o desenhados.
         </para>
         <para>
-            <literal>load(filename)</literal> carrega variáveis no arquivo dado
-            pelo endereço <literal>filename</literal>.
+            <literal>load(filename)</literal> carrega variÃ¡veis no arquivo dado
+            pelo endereÃ§o <literal>filename</literal>.
         </para>
         <para>
-            <literal>load(fd)</literal> carrega variáveis no arquivo fornecido
+            <literal>load(fd)</literal> carrega variÃ¡veis no arquivo fornecido
             pelo seu descritor <literal>fd</literal>.
         </para>
         <para>
             <literal>load(filename,'x','y')</literal> ou
-            <literal>load(fd,'x','y')</literal> carrega apenas as variáveis
+            <literal>load(fd,'x','y')</literal> carrega apenas as variÃ¡veis
             <literal>x,y</literal>.
         </para>
-        <para>Mesmo que o formato de arquivo binário tenha mudado na versão 2.5,
-            <literal>load(filename,...)</literal> é capaz de ler formatos antigos.
+        <para>Mesmo que o formato de arquivo binÃ¡rio tenha mudado na versÃ£o 2.5,
+            <literal>load(filename,...)</literal> Ã© capaz de ler formatos antigos.
         </para>
     </refsection>
     <refsection>
@@ -86,7 +86,7 @@ load('vals.dat','a','b');
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="save">save</link>

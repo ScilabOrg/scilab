@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ENPC - Jean-Philippe Chancelier
@@ -13,16 +13,16 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="replot" xml:lang="en">
     <refnamediv>
         <refname>replot</refname>
-        <refpurpose>redesenha a janela de gráficos corrente com novas
+        <refpurpose>redesenha a janela de grÃ¡ficos corrente com novas
             fronteiras
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>replot(rect,[handle])</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>rect</term>
@@ -34,27 +34,27 @@
                 <term>handle</term>
                 <listitem>
                     <para>argumento opcional. Manipulador(es) do tipo Axes para
-                        selecionar uma ou várias entidades Axes válidas. Disponível apenas
-                        no novo modo de gráficos.
+                        selecionar uma ou vÃ¡rias entidades Axes vÃ¡lidas. DisponÃ­vel apenas
+                        no novo modo de grÃ¡ficos.
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>replot</literal> é utilizado para redesenhar o conteúdo da
-            janela de gráficos atual com novas fronteiras definidas por
-            <literal>rect=[xmin,ymin,xmax,ymax]</literal>. Sob a sintaxe de gráficos
+            <literal>replot</literal> Ã© utilizado para redesenhar o conteÃºdo da
+            janela de grÃ¡ficos atual com novas fronteiras definidas por
+            <literal>rect=[xmin,ymin,xmax,ymax]</literal>. Sob a sintaxe de grÃ¡ficos
             antiga, funciona apenas com o driver <literal>"Rec"</literal>.
         </para>
-        <para>Sob o novo modo de gráficos, esta transformação pode ser aplicada a
-            eixos específicos fornecidos por manipuladores gráficos Axes via o
-            argumento handle. Se handle não for especificado, as novas fronteiras são
-            aplicadas aos eixos correntes da figura corrente. A transformação muda os
+        <para>Sob o novo modo de grÃ¡ficos, esta transformaÃ§Ã£o pode ser aplicada a
+            eixos especÃ­ficos fornecidos por manipuladores grÃ¡ficos Axes via o
+            argumento handle. Se handle nÃ£o for especificado, as novas fronteiras sÃ£o
+            aplicadas aos eixos correntes da figura corrente. A transformaÃ§Ã£o muda os
             valores de <literal>data_bounds</literal> para estes eixos. Note que a
-            propriedade de eixos <literal>tight_limits</literal> também deve ser
+            propriedade de eixos <literal>tight_limits</literal> tambÃ©m deve ser
             ajustada para "on" para selecionar estritamente estas fronteiras (ver
             <link linkend="axes_properties">axes_properties</link>).<literal>
             </literal>
@@ -70,14 +70,14 @@ replot([-1,-1,10,2])
 
 // segundo exemplo
 xdel(winsid());
-plot() // esboçando demonstração
+plot() // esboÃ§ando demonstraÃ§Ã£o
 f=gcf();
 replot([-1,-1,10,2],f.children(1)) // especificando o valor do manipulador dos eixos
 replot([-3,-2,8,4],f.children(2)) 
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="clf">clf</link>

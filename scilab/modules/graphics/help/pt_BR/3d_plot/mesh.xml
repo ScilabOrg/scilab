@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Farid Belahcene
@@ -13,10 +13,10 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="mesh" xml:lang="en">
     <refnamediv>
         <refname>mesh</refname>
-        <refpurpose>Esboço 3d de uma malha</refpurpose>
+        <refpurpose>EsboÃ§o 3d de uma malha</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>mesh(Z)
             mesh(X,Y,Z)
             mesh(...,&lt;GlobalProperty&gt;)
@@ -25,13 +25,13 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>Z</term>
                 <listitem>
-                    <para>matriz de reais definindo a altura da superfície. Não pode ser
-                        omitida. O dado <varname>Z</varname> é uma matriz
+                    <para>matriz de reais definindo a altura da superfÃ­cie. NÃ£o pode ser
+                        omitida. O dado <varname>Z</varname> Ã© uma matriz
                         <literal>m</literal> x <literal>n</literal>.
                     </para>
                 </listitem>
@@ -40,9 +40,9 @@
                 <term>X, Y</term>
                 <listitem>
                     <para>duas matrizes de reais: sempre ajustadas juntas, esses dados
-                        definem um novo grid padrão. Estes novos componentes
+                        definem um novo grid padrÃ£o. Estes novos componentes
                         <varname>X</varname> e <varname>Y</varname> do grid devem coincidir
-                        com as dimensões de <varname>Z</varname> (ver descrição abaixo).
+                        com as dimensÃµes de <varname>Z</varname> (ver descriÃ§Ã£o abaixo).
                     </para>
                 </listitem>
             </varlistentry>
@@ -50,26 +50,26 @@
                 <term>color</term>
                 <listitem>
                     <para>uma matriz de reais opcional definindo a cor para cada ponto
-                        <literal>(X(j),Y(i))</literal> do grid (ver descrição abaixo).
+                        <literal>(X(j),Y(i))</literal> do grid (ver descriÃ§Ã£o abaixo).
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>&lt;GlobalProperty&gt;</term>
                 <listitem>
-                    <para>este argumento opcional representa uma seqüência de pares de
-                        declarações <literal>{PropertyName,PropertyValue}</literal> que
+                    <para>este argumento opcional representa uma seqÃ¼Ãªncia de pares de
+                        declaraÃ§Ãµes <literal>{PropertyName,PropertyValue}</literal> que
                         definem propriedades globais dos objetos aplicadas a todas as curvas
-                        criadas neste esboço. Para uma completa visualização das
-                        propriedades disponíveis veja <link linkend="GlobalProperty">GlobalProperty</link>.
+                        criadas neste esboÃ§o. Para uma completa visualizaÃ§Ã£o das
+                        propriedades disponÃ­veis veja <link linkend="GlobalProperty">GlobalProperty</link>.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>&lt;axes_handle&gt;</term>
                 <listitem>
-                    <para>este argumento opcional força o esboço a aparecer dentro dos
-                        eixos selecionados por <varname>axes_handle</varname> ao invés dos
+                    <para>este argumento opcional forÃ§a o esboÃ§o a aparecer dentro dos
+                        eixos selecionados por <varname>axes_handle</varname> ao invÃ©s dos
                         eixos correntes (ver <link linkend="gca">gca</link>).
                     </para>
                 </listitem>
@@ -77,36 +77,36 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <function>mesh</function> desenha uma superfície parametrizada
+            <function>mesh</function> desenha uma superfÃ­cie parametrizada
             utilizando um grid retangular definido pelas coordenadas
             <varname>X</varname>  e  <varname>Y</varname>  (se <literal>{X,Y}</literal>
-            não são especificados, este grid é determinado utilizando-se as dimensões
+            nÃ£o sÃ£o especificados, este grid Ã© determinado utilizando-se as dimensÃµes
             da matriz  <varname>Z</varname>) ; em cada ponto deste grid, uma
-            coordenada <varname>Z</varname> é dada utilizando-se a matriz <varname>Z</varname>.
-            <function>mesh</function> é baseado no comando <function>surf</function> com a
-            opção padrão <literal>color_mode</literal> = índice de branco (dentro do
+            coordenada <varname>Z</varname> Ã© dada utilizando-se a matriz <varname>Z</varname>.
+            <function>mesh</function> Ã© baseado no comando <function>surf</function> com a
+            opÃ§Ã£o padrÃ£o <literal>color_mode</literal> = Ã­ndice de branco (dentro do
             mapa de cores corrente) e <literal>color_flag</literal> = 0.
         </para>
-        <para>Especificação de dados de entrada:</para>
-        <para>Neste parágrafo, para sermos mais claros, não mencionaremos os
-            argumentos opcionais <varname> GlobalProperty</varname>  já que eles não
+        <para>EspecificaÃ§Ã£o de dados de entrada:</para>
+        <para>Neste parÃ¡grafo, para sermos mais claros, nÃ£o mencionaremos os
+            argumentos opcionais <varname> GlobalProperty</varname>  jÃ¡ que eles nÃ£o
             interferem na entrada de dados (exceto pelas propriedades
             <literal>"Xdata"</literal>, <literal>"Ydata"</literal> e
             <literal>"Zdata"</literal>, ver <link linkend="GlobalProperty">GlobalProperty</link>). Assume-se que todos estes
-            argumentos opcionais poderiam estar presentes também.
+            argumentos opcionais poderiam estar presentes tambÃ©m.
         </para>
         <para>
-            Se  <varname>Z</varname>  é a única matriz especificada, <code>mesh(Z)</code> esboça a
+            Se  <varname>Z</varname>  Ã© a Ãºnica matriz especificada, <code>mesh(Z)</code> esboÃ§a a
             matriz  <varname>Z</varname>  versus o grid definido por
             <code>1:size(Z,2)</code> ao longo do eixo x e
             <code>1:size(Z,1)</code> ao longo do eixo y.
         </para>
     </refsection>
     <refsection>
-        <title>Observação </title>
-        <para>Para habilitar-se o modo de transparência, você deve ajustar a opção
+        <title>ObservaÃ§Ã£o </title>
+        <para>Para habilitar-se o modo de transparÃªncia, vocÃª deve ajustar a opÃ§Ã£o
             <literal>color_mode</literal> para 0.
         </para>
     </refsection>
@@ -126,7 +126,7 @@ mesh(X,Y,Z);
         </scilab:image>
     </refsection>
     <refsection>
-        <title>Ver Também </title>
+        <title>Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="surf">surf</link>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - 
@@ -13,19 +13,19 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="sci2exp" xml:lang="en">
     <refnamediv>
         <refname>sci2exp</refname>
-        <refpurpose>converte uma expressão para um string</refpurpose>
+        <refpurpose>converte uma expressÃ£o para um string</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>t=sci2exp(a [,nam] [,lmax])</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>a</term>
                 <listitem>
-                    <para>expressão Scilab. Pode ser:</para>
+                    <para>expressÃ£o Scilab. Pode ser:</para>
                     <variablelist>
                         <varlistentry>
                             <term>-</term>
@@ -69,28 +69,28 @@
             <varlistentry>
                 <term>t</term>
                 <listitem>
-                    <para>vetor de strings, contém a expressão ou a instrução de
-                        simulação.
+                    <para>vetor de strings, contÃ©m a expressÃ£o ou a instruÃ§Ã£o de
+                        simulaÃ§Ã£o.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>lmax</term>
                 <listitem>
-                    <para>inteiro, contém o comprimento de linha máximo. O valor padrão
-                        é 90, <literal>lmax=0</literal> indica ausência de controle de
-                        comprimento de linha, um único string é retornado
+                    <para>inteiro, contÃ©m o comprimento de linha mÃ¡ximo. O valor padrÃ£o
+                        Ã© 90, <literal>lmax=0</literal> indica ausÃªncia de controle de
+                        comprimento de linha, um Ãºnico string Ã© retornado
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>sci2exp</literal> converte expressão para um string de
-            instrução se <literal>nam</literal> for fornecido, ou para um string de
-            expressão.
+            <literal>sci2exp</literal> converte expressÃ£o para um string de
+            instruÃ§Ã£o se <literal>nam</literal> for fornecido, ou para um string de
+            expressÃ£o.
         </para>
     </refsection>
     <refsection>
@@ -104,7 +104,7 @@ sci2exp(poly([1 0 3 4],'s'),'fi')
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="prettyprint">prettyprint</link>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -14,19 +14,19 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="clf" xml:lang="en">
     <refnamediv>
         <refname>clf</refname>
-        <refpurpose>Limpa ou reajusta a (janela da) figura gráfica corrente para
-            valores padrões
+        <refpurpose>Limpa ou reajusta a (janela da) figura grÃ¡fica corrente para
+            valores padrÃµes
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>clf(&lt;opt_job_arg&gt;)
             clf(h,&lt;opt_job_arg&gt;)
             clf(num,&lt;opt_job_arg&gt;)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>h</term>
@@ -53,23 +53,23 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            O comando <literal>clf</literal> é utilizado para reajustar uma
-            figura para seus valores padrões e/ou deletar todos os seus galhos.
+            O comando <literal>clf</literal> Ã© utilizado para reajustar uma
+            figura para seus valores padrÃµes e/ou deletar todos os seus galhos.
         </para>
         <para>
             Se o valor do string <literal>opt_job_arg</literal> for
-            <literal>'clear'</literal> então todos os galhos da figura especificada
-            são deletados.
+            <literal>'clear'</literal> entÃ£o todos os galhos da figura especificada
+            sÃ£o deletados.
         </para>
         <para>
             Se o valor do string <literal>opt_job_arg</literal> for
-            <literal>'reset'</literal>, então não só todos os galhos da figura são
-            deletados, mas os valores das propriedades da figura são reajustados para
-            seus valores padrões utilizando-se a figura modelo padrão (ver <link linkend="gdf">gdf</link>). As únicas exceções são as propriedades
-            <literal>axes_size</literal> e <literal>figure_size</literal> que não
-            podem ser reajustadas se a figura está "aportada" com outros
+            <literal>'reset'</literal>, entÃ£o nÃ£o sÃ³ todos os galhos da figura sÃ£o
+            deletados, mas os valores das propriedades da figura sÃ£o reajustados para
+            seus valores padrÃµes utilizando-se a figura modelo padrÃ£o (ver <link linkend="gdf">gdf</link>). As Ãºnicas exceÃ§Ãµes sÃ£o as propriedades
+            <literal>axes_size</literal> e <literal>figure_size</literal> que nÃ£o
+            podem ser reajustadas se a figura estÃ¡ "aportada" com outros
             elementos.
         </para>
         <para>
@@ -86,9 +86,9 @@
         </para>
         <para>
             <literal>clf</literal> deleta todos os galhos de janelas
-            especificadas, incluindo menus e uicontrols adicionados pelo usuário. Para
+            especificadas, incluindo menus e uicontrols adicionados pelo usuÃ¡rio. Para
             evitar que menus e uicontrols sejam deletados, o comando
-            <literal>delete(gca())</literal> deve ser utilizado ao invés.
+            <literal>delete(gca())</literal> deve ser utilizado ao invÃ©s.
         </para>
     </refsection>
     <refsection>
@@ -109,7 +109,7 @@ clf() // equivalent to clf(gcf(),'clear')
 plot3d1(t,t,sin(t)'*cos(t));  // color_map inalterado
    
 clf(gcf(),'reset')
-plot3d1(t,t,sin(t)'*cos(t));  // color_map alterado (de volta ao padrão com 32 cores)
+plot3d1(t,t,sin(t)'*cos(t));  // color_map alterado (de volta ao padrÃ£o com 32 cores)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

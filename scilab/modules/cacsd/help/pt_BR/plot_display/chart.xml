@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
@@ -16,14 +16,14 @@
         <refpurpose>carta de Nichols</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>chart([flags])
             chart(gain [,flags])
             chart(gain,phase [,flags])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>gain</term>
@@ -40,22 +40,22 @@
             <varlistentry>
                 <term>flags</term>
                 <listitem>
-                    <para>uma lista de no máximo quatro flags (sup [,leg [,cm
+                    <para>uma lista de no mÃ¡ximo quatro flags (sup [,leg [,cm
                         [,cphi]]])
                     </para>
                     <variablelist>
                         <varlistentry>
                             <term>sup</term>
                             <listitem>
-                                <para>1 indica superposição sobre o esboço anterior e 0 indica
-                                    que nenhuma superposição é feita 
+                                <para>1 indica superposiÃ§Ã£o sobre o esboÃ§o anterior e 0 indica
+                                    que nenhuma superposiÃ§Ã£o Ã© feita 
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>leg</term>
                             <listitem>
-                                <para>1 indica que as legendas são impressas, 0 indica sem
+                                <para>1 indica que as legendas sÃ£o impressas, 0 indica sem
                                     legendas 
                                 </para>
                             </listitem>
@@ -63,13 +63,13 @@
                         <varlistentry>
                             <term>cm</term>
                             <listitem>
-                                <para>número da cor para curvas de ganho </para>
+                                <para>nÃºmero da cor para curvas de ganho </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>cphi</term>
                             <listitem>
-                                <para>número da cor para curvas de fase</para>
+                                <para>nÃºmero da cor para curvas de fase</para>
                             </listitem>
                         </varlistentry>
                     </variablelist>
@@ -78,16 +78,16 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Esboça a carta de Nichols: curvas de nível de iso-ganho e iso-fase
+        <title>DescriÃ§Ã£o</title>
+        <para>EsboÃ§a a carta de Nichols: curvas de nÃ­vel de iso-ganho e iso-fase
             dey/(1+y) no plano de fase/ganho.
         </para>
         <para>
-            <literal>chart</literal> pode ser utilizado em conjunção a <link linkend="black">black</link>.
+            <literal>chart</literal> pode ser utilizado em conjunÃ§Ã£o a <link linkend="black">black</link>.
         </para>
         <para>
-            Os valore padrões para <literal>gain</literal> e
-            <literal>phase</literal> são respectivamente:
+            Os valore padrÃµes para <literal>gain</literal> e
+            <literal>phase</literal> sÃ£o respectivamente:
         </para>
         <para>
             <literal>[-12 -8 -6 -5 -4 -3 -2 -1.4 -1 -.5 0.25 0.5 0.7 1 1.4 2 2.3
@@ -114,7 +114,7 @@ chart(list(1,0));
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="nyquist">nyquist</link>

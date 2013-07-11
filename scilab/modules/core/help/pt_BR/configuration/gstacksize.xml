@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="gstacksize" xml:lang="en">
     <refnamediv>
         <refname>gstacksize</refname>
         <refpurpose>Ajusta/retorna a pilha global do Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>gstacksize(n)
             gstacksize('max')
             gstacksize('min')
@@ -13,13 +13,13 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>n</term>
                 <listitem>
-                    <para>inteiro, o tamanho da pilha global requerido dado em número
-                        das palavras de dupla precisão
+                    <para>inteiro, o tamanho da pilha global requerido dado em nÃºmero
+                        das palavras de dupla precisÃ£o
                     </para>
                 </listitem>
             </varlistentry>
@@ -32,30 +32,30 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Scilab armazena variáveis globais em uma pilha.</para>
+        <title>DescriÃ§Ã£o</title>
+        <para>Scilab armazena variÃ¡veis globais em uma pilha.</para>
         <para>
-            <literal>gstacksize(n)</literal> permite ao usuário aumentar ou
-            diminuir o tamanho da pilha. O tamanho máximo permitido depende da
-            quantidade de memória livre e do espaço de troca ("swap space") disponível
+            <literal>gstacksize(n)</literal> permite ao usuÃ¡rio aumentar ou
+            diminuir o tamanho da pilha. O tamanho mÃ¡ximo permitido depende da
+            quantidade de memÃ³ria livre e do espaÃ§o de troca ("swap space") disponÃ­vel
             no momento. Note que o Scilab pode aumentar automaticamente o tamanho da
-            pilha global quando necessário.
+            pilha global quando necessÃ¡rio.
         </para>
         <para>
             <literal>sz=gstacksize()</literal> retorna um vetor de duas entradas
-            que contém os tamanhos de pilha global total e usado correntes.
+            que contÃ©m os tamanhos de pilha global total e usado correntes.
         </para>
         <para>
-            <literal>gstacksize('max')</literal> permite que o usuário aumente o
-            tamanho desta pilha global ao máximo.
+            <literal>gstacksize('max')</literal> permite que o usuÃ¡rio aumente o
+            tamanho desta pilha global ao mÃ¡ximo.
         </para>
         <para>
-            <literal>gstacksize('min')</literal> permite que o usuário diminua o
-            tamanho desta pilha global para máximo.
+            <literal>gstacksize('min')</literal> permite que o usuÃ¡rio diminua o
+            tamanho desta pilha global para mÃ¡ximo.
         </para>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="who">who</link>

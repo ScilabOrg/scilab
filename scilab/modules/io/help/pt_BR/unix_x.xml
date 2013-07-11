@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -13,16 +13,16 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="unix_x" xml:lang="en">
     <refnamediv>
         <refname>unix_x</refname>
-        <refpurpose>execução do comando shell (sh), saída redirecionada a uma
+        <refpurpose>execuÃ§Ã£o do comando shell (sh), saÃ­da redirecionada a uma
             janela
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>unix_x(cmd)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>cmd</term>
@@ -33,13 +33,13 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Envia um string <literal>cmd</literal> ao Unix para uma execução
-            através do shel sh. A saída padrão é redirecionada a uma janela. Erros de
-            execução Unix são detectados. Note que apenas o último erro de comando de
-            shell é reportado quando uma lista de comandos separados por";" é enviada.
-            Isto não é recomendado.
+            Envia um string <literal>cmd</literal> ao Unix para uma execuÃ§Ã£o
+            atravÃ©s do shel sh. A saÃ­da padrÃ£o Ã© redirecionada a uma janela. Erros de
+            execuÃ§Ã£o Unix sÃ£o detectados. Note que apenas o Ãºltimo erro de comando de
+            shell Ã© reportado quando uma lista de comandos separados por";" Ã© enviada.
+            Isto nÃ£o Ã© recomendado.
         </para>
     </refsection>
     <refsection>
@@ -53,7 +53,7 @@ end
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="edit">edit</link>

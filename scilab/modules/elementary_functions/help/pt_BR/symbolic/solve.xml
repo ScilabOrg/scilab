@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -13,14 +13,14 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="solve" xml:lang="en">
     <refnamediv>
         <refname>solve</refname>
-        <refpurpose>Solucionador simbólico de sistemas lineares</refpurpose>
+        <refpurpose>Solucionador simbÃ³lico de sistemas lineares</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>[x]=solve(A,b)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>A,b,x</term>
@@ -31,9 +31,9 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Resolve <literal>A*x = b</literal> quando <literal>A</literal> é uma
+            Resolve <literal>A*x = b</literal> quando <literal>A</literal> Ã© uma
             matriz triangular superior feita de strings.
         </para>
     </refsection>
@@ -49,7 +49,7 @@ inv([1,1;0,2])*[2;5]
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="trianfml">trianfml</link>

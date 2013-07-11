@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="stacksize" xml:lang="en">
     <refnamediv>
         <refname>stacksize</refname>
         <refpurpose>ajusta tamanho da pilha do Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>stacksize(n)
             stacksize('max')
             stacksize('min')
@@ -13,13 +13,13 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>n</term>
                 <listitem>
-                    <para>inteiro, o tamanho da pilha requerido dado em número de
-                        palavras de dupla precisão 
+                    <para>inteiro, o tamanho da pilha requerido dado em nÃºmero de
+                        palavras de dupla precisÃ£o 
                     </para>
                 </listitem>
             </varlistentry>
@@ -32,35 +32,35 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>O Scilab armazena variáveis "usuais" em uma pilha
-            <literal>stk</literal> (para variáveis globais, ver
+        <title>DescriÃ§Ã£o</title>
+        <para>O Scilab armazena variÃ¡veis "usuais" em uma pilha
+            <literal>stk</literal> (para variÃ¡veis globais, ver
             <literal>gstacksize</literal>).
         </para>
         <para>
             <literal>stacksize(n)</literal> permite aumentar ou diminuir o
-            tamanho desta pilha. O máximo permitido depende da quantidade de memória
-            livre e do espaço de troca ("swap space") disponível no momento.
+            tamanho desta pilha. O mÃ¡ximo permitido depende da quantidade de memÃ³ria
+            livre e do espaÃ§o de troca ("swap space") disponÃ­vel no momento.
         </para>
         <para>
-            <literal>stacksize('max')</literal> permite ao usuário aumentar o
-            tamanho dessa pilha ao máximo.
+            <literal>stacksize('max')</literal> permite ao usuÃ¡rio aumentar o
+            tamanho dessa pilha ao mÃ¡ximo.
         </para>
         <para>
-            <literal>stacksize('min')</literal> permite ao usuário diminuir o
-            tamanho dessa pilha ao mínimo.
+            <literal>stacksize('min')</literal> permite ao usuÃ¡rio diminuir o
+            tamanho dessa pilha ao mÃ­nimo.
         </para>
         <para>
-            Esta função com o argumento <literal>n</literal> pode ser usada em
+            Esta funÃ§Ã£o com o argumento <literal>n</literal> pode ser usada em
             qualquer lugar.
         </para>
         <para>
             <literal>sz=stacksize()</literal> retorna um vetor de duas entradas
-            que contém os tamanhos correntes de pilha total e usado.
+            que contÃ©m os tamanhos correntes de pilha total e usado.
         </para>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="who">who</link>

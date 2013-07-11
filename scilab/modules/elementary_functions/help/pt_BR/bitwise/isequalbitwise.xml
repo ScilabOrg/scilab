@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -13,21 +13,21 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isequalbitwise" xml:lang="en">
     <refnamediv>
         <refname>isequalbitwise</refname>
-        <refpurpose>comparação bit a bit de variáveis</refpurpose>
+        <refpurpose>comparaÃ§Ã£o bit a bit de variÃ¡veis</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>t=isequalbitwise(a,b)
             t=isequalbitwise(a,b,..)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>a, b , ...</term>
                 <listitem>
-                    <para>variáveis de quaisquer tipos </para>
+                    <para>variÃ¡veis de quaisquer tipos </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -39,18 +39,18 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             <literal> isequalbitwise</literal> compara seus argumentos. Se todos
-            eles são iguais, a função retorna <literal> %t</literal> e, em caso
-            contrário, <literal> %f</literal>.
+            eles sÃ£o iguais, a funÃ§Ã£o retorna <literal> %t</literal> e, em caso
+            contrÃ¡rio, <literal> %f</literal>.
         </para>
-        <para>Na comparação de listas, estruturas, etc., a comparação é feita
+        <para>Na comparaÃ§Ã£o de listas, estruturas, etc., a comparaÃ§Ã£o Ã© feita
             recursivamente, a ordem dos campos importa. 
         </para>
-        <para>Dados de ponto flutuante são comparados bit a bit, i.e. valores NaN
-            ("não é um número") são iguais, double(1) e int32(1) não são iguais. Ver
-            <link linkend="isequal">isequal</link> para comparações IEEE.
+        <para>Dados de ponto flutuante sÃ£o comparados bit a bit, i.e. valores NaN
+            ("nÃ£o Ã© um nÃºmero") sÃ£o iguais, double(1) e int32(1) nÃ£o sÃ£o iguais. Ver
+            <link linkend="isequal">isequal</link> para comparaÃ§Ãµes IEEE.
         </para>
     </refsection>
     <refsection>
@@ -61,7 +61,7 @@ isequalbitwise(a,a)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="isequal">isequal</link>

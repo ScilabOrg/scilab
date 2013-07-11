@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ENPC - Jean-Philippe Chancelier
@@ -13,14 +13,14 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="xpolys" xml:lang="en">
     <refnamediv>
         <refname>xpolys</refname>
-        <refpurpose>desenha um conjunto de poligonais ou polígonos</refpurpose>
+        <refpurpose>desenha um conjunto de poligonais ou polÃ­gonos</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>xpolys(xpols,ypols,[draw])</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>xpols,ypols</term>
@@ -37,22 +37,22 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             <literal>xpolys</literal> desenha um conjunto de poligonais usando
-            marcas ou linhas tracejadas. As coordenadas de cada poligonal são
+            marcas ou linhas tracejadas. As coordenadas de cada poligonal sÃ£o
             armazenadas em uma coluna de <literal>xpols</literal> e
             <literal>ypols</literal>.
         </para>
-        <para>O estilo da poligonal i é dado por
+        <para>O estilo da poligonal i Ã© dado por
             <literal>draw(i)</literal>:
         </para>
         <itemizedlist>
             <listitem>
                 <para>
                     Se <literal>draw(i)</literal> for negativo, a marca com
-                    identificador <literal>-draw(i)</literal> i é utilizada para desenhar
-                    a poligonal i (marcas são desenhadas utilizando-se o padrão corrente).
+                    identificador <literal>-draw(i)</literal> i Ã© utilizada para desenhar
+                    a poligonal i (marcas sÃ£o desenhadas utilizando-se o padrÃ£o corrente).
                     Use <literal>xset()</literal> para ver o significado dos
                     identificadores.
                 </para>
@@ -61,7 +61,7 @@
                 <para>
                     Se <literal>draw(i)</literal> for estritamente positivo, o
                     estilo de linha (ou cor) com identificador <literal>draw(i)</literal>
-                    é utilizado para desenhar a poligonal i. Use <literal>xset()</literal>
+                    Ã© utilizado para desenhar a poligonal i. Use <literal>xset()</literal>
                     para ver o significado dos idenficadores.
                 </para>
             </listitem>
@@ -77,7 +77,7 @@ xpolys(rand(3,5),rand(3,5),[-1,-2,0,1,2])
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="xfpoly">xfpoly</link>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
@@ -16,9 +16,9 @@
         <refpurpose>Lista dos nomes das cores</refpurpose>
     </refnamediv>
     <refsection>
-        <title>Descrição</title>
-        <para>Abaixo você encontrará os nomes das cores conhecidas pelo Scilab. Os
-            valores RGB (vermelho, verde, azul) são dados após os nomes. Note que,
+        <title>DescriÃ§Ã£o</title>
+        <para>Abaixo vocÃª encontrarÃ¡ os nomes das cores conhecidas pelo Scilab. Os
+            valores RGB (vermelho, verde, azul) sÃ£o dados apÃ³s os nomes. Note que,
             algumas vezes, as cores possuem mais de um nome:
         </para>
         <informaltable border="1">
@@ -401,7 +401,7 @@
         </informaltable>
         <informaltable border="1">
             <tr>
-                <td>peach puff (pêssego claro)</td>
+                <td>peach puff (pÃªssego claro)</td>
                 <td>255</td>
                 <td>218</td>
                 <td>185</td>
@@ -413,7 +413,7 @@
                 <td>185</td>
             </tr>
             <tr>
-                <td>navajo white (pêssego)</td>
+                <td>navajo white (pÃªssego)</td>
                 <td>255</td>
                 <td>222</td>
                 <td>173</td>
@@ -425,7 +425,7 @@
                 <td>173</td>
             </tr>
             <tr>
-                <td>moccasin (pêssego)</td>
+                <td>moccasin (pÃªssego)</td>
                 <td>255</td>
                 <td>228</td>
                 <td>181</td>
@@ -479,13 +479,13 @@
                 <td>250</td>
             </tr>
             <tr>
-                <td>azure (azul-bebê)</td>
+                <td>azure (azul-bebÃª)</td>
                 <td>240</td>
                 <td>255</td>
                 <td>255</td>
             </tr>
             <tr>
-                <td>alice blue (azul-bebê)</td>
+                <td>alice blue (azul-bebÃª)</td>
                 <td>240</td>
                 <td>248</td>
                 <td>255</td>
@@ -717,7 +717,7 @@
                 <td>237</td>
             </tr>
             <tr>
-                <td>dark slate blue (púrpura azulado escuro)</td>
+                <td>dark slate blue (pÃºrpura azulado escuro)</td>
                 <td>72</td>
                 <td>61</td>
                 <td>139</td>
@@ -729,7 +729,7 @@
                 <td>139</td>
             </tr>
             <tr>
-                <td>slate blue (púrpura azulado)</td>
+                <td>slate blue (pÃºrpura azulado)</td>
                 <td>106</td>
                 <td>90</td>
                 <td>205</td>
@@ -741,7 +741,7 @@
                 <td>205</td>
             </tr>
             <tr>
-                <td>medium slate blue (púrpura azulado médio)</td>
+                <td>medium slate blue (pÃºrpura azulado mÃ©dio)</td>
                 <td>123</td>
                 <td>104</td>
                 <td>238</td>
@@ -753,7 +753,7 @@
                 <td>238</td>
             </tr>
             <tr>
-                <td>light slate blue (púrpura azulado claro)</td>
+                <td>light slate blue (pÃºrpura azulado claro)</td>
                 <td>132</td>
                 <td>112</td>
                 <td>255</td>
@@ -765,7 +765,7 @@
                 <td>255</td>
             </tr>
             <tr>
-                <td>medium blue (azul médio)</td>
+                <td>medium blue (azul mÃ©dio)</td>
                 <td>0</td>
                 <td>0</td>
                 <td>205</td>
@@ -843,7 +843,7 @@
                 <td>250</td>
             </tr>
             <tr>
-                <td>steel blue (azul metálico)</td>
+                <td>steel blue (azul metÃ¡lico)</td>
                 <td>70</td>
                 <td>130</td>
                 <td>180</td>
@@ -917,7 +917,7 @@
                 <td>209</td>
             </tr>
             <tr>
-                <td>medium turquoise (turquesa média)</td>
+                <td>medium turquoise (turquesa mÃ©dia)</td>
                 <td>72</td>
                 <td>209</td>
                 <td>204</td>
@@ -965,7 +965,7 @@
                 <td>160</td>
             </tr>
             <tr>
-                <td>medium aquamarine (aquamarine média)</td>
+                <td>medium aquamarine (aquamarine mÃ©dia)</td>
                 <td>102</td>
                 <td>205</td>
                 <td>170</td>
@@ -1033,7 +1033,7 @@
                 <td>87</td>
             </tr>
             <tr>
-                <td>medium sea green (verde-mar médio)</td>
+                <td>medium sea green (verde-mar mÃ©dio)</td>
                 <td>60</td>
                 <td>179</td>
                 <td>113</td>
@@ -1057,7 +1057,7 @@
                 <td>170</td>
             </tr>
             <tr>
-                <td>pale green (verde pálido)</td>
+                <td>pale green (verde pÃ¡lido)</td>
                 <td>152</td>
                 <td>251</td>
                 <td>152</td>
@@ -1179,7 +1179,7 @@
         </informaltable>
         <informaltable border="1">
             <tr>
-                <td>dark khaki (cáqui escuro)</td>
+                <td>dark khaki (cÃ¡qui escuro)</td>
                 <td>189</td>
                 <td>183</td>
                 <td>107</td>
@@ -1197,7 +1197,7 @@
                 <td>140</td>
             </tr>
             <tr>
-                <td>pale goldenrod (amarelo queimado pálido)</td>
+                <td>pale goldenrod (amarelo queimado pÃ¡lido)</td>
                 <td>238</td>
                 <td>232</td>
                 <td>170</td>
@@ -1289,7 +1289,7 @@
                 <td>143</td>
             </tr>
             <tr>
-                <td>indian red (vermelho índio)</td>
+                <td>indian red (vermelho Ã­ndio)</td>
                 <td>205</td>
                 <td>92</td>
                 <td>92</td>
@@ -1379,7 +1379,7 @@
                 <td>42</td>
             </tr>
             <tr>
-                <td>dark salmon (salmão escuro)</td>
+                <td>dark salmon (salmÃ£o escuro)</td>
                 <td>233</td>
                 <td>150</td>
                 <td>122</td>
@@ -1391,13 +1391,13 @@
                 <td>122</td>
             </tr>
             <tr>
-                <td>salmon (salmão)</td>
+                <td>salmon (salmÃ£o)</td>
                 <td>250</td>
                 <td>128</td>
                 <td>114</td>
             </tr>
             <tr>
-                <td>light salmon (salmão claro)</td>
+                <td>light salmon (salmÃ£o claro)</td>
                 <td>255</td>
                 <td>160</td>
                 <td>122</td>
@@ -1533,7 +1533,7 @@
                 <td>96</td>
             </tr>
             <tr>
-                <td>medium violet red (violeta avermelhado médio)</td>
+                <td>medium violet red (violeta avermelhado mÃ©dio)</td>
                 <td>199</td>
                 <td>21</td>
                 <td>133</td>
@@ -1575,13 +1575,13 @@
                 <td>221</td>
             </tr>
             <tr>
-                <td>orchid (orquídea)</td>
+                <td>orchid (orquÃ­dea)</td>
                 <td>218</td>
                 <td>112</td>
                 <td>214</td>
             </tr>
             <tr>
-                <td>medium orchid (orquídea médio)</td>
+                <td>medium orchid (orquÃ­dea mÃ©dio)</td>
                 <td>186</td>
                 <td>85</td>
                 <td>211</td>
@@ -1593,7 +1593,7 @@
                 <td>211</td>
             </tr>
             <tr>
-                <td>dark orchid (orquídea escuro)</td>
+                <td>dark orchid (orquÃ­dea escuro)</td>
                 <td>153</td>
                 <td>50</td>
                 <td>204</td>
@@ -1631,13 +1631,13 @@
         </informaltable>
         <informaltable border="1">
             <tr>
-                <td>purple (púrpura)</td>
+                <td>purple (pÃºrpura)</td>
                 <td>160</td>
                 <td>32</td>
                 <td>240</td>
             </tr>
             <tr>
-                <td>medium purple (púrpura claro)</td>
+                <td>medium purple (pÃºrpura claro)</td>
                 <td>147</td>
                 <td>112</td>
                 <td>219</td>
@@ -1655,7 +1655,7 @@
                 <td>216</td>
             </tr>
             <tr>
-                <td>(daqui em diante são séries de gradações de cores) snow1</td>
+                <td>(daqui em diante sÃ£o sÃ©ries de gradaÃ§Ãµes de cores) snow1</td>
                 <td>255</td>
                 <td>250</td>
                 <td>250</td>
@@ -4867,7 +4867,7 @@
         </informaltable>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="color">color</link>

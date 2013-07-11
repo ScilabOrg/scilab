@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -13,42 +13,42 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="colordef" xml:lang="en">
     <refnamediv>
         <refname>colordef</refname>
-        <refpurpose>Ajusta os valores de cor padrões para exibição de diferentes
+        <refpurpose>Ajusta os valores de cor padrÃµes para exibiÃ§Ã£o de diferentes
             esquemas de cores
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>colordef(color_scheme)
             colordef(f,color_scheme)
             colordef('new',color_scheme)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>color_scheme</term>
                 <listitem>
-                    <para>string com valores possíveis: 'white', 'black','none' </para>
+                    <para>string com valores possÃ­veis: 'white', 'black','none' </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>f</term>
                 <listitem>
-                    <para>manipulador para uma figura gráfica </para>
+                    <para>manipulador para uma figura grÃ¡fica </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <itemizedlist>
             <listitem>
                 <para>
                     <literal>colordef('white')</literal> ajusta o mapa de cores
-                    padrão da figura (ver <link linkend="gdf">gdf</link>) para
-                    <literal>jetcolormap(64)</literal>, a cor de plano de fundo padrão da
+                    padrÃ£o da figura (ver <link linkend="gdf">gdf</link>) para
+                    <literal>jetcolormap(64)</literal>, a cor de plano de fundo padrÃ£o da
                     figura para cinza claro, a cor de plano de fundo dos eixos (ver <link linkend="gda">gda</link>) para branco e as cores de primeiro plano da
                     fonte e das linhas dos eixos para preto.
                 </para>
@@ -56,8 +56,8 @@
             <listitem>
                 <para>
                     <literal>colordef('black')</literal> ajusta o mapa de cores
-                    padrão da figura (ver <link linkend="gdf">gdf</link>) para
-                    <literal>jetcolormap(64)</literal>, a cor de plano de fundo padrão da
+                    padrÃ£o da figura (ver <link linkend="gdf">gdf</link>) para
+                    <literal>jetcolormap(64)</literal>, a cor de plano de fundo padrÃ£o da
                     figura para cinza escuro, a cor de plano de fundo dos eixos (ver <link linkend="gda">gda</link>) para preto e as cores de primeiro plano da
                     fonte e das linhas dos eixos para branco. 
                 </para>
@@ -65,8 +65,8 @@
             <listitem>
                 <para>
                     <literal>colordef('none')</literal> ajusta o mapa de cores
-                    padrão da figura (ver <link linkend="gdf">gdf</link>) para
-                    <literal>hsvcolormap(64)</literal>, a cor de plano de fundo padrão da
+                    padrÃ£o da figura (ver <link linkend="gdf">gdf</link>) para
+                    <literal>hsvcolormap(64)</literal>, a cor de plano de fundo padrÃ£o da
                     figura para cinza escuro a cor de plano de fundo dos eixos (ver <link linkend="gda">gda</link>) para preto e as cores de primeiro plano da
                     fonte e das linhas dos eixos para branco. 
                 </para>
@@ -82,7 +82,7 @@
             <listitem>
                 <para>
                     <literal>colordef('new',color_scheme)</literal> cria uma nova
-                    janela de gráficos e ajusta suas propriedades de cor bem como as
+                    janela de grÃ¡ficos e ajusta suas propriedades de cor bem como as
                     propriedades de seus eixos.
                 </para>
             </listitem>
@@ -91,11 +91,11 @@
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-// Adicionar aqui instruções Scilab e comentários
+// Adicionar aqui instruÃ§Ãµes Scilab e comentÃ¡rios
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="gdf"> gdf</link>

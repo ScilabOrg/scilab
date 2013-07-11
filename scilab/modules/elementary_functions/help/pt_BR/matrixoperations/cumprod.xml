@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -16,7 +16,7 @@
         <refpurpose>produto cumulativo</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>y=cumprod(x)
             y=cumprod(x,'r') ou y=cumprod(x,1)
             y=cumprod(x,'c') ou y=cumprod(x,2)
@@ -24,7 +24,7 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>x</term>
@@ -41,7 +41,7 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             Para um vetor ou matriz <literal>x</literal>,
             <literal>y=cumprod(x)</literal> retorna em <literal>y</literal> o produto
@@ -61,8 +61,8 @@
             <literal> y(:,i)=cumprod(x(:,i))</literal>.
         </para>
         <para>
-            <literal>y=cumprod(x,'m')</literal> é o produto cumulativo ao longo
-            da primeira dimensão não-singleton de <literal>x</literal> (para
+            <literal>y=cumprod(x,'m')</literal> Ã© o produto cumulativo ao longo
+            da primeira dimensÃ£o nÃ£o-singleton de <literal>x</literal> (para
             compatibilidade com Matlab).
         </para>
     </refsection>
@@ -82,7 +82,7 @@ for k=2:m;w(k,:)=w(k-1,:).*a(k,:);end;w-cumprod(a,'r')
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="cumsum">cumsum</link>

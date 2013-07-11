@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
@@ -67,7 +67,7 @@
         <title>Remark</title>
         <para>
             Traditionally, the type of a calling sequence for <code>nicholschart</code> is: nicholschart(modules=gains, args=phases, colors=colors), 
-but the following calling sequence is also allowed: nicholschart(gains, phases, colors).
+            but the following calling sequence is also allowed: nicholschart(gains, phases, colors).
         </para>
     </refsection>
     <refsection>

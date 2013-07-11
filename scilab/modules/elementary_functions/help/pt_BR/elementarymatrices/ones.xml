@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -16,14 +16,14 @@
         <refpurpose>matriz de entradas todas iguais a 1</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>y=ones(m1,m2,...)
             y=ones(x)
             y=ones()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>x,y</term>
@@ -40,15 +40,15 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Retorna uma matriz cujas entradas são todas iguais a 1. </para>
+        <title>DescriÃ§Ã£o</title>
+        <para>Retorna uma matriz cujas entradas sÃ£o todas iguais a 1. </para>
         <variablelist>
             <varlistentry>
                 <term>ones(m1,m2)</term>
                 <listitem>
                     <para>
                         retorna uma matriz <literal>(m1,m2)</literal> cujas entradas
-                        são todas 1. 
+                        sÃ£o todas 1. 
                     </para>
                 </listitem>
             </varlistentry>
@@ -57,14 +57,14 @@
                 <listitem>
                     <para>
                         retorna uma matriz <literal>(m1,m2,..,mn)</literal> cujas
-                        entradas são todas 1. 
+                        entradas sÃ£o todas 1. 
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>ones(x)</term>
                 <listitem>
-                    <para>retorna uma matriz cujas entradas são todas 1 com o mesmo
+                    <para>retorna uma matriz cujas entradas sÃ£o todas 1 com o mesmo
                         tamanho que <literal>x</literal>.
                     </para>
                 </listitem>
@@ -73,17 +73,17 @@
                 <term>ones(x)</term>
                 <listitem>
                     <para>
-                        também é válido para <literal>x</literal> uma lista
+                        tambÃ©m Ã© vÃ¡lido para <literal>x</literal> uma lista
                         <literal>syslin</literal> .
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
         <para>
-            Perceba que <literal>ones(3)</literal> é <literal>ones(a)</literal>
-            com <literal>a=3</literal> , i.e., NÃO é uma matriz 3x3!
+            Perceba que <literal>ones(3)</literal> Ã© <literal>ones(a)</literal>
+            com <literal>a=3</literal> , i.e., NÃƒO Ã© uma matriz 3x3!
         </para>
-        <para>ones() é equivalente a ones(1,1).</para>
+        <para>ones() Ã© equivalente a ones(1,1).</para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
@@ -94,7 +94,7 @@ ones(2,3,2)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="eye">eye</link>

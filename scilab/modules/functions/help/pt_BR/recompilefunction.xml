@@ -1,54 +1,54 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="recompilefunction" xml:lang="en">
     <refnamediv>
         <refname>recompilefunction</refname>
-        <refpurpose>recompila uma função Scilab modificando o seu
+        <refpurpose>recompila uma funÃ§Ã£o Scilab modificando o seu
             tipo
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>recompilefunction(funname [,kind [,force]])</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>funname</term>
                 <listitem>
-                    <para>string, nome da função a ser recompilada</para>
+                    <para>string, nome da funÃ§Ã£o a ser recompilada</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>kind</term>
                 <listitem>
                     <para>
-                        string: <emphasis role="bold">"n"</emphasis> (não compilado,
+                        string: <emphasis role="bold">"n"</emphasis> (nÃ£o compilado,
                         tipo 11), <emphasis role="bold">"c"</emphasis> (compilado, tipo 13)
                         or <emphasis role="bold">"p"</emphasis> (compilado, tipo 13,
-                        preparado para profiling). Pardrão: "c".
+                        preparado para profiling). PardrÃ£o: "c".
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>force</term>
                 <listitem>
-                    <para>booleano. Se falso, a função é recompilada apenas se seu tipo
-                        mudar; se verdadeiro, é recompilada ainda que mantenha o tipo
-                        (notavelmente útil para compilar uma função "p" function, para
-                        reiniciar as estatísticas de profiling).
+                    <para>booleano. Se falso, a funÃ§Ã£o Ã© recompilada apenas se seu tipo
+                        mudar; se verdadeiro, Ã© recompilada ainda que mantenha o tipo
+                        (notavelmente Ãºtil para compilar uma funÃ§Ã£o "p" function, para
+                        reiniciar as estatÃ­sticas de profiling).
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <itemizedlist>
             <listitem>
                 <para>
-                    Esta função compila reversamente uma variável função via <link linkend="fun2string">fun2string</link>, e a recompila para o tipo
-                    desejado através de <link linkend="deff">deff</link>.
+                    Esta funÃ§Ã£o compila reversamente uma variÃ¡vel funÃ§Ã£o via <link linkend="fun2string">fun2string</link>, e a recompila para o tipo
+                    desejado atravÃ©s de <link linkend="deff">deff</link>.
                 </para>
             </listitem>
         </itemizedlist>
@@ -62,7 +62,7 @@ showprofile(asinh)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="function">function</link>

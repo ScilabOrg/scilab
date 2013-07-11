@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isglobal" xml:lang="en">
     <refnamediv>
         <refname>isglobal</refname>
-        <refpurpose>verifica se uma variável é global</refpurpose>
+        <refpurpose>verifica se uma variÃ¡vel Ã© global</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>t=isglobal(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>x</term>
                 <listitem>
-                    <para>qualquer variável</para>
+                    <para>qualquer variÃ¡vel</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -26,11 +26,11 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             <literal>isglobal(x)</literal> retorna "true" ("verdadeiro"), se x
-            tiver sido declarada como variável global e "false" ("falso"), em caso
-            contrário.
+            tiver sido declarada como variÃ¡vel global e "false" ("falso"), em caso
+            contrÃ¡rio.
         </para>
     </refsection>
     <refsection>
@@ -42,7 +42,7 @@ isglobal(a)
  ]]></programlisting>
     </refsection>
     <refsection>
-        <title> Ver Também </title>
+        <title> Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="global">global</link>

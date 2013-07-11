@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ????-2008 - INRIA
@@ -13,14 +13,14 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="macrovar" xml:lang="en">
     <refnamediv>
         <refname>macrovar</refname>
-        <refpurpose>variáveis de uma função</refpurpose>
+        <refpurpose>variÃ¡veis de uma funÃ§Ã£o</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>vars=macrovar(function)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>vars</term>
@@ -33,35 +33,35 @@
             <varlistentry>
                 <term>function</term>
                 <listitem>
-                    <para>nome de uma função</para>
+                    <para>nome de uma funÃ§Ã£o</para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Retorna em uma lista o conjunto de variáveis utilizadas por uma
-            função. <literal>vars</literal> é uma lista feita de cinco vetores colunas
+        <title>DescriÃ§Ã£o</title>
+        <para>Retorna em uma lista o conjunto de variÃ¡veis utilizadas por uma
+            funÃ§Ã£o. <literal>vars</literal> Ã© uma lista feita de cinco vetores colunas
             de strings
         </para>
         <para>
-            <literal>in</literal> variáveis de entrada
+            <literal>in</literal> variÃ¡veis de entrada
             (<literal>vars(1)</literal>)
         </para>
         <para>
-            <literal>out</literal> variáveis de saída
+            <literal>out</literal> variÃ¡veis de saÃ­da
             (<literal>vars(2)</literal>)
         </para>
         <para>
-            <literal>globals</literal> variáveis globais
+            <literal>globals</literal> variÃ¡veis globais
             (<literal>vars(3)</literal>)
         </para>
         <para>
-            <literal>called</literal> nomes de funções chamadas
+            <literal>called</literal> nomes de funÃ§Ãµes chamadas
             (<literal>vars(4)</literal>)
         </para>
         <para>
-            <literal>locals</literal> variáveis locais
+            <literal>locals</literal> variÃ¡veis locais
             (<literal>vars(5)</literal>)
         </para>
     </refsection>
@@ -73,7 +73,7 @@ vars=macrovar(f)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="string">string</link>

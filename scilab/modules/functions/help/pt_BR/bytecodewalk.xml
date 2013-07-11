@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
- * Ajouter ici d'éventuels commentaires sur le fichier XML
+ * Ajouter ici d'Ã©ventuels commentaires sur le fichier XML
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="bytecodewalk" xml:lang="fr">
     <refnamediv>
         <refname>bytecodewalk</refname>
-        <refpurpose>caminha no bytecode (código de bytes) da função aplicando
-            transformação
+        <refpurpose>caminha no bytecode (cÃ³digo de bytes) da funÃ§Ã£o aplicando
+            transformaÃ§Ã£o
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>c1 = bytecodewalk(code,query,job)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>code</term>
@@ -25,29 +25,29 @@
             <varlistentry>
                 <term>query</term>
                 <listitem>
-                    <para>inteiro, o opcode (código de operação) a ser procurado</para>
+                    <para>inteiro, o opcode (cÃ³digo de operaÃ§Ã£o) a ser procurado</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>job</term>
                 <listitem>
-                    <para>a operação a ser realizada, requerida para</para>
+                    <para>a operaÃ§Ã£o a ser realizada, requerida para</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>c1</term>
                 <listitem>
-                    <para>vetor int32: array de bytecode de saída</para>
+                    <para>vetor int32: array de bytecode de saÃ­da</para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>caminha no bytecode da função aplicando transformação</para>
+        <title>DescriÃ§Ã£o</title>
+        <para>caminha no bytecode da funÃ§Ã£o aplicando transformaÃ§Ã£o</para>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="bytecode">bytecode</link>

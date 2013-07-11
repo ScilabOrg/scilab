@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="iserror" xml:lang="en">
     <refnamediv>
         <refname>iserror</refname>
-        <refpurpose>teste de ocorrência de erros</refpurpose>
+        <refpurpose>teste de ocorrÃªncia de erros</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title> Seqüência de Chamamento </title>
+        <title> SeqÃ¼Ãªncia de Chamamento </title>
         <synopsis>iserror([n])</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Testa se um número de erro <literal>n</literal> ocorreu (após uma
+            Testa se um nÃºmero de erro <literal>n</literal> ocorreu (apÃ³s uma
             chamada a <literal>errcatch</literal>). <literal>iserror</literal> retorna
             <literal>1</literal> se o erro ocorreu e <literal>0</literal> , caso
-            contrário.
+            contrÃ¡rio.
         </para>
         <para>
-            <literal>n&gt;0</literal> é o número do erro ; todos os erros são
+            <literal>n&gt;0</literal> Ã© o nÃºmero do erro ; todos os erros sÃ£o
             testados com <literal>n&lt;0</literal>.
         </para>
     </refsection>
     <refsection>
-        <title> Ver Também </title>
+        <title> Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="error">error</link>

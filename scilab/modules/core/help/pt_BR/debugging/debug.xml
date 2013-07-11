@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="debug" xml:lang="en">
     <refnamediv>
         <refname>debug</refname>
-        <refpurpose>nivel de depuração ("debugging") debugging level</refpurpose>
+        <refpurpose>nivel de depuraÃ§Ã£o ("debugging") debugging level</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>debug(level_int)
             level_int = debug()
             previous_level_int = debug(level_int)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>level_int</term>
@@ -23,11 +23,11 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             Para os valores 0, 1, 2, 3 ou 4 de <literal>level_int</literal> ,
-            define vários níveis de depuração. Isto é voltado para o analisador
-            sintático, não para scripts Scilab. Para usuários mais experientes do
+            define vÃ¡rios nÃ­veis de depuraÃ§Ã£o. Isto Ã© voltado para o analisador
+            sintÃ¡tico, nÃ£o para scripts Scilab. Para usuÃ¡rios mais experientes do
             Scilab.
         </para>
     </refsection>

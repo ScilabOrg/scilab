@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Djalel Abdemouche
@@ -17,32 +17,32 @@
         <refpurpose>Desenha uma entidade</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>draw()
             draw(h)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>h</term>
                 <listitem>
                     <para>a o manipulador de uma entidade a ser desenhada.
                         <literal>h</literal> pode ser um vetor de manipuladores. Neste caso,
-                        todos os objetos identificados por h(i) will serão desenhados
+                        todos os objetos identificados por h(i) will serÃ£o desenhados
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Esta função pode ser utilizada para desenhar entidades especificadas
+        <title>DescriÃ§Ã£o</title>
+        <para>Esta funÃ§Ã£o pode ser utilizada para desenhar entidades especificadas
             por <literal>h</literal> mesmo se a propriedade de figura raiz
             <literal>immediate_drawing</literal> for <literal>"off"</literal>. Se
-            nenhum argumento for especificado, o objeto corrente é desenhado. Note que
-            a janela não deve ser redimensionada; se for, esses objetos serão
+            nenhum argumento for especificado, o objeto corrente Ã© desenhado. Note que
+            a janela nÃ£o deve ser redimensionada; se for, esses objetos serÃ£o
             escondidos.
         </para>
     </refsection>
@@ -55,14 +55,14 @@ plot2d
 drawlater
 
 subplot(211)
-plot2d1 // modo de desenho padrão
+plot2d1 // modo de desenho padrÃ£o
 
 e=gce();
-draw(e.children(2)) // desenhando uma única poligonal dos segundos eixos
+draw(e.children(2)) // desenhando uma Ãºnica poligonal dos segundos eixos
 
-e.children(1).visible='off'; // podemos escolher tornar uma linha invisível
+e.children(1).visible='off'; // podemos escolher tornar uma linha invisÃ­vel
 
-draw(e) // desenha o Compound e seus galhos &lt;=&gt; desenha todas as poligonais visíveis
+draw(e) // desenha o Compound e seus galhos &lt;=&gt; desenha todas as poligonais visÃ­veis
 
 drawnow // ...agora!
 
@@ -70,7 +70,7 @@ e.children(1).visible='on';
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="get">get</link>

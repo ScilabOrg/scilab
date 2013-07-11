@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="getvariablesonstack" xml:lang="en">
     <refnamediv>
         <refname>getvariablesonstack</refname>
-        <refpurpose>retorna nomes de variáveis em na pilha Scilab</refpurpose>
+        <refpurpose>retorna nomes de variÃ¡veis em na pilha Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>s=getvariablesonstack()
             s=getvariablesonstack('local')
             s=getvariablesonstack('global')
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>s</term>
@@ -23,18 +23,18 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Retorna na variável <literal>s</literal> nomes de variáveis na pilha
+            Retorna na variÃ¡vel <literal>s</literal> nomes de variÃ¡veis na pilha
             do Scilab.
         </para>
-        <para>getvariablesonstack('local') retorna o nome das variáveis locais na
+        <para>getvariablesonstack('local') retorna o nome das variÃ¡veis locais na
             pilha.
         </para>
-        <para>getvariablesonstack('global') retorna o nome das variáveis globais
+        <para>getvariablesonstack('global') retorna o nome das variÃ¡veis globais
             na pilha.
         </para>
-        <para>As variáveis são organizadas na ordem alfabética.</para>
+        <para>As variÃ¡veis sÃ£o organizadas na ordem alfabÃ©tica.</para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
@@ -45,7 +45,7 @@ getvariablesonstack('global')
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="who">who</link>

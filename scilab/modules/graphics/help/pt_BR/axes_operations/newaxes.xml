@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -16,11 +16,11 @@
         <refpurpose>Cria uma nova entidade Axes (de eixos)</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>a=newaxes()</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>a</term>
@@ -31,11 +31,11 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>newaxes()</literal> é usado para criar uma nova entidade
+            <literal>newaxes()</literal> Ã© usado para criar uma nova entidade
             <literal>Axes</literal> (ver <link linkend="graphics_entities">graphics_entities</link>) na figura corrente.
-            As propriedades dessa entidade são herdadas da entidade
+            As propriedades dessa entidade sÃ£o herdadas da entidade
             <literal>default_axes</literal> (ver <link linkend="gda">gda</link>)
         </para>
     </refsection>
@@ -59,7 +59,7 @@ legend(['acosh','asinh'])
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="subplot">subplot</link>

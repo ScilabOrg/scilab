@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -158,23 +158,23 @@
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
 w = fileinfo(SCI+'/etc/scilab.start')
-// permissão do arquivo
+// permissГЈo do arquivo
 dec2oct(w(2))
 // data do arquivo
 getdate(w(6))
 
-// Verificando a permissão de escrita em um arquivo
+// Verificando a permissГЈo de escrita em um arquivo
 w = fileinfo(SCI+'/etc/scilab.start')
 
-S_IWRITE = 128; // mascarando a permissão de escrita
-S_IEXEC = 64; // mascarando a permissão de execução
-S_IREAD = 256; // mascarando a permissão de leitura
-S_IFCHR = 8192; // mascarando a permissão de diretório
+S_IWRITE = 128; // mascarando a permissГЈo de escrita
+S_IEXEC = 64; // mascarando a permissГЈo de execuГ§ГЈo
+S_IREAD = 256; // mascarando a permissГЈo de leitura
+S_IFCHR = 8192; // mascarando a permissГЈo de diretГіrio
 
 if ( bitand( w(2), S_IWRITE ) <> 0) then
- disp('PERIMISSÃO DE ESCRITA neste arquivo.');
+ disp('PERIMISSГѓO DE ESCRITA neste arquivo.');
 else
- disp('NÃO HÁ PERIMISSÃO DE ESCRITA neste arquivo.');
+ disp('NГѓO HГЃ PERIMISSГѓO DE ESCRITA neste arquivo.');
 end
  ]]></programlisting>
     </refsection>

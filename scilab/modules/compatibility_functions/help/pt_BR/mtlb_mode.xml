@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="mtlb_mode" xml:lang="en">
     <refnamediv>
         <refname>mtlb_mode</refname>
-        <refpurpose>alterna para modo de operações do Matlab</refpurpose>
+        <refpurpose>alterna para modo de operaÃ§Ãµes do Matlab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title> Seqüência de Chamamento </title>
+        <title> SeqÃ¼Ãªncia de Chamamento </title>
         <synopsis>mmode = mtlb_mode()
             mtlb_mode(mmode)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title> Parâmetros </title>
+        <title> ParÃ¢metros </title>
         <variablelist>
             <varlistentry>
                 <term>mmode</term>
@@ -22,8 +22,8 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Adições e subtrações do Scilab e do Matlab funcionam de modo
+        <title>DescriÃ§Ã£o</title>
+        <para>AdiÃ§Ãµes e subtraÃ§Ãµes do Scilab e do Matlab funcionam de modo
             diferente quando usadas com matrizes vazias:
         </para>
         <variablelist>
@@ -60,9 +60,9 @@ a-[] -->[]
             </varlistentry>
         </variablelist>
         <para>
-            <code>mtlb_mode(%t)</code> alterna para o modo de operações
-            para adição e subtração do Matlab. <code>mtlb_mode(%f)</code> volta
-            para o modo de operações do Scilab.
+            <code>mtlb_mode(%t)</code> alterna para o modo de operaÃ§Ãµes
+            para adiÃ§Ã£o e subtraÃ§Ã£o do Matlab. <code>mtlb_mode(%f)</code> volta
+            para o modo de operaÃ§Ãµes do Scilab.
         </para>
         <para>
             <code>mtlb_mode()</code> retorna o valor <varname>mmode</varname>
@@ -70,7 +70,7 @@ a-[] -->[]
         </para>
     </refsection>
     <refsection>
-        <title> Ver Também </title>
+        <title> Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="empty">empty</link>

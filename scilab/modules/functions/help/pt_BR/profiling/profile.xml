@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ????-2008 - INRIA
@@ -13,57 +13,57 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="profile" xml:lang="en">
     <refnamediv>
         <refname>profile</refname>
-        <refpurpose>extrai profiles (dossiês) de execução de uma função do
+        <refpurpose>extrai profiles (dossiÃªs) de execuÃ§Ã£o de uma funÃ§Ã£o do
             Scilab
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>c=profile(fun)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetro</title>
+        <title>ParÃ¢metro</title>
         <variablelist>
             <varlistentry>
                 <term>fun</term>
                 <listitem>
-                    <para>função Scilab</para>
+                    <para>funÃ§Ã£o Scilab</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>c</term>
                 <listitem>
-                    <para>uma matriz nx3 contendo os profiles de execução</para>
+                    <para>uma matriz nx3 contendo os profiles de execuÃ§Ã£o</para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Para utilizar <literal>profile</literal> a função Scilab deve ter
-            sido preparada para profiling (análise de desempenho) (ver exec).
+            Para utilizar <literal>profile</literal> a funÃ§Ã£o Scilab deve ter
+            sido preparada para profiling (anÃ¡lise de desempenho) (ver exec).
         </para>
-        <para>Pata tal função, quando tal função é executada, o sistema conta
+        <para>Pata tal funÃ§Ã£o, quando tal funÃ§Ã£o Ã© executada, o sistema conta
             quantas vezes cada linha foi executada e quanto tempo de cpu foi gasto
-            para cada execução da linha. Estes dados são armazenados na estrutura de
-            dados da função. A função profile permite extrair esses dados e
-            retorná-los nas duas primeiras colunas de <literal>c</literal>. A terceira
-            coluna de <literal>c</literal> fornece a medida do esforço do
-            interpretador para a execução da linha correspondente. A i-ésima linha de
-            <literal>c</literal> corresponde à i-ésima linha da função (inclusa
+            para cada execuÃ§Ã£o da linha. Estes dados sÃ£o armazenados na estrutura de
+            dados da funÃ§Ã£o. A funÃ§Ã£o profile permite extrair esses dados e
+            retornÃ¡-los nas duas primeiras colunas de <literal>c</literal>. A terceira
+            coluna de <literal>c</literal> fornece a medida do esforÃ§o do
+            interpretador para a execuÃ§Ã£o da linha correspondente. A i-Ã©sima linha de
+            <literal>c</literal> corresponde Ã  i-Ã©sima linha da funÃ§Ã£o (inclusa
             primeiro)
         </para>
-        <para>Note que, devido à precisão do clock do processador (tipicamente, um
-            microssegundo), algumas linhas executadas aparecem com tempo de execução
-            0, mesmo que o tempo de execução de cpu total realmente gasto seja
+        <para>Note que, devido Ã  precisÃ£o do clock do processador (tipicamente, um
+            microssegundo), algumas linhas executadas aparecem com tempo de execuÃ§Ã£o
+            0, mesmo que o tempo de execuÃ§Ã£o de cpu total realmente gasto seja
             grande.
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-//definindo a função e preparando-a para profiling
+//definindo a funÃ§Ã£o e preparando-a para profiling
 deff('x=foo(n)',['if n==0 then'
                  '  x=[]'
                  'else'
@@ -73,17 +73,17 @@ deff('x=foo(n)',['if n==0 then'
                  '    x=x+s(1)'
                  '  end'
                  'end'],'p')
-//chamando a função
+//chamando a funÃ§Ã£o
 foo(10)
-//obtendo profiles de execução
+//obtendo profiles de execuÃ§Ã£o
 profile(foo)
-//chamando a função
+//chamando a funÃ§Ã£o
 foo(20)
-profile(foo) //a execução de profiles é acumulada
+profile(foo) //a execuÃ§Ã£o de profiles Ã© acumulada
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="exec">exec</link>

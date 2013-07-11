@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="perl" xml:lang="en">
     <refnamediv>
         <refname>perl</refname>
-        <refpurpose>chama script Perl utilizando um executável apropriado do
+        <refpurpose>chama script Perl utilizando um executÃ¡vel apropriado do
             sistema operacional
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>perl('perlfile')
             perl('perlfile',arg1,arg2,...)
             result = perl(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>perl('perlfile') chama o script Perl 'perlfile', utilizando o
-            executável Perl apropriado do sistema operacional.
+            executÃ¡vel Perl apropriado do sistema operacional.
         </para>
         <para>perl('perlfile',arg1,arg2,...) chama o script Perl 'perlfile',
-            utilizando o executável Perl apropriado do sistema operacional, e passa os
+            utilizando o executÃ¡vel Perl apropriado do sistema operacional, e passa os
             argumentos arg1, arg2, e assim por diante, a 'perlfile'.
         </para>
         <para>result = perl(...) retorna os resultados de uma chamada a Perl
@@ -27,7 +27,7 @@
         </para>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="unix">unix</link>

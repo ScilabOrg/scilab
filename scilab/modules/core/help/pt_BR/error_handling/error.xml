@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="error" xml:lang="en">
     <refnamediv>
         <refname>error</refname>
         <refpurpose>mensagens de erro</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>error(message)
             error(message, n)
             error(n)
@@ -14,7 +14,7 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>message</term>
@@ -25,48 +25,48 @@
             <varlistentry>
                 <term>n</term>
                 <listitem>
-                    <para>um inteiro. O número associado à mensagem de erro</para>
+                    <para>um inteiro. O nÃºmero associado Ã  mensagem de erro</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>pos</term>
                 <listitem>
-                    <para>um inteiro. Um parâmetro para a mensagem de erro </para>
+                    <para>um inteiro. Um parÃ¢metro para a mensagem de erro </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             <literal>error</literal> permite escrever uma mensagem de erro e
-            manipular o erro. Por padrão, <literal>error</literal> interrompe a
-            execução corrente e retorna ao nível de prompt. Este padrão pode ser
-            modificado utilizando-se as funções <literal>errcatch</literal> ou
+            manipular o erro. Por padrÃ£o, <literal>error</literal> interrompe a
+            execuÃ§Ã£o corrente e retorna ao nÃ­vel de prompt. Este padrÃ£o pode ser
+            modificado utilizando-se as funÃ§Ãµes <literal>errcatch</literal> ou
             <literal>execstr(...,'errcatch')</literal>.
         </para>
         <para>
             <literal>error(message)</literal> imprime o string contido em
-            <literal>message</literal>. O número associado à mensagem de erro é 10000.
+            <literal>message</literal>. O nÃºmero associado Ã  mensagem de erro Ã© 10000.
         </para>
         <para>
             <literal>error(message,n)</literal> imprime o string contido em
-            <literal>message</literal>. O número associado à mensagem de erro é dado
-            por n . Este número deve ser maior que 10000. 
+            <literal>message</literal>. O nÃºmero associado Ã  mensagem de erro Ã© dado
+            por n . Este nÃºmero deve ser maior que 10000. 
         </para>
         <para>
             <literal>error(n)</literal> imprime a mensagem de erro predefinda
-            associada ao número de erro <literal>n</literal>.
+            associada ao nÃºmero de erro <literal>n</literal>.
         </para>
-        <para>Algumas mensagens de erro predefinidas requerem um parâmetro (ver
+        <para>Algumas mensagens de erro predefinidas requerem um parÃ¢metro (ver
             <link linkend="error_table">error_table</link>). Neste caso, o argumento
             <literal>pos</literal> deve ser usado <literal>error(n,pos)</literal> para
-            fornecer o valor do parâmetro. Em outros casos, o parâmetro é
+            fornecer o valor do parÃ¢metro. Em outros casos, o parÃ¢metro Ã©
             ignorado.
         </para>
         <para>
             Ver <link linkend="error_table">error_table</link> para uma lista
-            das mensagens de erro e seus números associados.
+            das mensagens de erro e seus nÃºmeros associados.
         </para>
     </refsection>
     <refsection>
@@ -78,7 +78,7 @@ error(10001, ['A'; 'multi';'line';'error';'message'])
 lasterror()]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="warning">warning</link>

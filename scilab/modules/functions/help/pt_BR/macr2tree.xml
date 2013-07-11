@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="macr2tree" xml:lang="en">
     <refnamediv>
         <refname>macr2tree</refname>
-        <refpurpose>conversão de função para árvore</refpurpose>
+        <refpurpose>conversÃ£o de funÃ§Ã£o para Ã¡rvore</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>t=macr2tree(function-name)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>function-name</term>
@@ -20,16 +20,16 @@
             <varlistentry>
                 <term>t</term>
                 <listitem>
-                    <para>uma "árvore" do Scilab</para>
+                    <para>uma "Ã¡rvore" do Scilab</para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Esta primitiva converte uma função Scilab compilada
-            <literal>function-name</literal> em uma árvore (tlistas imbricadas) que
-            codifica a representação interna da função. Deve ser usada com
+        <title>DescriÃ§Ã£o</title>
+        <para>Esta primitiva converte uma funÃ§Ã£o Scilab compilada
+            <literal>function-name</literal> em uma Ã¡rvore (tlistas imbricadas) que
+            codifica a representaÃ§Ã£o interna da funÃ§Ã£o. Deve ser usada com
             <literal>tree2code</literal>.
         </para>
     </refsection>
@@ -42,7 +42,7 @@ write(%io(2),txt,'(a)');
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="tree2code">tree2code</link>

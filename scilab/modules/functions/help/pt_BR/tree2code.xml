@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - 
@@ -13,19 +13,19 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="tree2code" xml:lang="en">
     <refnamediv>
         <refname>tree2code</refname>
-        <refpurpose>gera a definição ASCII de uma função Scilab</refpurpose>
+        <refpurpose>gera a definiÃ§Ã£o ASCII de uma funÃ§Ã£o Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>txt=tree2code(tree,prettyprint)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>tree</term>
                 <listitem>
-                    <para>uma árvore macro (vinda de macr2tree)</para>
+                    <para>uma Ã¡rvore macro (vinda de macr2tree)</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -36,13 +36,13 @@
                         <varlistentry>
                             <term>%T</term>
                             <listitem>
-                                <para>o código gerado é identado e embelezado</para>
+                                <para>o cÃ³digo gerado Ã© identado e embelezado</para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>%F</term>
                             <listitem>
-                                <para>o código gerado não é embelezado (padrão)</para>
+                                <para>o cÃ³digo gerado nÃ£o Ã© embelezado (padrÃ£o)</para>
                             </listitem>
                         </varlistentry>
                     </variablelist>
@@ -51,7 +51,7 @@
             <varlistentry>
                 <term>txt</term>
                 <listitem>
-                    <para>um vetor coluna de strings, o texto fornecendo as instruções
+                    <para>um vetor coluna de strings, o texto fornecendo as instruÃ§Ãµes
                         Scilab
                     </para>
                 </listitem>
@@ -59,9 +59,9 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Dada uma função Scilab carregada "tree" (retornada por macr2tree),
-            tree2code permite gerar novamente o código.
+        <title>DescriÃ§Ã£o</title>
+        <para>Dada uma funÃ§Ã£o Scilab carregada "tree" (retornada por macr2tree),
+            tree2code permite gerar novamente o cÃ³digo.
         </para>
     </refsection>
     <refsection>
@@ -73,7 +73,7 @@ write(%io(2),txt,'(a)');
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="macr2tree">macr2tree</link>

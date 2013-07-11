@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="matrix" xml:lang="en">
     <refnamediv>
         <refname>matrix</refname>
         <refpurpose>Muda a forma de vetores ou matrizes</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>y=matrix(v,n,m)
             y=matrix(v,[sizes])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>v</term>
@@ -40,7 +40,7 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             Para um vetor ou matriz com <literal>n</literal> x
             <literal>m</literal> entradas, o comando
@@ -49,17 +49,17 @@
             <literal>v</literal> em uma matriz <literal>nxm</literal> empilhando as
             entradas coluna a coluna de <literal>v</literal>.
         </para>
-        <para>Se uma das dimensões m ou n é igual a -1, ela é automaticamente
-            atribuída ao quociente de tamanho (v,'*') pela outra dimensão,
+        <para>Se uma das dimensÃµes m ou n Ã© igual a -1, ela Ã© automaticamente
+            atribuÃ­da ao quociente de tamanho (v,'*') pela outra dimensÃ£o,
         </para>
         <para>Para uma hipermatriz tal como
             <literal>prod(size(v))==prod(sizes)</literal>, o comando
             <literal>y=matrix(v,sizes)</literal> (ou equivalentemente
             <literal>y=matrix(v,n1,n2,...nm)</literal>) transforma
             <literal>v</literal> em uma matriz ou hipermatriz empilhando "coluna a
-            coluna" as entradas de <literal>v</literal> (a primeira dimensão variando
+            coluna" as entradas de <literal>v</literal> (a primeira dimensÃ£o variando
             primeiro). <literal>y=matrix(v,sizes)</literal> resulta numa matriz
-            regular se os tamanhos são escalares ou um vetor de duas entradas.
+            regular se os tamanhos sÃ£o escalares ou um vetor de duas entradas.
         </para>
     </refsection>
     <refsection>
@@ -72,7 +72,7 @@ matrix(a,3,2)
  ]]></programlisting>
     </refsection>
     <refsection>
-        <title> Ver Também</title>
+        <title> Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="matrices">matrices</link>

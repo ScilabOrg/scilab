@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
@@ -255,7 +255,7 @@ s1 = optimsimplex_destroy ( s1 );
             University
         </para>
         <para>
-            "Grid Restrained Nelder-Mead Algorithm", Árpád B&#361;rmen, Janez
+            "Grid Restrained Nelder-Mead Algorithm", ÃrpÃ¡d B&#361;rmen, Janez
             Puhan, Tadej Tuma, Computational Optimization and Applications, Volume 34
             , Issue 3 (July 2006), Pages: 359 - 375
         </para>

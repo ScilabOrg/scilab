@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="less" xml:lang="en">
     <refnamediv>
         <refname>less</refname>
-        <refpurpose>(&lt;) comparação "menor do que"</refpurpose>
+        <refpurpose>(&lt;) comparaÃ§Ã£o "menor do que"</refpurpose>
     </refnamediv>
     <refnamediv xml:id="greater">
         <refname>greater</refname>
-        <refpurpose>(&gt;) comparação "maior do que"</refpurpose>
+        <refpurpose>(&gt;) comparaÃ§Ã£o "maior do que"</refpurpose>
     </refnamediv>
     <refsection>
-        <title>Descrição</title>
-        <para>Símbolo de comparação lógica </para>
+        <title>DescriÃ§Ã£o</title>
+        <para>SÃ­mbolo de comparaÃ§Ã£o lÃ³gica </para>
         <variablelist>
             <varlistentry>
                 <term>&lt;&gt;</term>
                 <listitem>
-                    <para>significa "diferente" (é o mesmo que ~= ) </para>
+                    <para>significa "diferente" (Ã© o mesmo que ~= ) </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -45,7 +45,7 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title> Ver Também </title>
+        <title> Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="if">if</link>

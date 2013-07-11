@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -16,7 +16,7 @@
         <refpurpose>Converte cores HSV para RGB</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>[r,g,b] = hsv2rgb(h,s,v)
             rgb = hsv2rgb(h,s,v)
             [r,g,b] = hsv2rgb(hsv)
@@ -24,7 +24,7 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>h</term>
@@ -35,7 +35,7 @@
             <varlistentry>
                 <term>s</term>
                 <listitem>
-                    <para>um vetor de tamanho n. Os valores "saturation" (de saturação)
+                    <para>um vetor de tamanho n. Os valores "saturation" (de saturaÃ§Ã£o)
                     </para>
                 </listitem>
             </varlistentry>
@@ -48,7 +48,7 @@
             <varlistentry>
                 <term>hsv</term>
                 <listitem>
-                    <para>uma matriz n x 3. Cada linha contém uma tripla [hue saturation
+                    <para>uma matriz n x 3. Cada linha contÃ©m uma tripla [hue saturation
                         value]. 
                     </para>
                 </listitem>
@@ -77,7 +77,7 @@
             <varlistentry>
                 <term>rgb</term>
                 <listitem>
-                    <para>uma matriz n x 3. Cada linha contém uma tripla [red green
+                    <para>uma matriz n x 3. Cada linha contÃ©m uma tripla [red green
                         blue]. 
                     </para>
                 </listitem>
@@ -85,15 +85,15 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>A função hsv2rgb converte mapas de cores entre os espaços de cores
+        <title>DescriÃ§Ã£o</title>
+        <para>A funÃ§Ã£o hsv2rgb converte mapas de cores entre os espaÃ§os de cores
             RGB e HSV. Como a matiz varia de 0 a 1.0 , as cores correspondentes podem
             variar partindo do vermelho entre amarelo, verde, ciano, azul, magenta, e
-            preto, até vermelho novamente, de modo que há na verdade valores de
-            vermelho tanto em 0 quanto em 1.0 . À medida em que a saturação varia de 0
-            a 1.0, as cores correspondentes (matizes) variam de insaturadas (gradações
-            de cinza) a completamente saturadas (nenhum componente branco). à medida
-            em que o valor, ou brilho, varia de 0 a 1.0, as cores correspondentes vão
+            preto, atÃ© vermelho novamente, de modo que hÃ¡ na verdade valores de
+            vermelho tanto em 0 quanto em 1.0 . Ã€ medida em que a saturaÃ§Ã£o varia de 0
+            a 1.0, as cores correspondentes (matizes) variam de insaturadas (gradaÃ§Ãµes
+            de cinza) a completamente saturadas (nenhum componente branco). Ã  medida
+            em que o valor, ou brilho, varia de 0 a 1.0, as cores correspondentes vÃ£o
             se tornando mais brilhantes. 
         </para>
     </refsection>

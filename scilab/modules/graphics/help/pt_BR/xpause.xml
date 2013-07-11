@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ENPC - Jean-Philippe Chancelier
@@ -16,14 +16,14 @@
         <refpurpose>suspende o Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>xpause(microsecs)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>xpause</literal> suspende o processo corrente pelo número
-            de microssegundos especificados pelo argumento. A suspensão real pode
+            <literal>xpause</literal> suspende o processo corrente pelo nÃºmero
+            de microssegundos especificados pelo argumento. A suspensÃ£o real pode
             tornar-se mais longa devido a outras atividades do sistema, ou por causa
             do tempo gasto no processamento da chamada.
         </para>

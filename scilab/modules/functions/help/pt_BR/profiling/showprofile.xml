@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ????-2008 - INRIA
@@ -13,47 +13,47 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="showprofile" xml:lang="en">
     <refnamediv>
         <refname>showprofile</refname>
-        <refpurpose>extrai e exibe profiles (dossiês) de execução de uma função
+        <refpurpose>extrai e exibe profiles (dossiÃªs) de execuÃ§Ã£o de uma funÃ§Ã£o
             Scilab
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>showprofile(fun)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>fun</term>
                 <listitem>
-                    <para>função Scilab</para>
+                    <para>funÃ§Ã£o Scilab</para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Para utilizar <literal>showprofile</literal> a função Scilab deve
-            ter sido preparada para profiling (análise de performance) (ver
+            Para utilizar <literal>showprofile</literal> a funÃ§Ã£o Scilab deve
+            ter sido preparada para profiling (anÃ¡lise de performance) (ver
             exec).
         </para>
-        <para>Para tal função,Quando tal função é executada, o sistema conta
-            quantas número de vezes que cada linha é executada e quanto tempo de cpu é
-            gasto para execução de cada linha. Estes dados são armazenados dentro da
-            estrutura de dados da função. A função <literal>showprofile</literal>
+        <para>Para tal funÃ§Ã£o,Quando tal funÃ§Ã£o Ã© executada, o sistema conta
+            quantas nÃºmero de vezes que cada linha Ã© executada e quanto tempo de cpu Ã©
+            gasto para execuÃ§Ã£o de cada linha. Estes dados sÃ£o armazenados dentro da
+            estrutura de dados da funÃ§Ã£o. A funÃ§Ã£o <literal>showprofile</literal>
             retorna resultados de profiling (ver <literal>profile</literal>) com o
-            texto das linhas da função.
+            texto das linhas da funÃ§Ã£o.
         </para>
-        <para>O texto da função é reconstruído com
+        <para>O texto da funÃ§Ã£o Ã© reconstruÃ­do com
             <literal>fun2string</literal>.
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-//definindo função e preparando-a para profiling
+//definindo funÃ§Ã£o e preparando-a para profiling
 deff('x=foo(n)',['if n==0 then'
                  '  x=[]'
                  'else'
@@ -63,14 +63,14 @@ deff('x=foo(n)',['if n==0 then'
                  '    x=x+s(1)'
                  '  end'
                  'end'],'p')
-//chamada à função
+//chamada Ã  funÃ§Ã£o
 foo(30)
 //obtendo profiles
 showprofile(foo)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="profile">profile</link>

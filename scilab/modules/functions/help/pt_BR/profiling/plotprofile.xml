@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ????-2008 - INRIA
@@ -13,53 +13,53 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="plotprofile" xml:lang="en">
     <refnamediv>
         <refname>plotprofile</refname>
-        <refpurpose>extrai e exibe execução de profiles (dossiês) de uma função
+        <refpurpose>extrai e exibe execuÃ§Ã£o de profiles (dossiÃªs) de uma funÃ§Ã£o
             Scilab
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>plotprofile(fun)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>fun</term>
                 <listitem>
-                    <para>função Scilab compilada, ou nome de função (string), ou array
-                        de nomes de funções
+                    <para>funÃ§Ã£o Scilab compilada, ou nome de funÃ§Ã£o (string), ou array
+                        de nomes de funÃ§Ãµes
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Para utilizar <literal>plotprofile</literal>, a função Scilab deve
-            ter sido preparada para profiling (análise de desempenho) (ver
+            Para utilizar <literal>plotprofile</literal>, a funÃ§Ã£o Scilab deve
+            ter sido preparada para profiling (anÃ¡lise de desempenho) (ver
             exec).
         </para>
-        <para>Quando tal função é executada, o sistema conta quantas vezes cada
+        <para>Quando tal funÃ§Ã£o Ã© executada, o sistema conta quantas vezes cada
             linha foi executada e quanto tempo de cpu foi gasto para cada linha. Estes
-            dados são armazenados dentro da estrutura de dados da função. A função
-            <literal>plotprofile</literal> é um comando interativo que exibe os
-            resultados em uma janela gráfica. Quando uma linha é clcada, a fonte da
-            função é exibida com a linha selecionada realçada.
+            dados sÃ£o armazenados dentro da estrutura de dados da funÃ§Ã£o. A funÃ§Ã£o
+            <literal>plotprofile</literal> Ã© um comando interativo que exibe os
+            resultados em uma janela grÃ¡fica. Quando uma linha Ã© clcada, a fonte da
+            funÃ§Ã£o Ã© exibida com a linha selecionada realÃ§ada.
         </para>
-        <para>NOTA: você deve clicar no item "Exit" na janela de gráficos para
+        <para>NOTA: vocÃª deve clicar no item "Exit" na janela de grÃ¡ficos para
             sair de "plotprofile".
         </para>
         <para>
-            O código da função é gerado com <literal>fun2string</literal> e
-            guardado em um arquivo temporário.
+            O cÃ³digo da funÃ§Ã£o Ã© gerado com <literal>fun2string</literal> e
+            guardado em um arquivo temporÃ¡rio.
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-//definindo função e preparando-a para profiling
+//definindo funÃ§Ã£o e preparando-a para profiling
 deff('x=foo(n)',['if n==0 then'
                  '  x=[]'
                  'else'
@@ -69,14 +69,14 @@ deff('x=foo(n)',['if n==0 then'
                  '    x=x+s(1)'
                  '  end'
                  'end'],'p')
-//chamando a função
+//chamando a funÃ§Ã£o
 foo(30)
-//obtendo profiles de execução
+//obtendo profiles de execuÃ§Ã£o
 plotprofile(foo) // clique em Exit para sair
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="profile">profile</link>

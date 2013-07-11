@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="type">
     <refnamediv>
         <refname>type</refname>
@@ -194,7 +194,7 @@
                 Please note that, for some variables, <function>type</function> will return <literal>tlist</literal>
                 or <literal>mlist</literal> due to the internal data structure. This is the case of
                 <emphasis role="italic">rational</emphasis> and <emphasis role="italic">state-space</emphasis> matrices,
- <emphasis role="italic">uitree</emphasis>, <emphasis role="italic">hypermat</emphasis> and <emphasis role="italic">struct</emphasis>. Please considering the use of
+                <emphasis role="italic">uitree</emphasis>, <emphasis role="italic">hypermat</emphasis> and <emphasis role="italic">struct</emphasis>. Please considering the use of
                 <link linkend="typeof">typeof</link> instead.
             </note>
         </para>

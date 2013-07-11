@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -13,35 +13,35 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="setdiff" xml:lang="en">
     <refnamediv>
         <refname>setdiff</refname>
-        <refpurpose>retorna componentes de um vetor que não pertecem a outro
+        <refpurpose>retorna componentes de um vetor que nÃ£o pertecem a outro
             vetor
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>v=setdiff(a,b)
             [v,ka]=setdiff(a,b)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>a</term>
                 <listitem>
-                    <para>vetor de números reais ou strings </para>
+                    <para>vetor de nÃºmeros reais ou strings </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>b</term>
                 <listitem>
-                    <para>vetor de números reais ou strings </para>
+                    <para>vetor de nÃºmeros reais ou strings </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>v</term>
                 <listitem>
-                    <para>vetor de números reais ou strings com a mesma orientação de
+                    <para>vetor de nÃºmeros reais ou strings com a mesma orientaÃ§Ã£o de
                         <literal>a</literal>
                     </para>
                 </listitem>
@@ -49,7 +49,7 @@
             <varlistentry>
                 <term>ka</term>
                 <listitem>
-                    <para>vetor linha de inteiros, ka(i) é a localização de v(i) em
+                    <para>vetor linha de inteiros, ka(i) Ã© a localizaÃ§Ã£o de v(i) em
                         a
                     </para>
                 </listitem>
@@ -57,16 +57,16 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>setdiff(a,b)</literal> retorna um vetor ordenado que retém
-            as entradas de <literal>a</literal> que não estão em
+            <literal>setdiff(a,b)</literal> retorna um vetor ordenado que retÃ©m
+            as entradas de <literal>a</literal> que nÃ£o estÃ£o em
             <literal>b</literal>
         </para>
         <para>
             <literal>[v,ka]=setdiff(a,b)</literal> retorna um vetor ordenado que
-            retém as entradas de <literal>a</literal> que não estão em
-            <literal>b</literal> e a localização destas entradas em a.
+            retÃ©m as entradas de <literal>a</literal> que nÃ£o estÃ£o em
+            <literal>b</literal> e a localizaÃ§Ã£o destas entradas em a.
         </para>
     </refsection>
     <refsection>
@@ -79,7 +79,7 @@ setdiff(a,b)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="unique">unique</link>

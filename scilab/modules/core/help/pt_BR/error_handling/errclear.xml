@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="errclear" xml:lang="en">
     <refnamediv>
         <refname>errclear</refname>
         <refpurpose>limpeza de erros</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>errclear([n])</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Descrição</title>
-        <para>Limpa a ação (manipulador de erros) conectada ao erro de tipo
+        <title>DescriÃ§Ã£o</title>
+        <para>Limpa a aÃ§Ã£o (manipulador de erros) conectada ao erro de tipo
             <literal>n</literal>.
         </para>
         <para>
-            Se <literal>n</literal> &gt; 0 é positivo, é o número do erro limpo;
-            caso contrário (n &lt;= 0), todos os erros são limpos (caso
-            padrão).
+            Se <literal>n</literal> &gt; 0 Ã© positivo, Ã© o nÃºmero do erro limpo;
+            caso contrÃ¡rio (n &lt;= 0), todos os erros sÃ£o limpos (caso
+            padrÃ£o).
         </para>
     </refsection>
     <refsection>
@@ -36,7 +36,7 @@
         </programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="errcatch">errcatch</link>

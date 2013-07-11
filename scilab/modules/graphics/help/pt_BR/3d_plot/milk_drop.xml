@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -13,14 +13,14 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="milk_drop" xml:lang="en">
     <refnamediv>
         <refname>milk_drop</refname>
-        <refpurpose>Função 3d gota de leite</refpurpose>
+        <refpurpose>FunÃ§Ã£o 3d gota de leite</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>z=milk_drop(x,y)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>x,y</term>
@@ -37,10 +37,10 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>milk_drop</literal> é uma função que representa uma gota de
-            leite caindo no leite. Pode ser usada para testar funções
+            <literal>milk_drop</literal> Ã© uma funÃ§Ã£o que representa uma gota de
+            leite caindo no leite. Pode ser usada para testar funÃ§Ãµes
             <literal>eval3d</literal> e <literal>plot3d</literal>.
         </para>
     </refsection>
@@ -53,7 +53,7 @@ plot3d(x,y,z)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="eval3d">eval3d</link>

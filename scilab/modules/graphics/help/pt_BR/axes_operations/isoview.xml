@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -13,16 +13,16 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="isoview" xml:lang="en">
     <refnamediv>
         <refname>isoview</refname>
-        <refpurpose>ajusta escalas para esboço isométrico (não muda o tamanho da
+        <refpurpose>ajusta escalas para esboÃ§o isomÃ©trico (nÃ£o muda o tamanho da
             janela)
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>isoview(xmin,xmax,ymin,ymax)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>xmin,xmax,ymin,ymax</term>
@@ -33,18 +33,18 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Esta função está obsoleta, use a opção de plot2d
+        <title>DescriÃ§Ã£o</title>
+        <para>Esta funÃ§Ã£o estÃ¡ obsoleta, use a opÃ§Ã£o de plot2d
             <literal>frameflag=4</literal> que permite redimensionamento da janela, ao
-            invés.
+            invÃ©s.
         </para>
         <para>
-            <literal>isoview</literal> é usado para obter escalas isométricas
-            nos eixos x e y. O tamanho da janela de gráficos não é alterado. O
-            retângulo <literal>xmin, xmax, ymin, ymax</literal> será contido no quadro
-            computado da janela de gráficos. <literal>isoview</literal> ajusta as
-            escalas gráficas correntes e pode ser usado em conjunção com rotinas que
-            requerem escalas gráficas correntes (por exemplo
+            <literal>isoview</literal> Ã© usado para obter escalas isomÃ©tricas
+            nos eixos x e y. O tamanho da janela de grÃ¡ficos nÃ£o Ã© alterado. O
+            retÃ¢ngulo <literal>xmin, xmax, ymin, ymax</literal> serÃ¡ contido no quadro
+            computado da janela de grÃ¡ficos. <literal>isoview</literal> ajusta as
+            escalas grÃ¡ficas correntes e pode ser usado em conjunÃ§Ã£o com rotinas que
+            requerem escalas grÃ¡ficas correntes (por exemplo
             <literal>strf="x0z"</literal> em <literal>plot2d</literal>).
         </para>
     </refsection>
@@ -62,7 +62,7 @@ plot2d(sin(t),cos(t),frameflag=4)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="square">square</link>

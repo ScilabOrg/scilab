@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -13,10 +13,10 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="lib" xml:lang="en">
     <refnamediv>
         <refname>lib</refname>
-        <refpurpose>definição de biblioteca</refpurpose>
+        <refpurpose>definiÃ§Ã£o de biblioteca</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>xlib = lib('lib-dir')</synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -31,35 +31,35 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>lib-dir</literal> é um string definindo um diretório que
-            contém arquivos de funções compiladas do Scilab
+            <literal>lib-dir</literal> Ã© um string definindo um diretÃ³rio que
+            contÃ©m arquivos de funÃ§Ãµes compiladas do Scilab
             (<literal>.bin</literal>).
         </para>
         <para>
-            Em adição a esses arquivos <literal>lib-dir</literal> deve conter um
-            arquivo chamado <literal>names</literal>, que contém os nomes das funções
-            definidas em <literal>lib-dir</literal>. Com sucesso, todas as funções em
-            <literal>lib-dir</literal> estarão disponíveis dentro do Scilab. Elas são
-            carregadas em demanda quando são chamadas pela primeira vez.
+            Em adiÃ§Ã£o a esses arquivos <literal>lib-dir</literal> deve conter um
+            arquivo chamado <literal>names</literal>, que contÃ©m os nomes das funÃ§Ãµes
+            definidas em <literal>lib-dir</literal>. Com sucesso, todas as funÃ§Ãµes em
+            <literal>lib-dir</literal> estarÃ£o disponÃ­veis dentro do Scilab. Elas sÃ£o
+            carregadas em demanda quando sÃ£o chamadas pela primeira vez.
         </para>
-        <para>Arquivos binários podem ser criados de dentro do Scilab com o
+        <para>Arquivos binÃ¡rios podem ser criados de dentro do Scilab com o
             comando <literal>save</literal>.
         </para>
-        <para>As bibliotecas padrões do Scilab são definidas utilizando-se
-            <literal>lib</literal> nos subdiretórios
+        <para>As bibliotecas padrÃµes do Scilab sÃ£o definidas utilizando-se
+            <literal>lib</literal> nos subdiretÃ³rios
             <literal>SCI/modules/*/macros/*</literal>.
         </para>
-        <para>Uma variável biblioteca geralmente é salva para carregamento
-            posterior, tanto on-line quanto do arquivo de inicialização específico do
-            usuário (ver startup).
+        <para>Uma variÃ¡vel biblioteca geralmente Ã© salva para carregamento
+            posterior, tanto on-line quanto do arquivo de inicializaÃ§Ã£o especÃ­fico do
+            usuÃ¡rio (ver startup).
         </para>
     </refsection>
     <refsection>
-        <title>Restrições</title>
+        <title>RestriÃ§Ãµes</title>
         <para>O Scilab assume tacitamente que cada arquivo xxxx.bin define uma
-            variável chamada <literal>xxxx</literal>.
+            variÃ¡vel chamada <literal>xxxx</literal>.
         </para>
     </refsection>
     <refsection>
@@ -92,7 +92,7 @@ A
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="library">library</link>

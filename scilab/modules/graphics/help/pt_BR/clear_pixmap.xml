@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Serge Steer
@@ -13,29 +13,29 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="clear_pixmap" xml:lang="en">
     <refnamediv>
         <refname>clear_pixmap</refname>
-        <refpurpose>Apaga o buffer de pixmap ("mapa de píxeis")</refpurpose>
+        <refpurpose>Apaga o buffer de pixmap ("mapa de pÃ­xeis")</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>clear_pixmap()</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Se a propriedade de uma janela de gráficos <literal>pixmap</literal>
-            for <literal>"on"</literal> as gravuras são enviadas para uma memória
-            pixmap, ao invés de serem exibidas na tela. 
+            Se a propriedade de uma janela de grÃ¡ficos <literal>pixmap</literal>
+            for <literal>"on"</literal> as gravuras sÃ£o enviadas para uma memÃ³ria
+            pixmap, ao invÃ©s de serem exibidas na tela. 
         </para>
         <para/>
         <para>
-            A instrução <literal>clear_pixmap()</literal> apaga o pixmap, mas
-            não a tela.
+            A instruÃ§Ã£o <literal>clear_pixmap()</literal> apaga o pixmap, mas
+            nÃ£o a tela.
         </para>
         <para/>
-        <para>O modo pixmap pode ser usado para se obter animações suaves.</para>
+        <para>O modo pixmap pode ser usado para se obter animaÃ§Ãµes suaves.</para>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="figure_properties">figure_properties</link>

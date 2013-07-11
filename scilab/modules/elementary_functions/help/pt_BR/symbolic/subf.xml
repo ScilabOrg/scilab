@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
@@ -13,14 +13,14 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="subf" xml:lang="en">
     <refnamediv>
         <refname>subf</refname>
-        <refpurpose>subtração simbólica</refpurpose>
+        <refpurpose>subtraÃ§Ã£o simbÃ³lica</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>["c"]=subf("a","b")</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>"a","b","c"</term>
@@ -31,11 +31,11 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             Retorna o string <literal>c</literal>=<literal>"a-b"</literal>.
-            Simplificações triviais como <literal>subf("0","a")</literal> ou
-            <literal>subf("1","2")</literal> são realizadas.
+            SimplificaÃ§Ãµes triviais como <literal>subf("0","a")</literal> ou
+            <literal>subf("1","2")</literal> sÃ£o realizadas.
         </para>
     </refsection>
     <refsection>
@@ -47,7 +47,7 @@ subf('a','0')
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="mulf">mulf</link>

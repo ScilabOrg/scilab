@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="do" xml:lang="en">
     <refnamediv>
         <refname>do</refname>
-        <refpurpose>palavra-chave de linguagem para laços ("loops") (significa
-            "faça...")
+        <refpurpose>palavra-chave de linguagem para laÃ§os ("loops") (significa
+            "faÃ§a...")
         </refpurpose>
     </refnamediv>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Pode ser usado dentro de instruções <literal>for</literal> ou
-            <literal>while</literal> para separar a definição de variável do laço e o
-            conjunto de instruções do mesmo. 
+            Pode ser usado dentro de instruÃ§Ãµes <literal>for</literal> ou
+            <literal>while</literal> para separar a definiÃ§Ã£o de variÃ¡vel do laÃ§o e o
+            conjunto de instruÃ§Ãµes do mesmo. 
         </para>
     </refsection>
     <refsection>
@@ -35,7 +35,7 @@ end
     </refsection>
     
     <refsection>
-        <title> Ver Também </title>
+        <title> Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="for">for</link>

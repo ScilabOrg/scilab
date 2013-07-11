@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Farid Belahcene
@@ -18,51 +18,51 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>barhomogenize()
             barhomogenize([h[,'style'[,'width']]])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>h</term>
                 <listitem>
-                    <para>manipulador de eixos, (padrão: h=gca() ). </para>
+                    <para>manipulador de eixos, (padrÃ£o: h=gca() ). </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>style</term>
                 <listitem>
-                    <para>string, 'grouped' ou 'stacked' (padrão: 'grouped'). </para>
+                    <para>string, 'grouped' ou 'stacked' (padrÃ£o: 'grouped'). </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>width</term>
                 <listitem>
                     <para>(opcional) escalar real, define a largura (uma porcentagem do
-                        espaço disponível) para a barra (padrão: 0.8).
+                        espaÃ§o disponÃ­vel) para a barra (padrÃ£o: 0.8).
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Se há várias chamadas a bar, a função
+        <title>DescriÃ§Ã£o</title>
+        <para>Se hÃ¡ vÃ¡rias chamadas a bar, a funÃ§Ã£o
             <literal>barhomogenize</literal> permite homogeneizar a largura e estilo
-            de todas as barras (i.e que têm <literal>polyline_style</literal> tipo 6)
+            de todas as barras (i.e que tÃªm <literal>polyline_style</literal> tipo 6)
             inclusas nos eixos correntes. Estas barras devem ter os mesmos dados
             x.
         </para>
         <para>
-            <literal>barhomogenize( ) :</literal> toma os valores padrões,
+            <literal>barhomogenize( ) :</literal> toma os valores padrÃµes,
             h=gca(), width=0.8, style='grouped'. 
         </para>
         <para>
             <literal>barhomogenize(h,...) :</literal> define os eixos correntes
-            onde o desenho é realizado.
+            onde o desenho Ã© realizado.
         </para>
         <para>
             <literal>barhomogenize(...,width,...) :</literal> define a largura
@@ -70,50 +70,50 @@
         </para>
         <para>
             <literal>barhomogenize(...,style,...) :</literal> define como as
-            barras são desenhadas. A opção 'grouped' permite centrar as M poligonais
-            versus cada componente de x, e a opção 'stacked' permite
-            empilhá-las.
+            barras sÃ£o desenhadas. A opÃ§Ã£o 'grouped' permite centrar as M poligonais
+            versus cada componente de x, e a opÃ§Ã£o 'stacked' permite
+            empilhÃ¡-las.
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-// Primeiro exemplo: criação de uma barra amarela (i.e uma poligonal com polyline_style=6) e  três barras (i.e três poligonais com polyline_style=6) 
+// Primeiro exemplo: criaÃ§Ã£o de uma barra amarela (i.e uma poligonal com polyline_style=6) e  trÃªs barras (i.e trÃªs poligonais com polyline_style=6) 
 subplot(2,3,1)
-xtitle('ex1: criação de uma barra amarela e três barras')
+xtitle('ex1: criaÃ§Ã£o de uma barra amarela e trÃªs barras')
 x=1:3; y1=1:3; y2=[4 3 5;6 7 8;9 10 11];
 bar(x,y1,'yellow');bar(x,y2);
-// homogeneização dessas quatro barras
+// homogeneizaÃ§Ã£o dessas quatro barras
 subplot(2,3,2) 
-xtitle('homogenização agrupada')
+xtitle('homogenizaÃ§Ã£o agrupada')
 x=1:3; y1=1:3; y2=[4 3 5;6 7 8;9 10 11];
 bar(x,y1,'yellow');bar(x,y2);
 barhomogenize();
-// homogenização empilhada dessas quatro barras
+// homogenizaÃ§Ã£o empilhada dessas quatro barras
 subplot(2,3,3)
-xtitle('homogenização empilhada')
+xtitle('homogenizaÃ§Ã£o empilhada')
 x=1:3; y1=1:3; y2=[4 3 5;6 7 8;9 10 11];
 bar(x,y1,'yellow');bar(x,y2);
 barhomogenize('stacked',1);
 
-// Segundo exemplo: criação de uma barra vermelha (i.e uma poligonal com polyline_style=6) e duas poligonais com type=1 (função de chamamento do esboço)
+// Segundo exemplo: criaÃ§Ã£o de uma barra vermelha (i.e uma poligonal com polyline_style=6) e duas poligonais com type=1 (funÃ§Ã£o de chamamento do esboÃ§o)
 subplot(2,3,4)
-xtitle('ex2: criação de uma barra e duas poligonais')
+xtitle('ex2: criaÃ§Ã£o de uma barra e duas poligonais')
 x=1:10; y=sin(x)/2;
 bar(x,y,'red')
 x1=1:10;y1=[sin(x);cos(x)]
 plot(x1,y1)
-// modificando o polyline_style da segunda poligonal do esboço (esta poligonal se torna em uma barra)
+// modificando o polyline_style da segunda poligonal do esboÃ§o (esta poligonal se torna em uma barra)
 subplot(2,3,5)
-xtitle('transformação da segunda poligonal em uma barra')
+xtitle('transformaÃ§Ã£o da segunda poligonal em uma barra')
 x=1:10; y=sin(x)/2;
 bar(x,y,'red')
 x1=1:10;y1=[sin(x);cos(x)]
 plot(x1,y1)
 e=gce(); e2=e.children(2); e2.polyline_style=6;
-// homogenização da primeira barra (da função bar) e da segunda barra (da modificação).
+// homogenizaÃ§Ã£o da primeira barra (da funÃ§Ã£o bar) e da segunda barra (da modificaÃ§Ã£o).
 subplot(2,3,6)
-xtitle('homogeneização em grupo')
+xtitle('homogeneizaÃ§Ã£o em grupo')
 
 x=1:10; y=sin(x)/2;
 bar(x,y,'red')
@@ -121,13 +121,13 @@ x1=1:10;y1=[sin(x);cos(x)]
 plot(x1,y1)
 e=gce(); e2=e.children(2); e2.polyline_style=6;
 barhomogenize();
-// mudança de estilo e largura
+// mudanÃ§a de estilo e largura
 //barhomogenize('stacked',0.5);
 //barhomogenize('stacked',1);
  ]]></programlisting>
     </refsection>
     <refsection>
-        <title>Ver Também </title>
+        <title>Ver TambÃ©m </title>
         <simplelist type="inline">
             <member>
                 <link linkend="bar">bar</link>

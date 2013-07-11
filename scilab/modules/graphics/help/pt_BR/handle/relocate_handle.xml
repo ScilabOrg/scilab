@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Jean-Baptiste Silvy
@@ -13,16 +13,16 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="relocate_handle" xml:lang="en">
     <refnamediv>
         <refname>relocate_handle</refname>
-        <refpurpose>Movimentação de manipuladores dentro da hierarquia
-            gráfica
+        <refpurpose>MovimentaÃ§Ã£o de manipuladores dentro da hierarquia
+            grÃ¡fica
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>relocate_handle( movedHandles, parent )</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>movedHandles</term>
@@ -39,18 +39,18 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>A função relocate_handle permite mover manipuladores das suas
-            localizações em uma hierarquia gráfica para outra localização. Todas as
-            entidades são realocadas sob o mesmo manipulador raiz especificado pelo
-            parâmetro <emphasis role="bold">parent</emphasis>.
+        <title>DescriÃ§Ã£o</title>
+        <para>A funÃ§Ã£o relocate_handle permite mover manipuladores das suas
+            localizaÃ§Ãµes em uma hierarquia grÃ¡fica para outra localizaÃ§Ã£o. Todas as
+            entidades sÃ£o realocadas sob o mesmo manipulador raiz especificado pelo
+            parÃ¢metro <emphasis role="bold">parent</emphasis>.
         </para>
-        <para>Já que não são todos os manipuladores que são compatíveis com todos
-            os outros, existem algumas restrições ao se realocar manipuladores. Por
-            exemplo, não é permitido mover um manipulador Axes sob um manipulador
-            Polyline. Para mais informações sobre compatibilidade veja a página <link linkend="graphics_entities">graphics_entities</link>.
+        <para>JÃ¡ que nÃ£o sÃ£o todos os manipuladores que sÃ£o compatÃ­veis com todos
+            os outros, existem algumas restriÃ§Ãµes ao se realocar manipuladores. Por
+            exemplo, nÃ£o Ã© permitido mover um manipulador Axes sob um manipulador
+            Polyline. Para mais informaÃ§Ãµes sobre compatibilidade veja a pÃ¡gina <link linkend="graphics_entities">graphics_entities</link>.
         </para>
-        <para>Esta rotina é particularmente útil para se mover um objeto de uma
+        <para>Esta rotina Ã© particularmente Ãºtil para se mover um objeto de uma
             entidade Axes para outra, ou para se move objetos Axes de uma entidade
             Figure para outra.
         </para>
@@ -60,24 +60,24 @@
         <programlisting role="example"><![CDATA[ 
 x = 0:10 ;
 
-// esboçando uma primeira poligonal
+// esboÃ§ando uma primeira poligonal
 plot(x,x^2) ;
 axes1 = gca() ;
 poly1 = gce() ;
 
-// esboçando uma segunda em outra janela
+// esboÃ§ando uma segunda em outra janela
 scf() ;
 plot( x,x )  ;
 axes2 = gca() ;
 poly2 = gce()  ;
-poly2bis = copy( poly2 ) ; // criando uma cópia da poligonal
+poly2bis = copy( poly2 ) ; // criando uma cÃ³pia da poligonal
 
 // pondo ambas as poligonais na mesma janela
 relocate_handle( poly2bis, axes1 ) ;
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="graphics_entities">graphics_entities</link>

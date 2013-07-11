@@ -1,43 +1,43 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="funcprot" xml:lang="en">
     <refnamediv>
         <refname>funcprot</refname>
-        <refpurpose>alterna o modo de proteção de funções Scilab</refpurpose>
+        <refpurpose>alterna o modo de proteÃ§Ã£o de funÃ§Ãµes Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>funcprot(prot)
             previousprot = funcprot(prot)
             prot = funcprot()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>prot</term>
                 <listitem>
-                    <para>inteiro com valores possíveis 0,1 ou 2</para>
+                    <para>inteiro com valores possÃ­veis 0,1 ou 2</para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
-        <para>Funções Scilab são variáveis, funcprot permite especificar o que o
-            Scilab faz quando tais variáveis são redefinidas.
+        <title>DescriÃ§Ã£o</title>
+        <para>FunÃ§Ãµes Scilab sÃ£o variÃ¡veis, funcprot permite especificar o que o
+            Scilab faz quando tais variÃ¡veis sÃ£o redefinidas.
         </para>
         <itemizedlist>
             <listitem>
-                <para>Se prot==0 nada especial é feito</para>
+                <para>Se prot==0 nada especial Ã© feito</para>
             </listitem>
             <listitem>
-                <para>Se prot==1 o scilab exibe uma mensagem de aviso quando a função
-                    é redefinida (modo padrão)
+                <para>Se prot==1 o scilab exibe uma mensagem de aviso quando a funÃ§Ã£o
+                    Ã© redefinida (modo padrÃ£o)
                 </para>
             </listitem>
             <listitem>
-                <para>Se prot==2 o scilab exibe uma mensagem de erro quando a função é
+                <para>Se prot==2 o scilab exibe uma mensagem de erro quando a funÃ§Ã£o Ã©
                     redefinida
                 </para>
             </listitem>

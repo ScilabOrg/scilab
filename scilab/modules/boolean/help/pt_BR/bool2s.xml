@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
@@ -18,11 +18,11 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>bool2s(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>x</term>
@@ -35,17 +35,17 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Se <literal>x</literal> é uma matriz de valores booleanos,
+            Se <literal>x</literal> Ã© uma matriz de valores booleanos,
             <literal>bool2s(x)</literal> retorna uma matriz onde os valores "true"
-            ("verdadeiro") são substituidos por 1 e os valores "false" ("falso") são
+            ("verdadeiro") sÃ£o substituidos por 1 e os valores "false" ("falso") sÃ£o
             substituidos por 0.
         </para>
         <para>
-            Se <literal>x</literal> é uma matriz "padrão",
-            <literal>bool2s(x)</literal> retorna uma matriz onde os valores não-nulos
-            são substituídos por 1.
+            Se <literal>x</literal> Ã© uma matriz "padrÃ£o",
+            <literal>bool2s(x)</literal> retorna uma matriz onde os valores nÃ£o-nulos
+            sÃ£o substituÃ­dos por 1.
         </para>
     </refsection>
     <refsection>
@@ -56,7 +56,7 @@ bool2s([2.3 0 10 -1])
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="boolean">boolean</link>

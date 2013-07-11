@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ENPC - Jean-Philippe Chancelier
@@ -104,7 +104,7 @@
 xlfont('reset');
 xlfont()
 
-// este exemplo pode não funcionar se seu sistema não possuir a fonte Monospaced.
+// este exemplo pode nГЈo funcionar se seu sistema nГЈo possuir a fonte Monospaced.
 xlfont("Monospaced",10,%t,%t);
 xstring(1,0,'A title');
 figure_entity = gcf();

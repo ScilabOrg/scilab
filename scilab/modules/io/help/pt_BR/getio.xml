@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -13,16 +13,16 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="getio" xml:lang="en">
     <refnamediv>
         <refname>getio</refname>
-        <refpurpose>retorno de unidades lógicas de entrada/saída do
+        <refpurpose>retorno de unidades lÃ³gicas de entrada/saÃ­da do
             Scilab
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>ios=getio()</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>ios</term>
@@ -32,15 +32,15 @@
                         <varlistentry>
                             <term>rio</term>
                             <listitem>
-                                <para>unidade lógica corrente para leitura de
-                                    instruções
+                                <para>unidade lÃ³gica corrente para leitura de
+                                    instruÃ§Ãµes
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>rte</term>
                             <listitem>
-                                <para>unidade lógica designada para entrada na janela do
+                                <para>unidade lÃ³gica designada para entrada na janela do
                                     Scilab
                                 </para>
                             </listitem>
@@ -48,15 +48,15 @@
                         <varlistentry>
                             <term>wio</term>
                             <listitem>
-                                <para>unidade lógica relativa ao arquivo de diário, se houer.
-                                    wio=0 significa que nenhum arquivo de diário foi aberto
+                                <para>unidade lÃ³gica relativa ao arquivo de diÃ¡rio, se houer.
+                                    wio=0 significa que nenhum arquivo de diÃ¡rio foi aberto
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>wte</term>
                             <listitem>
-                                <para>unidade lógica designada para saída na janela do
+                                <para>unidade lÃ³gica designada para saÃ­da na janela do
                                     Scilab
                                 </para>
                             </listitem>
@@ -67,14 +67,14 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>getio</literal> retorna unidades lógicas designadas para
-            entrada e saída principais no Scilab.
+            <literal>getio</literal> retorna unidades lÃ³gicas designadas para
+            entrada e saÃ­da principais no Scilab.
         </para>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="file">file</link>

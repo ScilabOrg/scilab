@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ????-2008 - INRIA Serge Steer
@@ -12,24 +12,24 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="bytecode" xml:lang="fr">
     <refnamediv>
         <refname>bytecode</refname>
-        <refpurpose>dada uma função, retorna "bytecode" (código de bytes) da
-            função em um array Scilab e vice-versa.
+        <refpurpose>dada uma funÃ§Ã£o, retorna "bytecode" (cÃ³digo de bytes) da
+            funÃ§Ã£o em um array Scilab e vice-versa.
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>
             x = bytecode(f)
             f= bytecode(X)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>f</term>
                 <listitem>
-                    <para>função Scilab</para>
+                    <para>funÃ§Ã£o Scilab</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -41,23 +41,23 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            <literal>x= bytecode(f) </literal>retorna o "bytecode" da função
+            <literal>x= bytecode(f) </literal>retorna o "bytecode" da funÃ§Ã£o
             <literal>f</literal> no array Scilab de inteiros
             <literal>x</literal>.
         </para>
         <para>
             <literal>f= bytecode(x) </literal>retorna em <literal>f</literal> a
-            função associada ao "bytecode" dado no array Scilab de inteiros
-            <literal>x</literal>. AVISO: a validade de <literal>x</literal> não é
+            funÃ§Ã£o associada ao "bytecode" dado no array Scilab de inteiros
+            <literal>x</literal>. AVISO: a validade de <literal>x</literal> nÃ£o Ã©
             verificada.
         </para>
     </refsection>
     <refsection>
-        <title>Observação</title>
-        <para>O bytecode da função Scilab evoluirá drasticamente no futuro, então
-            o uso dessa função deve se restringir à manipulação de instruções de
+        <title>ObservaÃ§Ã£o</title>
+        <para>O bytecode da funÃ§Ã£o Scilab evoluirÃ¡ drasticamente no futuro, entÃ£o
+            o uso dessa funÃ§Ã£o deve se restringir Ã  manipulaÃ§Ã£o de instruÃ§Ãµes de
             profiling.
         </para>
     </refsection>
@@ -69,7 +69,7 @@ bytecode(foo)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="add_profiling">add_profiling</link>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -13,14 +13,14 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="unix_s" xml:lang="en">
     <refnamediv>
         <refname>unix_s</refname>
-        <refpurpose>execução do comando shell (sh), sem saída</refpurpose>
+        <refpurpose>execuÃ§Ã£o do comando shell (sh), sem saÃ­da</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>unix_s(cmd)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>cmd</term>
@@ -31,13 +31,13 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
-            Envia um string <literal>cmd</literal> ao Unix para execução pelo
-            shell sh. A saída padrão é redirecionada para /dev/null. Erros de execução
-            Unix são detectados; Note que apenas o último erro de comando shell é
-            reportado quando uma lista de comandos separados por ";" é enviada: isto
-            não é recomendado.
+            Envia um string <literal>cmd</literal> ao Unix para execuÃ§Ã£o pelo
+            shell sh. A saÃ­da padrÃ£o Ã© redirecionada para /dev/null. Erros de execuÃ§Ã£o
+            Unix sÃ£o detectados; Note que apenas o Ãºltimo erro de comando shell Ã©
+            reportado quando uma lista de comandos separados por ";" Ã© enviada: isto
+            nÃ£o Ã© recomendado.
         </para>
     </refsection>
     <refsection>
@@ -51,7 +51,7 @@ end
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <simplelist type="inline">
             <member>
                 <link linkend="edit">edit</link>

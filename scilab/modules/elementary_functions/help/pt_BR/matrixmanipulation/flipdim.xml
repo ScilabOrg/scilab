@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Farid BELAHCENE
@@ -14,15 +14,15 @@
     <refnamediv>
         <refname>flipdim</refname>
         <refpurpose>gira os componentes de x ao longo de uma dada
-            dimensão
+            dimensÃ£o
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Seqüência de Chamamento</title>
+        <title>SeqÃ¼Ãªncia de Chamamento</title>
         <synopsis>y=flipdim(x,dim)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Parâmetros</title>
+        <title>ParÃ¢metros</title>
         <variablelist>
             <varlistentry>
                 <term>x</term>
@@ -45,35 +45,35 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Descrição</title>
+        <title>DescriÃ§Ã£o</title>
         <para>
             Dado <literal>x</literal>, um escalar/vetor/array de reais e
-            <literal>dim</literal> um inteiro positivo, esta função gira os
-            componentes de x ao longo da dimensão de número <literal>dim</literal> de
-            <literal>x</literal> (<literal>x</literal> e <literal>y</literal> têm o
+            <literal>dim</literal> um inteiro positivo, esta funÃ§Ã£o gira os
+            componentes de x ao longo da dimensÃ£o de nÃºmero <literal>dim</literal> de
+            <literal>x</literal> (<literal>x</literal> e <literal>y</literal> tÃªm o
             mesmo tamanho)
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[ 
-// exemplo 1: girando os componentes de x ao longo da primeira dimensão
+// exemplo 1: girando os componentes de x ao longo da primeira dimensÃ£o
 x=[1 2 3 4; 5 6 7 8];
 dim=1;
 y=flipdim(x,dim)
 
-// exemplo 1: girando os componentes de x ao longo da segunda dimensão
+// exemplo 1: girando os componentes de x ao longo da segunda dimensÃ£o
 dim=2;
 y=flipdim(x,dim)
 
-// exemplo e: girando os componentes de x ao longo da terceira dimensão
+// exemplo e: girando os componentes de x ao longo da terceira dimensÃ£o
 x=matrix(1:48,[3 2,4,2]);
 dim=3;
 y=flipdim(x,dim)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
-        <title>Ver Também</title>
+        <title>Ver TambÃ©m</title>
         <para>F.Belahcene</para>
     </refsection>
 </refentry>

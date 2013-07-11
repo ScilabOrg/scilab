@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
@@ -46,7 +46,7 @@
         <title>Description</title>
         <para>
             Given absolute directories <varname>abs_dir</varname> and absolute filenames <varname>abs_file</varname>,  <function>getrelativefilename</function> returns relative file names <varname>rel_file</varname>. That is, if the input arguments are some string matrices (m x n), for indexes (i, j), <function>getrelativefilename</function> returns <literal>rel_file(i,j)</literal> associated with <literal>abs_dir(i,j)</literal> and <literal>abs_file(i,j)</literal>.
-This implies that <varname>abs_dir</varname> and <varname>abs_file</varname> must have the same dimensions.
+            This implies that <varname>abs_dir</varname> and <varname>abs_file</varname> must have the same dimensions.
         </para>
         <para>
             For example, if the current directory is
