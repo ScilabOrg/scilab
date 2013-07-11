@@ -42,7 +42,7 @@ class ScilabStackAllocator
 
 public:
 
-    ScilabStackAllocator(void * _pvApiCtx, int _position) : pvApiCtx(_pvApiCtx), position(_position) { }
+    ScilabStackAllocator(void * _pvApiCtx, int _position) : position(_position), pvApiCtx(_pvApiCtx) { }
 
     ~ScilabStackAllocator() { }
 
