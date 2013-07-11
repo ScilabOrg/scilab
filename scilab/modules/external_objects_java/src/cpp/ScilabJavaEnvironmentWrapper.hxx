@@ -564,7 +564,9 @@ private:
     inline void unwrapSingle(JavaVM * jvm_, const int javaID, const W & allocator, const bool mustAlloc = true) const
     {
         JNIEnv * curEnv = NULL;
-        U * addr = NULL;
+        U foo;
+        U* addr = &foo;
+
 
         jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
 
@@ -597,7 +599,8 @@ private:
         jint lenRow;
         jboolean isCopy = JNI_FALSE;
         JNIEnv * curEnv = NULL;
-        U * addr = NULL;
+        U foo;
+        U* addr = &foo;
 
         jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
 
@@ -667,7 +670,8 @@ private:
         jboolean isCopy = JNI_FALSE;
         jarray oneDim;
         JNIEnv * curEnv = NULL;
-        U * addr = NULL;
+        U foo;
+        U* addr = &foo;
 
         jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
 

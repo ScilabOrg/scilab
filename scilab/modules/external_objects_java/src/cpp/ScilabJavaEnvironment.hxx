@@ -20,9 +20,15 @@
 #define PATHSEPARATOR ":"
 #endif
 
+extern "C"
+{
 #include "dynlib_external_objects_java_scilab.h"
-
 #include <jni.h>
+#ifdef _MSC_VER
+#include <Windows.h>
+#include "strdup_windows.h"
+#endif
+}
 
 //#include "PythonVariablesScope.hxx"
 #include "ScilabAbstractEnvironment.hxx"
@@ -41,9 +47,6 @@
 #include <vector>
 #include <string>
 
-#ifdef _MSC_VER
-#include "strdup_windows.h"
-#endif
 
 // #if defined(PIMS_EXPORTS)
 // #pragma message("defined(PIMS_EXPORTS)")
