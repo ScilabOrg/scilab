@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box.Filler;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -488,5 +489,78 @@ public class ContentLayout extends JPanel {
         gbc.weightx = 0.1;
         gbc.insets = new Insets(0, insetLeft, 5, 0);
         panel.add(textField, gbc);
+    }
+
+    /**
+    * Add Section (Button, Title, Separator and Main JPanel).
+    * @param mpanel Main JPanel
+    * @param spanel Main JPanel of Group
+    * @param tbutton Show/Hide button
+    * @param label JLabel for title of section
+    * @param separator Separator
+    * @param message Title of section
+    * @param section Position of section - [1,n] 1=top n=bottom
+    */
+    public void addHeader(JPanel mpanel, JPanel spanel, JToggleButton tbutton, JLabel label,
+                           JSeparator separator, String message, int section) {
+        int row = 3 * (section-1);
+        addSHbutton(mpanel, tbutton, 0, row);
+        addSectionTitle(mpanel, label, message, row);
+        addSeparator(mpanel, separator, row+1);
+        spanel.setLayout(new GridBagLayout());
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = row+2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gbc.weightx = 0.1;
+        gbc.insets = new Insets(0, 0, 12, 0);
+        mpanel.add(spanel, gbc);
+    }
+
+    /**
+    * Add Vertical Filler.
+    * @param mpanel Main JPanel
+    * @param filler Filler
+    * @param row Row in GBC
+    */
+    public void addFiller(JPanel mpanel, Filler filler, int row) {
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.weighty = 0.1;
+        mpanel.add(filler, gbc);
+    }
+
+    /**
+    * Add JLabel + JTextField + Inner JPanel.
+    * @param gpanel Main JPanel of Group
+    * @param ipanel Inner JPanel
+    * @param tbutton Show/Hide button
+    * @param label JLabel for title of property
+    * @param field JTextField
+    * @param message Title of property
+    * @param row Row number
+    */
+    public void addInnerPanel(JPanel gpanel, JPanel ipanel, JToggleButton tbutton, JLabel label,
+                        JTextField field, String message, int row) {
+        tbutton.setSelected(true);
+        ipanel.setVisible(false);
+        addSHbutton(gpanel, tbutton, 0, row);
+        addJLabel(gpanel, label, message, 1, row, 0);
+        addJTextField(gpanel, field, false, 2, row, 4);
+        ipanel.setLayout(new GridBagLayout());
+
+        //Positioning Inner JPanel.
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = row+1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 0.1;
+        gpanel.add(ipanel, gbc);
     }
 }
