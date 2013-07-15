@@ -1484,8 +1484,20 @@ c     get arg1
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
       if(istk(il1).eq.0) then
-         call error(220)
-         return
+c     arg2(objvide) is equivalent to arg2()
+c     so arg2 is copied on the stack
+         volr=istk(id2+mn2)-1
+         il1=iadr(lstk(top))
+         istk(il1)=2
+         istk(il1+1)=m2
+         istk(il1+2)=n2
+         istk(il1+3)=istk(il2+3)
+         call icopy(4,var2,1,istk(il1+4),1)
+         call icopy(mn2+1,istk(id2),1,istk(il1+8),1)
+         l1=sadr(il1+9+mn2)
+         call unsfdcopy(volr*(it2+1),stk(l2r),1,stk(l1),1)
+         lstk(top+1)=l1+volr*(it2+1)
+         goto 999
       endif
       m1=istk(il1+1)
       n1=istk(il1+2)
