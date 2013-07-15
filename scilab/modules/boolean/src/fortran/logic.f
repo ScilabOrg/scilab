@@ -332,6 +332,19 @@ c     get arg1
       m1=istk(il1+1)
       n1=istk(il1+2)
 c
+      if (istk(il1).eq.0) then
+c     arg2(objvide) is equivalent to arg2()
+c     so arg2 is copied on the stack
+         il1=iadr(lstk(top))
+         istk(il1)=istk(il2)
+         istk(il1+1)=m2
+         istk(il1+2)=n2
+         l1=il1+3
+         call icopy(mn2,istk(l2),1,istk(l1),1)
+         lstk(top+1)=sadr(il1+3+mn2)
+         goto 999
+      endif
+
       if(mn2.eq.0) then 
 c     .  arg2=[]
          ilrs=iadr(lstk(top))

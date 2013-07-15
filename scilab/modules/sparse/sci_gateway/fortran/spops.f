@@ -1116,6 +1116,22 @@ c     get arg1
       a1_is_empty = m1.eq.0 .or. n1.eq.0
       a1_is_scalar = (.not.a1_is_empty) .and. (m1.eq.1 .and. n1.eq.1)
 
+      if (istk(il1).eq.0) then
+c     arg2(objvide) is equivalent to arg2()
+c     so arg2 is copied on the stack
+         il1=iadr(lstk(top))
+         istk(il1)=istk(il2)
+         istk(il1+1)=m2
+         istk(il1+2)=n2
+         istk(il1+3)=it2
+         istk(il1+4)=nel2
+         call icopy(5+m2+nel2,istk(il2),1,istk(il1),1)
+         l1=sadr(il1+5+m2+nel2)
+         call unsfdcopy(nel2*(it2+1),stk(l2),1,stk(l1),1)
+         lstk(top+1)=l1+nel2*(it2+1)
+         goto 999
+      endif
+
       if(a2_is_empty) then
 c     .  arg2=[]  -> return an empty matrix []
          ilrs=iadr(lstk(top))

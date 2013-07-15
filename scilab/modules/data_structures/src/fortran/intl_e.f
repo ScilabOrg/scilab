@@ -61,8 +61,8 @@ c     get arg1
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
 
-      if(istk(il1).eq.15.and.istk(il1+1).eq.0) then
-c     .  arg2(list())  -->arg2
+      if((istk(il1).eq.15.and.istk(il1+1).eq.0).or.istk(il1).eq.0) then
+c     .  arg2(list())  -->arg2 or arg2(ojbvide)
          il2=iadr(lstk(top2))
          if(istk(il2).lt.0) top2=istk(il2+2)
          call unsfdcopy(lstk(top2+1)-lstk(top2),stk(lstk(top2)),1,
