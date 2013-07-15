@@ -140,8 +140,9 @@ int ScilabGateway::classExtract(char * fname, const int envId, void * pvApiCtx)
     }
     else
     {
+        ScilabAbstractEnvironmentException e(__LINE__, __FILE__, gettext("Invalid name: %s."), fieldName);
         freeAllocatedSingleString(fieldName);
-        throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Invalid name"));
+        throw e;
     }
 
     return 0;

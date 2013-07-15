@@ -309,7 +309,15 @@ c
 
 c     arg2(arg1)
       if (istk(il1).eq.0) then
-         call error(220)
+c     arg2(objvide) is equivalent to arg2()
+c     so arg2 is copied on the stack
+         il1=iadr(lstk(top))
+         istk(il1)=9
+         istk(il1+1)=m2
+         istk(il1+2)=n2
+         l1=sadr(il1+4)
+         call unsfdcopy(mn2,stk(l2),1,stk(l1),1)
+         lstk(top+1)=l1+mn2
          return
       endif
 

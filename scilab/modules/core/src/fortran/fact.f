@@ -326,7 +326,17 @@ c     eval function or variable arguments
 c     .  function has no input parameter
          if(rstk(pt).lt.0) then
 c     .    a(...)()
-            goto 461
+c        we put an objvide on the stack
+c        this is useful for something like a.b.c()
+c        if a.b.c is a macro or command it could be used as a void
+            if(comp(1).eq.0) then
+               top=top+1
+               call objvide(' ',top)
+            else
+               if(compil(24,0,0,0,0)) then
+                  if(err.gt.0) return
+               endif
+            endif
          endif
 
          excnt=-1

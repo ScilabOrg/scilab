@@ -457,6 +457,9 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
 
     switch (typ)
     {
+        case 0 :
+            // objvide is equivalent to void
+            return -1;
         case sci_matrix :
         {
             double * mat = 0;
@@ -686,12 +689,6 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
 
 int ScilabObjects::getMListType(int * mlist, void * pvApiCtx)
 {
-    char * mlist_type[3];
-    char * mtype = 0;
-    int lengths[3];
-    int rows, cols;
-    int type;
-
     // OK it's crappy... but it works and it is performant...
 
     if (mlist[0] == 0)
