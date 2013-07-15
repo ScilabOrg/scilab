@@ -10,6 +10,7 @@
  *
  */
 
+#include <stdio.h>
 #include <string.h>
 #include "warningmode.h"
 #include "sciprint.h"
@@ -144,6 +145,7 @@ static int msg_113(int *n, int *ierr);
 static int msg_114(int *n, int *ierr);
 static int msg_115(int *n, int *ierr);
 static int msg_116(int *n, int *ierr);
+static int msg_117(int *n, int *ierr);
 
 static int msg_default(int *n, int *ierr);
 /*--------------------------------------------------------------------------*/
@@ -505,6 +507,9 @@ int C2F(msgs)(int *n, int *ierr)
                 break;
             case 116:
                 msg_116(n, ierr);
+                break;
+            case 117:
+                msg_117(n, ierr);
                 break;
             default:
                 msg_default(n, ierr);
@@ -1452,6 +1457,36 @@ static int msg_116(int *n, int *ierr)
     C2F(showstack)();
     sciprint(_("Warning: Syntax \"vector ^ scalar\" is obsolete. It will be removed in Scilab 6.0.\n  Use \"vector .^ scalar\" instead.\n"));
 
+    return 0;
+}
+/*--------------------------------------------------------------------------*/
+static int msg_117(int *n, int *ierr)
+{
+    char *localbuf = NULL;
+    int iLen = *ierr;
+
+    // compute size of string if it is not know
+    if (iLen == 0)
+    {
+        iLen = bsiz;
+        while (BUF[iLen - 1] == ' ')
+        {
+            iLen--;
+        }
+    }
+
+    if (iLen > 0)
+    {
+        localbuf = (char*)MALLOC(sizeof(char) * (iLen + 1));
+        strncpy(localbuf, BUF, iLen);
+        localbuf[iLen] = '\0';
+        sciprint("%s", localbuf);
+        if (localbuf)
+        {
+            FREE(localbuf);
+            localbuf = NULL;
+        }
+    }
     return 0;
 }
 
