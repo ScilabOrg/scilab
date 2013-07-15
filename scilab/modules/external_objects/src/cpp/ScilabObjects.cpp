@@ -457,6 +457,9 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
 
     switch (typ)
     {
+        case 0 :
+            // objvide is equivalent to void
+            return -1;
         case sci_matrix :
         {
             double * mat = 0;
@@ -679,14 +682,34 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
         default :
         {
             removeTemporaryVars(envId, tmpvars);
-            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Unable to wrap. Unmanaged datatype ?"));
+            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Unable to wrap. Unmanaged datatype (%s) ?"), typ);
         }
     }
 }
 
 int ScilabObjects::getMListType(int * mlist, void * pvApiCtx)
 {
-    // OK it's crappy... but it works and it is performant...
+    char * mlist_type[3];
+    char * mtype = 0;
+    int lengths[3];
+    int rows, cols;
+    int type;
+
+    SciErr err = getVarType(pvApiCtx, mlist, &type);
+    if (err.iErr)
+    {
+        return EXTERNAL_INVALID;
+    }
+
+    if (type == 0)
+    {
+        return EXTERNAL_VOID;
+    }
+
+    if (type != sci_mlist)
+    {
+        return EXTERNAL_INVALID;
+    }
 
     if (mlist[0] != sci_mlist || mlist[1] != 3)
     {
