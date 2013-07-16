@@ -39,6 +39,9 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 * In browsevar, allows a user to plot the variable (already available in
   editvar).
 
+* localization
+  add management of multiple domains in localization.
+  add function addlocalizationdomain and add optional parameter to gettext
 
 Syntax changes
 ===============
