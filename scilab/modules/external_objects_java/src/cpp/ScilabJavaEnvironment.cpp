@@ -83,7 +83,7 @@ int ScilabJavaEnvironment::start()
                 ScilabJavaOStream::setStdErrStream(&instance->scilabStream);*/
         instance->helper.setUseLastName(true);
         instance->helper.setNewAllowed(true);
-        instance->enabletrace((std::string(getTMPDIR()) + std::string("/eo_java.log")).c_str());
+        //instance->enabletrace((std::string(getTMPDIR()) + std::string("/eo_java.log")).c_str());
     }
 
     return envId;
@@ -354,7 +354,10 @@ int * ScilabJavaEnvironment::invoke(int id, const char * methodName, int * args,
     invokedId[0] = 1 ; //1 object returned
     invokedId[1] = ScilabJavaObject::invoke(vm, id, methodName, args, argsSize);
 
-    ScilabAutoCleaner::registerVariable(envId, invokedId[1]);
+    if (invokedId[1] != 0 && invokedId[1] != -1)
+    {
+        ScilabAutoCleaner::registerVariable(envId, invokedId[1]);
+    }
 
     return invokedId;
 }

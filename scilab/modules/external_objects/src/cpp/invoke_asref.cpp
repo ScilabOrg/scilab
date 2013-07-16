@@ -15,7 +15,7 @@
 namespace org_modules_external_objects
 {
 
-int ScilabGateway::invoke(char * fname, const int envId, void * pvApiCtx)
+int ScilabGateway::invoke_asref(char * fname, const int envId, void * pvApiCtx)
 {
     SciErr err;
     int * tmpvar = 0;
@@ -67,21 +67,26 @@ int ScilabGateway::invoke(char * fname, const int envId, void * pvApiCtx)
 
     for (int i = 0; i < Rhs - 2; i++)
     {
-        err = getVarAddressFromPosition(pvApiCtx, i + 3, &addr);
-        if (err.iErr)
-        {
-            delete[] args;
-            ScilabObjects::removeTemporaryVars(envId, tmpvar);
-            delete[] tmpvar;
-            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Invalid variable: cannot retrieve the data"));
-        }
+        char * varName = 0;
 
         try
         {
-            args[i] = ScilabObjects::getArgumentId(addr, tmpvar, false, false, envId, pvApiCtx);
+            char * varName =  ScilabObjects::getSingleString(i + 3, pvApiCtx);
+            err = getVarAddressFromName(pvApiCtx, varName, &addr);
+            if (err.iErr)
+            {
+                throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Invalid variable: cannot retrieve the data"));
+            }
+
+            args[i] = ScilabObjects::getArgumentId(addr, tmpvar, true, false, envId, pvApiCtx);
         }
         catch (ScilabAbstractEnvironmentException & e)
         {
+            if (varName)
+            {
+                freeAllocatedSingleString(varName);
+            }
+
             delete[] args;
             ScilabObjects::removeTemporaryVars(envId, tmpvar);
             delete[] tmpvar;
@@ -91,6 +96,11 @@ int ScilabGateway::invoke(char * fname, const int envId, void * pvApiCtx)
         if (args[i] == VOID_OBJECT)
         {
             nbArgs = 0;
+        }
+
+        if (varName)
+        {
+            freeAllocatedSingleString(varName);
         }
     }
 
