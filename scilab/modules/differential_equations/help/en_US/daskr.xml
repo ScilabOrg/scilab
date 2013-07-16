@@ -468,8 +468,8 @@ integer ny,ng
                 <listitem>
                     <para>
                         <link linkend="external">external</link> (function or list or string). Solves a linear system
-                        <literal>P*x = b</literal>, with P being the preconditioner that routine <literal>pjac</literal>
-                        computed beforehand and stocked in wp and iwp.
+                        <literal>P*x = b</literal>, with P being the factored preconditioner that routine <literal>pjac</literal>
+                        computed beforehand and stored in wp and iwp.
                     </para>
                     <itemizedlist>
                         <listitem>
@@ -507,7 +507,8 @@ void psol (int*neq, double*t, double*y, double*ydot, double*savr,
   double*wk, double*cj, double*wght, double*wp, int*iwp, double*b, double*eplin, int*ier, double*rpar, int*ipar)
  ]]></programlisting>
                             where the arrays <literal>wp</literal> and <literal>iwp</literal> contain matrix elements of preconditioner
-                            <literal>P</literal> in compressed row format.
+                            <literal>P</literal>, <literal>wp</literal> being the values and
+                            <literal>iwp</literal> the pivots used in the LU factorization.
                             <para>In Fortran it must be:</para>
                             <programlisting role="no-scilab-exec"><![CDATA[
 subroutine psol (neq, t, y, ydot, savr, wk, cj, wght,
@@ -533,7 +534,7 @@ integer neq,iwp(*),ier,ipar(*)
                             <para>A Scilab function.</para>
                             <para>Its calling sequence must be
                                 <literal>[wp, iwp, ires] = pjac(neq, t, y, ydot, h, cj, rewt, savr)</literal> and in return,
-                                the arrays wp and iwp must contain all preconditioner information in compressed sparse row format.
+                                the arrays wp and iwp must contain all factored preconditioner information.
                             </para>
                         </listitem>
                         <listitem>
