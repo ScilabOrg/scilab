@@ -33,7 +33,7 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlWrite(char *fname, unsigned long fname_len)
+int sci_htmlWrite(char *fname, unsigned long fname_len)
 {
     org_modules_xml::XMLDocument * doc = 0;
     xmlDoc *document = 0;
@@ -165,7 +165,7 @@ int sci_xmlWrite(char *fname, unsigned long fname_len)
         expandedPath = strdup((const char *)document->URL);
     }
 
-    if (!doc->saveToFile(expandedPath, indent == 1))
+    if (!doc->saveToHTMLFile(expandedPath, indent == 1))
     {
         Scierror(999, gettext("%s: Cannot write the file: %s\n"), fname, expandedPath);
         FREE(expandedPath);
