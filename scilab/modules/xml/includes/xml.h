@@ -19,3 +19,5 @@
 #include <libxml/xmlschemas.h>
 #include <libxml/relaxng.h>
 #include <libxml/xmlreader.h>
+#include <libxml2/libxml/HTMLparser.h>
+#include <libxml2/libxml/xmlsave.h>
