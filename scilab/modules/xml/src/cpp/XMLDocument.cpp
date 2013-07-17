@@ -25,6 +25,8 @@ extern "C"
 #include "localization.h"
 }
 
+#include <iostream>
+
 #define BUFFER_SIZE 1024
 
 namespace org_modules_xml
@@ -34,12 +36,20 @@ std::string * XMLDocument::errorBuffer = 0;
 std::string * XMLDocument::errorXPathBuffer = 0;
 std::list < XMLDocument * >&XMLDocument::openDocs = *new std::list < XMLDocument * >();
 
-XMLDocument::XMLDocument(const char *path, bool validate, std::string * error): XMLObject()
+XMLDocument::XMLDocument(const char *path, bool validate, std::string * error, const bool html): XMLObject()
 {
     char *expandedPath = expandPathVariable(const_cast<char *>(path));
     if (expandedPath)
     {
-        document = readDocument(const_cast<const char *>(expandedPath), validate, error);
+        if (html)
+        {
+            document = readHTMLDocument(const_cast<const char *>(expandedPath), error);
+        }
+        else
+        {
+            document = readDocument(const_cast<const char *>(expandedPath), validate, error);
+        }
+
         FREE(expandedPath);
         if (document)
         {
@@ -57,9 +67,17 @@ XMLDocument::XMLDocument(const char *path, bool validate, std::string * error): 
     scilabType = XMLDOCUMENT;
 }
 
-XMLDocument::XMLDocument(const std::string & xmlCode, bool validate, std::string * error): XMLObject()
+XMLDocument::XMLDocument(const std::string & xmlCode, bool validate, std::string * error, const bool html): XMLObject()
 {
-    document = readDocument(xmlCode, validate, error);
+    if (html)
+    {
+        document = readHTMLDocument(xmlCode, error);
+    }
+    else
+    {
+        document = readDocument(xmlCode, validate, error);
+    }
+
     if (document)
     {
         openDocs.push_back(this);
@@ -207,6 +225,28 @@ const std::string XMLDocument::dump(bool indent) const
     return str;
 }
 
+const std::string XMLDocument::dumpHTML(bool indent) const
+{
+    xmlBuffer * buffer = xmlBufferCreate();
+    int ret;
+    int options = XML_SAVE_AS_HTML;
+    if (indent)
+    {
+        options |= XML_SAVE_FORMAT;
+    }
+
+    xmlThrDefIndentTreeOutput(1);
+    xmlSaveCtxtPtr ctxt = xmlSaveToBuffer(buffer, 0, options);
+    ret = xmlSaveDoc(ctxt, document);
+    xmlSaveFlush(ctxt);
+    xmlSaveClose(ctxt);
+
+    std::string str = std::string((const char *)xmlBufferDetach(buffer));
+    xmlBufferFree(buffer);
+
+    return str;
+}
+
 const XMLElement *XMLDocument::getRoot() const
 {
     xmlNode *root = xmlDocGetRootElement(document);
@@ -325,6 +365,30 @@ xmlDoc *XMLDocument::readDocument(const char *filename, bool validate, std::stri
     return doc;
 }
 
+xmlDoc *XMLDocument::readHTMLDocument(const char *filename, std::string * error)
+{
+    htmlParserCtxt *ctxt = initHTMLContext(error);
+    htmlDocPtr doc = 0;
+    int options = HTML_PARSE_NOWARNING | HTML_PARSE_NOBLANKS | HTML_PARSE_COMPACT;
+
+    if (!ctxt)
+    {
+        xmlSetGenericErrorFunc(0, errorFunctionWithoutOutput);
+        return 0;
+    }
+
+    doc = htmlCtxtReadFile(ctxt, filename, 0, options);
+    if (!doc || !ctxt->valid)
+    {
+        *error = *errorBuffer;
+    }
+
+    xmlSetGenericErrorFunc(0, errorFunctionWithoutOutput);
+    htmlFreeParserCtxt(ctxt);
+
+    return (xmlDoc *)doc;
+}
+
 xmlDoc *XMLDocument::readDocument(const std::string & xmlCode, bool validate, std::string * error)
 {
     xmlParserCtxt *ctxt = initContext(error, validate);
@@ -354,6 +418,54 @@ xmlDoc *XMLDocument::readDocument(const std::string & xmlCode, bool validate, st
     return doc;
 }
 
+xmlDoc *XMLDocument::readHTMLDocument(const std::string & htmlCode, std::string * error)
+{
+    htmlParserCtxt *ctxt = initHTMLContext(error);
+    htmlDocPtr doc = 0;
+    int options = HTML_PARSE_NOWARNING | HTML_PARSE_NOBLANKS | HTML_PARSE_COMPACT;
+
+    if (!ctxt)
+    {
+        xmlSetGenericErrorFunc(0, errorFunctionWithoutOutput);
+        return 0;
+    }
+
+    doc = htmlCtxtReadDoc(ctxt, (const xmlChar *)htmlCode.c_str(), 0, 0, options);
+    if (!doc || !ctxt->valid)
+    {
+        *error = *errorBuffer;
+    }
+
+    xmlSetGenericErrorFunc(0, errorFunctionWithoutOutput);
+    htmlFreeParserCtxt(ctxt);
+
+    return (xmlDoc *)doc;
+}
+
+bool XMLDocument::saveToFile(const std::string & filename, const bool indent) const
+{
+    xmlThrDefIndentTreeOutput(1);
+    return xmlSaveFormatFile(filename.c_str(), document, indent) != -1;
+}
+
+bool XMLDocument::saveToHTMLFile(const std::string & filename, const bool indent) const
+{
+    int ret;
+    int options = XML_SAVE_AS_HTML;
+    if (indent)
+    {
+        options |= XML_SAVE_FORMAT;
+    }
+
+    xmlThrDefIndentTreeOutput(1);
+    xmlSaveCtxtPtr ctxt = xmlSaveToFilename(filename.c_str(), 0, options);
+    ret = xmlSaveDoc(ctxt, document);
+    xmlSaveFlush(ctxt);
+    xmlSaveClose(ctxt);
+
+    return ret != -1;
+}
+
 xmlParserCtxt *XMLDocument::initContext(std::string * error, bool validate)
 {
     xmlParserCtxt *ctxt;
@@ -378,6 +490,29 @@ xmlParserCtxt *XMLDocument::initContext(std::string * error, bool validate)
     }
 
     xmlSetGenericErrorFunc(ctxt, errorFunction);
+
+    return ctxt;
+}
+
+htmlParserCtxt *XMLDocument::initHTMLContext(std::string * error)
+{
+    htmlParserCtxt *ctxt;
+
+    if (errorBuffer)
+    {
+        delete errorBuffer;
+    }
+    errorBuffer = new std::string();
+
+    ctxt = htmlNewParserCtxt();
+    if (!ctxt)
+    {
+        errorBuffer->append(gettext("Cannot create a parser context"));
+        *error = *errorBuffer;
+        return 0;
+    }
+
+    xmlSetGenericErrorFunc((xmlParserCtxt *)ctxt, errorFunction);
 
     return ctxt;
 }
