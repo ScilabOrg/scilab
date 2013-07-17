@@ -19,7 +19,7 @@
 // See the file ../license.txt
 //
 
-function [x,y,typ]=puit_inputs(o)
+function [x,y,typ]=puits_inputs(o)
     xf=60
     yf=40
     [orig,sz,orient]=(o.graphics.orig,o.graphics.sz,o.graphics.flip)

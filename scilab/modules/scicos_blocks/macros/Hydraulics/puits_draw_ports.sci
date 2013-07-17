@@ -19,7 +19,7 @@
 // See the file ../license.txt
 //
 
-function puit_draw_ports(o)
+function puits_draw_ports(o)
 
     nin=size(o.model.in,1);
 
