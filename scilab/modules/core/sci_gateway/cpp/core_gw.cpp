@@ -32,7 +32,6 @@ int CoreModule::Load()
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"quit", &sci_quit, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"exit", &sci_exit, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"exists", &sci_exists, MODULE_NAME));
-    symbol::Context::getInstance()->addFunction(Function::createFunction(L"isdef", &sci_isdef, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"argn", &sci_argn, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"global", &sci_global, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"clearglobal", &sci_clearglobal, MODULE_NAME));
