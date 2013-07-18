@@ -28,8 +28,8 @@ h5close(b)
 
 h5mv(a.root.Grp_1, "Dset_1", a, "Dset_2")
 assert_checkequal(a.root.Datasets,["Dset1";"Dset_2"]);
-assert_checkequal(a.root.Dset_2.data,[0 0;0 0]);
+assert_checkequal(a.root.Dset_2.data,[1 2;3 4]);
 h5write(a.root.Grp_1, "Dset_1", [1 2 ; 3 4]);
 h5flush(a);
 h5mv(a.root.Grp_1, "Dset_1", a, "Dset_3")
-assert_checkequal(a.root.Dset_3.data,[1 2;3 4]');
+assert_checkequal(a.root.Dset_3.data,[1 2;3 4]);

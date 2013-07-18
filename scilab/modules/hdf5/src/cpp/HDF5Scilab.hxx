@@ -70,9 +70,9 @@ public:
 
     static void split(const std::string & str, std::vector<std::string> & v, const char c = '\n');
 
-    static void readData(const std::string & filename, const std::string & name, const unsigned int size, const double * start, const double * stride, const double * count, const double * block, int pos, void * pvApiCtx);
+    static void readData(const std::string & filename, const std::string & name, const unsigned int size, const hsize_t * start, const hsize_t * stride, const hsize_t * count, const hsize_t * block, int pos, void * pvApiCtx);
 
-    static void readData(H5Object & obj, const std::string & name, const unsigned int size, const double * start, const double * stride, const double * count, const double * block, int pos, void * pvApiCtx);
+    static void readData(H5Object & obj, const std::string & name, const unsigned int size, const hsize_t * start, const hsize_t * stride, const hsize_t * count, const hsize_t * block, int pos, void * pvApiCtx);
 
     static void readAttributeData(H5Object & obj, const std::string & path, const std::string & attrName, int pos, void * pvApiCtx);
 
@@ -304,7 +304,7 @@ public:
     {
         hid_t sourceType = -1;;
         hid_t targettype;
-        unsigned int rank;
+        unsigned int rank = 0;
         hsize_t * dims = 0;
         void * data = 0;
         bool mustDelete = false;
@@ -520,6 +520,17 @@ public:
 
 private:
     static std::map<std::string, H5Object::FilterType> initFilterNames();
+
+    inline static hsize_t getTotalSize(const hsize_t * dims, const unsigned int ndims)
+    {
+        hsize_t totalSize = 1;
+        for (unsigned int i = 0; i < ndims; i++)
+        {
+            totalSize *= dims[i];
+        }
+
+        return totalSize;
+    }
 };
 }
 

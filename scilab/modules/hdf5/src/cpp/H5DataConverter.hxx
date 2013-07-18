@@ -98,7 +98,7 @@ public:
     }
 
     template <typename T>
-    static void C2FHypermatrix(const int ndims, const hsize_t * dims, const hsize_t size, const T * src, T * dest, const bool flip = true)
+    static void C2FHypermatrix(const unsigned int ndims, const hsize_t * dims, const hsize_t size, const T * src, T * dest, const bool flip = true)
     {
         if (flip)
         {
@@ -140,6 +140,51 @@ public:
         }
     }
 
+    template <typename T>
+    static void F2CHypermatrix(const unsigned int ndims, const hsize_t * dims, const hsize_t size, const T * src, T * dest, const bool flip = true)
+    {
+        if (flip)
+        {
+            hsize_t totalSize = 1;
+            for (int i = 0; i < ndims; i++)
+            {
+                totalSize *= dims[i];
+            }
+            memcpy(static_cast<void *>(dest), static_cast<const void *>(src), totalSize * sizeof(T));
+        }
+        else
+        {
+            if (ndims == 2)
+            {
+                for (int i = 0; i < dims[0]; i++)
+                {
+                    for (int j = 0; j < dims[1]; j++)
+                    {
+                        dest[j + dims[1] * i] = src[i + dims[0] * j];
+                    }
+                }
+            }
+            else
+            {
+                hsize_t * _dims = flipDims((unsigned int)ndims, dims);
+                hsize_t * cumprod = new hsize_t[ndims];
+                hsize_t * cumdiv = new hsize_t[ndims];
+                cumprod[0] = 1;
+                cumdiv[ndims - 1] = 1;
+                for (int i = 0; i < ndims - 1; i++)
+                {
+                    cumprod[i + 1] = _dims[i] * cumprod[i];
+                    cumdiv[i] = size / cumprod[i + 1];
+                }
+
+                reorder(ndims, _dims, cumprod, cumdiv, src, dest);
+                delete[] _dims;
+                delete[] cumprod;
+                delete[] cumdiv;
+            }
+        }
+    }
+
 private:
 
     static int * getHypermatrix(void * pvApiCtx, const int position, const int ndims, const hsize_t * dims);
@@ -164,6 +209,22 @@ private:
                 src += *cumdiv;
             }
         }
+    }
+
+    static hsize_t * flipDims(const unsigned int size, const hsize_t * dims)
+    {
+        if (!dims)
+        {
+            return 0;
+        }
+
+        hsize_t * arr = new hsize_t[size];
+        for (unsigned int i = 0; i < size; i++)
+        {
+            arr[i] = dims[size - 1 - i];
+        }
+
+        return arr;
     }
 };
 }
