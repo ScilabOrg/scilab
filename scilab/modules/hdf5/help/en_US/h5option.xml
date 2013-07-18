@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2013 - Scilab Enterprises - Calixte DENIZET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="h5option" xml:lang="en">
+    <refnamediv>
+        <refname>h5option</refname>
+        <refpurpose>Get or set global options</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            h5option(opts)  
+            opts = h5option()  
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>opts</term>
+                <listitem>
+                    <para>a String matrix nx2</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>Without arguments, h5option return a String matrix containing options and their values.</para>
+        <para>With an argument, this function sets the global options to use with HDF5. Available options are:</para>
+        <para>       
+            <simplelist type="inline">
+                <member>
+                    write: "C" or "Fortran". 
+                    <para>
+                        In Scilab, matrices are stored with column-major order. For example [1 2 3;4 5 6] is stored [1 4 2 5 3 6] (i.e. column by column): this is the Fortran convention to store matrices. The C convention is different since the order is row-major: the same matrix would be stored [1 2 3 4 5 6] (i.e. row by row). So if write == "C", then Scilab data are transposed and copied in HDF5 file, else by convention, dimensions are flipped and data are copied as they are. 
+                        If read == "C", .
+                    </para>
+                </member>
+                <member>
+                    read: "C" or "Fortran". 
+                    <para>
+                        If read == "C", data are transposed and copied in Scilab else data dimensions are flipped and data are just copied in Scilab.
+                    </para>
+                     
+                </member>
+            </simplelist>
+            <para>Since Scilab follows Fortran convention, by default read and write are set to "Fortran" to improve performances. But if you use HDF5 files which have been written with a C program, you should set read to C.</para>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// We create a new HDF5 file
+a = h5open(TMPDIR + "/test.h5", "a")
+
+// Options
+h5option()
+
+// write with Fortran convention and read with C convention
+h5option(["read" "C"; "write" "Fortran"])
+
+// ...or only the third dataset
+x=[1 2 3;4 5 6];
+h5write(a,"x",x);
+xx=h5read(a,"/x");
+h5dump(a,"/x");
+x,xx
+
+// Free all the resources
+h5close(a)
+    ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="h5write">h5write</link>
+            </member>
+        </simplelist>
+        <simplelist type="inline">
+            <member>
+                <link linkend="h5read">h5read</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>HDF5 module introduced.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -29,6 +29,8 @@ class H5Dataset : public H5Object
 
 public :
 
+    // TODO: ajouter les informations sur les filtres (http://www.pytables.org/trac-bck/browser/trunk/src/utils.c?rev=264 recherche sur H5Pget_filter)
+
     H5Dataset(H5Object & _parent, const std::string & _name);
     H5Dataset(H5Object & _parent, hid_t _dataset, const std::string & _name);
 
@@ -182,7 +184,7 @@ public :
 
     H5Layout & getLayout();
 
-    static hid_t create(H5Object & loc, const std::string & name, const hid_t type, const hid_t targettype, const hid_t srcspace, const hid_t targetspace, void * data, const bool chunked = false);
+    static hid_t create(H5Object & loc, const std::string & name, const hid_t type, const hid_t targettype, const hid_t srcspace, const hid_t targetspace, void * data, const bool chunked = false, const int compressionLevel = -1);
 
 private:
 

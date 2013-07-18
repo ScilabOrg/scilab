@@ -316,8 +316,7 @@ std::string H5Dataset::toString(const unsigned int indentLevel) const
        << indentString << "Type" << ": " << type.getTypeName() << std::endl
        << indentString << "Dataspace" << ": " << space.getTypeName() << std::endl
        << indentString << "Data" << ": " << space.getStringDims() << std::endl
-       << indentString << "Attributes" << ": [1 x " << attrs.getSize() << "]";
-
+       << indentString << "Attributes" << ": [1 x " << attrs.getSize() << "]" << std::endl;
     delete &space;
     delete &type;
     delete &attrs;
@@ -335,7 +334,7 @@ bool H5Dataset::isChunked() const
     return chunked;
 }
 
-hid_t H5Dataset::create(H5Object & loc, const std::string & name, const hid_t type, const hid_t targettype, const hid_t srcspace, const hid_t targetspace, void * data, const bool chunked)
+hid_t H5Dataset::create(H5Object & loc, const std::string & name, const hid_t type, const hid_t targettype, const hid_t srcspace, const hid_t targetspace, void * data, const bool chunked, const int compressionLevel)
 {
     herr_t err;
     hid_t dataset;
@@ -446,6 +445,16 @@ hid_t H5Dataset::create(H5Object & loc, const std::string & name, const hid_t ty
             {
                 H5Pclose(dcpl);
                 throw H5Exception(__LINE__, __FILE__, _("Cannot set the chunk dimensions: %s"), name.c_str());
+            }
+
+            if (compressionLevel >= 0 && compressionLevel <= 9)
+            {
+                err = H5Pset_deflate(dcpl, compressionLevel);
+                if (err < 0)
+                {
+                    H5Pclose(dcpl);
+                    throw H5Exception(__LINE__, __FILE__, _("Cannot set the chunk dimensions: %s"), name.c_str());
+                }
             }
 
             dataset = H5Dcreate(loc.getH5Id(), name.c_str(), targettype, targetspace == -1 ? srcspace : targetspace, H5P_DEFAULT, dcpl, H5P_DEFAULT);

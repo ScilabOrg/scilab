@@ -88,6 +88,9 @@
             The target HDF5 type can be chosen in the list available in the <ulink url="http://www.hdfgroup.org/HDF5/doc/RM/PredefDTypes.html">HDF5 manual</ulink>.
             Examples of this HDF5 type are "H5T_MIPS_U32" or "H5T_STD_B64BE", but shortcuts as "MIPS_U32" or "STD_B64BE" can also be used.
         </para>
+        <para>
+            Since Scilab data are column-major ordered and HDF5 is row-major ordered, you should take care on how data are written (<link linkend="h5option">h5option</link>).
+        </para>
         <para>It is possible to make an hyperslab selection on the data.</para>
         <para>
             <inlinemediaobject>
@@ -152,6 +155,9 @@ h5close(a);
             </member>
             <member>
                 <link linkend="h5attr">h5attr</link>
+            </member>
+            <member>
+                <link linkend="h5option">h5option</link>
             </member>
         </simplelist>
     </refsection>

@@ -214,6 +214,7 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5mount.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5mv.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5open.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5option.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5read.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5readattr.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5rm.cpp" />
@@ -238,6 +239,7 @@
     <ClCompile Include="..\cpp\H5HardLink.cpp" />
     <ClCompile Include="..\cpp\H5Link.cpp" />
     <ClCompile Include="..\cpp\H5Object.cpp" />
+    <ClCompile Include="..\cpp\H5Options.cpp" />
     <ClCompile Include="..\cpp\H5ReferenceData.cpp" />
     <ClCompile Include="..\cpp\H5SoftLink.cpp" />
     <ClCompile Include="..\cpp\H5StringData.cpp" />
@@ -295,6 +297,7 @@
     <ClInclude Include="..\cpp\H5NamedObjectsList.hxx" />
     <ClInclude Include="..\cpp\H5Object.hxx" />
     <ClInclude Include="..\cpp\H5OpaqueData.hxx" />
+    <ClInclude Include="..\cpp\H5Options.hxx" />
     <ClInclude Include="..\cpp\H5ReferenceData.hxx" />
     <ClInclude Include="..\cpp\H5SoftLink.hxx" />
     <ClInclude Include="..\cpp\H5SoftLinksList.hxx" />
