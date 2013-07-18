@@ -55,6 +55,11 @@ int sci_h5read(char *fname, unsigned long fname_len)
     double * count = 0;
     double * block = 0;
     double ** dptrs[4] = {&start, &count, &stride, &block};
+    hsize_t * _start = 0;
+    hsize_t * _stride = 0;
+    hsize_t * _count = 0;
+    hsize_t * _block = 0;
+    hsize_t ** hptrs[4] = {&_start, &_count, &_stride, &_block};
     int inc = 0;
     int row, col;
     unsigned int size = 0;
@@ -219,21 +224,59 @@ int sci_h5read(char *fname, unsigned long fname_len)
         return 0;
     }
 
+    if (H5Options::isReadFlip())
+    {
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            *hptrs[i] = HDF5Scilab::flipAndConvert(size, *dptrs[i]);
+        }
+    }
+    else
+    {
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            if (*dptrs[i])
+            {
+                *hptrs[i] = new hsize_t[size];
+                for (unsigned int j = 0; j < size; j++)
+                {
+                    (*hptrs[i])[j] = (hsize_t)(*dptrs[i])[j];
+                }
+            }
+        }
+    }
+
     try
     {
         if (hobj)
         {
-            HDF5Scilab::readData(*hobj, location, size, start, stride, count, block, nbIn + 1, pvApiCtx);
+            HDF5Scilab::readData(*hobj, location, size, _start, _stride, _count, _block, nbIn + 1, pvApiCtx);
         }
         else
         {
-            HDF5Scilab::readData(_expandedPath, location, size, start, stride, count, block, nbIn + 1, pvApiCtx);
+            HDF5Scilab::readData(_expandedPath, location, size, _start, _stride, _count, _block, nbIn + 1, pvApiCtx);
         }
     }
     catch (const std::exception & e)
     {
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            if (*hptrs[i])
+            {
+                delete[] *hptrs[i];
+            }
+        }
+
         Scierror(999, _("%s: %s\n"), fname, e.what());
         return 0;
+    }
+
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        if (*hptrs[i])
+        {
+            delete[] *hptrs[i];
+        }
     }
 
     AssignOutputVariable(pvApiCtx, 1) = nbIn + 1;

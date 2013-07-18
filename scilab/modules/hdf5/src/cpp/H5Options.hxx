@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <string>
+#include <vector>
 
 #include "H5Exception.hxx"
 
@@ -38,7 +39,7 @@ class H5Options
 
 public:
 
-    static void setOption(const std::string op, const std::string & style)
+    static void setOption(const std::string & op, const std::string & style)
     {
         std::string upperStyle(style);
         std::transform(style.begin(), style.end(), upperStyle.begin(), toupper);
@@ -56,21 +57,34 @@ public:
         }
         else
         {
-            throw H5Exception(__LINE__, __FILE__, _("Invalid option: must be C or FORTRAN."));
+            throw H5Exception(__LINE__, __FILE__, _("Invalid option: must be 'C' or 'Fortran'."));
         }
 
         if (upperOp == "READ")
         {
-            setWriteStyle(order);
+            setReadStyle(order);
         }
         else if (upperOp == "WRITE")
         {
-            setReadStyle(order);
+            setWriteStyle(order);
         }
         else
         {
-            throw H5Exception(__LINE__, __FILE__, _("Invalid option: must be C or FORTRAN."));
+            throw H5Exception(__LINE__, __FILE__, _("Invalid option: must be 'read' or 'write'."));
         }
+    }
+
+    static std::vector<std::string> getOptions()
+    {
+        std::vector<std::string> v;
+
+        v.push_back("read");
+        v.push_back("write");
+
+        v.push_back(isReadFlip() ? "Fortran" : "C");
+        v.push_back(isWriteFlip() ? "Fortran" : "C");
+
+        return v;
     }
 
     static bool isWriteFlip()

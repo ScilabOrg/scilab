@@ -165,7 +165,7 @@ void HDF5Scilab::readAttributeData(const std::string & filename, const std::stri
     delete file;
 }
 
-void HDF5Scilab::readData(const std::string & filename, const std::string & name, const unsigned int size, const double * start, const double * stride, const double * count, const double * block, int pos, void * pvApiCtx)
+void HDF5Scilab::readData(const std::string & filename, const std::string & name, const unsigned int size, const hsize_t * start, const hsize_t * stride, const hsize_t * count, const hsize_t * block, int pos, void * pvApiCtx)
 {
     H5File * file = new H5File(filename, "/", "r");
 
@@ -182,7 +182,7 @@ void HDF5Scilab::readData(const std::string & filename, const std::string & name
     delete file;
 }
 
-void HDF5Scilab::readData(H5Object & obj, const std::string & name, const unsigned int size, const double * start, const double * stride, const double * count, const double * block, int pos, void * pvApiCtx)
+void HDF5Scilab::readData(H5Object & obj, const std::string & name, const unsigned int size, const hsize_t * start, const hsize_t * stride, const hsize_t * count, const hsize_t * block, int pos, void * pvApiCtx)
 {
     H5Object * hobj = &obj;
     hsize_t * dims = 0;
@@ -922,6 +922,7 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
     int row;
     int col;
     int _type;
+    hsize_t totalSize;
 
     *mustDelete = false;
     *mustDeleteContent = false;
@@ -952,20 +953,35 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                     throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                 }
 
-                mat = new doublecomplex[row * col];
-                for (int i = 0; i < row * col; i++)
+                totalSize = row * col;
+                mat = new doublecomplex[totalSize];
+                for (int i = 0; i < totalSize; i++)
                 {
                     mat[i].r = re[i];
                     mat[i].i = im[i];
                 }
 
                 *type = complex_id;
-                *ndims = 2;
-                *dims = new hsize_t[*ndims];
-                (*dims)[0] = flip ? col : row;
-                (*dims)[1] = flip ? row : col;
-                *data = mat;
+                if (!*dims)
+                {
+                    *ndims = 2;
+                    *dims = new hsize_t[*ndims];
+                    (*dims)[0] = flip ? col : row;
+                    (*dims)[1] = flip ? row : col;
+                }
+
                 *mustDelete = true;
+                if (flip)
+                {
+                    *data = mat;
+                }
+                else
+                {
+                    totalSize = getTotalSize(*dims, *ndims);
+                    *data = MALLOC(totalSize * sizeof(doublecomplex));
+                    H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, mat, (doublecomplex *)*data, false);
+                    delete[] mat;
+                }
             }
             else
             {
@@ -975,12 +991,27 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                 {
                     throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                 }
+
                 *type = H5Type::getBaseType(mat);
-                *ndims = 2;
-                *dims = new hsize_t[*ndims];
-                (*dims)[0] = flip ? col : row;
-                (*dims)[1] = flip ? row : col;
-                *data = mat;
+                if (!*dims)
+                {
+                    *ndims = 2;
+                    *dims = new hsize_t[*ndims];
+                    (*dims)[0] = flip ? col : row;
+                    (*dims)[1] = flip ? row : col;
+                }
+
+                if (flip)
+                {
+                    *data = mat;
+                }
+                else
+                {
+                    totalSize = getTotalSize(*dims, *ndims);
+                    *data = MALLOC(totalSize * sizeof(double));
+                    H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, mat, (double *)*data, false);
+                    *mustDelete = true;
+                }
             }
             break;
         }
@@ -988,6 +1019,7 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
         {
             int prec = 0;
             void * ints = 0;
+            *ndims = 2;
 
             err = getMatrixOfIntegerPrecision(pvApiCtx, addr, &prec);
             if (err.iErr)
@@ -1004,6 +1036,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((char *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(char));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (char *)ints, (char *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
                 case SCI_UINT8 :
                     err = getMatrixOfUnsignedInteger8(pvApiCtx, addr, &row, &col, (unsigned char **)(&ints));
@@ -1012,6 +1063,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((unsigned char *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(unsigned char));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (unsigned char *)ints, (unsigned char *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
                 case SCI_INT16 :
                     err = getMatrixOfInteger16(pvApiCtx, addr, &row, &col, (short **)(&ints));
@@ -1020,6 +1090,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((short *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(short));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (short *)ints, (short *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
                 case SCI_UINT16 :
                     err = getMatrixOfUnsignedInteger16(pvApiCtx, addr, &row, &col, (unsigned short **)(&ints));
@@ -1028,6 +1117,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((unsigned short *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(unsigned short));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (unsigned short *)ints, (unsigned short *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
                 case SCI_INT32 :
                     err = getMatrixOfInteger32(pvApiCtx, addr, &row, &col, (int**)(&ints));
@@ -1036,6 +1144,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((int *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(int));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (int *)ints, (int *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
                 case SCI_UINT32 :
                     err = getMatrixOfUnsignedInteger32(pvApiCtx, addr, &row, &col, (unsigned int **)(&ints));
@@ -1044,6 +1171,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((unsigned int *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(unsigned int));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (unsigned int *)ints, (unsigned int *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
 
 #ifdef __SCILAB_INT64__
@@ -1054,6 +1200,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((long long *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(long long));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (long long *)ints, (long long *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
                 case SCI_UINT64 :
                     err = getMatrixOfUnsignedInteger64(pvApiCtx, addr, &row, &col, (unsigned long long **)(&ints));
@@ -1062,15 +1227,28 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                     }
                     *type = H5Type::getBaseType((unsigned long long *)ints);
+                    if (!*dims)
+                    {
+                        *ndims = 2;
+                        *dims = new hsize_t[*ndims];
+                        (*dims)[0] = flip ? col : row;
+                        (*dims)[1] = flip ? row : col;
+                    }
+
+                    if (flip)
+                    {
+                        *data = ints;
+                    }
+                    else
+                    {
+                        totalSize = getTotalSize(*dims, *ndims);
+                        *data = MALLOC(totalSize * sizeof(unsigned long long));
+                        H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (unsigned long long *)ints, (unsigned long long *)*data, false);
+                        *mustDelete = true;
+                    }
                     break;
 #endif
             }
-
-            *ndims = 2;
-            *dims = new hsize_t[*ndims];
-            (*dims)[0] = flip ? col : row;
-            (*dims)[1] = flip ? row : col;
-            *data = ints;
             break;
         }
         case sci_strings :
@@ -1081,13 +1259,27 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                 throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
             }
             *type = H5Type::getBaseType((char **)matS);
-            *ndims = 2;
-            *dims = new hsize_t[*ndims];
-            (*dims)[0] = flip ? col : row;
-            (*dims)[1] = flip ? row : col;
-            *data = matS;
             *mustDelete = true;
             *mustDeleteContent = true;
+            if (!*dims)
+            {
+                *ndims = 2;
+                *dims = new hsize_t[*ndims];
+                (*dims)[0] = flip ? col : row;
+                (*dims)[1] = flip ? row : col;
+            }
+
+            if (flip)
+            {
+                *data = matS;
+            }
+            else
+            {
+                totalSize = getTotalSize(*dims, *ndims);
+                *data = MALLOC(totalSize * sizeof(char *));
+                H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (char **)matS, (char **)*data, false);
+                FREE(matS);
+            }
             break;
         }
         case sci_boolean :
@@ -1100,11 +1292,25 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                 throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
             }
             *type = H5Type::getBaseType((int *)matB);
-            *ndims = 2;
-            *dims = new hsize_t[*ndims];
-            (*dims)[0] = flip ? col : row;
-            (*dims)[1] = flip ? row : col;
-            *data = matB;
+            if (!*dims)
+            {
+                *ndims = 2;
+                *dims = new hsize_t[*ndims];
+                (*dims)[0] = flip ? col : row;
+                (*dims)[1] = flip ? row : col;
+            }
+
+            if (flip)
+            {
+                *data = matB;
+            }
+            else
+            {
+                totalSize = getTotalSize(*dims, *ndims);
+                *data = MALLOC(totalSize * sizeof(int));
+                H5DataConverter::F2CHypermatrix(*ndims, *dims, totalSize, (int *)matB, (int *)*data, false);
+                *mustDelete = true;
+            }
             break;
         }
         case sci_mlist :
@@ -1121,18 +1327,13 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                     throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                 }
 
-                getScilabData(type, ndims, dims, data, mustDelete, mustDeleteContent, flip, entries, rhsPosition, pvApiCtx);
-                if (*dims)
-                {
-                    delete[] *dims;
-                }
-
                 err = getHypermatDimensions(pvApiCtx, addr, &_dims, &_ndims);
                 if (err.iErr)
                 {
                     throw H5Exception(__LINE__, __FILE__, _("%s: Can not read input argument #%d."), rhsPosition);
                 }
 
+                *ndims = _ndims;
                 *dims = new hsize_t[_ndims];
                 if (flip)
                 {
@@ -1148,7 +1349,8 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
                         (*dims)[i] = _dims[i];
                     }
                 }
-                *ndims = _ndims;
+
+                getScilabData(type, ndims, dims, data, mustDelete, mustDeleteContent, flip, entries, rhsPosition, pvApiCtx);
             }
             else
             {

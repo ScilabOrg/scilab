@@ -18,6 +18,7 @@ extern "C"
 #include "localization.h"
 }
 
+#include "H5Options.hxx"
 #include "HDF5Scilab.hxx"
 
 using namespace org_modules_hdf5;
@@ -157,11 +158,11 @@ int sci_h5attr(char *fname, unsigned long fname_len)
     {
         if (hobj)
         {
-            HDF5Scilab::createObjectFromStack<H5Attribute>(*hobj, location, name, true, pvApiCtx, 4, 0, 0, 0, 0, 0, 0, targetType, 0, 0, 0, 0, 0, 0, 0);
+            HDF5Scilab::createObjectFromStack<H5Attribute>(*hobj, location, name, H5Options::isWriteFlip(), pvApiCtx, 4, 0, 0, 0, 0, 0, 0, targetType, 0, 0, 0, 0, 0, 0, 0);
         }
         else
         {
-            HDF5Scilab::createObjectFromStack<H5Attribute>(file, location, name, true, pvApiCtx, 4, 0, 0, 0, 0, 0, 0, targetType, 0, 0, 0, 0, 0, 0, 0);
+            HDF5Scilab::createObjectFromStack<H5Attribute>(file, location, name, H5Options::isWriteFlip(), pvApiCtx, 4, 0, 0, 0, 0, 0, 0, targetType, 0, 0, 0, 0, 0, 0, 0);
         }
     }
     catch (const H5Exception & e)
