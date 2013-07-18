@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: D:\git\debug\master\scilab\contrib\toolbox_skeleton\sci_gateway\c\sci_cerror.c:17
+#: D:\git\debug\master\scilab\contrib\toolbox_skeleton\macros\scilab_error.sci:13
+#, possible-python-format
+msgid "%s: I'm waiting only one argument.\n"
+msgstr "%s: Je n'attends qu'un seul argument.\n"
+
+#: D:\git\debug\master\scilab\contrib\toolbox_skeleton\sci_gateway\c\sci_cerror.c:22
+#: D:\git\debug\master\scilab\contrib\toolbox_skeleton\macros\scilab_error.sci:17
+#, possible-python-format
+msgid "%s: Yeah ! %d is a good number but I prefer failed, sorry.\n"
+msgstr "%s: Oui ! %d est un bon nombre mais je préfère échouer, désolé.\n"
+
+#: C:\Users\Tonio\AppData\Local\Temp\SCI_TMP_7760_/tmpLoc.xml:3
+msgid "Rectangle"
+msgstr "Rectangle"
+
+#: C:\Users\Tonio\AppData\Local\Temp\SCI_TMP_7760_/tmpLoc.xml:4
+msgid "My Title"
+msgstr "Mon Titre"
+
+#: C:\Users\Tonio\AppData\Local\Temp\SCI_TMP_7760_/tmpLoc.xml:5
+msgid "Height"
+msgstr "Hauteur"
+
+#: C:\Users\Tonio\AppData\Local\Temp\SCI_TMP_7760_/tmpLoc.xml:10
+msgid "Width"
+msgstr "Largeur"
+
+#: C:\Users\Tonio\AppData\Local\Temp\SCI_TMP_7760_/tmpLoc.xml:15
+msgid "Color"
+msgstr "Couleur"
+
+#: C:\Users\Tonio\AppData\Local\Temp\SCI_TMP_7760_/tmpLoc.xml:16
+msgid "Outline"
+msgstr "Contour"
