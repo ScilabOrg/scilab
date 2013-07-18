@@ -214,6 +214,7 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5mount.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5mv.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5open.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_h5option.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5read.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5readattr.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_h5rm.cpp" />

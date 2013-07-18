@@ -1,0 +1,49 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+
+msgerr = msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "h5option", 0, 1);
+assert_checkerror("h5option(1, 2)",msgerr,77);
+msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: A matrix of strings.\n"), "h5option", 1);
+assert_checkerror("h5option(42)",msgerr,999);
+
+
+//default values
+ref = ["read" "Fortran";"write" "Fortran"];
+assert_checkequal(h5option(), ref);
+
+//change read value
+h5option(["read", "C"]);
+ref = ["read" "C";"write" "Fortran"];
+assert_checkequal(h5option(), ref);
+
+//change write value
+h5option(["write", "C"]);
+ref = ["read" "C";"write" "C"];
+assert_checkequal(h5option(), ref);
+
+//reset values
+h5option(["read", "Fortran"; "write", "Fortran"]);
+ref = ["read" "Fortran";"write" "Fortran"];
+assert_checkequal(h5option(), ref);
+
+//change both values
+h5option(["read", "C"; "write", "C"]);
+ref = ["read" "C";"write" "C"];
+assert_checkequal(h5option(), ref);
+
+//reset values
+h5option(["read", "Fortran"; "write", "Fortran"]);
+ref = ["read" "Fortran";"write" "Fortran"];
+assert_checkequal(h5option(), ref);
+
+//change both values but in other way
+h5option(["write", "C"; "read", "C"]);
+ref = ["read" "C" ; "write" "C"];
+assert_checkequal(h5option(), ref);
+
