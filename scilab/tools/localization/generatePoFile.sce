@@ -62,6 +62,7 @@ function  generatePoFile(LANGUAGE)
             cmdline_msgcat = PATH_GETTEXT_TOOLS + filesep() + "msgcat --use-first -o " + DEST_FILE_PO + " " + strcat("""" + List_files + """", " ");
             unix(cmdline_msgcat);
             cmline_msgfmt = PATH_GETTEXT_TOOLS + filesep() + "msgfmt --statistics -o " + DEST_FILE_MO + " " + DEST_FILE_PO;
+            disp(cmline_msgfmt);
             unix(cmline_msgfmt);
         end
     end

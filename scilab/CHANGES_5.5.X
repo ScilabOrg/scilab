@@ -44,6 +44,12 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 * The histplot command can now be used with the option polygon=%t/%f to add the
   frequency polygon chart (thanks to Mehran Khorshidi).
 
+* localization
+  add management of multiple domains in localization.
+  add function addlocalizationdomain and add optional parameter to gettext to
+  manage domains.
+  add tbx_generate_pofile and tbx_build_localization to create localization files
+  to toolboxes.
 
 Syntax changes
 ===============
