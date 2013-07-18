@@ -54,6 +54,9 @@
     <refsection>
         <title>Description</title>
         <para>Read the content of an attribute.</para>
+        <para>
+            Since Scilab data are column-major ordered and HDF5 is row-major ordered, you should take care on how data are written (<link linkend="h5option">h5option</link>).
+        </para>
     </refsection>
     <refsection>
         <title>Examples</title>
@@ -88,6 +91,9 @@ h5close(a);
             </member>
             <member>
                 <link linkend="h5attr">h5attr</link>
+            </member>
+            <member>
+                <link linkend="h5option">h5option</link>
             </member>
         </simplelist>
     </refsection>

@@ -219,9 +219,23 @@ int sci_h5write(char *fname, unsigned long fname_len)
             return 0;
         }
 
-        for (unsigned int i = 0; i < 4; i++)
+        if (H5Options::isWriteFlip())
         {
-            *hptrs[i] = HDF5Scilab::flipAndConvert(size, *dptrs[i]);
+            for (unsigned int i = 0; i < 4; i++)
+            {
+                *hptrs[i] = HDF5Scilab::flipAndConvert(size, *dptrs[i]);
+            }
+        }
+        else
+        {
+            for (unsigned int i = 0; i < 4; i++)
+            {
+                *hptrs[i] = new hsize_t[size];
+                for (unsigned int j = 0; j < size; j++)
+                {
+                    *hptrs[i][j] = (hsize_t) * dptrs[j];
+                }
+            }
         }
     }
 
@@ -229,11 +243,11 @@ int sci_h5write(char *fname, unsigned long fname_len)
     {
         if (hobj)
         {
-            HDF5Scilab::createObjectFromStack<H5Dataset>(*hobj, "", name, true, pvApiCtx, 3, 0, 0, _start, _stride, _count, _block, targetType, size, 0, 0, 0, 0, 0, 0);
+            HDF5Scilab::createObjectFromStack<H5Dataset>(*hobj, "", name, H5Options::isWriteFlip(), pvApiCtx, 3, 0, 0, _start, _stride, _count, _block, targetType, size, 0, 0, 0, 0, 0, 0);
         }
         else
         {
-            HDF5Scilab::createObjectFromStack<H5Dataset>(file, "/", name, true, pvApiCtx, 3, 0, 0, _start, _stride, _count, _block, targetType, size, 0, 0, 0, 0, 0, 0);
+            HDF5Scilab::createObjectFromStack<H5Dataset>(file, "/", name, H5Options::isWriteFlip(), pvApiCtx, 3, 0, 0, _start, _stride, _count, _block, targetType, size, 0, 0, 0, 0, 0, 0);
         }
 
         for (unsigned int i = 0; i < 4; i++)
