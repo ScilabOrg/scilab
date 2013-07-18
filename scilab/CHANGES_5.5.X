@@ -41,7 +41,10 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 
 * localization
   add management of multiple domains in localization.
-  add function addlocalizationdomain and add optional parameter to gettext
+  add function addlocalizationdomain and add optional parameter to gettext to
+  manage domains.
+  add tbx_generate_pofile and tbx_build_localization to create localization files
+  to toolboxes.
 
 Syntax changes
 ===============
