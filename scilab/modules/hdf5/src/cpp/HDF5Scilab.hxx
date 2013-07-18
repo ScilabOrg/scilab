@@ -304,7 +304,7 @@ public:
     {
         hid_t sourceType = -1;;
         hid_t targettype;
-        unsigned int rank;
+        unsigned int rank = 0;
         hsize_t * dims = 0;
         void * data = 0;
         bool mustDelete = false;
@@ -520,6 +520,17 @@ public:
 
 private:
     static std::map<std::string, H5Object::FilterType> initFilterNames();
+
+    inline static hsize_t getTotalSize(const hsize_t * dims, const unsigned int ndims)
+    {
+        hsize_t totalSize = 1;
+        for (unsigned int i = 0; i < ndims; i++)
+        {
+            totalSize *= dims[i];
+        }
+
+        return totalSize;
+    }
 };
 }
 

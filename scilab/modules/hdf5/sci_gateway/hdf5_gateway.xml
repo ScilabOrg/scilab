@@ -68,4 +68,5 @@
     <PRIMITIVE gatewayId="62" primitiveId="37" primitiveName="%H5Object_fieldnames" />
     <PRIMITIVE gatewayId="62" primitiveId="38" primitiveName="h5isArray" />
     <PRIMITIVE gatewayId="62" primitiveId="39" primitiveName="h5isVlen" />
+    <PRIMITIVE gatewayId="62" primitiveId="40" primitiveName="h5option" />
 </GATEWAY>

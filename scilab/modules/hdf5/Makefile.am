@@ -74,7 +74,8 @@ sci_gateway/cpp/sci_h5mv.cpp \
 sci_gateway/cpp/sci_h5get.cpp \
 sci_gateway/cpp/sci_h5label.cpp \
 sci_gateway/cpp/sci_h5exists.cpp \
-sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp
+sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp \
+sci_gateway/cpp/sci_h5option.cpp 
 
 if GIWS
 BUILT_SOURCES=giws
