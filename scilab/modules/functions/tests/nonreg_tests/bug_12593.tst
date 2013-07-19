@@ -22,5 +22,5 @@ my_file     = my_dir+"/test.sci";
 mkdir(my_dir);
 mputl(my_function,my_file);
 
-errmsg=msprintf(gettext("%s: Error in file %s : %s.\n"), "genlib", my_file, "Facteur invalide.");
-assert_checkerror("genlib(""bug_12593_dir"", my_dir,%t,%t)",errmsg);
+errmsg=msprintf(gettext("%s: Error in file %s : %s.\n"), "genlib", my_file, msprintf(gettext("Invalid factor.\n")));
+assert_checkerror("genlib(""bug_12593_dir"", my_dir,%T)",errmsg);
