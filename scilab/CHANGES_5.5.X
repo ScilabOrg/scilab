@@ -248,6 +248,8 @@ Bug fixes
 
 * Bug #8470 fixed - bvode() displayed some output in terminal window and not in Scilab console.
 
+* Bug #8479 fixed - the latest Saxon version was not supported.
+
 * Bug #8511 fixed - sprand used rand and grand functions, and internal state of the random
                     generator was changed.
 
