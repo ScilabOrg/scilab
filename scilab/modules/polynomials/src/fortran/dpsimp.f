@@ -165,7 +165,7 @@ c
       nb1=nden
       return
  20   a1(1)=0.0d+0
-      b1(1)=1.0d+0
+      b1(1)=1.0d+0                         
       na1=1
       nb1=1
       return
