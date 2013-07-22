@@ -38,8 +38,12 @@ enum PartialPart
 /*--------------------------------------------------------------------------*/
 Function::ReturnValue sci_fileparts(typed_list &in, int _iRetCount, typed_list &out)
 {
-    bool bPartialValue  = false;
     PartialPart iPartialPart = AllPart;
+
+    types::String* pStrPath = NULL;
+    types::String* pStrOut  = NULL;
+    types::String* pStrOut2 = NULL;
+    types::String* pStrOut3 = NULL;
 
     if (in.size() < 1 || in.size() > 2)
     {
@@ -53,106 +57,129 @@ Function::ReturnValue sci_fileparts(typed_list &in, int _iRetCount, typed_list &
         return Function::Error;
     }
 
-    if (in.size() == 1 && _iRetCount != 3)
+    if (in.size() == 1 && _iRetCount > 3)
     {
-        Scierror(78, _("%s: Wrong number of output arguments: %d expected.\n"), "fileparts", 3);
+        Scierror(78, _("%s: Wrong number of output arguments: %d to %d expected.\n"), "fileparts", 1, 3);
         return Function::Error;
     }
 
-    if (in[0]->isString() == false && in[0]->getAs<types::String>()->getSize() != 1)
+    if (in[0]->isString() == false)
     {
         Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "fileparts", 1);
         return Function::Error;
     }
 
+    pStrPath = in[0]->getAs<types::String>();
+    pStrOut = new types::String(pStrPath->getDims(), pStrPath->getDimsArray());
+
     if (in.size() == 2)
     {
-        if (in[1]->isString() == false && in[1]->getAs<types::String>()->getSize() != 1)
+        if (in[1]->isString() == false)
         {
             Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "fileparts", 2);
             return Function::Error;
         }
 
-        wchar_t* pParts = in[1]->getAs<types::String>()->get()[0];
+        if (in[1]->getAs<types::String>()->getSize() != 1)
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), "fileparts", 2);
+            return Function::Error;
+        }
 
+        wchar_t* pParts = in[1]->getAs<types::String>()->get(0);
         if (wcscmp(pParts, FILEPARTS_PATH_SELECTOR) == 0)
         {
-            bPartialValue   = true;
-            iPartialPart    = PathPart;
+            iPartialPart = PathPart;
         }
         else if (wcscmp(pParts, FILEPARTS_FNAME_SELECTOR) == 0)
         {
-            bPartialValue   = true;
-            iPartialPart    = NamePart;
+            iPartialPart = NamePart;
         }
         else if (wcscmp(pParts, FILEPARTS_EXTENSION_SELECTOR) == 0)
         {
-            bPartialValue   = true;
-            iPartialPart    = ExtensionPart;
+            iPartialPart = ExtensionPart;
         }
         else
         {
             Scierror(999, _("%s: Wrong value for input argument #%d.\n"), "fileparts", 2);
             return Function::Error;
         }
-    }
 
-    wchar_t* pPath = in[0]->getAs<types::String>()->get()[0];
-
-    wchar_t* pwstDrive      = new wchar_t[wcslen(pPath) + 1];
-    wchar_t* pwstDirectory  = new wchar_t[wcslen(pPath) + 1];
-    wchar_t* pwstName       = new wchar_t[wcslen(pPath) + 1];
-    wchar_t* pwstExtension  = new wchar_t[wcslen(pPath) + 1];
-
-    splitpathW(pPath, FALSE, pwstDrive, pwstDirectory, pwstName, pwstExtension);
-    wcscat(pwstDrive, pwstDirectory);
-
-    if (in.size() == 2)
-    {
-        String* pOut = NULL;
-        switch (iPartialPart)
+        for (int i = 0; i < pStrPath->getSize(); i++)
         {
-            case PathPart :
+            wchar_t* pPath = pStrPath->get(i);
+
+            wchar_t* pwstDrive      = new wchar_t[wcslen(pPath) + 1];
+            wchar_t* pwstDirectory  = new wchar_t[wcslen(pPath) + 1];
+            wchar_t* pwstName       = new wchar_t[wcslen(pPath) + 1];
+            wchar_t* pwstExtension  = new wchar_t[wcslen(pPath) + 1];
+
+            splitpathW(pPath, FALSE, pwstDrive, pwstDirectory, pwstName, pwstExtension);
+            wcscat(pwstDrive, pwstDirectory);
+
+            switch (iPartialPart)
             {
-                pOut = new String(pwstDrive);
-                break;
+                case PathPart :
+                {
+                    pStrOut->set(i, pwstDrive);
+                    break;
+                }
+                case NamePart :
+                {
+                    pStrOut->set(i, pwstName);
+                    break;
+                }
+                case ExtensionPart :
+                {
+                    pStrOut->set(i, pwstExtension);
+                    break;
+                }
+                default :
+                {
+                    //Never occur
+                }
             }
-            case NamePart :
-            {
-                pOut = new String(pwstName);
-                break;
-            }
-            case ExtensionPart :
-            {
-                pOut = new String(pwstExtension);
-                break;
-            }
-            default :
-            {
-                //Never occur
-            }
+
+            delete[] pwstDirectory;
+            delete[] pwstDrive;
+            delete[] pwstExtension;
+            delete[] pwstName;
         }
 
-
-        out.push_back(pOut);
+        out.push_back(pStrOut);
     }
     else
     {
-        //standard case, 3 outputs
-        String* pOut1 = new String(pwstDrive);
-        out.push_back(pOut1);
+        pStrOut2 = new types::String(pStrPath->getDims(), pStrPath->getDimsArray());
+        pStrOut3 = new types::String(pStrPath->getDims(), pStrPath->getDimsArray());
 
-        String* pOut2 = new String(pwstName);
-        out.push_back(pOut2);
+        for (int i = 0; i < pStrPath->getSize(); i++)
+        {
+            wchar_t* pPath = pStrPath->get(i);
 
-        String* pOut3 = new String(pwstExtension);
-        out.push_back(pOut3);
+            wchar_t* pwstDrive      = new wchar_t[wcslen(pPath) + 1];
+            wchar_t* pwstDirectory  = new wchar_t[wcslen(pPath) + 1];
+            wchar_t* pwstName       = new wchar_t[wcslen(pPath) + 1];
+            wchar_t* pwstExtension  = new wchar_t[wcslen(pPath) + 1];
+
+            splitpathW(pPath, FALSE, pwstDrive, pwstDirectory, pwstName, pwstExtension);
+            wcscat(pwstDrive, pwstDirectory);
+
+            //standard case, 3 outputs
+            pStrOut->set(i, pwstDrive);
+            pStrOut2->set(i, pwstName);
+            pStrOut3->set(i, pwstExtension);
+
+            delete[] pwstDirectory;
+            delete[] pwstDrive;
+            delete[] pwstExtension;
+            delete[] pwstName;
+        }
+
+        out.push_back(pStrOut);
+        out.push_back(pStrOut2);
+        out.push_back(pStrOut3);
     }
-
-    delete[] pwstDirectory;
-    delete[] pwstDrive;
-    delete[] pwstExtension;
-    delete[] pwstName;
 
     return Function::OK;
     //SciErr sciErr;
