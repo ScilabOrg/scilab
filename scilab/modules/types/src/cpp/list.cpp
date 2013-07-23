@@ -273,10 +273,11 @@ InternalType* List::insert(typed_list* _pArgs, InternalType* _pSource)
         }
         else
         {
-            pInsert = _pSource;
+            pInsert = _pSource->clone();
+            pInsert->IncreaseRef();
         }
 
-        m_plData->insert(m_plData->begin(), pInsert->clone());
+        m_plData->insert(m_plData->begin(), pInsert);
     }
     else
     {
