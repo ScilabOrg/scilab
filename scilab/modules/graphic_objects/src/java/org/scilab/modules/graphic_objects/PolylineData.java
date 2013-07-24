@@ -53,12 +53,12 @@ public class PolylineData {
         return PolylineDataJNI.createPolylineData(uidFrom, uidTo);
     }
 
-    public static int translatePolyline(String uid, double x, double y, double z) {
-        return PolylineDataJNI.translatePolyline(uid, x, y, z);
+    public static int translatePolyline(String uid, double x, double y, double z, int flagX, int flagY, int flagZ) {
+        return PolylineDataJNI.translatePolyline(uid, x, y, z, flagX, flagY, flagZ);
     }
 
-    public static int translatePoint(String uid, int index, double x, double y, double z) {
-        return PolylineDataJNI.translatePoint(uid, index, x, y, z);
+    public static int translatePoint(String uid, int index, double x, double y, double z, int flagX, int flagY, int flagZ) {
+        return PolylineDataJNI.translatePoint(uid, index, x, y, z, flagX, flagY, flagZ);
     }
 
     public static int setPointValue(String uid, int index, double x, double y, double z) {
