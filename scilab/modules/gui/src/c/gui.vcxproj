@@ -194,6 +194,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_set_style.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_toggle.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_manager_mode.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_plotbrowser.cpp" />
@@ -206,6 +207,7 @@
     <ClCompile Include="..\cpp\GetUicontrolTooltipString.cpp" />
     <ClCompile Include="..\cpp\SetConsoleShowHiddenHandles.cpp" />
     <ClCompile Include="..\jni\DatatipCreate.cpp" />
+    <ClCompile Include="..\jni\DatatipSetStyle.cpp" />
     <ClCompile Include="..\jni\DatatipDelete.cpp" />
     <ClCompile Include="..\jni\DatatipManager.cpp" />
     <ClCompile Include="..\jni\EditorManager.cpp" />
@@ -461,6 +463,7 @@
     <ClInclude Include="..\..\includes\Toolbar.h" />
     <ClInclude Include="..\..\includes\Widget.h" />
     <ClInclude Include="..\jni\DatatipCreate.hxx" />
+    <ClInclude Include="..\jni\DatatipSetStyle.hxx" />
     <ClInclude Include="..\jni\DatatipDelete.hxx" />
     <ClInclude Include="..\jni\DatatipManager.hxx" />
     <ClInclude Include="..\jni\EditorManager.hxx" />
