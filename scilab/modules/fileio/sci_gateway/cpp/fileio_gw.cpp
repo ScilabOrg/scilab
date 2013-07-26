@@ -72,5 +72,6 @@ int FileioModule::Load()
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"fprintfMat", &sci_fprintfMat, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"fscanfMat", &sci_fscanfMat, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(Function::createFunction(L"getURL", &sci_getURL, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(Function::createFunction(L"splitURL", &sci_splitURL, MODULE_NAME));
     return 1;
 }
