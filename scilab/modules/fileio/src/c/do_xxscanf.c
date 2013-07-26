@@ -81,10 +81,7 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
         if (*currentchar == L'%' && *(currentchar + 1) == L'%')
         {
             currentchar = currentchar + 2;
-            while (*currentchar != L'%' && *currentchar != L'\0')
-            {
-                currentchar++;
-            }
+            continue;
         }
 
         if (*currentchar == 0)
@@ -105,7 +102,6 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
         if (p1 + 1 != currentchar)
         {
             wchar_t w = *currentchar;
-
             *currentchar = L'\0';
             width_flag = 1;
             swscanf(p1 + 1, L"%d", &width_val);
@@ -199,7 +195,7 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
                         return DO_XXPRINTF_RET_BUG;
                     }
 
-                    if ((buf[num_conversion].c = MALLOC(MAX_STR)) == NULL)
+                    if ((buf[num_conversion].c = (wchar_t*)MALLOC(MAX_STR * sizeof(wchar_t))) == NULL)
                     {
                         return DO_XXPRINTF_MEM_LACK;
                     }
@@ -224,7 +220,7 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
                         return DO_XXPRINTF_RET_BUG;
                     }
 
-                    if ((buf[num_conversion].c = (wchar_t*)MALLOC(MAX_STR)) == NULL)
+                    if ((buf[num_conversion].c = (wchar_t*)MALLOC(MAX_STR * sizeof(wchar_t))) == NULL)
                     {
                         return DO_XXPRINTF_MEM_LACK;
                     }
@@ -255,7 +251,7 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
                         return DO_XXPRINTF_RET_BUG;
                     }
 
-                    if ((buf[num_conversion].c = (wchar_t*)MALLOC(MAX_STR)) == NULL)
+                    if ((buf[num_conversion].c = (wchar_t*)MALLOC(MAX_STR * sizeof(wchar_t))) == NULL)
                     {
                         return DO_XXPRINTF_MEM_LACK;
                     }
@@ -342,53 +338,56 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
         }
     }
 
-    if ( str_width_flag == 1)
+    // replace %s by %ls
+    wchar_t *f1 = format;
+    wchar_t *f2 = sformat;
+    wchar_t *slast = sformat + MAX_STR - 1 - 4;
+
+    int bFirst = 1;
+    while (*f1 != L'\0')
     {
-        wchar_t *f1 = format;
-        wchar_t *f2 = sformat;
-        wchar_t *slast = sformat + MAX_STR - 1 - 4;
-
-        int bFirst = 1;
-        while (*f1 != L'\0')
+        int n;
+        if (*(f1) == L'%')
         {
-            int n;
-            if (*(f1) == L'%')
-            {
-                bFirst = 1;
-            }
+            bFirst = 1;
+        }
+        *f2++ = *f1++;
+        while (isdigit(((int)*f1)))
+        {
             *f2++ = *f1++;
-            if (bFirst && ( *(f1) == L's'  || *(f1) == L'[' || *(f1) == L'c'))
-            {
-                bFirst = 0;
-                if (*(f1 - 1) != L'l' && *(f1 - 1) != L'L')
-                {
-                    *f2++  = L'l';
-                }
-            }
-            if ( (*(f1) == L's' || *(f1) == L'[')
-                    &&
-                    (   (*(f1 - 1) == L'%')
-                        ||
-                        ((*(f1 - 1) == L'l' || *(f1 - 1) == L'L') && (*(f1 - 2) == L'%'))
-                    )
-               )
-            {
-                f2--;
-                n = swprintf(f2, MAX_STR - 1, L"%d%c", MAX_STR - 1, L'l');
-                f2 += n;
-                *f2++ = *f1++;
-            }
-
-            if (f2 == slast)
-            {
-                Scierror(998, _("%s: An error occurred: format is too long (> %d).\n"), fname, MAX_STR - 1);
-                return DO_XXPRINTF_RET_BUG;
-            }
         }
 
-        *f2 = L'\0';
-        format = sformat;
+        if (bFirst && ( *(f1) == L's'  || *(f1) == L'[' || *(f1) == L'c'))
+        {
+            bFirst = 0;
+            if (*(f1 - 1) != L'l' && *(f1 - 1) != L'L')
+            {
+                *f2++  = L'l';
+            }
+        }
+        if ( (*(f1) == L's' || *(f1) == L'[')
+                &&
+                (   (*(f1 - 1) == L'%')
+                    ||
+                    ((*(f1 - 1) == L'l' || *(f1 - 1) == L'L') && (*(f1 - 2) == L'%'))
+                )
+           )
+        {
+            f2--;
+            n = swprintf(f2, MAX_STR - 1, L"%d%c", MAX_STR - 1, L'l');
+            f2 += n;
+            *f2++ = *f1++;
+        }
+
+        if (f2 == slast)
+        {
+            Scierror(998, _("%s: An error occurred: format is too long (> %d).\n"), fname, MAX_STR - 1);
+            return DO_XXPRINTF_RET_BUG;
+        }
     }
+
+    *f2 = L'\0';
+    format = sformat;
 
     *retval = (*xxscanf) ((VPTR) target, format,
                           ptrtab[0], ptrtab[1], ptrtab[2], ptrtab[3], ptrtab[4], ptrtab[5], ptrtab[6], ptrtab[7], ptrtab[8], ptrtab[9],
