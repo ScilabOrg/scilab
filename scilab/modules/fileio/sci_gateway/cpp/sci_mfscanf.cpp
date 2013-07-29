@@ -28,6 +28,8 @@ extern "C"
 #include "mgetl.h"
 #include "do_xxscanf.h"
 #include "scanf_functions.h"
+#include "mseek.h"
+#include "mtell.h"
 }
 
 types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, types::typed_list &out)
@@ -35,7 +37,6 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
     int iFile                   = -1; //default file : last opened file
     int size                    = (int)in.size();
     int iNiter                  = 1;
-    //int iLinesRead              = 0;
     int iErr                    = 0;
     wchar_t* wcsFormat          = NULL;
     int dimsArray[2]            = {1, 1};
@@ -105,19 +106,45 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
 
     FILE* fDesc = pFile->getFiledesc();
     nrow = iNiter;
-    //nrow = iLinesRead;
-    while (++rowcount < iNiter)
+
+    int Oldretval = 0;
+    int toot = 0;
+    while (++rowcount < iNiter || iNiter < 0)
     {
+        toot++;
+        if (toot > 6)
+        {
+            break;
+        }
         if ((iNiter >= 0) && (rowcount >= iNiter))
         {
             break;
         }
+
         // get data
+        long iPosInFile = mtell(iFile);
         int err = do_xxscanf(L"mfscanf", fDesc, wcsFormat, &args, NULL, &retval, buf, type);
         if (err < 0)
         {
             return types::Function::Error;
         }
+
+        // EOF reached
+        if (retval == -1)
+        {
+            nrow = rowcount;
+            break;
+        }
+
+        if (Oldretval && retval != Oldretval)
+        {
+            mseek(iFile, iPosInFile, SEEK_SET);
+            retval = Oldretval;
+            nrow = rowcount;
+            break;
+        }
+
+        Oldretval = retval;
 
         err = Store_Scan(&nrow, &ncol, type_s, type, &retval, &retval_s, buf, &data, rowcount, args);
         if (err < 0)
@@ -132,12 +159,10 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
                         return types::Function::Error;
                     }
                     break;
-
                 case DO_XXPRINTF_MEM_LACK:
                     Free_Scan(rowcount, ncol, type_s, &data);
                     Scierror(999, _("%s: No more memory.\n"), "mfscanf");
                     return types::Function::Error;
-                    break;
             }
             if (err == DO_XXPRINTF_MISMATCH)
             {
@@ -154,8 +179,8 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
             case SF_C:
             case SF_S:
             {
-                types::String* ps = new types::String(iNiter, 1);
-                for (int j = 0 ; j < iNiter ; j++)
+                types::String* ps = new types::String(nrow, 1);
+                for (int j = 0 ; j < nrow ; j++)
                 {
                     ps->set(j, data[i + ncol * j].s);
                 }
@@ -172,8 +197,8 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
             case SF_LF:
             case SF_F:
             {
-                types::Double* p = new types::Double(iNiter, 1);
-                for (int j = 0; j < iNiter; j++)
+                types::Double* p = new types::Double(nrow, 1);
+                for (int j = 0; j < nrow; j++)
                 {
                     p->set(j, data[i + ncol * j].d);
                 }

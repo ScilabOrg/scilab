@@ -26,17 +26,6 @@ extern "C"
 #include "Scierror.h"
 #include "mseek.h"
 }
-/*--------------------------------------------------------------------------*/
-#if (defined(sun) && !defined(SYSV))
-char *strerror (int errcode);
-#endif
-/*--------------------------------------------------------------------------*/
-#if (defined(sun) && !defined(SYSV)) || defined(sgi)
-#define SEEK_SET 0
-#define SEEK_CUR 1
-#define SEEK_END 2
-#endif
-/*--------------------------------------------------------------------------*/
 
 Function::ReturnValue sci_mseek(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
