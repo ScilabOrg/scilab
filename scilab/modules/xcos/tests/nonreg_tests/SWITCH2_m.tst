@@ -1,0 +1,24 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- ENGLISH IMPOSED -->
+// <-- XCOS TEST -->
+
+// Import diagram
+assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/nonreg_tests/SWITCH2_m.zcos"));
+
+Five   = 5*ones(29, 1);
+A_ref = int32([-Five; Five; 5; 5; -Five; -5; -5; -5; 5; 5; 5; 5; 5]);
+
+// In the diagram, SWITCH2_m block is given int32, double and int32 as input types (3, 1 and 3).
+// This test ensures that a block can have heterogeneous input types.
+
+try scicos_simulate(scs_m); catch disp(lasterror()); end
+assert_checkequal(A.values, A_ref);
+
+try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
+assert_checkequal(A.values, A_ref);
