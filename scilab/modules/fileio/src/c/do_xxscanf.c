@@ -39,7 +39,7 @@ static void set_xxscanf(FILE * fp, XXSCANF * xxscanf, wchar_t **target, wchar_t 
     else
     {
         *target = (wchar_t *)fp;
-        *xxscanf = (XXSCANF) fwscanf;
+        *xxscanf = (XXSCANF) fscanf;
     }
 }
 
@@ -371,7 +371,7 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
                )
             {
                 f2--;
-                n = swprintf(f2, MAX_STR - 1, L"%d%c", MAX_STR - 1, L'l');
+                n = swprintf(f2, MAX_STR - 1, L"%d%lc", MAX_STR - 1, L'l');
                 f2 += n;
                 *f2++ = *f1++;
             }
@@ -387,7 +387,12 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
         format = sformat;
     }
 
-    *retval = (*xxscanf) ((VPTR) target, format,
+    printf("format    : %ls\n", format);
+
+    char* strFormat = NULL;
+    strFormat = wide_string_to_UTF8(format);
+    printf("strFormat : %s\n", strFormat);
+    *retval = (*xxscanf) ((VPTR) target, "%d%d%*[^\n]\n",
                           ptrtab[0], ptrtab[1], ptrtab[2], ptrtab[3], ptrtab[4], ptrtab[5], ptrtab[6], ptrtab[7], ptrtab[8], ptrtab[9],
                           ptrtab[10], ptrtab[11], ptrtab[12], ptrtab[13], ptrtab[14], ptrtab[15], ptrtab[16], ptrtab[17], ptrtab[18], ptrtab[19],
                           ptrtab[20], ptrtab[21], ptrtab[22], ptrtab[23], ptrtab[24], ptrtab[25], ptrtab[26], ptrtab[27], ptrtab[28], ptrtab[29],
@@ -399,6 +404,8 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
                           ptrtab[80], ptrtab[81], ptrtab[82], ptrtab[83], ptrtab[84], ptrtab[85], ptrtab[86], ptrtab[87], ptrtab[88], ptrtab[89],
                           ptrtab[90], ptrtab[91], ptrtab[92], ptrtab[93], ptrtab[94], ptrtab[95], ptrtab[96], ptrtab[97], ptrtab[98],
                           ptrtab[MAXSCAN - 1]);
+
+    FREE(strFormat);
 
     *nargs = Min(num_conversion + 1, Max(*retval + n_directive_count, 0));
 
