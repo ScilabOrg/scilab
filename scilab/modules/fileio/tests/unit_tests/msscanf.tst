@@ -58,27 +58,27 @@ if n<>1|a<>123 then pause,end
 if n<>1|a<>12 then pause,end
 [n,a]=msscanf('123','%5hd');
 
-//------------- test format %n 
-// Note that %n returned values are not counted in n 
+//------------- test format %n
+// Note that %n returned values are not counted in n
 s1='123 45.67 pipo';s2=' foo';
 [n,a,b,c,d,e]=msscanf(s1+s2,'%d%lf%s%n%s');
 if n<>4|a<>123|b<>45.67|c<>'pipo'|d<>length(s1)|e<>'foo' then pause,end
 
-//------------- test format %u 
+//------------- test format %u
 [n,a]=msscanf('+123','%u');
 if n<>1|a<>123 then pause,end
 [n,a]=msscanf(' 123','%2u');
 if n<>1|a<>12 then pause,end
 [n,a]=msscanf('+123','%5u');
 if n<>1|a<>123 then pause,end
-//------------- test format %lu 
+//------------- test format %lu
 [n,a]=msscanf('+123','%lu');
 if n<>1|a<>123 then pause,end
 [n,a]=msscanf(' 123','%2lu');
 if n<>1|a<>12 then pause,end
 [n,a]=msscanf('+123','%5lu');
 if n<>1|a<>123 then pause,end
-//------------- test format %hu 
+//------------- test format %hu
 [n,a]=msscanf('+123','%hu');
 if n<>1|a<>123 then pause,end
 [n,a]=msscanf(' 123','%2hu');
@@ -170,19 +170,19 @@ if n<>2|a<>'012345abc'|b<>'zoo' then pause,end
 [n,a,b]=msscanf('012345abczoo','%[^c]c%s');
 if n<>2|a<>'012345ab'|b<>'zoo' then pause,end
 
-//------------- test ignoring arguments 
+//------------- test ignoring arguments
 [n,a,b]=msscanf('123 4 pipo poo','%*s%s%*s%s');
 if n<>2|a<>'4'|b<>'poo' then pause,end
 
-//------------- test [ * ^ 
+//------------- test [ * ^
 
 [n,a]=msscanf('123 4 pipo Xpoo','%*[^X]X%s');
 if n<>1|a<>'poo' then pause,end
 
-//------------- test ignoring arguments 
+//------------- test ignoring arguments
 [n,a,b]=msscanf('123 4 pipo poo','%*s%s%*s%s');
 if n<>2|a<>'4'|b<>'poo' then pause,end
-//------------- test composed directives 
+//------------- test composed directives
 [n,a]=msscanf('123 4','123%le');
 if n<>1|a<>4 then pause,end
 [n,a,b,c]=msscanf('xxxxx 4 test 23.45','xxxxx%d%s%le');
@@ -190,7 +190,7 @@ if n<>3|a<>4|b<>'test'|c<>23.45 then pause,end
 [n,a,b]=msscanf('123 456','%le%le');
 if n<>2|a<>123|b<>456 then pause,end
 
-//------------- test mismatch 
+//------------- test mismatch
 [n,a]=msscanf('123 poo','123%le');
 if n<>0 then pause,end
 
@@ -198,13 +198,13 @@ if n<>0 then pause,end
 [n,a]=msscanf('123','123%le');
 if n<>-1 then pause,end
 
-//------------- test with matrix scan 
+//------------- test with matrix scan
 
 n=5;
 A=int(10*rand(n,n));
 A1=strcat(string(A),' ','c');
 F='%d';F=strcat(F(ones(1,n)),' ');
-// all lines read as int we scan a 5x5 matrix 
+// all lines read as int we scan a 5x5 matrix
 A2=msscanf(-1,A1,F);
 if norm(A2-A) > %eps then pause;end
 // read just 2 lines
@@ -218,7 +218,7 @@ if norm([a,b,c,d,e]-A) > %eps then pause;end
 A2=msscanf(-1,A1,'%d%d');
 if norm(A2-A(:,1:2)) > %eps then pause;end
 
-// all lines read as string 
+// all lines read as string
 F='%s';F=strcat(F(ones(1,n)),' ');
 A2=msscanf(-1,A1,F);
 if A2<>string(A) then pause;end
@@ -230,11 +230,11 @@ if A2<>string(A(1:2,:))  then pause;end
 Fs='%s';Fs=strcat(Fs(ones(1,2)),' ');
 Fd='%d';Fd=strcat(Fd(ones(1,n-2)),' ');
 [n,a,b,c,d,e]=msscanf(-1,A1,Fs+' '+Fd);
-if n<>5 then pause;end 
-if norm([eval(a),eval(b),c,d,e]-A) > %eps then pause;end 
+if n<>5 then pause;end
+if norm([eval(a),eval(b),c,d,e]-A) > %eps then pause;end
 
 // same example but returned values are compacted in L
 L=msscanf(-1,A1,Fs+' '+Fd);
-if length(L)<>3 then pause;end 
-if norm(getfield(3,L)-A(:,3:n)) > %eps then pause;end 
-if getfield(2,L)<>string(A(:,1:2)) then pause;end 
+if length(L)<>3 then pause;end
+if norm(getfield(3,L)-A(:,3:n)) > %eps then pause;end
+if getfield(2,L)<>string(A(:,1:2)) then pause;end
