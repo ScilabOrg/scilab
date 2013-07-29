@@ -19,6 +19,18 @@
 * seek function
 */
 
+/*--------------------------------------------------------------------------*/
+#if (defined(sun) && !defined(SYSV))
+char *strerror (int errcode);
+#endif
+/*--------------------------------------------------------------------------*/
+#if (defined(sun) && !defined(SYSV)) || defined(sgi)
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+#endif
+/*--------------------------------------------------------------------------*/
+
 FILEIO_IMPEXP int mseek(int fd, int offset, int flag);
 
 #endif /* __MSEEK_H__ */
