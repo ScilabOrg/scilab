@@ -1276,7 +1276,7 @@ SCICOS_BLOCKS_IMPEXP void tows_c(scicos_block *block, int flag)
 
             /* write x */
             ptr_i = (int*) ptr->work;
-            if ((varName = scicos_malloc((varNameLen + 5) * sizeof(char))) == NULL)
+            if ((varName = scicos_malloc((varNameLen + 6) * sizeof(char))) == NULL)
             {
                 set_block_error(-16);
                 scicos_free(ptr->workt);
