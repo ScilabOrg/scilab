@@ -113,6 +113,8 @@ Xcos
 * Bug #11518 fixed - CLR block-text was displayed out of the bounding box 
                      when zooming.
 
+* Bug #11975 fixed - Some demos did not compile.
+
 * Bug #12359 fixed - Xcos files has been converted to zcos to gain some space.
 
 * Bug #12384 fixed - Using a modelica part linked with explicit link to
