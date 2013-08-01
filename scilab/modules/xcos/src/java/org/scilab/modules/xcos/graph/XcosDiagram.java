@@ -169,6 +169,7 @@ public class XcosDiagram extends ScilabGraph {
             }
         });
 
+        setModel(new XcosGraphModel());
         setComponent(new GraphComponent(this));
         initComponent();
         installStylesheet();
@@ -1020,6 +1021,11 @@ public class XcosDiagram extends ScilabGraph {
             LOG.severe("Adding an untyped edge");
             return super.addCell(cell, parent, index, source, target);
         }
+    }
+
+    @Override
+    public XcosGraphModel getModel() {
+        return (XcosGraphModel) super.getModel();
     }
 
     /**
