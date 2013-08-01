@@ -28,6 +28,7 @@ import org.scilab.modules.graph.utils.ScilabGraphMessages;
 import org.scilab.modules.graph.view.ScilabGraphView;
 
 import com.mxgraph.model.mxGraphModel;
+import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.model.mxGraphModel.mxChildChange;
 import com.mxgraph.model.mxGraphModel.mxCollapseChange;
 import com.mxgraph.model.mxGraphModel.mxGeometryChange;
@@ -45,6 +46,7 @@ import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
+import com.mxgraph.view.mxStylesheet;
 
 /**
  * Represent the base diagram of Xcos.
@@ -129,12 +131,26 @@ public class ScilabGraph extends mxGraph {
         }
     };
 
-    /**
-     * /** Default constructor: - disable unused actions - install listeners -
-     * Replace JGraphX components by specialized components if needed.
-     */
     public ScilabGraph() {
-        super();
+        this(null, null);
+    }
+
+    public ScilabGraph(mxStylesheet stylesheet) {
+        this(null, stylesheet);
+    }
+
+    public ScilabGraph(mxIGraphModel model) {
+        this(model, null);
+    }
+
+    /**
+     * Default constructor:
+     *  - disable unused actions
+     *  - install listeners
+     *  - Replace JGraphX components by specialized components if needed.
+     */
+    public ScilabGraph(mxIGraphModel model, mxStylesheet stylesheet) {
+        super(model, stylesheet);
 
         // Disabling the default connected action and event listeners.
         mxGraphActions.getSelectNextAction().setEnabled(false);

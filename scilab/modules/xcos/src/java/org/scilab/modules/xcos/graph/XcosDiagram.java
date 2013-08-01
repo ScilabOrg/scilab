@@ -154,7 +154,7 @@ public class XcosDiagram extends ScilabGraph {
      * Constructor
      */
     public XcosDiagram() {
-        super();
+        super(new XcosGraphModel(), null);
 
         // Scicos related setup
         engine = new CompilationEngineStatus();
@@ -169,6 +169,7 @@ public class XcosDiagram extends ScilabGraph {
             }
         });
 
+        setModel(new XcosGraphModel());
         setComponent(new GraphComponent(this));
         initComponent();
         installStylesheet();
@@ -1020,6 +1021,11 @@ public class XcosDiagram extends ScilabGraph {
             LOG.severe("Adding an untyped edge");
             return super.addCell(cell, parent, index, source, target);
         }
+    }
+
+    @Override
+    public XcosGraphModel getModel() {
+        return (XcosGraphModel) super.getModel();
     }
 
     /**
@@ -2154,6 +2160,47 @@ public class XcosDiagram extends ScilabGraph {
         scicosParameters.setContext(context);
         fireEvent(new mxEventObject(XcosEvent.DIAGRAM_UPDATED));
         updateCellsContext();
+    }
+
+    /**
+     * Update the given cell (as a block) values to the value ones. This method
+     * fire {@link XcosEvent#UPDATE_BLOCK_VALUES} while the transaction is in
+     * progress.
+     *
+     * @param cell the block to update
+     * @param value the new values to set
+     */
+    public void updateBlockValues(final BasicBlock cell, final BasicBlock value) {
+        model.beginUpdate();
+        try {
+            blockValuesUpdated(cell, value);
+            fireEvent(new mxEventObject(XcosEvent.UPDATE_BLOCK_VALUES, "cell", cell,
+                                        "value", value));
+        } finally {
+            model.endUpdate();
+        }
+    }
+
+    /**
+     * Update the given block on the model. This method fires
+     * {@link XcosEvent#BLOCK_VALUES_UPDATED} while the transaction is in progress.
+     *
+     * @param cell the block to update
+     * @param value the new values to set
+     */
+    public void blockValuesUpdated(final BasicBlock cell, final BasicBlock value) {
+        model.beginUpdate();
+        try {
+            getModel().setBlockValues(cell, value);
+
+            // style update
+            model.setStyle(cell, value.getStyle());
+
+            fireEvent(new mxEventObject(XcosEvent.BLOCK_VALUES_UPDATED, "cell", cell,
+                                        "value", value));
+        } finally {
+            model.endUpdate();
+        }
     }
 
     /**

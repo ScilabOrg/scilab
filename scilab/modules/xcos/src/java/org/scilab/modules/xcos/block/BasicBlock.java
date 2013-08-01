@@ -79,6 +79,7 @@ import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionTop;
 import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.graph.XcosGraphModel;
 import org.scilab.modules.xcos.io.scicos.BasicBlockInfo;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
@@ -1070,10 +1071,11 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     /**
      * Does the block update and register on the undo manager
      *
+     *@param model the model
      * @param modifiedBlock
      *            the new settings
      */
-    public void updateBlockSettings(BasicBlock modifiedBlock) {
+    public void updateBlockSettings(final XcosGraphModel model, BasicBlock modifiedBlock) {
         if (modifiedBlock == null) {
             return;
         }
@@ -1215,7 +1217,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            the classes to search for.
      * @return a map which linked foreach type the corresponding cell list.
      */
-    private Map < Class <? extends mxICell > , Deque<mxICell >> getTypedChildren(Set < Class <? extends mxICell >> types) {
+    public final Map < Class <? extends mxICell > , Deque<mxICell >> getTypedChildren(Set < Class <? extends mxICell >> types) {
         Map < Class <? extends mxICell > , Deque<mxICell >> oldPorts = new HashMap < Class <? extends mxICell > , Deque<mxICell >> ();
 
         // Allocate all types set
@@ -1318,9 +1320,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
                     graph.getModel().beginUpdate();
                     try {
                         final BasicBlock modifiedBlock = handler.readBlock();
-                        updateBlockSettings(modifiedBlock);
-
-                        graph.fireEvent(new mxEventObject(XcosEvent.ADD_PORTS, XcosConstants.EVENT_BLOCK_UPDATED, BasicBlock.this));
+                        getParentDiagram().updateBlockValues(BasicBlock.this, modifiedBlock);
                     } catch (ScicosFormatException ex) {
                         LOG.severe(ex.toString());
                     } finally {

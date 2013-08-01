@@ -20,11 +20,6 @@ import com.mxgraph.util.mxEvent;
 public final class XcosEvent extends mxEvent {
 
     /**
-     * Fired when a port as been added by the user
-     */
-    public static final String ADD_PORTS = "addPorts";
-
-    /**
      * Fired when something as been done and the cell need to be updated
      */
     public static final String FORCE_CELL_VALUE_UPDATE = "ForceCellValueUpdate";
@@ -45,6 +40,16 @@ public final class XcosEvent extends mxEvent {
      * Fired when the diagram has been updated since previous execution
      */
     public static final String DIAGRAM_UPDATED = "DiagramUpdated";
+
+    /**
+     * Fired when a block values has been updated.
+     */
+    public static final String UPDATE_BLOCK_VALUES = "UpdateBlocksValues";
+
+    /**
+     * Fired when a block values has been updated.
+     */
+    public static final String BLOCK_VALUES_UPDATED = "BlockValuesUpdated";
 
     /** This class is a static singleton, thus it must not be instantiated */
     private XcosEvent() {
