@@ -107,6 +107,8 @@ Xcos
 
 * In the Modelica initialization GUI, inputs (eg. sensor) were not handled.
 
+* Bug #5177 fixed - Block parameter changes were not managed by "undo/redo".
+
 * Bug #7350 fixed - The superblock I/O ports numbering was not updated
                     when a new port was dropped.
 

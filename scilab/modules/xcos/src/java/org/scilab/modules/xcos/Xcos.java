@@ -61,6 +61,7 @@ import org.scilab.modules.xcos.configuration.model.DocumentType;
 import org.scilab.modules.xcos.graph.DiagramComparator;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.graph.XcosGraphModel;
 import org.scilab.modules.xcos.io.XcosFileType;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
@@ -977,9 +978,12 @@ public final class Xcos {
         }
 
         // finally update the instance
-        final mxGraphModel model = (mxGraphModel) diag.getModel();
+        final XcosGraphModel model = (XcosGraphModel) diag.getModel();
         final BasicBlock block = (BasicBlock) model.getCell(modifiedBlock.getId());
         assert block != null;
+
+        model.setBlockValues(block, modifiedBlock);
+
 
         block.updateBlockSettings(modifiedBlock);
         block.setInterfaceFunctionName(modifiedBlock.getInterfaceFunctionName());
