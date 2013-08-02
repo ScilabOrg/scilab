@@ -34,13 +34,6 @@ public class XcosObjectCodec extends mxCellCodec {
      */
     protected static final String[] REFS = { "parent", "source", "target" };
 
-    /*
-     * Cache fields and accessors
-     */
-    protected Map<Class, Map<String, Field>> fields = new WeakHashMap<Class, Map<String, Field>>();
-    protected Map<Class, Map<Field, Method>> getters = new WeakHashMap<Class, Map<Field, Method>>();
-    protected Map<Class, Map<Field, Method>> setters = new WeakHashMap<Class, Map<Field, Method>>();
-
     /**
      * Attribute name containing {@link com.mxgraph.model.mxCell} style.
      */
@@ -69,83 +62,6 @@ public class XcosObjectCodec extends mxCellCodec {
     public XcosObjectCodec(Object template, String[] exclude, String[] idrefs, Map<String, String> mapping) {
         super(template, exclude, idrefs, mapping);
 
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Overridden for performance issues.
-     */
-    @Override
-    protected Method getAccessor(Object obj, Field field, boolean isGetter) {
-        /*
-         * Cache the object
-         */
-        final Class<?> type = obj.getClass();
-
-        Map<Field, Method> map;
-        if (isGetter) {
-            map = getters.get(type);
-        } else {
-            map = setters.get(type);
-        }
-        if (map == null) {
-            map = new WeakHashMap<Field, Method>();
-            if (isGetter) {
-                getters.put(type, map);
-            } else {
-                setters.put(type, map);
-            }
-        }
-
-        Method m = map.get(field);
-        if (m != null) {
-            return m;
-        }
-
-        /*
-         * Cache is empty, look for the accessor
-         */
-        m = super.getAccessor(obj, field, isGetter);
-        if (m != null) {
-            map.put(field, m);
-        }
-
-        return m;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Overridden for performance issues.
-     */
-    @Override
-    protected Field getField(Object obj, String fieldname) {
-        /*
-         * Cache the object
-         */
-        final Class<?> type = obj.getClass();
-
-        Map<String, Field> map = fields.get(type);
-        if (map == null) {
-            map = new WeakHashMap<String, Field>();
-            fields.put(type, map);
-        }
-
-        Field f = map.get(fieldname);
-        if (f != null) {
-            return f;
-        }
-
-        /*
-         * Cache is empty, look for the field
-         */
-        f = super.getField(obj, fieldname);
-        if (f != null) {
-            map.put(fieldname, f);
-        }
-
-        return f;
     }
 
     /**
