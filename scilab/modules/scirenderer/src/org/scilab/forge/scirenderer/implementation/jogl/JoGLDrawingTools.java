@@ -63,7 +63,12 @@ public class JoGLDrawingTools implements DrawingTools {
             public void transformationChanged(TransformationManager transformationManager) {
                 gl.glMatrixMode(GL2.GL_MODELVIEW);
                 if (transformationManager.isUsingSceneCoordinate()) {
-                    gl.glLoadMatrixd(transformationManager.getTransformation().getMatrix(), 0);
+                    /* 
+                     binding the matrices separately causes wrong clipping
+                    */
+                    gl.glLoadMatrixd(transformationManager.getModelViewStack().peek().getMatrix(), 0);
+                    gl.glMatrixMode(GL2.GL_PROJECTION);
+                    gl.glLoadMatrixd(transformationManager.getProjectionStack().peek().getMatrix(), 0);
                 } else {
                     gl.glLoadMatrixd(transformationManager.getWindowTransformation().getMatrix(), 0);
                 }

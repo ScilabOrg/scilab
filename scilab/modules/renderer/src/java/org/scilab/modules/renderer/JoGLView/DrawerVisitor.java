@@ -66,6 +66,14 @@ import org.scilab.modules.renderer.JoGLView.util.OutOfMemoryException;
 import org.scilab.modules.renderer.utils.textRendering.FontManager;
 
 
+import org.scilab.forge.scirenderer.lightning.LightManager;
+import org.scilab.forge.scirenderer.lightning.Light;
+import org.scilab.forge.scirenderer.tranformations.Vector3d;
+import org.scilab.forge.scirenderer.shapes.appearance.Color;
+import javax.media.opengl.GL2;
+import org.scilab.forge.scirenderer.implementation.jogl.JoGLDrawingTools;
+
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.nio.ByteBuffer;
@@ -657,6 +665,51 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     } else {
                         geometry.setFillDrawingMode(Geometry.FillDrawingMode.NONE);
                     }
+                    boolean lighting = currentAxes.isLightEnabled().booleanValue();
+
+/* 
+uncoment to fix wrong clipping
+but removing this when zooming the geometry leaves the bounding box
+
+
+((JoGLDrawingTools)getDrawingTools()).getGl().glDisable(GL2.GL_CLIP_PLANE0);
+((JoGLDrawingTools)getDrawingTools()).getGl().glDisable(GL2.GL_CLIP_PLANE1);
+((JoGLDrawingTools)getDrawingTools()).getGl().glDisable(GL2.GL_CLIP_PLANE2);
+((JoGLDrawingTools)getDrawingTools()).getGl().glDisable(GL2.GL_CLIP_PLANE3);
+((JoGLDrawingTools)getDrawingTools()).getGl().glDisable(GL2.GL_CLIP_PLANE4);
+((JoGLDrawingTools)getDrawingTools()).getGl().glDisable(GL2.GL_CLIP_PLANE5);
+
+*/
+
+
+
+float[] f = new float[4];f[3] = 1.0f;
+for(int i =0; i< 3; ++i) f[i] =  plot3d.getMaterialAmbientColor()[i].floatValue();
+((JoGLDrawingTools)getDrawingTools()).getGl().glMaterialfv( GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT, f, 0);
+for(int i =0; i< 3; ++i) f[i] =  plot3d.getMaterialDiffuseColor()[i].floatValue();
+((JoGLDrawingTools)getDrawingTools()).getGl().glMaterialfv( GL2.GL_FRONT_AND_BACK, GL2.GL_DIFFUSE, f, 0);
+for(int i =0; i< 3; ++i) f[i] =  plot3d.getMaterialSpecularColor()[i].floatValue();
+((JoGLDrawingTools)getDrawingTools()).getGl().glMaterialfv( GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, f, 0);
+((JoGLDrawingTools)getDrawingTools()).getGl().glMateriali( GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, plot3d.getMaterialShinines().intValue());
+for(int i =0; i< 3; ++i) f[i] = 0.0f;
+((JoGLDrawingTools)getDrawingTools()).getGl().glMaterialfv( GL2.GL_FRONT_AND_BACK, GL2.GL_EMISSION, f, 0);
+
+                    
+                    
+                    LightManager lightManager =  drawingTools.getLightManager();
+                    lightManager.setLightningEnable(lighting);
+                    Light light = lightManager.getLight(0);
+                    light.setPosition(new Vector3d(currentAxes.getLightPosition()));
+
+                    Double[] color = currentAxes.getLightAmbientColor();
+                    light.setAmbientColor(new Color(color[0].floatValue(), color[1].floatValue(), color[2].floatValue()));
+                    
+                    color = currentAxes.getLightDiffuseColor();
+                    light.setDiffuseColor(new Color(color[0].floatValue(), color[1].floatValue(), color[2].floatValue()));
+                    
+                    color = currentAxes.getLightSpecularColor();
+                    light.setSpecularColor(new Color(color[0].floatValue(), color[1].floatValue(), color[2].floatValue()));
+                    light.setEnable(true);
 
                     geometry.setPolygonOffsetMode(true);
 
@@ -699,6 +752,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                         appearance.setLineWidth(plot3d.getLineThickness().floatValue());
                     }
                     drawingTools.draw(geometry, appearance);
+                    lightManager.setLightningEnable(false);
                 }
 
                 if (plot3d.getMarkMode()) {
