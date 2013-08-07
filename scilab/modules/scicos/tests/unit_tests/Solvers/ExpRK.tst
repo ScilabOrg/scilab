@@ -22,7 +22,6 @@ for i=2:4  // 'max step size' = 5*10^-i, precision
  scs_m.props.tol(7) = 5*10^(-i); scs_m.props.tol(6) = 6;     // 'max step size' + solver
  try scicos_simulate(scs_m, Info); catch disp(lasterror()); end;   // ExpRK
  rkval = res.values;   // Results
- time = res.time;      // Time
 
  // Modify solver and 'max step size' + run CVode + save results
  scs_m.props.tol(7) = 0; scs_m.props.tol(6) = 1;
