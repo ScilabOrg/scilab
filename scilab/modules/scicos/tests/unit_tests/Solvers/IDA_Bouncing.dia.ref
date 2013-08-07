@@ -7,7 +7,7 @@
 // <-- ENGLISH IMPOSED -->
 // <-- XCOS TEST -->
 // Import diagram
-assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/Solvers/DDaskr_Platform_test.zcos"));
+assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/Solvers/DDaskr_Bouncing_test.zcos"));
 // Redefining messagebox() to avoid popup
 prot = funcprot();
 funcprot(0);
@@ -15,20 +15,49 @@ function messagebox(msg, msg_title)
  disp(msg);
 endfunction
 funcprot(prot);
-Info = scicos_simulate(scs_m, list());
+IDA_val_ref = [ 10.
+                11.3875
+                12.55
+                13.4875
+                14.2
+                14.6875
+                14.95
+                14.9875
+                14.8
+                14.3875
+                13.75
+                12.8875
+                11.8
+                10.4875
+                8.95
+                7.1875
+                5.2
+                2.9875
+                0.55
+                1.5647919
+                3.3538291
+                4.9178663
+                6.2569034
+                7.3709406
+                8.2599778
+                8.924015 ];
+IDA_time_ref = (0:.5:49.5)';
+scs_m.props.tol(6) = 100; // Solver
+scs_m.props.context = "per = 0.5"; // Period, to get more varied results
+scicos_simulate(scs_m);   // IDA
 --------------------------------------------\
- Main Modelica : TMPDIR/DDaskr_Platform_test_im.mo
+ Main Modelica : TMPDIR/DDaskr_Bouncing_test_im.mo
 
- Flat Modelica : TMPDIR/DDaskr_Platform_test_imf.mo
- Simulation C code :TMPDIR/DDaskr_Platform_test_im.c
+ Flat Modelica : TMPDIR/DDaskr_Bouncing_test_imf.mo
+ Simulation C code :TMPDIR/DDaskr_Bouncing_test_im.c
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
-!Number of differential states: 4                         !
+!Number of differential states: 2                         !
 !                                                         !
 !Number of algebraic states: 0                            !
 !                                                         !
-!Number of discrete time states  : 2                      !
+!Number of discrete time states  : 0                      !
 !                                                         !
 !Number of zero-crossing surfaces: 1                      !
 !                                                         !
@@ -46,47 +75,18 @@ Info = scicos_simulate(scs_m, list());
 !                                                         !
 !                                                         !
 !                                                         !
-!Generated files path: TMPDIR/           !
+!Generated files path: TMPDIR/          !
 !                                                         !
 !                                                         !
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy DDaskr_Platform_test_im.c to TMPDIR
+   ilib_gen_Make: Copy DDaskr_Bouncing_test_im.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
    Running the Makefile
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-for i=1:2  // 'max step size' = 10^-i, precision
-    // Start by updating the clock block period (sampling)
-    Context.per = 5*10^-i;
-    // Modify solver + run DDaskr + save results
-    scs_m.props.tol(6) = 102;     // Solver
-    scicos_simulate(scs_m, Info, Context); // DDaskr
-    ddaskrval = res.values;       // Results
-    time = res.time;              // Time
-    // Modify solver + run IDA + save results
-    scs_m.props.tol(6) = 100;     // Solver
-    scicos_simulate(scs_m, Info, Context); // IDA
-    idaval = res.values;          // Results
-    // Compare results
-    compa = abs(ddaskrval-idaval);
-    // Extract mean, standard deviation, maximum
-    mea = mean(compa);
-    [maxi, indexMaxi] = max(compa);
-    stdeviation = st_deviation(compa);
-    // Verifying closeness of the results
-    assert_checktrue(maxi <= 5*10^-(i+2));
-    assert_checktrue(mea <= 5*10^-(i+2));
-    assert_checktrue(stdeviation <= 5*10^-(i+2));
-end
-Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
-
-Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
-
-Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
-
-Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
-
+assert_checkalmostequal(res.values(1:26), IDA_val_ref, [], 1d-7);
+assert_checkalmostequal(res.time, IDA_time_ref);
