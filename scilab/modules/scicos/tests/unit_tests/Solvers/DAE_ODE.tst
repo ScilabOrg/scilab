@@ -18,7 +18,20 @@ function message(msg)
 endfunction
 funcprot(prot);
 
-// Modify solver + run DDaskr + save results
+// Modify solver + run IDA
+scs_m.props.tol(6) = 100;       // Solver
+ier = execstr('xcos_simulate(scs_m, 4);', 'errcatch'); // Run simulation (LSodar will actually take over DDaskr)
+ier = execstr('scicos_simulate(scs_m);', 'errcatch'); // Run simulation (LSodar will actually take over DDaskr)
+assert_checkequal(ier, 0);
+
+// Modify solver + run DDaskr Newton
 scs_m.props.tol(6) = 101;       // Solver
 ier = execstr('xcos_simulate(scs_m, 4);', 'errcatch'); // Run simulation (LSodar will actually take over DDaskr)
+ier = execstr('scicos_simulate(scs_m);', 'errcatch'); // Run simulation (LSodar will actually take over DDaskr)
+assert_checkequal(ier, 0);
+
+// Modify solver + run DDaskr GMRes
+scs_m.props.tol(6) = 102;       // Solver
+ier = execstr('xcos_simulate(scs_m, 4);', 'errcatch'); // Run simulation (LSodar will actually take over DDaskr)
+ier = execstr('scicos_simulate(scs_m);', 'errcatch'); // Run simulation (LSodar will actually take over DDaskr)
 assert_checkequal(ier, 0);
