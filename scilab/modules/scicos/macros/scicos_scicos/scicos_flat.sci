@@ -63,7 +63,7 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
     // the cor will be set to 0. (In this case the blocks are considered as IN_f ...)
     // Fady NASSIF 2007. INRIA.
     //-------------------------------------------------------------------
-
+    fname="scicos_flat";
     if argn(2)<=1 then ksup=0;end //used for recursion
     if ksup==0 then   // main scheme
         MaxBlock=countblocks(scs_m);
@@ -109,13 +109,13 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
                     end
                     vec=unique(locomat)
                     if size(vec,1)<>size(loc_mat,1) then
-                        if flgcdgen<>-1 then path=[numk path];scs_m=all_scs_m; end
+                        if flgcdgen<>-1 then path=[numk path];scs_m=all_scs_m;end
+                        msg=msprintf(_("%s: There is another local GOTO in this diagram with the same tag ''%s''\n"),fname,loc_mat($,3))
                         if (ksup==0)|flgcdgen<>-1  then
-                            hilite_path([path,k],"There is another local GOTO in this diagram with the same tag ''"+loc_mat($,3)+"''",%t);
+                            hilite_path([path,k],msg,%t);
                         else
-                            hilite_path([path,k], "There is another local GOTO in this diagram with the same tag ''"+loc_mat($,3)+"''",%t);
+                            hilite_path([path,k],msg,%t);
                         end
-                        disp(mprintf("%s: goto tag not unique", "scicos_flat"));
                         ok=%f;return
                     end
                 else
@@ -159,15 +159,15 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
                 //may be we can handle this blocks just as blocks_to_remove
                 if ksup==0 then
                     scs_m=scs_m_s
-                    hilite_path([path,k],gettext("I/O blocks must be only used in a Super Block"),%f)
-                    disp(mprintf("%s: Port out of hierarchy", "scicos_flat"));
+                    msg=msprintf(_("%s: I/O blocks must be only used in a Super Block\n"),fname);
+                    hilite_path([path,k],msg,%f)
                     ok=%f;return
                 end
                 connected=get_connected(scs_m,k)
                 if connected==[] then
                     scs_m=scs_m_s
-                    hilite_path([path,k],gettext("This Super block input port is not connected."),%t)
-                    disp(mprintf("%s: Not connected super block input", "scicos_flat"));
+                    msg=msprintf(_("%s: This Super block input port is not connected\n"),fname);
+                    hilite_path([path,k],msg,%t)
                     ok=%f;return
                 end
                 if or(o.gui==["IN_f","INIMPL_f"]) then
@@ -261,7 +261,7 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
                 //Analyze the superblock contents
                 [cors,corinvs,lt,cur_fictitious,scop_mat,ok]=scicos_flat(o.model.rpar,cur_fictitious,MaxBlock)
                 if ~ok then
-                    disp(mprintf("%s: Invalid super block at %d", "scicos_flat", k));
+                    message(msprintf(_("%s: Invalid super block at %d\n"),fname,k))
                     return
                 end
                 //shifting the scop_mat for regular blocks. Fady 08/11/2007
@@ -312,9 +312,8 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
     end //end of loop on objects
 
     if ksup==0&nb==0 then
-        messagebox(msprintf(gettext("%s: Empty diagram"), "Xcos"),"modal")
+        message(msprintf(_("%s: Empty diagram\n"), fname))
         ok=%f
-        disp(msprintf("%s: Empty diagram", "scicos_flat"));
         return
     end
     //-------------- Analyse  links --------------
@@ -346,7 +345,7 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
     tof=find((sco_mat(:,2)=="1")& (sco_mat(:,5)=="10"))
     if tof<>[] then
         if mod_blk_exist then
-            messagebox("Warning the enable does not consider the modelica blocks","modal")
+            message(msprintf(_("%s: Warning the enable diagram property does not consider the modelica blocks\n"),fname))
         end
     end
     //----------------------Goto From Analyses--------------------------
@@ -374,10 +373,8 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
         for i=1:size(tag_exprs,1)
             index=find((tag_exprs(:,1)==tag_exprs(i,1))&(tag_exprs(:,2)==tag_exprs(i,2)))
             if size(index,"*") > 1  then
-                messagebox(["Error In Compilation. You cannot have multiple GotoTagVisibility";..
-                " with the same tag value in the same scs_m"],"modal")
+                message(msprintf(_("%s: Multiple GotoTagVisibility at the same level\n"), fname))
                 ok=%f;
-                disp(mprintf("%s: Multiple GotoTagVisibility at the same level", "scicos_flat"));
                 return
             end
         end
@@ -386,9 +383,8 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
             index=find((sco_mat(:,2)=="1")&(sco_mat(:,3)==tag_exprs(i,1))&(sco_mat(:,4)=="2")&(sco_mat(:,5)==tag_exprs(i,2)))
             if index<>[] then
                 if size(index,"*")>1 then
-                    messagebox(["Error in compilation";"Multiple GOTO are taged by the same GotoTagVisibility"],"modal")
+                    message(msprintf(_("%s: Several GOTO are taged by the same GotoTagVisibility\n"),fname))
                     ok=%f
-                    disp(mprintf("%s: Shared GotoTagVisibility across GOTO", "scicos_flat"));
                     return
                 end
                 index1=find((sco_mat(:,2)=="-1")&(sco_mat(:,3)==tag_exprs(i,1))&(sco_mat(:,5)==tag_exprs(i,2)))
@@ -410,7 +406,5 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
             end
         end
     end
-    //global case
-    // function global_case in c_pass1
-    //------------------------------------------------------------------------
+
 endfunction

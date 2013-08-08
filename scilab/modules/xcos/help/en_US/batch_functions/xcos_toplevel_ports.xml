@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+Copyright (C) - 2013 - INRIA -Serge Steer
+
+This file must be used under the terms of the CeCILL.
+This source file is licensed as described in the file COPYING, which
+you should have received as part of this distribution.  The terms
+are also available at
+http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="xcos_toplevel_ports">
+    <refnamediv>
+        <refname>xcos_toplevel_ports</refname>
+        <refpurpose>Defines the top level ports data structure</refpurpose>
+    </refnamediv>
+     <refsection>
+        <title>Calling sequence</title>
+        <synopsis>[ports,errmsg]=p xcos_toplevel_ports(scs_m)</synopsis>
+     </refsection>
+     <refsection>
+       <title>Arguments</title>
+       <itemizedlist>
+         <listitem>
+           <para>
+             <emphasis role="bold">scs_m :</emphasis> an Xcos diagram
+             data structure with top level input and output ports (See
+             <link linkend="scicos_diagram">scicos_diagram</link>).
+             </para>
+           </listitem>
+        <listitem>
+           <para>
+             <emphasis role="bold">errmsg :</emphasis> An empty array
+             or character string if some error occured.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="bold">ports :</emphasis> A Scilab typed
+            list of type "xcsprt" which contains the following
+            fields:
+          </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                  <emphasis role="bold">IN :</emphasis> a two colum
+                  array about regular top level input ports (see <link linkend="IN_f">IN_f</link>). The
+                  first column contains the port numbers; the second
+                  one contains the port block number in the scs_m
+                    data structure.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  <emphasis role="bold">OUT :</emphasis> a two colum
+                  array about regular top level output ports (see <link linkend="OUT_f">OUT_f</link>). The
+                  first column contains the port numbers; the second
+                  one contains the port block number in the scs_m
+                  data structure.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  <emphasis role="bold">CLKIN :</emphasis> a two colum
+                  array abouttop level input activation ports (see <link linkend="CLKINV_f">CLKINV_f</link>). The
+                  first column contains the port numbers; the second
+                  one contains the port block number in the scs_m
+                    data structure.
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>
+                  <emphasis role="bold">CLKOUT :</emphasis> a two colum
+                  array about top level output activation ports (see <link linkend="CLKOUTV_f">CLKOUVV_f</link>). The
+                  first column contains the port numbers; the second
+                  one contains the port block number in the scs_m
+                  data structure.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  <emphasis role="bold">INIMPL :</emphasis> a two colum
+                  array about  top level implicit input ports (see <link linkend="INIMPL_f">INIMPL_f</link>). The
+                  first column contains the port numbers; the second
+                  one contains the port block number in the scs_m
+                    data structure.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  <emphasis role="bold">OUTIMPL :</emphasis> a two colum
+                  array about  top level implicit output ports (see <link linkend="OUTIMPL_f">OUTIMPL_f</link>). The
+                  first column contains the port numbers; the second
+                  one contains the port block number in the scs_m
+                  data structure.
+                </para>
+            </listitem>
+        </itemizedlist>
+        </listitem>
+       </itemizedlist>
+    </refsection>
+    <refsection id="Filecontent_xcos_toplevel_ports">
+        <title>File content</title>
+        <itemizedlist>
+            <listitem>
+                <para> SCI/modules/xcos/macros/_xcos_toplevel_ports.sci</para>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+   <refsection>
+       <title>History</title>
+      <revhistory>
+        <revision>
+          <revnumber>5.5.0</revnumber>
+          <revdescription>Function added</revdescription>
+        </revision>
+      </revhistory>
+    </refsection>
+ 
+</refentry>
