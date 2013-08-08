@@ -339,10 +339,12 @@ Scilab Bug Fixes
 * Bug #13392 fixed - Typo in the CACSD help chapter fixed.
 
 
-Xcos Bug Fixes
-==============
+Xcos
+====
 
 * xcos_debug_gui function added  for a simple use of the Debug block.
+
+* tbx_build_pal_loader function added to ease external module creation.
 
 * Bug #12423 fixed - Data types of SWITCH2_m were not documented.
 
