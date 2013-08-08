@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) INRIA
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="tbx_build_pal_loader" xml:lang="en">
+    <refnamediv>
+        <refname>tbx_build_pal_loader</refname>
+        <refpurpose>Generate a loader for external module Xcos palettes</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            tbx_build_pal_loader(path,toolbox_name,block_names)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>toolbox_name</term>
+                <listitem>
+                    <para>Toolbox short name ; that is, the prefix of the .start file of the toolbox (which shall be in the etc subdirectory).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>path</term>
+                <listitem>
+                    <para>a character string: the path of the directory where the loader_pal.sce will be created.</para>
+                </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term>block_names</term>
+                <listitem>
+                    <para>Block interface function list (in a string vector) ; all name should have a corresponding interface function macro (on the macros subdirectory)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[ 
+// Example of usage in a buildmacros.sce file 
+function buildMacrosAndBlocks()
+  script_path = get_absolute_file_path("buildmacros.sce");
+  module_path = part(script_path,1:length(script_path)-7)
+  tbx_build_macros(NAME,  script_path);
+
+  block_names = ["PlusInt" "Rot3DInt" "IntegralInt" "AbsInt"];
+ 
+  tbx_build_blocks(module_path, block_names);
+  tbx_gen_pal_loader(script_path,TITLE, block_names) //new instruction
+endfunction
+buildMacrosAndBlocks()
+clear buildMacrosAndBlocks;
+
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Function added</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
