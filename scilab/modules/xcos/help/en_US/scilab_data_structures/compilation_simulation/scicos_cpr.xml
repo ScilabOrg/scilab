@@ -40,84 +40,87 @@
         <title>cpr</title>
         <para>
             The Scilab object <link linkend="scicos_cpr">cpr</link>
-            contains 
-            the result of the compilation.
+            contains the result of the Xcos diagram compilation. It is
+            a tlist with type "cpr" which includes the fields <link
+            linkend="scicos_state">state</link>, <link
+            linkend="scicos_sim">sim</link>, cor, corinv and ports:
         </para>
-        <para>
-            That structure includes fields <link linkend="scicos_state">state</link>, <link linkend="scicos_sim">sim</link>,
-            
-            cor and corinv.
-        </para>
-        <para>
-        </para>
-        <para>
-        </para>
-        <para>
-            Size : 5.
-        </para>
-        <para>
-            Type : scilab list.
-        </para>
-        <para>
-            
-        </para>
+       
         <itemizedlist>
             <listitem>
                 <para>
-                    <emphasis role="bold">state</emphasis>
-                </para>
-                <para> Scilab typed list of type xcs. It contains all the states of the model, that is, everything than can evolve during the simulation.</para>
-                <para> state contains x, z, oz, iz, tevts, evtspt, pointi and outtb.</para>
-                <para> 
-                    Size : 9.
-                </para>
-                <para>
-                    Type : scilab tlist.
-                </para>
+                  <emphasis role="bold">state :</emphasis> a Scilab
+                  typed list of type "xcs". It contains all the states
+                  of the model, that is, everything than can evolve
+                  during the simulation. See <link
+                  linkend="scicos_state">state</link> for
+                  details.</para>
             </listitem>
             <listitem>
                 <para>
-                    <emphasis role="bold">sim</emphasis>
-                </para>
-                <para> Scilab typed list of type scs. It contains static arrays coming from the result of the compilation. That arrays does not evolve during the simulation.</para>
-                <para> 
-                    Size : 33.
-                </para>
-                <para>
-                    Type : scilab tlist.
-                </para>
+                    <emphasis role="bold">sim :</emphasis> a Scilab
+                    typed list of type "scs". It contains static arrays
+                    coming from the result of the compilation. That
+                    arrays does not evolve during the simulation. See
+                    <link linkend="scicos_sim">sim</link> for
+                    details.</para>
+                
             </listitem>
             <listitem>
                 <para>
-                    <emphasis role="bold">cor</emphasis>
-                </para>
-                <para> It is a list with same recursive structure as scs_m. Each leaf contains the index of associated block in sim data structure.
-                    Size : number of objects in scs_m.
-                </para>
-                <para>
-                    Type : scilab list.
-                </para>
+                  <emphasis role="bold">cor :</emphasis>  is a list
+                  with same recursive structure as scs_m. Each leaf
+                  contains the index of associated block in sim data
+                  structure.</para>
+                
             </listitem>
             <listitem>
                 <para>
-                    <emphasis role="bold">corinv</emphasis>
-                </para>
-                <para> corinv(i) is the path of i th block defined in sim data structure in the scs_m data structure.</para>
-                <para> 
-                    Size : number of blocks in the compiled structre.
-                </para>
+                  <emphasis role="bold">corinv :</emphasis> is a
+                  list. corinv(i) is the path of i th block defined in
+                  sim data structure in the scs_m data
+                  structure.</para>
+            </listitem>
+            <listitem>
                 <para>
-                    Type : scilab list.
-                </para>
+                    <emphasis role="bold">ports :</emphasis> a Scilab
+                    typed list of type "xcosports" which contains
+                    information about top level ports of the diagram
+                    if any. See <link
+                    linkend="xcos_toplevel_ports">xcos_toplevel_ports</link>
+                    for details.</para>
             </listitem>
         </itemizedlist>
     </refsection>
+    <refsection>
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="xcos_toplevel_ports">xcos_toplevel_ports</link>
+      </member>
+      <member>
+        <link linkend="scicos_sim">sim</link>
+      </member>
+      <member>
+        <link linkend="scicos_state">state</link>
+      </member>
+    </simplelist>
+  </refsection>
     <refsection id="Filecontent_scicos_cpr">
         <title>File content</title>
         <itemizedlist>
             <listitem>
-                <para> SCI/modules/scicos/macros/scicos_scicos/scicos_cpr.sci</para>
+                <para>SCI/modules/scicos/macros/scicos_scicos/scicos_cpr.sci</para>
             </listitem>
         </itemizedlist>
+    </refsection>
+    <refsection>
+       <title>History</title>
+      <revhistory>
+        <revision>
+          <revnumber>5.5.0</revnumber>
+          <revdescription>Field "ports" added </revdescription>
+        </revision>
+      </revhistory>
     </refsection>
 </refentry>
