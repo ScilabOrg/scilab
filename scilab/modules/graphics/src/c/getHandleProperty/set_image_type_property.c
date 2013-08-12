@@ -24,6 +24,7 @@
 #include "SetPropertyStatus.h"
 
 #include "setGraphicObjectProperty.h"
+#include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
 #include "stricmp.h"
 
