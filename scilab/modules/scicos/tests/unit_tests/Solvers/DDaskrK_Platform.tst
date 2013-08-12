@@ -42,7 +42,6 @@ for i=1:2  // 'max step size' = 10^-i, precision
     // Extract mean, standard deviation, maximum
     mea = mean(compa);
     [maxi, indexMaxi] = max(compa);
-    maxi, mea
     stdeviation = st_deviation(compa);
 
     // Verifying closeness of the results

@@ -46,7 +46,7 @@ Info = scicos_simulate(scs_m, list());
 !                                                         !
 !                                                         !
 !                                                         !
-!Generated files path: TMPDIR/          !
+!Generated files path: TMPDIR/         !
 !                                                         !
 !                                                         !
    Generate a loader file
@@ -76,7 +76,6 @@ for i=1:2  // 'max step size' = 10^-i, precision
     // Extract mean, standard deviation, maximum
     mea = mean(compa);
     [maxi, indexMaxi] = max(compa);
-    maxi, mea
     stdeviation = st_deviation(compa);
     // Verifying closeness of the results
     assert_checktrue(maxi <= 5*10^-(i+2));
@@ -87,19 +86,7 @@ Warning : redefining function: dst                     . Use funcprot(0) to avoi
 
 Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
 
- maxi  =
- 
-    0.0000197  
- mea  =
- 
-    0.0000043  
 Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
 
 Warning : redefining function: dst                     . Use funcprot(0) to avoid this message
 
- maxi  =
- 
-    0.0002730  
- mea  =
- 
-    0.0000455  
