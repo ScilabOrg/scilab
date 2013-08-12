@@ -4,9 +4,13 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-
+//
 // <-- ENGLISH IMPOSED -->
+//
 // <-- XCOS TEST -->
+
+ilib_verbose(0); //to remove ilib_* traces
+lines(0, 200);
 
 // Import diagram
 assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/Solvers/DDaskr_RLC_test.zcos"));
@@ -22,18 +26,17 @@ funcprot(prot);
 for i=2:3
 
     // Start by updating the clock block period (sampling)
-    Context.per = 5*10^-i;
-    Info = scicos_simulate(scs_m, list(), Context);
+    scs_m.props.context = "per = 5*10^-"+string(i);
 
     // Modify solver + run DDaskr + save results
     scs_m.props.tol(6) = 102;     // Solver
-    scicos_simulate(scs_m, Info); // DDaskr
+    scicos_simulate(scs_m); // DDaskr
     ddaskrval = res.values;       // Results
     time = res.time;              // Time
 
     // Modify solver + run IDA + save results
     scs_m.props.tol(6) = 100;     // Solver
-    scicos_simulate(scs_m, Info); // IDA
+    scicos_simulate(scs_m); // IDA
     idaval = res.values;          // Results
 
     // Compare results
