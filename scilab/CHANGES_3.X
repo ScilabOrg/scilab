@@ -77,3 +77,5 @@ INCOMPATIBLITIES
 - variable named cd, ls, color,... should be renamed  to avoid run time warnings
 - The instructions <function_name>; used to load the sub-functions of the file 
   <function_name>.sci within a function have to be rewritten <function_name>=<function_name>;
+
+new element
