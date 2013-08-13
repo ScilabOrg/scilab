@@ -36,7 +36,7 @@ import org.scilab.modules.gui.utils.WindowsConfigurationManager;
  */
 public class SwingInspector extends SwingScilabTab {
     private JScrollPane desktop;
-    public static JPanel pReceive;
+    private static JPanel pReceive;
     private MenuBar menuBar;
     private Menu fileMenu;
     public static final String INSPECTORUUID = "4m249547-6a71-4998-r8c-00o367s47932";
@@ -128,5 +128,23 @@ public class SwingInspector extends SwingScilabTab {
      */
     public void addToolBar(ToolBar toolBarToAdd) {
         setToolBar(toolBarToAdd);
+    }
+
+    /**
+    * Prepare the panel to receive a new JPanel.
+    * @param panel new jpanel
+    * @param title object name
+    */
+    public static void setPanel(JPanel panel, String title) {
+        //Resets the panel.
+        pReceive.removeAll();
+        pReceive.repaint();
+        //Resets the Show/Hide button.
+        ShowHide.setStatus(false);
+        //Insert panel
+        pReceive.add(panel, "");
+        try {
+            Inspector.setTitle(title);
+        } catch (NullPointerException npe) { }
     }
 }
