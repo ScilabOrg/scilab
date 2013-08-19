@@ -539,3 +539,5 @@ Bug fixes
 * Bug #12808 fixed - Add missing </td> in doc generation (note, warning, ...).
 
 * Bug #12816 fixed - Numbers pasted in editvar were not parsed according to locale.
+
+* Bug #12836 fixed - There was an error in strcmpi documentation.
