@@ -535,3 +535,5 @@ Bug fixes
 * Bug #12783 fixed - There were some inconsistent error messages in dsearch().
 
 * Bug #12808 fixed - Add missing </td> in doc generation (note, warning, ...).
+
+* Bug #12831 fixed - In SciNotes, there was no button to open code navigator.
