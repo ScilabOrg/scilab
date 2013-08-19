@@ -533,3 +533,5 @@ Bug fixes
 * Bug #12779 fixed - savewave() had a miscoding in the internal function write_wavedat().
 
 * Bug #12783 fixed - There were some inconsistent error messages in dsearch().
+
+* Bug #12833 fixed - In SciNotes, there was no autoscroll when searching a pattern.
