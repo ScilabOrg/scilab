@@ -4,9 +4,11 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-
+//
 // <-- TEST WITH GRAPHIC -->
+//
 // <-- ENGLISH IMPOSED -->
+//
 
 function r=checkbode(h,leg)
   fig=gcf();
@@ -27,7 +29,7 @@ function r=checkbode(h,leg)
     [frq,rf]=repfreq(h(k,1),pm.data(:,1));[phi,d]=phasemag(rf);
     if norm(d(:)-pm.data(:,2))> 1d-15 then r=%f;return,end
   end
-  if argn(2)==2 then 
+  if argn(2)==2 then
     if size(ap.children,'*')<2 then r=%f;return,end
     if ap.children(1).type<>'Legend' then r=%f;return,end
     if size(ap.children(1).links,'*')<>n then r=%f;return,end
@@ -44,7 +46,7 @@ hd=ss2tf(sld);
 
 [w,rf]=repfreq(h,0.01,100);
 
-//continuous time
+// Continuous time
 clf();bode(h);
 if ~checkbode(h) then pause,end
 clf();bode(h,'h');
@@ -61,7 +63,7 @@ clf();bode(sl,0.01,100);
 if ~checkbode(sl) then pause,end
 clf();bode(sl,0.01,100,0.01)
 
-//continuous time SIMO
+// Continuous time SIMO
 h=[h;h+1];sl=[sl;sl+1];
 clf();bode(h);
 if ~checkbode(h) then pause,end
@@ -80,7 +82,7 @@ if ~checkbode(sl) then pause,end
 clf();bode(sl,0.01,100,0.01)
 
 
-//discrete case
+// Discrete case
 clf();bode(hd);
 if ~checkbode(hd) then pause,end
 clf();bode(hd,'h');
@@ -97,7 +99,7 @@ clf();bode(sld,0.01,100);
 if ~checkbode(sld) then pause,end
 clf();bode(sl,0.01,100,0.01)
 
-//discrete case SIMO
+// Discrete case SIMO
 hd=[hd;hd+1];sld=[sld;sld+1];
 clf();bode(hd);
 if ~checkbode(hd) then pause,end
@@ -115,14 +117,14 @@ clf();bode(sld,0.01,100);
 if ~checkbode(sld) then pause,end
 clf();bode(sl,0.01,100,0.01)
 
-//bode given by precmputed freqency response
+// bode given by precmputed freqency response
 h=syslin('c',n,d)
 clf();bode(h,0.01,100);
 fig=gcf();
 dp=fig.children(1).children($).children.data;
 dm=fig.children(2).children($).children.data;
 [w,rf]=repfreq(h,0.01,100);
- 
+
 clf(); bode(w,rf)
 fig=gcf();
 if norm(dp-fig.children(1).children($).children.data)>1d-13 then pause,end
