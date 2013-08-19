@@ -535,3 +535,5 @@ Bug fixes
 * Bug #12783 fixed - There were some inconsistent error messages in dsearch().
 
 * Bug #12808 fixed - Add missing </td> in doc generation (note, warning, ...).
+
+* Bug #12830 fixed - In SciNotes, it was not possible to replace from the caret position.
