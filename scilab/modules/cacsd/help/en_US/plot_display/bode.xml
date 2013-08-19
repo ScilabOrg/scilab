@@ -2,11 +2,11 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
@@ -17,10 +17,13 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>bode(sl,[fmin,fmax] [,step] [,comments] )
+        <synopsis>
+            bode(sl,[fmin,fmax] [,step] [,comments] )
+            bode(sl,[fmin,fmax] [,step] [,comments] [,mode] )
             bode(sl,frq [,comments] )
-            bode(frq,db,phi [,comments])
-            bode(frq, repf [,comments])
+            bode(sl,frq [,comments] [,mode] )
+            bode(frq,db,phi [,comments] )
+            bode(frq, repf [,comments] [,mode] )
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -85,6 +88,13 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>string: "rad", "asymp" or "radasymp"
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -127,17 +137,21 @@
             frequencies is made by <literal>calfrq</literal>.
         </para>
         <para>
-            The 
-            <member>
-                <link linkend="datatips">datatips</link>
-            </member>
+            The
+            <link linkend="datatips">datatips</link>
             tool may be used
             to display data along the phase and modulus curves.
+        </para>
+        <para>
+            <literal>mode</literal> can take the values "raw", "asymp" or "radasymp":
+            <member>"rad" converts the frequency from Hz into rad/s (multiplies by 2&#960;),</member>
+            <member>"asymp" displays the system asymptot,</member>
+            <member>"radasymp" does both.</member>
         </para>
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 s=poly(0,'s')
 h=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01))
 clf();bode(h,0.01,100);
@@ -149,7 +163,7 @@ clf();bode(h,0.01,100);
                 clf();bode(h,0.01,100);
             </scilab:image>
         </para>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 s=poly(0,'s')
 h1=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01))
 num=22801+4406.18*s+382.37*s^2+21.02*s^3+s^4;
