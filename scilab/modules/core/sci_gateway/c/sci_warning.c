@@ -104,24 +104,40 @@ int C2F(sci_warning)(char *fname, unsigned long fname_len)
         else
         {
             int i = 0;
-            if ( getWarningMode() )
+            if ( getWarningMode() && m1 * n1 > 1)
             {
-                for (i = 0; i < m1 * n1; i++)
+                if (strlen(Input_Strings[0]) > 0)
+                {
+                    if (Input_Strings[i][strlen(Input_Strings[0]) - 1] == '\n')
+                    {
+                        sciprint(_("WARNING: %s"), Input_Strings[0]);
+                    }
+                    else
+                    {
+                        sciprint(_("WARNING: %s\n"), Input_Strings[0]);
+                    }
+                }
+                else
+                {
+                    sciprint(_("WARNING: %s\n"), "");
+                }
+
+                for (i = 1; i < m1 * n1; i++)
                 {
                     if (strlen(Input_Strings[i]) > 0)
                     {
                         if (Input_Strings[i][strlen(Input_Strings[i]) - 1] == '\n')
                         {
-                            sciprint(_("WARNING: %s"), Input_Strings[i]);
+                            sciprint(_("         %s"), Input_Strings[i]);
                         }
                         else
                         {
-                            sciprint(_("WARNING: %s\n"), Input_Strings[i]);
+                            sciprint(_("         %s\n"), Input_Strings[i]);
                         }
                     }
                     else
                     {
-                        sciprint(_("WARNING: %s\n"), "");
+                        sciprint(_("         %s\n"), "");
                     }
                 }
                 sciprint("\n");
