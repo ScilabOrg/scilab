@@ -1,132 +1,1 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) INRIA
-// Copyright (C) Bruno Pincon
-// Copyright (C) 2010 - Samuel Gougeon
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
-//
-// This file must be used under the terms of the CeCILL.
-// This source file is licensed as described in the file COPYING, which
-// you should have received as part of this distribution.  The terms
-// are also available at
-// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-
-
-function histplot(n,data,style,strf,leg,rect,nax,logflag,frameflag,axesflag,normalization)
-    // histplot(n,data,<opt_arg_seq>)
-    // draws histogram of entries in  data put into n classes
-    //
-    // histplot(xi,data,<opt_arg_seq>)
-    // generates the histogram of entries in data put into classes
-    // [xi(1),xi(2)], (xi(k) xi(k+1)], k=2,..,n.
-    // xi's are assumed st. increasing (this point is verified now).
-    //
-    // optionnal args:
-    //     1/ the same than for a plot2d:
-    //        style,strf,leg,rect,nax,logflag,frameflag,axesflag
-    //     2/ normalization flag (default value %t). When true the
-    //        histogram is normalized so that to approach a density:
-    //          xmax
-    //         /
-    //         |  h(x) dx = 1   (true if xmin <= min(data) and max(data) <= xmax)
-    //         /
-    //         xmin
-    //
-    // Example : enter histplot()
-    //
-    // modifs to use dsearch (Bruno Pincon 10/12/2001)
-    // others modifs from Bruno (feb 2005):
-    //    - may be a cleaner and shorter way to deal with optionnal arg ?
-    //    - now the histgram is drawn using only one polyline
-    //      (so properties (color, thickness,...) are easier
-    //       to change with new graphics).
-    //    - removed computation of nax and rect if they are not
-    //      passed (let plot2d doing it)
-    //    - modify a little the demo
-    //    - add some checking on n|x and data
-    //
-    [lhs,rhs]=argn()
-
-    if rhs == 0 then   // demo
-        histplot([-4.5:0.25:4.5],rand(1,20000,"n"),style=2,axesflag=1,..
-        frameflag=1,rect=[-4.5 0 4.5 0.47]);
-        deff("[y]=f(x)","y=exp(-x.*x/2)/sqrt(2*%pi);");
-        x=-4.5:0.125:4.5;
-        x=x';
-        plot2d(x,f(x),26,"000");
-        titre= gettext("histplot() : (normalized) histogram plot");
-        xtitle(titre,"C (Classes)","N(C) / (Nmax length(C))");  // Not clear
-        legend(gettext("Gaussian random sample histogram"), ..
-        gettext("Exact gaussian density"));
-        return
-    end
-
-    if rhs < 2
-        error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"),"histplot",2));
-    end
-
-    if type(n) ~= 1 |  ~isreal(n)
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",1));
-    elseif type(data) ~= 1 | ~isreal(data)
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",2));
-    end
-
-    // this is the only specific optionnal argument for histplot
-    if ~exists("normalization","local") then, normalization=%t,end
-
-    // now parse optionnal arguments to be sent to plot2d
-    opt_arg_seq = []
-    opt_arg_list = ["style","strf","leg","rect","nax","logflag","frameflag","axesflag"]
-    for opt_arg = opt_arg_list
-        if exists(opt_arg,"local") then
-            opt_arg_seq = opt_arg_seq +","+ opt_arg + "=" + opt_arg
-        end
-    end
-
-    p = length(data)
-    if length(n) == 1 then  // the number of classes is provided
-        if n < 1
-            error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the interval %s.\n"),"histplot",1,"[1, oo)"));
-        elseif n~=floor(n)
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: Integer expected.\n"),"histplot",1))
-        end
-        mind = min(data);
-        maxd = max(data);
-        if (mind == maxd) then
-            mind = mind - floor(n/2);
-            maxd = maxd + ceil(n/2);
-        end
-        x = linspace(mind, maxd, n+1);
-    else                    // the classes are provided
-        x = matrix(n,1,-1)   // force row form
-        if min(diff(x)) <= 0 then
-            error(msprintf(gettext("%s: Wrong values for input argument #%d: Elements must be in increasing order.\n"),"histplot",1))
-        end
-        n = length(x)-1
-    end
-
-    [ind , y] = dsearch(data, x)
-
-    if normalization then y=y ./ (p *(x(2:$)-x(1:$-1))),end
-
-    // now form the polyline
-    //    X = [x1 x1 x2 x2 x2 x3 x3 x3  x4 ...   xn xn+1 xn+1]'
-    //    Y = [0  y1 y1 0  y2 y2 0  y3  y3 ... 0 yn yn   0 ]'
-    X = [x(1);x(1);matrix([1;1;1]*x(2:n),-1,1);x(n+1);x(n+1)]
-    // BUG#1885
-    // We start the histplot line to %eps rather than 0
-    // So when switching to logarithmic mode we do not fall
-    // in log(0) special behaviour.
-    Y = [matrix([%eps;1;1]*y,-1,1);%eps]
-
-    if opt_arg_seq == [] then
-        plot2d(X,Y)
-    else
-        execstr("plot2d(X,Y"+opt_arg_seq+")")
-    end
-
-endfunction
-
-
-
-
-
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab^M// Copyright (C) INRIA^M// Copyright (C) Bruno Pincon^M// Copyright (C) 2010 - Samuel Gougeon^M// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS^M// Copyright (C) 2013 - A. Khorshidi (new option)^M//^M// This file must be used under the terms of the CeCILL.^M// This source file is licensed as described in the file COPYING, which^M// you should have received as part of this distribution.  The terms^M// are also available at^M// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt^M^M^Mfunction histplot(n,data,style,strf,leg,rect,nax,logflag,frameflag,axesflag,normalization,polygon)    ^M    // histplot(n,data,<opt_arg_seq>)    ^M    // draws histogram of entries in  data put into n classes    ^M    //    ^M    // histplot(xi,data,<opt_arg_seq>)    ^M    // generates the histogram of entries in data put into classes    ^M    // [xi(1),xi(2)], (xi(k) xi(k+1)], k=2,..,n.    ^M    // xi's are assumed st. increasing (this point is verified now).    ^M    //    ^M    // optionnal args:    ^M    //     1/ the same than for a plot2d:    ^M    //        style,strf,leg,rect,nax,logflag,frameflag,axesflag    ^M    //     2/ normalization flag (default value %t). When true the    ^M    //        histogram is normalized so that to approach a density:    ^M    //          xmax    ^M    //         /    ^M    //         |  h(x) dx = 1   (true if xmin <= min(data) and max(data) <= xmax)    ^M    //         /    ^M    //         xmin    ^M    //    ^M    // Example : enter histplot()    ^M    //    ^M    // modifs to use dsearch (Bruno Pincon 10/12/2001)    ^M    // others modifs from Bruno (feb 2005):    ^M    //    - may be a cleaner and shorter way to deal with optionnal arg ?    ^M    //    - now the histgram is drawn using only one polyline    ^M    //      (so properties (color, thickness,...) are easier    ^M    //       to change with new graphics).    ^M    //    - removed computation of nax and rect if they are not    ^M    //      passed (let plot2d doing it)    ^M    //    - modify a little the demo    ^M    //    - add some checking on n|x and data    ^M    //    ^M    [lhs,rhs]=argn()    ^M    ^M    if rhs == 0 then   // demo        ^M        histplot([-4.5:0.25:4.5],rand(1,20000,"n"),style=2,axesflag=1,..        ^M        frameflag=1,rect=[-4.5 0 4.5 0.47]);        ^M        deff("[y]=f(x)","y=exp(-x.*x/2)/sqrt(2*%pi);");        ^M        x=-4.5:0.125:4.5;        ^M        x=x';        ^M        plot2d(x,f(x),26,"000");        ^M        titre= gettext("histplot() : (normalized) histogram plot");        ^M        xtitle(titre,"C (Classes)","N(C) / (Nmax length(C))");  // Not clear        ^M        legend(gettext("Gaussian random sample histogram"), ..        ^M        gettext("Exact gaussian density"));        ^M        return        ^M    end    ^M    ^M    if rhs < 2        ^M        error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"),"histplot",2));        ^M    end    ^M    ^M    if type(n) ~= 1 |  ~isreal(n)        ^M        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",1));        ^M    elseif type(data) ~= 1 | ~isreal(data)        ^M        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",2));        ^M    end    ^M    ^M    // this is the only specific optionnal argument for histplot    ^M    if ~exists("normalization","local") then, normalization=%t,end    ^M    if ~exists("polygon","local") then, polygon=%f,end    ^M    ^M    // now parse optionnal arguments to be sent to plot2d    ^M    opt_arg_seq = []    ^M    opt_arg_list = ["style","strf","leg","rect","nax","logflag","frameflag","axesflag"]    ^M    for opt_arg = opt_arg_list        ^M        if exists(opt_arg,"local") then            ^M            opt_arg_seq = opt_arg_seq +","+ opt_arg + "=" + opt_arg            ^M        end        ^M    end    ^M    ^M    p = length(data)    ^M    if length(n) == 1 then  // the number of classes is provided        ^M        if n < 1            ^M            error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the interval %s.\n"),"histplot",1,"[1, oo)"));            ^M        elseif n~=floor(n)            ^M            error(msprintf(gettext("%s: Wrong type for input argument #%d: Integer expected.\n"),"histplot",1))            ^M        end        ^M        mind = min(data);        ^M        maxd = max(data);        ^M        if (mind == maxd) then            ^M            mind = mind - floor(n/2);            ^M            maxd = maxd + ceil(n/2);            ^M        end        ^M        x = linspace(mind, maxd, n+1);        ^M    else                    // the classes are provided        ^M        x = matrix(n,1,-1)   // force row form        ^M        if min(diff(x)) <= 0 then            ^M            error(msprintf(gettext("%s: Wrong values for input argument #%d: Elements must be in increasing order.\n"),"histplot",1))            ^M        end        ^M        n = length(x)-1        ^M    end    ^M    ^M    [ind , y] = dsearch(data, x)    ^M    ^M    if normalization then y=y ./ (p *(x(2:$)-x(1:$-1))),end    ^M    ^M    if polygon then        ^M        xmid=(x(1:$-1)+x(2:$))/2;...        ^M        xp=[x(1)-(x(2)-x(1))/2 xmid x($)+(x($)-x($-1))/2];...        ^M        yp=[0 y 0];        ^M    end // new lines    ^M    ^M    // now form the polyline    ^M    //    X = [x1 x1 x2 x2 x2 x3 x3 x3  x4 ...   xn xn+1 xn+1]'    ^M    //    Y = [0  y1 y1 0  y2 y2 0  y3  y3 ... 0 yn yn   0 ]'    ^M    X = [x(1);x(1);matrix([1;1;1]*x(2:n),-1,1);x(n+1);x(n+1)]    ^M    // BUG#1885    ^M    // We start the histplot line to %eps rather than 0    ^M    // So when switching to logarithmic mode we do not fall    ^M    // in log(0) special behaviour.    ^M    Y = [matrix([%eps;1;1]*y,-1,1);%eps]    ^M    ^M    if opt_arg_seq == [] then        ^M        plot2d(X,Y)        ^M        if polygon then plot(xp,yp,"b-o"), end // new line        ^M    else        ^M        execstr("plot2d(X,Y"+opt_arg_seq+")")        ^M        if polygon then plot(xp,yp,"r-o"), end // new line        ^M    end    ^M    ^Mendfunction^M
