@@ -2085,7 +2085,6 @@ public class XcosDiagram extends ScilabGraph {
             Xcos.getInstance().addDiagram(file, this);
         }
         setTitle(name.substring(0, name.lastIndexOf('.')));
-        generateUID();
         setModified(false);
 
         fireEvent(new mxEventObject(mxEvent.ROOT));
@@ -2315,40 +2314,6 @@ public class XcosDiagram extends ScilabGraph {
             }
 
         } .execute();
-    }
-
-    /**
-     * generate unique id to all blocks in diagram
-     */
-    public void generateUID() {
-        for (int i = 0; i < getModel().getChildCount(getDefaultParent()); ++i) {
-            if (getModel().getChildAt(getDefaultParent(), i) instanceof BasicBlock) {
-                final BasicBlock block = (BasicBlock) getModel().getChildAt(getDefaultParent(), i);
-                if (block.getRealParameters() instanceof ScilabMList) {
-                    if (block instanceof SuperBlock) {
-                        final SuperBlock parent = ((SuperBlock) block);
-
-                        // generate a child diagram with UID
-                        parent.createChildDiagram(true);
-                    } else {
-                        // we have a hidden SuperBlock, create a real one
-                        SuperBlock newSP = (SuperBlock) BlockFactory.createBlock(SuperBlock.INTERFUNCTION_NAME);
-                        newSP.setParentDiagram(block.getParentDiagram());
-
-                        newSP.setRealParameters(block.getRealParameters());
-                        newSP.createChildDiagram(true);
-
-                        block.setRealParameters(newSP.getRealParameters());
-                    }
-                } else if (block.getId() == null || block.getId().compareTo("") == 0) {
-                    /*
-                     * FIXME: Change of a cell id out of model modification in
-                     * which case ?
-                     */
-                    block.generateId();
-                }
-            }
-        }
     }
 
     /**
