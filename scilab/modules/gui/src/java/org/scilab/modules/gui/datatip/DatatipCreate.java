@@ -96,15 +96,17 @@ public class DatatipCreate {
 
         double[] DataX = (double[]) PolylineData.getDataX(polylineUid);
         double[] DataY = (double[]) PolylineData.getDataY(polylineUid);
+        double[] DataZ = (double[]) PolylineData.getDataZ(polylineUid);
         if (indexPoint > DataX.length) {
             indexPoint = DataX.length;
         } else if (indexPoint <= 0) {
             indexPoint = 1;
         }
-        double[] coordDoubleXY = new double[2];
-        coordDoubleXY[0] = DataX[indexPoint - 1];
-        coordDoubleXY[1] = DataY[indexPoint - 1];
-        String newDatatip = datatipProperties(coordDoubleXY, polylineUid);
+        double[] coord = new double[3];
+        coord[0] = DataX[indexPoint - 1];
+        coord[1] = DataY[indexPoint - 1];
+        coord[2] = DataZ[indexPoint - 1];
+        String newDatatip = datatipProperties(coord, polylineUid);
         return newDatatip;
     }
 
@@ -146,7 +148,7 @@ public class DatatipCreate {
     private static String datatipProperties(double[] coord, String polyline) {
 
         String newDatatip = GraphicController.getController().askObject(GraphicObject.getTypeFromName(GraphicObjectProperties.__GO_DATATIP__));
-        Double[] datatipPosition = new Double[] {coord[0], coord[1], 0.0};
+        Double[] datatipPosition = new Double[] {coord[0], coord[1], coord[2]};
 
         GraphicController.getController().setProperty(newDatatip, GraphicObjectProperties.__GO_DATATIP_DATA__, datatipPosition);
         GraphicController.getController().setGraphicObjectRelationship(polyline, newDatatip);

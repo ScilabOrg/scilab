@@ -93,6 +93,12 @@ int sci_datatipcreate(char *fname, unsigned long fname_len)
 
             datatip_handler = DatatipCreate::createDatatipProgramCoord(getScilabJavaVM(), (char*)pstFigureUID, pdblReal, 2);
         }
+        else
+        {
+
+            Scierror(999, _("%s: Wrong size for input argument #%d: A matrix expected.\n"), fname, 2);
+            return FALSE;
+        }
 
     }
     else
