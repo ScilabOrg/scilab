@@ -130,6 +130,9 @@ Xcos
 
 * In the Modelica initialization GUI, inputs (eg. sensor) were not handled.
 
+* API change on the scicos_block4 interface ; let the uid value be available
+  inside simulation function.
+
 * Bug #7350 fixed - The superblock I/O ports numbering was not updated
                     when a new port was dropped.
 
