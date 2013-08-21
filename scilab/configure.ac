@@ -535,13 +535,13 @@ case "$CXX" in
             DEBUG_CXXFLAGS="-DNDEBUG"
         fi
         COMPILER_CXXFLAGS="-fno-stack-protector " # bug 3131
-        COMPILER_LDFLAGS="-lstdc++"
+#        COMPILER_LDFLAGS="-lstdc++"
     ;;
 
     clang-* | clang)
         # clang linker expect an explict declaration
-        # until the http://libcxx.llvm.org/ release, we select the GNU one.
-        COMPILER_LDFLAGS="-lstdc++"
+        # until the http://libcxx.llvm.org/ release, we select the GNU one.
+#        COMPILER_LDFLAGS="-lstdc++"
     ;;
 esac
 

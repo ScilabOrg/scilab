@@ -38,8 +38,16 @@ if IS_MACOSX
 bin_SCRIPTS 		+= bin/checkmacosx.applescript
 endif
 
+# Force the usage of the C++ compiler instead of the C. To use -static-libstdc++
+CC=$(CXX)
+
 scilab_bin_LDFLAGS 	    = $(AM_LDFLAGS)
 scilab_cli_bin_LDFLAGS  = $(AM_LDFLAGS)
+
+scilab_bin_LDFLAGS += -static-libstdc++
+# -static-libgfortran
+scilab_cli_bin_LDFLAGS += -static-libstdc++
+#-static-libgfortran
 
 if IS_MACOSX
 scilab_bin_LDFLAGS 		+= -framework Cocoa
