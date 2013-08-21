@@ -39,7 +39,7 @@ then
     echo "  git config --add xmlindent.ignored 'scilab/Visual-Studio-settings/*.xml' "
     echo "  git config --add xmlindent.ignored 'scilab/checkstyle/*.xml' "
     echo
-    
+
     XMLINDENT_IGNORED=""
 else
     XMLINDENT_IGNORED="$(find $(git config --get-all xmlindent.ignored))"
@@ -77,9 +77,9 @@ then
     echo "  git config --add astyle.ignored 'scilab/modules/scinotes/src/java/org/scilab/modules/scinotes/MatchingBlockScanner.java' "
     echo "  git config --add astyle.ignored 'scilab/modules/scinotes/src/java/org/scilab/modules/scinotes/ScilabLexer.java' "
     echo "  git config --add astyle.ignored 'scilab/modules/scicos/src/scicos_sundials/*' "
-    
+
     echo
-    
+
     ASTYLE_IGNORED=""
 else
     ASTYLE_IGNORED="$(find $(git config --get-all astyle.ignored))"
@@ -111,7 +111,7 @@ indent() {
         .java)
             __indent_java;
         ;;
-        .sce|.sci)
+        .sce|.sci|.tst)
             __indent_scilab;
         ;;
         esac
@@ -216,4 +216,3 @@ __indent_scilab() {
 }
 
 indent
-
