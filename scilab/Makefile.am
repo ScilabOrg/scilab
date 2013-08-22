@@ -102,8 +102,12 @@ TARGETS_ALL+=check-java
 endif
 
 # check is performed with scilab
-TESTS_ENVIRONMENT = LANG=C $(top_builddir)/bin/scilab-cli -nb -noatomsautoload -f
 TESTS = $(top_builddir)/modules/development_tools/tests/unit_tests/test_run_level_1.tst
+TEST_EXTENSIONS = .tst
+TST_LOG_COMPILER = $(top_builddir)/bin/scilab-cli
+AM_TST_LOG_FLAGS = -nb -nouserstartup -noatomsautoload -f
+# redirect test log output to stderr
+AM_TESTS_FD_REDIRECT = 9>&2
 
 all-local: $(TARGETS_ALL)
 
