@@ -1,0 +1,68 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
+//
+// <-- Non-regression test for bug 6094 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=6094
+//
+// <-- Short Description -->
+// Report dimensions in inconsistent multiply/add/power/...
+//
+
+// Addition
+A_ok = ones(3, 3);
+B_ok = ones(3, 3);
+assert_checkequal(A_ok+B_ok, 2*ones(3, 3));
+
+A_ko = ones(4, 3); // Bug fix: now displaying the sizes of A and B in the error message
+refMsg = msprintf(_("Inconsistent addition: (%d,%d) by (%d,%d).\n"), 4, 3, 3, 3);
+assert_checkerror("A_ko+B_ok", refMsg);
+
+
+// Subtraction
+assert_checkequal(A_ok-B_ok, zeros(3, 3));
+
+refMsg = msprintf(_("Inconsistent subtraction: (%d,%d) by (%d,%d).\n"), 4, 3, 3, 3);
+assert_checkerror("A_ko-B_ok", refMsg);
+
+
+// Multiplication
+assert_checkequal(A_ok*B_ok, 3*ones(3, 3));
+
+B_ko = ones(4, 3);
+refMsg = msprintf(_("Inconsistent multiplication: (%d,%d) by (%d,%d).\n"), 4, 3, 4, 3);
+assert_checkerror("A_ko*B_ko", refMsg);
+
+
+// Division
+assert_checkequal(A_ok/B_ok, [1 0 0; 1 0 0; 1 0 0]);
+assert_checkequal(A_ok\B_ok, [1 1 1; 0 0 0; 0 0 0]);
+
+B_ko = ones(3, 4);
+refMsg = msprintf(_("%s (size %d x %d) and %s (size %d x %d) must have equal number of rows.\n"), "A", 4, 3, "B", 3, 4);
+assert_checkerror("A_ko\B_ko", refMsg);
+refMsg = msprintf(_("%s (size %d x %d) and %s (size %d x %d) must have equal number of columns.\n"), "A", 4, 3, "B", 3, 4);
+assert_checkerror("A_ko/B_ko", refMsg);
+
+
+// Power
+assert_checkequal(A_ok^2, 3*ones(3, 3));
+
+refMsg = msprintf(_("Wrong size (%d,%d) for first argument: Square matrix expected.\n"), 4, 3);
+assert_checkerror("A_ko^2", refMsg);
+
+
+// Spec, to pop "equal dimensions" error
+assert_checkalmostequal(spec(A_ok), [0; 0; 3], 0, 10*%eps);
+
+B_ko = ones(4, 4);
+refMsg = msprintf(_("%s (size %d x %d) and %s (size %d x %d) must have equal dimensions.\n"), "A", 3, 3, "B", 4, 4);
+assert_checkerror("spec(A_ok, B_ko)", refMsg);
