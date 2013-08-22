@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Antoine ELIAS
+// Copyrigh (C) 2012 - DIGITEO - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,15 +15,15 @@
 // <-- Short Description -->
 
 ilib_verbose(0);
-test_path = get_absolute_file_path('bug_11106.tst');
+test_path = get_absolute_file_path("bug_11106.tst");
 currentpath = pwd();
 cd TMPDIR;
-mkdir('bug_11106');
-cd('bug_11106');
-copyfile(SCI+'/modules/api_scilab/tests/nonreg_tests/bug_11106.c' , 'bug_11106.c');
+mkdir("bug_11106");
+cd("bug_11106");
+copyfile(SCI+"/modules/api_scilab/tests/nonreg_tests/bug_11106.c" , "bug_11106.c");
 
-files = ['bug_11106.c'];
-ilib_build('lib_bug_11106', ['bug_11106', 'sci_bug_11106'], files, []);
+files = ["bug_11106.c"];
+ilib_build("lib_bug_11106", ["bug_11106", "sci_bug_11106"], files, []);
 exec loader.sce;
 chdir(currentpath);
 

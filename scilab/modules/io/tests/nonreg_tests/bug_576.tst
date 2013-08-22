@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,5 +18,5 @@
 //    as an empty result ?
 
 disp("press enter");
-chemin=input('?','s');
+chemin=input("?","s");
 if isempty(chemin) then pause,end

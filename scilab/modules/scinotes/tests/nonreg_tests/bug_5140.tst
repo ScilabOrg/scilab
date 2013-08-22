@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,7 +19,7 @@
 // we should save into a file and ask Scilab to load it. It will be much faster.
 
 // launch editor
-// paste some line in a tab 
+// paste some line in a tab
 // try "Load into Scilab
 
 // paste theses lines:
@@ -28,29 +28,29 @@
 A= 3
 disp(A)
 
-// do "Load into Scilab" 
+// do "Load into Scilab"
 // result display in console should be:
 
 
 //-->editor
-  
+
 -->1+1
- ans  =
- 
-    2.  
+ans  =
+
+2.
 -->2
- ans  =
- 
-    2.  
+ans  =
+
+2.
 -->A= 3
- A  =
- 
-    3.  
+A  =
+
+3.
 -->disp(A)
- 
-    3.  
+
+3.
 
 
 // creates a file with more 100 lines or more than 80 * 100 characters
-// do "Load into Scilab" 
+// do "Load into Scilab"
 // a message box should be opened , try 'yes' and 'no'

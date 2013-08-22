@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Sylvestre Ledru
+// Copyrigh (C) 2011 - DIGITEO - Sylvestre Ledru
 //
 //// This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -28,5 +28,5 @@ delete(gcf())
 
 xload(SCI+"/modules/graphics/tests/nonreg_tests/plot_plein_degrade_xsave.scg");
 f=gcf();
-assert_checkequal(size(f.children, '*'),1);
+assert_checkequal(size(f.children, "*"),1);
 delete(gcf())

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - INRIA - Serge Steer
+// Copyrigh (C) 2011 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,17 +14,17 @@
 // <-- Short Description -->
 // evstr freezes on some specific string
 //
-assert_checkequal(evstr('//xxx'),[]);
+assert_checkequal(evstr("//xxx"),[]);
 t=["1";
-   "2";
-   "//xxx"];
-assert_checkequal(evstr(t),[1;2]); 
+"2";
+"//xxx"];
+assert_checkequal(evstr(t),[1;2]);
 
 nl=ascii(10);
 t=["//comment";
-   "function y=foo(),"
-   " y=1;"
-   "endfunction"];
+"function y=foo(),"
+" y=1;"
+"endfunction"];
 
 t=strcat(t,nl); //make a single string that appears as a string array
-assert_checkequal(evstr(t),[]); 
+assert_checkequal(evstr(t),[]);

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 7740 -->
 //
 // <-- JVM MANDATORY -->
-// 
+//
 // <-- INTERACTIVE TEST -->
 //
 // <-- Bugzilla URL -->
@@ -20,12 +20,12 @@
 // executes with script
 
 fun1 = ["function r = toto()";
-        "r = ""NOT OK"";";
-        "endfunction"];
+"r = ""NOT OK"";";
+"endfunction"];
 
 fun2 = ["function r = toto()";
-        "r = ""OK"";";
-        "endfunction"];
+"r = ""OK"";";
+"endfunction"];
 
 mkdir(TMPDIR,"fun1lib");
 mkdir(TMPDIR,"fun2lib");

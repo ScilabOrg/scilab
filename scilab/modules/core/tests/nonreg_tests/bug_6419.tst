@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,10 +13,10 @@
 // <-- Short Description -->
 //  gstacksize() There was no way to retrieve minimum from scilab
 
-gstacksize('min');
+gstacksize("min");
 mingstacksize = gstacksize();
 
-ierr = execstr('gstacksize(2048)','errcatch');
+ierr = execstr("gstacksize(2048)","errcatch");
 if ierr <> 1504 then pause,end
 
 newmingstacksize = gstacksize();

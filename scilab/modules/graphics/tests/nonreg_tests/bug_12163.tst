@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //// This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,6 +18,6 @@
 clf()
 plot();
 rect=[3 -2 7 10];
-zoom_rect(rect); 
+zoom_rect(rect);
 assert_checktrue(execstr("unzoom(gcf())","errcatch")==0);
 delete();

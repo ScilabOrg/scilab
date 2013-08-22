@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3006
 //
 // <-- Short Description -->
-// submatrix assignment impossible when the matrix is indexed with a boolean array of falses  
+// submatrix assignment impossible when the matrix is indexed with a boolean array of falses
 
 //test with handle matrix
 a=[gcf() gca();gca() gcf()];a_ref=a;

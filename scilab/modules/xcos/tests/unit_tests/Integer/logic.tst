@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+// Copyrigh (C) 2013 - Scilab Enterprises - Paul Bignier
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@ A_ref1 = int8(zeros(8,1));
 A_ref2 = int8(ones(10,1));
 A_ref3 = int8(zeros(10,1));
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values(1:8),   A_ref1);
 assert_checkequal(A.values(9:18),  A_ref2);

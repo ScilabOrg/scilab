@@ -1,7 +1,7 @@
 // ============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clément DAVID
-// Copyright (C) 2012 - Scilab Enterprises - Clément DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2012 - Scilab Enterprises - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
@@ -13,7 +13,7 @@ funcprot(0);
 
 // Stubbing the x_mdialog method
 function [result]=x_mdialog(dialog_title,labels,default_inputs_vector)
-	result = default_inputs_vector;
+    result = default_inputs_vector;
 endfunction
 
 funcprot(prot);

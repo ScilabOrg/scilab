@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,8 +18,8 @@
 // edit SCI/modules/fileio/sci_gateway/fileio_gateway.xml (or another .xml associated to a module)
 // add new definitions
 
-// <PRIMITIVE gatewayId="34" primitiveId="50" primitiveName="CRASH_BUG_3580_1" /> 
-// <PRIMITIVE gatewayId="80" primitiveId="50" primitiveName="CRASH_BUG_3580_2" /> 
+// <PRIMITIVE gatewayId="34" primitiveId="50" primitiveName="CRASH_BUG_3580_1" />
+// <PRIMITIVE gatewayId="80" primitiveId="50" primitiveName="CRASH_BUG_3580_2" />
 
 // launch scilab
 // call at prompt

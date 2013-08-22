@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer
+// Copyrigh (C) 2010 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 //  p_margin() returns an erroneous result
-z=poly(0,'z');
+z=poly(0,"z");
 num=(0.0373327-0.0405775*z-0.1413155*z^2+0.1783403*z^3);
 den=(-0.0373327+0.0405775*z+0.1413155*z^2-0.1783403*z^3+0.04867*z^4-0.04007*z^5-0.17482*z^6+0.2*z^7);
 H=syslin(1.0,num/den);

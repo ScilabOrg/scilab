@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechalinria.fr>
+// Copyrigh (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechalinria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@ assert_checkequal(my_figure.rotation_style, "unary");
 my_figure.rotation_style = "multiple";
 assert_checkequal(my_figure.rotation_style, "multiple");
 
-execstr("my_figure.rotation_style = ''badvalue''",'errcatch','n');
+execstr("my_figure.rotation_style = ''badvalue''","errcatch","n");
 assert_checkequal(my_figure.rotation_style, "multiple");
 
 my_figure.rotation_style = "unary";

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Yann COLLETTE <yann.collette@scilab.org>
+// Copyrigh (C) 2010 - DIGITEO - Yann COLLETTE <yann.collette@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,7 +20,7 @@ importXcosDiagram(SCI+"/modules/xcos/tests/nonreg_tests/bug_6527.zcos");
 
 Info = scicos_simulate(scs_m,list());
 
-names = who('local');
+names = who("local");
 nb_var = length(find(names=="A_AND"));
 
 if nb_var~=1 then pause; end

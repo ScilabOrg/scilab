@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Vincent COUVERT
+// Copyrigh (C) 2008 - INRIA - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,12 +18,12 @@
 
 f = figure(1);
 h = uicontrol(f,"style","listbox",..
-    "position",[10 10 150 150],..
-    "string",["\Q\q"])
+"position",[10 10 150 150],..
+"string",["\Q\q"])
 
 if get(h,"string") <> "\Q\q" then pause; end
 
-set(h,"string",["\Q","\q"]) 
+set(h,"string",["\Q","\q"])
 
 if or(get(h,"string") <> ["\Q","\q"]) then pause; end
 

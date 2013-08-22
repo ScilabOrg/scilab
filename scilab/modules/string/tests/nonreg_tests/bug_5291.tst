@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,4 +20,4 @@
 [R, F]=strtod([ "123" "+i"]);
 assert_checkequal(R(1), 123);
 assert_checktrue(isnan(R(2)));
-assert_checkequal(F, ['' '+i']);
+assert_checkequal(F, ["" "+i"]);

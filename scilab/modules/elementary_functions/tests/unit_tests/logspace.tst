@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Michael Baudin
+// Copyrigh (C) 2008 - INRIA - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,5 +19,5 @@ assert_checkequal(logspace([0;2],[2;4],3),[1,10 100;100 1000 10000]);
 assert_checkequal(logspace([-1;2],[2;6],6), [logspace(-1,2,6);logspace(2,6,6)]);
 
 // Perform a check on the size of the input arguments
-assert_checktrue(execstr('logspace(2,[2,2])','errcatch') <> 0);
+assert_checktrue(execstr("logspace(2,[2,2])","errcatch") <> 0);
 assert_checktrue(lasterror() <> []);

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Misaligned ticks labels in colorbar.
- 
+
 colorbar(-200,100)
 
 // Labels should be here with ticks

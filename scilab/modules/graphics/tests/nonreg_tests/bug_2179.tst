@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,7 +27,7 @@ hist3d(Z);
 A = abs(rand(10,5));
 Z(91:100,:) = A;
 scf();
-hist3d(Z); 
+hist3d(Z);
 
 // all the 3 created figures should display something
 

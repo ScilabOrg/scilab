@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,17 +17,17 @@
 //    returns a VERY confusing error message.
 //
 //    The bug appears also in
-//    -->[2m]  which returns 
+//    -->[2m]  which returns
 //     ans  =
 //
 //    !   2.    2. !
 //    while
 //    -->2m  returns
-//      !--error    40 
+//      !--error    40
 //    waiting for end of command
 //    and
 //    -->(2m) returns
-//         !--error     3 
+//         !--error     3
 //    waiting for right parenthesis
 //    as well as
 //    -->(2m))))))))))))

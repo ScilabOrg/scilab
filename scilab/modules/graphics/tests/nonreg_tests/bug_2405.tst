@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // xsetech() creates an empty (covering white) axes frame, which shouldn't be, when
 // used in conjunction with subplot().
-// 
+//
 
 clf()
 subplot(121); plot2d();

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@ REF_K = [4; 2];
 if and(v == REF_V) <> %t then pause,end
 if and(k == REF_K) <> %t then pause,end
 // =============================================================================
-REF_V = ['111' ; '4'];
+REF_V = ["111" ; "4"];
 REF_K = [2; 4];
 [v,k] = setdiff(string(a),string(b));
 if and(v == REF_V) <> %t then pause,end

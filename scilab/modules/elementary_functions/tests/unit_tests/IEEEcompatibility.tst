@@ -1,9 +1,9 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
-// Copyright (C) 2009 - INRIA - Michael Baudin, Antoine Elias
-// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2009 - INRIA - Michael Baudin, Antoine Elias
+// Copyrigh (C) 2010-2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -84,7 +84,7 @@ expecteddiv = [
 
 // See http://bugzilla.scilab.org/show_bug.cgi?id=2409
 // We must use imult(%inf) to get the mathematical number i * inf
-// since %i * %inf produces imult(%inf), as expected by the 
+// since %i * %inf produces imult(%inf), as expected by the
 // intermediate multiplication 0*%inf = %nan.
 expectedsqrt = [
 imult(%inf)
@@ -137,4 +137,5 @@ assert_checkequal ( computedsqrt   , expectedsqrt );
 assert_checkequal ( computedmodulo , expectedmodulo );
 
 ieee(0)
-
+
+

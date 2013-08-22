@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2010 - INRIA - pierre.lando@scilab.org
+// Copyrigh (C) 2009-2010 - INRIA - pierre.lando@scilab.org
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@
 // Scilab has found a critical error (Unknow exception).
 // Save your data and restart Scilab.
 
-clf(gcf(),'reset');
+clf(gcf(),"reset");
 zoom_rect([0,0,1,1]);
 unzoom();
 a=gca();

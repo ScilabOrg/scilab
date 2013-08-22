@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,10 +17,10 @@
 // atomsRemove required a network connection to remove a package.
 
 // download a module
-// disable your network connection 
+// disable your network connection
 
-atomsSetConfig('offline', 'false')
-atomsInstall('~/grocer_1.52-1.bin.zip')
-atomsRemove('grocer')
-atomsSetConfig('offline', 'true')
+atomsSetConfig("offline", "false")
+atomsInstall("~/grocer_1.52-1.bin.zip")
+atomsRemove("grocer")
+atomsSetConfig("offline", "true")
 

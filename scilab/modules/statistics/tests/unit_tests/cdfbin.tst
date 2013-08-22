@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,23 +18,23 @@ prec = 1.e-5;
 XN = 10;
 PR = 0.34;
 
-deff('k=fact(n)','if n<=1;k=1;else k=n*fact(n-1);end');
-deff('cnk=CNK(N,k)','cnk=fact(N)/(fact(k)*fact(N-k))');
+deff("k=fact(n)","if n<=1;k=1;else k=n*fact(n-1);end");
+deff("cnk=CNK(N,k)","cnk=fact(N)/(fact(k)*fact(N-k))");
 
 pr  = [];
 S   = 0:XN;
 
 for k=S
-	pr=[pr,CNK(XN,k)*(PR)^k*(1-PR)^(XN-k)];
+    pr=[pr,CNK(XN,k)*(PR)^k*(1-PR)^(XN-k)];
 end
 
 Sth      = cumsum(pr);
 [Sth1,q] = cdfbin("PQ",S,XN*ones(S),PR*ones(S),(1-PR)*ones(S));
-if norm(Sth-Sth1) > prec then pause,end 
+if norm(Sth-Sth1) > prec then pause,end
 
 XN          = 10;
 S           = 0:XN;
-PR          = rand(1,XN+1,'u');
+PR          = rand(1,XN+1,"u");
 OMPR        = 1-PR;
 XN1         = XN*ones(1,XN+1);
 [P,Q]       = cdfbin("PQ",S,XN1,PR,OMPR);

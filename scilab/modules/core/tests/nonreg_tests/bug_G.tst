@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,15 +16,15 @@ correct = %F
 I       = 0;
 
 while 1
-	while 1
-		break;
-	end
-	
-	// les lignes suivantes ne sont jamais executes !!!!!!
-	correct = %T
-	I=I+1;
-	if I >= 5 then break; end
-	
+    while 1
+        break;
+    end
+
+    // les lignes suivantes ne sont jamais executes !!!!!!
+    correct = %T
+    I=I+1;
+    if I >= 5 then break; end
+
 end
 
 if ~correct then pause,end

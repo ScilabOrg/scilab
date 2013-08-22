@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,5 +15,5 @@
 // <-- Short Description -->
 //    strindex('aaba','aa') return [1 4] instead of [1]
 
-if strindex('aaba','aa') <> 1 then pause, end
-if strindex('aabaaa','aa') <> [1 4 5] then pause, end
+if strindex("aaba","aa") <> 1 then pause, end
+if strindex("aabaaa","aa") <> [1 4 5] then pause, end

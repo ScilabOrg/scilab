@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,12 +15,12 @@
 // <-- INTERACTIVE TEST -->
 
 function ok = test ();
-  ok = %F;
-  abort;  // crashes Scilab 3.1 but stops running Scilab 
-  // never go here
-  3.0
-  ok = %T;
-endfunction;  
+    ok = %F;
+    abort;  // crashes Scilab 3.1 but stops running Scilab
+    // never go here
+    3.0
+    ok = %T;
+endfunction;
 
 test()
 

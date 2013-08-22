@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,7 +20,7 @@ r = lasterror();
 ref = msprintf(_("Answer appears to be higher than greatest search bound %s\n"), "%inf");
 if r <> ref then pause,end
 
-if execstr("cdffnc(""Dfd"", 1.5, 0.3945792, 0.6054208, 1, 5)",  "errcatch") <> 999 then pause, end; 
+if execstr("cdffnc(""Dfd"", 1.5, 0.3945792, 0.6054208, 1, 5)",  "errcatch") <> 999 then pause, end;
 r = lasterror();
 ref = msprintf(_("Answer appears to be higher than greatest search bound %s\n"), "%inf");
 if r <> ref then pause,end

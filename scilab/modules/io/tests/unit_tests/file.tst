@@ -1,12 +1,12 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,7 +23,7 @@ if a <> [] then pause,end;
 if b <> [] then pause,end;
 if c <> [] then pause,end;
 if d <> [] then pause,end;
-clear a b c d 
+clear a b c d
 // =============================================================================
 [a,b,c] = file(500);
 if a <> [] then pause,end;

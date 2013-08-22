@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Sylvestre Ledru
+// Copyrigh (C) 2011 - DIGITEO - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,10 +20,10 @@
 x = "保存";
 targetDir=TMPDIR+"/sub/";
 mkdir(targetDir);
-p = targetDir + 'foo';
-fd = mopen(p,'wt');
-p2 = targetDir + 'foo.2';
-fd2 = mopen(p2,'wt');
+p = targetDir + "foo";
+fd = mopen(p,"wt");
+p2 = targetDir + "foo.2";
+fd2 = mopen(p2,"wt");
 cd(targetDir);
 assert_checkequal(mputl(p, fd), %T);
 assert_checkequal(mputl(p, fd2), %T);

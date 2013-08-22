@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2009 - Allan CORNET
-// Copyright (C) Scilab Enterprises - 2013 - Antoine ELIAS
+// Copyrigh (C) DIGITEO - 2009 - Allan CORNET
+// Copyrigh (C) Scilab Enterprises - 2013 - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,13 +19,13 @@
 // getshortpathname , getlongpathname do not manage matrix of strings
 
 function res = is8Dot3Disable()
-//0 : NTFS creates short file names. This setting enables applications that cannot process long file names and computers that use differentcode pages to find the files.
-//1 : NTFS does not create short file names. Although this setting increases file performance, applications that cannot process long file names, and computers that use different code pages, might not be able to find the files.
-//2 : NTFS sets the 8.3 naming convention creation on a per volume basis.
-//3 : NTFS disables 8dot3 name creation on all volumes except the system volume.
+    //0 : NTFS creates short file names. This setting enables applications that cannot process long file names and computers that use differentcode pages to find the files.
+    //1 : NTFS does not create short file names. Although this setting increases file performance, applications that cannot process long file names, and computers that use different code pages, might not be able to find the files.
+    //2 : NTFS sets the 8.3 naming convention creation on a per volume basis.
+    //3 : NTFS disables 8dot3 name creation on all volumes except the system volume.
 
-    if find(winqueryreg('name', 'HKEY_LOCAL_MACHINE', 'SYSTEM\CurrentControlSet\Control\FileSystem') == 'NtfsDisable8dot3NameCreation') then
-        res = winqueryreg('HKEY_LOCAL_MACHINE', 'SYSTEM\CurrentControlSet\Control\FileSystem', 'NtfsDisable8dot3NameCreation');
+    if find(winqueryreg("name", "HKEY_LOCAL_MACHINE", "SYSTEM\CurrentControlSet\Control\FileSystem") == "NtfsDisable8dot3NameCreation") then
+        res = winqueryreg("HKEY_LOCAL_MACHINE", "SYSTEM\CurrentControlSet\Control\FileSystem", "NtfsDisable8dot3NameCreation");
     else
         res = 0;
     end
@@ -36,11 +36,11 @@ function res = is8Dot3Disable()
 endfunction
 
 [r1,b1] = getshortpathname([TMPDIR,getenv("PROGRAMFILES");getenv("PROGRAMFILES"),TMPDIR]);
-if size(r1,'*') <> 4 then pause,end
+if size(r1,"*") <> 4 then pause,end
 if ~and(b1 == %t) then pause,end
 
 [r2,b2] = getlongpathname(r1);
-if size(r2,'*') <> 4 then pause,end
+if size(r2,"*") <> 4 then pause,end
 if ~and(b2 == %t) then pause,end
 
 //depends of windows configuration
@@ -53,20 +53,20 @@ end
 if ~and(b1 == b2) then pause,end
 
 [r3,b3] = getshortpathname(["/My_tmp/file_1";"/My_tmp/file_2"]);
-if size(r3,'*') <> 2 then pause,end
+if size(r3,"*") <> 2 then pause,end
 if ~and(b3 == %f) then pause,end
 
 [r4,b4] =getlongpathname(["/My_tmp/file_1";"/My_tmp/file_2"]);
-if size(r4,'*') <> 2 then pause,end
+if size(r4,"*") <> 2 then pause,end
 if ~and(b4 == %f) then pause,end
 
 if ~and(r3 == r4) then pause,end
 if ~and(b3 == b4) then pause,end
 
 [r5,b5] =getshortpathname([SCI;"/My_tmp/file_2"]);
-if size(r5,'*') <> 2 then pause,end
+if size(r5,"*") <> 2 then pause,end
 if ~and(b5 == [%t;%f]) then pause,end
 
 [r6,b6] =getlongpathname([SCI;"/My_tmp/file_2"]);
-if size(r6,'*') <> 2 then pause,end
+if size(r6,"*") <> 2 then pause,end
 if ~and(b6 == [%t;%f]) then pause,end

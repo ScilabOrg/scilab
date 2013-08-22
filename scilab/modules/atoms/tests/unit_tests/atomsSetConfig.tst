@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Simon GARESTE <simon.gareste@scilab.org>
+// Copyrigh (C) 2009 - DIGITEO - Simon GARESTE <simon.gareste@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -47,15 +47,15 @@ assert_checkequal(atomsGetConfig(),ref);
 // Exhaustive key list test
 // =============================================================================
 ref=struct(	"useProxy","False",..
-		"proxyUser","scilab",..
-		"proxyPort","42",..
-		"proxyPassword","scilab",..
-		"proxyHost","myproxy",..
-		"offline","False",..
-		"downloadTool",config_downloadTool,..
-		"autoloadAddAfterInstall","False",..
-		"autoload","True",..
-		"Verbose","True");
+"proxyUser","scilab",..
+"proxyPort","42",..
+"proxyPassword","scilab",..
+"proxyHost","myproxy",..
+"offline","False",..
+"downloadTool",config_downloadTool,..
+"autoloadAddAfterInstall","False",..
+"autoload","True",..
+"Verbose","True");
 
 assert_checkequal(string(atomsSetConfig("useProxy","False")),"1");
 assert_checkequal(string(atomsSetConfig("proxyHost","myproxy")),"1");

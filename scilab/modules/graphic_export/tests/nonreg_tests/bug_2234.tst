@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // When using xs2gif or xs2bmp, when the graphic window is mimimized, the BMP files
 // are not created, and the GIF files are flawed (size = 1 KB)
-// 
+//
 
 plot2d;
 // minimize window

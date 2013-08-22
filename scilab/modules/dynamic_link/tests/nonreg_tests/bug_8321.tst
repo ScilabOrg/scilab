@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -26,12 +26,12 @@
 // Install Visual studio
 // Uninstall Visual studio
 // start scilab and check that you do not have this error message:
- 
+
 //Startup execution:
 //  loading initial environment
-// !--error 999 
+// !--error 999
 //setenv: Wrong type for input argument #2: A string expected.
-//at line       6 of function dlwSetEnvCommonVc9Vc10 called by :  
+//at line       6 of function dlwSetEnvCommonVc9Vc10 called by :
 
 // You must have:
-warning(msprintf(gettext('Microsoft Visual Studio C x86 Compiler not found.')));
+warning(msprintf(gettext("Microsoft Visual Studio C x86 Compiler not found.")));

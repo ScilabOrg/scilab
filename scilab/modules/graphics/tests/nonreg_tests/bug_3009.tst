@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Default figure and axes handles "user_data" field is not taken into account when creating a new figure.
-// 
+//
 
 df = gdf();
 df.user_data = list(1,2,3);

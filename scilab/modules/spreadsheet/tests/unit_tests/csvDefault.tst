@@ -1,20 +1,20 @@
 // =============================================================================
-// Copyright (C) 2011 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - INRIA - Michael Baudin
 // =============================================================================
 // See all the available fields
 allvalues = csvDefault();
 expected = [
-    "separator"  ","
-    "decimal"    "."
-    "conversion" "double"
-    "precision"  "%.17lg"
-    "regexp" ""
+"separator"  ","
+"decimal"    "."
+"conversion" "double"
+"precision"  "%.17lg"
+"regexp" ""
 ];
 
 if getos() == "Windows" then
-  expected = [expected; "eol" "windows"];
+    expected = [expected; "eol" "windows"];
 else
-  expected = [expected; "eol" "linux"];
+    expected = [expected; "eol" "linux"];
 end
 expected = [expected; "encoding" "utf-8"];
 expected = [expected; "blank" "on"];

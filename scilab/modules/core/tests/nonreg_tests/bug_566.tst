@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,5 +13,5 @@
 // <-- Short Description -->
 //    a(2,3,2)='x' returns an empty matrix.
 
-a(2,3,2)='y'
+a(2,3,2)="y"
 if a == [] then pause,end

@@ -1,11 +1,11 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - S/E - Sylvestre Ledru
+// Copyrigh (C) 2012 - S/E - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- NO CHECK REF --> 
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 8964 -->
 //
@@ -16,13 +16,13 @@
 // The optim_* function may not create pop_init.
 // 1. Define the Rastrigin function.
 function y = rastriginV ( x1 , x2  )
-  // Vectorized function for contouring.
-  y = x1.^2 + x2.^2-cos(12*x1)-cos(18*x2)
+    // Vectorized function for contouring.
+    y = x1.^2 + x2.^2-cos(12*x1)-cos(18*x2)
 endfunction
 
 function y = rastrigin ( x )
-  // Non-vectorized function for optimization.
-  y = rastriginV ( x(1) , x(2) )
+    // Non-vectorized function for optimization.
+    y = rastriginV ( x(1) , x(2) )
 endfunction
 
 // 2. Compute the optimum.

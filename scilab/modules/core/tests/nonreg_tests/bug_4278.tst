@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,13 +14,13 @@
 // typename() called with a wrong number of input arguments  returns incoherent errors.
 
 
-ierr = execstr('typename(''hgh'')','errcatch');
+ierr = execstr("typename(''hgh'')","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('typename([17])','errcatch');
+ierr = execstr("typename([17])","errcatch");
 if ierr <> 999 then pause,end
 
-typename('my type',100)
-ierr = execstr('typename(''my type'',110)','errcatch');
+typename("my type",100)
+ierr = execstr("typename(''my type'',110)","errcatch");
 if ierr <> 999 then pause,end
 

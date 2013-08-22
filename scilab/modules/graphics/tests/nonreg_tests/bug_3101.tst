@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Allan CORNET
+// Copyrigh (C) 2009-2009 - Digiteo - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,10 +14,10 @@
 //
 // <-- Short Description -->
 // plot3d() => seg fault, occurs rarely.
-// 
+//
 
 for i=1:100,
-  plot3d();
+    plot3d();
 end
 
 // should not crash

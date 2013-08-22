@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2011 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,10 +27,10 @@ scs_m.graphics.exprs(7)($) = exp_value;
 fprot = funcprot();
 funcprot(0);
 function %str = x_mdialog(%desc,%labels,%ini)
-	%str = %ini;
+    %str = %ini;
 endfunction
 function result = x_dialog(labels, valueini)
-	result = valueini;
+    result = valueini;
 endfunction
 funcprot(fprot);
 

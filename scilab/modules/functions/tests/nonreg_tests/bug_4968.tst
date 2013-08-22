@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,6 +25,6 @@ if length("http:§www.scilab.org") <> 20 then pause, end
 if i <> 20 then pause,end
 // =============================================================================
 server = strsubst(part(tmp, 1:i), "§", "//");
-if part(tmp, 1:i) <> 'http:§www.scilab.org' then pause, end
-if server <> 'http://www.scilab.org' then pause, end
+if part(tmp, 1:i) <> "http:§www.scilab.org" then pause, end
+if server <> "http://www.scilab.org" then pause, end
 // =============================================================================

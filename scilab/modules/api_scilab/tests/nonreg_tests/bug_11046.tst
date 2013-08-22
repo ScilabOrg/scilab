@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Antoine ELIAS
+// Copyrigh (C) 2012 - Scilab Enterprises - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,7 +25,7 @@ ilib_build("gw_bug_11046", ["bug_11046", "sci_bug_11046"], "bug_11046.c", []);
 exec("loader.sce");
 
 function %_bug_11046()
-    disp('OK default overload called.')
+    disp("OK default overload called.")
 endfunction
 
 //call %_myscifun

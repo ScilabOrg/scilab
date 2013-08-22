@@ -1,13 +1,13 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2013 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for iqr function 
+// unit tests for iqr function
 // =============================================================================
 
 assert_checkfalse(execstr("iqr()"   ,"errcatch") == 0);

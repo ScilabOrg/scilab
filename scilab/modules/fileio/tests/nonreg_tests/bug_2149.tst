@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006      - INRIA - Allan CORNET <allan.cornet@inria.fr>
-// Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2006      - INRIA - Allan CORNET <allan.cornet@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -34,9 +34,9 @@
 //    Francois
 
 M=[1+%i;2+3*%i];
-if execstr('fprintfMat(TMPDIR+''/pipo.txt'',M,''%f'',[''comment un'';''comment 2''])','errcatch') == 0 then pause,end
+if execstr("fprintfMat(TMPDIR+''/pipo.txt'',M,''%f'',[''comment un'';''comment 2''])","errcatch") == 0 then pause,end
 
 M=[1.2,2.3];
-if execstr('fprintfMat(TMPDIR+''/pipo.txt'',M,''%f'',[''comment un'';''comment 2''])','errcatch') <> 0 then pause,end
+if execstr("fprintfMat(TMPDIR+''/pipo.txt'',M,''%f'',[''comment un'';''comment 2''])","errcatch") <> 0 then pause,end
 
-if execstr('fprintfMat(TMPDIR+''/pipo.txt'',''M'',''%f'',[''comment un'';''comment 2''])','errcatch') == 0 then pause,end
+if execstr("fprintfMat(TMPDIR+''/pipo.txt'',''M'',''%f'',[''comment un'';''comment 2''])","errcatch") == 0 then pause,end

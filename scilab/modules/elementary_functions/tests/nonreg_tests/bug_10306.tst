@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,7 +25,7 @@ assert_checktrue(isempty(voidelement));
 voidelement = list(,,,);
 assert_checkfalse(isempty(voidelement));
 
-voidelement = list('','','');
+voidelement = list("","","");
 assert_checktrue(isempty(voidelement));
 
 voidelement = list(2,1,3);

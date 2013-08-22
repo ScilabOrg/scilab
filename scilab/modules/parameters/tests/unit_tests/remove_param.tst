@@ -1,6 +1,6 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyrigh (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -12,8 +12,8 @@
 
 test_list = init_param();
 
-test_list = add_param(test_list,'test',%T);
+test_list = add_param(test_list,"test",%T);
 
-test_list = remove_param(test_list,'test');
+test_list = remove_param(test_list,"test");
 
-if is_param(test_list,'test') then pause, end
+if is_param(test_list,"test") then pause, end

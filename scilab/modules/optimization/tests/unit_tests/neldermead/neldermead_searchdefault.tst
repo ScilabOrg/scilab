@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -15,7 +15,7 @@
 //
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 nm = neldermead_new ();
@@ -49,7 +49,7 @@ clear nm;
 //    algorithm to "converge" to a point which is not the minimizer
 //    of the function F.
 //
-//    Sample parameter values which cause problems for Nelder-Mead 
+//    Sample parameter values which cause problems for Nelder-Mead
 //    include:
 //
 //      TAU = 1, THETA = 15, PHI =  10;
@@ -60,9 +60,9 @@ clear nm;
 //
 //      X1 = (0,0),
 //      X2 = (1,1),
-//      X3 = (A,B), 
+//      X3 = (A,B),
 //
-//    where 
+//    where
 //
 //      A = (1+sqrt(33))/8 =  0.84307...
 //      B = (1-sqrt(33))/8 = -0.59307...
@@ -92,30 +92,30 @@ clear nm;
 //
 //    Output, real F, the value of the function at X.
 //
-// Copyright (C) 2009 - INRIA - Michael Baudin, Scilab port
+// Copyrigh (C) 2009 - INRIA - Michael Baudin, Scilab port
 
 function [ f , index ] = mckinnon3 ( x , index )
 
-  if ( length ( x ) ~= 2 )
-    error ( 'Error: function expects a two dimensional input\n' );
-  end
+    if ( length ( x ) ~= 2 )
+        error ( "Error: function expects a two dimensional input\n" );
+    end
 
-  tau = 3.0;
-  theta = 6.0;
-  phi = 400.0;
+    tau = 3.0;
+    theta = 6.0;
+    phi = 400.0;
 
-  if ( x(1) <= 0.0 )
-    f = theta * phi * abs ( x(1) ).^tau + x(2) * ( 1.0 + x(2) );
-  else
-    f = theta       *       x(1).^tau   + x(2) * ( 1.0 + x(2) );
-  end
+    if ( x(1) <= 0.0 )
+        f = theta * phi * abs ( x(1) ).^tau + x(2) * ( 1.0 + x(2) );
+    else
+        f = theta       *       x(1).^tau   + x(2) * ( 1.0 + x(2) );
+    end
 endfunction
 
 lambda1 = (1.0 + sqrt(33.0))/8.0;
 lambda2 = (1.0 - sqrt(33.0))/8.0;
 coords0 = [
 1.0  1.0
-0.0  0.0 
+0.0  0.0
 lambda1 lambda2
 ];
 
@@ -138,5 +138,5 @@ nm = neldermead_configure(nm,"-restartflag",%t);
 instr = "nm = neldermead_configure(nm,""-restartdetection"",""foo"");";
 alloptions = """oneill"" or ""kelley""";
 assert_checkerror(instr,"%s: Expected value [%s] for input argument %s at input #%d, but got ""%s"" instead.",[],..
-  "neldermead_configure",alloptions,"value",3,"foo");
+"neldermead_configure",alloptions,"value",3,"foo");
 nm = neldermead_destroy(nm);

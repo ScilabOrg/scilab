@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -24,9 +24,9 @@ memg = gstacksize();
 if (mem(1) <> MEM_STACKSIZE) then pause,end
 if (memg(1) <> MEM_GSTACKSIZE) then pause,end
 
-bug_function1('max');
-bug_function2('max');
+bug_function1("max");
+bug_function2("max");
 
-bug_function1('min');
-bug_function2('min');
+bug_function1("min");
+bug_function2("min");
 

@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005 - INRIA - Farid BELAHCENE
-// Copyright (C) 2008 - INRIA - Vincent COUVERT
+// Copyrigh (C) 2005 - INRIA - Farid BELAHCENE
+// Copyrigh (C) 2008 - INRIA - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,11 +20,11 @@
 MFILECONTENTS=[
 "m=3; a=5; b=2; c=3; d=6";
 "";
-"if a==0 & b==2"; 
+"if a==0 & b==2";
 "  m=2";
 "end";
 "";
-"if a==0 && b==2"; 
+"if a==0 && b==2";
 "  m=2";
 "end";
 "";
@@ -32,11 +32,11 @@ MFILECONTENTS=[
 "  m=2";
 "end";
 "";
-"if a==0 | b==2"; 
+"if a==0 | b==2";
 "  m=2";
 "end";
 "";
-"if a==0 || b==2"; 
+"if a==0 || b==2";
 "  m=2";
 "end";
 "";

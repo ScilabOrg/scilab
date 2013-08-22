@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -46,4 +46,4 @@ if r <> ref then pause, end
 
 r = part(lines_result(9),2:4);
 ref = "ロー・";
-if r <> ref then pause, end 
+if r <> ref then pause, end

@@ -1,6 +1,6 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyrigh (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -10,6 +10,6 @@
 
 // <-- CLI SHELL MODE -->
 
-Mut_Indiv = mutation_ga_binary('11111111',[]);
+Mut_Indiv = mutation_ga_binary("11111111",[]);
 
 if length(Mut_Indiv)~=8 then pause,end

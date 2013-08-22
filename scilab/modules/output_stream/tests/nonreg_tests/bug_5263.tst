@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,7 +22,7 @@ i1 = diary("journal.txt","new","filter=command" );
 i2 = diary("journal.txt","new","filter=command" );
 [a2, f2] = diary();
 
-diary(i1,'close');
-diary(i2,'close');
+diary(i1,"close");
+diary(i2,"close");
 
-if grep(f2, strsubst(TMPDIR+'/journal_0.txt','\','/')) == 0 then pause,end
+if grep(f2, strsubst(TMPDIR+"/journal_0.txt","\","/")) == 0 then pause,end

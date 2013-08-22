@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,11 +17,11 @@
 
 // test only for windows
 
-if getos() == 'Windows' then
-  ilib_verbose(0);
-  exec SCI/modules/dynamic_link/tests/unit_tests/addinter.tst;
-  r = dllinfo(TMPDIR + '/addinter/libintertest.dll','imports');
-  if (r(1)(1) == 'libmmd.dll') | (r(2)(1) == 'libmmd.dll') then pause,end
+if getos() == "Windows" then
+    ilib_verbose(0);
+    exec SCI/modules/dynamic_link/tests/unit_tests/addinter.tst;
+    r = dllinfo(TMPDIR + "/addinter/libintertest.dll","imports");
+    if (r(1)(1) == "libmmd.dll") | (r(2)(1) == "libmmd.dll") then pause,end
 end
 
 // =============================================================================

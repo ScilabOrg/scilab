@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2009 - INRIA - Serge Steer
+// Copyrigh (C) 2005-2009 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // <-- Short Description -->
 // First lhs argument of pca no more contains a second column.
 
-a=rand(100,10,'n');
+a=rand(100,10,"n");
 [lambda,facpr,comprinc] = pca(a);
 if size(lambda,2)<>2 then pause,end
 

@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Antoine ELIAS
-// Copyright (C) 2013 - Test case - Luc GABRIEL
+// Copyrigh (C) 2013 - Scilab Enterprises - Antoine ELIAS
+// Copyrigh (C) 2013 - Test case - Luc GABRIEL
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

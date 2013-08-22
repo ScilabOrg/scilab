@@ -1,5 +1,5 @@
 // =============================================================================
-// Copyright (C) 2010 - 2012 - INRIA - Allan CORNET
+// Copyrigh (C) 2010 - 2012 - INRIA - Allan CORNET
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
 // =============================================================================
@@ -10,6 +10,6 @@ assert_checkequal(size(r_string, "c"), size(r_double, "c"));
 assert_checkequal(size(r_string, "r"), size(r_double, "r"));
 assert_checkequal(size(r_string, "c"), 100);
 assert_checkequal(size(r_string, "r"), 100);
-assert_checkequal(r_string(100, 100), '1');
+assert_checkequal(r_string(100, 100), "1");
 assert_checkequal(and(r_double == eye(100,100)), %T);
 // =============================================================================

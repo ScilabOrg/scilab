@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -76,7 +76,7 @@ assert_checktrue(norm(x2^(-2)-x1)<100*%eps);
 
 //TEST WITH POLYNOMIAL VECTOR AND MATRICES
 //---------------------------------------
-s=poly(0,'s');
+s=poly(0,"s");
 assert_checkequal(coeff(s^3+1),[1 0 0 1]);
 
 x1=[1 s+1 s.^3+1];
@@ -109,10 +109,10 @@ assert_checkfalse(0>1);
 assert_checkfalse(0>=1);
 assert_checkfalse(1<>1);
 assert_checktrue(0<>1);
-assert_checkfalse('1'=='0');
-assert_checkfalse('1'<>'1');
+assert_checkfalse("1"=="0");
+assert_checkfalse("1"<>"1");
 
-%s=poly(0,'s');
+%s=poly(0,"s");
 assert_checkfalse(%s==0);
 assert_checkfalse(0==%s);
 assert_checktrue(%s==%s);
@@ -129,8 +129,8 @@ assert_checkfalse(1/%s+1==1/%s);
 assert_checktrue(1/%s<>1/%s+1);
 assert_checktrue(1/%s+1<>1/%s);
 
-l=list(1,[1 23],'adssa');
-l1=list(123,'sdwqqwq');
+l=list(1,[1 23],"adssa");
+l1=list(123,"sdwqqwq");
 assert_checkfalse(l==0);
 assert_checkfalse(0==l);
 assert_checktrue(l==l);

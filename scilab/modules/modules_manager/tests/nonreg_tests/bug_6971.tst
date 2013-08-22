@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,4 +20,4 @@
 cd SCI/contrib/toolbox_skeleton
 exec builder.sce;
 exec loader.sce;
-if isdef('v') then pause,end
+if isdef("v") then pause,end

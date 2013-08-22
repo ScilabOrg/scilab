@@ -1,16 +1,16 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA - Serge Steer
+// Copyrigh (C) ????-2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-K=0.001;      // Minimum relative prediction error in the nyquist plan 
+K=0.001;      // Minimum relative prediction error in the nyquist plan
 Epss=0.002;   // minimum frequency distance with a singularity
 nptmax=5000;  //maximum number of discretization points
 pas=100/(2*%pi);
 s=%s;
 
-h=syslin('c',1/%s);n=1;
+h=syslin("c",1/%s);n=1;
 
 
 [f,bnds,split]=calfrq(h,0.01,100);
@@ -23,7 +23,7 @@ drf=(freq(h.num,h.den,2*%pi*%i*(f(1:$-1)+ddf))-rf(:,1:$-1));
 e=rf(:,2:$)-(rf(:,1:$-1)+drf*pas);
 if max([abs(real(e))/max(bnds(2)-bnds(1),1); abs(imag(e))/max(bnds(4)- bnds(3),1)])>K then pause,end
 
-h=syslin('c',[1/(%s+0.5);1/(%s+0.3)]);n=2;
+h=syslin("c",[1/(%s+0.5);1/(%s+0.3)]);n=2;
 [f,bnds,split]=calfrq(h,0.01,100);
 if split<>1 then pause,end
 rf=freq(h.num,h.den,2*%pi*%i*f);
@@ -36,7 +36,7 @@ if max([abs(real(e))/max(bnds(2)-bnds(1),1); abs(imag(e))/max(bnds(4)- bnds(3),1
 
 
 
-h=syslin('c',(%s^2+2*0.9*10*%s+100)/(%s^2+2*0.3*10.1*%s+102.01));
+h=syslin("c",(%s^2+2*0.9*10*%s+100)/(%s^2+2*0.3*10.1*%s+102.01));
 //h=h*syslin('c',(%s)/(%s^2+81)) ;
 n=1;
 [f,bnds,split]=calfrq(h,0.01,100);
@@ -56,7 +56,7 @@ if max([abs(real(e))/max(bnds(2)-bnds(1),1); abs(imag(e))/max(bnds(4)- bnds(3),1
 
 
 //case with singularity
-h=syslin('c',(%s)/(%s^2+81)) ;
+h=syslin("c",(%s)/(%s^2+81)) ;
 sing=9/(2*%pi);
 n=1;
 [f,bnds,split]=calfrq(h,0.01,100);
@@ -90,7 +90,7 @@ if norm(f-f1)>1d-13 then pause,end
 if or(split<>split1) then pause,end
 
 //discrete case
-h=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01));
+h=syslin("c",(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01));
 hd=ss2tf(dscr(h,0.01));
 [f,bnds,split]=calfrq(hd,0.00001,3);
 if size(split,1)<>1 then pause,end

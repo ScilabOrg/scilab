@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -14,7 +14,7 @@
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 nm = neldermead_new ();
@@ -27,9 +27,9 @@ nm = neldermead_search(nm);
 simplex = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx( simplex );
 expected = [
-    1.    2.  
-    2.    2.  
-    1.    3.  
+1.    2.
+2.    2.
+1.    3.
 ];
 assert_checkalmostequal ( computed , expected, %eps );
 nm = neldermead_destroy(nm);

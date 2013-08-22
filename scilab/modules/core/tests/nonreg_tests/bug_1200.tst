@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 //    Incoherence dans le format d'un nombre.
-//    En prenant par exemple j=0.001, on obtient un affichage 
+//    En prenant par exemple j=0.001, on obtient un affichage
 //    incoherent avec format :
 //    format("v",6) => 0.001
 //    format("v",7) => 1.E-3
@@ -32,6 +32,6 @@ REFFILECONTENTS=[" ";
 "    0.001  ";
 " ";
 "-->diary(0);"];
-  
+
 
 if or(DIAFILECONTENTS<>REFFILECONTENTS) then pause,end

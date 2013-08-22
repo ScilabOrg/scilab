@@ -1,8 +1,8 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
-// Copyright (C) 2009 - INRIA - Michael Baudin, Antoine Elias
-// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2009 - INRIA - Michael Baudin, Antoine Elias
+// Copyrigh (C) 2010-2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

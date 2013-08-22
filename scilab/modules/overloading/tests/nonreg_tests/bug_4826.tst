@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - INRIA - Serge Steer
+// Copyrigh (C) 2009 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -29,7 +29,7 @@ A=a(:,:,[1 1]);
 if typeof(A.dims)<>"int32" then pause,end
 if size(A.dims,1)<>1 then pause,end
 
-a=['1' '2';'3' '4'];
+a=["1" "2";"3" "4"];
 A=a(:,:,[1 1]);
 if typeof(A.dims)<>"int32" then pause,end
 if size(A.dims,1)<>1 then pause,end

@@ -1,6 +1,6 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyrigh (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -13,10 +13,10 @@
 pop_in = list();
 pop_in(1) = 2;
 
-pop_out = coding_ga_identity(pop_in,'code',[]);
+pop_out = coding_ga_identity(pop_in,"code",[]);
 
 if pop_out(1)~=2 then pause,end
 
-pop_in_2 = coding_ga_identity(pop_out,'decode',[]);
+pop_in_2 = coding_ga_identity(pop_out,"decode",[]);
 
 if pop_in_2(1)~=2 then pause,end

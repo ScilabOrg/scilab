@@ -1,6 +1,6 @@
 // ============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
@@ -16,6 +16,6 @@
 // memory leak in grep with regexp crashes scilab
 
 a = string(rand(500,10));
-for i = 1:500 
-  b = grep(a,'/123|456$/','r');
-end 
+for i = 1:500
+    b = grep(a,"/123|456$/","r");
+end

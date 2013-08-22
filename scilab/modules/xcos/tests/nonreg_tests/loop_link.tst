@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@
 // <-- Non-regression test for checking loop links -->
 //
 // <-- Short Description -->
-// Any block can contains non-port children. Some operation, cast without 
+// Any block can contains non-port children. Some operation, cast without
 // checking the type.
 
 // start demo --> standard demos --> Scilab block

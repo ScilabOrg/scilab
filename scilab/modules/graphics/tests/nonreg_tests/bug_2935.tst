@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,13 +16,13 @@
 // In the "Bezier surface test 2" demo, an axis is displayed, it should not.
 
 function [z]=dup(x,n)
-    // utility 
+    // utility
     // x is a vector this function returns [x,x,x,x...] or [x;x;x;x;..]
     // depending on x
     [nr,nc]=size(x)
     if nr==1 then
         y=ones(n,1);
-        z= x.*.y ; 
+        z= x.*.y ;
     else
         if nc<>1 then
             error("dup : x must be a vector");
@@ -39,21 +39,21 @@ function [X,Y,Z]=beziersurface (x,y,z,n)
     [lhs,rhs]=argn(0);
     if rhs <= 3 ; n=20;end
     t=linspace(0,1,n);
-    n=size(x,'r')-1; // i=nonzeros(t~=1);
+    n=size(x,"r")-1; // i=nonzeros(t~=1);
     t1=(1-t); t1z= find(t1==0.0); t1(t1z)= ones(t1z);
     T=dup(t./t1,n)';
-    b1=[((1-t').^n),(T.*dup((n-(1:n)+1)./(1:n),size(t,'c')))];
-    b1=cumprod(b1,'c');
-    if (size(t1z,'c')>0); 
-        b1(t1z,:)= dup([ 0*ones(1,n),1],size(t1z,'c'));
+    b1=[((1-t').^n),(T.*dup((n-(1:n)+1)./(1:n),size(t,"c")))];
+    b1=cumprod(b1,"c");
+    if (size(t1z,"c")>0);
+        b1(t1z,:)= dup([ 0*ones(1,n),1],size(t1z,"c"));
     end
-    n=size(x,'c')-1; // i=nonzeros(t~=1);
+    n=size(x,"c")-1; // i=nonzeros(t~=1);
     t1=(1-t); t1z= find(t1==0.0); t1(t1z)= ones(t1z);
     T=dup(t./t1,n)';
-    b2=[((1-t').^n),(T.*dup((n-(1:n)+1)./(1:n),size(t,'c')))];
-    b2=cumprod(b2,'c');
-    if (size(t1z,'c')>0); 
-        b2(t1z,:)= dup([ 0*ones(1,n),1],size(t1z,'c'));
+    b2=[((1-t').^n),(T.*dup((n-(1:n)+1)./(1:n),size(t,"c")))];
+    b2=cumprod(b2,"c");
+    if (size(t1z,"c")>0);
+        b2(t1z,:)= dup([ 0*ones(1,n),1],size(t1z,"c"));
     end
     X=b1*x*b2';Y=b1*y*b2';Z=b1*z*b2';
 endfunction

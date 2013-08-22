@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,7 +11,7 @@
 // <-- CLI SHELL MODE -->
 
 function [ y , index ] = squarefun ( x , index )
-y = x(1)^2+x(2)^2;
+    y = x(1)^2+x(2)^2;
 endfunction
 
 nm = neldermead_new ();
@@ -64,7 +64,7 @@ assert_checkalmostequal ( fopt , 0.0, 1e-6 );
 nm = neldermead_destroy(nm);
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 nm = neldermead_new ();
@@ -79,7 +79,7 @@ nm = neldermead_configure(nm,"-simplex0method","axes");
 nm = neldermead_configure(nm,"-simplex0length",1.0);
 nm = neldermead_configure(nm,"-method","fixed");
 nm = neldermead_search(nm);
-// With fixed-size simplices, one cannot lead the 
+// With fixed-size simplices, one cannot lead the
 // simplex to the optimum.
 // Check optimum point
 xopt = neldermead_get(nm,"-xopt");

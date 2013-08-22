@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,13 +18,13 @@
 
 // ================== Test 1 ==================
 
-cd('\');
+cd("\");
 
-if getos() == 'Windows' 
-  
-	if ~or(getdrives() == pwd()) then pause,end
+if getos() == "Windows"
+
+    if ~or(getdrives() == pwd()) then pause,end
 else
-	if pwd() <> '/' then pause,end
+    if pwd() <> "/" then pause,end
 end
 
 // ================== Test 2 ==================
@@ -34,9 +34,9 @@ if pwd() <> home then pause,end
 
 // ================== Test 3 ==================
 
-if getos() == 'Windows' then
-	cd WSCI;
-	if pwd() <> WSCI then pause,end
+if getos() == "Windows" then
+    cd WSCI;
+    if pwd() <> WSCI then pause,end
 end
 
 // ================== Test 4 ==================

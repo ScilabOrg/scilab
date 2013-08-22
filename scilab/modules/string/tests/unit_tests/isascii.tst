@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA
+// Copyrigh (C) 2007-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@ if or(isascii(chars)) <> %T then pause,end
 // =============================================================================
 if or(isascii(255:300)) <> %F then pause,end
 // =============================================================================
-if or(isascii('This is a sentence')) <> %T then pause,end
+if or(isascii("This is a sentence")) <> %T then pause,end
 // =============================================================================
 if isascii(ascii(20)) <> %T then pause,end
 // =============================================================================
@@ -35,8 +35,8 @@ r_ref = list([%F,%F,%T,%F,%F], ..
 [%F,%F,%F,%F,%F,%F,%T,%F,%F,%F,%F,%F], ..
 [%F,%F,%F,%F,%F,%T,%F,%F,%F,%F,%F], ..
 [%F,%F,%T,%F,%F,%F,%F]);
-  
 
-for i = 1 : size(tab_ref,'*')
- if and(isascii(tab_ref(i))<> r_ref(i)) then pause,end
+
+for i = 1 : size(tab_ref,"*")
+    if and(isascii(tab_ref(i))<> r_ref(i)) then pause,end
 end

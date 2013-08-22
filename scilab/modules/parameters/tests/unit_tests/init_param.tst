@@ -1,6 +1,6 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyrigh (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -12,4 +12,4 @@
 
 test_list = init_param();
 
-if typeof(test_list)~='plist' then pause,end
+if typeof(test_list)~="plist" then pause,end

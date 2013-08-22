@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,4 +20,3 @@ editor()
 // Write some characters
 // CTRL+W
 // Try save the file in a directory where you do not have write access to.
-                    

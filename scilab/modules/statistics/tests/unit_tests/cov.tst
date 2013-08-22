@@ -1,5 +1,5 @@
-// Copyright (C) 2012-2013 - Michael Baudin
-// Copyright (C) 2010 - INRIA - Michael Baudin
+// Copyrigh (C) 2012-2013 - Michael Baudin
+// Copyrigh (C) 2010 - INRIA - Michael Baudin
 //
 // This file must be used under the terms of the GNU Lesser General Public License license :
 // http://www.gnu.org/copyleft/lesser.html
@@ -49,9 +49,9 @@ assert_checkequal ( computed , expected );
 //
 A = [-1 1 2 ; -2 3 1 ; 4 0 3];
 Cexpected = [
-   10.3333   -4.1667    3.0000
-   -4.1667    2.3333   -1.5000
-    3.0000   -1.5000    1.0000
+10.3333   -4.1667    3.0000
+-4.1667    2.3333   -1.5000
+3.0000   -1.5000    1.0000
 ];
 C = cov (A);
 assert_checkalmostequal ( Cexpected , C , [] , 1.e-4, "element");
@@ -59,9 +59,9 @@ assert_checkalmostequal ( Cexpected , C , [] , 1.e-4, "element");
 // The same, with nrmlztn=0
 A = [-1 1 2 ; -2 3 1 ; 4 0 3];
 Cexpected = [
-   10.3333   -4.1667    3.0000
-   -4.1667    2.3333   -1.5000
-    3.0000   -1.5000    1.0000
+10.3333   -4.1667    3.0000
+-4.1667    2.3333   -1.5000
+3.0000   -1.5000    1.0000
 ];
 C = cov(A,0);
 assert_checkalmostequal ( Cexpected , C , [] , 1.e-4, "element");
@@ -120,8 +120,8 @@ assert_checkequal ( computed , expected );
 x=[-1 1 2 ; -2 3 1 ; 4 0 3];
 computed = cov (x);
 expected = [
-   10.3333   -4.1667    3.0000
-   -4.1667    2.3333   -1.5000
-    3.0000   -1.5000    1.0000
+10.3333   -4.1667    3.0000
+-4.1667    2.3333   -1.5000
+3.0000   -1.5000    1.0000
 ];
 assert_checkalmostequal ( computed , expected ,[],1.e-4);

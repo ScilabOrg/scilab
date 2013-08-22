@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2010 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // "delete" applied to a "Checked" uimenu destroyed the handle without updating the display.
 
 m = uimenu(gcf(),"Label","Test")
-m1 = uimenu(m, "Label","SubChecked","checked","off") 
+m1 = uimenu(m, "Label","SubChecked","checked","off")
 // Look at the menu/submenu
 delete(m1)
 // Look at the menu/submenu: submenu must have been destroyed

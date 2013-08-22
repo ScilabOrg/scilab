@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // funcprot did not return the previous value when called with an argument.
 
-deff('x = myplus(y, z)', 'x = y + z');
+deff("x = myplus(y, z)", "x = y + z");
 prot = funcprot(0); // one-line protection
-deff('x=myplus(y,z)','x = y + z');
+deff("x=myplus(y,z)","x = y + z");
 funcprot(prot);

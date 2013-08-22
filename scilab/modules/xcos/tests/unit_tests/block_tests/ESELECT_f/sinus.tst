@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 DIGITEO Clément DAVID
+// Copyrigh (C) 2010 DIGITEO Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -26,4 +26,4 @@ if ierr <> %t then pause; end
 
 // launch the simulation
 scicos_simulate(scs_m);
-assert_checkalmostequal(A_ref('values'), A('values'));
+assert_checkalmostequal(A_ref("values"), A("values"));

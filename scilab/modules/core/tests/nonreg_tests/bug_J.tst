@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -10,11 +10,11 @@
 // <-- OLD BUG -->
 //
 // crash Scilab
-	
+
 function toto()
-	N
+    N
 endfunction
 
-result = execstr('toto()','errcatch');
+result = execstr("toto()","errcatch");
 
 if result <> 4 then pause,end

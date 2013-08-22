@@ -1,7 +1,7 @@
 // ============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - Bruno PINCON
-// Copyright (C) 2008 - Sylvestre LEDRU
+// Copyrigh (C) 2007-2008 - Bruno PINCON
+// Copyrigh (C) 2008 - Sylvestre LEDRU
 //
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
@@ -11,10 +11,10 @@
 warning("off");
 
 A = sparse( [ 2  3  0  0  0;
-              3  0  4  0  6; 
-              0 -1 -3  2  0; 
-              0  0  1  0  0; 
-              0  4  2  0  1] );
+3  0  4  0  6;
+0 -1 -3  2  0;
+0  0  1  0  0;
+0  4  2  0  1] );
 K1 = condestsp(A);
 if norm(K1,39.385965) < 1E-6 then pause, end
 

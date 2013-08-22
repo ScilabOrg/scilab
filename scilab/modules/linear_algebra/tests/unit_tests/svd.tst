@@ -1,16 +1,16 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x)
-  r=norm(x,1)
+    r=norm(x,1)
 endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================     svd      ============================== 
+//==============================     svd      ==============================
 //==========================================================================
 //Empty matrix
 A=[];
@@ -25,11 +25,11 @@ S=svd(A,"e");
 if S<>[] then pause,end
 
 //Matrix with inf or nan
-if execstr('svd([%inf 1;2 3])','errcatch')==0 then pause,end
-if execstr('svd([1 %nan;2 3])','errcatch')==0 then pause,end
+if execstr("svd([%inf 1;2 3])","errcatch")==0 then pause,end
+if execstr("svd([1 %nan;2 3])","errcatch")==0 then pause,end
 
-if execstr('svd([%inf %i;2 3])','errcatch')==0 then pause,end
-if execstr('svd([%i %i;%nan 3])','errcatch')==0 then pause,end
+if execstr("svd([%inf %i;2 3])","errcatch")==0 then pause,end
+if execstr("svd([%i %i;%nan 3])","errcatch")==0 then pause,end
 
 
 //Small dimension
@@ -109,7 +109,7 @@ if Err(svd(Ac)-diag(S))> 10000*%eps then pause,end
 if Err(U*S*V'-Ac)>10000*%eps then pause,end
 
 //==========================================================================
-//==============================     svd part II     ======================= 
+//==============================     svd part II     =======================
 //==========================================================================
 //Empty matrix
 if svd([])<>[] then pause,end
@@ -124,7 +124,7 @@ if U<>[]|S<>[]|V<>[]|rk<>0  then pause,end
 [U,S,V,rk]=svd([],%eps);
 if U<>[]|S<>[]|V<>[]|rk<>0  then pause,end
 
-if execstr('[U,S,V,rk]=svd([],'"e'")','errcatch') == 0 then pause,end
+if execstr("[U,S,V,rk]=svd([],'"e'")","errcatch") == 0 then pause,end
 
 //Small dimension
 //Real Case Fat

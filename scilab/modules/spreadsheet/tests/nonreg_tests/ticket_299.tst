@@ -1,5 +1,5 @@
 // =============================================================================
-// Copyright (C) 2010 - 2012 - INRIA - Allan CORNET
+// Copyrigh (C) 2010 - 2012 - INRIA - Allan CORNET
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
 // =============================================================================
@@ -13,14 +13,14 @@
 // =============================================================================
 assert_checkequal(csvDefault("precision"), "%.17lg");
 assert_checkequal(csvDefault("precision","%.17lg") , %T);
- 
+
 assert_checkequal(csvDefault("precision",4), %T);
 assert_checkequal(csvDefault("precision"), "%.4lg");
- 
+
 M = rand(2,3);
 filename = fullfile(TMPDIR, "data.csv");
 csvWrite(M, filename,[],[],"%.8e");
 csvWrite(M, filename,[],[],8);
- 
+
 assert_checkequal(execstr("csvWrite(M, filename,[],[],19)", "errcatch"), 999);
 // =============================================================================

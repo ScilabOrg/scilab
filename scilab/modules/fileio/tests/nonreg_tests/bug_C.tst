@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,6 +11,6 @@
 //
 // <-- OLD BUG -->
 
-files     = [''];
-files     = listfiles([SCI+'/modules/core/macros/*.bin']);
-if files == [''] then pause,end
+files     = [""];
+files     = listfiles([SCI+"/modules/core/macros/*.bin"]);
+if files == [""] then pause,end

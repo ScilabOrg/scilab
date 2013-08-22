@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2011 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,9 +23,9 @@ ierr = execstr("toprint(1000)", "errcatch");
 if ierr <> 999 then pause, end
 if lasterror() <> msprintf(_("%s: Figure with figure_id %d does not exist."), "toprint", 1000) then pause, end
 
-warning('off');
+warning("off");
 ierr = execstr("r = toprint(""file does not exist"")", "errcatch");
-warning('on');
+warning("on");
 if ierr <> 0 then pause, end
 if r <> %F then pause, end
 

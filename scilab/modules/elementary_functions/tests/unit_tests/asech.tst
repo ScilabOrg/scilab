@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,12 +8,12 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40: 
-// writeto("asech.ref"): interface(prettyprint = 0): 
-// for i from 1/100 by 1/100  to 1 do  print(i,evalf[30](arcsech(i), 30)) end do: 
+// Digits := 40:
+// writeto("asech.ref"): interface(prettyprint = 0):
+// for i from 1/100 by 1/100  to 1 do  print(i,evalf[30](arcsech(i), 30)) end do:
 // writeto(terminal):
-// writeto("asechi.ref"): interface(prettyprint = 0): 
-// for i from 1 by 1 to 100 do  print(i,evalf[30](Im(arcsech(i)), 30)) end do: 
+// writeto("asechi.ref"): interface(prettyprint = 0):
+// for i from 1 by 1 to 100 do  print(i,evalf[30](Im(arcsech(i)), 30)) end do:
 // writeto(terminal):
 
 ieee(2);
@@ -225,26 +225,26 @@ refi=[1, 0.
 ];
 
 
-     x=ref(:,1);
-     e=max(abs((ref(:,2)-asech(x))./ref(:,2)));
-     if e>20*eps then pause,end
-     x=-ref(:,1);
-     e=max(abs((ref(:,2)+imult(pi)-asech(x))./(ref(:,2)+imult(pi))));
-     if e>10*eps then pause,end
-     
-     
-     x=refi(:,1);
-     e=max(abs((imult(refi(:,2))-asech(x))./refi(:,2)));
-     if e>10*eps then pause,end
-     x=-refi(:,1);
-     e=max(abs((imult(pi-refi(:,2))-asech(x))./(pi-refi(:,2))));
-     if e>10*eps then pause,end
- 
-    
-     if asech(0)<>Inf then pause,end
-     if imag(asech(Inf))<>pi/2 then pause,end
+x=ref(:,1);
+e=max(abs((ref(:,2)-asech(x))./ref(:,2)));
+if e>20*eps then pause,end
+x=-ref(:,1);
+e=max(abs((ref(:,2)+imult(pi)-asech(x))./(ref(:,2)+imult(pi))));
+if e>10*eps then pause,end
 
-     if ~isnan(asech(NaN)) then pause,end
 
-     if asech([])<>[] then pause,end
+x=refi(:,1);
+e=max(abs((imult(refi(:,2))-asech(x))./refi(:,2)));
+if e>10*eps then pause,end
+x=-refi(:,1);
+e=max(abs((imult(pi-refi(:,2))-asech(x))./(pi-refi(:,2))));
+if e>10*eps then pause,end
+
+
+if asech(0)<>Inf then pause,end
+if imag(asech(Inf))<>pi/2 then pause,end
+
+if ~isnan(asech(NaN)) then pause,end
+
+if asech([])<>[] then pause,end
 

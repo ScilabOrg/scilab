@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,12 +16,12 @@
 //   error recovery problem
 
 // Serge Steer - Scilab Project
-// Copyright INRIA
+// Copyrigh INRIA
 // 6 feb 2008
 
 
 function f();  x=1;y=x(3);endfunction
 function g();exec(f);endfunction
 
-ierr=exec(g,'errcatch',-1)		
+ierr=exec(g,"errcatch",-1)
 if ierr<>21 then pause,end

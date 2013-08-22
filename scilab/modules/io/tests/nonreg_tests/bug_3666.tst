@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,13 +17,13 @@
 
 // -- 1 --
 
-S = 'ôpéra';
+S = "Ã´pÃ©ra";
 if length(S) <> 5 then pause,end
 
 // -- 2 --
-x = input('Your name ?', 'string')
+x = input("Your name ?", "string")
 
-// Please type : Gaëlle
-// and check that x == Gaëlle
-if x <> 'Gaëlle' then pause,end
+// Please type : GaÃ«lle
+// and check that x == GaÃ«lle
+if x <> "GaÃ«lle" then pause,end
 

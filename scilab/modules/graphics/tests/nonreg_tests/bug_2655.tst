@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // plot2d produces an error when called with some functions
 
 
-function r=f(x); r=x; endfunction 
+function r=f(x); r=x; endfunction
 function r=g(x2); r=x2 + 1; endfunction
 x=linspace(0,1,100);
 

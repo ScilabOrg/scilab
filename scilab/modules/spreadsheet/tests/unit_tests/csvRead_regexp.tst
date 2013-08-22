@@ -1,6 +1,6 @@
 // =============================================================================
-// Copyright (C) 2011 - INRIA - Michael Baudin
-// Copyright (C) 2010 - 2011 - INRIA - Allan CORNET
+// Copyrigh (C) 2011 - INRIA - Michael Baudin
+// Copyrigh (C) 2010 - 2011 - INRIA - Allan CORNET
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
 // =============================================================================
@@ -9,12 +9,12 @@ path = SCI+"/modules/spreadsheet/tests/unit_tests/";
 filename = fullfile(path, "csv_regexp.csv");
 [y, x] = csvRead(filename, [], [], [], [], "/\/\//");
 ref_x = ["// tata"; ..
-         "// titi"; ..
-         "// toto"; ..
-         "// tutu"];
+"// titi"; ..
+"// toto"; ..
+"// tutu"];
 ref_y = [    1.    0.    0.    0.    0.  ; ..
-             0.    1.    0.    0.    0.  ; ..
-             0.    0.    1.    0.    0.];
+0.    1.    0.    0.    0.  ; ..
+0.    0.    1.    0.    0.];
 
 assert_checkequal (ref_x , x);
 assert_checkequal (ref_y , y);

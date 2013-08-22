@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+// Copyrigh (C) 2013 - Scilab Enterprises - Paul Bignier
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@
 // Run with test_run('polynomials', 'lcmdiag', ['no_check_error_output'])
 
 // Normal behavior of the function
-s = poly(0, 's');
+s = poly(0, "s");
 H = [1/s, (s+2)/s/(s+1)^2; 1/(s^2*(s+2)), 2/(s+2)];
 [N, D] = lcmdiag(H);
 N*D^(-1), H;

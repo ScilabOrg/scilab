@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2006-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,12 +19,12 @@
 //    -->isequal(a,b)
 //     ans  =
 //
-//      T  
+//      T
 //
 //    -->isequal(b,a)
-//     !--error 21 
+//     !--error 21
 //    invalid index
-//    at line      10 of function %l_isequal called by :  
+//    at line      10 of function %l_isequal called by :
 //    isequal(b,a)
 //
 //    I propose this modification of the macro %l_isequal in the file

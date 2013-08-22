@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Sylvestre Ledru
+// Copyrigh (C) 2012 - Scilab Enterprises - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,6 +17,6 @@
 // =============================================================================
 
 A = %i * speye(10,10);
-a=eigs(A, [], 3, 'SM');
+a=eigs(A, [], 3, "SM");
 assert_checkequal(size(a),[3, 1]);
 

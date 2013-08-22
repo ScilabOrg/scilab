@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -29,8 +29,8 @@ points = locate(4,1);
 
 // their coordinates must be within the data bounds
 for i=1:4,
-  if (points(1,i) > xMax ) then pause; end
-  if (points(1,i) < xMin ) then pause; end
+    if (points(1,i) > xMax ) then pause; end
+    if (points(1,i) < xMin ) then pause; end
 end
 
 

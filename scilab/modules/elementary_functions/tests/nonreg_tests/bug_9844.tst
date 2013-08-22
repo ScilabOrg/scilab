@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Simon MARCHETTO
+// Copyrigh (C) 2012 - Scilab Enterprises - Simon MARCHETTO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,11 +18,11 @@
 M=100;N=100;
 R=ones(M,N);
 for m=1:M;
-  for n=1:N;
-    A=floor(256*rand(n,m));
-    B=uint8(A);
-    R(m,n)=max(abs(sum(B,2,"double")-sum(A,2)));
-  end
+    for n=1:N;
+        A=floor(256*rand(n,m));
+        B=uint8(A);
+        R(m,n)=max(abs(sum(B,2,"double")-sum(A,2)));
+    end
 end
 F = find(R<>0)
 assert_checktrue(isempty(F));

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -45,4 +45,5 @@ assert_checkequal(k, 1);
 
 [m k] = min(M(1,1,1,:));
 assert_checkequal(k, 1);
-
+
+

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,9 +15,8 @@
 
 // <-- INTERACTIVE TEST -->
 
-deff('foo','a=aaaa','n')
+deff("foo","a=aaaa","n")
 try
-  foo();
-  l=0	;//here there is a tabulation between 0 and ;
+    foo();
+    l=0	;//here there is a tabulation between 0 and ;
 end
-          

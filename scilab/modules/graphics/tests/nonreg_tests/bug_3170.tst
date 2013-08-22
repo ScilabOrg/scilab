@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Missing checks when setting data property of fac3d objects.
- 
+
 // create a plot
 x = 1:100;
 [xx,yy,zz] = genfac3d(x,x,sin(x' * x));
@@ -31,7 +31,7 @@ data.y = data.y(1:100);
 data.z = data.z(1:100);
 
 // Should produce an error but not crash Scilab
-execstr("surface.data = data;",'errcatch','n');
+execstr("surface.data = data;","errcatch","n");
 
 
 

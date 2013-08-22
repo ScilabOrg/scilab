@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte Hecquet
-// Copyright (C) 2013 - Scilab Enterprises - Sylvestre Ledru
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte Hecquet
+// Copyrigh (C) 2013 - Scilab Enterprises - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,9 +13,9 @@ y=[1; 1] * sin(x) + [sin(2*x); sin(1.9*x)];
 //Compute correlations
 c=[];
 for j=1:2
-   for k=1:2
-     c=[c;corr(y(k,:),y(j,:),64)];
-   end
+    for k=1:2
+        c=[c;corr(y(k,:),y(j,:),64)];
+    end
 end
 c=matrix(c,2,128);
 

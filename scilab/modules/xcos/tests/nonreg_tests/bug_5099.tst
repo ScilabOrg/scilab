@@ -1,6 +1,6 @@
 / =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Pierre MARECHAL
+// Copyrigh (C) 2009 - DIGITEO - Pierre MARECHAL
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,5 +16,5 @@
 // <-- Short Description -->
 // With some diagrams, The whole diagramm is not visible after "Fit diagramm to view".
 
-xcos(SCI+'/modules/xcos/demos/susp.zcos');
+xcos(SCI+"/modules/xcos/demos/susp.zcos");
 // "Menu → View → Fit diagram to view"

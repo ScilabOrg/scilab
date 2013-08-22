@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+// Copyrigh (C) 2009 - DIGITEO - Sylvestre KOUMAR
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 //   editor('myfolder/myfile.sci')
-//   The correct file is opened. But when I modify and save this file, 
+//   The correct file is opened. But when I modify and save this file,
 //   it is saved in ./myfile.sci instead of myfolder/myfile.sci
 
 //editor('myfolder/myfile.sci')

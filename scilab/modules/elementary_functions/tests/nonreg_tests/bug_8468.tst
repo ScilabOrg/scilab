@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -39,7 +39,7 @@ if s5 <> 1 then pause, end
 if n <> 3 then pause, end
 if m <> 2 then pause, end
 
-[n, m] = size(['a','b';'c','d']);
+[n, m] = size(["a","b";"c","d"]);
 if n <> 2 then pause, end
 if m <> 2 then pause, end
 

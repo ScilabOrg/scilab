@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,12 +16,12 @@
 // The assert_computedigits function generously gives too large correct digits.
 
 function flag = MY_assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if computed==expected then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 e = 1;

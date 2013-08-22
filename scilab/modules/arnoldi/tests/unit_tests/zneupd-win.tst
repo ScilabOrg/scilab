@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - SE - Sylvestre Ledru
+// Copyrigh (C) 2012 - SE - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,8 +9,8 @@ nx    = 10;
 
 nev   = 3;
 ncv   = 6;
-bmat  = 'I';
-which = 'LM';
+bmat  = "I";
+which = "LM";
 
 // Local Arrays
 
@@ -46,29 +46,29 @@ sigma = complex(0);
 info_znaupd = 0;
 // M A I N   L O O P (Reverse communication)
 while(ido <> 99)
-  // Repeatedly call the routine ZNAUPD and take actions indicated by parameter IDO until
-  // either convergence is indicated or maxitr has been exceeded.
+    // Repeatedly call the routine ZNAUPD and take actions indicated by parameter IDO until
+    // either convergence is indicated or maxitr has been exceeded.
 
-  [ido, resid, v, iparam, ipntr, workd, workl, rwork, info_znaupd] = znaupd(ido, bmat, nx, which, nev, tol, resid, ncv, v, iparam, ipntr, workd, workl, rwork, info_znaupd);
+    [ido, resid, v, iparam, ipntr, workd, workl, rwork, info_znaupd] = znaupd(ido, bmat, nx, which, nev, tol, resid, ncv, v, iparam, ipntr, workd, workl, rwork, info_znaupd);
 
-  if(info_znaupd < 0)
-    printf('\nError with znaupd, info = %d\n', info_znaupd);
-    printf('Check the documentation of znaupd\n\n');
-  end
+    if(info_znaupd < 0)
+        printf("\nError with znaupd, info = %d\n", info_znaupd);
+        printf("Check the documentation of znaupd\n\n");
+    end
 
-  if(ido == -1 | ido == 1)
-    // Perform matrix vector multiplication
-    workd(ipntr(2):ipntr(2) + nx - 1) = A * workd(ipntr(1):ipntr(1) + nx - 1);
-  end
+    if(ido == -1 | ido == 1)
+        // Perform matrix vector multiplication
+        workd(ipntr(2):ipntr(2) + nx - 1) = A * workd(ipntr(1):ipntr(1) + nx - 1);
+    end
 end
 
 // Post-Process using ZNEUPD.
 
 rvec    = 1;
-howmany = 'A';
+howmany = "A";
 info_zneupd = 0;
 
 [d, z, resid, iparam, ipntr, workd, workl, rwork, info_zneupd] = zneupd(rvec, howmany, _select, d, z, sigma, workev, bmat, nx, which, nev, tol, resid, ncv, v, ...
-                                                                    iparam, ipntr, workd, workl, rwork, info_zneupd);
+iparam, ipntr, workd, workl, rwork, info_zneupd);
 
 assert_checkalmostequal(A * z, z * diag(d(1:3)), sqrt(%eps), 1.e-10);

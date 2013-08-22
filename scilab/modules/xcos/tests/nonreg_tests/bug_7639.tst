@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clement DAVID
-// Copyright (C) 2012 - Scilab Enterprises - Clement DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clement DAVID
+// Copyrigh (C) 2012 - Scilab Enterprises - Clement DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -38,10 +38,10 @@ if ~status then pause, end
 // export the Superblock to the file
 blk = [];
 for i=1:length(scs_m.objs) do
-  blk = scs_m.objs(i);
-  if typeof(blk) == "Block" & blk.gui == "SUPER_f" then
-    break;
-  end
+    blk = scs_m.objs(i);
+    if typeof(blk) == "Block" & blk.gui == "SUPER_f" then
+        break;
+    end
 end
 assert_checktrue(length(blk) <> 0);
 

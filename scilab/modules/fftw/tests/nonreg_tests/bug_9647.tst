@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2011 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // On Scilab startup, the variable fft was declared by default while it should not.
 //
 
-assert_checkequal(isdef('fft'), %f);
+assert_checkequal(isdef("fft"), %f);
 if %fftw then
-  assert_checkequal(funptr('fft'), funptr('fftw'));
+    assert_checkequal(funptr("fft"), funptr("fftw"));
 end

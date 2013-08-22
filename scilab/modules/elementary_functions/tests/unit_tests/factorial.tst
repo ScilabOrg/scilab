@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2010-2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -26,9 +26,9 @@ n = [
 ];
 x = factorial ( n );
 e = [
-    1.       2.        6.       
-    24.      120.      720.     
-    5040.    40320.    362880.  
+1.       2.        6.
+24.      120.      720.
+5040.    40320.    362880.
 ];
 assert_checkequal ( x , e );
 // Test with an hypermatrix

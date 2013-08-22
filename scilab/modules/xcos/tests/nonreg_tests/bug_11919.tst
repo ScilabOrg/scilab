@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Alexandre HERISSE
+// Copyrigh (C) 2012 - Scilab Enterprises - Alexandre HERISSE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,13 +21,13 @@ function model = create_test_dlss_blk(x0, A, B, C, D, in, out)
 
     // create model
     model = scicos_model();
-    model.sim = list('dsslti4',4);
+    model.sim = list("dsslti4",4);
     model.in = in;
     model.out = out;
     model.evtin = 1;
     model.dstate = x0(:);
     model.rpar = [A(:);B(:);C(:);D(:)];
-    model.blocktype = 'd';
+    model.blocktype = "d";
     model.dep_ut = [%f %f];
 
     // test model

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // In Scilab 4 and in isoview mode, some lines don't superpose although they should.
-// 
+//
 
 frame_size = 4.e-6
 a=get("current_axes");

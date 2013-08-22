@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,7 +20,7 @@
 free=getmemory();
 
 for k=1:10000
-  foo=msscanf('1.234 44 55 66 77 88 88 ', '%f %f %f %f %f %f %f '); 
+    foo=msscanf("1.234 44 55 66 77 88 88 ", "%f %f %f %f %f %f %f ");
 end
 
 leak = free-getmemory();

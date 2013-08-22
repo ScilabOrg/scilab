@@ -1,6 +1,6 @@
 // ============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
+// Copyrigh (C) 2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
@@ -10,10 +10,10 @@
 //===============================
 
 // Void call
-if execstr('setlanguage()','errcatch')==0 then pause,end
+if execstr("setlanguage()","errcatch")==0 then pause,end
 
 // Double call
-lang="fr_FR"; lang2="en_US"; if execstr('setlanguage(lang, lang2)','errcatch')==0 then pause,end
+lang="fr_FR"; lang2="en_US"; if execstr("setlanguage(lang, lang2)","errcatch")==0 then pause,end
 
 // Empty call
 lang=getdefaultlanguage(); if setlanguage(lang) <> %T then pause,end

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Bruno JOFRET <bruno.jofret@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Bruno JOFRET <bruno.jofret@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 
 // TEST 1 : dummy file
 cd TMPDIR;
-r = mputl('I am a dummy String', 'dummyFile.dummy');
+r = mputl("I am a dummy String", "dummyFile.dummy");
 if r <> %T then pause,end
 
 lsResult = ls("dummyFile.dummy");

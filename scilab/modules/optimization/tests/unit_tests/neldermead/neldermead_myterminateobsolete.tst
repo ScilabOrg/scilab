@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -20,7 +20,7 @@
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -28,20 +28,20 @@ endfunction
 // check obsolete options "-myterminateflag" and "-myterminate".
 //
 function [ this , terminate , status ] = mystoppingrule2 ( this , simplex )
-  ssize = optimsimplex_size ( simplex , "sigmaplus" );
-  if ( ssize < 1.e-2 ) then
-    terminate = %t;
-    status = "mysize";
-  else
-    terminate = %f
-  end
+    ssize = optimsimplex_size ( simplex , "sigmaplus" );
+    if ( ssize < 1.e-2 ) then
+        terminate = %t;
+        status = "mysize";
+    else
+        terminate = %f
+    end
 
 endfunction
 
 
 
 //
-// Test with my own termination criteria 
+// Test with my own termination criteria
 //
 nm = neldermead_new ();
 nm = neldermead_configure(nm,"-numberofvariables",2);

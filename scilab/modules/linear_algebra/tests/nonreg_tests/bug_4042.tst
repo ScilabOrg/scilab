@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -24,7 +24,7 @@ B=squeeze(A(1,1,:));
 assert_checkequal(type(B), 1);
 
 // In Scilab 6, the hypermatrix type won't exist
-v = getversion('scilab');
+v = getversion("scilab");
 if v(1) > 5 then
     C(:,:,1) = zeros(32,32);
     C(:,:,2) = zeros(32,32);

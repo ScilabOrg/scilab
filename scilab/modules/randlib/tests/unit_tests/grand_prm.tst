@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2010-2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -38,7 +38,7 @@ assert_checkequal ( typeof(P) , "constant" );
 assert_checkequal ( size(P) , [10 5] );
 assert_checkequal ( gsort(P,"r","i") , X * ones(1,5) );
 //
-// 2. Check that the produced permutations are uniformly chosen in the 
+// 2. Check that the produced permutations are uniformly chosen in the
 // set of all possible permutations.
 //
 X = [-12 4 9 365]';
@@ -52,22 +52,22 @@ P = grand(N,"prm",X);
 // R must be a random variable uniformly distributed in the interval [1,2,...,F].
 R = zeros(N,1);
 for k = 1:N
-  permk = P(:,k);
-  // Search the index i of the permutation permk
-  for i = 1 : F
-    permi = S(i,:);
-    if ( permi'==permk ) then
-      R(k) = i;
-      break
+    permk = P(:,k);
+    // Search the index i of the permutation permk
+    for i = 1 : F
+        permi = S(i,:);
+        if ( permi'==permk ) then
+            R(k) = i;
+            break
+        end
     end
-  end
 end
 assert_checkalmostequal ( mean(R) , (1+F)/2 , 0.01 );
 assert_checkalmostequal ( variance(R) , (F^2-1)/12 , 0.1 );
 //
 // Check the distribution of R
 function p = mycdfuin (X,A,B)
-  p = (floor(X)-A+1)/(B-A+1)
+    p = (floor(X)-A+1)/(B-A+1)
 endfunction
 X = (1:F)';
 for k = 1 : size(X,"*")
@@ -77,9 +77,9 @@ EmpicicalPDF = EmpicicalPDF./N;
 CDF = mycdfuin(X,1,F);
 TheoricPDF=[CDF(1);diff(CDF)];
 assert_checktrue( abs(EmpicicalPDF-TheoricPDF) < rtol );
-  if ( %f ) then
+if ( %f ) then
     plot(X,EmpicicalPDF,"bo-"); // Empirical PDF
     plot(X,TheoricPDF,"rox-"); // Theoretical PDF
-  end
+end
 
 

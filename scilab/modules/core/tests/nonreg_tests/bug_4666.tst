@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Pierre MARECHAL
+// Copyrigh (C) 2009 - DIGITEO - Pierre MARECHAL
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,5 +20,5 @@ my_dir = pathconvert(SCIHOME+"/bug_4666");
 if mkdir(my_dir) <> 1 then pause, end
 
 if isdir(my_dir) then
-	rmdir(my_dir);
+    rmdir(my_dir);
 end

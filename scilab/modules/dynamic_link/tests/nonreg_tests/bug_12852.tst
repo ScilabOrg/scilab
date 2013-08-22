@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Simon MARCHETTO
+// Copyrigh (C) 2013 - Scilab Enterprises - Simon MARCHETTO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,16 +19,16 @@
 
 curPath = pwd();
 cd TMPDIR;
-src = ['#include <windows.h>'
-    'int create_directory(char* path)'
-    '{'
-    '   return CreateDirectory(path, NULL);';
-    '}'];
-srcfile = 'test_windows_sdk.c';
+src = ["#include <windows.h>"
+"int create_directory(char* path)"
+"{"
+"   return CreateDirectory(path, NULL);";
+"}"];
+srcfile = "test_windows_sdk.c";
 mputl(src, srcfile);
 
-libn = ilib_for_link('test_windows_sdk', srcfile, [], "c");
+libn = ilib_for_link("test_windows_sdk", srcfile, [], "c");
 assert_checktrue(libn <> 0);
 
-exec('cleaner.sce');
+exec("cleaner.sce");
 cd(curPath);

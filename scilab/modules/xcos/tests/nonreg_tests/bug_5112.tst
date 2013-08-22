@@ -1,6 +1,6 @@
 / =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,7 +19,7 @@
 // → Title of some of them is "Untitled"
 // When opening the same diagrams separately, this behavior doesn't happen.
 
-A = ls(SCI+'/modules/xcos/demos/*.zcos');
+A = ls(SCI+"/modules/xcos/demos/*.zcos");
 xcos(A);
 
 // Check that no title is set to Untitled

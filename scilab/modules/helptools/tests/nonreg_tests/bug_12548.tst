@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,7 +9,7 @@
 //
 // <-- ENGLISH IMPOSED -->
 //
-// <-- NO CHECK ERROR OUTPUT --> 
+// <-- NO CHECK ERROR OUTPUT -->
 //
 // <-- Non-regression test for bug 12548 -->
 //
@@ -20,7 +20,7 @@
 // Duplicated code in xmltoformat
 
 function a = bug_12548(b, c, d)
-  a = 0;
+    a = 0;
 endfunction
 
 test_bug_12548 = "bug_12548";

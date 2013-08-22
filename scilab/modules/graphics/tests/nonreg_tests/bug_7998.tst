@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Antoine ELIAS
+// Copyrigh (C) 2012 - DIGITEO - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,15 +18,15 @@
 cols = [1 2 3 4 5];
 lgd = [];
 for k = 1 : 5
-  x = linspace(0,20,1000);
-  y = sin ( k * x );
-  plot(x,y)
-  str = msprintf("k=%d",k);
-  lgd($+1) = str;
+    x = linspace(0,20,1000);
+    y = sin ( k * x );
+    plot(x,y)
+    str = msprintf("k=%d",k);
+    lgd($+1) = str;
 end
 h = gcf();
 for k = 1 : 5
-  h.children.children.children(k).foreground = cols(k);
+    h.children.children.children(k).foreground = cols(k);
 end
 legend(lgd);
 err = execstr("h.children.children.children", "errcatch");

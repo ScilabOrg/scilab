@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,14 +22,14 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 // get*<TAB>
-currentline = 'get*';
+currentline = "get*";
 
 r = getpartlevel(currentline);
-if r <> '' then pause,end
+if r <> "" then pause,end
 
 r = getfilepartlevel(currentline);
-if r <> '' then pause,end
+if r <> "" then pause,end
 
-r = completeline(currentline,'',getpartlevel(currentline),getfilepartlevel(currentline),%f);
+r = completeline(currentline,"",getpartlevel(currentline),getfilepartlevel(currentline),%f);
 if r <> currentline then pause,end;
 

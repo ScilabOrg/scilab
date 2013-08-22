@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Sylvestre Koumar
+// Copyrigh (C) 2008-2008 - INRIA - Sylvestre Koumar
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 
 // used to freeze Scilab
 for i=1:100,
-  h=scf(i);
-  addmenu(i,'mymenu');
-  delete(h);
+    h=scf(i);
+    addmenu(i,"mymenu");
+    delete(h);
 end
 

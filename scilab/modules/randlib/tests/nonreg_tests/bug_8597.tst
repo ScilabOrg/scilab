@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,9 +18,9 @@
 // Uncontrolled message of grand/clcg4 should be displayed as warning
 
 warning("off");
-grand('setgen',"clcg4");
-grand('setsd',123456,123456,123456,123456);
+grand("setgen","clcg4");
+grand("setsd",123456,123456,123456,123456);
 
 warning("on");
-grand('setgen',"clcg4");
-grand('setsd',123456,123456,123456,123456);
+grand("setgen","clcg4");
+grand("setsd",123456,123456,123456,123456);

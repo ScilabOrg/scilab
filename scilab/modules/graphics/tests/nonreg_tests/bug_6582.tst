@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Antoine ELIAS
+// Copyrigh (C) 2012 - DIGITEO - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 
 
 
-xstring(1/2,1/2,'foo');e1=gce();
+xstring(1/2,1/2,"foo");e1=gce();
 e1.font_foreground=5;
 e1.font_style=9;
 

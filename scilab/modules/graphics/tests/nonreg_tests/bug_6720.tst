@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2010 - DIGITEO - pierre.lando@scilab.org
+// Copyrigh (C) 2006-2010 - DIGITEO - pierre.lando@scilab.org
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -26,6 +26,6 @@ subplot(212);plot(1:10);h2=gce();
 j1=h1.children;
 j2=h2.children;
 
-captions(j2,'two');
-captions(j1,'one');
+captions(j2,"two");
+captions(j1,"one");
 

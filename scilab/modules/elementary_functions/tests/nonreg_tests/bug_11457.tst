@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Antoine ELIAS
+// Copyrigh (C) 2012 - Scilab Enterprises - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 
 //thanks at Joe Seale for sample code to reproduce this bug
 
-stacksize('max');                                           // make room for large arrays
+stacksize("max");                                           // make room for large arrays
 
 maxN = 16;                                                  // maximum polynomial order sought
 x = poly(0,"x");                                            // starting polynomial to work with
@@ -28,6 +28,6 @@ for np1=2:maxN                                              // np1 = n+1, next p
     LegPolys = [ LegPolys , polynp1 ] ;                     // add polynomial to array
 end
 GssLegX    = roots(polynp1)+1;                              // define Gauss-Legendre integration points + bias
-GssLegX    = gsort(GssLegX,'g','i')-1;                      // sort in increasing order - bias
+GssLegX    = gsort(GssLegX,"g","i")-1;                      // sort in increasing order - bias
 
 //if scilab does not scrash or does not throw exception, it is OK

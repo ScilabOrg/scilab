@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -26,4 +26,4 @@
 // exec("e:\testNonReg\bug568.sce");
 
 aa=zeros(4,4,11);
-if execstr('bb(1,1,:)=aa(1,1,:)','errcatch') <> 15 then pause,end
+if execstr("bb(1,1,:)=aa(1,1,:)","errcatch") <> 15 then pause,end

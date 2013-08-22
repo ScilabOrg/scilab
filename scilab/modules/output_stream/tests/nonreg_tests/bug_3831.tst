@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,13 +16,13 @@
 // Display bug of ascii() in SciLab 5.x
 
 refASCIICODE = [84  114  97  110  115  109  105  115  115  105  111  110];
-refSTRING = 'Transmission';
+refSTRING = "Transmission";
 res = ascii(refASCIICODE);
 if length(res) <> length(refSTRING) then pause,end
 if refSTRING <> res then pause,end
 
 refASCIICODE2 = [84  114  97  110  115  0  105  115  115  105  111  110];
-refSTRING2 = 'Trans' + ascii(0) + 'ission';
+refSTRING2 = "Trans" + ascii(0) + "ission";
 // no ; to display result
 res = ascii(refASCIICODE2)
 if length(res) <> length(refSTRING2) then pause,end

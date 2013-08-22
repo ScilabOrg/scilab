@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,12 +20,12 @@
 //        1.0000000000000007000000000E+03
 
 // Modified by Pierre MARECHAL
-// Copyright INRIA
+// Copyrigh INRIA
 // Date : 23 Mar 2005
 
-format('e',25);
+format("e",25);
 result    = logspace( 3, 3, 1 );
 trueValue = 1.000000000000000000E+03;
 
 if result <> trueValue then pause,end
-format('v',10);
+format("v",10);

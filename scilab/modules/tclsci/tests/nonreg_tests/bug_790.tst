@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre .marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre .marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,11 +18,11 @@
 ierr = execstr("findobj()","errcatch");
 msg = lasterror();
 if ierr==0 | msg<>msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "findobj", 2) then
-  pause
+    pause
 end
 ierr = execstr("findobj(""test"")","errcatch");
 msg = lasterror();
 if ierr==0 | msg<>msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "findobj", 2) then
-  pause
+    pause
 end
 if execstr("findobj(""Param1"",""Param2"") == []","errcatch") <> 0 then pause,end

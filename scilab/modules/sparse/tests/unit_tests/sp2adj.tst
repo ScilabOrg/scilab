@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2010-2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -30,8 +30,8 @@ assert_checkequal ( and(expected_iadj == iadj) , %t );
 assert_checkequal ( and(expected_v == v) , %t );
 // j is the column index
 for j = 1 : size(xadj,"*")-1
-  irows = iadj(xadj(j):xadj(j+1)-1);
-  vcolj = v(xadj(j):xadj(j+1)-1);
+    irows = iadj(xadj(j):xadj(j+1)-1);
+    vcolj = v(xadj(j):xadj(j+1)-1);
 end
 //
 // Check the adjacency representation of a simple matrix

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Sylvestre LEDRU
+// Copyrigh (C) 2008 - DIGITEO - Sylvestre LEDRU
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,8 +15,8 @@
 // <-- Short Description -->
 // Wrong permutation
 
-a = ['aaa';'eee';'ccc';'bbb';'ddd';'rrr'];
+a = ["aaa";"eee";"ccc";"bbb";"ddd";"rrr"];
 trueValue=[1; 4; 3; 5; 2; 6];
 
-[b result] = gsort(a,'r','i')
+[b result] = gsort(a,"r","i")
 assert_checkequal(result, trueValue);

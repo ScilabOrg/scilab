@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer
+// Copyrigh (C) 2010 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,9 +17,9 @@
 
 
 a=[0 0 0 0 0 0 6 6];
-p=pspect(2,4,'re',a,a)
+p=pspect(2,4,"re",a,a)
 if or(p<>[0 6 0 6]) then pause,end
 
-p=pspect(2,4,'re', a)
+p=pspect(2,4,"re", a)
 if or(p<>[0 6 0 6]) then pause,end
 

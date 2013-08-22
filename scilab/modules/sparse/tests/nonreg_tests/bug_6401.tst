@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,13 +20,13 @@ a = [1,0,0;
 0,0,1];
 
 aa = sparse(a);
-ierr = execstr('chfact(aa)','errcatch');
+ierr = execstr("chfact(aa)","errcatch");
 if ierr <> 0 then pause,end
 
 xadj= [ 1.  ;    1.  ;    1.  ;    1.  ];
 adjncy = [];
 neqns = 3.  ;
-ierr = execstr('[perm,invp,nofsub]=ordmmd(xadj,adjncy,neqns)','errcatch');
+ierr = execstr("[perm,invp,nofsub]=ordmmd(xadj,adjncy,neqns)","errcatch");
 if ierr <> 0 then pause,end
 
 refperm  = [   3.  ;    2.  ;    1.  ];

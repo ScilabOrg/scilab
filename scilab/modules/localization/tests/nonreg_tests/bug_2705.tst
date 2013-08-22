@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2007-2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,8 +16,8 @@
 LANG = getlanguage();
 if length(LANG) <> 5 then pause,end
 
-TOK = tokens(LANG,'_');
-if size(TOK,'*') <> 2 then pause,end
+TOK = tokens(LANG,"_");
+if size(TOK,"*") <> 2 then pause,end
 
 if length(TOK(1)) <> 2 then pause,end
 

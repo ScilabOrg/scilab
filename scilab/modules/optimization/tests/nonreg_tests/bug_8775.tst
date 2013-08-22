@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010-2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2010-2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,7 +19,7 @@
 
 // An unbounded problem.
 Aeq = [
- 2 -2 -1 1 0
+2 -2 -1 1 0
 -1 -4  1 0 1
 ];
 beq = [-1;-1];

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
+// Copyrigh (C) 2006-2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,8 +14,8 @@
 //
 // <-- Short Description -->
 //    (Following of bug 1558)
-//    In a 3D representation, under the rotation angles [0,270], the third 
-//    coordinate z1 of the first point of a segment is ignored, while the 
+//    In a 3D representation, under the rotation angles [0,270], the third
+//    coordinate z1 of the first point of a segment is ignored, while the
 //    third coordinate z2 of the second point is considered.
 //
 //    Jacques-Deric
@@ -26,7 +26,7 @@ ha.axes_visible = "on";
 ha.view = "3d";
 ha.box = "on";
 
-xsegs ([0.0,0.0], [1.0,1.0]); 
+xsegs ([0.0,0.0], [1.0,1.0]);
 hs10 = gce ();
 hs10.data (1,1) = 1.00;  // x1
 hs10.data (1,2) = 0.60;  // y1
@@ -35,9 +35,9 @@ hs10.data (2,2) = 0.45;  // y2
 hs10.data,
 
 ha.rotation_angles = [0,270];
-hs10.data (1,3) =-0.30;  // z1 
+hs10.data (1,3) =-0.30;  // z1
 hs10.data (2,3) =-0.40;  // z2
-hs10.data,	
+hs10.data,
 
 ha.rotation_angles = [0,0];
 

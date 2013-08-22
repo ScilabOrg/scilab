@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - Digiteo - Yann COLLETTE
+// Copyrigh (C) 2009 - Digiteo - Yann COLLETTE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,6 +18,6 @@
 //
 // Open the Scilab editor
 // Open the "Search->Find/Replace" dialog
-// Enter "test_test" in the Find edit line and check if the underscore is 
+// Enter "test_test" in the Find edit line and check if the underscore is
 // correctly displayed
 //

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - SE - Sylvestre Ledru
+// Copyrigh (C) 2012 - SE - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,8 +9,8 @@ nx    = 10;
 
 nev   = 3;
 ncv   = 6;
-bmat  = 'I';
-which = 'LM';
+bmat  = "I";
+which = "LM";
 
 // Local Arrays
 
@@ -19,9 +19,9 @@ ipntr   = zeros(14, 1);
 _select = zeros(ncv, 1);
 d       = zeros(nev, 1);
 z       = zeros(nx, nev);
-resid   = zeros(nx, 1); 
+resid   = zeros(nx, 1);
 v       = zeros(nx, ncv);
-workd   = zeros(3 * nx, 1); 
+workd   = zeros(3 * nx, 1);
 workl   = zeros(ncv * ncv + 8 * ncv, 1);
 
 // Build the symmetric test matrix
@@ -47,28 +47,28 @@ info_dsaupd = 0;
 // M A I N   L O O P (Reverse communication)
 
 while(ido <> 99)
-  // Repeatedly call the routine DSAUPD and take actions indicated by parameter IDO until
-  // either convergence is indicated or maxitr has been exceeded.
+    // Repeatedly call the routine DSAUPD and take actions indicated by parameter IDO until
+    // either convergence is indicated or maxitr has been exceeded.
 
-  [ido, resid, v, iparam, ipntr, workd, workl, info_dsaupd] = dsaupd(ido, bmat, nx, which, nev, tol, resid, ncv, v, iparam, ipntr, workd, workl, info_dsaupd);
-  
-  if(info_dsaupd < 0)
-    printf('\nError with dsaupd, info = %d\n',info_dsaupd);
-    printf('Check the documentation of dsaupd\n\n');
-  end
-  
-  if(ido == -1 | ido == 1)
-    // Perform matrix vector multiplication 
-    workd(ipntr(2):ipntr(2) + nx - 1) = A * workd(ipntr(1):ipntr(1) + nx - 1);
-  end
+    [ido, resid, v, iparam, ipntr, workd, workl, info_dsaupd] = dsaupd(ido, bmat, nx, which, nev, tol, resid, ncv, v, iparam, ipntr, workd, workl, info_dsaupd);
+
+    if(info_dsaupd < 0)
+        printf("\nError with dsaupd, info = %d\n",info_dsaupd);
+        printf("Check the documentation of dsaupd\n\n");
+    end
+
+    if(ido == -1 | ido == 1)
+        // Perform matrix vector multiplication
+        workd(ipntr(2):ipntr(2) + nx - 1) = A * workd(ipntr(1):ipntr(1) + nx - 1);
+    end
 end
 
 // Post-Process using DSEUPD.
 rvec    = 1;
-howmany = 'A';
+howmany = "A";
 info_dseupd = 0;
 
 [d, z, resid, v, iparam, ipntr, workd, workl, info_dseupd] = dseupd(rvec, howmany, _select, d, z, sigma, bmat, nx, which, nev, tol, resid, ncv, v, ...
-                                                                    iparam, ipntr, workd, workl, info_dseupd);
+iparam, ipntr, workd, workl, info_dseupd);
 
-assert_checkalmostequal(A * z, z * diag(d), sqrt(%eps), 1.e-10); 
+assert_checkalmostequal(A * z, z * diag(d), sqrt(%eps), 1.e-10);

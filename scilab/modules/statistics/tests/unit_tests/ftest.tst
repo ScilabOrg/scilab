@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) 2013 - Scilab Enterprises - Paul Bignier
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,10 +15,10 @@
 prec = 1.e-5;
 
 samples = [46 55 54;
-         53 54 50;
-         49 58 51;
-         50 61 51;
-         46 52 49];
+53 54 50;
+49 58 51;
+50 61 51;
+46 52 49];
 
 [f, p] = ftest(samples);
 

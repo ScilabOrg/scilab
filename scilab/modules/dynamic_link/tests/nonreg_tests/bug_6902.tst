@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,8 +16,8 @@
 
 cd(TMPDIR);
 
-name = 'gw_example1';
-table = ['sci_func1', 'func1'];
+name = "gw_example1";
+table = ["sci_func1", "func1"];
 
 WITHOUT_AUTO_PUTLHSVAR = %t;
 n1 = ilib_gen_gateway(name,table);
@@ -33,6 +33,6 @@ if ~or(r1 <> r2) then pause,end
 WITHOUT_AUTO_PUTLHSVAR = %f;
 n3 = ilib_gen_gateway(name,table);
 r3 = fileinfo(n3);
-// there is no modification 
+// there is no modification
 if ~and(r2 == r3) then pause,end
 // =============================================================================

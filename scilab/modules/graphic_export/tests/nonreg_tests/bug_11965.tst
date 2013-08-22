@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+// Copyrigh (C) 2012 - Scilab Enterprises - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 
 driver("SVG")
 xinit(TMPDIR+"/plop.svg")
-xtitle('this appears as bezier','x','y')
+xtitle("this appears as bezier","x","y")
 xend();
 
 doc=xmlRead(TMPDIR+"/plop.svg");

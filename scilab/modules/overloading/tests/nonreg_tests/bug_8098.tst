@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2013 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -44,7 +44,7 @@ assert_checkequal(cumsum(r, "m", "double"), [1 1;1+s 1+s]./[s s;s^2 s]);
 // Check error
 assert_checkfalse(execstr("cumsum(r, ""toto"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-            "cumsum",2,"""*"",""r"",""c"",""m"",1:2");
+"cumsum",2,"""*"",""r"",""c"",""m"",1:2");
 assert_checkerror("cumsum(r, ""toto"")", refMsg);
 
 assert_checkfalse(execstr("cumsum(r, ""*"", ""toto"")"   ,"errcatch") == 0);

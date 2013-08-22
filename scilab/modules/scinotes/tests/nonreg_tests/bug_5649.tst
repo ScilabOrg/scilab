@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan SIMON
+// Copyrigh (C) 2009 - DIGITEO - Allan SIMON
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,11 +19,11 @@
 
 //editor(SCI+"\modules\optimization\macros\derivative.sci")
 //* Search> Find/Replace
-//Find: Copyright
+//Find: Copyrigh
 //Replace With: Copyleft
 //* Push "Find"
 //* Push "Replace"
 //* Push "Close"
 // undo
-// Copyright should appear again
+// Copyrigh should appear again
 

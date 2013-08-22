@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+// Copyrigh (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,8 +22,8 @@ assert_checkerror("h5readattr(""42"",""42"",""42"")",msgerr,999);
 
 x = int8(matrix(1:80, 10, 8));
 save(TMPDIR + "/x.sod", "x");
-version = string(getversion('scilab'));
-version = getversion()+" "+strcat([version(1),version(2),version(3)],'.');
+version = string(getversion("scilab"));
+version = getversion()+" "+strcat([version(1),version(2),version(3)],".");
 
 a = h5open(TMPDIR + "/x.sod");
 

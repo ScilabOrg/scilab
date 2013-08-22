@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -40,8 +40,8 @@ setlanguage("en_US"); // This only chance this test pass is to launch it when sc
 
 M = calendar(2005,3);
 
-M1ref = ['Mar 2005'];
-M2ref = ['   M      Tu     W      Th     F     Sat     Sun'];
+M1ref = ["Mar 2005"];
+M2ref = ["   M      Tu     W      Th     F     Sat     Sun"];
 M3ref = [0,1,2,3,4,5,6;7,8,9,10,11,12,13;14,15,16,17,18,19,20;21,22,23,24,25,26,27;28,29,30,31,0,0,0;0,0,0,0,0,0,0];
 
 Mref = list(M1ref,M2ref,M3ref );

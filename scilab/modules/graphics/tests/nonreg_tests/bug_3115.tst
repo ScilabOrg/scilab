@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // In log mode the ticks locations properties are wrong in scilab5:
 
 clf()
-plot([0.01,100],[1,10]);a=gca();a.log_flags='lln';
+plot([0.01,100],[1,10]);a=gca();a.log_flags="lln";
 
 // check that ticks locations are right
 if ( a.x_ticks.locations <> [0.01;0.1;1;10;100] ) then pause; end

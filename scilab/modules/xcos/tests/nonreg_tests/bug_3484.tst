@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - DIGITEO - Jean-Baptiste Silvy
-// Copyright (C) 2009 - DIGITEO - Yann Collette
+// Copyrigh (C) 2008-2008 - DIGITEO - Jean-Baptiste Silvy
+// Copyrigh (C) 2009 - DIGITEO - Yann Collette
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,6 +15,6 @@
 //
 // <-- Short Description -->
 // Scilab crashes on Scicos startup.
-// 
+//
 
 xcos();

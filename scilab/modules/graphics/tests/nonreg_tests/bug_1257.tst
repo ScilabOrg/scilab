@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,9 +20,9 @@
 f = gcf();
 f.rotation_style = "multiple";
 subplot(1,2,1)
-   plot3d()
+plot3d()
 subplot(1,2,2)
-   plot3d()
+plot3d()
 
 // rotate one axes
 axes1 = f.children(1);

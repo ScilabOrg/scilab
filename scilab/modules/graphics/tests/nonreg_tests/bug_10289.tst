@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Sylvestre Ledru
+// Copyrigh (C) 2011 - DIGITEO - Sylvestre Ledru
 //
 //// This file is distributed under the same license as the Scilab package.
 // =============================================================================

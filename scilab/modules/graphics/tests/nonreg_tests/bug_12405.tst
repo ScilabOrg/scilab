@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Sylvestre Ledru
-// Copyright (C) 2013 - Scilab Enterprises - Calixte Denizet
+// Copyrigh (C) 2013 - Scilab Enterprises - Sylvestre Ledru
+// Copyrigh (C) 2013 - Scilab Enterprises - Calixte Denizet
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

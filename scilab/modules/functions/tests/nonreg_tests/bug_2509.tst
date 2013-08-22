@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - INRIA - Serge Steer
+// Copyrigh (C) 2009 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,50 +19,50 @@ prot=funcprot();funcprot(0);
 
 
 //uncompiled macros
-deff('foo','a=aaaa','n')
-if execstr('foo()','errcatch')<>4 then pause,end
+deff("foo","a=aaaa","n")
+if execstr("foo()","errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then pause,end
+if l<>2|f<>"foo" then pause,end
 
-try, 
-  foo();
-catch 
-  [str,n,l,f]=lasterror(%t); 
-  if l<>2|f<>'foo' then pause,end;
+try,
+    foo();
+catch
+    [str,n,l,f]=lasterror(%t);
+    if l<>2|f<>"foo" then pause,end;
 end
 
-if exec(foo,'errcatch')<>4 then pause,end
+if exec(foo,"errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then pause,end
+if l<>2|f<>"foo" then pause,end
 
 //compiled macros
-deff('foo','a=aaaa')
-if execstr('foo()','errcatch')<>4 then pause,end
+deff("foo","a=aaaa")
+if execstr("foo()","errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then pause,end
+if l<>2|f<>"foo" then pause,end
 
-try, 
-  foo();
-catch 
-  [str,n,l,f]=lasterror(%t); 
-  if l<>2|f<>'foo' then pause,end;
+try,
+    foo();
+catch
+    [str,n,l,f]=lasterror(%t);
+    if l<>2|f<>"foo" then pause,end;
 end
 
-if exec(foo,'errcatch')<>4 then pause,end
+if exec(foo,"errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then pause,end
+if l<>2|f<>"foo" then pause,end
 
 //scripts
-foo=['a=1';'a=aaaa'];
-if execstr(foo,'errcatch')<>4 then pause,end
+foo=["a=1";"a=aaaa"];
+if execstr(foo,"errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'' then pause,end
+if l<>2|f<>"" then pause,end
 
 //complex situations
-deff('foo','execstr(''a=aaaa'')')
-if execstr('foo()','errcatch')<>4 then pause,end
+deff("foo","execstr(''a=aaaa'')")
+if execstr("foo()","errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>1|f<>'' then pause,end
+if l<>1|f<>"" then pause,end
 
 
 funcprot(prot);

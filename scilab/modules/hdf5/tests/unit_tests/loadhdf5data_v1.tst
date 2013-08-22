@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Sylvestre LEDRU
+// Copyrigh (C) 2011 - DIGITEO - Sylvestre LEDRU
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -29,17 +29,17 @@ assert_checkequal(bscalar,42+%i);
 ///// String
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/matricestring_v1.sod");
 assert_checkequal(c,["my matrix","of strings";"is","saved in Scilab data format"]);
-  
+
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/matricestringscalar_v1.sod");
 assert_checkequal(cscalar,["my single string"]);
 
 // Polynomials
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/polynomials_v1.sod");
-p_reference=poly([1 2],'s') ;
+p_reference=poly([1 2],"s") ;
 assert_checkequal(p,p_reference);
 
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/polynomialscoef_v1.sod");
-q_reference=poly([1 42],'s','c');
+q_reference=poly([1 42],"s","c");
 assert_checkequal(q,q_reference);
 
 
@@ -67,18 +67,18 @@ assert_checkequal(sp,sp_reference);
 
 // List
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/list_v1.sod");
-assert_checkequal(ls,list(2,%i,'f',ones(3,3)));
+assert_checkequal(ls,list(2,%i,"f",ones(3,3)));
 ls(2) =  list( %t, [32,42]); // alter ls to add the list
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/listnested_v1.sod");
 assert_checkequal(lsnested,ls);
 
 // tlist
-lst_reference  =  tlist(['random numbers';'Name';'Example'], 'Uniform',ones(1,2, 3));
+lst_reference  =  tlist(["random numbers";"Name";"Example"], "Uniform",ones(1,2, 3));
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/tlist_v1.sod");
 assert_checkequal(lst,lst_reference);
 
 // mlist
-M_ref=mlist(['V','name','value'],['a','b';'c' 'd'],[1 2; 3 4]);
+M_ref=mlist(["V","name","value"],["a","b";"c" "d"],[1 2; 3 4]);
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/mlist_v1.sod");
 // Commented because of bug 9531
 //assert_checkequal(M_ref,M);
@@ -172,7 +172,7 @@ assert_checkequal(uint32matrix, uint32matrix_ref);
 
 
 // undefined
-undefinedelement_ref=list(2,%i,'f',ones(3,3));
+undefinedelement_ref=list(2,%i,"f",ones(3,3));
 undefinedelement_ref(6)="toto";
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/undefinedelement_v1.sod");
 assert_checkequal(undefinedelement, undefinedelement_ref);

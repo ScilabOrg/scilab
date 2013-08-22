@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 Scilab Enterprises <clement.david@scilab-enterprises.com>
+// Copyrigh (C) 2011 Scilab Enterprises <clement.david@scilab-enterprises.com>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // try to compile and link a superblock
 
-assert_checktrue(importXcosDiagram(SCI+'/modules/xcos/demos/Controller.zcos'));
+assert_checktrue(importXcosDiagram(SCI+"/modules/xcos/demos/Controller.zcos"));
 
 // getting the SUPER_f (System) block
 XX=scs_m.objs(11);

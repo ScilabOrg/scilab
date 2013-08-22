@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,20 +17,20 @@
 
 DIR_TST = TMPDIR + "/BUG_7779";
 mkdir(DIR_TST);
-f = ['function toto()'; 'disp(''hello'')'; 'endfunction'];
-mputl(f, DIR_TST + '/' + 'toto.sci');
+f = ["function toto()"; "disp(''hello'')"; "endfunction"];
+mputl(f, DIR_TST + "/" + "toto.sci");
 
 cd(DIR_TST);
-assert_checkequal(genlib('myLib'), %T);
+assert_checkequal(genlib("myLib"), %T);
 
-msgerr = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), 'genlib', 1);
+msgerr = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 1);
 assert_checkerror ("genlib(1)", msgerr);
 
-msgerr = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), 'genlib', 1);
+msgerr = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 1);
 assert_checkerror ("genlib([''myLib1'' ; ''myLib2''])", msgerr);
 
-msgerr = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), 'genlib', 2);
+msgerr = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 2);
 assert_checkerror ("genlib(''myLib'', 1)", msgerr);
 
-msgerr = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), 'genlib', 2);
+msgerr = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 2);
 assert_checkerror ("genlib(''myLib'', [''.'',''.''])", msgerr);

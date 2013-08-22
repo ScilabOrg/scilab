@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,9 +12,9 @@ delay = 5;
 j = 2;
 tic();
 while ( %t )
-  t = toc();
-  if ( t > delay ) then
-    break
-  end
-  j = j+1;
+    t = toc();
+    if ( t > delay ) then
+        break
+    end
+    j = j+1;
 end

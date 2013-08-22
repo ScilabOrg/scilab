@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Pierre Lando
+// Copyrigh (C) 2010 - DIGITEO - Pierre Lando
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -24,11 +24,11 @@ NbLig = 5;
 scf(1);clf;
 drawlater()
 for s = 1:NbCol
-  for n=1:NbLig
-    subplot(NbLig, NbCol, (n-1)*NbCol + s);
-    plot(T, sin(n.*T))
-    legend("x")
-  end    
-end 
+    for n=1:NbLig
+        subplot(NbLig, NbCol, (n-1)*NbCol + s);
+        plot(T, sin(n.*T))
+        legend("x")
+    end
+end
 drawnow()
 

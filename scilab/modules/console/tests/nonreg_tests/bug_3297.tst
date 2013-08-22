@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,6 +14,6 @@
 
 
 // <-- INTERACTIVE TEST -->
-// try : 
+// try :
 //get*<TAB>
 // it must return nothing

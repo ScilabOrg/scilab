@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - Calixte DENIZET
+// Copyrigh (C) 2011 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,8 +16,8 @@
 // <-- Short Description -->
 // A simple quoted string was not always correctly convert into double quoted one.
 
-mputl("''''''i''''''''m done dude''''''", TMPDIR + '/bug_9358.sce')
-scinotes(TMPDIR + '/bug_9358.sce');
+mputl("''''''i''''''''m done dude''''''", TMPDIR + "/bug_9358.sce")
+scinotes(TMPDIR + "/bug_9358.sce");
 
 // Menu Edition
 // Submenu "Single to double quote strings"

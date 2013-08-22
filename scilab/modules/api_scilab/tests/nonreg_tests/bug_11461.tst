@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Antoine ELIAS
+// Copyrigh (C) 2012 - Scilab Enterprises - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,7 +12,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=11461
 //
 // <-- Short Description -->
-//  
+//
 //  api_list was not able to create lists and sub lists with undefined items
 
 listRef = list();

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - Calixte DENIZET
+// Copyrigh (C) 2010 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //
 
 // the bug came from the use of emptystr() in %r_p.sci
-a='a';
+a="a";
 emptystr();
 s=size(emptystr(a));
 if s(2) ~= 1 then, pause, end

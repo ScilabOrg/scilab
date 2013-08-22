@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -13,7 +13,7 @@
 
 
 function [ y , index ] = myquad ( x , index )
-  y = x(1)^2 + x(2)^2
+    y = x(1)^2 + x(2)^2
 endfunction
 
 
@@ -35,20 +35,20 @@ endfunction
 // stop: set to true to stop algorithm
 //
 function stop = myoutputcmd ( state , data )
-  global _OUTPUCMDFLAG_
-  // Unload the array, just to make sure that the minimum is there
-  iter = data.iteration
-  fc = data.funccount
-  fval = data.fval
-  x = data.x
-  simplex = data.simplex
-  step = data.step
-  // Simplex is a data structure, which can be managed
-  // by the simplex class.
-  v = optimsimplex_dirmat ( simplex )
-  condv = cond ( v )
-  _OUTPUCMDFLAG_ = 1
-  stop = %f
+    global _OUTPUCMDFLAG_
+    // Unload the array, just to make sure that the minimum is there
+    iter = data.iteration
+    fc = data.funccount
+    fval = data.fval
+    x = data.x
+    simplex = data.simplex
+    step = data.step
+    // Simplex is a data structure, which can be managed
+    // by the simplex class.
+    v = optimsimplex_dirmat ( simplex )
+    condv = cond ( v )
+    _OUTPUCMDFLAG_ = 1
+    stop = %f
 endfunction
 
 
@@ -121,7 +121,7 @@ nm = neldermead_destroy(nm);
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -142,19 +142,19 @@ endfunction
 // stop: set to true to stop algorithm
 //
 function stop = myoutputcmd2 ( state , data , myobj )
-  global _OUTPUCMDFLAG_
-  // Unload the array, just to make sure that the minimum is there
-  iter = data.iteration
-  fc = data.funccount
-  fval = data.fval
-  x = data.x
-  simplex = data.simplex
-  // Simplex is a data structure, which can be managed
-  // by the simplex class.
-  v = optimsimplex_dirmat ( simplex )
-  condv = cond ( v )
-  _OUTPUCMDFLAG_ = myobj.myarg
-  stop = %f
+    global _OUTPUCMDFLAG_
+    // Unload the array, just to make sure that the minimum is there
+    iter = data.iteration
+    fc = data.funccount
+    fval = data.fval
+    x = data.x
+    simplex = data.simplex
+    // Simplex is a data structure, which can be managed
+    // by the simplex class.
+    v = optimsimplex_dirmat ( simplex )
+    condv = cond ( v )
+    _OUTPUCMDFLAG_ = myobj.myarg
+    stop = %f
 endfunction
 
 global _OUTPUCMDFLAG_;

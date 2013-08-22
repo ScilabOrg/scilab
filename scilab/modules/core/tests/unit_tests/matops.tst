@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
-// Copyright (C) 2008-2011 - DIGITEO
+// Copyrigh (C) ????-2008 - INRIA
+// Copyrigh (C) 2008-2011 - DIGITEO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -136,7 +136,7 @@ A = rand(6, 4, 2, 8);
 assert_checkequal(S(:,:,1), A(:,:,1));
 
 function [a,b]=toto()
-a=2;b=5;
+    a=2;b=5;
 endfunction
 [t(1,3), g(2,1)] = toto();
 assert_checkequal(t,[0,0,2]);

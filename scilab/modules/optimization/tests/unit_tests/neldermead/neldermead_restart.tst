@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -14,7 +14,7 @@
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 
@@ -42,8 +42,8 @@ nm = neldermead_restart(nm);
 assert_checktrue(neldermead_get(nm,"-iterations")>10);
 nm = neldermead_destroy(nm);
 
-function [ f , index ] = objfun ( x , index ) 
-  f = exp(x(1))*(4*x(1)^2+2*x(2)^2+x(1)*x(2)+2*x(2));
+function [ f , index ] = objfun ( x , index )
+    f = exp(x(1))*(4*x(1)^2+2*x(2)^2+x(1)*x(2)+2*x(2));
 endfunction
 xopt = [4/31;-33/62];
 fopt = -%e^(4/31)/2;

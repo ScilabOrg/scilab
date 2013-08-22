@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=575
 //
 // <-- Short Description -->
-//    [m(1),n(1)]=max([1,3,1]) is not possible. 
+//    [m(1),n(1)]=max([1,3,1]) is not possible.
 //    But this commande is possible :
 //    m(1)=max([1,3,1])
 //     m  =

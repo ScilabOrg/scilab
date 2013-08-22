@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2009 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,6 +21,6 @@
 // Rotate it (Ctrl-R)
 // Copy (Ctrl-C)
 // Paste (Ctrl-V)
-// Check that the ports and block representation are the same between the 
+// Check that the ports and block representation are the same between the
 // first and the pasted one.
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -86,17 +86,17 @@ removedir(test_7_dir);
 
 // TEST : error messages
 try
-  mkdir([])
+    mkdir([])
 catch
-  [str,n]=lasterror();
-  if n <> 999 then pause, end
-  if str <> msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"), "mkdir", 1) then pause, end
+    [str,n]=lasterror();
+    if n <> 999 then pause, end
+    if str <> msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"), "mkdir", 1) then pause, end
 end
 
 try
-  mkdir(["a", "b"])
+    mkdir(["a", "b"])
 catch
-  [str,n]=lasterror();
-  if n <> 999 then pause, end
-  if str <> msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "mkdir", 1) then pause, end
+    [str,n]=lasterror();
+    if n <> 999 then pause, end
+    if str <> msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "mkdir", 1) then pause, end
 end

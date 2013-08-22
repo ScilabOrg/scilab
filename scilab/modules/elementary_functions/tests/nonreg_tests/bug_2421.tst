@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,4 +16,4 @@
 //    colon (all elements) assignment from output arguments of a function beyond the
 //    first not possible
 
-if execstr('[a(:), v(1)] = (1, 2)','errcatch')<>0 then pause,end
+if execstr("[a(:), v(1)] = (1, 2)","errcatch")<>0 then pause,end

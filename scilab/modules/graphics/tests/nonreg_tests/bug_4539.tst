@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - Digiteo - Yann Collette
+// Copyrigh (C) 2009 - Digiteo - Yann Collette
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Some optional parameters were not set in some case
-// 
+//
 
 A=rand(10,10);
 b=[linspace(1,10,11)];

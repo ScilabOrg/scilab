@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) Scilab Enterprises - 2012 - Clément DAVID
+// Copyrigh (C) Scilab Enterprises - 2012 - Clément DAVID
 //
 // This file is distributed under the same license as the Scilab package.
 

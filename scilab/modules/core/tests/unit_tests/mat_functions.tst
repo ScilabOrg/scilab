@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,9 +27,9 @@ assert_checktrue(norm(logm(s)-tc,1)< 500*%eps);
 assert_checktrue(norm(sinm(t)**2+cosm(t)**2-eye(),1) < 50*%eps);
 assert_checktrue(norm(sinm(tc)**2+cosm(tc)**2-eye(),1) < 50*%eps);
 //poly and root
-p=rand(5,1);pc=p+i*rand(5,1);x=poly(0,'x');
-assert_checktrue(norm(gsort(p )-gsort(real(roots(poly(p,'x'))))) < 1000*%eps);
-assert_checktrue(norm(gsort(imag(pc))-gsort(real(roots(poly(imag(pc),'x'))))) < 10000*%eps);
+p=rand(5,1);pc=p+i*rand(5,1);x=poly(0,"x");
+assert_checktrue(norm(gsort(p )-gsort(real(roots(poly(p,"x"))))) < 1000*%eps);
+assert_checktrue(norm(gsort(imag(pc))-gsort(real(roots(poly(imag(pc),"x"))))) < 10000*%eps);
 //**
 assert_checktrue(norm(t^(-1)-inv(t),1) < 200*%eps);
 assert_checktrue(norm(tc**(-1)-inv(tc),1) < 200*%eps);
@@ -47,38 +47,38 @@ assert_checktrue(norm(cos(x)-(exp(i*x)+exp(-i*x))/2,1) < 10*%eps);
 assert_checktrue(norm(sqrt(x)^2-x,1) < 10*%eps);
 assert_checktrue(norm(log(exp(x))-x,1) < 10*%eps);
 // triu
-z=poly(0,'z');a=[z 1 -z+1  8;z*z 10*z 5 -z;3 7 z+1 -1-z];
+z=poly(0,"z");a=[z 1 -z+1  8;z*z 10*z 5 -z;3 7 z+1 -1-z];
 [m,n]=size(a);mn=min([m n]);a1=a;l=1;
 //
 for dg=-(m-1):0,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
 for dg=1:n,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
 //
 a=a';a1=a;[m,n]=size(a);mn=min([m,n]);l=1;
 for dg=-(m-1):0,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
 for dg=1:n,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
 //
 a=a+%i*[1 2 3 4;5 6 7 8;9 10 11 12]';
 [m,n]=size(a);mn=min([m n]);a1=a;l=1;
 //
 for dg=-(m-1):0,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
 for dg=1:n,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
 //
 a=a';a1=a;[m,n]=size(a);mn=min([m,n]);l=1;
 for dg=-(m-1):0,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+for k=1:l,a1(-dg+k,k)=0;end,l=min([l+1,mn]);end
 for dg=1:n,
-   assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
-   if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;
+    assert_checktrue(norm(coeff(triu(a,dg)-a1),1)<%eps);
+if dg>(n-m),l=l-1;end;for k=1:l,a1(k,dg+k)=0;end;end;

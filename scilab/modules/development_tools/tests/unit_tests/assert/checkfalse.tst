@@ -1,5 +1,5 @@
-// Copyright (C) 2008 - INRIA - Michael Baudin
-// Copyright (C) 2010 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008 - INRIA - Michael Baudin
+// Copyrigh (C) 2010 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,20 +11,20 @@
 // <-- ENGLISH IMPOSED -->
 
 function flag = MY_assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if computed==expected then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 function checkassert ( flag , errmsg , ctype )
-  if ( ctype == "success" ) then
-    MY_assert_equal ( (flag==%t) & (errmsg==""), %t )
-  else
-    MY_assert_equal ( (flag==%f) & (errmsg<>""), %t )
-  end
+    if ( ctype == "success" ) then
+        MY_assert_equal ( (flag==%t) & (errmsg==""), %t )
+    else
+        MY_assert_equal ( (flag==%f) & (errmsg<>""), %t )
+    end
 endfunction
 
 format("v",10);

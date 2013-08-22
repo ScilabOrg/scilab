@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - Vincent COUVERT
+// Copyrigh (C) 2010 - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,8 +15,8 @@
 // The font attributes (FontName, FontSize, FontWeight) are no more taken into account for "text" uicontrols.
 
 h = uicontrol("Style", "text", ..
-    "String", "Bug 8134", ..
-    "Position", [100 100 300 200]);
+"String", "Bug 8134", ..
+"Position", [100 100 300 200]);
 
 // Change the font size and check it is taken into account
 h.fontname = "Times";

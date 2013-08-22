@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -39,11 +39,11 @@
 
 // rechercher l'existance du r�pertoire tcl sous Scilab
 
-tcl_dir = getenv('SCI')+"/modules/tclsci/tcl";
+tcl_dir = getenv("SCI")+"/modules/tclsci/tcl";
 if ~(isdir(tcl_dir)) then pause,end
 
-if isdir(tcl_dir) & (getos() == 'Windows') then
-	// si oui rechercher l'existance du fichier init.tcl sous un repertoire de tcl
-	tcl_list = basename(listfiles(listfiles(tcl_dir+"/tcl*")+"/init.*"));
-	if (grep ( tcl_list , "init") == []) & ( grep ( tcl_list , "INIT") == []) then pause,end
+if isdir(tcl_dir) & (getos() == "Windows") then
+    // si oui rechercher l'existance du fichier init.tcl sous un repertoire de tcl
+    tcl_list = basename(listfiles(listfiles(tcl_dir+"/tcl*")+"/init.*"));
+    if (grep ( tcl_list , "init") == []) & ( grep ( tcl_list , "INIT") == []) then pause,end
 end // du if

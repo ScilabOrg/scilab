@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clément DAVID
-// Copyright (C) 2010 - Scilab Enterprises - Clément DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2010 - Scilab Enterprises - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,7 +21,7 @@
 
 global Result;Result=[];
 
-importXcosDiagram('SCI/modules/xcos/tests/nonreg_tests/bug_8480.zcos');
+importXcosDiagram("SCI/modules/xcos/tests/nonreg_tests/bug_8480.zcos");
 
 Info=scicos_simulate(scs_m,list());
 if isempty(Result) then pause,end

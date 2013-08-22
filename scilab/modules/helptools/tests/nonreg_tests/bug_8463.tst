@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,7 +25,7 @@ r2 = xmltopdf([], [], "pt_BR");
 info2 = fileinfo(r2);
 if info2(1) < 10000000 then pause, end
 
-// opens files and check that they are VALID !!! 
+// opens files and check that they are VALID !!!
 
 
 

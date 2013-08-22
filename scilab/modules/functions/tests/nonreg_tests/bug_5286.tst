@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,6 +15,6 @@
 // <-- Short Description -->
 // calling the 'lib' function with the wrong path makes scilab hangs on Mandriva 64
 // =============================================================================
-ierr = execstr('lib(''test'');','errcatch');
+ierr = execstr("lib(''test'');","errcatch");
 if ierr <> 241 then pause,end
 // =============================================================================

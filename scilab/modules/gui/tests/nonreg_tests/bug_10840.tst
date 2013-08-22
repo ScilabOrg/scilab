@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Vincent COUVERT
+// Copyrigh (C) 2012 - Scilab Enterprises - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,20 +17,20 @@
 
 f = gcf();
 editH = uicontrol("Parent", f, ..
-        "Style", "edit", ..
-        "Position", [60 36 50 16], ..
-        "String", "500", ..
-        "Backgroundcolor", [1 1 1], ..
-        "Tag", "edit");
+"Style", "edit", ..
+"Position", [60 36 50 16], ..
+"String", "500", ..
+"Backgroundcolor", [1 1 1], ..
+"Tag", "edit");
 
 sliderH = uicontrol("Parent", f, ..
-        "Style", "slider", ..
-        "Position", [10 8 200 20], ..
-        "Value", 500, ..
-        "Min", 0, ..
-        "Max", 1000, ..
-        "Tag", "slider", ..
-        "Callback", "cbSlider");
+"Style", "slider", ..
+"Position", [10 8 200 20], ..
+"Value", 500, ..
+"Min", 0, ..
+"Max", 1000, ..
+"Tag", "slider", ..
+"Callback", "cbSlider");
 
 function cbSlider()
     s = findobj("Tag", "slider");

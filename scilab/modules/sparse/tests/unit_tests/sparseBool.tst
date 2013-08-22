@@ -1,7 +1,7 @@
 //
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Antoine ELIAS
-// Copyright (C) 2012 - Scilab Enterprises - Cedric Delamarre
+// Copyrigh (C) 2012 - DIGITEO - Antoine ELIAS
+// Copyrigh (C) 2012 - Scilab Enterprises - Cedric Delamarre
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -16,12 +16,12 @@
 
 //from dense form
 s=[ %t,%f,%f,%f,%f,%f,%f;
-    %f,%t,%f,%f,%f,%f,%f;
-    %f,%f,%t,%f,%f,%f,%f;
-    %f,%f,%t,%t,%f,%f,%f;
-    %f,%f,%t,%t,%t,%f,%f;
-    %f,%f,%t,%t,%f,%t,%f;
-    %f,%f,%t,%t,%f,%t,%t];
+%f,%t,%f,%f,%f,%f,%f;
+%f,%f,%t,%f,%f,%f,%f;
+%f,%f,%t,%t,%f,%f,%f;
+%f,%f,%t,%t,%t,%f,%f;
+%f,%f,%t,%t,%f,%t,%f;
+%f,%f,%t,%t,%f,%t,%t];
 
 
 sp=sparse(s);
@@ -73,7 +73,7 @@ A = [A %f];
 A = [A %f];
 
 assert_checkequal(full(A), [%t %f %f %f]);
-assert_checkequal(size(A, 'c'), 4);
+assert_checkequal(size(A, "c"), 4);
 
 //extraction
 assert_checkequal(full(sp(:)), s(:));

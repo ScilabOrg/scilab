@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - Calixte DENIZET
+// Copyrigh (C) 2011 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,4 +21,4 @@ scinotes();
 // F3 to start an Incremental Search.
 // ctrl+G to have the Code Navigator.
 // Dock the Code Navigator, undock it
-// In the two previous cases the Search bar must stay at its place. 
+// In the two previous cases the Search bar must stay at its place.

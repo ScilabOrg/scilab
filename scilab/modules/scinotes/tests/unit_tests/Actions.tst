@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - Calixte DENIZET
+// Copyrigh (C) 2011 - Calixte DENIZET
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -9,26 +9,26 @@
 
 f=TMPDIR + "/file_to_correct.sci";
 mputl(["a=''abcdef''									";
-       "if a==1";
-       "   b=1+""abcdef''         ";
-       "   			c=2";
-       " d=3			";
-       "					        if		                 		";
-       "a=''abcdef""""""";
-       "           end";
-       "				end              "], f);
+"if a==1";
+"   b=1+""abcdef''         ";
+"   			c=2";
+" d=3			";
+"					        if		                 		";
+"a=''abcdef""""""";
+"           end";
+"				end              "], f);
 
 scinotes(f, ["indent" "trailing" "quote"]);
 
 good = ["a=""abcdef""";
-        "if a==1";
-	"    b=1+""abcdef""";
-	"    c=2";
-	"    d=3";
-	"    if";
-	"        a=""abcdef""""""";
-	"    end";
-	"end"]
+"if a==1";
+"    b=1+""abcdef""";
+"    c=2";
+"    d=3";
+"    if";
+"        a=""abcdef""""""";
+"    end";
+"end"]
 
 corrected = mgetl(f);
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,7 +21,7 @@ T=%s([1 1],[1 1],[1 1]) ;
 if or(T(:,:,1)<>[%s %s;%s %s]) then pause,end
 if or(T(:,:,2)<>[%s %s;%s %s]) then pause,end
 
-t='x';
+t="x";
 T=t([1 1],[1 1],[1 1]) ;
 if or(T(:,:,1)<>[t t;t t]) then pause,end
 if or(T(:,:,2)<>[t t;t t]) then pause,end

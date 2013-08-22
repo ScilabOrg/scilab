@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2008-2008 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,10 +14,9 @@
 //
 // <-- Short Description -->
 // Error message when we want to see a figure which has as userdata a structure (struct).
-// 
+//
 
 userdata = struct("dd",2);
 h=figure();
 set(h,"user_data",userdata);
 if execstr("disp(h.user_data)","errcatch")<>0 then pause; end
-    

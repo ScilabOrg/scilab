@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,8 +25,8 @@
 my_dir          = pathconvert(TMPDIR+"/bug_1966",%F,%F);
 my_file         = pathconvert(my_dir+"/bug_1966_tst.sci",%F,%F);
 my_function_str = ["function c=bug_1966_tst(a,b)"; ..
-                   "  c = a + b;"; ..
-                   "endfunction"];
+"  c = a + b;"; ..
+"endfunction"];
 
 mkdir(my_dir);
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,9 +17,9 @@
 //  It shift x (horizontal) axis for one decade in right. So the bode plot is incorect.
 
 // create a linerar system
-s=poly(0,'s')
-h=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01))
-my_title='(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01)';
+s=poly(0,"s")
+h=syslin("c",(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01))
+my_title="(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01)";
 
 // draw the bode plot between fmin and fmax
 fmin = 0.01;

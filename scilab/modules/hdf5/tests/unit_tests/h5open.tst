@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+// Copyrigh (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,15 +13,15 @@ msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: A string expec
 assert_checkerror("h5open(42)",msgerr,999);
 
 a = h5open(TMPDIR + "/x.sod");
-assert_checkequal(a.root.Name,'/')
+assert_checkequal(a.root.Name,"/")
 h5close(a);
 x = 1:10;
 save(TMPDIR + "/x.sod", "x");
 b = h5open(TMPDIR + "/x.sod");
-assert_checkequal(b.root.Datasets,'x');
+assert_checkequal(b.root.Datasets,"x");
 h5close(b);
 a = h5open(TMPDIR + "/y.tst");
-assert_checkequal(a.root.Name,'/');
+assert_checkequal(a.root.Name,"/");
 h5write(a,"Dset_1",[1 2;3 4]);
 h5close(a);
 

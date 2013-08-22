@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer
+// Copyrigh (C) 2010 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,19 +15,19 @@
 // <-- Short Description -->
 // "resume" inside an exec crashes Scilab + "resume" restriction of use removed
 
-  //the following instructions has to be copied/pasted in the Scilab console 
-  clear aa bb  foo
-  pause
-  [aa,bb] = resume(1.1,2.2);
-  if aa<>1.1|bb<>2.2 then pause,end
+//the following instructions has to be copied/pasted in the Scilab console
+clear aa bb  foo
+pause
+[aa,bb] = resume(1.1,2.2);
+if aa<>1.1|bb<>2.2 then pause,end
 
-  
-  deff("y=foo()","y=0;pause","n")
-  if foo()<>3 then pause,end
-  y=resume(3);
-  
-  clear foo
-  deff("y=foo()","y=0;pause")
-  if foo()<>3 then pause,end
-  y=resume(3);
-  
+
+deff("y=foo()","y=0;pause","n")
+if foo()<>3 then pause,end
+y=resume(3);
+
+clear foo
+deff("y=foo()","y=0;pause")
+if foo()<>3 then pause,end
+y=resume(3);
+

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - S/E - Sylvestre Ledru
+// Copyrigh (C) 2013 - S/E - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,7 +19,7 @@
 
 lines(0);
 function a=g(arg1)
- a=arg1*arg1;
+    a=arg1*arg1;
 endfunction
 res=parallel_run(1:24, g);
 assert_checkequal(res, [1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,441,484,529,576]);

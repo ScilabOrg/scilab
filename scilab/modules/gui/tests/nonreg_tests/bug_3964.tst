@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,9 +18,9 @@
 
 // try all lines
 
-uigetfile(["*.bin","BIN files"],"SCI/modules/gui/macros/") 
+uigetfile(["*.bin","BIN files"],"SCI/modules/gui/macros/")
 
-uigetfile(["*.bin";"*.sce";"*.cos*"]) 
+uigetfile(["*.bin";"*.sce";"*.cos*"])
 
 uigetfile(["*.sci";"*.bin"],"SCI/modules/gui/macros/")
 

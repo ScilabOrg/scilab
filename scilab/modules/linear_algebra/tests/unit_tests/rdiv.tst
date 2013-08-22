@@ -1,23 +1,23 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA Michael Baudin
+// Copyrigh (C) ????-2008 - INRIA Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x),r=norm(x,1),endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================    /         ============================== 
+//==============================    /         ==============================
 //==========================================================================
 //function x=rdiv(A,B),x=slash(A,B),endfunction
 function x=rdiv(A,B),x=A/B,endfunction
 //scalar division
-  
+
 //-----Square matrix-----
 n=5;  A=rand(n,n);b=rand(2,n+1);
 if rdiv([],A) <>[] then pause,end
-if execstr('rdiv(b,A)','errcatch')==0 then pause,end
+if execstr("rdiv(b,A)","errcatch")==0 then pause,end
 //Small dimensions real
 n=5;
 b=rand(2,n);A=rand(n,n);
@@ -57,7 +57,7 @@ if Err(x*A-b)>10000*%eps then pause,end
 //-----Rectangular matrix-----
 n=5;m=3; A=rand(m,n);b=rand(2,n+1);
 if rdiv([],A) <>[] then pause,end
-if execstr('rdiv(b,A)','errcatch')==0 then pause,end
+if execstr("rdiv(b,A)","errcatch")==0 then pause,end
 
 //Small dimensions real
 n=5;m=3;

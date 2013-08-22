@@ -1,13 +1,13 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO
+// Copyrigh (C) 2009 - DIGITEO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- CLI SHELL MODE -->
 
 
-s=poly(0,'s');
+s=poly(0,"s");
 z = s^0;
 h=1/(2*s);
 assert_checkequal(size(h), [1 1]);

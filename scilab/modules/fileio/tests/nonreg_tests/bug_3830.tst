@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 
 ref = [194,176];
 fd = mopen(TMPDIR + "/toto","wb");
-mput(ref, 'uc', fd);
+mput(ref, "uc", fd);
 mclose(fd);
 fd = mopen(TMPDIR + "/toto", "rb");
-res = mget(2,'uc',fd);
+res = mget(2,"uc",fd);
 if or(ref<>res) then pause,end

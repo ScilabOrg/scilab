@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,9 +19,9 @@
 //   A work-around of this bug, is to use 'dos2unix' on Linux to convert the file.
 
 mat_ref = [ ..
-    0.15    0.19    0.96 ;
-    0.55    0.81    0.57 ;
-    0.28    0.33    0.43 ];
+0.15    0.19    0.96 ;
+0.55    0.81    0.57 ;
+0.28    0.33    0.43 ];
 
 mat = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_1526.mat")
 

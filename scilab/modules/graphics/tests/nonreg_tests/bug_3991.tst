@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // It is not possible to set a font_style greater than 10 even if one has added a new font using xlfont.
-// 
+//
 
 font_list = xlfont();
 

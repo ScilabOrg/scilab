@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - Calixte DENIZET
+// Copyrigh (C) 2010 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,16 +18,16 @@
 
 tmpfile = TMPDIR + "/macroscreen.sci";
 mputl(["function mymacro()"
-       "// Performs stuff."
-       "//"
-       "// Description"
-       "// The following is a stuff:"
-       "//"
-       "//  <unknownTag>"
-       "//  foo"
-       "//  </unknownTag>"
-       "//"
-       "endfunction"], tmpfile);
+"// Performs stuff."
+"//"
+"// Description"
+"// The following is a stuff:"
+"//"
+"//  <unknownTag>"
+"//  foo"
+"//  </unknownTag>"
+"//"
+"endfunction"], tmpfile);
 cd(TMPDIR);
 [helptxt,demotxt]=help_from_sci("macroscreen");
 testdir = fullfile(TMPDIR,"screendir");

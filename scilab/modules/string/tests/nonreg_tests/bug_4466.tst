@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - INRIA - Serge Steer
+// Copyrigh (C) 2009 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,6 +15,6 @@
 // <-- Short Description -->
 //   The .' operator is undefined for character string and boolean data types.
 
-M=['aa','bcd'];
-if or(M.'<>['aa';'bcd']) then pause,end
+M=["aa","bcd"];
+if or(M.'<>["aa";"bcd"]) then pause,end
 

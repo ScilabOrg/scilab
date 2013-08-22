@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2010 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,12 +20,12 @@ loadmatfile("SCI/modules/matio/tests/nonreg_tests/bug_3780.txt", "-ascii");
 
 if ~exists("bug_3780", "local") then pause;end
 refvalue = [0,1,2,3,4;
-	10,11,12,13,14;
-	20,21,22,23,24;
-	30,31,32,33,34;
-	40,41,42,43,44;
-	50,51,52,53,54;
-	30,61,62,63,64];
+10,11,12,13,14;
+20,21,22,23,24;
+30,31,32,33,34;
+40,41,42,43,44;
+50,51,52,53,54;
+30,61,62,63,64];
 if or(bug_3780<>refvalue) then pause;end
 
 clear bug_3780

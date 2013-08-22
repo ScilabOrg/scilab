@@ -1,4 +1,4 @@
-// Copyright (C) 2009 - 2010 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2009 - 2010 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,12 +11,12 @@
 // <-- ENGLISH IMPOSED -->
 
 function flag = MY_assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if computed==expected then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 instr = "assert_generror ( ""oups"" )";

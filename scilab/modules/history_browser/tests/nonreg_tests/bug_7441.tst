@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -30,13 +30,13 @@ exit
 
 
 // on windows,
-setdefaultlanguage('en')
+setdefaultlanguage("en")
 1+1
 2
 exit
 
 // restart scilab in STD mode
-setdefaultlanguage('fr')
+setdefaultlanguage("fr")
 1+1
 2
 exit

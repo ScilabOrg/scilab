@@ -1,8 +1,8 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Sylvestre Ledru
-// Copyright (C) 2013 - Michaël Baudin
-// Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2013 - Scilab Enterprises - Sylvestre Ledru
+// Copyrigh (C) 2013 - Michaël Baudin
+// Copyrigh (C) 2013 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,14 +22,14 @@ n=9;
 A = testmatrix("hilb",n);
 b=ones(n,1);
 xexpected=[7129/2520
-           4861/2520
-           42131/27720
-           35201/27720
-           395243/360360
-           348911/360360
-           62575/72072
-           113567/144144
-           1768477/2450448];
+4861/2520
+42131/27720
+35201/27720
+395243/360360
+348911/360360
+62575/72072
+113567/144144
+1768477/2450448];
 x=A\b;
 assert_checkalmostequal(x, xexpected, [], 1e-6);
 
@@ -42,14 +42,14 @@ assert_checkalmostequal(xc, xcexpected, [], 1e-5);
 
 b=(1:n)';
 xexpected=[9;
-           17819/2520;
-           82609/13860;
-           47959/9240;
-           415567/90090;
-           299737/72072;
-           45533/12012;
-           71761/20592;
-           988277/306306];
+17819/2520;
+82609/13860;
+47959/9240;
+415567/90090;
+299737/72072;
+45533/12012;
+71761/20592;
+988277/306306];
 x=A\b;
 assert_checkalmostequal(x, xexpected, [], 1e-5);
 Ac=complex(A,zeros(A));
@@ -60,14 +60,14 @@ assert_checkalmostequal(xc, xcexpected, [], 1e-5);
 
 b=[1;-1;1;-1;1;-1;1;-1;1];
 xexpected=[1879/2520;
-           893/2520;
-           6557/27720;
-           4993/27720;
-           52901/360360;
-           44911/360360;
-           39173/360360;
-           69659/720720;
-           1068047/12252240];
+893/2520;
+6557/27720;
+4993/27720;
+52901/360360;
+44911/360360;
+39173/360360;
+69659/720720;
+1068047/12252240];
 x=A\b;
 assert_checkalmostequal(x, xexpected, [], 1e-7);
 Ac=complex(A,zeros(A));

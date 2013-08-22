@@ -1,6 +1,6 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyrigh (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -10,10 +10,10 @@
 
 // <-- CLI SHELL MODE -->
 
-deff('y=test_func(x)','y=x^2');
+deff("y=test_func(x)","y=x^2");
 
 ga_params = init_param();
-ga_params = add_param(ga_params,'dimension',1);
+ga_params = add_param(ga_params,"dimension",1);
 
 [pop_opt, fobj_pop_opt, pop_init, fobj_pop_init] = optim_ga(test_func, 50, 10, 0.1, 0.7, %F, ga_params);
 

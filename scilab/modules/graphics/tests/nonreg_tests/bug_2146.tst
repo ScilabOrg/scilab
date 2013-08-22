@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // Plot of large data feezes Scilab
 
 // should not freeze Scilab
-t=1:100000;y=sin(t./10);plot(y) 
+t=1:100000;y=sin(t./10);plot(y)
 
 
 

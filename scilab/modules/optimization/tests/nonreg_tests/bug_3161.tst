@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -26,8 +26,8 @@ Z=[Y;X];
 
 //The criterion function
 function e=G(p,z)
-   y=z(1),x=z(2);
-   e=y-FF(x,p);
+    y=z(1),x=z(2);
+    e=y-FF(x,p);
 endfunction
 
 //Solve the problem

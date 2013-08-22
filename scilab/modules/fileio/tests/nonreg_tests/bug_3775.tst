@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,10 +18,10 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3775
 //
 
-a=mopen(TMPDIR+'test.sce','wt');
-path_returned = get_absolute_file_path('test.sce');
+a=mopen(TMPDIR+"test.sce","wt");
+path_returned = get_absolute_file_path("test.sce");
 if (path_returned <> TMPDIR) then pause,end
 mclose(a);
 
-ierr = execstr('path_returned = get_absolute_file_path(''test.sce'');','errcatch');
+ierr = execstr("path_returned = get_absolute_file_path(''test.sce'');","errcatch");
 if ierr <> 999 then pause,end

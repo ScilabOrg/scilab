@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Bruno JOFRET
+// Copyrigh (C) 2013 - Scilab Enterprises - Bruno JOFRET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,7 +8,7 @@
 // <-- CLI SHELL MODE -->
 
 
-s=poly(0,'s');
+s=poly(0,"s");
 p=[s,s*(s+1)^2,s^2*(s+2)];
 [pp,fact]=lcm(p);
 

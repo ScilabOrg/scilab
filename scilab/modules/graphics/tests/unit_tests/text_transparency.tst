@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
+// Copyrigh (C) 2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -30,7 +30,7 @@ a.view = "3d";
 
 // check that text is transparent
 for i = 1:360,
-  a.rotation_angles(2) = i;
+    a.rotation_angles(2) = i;
 end
 
 

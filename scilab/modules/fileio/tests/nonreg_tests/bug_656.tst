@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,9 +18,9 @@
 //    isdir(getenv('SCI'))
 //    isdir(getenv('SCI')+"/")
 //
-//    True for Linux, the first one is True for Windows and False 
+//    True for Linux, the first one is True for Windows and False
 //    for the second one
 
-if ~isdir(getenv('SCI'))                            then pause,end
-if ~isdir(getenv('SCI')+"/")                        then pause,end
-if isdir(getenv('SCI')) <> isdir(getenv('SCI')+"/") then pause,end
+if ~isdir(getenv("SCI"))                            then pause,end
+if ~isdir(getenv("SCI")+"/")                        then pause,end
+if isdir(getenv("SCI")) <> isdir(getenv("SCI")+"/") then pause,end

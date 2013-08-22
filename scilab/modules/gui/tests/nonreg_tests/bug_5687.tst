@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Pierre LANDO
+// Copyrigh (C) 2010 - DIGITEO - Pierre LANDO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,4 +20,4 @@
 // Try this code and see if the title is changed instantly
 
 f = gcf();
-f.figure_name = 'Windows title test';
+f.figure_name = "Windows title test";

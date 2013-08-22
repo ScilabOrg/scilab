@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // The demo "Surface with hole 1" is not colorized (just blue, not multi-colored as in Scilab 4.1.2)
-// 
+//
 
 t     = linspace(-%pi,%pi,40);
 z     = sin(t)'*cos(t);

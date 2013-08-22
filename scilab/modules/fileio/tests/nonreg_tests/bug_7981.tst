@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,12 +17,12 @@
 //
 
 cd TMPDIR;
-specialName = '中文';
-dirName     = 'dir_'+specialName;
-fileName    = 'file_'+specialName;
-fileWithExt = 'file_'+specialName+'.ext';
+specialName = "中文";
+dirName     = "dir_"+specialName;
+fileName    = "file_"+specialName;
+fileWithExt = "file_"+specialName+".ext";
 
-mputl([specialName+'1';specialName+'2'],fileName);
+mputl([specialName+"1";specialName+"2"],fileName);
 
 if copyfile(fileName, fileWithExt) == 0 then pause,end;
 if (fileinfo(fileWithExt) == []) then pause, end

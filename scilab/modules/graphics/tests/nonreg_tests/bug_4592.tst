@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2009 - INRIA - Serge.Steer@inria.fr
+// Copyrigh (C) ????-2009 - INRIA - Serge.Steer@inria.fr
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,6 +18,6 @@
 
 f=scf(0);clf()
 xpoly([0 1],[0 1])
-addmenu(0,'foo')
+addmenu(0,"foo")
 
-mprintf('Activate the ""EDIT/Start entity picker"" then click on the line')
+mprintf("Activate the ""EDIT/Start entity picker"" then click on the line")

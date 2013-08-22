@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Graphic demos launched using functions without arguments (such as plot3d()) may modify variables.
-// 
+//
 
 f = gdf();
 backupF = f;

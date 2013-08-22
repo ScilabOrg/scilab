@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Simon MARCHETTO
+// Copyrigh (C) 2012 - Scilab Enterprises - Simon MARCHETTO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 
 createNode = 1;
 
-r = completion('createn');
-assert_checkequal(r, 'createNode');
+r = completion("createn");
+assert_checkequal(r, "createNode");
 
-r = completion('CREATEN');
-assert_checkequal(r, 'createNode');
+r = completion("CREATEN");
+assert_checkequal(r, "createNode");

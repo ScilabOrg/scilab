@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -41,24 +41,24 @@ old=stacksize();
 stacksize(180000);
 
 //should evaluate
-ierr=execstr('s=0;for k=1:200000,s=s+1;end','errcatch');
+ierr=execstr("s=0;for k=1:200000,s=s+1;end","errcatch");
 if ierr<>0   then pause,end
 if s<>200000 then pause,end
 
 //should produce a stacksize error
-ierr=execstr('s=0;for k=(1:200000)+1,s=s+1;end','errcatch');
+ierr=execstr("s=0;for k=(1:200000)+1,s=s+1;end","errcatch");
 if ierr<>17 then pause,end
 
-ierr=execstr('s=0;for k=[(1:200000) 1],s=s+1;end','errcatch');
+ierr=execstr("s=0;for k=[(1:200000) 1],s=s+1;end","errcatch");
 if ierr<>17 then pause,end
 
 function s=foo4(),s=0;for k=1:200000,s=s+1;end,endfunction
-ierr=execstr('s=foo4();','errcatch');
+ierr=execstr("s=foo4();","errcatch");
 if ierr<>0   then pause,end
 if s<>200000 then pause,end
 
 function s=foo5(),s=0;for k=1+(1:200000),s=s+1;end,endfunction
-ierr=execstr('s=foo5();','errcatch');
+ierr=execstr("s=foo5();","errcatch");
 if ierr<>17 then pause,end
 
 stacksize(old(1))

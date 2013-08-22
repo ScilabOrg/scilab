@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
+// Copyrigh (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,13 +18,13 @@
 x=linspace(0,1,100)';
 y=x.^3;
 clf();
-plot(x,x.^3,'b',x,x.^2,'r');
+plot(x,x.^3,"b",x,x.^2,"r");
 e=gce();e=e.children;
 datatipCreate(e(1),50);
 datatipCreate(e(2),20);
 datatipRemoveAll(e);
 
-plot(x,x.^3,'b',x,x.^2,'r');
+plot(x,x.^3,"b",x,x.^2,"r");
 e=gce();e=e.children;
 datatipCreate(e(1),50);
 datatipCreate(e(2),20);

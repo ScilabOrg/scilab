@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,4 +13,4 @@
 // <-- Short Description -->
 //A permanent variable   'L' is defined when launching scilab with the '-l' option.
 
-if isdef('L') then pause,end
+if isdef("L") then pause,end

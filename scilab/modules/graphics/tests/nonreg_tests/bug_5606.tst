@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Manuel Juliachs
+// Copyrigh (C) 2010 - DIGITEO - Manuel Juliachs
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 // User-defined ticks labels are misaligned for a bottom-positioned x-axis
-// 
+//
 
 f=scf();
 a=gca();

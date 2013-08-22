@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // chdir seems to have problems with directory names containing nordic characters like æ ø and å.
 
-newdir = TMPDIR + filesep() +'æøå_dir';
+newdir = TMPDIR + filesep() +"æøå_dir";
 r = removedir(newdir);
 if r <> %f then pause,end
 

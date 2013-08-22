@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan SIMON
+// Copyrigh (C) 2009 - DIGITEO - Allan SIMON
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //   editor "block" scilab with example
 
 cd SCI/modules/overloading/macros
-a=ls('*.sci')
+a=ls("*.sci")
 size(a)
 editor(a)
 // all the files should open normally

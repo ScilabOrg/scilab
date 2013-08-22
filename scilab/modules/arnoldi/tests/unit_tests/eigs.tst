@@ -1,13 +1,13 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for eigs function 
+// unit tests for eigs function
 // =============================================================================
 
 // Interface
@@ -195,7 +195,7 @@ assert_checkfalse(execstr("eigs(sparse(A), [], 4, %f)", "errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong type for input argument #%d: a real scalar or a string expected.\n"), "eigs", 4);
 assert_checkerror("eigs(sparse(A), [], 4, %f)", refMsg);
 
-which = 'ahh';
+which = "ahh";
 assert_checkfalse(execstr("eigs(A, [], 4, which)", "errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Unrecognized sigma value.\n Sigma must be one of ''%s'', ''%s'', ''%s'', ''%s'' or ''%s''.\n"), "eigs", 4, "LM", "SM", "LA", "SA", "BE");
 assert_checkerror("eigs(A, [], 4, which)", refMsg);
@@ -204,7 +204,7 @@ assert_checkfalse(execstr("eigs(sparse(A), [], 4, which)", "errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Unrecognized sigma value.\n Sigma must be one of ''%s'', ''%s'', ''%s'', ''%s'' or ''%s''.\n"), "eigs", 4, "LM", "SM", "LA", "SA", "BE");
 assert_checkerror("eigs(sparse(A), [], 4, which)", refMsg);
 
-which = 'LM';
+which = "LM";
 assert_checkfalse(execstr("eigs(A, [], 4, which ,%nan)", "errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong type for input argument #%d: A structure expected"), "eigs", 5);
 assert_checkerror("eigs(A, [], 4, which ,%nan)", refMsg);
@@ -523,51 +523,51 @@ d1 = eigs(A, [], k);
 d0 = spec(full(A));
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 'LM');
+d1 = eigs(A, [], k, "LM");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 'SM');
-assert_checkalmostequal(d1, d0(1:k), 1.e-10); 
+d1 = eigs(A, [], k, "SM");
+assert_checkalmostequal(d1, d0(1:k), 1.e-10);
 
-d1 = eigs(A, [], k, 'LA');
+d1 = eigs(A, [], k, "LA");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 'SA');
+d1 = eigs(A, [], k, "SA");
 assert_checkalmostequal(d1, d0(k:-1:1), 1.e-10);
 
-d1 = eigs(A, [], k, 'BE');
+d1 = eigs(A, [], k, "BE");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 2); 
-assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10); 
+d1 = eigs(A, [], k, 2);
+assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10);
 
-d1 = eigs(A, speye(n,n), k, 'LM');
+d1 = eigs(A, speye(n,n), k, "LM");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
 d1 = eigs(A, speye(n,n), k, 2);
-assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10);  
+assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, speye(n,n), k, 'LM', opts); 
+d1 = eigs(A, speye(n,n), k, "LM", opts);
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, speye(n,n), k, 2, opts); 
+d1 = eigs(A, speye(n,n), k, 2, opts);
 assert_checkalmostequal(eigs(A, [],k, 2), d0(3:3+k-1), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LM');
+[d1, v1] = eigs(A, [], k, "LM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SM');
+[d1, v1] = eigs(A, [], k, "SM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LA');
+[d1, v1] = eigs(A, [], k, "LA");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SA');
+[d1, v1] = eigs(A, [], k, "SA");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'BE');
+[d1, v1] = eigs(A, [], k, "BE");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
 
@@ -581,59 +581,59 @@ A = sparse(A);
 d1 = eigs(A, [], k);
 d0 = gsort(spec(full(A)));
 
-assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10); 
-
-d1 = eigs(A, [], k, 'LM');
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
-d1 = eigs(A, [], k, 'SM');
+d1 = eigs(A, [], k, "LM");
+assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
+
+d1 = eigs(A, [], k, "SM");
 assert_checkalmostequal(abs(d1), abs(d0($-k:$-1)), 1.e-10);
 
-d1 = eigs(A, [], k, 'LR');
+d1 = eigs(A, [], k, "LR");
 assert_checkalmostequal(real(d1), real(d0(k+2-1:-1:2)), 1.e-10);
 
-d1 = eigs(A, [], k, 'SR');
+d1 = eigs(A, [], k, "SR");
 assert_checkalmostequal(real(d1), gsort(real(d0([13 14 18 19 20]))), 1.e-10);
 
-d1 = eigs(A, [], k, 'LI');
+d1 = eigs(A, [], k, "LI");
 assert_checkalmostequal(abs(imag(d1)), abs(imag(d0([3 4 2 1 18]))), 1.e-10);
 
-d1 = eigs(A, [], k, 'SI');
+d1 = eigs(A, [], k, "SI");
 assert_checkalmostequal(abs(imag(d1)), abs(imag(d0([9 10 11 12 15]))), 1.e-10);
 
-d1 = eigs(A, [], k, 2); 
+d1 = eigs(A, [], k, 2);
 assert_checkalmostequal(abs(d1), abs(d0([19 20 12 11 15])), 1.e-10);
 
-d1 = eigs(A, speye(n,n), k, 'LM');
+d1 = eigs(A, speye(n,n), k, "LM");
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
 d1 = eigs(A, speye(n,n), k, 2);
 assert_checkalmostequal(abs(d1), abs(d0([19 20 12 11 15])), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, speye(n,n), k, 'LM', opts);
+d1 = eigs(A, speye(n,n), k, "LM", opts);
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
 opts.cholB = %t;
 d1 = eigs(A, speye(n,n), k, 2, opts);
 assert_checkalmostequal(abs(d1), abs(d0([19 20 12 11 15])), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LM');
+[d1, v1] = eigs(A, [], k, "LM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SM');
+[d1, v1] = eigs(A, [], k, "SM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LR');
+[d1, v1] = eigs(A, [], k, "LR");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SR');
+[d1, v1] = eigs(A, [], k, "SR");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LI');
+[d1, v1] = eigs(A, [], k, "LI");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SI');
+[d1, v1] = eigs(A, [], k, "SI");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
 n = 20;
@@ -649,44 +649,44 @@ r = gsort(real(d0));
 im = gsort(imag(d0));
 assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
-d1 = eigs(A, [], k, 'LM');
-assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10); 
+d1 = eigs(A, [], k, "LM");
+assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
 //d1 = eigs(A, [], k, 'SM');
 //assert_checkalmostequal(abs(d1), abs(d0(1:k)), 1.e-14); // error -> impossible to invert complex sparse matrix
 
-d1 = eigs(A, [], k, 'LR');
+d1 = eigs(A, [], k, "LR");
 assert_checkalmostequal(real(d1), real(d0(k:-1:1)), 1.e-10);
 
-d1 = eigs(A, [], k, 'SR');
+d1 = eigs(A, [], k, "SR");
 assert_checkalmostequal(real(d1), r($-k+1:$), 1.e-10);
 
-d1 = eigs(A, [], k, 'LI');
-assert_checkalmostequal(imag(d1), im(k:-1:1), 1.e-10); 
+d1 = eigs(A, [], k, "LI");
+assert_checkalmostequal(imag(d1), im(k:-1:1), 1.e-10);
 
-d1 = eigs(A, [], k, 'SI');
-assert_checkalmostequal(imag(d1), im($-k+1:$), 1.e-10); 
+d1 = eigs(A, [], k, "SI");
+assert_checkalmostequal(imag(d1), im($-k+1:$), 1.e-10);
 
-d1 = eigs(A, speye(n,n), k, 'LM');
-assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10); 
+d1 = eigs(A, speye(n,n), k, "LM");
+assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, speye(n,n), k, 'LM', opts);
-assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10); 
+d1 = eigs(A, speye(n,n), k, "LM", opts);
+assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LM');
+[d1, v1] = eigs(A, [], k, "LM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LR');
+[d1, v1] = eigs(A, [], k, "LR");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SR');
+[d1, v1] = eigs(A, [], k, "SR");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LI');
+[d1, v1] = eigs(A, [], k, "LI");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SI');
+[d1, v1] = eigs(A, [], k, "SI");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
 
@@ -701,51 +701,51 @@ d0 = spec(A);
 
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 'LM');
+d1 = eigs(A, [], k, "LM");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 'SM');
-assert_checkalmostequal(d1, d0(1:k), 1.e-10); 
+d1 = eigs(A, [], k, "SM");
+assert_checkalmostequal(d1, d0(1:k), 1.e-10);
 
-d1 = eigs(A, [], k, 'LA');
+d1 = eigs(A, [], k, "LA");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 'SA');
+d1 = eigs(A, [], k, "SA");
 assert_checkalmostequal(d1, d0(k:-1:1), 1.e-10);
 
-d1 = eigs(A, [], k, 'BE');
+d1 = eigs(A, [], k, "BE");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
-d1 = eigs(A, [], k, 2); 
-assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10); 
+d1 = eigs(A, [], k, 2);
+assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10);
 
-d1 = eigs(A, eye(n,n), k, 'LM');
+d1 = eigs(A, eye(n,n), k, "LM");
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
 d1 = eigs(A, eye(n,n), k, 2);
-assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10);  
+assert_checkalmostequal(d1, d0(3:3+k-1), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, eye(n,n), k, 'LM', opts); 
+d1 = eigs(A, eye(n,n), k, "LM", opts);
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, eye(n,n), k, 2, opts); 
+d1 = eigs(A, eye(n,n), k, 2, opts);
 assert_checkalmostequal(eigs(A, [],k, 2), d0(3:3+k-1), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LM');
+[d1, v1] = eigs(A, [], k, "LM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SM');
+[d1, v1] = eigs(A, [], k, "SM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LA');
+[d1, v1] = eigs(A, [], k, "LA");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SA');
+[d1, v1] = eigs(A, [], k, "SA");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'BE');
+[d1, v1] = eigs(A, [], k, "BE");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
 n = 20;
@@ -757,59 +757,59 @@ A(2:$,1:$-1) = A(2:$,1:$-1) + diag(-6*ones(n-1,1));
 d1 = eigs(A, [], k);
 d0 = gsort(spec(A));
 
-assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10); 
-
-d1 = eigs(A, [], k, 'LM');
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
-d1 = eigs(A, [], k, 'SM');
+d1 = eigs(A, [], k, "LM");
+assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
+
+d1 = eigs(A, [], k, "SM");
 assert_checkalmostequal(abs(d1), abs(d0($-k:$-1)), 1.e-10);
 
-d1 = eigs(A, [], k, 'LR');
+d1 = eigs(A, [], k, "LR");
 assert_checkalmostequal(real(d1), real(d0(k+2-1:-1:2)), 1.e-10);
 
-d1 = eigs(A, [], k, 'SR');
+d1 = eigs(A, [], k, "SR");
 assert_checkalmostequal(real(d1), gsort(real(d0([13 14 18 19 20]))), 1.e-10);
 
-d1 = eigs(A, [], k, 'LI');
+d1 = eigs(A, [], k, "LI");
 assert_checkalmostequal(abs(imag(d1)), abs(imag(d0([3 4 2 1 18]))), 1.e-10);
 
-d1 = eigs(A, [], k, 'SI');
+d1 = eigs(A, [], k, "SI");
 assert_checkalmostequal(abs(imag(d1)), abs(imag(d0([9 10 11 12 15]))), 1.e-10);
 
-d1 = eigs(A, [], k, 2); 
+d1 = eigs(A, [], k, 2);
 assert_checkalmostequal(abs(d1), abs(d0([19 20 12 11 15])), 1.e-10);
 
-d1 = eigs(A, eye(n,n), k, 'LM');
+d1 = eigs(A, eye(n,n), k, "LM");
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
 d1 = eigs(A, eye(n,n), k, 2);
 assert_checkalmostequal(abs(d1), abs(d0([19 20 12 11 15])), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, eye(n,n), k, 'LM', opts);
+d1 = eigs(A, eye(n,n), k, "LM", opts);
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
 opts.cholB = %t;
 d1 = eigs(A, eye(n,n), k, 2, opts);
 assert_checkalmostequal(abs(d1), abs(d0([19 20 12 11 15])), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LM');
+[d1, v1] = eigs(A, [], k, "LM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SM');
+[d1, v1] = eigs(A, [], k, "SM");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LR');
+[d1, v1] = eigs(A, [], k, "LR");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SR');
+[d1, v1] = eigs(A, [], k, "SR");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LI');
+[d1, v1] = eigs(A, [], k, "LI");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SI');
+[d1, v1] = eigs(A, [], k, "SI");
 assert_checkalmostequal(A*v1, v1*d1,sqrt(%eps), 1.e-10);
 
 
@@ -826,51 +826,51 @@ im = gsort(imag(d0));
 
 assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
-d1 = eigs(A, [], k, 'LM');
+d1 = eigs(A, [], k, "LM");
 assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
-d1 = eigs(A, [], k, 'SM');
-assert_checkalmostequal(abs(d1), abs(d0($-k+1:$)), 1.e-10); 
+d1 = eigs(A, [], k, "SM");
+assert_checkalmostequal(abs(d1), abs(d0($-k+1:$)), 1.e-10);
 
-d1 = eigs(A, [], k, 'LR');
+d1 = eigs(A, [], k, "LR");
 assert_checkalmostequal(real(d1), r(k:-1:1), 1.e-10);
 
-d1 = eigs(A, [], k, 'SR');
-assert_checkalmostequal(real(d1), r($-k+1:$), 1.e-10);  
+d1 = eigs(A, [], k, "SR");
+assert_checkalmostequal(real(d1), r($-k+1:$), 1.e-10);
 
-d1 = eigs(A, [], k, 'LI');
-assert_checkalmostequal(imag(d1), im(k:-1:1), 1.e-10); 
+d1 = eigs(A, [], k, "LI");
+assert_checkalmostequal(imag(d1), im(k:-1:1), 1.e-10);
 
-d1 = eigs(A, [], k, 'SI');
+d1 = eigs(A, [], k, "SI");
 assert_checkalmostequal(imag(d1), im($-k+1:$), 1.e-10);
 
-d1 = eigs(A, [], k, 2); 
+d1 = eigs(A, [], k, 2);
 assert_checkalmostequal(gsort(abs(d1)), gsort(abs(d0($-1:-1:$-k))), 1.e-10);
 
-d1 = eigs(A, eye(n,n), k, 'LM');
+d1 = eigs(A, eye(n,n), k, "LM");
 assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
 opts.cholB = %t;
-d1 = eigs(A, eye(n,n), k, 'LM', opts);
-assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10); 
+d1 = eigs(A, eye(n,n), k, "LM", opts);
+assert_checkalmostequal(abs(d1), abs(d0(k:-1:1)), 1.e-10);
 
 opts.cholB = %t;
 d1 = eigs(A, eye(n,n), k, 2, opts);
-assert_checkalmostequal(abs(eigs(A, [], k, 2)), abs(d1), 1.e-10);  
+assert_checkalmostequal(abs(eigs(A, [], k, 2)), abs(d1), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LM');
+[d1, v1] = eigs(A, [], k, "LM");
 assert_checkalmostequal(A*v1, v1*d1, sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LR');
+[d1, v1] = eigs(A, [], k, "LR");
 assert_checkalmostequal(A*v1, v1*d1, sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SR');
+[d1, v1] = eigs(A, [], k, "SR");
 assert_checkalmostequal(A*v1, v1*d1, sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'LI');
+[d1, v1] = eigs(A, [], k, "LI");
 assert_checkalmostequal(A*v1, v1*d1, sqrt(%eps), 1.e-10);
 
-[d1, v1] = eigs(A, [], k, 'SI');
+[d1, v1] = eigs(A, [], k, "SI");
 assert_checkalmostequal(A*v1, v1*d1, sqrt(%eps), 1.e-10);
 
 clear opts
@@ -890,7 +890,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %t;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = spec(full(A));
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
@@ -902,7 +902,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %t;
 
-d1 = eigs(fn, n, [], k, 'SM', opts );
+d1 = eigs(fn, n, [], k, "SM", opts );
 assert_checkalmostequal(d1, d0(1:k), 1.e-10);
 
 clear fn
@@ -931,7 +931,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = gsort(spec(full(A)));
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
@@ -943,7 +943,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'SM', opts );
+d1 = eigs(fn, n, [], k, "SM", opts );
 assert_checkalmostequal(abs(d1), abs(d0($-k:$-1)), 1.e-10);
 
 clear fn
@@ -973,7 +973,7 @@ endfunction
 opts.isreal = %f;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = gsort(spec(full(A)));
 r = gsort(real(d0));
 im = gsort(imag(d0));
@@ -987,8 +987,8 @@ endfunction
 opts.isreal = %f;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'SM', opts );
-assert_checkalmostequal(abs(d1), abs(d0($-k+1:$)), 1.e-10); 
+d1 = eigs(fn, n, [], k, "SM", opts );
+assert_checkalmostequal(abs(d1), abs(d0($-k+1:$)), 1.e-10);
 
 clear fn
 function y = fn(x)
@@ -1019,7 +1019,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %t;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = spec(A);
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
@@ -1031,7 +1031,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %t;
 
-d1 = eigs(fn, n, [], k, 'SM', opts );
+d1 = eigs(fn, n, [], k, "SM", opts );
 assert_checkalmostequal(d1, d0(1:k), 1.e-10);
 
 clear fn
@@ -1059,7 +1059,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = gsort(spec(A));
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
@@ -1071,7 +1071,7 @@ endfunction
 opts.isreal = %t;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'SM', opts );
+d1 = eigs(fn, n, [], k, "SM", opts );
 assert_checkalmostequal(abs(d1), abs(d0($-k:$-1)), 1.e-10);
 
 clear fn
@@ -1100,7 +1100,7 @@ endfunction
 opts.isreal = %f;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = gsort(spec(A));
 r = gsort(real(d0));
 im = gsort(imag(d0));
@@ -1114,8 +1114,8 @@ endfunction
 opts.isreal = %f;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'SM', opts );
-assert_checkalmostequal(abs(d1), abs(d0($-k+1:$)), 1.e-10); 
+d1 = eigs(fn, n, [], k, "SM", opts );
+assert_checkalmostequal(abs(d1), abs(d0($-k+1:$)), 1.e-10);
 
 clear fn
 function y = fn(x)

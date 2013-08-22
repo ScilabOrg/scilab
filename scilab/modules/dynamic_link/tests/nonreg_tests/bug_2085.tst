@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,7 +19,7 @@
 
 ilib_verbose(0);
 
-test_path = get_absolute_file_path('bug_2085.tst');
+test_path = get_absolute_file_path("bug_2085.tst");
 
 currentpath = pwd();
 
@@ -28,17 +28,17 @@ cd ../;
 OS_TMP_DIR = pwd();
 
 
-mkdir(OS_TMP_DIR,'bug_2085');
-TEST_DIR = OS_TMP_DIR + filesep() + 'bug_2085';
+mkdir(OS_TMP_DIR,"bug_2085");
+TEST_DIR = OS_TMP_DIR + filesep() + "bug_2085";
 
-copyfile(SCI+'/modules/dynamic_link/tests/nonreg_tests/bug_2085.c' , TEST_DIR + filesep() + 'bug_2085.c');
+copyfile(SCI+"/modules/dynamic_link/tests/nonreg_tests/bug_2085.c" , TEST_DIR + filesep() + "bug_2085.c");
 
 chdir(TEST_DIR);
 
-files=['bug_2085.c'];
-ilib_build('bug',['ex2c_1','intex2c'],files,[]);
+files=["bug_2085.c"];
+ilib_build("bug",["ex2c_1","intex2c"],files,[]);
 
-// load the shared library 
+// load the shared library
 exec loader.sce;
 
 chdir(currentpath);
@@ -56,5 +56,5 @@ assert_checkequal(a, res);
 ulink();
 
 //remove TMP_DIR
-rmdir(TEST_DIR,'s');
+rmdir(TEST_DIR,"s");
 // =============================================================================

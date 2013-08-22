@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@
 
 //errcatch,errclear,iserror
 clear
-errcatch(4,'continue')
+errcatch(4,"continue")
 unknown
 if iserror()<>1 then pause,end
 errclear()
@@ -27,7 +27,7 @@ unknown
 if iserror(4)<>1 then pause,end
 errclear(4)
 if iserror(4)<>0 then pause,end
-errcatch(4,'continue','nomessage')
+errcatch(4,"continue","nomessage")
 unknown
 if iserror()<>1 then pause,end
 errclear()
@@ -39,19 +39,19 @@ if iserror(4)<>0 then pause,end
 errcatch()
 
 //error
-errcatch(4,'continue','nomessage')
+errcatch(4,"continue","nomessage")
 error(4)
 if iserror()<>1 then pause,end
 errclear();errcatch()
-errcatch(-1,'continue','nomessage')
-error('test erreur');
+errcatch(-1,"continue","nomessage")
+error("test erreur");
 errclear();
-error('test erreur',999);
+error("test erreur",999);
 errclear();
 errcatch()
 
 // lasterror
-errcatch(4,'continue','nomessage')
+errcatch(4,"continue","nomessage")
 unknown
 if stripblanks(lasterror(%f))<>"Undefined variable: unknown" then pause,end
 [m,n]=lasterror();

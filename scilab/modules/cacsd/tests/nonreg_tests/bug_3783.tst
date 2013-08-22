@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Vincent Couvert
+// Copyrigh (C) 2008 - DIGITEO - Vincent Couvert
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,6 +16,6 @@
 
 // <-- INTERACTIVE TEST -->
 
-h=syslin('c',1/%s);
+h=syslin("c",1/%s);
 // Please click the 'OK' button, the program must return
 trfmod(h)

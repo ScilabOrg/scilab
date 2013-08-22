@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2012 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,24 +18,24 @@
 f=scf(0);
 x=[-5:.1:5]';
 plot2d(x,[2*x 3*x]);
-legend(["2x (µm)","3x (µm)"],2);
+legend(["2x (Âµm)","3x (Âµm)"],2);
 warning("off");
 save("TMPDIR/bug_10241.scg", f);
 warning("on");
 delete(f);
 load("TMPDIR/bug_10241.scg");
 a=gca();
-assert_checkequal(a.children(1).text, ["2x (µm)","3x (µm)"]');
+assert_checkequal(a.children(1).text, ["2x (Âµm)","3x (Âµm)"]');
 delete(gcf());
 
 // SOD format save/load
 f=scf(0);
 x=[-5:.1:5]';
 plot2d(x,[2*x 3*x]);
-legend(["2x (µm)","3x (µm)"],2);
+legend(["2x (Âµm)","3x (Âµm)"],2);
 save("TMPDIR/bug_10241.scg", "f");
 delete(f);
 load("TMPDIR/bug_10241.scg");
 a=gca();
-assert_checkequal(a.children(1).text, ["2x (µm)","3x (µm)"]');
+assert_checkequal(a.children(1).text, ["2x (Âµm)","3x (Âµm)"]');
 delete(gcf());

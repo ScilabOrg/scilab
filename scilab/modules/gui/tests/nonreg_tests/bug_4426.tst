@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+// Copyrigh (C) 2009 - DIGITEO - Sylvestre KOUMAR
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,6 +18,6 @@
 
 // Try this line
 
-[FILE,PATH]=uigetfile('*.txt','/','Choose file')
+[FILE,PATH]=uigetfile("*.txt","/","Choose file")
 
 

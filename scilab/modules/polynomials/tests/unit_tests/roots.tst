@@ -1,8 +1,8 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - 2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
-// Copyright (C) 2012 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - 2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2012 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,31 +18,31 @@ function sortedRoots=sortRoots(rootsToSort)
 endfunction
 
 function checkroots(p,expectedroots,varargin)
-     // Checks the roots function against given roots.
-     //
-     // 1. Check default algorithm
-     myroots=roots(p);
-     computedroots = sortRoots(myroots);
-     expectedroots  = sortRoots(expectedroots);
-     assert_checkalmostequal(computedroots,expectedroots,varargin(:));
-     //
-     // 2. Check "e" algorithm
-     myroots=roots(p,"e");
-     computedroots = sortRoots(myroots);
-     expectedroots  = sortRoots(expectedroots);
-     assert_checkalmostequal(computedroots,expectedroots,varargin(:));
-     //
-     // 3. Check "f" algorithm
-     if ( isreal(p) ) then
-         myroots=roots(p,"f");
-         computedroots = sortRoots(myroots);
-         expectedroots  = sortRoots(expectedroots);
-         assert_checkalmostequal(computedroots,expectedroots,varargin(:));
-     end
+    // Checks the roots function against given roots.
+    //
+    // 1. Check default algorithm
+    myroots=roots(p);
+    computedroots = sortRoots(myroots);
+    expectedroots  = sortRoots(expectedroots);
+    assert_checkalmostequal(computedroots,expectedroots,varargin(:));
+    //
+    // 2. Check "e" algorithm
+    myroots=roots(p,"e");
+    computedroots = sortRoots(myroots);
+    expectedroots  = sortRoots(expectedroots);
+    assert_checkalmostequal(computedroots,expectedroots,varargin(:));
+    //
+    // 3. Check "f" algorithm
+    if ( isreal(p) ) then
+        myroots=roots(p,"f");
+        computedroots = sortRoots(myroots);
+        expectedroots  = sortRoots(expectedroots);
+        assert_checkalmostequal(computedroots,expectedroots,varargin(:));
+    end
 endfunction
 
 //   Check the computation of the roots of a polynomial
-//   with different kinds of polynomials and different 
+//   with different kinds of polynomials and different
 //   kinds of roots :
 //   - real poly,
 //   - complex poly,
@@ -90,17 +90,17 @@ checkroots(p,expectedroots,10*%eps);
 // Caution !
 // The following are difficult root-finding problems
 // with expected precision problems.
-// See "Principles for testing polynomial 
+// See "Principles for testing polynomial
 // zerofinding programs"
 // Jenkins, Traub
 // 1975
 // p.28
 // "The accuracy which one may expect to achieve in calculating
 // zeros is limited by the condition of these zeros. In particular,
-// for multiple zeros perturbations of size epsilon in the 
+// for multiple zeros perturbations of size epsilon in the
 // coefficients cause perturbations of size epsilon^(1/m)
 // in the zeros."
-// 
+//
 //
 // 3 real roots with a zero derivate at the root
 // Really difficult problem : only simple precision computed, instead of double precision ***
@@ -120,7 +120,7 @@ checkroots(p,expectedroots,%eps^(1/10),8*%eps^(1/10))
 
 // "Numerical computing with Matlab", Cleve Moler.
 A = diag(1:20);
-p = poly(A,'x');
+p = poly(A,"x");
 e = [1:20]';
 checkroots(p,e,%eps,0.2);
 
@@ -255,7 +255,7 @@ E = sortRoots(E);
 R = sortRoots(R);
 assert_checkalmostequal(R, E, 1.e-3, 1.e-3);
 
-// EXAMPLE 5. 12 ZEROS EVENLY DISTRIBUTE ON A CIRCLE OF 
+// EXAMPLE 5. 12 ZEROS EVENLY DISTRIBUTE ON A CIRCLE OF
 // RADIUS 1. CENTERED AT 0+2I
 // Real part:
 // 4095 - 67584*x^2 + 126720*x^4 - 59136*x^6 + 7920*x^8 - 264*x^10 + x^12
@@ -311,6 +311,6 @@ E = sortRoots(E);
 R = sortRoots(R);
 assert_checkalmostequal(R, E, 1.e-10, 1.e-8);
 
-assert_checkequal(roots([4 3 2 1]), roots(poly([1 2 3 4], 'x', 'coeff')));
-assert_checkequal(roots([4 3 2 1] + [1 2 3 4]*%i), roots(poly([1 2 3 4]+[4 3 2 1]*%i,'x','coeff')));
+assert_checkequal(roots([4 3 2 1]), roots(poly([1 2 3 4], "x", "coeff")));
+assert_checkequal(roots([4 3 2 1] + [1 2 3 4]*%i), roots(poly([1 2 3 4]+[4 3 2 1]*%i,"x","coeff")));
 

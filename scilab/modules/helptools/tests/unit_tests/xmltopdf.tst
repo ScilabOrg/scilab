@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@scilab.org>
+// Copyrigh (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -37,7 +37,7 @@ clean_help(my_french_help_dir);
 setlanguage("en_US");
 my_english_help_dir    =  my_module_path+"/help/en_US";
 my_english_help_title  =  "TEST 1 [en_US]";
-xmltopdf(my_english_help_dir,my_english_help_title,'en_US');
+xmltopdf(my_english_help_dir,my_english_help_title,"en_US");
 
 pdf_info =  fileinfo(my_module_path+"/pdf/scilab_en_US_help.pdf");
 if pdf_info == [] then pause, end       // file existence
@@ -58,7 +58,7 @@ my_module_path = pathconvert(tmpPath + "/example_2",%f,%f);
 setlanguage("fr_FR");
 my_french_help_dir    =  my_module_path+"/help/fr_FR";
 my_french_help_title  =  "TEST 2 [fr_FR]";
-xmltopdf(my_french_help_dir,my_french_help_title,'fr_FR');
+xmltopdf(my_french_help_dir,my_french_help_title,"fr_FR");
 
 pdf_info =  fileinfo(my_module_path+"/pdf/scilab_fr_FR_help.pdf");
 if pdf_info == [] then pause, end       // file existence
@@ -71,7 +71,7 @@ clean_help(my_french_help_dir);
 setlanguage("en_US");
 my_english_help_dir    =  my_module_path+"/help/en_US";
 my_english_help_title  =  "TEST 2 [en_US]";
-xmltopdf(my_english_help_dir,my_english_help_title,'en_US');
+xmltopdf(my_english_help_dir,my_english_help_title,"en_US");
 
 pdf_info =  fileinfo(my_module_path+"/pdf/scilab_en_US_help.pdf");
 if pdf_info == [] then pause, end       // file existence

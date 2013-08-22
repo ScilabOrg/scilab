@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Allan CORNET
+// Copyrigh (C) 2009-2009 - Digiteo - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Graphic windows created by figure are unable to display plots.
-// 
+//
 
 h1 = figure(1);
 plot([1,2,5,4,5,2,1]);

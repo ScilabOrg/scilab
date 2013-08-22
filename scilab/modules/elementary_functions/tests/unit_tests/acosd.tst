@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
-// Copyright (C) 2010 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2010 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,9 +9,9 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40: 
+// Digits := 40:
 // writeto("acosd.ref"): interface(prettyprint = 0):
-// for i from -1 by 1/200 to 1 do print(i, evalf[30](arccos(i)*180/Pi, 30)) end do; 
+// for i from -1 by 1/200 to 1 do print(i, evalf[30](arccos(i)*180/Pi, 30)) end do;
 // writeto(terminal):
 
 ieee(2)

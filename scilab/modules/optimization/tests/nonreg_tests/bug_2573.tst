@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,7 +25,7 @@ if norm(s1-[7.89465359259093979;4.45660600662314366])>1d-10 then pause,end
 
 
 //
-// Min   1/2 x^T [0.5 -1] x 
+// Min   1/2 x^T [0.5 -1] x
 //               [-1   3]
 //
 // with [1 1] x = 1

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,4 +19,4 @@
 // download a module and copy it in your home
 
 
-atomsInstall('~/grocer_1.52-1.bin.zip')
+atomsInstall("~/grocer_1.52-1.bin.zip")

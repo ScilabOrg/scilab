@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - DIGITEO - Simon LIPP <simon.lipp@scilab.org>
+// Copyrigh (C) 2008-2008 - DIGITEO - Simon LIPP <simon.lipp@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,5 +15,5 @@
 // Short description:
 // Crash with PCRE when matching the whole string
 
-regexp('hello, world', '/hello, world/');
-regexp('hello, world', '/.+/');
+regexp("hello, world", "/hello, world/");
+regexp("hello, world", "/.+/");

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -32,5 +32,5 @@ result = execstr("a=int8(ones(2,2))","errcatch","n");
 if result <> 0 then pause,end
 
 if result == 0 then
-   if execstr("a(1,1)=uint8(2)","errcatch","n") <> 0 then pause,end
+    if execstr("a(1,1)=uint8(2)","errcatch","n") <> 0 then pause,end
 end

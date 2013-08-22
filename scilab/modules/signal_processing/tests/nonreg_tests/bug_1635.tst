@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - INRIA - Serge Steer
+// Copyrigh (C) 2011 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,22 +18,22 @@
 fl=0.0004535;
 fu=0.0009070;
 
-[Poles,Zeros,Gain]=iir(4,'bp','butt',[fl fu],[0 0]);
+[Poles,Zeros,Gain]=iir(4,"bp","butt",[fl fu],[0 0]);
 
 frq=linspace(fl,fu,400);
-//evaluation of frequency response in the pass zone 
+//evaluation of frequency response in the pass zone
 //based on pole zero gain representation
 frqz=exp(2*%i*%pi*frq);
 
 z=ones(frq);
-for i=1:size(Zeros,'*')
-  z=z.*(Zeros(i)-frqz);
-end     
+for i=1:size(Zeros,"*")
+    z=z.*(Zeros(i)-frqz);
+end
 
 p=ones(frq);
-for i=1:size(Zeros,'*')
-  p=p.*(Poles(i)-frqz);
-end     
+for i=1:size(Zeros,"*")
+    p=p.*(Poles(i)-frqz);
+end
 repf=Gain*(z./p);
 db=20*log10(abs(repf));
 assert_checkalmostequal(db(1),-3,0.01);

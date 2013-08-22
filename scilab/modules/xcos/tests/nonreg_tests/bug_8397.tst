@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,18 +25,18 @@ c_file = TMPDIR + "/sample_im.c";
 
 // unsolvable system of equation
 mo_content = [..
-	"class sample_imf";..
-	"    Real `a` """";";..
-	"    Real `b` """";";..
-	"    Real `c` """";";..
-	"equation";..
-	"    a = b + 3 * c;";..
-	"    c = a + 3 * b;";..
-	"end sample_imf;";..
+"class sample_imf";..
+"    Real `a` """";";..
+"    Real `b` """";";..
+"    Real `c` """";";..
+"equation";..
+"    a = b + 3 * c;";..
+"    c = a + 3 * b;";..
+"end sample_imf;";..
 ""];
 
 // Creating source content
-fd = mopen(src_file, 'wt');
+fd = mopen(src_file, "wt");
 mputl(mo_content, fd);
 mclose(fd);
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,8 +23,8 @@
 // <-- ENGLISH IMPOSED -->
 
 a = 123456789;
-savematfile(TMPDIR+'/file_1232.mat','a');
+savematfile(TMPDIR+"/file_1232.mat","a");
 clear a
-loadmatfile(TMPDIR+'/file_1232.mat','a');
+loadmatfile(TMPDIR+"/file_1232.mat","a");
 
 if a <> 123456789 then pause,end

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 // mtlb_mode did not work
-  
+
 mtlb_mode(%t);
 r = [] + int32(2);
 if r <> [] then pause,end

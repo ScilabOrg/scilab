@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+// Copyrigh (C) 2013 - Scilab Enterprises - Paul Bignier
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,6 +21,6 @@ funcprot(prot);
 
 A_ref = int8(zeros(128,1));
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values, A_ref);

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
+// Copyrigh (C) 2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,10 +20,10 @@ n  = 100;
 a  = rand(m,n,"u");
 fd = mopen(TMPDIR+"/bug_fscanfMat","w");
 for i=1:m
-	for j=1:n
-		mfprintf(fd,"%5.2f ",a(i,j));
-	end
-	mfprintf(fd,"\n");
+    for j=1:n
+        mfprintf(fd,"%5.2f ",a(i,j));
+    end
+    mfprintf(fd,"\n");
 end
 mclose(fd);
 

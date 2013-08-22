@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
+// Copyrigh (C) 2010 - DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3674
 //
 // <-- Short Description -->
-// Scilab 5.0.2 has issues with the new "MAT-file Format" (functions "savematfile" and "loadmatfile") : 
+// Scilab 5.0.2 has issues with the new "MAT-file Format" (functions "savematfile" and "loadmatfile") :
 // - loading a same variable from different files: the existing variables are not erased.
 // - saving file on another one is always on an appending mode: the existing files are not erased.
 

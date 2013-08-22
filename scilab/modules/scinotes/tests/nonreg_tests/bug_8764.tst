@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - Calixte DENIZET
+// Copyrigh (C) 2011 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,15 +14,15 @@
 // http://bugzilla.scilab.org/8764
 //
 // <-- Short Description -->
-// File permissions were not checked 
+// File permissions were not checked
 
 tmpfile = TMPDIR + "/testwrite.sce";
 mputl("disp(""hello"");", tmpfile);
 
-if getos() <> 'Windows' then
-  unix("chmod u-w " + tmpfile);
+if getos() <> "Windows" then
+    unix("chmod u-w " + tmpfile);
 else
-  dos("attrib +R " + tmpfile);  
+    dos("attrib +R " + tmpfile);
 end
 scinotes(tmpfile);
 
@@ -31,9 +31,9 @@ scinotes(tmpfile);
 tmpfile = TMPDIR + "/testread.sce";
 mputl("disp(""hello"");", tmpfile);
 
-if getos() <> 'Windows' then
-  unix("chmod u-r " + tmpfile);
-  scinotes(tmpfile);
+if getos() <> "Windows" then
+    unix("chmod u-r " + tmpfile);
+    scinotes(tmpfile);
 end
 
 // on Windows, try to open a file without rights on it.

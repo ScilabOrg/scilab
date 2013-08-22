@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2009 - Allan CORNET
+// Copyrigh (C) DIGITEO - 2009 - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,8 +16,8 @@
 // If getmd5() or mopen is called with an existing directory as first input agument, scilab hangs with 100% CPU. It should return
 // an error.
 
-ierr = execstr('getmd5(TMPDIR)','errcatch');
+ierr = execstr("getmd5(TMPDIR)","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('mopen(TMPDIR)','errcatch');
+ierr = execstr("mopen(TMPDIR)","errcatch");
 if ierr <> 999 then pause,end

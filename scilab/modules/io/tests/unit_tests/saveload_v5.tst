@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,27 +12,27 @@ funcprot(0);
 global filename;
 filename = TMPDIR+"/saveloadtst_mysave";
 
-deff('r=Check(a,b,c,d)',[
-'[lhs,rhs]=argn(),r=%t'
-'global filename'
-'select rhs'
-'case 1 then'
-'a1=a;save(filename,a1);a1=null();load(filename);'
-'if or(a1<>a) then r=%f,end'
-'case 2 then'
-'a1=a;b1=b;save(filename,a1,b1);a1=null();b1=null();load(filename);'
-'if or(a1<>a)|or(b1<>b) then r=%f,end'
-'case 3 then'
-'a1=a;b1=b;c1=c;'
-'save(filename,a1,b1,c1);'
-'a1=null();b1=null();c1=null();load(filename);'
-'if or(a1<>a)|or(b1<>b)|or(c1<>c) then r=%f,end'
-'case 4 then'
-'a1=a;b1=b;c1=c;d1=d'
-'save(filename,a1,b1,c1,d1);'
-'a1=null();b1=null();c1=null();;d1=null();load(filename);'
-'if or(a1<>a)|or(b1<>b)|or(c1<>c)|or(d1<>d) then r=%f,end'
-'end,if ~r then pause,end'])
+deff("r=Check(a,b,c,d)",[
+"[lhs,rhs]=argn(),r=%t"
+"global filename"
+"select rhs"
+"case 1 then"
+"a1=a;save(filename,a1);a1=null();load(filename);"
+"if or(a1<>a) then r=%f,end"
+"case 2 then"
+"a1=a;b1=b;save(filename,a1,b1);a1=null();b1=null();load(filename);"
+"if or(a1<>a)|or(b1<>b) then r=%f,end"
+"case 3 then"
+"a1=a;b1=b;c1=c;"
+"save(filename,a1,b1,c1);"
+"a1=null();b1=null();c1=null();load(filename);"
+"if or(a1<>a)|or(b1<>b)|or(c1<>c) then r=%f,end"
+"case 4 then"
+"a1=a;b1=b;c1=c;d1=d"
+"save(filename,a1,b1,c1,d1);"
+"a1=null();b1=null();c1=null();;d1=null();load(filename);"
+"if or(a1<>a)|or(b1<>b)|or(c1<>c)|or(d1<>d) then r=%f,end"
+"end,if ~r then pause,end"])
 
 a=[];if ~Check(a) then pause,end
 a=1;if ~Check(a) then pause,end
@@ -45,9 +45,9 @@ a=[1 2+%i 3];if ~Check(a) then pause,end
 a=[1 2 3;4 5+%i 6];if ~Check(a) then pause,end
 a=1:100000;a(35)=%i;if ~Check(a) then pause,end
 
-a='';if ~Check(a) then pause,end
-a='123';if ~Check(a) then pause,end
-a=['1','abcdefgs';'' 'ABDCEFGHIJKLMN'];if ~Check(a) then pause,end
+a="";if ~Check(a) then pause,end
+a="123";if ~Check(a) then pause,end
+a=["1","abcdefgs";"" "ABDCEFGHIJKLMN"];if ~Check(a) then pause,end
 a=string(1:10000);if ~Check(a) then pause,end
 
 
@@ -101,36 +101,36 @@ a=uint32(1:9);if ~Check(a) then pause,end
 a=uint32(1:10000);if ~Check(a) then pause,end
 
 
-deff('x=a(n)','x=n+1','n');if ~Check(a) then pause,end
-deff('x=a(n)','x=n+1');if ~Check(a) then pause,end
-deff('x=a','x=n+1','n');if ~Check(a) then pause,end
-deff('x=a','x=n+1');if ~Check(a) then pause,end
-deff('a(n)','x=n+1','n');if ~Check(a) then pause,end
-deff('a(n)','x=n+1');if ~Check(a) then pause,end
-deff('a()','x=n+1','n');if ~Check(a) then pause,end
-deff('a()','x=n+1');if ~Check(a) then pause,end
+deff("x=a(n)","x=n+1","n");if ~Check(a) then pause,end
+deff("x=a(n)","x=n+1");if ~Check(a) then pause,end
+deff("x=a","x=n+1","n");if ~Check(a) then pause,end
+deff("x=a","x=n+1");if ~Check(a) then pause,end
+deff("a(n)","x=n+1","n");if ~Check(a) then pause,end
+deff("a(n)","x=n+1");if ~Check(a) then pause,end
+deff("a()","x=n+1","n");if ~Check(a) then pause,end
+deff("a()","x=n+1");if ~Check(a) then pause,end
 
 a=list();if ~Check(a) then pause,end
 a=list(1);if ~Check(a) then pause,end
-a=list(1,rand(10,10),'asdfsf');if ~Check(a) then pause,end
-a=list(1,rand(10,10),'asdfsf',poly(rand(10,10),'s'));if ~Check(a) then pause,end
-a=list(1);a(4)='as';if ~Check(a) then pause,end
-a=list(1,rand(10,10),'asdfsf',poly(rand(1,11),'s','c'));if ~Check(a) then pause,end
+a=list(1,rand(10,10),"asdfsf");if ~Check(a) then pause,end
+a=list(1,rand(10,10),"asdfsf",poly(rand(10,10),"s"));if ~Check(a) then pause,end
+a=list(1);a(4)="as";if ~Check(a) then pause,end
+a=list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c"));if ~Check(a) then pause,end
 
 a=list(list());if ~Check(a) then pause,end
 a=list(list(1));if ~Check(a) then pause,end
-a=list(list(1,rand(10,10),'asdfsf'));if ~Check(a) then pause,end
-a=list(list(1,rand(10,10),'asdfsf',poly(rand(10,10),'s')));if ~Check(a) then pause,end
-a=list(1);a(4)='as';a=list(a);if ~Check(a) then pause,end
-a=list(list(1,rand(10,10),'asdfsf',poly(rand(1,11),'s','c')));if ~Check(a) then pause,end
+a=list(list(1,rand(10,10),"asdfsf"));if ~Check(a) then pause,end
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(10,10),"s")));if ~Check(a) then pause,end
+a=list(1);a(4)="as";a=list(a);if ~Check(a) then pause,end
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c")));if ~Check(a) then pause,end
 
 
 a=list(list(),2);if ~Check(a) then pause,end
 a=list(list(1),rand(3,3));if ~Check(a) then pause,end
-a=list(list(1,rand(10,10),'asdfsf'),'sdfs');if ~Check(a) then pause,end
-a=list(list(1,rand(10,10),'asdfsf',poly(rand(10,10),'s')),$);if ~Check(a) then pause,end
-a=list(1);a(4)='as';a=list(a,[]);if ~Check(a) then pause,end
-a=list(list(1,rand(10,10),'asdfsf',poly(rand(1,11),'s','c')),list());if ~Check(a) then pause,end
+a=list(list(1,rand(10,10),"asdfsf"),"sdfs");if ~Check(a) then pause,end
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(10,10),"s")),$);if ~Check(a) then pause,end
+a=list(1);a(4)="as";a=list(a,[]);if ~Check(a) then pause,end
+a=list(list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c")),list());if ~Check(a) then pause,end
 
 
 
@@ -146,8 +146,8 @@ if ~Check(a,b,c,d) then pause,end
 
 a=sprand(100,100,0.1);
 b=sparse(zeros(100,100))==1;
-c=list(list(1,rand(10,10),'asdfsf',poly(rand(1,11),'s','c')),list());
-deff('d()','x=n+1','n');
+c=list(list(1,rand(10,10),"asdfsf",poly(rand(1,11),"s","c")),list());
+deff("d()","x=n+1","n");
 if ~Check(a,b) then pause,end
 if ~Check(a,b,c) then pause,end
 if ~Check(a,b,c,d) then pause,end

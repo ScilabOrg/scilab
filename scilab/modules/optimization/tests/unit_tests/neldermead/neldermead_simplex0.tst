@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -13,7 +13,7 @@
 
 
 function [ y , index ] = squarefun ( x , index )
-  y = x(1)^2+x(2)^2;
+    y = x(1)^2+x(2)^2;
 endfunction
 //
 // Test simplex regular
@@ -47,9 +47,9 @@ nm = neldermead_search(nm);
 simplex0 = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx ( simplex0 );
 expected = [
-    1.    2.  
-    2.    2.  
-    1.    3.  
+1.    2.
+2.    2.
+1.    3.
 ];
 assert_checkalmostequal ( computed, expected, 10 * %eps );
 nm = neldermead_destroy(nm);
@@ -67,9 +67,9 @@ nm = neldermead_search(nm);
 simplex0 = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx ( simplex0 );
 expected = [
-    1.                          2.                        
-    1.05                        2.                        
-    1.                          2.1
+1.                          2.
+1.05                        2.
+1.                          2.1
 ];
 assert_checkalmostequal ( computed, expected, 10 * %eps );
 nm = neldermead_destroy(nm);
@@ -94,8 +94,8 @@ nm = neldermead_search(nm);
 simplex0 = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx ( simplex0 );
 expected = [
-1.    1.      
-0.    0.   
+1.    1.
+0.    0.
 0.8430703308172535770382 -0.5930703308172535770382
 ];
 assert_checkalmostequal ( computed, expected, 10 * %eps );
@@ -113,9 +113,9 @@ nm = neldermead_search(nm);
 simplex0 = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx ( simplex0 );
 expected = [
-    1.    2.  
-    2.    2.  
-    1.    4.  
+1.    2.
+2.    2.
+1.    4.
 ];
 assert_checkalmostequal ( computed, expected, 10 * %eps );
 nm = neldermead_destroy(nm);
@@ -137,9 +137,9 @@ nm = neldermead_search(nm);
 simplex0 = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx ( simplex0 );
 expected = [
-    0.    0.  
-    10.    0.  
-    0.    10.  
+0.    0.
+10.    0.
+0.    10.
 ];
 assert_checkalmostequal ( computed, expected, 10 * %eps );
 nm = neldermead_destroy(nm);

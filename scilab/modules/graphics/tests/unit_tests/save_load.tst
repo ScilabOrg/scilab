@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
-// Copyright (C) 2012 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
+// Copyrigh (C) 2012 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -143,7 +143,7 @@ clf();
 a = gca();//get the handle of the newly created axes
 a.data_bounds=[-1,-1;10,10];
 
-drawaxis(x=2:7,y=4,dir='u');
+drawaxis(x=2:7,y=4,dir="u");
 a1=a.children(1);
 a1.xtics_coord=[1 4 5  8 10];
 a1.tics_color=2;
@@ -167,9 +167,9 @@ plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-5,2 3]);
 e=gce();
 e1=e.children(1);e1.thickness=2;e1.polyline_style=4;e1.arrow_size_factor = 1/2;
 e.children(2).line_style=4;
-e3=e.children(3);e3.line_mode='on';e3.mark_background=5;
+e3=e.children(3);e3.line_mode="on";e3.mark_background=5;
 
-hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
+hl=legend(["cos(t)";"cos(2*t)";"cos(3*t)"]);
 // save the curves
 f = gcf();
 save(plotExportFile, "f");
@@ -182,11 +182,11 @@ load(plotExportFile);
 clf();
 plot2d(0,0,-1,"031"," ",[-1,-1,1,1])
 arcs=[-1.0 0.0 0.5;
-       1.0 0.0 0.5;
-       0.5 1.0 0.5;
-       0.5 0.5 1.0;
-       0.0 0.0 0.0;
-       180*64 360*64 90*64];
+1.0 0.0 0.5;
+0.5 1.0 0.5;
+0.5 0.5 1.0;
+0.0 0.0 0.0;
+180*64 360*64 90*64];
 xarcs(arcs,[1,2,3])
 // save the curves
 f = gcf();

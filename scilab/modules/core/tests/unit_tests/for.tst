@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA Michael Baudin
+// Copyrigh (C) ????-2008 - INRIA Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // Loop over an integer range
 computed=0;
 for i=1:5
-  computed=computed+i;
+    computed=computed+i;
 end
 assert_checkequal(computed, 1+2+3+4+5);
 
@@ -21,7 +21,7 @@ assert_checkequal(computed, 1+2+3+4+5);
 computed=0;
 values=[1 3 5 7 9];
 for i=values
-  computed=computed+i;
+    computed=computed+i;
 end
 assert_checkequal(computed, 1+3+5+7+9);
 
@@ -29,7 +29,7 @@ assert_checkequal(computed, 1+3+5+7+9);
 computed=0;
 step=2;
 for i=1:step:10
-  computed=computed+i;
+    computed=computed+i;
 end
 assert_checkequal(computed, 1+3+5+7+9);
 
@@ -37,7 +37,7 @@ assert_checkequal(computed, 1+3+5+7+9);
 computed="";
 values=["this+" "is+" "my+" "string"];
 for i=values
-  computed=computed+i;
+    computed=computed+i;
 end
 assert_checkequal(computed, "this+is+my+string");
 
@@ -45,7 +45,7 @@ assert_checkequal(computed, "this+is+my+string");
 computed=0.;
 values=[1. 2. 3. 4. 5.];
 for x=values
-  computed=computed+x;
+    computed=computed+x;
 end
 assert_checkequal(computed, 1.+2.+3.+4.+5.);
 
@@ -53,7 +53,7 @@ assert_checkequal(computed, 1.+2.+3.+4.+5.);
 computed=[0. 0. 0.];
 mylist=list([1. 2. 3.],[4. 5. 6.],[7. 8. 9.]);
 for v=mylist
-  computed=computed+v;
+    computed=computed+v;
 end
 assert_checkequal(computed, [(1.+4.+7.) (2.+5.+8.) (3.+6.+9.)]);
 
@@ -61,7 +61,7 @@ assert_checkequal(computed, [(1.+4.+7.) (2.+5.+8.) (3.+6.+9.)]);
 computed=0.;
 myvector=[(1.+2*%s) (3.+4.*%s)];
 for v=myvector
-  computed=computed+v;
+    computed=computed+v;
 end
 assert_checkequal(computed, 4.+6.*%s);
 
@@ -71,7 +71,7 @@ p1=1.+2.*%i+3*%s;
 p2=4.+5.*%i+6*%s;
 myvector=[p1 p2];
 for p=myvector
-  computed=computed+p;
+    computed=computed+p;
 end
 assert_checkequal(computed, 5.+7*%i+9*%s);
 
@@ -80,7 +80,7 @@ assert_checkequal(computed, 5.+7*%i+9*%s);
 computed=[0;0;0;0;0];
 values=[1.;2.;3.;4.;5.];
 for x=values
-  computed=computed+x;
+    computed=computed+x;
 end
 assert_checkequal(computed, [1.;2.;3.;4.;5.]);
 
@@ -89,6 +89,6 @@ assert_checkequal(computed, [1.;2.;3.;4.;5.]);
 computed=[0;0];
 values=[1. 2.;3. 4.];
 for x=values
-  computed=computed+x;
+    computed=computed+x;
 end
 assert_checkequal(computed, [3.;7.]);

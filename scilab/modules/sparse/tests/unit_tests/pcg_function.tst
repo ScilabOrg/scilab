@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Michael Baudin
+// Copyrigh (C) 2008 - INRIA - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,17 +20,17 @@ b = [154.
 178.
 231.];
 function y=Afunction(x)
-  mymatrix=[ 94  0   0   0    0   28  0   0   32  0
-  0   59  13  5    0   0   0   10  0   0
-  0   13  72  34   2   0   0   0   0   65
-  0   5   34  114  0   0   0   0   0   55
-  0   0   2   0    70  0   28  32  12  0
-  28  0   0   0    0   87  20  0   33  0
-  0   0   0   0    28  20  71  39  0   0
-  0   10  0   0    32  0   39  46  8   0
-  32  0   0   0    12  33  0   8   82  11
-  0   0   65  55   0   0   0   0   11  100];
-  y=mymatrix*x
+    mymatrix=[ 94  0   0   0    0   28  0   0   32  0
+    0   59  13  5    0   0   0   10  0   0
+    0   13  72  34   2   0   0   0   0   65
+    0   5   34  114  0   0   0   0   0   55
+    0   0   2   0    70  0   28  32  12  0
+    28  0   0   0    0   87  20  0   33  0
+    0   0   0   0    28  20  71  39  0   0
+    0   10  0   0    32  0   39  46  8   0
+    32  0   0   0    12  33  0   8   82  11
+    0   0   65  55   0   0   0   0   11  100];
+    y=mymatrix*x
 endfunction
 // With the default 10 iterations, the algorithm performs well
 [xcomputed, fail, err, iter, res]=pcg(Afunction,b);

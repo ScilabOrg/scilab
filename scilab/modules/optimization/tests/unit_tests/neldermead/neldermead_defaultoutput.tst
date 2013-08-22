@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -15,7 +15,7 @@
 //
 
 function [ f , index ] = quadratic ( x , index )
-  f = x(1)^2 + x(2)^2;
+    f = x(1)^2 + x(2)^2;
 endfunction
 x0 = [1.0 1.0].';
 nm = neldermead_new ();

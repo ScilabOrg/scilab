@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -14,7 +14,7 @@
 // Here, the cost function is OK
 //
 function [ y , index ] = rosenbrockOk ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",2);
@@ -27,7 +27,7 @@ opt = optimbase_destroy(opt);
 // Here, the cost function is not callable
 //
 function [ y , index ] = rosenbrock2 ( x , index )
-  y = fdsmklqfjdsf;
+    y = fdsmklqfjdsf;
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",2);
@@ -44,7 +44,7 @@ opt = optimbase_destroy(opt);
 // instead of a scalar.
 //
 function [ y , index ] = rosenbrock3 ( x , index )
-  y = ones(10,10);
+    y = ones(10,10);
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",2);
@@ -58,21 +58,21 @@ opt = optimbase_destroy(opt);
 // Test with good non linear constraints
 //
 function [ f , c , index ] = optimtestcase ( x , index )
-  f = []
-  c = []
-  if ( index == 2 | index == 6 ) then
-    f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
-      - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
-  end
-  if ( index == 5 | index == 6 ) then
-    c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
-              - x(1) + x(2) - x(3) + x(4) + 8
-    c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
-              + x(1) + x(4) + 10.0
-    c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
-              + x(2) + x(4) + 5.0
-    c = [c1 c2 c3]
-  end
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3]
+    end
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",4);
@@ -98,21 +98,21 @@ opt = optimbase_destroy(opt);
 // Test with wrong  non linear constraints f(x0,2) is not a row vector
 //
 function [ f , c , index ] = optimtestcase2 ( x , index )
-  f = []
-  c = []
-  if ( index == 2 | index == 6 ) then
-    f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
-      - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
-  end
-  if ( index == 5 | index == 6 ) then
-    c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
-              - x(1) + x(2) - x(3) + x(4) + 8
-    c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
-              + x(1) + x(4) + 10.0
-    c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
-              + x(2) + x(4) + 5.0
-    c = [c1 c2 c3].'
-  end
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3].'
+    end
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",4);
@@ -127,21 +127,21 @@ opt = optimbase_destroy(opt);
 // Test with wrong  non linear constraints f(x0,2) is a row vector with 5 components instead of 3
 //
 function [ f , c , index ] = optimtestcase3 ( x , index )
-  f = []
-  c = []
-  if ( index == 2 | index == 6 ) then
-    f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
-      - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
-  end
-  if ( index == 5 | index == 6 ) then
-    c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
-              - x(1) + x(2) - x(3) + x(4) + 8
-    c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
-              + x(1) + x(4) + 10.0
-    c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
-              + x(2) + x(4) + 5.0
-    c = [c1 c2 c3 0.0 0.0]
-  end
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3 0.0 0.0]
+    end
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",4);
@@ -156,21 +156,21 @@ opt = optimbase_destroy(opt);
 // Test with wrong  non linear constraints f(x0,3) is a column vector
 //
 function [ f , c , index ] = optimtestcase4 ( x , index )
-  f = []
-  c = []
-  if ( index == 2 | index == 6 ) then
-    f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
-      - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
-  end
-  if ( index == 5 | index == 6 ) then
-    c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
-              - x(1) + x(2) - x(3) + x(4) + 8
-    c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
-              + x(1) + x(4) + 10.0
-    c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
-              + x(2) + x(4) + 5.0
-    c = [c1 c2 c3].'
-  end
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3].'
+    end
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",4);
@@ -185,21 +185,21 @@ opt = optimbase_destroy(opt);
 // Test with wrong  non linear constraints f(x0,3) is a row vector with 5 columns instead of 4
 //
 function [ f , c , index ] = optimtestcase5 ( x , index )
-  f = []
-  c = []
-  if ( index == 2 | index == 6 ) then
-    f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
-      - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
-  end
-  if ( index == 5 | index == 6 ) then
-    c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
-              - x(1) + x(2) - x(3) + x(4) + 8
-    c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
-              + x(1) + x(4) + 10.0
-    c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
-              + x(2) + x(4) + 5.0
-    c = [c1 c2 c3 0.0]
-  end
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3 0.0]
+    end
 endfunction
 opt = optimbase_new ();
 opt = optimbase_configure(opt,"-numberofvariables",4);
@@ -215,9 +215,9 @@ opt = optimbase_destroy(opt);
 // Test with correct rosenbrock function
 //
 function [ f , g , index ] = rosenbrock ( x , index )
-  f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
-  g(1,1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
-  g(1,2) = 200. * ( x(2) - x(1)**2 )
+    f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    g(1,1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
+    g(1,2) = 200. * ( x(2) - x(1)**2 )
 endfunction
 
 opt = optimbase_new ();
@@ -231,9 +231,9 @@ opt = optimbase_destroy(opt);
 // Test with not correct rosenbrock function : g is a column vector instead of row vector
 //
 function [ f , g , index ] = rosenbrock4 ( x , index )
-  f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
-  g(1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
-  g(2) = 200. * ( x(2) - x(1)**2 )
+    f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    g(1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
+    g(2) = 200. * ( x(2) - x(1)**2 )
 endfunction
 
 opt = optimbase_new ();

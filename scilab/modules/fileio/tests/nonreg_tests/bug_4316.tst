@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2009 - Allan CORNET
+// Copyrigh (C) DIGITEO - 2009 - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 
 // <-- INTERACTIVE TEST -->
 
-mfprintf(0,'bug 4316 --> redirection in stderr');
-mfprintf(6,'bug 4316 --> redirection in stdout');
+mfprintf(0,"bug 4316 --> redirection in stderr");
+mfprintf(6,"bug 4316 --> redirection in stdout");
 
-ierr = execstr('mfprintf(5,''bug 4316 --> redirection in stdin'');','errcatch');
+ierr = execstr("mfprintf(5,''bug 4316 --> redirection in stdin'');","errcatch");
 if ierr <> 999 then pause,end

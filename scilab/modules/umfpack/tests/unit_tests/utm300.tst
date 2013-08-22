@@ -1,6 +1,6 @@
 // ============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - Sylvestre LEDRU
+// Copyrigh (C) 2007-2008 - Sylvestre LEDRU
 //
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
@@ -30,7 +30,7 @@ offsets = [ 0 -50 50 1 -1 -5 5 2 -2 -4 ];
 nonzerosExpected = [ 300 190 186 180 166 159 158 150 134 113 ];
 
 for j=1:length(offsets)
-	if nnz(diag(A, offsets(j))) <> nonzerosExpected(j) then pause, end
+    if nnz(diag(A, offsets(j))) <> nonzerosExpected(j) then pause, end
 end
 
 // TODO add the rest of information
@@ -58,7 +58,7 @@ if indlongest <> 116 then pause, end
 if shortest <> 1 then pause, end
 if indshortest <> 3 then pause, end
 
-// Average nonzeros per row 
+// Average nonzeros per row
 m=ceil(mean(rowlength));
 if m <> 11 then pause, end
 
@@ -66,7 +66,7 @@ d=round(st_deviation(rowlength)*10)/10;
 if d <> 7.7 then pause, end
 
 // Column Data
-ji=gsort(ij(:,[2 1]),'lr','i');
+ji=gsort(ij(:,[2 1]),"lr","i");
 lastincol=[find(diff(ji(:,1))>0) size(ji,1)];
 collength=diff([0 lastincol]);
 
@@ -90,9 +90,9 @@ rowbounds= [ij([1 lastinrow(1:$-1)+1],2) ij(lastinrow,2)];
 rowindex=ij(lastinrow,1);
 rowbandwidth=rowbounds-rowindex*ones(1,2);
 lowband=[-rowbandwidth(find(rowbandwidth(:,1)<=0),1)
-         -rowbandwidth(find(rowbandwidth(:,2)<=0),2)];
+-rowbandwidth(find(rowbandwidth(:,2)<=0),2)];
 uppband=[rowbandwidth(find(rowbandwidth(:,1)>=0),1)
-         rowbandwidth(find(rowbandwidth(:,2)>=0),2)];   
+rowbandwidth(find(rowbandwidth(:,2)>=0),2)];
 
 // lower bandwidth => max
 minlow=max(lowband);

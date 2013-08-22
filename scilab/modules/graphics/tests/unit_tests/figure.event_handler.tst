@@ -1,6 +1,6 @@
 //
 //  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-//  Copyright (C) 2008-2008 - INRIA - Bruno JOFRET
+//  Copyrigh (C) 2008-2008 - INRIA - Bruno JOFRET
 //
 //  This file must be used under the terms of the CeCILL.
 //  This source file is licensed as described in the file COPYING, which
@@ -40,7 +40,7 @@ assert_checkequal(my_figure.event_handler_enable, "on");
 
 // my_figure.event_handler = ""
 // Erasing event_handler make enable flag go 'off'
- my_figure.event_handler = "";
+my_figure.event_handler = "";
 assert_checkequal(my_figure.event_handler, "");
 assert_checkequal(my_figure.event_handler_enable, "off");
 

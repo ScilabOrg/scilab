@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2009 - Pierre MARECHAL
+// Copyrigh (C) DIGITEO - 2009 - Pierre MARECHAL
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // listfiles('/') returns an error.
 
-if getos() <> 'Windows' then 
+if getos() <> "Windows" then
     ierr = execstr("listfiles(""/"");","errcatch");
     if ierr<>0 then pause, end
 end

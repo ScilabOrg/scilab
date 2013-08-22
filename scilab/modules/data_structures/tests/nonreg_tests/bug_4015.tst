@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,4 +18,4 @@
 x=matrix(1:24,[2 3 4]);
 ierr = execstr("x = x(:,$:-1:1,:);","errcatch");
 if ierr<>0 then pause; end
-                    
+

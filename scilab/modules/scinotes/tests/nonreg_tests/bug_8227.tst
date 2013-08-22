@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - Calixte DENIZET
+// Copyrigh (C) 2010 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,9 +16,9 @@
 // <-- Short Description -->
 // The commands evaluated with "Evaluate selection" were not stored in history.
 
-tmpfile = TMPDIR+'/bug_8227.sci';
-fd = mopen(tmpfile,'wt');
-mputl(['a=1','b=2'],fd);
+tmpfile = TMPDIR+"/bug_8227.sci";
+fd = mopen(tmpfile,"wt");
+mputl(["a=1","b=2"],fd);
 mclose(fd);
 editor(tmpfile)
 

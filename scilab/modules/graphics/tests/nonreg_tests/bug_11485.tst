@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012-2012 - Scilab Enterprises - bruno.jofret@scilab-enterprises.com
+// Copyrigh (C) 2012-2012 - Scilab Enterprises - bruno.jofret@scilab-enterprises.com
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

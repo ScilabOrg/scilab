@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,7 +11,7 @@
 // <-- CLI SHELL MODE -->
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -63,7 +63,7 @@ s1 = optimsimplex_setfv(s1,3,14.0);
 computed = optimsimplex_getallx (s1);
 expected = [
 0.0 0.0
-1.0 0.0 
+1.0 0.0
 0.0 2.0];
 assert_checkequal ( computed , expected );
 computed = optimsimplex_getallfv (s1);
@@ -71,7 +71,7 @@ assert_checkequal ( computed , [12.0 13.0 14.0]' );
 // setallx, setallfv
 newsimplex = [
 1.0 2.0
-3.0 4.0 
+3.0 4.0
 5.0 6.0];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 computed = optimsimplex_getallx (s1);
@@ -93,7 +93,7 @@ s1 = optimsimplex_setve ( s1 , 3 , 15.0 , [0.0 2.0] );
 computed = optimsimplex_getallx ( s1 );
 expected = [
 0.0 0.0
-1.0 0.0  
+1.0 0.0
 0.0 2.0];
 assert_checkequal ( computed , expected );
 computed = optimsimplex_getallfv ( s1 );
@@ -122,9 +122,9 @@ s1 = optimsimplex_setve ( s1 , 2 , 14.0 , [1.0 0.0] );
 s1 = optimsimplex_setve ( s1 , 3 , 15.0 , [0.0 2.0] );
 computed = optimsimplex_getall ( s1 );
 expected = [
-    13.    0.    0.  
-    14.    1.    0.  
-    15.    0.    2.  
+13.    0.    0.
+14.    1.    0.
+15.    0.    2.
 ];
 assert_checkequal ( computed , expected );
 simplex = [
@@ -147,7 +147,7 @@ assert_checkequal ( ve1.x , [5.0 6.0] );
 assert_checkequal ( ve1.fv , 12.0 );
 s1 = optimsimplex_destroy(s1);
 //
-// Test setall with wrong simplex : 
+// Test setall with wrong simplex :
 // there are 3 parameters => 4 columns
 // but there is only 3 vertices, while the minimum would be 4.
 //
@@ -174,11 +174,11 @@ s1 = optimsimplex_setve ( s1 , 4 , 16.0 , [1.0 3.0] );
 s1 = optimsimplex_setve ( s1 , 5 , 17.0 , [2.0 4.0] );
 computed = optimsimplex_getall ( s1 );
 expected = [
-    13.    0.    0.  
-    14.    1.    0.  
-    15.    0.    2.  
-    16.    1.    3.  
-    17.    2.    4.  
+13.    0.    0.
+14.    1.    0.
+15.    0.    2.
+16.    1.    3.
+17.    2.    4.
 ];
 assert_checkequal ( computed , expected );
 simplex = [
@@ -229,22 +229,22 @@ s1 = optimsimplex_setfv ( s1 , 5 , 16.0);
 // Now check the data
 computed = optimsimplex_getallx (s1);
 expected = [
-    0.    0.  
-    1.    0.  
-    0.    2.  
-    1.    3.  
-    2.    4.  
+0.    0.
+1.    0.
+0.    2.
+1.    3.
+2.    4.
 ];
 assert_checkequal ( computed , expected );
 computed = optimsimplex_getallfv (s1);
 assert_checkequal ( computed , [12.0 13.0 14.0 15.0 16.0]' );
 // setallx, setallfv
 newsimplex = [
-    1.    2.   
-    3.    4.   
-    5.    6.   
-    7.    8.   
-    9.    10.  
+1.    2.
+3.    4.
+5.    6.
+7.    8.
+9.    10.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 computed = optimsimplex_getallx (s1);

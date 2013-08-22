@@ -1,6 +1,6 @@
 / =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,6 +23,6 @@
 
 // 2] start a xcos demos with modelica for example
 
-// 3] you should have a message box with : 
+// 3] you should have a message box with :
 // [_("Sorry compiling problem");_("A compatible C compiler required.")
 

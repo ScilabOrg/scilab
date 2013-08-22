@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO
+// Copyrigh (C) 2009 - DIGITEO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,15 +22,15 @@ tab_ref = [
 "프로그램",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-	sz = "dir_" + tab_ref(i);
-	a = chdir(sz);
-	if(a <> %T) then
-		pause
-	end
-	b = pwd();
-	if(b <> (TMPDIR + filesep() + sz)) then
-		pause
-	end
-	cd(TMPDIR);
+for i = 1 : size(tab_ref,"*")
+    sz = "dir_" + tab_ref(i);
+    a = chdir(sz);
+    if(a <> %T) then
+        pause
+    end
+    b = pwd();
+    if(b <> (TMPDIR + filesep() + sz)) then
+        pause
+    end
+    cd(TMPDIR);
 end

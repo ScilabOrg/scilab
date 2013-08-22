@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA
+// Copyrigh (C) 2005-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 
 
 L =list(4,5,[1 2]);
-if execstr('z=L(3)(:)(1)','errcatch')<>21 then pause,end
+if execstr("z=L(3)(:)(1)","errcatch")<>21 then pause,end
 
 L=list(4,5,[1 1/%s]);
-if execstr('z=L(3)(1,:)(2)','errcatch')<>0 | or(z<>[1 1]) then pause,end
+if execstr("z=L(3)(1,:)(2)","errcatch")<>0 | or(z<>[1 1]) then pause,end

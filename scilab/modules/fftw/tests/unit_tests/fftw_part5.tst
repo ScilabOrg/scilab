@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - INRIA - Serge STEER
+// Copyrigh (C) 2012 - INRIA - Serge STEER
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,9 +9,9 @@
 
 //=================================fft(A ,isn, dim, incr [,flag]) =============================
 A=[0   1   1
-   2  -1  -1
-   3   4   4
-   5   1  -1];
+2  -1  -1
+3   4   4
+5   1  -1];
 y=matrix(fft(A(:),-1,4,1),size(A));
 assert_checkalmostequal(y,fft(A,-1,1));
 y1=matrix(fft(y(:),1,4,1),size(A));

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // plot3d3 without flags option removes ticks.
-// 
+//
 
 plot3d3( [ 0,0; 10,10 ],[ 1,2;3,4 ],[ 0,2; 0,2 ] );
 

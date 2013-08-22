@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 // <-- Short Description -->
 // Code generation was broken
 
-xcos(SCI + '/modules/xcos/demos/CodeGen/controller.zcos');
+xcos(SCI + "/modules/xcos/demos/CodeGen/controller.zcos");
 
 // right click on super block
 // start Code Generation

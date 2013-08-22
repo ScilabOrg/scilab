@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Simon MARCHETTO
+// Copyrigh (C) 2013 - Scilab Enterprises - Simon MARCHETTO
 //
 // This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 realMatrix = [0.211, 3, -4.0, 0.0];
 purelyRealComplexMatrix = complex(realMatrix);
 
-filename = fullfile(TMPDIR, 'bug_12360.csv');
+filename = fullfile(TMPDIR, "bug_12360.csv");
 write_csv(purelyRealComplexMatrix, filename, ascii(9), ".", "%5.3f");
 
 path = SCI + "/modules/spreadsheet/tests/nonreg_tests";

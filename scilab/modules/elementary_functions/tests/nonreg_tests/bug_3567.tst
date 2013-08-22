@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -50,18 +50,18 @@ ref_indices_C = [     4.    5.    3.  ;    6.    2.    1.];
 [values_C, indices_C] = gsort(C);
 if or(indices_C <> ref_indices_C) then pause,end
 
-[values_2,indices_2] = gsort(c,'g');
+[values_2,indices_2] = gsort(c,"g");
 if or(values_1 <> values_2) then pause,end
 if or(indices_1 <> indices_2) then pause,end
 
 ref_values_3 = [  3. + 2.*%i    2. + 4.*%i    8. + 3.*%i  ;    1. + 4.*%i    5. + %i      9. + %i  ];
 ref_indices_3 = [    1.    2.    6.  ;    3.    5.    4.];
 
-[values_3,indices_3] = gsort(c,'g','i');
+[values_3,indices_3] = gsort(c,"g","i");
 if or(ref_values_3 <> values_3) then pause,end
 if or(ref_indices_3 <> indices_3) then pause,end
 
-[values_4,indices_4] = gsort(c,'g','d');
+[values_4,indices_4] = gsort(c,"g","d");
 if or(ref_values <> values_4) then pause,end
 if or(ref_indices <> indices_4) then pause,end
 

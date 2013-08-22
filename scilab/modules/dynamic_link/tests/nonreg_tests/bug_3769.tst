@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,7 +19,7 @@
 // Dynamic link doesn't detect intel fortran compiler version 11 on Windows
 
 // Please be sure that you have installed Intel fortran 11
-// launch scilab 
+// launch scilab
 
 r = findmsifortcompiler();
 if r <> ifort11 then pause,end

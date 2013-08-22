@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=55
 //
 // <-- Short Description -->
-//    The sci2exp function gives wrong result with the -%inf 
+//    The sci2exp function gives wrong result with the -%inf
 //    value.
 //    sci2exp(-%inf) = -Inf instead of the right result = -%inf
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,18 +19,18 @@
 //      wrong result
 //    Commands:  -->a=hypermat([3,3,1],int8(1:9));
 //
-//    -->[i,j]=find(a==5)   
+//    -->[i,j]=find(a==5)
 //     j  =
 //
-//        1.  
+//        1.
 //     i  =
 //
-//        0.  
+//        0.
 //
 //    -->[i,j,k]=find(a==5)
 //     k  =
 //
-//        1.  
+//        1.
 // ...
 
 //correct=%F

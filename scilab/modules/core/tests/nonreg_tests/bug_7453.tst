@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Bernard HUGUENEY
+// Copyrigh (C) 2010 - DIGITEO - Bernard HUGUENEY
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,9 +18,9 @@
 //
 //
 
-id = funptr('user');
+id = funptr("user");
 if id == 0 then pause, end
-if clearfun('user') <> %t then pause, end
-newfun('user', id);
+if clearfun("user") <> %t then pause, end
+newfun("user", id);
 if user(3) <> 3 then pause, end
 

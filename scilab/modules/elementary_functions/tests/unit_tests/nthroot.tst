@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Adeline CARNIS
+// Copyrigh (C) 2012 - DIGITEO - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,7 +9,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for nthroot() function 
+// unit tests for nthroot() function
 // =============================================================================
 // Run with test_run('elementary_functions', 'nthroot', ['no_check_error_output'])
 

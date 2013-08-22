@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,40 +9,40 @@
 
 mode(5)
 lines(0)
-s=poly(0,'s');
+s=poly(0,"s");
 //polynomial operations
 p1=1+1.5*s;
-if p1<>poly([1 1.5],'s','c') then pause,end
+if p1<>poly([1 1.5],"s","c") then pause,end
 p2=p1*p1;
-if norm(coeff(p2-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff(4*p2-poly([4 12 9],'s','c')))>10*%eps then pause,end
-if norm(coeff(p2*4-poly([4 12 9],'s','c')))>10*%eps then pause,end
+if norm(coeff(p2-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff(4*p2-poly([4 12 9],"s","c")))>10*%eps then pause,end
+if norm(coeff(p2*4-poly([4 12 9],"s","c")))>10*%eps then pause,end
 p2=p2*4;
-if norm(coeff(p2/4-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff(4\p2-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
+if norm(coeff(p2/4-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff(4\p2-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
 p2=p2/4;
-if norm(coeff((p2-1)-poly([0 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff((1-p2)-poly([0 -3 -2.25],'s','c')))>10*%eps then pause,end
+if norm(coeff((p2-1)-poly([0 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff((1-p2)-poly([0 -3 -2.25],"s","c")))>10*%eps then pause,end
 if norm(coeff(p2-p2))>10*%eps then pause,end
 //complex
 p1=1+1.5*s+0*%i;
-if norm(coeff(p1-poly([1 1.5],'s','c')))>10*%eps then pause,end
+if norm(coeff(p1-poly([1 1.5],"s","c")))>10*%eps then pause,end
 p2=p1*p1;
-if norm(coeff(p2-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff(4*p2-poly([4 12 9],'s','c')))>10*%eps then pause,end
-if norm(coeff(p2*4-poly([4 12 9],'s','c')))>10*%eps then pause,end
-if norm(coeff((4+0*%i)*p2-poly([4 12 9],'s','c')))>10*%eps then pause,end
-if norm(coeff(p2*(4+0*%i)-poly([4 12 9],'s','c')))>10*%eps then pause,end
+if norm(coeff(p2-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff(4*p2-poly([4 12 9],"s","c")))>10*%eps then pause,end
+if norm(coeff(p2*4-poly([4 12 9],"s","c")))>10*%eps then pause,end
+if norm(coeff((4+0*%i)*p2-poly([4 12 9],"s","c")))>10*%eps then pause,end
+if norm(coeff(p2*(4+0*%i)-poly([4 12 9],"s","c")))>10*%eps then pause,end
 p2=p2*4;
-if norm(coeff(p2/4-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff(4\p2-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff(p2/(4+0*%i)-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff((4+0*%i)\p2-poly([1 3 2.25],'s','c')))>10*%eps then pause,end
+if norm(coeff(p2/4-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff(4\p2-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff(p2/(4+0*%i)-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff((4+0*%i)\p2-poly([1 3 2.25],"s","c")))>10*%eps then pause,end
 p2=p2/4;
-if norm(coeff((p2-1)-poly([0 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff((1-p2)-poly([0 -3 -2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff((p2-(1+0*%i))-poly([0 3 2.25],'s','c')))>10*%eps then pause,end
-if norm(coeff(((1+0*%i)-p2)-poly([0 -3 -2.25],'s','c')))>10*%eps then pause,end
+if norm(coeff((p2-1)-poly([0 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff((1-p2)-poly([0 -3 -2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff((p2-(1+0*%i))-poly([0 3 2.25],"s","c")))>10*%eps then pause,end
+if norm(coeff(((1+0*%i)-p2)-poly([0 -3 -2.25],"s","c")))>10*%eps then pause,end
 //
 if norm(coeff(p2-p2))>10*%eps then pause,end
 //
@@ -160,7 +160,7 @@ p1=[1+1.5*s;s**2];
 if norm(coeff(p1'-[p1(1),p1(2)]))>10*%eps then pause,end
 if norm(coeff((-p1)+p1))>10*%eps then pause,end
 if norm(coeff((-p1')+p1'))>10*%eps then pause,end
-// 
+//
 x=[1+s**3; 4];
 p3=p1(1)*x(1)+p1(2)*x(2);
 if norm(coeff(p1'*x-p3))>10*%eps then pause,end
@@ -195,7 +195,7 @@ x=[1.5,1/3];
 p3=[p1(1)*x(1),p1(2)*x(2)];
 if norm(coeff(p1'.*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*p1'-p3))>10*%eps then pause,end
- 
+
 // matrices
 p1=[1+1.5*s,s**2, 0;1 s s+1];
 //
@@ -203,36 +203,36 @@ if norm(coeff((-p1)+p1))>10*%eps then pause,end
 //
 x=[1,s;-1,2*s;2,0];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=[1 1.5;2 1/3;sqrt(7) 8];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=5;
 p3=[x*p1(1,1),x*p1(1,2),x*p1(1,3);
-    x*p1(2,1),x*p1(2,2),x*p1(2,3)];
- 
+x*p1(2,1),x*p1(2,2),x*p1(2,3)];
+
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 if norm(coeff(x*p1-p3))>10*%eps then pause,end
- 
+
 //
 x=[1+s**3, 4,-s;0,s+1,10*s**4];
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 x=[1 1.5;2 1/3;sqrt(7) 8]';
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*p1-p3))>10*%eps then pause,end
- 
+
 //
 //               real    complex
 //
@@ -276,7 +276,7 @@ x=[1.5,1/3-3*%i];
 p3=[p1(1)*x(1),p1(2)*x(2)];
 if norm(coeff(p1'.*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*p1'-p3))>10*%eps then pause,end
- 
+
 // matrices
 p1=[1+1.5*s,s**2, 0;1 s s+1];
 //
@@ -284,33 +284,33 @@ if norm(coeff((-p1)+p1))>10*%eps then pause,end
 //
 x=[1,s+%i ;-1,2*s;2,0];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=[1 1.5;2 1/3;%i-sqrt(7) 8];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=5-2*%i;
 p3=[x*p1(1,1),x*p1(1,2),x*p1(1,3);
-    x*p1(2,1),x*p1(2,2),x*p1(2,3)];
- 
+x*p1(2,1),x*p1(2,2),x*p1(2,3)];
+
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 if norm(coeff(x*p1-p3))>10*%eps then pause,end
- 
+
 //
 x=[1+s**3, 4-3*%i,-s;0,s+1,10*s**4];
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 x=[1 1.5;2-%i/7, 1/3;sqrt(7) 8]';
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*p1-p3))>10*%eps then pause,end
 //
@@ -356,7 +356,7 @@ x=[1.5,1/3];
 p3=[p1(1)*x(1),p1(2)*x(2)];
 if norm(coeff(conj(p1').*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*conj(p1')-p3))>10*%eps then pause,end
- 
+
 //matrices
 p1=[1+1.5*s,s**2, 0;1 s s+1-%i/3];
 //
@@ -364,33 +364,33 @@ if norm(coeff((-p1)+p1))>10*%eps then pause,end
 //
 x=[1,s ;-1,2*s;2,0];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=[1 1.5;2 1/3;sqrt(7) 8];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=5;
 p3=[x*p1(1,1),x*p1(1,2),x*p1(1,3);
-    x*p1(2,1),x*p1(2,2),x*p1(2,3)];
- 
+x*p1(2,1),x*p1(2,2),x*p1(2,3)];
+
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 if norm(coeff(x*p1-p3))>10*%eps then pause,end
- 
+
 //
 x=[1+s**3,4,-s;0,s+1,10*s**4];
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 x=[1 1.5;2, 1/3;sqrt(7) 8]';
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*p1-p3))>10*%eps then pause,end
 //
@@ -436,7 +436,7 @@ x=[1.5+3*%i,1/3];
 p3=[p1(1)*x(1),p1(2)*x(2)];
 if norm(coeff(conj(p1').*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*conj(p1')-p3))>10*%eps then pause,end
- 
+
 //matrices
 p1=[1+1.5*s,s**2, 0;1 s s+1-%i/3];
 //
@@ -444,41 +444,41 @@ if norm(coeff((-p1)+p1))>10*%eps then pause,end
 //
 x=[1-%i,s ;-1,2*s;2,0+%i*s**4];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=[1 1.5+5*%i;2 1/3;%i-sqrt(7) 8];
 p3=[p1(1,1)*x(1,1)+p1(1,2)*x(2,1)+p1(1,3)*x(3,1),...
-        p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
-    p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
-        p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
+p1(1,1)*x(1,2)+p1(1,2)*x(2,2)+p1(1,3)*x(3,2);
+p1(2,1)*x(1,1)+p1(2,2)*x(2,1)+p1(2,3)*x(3,1),...
+p1(2,1)*x(1,2)+p1(2,2)*x(2,2)+p1(2,3)*x(3,2)];
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 //
 x=5+8*%i;
 p3=[x*p1(1,1),x*p1(1,2),x*p1(1,3);
-    x*p1(2,1),x*p1(2,2),x*p1(2,3)];
- 
+x*p1(2,1),x*p1(2,2),x*p1(2,3)];
+
 if norm(coeff(p1*x-p3))>10*%eps then pause,end
 if norm(coeff(x*p1-p3))>10*%eps then pause,end
- 
+
 //
 x=[1+s**3,4+10*%i,-s;0,s+1,10*s**4+%i*s**3];
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 x=[1 1.5;2, 1/3;sqrt(7)/%i, 8]';
 p3=[p1(1,1)*x(1,1),p1(1,2)*x(1,2),p1(1,3)*x(1,3);
-    p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
+p1(2,1)*x(2,1),p1(2,2)*x(2,2),p1(2,3)*x(2,3)];
 if norm(coeff(p1.*x-p3))>10*%eps then pause,end
 if norm(coeff(x.*p1-p3))>10*%eps then pause,end
- 
+
 //
 //
 //
 //        real real
-z=poly(0,'z');p1=[1+3*z;z;2*z;z*4];p2=[0*z 1+z z-1 -z];p3=[p1 p2'];
+z=poly(0,"z");p1=[1+3*z;z;2*z;z*4];p2=[0*z 1+z z-1 -z];p3=[p1 p2'];
 pp1=p1;pp2=p2;pp3=p3;
 pp1(2)=pp2(1);if pp1(2) <> pp2(1) then pause,end
 pp2(3)=pp1(4);if pp2(3) <> pp1(4) then pause,end
@@ -539,7 +539,7 @@ pp3=p3;
 pp3(:,4)=p1;if pp3 <> [p3 [0;0;0;0] p1] then pause,end
 pp3=p3;
 pp3(6:9,:)=p3;if pp3 <> [p3;[0 0];p3] then pause,end
- 
+
 //
 p1=[1+3*s;s-%i;2*s;s*4+3*%i*s**2];p2=[0*s 1+s s-1 -s];p3=[p1 p2'];
 pp1=p1;pp2=p2;pp3=p3;
@@ -601,7 +601,7 @@ pp3=p3;
 pp3(:,4)=p1;if pp3 <> [p3 [0;0;0;0] p1] then pause,end
 pp3=p3;
 pp3(6:9,:)=p3;if pp3 <> [p3;[0 0];p3] then pause,end
- 
+
 //
 p1=[1+3*s;s+%i*s**3;2*s;s*4+%i];p2=[0*s-2.5*%i,1+s,s-1+3*%i,-s];
 p3=[p1 conj(p2')];
@@ -689,17 +689,17 @@ if norm(coeff(p3(3,2)- p2(3) ))>10*%eps then pause,end
 if norm(coeff(p3([1 3],1)- p1([1 3]) ))>10*%eps then pause,end
 if norm(coeff(p3([1;3],1)- p1([1 3]) ))>10*%eps then pause,end
 if norm(coeff(p3([2 4],[2 1])-[conj(p2([2 4])') p1([2 4])]))>10*%eps
- then pause,end
+then pause,end
 if norm(coeff(p3(:,1)- p1 ))>10*%eps then pause,end
 if norm(coeff(p3(:,2)- conj(p2') ))>10*%eps then pause,end
 if norm(coeff(p3(1,:)- [p1(1) p2(1)] ))>10*%eps then pause,end
-if norm(coeff(p3([1 4],:)- [p1([1 4]) conj(p2([1 4])')] ))>10*%eps 
-  then pause,end
+if norm(coeff(p3([1 4],:)- [p1([1 4]) conj(p2([1 4])')] ))>10*%eps
+then pause,end
 if norm(coeff(p3(:,:)- p3 ))>10*%eps then pause,end
 
 
 //hidden empty index in insertion
-s=poly(0,'s');
+s=poly(0,"s");
 a=[1+s 2;3 4];a_ref=a;
 
 a(1,[%f %f])=[];

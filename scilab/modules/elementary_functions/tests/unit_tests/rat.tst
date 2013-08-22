@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
-// Copyright (C) 2012 - Scilab Enterprises - Cedric Delamarre
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - Scilab Enterprises - Cedric Delamarre
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

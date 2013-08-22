@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,8 +19,8 @@ a = [1 1;0 1];
 b = [0 1;1 0];
 c = [1, 1];
 d = [3, 2];
-S = syslin('c', a, b, c, d);
-out = [TMPDIR + 'out_10506_1.txt'; TMPDIR + 'out_10506_2.txt'];
+S = syslin("c", a, b, c, d);
+out = [TMPDIR + "out_10506_1.txt"; TMPDIR + "out_10506_2.txt"];
 
 msgerr = msprintf(gettext("%s: Wrong number of input argument(s).\n"), "ssprint");
 assert_checkerror("ssprint()", msgerr);

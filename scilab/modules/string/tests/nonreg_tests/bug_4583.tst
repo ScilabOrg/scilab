@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer <serge.steer@inria.fr>
+// Copyrigh (C) 2010 - INRIA - Serge Steer <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 t=[];t(3)="foo";
 if or(length(t)<>[0;0;3]) then pause,end
 
-t='x';t(2,3)="foo";
+t="x";t(2,3)="foo";
 if or(length(t)<>[1 0 0;0 0 3]) then pause,end
 
-t(2,3,2)='yy';
+t(2,3,2)="yy";
 if or(length(t(:))<>[1;0;0;0;0;3;0;0;0;0;0;2]) then pause,end

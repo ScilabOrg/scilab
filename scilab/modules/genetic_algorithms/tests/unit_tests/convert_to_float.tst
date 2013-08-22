@@ -1,6 +1,6 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyrigh (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -10,6 +10,6 @@
 
 // <-- CLI SHELL MODE -->
 
-y = convert_to_float('11111111', 8, 2, -2);
+y = convert_to_float("11111111", 8, 2, -2);
 
 if y~=2 then pause,end

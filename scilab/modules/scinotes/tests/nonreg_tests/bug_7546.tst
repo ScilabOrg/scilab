@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - Calixte DENIZET
+// Copyrigh (C) 2010 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // It was not possible to select easily a block.
 
-path=get_function_path('test_run');
+path=get_function_path("test_run");
 scinotes(path, 147);
 
 // Put the caret on the 'if' and use ctrl+B to select all the block if...end

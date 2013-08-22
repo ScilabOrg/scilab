@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2010 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // tree2code wrongly replaced every (:) occurence in a function definition with (eye()).
 
 function foo(r)
- r(:)=1
+    r(:)=1
 endfunction
 
 txt = tree2code(macr2tree(foo));

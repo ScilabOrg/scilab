@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO
+// Copyrigh (C) 2009 - DIGITEO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,9 +21,9 @@ tab_ref = [
 
 cd(SCI);
 
-for i = 1 : size(tab_ref,'*')
-  pathnam = TMPDIR + filesep() + 'dir_' + tab_ref(i);
-  filenam = pathnam + filesep() + 'file_' + tab_ref(i);
-  if deletefile(filenam) <> %t then pause,end
-  if ls(pathnam) <> [] then pause,end
+for i = 1 : size(tab_ref,"*")
+    pathnam = TMPDIR + filesep() + "dir_" + tab_ref(i);
+    filenam = pathnam + filesep() + "file_" + tab_ref(i);
+    if deletefile(filenam) <> %t then pause,end
+    if ls(pathnam) <> [] then pause,end
 end

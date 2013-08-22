@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,9 +9,9 @@
 
 // Maple code used to create reference
 
-// Digits := 40: 
+// Digits := 40:
 // writeto("csc.ref"): interface(prettyprint = 0):
-// for i from -179 to 179 do if (i<>0) then print(i*Pi/180, evalf[30](csc(i*Pi/180), 30)) end end do; 
+// for i from -179 to 179 do if (i<>0) then print(i*Pi/180, evalf[30](csc(i*Pi/180), 30)) end end do;
 // writeto(terminal):
 ieee(2);
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab
@@ -381,8 +381,8 @@ if max(abs((csc(x)-ref(:,2))./ref(:,2)))>40*eps then pause,end
 
 //diff(csc(x*(1+e)), e) = -csc(x*(1+e))*cot(x*(1+e))*x
 if max(abs((csc(x)-ref(:,2))./(cotg(x).*x.*csc(x))))>20*eps then pause, end
-  
-  
+
+
 x=ref(:,1)*pi+2^8*pi;
 if max(abs((csc(x)-ref(:,2))./ref(:,2)))>40*2^9*pi*eps then pause,end
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,11 +16,11 @@
 //    The following "optim based" function mades scilab hangs
 
 function [f,g,ind]=cost(x,ind)
-	xref=[1;2;3];
-	f=0.5*norm(x-xref)^2
-	g=x-xref;
+    xref=[1;2;3];
+    f=0.5*norm(x-xref)^2
+    g=x-xref;
 endfunction
 
 x0=[1;-1;1];
 
-if execstr('[f,xopt]=optim(cost,,''b'',-2*ones(x0),2*ones(x0),x0);','errcatch') <> 54  then pause,end
+if execstr("[f,xopt]=optim(cost,,''b'',-2*ones(x0),2*ones(x0),x0);","errcatch") <> 54  then pause,end

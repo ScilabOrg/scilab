@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -38,10 +38,10 @@
 dirToSave = pwd();
 
 cd(TMPDIR);
-[status,msg]=mkdir('bug1586');
-[status,msg]=mkdir('bug1586');
+[status,msg]=mkdir("bug1586");
+[status,msg]=mkdir("bug1586");
 
-rmdir('bug1586');
+rmdir("bug1586");
 cd(dirToSave);
 
 if status <> 2 then pause,end

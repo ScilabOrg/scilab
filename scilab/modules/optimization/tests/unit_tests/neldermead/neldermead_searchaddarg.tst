@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -14,13 +14,13 @@
 
 
 //
-// The _MYDATA_ variable name is chosen so that 
+// The _MYDATA_ variable name is chosen so that
 // no name conflict can possibly occur.
 //
 function [ y , index ] = rosenbrock ( x , index )
-  a = _MYDATA_.a
-  y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
-  _MYDATA_.nb = _MYDATA_.nb + 1
+    a = _MYDATA_.a
+    y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
+    _MYDATA_.nb = _MYDATA_.nb + 1
 endfunction
 
 x0 = [11.0 140.0]';
@@ -55,8 +55,8 @@ nm = neldermead_destroy(nm);
 // and whatever variable name can be used.
 //
 function [ y , index ] = rosenbrock2 ( x , index , mydata )
-  a = mydata.a
-  y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
+    a = mydata.a
+    y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
 endfunction
 
 //
@@ -80,10 +80,10 @@ nm = neldermead_destroy(nm);
 // Use a global variable.
 //
 function [ y , index ] = rosenbrock3 ( x , index )
-  global _MYDATA_
-  a = _MYDATA_.a
-  y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
-  _MYDATA_.nb = _MYDATA_.nb + 1
+    global _MYDATA_
+    a = _MYDATA_.a
+    y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
+    _MYDATA_.nb = _MYDATA_.nb + 1
 endfunction
 
 //

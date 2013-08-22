@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,8 +22,8 @@ beta=5;
 if execstr("beta","errcatch") <> 0  then pause,end
 
 function y=foo()
-  beta;
-  y=beta+1
+    beta;
+    y=beta+1
 endfunction
 
 if execstr("foo","errcatch") <> 0  then pause,end

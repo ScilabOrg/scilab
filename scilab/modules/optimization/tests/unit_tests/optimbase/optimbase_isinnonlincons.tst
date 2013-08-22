@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -19,13 +19,13 @@
 // Arguments
 //    x : the point where to compute the cost
 //    index : a flag which states what is to compute
-//    * if index=1, or no index, returns the value of the cost 
+//    * if index=1, or no index, returns the value of the cost
 //      function (default case)
-//    * if index=2, returns the value of the nonlinear inequality 
+//    * if index=2, returns the value of the nonlinear inequality
 //      constraints, as a row array
 //    * if index=3, returns an array which contains
-//      at index #1, the value of the cost function  
-//      at index #2 to the end is the list of the values of the nonlinear 
+//      at index #1, the value of the cost function
+//      at index #2 to the end is the list of the values of the nonlinear
 //      inequality constraints
 //  Discussion:
 //    The problem is to minimize a cost function with 4 non linear constraints.
@@ -47,22 +47,22 @@
 //    Edited by F.A. Lootsma, pp 349-366, 1972
 //
 function [ f , c , index ] = gouldnonconvex ( x , index )
-  f = []
-  c = []
-  if ( index==2 | index==6 ) then
-    f = (x(1) - 10.0 )^3 + ( x(2) - 20.0 ) ^ 3
-  end
-  if ( index==5 | index==6 ) then
-    c1 = x(1) - 13.0
-    c2 = ( x(1) - 5.0 )^2  + (x(2) - 5.0 )^2 - 100.0
-    c3 = -( x(1) - 6.0 )^2 - (x(2) - 5.0 )^2 + 82.81
-    c4 = x(2)
-    c = [c1 c2 c3 c4]
-  end
+    f = []
+    c = []
+    if ( index==2 | index==6 ) then
+        f = (x(1) - 10.0 )^3 + ( x(2) - 20.0 ) ^ 3
+    end
+    if ( index==5 | index==6 ) then
+        c1 = x(1) - 13.0
+        c2 = ( x(1) - 5.0 )^2  + (x(2) - 5.0 )^2 - 100.0
+        c3 = -( x(1) - 6.0 )^2 - (x(2) - 5.0 )^2 + 82.81
+        c4 = x(2)
+        c = [c1 c2 c3 c4]
+    end
 endfunction
 //
-// The same cost function as before, with an 
-// additionnal argument, which contains parameters of the 
+// The same cost function as before, with an
+// additionnal argument, which contains parameters of the
 // cost function and constraints.
 // In this case, the mydata variable is passed
 // explicitely by the optimization class.
@@ -70,18 +70,18 @@ endfunction
 // and whatever variable name can be used.
 //
 function [ f , c , index , mystuff ] = gouldnonconvex2 ( x , index , mydata )
-  f = []
-  c = []
-  if ( index==2 | index==6 ) then
-    f = (x(1) - mydata.f1 )^3 + ( x(2) - mydata.f2 ) ^ 3
-  end
-  if ( index==5 | index==6 ) then
-    c1 = x(1) - mydata.a1
-    c2 = ( x(1) - 5.0 )^2  + (x(2) - 5.0 )^2 - mydata.a2
-    c3 = -( x(1) - 6.0 )^2 - (x(2) - 5.0 )^2 + mydata.a3
-    c4 = x(2)
-    c = [c1 c2 c3 c4]
-  end
+    f = []
+    c = []
+    if ( index==2 | index==6 ) then
+        f = (x(1) - mydata.f1 )^3 + ( x(2) - mydata.f2 ) ^ 3
+    end
+    if ( index==5 | index==6 ) then
+        c1 = x(1) - mydata.a1
+        c2 = ( x(1) - 5.0 )^2  + (x(2) - 5.0 )^2 - mydata.a2
+        c3 = -( x(1) - 6.0 )^2 - (x(2) - 5.0 )^2 + mydata.a3
+        c4 = x(2)
+        c = [c1 c2 c3 c4]
+    end
 endfunction
 //
 // Test optimbase_isfeasible method

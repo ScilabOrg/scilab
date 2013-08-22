@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -4137,7 +4137,7 @@ assert_checkequal(erfc(0), 1);
 assert_checkequal(erfc(%inf), 0)
 
 
-x4=4; 
+x4=4;
 w4=4.1;
 z4=3.9;
 deff("y=f(t)","y=exp(-t^2)");

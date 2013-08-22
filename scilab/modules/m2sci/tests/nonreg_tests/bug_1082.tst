@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005 - INRIA - Farid BELAHCENE
+// Copyrigh (C) 2005 - INRIA - Farid BELAHCENE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@
 //    syntax is the same in both languages, the converter fails to
 //    convert the rounding of the field of a structure: "round(a.b)"
 
-MFILECONTENTS=["structure.field = 2;" 
+MFILECONTENTS=["structure.field = 2;"
 ""
 "data = round(structure.field);"]
 

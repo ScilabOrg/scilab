@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - INRIA - Serge Steer
+// Copyrigh (C) 2009 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 
 s=%s;
 K=485000.;
-h=syslin('c', K / ( s * (s+100)^2 ) );
+h=syslin("c", K / ( s * (s+100)^2 ) );
 
 [gm,fr]=g_margin(h)
 if gm==[] then pause,end

@@ -1,6 +1,6 @@
 / =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5412
 //
 // <-- Short Description -->
-// 
+//
 
 // Start xcos
 // Add a block (CONST_m for example)

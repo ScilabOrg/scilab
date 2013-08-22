@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,5 +18,5 @@ scf(1);
 plot3d();
 
 for i = 1:20
-  unsetmenu(1, gettext("&Edit"), i);
+    unsetmenu(1, gettext("&Edit"), i);
 end

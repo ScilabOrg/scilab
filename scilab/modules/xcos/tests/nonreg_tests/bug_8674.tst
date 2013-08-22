@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 // Check that an erroneous "From workspace" block does not produce an error.
-// 
+//
 
 result = importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_8674.zcos");
 if (result <> %T) then pause,end

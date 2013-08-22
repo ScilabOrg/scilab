@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Bruno JOFRET
+// Copyrigh (C) 2010 - DIGITEO - Bruno JOFRET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -10,28 +10,28 @@
 // printed messages (and not on standard test_run/bugme process).
 
 function r = T()
-  disp("Call return [%T] ...");
-  r = %t;
+    disp("Call return [%T] ...");
+    r = %t;
 endfunction
 
 function r = F()
-  disp("Call return [%F] ...");
-  r = %f;
+    disp("Call return [%F] ...");
+    r = %f;
 endfunction
 
 function r = TT()
     disp("Call return [%T %T] ...");
-  r = [%t %t];
+    r = [%t %t];
 endfunction
 
 function r = TF()
     disp("Call return [%T %F] ...");
-  r = [%t %f];
+    r = [%t %f];
 endfunction
 
 function r = FF()
     disp("Call return [%F %F] ...");
-  r = [%f %f];
+    r = [%f %f];
 endfunction
 
 //

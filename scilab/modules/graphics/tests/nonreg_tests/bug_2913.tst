@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Sylvestre LEDRu
+// Copyrigh (C) 2011 - DIGITEO - Sylvestre LEDRu
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // The legend is displayed over the graphic
-// 
+//
 histplot();
 
 // check that the text is not over the graphic

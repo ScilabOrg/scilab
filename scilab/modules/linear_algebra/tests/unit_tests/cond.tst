@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -71,9 +71,9 @@ assert_checkalmostequal(cond(A,1), 33);
 
 assert_checkalmostequal(cond(A, %inf), 36);
 
-assert_checkalmostequal(cond(A, 'inf'), 36);
+assert_checkalmostequal(cond(A, "inf"), 36);
 
-assert_checkalmostequal(cond(A, 'fro'), 25.702776, 1e-7);
+assert_checkalmostequal(cond(A, "fro"), 25.702776, 1e-7);
 
 A = A * %i;
 assert_checkalmostequal(cond(A), 23.411565);
@@ -82,6 +82,6 @@ assert_checkalmostequal(cond(A,1), 33);
 
 assert_checkalmostequal(cond(A, %inf), 36);
 
-assert_checkalmostequal(cond(A, 'inf'), 36);
+assert_checkalmostequal(cond(A, "inf"), 36);
 
-assert_checkalmostequal(cond(A, 'fro'), 25.702776, 1e-7);
+assert_checkalmostequal(cond(A, "fro"), 25.702776, 1e-7);

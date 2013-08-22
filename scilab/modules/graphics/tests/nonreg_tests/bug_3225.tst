@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,9 +12,9 @@
 //
 // <-- Short Description -->
 // The "symbol" font (number 1) is broken
-// 
+//
 
-xstring(0.2,0.2,['abcdefghijklmnopqrstuvwxyz';'ABCDEFGHIJKLMNOPQRSTUVWXYZ']);
+xstring(0.2,0.2,["abcdefghijklmnopqrstuvwxyz";"ABCDEFGHIJKLMNOPQRSTUVWXYZ"]);
 e=gce();
 e.font_style=1;
 

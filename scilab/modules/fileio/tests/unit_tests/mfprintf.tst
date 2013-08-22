@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
-// Copyright (C) ????-2008 - ENPC
+// Copyrigh (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - ENPC
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,23 +9,23 @@
 // <-- CLI SHELL MODE -->
 
 function [rep]=Fprintf(varargin)
-	fd = mopen(TMPDIR+"/fprintf.rep","w");
-	varargin(0)=fd;
-	mfprintf(varargin(:));
-	mclose(fd);
-	fd  = mopen(TMPDIR+"/fprintf.rep","r");
-	str = mgetstr(100,fd);
-	mclose(fd);
-	rep = str;
+    fd = mopen(TMPDIR+"/fprintf.rep","w");
+    varargin(0)=fd;
+    mfprintf(varargin(:));
+    mclose(fd);
+    fd  = mopen(TMPDIR+"/fprintf.rep","r");
+    str = mgetstr(100,fd);
+    mclose(fd);
+    rep = str;
 endfunction
 
 function [y]=bugnum(str1,str2,str3)
-	[lhs,rhs] = argn(0);
-	if rhs==3 then
-		y = (str1<>str2) & (str1<>str3);
-	else
-		y = str1<>str2;
-	end
+    [lhs,rhs] = argn(0);
+    if rhs==3 then
+        y = (str1<>str2) & (str1<>str3);
+    else
+        y = str1<>str2;
+    end
 endfunction
 
 // test format "%f"

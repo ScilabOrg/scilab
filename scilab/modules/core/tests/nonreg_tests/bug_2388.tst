@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Serge Steer
+// Copyrigh (C) 2005-2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -12,5 +12,5 @@
 //
 // <-- Short Description -->
 //graphic handles can be appended to real vectors
-if execstr('[123,gca()]','errcatch')==0 then pause,end
-if execstr('[123;gca()]','errcatch')==0 then pause,end
+if execstr("[123,gca()]","errcatch")==0 then pause,end
+if execstr("[123;gca()]","errcatch")==0 then pause,end

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,7 +20,7 @@ mode(-1);
 clear;
 
 function foo()
-	[a,b,c]=foo1(1)
+    [a,b,c]=foo1(1)
 endfunction
 
 A = fun2string(foo)

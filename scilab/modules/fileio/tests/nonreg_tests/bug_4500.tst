@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2009 - Allan CORNET
+// Copyrigh (C) DIGITEO - 2009 - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,5 +15,5 @@
 // <-- Short Description -->
 // basename('') returns an not very clear error message. and not return ''
 
-files = basename('');
-if files <> '' then pause,end
+files = basename("");
+if files <> "" then pause,end

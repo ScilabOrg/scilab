@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,14 +8,14 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40: 
+// Digits := 40:
 // writeto("acoth.ref"): interface(prettyprint = 0):
-// for i from 1+1/100 by 1/100  to 2 do print(i, evalf[30](arccoth(i), 30)) end do; 
-// for i from 3 to 30 do print(i, evalf[30](arccoth(i), 30)) end do; 
+// for i from 1+1/100 by 1/100  to 2 do print(i, evalf[30](arccoth(i), 30)) end do;
+// for i from 3 to 30 do print(i, evalf[30](arccoth(i), 30)) end do;
 // writeto(terminal):
 
 // writeto("acothi.ref"): interface(prettyprint = 0):
-// for i from 0 by 1/20  to 1-1/20 do print(i, evalf[30](Re(arccoth(i)), 30)) end do; 
+// for i from 0 by 1/20  to 1-1/20 do print(i, evalf[30](Re(arccoth(i)), 30)) end do;
 // writeto(terminal):
 
 ieee(2)

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - Calixte DENIZET
+// Copyrigh (C) 2010 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,9 +16,9 @@
 // <-- Short Description -->
 // Bad colorization of the comments after a command without parenthesis.
 
-tmpfile = TMPDIR+'/bug_8056.sci';
-fd = mopen(tmpfile,'wt');
-mputl('cd ""directory"" /abc //comment',fd);
+tmpfile = TMPDIR+"/bug_8056.sci";
+fd = mopen(tmpfile,"wt");
+mputl("cd ""directory"" /abc //comment",fd);
 mclose(fd);
 editor(tmpfile)
 

@@ -1,6 +1,6 @@
 // =============================================================================
-// Copyright (C) 2011 - INRIA - Michael Baudin
-// Copyright (C) 2010 - 2011 - INRIA - Allan CORNET
+// Copyrigh (C) 2011 - INRIA - Michael Baudin
+// Copyrigh (C) 2010 - 2011 - INRIA - Allan CORNET
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
 path = SCI+"/modules/spreadsheet/tests/unit_tests/";
@@ -67,8 +67,8 @@ r = csvRead(fullfile(path,"K_4.csv"), ";", [], "string");
 assert_checkequal (r,Kstr2);
 // =============================================================================
 S = [
-  "Allan",                  "2", "CORNET";
-  "csv read/write toolbox", "3", "for scilab"
+"Allan",                  "2", "CORNET";
+"csv read/write toolbox", "3", "for scilab"
 ];
 //
 r = csvRead(fullfile(path,"S_1.csv"), "|", [], "string");

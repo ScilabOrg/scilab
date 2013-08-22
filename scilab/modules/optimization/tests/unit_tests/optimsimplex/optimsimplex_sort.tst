@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -12,7 +12,7 @@
 
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -22,9 +22,9 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,3);
 newsimplex = [
-    1.    2.  
-    3.    4.  
-    5.    6.  
+1.    2.
+3.    4.
+5.    6.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setallfv ( s1 , [5.0 2.0 1.0]' );

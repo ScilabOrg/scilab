@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Pierre LANDO
+// Copyrigh (C) 2011 - DIGITEO - Pierre LANDO
 //
 //// This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,5 +21,5 @@
 // Run this script and see if the box thickness in the exported file is constant.
 
 scf(); x = [0:0.1:2*%pi]; plot(x, sin(x)); a = gca(); a.thickness = 5;
-xs2pdf( gcf(), 'TMPDIR/test.pdf' )
+xs2pdf( gcf(), "TMPDIR/test.pdf" )
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2009 - INRIA -Serge Steer
+// Copyrigh (C) 2006-2009 - INRIA -Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4024
 //
 // <-- Short Description -->
-//    The addition between empty matrix and and integer type array returns empty. 
+//    The addition between empty matrix and and integer type array returns empty.
 //    This is not compatible with []+A -->A
 mm=mtlb_mode();
 mtlb_mode(%f)

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - DIGITEO - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - DIGITEO - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Wrong setting of figure_position in the default figure.
-// 
+//
 
 defaultFig = gdf();
 defaultPos = [200,300];

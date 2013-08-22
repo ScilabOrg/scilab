@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -30,13 +30,13 @@ tab_ref = [
 
 // Creates files to check if we can open files
 
-tab_ref = tab_ref + '.sce';
+tab_ref = tab_ref + ".sce";
 
 cd TMPDIR;
-disp('Go to directory with Windows Explorer: ' + TMPDIR);
+disp("Go to directory with Windows Explorer: " + TMPDIR);
 
 for i = 1:size(tab_ref, "*")
-  mputl('if you see this text it is OK', tab_ref(i));
+    mputl("if you see this text it is OK", tab_ref(i));
 end
 
 //click on localized filenames

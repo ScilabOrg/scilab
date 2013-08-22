@@ -1,6 +1,6 @@
 // ===========================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Sylvestre LEDRU
+// Copyrigh (C) 2011 - DIGITEO - Sylvestre LEDRU
 //
 //  This file is distributed under the same license as the Scilab package.
 // ===========================================================================
@@ -9,7 +9,7 @@ XMLStream="<?xml version=""1.0""?>";
 XMLStream=XMLStream+"<root attr=""value""><a>hello</a>";
 XMLStream=XMLStream+"<b id=""123""> world</b></root>";
 
-fd_w = mopen(TMPDIR+'/plop.xml','w+');
+fd_w = mopen(TMPDIR+"/plop.xml","w+");
 mputl(XMLStream, fd_w);
 mclose(fd_w);
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2011 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 // (backward compatibility)
 
 
-[r,t] = fscanfMat('SCI/modules/fileio/tests/nonreg_tests/bug_9253.csv');
+[r,t] = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_9253.csv");
 
 t_ref = ["#" ; ..
 "########################################################################################" ; ..

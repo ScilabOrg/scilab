@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+// Copyrigh (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -28,7 +28,7 @@ assert_checkequal(a.root.z.Data,y);
 
 x = uint32(matrix(1:(11*17), 11, 17));
 dx = cat(2,cat(1,x(1:3,2:3),x(6:8,2:3)),cat(1,x(1:3,5:6),x(6:8,5:6)),..
-           cat(1,x(1:3,8:9),x(6:8,8:9)),cat(1,x(1:3,11:12),x(6:8,11:12)));
+cat(1,x(1:3,8:9),x(6:8,8:9)),cat(1,x(1:3,11:12),x(6:8,11:12)));
 h5write(a, "t", x, [1 2], [2 4], [5 3], [3 2]);
 assert_checkequal(a.root.t.Data,dx);
 

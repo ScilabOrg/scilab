@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Manuel Juliachs
+// Copyrigh (C) 2010 - DIGITEO - Manuel Juliachs
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,11 +14,11 @@
 //
 // <-- Short Description -->
 // the caption's default background color changes when a color is added to the current colormap
-// 
+//
 
 plot(sin(0:10));e=gce();
 p=e.children(1);
-c=captions(p,'foo');
+c=captions(p,"foo");
 c.background //-->-2 ok
 p.foreground=color(200,128,33);
 

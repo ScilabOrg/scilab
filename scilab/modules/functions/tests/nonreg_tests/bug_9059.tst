@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,10 +18,10 @@
 // tbx_build_macros and genlib do not stop on error
 
 cd TMPDIR;
-mkdir('bug_9059');
-f = ['function [t] = macrobug(z)'; 't=z/'; 'endfunction'];
-mputl(f,TMPDIR+'/bug_9059/macrobug.sci');
-cd('bug_9059');
+mkdir("bug_9059");
+f = ["function [t] = macrobug(z)"; "t=z/"; "endfunction"];
+mputl(f,TMPDIR+"/bug_9059/macrobug.sci");
+cd("bug_9059");
 exec("macrobug.sci","errcatch");
 str=lasterror();
 msgerr="%s: Error in file %s : %s.\n";

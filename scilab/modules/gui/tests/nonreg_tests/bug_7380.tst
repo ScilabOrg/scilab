@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2012 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 // It is not possible to continuously tune some real value such as an angle.
 
 u = uicontrol("style", "slider", ..
-              "position", [10 10 200,30], ..
-              "max", %pi);
+"position", [10 10 200,30], ..
+"max", %pi);
 
 u.value = 0.6;
 

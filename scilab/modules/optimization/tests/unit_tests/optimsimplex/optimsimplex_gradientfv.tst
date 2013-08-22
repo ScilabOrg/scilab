@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,7 +11,7 @@
 // <-- CLI SHELL MODE -->
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 // Forward
@@ -40,8 +40,8 @@ s1 = optimsimplex_destroy ( s1 );
 myobj = tlist(["T_MYSTUFF","nb"]);
 myobj.nb = 0;
 function [ y , myobj ] = mycostf ( x , myobj )
-  y = rosenbrock(x);
-  myobj.nb = myobj.nb + 1
+    y = rosenbrock(x);
+    myobj.nb = myobj.nb + 1
 endfunction
 s1 = optimsimplex_new ();
 simplex = [

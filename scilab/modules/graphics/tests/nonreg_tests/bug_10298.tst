@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - INRIA - Serge Steer
+// Copyrigh (C) 2011 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -24,7 +24,7 @@ d22=datatipCreate(e(2),200);
 d1=datatipCreate(e(1),700);
 
 function str=mydisplay(curve, pt, index)
-   str=msprintf('sinc(%-0.2g)=%-0.2g', 20*pt(1),pt(2))
+    str=msprintf("sinc(%-0.2g)=%-0.2g", 20*pt(1),pt(2))
 endfunction
 assert_checktrue(execstr("datatipSetDisplay(e(2),mydisplay)","errcatch")==0);
 

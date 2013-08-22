@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //
 //    On Scilab CVS with " min(), max() " function
 //    The Error Messages are:
-//                                                 !--error    59 
+//                                                 !--error    59
 //    incorrect # of outputs in the function
 //    arguments are :
 //     x
@@ -38,5 +38,5 @@ result = execstr("[m,k]=max(a)","errcatch","n");
 if result <> 0 then pause,end
 
 if result == 0 then
-   if execstr("[m,k]=min(a)","errcatch","n") <> 0 then pause,end
+    if execstr("[m,k]=min(a)","errcatch","n") <> 0 then pause,end
 end

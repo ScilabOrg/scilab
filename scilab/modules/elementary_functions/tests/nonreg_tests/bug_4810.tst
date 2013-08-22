@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,6 +19,6 @@ A = gsort(sp);
 if and(ref == A) <> %t then pause,end
 
 sp = sparse([1,2;4,5;3,10]);
-ierr = execstr('A = gsort(sp);','errcatch');
+ierr = execstr("A = gsort(sp);","errcatch");
 if ierr <> 999 then pause,end
 

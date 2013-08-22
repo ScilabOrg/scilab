@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,7 +23,7 @@ cur_ref_dir = pwd();
 
 edit SCI/contrib/toolbox_skeleton/help/en_US/c_multiplybypi.xml
 
-// add a error in c_multiplybypi.xml 
+// add a error in c_multiplybypi.xml
 
 exec builder.sce;
 

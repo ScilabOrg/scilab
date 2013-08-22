@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -345,28 +345,28 @@ assert_checkequal(x1.*.x2, int8(X1.*.X2));
 
 //sum
 X = round(10 * rand(1,30));
-deff('y=INT(x)','y=int16(x)')
+deff("y=INT(x)","y=int16(x)")
 x = INT(X);
 assert_checkequal(sum(x), INT(sum(X)));
 assert_checkequal(sum(x'), INT(sum(X')));
 assert_checkequal(cumsum(x), INT(cumsum(X)));
 assert_checkequal(cumsum(x'), INT(cumsum(X')));
 
-deff('y=INT(x)','y=uint16(x)')
+deff("y=INT(x)","y=uint16(x)")
 x = INT(X);
 assert_checkequal(sum(x), INT(sum(X)));
 assert_checkequal(sum(x'), INT(sum(X')));
 assert_checkequal(cumsum(x), INT(cumsum(X)));
 assert_checkequal(cumsum(x'), INT(cumsum(X')));
 
-deff('y=INT(x)','y=uint8(x)')
+deff("y=INT(x)","y=uint8(x)")
 x = INT(X);
 assert_checkequal(sum(x), INT(sum(X)));
 assert_checkequal(sum(x'), INT(sum(X')));
 assert_checkequal(cumsum(x), INT(cumsum(X)));
 assert_checkequal(cumsum(x'), INT(cumsum(X')));
 
-deff('y=INT(x)','y=int8(x)')
+deff("y=INT(x)","y=int8(x)")
 x = INT(X);
 assert_checkequal(sum(x), INT(sum(X)));
 assert_checkequal(sum(x'), INT(sum(X')));
@@ -380,21 +380,21 @@ assert_checkequal(sum(x', 1), INT(sum(X', 1)));
 assert_checkequal(cumsum(x, 1), INT(cumsum(X, 1)));
 assert_checkequal(cumsum(x', 1), INT(cumsum(X', 1)));
 
-deff('y=INT(x)','y=uint16(x)')
+deff("y=INT(x)","y=uint16(x)")
 x = INT(X);
 assert_checkequal(sum(x, 1), INT(sum(X, 1)));
 assert_checkequal(sum(x', 1), INT(sum(X', 1)));
 assert_checkequal(cumsum(x, 1), INT(cumsum(X, 1)));
 assert_checkequal(cumsum(x', 1), INT(cumsum(X', 1)));
 
-deff('y=INT(x)','y=uint8(x)')
+deff("y=INT(x)","y=uint8(x)")
 x = INT(X);
 assert_checkequal(sum(x, 1), INT(sum(X, 1)));
 assert_checkequal(sum(x', 1), INT(sum(X', 1)));
 assert_checkequal(cumsum(x, 1), INT(cumsum(X, 1)));
 assert_checkequal(cumsum(x', 1), INT(cumsum(X', 1)));
 
-deff('y=INT(x)','y=int8(x)')
+deff("y=INT(x)","y=int8(x)")
 x = INT(X);
 assert_checkequal(sum(x, 1), INT(sum(X, 1)));
 assert_checkequal(sum(x', 1), INT(sum(X', 1)));
@@ -407,21 +407,21 @@ assert_checkequal(sum(x', "c"), INT(sum(X', "c")));
 assert_checkequal(cumsum(x, "c"), INT(cumsum(X, "c")));
 assert_checkequal(cumsum(x', "c"), INT(cumsum(X', "c")));
 
-deff('y=INT(x)','y=uint16(x)')
+deff("y=INT(x)","y=uint16(x)")
 x = INT(X);
 assert_checkequal(sum(x, "c"), INT(sum(X, "c")));
 assert_checkequal(sum(x', "c"), INT(sum(X', "c")));
 assert_checkequal(cumsum(x, "c"), INT(cumsum(X, "c")));
 assert_checkequal(cumsum(x', "c"), INT(cumsum(X', "c")));
 
-deff('y=INT(x)','y=uint8(x)')
+deff("y=INT(x)","y=uint8(x)")
 x = INT(X);
 assert_checkequal(sum(x, "c"), INT(sum(X, "c")));
 assert_checkequal(sum(x', "c"), INT(sum(X', "c")));
 assert_checkequal(cumsum(x, "c"), INT(cumsum(X, "c")));
 assert_checkequal(cumsum(x', "c"), INT(cumsum(X', "c")));
 
-deff('y=INT(x)','y=int8(x)')
+deff("y=INT(x)","y=int8(x)")
 x = INT(X);
 assert_checkequal(sum(x, "c"), INT(sum(X, "c")));
 assert_checkequal(sum(x', "c"), INT(sum(X', "c")));
@@ -429,7 +429,7 @@ assert_checkequal(cumsum(x, "c"), INT(cumsum(X, "c")));
 assert_checkequal(cumsum(x', "c"), INT(cumsum(X', "c")));
 
 //diag triu tril
-deff('y=INT(x)','y=int16(x)')
+deff("y=INT(x)","y=int16(x)")
 X = round(10*rand(1,30));
 x = INT(X);
 
@@ -460,7 +460,7 @@ assert_checktrue(tril(x) == tril(X));
 assert_checktrue(tril(x, 2) == tril(X, 2));
 assert_checktrue(tril(x, -2) == tril(X, -2));
 
-deff('y=INT(x)','y=uint8(x)')
+deff("y=INT(x)","y=uint8(x)")
 X = round(10*rand(1,30));
 x = INT(X);
 
@@ -492,54 +492,54 @@ assert_checktrue(tril(x, 2) == tril(X, 2));
 assert_checktrue(tril(x, -2) == tril(X, -2));
 
 // save load
-deff('y=INT(x)','y=uint8(x)')
+deff("y=INT(x)","y=uint8(x)")
 X = round(10*rand(1,30));
 x = INT(X);
 
-save(TMPDIR+'/foo','x')
+save(TMPDIR+"/foo","x")
 clear x;
-load(TMPDIR+'/foo');
+load(TMPDIR+"/foo");
 assert_checkequal(x, INT(X));
 
-x=list(1,x,2);save(TMPDIR+'/foo','x')
+x=list(1,x,2);save(TMPDIR+"/foo","x")
 clear x;
-load(TMPDIR+'/foo');
+load(TMPDIR+"/foo");
 assert_checkequal(x, list(1, INT(X), 2));
 
-deff('y=INT(x)','y=int32(x)')
+deff("y=INT(x)","y=int32(x)")
 X = round(10*rand(1,30));
 x = INT(X);
 
-save(TMPDIR+'/foo','x')
+save(TMPDIR+"/foo","x")
 clear x;
-load(TMPDIR+'/foo');
+load(TMPDIR+"/foo");
 assert_checkequal(x, INT(X));
 
-x=list(1,x,2);save(TMPDIR+'/foo','x')
+x=list(1,x,2);save(TMPDIR+"/foo","x")
 clear x;
-load(TMPDIR+'/foo');
+load(TMPDIR+"/foo");
 assert_checkequal(x, list(1, INT(X), 2));
 
 //abs
-deff('y=INT(x)','y=int8(x)')
+deff("y=INT(x)","y=int8(x)")
 X = round(10*rand(1,30))-5;
 x = INT(X);
 assert_checkequal(abs(x), INT(abs(X)));
 
-deff('y=INT(x)','y=int16(x)')
+deff("y=INT(x)","y=int16(x)")
 X = round(10*rand(1,30))-5;
 x = INT(X);
 assert_checkequal(abs(x), INT(abs(X)));
 
 //matrix
-deff('y=INT(x)','y=int8(x)')
+deff("y=INT(x)","y=int8(x)")
 X = round(10*rand(1,30))-5;
 x = INT(X);
 assert_checkequal(matrix(x,10,-1), INT(matrix(X,10,-1)));
 assert_checkequal(matrix(x,10,3), INT(matrix(X,10,3)));
 assert_checkequal(matrix(x,-1,3), INT(matrix(X,-1,3)));
 
-deff('y=INT(x)','y=uint8(x)')
+deff("y=INT(x)","y=uint8(x)")
 X = round(10*rand(1,30))-5;
 x = INT(X);
 assert_checkequal(matrix(x,10,-1), INT(matrix(X,10,-1)));
@@ -547,7 +547,7 @@ assert_checkequal(matrix(x,10,3), INT(matrix(X,10,3)));
 assert_checkequal(matrix(x,-1,3), INT(matrix(X,-1,3)));
 
 //max min
-deff('y=INT(x)','y=int8(x)')
+deff("y=INT(x)","y=int8(x)")
 X = round(10*rand(2,30))-5;
 Y = ones(2,30);
 x = INT(X);
@@ -567,93 +567,93 @@ assert_checkequal(min(x, y), INT(min(X, Y)));
 a = [0 3 7];
 b = [1 2 7];
 A = [0 3 7 5;
-   1 2 0 2
-   8 9 3 1];
-types=['double','int32','uint32','int16','uint16','int8','uint8'];
+1 2 0 2
+8 9 3 1];
+types=["double","int32","uint32","int16","uint16","int8","uint8"];
 
 // checking max(a,b)
 [mx, kx] = max(a, b);
 for t1 = types
-  for t2 = types
-    execstr('at='+t1+'(a); bt='+t2+'(b);')
-    [mt, kt] = max(at, bt);
-    if or(kt<>kx)|or(mx<>double(mt)) then 
-      disp('max('+t1+','+t2+')'),pause
+    for t2 = types
+        execstr("at="+t1+"(a); bt="+t2+"(b);")
+        [mt, kt] = max(at, bt);
+        if or(kt<>kx)|or(mx<>double(mt)) then
+            disp("max("+t1+","+t2+")"),pause
+        end
     end
-  end	
 end
 
 // checking min(a,b)
 [mn,kn]=min(a,b);
 for t1=types
-  for t2=types
-    execstr('at='+t1+'(a); bt='+t2+'(b);')
-    [mt,kt]=min(at,bt);
-    if or(kt<>kn)|or(mn<>double(mt)) then 
-      disp('min('+t1+','+t2+')'),pause
+    for t2=types
+        execstr("at="+t1+"(a); bt="+t2+"(b);")
+        [mt,kt]=min(at,bt);
+        if or(kt<>kn)|or(mn<>double(mt)) then
+            disp("min("+t1+","+t2+")"),pause
+        end
     end
-  end	
 end
 
 // checking max(A)
 [mx,kx]=max(A);
 for t1=types
-  execstr('At='+t1+'(A);')
-  [mt,kt]=max(At);
-  if or(kt<>kx)|or(mx<>double(mt)) then 
-    disp('max('+t1+')'),pause
-  end
+    execstr("At="+t1+"(A);")
+    [mt,kt]=max(At);
+    if or(kt<>kx)|or(mx<>double(mt)) then
+        disp("max("+t1+")"),pause
+    end
 end
 
 // checking min(A)
 [mx,kx]=min(A);
 for t1=types
-  execstr('At='+t1+'(A);')
-  [mt,kt]=min(At);
-  if or(kt<>kx)|or(mx<>double(mt)) then 
-    disp('min('+t1+')'),pause
-  end
+    execstr("At="+t1+"(A);")
+    [mt,kt]=min(At);
+    if or(kt<>kx)|or(mx<>double(mt)) then
+        disp("min("+t1+")"),pause
+    end
 end
 
 
 // checking max(A,'r')
-[mx,kx]=max(A,'r');
+[mx,kx]=max(A,"r");
 for t1=types
-  execstr('At='+t1+'(A);')
-  [mt,kt]=max(At,'r');
-  if or(kt<>kx)|or(mx<>double(mt)) then 
-    disp('max('+t1+',''r'')'),pause
-  end
+    execstr("At="+t1+"(A);")
+    [mt,kt]=max(At,"r");
+    if or(kt<>kx)|or(mx<>double(mt)) then
+        disp("max("+t1+",''r'')"),pause
+    end
 end
 
 // checking min(A,'r')
-[mx,kx]=min(A,'r');
+[mx,kx]=min(A,"r");
 for t1=types
-  execstr('At='+t1+'(A);')
-  [mt,kt]=min(At,'r');
-  if or(kt<>kx)|or(mx<>double(mt)) then 
-    disp('min('+t1+',''r'')'),pause
-  end
+    execstr("At="+t1+"(A);")
+    [mt,kt]=min(At,"r");
+    if or(kt<>kx)|or(mx<>double(mt)) then
+        disp("min("+t1+",''r'')"),pause
+    end
 end
 
 // checking max(A,'c')
-[mx,kx]=max(A,'c');
+[mx,kx]=max(A,"c");
 for t1=types
-  execstr('At='+t1+'(A);')
-  [mt,kt]=max(At,'c');
-  if or(kt<>kx)|or(mx<>double(mt)) then 
-    disp('max('+t1+',''c'')'),pause
-  end
+    execstr("At="+t1+"(A);")
+    [mt,kt]=max(At,"c");
+    if or(kt<>kx)|or(mx<>double(mt)) then
+        disp("max("+t1+",''c'')"),pause
+    end
 end
 
 // checking min(A,'c')
-[mx,kx]=min(A,'c');
+[mx,kx]=min(A,"c");
 for t1=types
-  execstr('At='+t1+'(A);')
-  [mt,kt]=min(At,'c');
-  if or(kt<>kx)|or(mx<>double(mt)) then 
-    disp('min('+t1+',''c'')'),pause
-  end
+    execstr("At="+t1+"(A);")
+    [mt,kt]=min(At,"c");
+    if or(kt<>kx)|or(mx<>double(mt)) then
+        disp("min("+t1+",''c'')"),pause
+    end
 end
 
 

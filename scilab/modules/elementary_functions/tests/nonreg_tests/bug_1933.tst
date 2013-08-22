@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
+// Copyrigh (C) 2006-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1933
 //
 // <-- Short Description -->
-//    log and log2 doesn't work on vectors with %nan under windows. They work 
+//    log and log2 doesn't work on vectors with %nan under windows. They work
 //    nicely
 //    under linux.
 

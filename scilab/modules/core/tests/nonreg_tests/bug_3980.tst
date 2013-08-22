@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - INRIA - Serge Steer
+// Copyrigh (C) 2009 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,17 +17,17 @@
 
 
 
-deff('l=foo()','[l,m]=where()','n')
+deff("l=foo()","[l,m]=where()","n")
 if foo()<>2 then pause,end
 comp(foo)
 if foo()<>2 then pause,end
 
-deff('foo','a=aaaa','n')
-if execstr('foo()','errcatch')<>4 then pause,end
+deff("foo","a=aaaa","n")
+if execstr("foo()","errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then pause,end
+if l<>2|f<>"foo" then pause,end
 
-deff('foo','a=aaaa')
-if execstr('foo()','errcatch')<>4 then pause,end
+deff("foo","a=aaaa")
+if execstr("foo()","errcatch")<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then pause,end
+if l<>2|f<>"foo" then pause,end

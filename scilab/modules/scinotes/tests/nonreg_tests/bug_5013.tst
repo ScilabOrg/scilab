@@ -1,6 +1,6 @@
 ﻿// =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+// Copyrigh (C) 2009 - DIGITEO - Sylvestre KOUMAR
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@
 // Text editor - Find/Replace dialog box : Buttons are resized after the search.
 
 
-editor(SCI+'/modules/time/macros/datenum.sci')
+editor(SCI+"/modules/time/macros/datenum.sci")
 
 // CTRL+F
 // Enter "datenum" in the find input zone

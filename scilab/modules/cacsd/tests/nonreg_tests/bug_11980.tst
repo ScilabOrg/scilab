@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,10 +18,10 @@
 //
 // <-- Short Description -->
 // Submatrix incorrectly defined.
-// at line     148 of function csim called by :  
+// at line     148 of function csim called by :
 // y=csim('step',t,numerador/denominador).
 
-s=poly(0,'s'); funcprot(0);
+s=poly(0,"s"); funcprot(0);
 kp=96.770532;
 ki=42.568724;
 kd=18.711118;

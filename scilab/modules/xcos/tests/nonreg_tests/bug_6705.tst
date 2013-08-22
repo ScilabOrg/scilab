@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2011 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,7 +20,7 @@
 // Put a BIGSOM_f block (#1) by right click and the "Add to" action.
 // Put another BIGSOM_f (#2) by a single drag an drop (with an input port next
 // to #1 output port)
-// 
+//
 // Linking #1 output port to the #2 input port should be a straight horizontal
 // line.
 //

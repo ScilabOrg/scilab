@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Vincent COUVERT
+// Copyrigh (C) 2012 - Scilab Enterprises - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,11 +17,11 @@
 // as "closerequestfcn" and "resizefcn" properties.
 
 function resizeMe()
-  disp(gcbo);
+    disp(gcbo);
 endfunction
 function closeMe()
-  disp(gcbo);
-  delete(gcbo)
+    disp(gcbo);
+    delete(gcbo)
 endfunction
 
 f = figure();

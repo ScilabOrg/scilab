@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2010 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // <-- INTERACTIVE TEST -->
 
 for i=1:n
-  eps=grand(650,1,'nor',0,1)
+    eps=grand(650,1,"nor",0,1)
 end
 
 // Copy/Paste this code inside Scilab console, takes a long time but does not crash!

@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
-// Copyright (C) 2012 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2012 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,7 +23,7 @@ drawlater;
 clf();
 ax=gca();
 ax.data_bounds=[-180,-50;180,90];
-ax.box='on'; 
+ax.box="on";
 ax.axes_visible=["on","on"];
 ax.tight_limits="on";
 a=5*ones(51,50);

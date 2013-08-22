@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
+// Copyrigh (C) 2006-2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,7 +22,7 @@ titleStr  = "Scilab P0W3R" ;
 xLabelStr = "XXX" ;
 yLabelStr = "YYY" ;
 
-xtitle("Scilab P0W3R",'XXX','YYY',1) ;
+xtitle("Scilab P0W3R","XXX","YYY",1) ;
 a = gca() ;
 my_title  = a.title   ;
 xLabel    = a.x_label ;
@@ -31,6 +31,6 @@ yLabel    = a.y_label ;
 // check that a box is drawn around the labels
 // and that they have the rigth text
 
-if ( my_title.text  <> titleStr  ) | ( my_title.fill_mode  <> 'on' ) then pause,end
-if ( xLabel.text    <> xLabelStr ) | ( xLabel.fill_mode    <> 'on' ) then pause,end
-if ( yLabel.text    <> yLabelStr ) | ( yLabel.fill_mode    <> 'on' ) then pause,end
+if ( my_title.text  <> titleStr  ) | ( my_title.fill_mode  <> "on" ) then pause,end
+if ( xLabel.text    <> xLabelStr ) | ( xLabel.fill_mode    <> "on" ) then pause,end
+if ( yLabel.text    <> yLabelStr ) | ( yLabel.fill_mode    <> "on" ) then pause,end

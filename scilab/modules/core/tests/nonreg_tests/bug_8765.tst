@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 -INRIA - Serge Steer
+// Copyrigh (C) 2011 -INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 8765 -->
 //
 // <-- CLI SHELL MODE -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=8765
 //
@@ -31,7 +31,7 @@ A=Ar;A(1:3,1)=[];
 if or(A<>Ar(:,[2 3])) then pause,end
 
 //Array of strings
-Ar=['123' '4567' '89';'A','BCDEF','GHIJHKL'];
+Ar=["123" "4567" "89";"A","BCDEF","GHIJHKL"];
 A=Ar;A(1:3,1)=[];
 if or(A<>Ar(:,[2 3])) then pause,end
 

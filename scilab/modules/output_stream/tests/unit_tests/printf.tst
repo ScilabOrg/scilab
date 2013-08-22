@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -48,4 +48,3 @@ printf("printf test 18:%.5s\n", "abcdefghij");
 //==================================
 printf("printf test 195:%-2s\n", "gazonk");
 //==================================
- 

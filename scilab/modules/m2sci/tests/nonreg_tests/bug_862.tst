@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA - Vincent COUVERT <vincent.couvert@inria.fr>
+// Copyrigh (C) ????-2008 - INRIA - Vincent COUVERT <vincent.couvert@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,10 +15,10 @@
 //
 // <-- Short Description -->
 //    Conversion si bad for instructions such as:
-//    ->Matlab: 
+//    ->Matlab:
 //    a(1)=0;
 //    with a not initialised
-//    ->Scilab conversion: 
+//    ->Scilab conversion:
 //    a = mtlb_i(a,1,0);
 //
 //    Execution crashes

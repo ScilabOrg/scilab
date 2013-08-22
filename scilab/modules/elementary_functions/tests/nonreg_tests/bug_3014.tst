@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA - Serge Steer
+// Copyrigh (C) ????-2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,4 +18,4 @@
 H=rand(10,10);
 evH = spec(H);
 //[OUT1,OUT2] = gsort([],'g'); no crash
-F='g';[OUT1,OUT2] = gsort([],F); //crash here
+F="g";[OUT1,OUT2] = gsort([],F); //crash here

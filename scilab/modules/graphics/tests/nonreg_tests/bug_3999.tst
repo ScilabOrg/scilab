@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // xbasc() doesn't clear the current graphics window.
 // xbasc replaced by clf
-// 
+//
 
 x = 1:10;
 plot(x);
@@ -38,8 +38,8 @@ clf(0:3);
 
 // we should have only empty figures
 for i=1:3,
-  fig = get_figure_handle(i);
-  if (size(fig.children) <> [0,0]) then pause; end
-  // no children below axes
-  if (fig.children(1).children <> []) then pause; end
+    fig = get_figure_handle(i);
+    if (size(fig.children) <> [0,0]) then pause; end
+    // no children below axes
+    if (fig.children(1).children <> []) then pause; end
 end

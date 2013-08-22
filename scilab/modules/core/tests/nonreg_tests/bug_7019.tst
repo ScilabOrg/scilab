@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer
+// Copyrigh (C) 2010 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,12 +21,12 @@ if y<>33 then pause,end
 
 
 
-if execstr("y=2;resume();y=-1",'errcatch')<>46 then pause,end
+if execstr("y=2;resume();y=-1","errcatch")<>46 then pause,end
 if y<>2  then pause,end
 function y=foo()
-y=1
-return()
-y=2
+    y=1
+    return()
+    y=2
 endfunction
 
 if execstr("foo()","errcatch")<>46 then pause,end

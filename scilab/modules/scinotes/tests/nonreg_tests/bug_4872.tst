@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+// Copyrigh (C) 2009 - DIGITEO - Sylvestre KOUMAR
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //    editor(<binary file>) opens a blank file without any warning.
 
 
-editor('SCI/modules/core/macros/add_demo.bin')
+editor("SCI/modules/core/macros/add_demo.bin")
 
 // A warning message is now added when a binary file is opened
 

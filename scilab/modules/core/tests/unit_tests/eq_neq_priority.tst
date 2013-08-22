@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Bruno JOFRET
+// Copyrigh (C) 2010 - DIGITEO - Bruno JOFRET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,19 +11,19 @@
 // the disp are done on purpose to track calling sequence.
 
 function b=a(x)
-  disp("Compute "+x)
-  b=tlist(["tut", "val"], %t)
+    disp("Compute "+x)
+    b=tlist(["tut", "val"], %t)
 endfunction
 
 
 function c=%tut_o_tut(a,b)
-  disp("Calling %tut_o_tut")
-  c = b
+    disp("Calling %tut_o_tut")
+    c = b
 endfunction
 
 function c=%tut_n_tut(a,b)
- disp("Calling %tut_n_tut")
- c = b
+    disp("Calling %tut_n_tut")
+    c = b
 endfunction
 
 // Compute 1

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,5 +16,5 @@
 // and display a incorrect error
 
 A(3,3)=%s;
-ierr = execstr('A(:)=%z;','errcatch');
+ierr = execstr("A(:)=%z;","errcatch");
 if ierr <> 278 then pause,end

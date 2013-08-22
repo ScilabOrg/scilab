@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Antoine ELIAS
+// Copyrigh (C) 2013 - Scilab Enterprises - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -76,12 +76,12 @@ res = readdata("sl");
 assert_checkequal(res, [s1, s2, s3]);
 
 // check default output type of mgeti
-file1 = fullfile(TMPDIR,'test1.bin');
-fd1=mopen(file1,'wb');
-mput(1996,'ull',fd1);
+file1 = fullfile(TMPDIR,"test1.bin");
+fd1=mopen(file1,"wb");
+mput(1996,"ull",fd1);
 mclose(fd1);
 
-fd1=mopen(file1,'rb');
+fd1=mopen(file1,"rb");
 a=mgeti(1);
 assert_checkequal(typeof(a), "int32");
 assert_checkequal(a, int32(1996));

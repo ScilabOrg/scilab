@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,8 +13,8 @@
 // <-- Short Description -->
 // input argument in predef function not correctly checked
 
-ierr = execstr('predef([1 2])','errcatch');
+ierr = execstr("predef([1 2])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('predef(''max'')','errcatch');
+ierr = execstr("predef(''max'')","errcatch");
 if ierr <> 999 then pause,end

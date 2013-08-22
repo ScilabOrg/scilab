@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyrigh (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,4 +21,5 @@ a = gca();
 x = a.children(1).children.data;
 y = [%eps; 1; 1; 0; 0; 0; %eps];
 assert_checkalmostequal(y, x(:,2), [], 200 * %eps);
-
+
+

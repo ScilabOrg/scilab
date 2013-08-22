@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA - Serge Steer
+// Copyrigh (C) ????-2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1534
 //
 // <-- Short Description -->
-// the function nextpow2 is not compatible with the values %inf and %nan.   
+// the function nextpow2 is not compatible with the values %inf and %nan.
 
 n=[1 %eps %inf 3 %nan 4];
 

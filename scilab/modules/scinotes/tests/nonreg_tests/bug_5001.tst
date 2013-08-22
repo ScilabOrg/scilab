@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+// Copyrigh (C) 2009 - DIGITEO - Sylvestre KOUMAR
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@
 //   The file "xxx" doesn't exist. Do you want to create it. <Cancel> <No> <Yes>
 //   Only <no> & <yes> buttons should appear. <Cancel> button is unnecessary.
 
-editor('my_file.sci')
+editor("my_file.sci")
 
 
 

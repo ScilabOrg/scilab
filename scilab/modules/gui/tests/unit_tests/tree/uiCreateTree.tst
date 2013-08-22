@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR 
+// Copyrigh (C) 2009 - DIGITEO - Sylvestre KOUMAR
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -10,14 +10,14 @@
 // test to check the created tree
 
 // node creation
-leaf11 = uiCreateNode('leaf 1.1', 'iconLeaf1.1', 'callbackLeaf1.1')
-leaf12 = uiCreateNode('leaf 1.2', 'iconLeaf1.2', 'callbackLeaf1.2')
-leaf31 = uiCreateNode('leaf 3.1', 'iconLeaf3.1', 'callbackLeaf3.1')
-leaf32 = uiCreateNode('leaf 3.2', 'iconLeaf3.2', 'callbackLeaf3.2')
-node1 = uiCreateNode('Node 1', 'iconNode1', 'callbackNode1')
-node2 = uiCreateNode('Node 2', 'iconNode2', 'callbackNode2')
-node3 = uiCreateNode('Node 3', 'iconNode3', 'callbackNode3')
-root = uiCreateNode('Root', 'iconRoot', 'callbackRoot')
+leaf11 = uiCreateNode("leaf 1.1", "iconLeaf1.1", "callbackLeaf1.1")
+leaf12 = uiCreateNode("leaf 1.2", "iconLeaf1.2", "callbackLeaf1.2")
+leaf31 = uiCreateNode("leaf 3.1", "iconLeaf3.1", "callbackLeaf3.1")
+leaf32 = uiCreateNode("leaf 3.2", "iconLeaf3.2", "callbackLeaf3.2")
+node1 = uiCreateNode("Node 1", "iconNode1", "callbackNode1")
+node2 = uiCreateNode("Node 2", "iconNode2", "callbackNode2")
+node3 = uiCreateNode("Node 3", "iconNode3", "callbackNode3")
+root = uiCreateNode("Root", "iconRoot", "callbackRoot")
 
 // node creation with errors
 if( execstr("myErrorNode1 = uiCreateNode()","errcatch") == 0 ) then pause,end

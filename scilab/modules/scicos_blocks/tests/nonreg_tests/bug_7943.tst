@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -21,6 +21,6 @@
 
 scs_m_tmp = fortran_block("define");
 scs_m_res = fortran_block("set", scs_m_tmp, []);
-if ~isdef('scs_m_res') then pause, end
+if ~isdef("scs_m_res") then pause, end
 
 // pause level must be 0

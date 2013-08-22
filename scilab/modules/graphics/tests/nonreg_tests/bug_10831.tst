@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Antoine ELIAS
+// Copyrigh (C) 2012 - DIGITEO - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 // <-- Short Description -->
 // set("auto_clear", ...) returns an error.
 
-delete('all');
+delete("all");
 set("auto_clear", "on");
 a1 = gca();
 assert_checkequal(a1.auto_clear, "on");

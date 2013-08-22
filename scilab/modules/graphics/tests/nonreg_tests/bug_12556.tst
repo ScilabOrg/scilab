@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // Fatal error happens when using wrong set instruction
 
-A = log10(grand(7,9,'uin',1,10));
+A = log10(grand(7,9,"uin",1,10));
 scf();plot2d(A);xgrid
 a = gca();
 errmsg=msprintf(_("Tlist could not be created, check ticks location and label vectors.\n"));

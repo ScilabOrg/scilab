@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Serge Steer
+// Copyrigh (C) 2005-2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,5 +19,5 @@
 function foo1,exit,endfunction
 function foo2,quit,endfunction
 
-if execstr('fun2string(foo1)','errcatch')<>0 then pause,end
-if execstr('fun2string(foo2)','errcatch')<>0 then pause,end
+if execstr("fun2string(foo1)","errcatch")<>0 then pause,end
+if execstr("fun2string(foo2)","errcatch")<>0 then pause,end

@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -10,8 +10,8 @@
 
 // <-- CLI SHELL MODE -->
 
-// 
-// Test #1 : Without parameters 
+//
+// Test #1 : Without parameters
 //
 op = optimset ();
 assert_checkequal ( op.Display , [] );
@@ -24,24 +24,24 @@ assert_checkequal ( op.TolFun , [] );
 assert_checkequal ( op.TolX , [] );
 clear op
 function y = myoutputfun (x)
-  y = x;
+    y = x;
 endfunction
 function y = myplotfun (x)
-  y = x;
+    y = x;
 endfunction
-// 
+//
 // Test #2 : With parameters
 //
 op = optimset (...
-  'Display','iter',...
-  "FunValCheck","on",...
-  "MaxFunEvals",100,...
-  "MaxIter",110,...
-  "OutputFcn",myoutputfun,...
-  "PlotFcns",myplotfun,...
-  "TolFun",1.e-12,...
-  "TolX",1.e-13...
-  );
+"Display","iter",...
+"FunValCheck","on",...
+"MaxFunEvals",100,...
+"MaxIter",110,...
+"OutputFcn",myoutputfun,...
+"PlotFcns",myplotfun,...
+"TolFun",1.e-12,...
+"TolX",1.e-13...
+);
 assert_checkequal ( op.Display , "iter" );
 assert_checkequal ( op.FunValCheck , "on" );
 assert_checkequal ( op.MaxFunEvals , 100 );
@@ -51,18 +51,18 @@ assert_checkequal ( op.MaxIter , 110 );
 assert_checkequal ( op.TolFun , 1.e-12 );
 assert_checkequal ( op.TolX , 1.e-13 );
 clear op
-// 
+//
 // Test #3 : Copy one option set into another
-// 
+//
 op1 = optimset ("TolFun",1.e-12);
 op2 = optimset (op1,"TolX",1.e-13);
 assert_checkequal ( op2.TolFun , 1.e-12 );
 assert_checkequal ( op2.TolX , 1.e-13 );
 clear op1
 clear op2
-// 
+//
 // Test #3 : with one method name
-// 
+//
 op = optimset ("fminsearch");
 assert_checkequal ( op.TolFun , 1.e-4 );
 assert_checkequal ( op.TolX , 1.e-4 );

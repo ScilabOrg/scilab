@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
+// Copyrigh (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
 //
 // This file is distributed under the same license as the Scilab package.
 
@@ -21,8 +21,8 @@ xcosPalExport(pal, exportedFile);
 xcosPalAdd(exportedFile, palettePath);
 
 // Remove the palette and the palette path
-for i=size(palettePath, '*'):-1:1
-	xcosPalDelete(palettePath(1:i));
+for i=size(palettePath, "*"):-1:1
+    xcosPalDelete(palettePath(1:i));
 end
 
 
@@ -65,8 +65,8 @@ xcosPalEnable(palettePath);
 xcosPalDisable(palettePath);
 
 // Remove the palette and the palette path
-for i=size(palettePath, '*'):-1:1
-	xcosPalDelete(palettePath(1:i));
+for i=size(palettePath, "*"):-1:1
+    xcosPalDelete(palettePath(1:i));
 end
 
 

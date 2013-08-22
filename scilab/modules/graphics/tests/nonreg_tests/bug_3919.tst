@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,5 +27,5 @@
 if win64() <> %t then pause,end
 if istssession() <> %t then pause,end
 
-// try to do a plot or plot3d 
+// try to do a plot or plot3d
 // if you have a display it works

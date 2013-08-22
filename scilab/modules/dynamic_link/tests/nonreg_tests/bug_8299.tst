@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -30,13 +30,13 @@ exec builder_c.sce
 // you should have something :
 
 -->exec builder_c.sce;
-   Generate a loader file
-   Generate a Makefile
-   Running the Makefile
-   Compilation of csum.c
-   Compilation of csub.c
-   Building shared library (be patient)
- 
+Generate a loader file
+Generate a Makefile
+Running the Makefile
+Compilation of csum.c
+Compilation of csub.c
+Building shared library (be patient)
+
 !------------- Compile file csub.c --------------                                                                                                                                !
 !                                                                                                                                                                                !
 !	IF NOT EXIST  Release mkdir Release                                                                                                                                            !
@@ -51,26 +51,25 @@ exec builder_c.sce
 !                                                                                                                                                                                !
 !csub.c                                                                                                                                                                          !
 !                                                                                                                                                                                !
-!csub.c(15) : error C2061: syntax error : identifier 'it'                                                                                                                        !
+!csub.c(15) : error C2061: syntax error : identifier "it"                                                                                                                        !
 !                                                                                                                                                                                !
-!csub.c(15) : error C2059: syntax error : ';'                                                                                                                                    !
+!csub.c(15) : error C2059: syntax error : ";"                                                                                                                                    !
 !                                                                                                                                                                                !
-!csub.c(15) : error C2061: syntax error : identifier 'a'                                                                                                                         !
+!csub.c(15) : error C2061: syntax error : identifier "a"                                                                                                                         !
 !                                                                                                                                                                                !
-!csub.c(15) : error C2059: syntax error : ';'                                                                                                                                    !
+!csub.c(15) : error C2059: syntax error : ";"                                                                                                                                    !
 !                                                                                                                                                                                !
 !csub.c(16) : fatal error C1004: unexpected end-of-file found                                                                                                                    !
 !                                                                                                                                                                                !
-!NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\cl.EXE"' : return code '0x2'                                                             !
+!NMAKE : fatal error U1077: ""C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\cl.EXE"" : return code "0x2"                                                             !
 !                                                                                                                                                                                !
 !Stop.                                                                                                                                                                           !
- !--error 10000 
+!--error 10000
 ilib_compile: Error while executing Makelib.mak.
-at line      66 of function ilib_compile called by :  
-at line      86 of function ilib_for_link called by :  
-at line      28 of function tbx_build_src called by :  
-              "",                               "",                               CFLAGS)
-at line      13 of exec file called by :    
-exec builder_c.sce;
- 
- 
+    at line      66 of function ilib_compile called by :
+        at line      86 of function ilib_for_link called by :
+            at line      28 of function tbx_build_src called by :
+                "",                               "",                               CFLAGS)
+                at line      13 of exec file called by :
+                exec builder_c.sce;
+

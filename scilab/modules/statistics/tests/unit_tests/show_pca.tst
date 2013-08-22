@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Michael Baudin
+// Copyrigh (C) 2012 - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@ show_pca(lambda,facpr);
 // Source :
 // http://cermics.enpc.fr/scilab_new/site/Tp/Statistique/acp/index.htm
 // Analyse en composantes principales
-// Jean-François DELMAS et Saad SALAM
+// Jean-FranÃ§ois DELMAS et Saad SALAM
 // Weight of several parts of 23 cows
 // X1: weight (alive)
 // X2: skeleton weight
@@ -45,7 +45,7 @@ x = [
 410     233     25.9     72.3     11.1     16.6
 402     234     27.1     72.1     10.4     17.5
 400     223     26.8     70.3     13.5     16.2
-400     213     25.8     70.4     12.1     17.5 
+400     213     25.8     70.4     12.1     17.5
 ];
 [lambda,facpr,comprinc] = pca(x);
 scf();

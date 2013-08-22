@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Yann COLLETTE <yann.collette@inria.fr>
+// Copyrigh (C) 2009 - DIGITEO - Yann COLLETTE <yann.collette@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 
 function a=fun(),a=123,endfunction
 
-x=mlist(['foo', 'y'],fun);
+x=mlist(["foo", "y"],fun);
 
-if execstr('x.y()','errcatch')<>0 then pause,end
-if execstr('x.y(1)','errcatch')==0 then pause,end
+if execstr("x.y()","errcatch")<>0 then pause,end
+if execstr("x.y(1)","errcatch")==0 then pause,end

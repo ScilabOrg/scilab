@@ -1,10 +1,10 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-// 
+//
 // <-- JAVA NOT MANDATORY -->
 //
 // <-- Non-regression test for bug 8651 -->
@@ -17,6 +17,6 @@
 //
 
 a = ones(5,7);
-filename = fullfile(TMPDIR, 'foo.txt');
-msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"), 'write_csv', 4, '.', ',');
+filename = fullfile(TMPDIR, "foo.txt");
+msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"), "write_csv", 4, ".", ",");
 assert_checkerror ("write_csv(a,filename, '";"', '"@"')" , msgerr);

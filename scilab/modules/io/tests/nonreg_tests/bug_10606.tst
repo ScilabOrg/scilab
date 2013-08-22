@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Charlotte Hecquet
+// Copyrigh (C) 2012 - Charlotte Hecquet
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,12 +20,12 @@
 //    1.
 // rep  =
 
-if getos()=='Windows'
-[rep,stat,stderr]=unix_g("fc "+SCI+"/CHANGES_5.3.X "+SCI+"/CHANGES_5.4.X");
+if getos()=="Windows"
+    [rep,stat,stderr]=unix_g("fc "+SCI+"/CHANGES_5.3.X "+SCI+"/CHANGES_5.4.X");
 
 else
 
-[rep,stat,stderr]=unix_g("diff "+SCI+"/CHANGES_5.3.X "+SCI+"/CHANGES_5.4.X");
+    [rep,stat,stderr]=unix_g("diff "+SCI+"/CHANGES_5.3.X "+SCI+"/CHANGES_5.4.X");
 
 end
 

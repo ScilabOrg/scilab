@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Yann COLLETTE <yann.collette@scilab.org>
+// Copyrigh (C) 2010 - DIGITEO - Yann COLLETTE <yann.collette@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,29 +8,29 @@
 // test overloading of the set / get functions
 
 // create a mlist
-mymlist = mlist(['objid','A','B'],[],[]);
+mymlist = mlist(["objid","A","B"],[],[]);
 
 // overload set / get for objid
 function varargout = %objid_get(varargin)
-  // res = get(mymlist,'A');
-  obj_tmp   = varargin(1);
-  field_tmp = varargin(2);
-  varargout = list(obj_tmp(field_tmp));
+    // res = get(mymlist,'A');
+    obj_tmp   = varargin(1);
+    field_tmp = varargin(2);
+    varargout = list(obj_tmp(field_tmp));
 endfunction
 
 function varargout = %objid_set(varargin)
-  // mymlist = set(mymlist,'A',2);
-  obj_tmp   = varargin(1);
-  field_tmp = varargin(2);
-  value_tmp = varargin(3);
-  obj_tmp(field_tmp) = value_tmp;
-  varargout = list(obj_tmp);
+    // mymlist = set(mymlist,'A',2);
+    obj_tmp   = varargin(1);
+    field_tmp = varargin(2);
+    value_tmp = varargin(3);
+    obj_tmp(field_tmp) = value_tmp;
+    varargout = list(obj_tmp);
 endfunction
 
-mymlist = set(mymlist,'A',2);
-mymlist = set(mymlist,'B',3);
+mymlist = set(mymlist,"A",2);
+mymlist = set(mymlist,"B",3);
 
-if (get(mymlist,'A')~=2) then pause; end
-if (get(mymlist,'B')~=3) then pause; end
+if (get(mymlist,"A")~=2) then pause; end
+if (get(mymlist,"B")~=3) then pause; end
 
 

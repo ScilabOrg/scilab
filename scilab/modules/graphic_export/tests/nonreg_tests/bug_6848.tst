@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Pierre Lando <pierre.lando@scilab.org>
+// Copyrigh (C) 2010 - DIGITEO - Pierre Lando <pierre.lando@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 
 // Execute this script.
 
-plot(1:1:5 ,'r--');
-plot(2:1:6 ,'r-.');
-xs2pdf(gcf(),'out.pdf');
+plot(1:1:5 ,"r--");
+plot(2:1:6 ,"r-.");
+xs2pdf(gcf(),"out.pdf");
 
 // And look if the exported figure is correct.

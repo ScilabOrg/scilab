@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Allan CORNET
+// Copyrigh (C) 2005-2008 - INRIA - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,16 +13,16 @@
 // <-- Short Description -->
 //The 'error' function doesn't display the correct error message when passing an error number stored in a variable.
 
-ierr = execstr('error(38)','errcatch');
+ierr = execstr("error(38)","errcatch");
 if ierr <> 38 then pause,end
 
 n = 38;
-ierr = execstr('error(n)','errcatch');
+ierr = execstr("error(n)","errcatch");
 if ierr <> 38 then pause,end
 
-ierr = execstr('error('''',n)','errcatch');
+ierr = execstr("error('''',n)","errcatch");
 if ierr <> 38 then pause,end
 
-ierr = execstr('error(''test'',988)','errcatch');
+ierr = execstr("error(''test'',988)","errcatch");
 if ierr <> 988 then pause,end
-if lasterror(%t) <> 'test' pause,end
+if lasterror(%t) <> "test" pause,end

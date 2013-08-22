@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -36,6 +36,6 @@ if norm(a*x-b)>1d-10 then pause,end
 
 if norm(P*L*U*Q-A)>1d-10 then pause,end
 
-ierr = execstr('ludel(h);','errcatch');
+ierr = execstr("ludel(h);","errcatch");
 if ierr <> 0 then pause,end;
 

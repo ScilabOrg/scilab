@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Clément DAVID
+// Copyrigh (C) 2013 - Scilab Enterprises - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Scopes with big scope buffer size simulation was much more slower.
-// 
+//
 // This test check cscope and cmscope huge-buffer (more than 4k points)
 // optimization.
 

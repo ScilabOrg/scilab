@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -32,7 +32,7 @@ function [ y , index ] = rosenbrock ( x , index )
 endfunction
 
 //
-// Test with my own termination criteria 
+// Test with my own termination criteria
 //
 x0 = [1.1 1.1]';
 simplex0 = optimsimplex_new ( "axes" , x0.' );

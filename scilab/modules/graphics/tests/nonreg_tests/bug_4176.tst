@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,10 +14,10 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4176
 //
 // <-- Short Description -->
-// Plotting huge amount of data nothing is displayed and no errors are displayed. 
-// 
+// Plotting huge amount of data nothing is displayed and no errors are displayed.
+//
 
-stacksize('max')
+stacksize("max")
 Maximum=3e6
 dt=1/Maximum;
 t=0:dt:1;

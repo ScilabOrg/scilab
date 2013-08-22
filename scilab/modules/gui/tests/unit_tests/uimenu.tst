@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009 - DIGITEO - Vincent COUVERT
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -33,12 +33,12 @@ assert_checkequal(h.tag, "");
 
 f=scf();
 h = uimenu("Parent", f, ..
-    "Enable","off",..
-    "Label", "test", ..
-    "Visible","off",..
-    "Callback","disp(1)",..
-    "Checked", "on", ..
-    "Tag", "hello");
+"Enable","off",..
+"Label", "test", ..
+"Visible","off",..
+"Callback","disp(1)",..
+"Checked", "on", ..
+"Tag", "hello");
 assert_checkequal(h.parent, f);
 assert_checkequal(h.enable, "off");
 assert_checkequal(h.label, "test");

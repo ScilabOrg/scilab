@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2009 - Allan CORNET
+// Copyrigh (C) DIGITEO - 2009 - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,8 +20,8 @@
 
 // with current diary we can not do many diaries
 
-diary(TMPDIR+'/testdiary.txt')
-prompt('- TEST Prompt ->')
+diary(TMPDIR+"/testdiary.txt")
+prompt("- TEST Prompt ->")
 1+1
 disp(1:10)
 diary(0)

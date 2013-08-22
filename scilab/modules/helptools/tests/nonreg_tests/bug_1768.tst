@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2006-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,17 +15,17 @@
 //
 // <-- Short Description -->
 //    I just downloaded Scilab-4.0rc1.
-//    Whenever I write a new function and try to write the relative help 
-//    file, xmltohtml crashes. Apparently, it does not found the whatis file 
+//    Whenever I write a new function and try to write the relative help
+//    file, xmltohtml crashes. Apparently, it does not found the whatis file
 //    even if it was just created successfully
 
 // <-- NO CHECK ERROR OUTPUT -->
 
 function y=foo1(a,b)
-  y=a+b
+    y=a+b
 endfunction
 
-T=help_skeleton('foo1');
+T=help_skeleton("foo1");
 
 mkdir(TMPDIR+"/bug_1768");
 mkdir(TMPDIR+"/bug_1768/help");

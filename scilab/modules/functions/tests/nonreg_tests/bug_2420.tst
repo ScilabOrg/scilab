@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,6 +15,6 @@
 // <-- Short Description -->
 //    fun2string converts the sequence \@ as carriage return
 
-function a=strudel(),a='+\@+';endfunction
+function a=strudel(),a="+\@+";endfunction
 t=fun2string(strudel);
 if stripblanks(t)<>"function a=ans(),a = ''+\@+'';endfunction" then pause,end

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,10 +17,10 @@
 function varargout = test1();
     s.a=1;s.b=3;varargout = s
 endfunction
-if execstr('test1()','errcatch')<>140 then pause,end
+if execstr("test1()","errcatch")<>140 then pause,end
 
 function varargout = test2();
     varargout = 1
 endfunction
-if execstr('test2()','errcatch')<>140 then pause,end
+if execstr("test2()","errcatch")<>140 then pause,end
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@
 // blank unit tests
 //==============================================================================
 
-disp(['xxx' blanks(20) 'yyy']);
+disp(["xxx" blanks(20) "yyy"]);
 
 // Test 1
 //LEN_MAX = 20000000; too slow

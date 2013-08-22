@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2010 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -32,10 +32,10 @@ x = rand(400, 1) * 800;
 y = rand(400, 1) * 600;
 scs_m = scicos_diagram();
 for i=1:100
-	o = BIGSOM_f("define");
-	o.graphics.orig = [x(i) y(i)];
-	o.graphics.sz = o.graphics.sz * 10;
-	scs_m.objs(0) = o;
+    o = BIGSOM_f("define");
+    o.graphics.orig = [x(i) y(i)];
+    o.graphics.sz = o.graphics.sz * 10;
+    scs_m.objs(0) = o;
 end
 
 xcos(scs_m)

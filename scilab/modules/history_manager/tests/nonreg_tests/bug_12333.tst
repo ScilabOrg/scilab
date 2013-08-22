@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Simon MARCHETTO
+// Copyrigh (C) 2013 - Scilab Enterprises - Simon MARCHETTO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -26,6 +26,6 @@ resethistory();
 savehistory();
 
 // reload history => it should have less than 5 lines
-loadhistory(SCIHOME + '/history');
+loadhistory(SCIHOME + "/history");
 h = gethistory();
-assert_checktrue(size(h,'r') < 5);
+assert_checktrue(size(h,"r") < 5);

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,7 +22,7 @@ function [flag,errmsg] = assert_equal ( computed , expected )
 
     function [nonan,numb] = mythrownan(x)
         [lhs,rhs]=argn(0)
-        if ( rhs<>1 ) then 
+        if ( rhs<>1 ) then
             error(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"thrownan",1))
         end
         numb=find(bool2s(~isnan(x)))
@@ -47,7 +47,7 @@ function [flag,errmsg] = assert_equal ( computed , expected )
     if ( or(ncom <> nexp) ) then
         errmsg = sprintf ( gettext ( "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n") , "assert_checkequal" , 1 , 2 )
         error(errmsg)
-    end  
+    end
     //
     if ( type(computed) == 1 & type(expected) == 1 ) then
         // These are two matrices of doubles

@@ -1,7 +1,7 @@
 // =============================================================================
-// Copyright (C) 2011 - INRIA - Michael Baudin
-// Copyright (C) 2010 - 2011 - INRIA - Allan CORNET
-// Copyright (C) 2013 - Scilab Enterprises - Simon MARCHETTO
+// Copyrigh (C) 2011 - INRIA - Michael Baudin
+// Copyrigh (C) 2010 - 2011 - INRIA - Allan CORNET
+// Copyrigh (C) 2013 - Scilab Enterprises - Simon MARCHETTO
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
 path = SCI+"/modules/spreadsheet/tests/unit_tests/";
@@ -61,8 +61,8 @@ csvWrite(K, filename, ";", ",");
 assert_checkfilesequal ( filename , fullfile(path,"K_4.csv") );
 // =============================================================================
 S = [
-    "Allan",                  "2", "CORNET";
-    "csv read/write toolbox", "3", "for scilab"
+"Allan",                  "2", "CORNET";
+"csv read/write toolbox", "3", "for scilab"
 ];
 //
 filename = fullfile(TMPDIR,"S_1.csv");
@@ -91,14 +91,14 @@ assert_checkfilesequal ( filename , fullfile(path,"data.csv") );
 // Configure the comments
 M = [1:4] * 0.1;
 comm = [
-"// Copyright (C) INRIA"
+"// Copyrigh (C) INRIA"
 "//  This file must be used under the terms of the CeCILL."
 ];
 filename = fullfile(TMPDIR,"test.csv");
 csvWrite(M, filename,[],[],[],comm);
 Mstr = mgetl(filename);
 expected = [
-"// Copyright (C) INRIA"
+"// Copyrigh (C) INRIA"
 "//  This file must be used under the terms of the CeCILL."
 "0.10000000000000001,0.20000000000000001,0.30000000000000004,0.40000000000000002"
 ];

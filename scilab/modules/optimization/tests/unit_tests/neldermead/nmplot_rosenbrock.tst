@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2008-2009 - INRIA - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,7 +11,7 @@
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 // Use 20 points in X and 20 points in Y
@@ -47,14 +47,14 @@ nm = nmplot_configure(nm,"-sigmafn",sigmafn);
 //
 nm = nmplot_search(nm);
 // Plot the contours of the cost function and the simplex history
-xmin = -2.0; 
-xmax = 2.0 ; 
-ymin = -2.0 ; 
-ymax = 2.0 ; 
-nx = NP ; 
+xmin = -2.0;
+xmax = 2.0 ;
+ymin = -2.0 ;
+ymax = 2.0 ;
+nx = NP ;
 ny = NP;
 [nm , xdata , ydata , zdata ] = nmplot_contour ( nm , ...
-  xmin , xmax , ymin , ymax , nx , ny );
+xmin , xmax , ymin , ymax , nx , ny );
 f = scf();
 drawlater();
 contour ( xdata , ydata , zdata , 20 )
@@ -62,17 +62,17 @@ nmplot_simplexhistory ( nm );
 drawnow();
 close(f);
 f = scf();
-mytitle = "Function Value Average" ; 
+mytitle = "Function Value Average" ;
 myxlabel = "Iterations";
 nmplot_historyplot ( nm , fbarfn , mytitle , myxlabel);
 close(f);
 f = scf();
-mytitle = "Minimum Function Value" ; 
+mytitle = "Minimum Function Value" ;
 myxlabel = "Iterations";
 nmplot_historyplot ( nm , foptfn , mytitle , myxlabel);
 close(f);
 f = scf();
-mytitle = "Maximum Oriented length" ; 
+mytitle = "Maximum Oriented length" ;
 myxlabel = "Iterations";
 nmplot_historyplot ( nm , sigmafn , mytitle , myxlabel);
 close(f);

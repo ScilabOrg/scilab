@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+// Copyrigh (C) 2009 - DIGITEO - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,15 +19,15 @@
 f=figure();
 
 h = uicontrol(f,"style","listbox", ..
-    "position", [10 10 150 160],..
-    "tag", "listbox_bug_3675");
+"position", [10 10 150 160],..
+"tag", "listbox_bug_3675");
 
 h2 = uicontrol(...
-    "parent", f,...
-    "relief", "groove",...
-    "style", "frame",...
-    "position", [200 50 150 200],...
-    "tag", "unnom");
+"parent", f,...
+"relief", "groove",...
+"style", "frame",...
+"position", [200 50 150 200],...
+"tag", "unnom");
 
 // fill the list
 set(h, "string", "un|mot|accentué");

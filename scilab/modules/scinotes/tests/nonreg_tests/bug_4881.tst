@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - INRIA - Allan.Simon@scilab.org
+// Copyrigh (C) 2009 - INRIA - Allan.Simon@scilab.org
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,4 +27,4 @@ editor (SCI/modules/atoms/macros/atomsInstall.sci)
 //Press the button "Replace All"
 
 //=> All spaces are erased.
-                    
+

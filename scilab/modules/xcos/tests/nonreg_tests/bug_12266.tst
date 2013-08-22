@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Alexandre HERISSE
+// Copyrigh (C) 2013 - Scilab Enterprises - Alexandre HERISSE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=12266
 //
 // <-- Short Description -->
-// Stopping "Papillon de lorenz" demonstration while simulation was on made CMSCOPE crash. 
+// Stopping "Papillon de lorenz" demonstration while simulation was on made CMSCOPE crash.
 
 clear is_crashed;
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_12266.zcos"));

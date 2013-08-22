@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,11 +20,11 @@ msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: a string expec
 assert_checkerror ("r = fullfile(SCI, 3, ''scilab.start'')", msgerr);
 
 if getos() <> "Windows" then
-  REF = ['/home/scilab/macros/util/fullfile.sci';
-         '/home/scilab/macros/util/toto.sci'];
+    REF = ["/home/scilab/macros/util/fullfile.sci";
+    "/home/scilab/macros/util/toto.sci"];
 else
-  REF = ['\home\scilab\macros\util\fullfile.sci';
-         '\home\scilab\macros\util\toto.sci'];
+    REF = ["\home\scilab\macros\util\fullfile.sci";
+    "\home\scilab\macros\util\toto.sci"];
 end
 
 r = fullfile("/home/","\scilab","macros","\util", ["fullfile.sci"; "toto.sci"]);

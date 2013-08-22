@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Vincent COUVERT
+// Copyrigh (C) 2008 - INRIA - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -37,6 +37,6 @@ om=[a1, a2, a3, a4 ];
 deltap= 1.0 - 10.00**(-0.05*gripple);
 deltas= 10.00**(0.05* gstop) ;
 
-[cells,fact,zers,pols]=eqiir('bp','el',om,deltap,deltas);
+[cells,fact,zers,pols]=eqiir("bp","el",om,deltap,deltas);
 
 if zers($)==0 | zers($-1)==0 then pause,end

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - DIGITEO - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - DIGITEO - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // When we click many times on a button of the Graphic window the instruction will be done as much times we have clicked.
-// 
+//
 
 plot3d();
 rotate_axes();

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@
 plot2d;
 
 fig = gcf();
-xs2gif(fig.figure_id,TMPDIR+'/foo.gif') ;
+xs2gif(fig.figure_id,TMPDIR+"/foo.gif") ;
 
 // open the exported fig and check that there is no warnings.
 xdel(winsid());

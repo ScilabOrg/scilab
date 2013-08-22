@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008-2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,11 +23,11 @@ freeMemInit = getmemory();
 
 // create several windows and destroy them
 for i=1:100,
-  // perform a plot and then destroy the window
-  delete(gcf());
-  // create a window and instantly destroy it
-  delete(gcf());
-  plot(1:10);
+    // perform a plot and then destroy the window
+    delete(gcf());
+    // create a window and instantly destroy it
+    delete(gcf());
+    plot(1:10);
 end
 
 freeMemEnd = getmemory();
@@ -38,7 +38,7 @@ if ((freeMemInit - freeMemEnd) > 1.0e5) then pause; end
 // second test. Open a lot of window. Scilab should provide an error but not crash.
 
 for i=1:300,
- execstr("scf()","errcatch");
+    execstr("scf()","errcatch");
 end
 
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,9 +14,9 @@
 //
 // <-- Short Description -->
 //    Wrong results when solving linear systems when the matrix
-//    is sparse and 1x1, and rhs is compatible and sparse. 
+//    is sparse and 1x1, and rhs is compatible and sparse.
 //    In the example below, M\b and full(M)\b give a wrong result,
-//    whereas M\full(b) and full(M)\full(b) are ok. 
+//    whereas M\full(b) and full(M)\full(b) are ok.
 //
 //    Strangely, when the size of b is less than 10, then all
 //    cases give the correct answer !

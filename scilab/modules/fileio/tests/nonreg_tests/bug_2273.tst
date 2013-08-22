@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,8 +17,8 @@
 
 // creates a UNC path example \\MON-PC\TEST-UNC-PATH
 // launch scilab from this UNC path
-cd '\\MON-PC\TEST-UNC-PATH'
+cd "\\MON-PC\TEST-UNC-PATH"
 pwd
 cd SCI
 cd WSCI
-chdir '\\MON-PC\TEST-UNC-PATH'
+chdir "\\MON-PC\TEST-UNC-PATH"

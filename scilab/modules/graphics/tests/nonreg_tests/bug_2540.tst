@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,13 +14,13 @@
 //
 // <-- Short Description -->
 // plot3d hangs scilab when plotting a matrix full with NaN
-// 
+//
 
 dummy = ones(10,10);
 dummy2 = dummy*%nan;
 plot3d(1:10,1:10,dummy2);
 clf();
-plot3d(1:10,1:10,dummy2); 
+plot3d(1:10,1:10,dummy2);
 
 // this also crashed scilab
 e = gce();

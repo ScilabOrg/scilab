@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,4 +16,4 @@
 // dec2hex function was limited to 32 bits
 
 
-assert_checkequal(dec2hex(2^32+1), '100000001');
+assert_checkequal(dec2hex(2^32+1), "100000001");

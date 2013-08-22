@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,10 +14,10 @@
 //
 // <-- Short Description -->
 // Destroying wait bars or progression bars crashes Scilab.
-// 
+//
 
 // create a waitbar and a progression bar and close them
-win1=waitbar('This is an example');
-win2=progressionbar('HELLO!');
+win1=waitbar("This is an example");
+win2=progressionbar("HELLO!");
 delete([win1,win2]);
 

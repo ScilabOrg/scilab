@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,14 +20,14 @@ data=ones(30000,100);
 subplot(231)
 plot(data)
 xgrid
-//now 
+//now
 subplot(232)
 plot(data)
 xgrid
-//and then until 
+//and then until
 subplot(236)
 xgrid
-plot(data) 
+plot(data)
 
 // check that is not too slow and that the graphic window don't flicker
 

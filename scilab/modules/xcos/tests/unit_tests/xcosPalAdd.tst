@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
+// Copyrigh (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
 //
 // This file is distributed under the same license as the Scilab package.
 
@@ -21,9 +21,9 @@ endfunction
 
 function xcosPalLoad(pal, category)
     if typeof(pal) <> "string" then pause, end
-    if size(pal, '*') <> 1 then pause, end
+    if size(pal, "*") <> 1 then pause, end
     if typeof(category) <> "string" then pause, end
-    if and([size(category, 'r') > 1, size(category, 'c') > 1]) then pause, end
+    if and([size(category, "r") > 1, size(category, "c") > 1]) then pause, end
 endfunction
 
 funcprot(prot);

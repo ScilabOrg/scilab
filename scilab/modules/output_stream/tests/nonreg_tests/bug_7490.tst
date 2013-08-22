@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,8 +18,8 @@
 
 A = %inf;
 A
-format('e', 8);
+format("e", 8);
 A
-format('e', 16);
+format("e", 16);
 A
 

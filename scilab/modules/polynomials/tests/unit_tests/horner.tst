@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - CNES - Alain Lamy
+// Copyrigh (C) 2013 - CNES - Alain Lamy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

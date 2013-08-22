@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - INRIA - Serge Steer
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //
 // <-- Short Description -->
 // clear called inside an exec while in pause may have unexpected results
- 
+
 //copy an paste the following instructions in the Scilab Console.
 
 // pause level must be 0 (-->)

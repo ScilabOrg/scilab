@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,4 +17,4 @@
 cd SCI/modules/differential_equations/demos/flow
 exec cylinder.dem.sce
 // Put the slider "gravity" at the minimum and start the simulation
-// Check that there is no error message in the console 
+// Check that there is no error message in the console

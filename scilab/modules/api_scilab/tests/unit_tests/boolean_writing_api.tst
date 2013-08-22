@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2010 - DIGITEO 
+// Copyrigh (C) 2009-2010 - DIGITEO
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,13 +15,13 @@ ilib_build("boolean_writing",["write_boolean","write_boolean"],"boolean_writing_
 exec("loader.sce");
 
 a_ref = [ %t  %f  %t  %f
-          %t  %f  %t  %f
-          %t  %f  %t  %f ];
-    
+%t  %f  %t  %f
+%t  %f  %t  %f ];
+
 b_ref =     [ %f  %t  %f  %t  %f  %t
-              %f  %t  %f  %t  %f  %t
-              %f  %t  %f  %t  %f  %t
-              %f  %t  %f  %t  %f  %t ];
+%f  %t  %f  %t  %f  %t
+%f  %t  %f  %t  %f  %t
+%f  %t  %f  %t  %f  %t ];
 
 [a,b] = write_boolean();
 if or(a <> a_ref) then pause;end

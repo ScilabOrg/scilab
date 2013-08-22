@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 
 xdel(winsid());
 x=linspace(-%pi,%pi,1000)';
-ierr = execstr('surf(x,x,sin(x)*cos(x)'');','errcatch');
+ierr = execstr("surf(x,x,sin(x)*cos(x)'');","errcatch");
 if ierr <> 17 then pause,end
 x=linspace(-%pi,%pi,100)';
 plot(x,x);

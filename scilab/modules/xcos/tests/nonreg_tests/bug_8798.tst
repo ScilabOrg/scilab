@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 -INRIA - Serge Steer
+// Copyrigh (C) 2011 -INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,10 +17,10 @@
 
 importXcosDiagram("SCI/modules/xcos/tests/nonreg_tests/batch_simulation.zcos")
 
-scicos_simulate(scs_m,list(),'nw');
+scicos_simulate(scs_m,list(),"nw");
 c1=counter;
-if size(counter.time,'*')<>15 then pause,end
+if size(counter.time,"*")<>15 then pause,end
 
 Context.Pulsation=6;
-scicos_simulate(scs_m,list(),Context,'nw');
-if size(counter.time,'*')<>29 then pause,end
+scicos_simulate(scs_m,list(),Context,"nw");
+if size(counter.time,"*")<>29 then pause,end

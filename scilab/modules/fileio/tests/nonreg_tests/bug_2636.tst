@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,4 +19,4 @@
 mkdir(TMPDIR+"/bug_2636");
 mputl("test",TMPDIR+"/bug_2636.txt");
 copyfile(TMPDIR+"/bug_2636.txt",TMPDIR+"/bug_2636/bug_2636.txt");
-if mgetl(TMPDIR+"/bug_2636/bug_2636.txt") <> 'test' then pause,end
+if mgetl(TMPDIR+"/bug_2636/bug_2636.txt") <> "test" then pause,end

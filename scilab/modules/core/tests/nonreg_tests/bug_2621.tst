@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,15 +18,15 @@
 //
 
 function bug_errcatch_one
-	errcatch(9999,"continue")
-	error(9999)
-	disp("TEST PASSED")
+    errcatch(9999,"continue")
+    error(9999)
+    disp("TEST PASSED")
 endfunction
 
 function bug_errcatch_two
-	errcatch(10000,"continue")
-	error(10000)
-	disp("TEST PASSED")
+    errcatch(10000,"continue")
+    error(10000)
+    disp("TEST PASSED")
 endfunction
 
 bug_errcatch_one()

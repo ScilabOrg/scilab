@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Bernard Hugueney
+// Copyrigh (C) 2010 - DIGITEO - Bernard Hugueney
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,8 +19,8 @@
 // They are now forbidden with an error message.
 
 function f(n)
-  stacksize('min');
-  gstacksize('min');
+    stacksize("min");
+    gstacksize("min");
 endfunction
 
 f(1);

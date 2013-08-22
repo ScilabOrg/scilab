@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -13,6 +13,6 @@
 // <-- Short Description -->
 // dgettext with "scilab" domain did not return same result than gettext
 
-A = dgettext('scilab', '%s: No more memory.\n');
+A = dgettext("scilab", "%s: No more memory.\n");
 B = gettext("%s: No more memory.\n");
 assert_checkequal(A, B);

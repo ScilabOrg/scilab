@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2010 - DIGITEO - Sylvestre Ledru
+// Copyrigh (C) 2006-2010 - DIGITEO - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,5 +23,5 @@ v0=a.x_ticks.labels;
 drawaxis(x=a.x_ticks.locations,y=0.5,dir="u",tics="v",val=v0)
 e=gce();
 v1="$"+v0+"$";
-e.tics_labels=v1'; 
+e.tics_labels=v1';
 

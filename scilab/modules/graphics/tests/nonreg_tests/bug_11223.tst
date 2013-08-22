@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab-Enterprises - Cedric DELAMARRE
+// Copyrigh (C) 2012 - Scilab-Enterprises - Cedric DELAMARRE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

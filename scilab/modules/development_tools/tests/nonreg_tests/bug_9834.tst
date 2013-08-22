@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2011 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,8 +18,8 @@
 
 
 // build toolbox_skeleton
-exec('SCI/contrib/toolbox_skeleton/builder.sce');
+exec("SCI/contrib/toolbox_skeleton/builder.sce");
 
 // check that tests are 'passed'
-test_run('SCI/contrib/toolbox_skeleton')
+test_run("SCI/contrib/toolbox_skeleton")
 

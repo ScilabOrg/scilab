@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,7 +23,7 @@
 disp("activate your sound card, and run this file");
 disp("if you hear something, that means the playsnd & PlaySnd work");
 
-y=wavread('SCI/modules/sound/demos/chimes.wav');
+y=wavread("SCI/modules/sound/demos/chimes.wav");
 playsnd(y);
 
-PlaySound('SCI/modules/sound/demos/chimes.wav');
+PlaySound("SCI/modules/sound/demos/chimes.wav");

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,9 +9,9 @@
 
 // Maple code used to create reference
 
-// Digits := 40; 
-// writeto("secd.ref"); interface(prettyprint = 0); 
-// for i from 0 to 360 do if (abs(-180+i)!=90) then print(-180+i, evalf[30](sec(-Pi+i*Pi/180), 30)) end end do; 
+// Digits := 40;
+// writeto("secd.ref"); interface(prettyprint = 0);
+// for i from 0 to 360 do if (abs(-180+i)!=90) then print(-180+i, evalf[30](sec(-Pi+i*Pi/180), 30)) end end do;
 // writeto(terminal);
 ieee(2);
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab

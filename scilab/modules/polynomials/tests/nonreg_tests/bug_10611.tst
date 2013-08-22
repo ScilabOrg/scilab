@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -22,7 +22,7 @@ bPoles = [-0.3826834+%i*0.9238795
 -0.9238795-%i*0.3826834
 -0.3826834-%i*0.9238795];
 
-sPoly = poly(bPoles, 's', 'roots');
+sPoly = poly(bPoles, "s", "roots");
 
 sRoots = roots(sPoly);
 

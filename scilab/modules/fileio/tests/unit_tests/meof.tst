@@ -1,20 +1,20 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
 
-//ouvrir le fichier 
-FLN = 'SCI/modules/fileio/tests/unit_tests/text.txt';
+//ouvrir le fichier
+FLN = "SCI/modules/fileio/tests/unit_tests/text.txt";
 
-fd = mopen(FLN,'rt'); 
+fd = mopen(FLN,"rt");
 i = 0;
 while ~meof(fd) do
-   mfscanf(1, fd, "%c");
-   i = i + 1;
+    mfscanf(1, fd, "%c");
+    i = i + 1;
 end
 
 mclose(fd);

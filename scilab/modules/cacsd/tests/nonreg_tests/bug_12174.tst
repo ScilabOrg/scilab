@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+// Copyrigh (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,8 +14,8 @@
 // The function routh_t gives incorrect output for all denominators that include
 // gain value "k".
 
-s = poly(0, 's');
-k = poly(0,'k');
+s = poly(0, "s");
+k = poly(0,"k");
 P=s*(s+7)*(s+11);
 h=1/P;
 r_rat=routh_t(h,k,%t);

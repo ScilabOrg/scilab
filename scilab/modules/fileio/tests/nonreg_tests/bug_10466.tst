@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2012 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -23,10 +23,10 @@ mprintf("File=%s\n", filename);
 fd = mopen(filename,"wt");
 imax=1800000;
 for i= 1:imax
-  if ( modulo(i,10000)==0 ) then
-    mprintf("i=%d, p=%.1f%%\n",i,i/imax*100)
-  end
-  mputl("02/05/10 00:00:02,1.32453,1.32491",fd);
+    if ( modulo(i,10000)==0 ) then
+        mprintf("i=%d, p=%.1f%%\n",i,i/imax*100)
+    end
+    mputl("02/05/10 00:00:02,1.32453,1.32491",fd);
 end
 mclose(fd);
 

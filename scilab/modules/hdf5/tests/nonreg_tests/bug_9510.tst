@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Antoine ELIAS
+// Copyrigh (C) 2011 - DIGITEO - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,6 +15,6 @@
 //
 
 
-deff('y=f(x)','y=2*x');
+deff("y=f(x)","y=2*x");
 if export_to_hdf5(TMPDIR+"/functions.sod","f") <> %f then pause end
 if ls(TMPDIR+"/functions.sod") <> [] then pause end

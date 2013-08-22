@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - DIGITEO - Jean-Baptiste Silvy
+// Copyrigh (C) 2009-2009 - DIGITEO - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // draw does not work any more while inside drawlater/drawnow scope.
-// 
+//
 
 x = 1:10;
 

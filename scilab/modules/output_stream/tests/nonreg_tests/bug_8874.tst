@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - INRIA - Serge Steer
+// Copyrigh (C) 2011 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,9 +18,9 @@
 // parts
 setlanguage("en_US")
 A=[complex(-1,%inf),complex(1,%nan),complex(%inf,%nan),complex(%nan,%nan);
-   1                2               3                  4];
+1                2               3                  4];
 As=sparse(A);
-P=poly(A(1,:),'s','c');
+P=poly(A(1,:),"s","c");
 
 format("v")
 // Check string
@@ -60,7 +60,7 @@ assert_checkequal(string(complex(%inf,%nan))," Inf+%i*Nan");
 assert_checkequal(string(complex(-%inf,%nan)),"-Inf+%i*Nan");
 assert_checkequal(string(complex(%nan,%nan))," Nan+%i*Nan");
 assert_checkequal(string(A),["-1.000D+00+%i*Inf"," 1.000D+00+%i*Nan"," Inf+%i*Nan"," Nan+%i*Nan";
-                    " 1.000D+00"," 2.000D+00"," 3.000D+00"," 4.000D+00"]);
+" 1.000D+00"," 2.000D+00"," 3.000D+00"," 4.000D+00"]);
 
 //Check display
 complex(0,%inf)

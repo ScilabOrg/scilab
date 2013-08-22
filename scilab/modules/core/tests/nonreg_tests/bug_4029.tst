@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,11 +16,11 @@
 
 // <-- INTERACTIVE TEST -->
 // install scilab x64 on Vista x64
-// 
+//
 // [a,b] = getos();
 // if b <> 'Vista x64' then pause,end
 
 // install scilab x86 on Vista x64
-// 
+//
 // [a,b] = getos();
 // if b <> 'Vista' then pause,end

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
+// Copyrigh (C) 2005-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -30,7 +30,7 @@
 //    -->J
 //    J =
 //
-//    .001 <- OK c'est bien ce qu'on souhaite 
+//    .001 <- OK c'est bien ce qu'on souhaite
 // ...
 
 J=0.001;
@@ -42,6 +42,6 @@ diary(0);
 DIAFILECONTENTS=mgetl(TMPDIR+"/bug797.dia");
 
 REFFILECONTENTS=[" ";
-	"    0.001  ";]
+"    0.001  ";]
 
 if or(DIAFILECONTENTS<>REFFILECONTENTS) then pause,end

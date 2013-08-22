@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,47 +14,47 @@
 // <-- Short Description -->
 // -->l(2).row1(2)=M.row1(1)
 // l  =
-//  
+//
 // list with entries:
 //   1: 1
-// !--error 246 
+// !--error 246
 // Function not defined for given argument type(s).
 
 
 function M=%to_e(varargin)
-  M = varargin($),
-  select varargin(1)
-    case 'row2' then
-    M.N = M.N(2, eye())
-    M.V = M.V(2, eye())
-  case 'row1' then
-    M.N = M.N(1, eye())
-    M.V = M.V(1, eye())
-  else
-    M.N = M.N(varargin(1:$ - 1))
-    M.V = M.V(varargin(1:$ - 1))
-  end
+    M = varargin($),
+    select varargin(1)
+    case "row2" then
+        M.N = M.N(2, eye())
+        M.V = M.V(2, eye())
+    case "row1" then
+        M.N = M.N(1, eye())
+        M.V = M.V(1, eye())
+    else
+        M.N = M.N(varargin(1:$ - 1))
+        M.V = M.V(varargin(1:$ - 1))
+    end
 endfunction
 
 
 %to_6=%to_e
 
 function M=%to_i_to(varargin)
-  M=varargin($);N=varargin($-1)
-  select varargin(1)
-    case 'row2'
-    M.N(2,:)=N.N
-    M.V(2,:)=N.V
-    case 'row1'
-    M.N(1,:)=N.N
-    M.V(1,:)=N.V
-  else
-    M.N(varargin(1:$-2))=N.N
-    M.V(varargin(1:$-2))=N.V
-  end
+    M=varargin($);N=varargin($-1)
+    select varargin(1)
+    case "row2"
+        M.N(2,:)=N.N
+        M.V(2,:)=N.V
+    case "row1"
+        M.N(1,:)=N.N
+        M.V(1,:)=N.V
+    else
+        M.N(varargin(1:$-2))=N.N
+        M.V(varargin(1:$-2))=N.V
+    end
 endfunction
 
-M = mlist(['to','V','N'],[1 2 3;4 5 6],['a','b','c';'d','e','f']);
+M = mlist(["to","V","N"],[1 2 3;4 5 6],["a","b","c";"d","e","f"]);
 M.row1(2) = M.row2(1);
 l = list(1,M,2);
 l(2).row1(2) = M.row1(1);

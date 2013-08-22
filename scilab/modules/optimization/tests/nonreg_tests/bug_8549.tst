@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyrigh (C) 2011 - DIGITEO - Michael Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 //
 
 function [ f , index ] = myquad ( x , index )
-  f = x(1)^2 + x(2)^2 + x(3)^2
+    f = x(1)^2 + x(2)^2 + x(3)^2
 endfunction
 x0 = [1.2 1.9].';
 nm = nmplot_new ();

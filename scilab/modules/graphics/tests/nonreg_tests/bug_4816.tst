@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Pierre Lando
+// Copyrigh (C) 2009 - DIGITEO - Pierre Lando
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,6 +17,6 @@
 
 
 a=gca();
-a.auto_clear='on';
-plot(1:10, 1:10, 'ro', 1:10, 10 - (1:10), 'b.'); // will it bug ?
+a.auto_clear="on";
+plot(1:10, 1:10, "ro", 1:10, 10 - (1:10), "b."); // will it bug ?
 

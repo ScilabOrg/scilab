@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2008 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,9 +20,9 @@
 // <-- INTERACTIVE TEST -->
 
 // Creates a directory not in SCI directory
-// example 'Torbjørn Pettersen'
+// example 'TorbjÃ¸rn Pettersen'
 // copy all 'toolbox_skeleton' directory
-// goto in 'Torbjørn Pettersen'
+// goto in 'TorbjÃ¸rn Pettersen'
 // exec builder.sce
 // check that build help is ok
 

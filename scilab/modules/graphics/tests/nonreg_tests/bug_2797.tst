@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //    are empty.
 
 function r = f(x);
-  r = 1 / x;
+    r = 1 / x;
 endfunction
 
 x = linspace(-1, 1, 101);
@@ -31,7 +31,7 @@ curFig.immediate_drawing = "on";
 //plot(x,f)
 
 //the error will not be printed in the console
-ierr = execstr('plot(x,f)','errcatch');
+ierr = execstr("plot(x,f)","errcatch");
 
 plot(x,x)
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -42,9 +42,9 @@ if sB <> 2 then pause,end
 sC = length(C);
 if sC <> 2 then pause,end
 
-for i = 1 : size(tab_ref,'*')
-  r1 = strcat([tab_ref(i),ascii(0),tab_ref(i)]);
-  r2 = tab_ref(i) + ascii(0) + tab_ref(i);
-  if length(r1) <> ( 2 * length(tab_ref(i)) + 1) then pause,end
-  if r1 <> r2 then pause, end 
-end  
+for i = 1 : size(tab_ref,"*")
+    r1 = strcat([tab_ref(i),ascii(0),tab_ref(i)]);
+    r2 = tab_ref(i) + ascii(0) + tab_ref(i);
+    if length(r1) <> ( 2 * length(tab_ref(i)) + 1) then pause,end
+    if r1 <> r2 then pause, end
+end

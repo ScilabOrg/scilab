@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2011 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 //
 
 x = "保存";
-p = TMPDIR + '/foo';
+p = TMPDIR + "/foo";
 assert_checkequal(mputl(x, p), %T);
 
 cd(TMPDIR);

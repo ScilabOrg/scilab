@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - INRIA - Serge Steer <serge.steer@inria.fr>
+// Copyrigh (C) 2010 - INRIA - Serge Steer <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,10 +15,10 @@
 // <-- Short Description -->
 // insertion of an empty matrix into a struct (to remove a row or column)
 // is buggy when multiple index is used
-d11=struct('day',25,'month' ,'DEC','year',2006);
-d12=struct('day',2,'month' ,'DEC','year',2006);
-d21=struct('day',8,'month' ,'Feb','year',2010);
-d22=struct('day',12,'month' ,'Feb','year',2010);
+d11=struct("day",25,"month" ,"DEC","year",2006);
+d12=struct("day",2,"month" ,"DEC","year",2006);
+d21=struct("day",8,"month" ,"Feb","year",2010);
+d22=struct("day",12,"month" ,"Feb","year",2010);
 
 d=[d11 d12;d21 d22];
 

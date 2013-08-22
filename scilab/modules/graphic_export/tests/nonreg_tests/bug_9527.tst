@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - Calixte DENIZET
+// Copyrigh (C) 2011 - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // Problem when text was exported in SVG in using the gui
 
-xtitle('abcde');
+xtitle("abcde");
 
 // ctrl+E to export
 // choose svg file format

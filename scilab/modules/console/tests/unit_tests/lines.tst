@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2011 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -10,7 +10,7 @@
 //
 
 // Since Scilab 5.4.0 lines(0) by default
-r1 = lines(); 
+r1 = lines();
 assert_checkequal(r1(2),0);
 
 lines(0); // Should noyt modify anything

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2006-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
+// Copyrigh (C) 2006-2008 - INRIA - Allan CORNET <allan.cornet@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -29,28 +29,28 @@ my_test_dir_1_res = mkdir(my_test_dir_1);
 if my_test_dir_1_res == 0 then pause,end
 
 if my_test_dir_1_res == 1 then
-	
-	cd(my_test_dir_1);
-	
-	my_test_dir_2_res = mkdir(my_test_dir_2);
-	
-	if my_test_dir_2_res == 0 then pause,end
-	
-	if my_test_dir_2_res == 1 then
-		
-		cd('..');
-		
-		a  = dir(my_test_dir_1);
-		b  = mtlb_dir(my_test_dir_1);
-		
-		x  = getdate(a.date);
-		cx = x(1:4);
-		
-		y  = getdate();
-		cy = y(1:4);
-		
-		if ~(a.isdir) then pause,end
-		if ~(b.isdir) then pause,end
-		if cx <> cy   then pause,end
-	end
+
+    cd(my_test_dir_1);
+
+    my_test_dir_2_res = mkdir(my_test_dir_2);
+
+    if my_test_dir_2_res == 0 then pause,end
+
+    if my_test_dir_2_res == 1 then
+
+        cd("..");
+
+        a  = dir(my_test_dir_1);
+        b  = mtlb_dir(my_test_dir_1);
+
+        x  = getdate(a.date);
+        cx = x(1:4);
+
+        y  = getdate();
+        cy = y(1:4);
+
+        if ~(a.isdir) then pause,end
+        if ~(b.isdir) then pause,end
+        if cx <> cy   then pause,end
+    end
 end

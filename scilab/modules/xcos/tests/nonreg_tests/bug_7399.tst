@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010-2010 - DIGITEO - Clément DAVID <clement.david@scilab.org>
+// Copyrigh (C) 2010-2010 - DIGITEO - Clément DAVID <clement.david@scilab.org>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

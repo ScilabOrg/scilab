@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,11 +15,11 @@
 // <-- Short Description -->
 // When warning messages are disabled, a blank line is printed out
 
-warning('off');
+warning("off");
 function y = mysubmacro ( x , factor )
-  y = factor * x;
+    y = factor * x;
 endfunction
 
 warning("off");
 mysubmacro( 1 , 1 );mysubmacro( 1 , 1 );mysubmacro( 1 , 1 );mysubmacro( 1 , 1);
-warning('on');
+warning("on");

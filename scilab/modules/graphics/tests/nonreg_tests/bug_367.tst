@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -41,19 +41,19 @@ for i=1:5:100
     xsetech([0,0,1,0.5]);
     plot(x(origen:origen+99));
     xsetech([0,0.5,1,0.5]);
-    plot2d3('enn',1,t3(origen:origen+99)',2,);
+    plot2d3("enn",1,t3(origen:origen+99)',2,);
     rep=xgetmouse();
-    if rep(3)~=-1 then 
-          p=locate(2);
-          v=round(p(1,:)); 
-          xset("window",2)
-          xsetech([0,0,1,0.5]),
-          plot(x(origen+v(1):origen+v(2)));
-          xsetech([0,0.5,1,0.5]),
-          plot2d3('enn',1,t3(origen+v(1):origen+v(2))',2);
-          xclick();
-          xdel();
-    end  
+    if rep(3)~=-1 then
+        p=locate(2);
+        v=round(p(1,:));
+        xset("window",2)
+        xsetech([0,0,1,0.5]),
+        plot(x(origen+v(1):origen+v(2)));
+        xsetech([0,0.5,1,0.5]),
+        plot2d3("enn",1,t3(origen+v(1):origen+v(2))',2);
+        xclick();
+        xdel();
+    end
     clf();
 end;
 

@@ -1,21 +1,21 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x),r=norm(x,1),endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================    chol      ============================== 
+//==============================    chol      ==============================
 //==========================================================================
 
 //Empty matrix
 if chol([])<>[] then pause,end
 
-if execstr('chol([1 2;3 4])','errcatch')==0 then pause,end
-if execstr('chol([1 2;3 4]+%i)','errcatch')==0 then pause,end
+if execstr("chol([1 2;3 4])","errcatch")==0 then pause,end
+if execstr("chol([1 2;3 4]+%i)","errcatch")==0 then pause,end
 
 //Small dimension
 //REAL

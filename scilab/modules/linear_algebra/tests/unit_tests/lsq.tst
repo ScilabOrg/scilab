@@ -1,21 +1,21 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) ????-2008 - INRIA
+// Copyrigh (C) ????-2008 - INRIA
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x),r=norm(x,1),endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================     lsq      ============================== 
+//==============================     lsq      ==============================
 //==========================================================================
 
 //Empty matrix
 if lsq([],[])<>[] then pause,end
-if execstr('lsq([],1)','errcatch')==0 then pause,end
-if execstr('lsq(1,[])','errcatch')==0 then pause,end
-if execstr('lsq(rand(3,2),rand(2,1))','errcatch')==0 then pause,end
+if execstr("lsq([],1)","errcatch")==0 then pause,end
+if execstr("lsq(1,[])","errcatch")==0 then pause,end
+if execstr("lsq(rand(3,2),rand(2,1))","errcatch")==0 then pause,end
 
 //Small dimensions
 //Real full rank fat

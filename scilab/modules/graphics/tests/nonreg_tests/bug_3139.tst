@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - INRIA - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -17,7 +17,7 @@
 
 plot([0.01,100],[1,10]);
 a           = gca();
-a.log_flags = 'lnn';
+a.log_flags = "lnn";
 a.grid      = [12,-1];
 
 // check that all the grid line are drawn

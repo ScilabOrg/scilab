@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
+// Copyrigh (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
 //
 // This file is distributed under the same license as the Scilab package.
 
@@ -403,24 +403,24 @@ BLOCKS_CPP = [
 
 // binary case or source case
 if getos() <> "Windows" then
-  LIB = SCI + "/../../lib/scilab/libsciscicos_blocks" + getdynlibext();
-  if ~isfile(LIB) then
-    LIB = SCI + "/modules/scicos_blocks/.libs/libsciscicos_blocks" + getdynlibext();
-    if ~isfile(LIB) then pause, end
-  end
-  if execstr("link(LIB, BLOCKS_C, ""c"");", "errcatch") <> 0 then pause, end
-  if execstr("link(LIB, BLOCKS_FORTRAN, ""f"");", "errcatch") <> 0 then pause, end
-  if execstr("link(LIB, BLOCKS_CPP, ""c"");", "errcatch") <> 0 then pause, end
+    LIB = SCI + "/../../lib/scilab/libsciscicos_blocks" + getdynlibext();
+    if ~isfile(LIB) then
+        LIB = SCI + "/modules/scicos_blocks/.libs/libsciscicos_blocks" + getdynlibext();
+        if ~isfile(LIB) then pause, end
+    end
+    if execstr("link(LIB, BLOCKS_C, ""c"");", "errcatch") <> 0 then pause, end
+    if execstr("link(LIB, BLOCKS_FORTRAN, ""f"");", "errcatch") <> 0 then pause, end
+    if execstr("link(LIB, BLOCKS_CPP, ""c"");", "errcatch") <> 0 then pause, end
 
 else
-  LIBCCPP = SCI + "/bin/scicos_blocks" + getdynlibext();
-  LIBFOR = SCI + "/bin/scicos_blocks_f" + getdynlibext();
-  if ~isfile(LIBCCPP) then pause, end
-  if ~isfile(LIBFOR) then pause, end
+    LIBCCPP = SCI + "/bin/scicos_blocks" + getdynlibext();
+    LIBFOR = SCI + "/bin/scicos_blocks_f" + getdynlibext();
+    if ~isfile(LIBCCPP) then pause, end
+    if ~isfile(LIBFOR) then pause, end
 
-  if execstr("link(LIBCCPP, BLOCKS_C, ""c"");", "errcatch") <> 0 then pause, end
-  if execstr("link(LIBCCPP, BLOCKS_CPP, ""c"");", "errcatch") <> 0 then pause, end
-  if execstr("link(LIBFOR, BLOCKS_FORTRAN, ""f"");", "errcatch") <> 0 then pause, end
+    if execstr("link(LIBCCPP, BLOCKS_C, ""c"");", "errcatch") <> 0 then pause, end
+    if execstr("link(LIBCCPP, BLOCKS_CPP, ""c"");", "errcatch") <> 0 then pause, end
+    if execstr("link(LIBFOR, BLOCKS_FORTRAN, ""f"");", "errcatch") <> 0 then pause, end
 end
 
 ulink();

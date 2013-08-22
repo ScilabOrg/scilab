@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2009 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -154,10 +154,10 @@ fac=[10
 4
 4];
 
-if isdef('without')==%T;
-S(without:8:$,:)=[];
-S0(without:8:$,:)=[];
-fac(without:8:$,:)=[];
+if isdef("without")==%T;
+    S(without:8:$,:)=[];
+    S0(without:8:$,:)=[];
+    fac(without:8:$,:)=[];
 else
 end
 
@@ -177,8 +177,8 @@ S_wdeg=S(:,2:2:$);
 S_w=S_wdeg*%pi/180;
 
 M_test=[1000       0            0         0              0      0         760   258
-            0     0         1000          0          0     0           0     0
-            0     0             0         0           1000         0         760   210];
+0     0         1000          0          0     0           0     0
+0     0             0         0           1000         0         760   210];
 
 M_a=M_test(:,1:2:$);
 M_wdeg=M_test(:,2:2:$);

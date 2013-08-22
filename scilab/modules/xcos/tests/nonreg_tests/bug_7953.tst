@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2011 - DIGITEO - Clément DAVID
+// Copyrigh (C) 2011 - DIGITEO - Clément DAVID
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,7 +16,7 @@
 // No error message were printed when the diagram is invalid.
 
 try
-	xcos(mlist("diagram", "plop"));
+    xcos(mlist("diagram", "plop"));
 catch, end
 [str, n] = lasterror();
 if n <> 999 then pause, end

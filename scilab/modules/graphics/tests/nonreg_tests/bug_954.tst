@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - INRIA - Vincent COUVERT
+// Copyrigh (C) 2008-2008 - INRIA - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -19,15 +19,15 @@
 
 // Test #1
 function Xd=f(t,X)
-  p=X(1);pi=X(2);xh=X(3);z=X(4);
-  pd=-(p^2+2*p+1/lam);
-  pid=1+2*(1/(lam*p)+1)*pi;
-  xhd=-(1+p)*xh;
-  zd=-1/(lam*p)*(z-xh)-(1+(1/pi))*z;
-  sigd=z^2;
-  Xd=[pd;pid;xhd;zd;sigd];
+    p=X(1);pi=X(2);xh=X(3);z=X(4);
+    pd=-(p^2+2*p+1/lam);
+    pid=1+2*(1/(lam*p)+1)*pi;
+    xhd=-(1+p)*xh;
+    zd=-1/(lam*p)*(z-xh)-(1+(1/pi))*z;
+    sigd=z^2;
+    Xd=[pd;pid;xhd;zd;sigd];
 endfunction
-  
+
 stacksize(100000000);
 lam=.8;
 
@@ -42,13 +42,13 @@ XX=ode([p0;pi0;xh0;z0;sig0],0,TT,f);
 TT=TT(1:size(XX,2));
 
 K=XX($,:)+XX(2,:).*(XX(3,:)-XX(4,:)).^2;
-xset('window',0);
+xset("window",0);
 clf();
 plot2d(TT',K');
-xset('window',1);
+xset("window",1);
 clf();
 plot2d(TT',XX(2,:)');
-xset('window',2);
+xset("window",2);
 clf();
 plot2d(TT',XX(1,:)');
 

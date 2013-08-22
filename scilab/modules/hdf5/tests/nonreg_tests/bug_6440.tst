@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,9 +16,9 @@
 // xcos demos did not work and returned an error "Unable to open file".
 //
 
-dataDirP1 = TMPDIR + '/世界您好';
-dataDirP2 = TMPDIR + '/世界您好/JOSÉDO~1/';
-dataFile = dataDirP2 + '/my_data.sod";
+dataDirP1 = TMPDIR + "/世界您好";
+dataDirP2 = TMPDIR + "/世界您好/JOSÉDO~1/";
+dataFile = dataDirP2 + "/my_data.sod";
 
 mkdir(dataDirP1);
 mkdir(dataDirP2);

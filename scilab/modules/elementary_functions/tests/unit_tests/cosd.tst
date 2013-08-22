@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,9 +9,9 @@
 
 // Maple code used to create reference
 
-// Digits := 40; 
-// writeto("cosd.ref"); interface(prettyprint = 0); 
-// for i from 0 to 360 do print(-180+i, evalf[30](cos(-Pi+i*Pi/180), 30)) end do; 
+// Digits := 40;
+// writeto("cosd.ref"); interface(prettyprint = 0);
+// for i from 0 to 360 do print(-180+i, evalf[30](cos(-Pi+i*Pi/180), 30)) end do;
 // writeto(terminal);
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab
 

@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010 - DIGITEO - Allan CORNET
+// Copyrigh (C) 2010 - DIGITEO - Allan CORNET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,7 +9,7 @@
 //
 // <-- ENGLISH IMPOSED -->
 //
-// <-- NO CHECK ERROR OUTPUT --> 
+// <-- NO CHECK ERROR OUTPUT -->
 //
 // <-- Non-regression test for bug 8505 -->
 //
@@ -20,7 +20,7 @@
 // help was not generated if there was a path name with some spaces.
 
 function a = bug_8505(b, c, d)
-  a = 0;
+    a = 0;
 endfunction
 
 dir_with_space = "directory with space";

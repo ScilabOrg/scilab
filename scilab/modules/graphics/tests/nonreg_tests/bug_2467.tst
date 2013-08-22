@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
+// Copyrigh (C) 2007-2008 - INRIA - Serge STEER <serge.steer@inria.fr>
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,9 +18,9 @@
 
 plot(1:10)
 a             = gca();
-a.log_flags   = 'lnn';
-path          = TMPDIR+'/bug2467.scg';
+a.log_flags   = "lnn";
+path          = TMPDIR+"/bug2467.scg";
 xsave(path);
 clf();
 
-if execstr("xload(path)",'errcatch')<>0 then pause,end
+if execstr("xload(path)","errcatch")<>0 then pause,end

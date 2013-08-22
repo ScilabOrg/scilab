@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2008 - Digiteo - Jean-Baptiste Silvy
+// Copyrigh (C) 2008-2008 - Digiteo - Jean-Baptiste Silvy
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -14,13 +14,13 @@
 //
 // <-- Short Description -->
 // After using surf giving a stacksize error, the figure saty in drawlater mode.
-// 
+//
 
 fig = gcf();
 fig.immediate_drawing = "on";
 
 // will require too much stack
-execstr("x = linspace(-%pi,%pi,1000)''; surf(x,x,sin(x)*cos(x)'')",'errcatch','n');
+execstr("x = linspace(-%pi,%pi,1000)''; surf(x,x,sin(x)*cos(x)'')","errcatch","n");
 
 // check that immediate drawing is still on
 if (fig.immediate_drawing <> "on") then pause; end

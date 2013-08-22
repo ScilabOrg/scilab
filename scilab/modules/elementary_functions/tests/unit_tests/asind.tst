@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Serge Steer
+// Copyrigh (C) 2008 - INRIA - Serge Steer
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -8,9 +8,9 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40; 
-// writeto("asind.ref"); interface(prettyprint = 0); 
-// for i from -1 by 1/200 to 1 do print(i, evalf[30](arcsin(i)*180/Pi, 30)) end do; 
+// Digits := 40;
+// writeto("asind.ref"); interface(prettyprint = 0);
+// for i from -1 by 1/200 to 1 do print(i, evalf[30](arcsin(i)*180/Pi, 30)) end do;
 // writeto(terminal);
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab
 ieee(2);

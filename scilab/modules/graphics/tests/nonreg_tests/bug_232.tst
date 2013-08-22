@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Vincent COUVERT
+// Copyrigh (C) 2008 - INRIA - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -15,11 +15,11 @@
 
 // <-- TEST WITH GRAPHIC -->
 
-clf();                       
+clf();
 plot2d([.4; .6],[-.6 ;.6],-3);
-plot2d(.2,0,-3) 
-               
-clf(); 
+plot2d(.2,0,-3)
+
+clf();
 plot2d([.4; .6],[-.6;.6],-3);
 plot2d(.5,0,-3);
 

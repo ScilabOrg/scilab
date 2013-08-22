@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Vincent COUVERT
+// Copyrigh (C) 2008 - INRIA - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -16,6 +16,6 @@
 //     modulo function error
 
 
-x=poly(0,'x');
+x=poly(0,"x");
 q=200001;
 if modulo(q*x,q)<>0 then pause,end

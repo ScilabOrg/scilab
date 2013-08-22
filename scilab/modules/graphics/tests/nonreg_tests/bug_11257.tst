@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Vincent COUVERT
+// Copyrigh (C) 2012 - Scilab Enterprises - Vincent COUVERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -20,7 +20,7 @@ m=1040;
 a=rand(n,m);
 
 for i=1:10
-  h=scf();
-  grayplot(1:n,1:m,a);
-  delete(h);
+    h=scf();
+    grayplot(1:n,1:m,a);
+    delete(h);
 end
