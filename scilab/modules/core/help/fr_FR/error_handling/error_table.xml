@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="error_table" xml:lang="fr">
+    <refnamediv>
+        <refname>error_table</refname>
+        <refpurpose>table des messages d'erreur</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>Cette page donne la table des messages d'erreur prédéfinis, et
+            leur numéros d'erreur associé. Certains de ces messages sont utilisés par Scilab
+            pour des erreurs du parseur ou internes spécifiques. D'autres
+            sont d'order plus général et sont appelées dans les fonctions Scilab. Celles
+            indiquées par des astérisques ont leur syntaxe <literal>error(n,pos)</literal> prise en compte.
+        </para>
+        <para>1 "Incorrect assignment." (affectation erronée)</para>
+        <para>2 "Invalid factor." (facteur invalide)</para>
+        <para>3 "Waiting for right parenthesis." (en attente d'une parenthèse droite)</para>
+        <para>4 "Undefined variable: %s" (variable non définie)</para>
+        <para>5 "Inconsistent column/row dimensions." (dimensions colonne/rangée incohérentes)</para>
+        <para>6 "Inconsistent row/column dimensions." (dimensions rangée/colonne incohérentes)</para>
+        <para>7 "Dot cannot be used as modifier for this operator." (le point ne peut pas être utilisé comme modificateur de cet opérateur)</para>
+        <para>8 "Inconsistent addition: (%d,%d) by (%d,%d)." (addition incohérente)</para>
+        <para>9 "Inconsistent subtraction: (%d,%d) by (%d,%d)." (soustraction incohérente)</para>
+        <para>10 "Inconsistent multiplication: (%d,%d) by (%d,%d)." (multiplication incohérente)</para>
+        <para>11 "Inconsistent right division." (division droite incohérente)</para>
+        <para>12 "Inconsistent left division." (division gauche incohérente)</para>
+        <para>13 "Redefining permanent variable." (redéfinition d'une variable permanente)</para>
+        <para>14 "Eye variable undefined in this context." (la variable Eye n'est pas définie dans ce contexte)</para>
+        <para>15 "Submatrix incorrectly defined." (la sous-matrice n'est pas correctement définie)</para>
+        <para>16 "Incorrect command!" (commande erronée)</para>
+        <para>17 "stack size exceeded! Use stacksize function to increase it." (taille de la pile dépassée. Utilisez la fonction stacksize pour l'augmenter)</para>
+        <para>18 "Too many variables." (trop de variables)</para>
+        <para>19 "Problem is singular." (le problème est singulier)</para>
+        <para>* 20 "Wrong size (%d,%d) for argument #%d: Square matrix expected." (type erroné du premier argument : une matrice carrée attendue)</para>
+        <para>21 "Invalid index." (index invalide)</para>
+        <para>22 "Recursion problems. Sorry..." (problèmes de récursivité)</para>
+        <para>23 "Matrix norms available are 1, 2, inf, and fro." (les normes matricielles disponibles sont 1, 2, inf et fro)</para>
+        <para>24 "Convergence problem..." (problème de convergence...)</para>
+        <para>25 "Bad call to primitive: %s" (appel erroné de la primitive)</para>
+        <para>26 "Too complex recursion! (recursion tables are full)" (récursivité trop complexe ! (Les tables de récurrence sont pleines))</para>
+        <para>27 "Division by zero..." (division par zéro...)</para>
+        <para>28 "Empty function..." (fonction vide...)</para>
+        <para>29 "Matrix is not positive definite." (la matrice n'est pas définie positive)</para>
+        <para>30 "Invalid exponent." (exposant invalide)</para>
+        <para>31 "Incorrect string." (chaîne de caractères erronée)</para>
+        <para>32 "singularity of log or tan function" (singularité de la fonction log ou tan)</para>
+        <para>33 "too many "":""" (trop de "":"")</para>
+        <para>34 "Incorrect control instruction syntax." (syntaxe de l'instruction de contrôle erronée)</para>
+        <para>34 "Syntax error in a '%s' instruction."
+            (if,while,select/case) (erreur de syntaxe dans une instruction '%s')
+        </para>
+        <para>* 36 "Wrong input argument %d." (argument d'entrée n°%d erroné)</para>
+        <para>* 37 "Incorrect function at line %d." (fonction erronée à la ligne %d)</para>
+        <para>38 "Wrong file name." (nom de fichier erroné)</para>
+        <para>39 "Incorrect number of input arguments." (nombre erroné d'arguments d'entrée)</para>
+        <para>40 "Waiting for end of command." (en attente de la fin de la commande)</para>
+        <para>41 "Incompatible output argument." (argument de sortie incompatible)</para>
+        <para>42 "Incompatible input argument." (argument d'entrée incompatible)</para>
+        <para>43 "Not implemented in scilab..." (non implémenté dans Scilab)</para>
+        <para>* 44 "Wrong argument %d." (argument n°%d erroné)</para>
+        <para>* 45 "null matrix (argument # %d)." (matrice null (argument n°%d))</para>
+        <para>46 "Incorrect syntax." (syntaxe erronée)</para>
+        <para>47 " end or else is missing..." (end ou else est manquant...)</para>
+        <para>* 48 " input line longer than buffer size: %d" (la ligne d'entrée est plus longue que la taille de la mémoire tampon : %d)</para>
+        <para>49 "Incorrect file or format." (fichier ou format erroné)</para>
+        <para>50 "Subroutine '%s' not found." (%s : Impossible de trouver la sous-routine)</para>
+        <para>* 52 "Wrong type for argument #%d: Real matrix expected." (type erroné de l'argument %d : Une matrice réelle attendue)</para>
+        <para>* 53 "Wrong type for input argument %d: Real or complex matrix
+            expected." (type erroné de l'argument d'entrée n°%d : Une matrice réelle ou complexe attendue)
+        </para>
+        <para>* 54 "Wrong type for input argument %d: Polynomial expected." (type erroné de l'argument d'entrée n°%d : Un polynôme attendu)</para>
+        <para>* 55 "Wrong type for argument #%d: String expected." (type erroné de l'argument %d : Une chaîne de caractères attendue)</para>
+        <para>* 56 "Wrong type for argument #%d: List expected." (type erroné de l'argument %d : Une liste attendue)</para>
+        <para>57 "Problem with comparison symbol..." (problème avec le symbole de comparaison...)</para>
+        <para>58 "Function has no input argument..." (cette fonction n'a pas d'argument d'entrée)</para>
+        <para>59 "Function has no output." (cette fonction n'a pas d'argument de sortie)</para>
+        <para>60 "Wrong size for argument: Incompatible dimensions." (dimension erronée de l'argument : Dimensions incompatibles)</para>
+        <para>61 "Direct access: give format." (accès direct : donnez le format)</para>
+        <para>* 62 "End of file at line %d." (fin de fichier à la ligne %d)</para>
+        <para>* 63 "%d graphic terminal?" (%d terminaux graphiques ?)</para>
+        <para>64 "Integration fails." (échec de l'intégration)</para>
+        <para>* 65 "%d: logical unit already used." (%d : Unité logique déjà utilisée)</para>
+        <para>66 "No more logical units available!" (plus d'unités logiques disponibles)</para>
+        <para>67 "Unknown file format." (format de fichier inconnu)</para>
+        <para>68 "Fatal error!!! Your variables have been saved in the file: %s"
+            (erreur ! Vos variables ont été enregistrées dans le fichier : %s)
+        </para>
+        <para>69 "Floating point exception." (exception de virgule flottante)</para>
+        <para>70 "Too many arguments in fort (max 30)." (trop d'arguments dans fort (max 30))</para>
+        <para>71 "This variable is not valid in fort." (cette variable n'est pas valide dans fort)</para>
+        <para>72 "%s is not valid in this context." (%s n'est pas valide dans ce contexte)</para>
+        <para>73 "Error while linking." (erreur pendant l'édition des liens)</para>
+        <para>74 "Leading coefficient is zero." (le premier cœfficient est zéro)</para>
+        <para>75 "Too high degree (max 100)." (degré trop grand (max 100))</para>
+        <para>* 76 "for x=val with type(val)=%d is not implemented in Scilab."
+            (pour x=val avec type(val)=%d n'est pas implémenté dans Scilab)
+        </para>
+        <para>77 "%s: Wrong number of input arguments." (%s : Nombre erroné d'arguments d'entrée)</para>
+        <para>78 "%s: Wrong number of output arguments." (%s : Nombre erroné d'arguments de sortie)</para>
+        <para>79 "Indexing not allowed for output arguments of resume." (l'indexation n'est pas autorisé pour les arguments de sortie de resume)</para>
+        <para>80 "Incorrect function (argument n: %d)." (fonction erronée (argument n : %d))</para>
+        <para>81 "%s: Wrong type for argument #%d: Real or complex matrix expected."
+            (%s : Type erroné de l'argument %d : Une matrice réelle ou complexe attendue)
+        </para>
+        <para>82 "%s: Wrong type for argument #%d: Real matrix expected."
+            (%s : Type erroné de l'argument %d : Une matrice réelle attendue)
+        </para>
+        <para>83 "%s: Wrong type for argument #%d: Real vector expected."
+            (%s : Type erroné de l'argument %d : Un vecteur réel attendu)
+        </para>
+        <para>84 "%s: Wrong type for argument #%d: Scalar expected."
+            (%s : Type erroné de l'argument n°%d : Un scalaire attendu)
+        </para>
+        <para>85 "Host does not answer..." (l'hôte ne répond pas...)</para>
+        <para>86 "Uncontrollable system." (système non contrôlable)</para>
+        <para>87 "Unobservable system." (système non observable)</para>
+        <para>88 "sfact: singular or asymmetric problem." (sfact : problème singluier ou asymétrique)</para>
+        <para>* 89 "Wrong size for argument #%d." (dimension erronée de l'argument %d)</para>
+        <para>* 90 "Wrong type for argument #%d: Transfer matrix expected."
+            (type erroné de l'argument %d : Une matrice de transfert attendue)
+        </para>
+        <para>* 91 "Wrong type for argument #%d: In state space form expected."
+            (type erroné de l'argument %d : Attendu sous la forme d'espace d'état)
+        </para>
+        <para>* 92 "Wrong type for argument #%d: Rational matrix expected."
+            (type erroné de l'argument %d : Une matrice rationnelle attendue)
+        </para>
+        <para>* 93 "Wrong type for argument #%d: In continuous time expected."
+            (type erroné de l'argument %d : Attendu en temps continu)
+        </para>
+        <para>* 94 "Wrong type for argument #%d: In discrete time expected."
+            (type erroné de l'argument %d : Attendu en temps discret)
+        </para>
+        <para>* 95 "Wrong type for argument #%d: SISO expected." (type erroné de l'argument %d : SISO attendu)</para>
+        <para>* 96 "time domain of argument %d is not defined." (le domaine temporel de l'argument n°%d n'est pas défini)</para>
+        <para>* 97 "Wrong type for argument #%d: A system in state space or transfer matrix form expected."
+            (type erroné de l'argument %d : Un système sous la forme d'espace d'état ou de matrice de transfert attendu)
+        </para>
+        <para>98 "Variable returned by scilab argument function is incorrect."
+            (la variable retournée par la fonction Scilab passée en argument n'est pas valide)
+        </para>
+        <para>* 99 "Elements of %dth argument must be in increasing order."
+            (les éléments du %dième argument doivent être rangés en ordre croissant)
+        </para>
+        <para>* 100 "Elements of %dth argument are not in (strictly) decreasing order."
+            (les éléments du %dième argument ne sont pas rangés en ordre (strictement) décroissant)
+        </para>
+        <para>* 101 "Last element of %dth argument &lt;&gt; first." (le dernier élément du %dième argument &lt;&gt; en premier)</para>
+        <para>102 "Variable or function %s are not in file." (la variable ou la fonction %s n'est pas dans le fichier)</para>
+        <para>103 "Variable %s is not a valid rational function."
+            (la variable %s n'est pas une fonction rationnelle valide)
+        </para>
+        <para>104 "Variable %s is not a valid state space representation."
+            (la variable %s n'est pas dans une représentation espace d'état valide)
+        </para>
+        <para>105 "Undefined function." (fonction non définie)</para>
+        <para>106 "Function name already used." (nom de fonction déjà utilisé)</para>
+        <para>* 107 "Too many functions are defined (maximum #:%d)."
+            (trop de fonctions sont définies (maximum : %d))
+        </para>
+        <para>108 "Too complex for scilab, may be a too long control instruction."
+            (erreur : L'instruction de contrôle est peut-être trop longue)
+        </para>
+        <para>109 "Too large, can't be displayed." (trop large, affichage impossible)</para>
+        <para>110 "%s was a function when compiled but is now a primitive!"
+            (%s était une fonction à la compilation mais est maintenant une primitive !)
+        </para>
+        <para>111 "Trying to re-define function %s." (essaye de redéfinir la fonction %s)</para>
+        <para>112 "No more memory." (plus de mémoire disponible)</para>
+        <para>113 "Too large string." (chaîne de caractères trop longue)</para>
+        <para>114 "Too many linked routines." (trop de routines liées)</para>
+        <para>115 "Stack problem detected within a loop." (problème de pile détecté pendant une boucle)</para>
+        <para>* 116 "Wrong value for argument #%d." (valeur erronée de l'argument %d)</para>
+        <para>* 117 "List element number %d is Undefined." (l'élément %d de la liste n'est pas défini)</para>
+        <para>* 118 "Wrong type for argument #%d: Named variable not an expression expected."
+            (type erroné de l'argument %d : Une variable nommée n'est pas l'expression attendue)
+        </para>
+        <para>120 "Indices for non-zero elements must be given by a 2 column matrix."
+            (les indices des éléments non-nuls doivent être donnés dans une matrice 2 colonnes)
+        </para>
+        <para>121 "Incompatible indices for non-zero elements." (indices incompatibles pour les éléments non-nuls)</para>
+        <para>* 122 "Logical unit number should be larger than %d." (le numéro d'unité logique doit être plus grand que %d)</para>
+        <para>123 "Function not bounded from below." (la fonction n'est pas bornée inférieurement)</para>
+        <para>125 "Problem may be unbounded: too high distance between two consecutive iterations."
+            (le problème peut être non borné : La distance est trop grande entre deux itérations consécuvitves)
+        </para>
+        <para>126 "Inconsistent constraints." (contraintes incompatibles)</para>
+        <para>127 "No feasible solution." (pas de solution réalisable)</para>
+        <para>128 "Degenerate starting point." (point de départ dégénéré)</para>
+        <para>129 "No feasible point has been found." (aucun point réalisable n'a été trouvé)</para>
+        <para>130 "Optimization fails: back to initial point." (échec de l'optimisation : Retour au point initial)</para>
+        <para>131 "optim: Stop requested by simulator (ind=0)" (%s : Arrêt demandé par le simulateur (ind=0))</para>
+        <para>132 "optim: Wrong input parameters." (%s : Paramètres d'entrée faux)</para>
+        <para>133 "Too small memory." (mémoire trop limitée)</para>
+        <para>134 "optim: Problem with initial constants in simul."
+            (%s : Problèmes avec les constantes initiales dans simul)
+        </para>
+        <para>135 "optim: Bounds and initial guess are incompatible."
+            (%s : Les bornes et le point initial sont incompatibles)
+        </para>
+        <para>136 "optim: This method is NOT implemented."
+            (%s : Cette méthode n'est pas implémentée)
+        </para>
+        <para>137 "NO hot restart available in this method." (PAS de redémarrage à chaud disponible pour cette méthode)</para>
+        <para>138 "optim: Incorrect stopping parameters." (optim : Paramètres d'arrêts erronés)</para>
+        <para>139 "optim: Incorrect bounds." (optim : Bornes erronées)</para>
+        <para>140 "Variable: %s must be a list" (variable : %s doit être une liste)</para>
+        <para>* 141 "Incorrect function (argument n: %d)." (fonction erronée (argument n : %d))</para>
+        <para>* 142 "Hot restart: dimension of working table (argument n:%d)."
+            (redémarrage à chaud : Dimension de l'espace de travail (argument n : %d))
+        </para>
+        <para>143 "optim:: df0 must be positive !" (optim : df0 doit être positif !)</para>
+        <para>144 "Undefined operation for the given operands." (opération non définie pour les opérandes données)</para>
+        <para>201 "%s: Wrong type for argument #%d: Real or complex matrix expected."
+            (type erroné de l'argument n°%d : Une matrice réelle ou complexe attendue)
+        </para>
+        <para>202 "%s: Wrong type for argument #%d: Real matrix expected."
+            (type erroné de l'argument n°%d : Une matrice réelle attendue)
+        </para>
+        <para>203 "%s: Wrong type for argument #%d: Real vector expected."
+            (type erroné de l'argument n°%d : Un vecteur réel attendu)
+        </para>
+        <para>* 204 "%s: Wrong type for argument #%d: Scalar expected."
+            (type erroné de l'argument n°%d : Scalaire attendu)
+        </para>
+        <para>205 "%s: Wrong size for argument #%d: (%d,%d) expected."
+            (dimension erronée de l'argument %d : (%d,%d) attendu)
+        </para>
+        <para>206 "%s: Wrong size for argument #%d: %d expected."
+            (dimension erronée de l'argument %d : %d attendu)
+        </para>
+        <para>207 "%s: Wrong type for argument #%d: Matrix of strings expected."
+            (type erroné de l'argument %d : Une matrice de chaîne de caractères attendue)
+        </para>
+        <para>208 "%s: Wrong type for argument #%d: Boolean matrix expected."
+            (type erroné de l'argument %d : Une matrice booléenne attendue)
+        </para>
+        <para>209 "%s: Wrong type for argument #%d: Matrix expected."
+            (%s : Type erroné de l'argument %d : Une matrice attendue)
+        </para>
+        <para>210 "%s: Wrong type for argument #%d: List expected."
+            (%s : Type erroné de l'argument %d : Une liste attendue)
+        </para>
+        <para>211 "%s: Wrong type for argument #%d: Function or string (external function) expected."
+            (%s : Type erroné de l'argument %d : Une fonction ou chaîne de caractères (fonction externe) attendue)
+        </para>
+        <para>212 "%s: Wrong type for argument #%d: Polynomial expected."
+            (%s : Type erroné de l'argument %d : Un polynôme attendu)
+        </para>
+        <para>213 "%s: Wrong type for argument #%d: Working integer matrix expected."
+            (%s : Type erroné de l'argument %d : Une matrice de travail d'entiers attendue)
+        </para>
+        <para>214 "Argument %d of %s: wrong type argument, expecting a vector"
+            (%s : Type erroné de l'argument %d : Un vecteur attendu)
+        </para>
+        <para>* 215 "%dth argument type must be boolean." (le type du %dième argument doit être un booléen)</para>
+        <para>* 216 "Wrong type for argument #%d: Boolean or scalar expected."
+            (type erroné de l'argument %d : Un booléen ou scalaire attendu)
+        </para>
+        <para>* 217 "Wrong type for argument #%d: Sparse matrix of scalars expected."
+            (type erroné de l'argument %d : Une matrice creuse de scalaires attendue)
+        </para>
+        <para>* 218 "Wrong type for argument #%d: Handle to sparse lu factors expected."
+            (type erroné de l'argument %d : Un handle vers des facteurs lu creux attendu)
+        </para>
+        <para>* 219 "Wrong type argument %d: Sparse or full scalar matrix expected."
+            (type erroné de l'argument %d : Une matrice creuse ou pleine de scalaires attendue)
+        </para>
+        <para>220 "Null variable cannot be used here." (une variable nulle ne peut pas être utilisée ici)</para>
+        <para>221 "A sparse matrix entry is defined with two different values."
+            (une entrée de matrice creuse est définie avec deux valeurs différentes)
+        </para>
+        <para>222 "%s not yet implemented for full input parameter."
+            (%s pas encore implémenté pour les paramètres d'entrée pleins)
+        </para>
+        <para>223 "It is not possible to redefine the %s primitive this way (see clearfun)."
+            (il n'est pas possible de redéfinir la primitive %s de cette façon (voir clearfun))
+        </para>
+        <para>224 "Type data base is full." (la base de données des types est pleine)</para>
+        <para>225 "This data type is already defined." (ce type de donnée est déjà défini)</para>
+        <para>226 "Inequality comparison with empty matrix." (comparaison de type inégalité avec une matrice vide)</para>
+        <para>227 "Missing index." (indice manquant)</para>
+        <para>228 "reference to the cleared global variable %s." (référence à la variable globale effacée %s)</para>
+        <para>229 "Operands of / and \\ operations must not contain NaN of Inf."
+            (les opérandes /et \\  ne doivent pas contenir NaN et Inf)
+        </para>
+        <para>230 "semi def fails." (échec de semi def)</para>
+        <para>231 "Wrong type for first input argument: Single string expected."
+            (type erroné du premier argument d'entrée : Une chaîne de caractères attendue)
+        </para>
+        <para>232 "Entry name not found." (nom d'entrée non trouvé)</para>
+        <para>233 "Maximum number of dynamic interfaces reached." (nombre maximum d'interfaces dynamiques atteint)</para>
+        <para>234 "link: expecting more than one argument." (link : Attend plus d'un argument)</para>
+        <para>235 "link: problem with one of the entry point." (link : Problème avec un des points d'entrée)</para>
+        <para>236 "link: the shared archive was not loaded." (link : La bibliothèque partagée n'a pas été chargée)</para>
+        <para>237 "link: Only one entry point allowed on this operating system."
+            (link : Seulement un point d'entrée est autorisé sur ce système d'exploitation)
+        </para>
+        <para>238 "link: First argument cannot be a number." (link : Le premier argument ne peut pas être un nombre)</para>
+        <para>239 "You cannot link more functions, maxentry reached."
+            (impossible de lier plus de fonctions, maxentry atteint)
+        </para>
+        <para>240 "File '%s' already exists or directory write access denied."
+            (le fichier \"%s\" existe déjà ou le répertoire n'est pas accessible en écriture)
+        </para>
+        <para>241 "File '%s' does not exist or read access denied."
+            (le fichier \"%s\" n'existe pas ou n'est pas accessible en lecture)
+        </para>
+        <para>242 "Binary direct access files must be opened by 'file'."
+            (l'accès direct à un fichier binaire doit être ouvert par 'file')
+        </para>
+        <para>243 "C file logical unit not allowed here."
+            (l'unité logique de type fichier C n'est pas autorisé ici)
+        </para>
+        <para>244 "Fortran file logical unit not allowed here."
+            (l'unité logique de type fichier Fortran n'est pas autorisé ici)
+        </para>
+        <para>* 245 "No input file associated to logical unit %d."
+            (aucun fichier d'entrée n'est associé à l'unité logique %d)
+        </para>
+        <para>246 "function not defined for given argument type(s)"
+            (fonction non définie pour le type d'argument donné)
+        </para>
+        <para>247 "Wrong value for argument #%d: the lu handle is no more valid."
+            (valeur erronée de l'argument %d : Le handle lu n'est plus valide)
+        </para>
+        <para>* 248 "Wrong value for argument #%d: Valid variable name expected."
+            (valeur erronée de l'argument %d : Un nom de variable valide attendu)
+        </para>
+        <para>* 249 "Wrong value for argument #%d: Empty string expected."
+            (valeur erronée de l'argument %d : Une chaîne de caractères vide attendue)
+        </para>
+        <para>250 "Recursive extraction is not valid in this context."
+            (l'extraction récursive n'est pas valide dans ce contexte)
+        </para>
+        <para>251 "bvode: ipar dimensioned at least 11." (bvode : ipar doit être de dimension au moins 11)</para>
+        <para>252 "bvode: ltol must be of size ipar(4)." (bvode : ltol doit être de dimension ipar(4))</para>
+        <para>253 "bvode: fixpnt must be of size ipar(11)." (bvode : fixpnt doit être de dimension ipar(11))</para>
+        <para>254 "bvode: ncomp &lt; 20 requested." (bvode : ncomp &lt; 20 demandé)</para>
+        <para>255 "bvode: m must be of size ncomp." (bvode : m doit être de dimension ncomp)</para>
+        <para>256 "bvode: sum(m) must be less than 40." (bvode : sum(m) doit être inférieur à 40)</para>
+        <para>257 "bvode: sum(m) must be less than 40." (bvode : sum(m) doit être inférieur à 40)</para>
+        <para>258 "bvode: input data error." (bvode : Erreur de données d'entrée)</para>
+        <para>259 "bvode: no. of subintervals exceeds storage." (bvode : no. de sous intervalles dépasse la capacité de stockage)</para>
+        <para>260 "bvode: The collocation matrix is singular." (bvode : La matrice de colocation est singulière)</para>
+        <para>261 "Interface property table is full." (la table des propriétés d'interface est pleine)</para>
+        <para>* 262 "Too many global variables! , max number is %d." (trop de variables globales ! Le nombre maximum est %d)</para>
+        <para>263 "Error while writing in file,(disk full or deleted file."
+            (erreur à l'écriture dans le fichier : disque plein ou fichier supprimé)
+        </para>
+        <para>* 264 "Wrong value for argument #%d: Must not contain NaN or Inf."
+            (valeur erronée de l'argument %d : Ne doit pas contenir de NaN ou Inf)
+        </para>
+        <para>265 "A (size %d x %d) and B (size %d x %d) must have equal number of rows."
+            (A et B doivent avoir le même nombre de lignes)
+        </para>
+        <para>266 "A (size %d x %d) and B (size %d x %d) must have equal number of columns."
+            (A et B doivent avoir le même nombre de colonnes)
+        </para>
+        <para>267 "A (size %d x %d) and B (size %d x %d) must have equal dimensions."
+            (A et B doivent avoir les mêmes dimensions)
+        </para>
+        <para>* 268 "Invalid return value for function passed in arg %d."
+            (valeur de retour invalide pour la fonction passée en argument %d)
+        </para>
+        <para>* 269 "Wrong value for argument #%d: eigenvalues must have negative real parts."
+            (valeur erronée de  l'argument %d : Les valeurs propres doivent avoir une partie réelle négative)
+        </para>
+        <para>* 270 "Wrong value for argument #%d: eigenvalues modulus must be less
+            than one."
+            (valeur erronée de l'argument %d : Le module des valeurs propres doit être inférieur à un)
+        </para>
+        <para>* 271 "Size varying argument a*eye(), (arg %d) not allowed here."
+            (l'argument de taille variable a*eye(), (arg %d) n'est pas autorisé ici)
+        </para>
+        <para>272 "endfunction is missing." (endfunction est manquant)</para>
+        <para>273 "Instruction left hand side: waiting for a dot or a left parenthesis."
+            (partie gauche de l'instruction : en attente d'un point ou d'une parenthèse ouvrante)
+        </para>
+        <para>274 "Instruction left hand side: waiting for a name."
+            (partie de gauche de l'instruction : en attente d'un nom)
+        </para>
+        <para>275 "varargout keyword cannot be used here." (le mot-clé varargout ne peut pas être utilisé ici)</para>
+        <para>276 "Missing operator, comma, or semicolon." (opérateur, virgule ou point-virgule manquant)</para>
+        <para>277 "Too many commands defined." (trop de commandes définies)</para>
+        <para>278 "%s: Input arguments should have the same formal variable name."
+            (%s : Les arguments d'entrée devraient avoir le même nom formel de variable)
+        </para>
+        <para>
+            <note>Prière de ne pas utiliser cette liste car elle pourrait être modifiée dans une prochaine version.</note>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+    error(43);
+    // Affiche "Not implemented in scilab..."
+    error(42);
+    // Affiche "Incompatible input argument."
+    lasterror()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="error">error</link>
+            </member>
+            <member>
+                <link linkend="warning">warning</link>
+            </member>
+            <member>
+                <link linkend="errcatch">errcatch</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="lasterror">lasterror</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

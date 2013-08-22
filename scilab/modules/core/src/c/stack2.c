@@ -3011,7 +3011,7 @@ int C2F(getrhssys) (int *lw, int *n, int *m, int *p, int *ptra, int *ptrb, int *
     }
     if (ma != na)
     {
-        Scierror(999, _("A non square matrix!\n"));
+        Scierror(999, _("A non-square matrix (%d,%d)!\n"), ma, na);
         return FALSE;
     }
     if (ma != mb && mb != 0)
