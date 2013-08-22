@@ -18,7 +18,7 @@
         <para>3 "Waiting for right parenthesis" (esperava parêntese
             direito)
         </para>
-        <para>4 "Undefined variable : %s" (variável indefinida: %s)</para>
+        <para>4 "Undefined variable: %s" (variável indefinida: %s)</para>
         <para>5 "Inconsistent column/row dimensions" (dimensões de coluna/linha
             inconsistentes)
         </para>
@@ -28,11 +28,9 @@
         <para>7 "Dot cannot be used as modifier for this operator" (ponto não pode
             ser usado como modificador para ste operador)
         </para>
-        <para>8 "Inconsistent addition" (adição inconsistente)</para>
-        <para>9 "Inconsistent subtraction" (subtração inconsistente)</para>
-        <para>10 "Inconsistent multiplication" (multiplicação
-            inconsistente)
-        </para>
+        <para>8 "Inconsistent addition: (%d,%d) by (%d,%d)." (adição inconsistente)</para>
+        <para>9 "Inconsistent subtraction: (%d,%d) by (%d,%d)." (subtração inconsistente)</para>
+        <para>10 "Inconsistent multiplication: (%d,%d) by (%d,%d)." (multiplicação inconsistente)</para>
         <para>11 "Inconsistent right division " (divisão esquerda-direita
             inconsistente)
         </para>
@@ -50,23 +48,21 @@
         </para>
         <para>16 "Incorrect command!" (comando incorreto)</para>
         <para>17 "Stack size exceeded! (Use stacksize function to increase it)"
-            (tamanho de pilha excedido! (Use a função stacksize para
-            aumentá-lo))
+            (tamanho de pilha excedido! (Use a função stacksize para aumentá-lo))
         </para>
         <para>18 "Too many variables." (muitas variáveis!)</para>
         <para>19 "Problem is singular" (o problema é singular)</para>
-        <para>* 20 "Wrong type for argument #%d: Square matrix expected." (tipo
+        <para>* 20 "Wrong size (%d,%d) for argument #%d: Square matrix expected." (tamanho
             errado para o argumento %d: esperava matriz quadrada)
         </para>
         <para>21 "Invalid index" (índice inválido)</para>
-        <para>22 "Recursion problems. Sorry...." (problemas de recursão.
-            Perdão...)
+        <para>22 "Recursion problems. Sorry...." (problemas de recursão. Perdão...)
         </para>
         <para>23 "Matrix norms available are 1, 2, inf, and fro" (normas de matriz
             disponíveis são 1,2,inf e fro)
         </para>
         <para>24 "Convergence problem..." (problema de convergência...)</para>
-        <para>25 "Bad call to primitive :%s" (chamada ruim à primitiva: %s)</para>
+        <para>25 "Bad call to primitive:%s" (chamada ruim à primitiva: %s)</para>
         <para>26 "Too complex recursion! (recursion tables are full)" (recursão
             muito complexa! as tabelas de recursão estão cheias)
         </para>
@@ -117,7 +113,7 @@
             que tamanho de buffer %d)
         </para>
         <para>49 "Incorrect file or format" (arquivo ou formato incorreto)</para>
-        <para>50 "Subroutine not found : %s" (subrotina não encontrada: %s)</para>
+        <para>50 "Subroutine not found: %s" (subrotina não encontrada: %s)</para>
         <para>* 52 "Wrong type for argument #%d: Real matrix expected." (tipo
             errado para o argumento %d: esperava matriz de reais)
         </para>
@@ -144,7 +140,7 @@
         <para>60 "Wrong size for argument: Incompatible dimensions." (tamanho
             errado para o argumento: dimensões incompatíveis)
         </para>
-        <para>61 "Direct access file : give format" (arquivo de acesso direto:
+        <para>61 "Direct access file: give format" (arquivo de acesso direto:
             fornecer formato)
         </para>
         <para>* 62 "End of file at line %d" (fim do arquivo na linha %d)</para>
@@ -157,7 +153,7 @@
             disponíveis)
         </para>
         <para>67 "Unknown file format " (formato de arquivo desconhecido)</para>
-        <para>68 "Fatal error!!! Your variables have been saved in the file :
+        <para>68 "Fatal error!!! Your variables have been saved in the file:
             %s"
         </para>
         <para>69 "Floating point exception" (exceção de ponto flutuante)</para>
@@ -178,10 +174,10 @@
         <para>* 76 "For x=val with type(val)="%d is not implemented in Scilab"
             (para x=val com type(val)=%d não há implementação no Scilab)
         </para>
-        <para>77 "%s : wrong number of rhs arguments" (%s: número incorreto de
+        <para>77 "%s: wrong number of rhs arguments" (%s: número incorreto de
             argumentos do lado direito)
         </para>
-        <para>78 "%s : wrong number of lhs arguments" (%s: número incorreto de
+        <para>78 "%s: wrong number of lhs arguments" (%s: número incorreto de
             argumentos do lado esquerdo)
         </para>
         <para>79 "Indexing not allowed for output arguments of resume." (indexação
@@ -206,7 +202,7 @@
         <para>85 "Host does not answer..." (host não responde)</para>
         <para>86 "Uncontrollable system" (sistema incontrolável)</para>
         <para>87 "Unobservable system" (sistema inobservável)</para>
-        <para>88 "sfact : singular or asymmetric problem" (sfact: problema
+        <para>88 "sfact: singular or asymmetric problem" (sfact: problema
             singular ou assimétrico)
         </para>
         <para>* 89 "Wrong size for argument #%d." (tamanho errado para o argumento
@@ -314,7 +310,7 @@
         <para>123 "Function not bounded from below" (função não limitada por
             baixo)
         </para>
-        <para>124 "Problem may be unbounded :too high distance between two
+        <para>124 "Problem may be unbounded:too high distance between two
             consecutive iterations" (o problema pode ser ilimitado: distância muito
             alta entre duas iterações consecutivas)
         </para>
@@ -337,29 +333,29 @@
         <para>134 "optim: problem with initial constants in simul " (optim:
             problema com constantes iniciais em simul)
         </para>
-        <para>135 "optim : bounds and initial guess are incompatible" (optim:
+        <para>135 "optim: bounds and initial guess are incompatible" (optim:
             limites e palpite inicial são incompatíveis)
         </para>
-        <para>136 "optim : this method is NOT implemented " (optim: este método
+        <para>136 "optim: this method is NOT implemented " (optim: este método
             NÃO é implementado)
         </para>
         <para>137 "NO hot restart available in this method" (NÃO há recomeço
             rápido disponível neste método)
         </para>
-        <para>138 "optim : incorrect stopping parameters" (optim: parâmetros de
+        <para>138 "optim: incorrect stopping parameters" (optim: parâmetros de
             parada incorretos)
         </para>
-        <para>139 "optim : incorrect bounds" (optim: limites incorretos)</para>
-        <para>140 "Variable : %s must be a list" (variável : s% deve ser uma
+        <para>139 "optim: incorrect bounds" (optim: limites incorretos)</para>
+        <para>140 "Variable: %s must be a list" (variável: s% deve ser uma
             lista)
         </para>
         <para>* 141 "Incorrect function (argument n:%d)" (função incorreta
             (argumento n: %d))
         </para>
-        <para>* 142 "Hot restart : dimension of working table (argument n:%d)"
+        <para>* 142 "Hot restart: dimension of working table (argument n:%d)"
             (recomeço rápido: dimensão da mesa de trabalho (argumento n:%d))
         </para>
-        <para>143 "optim : df0 must be positive !" (optim: df0 deve ser
+        <para>143 "optim: df0 must be positive !" (optim: df0 deve ser
             positivo!)
         </para>
         <para>144 "Undefined operation for the given operands." (operação
@@ -564,14 +560,14 @@
         <para>* 264 "Wrong value for argument #%d: Must not contain NaN or Inf."
             (valor errado para o argumento %d: não deve conter NaN ou Inf)
         </para>
-        <para>265 "A and B must have equal number of rows" (A e B devem ter o
-            mesmo número de linhas)
+        <para>265 "A (size %d x %d) and B (size %d x %d) must have equal number of rows"
+            (A (tamanho %d x %d) e B (tamanho %d x %d) devem ter o mesmo número de linhas)
         </para>
-        <para>266 "A and B must have equal number of columns" (A e B devem ter o
-            mesmo número de colunas)
+        <para>266 "A (size %d x %d) and B (size %d x %d) must have equal number of columns"
+            (A (tamanho %d x %d) e B (tamanho %d x %d) devem ter o mesmo número de colunas)
         </para>
-        <para>267 "A and B must have equal dimensions" (A e B devem ter dimensões
-            iguais)
+        <para>267 "A (size %d x %d) and B (size %d x %d) must have equal dimensions"
+            (A (tamanho %d x %d) e B (tamanho %d x %d) devem ter dimensões iguais)
         </para>
         <para>* 268 "Invalid return value for function passed in arg%d" (valor de
             retorno inválido para função passado no argumento %d)
