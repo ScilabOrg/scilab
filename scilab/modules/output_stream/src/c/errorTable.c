@@ -45,6 +45,11 @@ int errorTable(int iErr)
 {
     int errtyp = 0; /* by default error can be caught */
     int iValueReturned = 0;
+    int l1  = 0, l2  = 0;
+    int il1 = 0, il2 = 0;
+    int m   = 0, n   = 0;
+    int m1  = 0, n1  = 0;
+    int m2  = 0, n2  = 0;
 
     /* clean last error */
     clearInternalLastError();
@@ -107,17 +112,41 @@ int errorTable(int iErr)
         break;
         case 8:
         {
-            iValueReturned = Scierror(iErr, _("Inconsistent addition.\n"));
+            l1  = *Lstk(Top);
+            il1 = iadr(l1);
+            m1  = *istk(il1 + 1);
+            n1  = *istk(il1 + 2);
+            l2  = *Lstk(Top + 1);
+            il2 = iadr(l2);
+            m2  = *istk(il2 + 1);
+            n2  = *istk(il2 + 2);
+            iValueReturned = Scierror(iErr, _("Inconsistent addition: (%d,%d) by (%d,%d).\n"), m1, n1, m2, n2);
         }
         break;
         case 9:
         {
-            iValueReturned = Scierror(iErr, _("Inconsistent subtraction.\n"));
+            l1  = *Lstk(Top);
+            il1 = iadr(l1);
+            m1  = *istk(il1 + 1);
+            n1  = *istk(il1 + 2);
+            l2  = *Lstk(Top + 1);
+            il2 = iadr(l2);
+            m2  = *istk(il2 + 1);
+            n2  = *istk(il2 + 2);
+            iValueReturned = Scierror(iErr, _("Inconsistent subtraction: (%d,%d) by (%d,%d).\n"), m1, n1, m2, n2);
         }
         break;
         case 10:
         {
-            iValueReturned = Scierror(iErr, _("Inconsistent multiplication.\n"));
+            l1  = *Lstk(Top);
+            il1 = iadr(l1);
+            m1  = *istk(il1 + 1);
+            n1  = *istk(il1 + 2);
+            l2  = *Lstk(Top + 1);
+            il2 = iadr(l2);
+            m2  = *istk(il2 + 1);
+            n2  = *istk(il2 + 2);
+            iValueReturned = Scierror(iErr, _("Inconsistent multiplication: (%d,%d) by (%d,%d).\n"), m1, n1, m2, n2);
         }
         break;
         case 11:
@@ -190,13 +219,17 @@ int errorTable(int iErr)
         break;
         case 20:
         {
+            l1 = *Lstk(Top);
+            il1 = iadr(l1);
+            m = *istk(il1 + 1);
+            n = *istk(il1 + 2);
             if (Err == 1)
             {
-                iValueReturned = Scierror(iErr, _("Wrong type for first argument: Square matrix expected.\n"));
+                iValueReturned = Scierror(iErr, _("Wrong size (%d,%d) for first argument: Square matrix expected.\n"), m, n);
             }
             else
             {
-                iValueReturned = Scierror(iErr, _("Wrong type for argument #%d: Square matrix expected.\n"), Err);
+                iValueReturned = Scierror(iErr, _("Wrong size (%d,%d) for argument #%d: Square matrix expected.\n"), m, n, Err);
             }
         }
         break;
@@ -479,7 +512,7 @@ int errorTable(int iErr)
         break;
         case 61:
         {
-            iValueReturned = Scierror(iErr, _("Direct access : give format.\n"));
+            iValueReturned = Scierror(iErr, _("Direct access: give format.\n"));
         }
         break;
         case 62:
@@ -515,9 +548,9 @@ int errorTable(int iErr)
         case 68:
         {
             char msgErr[bsiz];
-            sprintf(msgErr, _("Fatal error!!! Your variables have been saved in the file : %s\n"), get_sci_data_strings(SAVE_ID));
+            sprintf(msgErr, _("Fatal error!!! Your variables have been saved in the file: %s\n"), get_sci_data_strings(SAVE_ID));
             strcat(msgErr, _("Bad call to a scilab function ?\n"));
-            strcat(msgErr, _("Otherwise, send a bug report to :"));
+            strcat(msgErr, _("Otherwise, send a bug report to:"));
             strcat(msgErr, "http://bugzilla.scilab.org/\n");
             iValueReturned = Scierror(iErr, msgErr);
         }
@@ -848,7 +881,7 @@ int errorTable(int iErr)
         case 115:
         {
             char msgErr[bsiz];
-            strcpy(msgErr, _("Stack problem detected within a loop.\nA primitive function has been called with a wrong number of output arguments.\nNo output argument test has been made for this function.\nPlease report this bug :\n"));
+            strcpy(msgErr, _("Stack problem detected within a loop.\nA primitive function has been called with a wrong number of output arguments.\nNo output argument test has been made for this function.\nPlease report this bug:\n"));
             strcat(msgErr, "http://bugzilla.scilab.org/\n");
             iValueReturned = Scierror(iErr, msgErr);
         }
@@ -981,7 +1014,7 @@ int errorTable(int iErr)
             char *NameVarOnStack = getConvertedNameFromStack(CVNAME_READING_TYPE_6);
             if (NameVarOnStack)
             {
-                iValueReturned = Scierror(iErr, _("Variable : %s must be a list\n"), NameVarOnStack);
+                iValueReturned = Scierror(iErr, _("Variable: %s must be a list\n"), NameVarOnStack);
                 FREE(NameVarOnStack);
                 NameVarOnStack = NULL;
             }
@@ -1495,17 +1528,41 @@ int errorTable(int iErr)
         break;
         case 265:
         {
-            iValueReturned = Scierror(iErr, _("%s and %s must have equal number of rows.\n"), "A", "B");
+            l1  = *Lstk(Top);
+            il1 = iadr(l1);
+            m1  = *istk(il1 + 1);
+            n1  = *istk(il1 + 2);
+            l2  = *Lstk(Top + 1);
+            il2 = iadr(l2);
+            m2  = *istk(il2 + 1);
+            n2  = *istk(il2 + 2);
+            iValueReturned = Scierror(iErr, _("%s (size %d x %d) and %s (size %d x %d) must have equal number of rows.\n"), "A", m1, n1, "B", m2, n2);
         }
         break;
         case 266:
         {
-            iValueReturned = Scierror(iErr, _("%s and %s must have equal number of columns.\n"), "A", "B");
+            l1  = *Lstk(Top);
+            il1 = iadr(l1);
+            m1  = *istk(il1 + 1);
+            n1  = *istk(il1 + 2);
+            l2  = *Lstk(Top + 1);
+            il2 = iadr(l2);
+            m2  = *istk(il2 + 1);
+            n2  = *istk(il2 + 2);
+            iValueReturned = Scierror(iErr, _("%s (size %d x %d) and %s (size %d x %d) must have equal number of columns.\n"), "A", m1, n1, "B", m2, n2);
         }
         break;
         case 267:
         {
-            iValueReturned = Scierror(iErr, _("%s and %s must have equal dimensions.\n"), "A", "B");
+            l1  = *Lstk(Top);
+            il1 = iadr(l1);
+            m1  = *istk(il1 + 1);
+            n1  = *istk(il1 + 2);
+            l2  = *Lstk(Top + 1);
+            il2 = iadr(l2);
+            m2  = *istk(il2 + 1);
+            n2  = *istk(il2 + 2);
+            iValueReturned = Scierror(iErr, _("%s (size %d x %d) and %s (size %d x %d) must have equal dimensions.\n"), "A", m1, n1, "B", m2, n2);
         }
         break;
         case 268:

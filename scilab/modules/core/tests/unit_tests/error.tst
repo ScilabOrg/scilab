@@ -26,13 +26,13 @@ assert_checkerror ( "error(6)" , msgerror );
 msgerror = msprintf(gettext("Dot cannot be used as modifier for this operator.\n"));
 assert_checkerror ( "error(7)" , msgerror );
 
-msgerror = msprintf(gettext("Inconsistent addition.\n"));
+msgerror = msprintf(gettext("Inconsistent addition: (%d,%d) by (%d,%d).\n"), 1, 1, 42, 40);
 assert_checkerror ( "error(8)" , msgerror );
 
-msgerror = msprintf(gettext("Inconsistent subtraction.\n"));
+msgerror = msprintf(gettext("Inconsistent subtraction: (%d,%d) by (%d,%d).\n"), 1, 1, 1, 52);
 assert_checkerror ( "error(9)" , msgerror );
 
-msgerror = msprintf(gettext("Inconsistent multiplication.\n"));
+msgerror = msprintf(gettext("Inconsistent multiplication: (%d,%d) by (%d,%d).\n"), 1, 1, 41, 1);
 assert_checkerror ( "error(10)" , msgerror );
 
 msgerror = msprintf(gettext("Inconsistent right division.\n"));
@@ -59,7 +59,7 @@ assert_checkerror ( "error(18)" , msgerror );
 msgerror = msprintf(gettext("Problem is singular.\n"));
 assert_checkerror ( "error(19)" , msgerror );
 
-msgerror = msprintf(gettext("Wrong type for argument #%d: Square matrix expected.\n"), 3);
+msgerror = msprintf(gettext("Wrong size (%d,%d) for argument #%d: Square matrix expected.\n"), 1, 1, 3);
 assert_checkerror ( "error(20,3)" , msgerror );
 
 msgerror = msprintf(gettext("Invalid index.\n"));
@@ -188,7 +188,7 @@ assert_checkerror ( "error(59)" , msgerror );
 msgerror = msprintf(gettext("Wrong size for argument: Incompatible dimensions.\n"));
 assert_checkerror ( "error(60)" , msgerror );
 
-msgerror = msprintf(gettext("Direct access : give format.\n"));
+msgerror = msprintf(gettext("Direct access: give format.\n"));
 assert_checkerror ( "error(61)" , msgerror );
 
 msgerror = msprintf(gettext("End of file at line %d.\n"), 45);
@@ -419,7 +419,7 @@ assert_checkerror ( "error(138)" , msgerror );
 msgerror = msprintf(gettext("%s: Incorrect bounds.\n"), "optim");
 assert_checkerror ( "error(139)" , msgerror );
 
-msgerror = msprintf(gettext("Variable : %s must be a list\n"), "error");
+msgerror = msprintf(gettext("Variable: %s must be a list\n"), "error");
 assert_checkerror ( "error(140)" , msgerror );
 
 msgerror = msprintf(gettext("Incorrect function (argument n: %d).\n"), 22);
@@ -623,13 +623,13 @@ assert_checkerror ( "error(263)" , msgerror );
 msgerror = msprintf(gettext("Wrong value for argument #%d: Must not contain NaN or Inf.\n"), 2);
 assert_checkerror ( "error(264, 2)" , msgerror );
 
-msgerror = msprintf(gettext("%s and %s must have equal number of rows.\n"), "A", "B");
+msgerror = msprintf(gettext("%s (size %d x %d) and %s (size %d x %d) must have equal number of rows.\n"), "A", 1, 1, "B", 40, 33);
 assert_checkerror ( "error(265)" , msgerror );
 
-msgerror = msprintf(gettext("%s and %s must have equal number of columns.\n"), "A", "B");
+msgerror = msprintf(gettext("%s (size %d x %d) and %s (size %d x %d) must have equal number of columns.\n"), "A", 1, 1, "B", 40, 33);
 assert_checkerror ( "error(266)" , msgerror );
 
-msgerror = msprintf(gettext("%s and %s must have equal dimensions.\n"), "A", "B");
+msgerror = msprintf(gettext("%s (size %d x %d) and %s (size %d x %d) must have equal dimensions.\n"), "A", 1, 1, "B", 40, 33);
 assert_checkerror ( "error(267)" , msgerror );
 
 msgerror = msprintf(gettext("Invalid return value for function passed in arg %d.\n"), 8);
@@ -670,4 +670,3 @@ assert_checkerror ( "error(279)" , msgerror );
 
 msgerror = "";
 assert_checkerror ( "error(280)" , msgerror );
-
