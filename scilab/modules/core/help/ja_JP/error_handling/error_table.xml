@@ -23,9 +23,9 @@
         <para>5 "Inconsistent column/row dimensions."</para>
         <para>6 "Inconsistent row/column dimensions."</para>
         <para>7 "Dot cannot be used as modifier for this operator."</para>
-        <para>8 "Inconsistent addition."</para>
-        <para>9 "Inconsistent subtraction."</para>
-        <para>10 "Inconsistent multiplication."</para>
+        <para>8 "Inconsistent addition: (%d,%d) by (%d,%d)."</para>
+        <para>9 "Inconsistent subtraction: (%d,%d) by (%d,%d)."</para>
+        <para>10 "Inconsistent multiplication: (%d,%d) by (%d,%d)."</para>
         <para>11 "Inconsistent right division."</para>
         <para>12 "Inconsistent left division."</para>
         <para>13 "Redefining permanent variable."</para>
@@ -37,7 +37,7 @@
         </para>
         <para>18 "Too many variables."</para>
         <para>19 "Problem is singular."</para>
-        <para>* 20 "Wrong type for argument #%d: Square matrix expected."</para>
+        <para>* 20 "Wrong size (%d,%d) for argument #%d: Square matrix expected."</para>
         <para>21 "Invalid index."</para>
         <para>22 "Recursion problems. Sorry..."</para>
         <para>23 "Matrix norms available are 1, 2, inf, and fro."</para>
@@ -81,14 +81,14 @@
         <para>58 "Function has no input argument..."</para>
         <para>59 "Function has no output."</para>
         <para>60 "Wrong size for argument: Incompatible dimensions."</para>
-        <para>61 "Direct access : give format."</para>
+        <para>61 "Direct access: give format."</para>
         <para>* 62 "End of file at line %d."</para>
         <para>* 63 "%d graphic terminal?"</para>
         <para>64 "Integration fails."</para>
         <para>* 65 "%d: logical unit already used."</para>
         <para>66 "No more logical units available!"</para>
         <para>67 "Unknown file format."</para>
-        <para>68 "Fatal error!!! Your variables have been saved in the file :
+        <para>68 "Fatal error!!! Your variables have been saved in the file:
             %s"
         </para>
         <para>69 "Floating point exception."</para>
@@ -177,12 +177,12 @@
         <para>132 "optim: Wrong input parameters."</para>
         <para>133 "Too small memory."</para>
         <para>134 "optim: Problem with initial constants in simul."</para>
-        <para>135 "optim : Bounds and initial guess are incompatible."</para>
-        <para>136 "optim : This method is NOT implemented."</para>
+        <para>135 "optim: Bounds and initial guess are incompatible."</para>
+        <para>136 "optim: This method is NOT implemented."</para>
         <para>137 "NO hot restart available in this method."</para>
         <para>138 "optim: Incorrect stopping parameters."</para>
         <para>139 "optim: Incorrect bounds."</para>
-        <para>140 "Variable : %s must be a list"</para>
+        <para>140 "Variable: %s must be a list"</para>
         <para>* 141 "Incorrect function (argument n: %d)."</para>
         <para>* 142 "Hot restart: dimension of working table (argument
             n:%d)."
@@ -291,9 +291,9 @@
         <para>* 264 "Wrong value for argument #%d: Must not contain NaN or
             Inf."
         </para>
-        <para>265 "A and B must have equal number of rows."</para>
-        <para>266 "A and B must have equal number of columns."</para>
-        <para>267 "A and B must have equal dimensions."</para>
+        <para>265 "A (size %d x %d) and B (size %d x %d) must have equal number of rows."</para>
+        <para>266 "A (size %d x %d) and B (size %d x %d) must have equal number of columns."</para>
+        <para>267 "A (size %d x %d) and B (size %d x %d) must have equal dimensions."</para>
         <para>* 268 "Invalid return value for function passed in arg %d."</para>
         <para>* 269 "Wrong value for argument #%d: eigenvalues must have negative
             real parts."
