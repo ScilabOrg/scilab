@@ -20,6 +20,6 @@ b=[2,3,4,5];
 fre=[1,1,1,2];
 ref= stdev(a);
 assert_checkequal(stdevf(b,fre),ref);
-assert_checkequal(stdevf(b,fre,'*'),ref);
+assert_checkequal(stdevf(b,fre,"*"),ref);
 assert_checkequal(stdevf(b,fre,2),ref);
 assert_checkequal(stdevf(b,fre,1),zeros(b));

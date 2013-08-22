@@ -46,4 +46,4 @@ if r <> ref then pause, end
 
 r = part(lines_result(9),2:4);
 ref = "ロー・";
-if r <> ref then pause, end 
+if r <> ref then pause, end

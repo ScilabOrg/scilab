@@ -17,8 +17,8 @@
 
 // Execute this script.
 
-plot(1:1:5 ,'r--');
-plot(2:1:6 ,'r-.');
-xs2pdf(gcf(),'out.pdf');
+plot(1:1:5 ,"r--");
+plot(2:1:6 ,"r-.");
+xs2pdf(gcf(),"out.pdf");
 
 // And look if the exported figure is correct.

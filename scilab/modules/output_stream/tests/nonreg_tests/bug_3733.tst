@@ -23,8 +23,8 @@
 mprintf("%3.0f equals two \r",2)
 
 for i=1:30
-  mprintf("%3.0f is a number \r",i)
-  for i=1:10000;end
+    mprintf("%3.0f is a number \r",i)
+    for i=1:10000;end
 end
 mprintf("Game over.......\n")
 

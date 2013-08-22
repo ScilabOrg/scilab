@@ -18,6 +18,6 @@
 
 // Try this line
 
-[FILE,PATH]=uigetfile('*.txt','/','Choose file')
+[FILE,PATH]=uigetfile("*.txt","/","Choose file")
 
 

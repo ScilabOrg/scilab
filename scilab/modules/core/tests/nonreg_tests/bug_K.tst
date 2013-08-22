@@ -9,7 +9,7 @@
 //
 // <-- OLD BUG -->
 
-x = 'a';
+x = "a";
 z = x($:-1:1);
 
-if z <> 'a' then pause,end
+if z <> "a" then pause,end

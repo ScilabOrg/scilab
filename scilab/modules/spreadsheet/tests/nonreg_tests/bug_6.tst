@@ -4,7 +4,7 @@
 // <-- JVM NOT MANDATORY -->
 // =============================================================================
 M = rand(4,3);
-csvWrite(M, TMPDIR + '/csvlist.dat');
-r = csvRead(TMPDIR + '/csvlist.dat',csvDefault('separator'), csvDefault('decimal'), 'double');
+csvWrite(M, TMPDIR + "/csvlist.dat");
+r = csvRead(TMPDIR + "/csvlist.dat",csvDefault("separator"), csvDefault("decimal"), "double");
 assert_checkalmostequal(M, r);
 // =============================================================================

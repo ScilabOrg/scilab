@@ -16,7 +16,7 @@
 
 global Result;Result=[];
 
-importXcosDiagram('SCI/modules/xcos/tests/nonreg_tests/bug_8480.zcos');
+importXcosDiagram("SCI/modules/xcos/tests/nonreg_tests/bug_8480.zcos");
 Info=scicos_simulate(scs_m,list());
 
 guis = [];
@@ -24,7 +24,7 @@ for i=1:length(scs_m.objs) do
     o = scs_m.objs(i);
     if typeof(o) == "Block" then
         gui=o.gui;
-        
+
         guis = [guis ; gui];
         execstr(gui + "_index = i;");
     end

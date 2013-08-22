@@ -15,8 +15,8 @@
 // The font attributes (FontName, FontSize, FontWeight) are no more taken into account for "text" uicontrols.
 
 h = uicontrol("Style", "text", ..
-    "String", "Bug 8134", ..
-    "Position", [100 100 300 200]);
+"String", "Bug 8134", ..
+"Position", [100 100 300 200]);
 
 // Change the font size and check it is taken into account
 h.fontname = "Times";

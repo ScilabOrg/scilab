@@ -10,12 +10,12 @@
 //Find x in R^6 such that:
 //C1*x = b1 (3 equality constraints i.e me=3)
 C1= [1,-1,1,0,3,1;
-    -1,0,-3,-4,5,6;
-     2,5,3,0,1,0];
+-1,0,-3,-4,5,6;
+2,5,3,0,1,0];
 b1=[1;2;3];
 //C2*x <= b2 (2 inequality constraints)
 C2=[0,1,0,1,2,-1;
-    -1,0,2,1,1,0];
+-1,0,2,1,1,0];
 b2=[-1;2.5];
 
 //and minimize 0.5*x'*Q*x + p'*x with
@@ -49,7 +49,7 @@ if or(x1-[8;3]/11 >100*%eps) then pause,end
 if abs(x1'*p+x1'*Q*x1/2-1/22)>100*%eps then pause,end
 if abs(C*x1-b)>100*%eps then pause,end
 
-//sparse 
+//sparse
 x1=qpsolve(Q,p,sparse(C),b,[],[],me);
 if or(x1-[8;3]/11 >100*%eps) then pause,end
 if abs(x1'*p+x1'*Q*x1/2-1/22)>100*%eps then pause,end

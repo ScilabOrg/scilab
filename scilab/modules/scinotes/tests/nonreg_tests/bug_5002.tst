@@ -18,7 +18,7 @@
 //   The file "xxx" doesn't exist. Do you want to create it. <Cancel> <No> <Yes>
 //   If <No> button is pressed, the tab is created anyway.
 
-editor('my_file.sci')
+editor("my_file.sci")
 
 
 

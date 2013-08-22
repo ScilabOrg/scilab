@@ -31,4 +31,4 @@ rev_ref = "תינכות";
 if strrev("תוכנית")  <> rev_ref then pause,end
 
 rev_ref = ["gnirts elpmis a si sihT","ébalics"];
-if strrev(['This is a simple string','scilabé']) <> rev_ref then pause,end
+if strrev(["This is a simple string","scilabé"]) <> rev_ref then pause,end

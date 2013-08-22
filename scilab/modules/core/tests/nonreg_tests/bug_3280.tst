@@ -13,4 +13,4 @@
 // <-- Short Description -->
 //A permanent variable   'L' is defined when launching scilab with the '-l' option.
 
-if isdef('L') then pause,end
+if isdef("L") then pause,end

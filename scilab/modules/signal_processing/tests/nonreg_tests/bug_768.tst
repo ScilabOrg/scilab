@@ -12,9 +12,9 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=768
 //
 // <-- Short Description -->
-//    as on Scilab 2.7.2, the "window" function still has a bug 
-//    when choosing the "chebychev" type with its corresponding 
-//    parameter vector. SAys the parameters are out of bounds 
+//    as on Scilab 2.7.2, the "window" function still has a bug
+//    when choosing the "chebychev" type with its corresponding
+//    parameter vector. SAys the parameters are out of bounds
 //    whereas it is wrong
 
 msgerr = msprintf(gettext("%s: Wrong value for input argument #%d: incorrect element #%d\n"), "window", 3, 2);

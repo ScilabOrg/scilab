@@ -31,7 +31,7 @@ close(h);
 // Test #2: use a function
 t=linspace(-%pi,%pi,30);
 function z=my_surface(x, y)
-   z=x*sin(x)^2*cos(y)
+    z=x*sin(x)^2*cos(y)
 endfunction
 
 h = scf();

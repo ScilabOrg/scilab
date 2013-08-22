@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2813
 //
 // <-- Short Description -->
-// 
+//
 // - xtitle clips y axis label
 // - xtitle adds @ in labels instead of displaying them on several lines
 

@@ -20,5 +20,5 @@
 // try to load wavread
 
 namebfw = "bfw.wav"
-ierr = execstr('wavread(namebfw)','errcatch');
+ierr = execstr("wavread(namebfw)","errcatch");
 if ierr<> 999 then pause,end

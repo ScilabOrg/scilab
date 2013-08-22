@@ -20,7 +20,7 @@
 // See : http://bugzilla.scilab.org/show_bug.cgi?id=9284
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 

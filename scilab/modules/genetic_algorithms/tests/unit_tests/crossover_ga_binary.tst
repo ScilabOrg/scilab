@@ -10,6 +10,6 @@
 
 // <-- CLI SHELL MODE -->
 
-[Crossed_Indiv1, Crossed_Indiv2] = crossover_ga_binary('11111111','00000000',[]);
+[Crossed_Indiv1, Crossed_Indiv2] = crossover_ga_binary("11111111","00000000",[]);
 
 if (length(Crossed_Indiv1)~=8) | (length(Crossed_Indiv2)~=8) then pause,end

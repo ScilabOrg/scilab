@@ -27,4 +27,4 @@ editor (SCI/modules/atoms/macros/atomsInstall.sci)
 //Press the button "Replace All"
 
 //=> All spaces are erased.
-                    
+

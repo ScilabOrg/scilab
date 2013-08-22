@@ -21,7 +21,7 @@ T=%s([1 1],[1 1],[1 1]) ;
 if or(T(:,:,1)<>[%s %s;%s %s]) then pause,end
 if or(T(:,:,2)<>[%s %s;%s %s]) then pause,end
 
-t='x';
+t="x";
 T=t([1 1],[1 1],[1 1]) ;
 if or(T(:,:,1)<>[t t;t t]) then pause,end
 if or(T(:,:,2)<>[t t;t t]) then pause,end

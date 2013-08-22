@@ -136,7 +136,7 @@ A = rand(6, 4, 2, 8);
 assert_checkequal(S(:,:,1), A(:,:,1));
 
 function [a,b]=toto()
-a=2;b=5;
+    a=2;b=5;
 endfunction
 [t(1,3), g(2,1)] = toto();
 assert_checkequal(t,[0,0,2]);

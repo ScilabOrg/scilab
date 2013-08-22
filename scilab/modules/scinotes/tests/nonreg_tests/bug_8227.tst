@@ -16,9 +16,9 @@
 // <-- Short Description -->
 // The commands evaluated with "Evaluate selection" were not stored in history.
 
-tmpfile = TMPDIR+'/bug_8227.sci';
-fd = mopen(tmpfile,'wt');
-mputl(['a=1','b=2'],fd);
+tmpfile = TMPDIR+"/bug_8227.sci";
+fd = mopen(tmpfile,"wt");
+mputl(["a=1","b=2"],fd);
 mclose(fd);
 editor(tmpfile)
 

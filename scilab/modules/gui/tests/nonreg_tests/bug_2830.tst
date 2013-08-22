@@ -16,5 +16,5 @@
 //    crash clicking on show/hide toolbar (x64 build)
 
 scf(0);
-toolbar(0,'off');
-toolbar(0,'on');
+toolbar(0,"off");
+toolbar(0,"on");

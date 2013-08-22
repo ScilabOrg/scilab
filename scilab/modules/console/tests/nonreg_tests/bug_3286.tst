@@ -14,7 +14,7 @@
 
 
 // <-- INTERACTIVE TEST -->
-// try : 
+// try :
 // ./bin/scilab -nw
 //--> fa=gcf()
 //--> fa.[TAB]

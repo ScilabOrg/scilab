@@ -44,12 +44,12 @@ hr9 = gce ();
 hr9.line_style = 8;
 xrect (0, 1, 0.1, 0.1);
 hr10 = gce ();
-hr10.line_style = 9; 
+hr10.line_style = 9;
 
 // check that the results are the same between windows and Linux.
 
 
-               
+
 
 
 

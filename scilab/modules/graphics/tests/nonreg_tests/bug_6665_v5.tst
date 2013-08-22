@@ -16,12 +16,12 @@
 //legend (caption) nor properly saved or loaded
 warning("off");
 plot2d();
-legend(['a';'b';'c']);
+legend(["a";"b";"c"]);
 f=gcf();
-save(TMPDIR+'/foo.scg',f);
+save(TMPDIR+"/foo.scg",f);
 clf();
-load(TMPDIR+'/foo.scg');
-if f.children.children(1).type<>'Legend' then pause,end
+load(TMPDIR+"/foo.scg");
+if f.children.children(1).type<>"Legend" then pause,end
 l=f.children.children(1);
-if or(l.text<>['a';'b';'c']) then pause,end
+if or(l.text<>["a";"b";"c"]) then pause,end
 

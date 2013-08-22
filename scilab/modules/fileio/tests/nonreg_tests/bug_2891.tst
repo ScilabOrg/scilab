@@ -7,20 +7,20 @@
 
 // <-- CLI SHELL MODE -->
 
-cd('home');
-mkdir('testdir');
-cd('testdir');
-r = mputl('Scilab can do it :p','files.txt');
+cd("home");
+mkdir("testdir");
+cd("testdir");
+r = mputl("Scilab can do it :p","files.txt");
 if r <> %t then pause,end
 
-cd('home');
-res = ls('home/testdir');
+cd("home");
+res = ls("home/testdir");
 
-if res <> 'files.txt' then pause,end
+if res <> "files.txt" then pause,end
 
-cd('home');
-if removedir('testdir') <> %t then pause,end
+cd("home");
+if removedir("testdir") <> %t then pause,end
 
-cd('SCI');
+cd("SCI");
 
 

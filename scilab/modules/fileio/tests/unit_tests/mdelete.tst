@@ -13,7 +13,7 @@
 
 // TEST 1 : dummy file
 cd TMPDIR;
-r = mputl('I am a dummy String', 'dummyFile.dummy');
+r = mputl("I am a dummy String", "dummyFile.dummy");
 if r <> %T then pause,end
 
 lsResult = ls("dummyFile.dummy");

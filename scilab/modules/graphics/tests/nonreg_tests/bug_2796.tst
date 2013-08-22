@@ -19,9 +19,9 @@
 k = 42;
 
 function r=f(x),
-  // check that k is still 42
-  if (k <> 42) then pause, end
-  r=x;
+    // check that k is still 42
+    if (k <> 42) then pause, end
+    r=x;
 endfunction
 
 x=linspace(0,1,6);

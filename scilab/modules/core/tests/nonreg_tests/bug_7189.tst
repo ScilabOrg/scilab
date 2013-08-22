@@ -17,6 +17,6 @@
 // <-- Short Description -->
 // In some cases the usage of resume may lead to a crash of Scilab
 add_profiling("generic_i_hm")
-T=[];T(2,2,2)='xx';
-if T(2,2,2)<>'xx' then pause,end
+T=[];T(2,2,2)="xx";
+if T(2,2,2)<>"xx" then pause,end
 

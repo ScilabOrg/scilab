@@ -15,8 +15,8 @@
 // <-- Short Description -->
 // mputl fails to write some accents
 
-refText = [ 'éàèù$£§µûâô^v~ç';'éàèù$£§µûâô^v~ç'];
-mputl(refText, TMPDIR+filesep()+'bug_3700.txt');
+refText = [ "éàèù$£§µûâô^v~ç";"éàèù$£§µûâô^v~ç"];
+mputl(refText, TMPDIR+filesep()+"bug_3700.txt");
 
-TXT2 = mgetl(TMPDIR+filesep()+'bug_3700.txt');
+TXT2 = mgetl(TMPDIR+filesep()+"bug_3700.txt");
 if (refText <> TXT2) then pause,end

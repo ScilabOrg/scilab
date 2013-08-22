@@ -14,16 +14,16 @@
 //
 // <-- Short Description -->
 // legends breaks isoview
- 
+
 t=[0:0.1:2*%pi+0.1]';
 x=cos(t);y=sin(t);
 plot(x,y);plot(2*x,2*y);plot(5*x,5*y)
 ha=gca();
 ha.isoview = "on";
 legends(["Circle with radius 1";..
-         "Circle with radius 2";..
-         "Circle with radius 5"],..
-         [1,5,6],opt="below");
+"Circle with radius 2";..
+"Circle with radius 5"],..
+[1,5,6],opt="below");
 
 if (ha.isoview <> "on") then pause; end
 

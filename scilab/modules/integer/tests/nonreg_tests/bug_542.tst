@@ -15,12 +15,12 @@
 //     bitwise operations among integers used to be defined until last time I needed them. How come they aren't anymore?
 //    On Scilab CVS with " &, | " function
 //    The Error Messages are:
-//                       !--error    43 
+//                       !--error    43
 //    not implemented in scilab....
 //
 //    Commands:  int8(7) & int8(8)
 //    Enrico SEGRE on Linux version RH9 distribution  with   as window manager
-//    Israel  
+//    Israel
 //    November 9, 2003 at 12:32:44
 
 if execstr("int8(7) & int8(8)","errcatch")<>0 then pause,end

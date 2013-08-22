@@ -25,18 +25,18 @@ c_file = TMPDIR + "/sample_im.c";
 
 // unsolvable system of equation
 mo_content = [..
-	"class sample_imf";..
-	"    Real `a` """";";..
-	"    Real `b` """";";..
-	"    Real `c` """";";..
-	"equation";..
-	"    a = b + 3 * c;";..
-	"    c = a + 3 * b;";..
-	"end sample_imf;";..
+"class sample_imf";..
+"    Real `a` """";";..
+"    Real `b` """";";..
+"    Real `c` """";";..
+"equation";..
+"    a = b + 3 * c;";..
+"    c = a + 3 * b;";..
+"end sample_imf;";..
 ""];
 
 // Creating source content
-fd = mopen(src_file, 'wt');
+fd = mopen(src_file, "wt");
 mputl(mo_content, fd);
 mclose(fd);
 

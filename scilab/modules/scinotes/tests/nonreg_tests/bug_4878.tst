@@ -14,9 +14,9 @@
 //
 // <-- Short Description -->
 // If a line starts with a comment, "Menu→Edit→Comment Selection" uncomment it.
-// 
+//
 // A contrario, "Menu→Edit→Uncomment Selection" with a line not commented add a comment.
-// 
+//
 // => These commands should be totally splitted : "Menu→Edit→Comment Selection" should only comment and "Menu→Edit→Uncomment Selection" should only uncomment.
 // => These commands should not have the same shortcut.
 // => "Menu→Edit→Comment Selection" should add a second "//" even if the line is already commented.

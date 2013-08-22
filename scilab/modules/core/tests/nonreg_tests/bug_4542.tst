@@ -14,14 +14,14 @@
 // unexpected  interpreter warning.
 
 function foo1()
-for i=1
- disp('abcdefghijklmonoprstuvwxyz')
-end
-endfunction 
+    for i=1
+        disp("abcdefghijklmonoprstuvwxyz")
+    end
+endfunction
 
 
 function foo2()
-while 1
- disp('abcdefghijklmonoprstuvwxyz')
-end
-endfunction 
+    while 1
+        disp("abcdefghijklmonoprstuvwxyz")
+    end
+endfunction

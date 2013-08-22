@@ -15,5 +15,5 @@
 // <-- Short Description -->
 // winqueryreg did not manage HKEY_CURRENT_CONFIG.
 
-ierr = execstr('winqueryreg(''HKEY_CURRENT_CONFIG'', ''Software\Fonts\'',''LogPixels'')', 'errcatch');
+ierr = execstr("winqueryreg(''HKEY_CURRENT_CONFIG'', ''Software\Fonts\'',''LogPixels'')", "errcatch");
 assert_checkequal(ierr, 0);

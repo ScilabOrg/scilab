@@ -16,6 +16,6 @@
 //
 // the call to the timer function prints an error message when the elapsed time between 2 calls is really small.
 
-ierr = execstr('timer();timer();timer();','errcatch');
+ierr = execstr("timer();timer();timer();","errcatch");
 if ierr <> 0 then pause,end
 

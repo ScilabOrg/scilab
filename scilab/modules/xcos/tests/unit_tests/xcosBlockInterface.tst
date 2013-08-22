@@ -13,7 +13,7 @@ funcprot(0);
 
 // Stubbing the x_mdialog method
 function [result]=x_mdialog(dialog_title,labels,default_inputs_vector)
-	result = default_inputs_vector;
+    result = default_inputs_vector;
 endfunction
 
 funcprot(prot);

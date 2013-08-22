@@ -15,7 +15,7 @@ A_ref1 = int8(ones(8,1));
 A_ref2 = int8(zeros(20,1));
 A_ref3 = int8(ones(20,1));
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values(1:8),   A_ref1);
 assert_checkequal(A.values(9:28),  A_ref2);

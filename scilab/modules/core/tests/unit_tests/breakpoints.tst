@@ -75,5 +75,5 @@ setbpt("foo1",[5,6,8,9]),setbpt("foo2",[10,12,14,16,18]),delbpt("foo2",[14,18,10
 
 
 // non regression test for bug 2474
-if execstr('for i=1;delbpt();end','errcatch')<>0 then pause,end
+if execstr("for i=1;delbpt();end","errcatch")<>0 then pause,end
 

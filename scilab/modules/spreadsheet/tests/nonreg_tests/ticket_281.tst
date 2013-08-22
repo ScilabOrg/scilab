@@ -61,7 +61,7 @@ expected = [
 ];
 filename = fullfile(TMPDIR , "foo.csv");
 sep = ",";
-fd = mopen(filename,'wt');
+fd = mopen(filename,"wt");
 for i = 1 : size(Astr,"r")
     mfprintf(fd,"%s\n",strcat(Astr(i,:),sep));
 end

@@ -8,7 +8,7 @@
 // <-- CLI SHELL MODE -->
 
 
-s=poly(0,'s');
+s=poly(0,"s");
 p=[s,s*(s+1)^2,s^2*(s+2)];
 [pp,fact]=lcm(p);
 

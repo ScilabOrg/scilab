@@ -15,9 +15,8 @@
 
 // <-- INTERACTIVE TEST -->
 
-deff('foo','a=aaaa','n')
+deff("foo","a=aaaa","n")
 try
-  foo();
-  l=0	;//here there is a tabulation between 0 and ;
+    foo();
+    l=0	;//here there is a tabulation between 0 and ;
 end
-          

@@ -13,16 +13,16 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=7216
 //
 // <-- Short Description -->
-//    modulo(x,0) and pmodulo(x,0) return an error message. With ieee(2), return 
+//    modulo(x,0) and pmodulo(x,0) return an error message. With ieee(2), return
 //    %nan
 // =============================================================================
 
 assert_checkfalse(execstr("modulo(5,0)", "errcatch") == 0);
-refMsg = msprintf(_("Division by zero...\n")); 
+refMsg = msprintf(_("Division by zero...\n"));
 assert_checkerror("modulo(5,0)", refMsg);
 
 assert_checkfalse(execstr("pmodulo(5,0)", "errcatch") == 0);
-refMsg = msprintf(_("Division by zero...\n")); 
+refMsg = msprintf(_("Division by zero...\n"));
 assert_checkerror("pmodulo(5,0)", refMsg);
 
 ieee(2)
@@ -34,4 +34,5 @@ assert_checkequal(x, %nan);
 
 ieee(0)
 
-
+
+

@@ -36,6 +36,6 @@ if norm(a*x-b)>1d-10 then pause,end
 
 if norm(P*L*U*Q-A)>1d-10 then pause,end
 
-ierr = execstr('ludel(h);','errcatch');
+ierr = execstr("ludel(h);","errcatch");
 if ierr <> 0 then pause,end;
 

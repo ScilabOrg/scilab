@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1712
 //
 // <-- Short Description -->
-//    Logical binary operations &,| with hypermatrices fail, as shown in the 
+//    Logical binary operations &,| with hypermatrices fail, as shown in the
 //    following examples. (The unary operation ~ succeeds.)
 //
 //    -->hm=hypermat([2 2 2],1:8)

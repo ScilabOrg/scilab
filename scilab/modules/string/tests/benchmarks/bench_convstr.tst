@@ -12,6 +12,6 @@
 // <-- BENCH NB RUN : 1000000 -->
 
 // <-- BENCH START -->
-a = convstr(['ABC';'x'],'l');
+a = convstr(["ABC";"x"],"l");
 // <-- BENCH END -->
 

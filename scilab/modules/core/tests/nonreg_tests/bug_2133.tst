@@ -11,8 +11,8 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2133
 //
 // <-- Short Description -->
-// parsing [/decimal number/no space/dot operator ..] can fail  
-if execstr('[2.0 .*.3.0]','errcatch')<>276 then  pause,end
-if execstr('2.0 .*.3.0','errcatch')<>276 then  pause,end
+// parsing [/decimal number/no space/dot operator ..] can fail
+if execstr("[2.0 .*.3.0]","errcatch")<>276 then  pause,end
+if execstr("2.0 .*.3.0","errcatch")<>276 then  pause,end
 if 2.0 .*. 3.0<>6 then  pause,end
 if or([2.0 .*0.3 .0]<>[0.6 0]) then pause,end

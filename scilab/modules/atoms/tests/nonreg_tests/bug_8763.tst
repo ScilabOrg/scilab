@@ -20,16 +20,16 @@ pathInstall = atomsPath("install", "all");
 pathSystem = atomsPath("system", "all");
 
 if getos() <> "Windows" then
-  ref_pathSystem = [pathconvert(SCI + "/.atoms"); pathconvert(SCIHOME + "/.atoms")];
-  ref_pathInstall =  [pathconvert(SCI + "/contrib"); pathconvert(SCIHOME + "/atoms")];
-else
-  if win64() then
-    ref_pathSystem = [pathconvert(SCI + "/.atoms"); pathconvert(SCIHOME + "/.atoms/x64")];
-    ref_pathInstall =  [pathconvert(SCI + "/contrib"); pathconvert(SCIHOME + "/atoms/x64")];
-  else
     ref_pathSystem = [pathconvert(SCI + "/.atoms"); pathconvert(SCIHOME + "/.atoms")];
     ref_pathInstall =  [pathconvert(SCI + "/contrib"); pathconvert(SCIHOME + "/atoms")];
-  end
+else
+    if win64() then
+        ref_pathSystem = [pathconvert(SCI + "/.atoms"); pathconvert(SCIHOME + "/.atoms/x64")];
+        ref_pathInstall =  [pathconvert(SCI + "/contrib"); pathconvert(SCIHOME + "/atoms/x64")];
+    else
+        ref_pathSystem = [pathconvert(SCI + "/.atoms"); pathconvert(SCIHOME + "/.atoms")];
+        ref_pathInstall =  [pathconvert(SCI + "/contrib"); pathconvert(SCIHOME + "/atoms")];
+    end
 end
 
 assert_checkequal(pathInstall, ref_pathInstall);

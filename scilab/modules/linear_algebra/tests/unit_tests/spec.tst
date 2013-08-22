@@ -24,7 +24,7 @@ endfunction
 function r=Err(x)
     r=norm(x,1)
 endfunction
-rand('normal')
+rand("normal")
 
 //
 // spec.tst --
@@ -32,15 +32,15 @@ rand('normal')
 //
 
 function r=Checktestmat1(a,n)
-   A=testmat1(a,n);
-   S=spec(A);
-   SR=real(S);
-   SI=imag(S);
-   dt=2*%i*%pi/n;
-   Z=exp(dt*(1:n)');
-   ZR=real(Z*((1+a*a')/a));
-   ZI=-imag(Z*((a*a'-1)/a));
-   r=max(norm(gsort(SR)-gsort(ZR)),norm(gsort(SI)-gsort(ZI)))
+    A=testmat1(a,n);
+    S=spec(A);
+    SR=real(S);
+    SI=imag(S);
+    dt=2*%i*%pi/n;
+    Z=exp(dt*(1:n)');
+    ZR=real(Z*((1+a*a')/a));
+    ZI=-imag(Z*((a*a'-1)/a));
+    r=max(norm(gsort(SR)-gsort(ZR)),norm(gsort(SI)-gsort(ZI)))
 endfunction
 function A=testmat2(a,n)
     //eigen values are given by a dilation of nth roots of 1
@@ -48,15 +48,15 @@ function A=testmat2(a,n)
     A=A+A'
 endfunction
 function r=Checktestmat2(a,n)
-   A=testmat2(a,n);
-   S=spec(A);
-   SR=real(S);
-   SI=imag(S);
-   dt=2*%i*%pi/n;
-   Z=exp(dt*(1:n)');
-   ZR=2*real(Z*((1+a*a')/a));
-   ZI=0*ZR;
-   r=max(norm(gsort(SR)-gsort(ZR)),norm(gsort(SI)-gsort(ZI)))
+    A=testmat2(a,n);
+    S=spec(A);
+    SR=real(S);
+    SI=imag(S);
+    dt=2*%i*%pi/n;
+    Z=exp(dt*(1:n)');
+    ZR=2*real(Z*((1+a*a')/a));
+    ZI=0*ZR;
+    r=max(norm(gsort(SR)-gsort(ZR)),norm(gsort(SI)-gsort(ZI)))
 endfunction
 
 
@@ -75,16 +75,16 @@ if be<>[] then pause,end
 //Matrix with Inf or Nan (test de la detection d'erreur)
 // 1. Real
 // 1.1 Not symetric
-if execstr('spec([%inf 1;2 3])','errcatch')==0 then pause,end
-if execstr('spec([1 %nan;2 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf 1;2 3])","errcatch")==0 then pause,end
+if execstr("spec([1 %nan;2 3])","errcatch")==0 then pause,end
 // 1.2 Symetric
-if execstr('spec([%inf 1;1 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf 1;1 3])","errcatch")==0 then pause,end
 // 2. Complex
 // 2.1 Not symetric
-if execstr('spec([%inf %i;2 3])','errcatch')==0 then pause,end
-if execstr('spec([%i %i;%nan 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf %i;2 3])","errcatch")==0 then pause,end
+if execstr("spec([%i %i;%nan 3])","errcatch")==0 then pause,end
 // 2.2 Symetric
-if execstr('spec([%inf %i;-%i 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf %i;-%i 3])","errcatch")==0 then pause,end
 
 //Small dimension
 //---------------

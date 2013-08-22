@@ -15,14 +15,14 @@
 //
 // <-- Short Description -->
 // xs2... function doesn't work if the first argument is a handle
-// 
+//
 
 //scf(0);
 plot3d();
 hd=gcf();
 
-file_a=pathconvert(TMPDIR+'/nonreg_test_bug4812a.png',%f);
-file_b=pathconvert(TMPDIR+'/nonreg_test_bug4812b.png',%f);
+file_a=pathconvert(TMPDIR+"/nonreg_test_bug4812a.png",%f);
+file_b=pathconvert(TMPDIR+"/nonreg_test_bug4812b.png",%f);
 
 //PNG export for exemple
 xs2png(0,file_a);

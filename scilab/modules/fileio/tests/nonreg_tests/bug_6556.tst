@@ -13,9 +13,9 @@
 // <-- Short Description -->
 // fprintf() returned an error if it's called 2 times (or more) on the same file.
 
-fd = mopen(TMPDIR+'/toto.txt','wt');
+fd = mopen(TMPDIR+"/toto.txt","wt");
 [units, typ, filenmes] = file();
-k = find(filenmes == pathconvert(TMPDIR+'/toto.txt',%f,%t));
+k = find(filenmes == pathconvert(TMPDIR+"/toto.txt",%f,%t));
 if type(units(k)) <> 1 then pause,end
 ierr = execstr("mfprintf(units(k),''toto'')","errcatch");
 mclose(fd);

@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // getlinestyle() just opens an blank graphic window.
-// 
+//
 
 getlinestyle();
 

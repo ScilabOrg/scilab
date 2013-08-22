@@ -18,4 +18,4 @@
 
 plot2d
 // File -> Save
-// Check that there the "validation" button is called "Save" 
+// Check that there the "validation" button is called "Save"

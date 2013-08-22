@@ -7,7 +7,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for correl function 
+// unit tests for correl function
 // =============================================================================
 
 assert_checkfalse(execstr("correl()"   ,"errcatch") == 0);

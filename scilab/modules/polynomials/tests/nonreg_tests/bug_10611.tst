@@ -22,7 +22,7 @@ bPoles = [-0.3826834+%i*0.9238795
 -0.9238795-%i*0.3826834
 -0.3826834-%i*0.9238795];
 
-sPoly = poly(bPoles, 's', 'roots');
+sPoly = poly(bPoles, "s", "roots");
 
 sRoots = roots(sPoly);
 

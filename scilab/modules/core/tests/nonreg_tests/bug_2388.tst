@@ -12,5 +12,5 @@
 //
 // <-- Short Description -->
 //graphic handles can be appended to real vectors
-if execstr('[123,gca()]','errcatch')==0 then pause,end
-if execstr('[123;gca()]','errcatch')==0 then pause,end
+if execstr("[123,gca()]","errcatch")==0 then pause,end
+if execstr("[123;gca()]","errcatch")==0 then pause,end

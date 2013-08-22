@@ -19,5 +19,5 @@
 // In Scilab console
 // drag & drop a .xcos file on console
 // xcos diagram should be opened
-// 
+//
 

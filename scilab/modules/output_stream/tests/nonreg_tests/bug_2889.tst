@@ -13,15 +13,14 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2889
 //
 
-mprintf(' %s\n', "%exxxx");
-mprintf(' %s\n', "xx%exx");
-mprintf(' %s\n', "xxxx");
-mprintf(' %s\n', "%nyyyy");
+mprintf(" %s\n", "%exxxx");
+mprintf(" %s\n", "xx%exx");
+mprintf(" %s\n", "xxxx");
+mprintf(" %s\n", "%nyyyy");
 
 
-if sprintf(' %s\n', "%exxxx") <> " %exxxx" then pause,end
-if sprintf(' %s\n', "xx%exx") <> " xx%exx" then pause,end
-if sprintf(' %s\n', "xxxx") <> " xxxx" then pause,end
-if sprintf(' %s\n', "%nyyyy") <> " %nyyyy" then pause,end
+if sprintf(" %s\n", "%exxxx") <> " %exxxx" then pause,end
+if sprintf(" %s\n", "xx%exx") <> " xx%exx" then pause,end
+if sprintf(" %s\n", "xxxx") <> " xxxx" then pause,end
+if sprintf(" %s\n", "%nyyyy") <> " %nyyyy" then pause,end
 
-                    

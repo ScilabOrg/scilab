@@ -17,7 +17,7 @@
 //
 
 // the bug came from the use of emptystr() in %r_p.sci
-a='a';
+a="a";
 emptystr();
 s=size(emptystr(a));
 if s(2) ~= 1 then, pause, end

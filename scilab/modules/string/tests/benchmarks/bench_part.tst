@@ -12,6 +12,6 @@
 // <-- BENCH NB RUN : 1000000 -->
 
 // <-- BENCH START -->
-a = part(['a','abc','abcd'],[1,1,2]);
+a = part(["a","abc","abcd"],[1,1,2]);
 // <-- BENCH END -->
 

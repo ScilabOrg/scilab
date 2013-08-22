@@ -8,7 +8,7 @@
 // <-- XCOS TEST -->
 // <-- TEST WITH GRAPHIC -->
 
-// test scope values 
+// test scope values
 
 
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/unit_tests/cscopxy3d.zcos"));
@@ -47,7 +47,7 @@ function assert_checkcscopxy3d()
     assert_checkequal(p1.mark_style, 0);
     // "point" is the default on the new graphic
     // assert_checkequal(p1.mark_size_unit, "tabulated");
-    // the defualt mark size is 0 
+    // the defualt mark size is 0
     // assert_checkequal(p1.mark_size, 1);
     // not documented eg invalid value
     // assert_checkequal(p1.mark_foreground, -1);

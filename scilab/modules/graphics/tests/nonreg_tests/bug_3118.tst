@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // The edit/current axes properties menu of the graphic window fails
-// 
+//
 
 // create a figure
 scf(0);

@@ -10,8 +10,8 @@
 // unit tests for routh_t() function
 // =============================================================================
 
-s=poly(0,'s');
-k=poly(0,'k');
+s=poly(0,"s");
+k=poly(0,"k");
 
 //Test with a polynomial
 P1=s*(s+7)*(s+11);

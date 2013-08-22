@@ -19,13 +19,13 @@ cd TMPDIR;
 mkdir open_xls_tests;
 cd open_xls_tests;
 origfile = SCI + "/modules/spreadsheet/tests/unit_tests/readxls.xls";
-	
+
 for i = 1 : size(tab_ref, "*")
-	newfile = tab_ref(i) + ".xls";
-	copyfile(origfile, newfile);
-	[fileID, fileStream, SheetNames, SheetPos] = xls_open(newfile);
-	if(fileID == 0) then pause, end
-	mclose(fileID);
+    newfile = tab_ref(i) + ".xls";
+    copyfile(origfile, newfile);
+    [fileID, fileStream, SheetNames, SheetPos] = xls_open(newfile);
+    if(fileID == 0) then pause, end
+    mclose(fileID);
 end
 
 cd TMPDIR;

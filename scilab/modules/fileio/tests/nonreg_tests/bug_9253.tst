@@ -17,7 +17,7 @@
 // (backward compatibility)
 
 
-[r,t] = fscanfMat('SCI/modules/fileio/tests/nonreg_tests/bug_9253.csv');
+[r,t] = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_9253.csv");
 
 t_ref = ["#" ; ..
 "########################################################################################" ; ..

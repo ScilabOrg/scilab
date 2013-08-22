@@ -22,14 +22,14 @@ tab_ref = [
 "프로그램",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-	sz = "dir_" + tab_ref(i);
-	cd(sz);
-	createdir('sub_' + sz);
-	cd('sub_' + sz);
-	r = fullpath('../file_' + tab_ref(i));
-	if r <> TMPDIR + filesep() + sz + filesep() + 'file_' + tab_ref(i) then pause,end
-	cd '../';
-	removedir('sub_' + sz);
-	cd(TMPDIR);
+for i = 1 : size(tab_ref,"*")
+    sz = "dir_" + tab_ref(i);
+    cd(sz);
+    createdir("sub_" + sz);
+    cd("sub_" + sz);
+    r = fullpath("../file_" + tab_ref(i));
+    if r <> TMPDIR + filesep() + sz + filesep() + "file_" + tab_ref(i) then pause,end
+    cd "../";
+    removedir("sub_" + sz);
+    cd(TMPDIR);
 end

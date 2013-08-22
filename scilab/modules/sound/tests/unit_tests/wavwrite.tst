@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-  A = matrix(1:6,2,3);
-  wavwrite(A/6,TMPDIR+'/foo.wav');
-  B = wavread(TMPDIR+'/foo.wav');
-  if max(abs(A- round(B*6))) <> 0 then pause,end
+A = matrix(1:6,2,3);
+wavwrite(A/6,TMPDIR+"/foo.wav");
+B = wavread(TMPDIR+"/foo.wav");
+if max(abs(A- round(B*6))) <> 0 then pause,end

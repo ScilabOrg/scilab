@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1180
 //
 // <-- Short Description -->
-//    mtlb_filter lines 
+//    mtlb_filter lines
 //
 //    b=b*z^(max(degree(a)-degree(b),0))
 //    a=a*z^(max(degree(b)-degree(a),0))
@@ -20,7 +20,7 @@
 //
 //    da = degree(a)
 //    db = degree(b)
-//    if (da-db) > 0 then b=b*z^(da-db); end 
+//    if (da-db) > 0 then b=b*z^(da-db); end
 //    if (db-da) > 0 then a=a*z^(db-da); end
 
 x    = zeros(1:10);

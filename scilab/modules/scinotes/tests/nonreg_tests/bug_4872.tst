@@ -17,7 +17,7 @@
 //    editor(<binary file>) opens a blank file without any warning.
 
 
-editor('SCI/modules/core/macros/add_demo.bin')
+editor("SCI/modules/core/macros/add_demo.bin")
 
 // A warning message is now added when a binary file is opened
 

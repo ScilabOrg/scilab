@@ -13,11 +13,11 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2976
 //
 v = "1.0";
-ierr = execstr('r = regexp(v, ''/[1-9]+\.[1-9]+'') ','errcatch');
+ierr = execstr("r = regexp(v, ''/[1-9]+\.[1-9]+'') ","errcatch");
 if ierr <> 999 then pause,end
-if exists('r') <> 0 then pause,end
+if exists("r") <> 0 then pause,end
 
-ierr = execstr('r = regexp(v, ''/[1-9]+\.[1-9]/'') ','errcatch');
+ierr = execstr("r = regexp(v, ''/[1-9]+\.[1-9]/'') ","errcatch");
 if ierr <> 0 then pause,end
-if exists('r') <> 1 then pause,end
+if exists("r") <> 1 then pause,end
 if r <> [] then pause,end

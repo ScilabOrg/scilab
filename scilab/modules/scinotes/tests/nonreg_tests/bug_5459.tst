@@ -17,7 +17,7 @@
 //   editor "block" scilab with example
 
 cd SCI/modules/overloading/macros
-a=ls('*.sci')
+a=ls("*.sci")
 size(a)
 editor(a)
 // all the files should open normally

@@ -15,7 +15,7 @@
 // resize_matrix with boolean failed.
 
 myMat = 5 * rand(3, 4);
-myMatBoolean = resize_matrix( myMat, 2, 2, 'boolean');
+myMatBoolean = resize_matrix( myMat, 2, 2, "boolean");
 ref = (zeros(2,2) == 1);
 assert_checkequal(myMatBoolean, ref);
 
@@ -23,7 +23,7 @@ myMat(1, 1) = 1;
 myMat(3, 4) = 1;
 ref = (zeros(2, 2) == 1);
 ref(1, 1) = %t;
-myMatBoolean = resize_matrix( myMat, 2, 2, 'boolean');
+myMatBoolean = resize_matrix( myMat, 2, 2, "boolean");
 assert_checkequal(myMatBoolean, ref);
 
 myMat(1, 1) = 1;
@@ -31,12 +31,12 @@ myMat(3, 4) = 1;
 ref = (zeros(10, 10) == 1);
 ref(1, 1) = %t;
 ref(3, 4) = %t;
-myMatBoolean = resize_matrix( myMat, 10, 10, 'boolean');
+myMatBoolean = resize_matrix( myMat, 10, 10, "boolean");
 assert_checkequal(myMatBoolean, ref);
 
-myMat = ['Scilab' '5'; ..
-         'Test'   'bug_10836'];
-myMatBoolean = resize_matrix( myMat, 2, 2, 'boolean');
+myMat = ["Scilab" "5"; ..
+"Test"   "bug_10836"];
+myMatBoolean = resize_matrix( myMat, 2, 2, "boolean");
 ref = (zeros(2,2) == 1);
 assert_checkequal(myMatBoolean, ref);
 
@@ -46,5 +46,5 @@ assert_checkerror("myMatBoolean = resize_matrix( myMat, 2, 2, 999)", msgerr);
 
 myMat = ones(3, 4);
 ref = string(ones(2, 2));
-myNewMat = resize_matrix( myMat, 2, 2, 'string');
+myNewMat = resize_matrix( myMat, 2, 2, "string");
 assert_checkequal(myNewMat, ref);

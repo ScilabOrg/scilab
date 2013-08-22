@@ -22,7 +22,7 @@ i1 = diary("journal.txt","new","filter=command" );
 i2 = diary("journal.txt","new","filter=command" );
 [a2, f2] = diary();
 
-diary(i1,'close');
-diary(i2,'close');
+diary(i1,"close");
+diary(i2,"close");
 
-if grep(f2, strsubst(TMPDIR+'/journal_0.txt','\','/')) == 0 then pause,end
+if grep(f2, strsubst(TMPDIR+"/journal_0.txt","\","/")) == 0 then pause,end

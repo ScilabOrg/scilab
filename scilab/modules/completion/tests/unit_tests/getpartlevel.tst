@@ -12,17 +12,17 @@ if ierr<>0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
-r = getpartlevel('cd c:\Program Files\scilab-5.1');
-if r <>'1' then pause,end;
+r = getpartlevel("cd c:\Program Files\scilab-5.1");
+if r <>"1" then pause,end;
 
-r = getpartlevel('cd(""c:\Program Files\scilab-5.1');
-if r <>'1' then pause,end;
+r = getpartlevel("cd(""c:\Program Files\scilab-5.1");
+if r <>"1" then pause,end;
 
-r = getpartlevel('printf(""hello"")');
-if r <>'' then pause,end;
+r = getpartlevel("printf(""hello"")");
+if r <>"" then pause,end;
 
-r = getpartlevel('g.children');
-if r <> 'children' then pause,end
+r = getpartlevel("g.children");
+if r <> "children" then pause,end
 
-r = getpartlevel('1+myvariable');
-if r <> 'myvariable' then pause,end
+r = getpartlevel("1+myvariable");
+if r <> "myvariable" then pause,end

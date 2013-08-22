@@ -13,7 +13,7 @@
 // <-- Short Description -->
 // on some case, dos(cmd) does not return results
 
-[output, bStat] = dos('ipconfig');
+[output, bStat] = dos("ipconfig");
 if bStat == %f then pause,end
 if output == [] then pause,end
 

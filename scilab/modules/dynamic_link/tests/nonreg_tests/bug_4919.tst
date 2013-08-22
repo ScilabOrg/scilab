@@ -16,16 +16,16 @@
 // If the source file was stored in TMPDIR, the dynamic link
 //  was removing the content of this file.
 
-if getos() <> 'Windows' then
-  ilib_verbose(0);
-  chdir(TMPDIR);
-  f1=['int ext1c(int *n, double *a, double *b, double *c)'
-    '{return 1;}'];
+if getos() <> "Windows" then
+    ilib_verbose(0);
+    chdir(TMPDIR);
+    f1=["int ext1c(int *n, double *a, double *b, double *c)"
+    "{return 1;}"];
 
-  mputl(f1,'fun100.c');
+    mputl(f1,"fun100.c");
 
-  ilib_for_link('ext1c','fun100.c',[],"c");
-  exec loader.sce;
+    ilib_for_link("ext1c","fun100.c",[],"c");
+    exec loader.sce;
 end
 
 // =============================================================================

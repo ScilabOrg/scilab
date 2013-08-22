@@ -18,15 +18,15 @@
 // This test just check that there is no exception, rendering is not checked.
 
 x = [0 0;
-     0 1;
-     1 1];
+0 1;
+1 1];
 
 y = [1 1;
-     2 2;
-     2 1];
+2 2;
+2 1];
 
 z = [1 1;
-     1 1;
-     1 1];
+1 1;
+1 1];
 
 plot3d(x, y, z);

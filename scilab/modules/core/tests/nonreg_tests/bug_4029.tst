@@ -16,11 +16,11 @@
 
 // <-- INTERACTIVE TEST -->
 // install scilab x64 on Vista x64
-// 
+//
 // [a,b] = getos();
 // if b <> 'Vista x64' then pause,end
 
 // install scilab x86 on Vista x64
-// 
+//
 // [a,b] = getos();
 // if b <> 'Vista' then pause,end

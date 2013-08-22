@@ -20,8 +20,8 @@ a  = rand(n,n,"u");
 fd = mopen(TMPDIR+"/bug_4097.mat","w");
 
 for i=1:n ,
-  for j=1:n, mfprintf(fd,"%5.2f ",a(i,j));end;
-  mfprintf(fd,'\n');
+    for j=1:n, mfprintf(fd,"%5.2f ",a(i,j));end;
+    mfprintf(fd,"\n");
 end
 
 mclose(fd);

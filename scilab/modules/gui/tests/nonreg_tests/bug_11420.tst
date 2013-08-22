@@ -18,8 +18,8 @@ function h(win,x,y,ibut)
     disp(ibut);
 endfunction
 
-set(gdf(),'event_handler','h');
-set(gdf(),'event_handler_enable','on');
+set(gdf(),"event_handler","h");
+set(gdf(),"event_handler_enable","on");
 
 f=gcf();
 //Drag your cursor in the window and

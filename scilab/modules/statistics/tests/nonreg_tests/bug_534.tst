@@ -12,16 +12,16 @@
 //
 // <-- Short Description -->
 //    Bug Report Id: 030132003929164110
-//    In order to correct error in command "geomean" it is necessary to 
+//    In order to correct error in command "geomean" it is necessary to
 //    1) take the place of
-//    gm=prod(x)^(1/length(a)) 
+//    gm=prod(x)^(1/length(a))
 //    on
-//    gm=prod(x)^(1/length(x)) 
+//    gm=prod(x)^(1/length(x))
 //    and
-//    2)  take the place of 
-//    gm=prod(x,orien).^(1/size(a,orien)) 
+//    2)  take the place of
+//    gm=prod(x,orien).^(1/size(a,orien))
 //    on
-//    gm=prod(x,orien).^(1/size(x,orien)) 
+//    gm=prod(x,orien).^(1/size(x,orien))
 //
 //
 //    On Scilab 2.7.2 with " statistics " function

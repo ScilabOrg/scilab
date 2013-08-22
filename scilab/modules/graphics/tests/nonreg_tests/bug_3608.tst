@@ -14,19 +14,19 @@
 //
 // <-- Short Description -->
 // Scilab freezes when executing a combination of "eventhandler", "xchange" and "plot".
-// 
+//
 
 function follow(win,x,y,ibut)
-  [xx,yy]=xchange(x,y,"i2f");
+    [xx,yy]=xchange(x,y,"i2f");
 endfunction
 
 x=linspace(0,1,100); plot(x,x);
 
 seteventhandler("follow")
 for i=1:100,
- plot(x,x);
- [xx,yy] = xchange(i,i,"i2f");
- [xi, yi] = xchange(xx,yy,"f2i");
+    plot(x,x);
+    [xx,yy] = xchange(i,i,"i2f");
+    [xi, yi] = xchange(xx,yy,"f2i");
 end
 
 // used to crash scilab because of errors in the stack

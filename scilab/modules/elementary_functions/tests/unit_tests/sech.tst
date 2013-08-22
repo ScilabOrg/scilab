@@ -8,9 +8,9 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40: 
-// writeto("sech.ref"): interface(prettyprint = 0): 
-// for i from 0 to 400 do print(i, evalf[30](sech(i), 30)) end do: 
+// Digits := 40:
+// writeto("sech.ref"): interface(prettyprint = 0):
+// for i from 0 to 400 do print(i, evalf[30](sech(i), 30)) end do:
 // writeto(terminal):
 ieee(2);
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab
@@ -419,24 +419,24 @@ ref=[0, 1.
 ];
 
 
-     
-     x=ref(:,1);
-     e=max(abs((ref(:,2)-sech(x))./ref(:,2)));
-     if e>200*eps then pause,end
-     //diff(sech(x*(1+e)), e) = -sech(x*(1+e))*tanh(x*(1+e))*x
-     e=max(abs((ref(:,2)-sech(x))./(-sech(x).*tanh(x).*x)));
-     if e>200*eps then pause,end
- 
-     x=ref(:,1);e=max(abs((ref(:,2)-sech(-x))./ref(:,2)));
-     if e>200*eps then pause,end
-      //diff(sech(x*(1+e)), e) = -sech(x*(1+e))*tanh(x*(1+e))*x
-     e=max(abs((ref(:,2)-sech(x))./(-sech(x).*tanh(x).*x)));
-     if e>200*eps then pause,end
-    
-     if sech(Inf)<>0 then pause,end
-     if sech(-Inf)<>0 then pause,end
 
-     if ~isnan(sech(NaN)) then pause,end
+x=ref(:,1);
+e=max(abs((ref(:,2)-sech(x))./ref(:,2)));
+if e>200*eps then pause,end
+//diff(sech(x*(1+e)), e) = -sech(x*(1+e))*tanh(x*(1+e))*x
+e=max(abs((ref(:,2)-sech(x))./(-sech(x).*tanh(x).*x)));
+if e>200*eps then pause,end
 
-     if sech([])<>[] then pause,end
+x=ref(:,1);e=max(abs((ref(:,2)-sech(-x))./ref(:,2)));
+if e>200*eps then pause,end
+//diff(sech(x*(1+e)), e) = -sech(x*(1+e))*tanh(x*(1+e))*x
+e=max(abs((ref(:,2)-sech(x))./(-sech(x).*tanh(x).*x)));
+if e>200*eps then pause,end
+
+if sech(Inf)<>0 then pause,end
+if sech(-Inf)<>0 then pause,end
+
+if ~isnan(sech(NaN)) then pause,end
+
+if sech([])<>[] then pause,end
 

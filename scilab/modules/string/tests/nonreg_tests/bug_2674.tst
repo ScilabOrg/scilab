@@ -16,5 +16,5 @@
 // regexp function return weird strings.
 //
 
-[ start_ind end_ind str_match ] = regexp('XABYABBBZ','/ab*/i');
+[ start_ind end_ind str_match ] = regexp("XABYABBBZ","/ab*/i");
 if str_match <> ["AB";"ABBB"] then pause,end

@@ -17,14 +17,14 @@
 // The icon of the progressionbar is a java icon. It should it be a Scilab one instead.
 
 // Enter:
-winId=progressionbar('Do something');
+winId=progressionbar("Do something");
 // Check that the icon of the window open with a progressbar in it is a Scilab icon
 
 // Now enter:
 delete(winId);
 
 // Enter:
-winId=waitbar('This is an example');
+winId=waitbar("This is an example");
 // Check that the icon of the window open with a waitbar in it is a Scilab icon
 
 // Now enter:

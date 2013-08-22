@@ -21,10 +21,10 @@ Dir = TMPDIR + "/bug_6726/";
 mkdir(Dir);
 
 function y=$a(x)
-y=x+1
+    y=x+1
 endfunction
 function y=z(x)
-y=x+1
+    y=x+1
 endfunction
 
 save(Dir + "$a.bin", $a);
@@ -32,7 +32,7 @@ save(Dir + "z.bin", z);
 mputl(["z" "$a"], Dir + "names");
 testlib=lib(Dir);
 
-clear z  $a 
+clear z  $a
 if exists("z")==0 then pause,end
 if exists("$a")==0 then pause,end
 

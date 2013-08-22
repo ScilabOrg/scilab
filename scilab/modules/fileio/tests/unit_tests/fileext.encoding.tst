@@ -18,9 +18,9 @@ tab_ref = [
 "حريات وحقوق",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-	fz = TMPDIR + filesep() + "dir_" + tab_ref(i) + filesep() + 'file_' + tab_ref(i) +'.txt';
-	fd = mopen(fz,'wt');
-	mclose(fd);
-	if fileext(fz) <> '.txt' then pause,end
+for i = 1 : size(tab_ref,"*")
+    fz = TMPDIR + filesep() + "dir_" + tab_ref(i) + filesep() + "file_" + tab_ref(i) +".txt";
+    fd = mopen(fz,"wt");
+    mclose(fd);
+    if fileext(fz) <> ".txt" then pause,end
 end

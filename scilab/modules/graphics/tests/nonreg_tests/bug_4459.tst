@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 // grayplot does not always plot map containing %nan.
-// 
+//
 
 //just a map
 a=rand(5,5);

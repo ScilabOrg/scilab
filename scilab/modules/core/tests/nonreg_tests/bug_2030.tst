@@ -16,7 +16,7 @@
 // <-- INTERACTIVE TEST -->
 
 for i=1:n
-  eps=grand(650,1,'nor',0,1)
+    eps=grand(650,1,"nor",0,1)
 end
 
 // Copy/Paste this code inside Scilab console, takes a long time but does not crash!

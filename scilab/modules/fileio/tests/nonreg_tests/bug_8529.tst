@@ -23,9 +23,9 @@ if status_7 <> 1 then pause,end
 if ~isdir(TMPDIR+"/mkdir_test_7/mkdir_test_7") then pause, end
 
 cd TMPDIR;
-if mkdir('essai1/tmp') <> 1 then pause,end
-if ~isdir('essai1/tmp') then pause, end
+if mkdir("essai1/tmp") <> 1 then pause,end
+if ~isdir("essai1/tmp") then pause, end
 
-if mkdir(TMPDIR + '/a/b/c/d/e/f') <> 1 then pause,end
-if ~isdir(TMPDIR + '/a/b/c/d/e/f') then pause, end
+if mkdir(TMPDIR + "/a/b/c/d/e/f") <> 1 then pause,end
+if ~isdir(TMPDIR + "/a/b/c/d/e/f") then pause, end
 

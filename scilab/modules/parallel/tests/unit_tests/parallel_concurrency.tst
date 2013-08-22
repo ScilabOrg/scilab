@@ -10,7 +10,7 @@
 
 // <-- CLI SHELL MODE -->
 function r=dummy_arg(n)
-  r= parallel_concurrency();
+    r= parallel_concurrency();
 endfunction;
 if parallel_concurrency() <> 0 then pause, end
 // parallel_run requires a function taking at least one argument

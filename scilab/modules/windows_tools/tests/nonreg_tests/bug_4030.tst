@@ -12,8 +12,8 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4030
 //
 // <-- Short Description -->
-// unix_w('dir /s') displays strange matrix 
+// unix_w('dir /s') displays strange matrix
 
-unix_w('dir /s')
+unix_w("dir /s")
 
-// see output 
+// see output

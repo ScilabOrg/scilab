@@ -9,9 +9,9 @@
 
 //=================================fft(A ,isn, dim, incr [,flag]) =============================
 A=[0   1   1
-   2  -1  -1
-   3   4   4
-   5   1  -1];
+2  -1  -1
+3   4   4
+5   1  -1];
 y=matrix(fft(A(:),-1,4,1),size(A));
 assert_checkalmostequal(y,fft(A,-1,1));
 y1=matrix(fft(y(:),1,4,1),size(A));

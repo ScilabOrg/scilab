@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=55
 //
 // <-- Short Description -->
-//    The sci2exp function gives wrong result with the -%inf 
+//    The sci2exp function gives wrong result with the -%inf
 //    value.
 //    sci2exp(-%inf) = -Inf instead of the right result = -%inf
 

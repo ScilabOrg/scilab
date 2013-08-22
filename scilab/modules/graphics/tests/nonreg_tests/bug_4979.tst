@@ -18,7 +18,7 @@
 // Scilab has found a critical error (Unknow exception).
 // Save your data and restart Scilab.
 
-clf(gcf(),'reset');
+clf(gcf(),"reset");
 zoom_rect([0,0,1,1]);
 unzoom();
 a=gca();

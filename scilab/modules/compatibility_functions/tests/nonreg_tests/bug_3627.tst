@@ -15,7 +15,7 @@
 
 
 N=1000;
-x = grand(N,1,'nor',0,1) + %i*grand(N,1,'nor',0,1);
+x = grand(N,1,"nor",0,1) + %i*grand(N,1,"nor",0,1);
 computed = mtlb_var(x);
 expected = 2.0;
 if abs(computed-expected)>1. then pause,end

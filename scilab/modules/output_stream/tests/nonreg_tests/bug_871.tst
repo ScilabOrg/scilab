@@ -19,7 +19,7 @@
 //    --> rand()         // OK
 //    ans  =
 //
-//        0.2113249  
+//        0.2113249
 //
 //    --> rand();         // OK
 //    [NO OUTPUT]
@@ -27,7 +27,7 @@
 //    --> rand            // OK
 //     ans  =
 //
-//        0.7560439 
+//        0.7560439
 //
 //    --> rand;          // BUG: the semicolon doesn't work!!!!
 //     ans  =
@@ -43,8 +43,8 @@ diary(0);
 SCIFILECONTENTS=mgetl(SCIFILE);
 
 REFCONTENTS=[" ";
-			"-->rand;";
-			" ";
-			"-->diary(0);"];
+"-->rand;";
+" ";
+"-->diary(0);"];
 
 if or(REFCONTENTS<>SCIFILECONTENTS) then pause,end

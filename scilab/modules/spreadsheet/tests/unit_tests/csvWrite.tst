@@ -61,8 +61,8 @@ csvWrite(K, filename, ";", ",");
 assert_checkfilesequal ( filename , fullfile(path,"K_4.csv") );
 // =============================================================================
 S = [
-    "Allan",                  "2", "CORNET";
-    "csv read/write toolbox", "3", "for scilab"
+"Allan",                  "2", "CORNET";
+"csv read/write toolbox", "3", "for scilab"
 ];
 //
 filename = fullfile(TMPDIR,"S_1.csv");

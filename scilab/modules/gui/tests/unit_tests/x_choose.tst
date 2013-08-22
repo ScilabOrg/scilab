@@ -17,41 +17,41 @@ x_choose(string(1:10)',["Simple choose";"No scroll bar at all"]);
 
 // test 2
 x_choose(string(1:10)',["choose with huge vertical label part";
-          "Only vertical scroll bar"
-          "for the Label part";
-          string(1:50)']);
+"Only vertical scroll bar"
+"for the Label part";
+string(1:50)']);
 
 // test 3
 x_choose(string(1:10)',["choose with huge horizontal label part";
-          "Only horizontal scroll bar"
-          "for the Label part";
-           strcat(string(1:150),' ')]);
+"Only horizontal scroll bar"
+"for the Label part";
+strcat(string(1:150)," ")]);
 
 // test 4
 x_choose(string(1:10)',["choose with huge  label part";
-          "Vertical and horizontal scroll bars"
-          "for the Label part";
-           strcat(string(1:150)," ");
-           string(1:50)']);
+"Vertical and horizontal scroll bars"
+"for the Label part";
+strcat(string(1:150)," ");
+string(1:50)']);
 
 // test 5
 x_choose(string(1:50)',["choose with huge vertical choose part";
-          "Only vertical scroll bar"
-          "for the Choose part"]);
+"Only vertical scroll bar"
+"for the Choose part"]);
 
 // test 6
-x_choose(strcat(string(1:150),' '),["choose with huge horizontal choose part";
-          "Only horizontal scroll bar"
-          "for the Choose part"]);
+x_choose(strcat(string(1:150)," "),["choose with huge horizontal choose part";
+"Only horizontal scroll bar"
+"for the Choose part"]);
 
 // test 7
 x_choose([strcat(string(1:150)," ");string(1:50)'],["choose with huge  choose part";
-          "Vertical and horizontal  scroll bars"
-          "for the Choose part"]);
+"Vertical and horizontal  scroll bars"
+"for the Choose part"]);
 
 // test 8
 x_choose([strcat(string(1:150)," ");string(1:50)'],["choose with huge  label and choose part";
-          "Vertical and horizontal scroll bars"
-          "for the Label part";
-           strcat(string(1:150)," ");
-           string(1:50)']);
+"Vertical and horizontal scroll bars"
+"for the Label part";
+strcat(string(1:150)," ");
+string(1:50)']);

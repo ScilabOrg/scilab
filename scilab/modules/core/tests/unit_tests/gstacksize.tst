@@ -7,11 +7,11 @@
 
 // <-- CLI SHELL MODE -->
 
-gstacksize('min');
+gstacksize("min");
 mingstksize = gstacksize();
 if mingstksize(1) <> 11000 then pause,end
 
-gstacksize('max');
+gstacksize("max");
 maxgstksize = gstacksize();
 
 gstacksize(ceil((maxgstksize(1) + mingstksize(1))/2));

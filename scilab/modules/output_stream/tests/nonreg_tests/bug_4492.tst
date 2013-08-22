@@ -14,5 +14,5 @@
 //
 // output_stream_gateway.xml was not include in windows binary.
 
-if funptr('msprintf') == 0 then pause,end
+if funptr("msprintf") == 0 then pause,end
 

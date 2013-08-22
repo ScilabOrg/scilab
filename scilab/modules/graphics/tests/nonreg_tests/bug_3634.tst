@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Plot3d does not paint the surfacess defined by facets with 5 vertices.
-// 
+//
 
 scf(0);clf();
 plot3d([1;1;1;1;1],[1;2;3;4;5],[0;3;2;3;1])

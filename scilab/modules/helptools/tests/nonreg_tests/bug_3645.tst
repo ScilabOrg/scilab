@@ -20,9 +20,9 @@
 // <-- INTERACTIVE TEST -->
 
 // Creates a directory not in SCI directory
-// example 'Torbjørn Pettersen'
+// example 'TorbjÃ¸rn Pettersen'
 // copy all 'toolbox_skeleton' directory
-// goto in 'Torbjørn Pettersen'
+// goto in 'TorbjÃ¸rn Pettersen'
 // exec builder.sce
 // check that build help is ok
 

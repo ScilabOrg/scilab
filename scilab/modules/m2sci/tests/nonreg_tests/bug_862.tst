@@ -15,10 +15,10 @@
 //
 // <-- Short Description -->
 //    Conversion si bad for instructions such as:
-//    ->Matlab: 
+//    ->Matlab:
 //    a(1)=0;
 //    with a not initialised
-//    ->Scilab conversion: 
+//    ->Scilab conversion:
 //    a = mtlb_i(a,1,0);
 //
 //    Execution crashes

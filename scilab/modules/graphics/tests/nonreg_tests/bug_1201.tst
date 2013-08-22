@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Legends are not updated when observed polylines are modified.
-// 
+//
 
 // create a polylines
 plot(1:10);

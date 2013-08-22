@@ -17,6 +17,6 @@
 // fixed in 5.3.2
 
 
-r = fscanfMat('SCI/modules/fileio/tests/nonreg_tests/bug_9785.csv');
+r = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_9785.csv");
 ref = zeros(8, 1430);
 assert_checkequal(r,ref);

@@ -21,7 +21,7 @@
 // Try to solve the initialization problem (using the Kinsol method for example).
 // demo must build
 // previous error was :
-// Bridge_Rectifier_imfi.obj : error LNK2019: unresolved external symbol 
+// Bridge_Rectifier_imfi.obj : error LNK2019: unresolved external symbol
 // _read_xml_initial_states referenced in function _Bridge_Rectifier_imfilib
 // Bridge_Rectifier_imfi.dll : fatal error LNK1120: 1 unresolved externals
 

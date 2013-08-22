@@ -15,8 +15,8 @@
 // Short description:
 // No character matched should be a "no match" even if we matched a position
 
-if regexp('foo', '/^/') <> [] then pause, end;
-if regexp('foo', '/$/') <> [] then pause, end;
-if regexp('foo', '/(?=o)/') <> [] then pause, end;
-if regexp('foo', '/(?=f)/') <> [] then pause, end;
-if regexp('foo', '/(?=oo)/') <> [] then pause, end;
+if regexp("foo", "/^/") <> [] then pause, end;
+if regexp("foo", "/$/") <> [] then pause, end;
+if regexp("foo", "/(?=o)/") <> [] then pause, end;
+if regexp("foo", "/(?=f)/") <> [] then pause, end;
+if regexp("foo", "/(?=oo)/") <> [] then pause, end;

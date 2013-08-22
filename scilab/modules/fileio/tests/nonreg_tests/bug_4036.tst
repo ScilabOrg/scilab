@@ -13,5 +13,5 @@
 // <-- Short Description -->
 // command pwd doesn't work. I must use pwd().
 
-ierr = execstr('pwd','errcatch');
+ierr = execstr("pwd","errcatch");
 if ierr <> 0 then pause,end

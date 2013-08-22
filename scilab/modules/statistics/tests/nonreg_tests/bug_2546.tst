@@ -13,4 +13,4 @@
 // <-- Short Description -->
 // median(matrix,'c') errors when matrix contains exactly one row.
 
-if abs(median([1, 2, 3], 'c')-2)>%eps then pause,end
+if abs(median([1, 2, 3], "c")-2)>%eps then pause,end

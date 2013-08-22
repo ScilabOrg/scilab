@@ -10,6 +10,6 @@
 //==============================================================================
 
 // <-- BENCH START -->
-a = tokens('This is a character string');
+a = tokens("This is a character string");
 // <-- BENCH END -->
 

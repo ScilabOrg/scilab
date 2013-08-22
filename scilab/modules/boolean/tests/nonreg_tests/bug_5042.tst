@@ -43,6 +43,6 @@ ref_or = [%T %F %T;%T %T %F];
 res = ([1,0,1;1,1,0]|[1,0,1;1,1,0]);
 if ~and(ref_or == res) then pause,end
 
-ref_and = [%T %F %T; %T %T %F];  
+ref_and = [%T %F %T; %T %T %F];
 res = ([1,0,1;1,1,0]&[1,0,1;1,1,0]);
 if ~and(ref_and == res) then pause,end

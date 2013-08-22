@@ -16,7 +16,7 @@
 //    edit uicontrols do not support callbacks
 
 // Callback on edit uicontrols available thanks Java version of uicontrols
-// Callback is executed when the edit looses focus or the user hits ENTER or TAB 
+// Callback is executed when the edit looses focus or the user hits ENTER or TAB
 
 h=uicontrol("style","edit");
 

@@ -13,9 +13,9 @@ str     = "   ";
 str_mat = emptystr(50,50);
 
 for i=1:50
-	for j=1:50
-		str_mat(i,j) = str;
-	end
+    for j=1:50
+        str_mat(i,j) = str;
+    end
 end
 
 // <-- BENCH START -->

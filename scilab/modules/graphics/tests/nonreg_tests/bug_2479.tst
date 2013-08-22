@@ -14,6 +14,6 @@
 // <-- Short Description -->
 // Graphic editor could not be used when format was not format("v",18).
 
-format('e',10);
+format("e",10);
 plot();
 ged(8,0);

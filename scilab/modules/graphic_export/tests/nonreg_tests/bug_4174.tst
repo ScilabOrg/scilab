@@ -15,12 +15,12 @@
 //
 // <-- Short Description -->
 // Graphic export : The xs2xxx (graphic export) functions don't support paths that start with a tilde.
-// 
+//
 
-scf(10); 
+scf(10);
 plot3d();
-xs2png(10,'~/bug_path.png')
-                
+xs2png(10,"~/bug_path.png")
+
 // check if the exported file is in the user's home(/home/user) directory.
 
 

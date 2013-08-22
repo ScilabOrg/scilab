@@ -13,13 +13,13 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5006
 //
 // <-- Short Description -->
-// 
+//
 
 // editor does not save my modifications in a new file
 
 cd TMPDIR
 
-mdelete('fun1.sci') // to be sure that file does not exist
+mdelete("fun1.sci") // to be sure that file does not exist
 editor fun1.sci
 
 //copy/paste in fun1.sci
@@ -34,4 +34,4 @@ editor fun1.sci
 
 editor fun1.sci  // checks that you have text
 
-mgetl('fun1.sci')
+mgetl("fun1.sci")

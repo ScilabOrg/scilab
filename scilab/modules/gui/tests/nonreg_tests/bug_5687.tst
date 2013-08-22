@@ -20,4 +20,4 @@
 // Try this code and see if the title is changed instantly
 
 f = gcf();
-f.figure_name = 'Windows title test';
+f.figure_name = "Windows title test";

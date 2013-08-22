@@ -4,7 +4,7 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-deff('y=f(t)','y=exp(-t^2)');
+deff("y=f(t)","y=exp(-t^2)");
 r = calerf(1,0);
 ref = 2/sqrt(%pi)*intg(0,1,f);
 assert_checkalmostequal(r, ref);

@@ -14,8 +14,8 @@
 //  black fails to plot integrators
 
 s = poly (0, "s");
-P1= syslin('c',(1/s));
+P1= syslin("c",(1/s));
 frq=0.001:0.01:100;
 [frq1,rep]=repfreq(P1,frq);
-ierr = execstr('black(frq1,rep)','errcatch');
+ierr = execstr("black(frq1,rep)","errcatch");
 if ierr then pause,end

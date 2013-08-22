@@ -13,11 +13,11 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=654
 //
 // <-- Short Description -->
-//    listfiles(getenv('SCI')+"/tcl") gives wrong result. 
+//    listfiles(getenv('SCI')+"/tcl") gives wrong result.
 //
 //    - or the syntax is accepted and the result should be correct
 //    - or an error message should be displayed
 //
 //    of course listfiles(getenv('SCI')+"/tcl/") is OK
 
-if or( listfiles(getenv('SCI')+"/modules/tclsci") <> listfiles(getenv('SCI')+"/modules/tclsci/") ) then pause,end
+if or( listfiles(getenv("SCI")+"/modules/tclsci") <> listfiles(getenv("SCI")+"/modules/tclsci/") ) then pause,end

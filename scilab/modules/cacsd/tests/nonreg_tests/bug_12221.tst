@@ -17,9 +17,9 @@ a=-1000;
 b=5;
 c=5;
 d=5;
-sl=syslin('c',a,b,c,d);
+sl=syslin("c",a,b,c,d);
 res=fspec(sl);
 ref=[-1000 5 2.2305056 2.236068 0];
 for i=1:5
-assert_checkalmostequal(ref(i),res(i+1));
+    assert_checkalmostequal(ref(i),res(i+1));
 end

@@ -31,15 +31,15 @@ mfile2sci(MFILE,TMPDIR);
 SCIFILECONTENTS=mgetl(SCIFILE);
 
 SCIFILECONTENTSREF=["";
-		"// Display mode";
-		"mode(0);";
-		"";
-		"// Display warning for floating point exception";
-		"ieee(1);";
-		"";
-		"t = [];";
-		"timer;";
-		"t(1,10) = timer();"];
+"// Display mode";
+"mode(0);";
+"";
+"// Display warning for floating point exception";
+"ieee(1);";
+"";
+"t = [];";
+"timer;";
+"t(1,10) = timer();"];
 
 
 if or(SCIFILECONTENTSREF<>SCIFILECONTENTS) then pause,end

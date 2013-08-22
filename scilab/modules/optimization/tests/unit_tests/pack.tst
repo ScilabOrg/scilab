@@ -41,19 +41,19 @@ assert_checkequal(sel,sel_expected);
 //
 // Define 3 symmetric block-diagonal matrices: F0, F1, F2
 F0=[2,1,0,0;
-    1,2,0,0;
-    0,0,3,1;
-    0,0,1,3];
+1,2,0,0;
+0,0,3,1;
+0,0,1,3];
 F1=[1,2,0,0;
-    2,1,0,0;
-    0,0,1,3;
-    0,0,3,1];
+2,1,0,0;
+0,0,1,3;
+0,0,3,1];
 F2=[2,2,0,0;
-    2,2,0,0;
-    0,0,3,4;
-    0,0,4,4];
+2,2,0,0;
+0,0,3,4;
+0,0,4,4];
 // Define the size of the two blocks:
-// the first block has size 2, 
+// the first block has size 2,
 // the second block has size 2.
 blocksizes=[2,2];
 // Extract the two blocks of the 3 matrices.
@@ -63,22 +63,22 @@ F11=F1(1:2,1:2);
 F12=F1(3:4,3:4);
 F21=F2(1:2,1:2);
 F22=F2(3:4,3:4);
-// Create 3 column vectors, containing nonzero entries 
+// Create 3 column vectors, containing nonzero entries
 // in F0, F1, F2.
 F0nnz = [F01(:);F02(:)];
 F1nnz = [F11(:);F12(:)];
 F2nnz = [F21(:);F22(:)];
-// Create a 16-by-3 matrix, representing the 
+// Create a 16-by-3 matrix, representing the
 // nonzero entries of the 3 matrices F0, F1, F2.
 A=[F0nnz,F1nnz,F2nnz];
 // Pack the list of matrices A into CA.
 [CA,sel] = pack(A,blocksizes);
 CA_expected = [
-2,1,2;  
-1,2,2;   
-2,1,2;   
-3,1,3;   
-1,3,4;   
+2,1,2;
+1,2,2;
+2,1,2;
+3,1,3;
+1,3,4;
 3,1,4
 ];
 sel_expected = [1,2,4,5,6,8];

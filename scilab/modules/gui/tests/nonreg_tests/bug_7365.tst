@@ -15,7 +15,7 @@
 // "delete" applied to a "Checked" uimenu destroyed the handle without updating the display.
 
 m = uimenu(gcf(),"Label","Test")
-m1 = uimenu(m, "Label","SubChecked","checked","off") 
+m1 = uimenu(m, "Label","SubChecked","checked","off")
 // Look at the menu/submenu
 delete(m1)
 // Look at the menu/submenu: submenu must have been destroyed

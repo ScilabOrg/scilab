@@ -15,21 +15,21 @@
 //
 // <-- Short Description -->
 // Export to GIF ignores xlfont settings
-// 
+//
 
-if getos() == 'Windows' then
-	my_font = "Arial";
+if getos() == "Windows" then
+    my_font = "Arial";
 else
-	my_font = "Monospaced";
+    my_font = "Monospaced";
 end
 
-if find( xlfont('AVAILABLE_FONTS') == my_font ) <> [] then
-	xlfont(my_font,5);
-	plot2d()
-	a = gca();
-	a.title.font_style = 5;
-	a.title.font_size = 3;
-	xtitle('this should be Arial!');
+if find( xlfont("AVAILABLE_FONTS") == my_font ) <> [] then
+    xlfont(my_font,5);
+    plot2d()
+    a = gca();
+    a.title.font_style = 5;
+    a.title.font_size = 3;
+    xtitle("this should be Arial!");
 end
 
 xs2gif(0, TMPDIR + "/test_bug_685.gif");

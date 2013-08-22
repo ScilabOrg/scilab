@@ -21,4 +21,4 @@ scinotes();
 // F3 to start an Incremental Search.
 // ctrl+G to have the Code Navigator.
 // Dock the Code Navigator, undock it
-// In the two previous cases the Search bar must stay at its place. 
+// In the two previous cases the Search bar must stay at its place.

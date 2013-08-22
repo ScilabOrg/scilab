@@ -16,4 +16,4 @@
 // The horizontal line of the square root symbol was not drawn when exported.
 
 xtitle('$\sqrt{abcdefgh}$');
-xs2pdf(0,'export.pdf');
+xs2pdf(0,"export.pdf");

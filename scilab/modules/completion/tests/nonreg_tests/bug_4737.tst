@@ -23,14 +23,14 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 cd TMPDIR;
-mkdir('modules');
-cd (TMPDIR+'/modules');
-mkdir('string');
-cd (TMPDIR+'/modules/string');
-mkdir('macros');
-cd (TMPDIR+'/modules/string/macros');
-mputl('TEST',TMPDIR+'/modules/string/macros/finddeps.sci');
+mkdir("modules");
+cd (TMPDIR+"/modules");
+mkdir("string");
+cd (TMPDIR+"/modules/string");
+mkdir("macros");
+cd (TMPDIR+"/modules/string/macros");
+mputl("TEST",TMPDIR+"/modules/string/macros/finddeps.sci");
 cd TMPDIR;
-currentline = 'ls modules/string/macros/finddeps.';
-r = completeline(currentline,'finddeps.sci',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'ls modules/string/macros/finddeps.sci' then pause,end
+currentline = "ls modules/string/macros/finddeps.";
+r = completeline(currentline,"finddeps.sci",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "ls modules/string/macros/finddeps.sci" then pause,end

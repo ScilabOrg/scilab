@@ -17,7 +17,7 @@
 
 
 
-xstring(1/2,1/2,'foo');e1=gce();
+xstring(1/2,1/2,"foo");e1=gce();
 e1.font_foreground=5;
 e1.font_style=9;
 

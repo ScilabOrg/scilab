@@ -18,17 +18,17 @@
 // create figures with uimenus and destroy them
 // this used to generate java exceptions
 for i = 1:100,
-  f=figure('position', [10 10 300 200]);
-  // create a figure
-  m=uimenu(f,'label', 'windows');
-  // create an item on the menu bar
-  m1=uimenu(m,'label', 'operations');
-  m2=uimenu(m,'label', 'quit scilab', 'callback', "exit");
-  //create two items in the menu "windows"
-  m11=uimenu(m1,'label', 'new window', 'callback',"show_window()");
-  m12=uimenu(m1,'label', 'clear  window', 'callback',"clf()");
-  // create a submenu to the item "operations"
-  close(f);
+    f=figure("position", [10 10 300 200]);
+    // create a figure
+    m=uimenu(f,"label", "windows");
+    // create an item on the menu bar
+    m1=uimenu(m,"label", "operations");
+    m2=uimenu(m,"label", "quit scilab", "callback", "exit");
+    //create two items in the menu "windows"
+    m11=uimenu(m1,"label", "new window", "callback","show_window()");
+    m12=uimenu(m1,"label", "clear  window", "callback","clf()");
+    // create a submenu to the item "operations"
+    close(f);
 end
 
 

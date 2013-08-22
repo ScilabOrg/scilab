@@ -12,7 +12,7 @@ load("SCI/modules/atoms/macros/atoms_internals/lib");
 
 // We need a clean version
 // =============================================================================
-if ~isempty( atomsGetInstalled() ) then pause, end 
+if ~isempty( atomsGetInstalled() ) then pause, end
 
 // If previous test did not end properly, restore, else backup config file
 atomsRestoreConfig(%T);
@@ -65,7 +65,7 @@ if atomsGetInstalledStatus(["toolbox_1" "1.0-1"],"user")<>"A" then pause, end
 atomsRemove("toolbox_5","user");
 
 // no module should be installed
-if ~isempty( atomsGetInstalled() ) then pause, end 
+if ~isempty( atomsGetInstalled() ) then pause, end
 
 // 2nd test-case : Install toolbox 4 and then toolbox 5
 // =============================================================================
@@ -110,7 +110,7 @@ atomsRemove("toolbox_5","user");
 atomsRemove("toolbox_4","user");
 
 // no module should be installed
-if ~isempty( atomsGetInstalled() ) then pause, end 
+if ~isempty( atomsGetInstalled() ) then pause, end
 
 // 3rd test-case : Install toolbox 4 and toolbox 3
 // => Test the behaviour of toolbox_2
@@ -161,7 +161,7 @@ atomsRemove("toolbox_4","user");
 atomsRemove("toolbox_3","user");
 
 // no module should be installed
-if ~isempty( atomsGetInstalled() ) then pause, end 
+if ~isempty( atomsGetInstalled() ) then pause, end
 
 // 4th test-case : Test the user/allusers behaviour
 // =============================================================================
@@ -235,7 +235,7 @@ atomsRemove("toolbox_5","user");
 atomsRemove("toolbox_5","allusers");
 
 // no module should be installed
-if ~isempty( atomsGetInstalled() ) then pause, end 
+if ~isempty( atomsGetInstalled() ) then pause, end
 
 // 5th test-case : Test the packaging version update
 // =============================================================================
@@ -276,7 +276,7 @@ if atomsGetInstalledStatus(["toolbox_1" "1.0-1"],"user")<>"A" then pause, end
 atomsRemove("toolbox_5","user");
 
 // no module should be installed
-if ~isempty( atomsGetInstalled() ) then pause, end 
+if ~isempty( atomsGetInstalled() ) then pause, end
 
 // Restore original values
 // =============================================================================

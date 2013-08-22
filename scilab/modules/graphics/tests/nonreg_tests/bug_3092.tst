@@ -18,7 +18,7 @@
 f4=scf(4);
 f4.figure_size = [400, 200];
 plot2d();
-clf(f4,'reset');
+clf(f4,"reset");
 defaultFig = gdf();
 
 // check that axes_size are set to default

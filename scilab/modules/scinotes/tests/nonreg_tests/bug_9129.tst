@@ -16,8 +16,8 @@
 // <-- Short Description -->
 // Completion on field did not propose graphics handle fields by default.
 
-mputl('a.', TMPDIR + '/bug_9129.sce')
-scinotes(TMPDIR + '/bug_9129.sce');
+mputl("a.", TMPDIR + "/bug_9129.sce")
+scinotes(TMPDIR + "/bug_9129.sce");
 
 // Put the caret after the dot and <CTRL>+<SPACE>
 // Graphic handle fields should be proposed

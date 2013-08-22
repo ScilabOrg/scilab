@@ -18,34 +18,34 @@
 
 ilib_verbose(0);
 
-if getos() == 'Windows' then
-  warning('off');
-  Cfunctions = '';
-  ierr = execstr("link(SCI+''/bin/scilab_windows.dll'',Cfunctions,''c'');",'errcatch');
-  if ierr <> 235 then pause,end
-  ulink();
-  
-  Cfunctions = [];
-  ierr = execstr("link(SCI+''/bin/scilab_windows.dll'',Cfunctions,''c'');",'errcatch');
-  if ierr <> 999 then pause,end
-  ulink();
-  
-  Cfunctions = ['Windows_Main'];
-  link(SCI+'/bin/scilab_windows.dll',Cfunctions,'c');
-  ulink();
-  
-  Cfunctions = ['Windows_Main','Console_Main','createInnosetupMutex','closeInnosetupMutex'];
-  link(SCI+'/bin/scilab_windows.dll',Cfunctions,'c');
-  ulink();
-  
-  Cfunctions = ['Windows_Main';'Console_Main';'createInnosetupMutex';'closeInnosetupMutex'];
-  link(SCI+'/bin/scilab_windows.dll',Cfunctions,'c');
-  ulink();
-  
-  Cfunctions = ['Windows_Main','Console_Main';'createInnosetupMutex','closeInnosetupMutex'];
-  ierr = execstr("link(SCI+''/bin/scilab_windows.dll'',Cfunctions,''c'');",'errcatch');
-  if ierr <> 999 then pause,end
-  ulink();
-  warning('on');
+if getos() == "Windows" then
+    warning("off");
+    Cfunctions = "";
+    ierr = execstr("link(SCI+''/bin/scilab_windows.dll'',Cfunctions,''c'');","errcatch");
+    if ierr <> 235 then pause,end
+    ulink();
+
+    Cfunctions = [];
+    ierr = execstr("link(SCI+''/bin/scilab_windows.dll'',Cfunctions,''c'');","errcatch");
+    if ierr <> 999 then pause,end
+    ulink();
+
+    Cfunctions = ["Windows_Main"];
+    link(SCI+"/bin/scilab_windows.dll",Cfunctions,"c");
+    ulink();
+
+    Cfunctions = ["Windows_Main","Console_Main","createInnosetupMutex","closeInnosetupMutex"];
+    link(SCI+"/bin/scilab_windows.dll",Cfunctions,"c");
+    ulink();
+
+    Cfunctions = ["Windows_Main";"Console_Main";"createInnosetupMutex";"closeInnosetupMutex"];
+    link(SCI+"/bin/scilab_windows.dll",Cfunctions,"c");
+    ulink();
+
+    Cfunctions = ["Windows_Main","Console_Main";"createInnosetupMutex","closeInnosetupMutex"];
+    ierr = execstr("link(SCI+''/bin/scilab_windows.dll'',Cfunctions,''c'');","errcatch");
+    if ierr <> 999 then pause,end
+    ulink();
+    warning("on");
 end
 // =============================================================================

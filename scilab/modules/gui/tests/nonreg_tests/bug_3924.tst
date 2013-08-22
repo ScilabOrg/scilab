@@ -28,4 +28,4 @@ if ierr==0 | msg<>msprintf(gettext("Wrong value for ''%s'' property: A ''%s'' or
 ierr = execstr("uicontrol(1)", "errcatch");
 msg = lasterror();
 if ierr==0 | msg<>msprintf(gettext("%s: Wrong type for input argument #%d: A graphic handle expected.\n"),"uicontrol", 1) then pause; end
-  
+

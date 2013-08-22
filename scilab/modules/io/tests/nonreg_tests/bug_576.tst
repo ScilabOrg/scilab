@@ -18,5 +18,5 @@
 //    as an empty result ?
 
 disp("press enter");
-chemin=input('?','s');
+chemin=input("?","s");
 if isempty(chemin) then pause,end

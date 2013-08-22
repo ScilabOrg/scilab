@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // plzr demo not correct
-// 
+//
 
 x=0:0.1:4*%pi;
 subplot(2,1,1);

@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2799
 //
 // <-- Short Description -->
-//    Failure to assign boolean values to a sub-matrix when the matrix does 
+//    Failure to assign boolean values to a sub-matrix when the matrix does
 //    not exist
 //    clear A;A(:,1) = [int32(3);int32(4)];
 clear A;A(:,1) = [int32(3);int32(4)];

@@ -14,10 +14,10 @@
 // http://bugzilla.scilab.org/11048
 //
 // <-- Short Description -->
-// 
+//
 
-mputl('a=1', TMPDIR + '/bug_11048.sce')
-scinotes(TMPDIR + '/bug_11048.sce');
+mputl("a=1", TMPDIR + "/bug_11048.sce")
+scinotes(TMPDIR + "/bug_11048.sce");
 
 // Put the caret before a
 // CTRL+D to comment

@@ -23,7 +23,7 @@ if a <> [] then pause,end;
 if b <> [] then pause,end;
 if c <> [] then pause,end;
 if d <> [] then pause,end;
-clear a b c d 
+clear a b c d
 // =============================================================================
 [a,b,c] = file(500);
 if a <> [] then pause,end;

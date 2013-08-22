@@ -25,7 +25,7 @@ r2 = xmltopdf([], [], "pt_BR");
 info2 = fileinfo(r2);
 if info2(1) < 10000000 then pause, end
 
-// opens files and check that they are VALID !!! 
+// opens files and check that they are VALID !!!
 
 
 

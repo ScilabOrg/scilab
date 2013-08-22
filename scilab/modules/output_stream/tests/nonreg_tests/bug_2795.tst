@@ -14,4 +14,4 @@
 //
 
 t=fun2string(dir);
-msprintf("%s\n",t); 
+msprintf("%s\n",t);

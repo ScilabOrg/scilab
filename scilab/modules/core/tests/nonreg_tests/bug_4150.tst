@@ -18,9 +18,9 @@
 
 // go to in your SCIHOME directory
 // creates a .scilab or scilab.ini file
-// put in this file 
+// put in this file
 
-printf('go to SCILAB working directory\n\n');
+printf("go to SCILAB working directory\n\n");
 cd(SCIHOME);
 
 // saves .scilab

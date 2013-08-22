@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 //    Incoherence dans le format d'un nombre.
-//    En prenant par exemple j=0.001, on obtient un affichage 
+//    En prenant par exemple j=0.001, on obtient un affichage
 //    incoherent avec format :
 //    format("v",6) => 0.001
 //    format("v",7) => 1.E-3
@@ -32,6 +32,6 @@ REFFILECONTENTS=[" ";
 "    0.001  ";
 " ";
 "-->diary(0);"];
-  
+
 
 if or(DIAFILECONTENTS<>REFFILECONTENTS) then pause,end

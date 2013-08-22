@@ -19,9 +19,9 @@
 //   A work-around of this bug, is to use 'dos2unix' on Linux to convert the file.
 
 mat_ref = [ ..
-    0.15    0.19    0.96 ;
-    0.55    0.81    0.57 ;
-    0.28    0.33    0.43 ];
+0.15    0.19    0.96 ;
+0.55    0.81    0.57 ;
+0.28    0.33    0.43 ];
 
 mat = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_1526.mat")
 

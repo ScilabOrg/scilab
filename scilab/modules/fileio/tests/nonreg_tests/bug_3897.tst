@@ -15,13 +15,13 @@
 // <-- Short Description -->
 // macros perturbs the behavior of mfprintf().
 
-fd = mopen(TMPDIR+'/text_1.txt','wt');
-mfprintf(-1,'Hello World 1\n');
+fd = mopen(TMPDIR+"/text_1.txt","wt");
+mfprintf(-1,"Hello World 1\n");
 r = sind(90);
-mfprintf(-1,'Hello World 2 \n'); 
+mfprintf(-1,"Hello World 2 \n");
 mclose(fd);
 
-fd = mopen(TMPDIR+'/text_1.txt','rt');
+fd = mopen(TMPDIR+"/text_1.txt","rt");
 ierr = execstr("mfprintf(fd,''Hello World 3\n'');","errcatch");
 if ierr <> 999 then pause,end
 

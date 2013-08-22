@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // The legend is displayed over the graphic
-// 
+//
 histplot();
 
 // check that the text is not over the graphic

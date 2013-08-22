@@ -24,7 +24,7 @@ function messagebox(msg, modal, msg_title)
 endfunction
 funcprot(prot);
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values(1:7),   A_ref1);
 assert_checkequal(A.values(8:31),  A_ref2);

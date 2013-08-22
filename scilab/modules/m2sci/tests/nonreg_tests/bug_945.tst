@@ -15,7 +15,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=945
 //
 // <-- Short Description -->
-//    mfile2sci fails in case of non pre-sized vectors (all 
+//    mfile2sci fails in case of non pre-sized vectors (all
 //    assignments are done for the first component).
 //
 //    Test.m leads to Test.sci (obviously wrong)
@@ -31,16 +31,16 @@ mfile2sci(MFILE,TMPDIR);
 SCIFILECONTENTS=mgetl(SCIFILE);
 
 SCIFILECONTENTSREF=["";
-		"// Display mode";
-		"mode(0);";
-		"";
-		"// Display warning for floating point exception";
-		"ieee(1);";
-		"";
-		"x(1,1) = 0;";
-		"x(1,2) = 0;";
-		"y = zeros(2,1);";
-		"y(1) = 0;";
-		"y = mtlb_i(y,2,0);"];
+"// Display mode";
+"mode(0);";
+"";
+"// Display warning for floating point exception";
+"ieee(1);";
+"";
+"x(1,1) = 0;";
+"x(1,2) = 0;";
+"y = zeros(2,1);";
+"y(1) = 0;";
+"y = mtlb_i(y,2,0);"];
 
 if or(SCIFILECONTENTSREF<>SCIFILECONTENTS) then pause,end

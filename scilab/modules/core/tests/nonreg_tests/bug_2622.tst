@@ -17,5 +17,5 @@
 // errcatch(n,'pause') and errcatch(n,'continue') doesn't display the message
 // anymore
 
-errcatch(20,'pause');
+errcatch(20,"pause");
 error(20,2);

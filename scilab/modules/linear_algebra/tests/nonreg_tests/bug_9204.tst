@@ -18,8 +18,8 @@
 
 x = [1 2 3 -4];
 x = x + %i * x;
-assert_checkalmostequal(norm(x, 'fro'), 7.7459667);
+assert_checkalmostequal(norm(x, "fro"), 7.7459667);
 
 x = [1 2;3 4];
 x = x + %i * x;
-assert_checkalmostequal(norm(x, 'fro'), 7.7459667);
+assert_checkalmostequal(norm(x, "fro"), 7.7459667);

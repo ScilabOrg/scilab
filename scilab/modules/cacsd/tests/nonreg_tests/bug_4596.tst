@@ -15,7 +15,7 @@
 
 s=%s;
 K=485000.;
-h=syslin('c', K / ( s * (s+100)^2 ) );
+h=syslin("c", K / ( s * (s+100)^2 ) );
 
 [gm,fr]=g_margin(h)
 if gm==[] then pause,end

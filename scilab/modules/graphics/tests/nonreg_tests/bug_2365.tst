@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // plot3d3 without flags option removes ticks.
-// 
+//
 
 plot3d3( [ 0,0; 10,10 ],[ 1,2;3,4 ],[ 0,2; 0,2 ] );
 

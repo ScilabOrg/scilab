@@ -17,8 +17,8 @@
 
 // used to freeze Scilab
 for i=1:100,
-  h=scf(i);
-  addmenu(i,'mymenu');
-  delete(h);
+    h=scf(i);
+    addmenu(i,"mymenu");
+    delete(h);
 end
 

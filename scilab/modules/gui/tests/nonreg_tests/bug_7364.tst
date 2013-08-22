@@ -18,13 +18,13 @@ h=uimenu("label","Bug 7364")
 h1=uimenu(h,"label", "Test for checked","checked","on")
 
 function menu_toogle()
-if get(gcbo, "checked") == "on" then
-  disp("From checked to unchecked");
-  set(gcbo, "checked", "off");
-else
-  disp("From unchecked to checked");
-  set(gcbo, "checked", "on");
-end
+    if get(gcbo, "checked") == "on" then
+        disp("From checked to unchecked");
+        set(gcbo, "checked", "off");
+    else
+        disp("From unchecked to checked");
+        set(gcbo, "checked", "on");
+    end
 endfunction
 
 h1.callback = "menu_toogle";

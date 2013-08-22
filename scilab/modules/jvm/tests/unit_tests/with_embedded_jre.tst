@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-ierr = execstr('a = with_embedded_jre(''TOTO'',2);','errcatch');
+ierr = execstr("a = with_embedded_jre(''TOTO'',2);","errcatch");
 if ierr <> 77 then pause,end
 
 result = with_embedded_jre();

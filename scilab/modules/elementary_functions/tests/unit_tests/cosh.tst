@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
-// Copyright (C) 2011 - DIGITEO - Michaël Baudin
+// Copyright (C) 2011 - DIGITEO - MichaÃ«l Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================

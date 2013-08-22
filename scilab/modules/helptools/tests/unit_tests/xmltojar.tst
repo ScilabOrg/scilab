@@ -34,7 +34,7 @@ clean_help(my_french_help_dir);
 setlanguage("en_US");
 my_english_help_dir    =  my_module_path+"/help/en_US";
 my_english_help_title  =  "TEST 1 [en_US]";
-xmltojar(my_english_help_dir,my_english_help_title,'en_US');
+xmltojar(my_english_help_dir,my_english_help_title,"en_US");
 
 jar_info =  fileinfo(my_module_path+"/jar/scilab_en_US_help.jar");
 if jar_info == [] then pause, end       // file existence
@@ -55,7 +55,7 @@ my_module_path = pathconvert(tmpPath + "/example_2",%f,%f);
 setlanguage("fr_FR");
 my_french_help_dir    =  my_module_path+"/help/fr_FR";
 my_french_help_title  =  "TEST 2 [fr_FR]";
-xmltojar(my_french_help_dir,my_french_help_title,'fr_FR');
+xmltojar(my_french_help_dir,my_french_help_title,"fr_FR");
 
 jar_info =  fileinfo(my_module_path+"/jar/scilab_fr_FR_help.jar");
 if jar_info == [] then pause, end       // file existence
@@ -68,7 +68,7 @@ clean_help(my_french_help_dir);
 setlanguage("en_US");
 my_english_help_dir    =  my_module_path+"/help/en_US";
 my_english_help_title  =  "TEST 2 [en_US]";
-xmltojar(my_english_help_dir,my_english_help_title,'en_US');
+xmltojar(my_english_help_dir,my_english_help_title,"en_US");
 
 jar_info =  fileinfo(my_module_path+"/jar/scilab_en_US_help.jar");
 if jar_info == [] then pause, end       // file existence

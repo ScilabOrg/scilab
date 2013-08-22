@@ -16,7 +16,7 @@ M=33;l=list(M);
 if or(M()<>M) then pause,end
 if or(l(1)()<>M) then pause,end
 
-M='xxx';l=list(M);
+M="xxx";l=list(M);
 if or(M()<>M) then pause,end
 if or(l(1)()<>M) then pause,end
 
@@ -25,13 +25,13 @@ if or(M()<>M) then pause,end
 if or(l(1)()<>M) then pause,end
 
 
-M=tlist('foo');l=list(M);
+M=tlist("foo");l=list(M);
 if or(M()<>M) then pause,end
 if or(l(1)()<>M) then pause,end
- 
+
 
 clear M
 M.a=33;;l=list(M);
 if or(M()<>M) then pause,end
 if or(l(1)()<>M) then pause,end
- 
+

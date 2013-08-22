@@ -38,10 +38,10 @@ if ~status then pause, end
 // export the Superblock to the file
 blk = [];
 for i=1:length(scs_m.objs) do
-  blk = scs_m.objs(i);
-  if typeof(blk) == "Block" & blk.gui == "SUPER_f" then
-    break;
-  end
+    blk = scs_m.objs(i);
+    if typeof(blk) == "Block" & blk.gui == "SUPER_f" then
+        break;
+    end
 end
 assert_checktrue(length(blk) <> 0);
 

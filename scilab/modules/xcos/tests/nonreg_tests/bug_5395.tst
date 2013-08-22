@@ -14,10 +14,10 @@
 //
 // <-- Short Description -->
 // The xcos block AFFICH_m do not bother with the max number of digits.
-// 
+//
 
 // Using xcos, open the file test_affich_m.zcos and see if when there
 // is an overflow is the display of affich_m that the number is
 // still correctly displayed.
- 
+
 xcos();

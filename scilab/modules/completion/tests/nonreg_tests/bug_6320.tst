@@ -17,8 +17,8 @@
 
 createNode = 1;
 
-r = completion('createn');
-assert_checkequal(r, 'createNode');
+r = completion("createn");
+assert_checkequal(r, "createNode");
 
-r = completion('CREATEN');
-assert_checkequal(r, 'createNode');
+r = completion("CREATEN");
+assert_checkequal(r, "createNode");

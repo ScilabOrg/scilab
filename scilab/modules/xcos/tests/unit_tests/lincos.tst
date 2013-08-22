@@ -39,29 +39,29 @@ sys        = lincos(scs_m,X,U);
 
 // valid results
 A_ref = [..
-    0.    0.   -8.962D-08   -2.9195682  ;..
-    1.    0.    0.           0.         ;..
-    0.    0.    2.972D-08    4.2383276  ;..
-    0.    0.    1.           0.         ];
+0.    0.   -8.962D-08   -2.9195682  ;..
+1.    0.    0.           0.         ;..
+0.    0.    2.972D-08    4.2383276  ;..
+0.    0.    1.           0.         ];
 
 B_ref = [..
-    0.0997019  ;..
-    0.         ;..
-   -0.0330679  ;..
-    0.         ];
+0.0997019  ;..
+0.         ;..
+-0.0330679  ;..
+0.         ];
 
 C_ref = [..
-    0.    1.    0.    0.  ;..
-    0.    0.    0.    1.  ];
+0.    1.    0.    0.  ;..
+0.    0.    0.    1.  ];
 
 D_ref = [..
-    0.  ;..
-    0.  ];
+0.  ;..
+0.  ];
 
 // diff
 margin = 5D-08;
 if and(abs(sys.A - A_ref) > margin) |..
-   and(abs(sys.B - B_ref) > margin) |..
-   and(abs(sys.D - D_ref) > margin) |..
-   and(abs(sys.C - C_ref) > margin) then pause, end
+    and(abs(sys.B - B_ref) > margin) |..
+    and(abs(sys.D - D_ref) > margin) |..
+and(abs(sys.C - C_ref) > margin) then pause, end
 

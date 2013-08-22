@@ -42,11 +42,11 @@ if atomsIsLoaded(["toolbox_1","2.0","allusers"]) then pause, end
 if atomsIsLoaded(["toolbox_2","2.1","allusers"]) then pause, end
 
 A = [ "toolbox_1" "2.0" "user"     ; ..
-      "toolbox_2" "2.1" "user"     ; ..
-      "toolbox_2" ""    "user"     ; ..
-      "toolbox_2" "2.1" ""         ; ..
-      "toolbox_2" ""    ""         ; ..
-      "toolbox_2" "2.1" "allusers" ];
+"toolbox_2" "2.1" "user"     ; ..
+"toolbox_2" ""    "user"     ; ..
+"toolbox_2" "2.1" ""         ; ..
+"toolbox_2" ""    ""         ; ..
+"toolbox_2" "2.1" "allusers" ];
 
 if or(atomsIsLoaded(A) <> [%T ; %T ; %T ; %T ; %T ; %F]) then pause, end
 

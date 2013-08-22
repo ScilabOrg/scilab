@@ -49,12 +49,12 @@ assert_checkequal(a.root.Externals,"External_Link");
 h5ln(a, "External_Link2", TMPDIR  +"/test1.h5", "/BGrp/BDset");
 assert_checkequal(a.root.Datasets,["Hard_Link";"Soft_Link";"External_Link2"]);
 
-h5rm(a,'/Grp_1/Dset_1');
+h5rm(a,"/Grp_1/Dset_1");
 assert_checkequal(a.root.Datasets,["Hard_Link";"External_Link2"]);
 assert_checkequal(a.root.Softs,["Soft_Link"]);
 msgerr = msprintf(gettext("%s: Error in retrieving field content:\n%s\n"), "%H5Object_e", msprintf(gettext("Invalid field: %s"), "Soft_Link"));
 assert_checkerror("a.root.Soft_Link",msgerr,999);
-h5rm(a,'/Hard_Link');
+h5rm(a,"/Hard_Link");
 assert_checkequal(a.root.Datasets,["External_Link2"]);
 
 h5close(a);

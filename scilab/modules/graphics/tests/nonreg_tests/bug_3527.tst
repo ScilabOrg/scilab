@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Graphic windows created by figure are unable to display plots.
-// 
+//
 
 h1 = figure(1);
 plot([1,2,5,4,5,2,1]);

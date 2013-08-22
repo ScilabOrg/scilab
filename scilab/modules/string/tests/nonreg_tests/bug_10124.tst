@@ -35,19 +35,19 @@ msgerr = msprintf(gettext("%s: Wrong size for input argument #%d: A single strin
 assert_checkerror("C = strsplit(A,3:3:sum(length(B))-1)", msgerr);
 
 for i=1:50
-  [a, b] = strsplit([]);
-  assert_checkequal(a, []);
-  assert_checkequal(b, '');
+    [a, b] = strsplit([]);
+    assert_checkequal(a, []);
+    assert_checkequal(b, "");
 end
 
 for i=1:50
-  [a, b] = strsplit([], '');
-  assert_checkequal(a, []);
-  assert_checkequal(b, '');
+    [a, b] = strsplit([], "");
+    assert_checkequal(a, []);
+    assert_checkequal(b, "");
 end
 
 for i=1:50
-  [a, b] = strsplit('', '');
-  assert_checkequal(a, '');
-  assert_checkequal(b, '');
+    [a, b] = strsplit("", "");
+    assert_checkequal(a, "");
+    assert_checkequal(b, "");
 end

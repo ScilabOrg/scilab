@@ -15,7 +15,7 @@
 // into the documentation
 
 docFile = help_from_sci(SCI+"/modules/helptools/tests/nonreg_tests/bug_5487.sci",TMPDIR);
-fd_r = mopen(docFile,'rt');
+fd_r = mopen(docFile,"rt");
 content = mgetl(fd_r);
 
 wrongString = "<varlistentry><term>a=1+2</term></varlistentry>";

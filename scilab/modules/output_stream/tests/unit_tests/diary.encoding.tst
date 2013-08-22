@@ -13,9 +13,9 @@ tab_ref = [
 "حريات وحقوق",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-  diary(TMPDIR + filesep() + tab_ref(i) + '.diary');
-  1+1;
-  diary(0);
-  if (fileinfo(TMPDIR + filesep() + tab_ref(i) + '.diary') == []) then pause,end
-end  
+for i = 1 : size(tab_ref,"*")
+    diary(TMPDIR + filesep() + tab_ref(i) + ".diary");
+    1+1;
+    diary(0);
+    if (fileinfo(TMPDIR + filesep() + tab_ref(i) + ".diary") == []) then pause,end
+end

@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 9328 -->
 //
 // <-- CLI SHELL MODE -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=9328
 //

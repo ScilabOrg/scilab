@@ -17,8 +17,8 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4676
 //
 
-diary_file = pathconvert(TMPDIR+'/bug_diary_4676.txt',%F);
+diary_file = pathconvert(TMPDIR+"/bug_diary_4676.txt",%F);
 id = diary(diary_file);
-mprintf('\nString with whitespaces\n')
-diary(id,'close');
+mprintf("\nString with whitespaces\n")
+diary(id,"close");
 mgetl(diary_file);

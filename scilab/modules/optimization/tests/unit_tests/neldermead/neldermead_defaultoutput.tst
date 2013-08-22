@@ -15,7 +15,7 @@
 //
 
 function [ f , index ] = quadratic ( x , index )
-  f = x(1)^2 + x(2)^2;
+    f = x(1)^2 + x(2)^2;
 endfunction
 x0 = [1.0 1.0].';
 nm = neldermead_new ();

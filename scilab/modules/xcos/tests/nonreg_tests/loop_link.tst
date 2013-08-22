@@ -11,7 +11,7 @@
 // <-- Non-regression test for checking loop links -->
 //
 // <-- Short Description -->
-// Any block can contains non-port children. Some operation, cast without 
+// Any block can contains non-port children. Some operation, cast without
 // checking the type.
 
 // start demo --> standard demos --> Scilab block

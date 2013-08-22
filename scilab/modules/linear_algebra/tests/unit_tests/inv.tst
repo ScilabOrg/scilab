@@ -6,26 +6,26 @@
 // =============================================================================
 //define tools
 function A=testmat1(a,n)
-	//eigen values are given by a dilation of nth roots of 1
-	A=diag(a*ones(1,n-1),1)+diag((1/a)*ones(1,n-1),-1)
-	A(1,n)=1/a;A(n,1)=a
+    //eigen values are given by a dilation of nth roots of 1
+    A=diag(a*ones(1,n-1),1)+diag((1/a)*ones(1,n-1),-1)
+    A(1,n)=1/a;A(n,1)=a
 endfunction
 function r=Err(x)
-	r=norm(x,1)
+    r=norm(x,1)
 endfunction
-rand('normal')
+rand("normal")
 //==========================================================================
-//==============================     inv      ============================== 
+//==============================     inv      ==============================
 //==========================================================================
 //Empty matrix
 A=[];
 if inv(A)<>[] then pause,end
 //Singular matrix
-if execstr('inv([0 0;2 3])','errcatch')==0 then pause,end
-if execstr('inv([0 0;%i 3])','errcatch')==0 then pause,end
+if execstr("inv([0 0;2 3])","errcatch")==0 then pause,end
+if execstr("inv([0 0;%i 3])","errcatch")==0 then pause,end
 //Rectangular matrix
-if execstr('inv(rand(2,3))','errcatch')==0 then pause,end
-if execstr('inv(rand(2,3)+%i*eye())','errcatch')==0 then pause,end
+if execstr("inv(rand(2,3))","errcatch")==0 then pause,end
+if execstr("inv(rand(2,3)+%i*eye())","errcatch")==0 then pause,end
 //Small dimension
 //---------------
 //Unsymetric

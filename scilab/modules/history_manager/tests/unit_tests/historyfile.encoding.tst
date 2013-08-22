@@ -17,10 +17,10 @@ tab_ref = [
 "حريات وحقوق",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-  fz = TMPDIR + filesep() + "dir_" + tab_ref(i) + filesep() + tab_ref(i) + '.hst';
-  savehistory(fz);
-  resethistory();
-  if ls(fz) == [] then pause,end
-  loadhistory(fz);
+for i = 1 : size(tab_ref,"*")
+    fz = TMPDIR + filesep() + "dir_" + tab_ref(i) + filesep() + tab_ref(i) + ".hst";
+    savehistory(fz);
+    resethistory();
+    if ls(fz) == [] then pause,end
+    loadhistory(fz);
 end

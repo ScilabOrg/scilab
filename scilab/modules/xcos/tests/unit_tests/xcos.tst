@@ -9,12 +9,12 @@
 // <-- TEST WITH GRAPHIC -->
 
 // libs are not loaded at startup
-if isdef('BIGSOM_f') then pause, end
+if isdef("BIGSOM_f") then pause, end
 
 // we launch xcos then libs should be loaded
 xcos();
 sleep(500);
-if ~isdef('BIGSOM_f') then pause, end
+if ~isdef("BIGSOM_f") then pause, end
 
 // we launch xcos with an xcos demo file
 xcos(SCI + "/modules/xcos/demos/Simple_Demo.zcos");

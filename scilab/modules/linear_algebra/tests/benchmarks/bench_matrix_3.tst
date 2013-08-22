@@ -15,7 +15,7 @@ stacksize(30000000);
 
 a = 0;
 b = 0;
-a = rand(700,700,'n');
+a = rand(700,700,"n");
 
 // <-- BENCH START -->
 b = a'*a;

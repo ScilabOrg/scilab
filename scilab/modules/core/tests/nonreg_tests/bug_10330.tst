@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 10330 -->
 //
 // <-- CLI SHELL MODE -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=10330
 //
@@ -23,5 +23,5 @@ assert_checkerror("error(str)", ref_lasterror );
 ref_lasterror = ["line 1"; "line 2"];
 assert_checkerror("error(ref_lasterror)", ref_lasterror );
 
-errlines = 1:20; errlines = errlines'; errlines = 'error line ' + string(errlines);
+errlines = 1:20; errlines = errlines'; errlines = "error line " + string(errlines);
 assert_checkerror("error(errlines)", errlines);

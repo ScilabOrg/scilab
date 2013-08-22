@@ -16,7 +16,7 @@
 // strange bug that appeared in scilab-5.0-alpha2 and disapeared then
 // the code below produced n=2 instead of 1
 
-n1=poly([4/3 1-%eps/2],'x','c');
-d1=poly([4/3 1],'x','c');
+n1=poly([4/3 1-%eps/2],"x","c");
+d1=poly([4/3 1],"x","c");
 [n,d]=simp(n1,d1);
 if or(abs(coeff(n)-1)>10*%eps) then pause,end

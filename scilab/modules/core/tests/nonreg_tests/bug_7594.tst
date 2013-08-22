@@ -15,10 +15,10 @@
 // Incorrect  error detection since bug 6781 fix
 
 function foo1()
-  a=xxxxxxx
+    a=xxxxxxx
 endfunction
 function foo2()
-  a=1:xxxxxxx
+    a=1:xxxxxxx
 endfunction
 clear xxxxxxx ;//to make sure xxxxxxx does not exist
 if execstr("foo1()","errcatch")<>4 then pause,end

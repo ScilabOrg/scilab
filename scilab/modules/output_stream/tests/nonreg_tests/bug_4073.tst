@@ -20,26 +20,26 @@ tab_ref = [
 "เฮลโลเวิลด์",
 "حريات وحقوق",
 "תוכנית",
-'àéùç'];
+"àéùç"];
 // =============================================================================
-for i = 1 : size(tab_ref,'*')
-  if tab_ref(i) <> sprintf(tab_ref(i)) then bugmes();quit;end
-  if tab_ref(i) <> sprintf('%s',tab_ref(i)) then bugmes();quit;end
+for i = 1 : size(tab_ref,"*")
+    if tab_ref(i) <> sprintf(tab_ref(i)) then bugmes();quit;end
+    if tab_ref(i) <> sprintf("%s",tab_ref(i)) then bugmes();quit;end
 end
 // =============================================================================
-for i = 1 : size(tab_ref,'*')
-  disp(tab_ref(i));
+for i = 1 : size(tab_ref,"*")
+    disp(tab_ref(i));
 end
 // =============================================================================
-for i = 1 : size(tab_ref,'*')
-  mprintf(tab_ref(i));
-  mprintf('\n');
-  mprintf('%s\n',tab_ref(i));
+for i = 1 : size(tab_ref,"*")
+    mprintf(tab_ref(i));
+    mprintf("\n");
+    mprintf("%s\n",tab_ref(i));
 end
 // =============================================================================
-for i = 1 : size(tab_ref,'*')
-  printf(tab_ref(i));
-  printf('\n');
-  printf('%s\n',tab_ref(i));
+for i = 1 : size(tab_ref,"*")
+    printf(tab_ref(i));
+    printf("\n");
+    printf("%s\n",tab_ref(i));
 end
 // =============================================================================

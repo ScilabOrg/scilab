@@ -17,11 +17,11 @@
 
 
 cmd = "error(999,''line1'' + ascii(10) + ''line2'')";
-ref_msgerr = ['line1';'line2'];
+ref_msgerr = ["line1";"line2"];
 ref_ierr = 999;
 
 // first, we check without assert_checkerror
-ierr = execstr(cmd, 'errcatch');
+ierr = execstr(cmd, "errcatch");
 msgerr = lasterror();
 assert_checkequal(ierr, ref_ierr);
 assert_checkequal(msgerr, ref_msgerr);

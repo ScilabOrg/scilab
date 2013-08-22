@@ -19,8 +19,8 @@ warning("off");
 T=[];
 N=[ (5:9)*10000 (1:9)*100000];
 for n=N
-  clear t
-  timer();t(1:n)="foo";T=[T timer()];
+    clear t
+    timer();t(1:n)="foo";T=[T timer()];
 end
 //check for quasi linear evolution of T(n)
 abc=T/[N^2;N;ones(N)];
@@ -28,8 +28,8 @@ if abc(1)/norm(abc(2:3))>1d-3 then pause,end
 
 T=[];
 for n=N
-  clear t
-  timer();t(2,1:n)="foo";T=[T timer()];
+    clear t
+    timer();t(2,1:n)="foo";T=[T timer()];
 end
 //check for quasi linear evolution of T(n)
 abc=T/[N^2;N;ones(N)];
@@ -37,8 +37,8 @@ if abc(1)/norm(abc(2:3))>1d-3 then pause,end
 
 T=[];
 for n=N
-  clear t
-  timer();t(1:n,3)="foo";T=[T timer()];
+    clear t
+    timer();t(1:n,3)="foo";T=[T timer()];
 end
 //check for quasi linear evolution of T(n)
 abc=T/[N^2;N;ones(N)];
@@ -47,8 +47,8 @@ if abc(1)/norm(abc(2:3))>1d-3 then pause,end
 T=[];
 N=[ (5:9)*10000 (1:9)*100000];
 for n=N
-  clear t
-  timer();t(n)="foo";T=[T timer()];
+    clear t
+    timer();t(n)="foo";T=[T timer()];
 end
 //check for quasi linear evolution of T(n)
 abc=T/[N^2;N;ones(N)];
@@ -56,8 +56,8 @@ if abc(1)/norm(abc(2:3))>1d-3 then pause,end
 
 T=[];
 for n=N
-  clear t
-  timer();t(2,n)="foo";T=[T timer()];
+    clear t
+    timer();t(2,n)="foo";T=[T timer()];
 end
 //check for quasi linear evolution of T(n)
 abc=T/[N^2;N;ones(N)];
@@ -65,8 +65,8 @@ if abc(1)/norm(abc(2:3))>1d-3 then pause,end
 
 T=[];
 for n=N
-  clear t
-  timer();t(n,3)="foo";T=[T timer()];
+    clear t
+    timer();t(n,3)="foo";T=[T timer()];
 end
 //check for quasi linear evolution of T(n)
 abc=T/[N^2;N;ones(N)];

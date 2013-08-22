@@ -16,7 +16,7 @@
 // Plot of large data feezes Scilab
 
 // should not freeze Scilab
-t=1:100000;y=sin(t./10);plot(y) 
+t=1:100000;y=sin(t./10);plot(y)
 
 
 

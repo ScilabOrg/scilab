@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4266
 //
 // <-- Short Description -->
-// assigning a string to an element of a matrix of numbers gives an error. 
+// assigning a string to an element of a matrix of numbers gives an error.
 a=zeros(1,5);
-if execstr('a(1)=''a'';','errcatch')==0 then pause,end
+if execstr("a(1)=''a'';","errcatch")==0 then pause,end
 

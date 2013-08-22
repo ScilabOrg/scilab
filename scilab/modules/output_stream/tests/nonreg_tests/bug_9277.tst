@@ -18,4 +18,4 @@
 if msprintf("\tab") <> ascii(9) + "ab" then pause, end
 if msprintf("\\tab") <> "\tab" then pause, end
 if msprintf("\\\") <> "\" then pause, end
-if msprintf('|%s|','\tab') <> "|\tab|" then pause, end
+if msprintf("|%s|","\tab") <> "|\tab|" then pause, end

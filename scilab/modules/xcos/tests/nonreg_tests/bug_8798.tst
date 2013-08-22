@@ -17,10 +17,10 @@
 
 importXcosDiagram("SCI/modules/xcos/tests/nonreg_tests/batch_simulation.zcos")
 
-scicos_simulate(scs_m,list(),'nw');
+scicos_simulate(scs_m,list(),"nw");
 c1=counter;
-if size(counter.time,'*')<>15 then pause,end
+if size(counter.time,"*")<>15 then pause,end
 
 Context.Pulsation=6;
-scicos_simulate(scs_m,list(),Context,'nw');
-if size(counter.time,'*')<>29 then pause,end
+scicos_simulate(scs_m,list(),Context,"nw");
+if size(counter.time,"*")<>29 then pause,end

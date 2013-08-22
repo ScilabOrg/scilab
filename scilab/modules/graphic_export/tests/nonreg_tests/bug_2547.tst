@@ -17,7 +17,7 @@
 // <-- Short Description -->
 // export of very circle marks of very small size in postcript are not displayed
 
-plot(1:10,'.')
+plot(1:10,".")
 e=gce();e=e.children;
 e.mark_size_unit = "point"
 e.mark_style=0;e.mark_size=1;

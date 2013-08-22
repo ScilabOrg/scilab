@@ -13,32 +13,32 @@ if ierr<>0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
-r = getfilepartlevel('cd c:\Program Files\scilab-5.1');
-if r <>'c:\Program Files\scilab-5.1' then pause,end;
+r = getfilepartlevel("cd c:\Program Files\scilab-5.1");
+if r <>"c:\Program Files\scilab-5.1" then pause,end;
 
-r = getfilepartlevel('cd(""c:\Program Files\scilab-5.1');
-if r <>'c:\Program Files\scilab-5.1' then pause,end;
+r = getfilepartlevel("cd(""c:\Program Files\scilab-5.1");
+if r <>"c:\Program Files\scilab-5.1" then pause,end;
 
-r = getfilepartlevel('cd(''c:\Program Files\scilab-5.1');
-if r <>'c:\Program Files\scilab-5.1' then pause,end;
+r = getfilepartlevel("cd(''c:\Program Files\scilab-5.1");
+if r <>"c:\Program Files\scilab-5.1" then pause,end;
 
-r = getfilepartlevel('cd /home/scilabs/scilab-5.1');
-if r <>'/home/scilabs/scilab-5.1' then pause,end;
+r = getfilepartlevel("cd /home/scilabs/scilab-5.1");
+if r <>"/home/scilabs/scilab-5.1" then pause,end;
 
-r = getfilepartlevel('cd(""/home/scilabs/scilab-5.1');
-if r <>'/home/scilabs/scilab-5.1' then pause,end;
+r = getfilepartlevel("cd(""/home/scilabs/scilab-5.1");
+if r <>"/home/scilabs/scilab-5.1" then pause,end;
 
-r = getfilepartlevel('cd(''/home/scilabs/scilab-5.1');
-if r <>'/home/scilabs/scilab-5.1' then pause,end;
+r = getfilepartlevel("cd(''/home/scilabs/scilab-5.1");
+if r <>"/home/scilabs/scilab-5.1" then pause,end;
 
-r = getfilepartlevel('cd ../');
-if r <>'../' then pause,end;
+r = getfilepartlevel("cd ../");
+if r <>"../" then pause,end;
 
-r = getfilepartlevel('cd ~/');
-if r <>'~/' then pause,end;
+r = getfilepartlevel("cd ~/");
+if r <>"~/" then pause,end;
 
-r = getfilepartlevel('cd ~');
-if r <>'~' then pause,end;
+r = getfilepartlevel("cd ~");
+if r <>"~" then pause,end;
 
-r = getfilepartlevel('cd ');
-if r <>'' then pause,end;
+r = getfilepartlevel("cd ");
+if r <>"" then pause,end;

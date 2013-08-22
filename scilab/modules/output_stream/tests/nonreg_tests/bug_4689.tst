@@ -19,7 +19,7 @@
 fileout = pathconvert(TMPDIR+"/bug_diary.txt",%F);
 id = diary(fileout);
 disp("Hello world");
-diary(id, 'close');
+diary(id, "close");
 mgetl(fileout)
 
 

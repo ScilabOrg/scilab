@@ -13,9 +13,9 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3006
 //
 // <-- Short Description -->
-// submatrix assignment impossible when the matrix is indexed with a boolean array of falses  
+// submatrix assignment impossible when the matrix is indexed with a boolean array of falses
 
-a=['ssghg','rr';'qsdqs','4'];a_ref=a;
+a=["ssghg","rr";"qsdqs","4"];a_ref=a;
 
 a(1,[%f %f])=[];
 if or(a<>a_ref) then pause,end

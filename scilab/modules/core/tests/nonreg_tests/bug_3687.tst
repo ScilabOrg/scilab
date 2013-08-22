@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3687
 //
 // <-- Short Description -->
-// "format" doesn't check input value 
+// "format" doesn't check input value
 
 current_format = format();
 
@@ -22,19 +22,19 @@ format(2);
 b = format();
 if and(b <> [1 2]) then pause,end
 
-ierr = execstr('format(300000000000000000000000000)','errcatch');
+ierr = execstr("format(300000000000000000000000000)","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('format(-1)','errcatch');
+ierr = execstr("format(-1)","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('format(1)','errcatch');
+ierr = execstr("format(1)","errcatch");
 if ierr <> 999 then pause,end
 
-format('v',12)
+format("v",12)
 b = format();
 if and(b <> [1 12]) then pause,end
 
-format(13,'v')
+format(13,"v")
 b = format();
 if and(b <> [1 13]) then pause,end

@@ -17,7 +17,7 @@
 //
 // <-- Short Description -->
 // clear called inside an exec while in pause may have unexpected results
- 
+
 //copy an paste the following instructions in the Scilab Console.
 
 // pause level must be 0 (-->)

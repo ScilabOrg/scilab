@@ -9,7 +9,7 @@
 // <-- XCOS TEST -->
 // <-- TEST WITH GRAPHIC -->
 
-// test scope values 
+// test scope values
 
 
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/unit_tests/cscope.zcos"));

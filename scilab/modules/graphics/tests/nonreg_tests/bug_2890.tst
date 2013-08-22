@@ -18,7 +18,7 @@
 
 x=logspace(-2,2,100);
 plot(x,x);
-a=gca();a.log_flags='ll';
+a=gca();a.log_flags="ll";
 
 // check that there is ticks along X and Y axes
 if (a.x_ticks.labels == []) then pause;end;

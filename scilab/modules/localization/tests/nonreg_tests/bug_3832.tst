@@ -14,11 +14,11 @@
 // <-- Short Description -->
 // setdefaultlanguage does nothing when preceded by setlanguage
 
-if setlanguage('en_US') <> %t then pause,end
-if setdefaultlanguage('en_US') <> %t then pause,end
+if setlanguage("en_US") <> %t then pause,end
+if setdefaultlanguage("en_US") <> %t then pause,end
 
-if setlanguage('fr_FR') <> %t then pause,end
-if setdefaultlanguage('fr_FR') <> %t then pause,end
+if setlanguage("fr_FR") <> %t then pause,end
+if setdefaultlanguage("fr_FR") <> %t then pause,end
 
 // quit scilab and relaunch
 // please verify that scilab language is french

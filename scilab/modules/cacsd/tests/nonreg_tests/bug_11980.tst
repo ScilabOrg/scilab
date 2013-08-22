@@ -18,10 +18,10 @@
 //
 // <-- Short Description -->
 // Submatrix incorrectly defined.
-// at line     148 of function csim called by :  
+// at line     148 of function csim called by :
 // y=csim('step',t,numerador/denominador).
 
-s=poly(0,'s'); funcprot(0);
+s=poly(0,"s"); funcprot(0);
 kp=96.770532;
 ki=42.568724;
 kd=18.711118;

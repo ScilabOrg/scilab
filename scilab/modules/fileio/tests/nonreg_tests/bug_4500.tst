@@ -15,5 +15,5 @@
 // <-- Short Description -->
 // basename('') returns an not very clear error message. and not return ''
 
-files = basename('');
-if files <> '' then pause,end
+files = basename("");
+if files <> "" then pause,end

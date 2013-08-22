@@ -18,4 +18,3 @@
 // 1) Press "Change Current Directory" icon  in the tool bar and change current directory.
 // 2) "File">"Display current directory":Directory which is assigned in step 1) is displayed.
 // 3) "File">"Open" :File open dialog MUST SHOW current directory which is assigned in step 1).
- 

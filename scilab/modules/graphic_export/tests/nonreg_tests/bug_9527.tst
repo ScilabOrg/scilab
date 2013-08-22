@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // Problem when text was exported in SVG in using the gui
 
-xtitle('abcde');
+xtitle("abcde");
 
 // ctrl+E to export
 // choose svg file format

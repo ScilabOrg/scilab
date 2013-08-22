@@ -16,5 +16,5 @@
 // datatipToggle cannot be called without argument as stated in the help page
 
 plot(1:10)
-if execstr('datatipToggle()','errcatch')<>0 then pause,end
+if execstr("datatipToggle()","errcatch")<>0 then pause,end
 

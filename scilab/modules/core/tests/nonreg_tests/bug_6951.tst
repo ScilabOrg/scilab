@@ -18,7 +18,7 @@
 // <-- CLI SHELL MODE -->
 
 r = stacksize();
-stacksize('max');
+stacksize("max");
 m1 = stacksize();
 if r(1) >= m1(1) then pause, end
 

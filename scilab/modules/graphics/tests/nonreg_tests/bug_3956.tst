@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Changing legend font style is taken into account.
-// 
+//
 
 x = 0:0.1:2 * %pi;
 plot2d(x,sin(x),leg="sin(x)");

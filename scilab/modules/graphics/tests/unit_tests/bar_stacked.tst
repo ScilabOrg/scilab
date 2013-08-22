@@ -11,12 +11,12 @@
 
 // use to only long red bars
 x=[1 2 5]; y=[1 4 7;2 5 8;3 6  9];
-barh(x,y,'stacked');
+barh(x,y,"stacked");
 
 // this one too
 scf(1);
 x=[1 2 5]; y=[1 4 7;2 5 8;3 6  9];
-bar(x,y,'stacked');
+bar(x,y,"stacked");
 
 
 

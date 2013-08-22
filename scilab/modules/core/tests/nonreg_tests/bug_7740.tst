@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 7740 -->
 //
 // <-- JVM MANDATORY -->
-// 
+//
 // <-- INTERACTIVE TEST -->
 //
 // <-- Bugzilla URL -->
@@ -20,12 +20,12 @@
 // executes with script
 
 fun1 = ["function r = toto()";
-        "r = ""NOT OK"";";
-        "endfunction"];
+"r = ""NOT OK"";";
+"endfunction"];
 
 fun2 = ["function r = toto()";
-        "r = ""OK"";";
-        "endfunction"];
+"r = ""OK"";";
+"endfunction"];
 
 mkdir(TMPDIR,"fun1lib");
 mkdir(TMPDIR,"fun2lib");

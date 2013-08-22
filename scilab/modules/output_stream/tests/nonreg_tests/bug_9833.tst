@@ -35,9 +35,9 @@ copyfile(SCI + "/modules/output_stream/tests/nonreg_tests/" + BUG_NAME + ".c" , 
 chdir(TEST_DIR);
 
 files = BUG_NAME + ".c";
-ilib_build('lib' + BUG_NAME,["%" + BUG_NAME, "sci_" + BUG_NAME],files,[]);
+ilib_build("lib" + BUG_NAME,["%" + BUG_NAME, "sci_" + BUG_NAME],files,[]);
 
-// load the shared library 
+// load the shared library
 exec loader.sce;
 
 chdir(currentpath);
@@ -49,4 +49,4 @@ assert_checkerror ("%" + BUG_NAME, msgerr);
 ulink();
 
 //remove TMP_DIR
-rmdir(TEST_DIR,'s');
+rmdir(TEST_DIR,"s");

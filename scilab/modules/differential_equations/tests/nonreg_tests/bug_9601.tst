@@ -17,4 +17,4 @@
 cd SCI/modules/differential_equations/demos/flow
 exec cylinder.dem.sce
 // Put the slider "gravity" at the minimum and start the simulation
-// Check that there is no error message in the console 
+// Check that there is no error message in the console

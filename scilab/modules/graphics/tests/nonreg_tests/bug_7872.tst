@@ -18,5 +18,5 @@
 // Riemann Surface demo returned a error if window was closed by the cross button.
 
 // start demo : Graphics --> Animation --> Riemann Surface
-// click on cross button 
+// click on cross button
 // check that you have no error message

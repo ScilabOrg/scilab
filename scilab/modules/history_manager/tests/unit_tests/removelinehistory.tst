@@ -6,10 +6,10 @@
 // =============================================================================
 
 function [] = check_history(expected)
-  actual = gethistory();
-  // ignore first line of history which indicates the current session
-  actual(1,1) = []
-  assert_checkequal(actual, expected);
+    actual = gethistory();
+    // ignore first line of history which indicates the current session
+    actual(1,1) = []
+    assert_checkequal(actual, expected);
 endfunction
 
 // checking removing simple lines
@@ -22,15 +22,15 @@ addhistory("lineC");
 addhistory("lineD");
 
 removelinehistory(1);
-check_history(['lineB';'lineC';'lineD']);
+check_history(["lineB";"lineC";"lineD"]);
 
 removelinehistory(2);
 h = gethistory();
-check_history(['lineB';'lineD']);
+check_history(["lineB";"lineD"]);
 
 removelinehistory(2);
 h = gethistory();
-check_history(['lineB']);
+check_history(["lineB"]);
 
 removelinehistory(1);
 check_history([]);
@@ -40,12 +40,12 @@ check_history([]);
 resethistory()
 // warning: a session line will be added at the front of this history
 expected_history = ["// -- 26/02/2013 10:00:00 -- //";
-                    "lineA";
-                    "lineB";
-                    "// -- 26/02/2013 11:00:00 -- //";
-                    "lineC";
-                    "// -- 26/02/2013 12:00:00 -- //";
-                    "// -- 26/02/2013 13:00:00 -- //"];
+"lineA";
+"lineB";
+"// -- 26/02/2013 11:00:00 -- //";
+"lineC";
+"// -- 26/02/2013 12:00:00 -- //";
+"// -- 26/02/2013 13:00:00 -- //"];
 addhistory(expected_history);
 
 removelinehistory(1);

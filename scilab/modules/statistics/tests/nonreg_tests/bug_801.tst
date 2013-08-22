@@ -17,4 +17,4 @@ x=[4 5];
 y=[3 4 5 6];
 m=[ 2 3 4 5; 5 4 3 2];
 
-if execstr('covar(x,y,m)','errcatch') <> 0 then pause,end
+if execstr("covar(x,y,m)","errcatch") <> 0 then pause,end

@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=9246
 //
 // <-- Short Description -->
-//It is not possible to insert an integer in an integer array with a 
+//It is not possible to insert an integer in an integer array with a
 //different integer type
 
 a=int8(ones(2,2));

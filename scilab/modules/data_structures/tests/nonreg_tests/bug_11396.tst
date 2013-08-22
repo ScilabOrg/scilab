@@ -17,7 +17,7 @@
 
 
 function a=%s_i_toto(i,b,a),
-  if i<>[]&b<>[] then error("Invalid index");end;
+    if i<>[]&b<>[] then error("Invalid index");end;
 endfunction
 
 

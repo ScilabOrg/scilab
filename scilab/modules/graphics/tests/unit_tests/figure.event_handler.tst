@@ -40,7 +40,7 @@ assert_checkequal(my_figure.event_handler_enable, "on");
 
 // my_figure.event_handler = ""
 // Erasing event_handler make enable flag go 'off'
- my_figure.event_handler = "";
+my_figure.event_handler = "";
 assert_checkequal(my_figure.event_handler, "");
 assert_checkequal(my_figure.event_handler_enable, "off");
 

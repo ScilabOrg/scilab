@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // It is not possible to set a font_style greater than 10 even if one has added a new font using xlfont.
-// 
+//
 
 font_list = xlfont();
 

@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- TEST WITH GRAPHIC --> 
+// <-- TEST WITH GRAPHIC -->
 //
 // <-- Non-regression test for bug 12291 -->
 //

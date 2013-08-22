@@ -20,7 +20,7 @@ importXcosDiagram(SCI+"/modules/xcos/tests/nonreg_tests/bug_6527.zcos");
 
 Info = scicos_simulate(scs_m,list());
 
-names = who('local');
+names = who("local");
 nb_var = length(find(names=="A_AND"));
 
 if nb_var~=1 then pause; end

@@ -25,7 +25,7 @@ assert_checkequal(linspace([0;2],[2;5],2),[0,2;2,5]);
 assert_checkalmostequal(linspace([-1;2],[2;6],6), [-1,-0.4,0.2,0.8,1.4,2; 2,2.8,3.6,4.4,5.2,6]);
 
 // Perform a check on the size of the input arguments
-assert_checktrue(execstr('linspace(2,[2,2])','errcatch')<>0);
+assert_checktrue(execstr("linspace(2,[2,2])","errcatch")<>0);
 
 
 assert_checkequal(linspace(1,2,0),2);

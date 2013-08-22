@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // Certains keywords were not helpable.
 
-mputl('fft', TMPDIR + '/bug_9189.sce')
-scinotes(TMPDIR + '/bug_9189.sce');
+mputl("fft", TMPDIR + "/bug_9189.sce")
+scinotes(TMPDIR + "/bug_9189.sce");
 
 // Right click on fft and at Help on 'fft' should be available.

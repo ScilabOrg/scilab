@@ -20,4 +20,4 @@ tmpfile = TMPDIR + "/bug_8359.sce";
 mputl(["a"], tmpfile);
 scinotes(tmpfile);
 
-// Choose Save As action in menu File and check the console. 
+// Choose Save As action in menu File and check the console.

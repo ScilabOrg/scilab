@@ -10,20 +10,20 @@
 
 
 // Maple code used to create reference
-// Digits := 40; 
-// writeto("tand.ref"); interface(prettyprint = 0); 
-// for i from 0 to 360 do if ((i<>90) and (i<>270) ) then print(-180+i, evalf[30](tan(-Pi+i*Pi/180), 30)) end end do; 
+// Digits := 40;
+// writeto("tand.ref"); interface(prettyprint = 0);
+// for i from 0 to 360 do if ((i<>90) and (i<>270) ) then print(-180+i, evalf[30](tan(-Pi+i*Pi/180), 30)) end end do;
 // writeto(terminal);
 ieee(2);
 //used to make following code runnable under Matlab
 pi=%pi;
 eps=%eps;
 Inf=%inf;
-NaN=%nan; 
+NaN=%nan;
 
 //
 x = (-180:180)';
-// Remove 90 (index #91) and -90 (index #271), 
+// Remove 90 (index #91) and -90 (index #271),
 // where the value is %nan
 x([91 271]) = [];
 
@@ -392,11 +392,11 @@ c = tand(x);
 assert_checkalmostequal ( c , e , 40 * %eps , [] , "element" );
 
 // Turn a lot around the circle
-x1 = x + 2^6*360; 
+x1 = x + 2^6*360;
 c = tand(x1);
 assert_checkalmostequal ( c , e , 40 * %eps , [] , "element" );
 // Turn a lot around the circle, the other side
-x2 = x - 2^6*360; 
+x2 = x - 2^6*360;
 c = tand(x2);
 assert_checkalmostequal ( c , e , 40 * %eps , [] , "element" );
 

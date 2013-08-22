@@ -18,15 +18,15 @@
 //
 
 function bug_errcatch_one
-	errcatch(9999,"continue")
-	error(9999)
-	disp("TEST PASSED")
+    errcatch(9999,"continue")
+    error(9999)
+    disp("TEST PASSED")
 endfunction
 
 function bug_errcatch_two
-	errcatch(10000,"continue")
-	error(10000)
-	disp("TEST PASSED")
+    errcatch(10000,"continue")
+    error(10000)
+    disp("TEST PASSED")
 endfunction
 
 bug_errcatch_one()

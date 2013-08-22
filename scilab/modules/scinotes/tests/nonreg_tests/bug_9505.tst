@@ -16,8 +16,8 @@
 // <-- Short Description -->
 // A LaTeX string in a comment was not considered as a comment
 
-mputl('//abc$xyz$', TMPDIR + '/bug_9505.sce')
-scinotes(TMPDIR + '/bug_9505.sce');
+mputl("//abc$xyz$", TMPDIR + "/bug_9505.sce")
+scinotes(TMPDIR + "/bug_9505.sce");
 
 // Put the caret just after the second $ and <CTRL>+E
 // Nothing happen: normal, it is the expected behaviour.

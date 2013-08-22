@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=10439
 //
 // <-- Short Description -->
-// stacksize('max') crashed on Windows 64 bit 
+// stacksize('max') crashed on Windows 64 bit
 // This file must be tested with "JVM MANDATORY"
 
-stacksize('max');
+stacksize("max");

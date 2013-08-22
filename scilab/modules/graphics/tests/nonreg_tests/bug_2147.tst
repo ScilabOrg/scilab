@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // errbar function do not work in log mode.
-// 
+//
 
 t=[0:0.1:2*%pi]';
 y=[sin(t) cos(t)]; x=[t t];

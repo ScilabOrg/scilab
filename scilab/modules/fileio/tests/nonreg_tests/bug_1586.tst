@@ -38,10 +38,10 @@
 dirToSave = pwd();
 
 cd(TMPDIR);
-[status,msg]=mkdir('bug1586');
-[status,msg]=mkdir('bug1586');
+[status,msg]=mkdir("bug1586");
+[status,msg]=mkdir("bug1586");
 
-rmdir('bug1586');
+rmdir("bug1586");
 cd(dirToSave);
 
 if status <> 2 then pause,end

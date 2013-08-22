@@ -14,9 +14,9 @@
 //    Crash when using a name with size > nlgh (=24)
 //
 
-A = '';
+A = "";
 for i=1:128
-  A=A+'t';
-  exists(sprintf('%s',A));
+    A=A+"t";
+    exists(sprintf("%s",A));
 end
 

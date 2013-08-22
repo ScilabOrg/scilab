@@ -13,7 +13,7 @@
 // <-- Short Description -->
 //strsubst does not check if second argument is a valid pattern when there is 'r' as
 // fourth argument
-//======================================================================================== 
+//========================================================================================
 ierr = execstr("strsubst(''pattern -- pattern __ pattern '',''pattern'',''replace'',''r'');","errcatch");
 if ierr <> 999 then pause,end
 

@@ -10,6 +10,6 @@
 
 // <-- CLI SHELL MODE -->
 
-Mut_Indiv = mutation_ga_binary('11111111',[]);
+Mut_Indiv = mutation_ga_binary("11111111",[]);
 
 if length(Mut_Indiv)~=8 then pause,end

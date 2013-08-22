@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=7015
 //
 // <-- Short Description -->
-// The palette must be always visible when an empty diagram is created. When 
+// The palette must be always visible when an empty diagram is created. When
 // the diagram is loaded from a file, the palette may be hidden.
 
 // xcos(SCI + "/modules/xcos/tests/nonreg_tests/bug_6386.zcos");

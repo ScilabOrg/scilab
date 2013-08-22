@@ -5,10 +5,10 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x),r=norm(x,1),endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================     hess     ============================== 
+//==============================     hess     ==============================
 //==========================================================================
 
 //Empty matrix
@@ -16,10 +16,10 @@ if hess([])<>[] then pause,end
 [U,H]=hess([]);
 if U<>[]|H<>[] then pause,end
 
-if execstr('hess(rand(2,5))','errcatch')==0 then pause,end
-if execstr('[U,H]=hess(rand(2,5))','errcatch')==0 then pause,end
-if execstr('hess(rand(2,5)+%i)','errcatch')==0 then pause,end
-if execstr('[U,H]=hess(rand(2,5)+%i)','errcatch')==0 then pause,end
+if execstr("hess(rand(2,5))","errcatch")==0 then pause,end
+if execstr("[U,H]=hess(rand(2,5))","errcatch")==0 then pause,end
+if execstr("hess(rand(2,5)+%i)","errcatch")==0 then pause,end
+if execstr("[U,H]=hess(rand(2,5)+%i)","errcatch")==0 then pause,end
 
 //Small dimension
 //Real case

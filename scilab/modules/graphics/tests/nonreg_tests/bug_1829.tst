@@ -15,16 +15,16 @@
 // <-- Short Description -->
 // The clipping doesn't work with the strings of characters
 //
- 
+
 a = gca();
 a.data_bounds = [1,1;10,10];
 a.box = "on";
 for i = -1:11,
-  for j = -1:11,
-    xstringb(i,j,'Scilab',0,0);
-    e = gce();
-    e.clip_state = "clipgrf";
-  end
+    for j = -1:11,
+        xstringb(i,j,"Scilab",0,0);
+        e = gce();
+        e.clip_state = "clipgrf";
+    end
 end
 
 // check that strings outside the axes are clipped

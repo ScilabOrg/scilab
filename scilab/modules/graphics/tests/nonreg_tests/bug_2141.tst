@@ -25,6 +25,6 @@ Y=[0;0;0;1;1;1;1;0];
 g=color("red");
 xpolys(X,Y,g*ones(1,8));
 
-// the top segment of the axes box was red and the right one is black.   
+// the top segment of the axes box was red and the right one is black.
 
 

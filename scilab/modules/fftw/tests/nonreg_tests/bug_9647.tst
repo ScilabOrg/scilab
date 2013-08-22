@@ -16,7 +16,7 @@
 // On Scilab startup, the variable fft was declared by default while it should not.
 //
 
-assert_checkequal(isdef('fft'), %f);
+assert_checkequal(isdef("fft"), %f);
 if %fftw then
-  assert_checkequal(funptr('fft'), funptr('fftw'));
+    assert_checkequal(funptr("fft"), funptr("fftw"));
 end

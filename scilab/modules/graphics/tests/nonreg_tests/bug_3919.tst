@@ -27,5 +27,5 @@
 if win64() <> %t then pause,end
 if istssession() <> %t then pause,end
 
-// try to do a plot or plot3d 
+// try to do a plot or plot3d
 // if you have a display it works

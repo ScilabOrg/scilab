@@ -22,13 +22,13 @@
 lines(0);
 gcf();
 while %t
-  x = xgetmouse();
-  if x(3)==2
-    disp("Got right button pressed...")
-    break;
-  else 
-    disp(x);
-  end
+    x = xgetmouse();
+    if x(3)==2
+        disp("Got right button pressed...")
+        break;
+    else
+        disp(x);
+    end
 end
 
 // Now try to press right mouse button.

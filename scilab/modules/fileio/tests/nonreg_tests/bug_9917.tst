@@ -17,7 +17,7 @@
 //
 
 x = "保存";
-p = TMPDIR + '/foo';
+p = TMPDIR + "/foo";
 assert_checkequal(mputl(x, p), %T);
 
 cd(TMPDIR);

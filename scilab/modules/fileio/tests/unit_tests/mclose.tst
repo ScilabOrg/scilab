@@ -8,11 +8,11 @@
 
 // <-- CLI SHELL MODE -->
 
-fd = mopen(TMPDIR + filesep() + 'mclose_tst','wt');
-mclose(TMPDIR + filesep() + 'mclose_tst');
+fd = mopen(TMPDIR + filesep() + "mclose_tst","wt");
+mclose(TMPDIR + filesep() + "mclose_tst");
 
-ierr = execstr('mclose([''file1'',''file2''])','errcatch');
+ierr = execstr("mclose([''file1'',''file2''])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('mclose([1,2])','errcatch');
+ierr = execstr("mclose([1,2])","errcatch");
 if ierr <> 999 then pause,end

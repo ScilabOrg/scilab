@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // bar and barh override drawlater/drawnow mode.
-// 
+//
 
 x = 1:10;
 curFig = gcf();

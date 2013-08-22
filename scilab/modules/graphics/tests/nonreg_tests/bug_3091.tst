@@ -21,9 +21,9 @@ fig = scf();
 figSize1 = fig.figure_size;
 
 for i = 1:100,
-  fig = gcf();
-  figSize2 = fig.figure_size;
-  if (figSize2 <> figSize1) then pause;end
+    fig = gcf();
+    figSize2 = fig.figure_size;
+    if (figSize2 <> figSize1) then pause;end
 end
 
 delete(fig);
@@ -33,8 +33,8 @@ fig = scf();
 axesSize1 = fig.axes_size;
 
 for i = 1:100,
-  axesSize2 = fig.axes_size;
-  if (axesSize2 <> axesSize1) then pause;end
+    axesSize2 = fig.axes_size;
+    if (axesSize2 <> axesSize1) then pause;end
 end
 
 
@@ -45,8 +45,8 @@ fig = scf();
 figPos1 = fig.figure_position;
 
 for i = 1:100,
-  figPos2 = fig.figure_position;
-  if (figPos2 <> figPos1) then pause;end
+    figPos2 = fig.figure_position;
+    if (figPos2 <> figPos1) then pause;end
 end
 
 

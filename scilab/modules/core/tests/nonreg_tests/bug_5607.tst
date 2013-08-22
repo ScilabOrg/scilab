@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 // mtlb_mode did not work
-  
+
 mtlb_mode(%t);
 r = [] + int32(2);
 if r <> [] then pause,end

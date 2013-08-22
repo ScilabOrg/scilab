@@ -10,7 +10,7 @@ A = rand(10,10);
 B = sprand(100,100,0.1);
 C = "foo";
 D = "bar";
-savematfile(filename,'A','B','C','D','-v6');
+savematfile(filename,"A","B","C","D","-v6");
 clear();
 filename=TMPDIR+"/test_matfile.mat";
 fd = matfile_open(filename);

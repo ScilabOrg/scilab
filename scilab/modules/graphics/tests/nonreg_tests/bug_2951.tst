@@ -25,7 +25,7 @@ clf();graypolarplot(theta,rho,z)
 a = gca();
 a.view = "3d";
 for i=1:360,
-  a.rotation_angles(2) = a.rotation_angles(2) + 1;
+    a.rotation_angles(2) = a.rotation_angles(2) + 1;
 end
 
 

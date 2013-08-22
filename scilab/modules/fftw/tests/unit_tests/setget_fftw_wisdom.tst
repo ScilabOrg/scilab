@@ -10,13 +10,13 @@
 //=================================
 //return fftw wisdom
 try
-  txt=get_fftw_wisdom();
-  assert_checkequal(size(txt),[3 1]);
-  //=================================
-  //set fftw wisdom
-  set_fftw_wisdom(txt);
-  //=================================
-  //reset fftw wisdom
-  fftw_forget_wisdom()
-  //=================================
+    txt=get_fftw_wisdom();
+    assert_checkequal(size(txt),[3 1]);
+    //=================================
+    //set fftw wisdom
+    set_fftw_wisdom(txt);
+    //=================================
+    //reset fftw wisdom
+    fftw_forget_wisdom()
+    //=================================
 end

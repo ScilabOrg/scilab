@@ -20,4 +20,4 @@
 cd SCI/contrib/toolbox_skeleton
 exec builder.sce;
 exec loader.sce;
-if isdef('v') then pause,end
+if isdef("v") then pause,end

@@ -17,7 +17,7 @@ a   = 0;
 b   = 0;
 phi = 1.6180339887498949;
 
-a = floor(1000 * rand(7500, 1, 'u'));
+a = floor(1000 * rand(7500, 1, "u"));
 
 // <-- BENCH START -->
 b = (phi.^a - (-phi).^(-a)) / sqrt(5);

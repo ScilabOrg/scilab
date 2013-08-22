@@ -21,5 +21,5 @@ scilab -f "blabla     "
 exec("blabla     ")
 
 // error must have blanks
-//                    !--error 241 
+//                    !--error 241
 //File "blabla     " does not exist or read access denied.

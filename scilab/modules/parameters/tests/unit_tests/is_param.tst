@@ -12,7 +12,7 @@
 
 test_list = init_param();
 
-test_list = add_param(test_list,'test',%T);
+test_list = add_param(test_list,"test",%T);
 
-if ~is_param(test_list,'test') then pause,end
+if ~is_param(test_list,"test") then pause,end
 

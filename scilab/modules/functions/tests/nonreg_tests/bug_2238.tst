@@ -14,11 +14,11 @@
 //
 // <-- Short Description -->
 // function can returns a wrong error
-// 
+//
 
 function f2()
- xxxxxxF0xx = 32; 
- disp(xxxxxxF0xx);
-endfunction 
+    xxxxxxF0xx = 32;
+    disp(xxxxxxF0xx);
+endfunction
 
 f2();

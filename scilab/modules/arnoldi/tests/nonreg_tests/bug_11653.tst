@@ -28,12 +28,12 @@ A(4:$,1:$-3) = A(4:$,1:$-3) + diag(2*ones(n-3,1));
 A1 = sparse(A);
 
 opts.cholB = %t;
-d1 = eigs(A1, speye(n,n), k, 'LM', opts);
+d1 = eigs(A1, speye(n,n), k, "LM", opts);
 d0 = spec(A);
-assert_checkalmostequal(gsort(d1,'g','i'), [d0(1);d0($-4:$)], [], %eps);
+assert_checkalmostequal(gsort(d1,"g","i"), [d0(1);d0($-4:$)], [], %eps);
 
-d1 = eigs(A, eye(n,n), k, 'LM', opts);
-assert_checkalmostequal(gsort(real(d1),'g','i'), [d0(1);d0($-4:$)], [], %eps);
+d1 = eigs(A, eye(n,n), k, "LM", opts);
+assert_checkalmostequal(gsort(real(d1),"g","i"), [d0(1);d0($-4:$)], [], %eps);
 
 // REAL NON SYMMETRIC PROBLEM
 B            = diag(5*ones(n,1));
@@ -44,11 +44,11 @@ B(4:$,1:$-3) = B(4:$,1:$-3) + diag(2*ones(n-3,1));
 B1 = sparse(B);
 d0 = spec(B);
 
-d1 = eigs(B1, speye(n,n), k, 'LM', opts);
-assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),'g','i'), [], %eps);
+d1 = eigs(B1, speye(n,n), k, "LM", opts);
+assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),"g","i"), [], %eps);
 
-d1 = eigs(B, eye(n,n), k, 'LM', opts);
-assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),'g','i'), [], %eps);
+d1 = eigs(B, eye(n,n), k, "LM", opts);
+assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),"g","i"), [], %eps);
 
 
 // COMPLEX PROBLEM
@@ -60,11 +60,11 @@ C(4:$,1:$-3) = C(4:$,1:$-3) + diag(2*ones(n-3,1));
 C1 = sparse(C);
 d0= spec(C);
 
-d1 = eigs(C1, speye(n,n), k, 'LM', opts);
+d1 = eigs(C1, speye(n,n), k, "LM", opts);
 d = gsort(abs(d0));
 assert_checkalmostequal(gsort(abs(d1)), d(1:k), [], %eps);
 
-d1 = eigs(C, eye(n,n), k, 'LM', opts);
+d1 = eigs(C, eye(n,n), k, "LM", opts);
 assert_checkalmostequal(gsort(abs(d1)), d(1:k), [], %eps);
 
 
@@ -78,17 +78,17 @@ endfunction
 opts.isreal = %t;
 opts.issym = %t;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = spec(A);
-assert_checkalmostequal(gsort(d1,'g','i'), [d0(1);d0($-4:$)], [], %eps);
+assert_checkalmostequal(gsort(d1,"g","i"), [d0(1);d0($-4:$)], [], %eps);
 
 clear fn
 function y = fn(x)
     y = A * x;
 endfunction
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
-assert_checkalmostequal(gsort(real(d1),'g','i'), [d0(1);d0($-4:$)], [], %eps);
+d1 = eigs(fn, n, [], k, "LM", opts );
+assert_checkalmostequal(gsort(real(d1),"g","i"), [d0(1);d0($-4:$)], [], %eps);
 
 // REAL NON SYMMETRIC PROBLEM
 clear fn
@@ -99,9 +99,9 @@ endfunction
 opts.isreal = %t;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = spec(B);
-assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),'g','i'), [], %eps);
+assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),"g","i"), [], %eps);
 
 clear fn
 //B collides with B inside of feigs, so we rename it ( global variables are evil!)
@@ -110,8 +110,8 @@ function y = fn(x)
     y = globalB * x;
 endfunction
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
-assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),'g','i'), [], %eps);
+d1 = eigs(fn, n, [], k, "LM", opts );
+assert_checkalmostequal(abs(d1), gsort(abs(d0($-5:$)),"g","i"), [], %eps);
 
 // COMPLEX PROBLEM
 clear fn
@@ -122,7 +122,7 @@ endfunction
 opts.isreal = %f;
 opts.issym = %f;
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 d0 = spec(C);
 d = gsort(abs(d0));
 assert_checkalmostequal(gsort(abs(d1)), d(1:k), [], %eps);
@@ -132,5 +132,5 @@ function y = fn(x)
     y = C * x;
 endfunction
 
-d1 = eigs(fn, n, [], k, 'LM', opts );
+d1 = eigs(fn, n, [], k, "LM", opts );
 assert_checkalmostequal(gsort(abs(d1)), d(1:k), [], %eps);

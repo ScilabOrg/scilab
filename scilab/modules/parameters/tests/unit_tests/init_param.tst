@@ -12,4 +12,4 @@
 
 test_list = init_param();
 
-if typeof(test_list)~='plist' then pause,end
+if typeof(test_list)~="plist" then pause,end

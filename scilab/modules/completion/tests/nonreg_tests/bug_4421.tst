@@ -23,11 +23,11 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 cd TMPDIR;
-mkdir('scicoinor');
-mkdir('dir1');
-cd (TMPDIR+'/dir1');
-mkdir('dir2');
-cd (TMPDIR+'/dir1/dir2');
-currentline = 'cd ../../scicoi';
-r = completeline(currentline,'scicoinor',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'cd ../../scicoinor' then pause,end
+mkdir("scicoinor");
+mkdir("dir1");
+cd (TMPDIR+"/dir1");
+mkdir("dir2");
+cd (TMPDIR+"/dir1/dir2");
+currentline = "cd ../../scicoi";
+r = completeline(currentline,"scicoinor",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "cd ../../scicoinor" then pause,end

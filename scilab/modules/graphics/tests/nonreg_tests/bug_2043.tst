@@ -19,4 +19,4 @@ plot3d();
 f=gcf();
 a=gca();
 a1=copy(a);
-assert_checkequal(size(f.children, '*'),2);
+assert_checkequal(size(f.children, "*"),2);

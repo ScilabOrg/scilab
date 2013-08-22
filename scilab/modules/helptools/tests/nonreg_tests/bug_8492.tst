@@ -18,16 +18,16 @@
 
 tmpfile = TMPDIR + "/macroscreen.sci";
 mputl(["function mymacro()"
-       "// Performs stuff."
-       "//"
-       "// Description"
-       "// The following is a stuff:"
-       "//"
-       "//  <unknownTag>"
-       "//  foo"
-       "//  </unknownTag>"
-       "//"
-       "endfunction"], tmpfile);
+"// Performs stuff."
+"//"
+"// Description"
+"// The following is a stuff:"
+"//"
+"//  <unknownTag>"
+"//  foo"
+"//  </unknownTag>"
+"//"
+"endfunction"], tmpfile);
 cd(TMPDIR);
 [helptxt,demotxt]=help_from_sci("macroscreen");
 testdir = fullfile(TMPDIR,"screendir");

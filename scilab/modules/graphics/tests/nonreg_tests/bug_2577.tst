@@ -16,7 +16,7 @@
 // reference (for immediate display on the shell) to an invalid graphic handle
 // opens an empty graphic window, if there is none open,
 // besides giving the right error
-// 
+//
 
 xdel(winsid())
 h=scf(0);

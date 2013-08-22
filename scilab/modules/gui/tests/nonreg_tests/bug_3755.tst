@@ -23,5 +23,5 @@
 // try to print console
 
 // type
-toprint('Test print','scilab test');
+toprint("Test print","scilab test");
 

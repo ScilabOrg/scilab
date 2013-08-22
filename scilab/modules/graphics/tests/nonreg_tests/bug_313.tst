@@ -22,10 +22,10 @@ x=0:0.2:2*%pi;
 x1=[sin(x);100*sin(x)];
 y1=[cos(x);100*cos(x)];
 y1=y1+20*ones(y1);
-// No clip 
+// No clip
 plot2d([-100,500],[-100,600],[-1,-1],strf="022");
 xsegs(10*x1+200*ones(x1),10*y1+200*ones(y1));
-// rectangle clipping zone 
+// rectangle clipping zone
 clf(); plot2d([-100,500],[-100,600],[-1,-1],strf="022")
 xrect(clipBox(1), clipBox(2), clipBox(3), clipBox(4));
 axes = gca();

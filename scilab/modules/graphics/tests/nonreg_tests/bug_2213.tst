@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // legend misplaced in log plots
-// 
+//
 
 legPos = [0.1,0.2];
 

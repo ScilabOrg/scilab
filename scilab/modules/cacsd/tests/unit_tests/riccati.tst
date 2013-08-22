@@ -21,7 +21,7 @@ R = R*R'+eye();
 B = B*inv(R)*B';
 
 // Test de l'équation en temps continu
-X = riccati(A,B,C,'c','eigen');
+X = riccati(A,B,C,"c","eigen");
 
 // Vérification
 C_cont = A'*X+X*A-X*B*X;
@@ -33,7 +33,7 @@ G1     = B;
 G2     = R;
 G      = G1/G2*G1';
 H      = C;
-[X1,X2]= riccati(F,G,H,'d','schur');
+[X1,X2]= riccati(F,G,H,"d","schur");
 
 // Vérification
 X      = X1/X2;

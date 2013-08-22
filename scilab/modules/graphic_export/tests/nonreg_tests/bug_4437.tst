@@ -14,10 +14,10 @@
 //
 // <-- Short Description -->
 // Exporting an empty figure crashes Scilab
-// 
+//
 
 figure(0);
-xs2eps(0, TMPDIR + 'name');
+xs2eps(0, TMPDIR + "name");
 
 // should not crash
 

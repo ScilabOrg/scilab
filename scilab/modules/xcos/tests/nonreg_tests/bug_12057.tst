@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Scopes with big scope buffer size simulation was much more slower.
-// 
+//
 // This test check cscope and cmscope huge-buffer (more than 4k points)
 // optimization.
 

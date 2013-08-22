@@ -15,13 +15,13 @@
 // <-- Short Description -->
 // unix('') and dos('') returned a wrong messsage in console
 
-r = unix('');
+r = unix("");
 if r <> 1 then pause,end
 
-[a,b] = dos('');
+[a,b] = dos("");
 if b <> %f then pause,end
 if a <> [] then pause,end
 
-[a,b] = dos('', '-echo');
+[a,b] = dos("", "-echo");
 if b <> %f then pause,end
 if a <> [] then pause,end

@@ -14,14 +14,14 @@ ilib_verbose(0);
 
 cwd = pwd();
 cd TMPDIR;
-sourcecode=['      subroutine incrdoublef77(x,y)'
-    '      implicit none'
-    '      double precision x'
-    '      double precision y'
-    '      y=x+1'
-    '      end'];
-mputl(sourcecode,'incrdoublef77.f');
-libpath=ilib_for_link('incrdoublef77','incrdoublef77.f',[],'f',[]);
+sourcecode=["      subroutine incrdoublef77(x,y)"
+"      implicit none"
+"      double precision x"
+"      double precision y"
+"      y=x+1"
+"      end"];
+mputl(sourcecode,"incrdoublef77.f");
+libpath=ilib_for_link("incrdoublef77","incrdoublef77.f",[],"f",[]);
 exec loader.sce;
 n = 1;
 m = call("incrdoublef77",n,1,"d","out",[1,1],2,"d");

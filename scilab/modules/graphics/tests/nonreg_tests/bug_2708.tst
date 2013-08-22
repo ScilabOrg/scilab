@@ -16,8 +16,8 @@
 // It is no more possible to fill the user_data field of a graphic object with lists
 
 a=gca();
-set(a,'user_data',tlist(['gindex','node','edge'],[],[]));
-if or( a.user_data <> tlist(['gindex','node','edge'],[],[]) ) then pause, end
+set(a,"user_data",tlist(["gindex","node","edge"],[],[]));
+if or( a.user_data <> tlist(["gindex","node","edge"],[],[]) ) then pause, end
 
-set(a,'user_data',list());
+set(a,"user_data",list());
 if or( a.user_data <> list() ) then pause, end

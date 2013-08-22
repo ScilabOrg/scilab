@@ -18,8 +18,8 @@
 
 A = %inf;
 A
-format('e', 8);
+format("e", 8);
 A
-format('e', 16);
+format("e", 16);
 A
 

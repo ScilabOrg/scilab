@@ -8,9 +8,9 @@
 // <-- CLI SHELL MODE -->
 
 currentstksize = stacksize();
-stacksize('min');
+stacksize("min");
 minstksize = stacksize();
-stacksize('max');
+stacksize("max");
 maxstksize = stacksize();
 stacksize(ceil((maxstksize(1) + minstksize(1))/2));
 stacksize(currentstksize(1));

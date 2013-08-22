@@ -14,8 +14,8 @@
 // The cacsd module graphic function (bode, black, nyquist,...) do not preserve the immediate_drawing property value.
 
 fig=gcf();
-s=poly(0,'s');
-h=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01));
+s=poly(0,"s");
+h=syslin("c",(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01));
 
 
 clf();fig.immediate_drawing="off";

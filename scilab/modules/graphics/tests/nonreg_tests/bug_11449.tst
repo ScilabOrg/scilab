@@ -16,10 +16,10 @@
 // color('red') create a visible figure
 
 f=gdf();
-s = size(f.color_map, 'r');
+s = size(f.color_map, "r");
 newColor = color(240,240,240);
-assert_checkequal(size(f.color_map, 'r'), s + 1);
+assert_checkequal(size(f.color_map, "r"), s + 1);
 assert_checkequal(color(240,240,240), newColor);
 
-color('red');
+color("red");
 assert_checkequal(winsid(), []);

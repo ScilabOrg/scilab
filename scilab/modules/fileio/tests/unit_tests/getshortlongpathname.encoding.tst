@@ -21,11 +21,11 @@ tab_ref = [
 "프로그램",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-	dz = "dir_" + tab_ref(i);
-	p = cd(dz);
-	fz = "file_" + tab_ref(i);
-	fullfz = TMPDIR + filesep() + dz + filesep() + fz;
-	if getlongpathname(getshortpathname(fullfz)) <> fullfz then pause,end
-	cd(TMPDIR);
+for i = 1 : size(tab_ref,"*")
+    dz = "dir_" + tab_ref(i);
+    p = cd(dz);
+    fz = "file_" + tab_ref(i);
+    fullfz = TMPDIR + filesep() + dz + filesep() + fz;
+    if getlongpathname(getshortpathname(fullfz)) <> fullfz then pause,end
+    cd(TMPDIR);
 end

@@ -15,9 +15,9 @@
 // Open/Save dialog box did not display filenames without extension with filter "*.*"
 //
 cd(TMPDIR);
-mputl('blahblah',TMPDIR + '/test_bug_7285_1.sci');
-mputl('blahblah',TMPDIR + '/test_bug_7285_2.sce');
-mputl('blahblah',TMPDIR + '/test_bug_7285_3');
+mputl("blahblah",TMPDIR + "/test_bug_7285_1.sci");
+mputl("blahblah",TMPDIR + "/test_bug_7285_2.sce");
+mputl("blahblah",TMPDIR + "/test_bug_7285_3");
 
 // please check that you see all files with selected extension "*.*"
 

@@ -17,7 +17,7 @@
 
 // should not produve any warning
 f=gdf();
-f.color_map($+1,:)=[0.8 0.8 0.8];  
+f.color_map($+1,:)=[0.8 0.8 0.8];
 
 
 

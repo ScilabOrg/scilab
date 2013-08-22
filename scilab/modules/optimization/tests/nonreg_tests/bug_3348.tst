@@ -18,16 +18,16 @@
 
 
 a=[1,2,4;
-   7,8,3];
+7,8,3];
 b=[10;11];
 function y=f1(x,m),y=a*x+b;endfunction
-assert_checkfalse(execstr('[xsol,v]=lsqrsolve([100;100;100],f1,2)','errcatch') == 0);
+assert_checkfalse(execstr("[xsol,v]=lsqrsolve([100;100;100],f1,2)","errcatch") == 0);
 
 a=[1,7;
-   2,8
-   4,3];
+2,8
+4,3];
 b=[10;11;-1];
 function y=f1(x,m),y=a*x+b;endfunction
 
-assert_checkfalse(execstr('[xsol,v]=lsqrsolve([100;100],f1,3,[-1.d-8,1.d-8,1.d-5,1000,0,100])','errcatch') == 0);
-assert_checkfalse(execstr('[xsol,v]=lsqrsolve([100;100],f1,3,[1.d-8,1.d-8,1.d-5,1000,0,100],[0 1])','errcatch') == 0);
+assert_checkfalse(execstr("[xsol,v]=lsqrsolve([100;100],f1,3,[-1.d-8,1.d-8,1.d-5,1000,0,100])","errcatch") == 0);
+assert_checkfalse(execstr("[xsol,v]=lsqrsolve([100;100],f1,3,[1.d-8,1.d-8,1.d-5,1000,0,100],[0 1])","errcatch") == 0);

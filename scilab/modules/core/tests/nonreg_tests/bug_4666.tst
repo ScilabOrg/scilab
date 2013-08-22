@@ -20,5 +20,5 @@ my_dir = pathconvert(SCIHOME+"/bug_4666");
 if mkdir(my_dir) <> 1 then pause, end
 
 if isdir(my_dir) then
-	rmdir(my_dir);
+    rmdir(my_dir);
 end

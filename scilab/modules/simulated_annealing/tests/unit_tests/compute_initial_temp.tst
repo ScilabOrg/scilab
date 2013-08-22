@@ -10,7 +10,7 @@
 
 // <-- JVM_NOT_MANDATORY -->
 
-deff('y=test_func(x)','y=x^2');
+deff("y=test_func(x)","y=x^2");
 
 x0 = 10;
 

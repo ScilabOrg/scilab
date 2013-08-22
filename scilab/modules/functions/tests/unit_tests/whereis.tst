@@ -8,4 +8,4 @@
 //whereis
 
 if whereis("sci2exp") <> "stringlib" then pause,end
-if whereis('aaa')     <> []  then pause,end
+if whereis("aaa")     <> []  then pause,end

@@ -26,4 +26,4 @@ if ierr <> %t then pause; end
 
 // launch the simulation
 scicos_simulate(scs_m);
-assert_checkalmostequal(A_ref('values'), A('values'));
+assert_checkalmostequal(A_ref("values"), A("values"));

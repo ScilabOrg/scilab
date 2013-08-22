@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1529
 //
 // <-- Short Description -->
-//    The product 0.0 * %inf provides the incorrect value 0.0, 
+//    The product 0.0 * %inf provides the incorrect value 0.0,
 //    but the product %inf * 0.0 provides the correct value %nan.
 
 if ~isnan(0.0*%inf) then pause,end

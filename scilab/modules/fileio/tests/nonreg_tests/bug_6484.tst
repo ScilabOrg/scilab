@@ -13,12 +13,12 @@
 // <-- Short Description -->
 // 'file' did not return filename of an opened fortran file
 
-u = file('open',TMPDIR+'/foo.txt','unknown');
+u = file("open",TMPDIR+"/foo.txt","unknown");
 [a,b,c,d,e] = file(u);
 if a <> u then pause,end
-if b <> 'F' then pause,end
-if c == '' then pause,end
-if c <> pathconvert(TMPDIR + '/foo.txt',%f,%t) then pause,end
+if b <> "F" then pause,end
+if c == "" then pause,end
+if c <> pathconvert(TMPDIR + "/foo.txt",%f,%t) then pause,end
 if d <> 3 then pause,end
 if e <> 0 then pause,end
-file('close', u);
+file("close", u);

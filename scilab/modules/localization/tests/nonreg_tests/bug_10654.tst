@@ -13,6 +13,6 @@
 // <-- Short Description -->
 // dgettext with "scilab" domain did not return same result than gettext
 
-A = dgettext('scilab', '%s: No more memory.\n');
+A = dgettext("scilab", "%s: No more memory.\n");
 B = gettext("%s: No more memory.\n");
 assert_checkequal(A, B);

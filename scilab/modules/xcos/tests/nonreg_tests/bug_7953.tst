@@ -16,7 +16,7 @@
 // No error message were printed when the diagram is invalid.
 
 try
-	xcos(mlist("diagram", "plop"));
+    xcos(mlist("diagram", "plop"));
 catch, end
 [str, n] = lasterror();
 if n <> 999 then pause, end

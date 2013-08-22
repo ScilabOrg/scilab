@@ -12,7 +12,7 @@
 
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 // With base simplex and no function
@@ -58,8 +58,8 @@ s2 = optimsimplex_destroy(s2);
 myobj = tlist(["T_MYSTUFF","nb"]);
 myobj.nb = 0;
 function [ y , myobj ] = mycostf ( x , myobj )
-  y = rosenbrock(x);
-  myobj.nb = myobj.nb + 1
+    y = rosenbrock(x);
+    myobj.nb = myobj.nb + 1
 endfunction
 simplex = [...
 24.2 -1.2 1.0

@@ -15,6 +15,6 @@
 // <-- Short Description -->
 // calling the 'lib' function with the wrong path makes scilab hangs on Mandriva 64
 // =============================================================================
-ierr = execstr('lib(''test'');','errcatch');
+ierr = execstr("lib(''test'');","errcatch");
 if ierr <> 241 then pause,end
 // =============================================================================

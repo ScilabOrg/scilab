@@ -24,7 +24,7 @@ CSV = ["1,0,0,0,0"; ..
 "4,63,1,2,233"; ..
 "42,3,23,2,233"; ..
 ];
-filename = fullfile(TMPDIR, 'foo.csv');
+filename = fullfile(TMPDIR, "foo.csv");
 mputl(CSV, filename);
 instr = "r = csvRead(filename, "" "", [], ""string"", [], [], [5 3 7 6]);";
 refMsg = msprintf(gettext("%s: Range row or/and column left indice(s) out of bounds.\n"), "csvRead");

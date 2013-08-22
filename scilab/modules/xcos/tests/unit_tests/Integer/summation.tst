@@ -13,7 +13,7 @@ assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/Integer/su
 
 A_ref = int16([-4 -4 ; -5 -6]);
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 for i = 1:128
     assert_checkequal(A.values(:,:,i), A_ref);

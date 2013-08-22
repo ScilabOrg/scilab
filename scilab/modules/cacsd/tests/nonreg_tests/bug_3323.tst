@@ -12,8 +12,8 @@
 //
 // <-- Short Description -->
 //   In ss2tf.sci, it is claimed that one may enter the second argument, rmax, as "b".
-z=poly(0,'z');
+z=poly(0,"z");
 h=[1,1/z;1/(z^2+1),z/(z^2-2)];
-if norm(coeff(numer(clean(ss2tf(tf2ss(h),'b'))-h)),1) >100*%eps then pause,end
+if norm(coeff(numer(clean(ss2tf(tf2ss(h),"b"))-h)),1) >100*%eps then pause,end
 
- 
+

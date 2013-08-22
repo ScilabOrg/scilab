@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 // There is a performance problem with the console.
-// The more there is text in the console, the slower is the 
+// The more there is text in the console, the slower is the
 // display, with exponential times.
 
 times = []
@@ -23,14 +23,14 @@ rmax = 12
 IMAX = 50;
 JMAX = IMAX;
 for run = 1:rmax
-  tic;
-  for i = 1:IMAX
-    for j = 1:JMAX
-      mprintf("I=%d, J=%d\n",i,j);
+    tic;
+    for i = 1:IMAX
+        for j = 1:JMAX
+            mprintf("I=%d, J=%d\n",i,j);
+        end
     end
-  end
-  t = toc();
-  times = [times t];
+    t = toc();
+    times = [times t];
 end
 times
 

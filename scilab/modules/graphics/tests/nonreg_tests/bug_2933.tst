@@ -24,5 +24,5 @@ subplot(224);
 plot2d();
 xfrect(1,0,3,1);
 a=get("current_axes");
- 
+
 

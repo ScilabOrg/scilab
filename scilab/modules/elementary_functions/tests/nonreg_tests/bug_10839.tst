@@ -16,4 +16,4 @@
 // dec2hex function was limited to 32 bits
 
 
-assert_checkequal(dec2hex(2^32+1), '100000001');
+assert_checkequal(dec2hex(2^32+1), "100000001");

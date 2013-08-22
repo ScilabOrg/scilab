@@ -13,9 +13,9 @@ y=[1; 1] * sin(x) + [sin(2*x); sin(1.9*x)];
 //Compute correlations
 c=[];
 for j=1:2
-   for k=1:2
-     c=[c;corr(y(k,:),y(j,:),64)];
-   end
+    for k=1:2
+        c=[c;corr(y(k,:),y(j,:),64)];
+    end
 end
 c=matrix(c,2,128);
 

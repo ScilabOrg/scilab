@@ -15,6 +15,6 @@
 //
 // <-- Short Description -->
 // Scilab crashes on Scicos startup.
-// 
+//
 
 xcos();

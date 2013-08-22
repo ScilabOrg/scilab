@@ -11,7 +11,7 @@ A = rand(10,10);
 B = sprand(100,100,0.1);
 C = "foo";
 D = "bar";
-savematfile(filename,'A','B','C','D','-v6');
+savematfile(filename,"A","B","C","D","-v6");
 fd = matfile_open(filename);
 
 [Name, Value, Type] = matfile_varreadnext(fd);

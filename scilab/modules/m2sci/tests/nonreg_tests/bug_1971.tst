@@ -47,6 +47,6 @@ SCIFILECONTENTSREF=["";
 
 if or(SCIFILECONTENTSREF<>SCIFILECONTENTS) then pause,end
 
-instr = 'mtlb_fprintf(""qsdfsdcvwqghcv"")';
-ierr  = execstr(instr,'errcatch');
+instr = "mtlb_fprintf(""qsdfsdcvwqghcv"")";
+ierr  = execstr(instr,"errcatch");
 if ierr<>0  then pause,end

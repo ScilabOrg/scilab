@@ -13,17 +13,17 @@
 // <-- Short Description -->
 //  kpure fails to compute  gains when applied to an high degree system
 
-num=real(poly([-1+%i*1, -1-%i*1, 2+%i*8  2-%i*8 -2.5+%i*13 -2.5-%i*13],'s'));
-den=real(poly([1 1 3+%i*3 3-%i*3 -15+%i*7  -15-%i*7  -3 -7 -11],'s'));
+num=real(poly([-1+%i*1, -1-%i*1, 2+%i*8  2-%i*8 -2.5+%i*13 -2.5-%i*13],"s"));
+den=real(poly([1 1 3+%i*3 3-%i*3 -15+%i*7  -15-%i*7  -3 -7 -11],"s"));
 h=num/den;
 
 [K,Y]=kpure(h);
-n=size(K,'*');
+n=size(K,"*");
 if n<>4 then pause,end
 for i=1:n
-  r=roots(denom(h/.K(i)));
-  r=r(abs(real(r))<1e-6);//pure imaginary
-  r=r(imag(r)>0); //retains only positive imaginary part
-  if r==[] then pause,end
-  if abs(r-Y(i))>1e-10 then pause,end
+    r=roots(denom(h/.K(i)));
+    r=r(abs(real(r))<1e-6);//pure imaginary
+    r=r(imag(r)>0); //retains only positive imaginary part
+    if r==[] then pause,end
+    if abs(r-Y(i))>1e-10 then pause,end
 end

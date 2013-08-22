@@ -17,6 +17,6 @@
 
 
 a=[%f,%f,%f;%f,%f,%t];
-if sci2exp(a)<>'[%f,%f,%f;%f,%f,%t]' then pause,end
-if sci2exp(a,0)<>'[%f,%f,%f;%f,%f,%t]' then pause,end
+if sci2exp(a)<>"[%f,%f,%f;%f,%f,%t]" then pause,end
+if sci2exp(a,0)<>"[%f,%f,%f;%f,%f,%t]" then pause,end
 

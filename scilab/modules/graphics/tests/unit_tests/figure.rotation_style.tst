@@ -18,7 +18,7 @@ assert_checkequal(my_figure.rotation_style, "unary");
 my_figure.rotation_style = "multiple";
 assert_checkequal(my_figure.rotation_style, "multiple");
 
-execstr("my_figure.rotation_style = ''badvalue''",'errcatch','n');
+execstr("my_figure.rotation_style = ''badvalue''","errcatch","n");
 assert_checkequal(my_figure.rotation_style, "multiple");
 
 my_figure.rotation_style = "unary";

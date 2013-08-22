@@ -18,4 +18,4 @@
 H=rand(10,10);
 evH = spec(H);
 //[OUT1,OUT2] = gsort([],'g'); no crash
-F='g';[OUT1,OUT2] = gsort([],F); //crash here
+F="g";[OUT1,OUT2] = gsort([],F); //crash here

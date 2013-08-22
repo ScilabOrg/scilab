@@ -15,6 +15,6 @@
 // <-- Short Description -->
 // whereis(bin2dec) returned a error
 // =============================================================================
-ierr = execstr('a = whereis(bin2dec);','errcatch');
+ierr = execstr("a = whereis(bin2dec);","errcatch");
 if ierr <> 0 then pause,end
 // =============================================================================

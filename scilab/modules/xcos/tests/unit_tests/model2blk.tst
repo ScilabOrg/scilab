@@ -11,7 +11,7 @@
 loadScicos(); loadXcosLibs();
 
 
-blk = PROD_f('define');
+blk = PROD_f("define");
 model = blk.model;
 
 function model = config_size(model, sz)

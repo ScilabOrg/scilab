@@ -26,8 +26,8 @@ Z=[Y;X];
 
 //The criterion function
 function e=G(p,z)
-   y=z(1),x=z(2);
-   e=y-FF(x,p);
+    y=z(1),x=z(2);
+    e=y-FF(x,p);
 endfunction
 
 //Solve the problem

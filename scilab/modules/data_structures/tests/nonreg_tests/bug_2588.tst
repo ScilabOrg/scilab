@@ -17,19 +17,19 @@
 
 M=[];
 function y=foo(a)
-  if argn(2)==0 then
-    y=%s
-  else
-    y=a
-  end
+    if argn(2)==0 then
+        y=%s
+    else
+        y=a
+    end
 endfunction
 M.fun=foo;
 if M.fun()+1<>%s+1 then pause,end
 if M.fun(33)+1<>34 then pause,end
 clear foo;
 function [x,y]=foo(a,b)
-  x=a*b
-  y=a-b
+    x=a*b
+    y=a-b
 endfunction
 M.fun=foo;
 [u,v]=M.fun(2,3);

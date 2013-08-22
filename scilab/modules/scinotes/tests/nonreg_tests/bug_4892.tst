@@ -14,14 +14,14 @@
 //
 // <-- Short Description -->
 // scilab editor under MacOSX :
-// 
+//
 // Shortcuts are not managed at all. They should use the Command key ("Apple key").
-// 
+//
 // For example :
-// 
+//
 // Command-C  Copy selected item/text
 // Command-N  New file
-// 
+//
 // etc.
 
 

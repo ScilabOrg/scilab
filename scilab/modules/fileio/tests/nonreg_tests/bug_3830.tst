@@ -17,8 +17,8 @@
 
 ref = [194,176];
 fd = mopen(TMPDIR + "/toto","wb");
-mput(ref, 'uc', fd);
+mput(ref, "uc", fd);
 mclose(fd);
 fd = mopen(TMPDIR + "/toto", "rb");
-res = mget(2,'uc',fd);
+res = mget(2,"uc",fd);
 if or(ref<>res) then pause,end

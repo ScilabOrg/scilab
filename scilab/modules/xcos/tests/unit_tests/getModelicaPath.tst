@@ -15,16 +15,16 @@ clear("%MODELICA_USER_LIBS");
 assert_checkequal(exists("%MODELICA_USER_LIBS"), 0);
 
 result = modelica_path;
-result = strsubst(result, '\', '/');
+result = strsubst(result, "\", "/");
 expectedResult = "SCI/modules/scicos_blocks/macros/" + ["Electrical","Hydraulics"];
-expectedResult = strsubst(expectedResult, '\', '/');
+expectedResult = strsubst(expectedResult, "\", "/");
 assert_checkequal(expectedResult, result);
 
 
 result = modelica_directory;
-result = strsubst(result, '\', '/');
+result = strsubst(result, "\", "/");
 expectedResult = pathconvert(TMPDIR+"/modelica/",%T,%T);
-expectedResult = strsubst(expectedResult, '\', '/');
+expectedResult = strsubst(expectedResult, "\", "/");
 assert_checkequal(expectedResult, result);
 
 // check a call with %MODELICA_USER_LIBS
@@ -34,15 +34,15 @@ assert_checkequal(expectedResult, result);
 assert_checkequal(%MODELICA_USER_LIBS, TMPDIR);
 
 result = modelica_path;
-result = strsubst(result, '\', '/');
+result = strsubst(result, "\", "/");
 expectedResult = ["SCI/modules/scicos_blocks/macros/" + ["Electrical","Hydraulics"]];
-expectedResult = strsubst(expectedResult, '\', '/');
+expectedResult = strsubst(expectedResult, "\", "/");
 assert_checkequal(expectedResult, result);
 
 result = modelica_directory;
-result = strsubst(result, '\', '/');
+result = strsubst(result, "\", "/");
 expectedResult = pathconvert(TMPDIR+"/modelica/",%T,%T);
-expectedResult = strsubst(expectedResult, '\', '/');
+expectedResult = strsubst(expectedResult, "\", "/");
 assert_checkequal(expectedResult, result);
 
 // check a call with duplicate path in %MODELICA_USER_LIBS
@@ -52,14 +52,14 @@ assert_checkequal(expectedResult, result);
 assert_checkequal(%MODELICA_USER_LIBS, [TMPDIR, TMPDIR]);
 
 result = modelica_path;
-result = strsubst(result, '\', '/');
+result = strsubst(result, "\", "/");
 expectedResult = ["SCI/modules/scicos_blocks/macros/" + ["Electrical","Hydraulics"]];
-expectedResult = strsubst(expectedResult, '\', '/');
+expectedResult = strsubst(expectedResult, "\", "/");
 assert_checkequal(expectedResult, result);
 
 result = modelica_directory;
-result = strsubst(result, '\', '/');
+result = strsubst(result, "\", "/");
 expectedResult = pathconvert(TMPDIR+"/modelica/",%T,%T);
-expectedResult = strsubst(expectedResult, '\', '/');
+expectedResult = strsubst(expectedResult, "\", "/");
 assert_checkequal(expectedResult, result);
 

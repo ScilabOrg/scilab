@@ -19,10 +19,10 @@
 //    which does not work.  Any suggestions?
 
 function varargout = mysum(a, b)
-	varargout = list(a + b, a - b, a * b);
+    varargout = list(a + b, a - b, a * b);
 endfunction
 
-if execstr('function [y, varargout] = MyNew(a,b) ..
-   [y, varargout] = mysum(a,b) ..
-   endfunction' ..
-,'errcatch' ) <> 37 then pause,end
+if execstr("function [y, varargout] = MyNew(a,b) ..
+        [y, varargout] = mysum(a,b) ..
+    endfunction" ..
+,"errcatch" ) <> 37 then pause,end

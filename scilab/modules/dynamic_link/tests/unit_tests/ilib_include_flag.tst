@@ -7,14 +7,14 @@
 // =============================================================================
 
 // Check failure case
-if ( execstr('ilib_include_flag(3)','errcatch') == 0 ) then pause, end
+if ( execstr("ilib_include_flag(3)","errcatch") == 0 ) then pause, end
 
 // not a dir, should fail
 
-if ( execstr('ilib_include_flag(/usr/include/stdlib.h)','errcatch')  == 0 ) then pause, end
+if ( execstr("ilib_include_flag(/usr/include/stdlib.h)","errcatch")  == 0 ) then pause, end
 
- // should not exist, should fail
-if ( execstr('ilib_include_flag(/usr/my_exotic_dir/);','errcatch')  == 0 ) then pause, end
+// should not exist, should fail
+if ( execstr("ilib_include_flag(/usr/my_exotic_dir/);","errcatch")  == 0 ) then pause, end
 
 cd TMPDIR;
 mkdir("myincludespath");

@@ -30,13 +30,13 @@ exit
 
 
 // on windows,
-setdefaultlanguage('en')
+setdefaultlanguage("en")
 1+1
 2
 exit
 
 // restart scilab in STD mode
-setdefaultlanguage('fr')
+setdefaultlanguage("fr")
 1+1
 2
 exit

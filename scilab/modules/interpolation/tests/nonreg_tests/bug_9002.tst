@@ -14,7 +14,7 @@
 // linear_interpn, splin2d/interp2d, ... functions ignored imaginary part of input arguments
 
 
-// test with bsplin3val  
+// test with bsplin3val
 //
 deff("v=f(x,y,z)","v=cos(x).*sin(y).*cos(z)");
 deff("v=fx(x,y,z)","v=-sin(x).*sin(y).*cos(z)");
@@ -28,9 +28,9 @@ z = x;
 [X,Y,Z] = ndgrid(x,y,z);
 V = f(X,Y,Z);
 tl = splin3d(x,y,z,V,[5 5 5]);
-xp = grand(1,1,"unf",0,2*%pi); 
-yp = grand(1,1,"unf",0,2*%pi); 
-zp = grand(1,1,"unf",0,2*%pi); 
+xp = grand(1,1,"unf",0,2*%pi);
+yp = grand(1,1,"unf",0,2*%pi);
+zp = grand(1,1,"unf",0,2*%pi);
 
 f_i = bsplin3val(xp, yp, zp, tl, [0 0 0]);
 

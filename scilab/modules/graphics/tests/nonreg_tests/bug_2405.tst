@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // xsetech() creates an empty (covering white) axes frame, which shouldn't be, when
 // used in conjunction with subplot().
-// 
+//
 
 clf()
 subplot(121); plot2d();

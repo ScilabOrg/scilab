@@ -14,8 +14,8 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3660
 //
 // <-- Short Description -->
-// Graphic export : font_angle was lost on the axis label when exporting through xs2pdf 
-// 
+// Graphic export : font_angle was lost on the axis label when exporting through xs2pdf
+//
 plot3d();
 xtitle("My title","my x axis label", "Volume","the Z axis");
 a=gca();

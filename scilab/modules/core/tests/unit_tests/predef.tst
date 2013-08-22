@@ -12,17 +12,17 @@ N = predef();
 a = 1;
 predef("all");
 
-ierr = execstr('clear a','errcatch');
+ierr = execstr("clear a","errcatch");
 if ierr <> 13 then pause,end
 
-ierr = execstr('predef(''clear'')','errcatch');
+ierr = execstr("predef(''clear'')","errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('clear','errcatch');
+ierr = execstr("clear","errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('predef(N)','errcatch');
+ierr = execstr("predef(N)","errcatch");
 if ierr <> 0 then pause,end
-	
+
 if predef() <> N then pause,end
-  
+

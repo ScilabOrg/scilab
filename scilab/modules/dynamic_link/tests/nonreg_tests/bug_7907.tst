@@ -14,15 +14,15 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=7907
 // <-- Short Description -->
 // ilib_build, ilib_for_link, ... did not check 'files' input argument.
-// 
+//
 //
 
 if getos() <> "Windows" then
-  fnameref = "ilib_gen_Make_unix";
-  idargref = 2;
+    fnameref = "ilib_gen_Make_unix";
+    idargref = 2;
 else
-  fnameref = "ilib_gen_Make";
-  idargref = 3;
+    fnameref = "ilib_gen_Make";
+    idargref = 3;
 end
 
 ilib_verbose(0);

@@ -10,6 +10,6 @@
 
 // <-- CLI SHELL MODE -->
 
-y = convert_to_float('11111111', 8, 2, -2);
+y = convert_to_float("11111111", 8, 2, -2);
 
 if y~=2 then pause,end

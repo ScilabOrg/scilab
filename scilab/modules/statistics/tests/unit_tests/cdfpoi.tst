@@ -14,7 +14,7 @@
 //
 // Assessing the quality of the Normal distribution function
 // References
-//   Yalta, A. T. 2008. The accuracy of statistical distributions in Microsoft®Excel 2007. Comput. Stat. Data Anal. 52, 10 (Jun. 2008), 4579-4586. DOI= http://dx.doi.org/10.1016/j.csda.2008.03.005 
+//   Yalta, A. T. 2008. The accuracy of statistical distributions in Microsoft®Excel 2007. Comput. Stat. Data Anal. 52, 10 (Jun. 2008), 4579-4586. DOI= http://dx.doi.org/10.1016/j.csda.2008.03.005
 //   Computation of Statistical Distributions (ELV), Leo Knüsel
 // Table 4
 // Check Poisson distribution with parameters (lambda, k, Sigma)
@@ -24,20 +24,20 @@
 //
 
 table = [
-  1e+03 , 1e+03 , 0.508409 , 1.e-5
-  1e+05 , 1e+05 , 0.500841 , 1.e-5
-  1e+07 , 1e+07 , 0.500084 , 1.e-5
-  1e+09 , 1e+09 , 0.500008 , 1.e-5
+1e+03 , 1e+03 , 0.508409 , 1.e-5
+1e+05 , 1e+05 , 0.500841 , 1.e-5
+1e+07 , 1e+07 , 0.500084 , 1.e-5
+1e+09 , 1e+09 , 0.500008 , 1.e-5
 ];
 
 nt = size(table,"r");
 for k = 1 : nt
-  Xk = table(k,1);
-  lambda = table(k,2);
-  expected = table(k,3);
-  precision = table(k,4);
-  [computed,Q]=cdfpoi("PQ",Xk,lambda);
-  assert_checkalmostequal ( computed , expected , precision );
+    Xk = table(k,1);
+    lambda = table(k,2);
+    expected = table(k,3);
+    precision = table(k,4);
+    [computed,Q]=cdfpoi("PQ",Xk,lambda);
+    assert_checkalmostequal ( computed , expected , precision );
 end
 
 //
@@ -75,26 +75,26 @@ precision = 1.e-12;
 precinv = 1.e-8;
 nt = size(table,"r");
 for k = 1 : nt
-  x = table(k,1);
-  lambda = table(k,2);
-  p = table(k,4);
-  q = table(k,5);
-  [ p1 , q1 ] = cdfpoi("PQ",x,lambda);
-  x1 = cdfpoi("S",lambda,p,q);
-  lambda1 = cdfpoi("Xlam",p,q,x);
-  if ( %t ) then
-    assert_checkalmostequal ( p1 , p , precision );
-    assert_checkalmostequal ( q1 , q , precision );
-    assert_checkalmostequal ( x1 , x , precinv );
-    assert_checkalmostequal ( lambda1 , lambda , precinv );
-  end
-  if ( %f ) then
-    dP = assert_computedigits ( p1 , p );
-    dQ = assert_computedigits ( q1 , q );
-    dx = assert_computedigits ( x1 , x );
-    dl = assert_computedigits ( lambda , lambda1 );
-    mprintf("Test #%3d/%3d: Digits p1= %.1f, q1=%.1f, X=%.1f, Lambda=%.1f\n",k,nt,dP,dQ,dx,dl);
-  end
+    x = table(k,1);
+    lambda = table(k,2);
+    p = table(k,4);
+    q = table(k,5);
+    [ p1 , q1 ] = cdfpoi("PQ",x,lambda);
+    x1 = cdfpoi("S",lambda,p,q);
+    lambda1 = cdfpoi("Xlam",p,q,x);
+    if ( %t ) then
+        assert_checkalmostequal ( p1 , p , precision );
+        assert_checkalmostequal ( q1 , q , precision );
+        assert_checkalmostequal ( x1 , x , precinv );
+        assert_checkalmostequal ( lambda1 , lambda , precinv );
+    end
+    if ( %f ) then
+        dP = assert_computedigits ( p1 , p );
+        dQ = assert_computedigits ( q1 , q );
+        dx = assert_computedigits ( x1 , x );
+        dl = assert_computedigits ( lambda , lambda1 );
+        mprintf("Test #%3d/%3d: Digits p1= %.1f, q1=%.1f, X=%.1f, Lambda=%.1f\n",k,nt,dP,dQ,dx,dl);
+    end
 end
 
 // IEEE support

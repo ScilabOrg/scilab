@@ -18,4 +18,4 @@
 x=matrix(1:24,[2 3 4]);
 ierr = execstr("x = x(:,$:-1:1,:);","errcatch");
 if ierr<>0 then pause; end
-                    
+

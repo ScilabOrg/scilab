@@ -19,4 +19,3 @@
 // example c:\Guanhuà\scilab-5.3 or c:\中国语文\scilab-5.3
 
 // start scilab and check SCI value in scilab
-  

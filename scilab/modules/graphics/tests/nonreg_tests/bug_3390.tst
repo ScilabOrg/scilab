@@ -17,10 +17,10 @@
 //    When sca() is called with a bad number of argument, the returned error is not clear at all.
 
 //	-->sca()
-//  !--error 4 
+//  !--error 4
 //  Undefined variable: h
 //
-//  at line       2 of function sca called by :  
+//  at line       2 of function sca called by :
 //  sca()
 
 execstr("sca();","errcatch");

@@ -19,7 +19,7 @@ r = eval(str);
 if r <> [] then pause, end
 
 function o = blabla()
- o = 3;
+    o = 3;
 endfunction
 
 r = eval("blabla()");

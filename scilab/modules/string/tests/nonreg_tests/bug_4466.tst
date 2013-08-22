@@ -15,6 +15,6 @@
 // <-- Short Description -->
 //   The .' operator is undefined for character string and boolean data types.
 
-M=['aa','bcd'];
-if or(M.'<>['aa';'bcd']) then pause,end
+M=["aa","bcd"];
+if or(M.'<>["aa";"bcd"]) then pause,end
 

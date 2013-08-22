@@ -7,7 +7,7 @@
 
 // <-- Non-regression test for bug 6447 -->
 //
-// <-- CLI SHELL MODE --> 
+// <-- CLI SHELL MODE -->
 //
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=6447

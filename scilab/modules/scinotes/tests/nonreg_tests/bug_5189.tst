@@ -17,7 +17,7 @@
 // <-- Short Description -->
 // A message saying that the file could not be saved when I cancel file selection, it should not.
 
-// open editor 
+// open editor
 // File --> Save As
 // Click on Cancel button
 // Check there is no error messagebox

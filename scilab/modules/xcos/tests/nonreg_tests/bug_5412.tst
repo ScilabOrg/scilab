@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5412
 //
 // <-- Short Description -->
-// 
+//
 
 // Start xcos
 // Add a block (CONST_m for example)

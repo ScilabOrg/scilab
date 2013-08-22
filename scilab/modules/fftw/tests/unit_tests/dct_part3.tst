@@ -13,9 +13,9 @@
 //*****multiple 1-D transform ******************************************************************
 //Real case
 A=[0   1   1
-   2  -1  -1
-   3   4   4
-   5   1  -1];
+2  -1  -1
+3   4   4
+5   1  -1];
 y=matrix(dct(A(:),-1,4,1),size(A));
 assert_checkalmostequal(y,dct(A,-1,1),0,100*%eps);
 y1=matrix(dct(y(:),1,4,1),size(A));
@@ -62,9 +62,9 @@ assert_checktrue(isreal(y1));
 
 //complex case
 A=[%i   1   1
-   2  -1+3*%i  -1;
-   3    4   4;
-   5*%i   1  -1];
+2  -1+3*%i  -1;
+3    4   4;
+5*%i   1  -1];
 y=matrix(dct(A(:),-1,4,1),size(A));
 assert_checkalmostequal(y,dct(A,-1,1),0,100*%eps);
 y1=matrix(dct(y(:),1,4,1),size(A));

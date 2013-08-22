@@ -16,7 +16,7 @@
 
 // <-- INTERACTIVE TEST -->
 
-// go to 
+// go to
 // http://bugzilla.scilab.org/show_bug.cgi?id=4518
 // download attachment
 // do "Steps to reproduce the bug"

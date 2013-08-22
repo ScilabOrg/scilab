@@ -18,7 +18,7 @@
 
 [X,Y]=meshgrid(-1:.1:1,-1:.1:1);
 Z=X.^2-Y.^2;
-xtitle('z=x2-y ^2');
+xtitle("z=x2-y ^2");
 mesh(X,Y,Z);
 
 // check that the hidden color is white and clipping does not remove outside

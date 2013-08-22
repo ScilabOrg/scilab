@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // Untranslated prompt messages
 
-assert_checktrue(getlanguage()~='en_US');
+assert_checktrue(getlanguage()~="en_US");
 f=figure("figure_name","bug_11804");
 plot();
 // Click button "zoom area"

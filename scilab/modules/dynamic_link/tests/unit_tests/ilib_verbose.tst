@@ -14,16 +14,16 @@ ref = 1; // default value
 r = ilib_verbose();
 if r <> ref then pause,end
 
-ierr = execstr('ilib_verbose([1 2]);','errcatch');
+ierr = execstr("ilib_verbose([1 2]);","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('ilib_verbose(''foo'');','errcatch');
+ierr = execstr("ilib_verbose(''foo'');","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('ilib_verbose(54);','errcatch');
+ierr = execstr("ilib_verbose(54);","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('ilib_verbose(5.4);','errcatch');
+ierr = execstr("ilib_verbose(5.4);","errcatch");
 if ierr <> 999 then pause,end
 
 ref = 0;

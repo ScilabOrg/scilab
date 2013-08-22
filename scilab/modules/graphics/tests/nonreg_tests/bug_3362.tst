@@ -16,6 +16,6 @@
 //    problem with incorrect legend in plot2d
 
 t=(1:10)';
-assert_checktrue(execstr("plot2d(t,t.^2,leg=''s@'')",'errcatch') == 0);
-assert_checktrue(execstr("plot2d(t,t.^2,leg=''s@s1'')",'errcatch') == 0);
-assert_checktrue(execstr("plot2d(t,[t.^2 t.^3],leg=''s'')",'errcatch') == 0);
+assert_checktrue(execstr("plot2d(t,t.^2,leg=''s@'')","errcatch") == 0);
+assert_checktrue(execstr("plot2d(t,t.^2,leg=''s@s1'')","errcatch") == 0);
+assert_checktrue(execstr("plot2d(t,[t.^2 t.^3],leg=''s'')","errcatch") == 0);

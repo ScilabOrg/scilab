@@ -22,14 +22,14 @@ assert_checkequal(attribs.lang,"en");
 // Get all the books where the price is more than 35 euros
 moreThan35eList=xmlXPath(xmlFile,"/bookstore/book[price>35]/title");
 assert_checkequal(moreThan35eList.size,2);
-assert_checkequal(size(moreThan35eList),[1,2]); 
+assert_checkequal(size(moreThan35eList),[1,2]);
 assert_checkequal(moreThan35eList(1).content,"XQuery Kick Start");
 assert_checkequal(moreThan35eList(2).content,"Learning XML");
 
-// Get all the free books 
+// Get all the free books
 freeBooks=xmlXPath(xmlFile,"/bookstore/book[price=0]/title");
 assert_checkequal(freeBooks.size,1);
-assert_checkequal(size(freeBooks),[1,1]); 
+assert_checkequal(size(freeBooks),[1,1]);
 assert_checkequal(freeBooks(1).content,"Scilab rox");
 
 xmlDelete(xmlFile);

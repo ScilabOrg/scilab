@@ -22,16 +22,16 @@ y = median(s);
 res = sparse(median(full(s)));
 assert_checkequal(y, res);
 
-y = median(s, 'r');
-res = sparse(median(full(s), 'r'));
+y = median(s, "r");
+res = sparse(median(full(s), "r"));
 assert_checkequal(y, res);
 
-y = median(s, 'c');
-res = sparse(median(full(s), 'c'));
+y = median(s, "c");
+res = sparse(median(full(s), "c"));
 assert_checkequal(y, res);
 
-y = median(s, 'm');
-res = sparse(median(full(s), 'm'));
+y = median(s, "m");
+res = sparse(median(full(s), "m"));
 assert_checkequal(y, res);
 
 y = median(s, 1);
@@ -40,4 +40,5 @@ assert_checkequal(y, res);
 
 
 
-
+
+

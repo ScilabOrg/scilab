@@ -21,9 +21,9 @@ endfunction
 
 function xcosPalLoad(pal, category)
     if typeof(pal) <> "string" then pause, end
-    if size(pal, '*') <> 1 then pause, end
+    if size(pal, "*") <> 1 then pause, end
     if typeof(category) <> "string" then pause, end
-    if and([size(category, 'r') > 1, size(category, 'c') > 1]) then pause, end
+    if and([size(category, "r") > 1, size(category, "c") > 1]) then pause, end
 endfunction
 
 funcprot(prot);

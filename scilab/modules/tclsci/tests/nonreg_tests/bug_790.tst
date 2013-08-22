@@ -18,11 +18,11 @@
 ierr = execstr("findobj()","errcatch");
 msg = lasterror();
 if ierr==0 | msg<>msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "findobj", 2) then
-  pause
+    pause
 end
 ierr = execstr("findobj(""test"")","errcatch");
 msg = lasterror();
 if ierr==0 | msg<>msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "findobj", 2) then
-  pause
+    pause
 end
 if execstr("findobj(""Param1"",""Param2"") == []","errcatch") <> 0 then pause,end

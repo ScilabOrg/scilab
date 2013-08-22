@@ -30,7 +30,7 @@ a.view = "3d";
 
 // check that text is transparent
 for i = 1:360,
-  a.rotation_angles(2) = i;
+    a.rotation_angles(2) = i;
 end
 
 

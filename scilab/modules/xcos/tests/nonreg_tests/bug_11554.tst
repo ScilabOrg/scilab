@@ -21,13 +21,13 @@
 function [x,y,typ]=MY_BLOCK(job,arg1,arg2)
     x=[];y=[];typ=[];
     select job
-    case 'set' then
+    case "set" then
         x=arg1;
-    case 'define' then
+    case "define" then
         model=scicos_model()
-        model.sim=list('my_block',4)
-        exprs=''
-        gr_i=''
+        model.sim=list("my_block",4)
+        exprs=""
+        gr_i=""
         x=standard_define([3 2],model,exprs,gr_i)
     end
 endfunction
@@ -37,7 +37,7 @@ pal_block_img = SCI + "/modules/xcos/images/palettes/RAMP.png";
 
 
 pal = xcosPal("My palette");
-pal = xcosPalAddBlock(pal, 'MY_BLOCK', pal_block_img, block_img);
+pal = xcosPalAddBlock(pal, "MY_BLOCK", pal_block_img, block_img);
 xcosPalAdd(pal);
 
 quit();

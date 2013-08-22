@@ -11,8 +11,8 @@
 
 test = TMPDIR + "/testLaTeXPreview.sci";
 mputl(["// $\sum_{n=1}^{+\infty}\frac{1}{n^2}=\frac{\pi^2}{6}$"; ..
-       "xtitle(''$\huge\int_\Omega f\,\mathrm{d}\mu$'')"; ..
-       ""], test);
+"xtitle(''$\huge\int_\Omega f\,\mathrm{d}\mu$'')"; ..
+""], test);
 scinotes(test);
 
 // Move the mouse on the LaTeX formulas

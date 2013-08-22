@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=174
 //
 // <-- Short Description -->
-//   Sur des images de grandes tailles, Matplot trace plein de lignes blanches, ce qui est assez genant. 
+//   Sur des images de grandes tailles, Matplot trace plein de lignes blanches, ce qui est assez genant.
 
 // <-- TEST WITH GRAPHIC -->
 

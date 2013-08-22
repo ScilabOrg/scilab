@@ -16,8 +16,8 @@
 // <-- Short Description -->
 // Bad caret position after action on selection
 
-mputl('Hello World', TMPDIR + '/bug_10354.sce')
-scinotes(TMPDIR + '/bug_10354.sce');
+mputl("Hello World", TMPDIR + "/bug_10354.sce")
+scinotes(TMPDIR + "/bug_10354.sce");
 
 // Select "Hello World" from left to right and CTRL+D, the caret must be at the end
 // Select "Hello World" from right to left and CTRL+D, the caret must be at the beginning

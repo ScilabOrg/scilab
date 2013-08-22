@@ -8,13 +8,13 @@
 // <-- Non-regression test for bug 11186 -->
 //
 // <-- CLI SHELL MODE -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=11186
 //
 // <-- Short Description -->
-// 
+//
 // 'typeof' of a type 130 returned an error
 //
 
-assert_checkequal(typeof(disp), 'fptr');
+assert_checkequal(typeof(disp), "fptr");

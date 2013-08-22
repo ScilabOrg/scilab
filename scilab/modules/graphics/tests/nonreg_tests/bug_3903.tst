@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // "xdel" of a non existent window crashes Scilab
-// 
+//
 
 // close all figures
 xdel(winsid());

@@ -16,7 +16,7 @@
 // plot2d produces an error when called with some functions
 
 
-function r=f(x); r=x; endfunction 
+function r=f(x); r=x; endfunction
 function r=g(x2); r=x2 + 1; endfunction
 x=linspace(0,1,100);
 

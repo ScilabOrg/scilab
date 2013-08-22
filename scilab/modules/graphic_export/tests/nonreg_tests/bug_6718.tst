@@ -19,7 +19,7 @@
 scf(0);
 plot(1:10)
 a=gca();
-a.title.text='a<b';//similar pb with a.x_label.text='a<b'
+a.title.text="a<b";//similar pb with a.x_label.text='a<b'
 
 filename=TMPDIR+"/nonreg_test_bug4944.eps";
 xs2eps(0,filename);

@@ -4,8 +4,8 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-if getos() == 'Windows' then
-  cd('SCI/bin');
-  r = powershell('ls');
-  if r == [] then pause,end
+if getos() == "Windows" then
+    cd("SCI/bin");
+    r = powershell("ls");
+    if r == [] then pause,end
 end

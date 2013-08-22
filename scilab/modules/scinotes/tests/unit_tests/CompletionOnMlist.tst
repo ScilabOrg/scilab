@@ -12,8 +12,8 @@
 test = TMPDIR + "/testCompletionOnMlist.sci";
 ML = mlist(["type" "a" "ab" "abc" "abcd" "bcd"],1,2,3,4,5);
 mputl(["// Put the cursor after ML."; ..
-       "ML."; ..
-       "// and hit CTRL+<SPACE>, you should have a, ab, abc, abcd, bcd"; ..
-       "ML.ab"
-       "// now put the cursor after ab and CTRL+<SPACE>, you should have ab, abc, abcd"], test);
+"ML."; ..
+"// and hit CTRL+<SPACE>, you should have a, ab, abc, abcd, bcd"; ..
+"ML.ab"
+"// now put the cursor after ab and CTRL+<SPACE>, you should have ab, abc, abcd"], test);
 scinotes(test);

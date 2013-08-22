@@ -21,4 +21,5 @@ a = gca();
 x = a.children(1).children.data;
 y = [%eps; 1; 1; 0; 0; 0; %eps];
 assert_checkalmostequal(y, x(:,2), [], 200 * %eps);
-
+
+

@@ -18,15 +18,15 @@
 //==============================================================
 t = "      IF ( INFORM .NE. 0 ) STOP";
 ref = "      IF ( INFORM .NE. 0 ) then";
-r = strsubst(t,'/stop/i','then','r');
+r = strsubst(t,"/stop/i","then","r");
 if r <> ref then pause,end
 
 t = "IF ( INFORM .NE. 0 ) STOP";
 ref = "IF ( INFORM .NE. 0 ) then";
-r = strsubst(t,'/stop/i','then','r');
+r = strsubst(t,"/stop/i","then","r");
 if r <> ref then pause,end
 
 t = "IF ( INFORM .NE. 0 ) STOP";
 ref = "IF ( test .NE. 0 ) STOP";
-r = strsubst(t,'/inform/i','test','r');
+r = strsubst(t,"/inform/i","test","r");
 if r <> ref then pause,end

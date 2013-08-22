@@ -23,6 +23,6 @@ if ierr<>0 then pause, end
 
 
 // cd d:\Pro[TAB]
-currentline = 'cd d:\Pro';
-newline = completeline(currentline,'Projects',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if newline <> 'cd d:\Projects' then pause,end
+currentline = "cd d:\Pro";
+newline = completeline(currentline,"Projects",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if newline <> "cd d:\Projects" then pause,end

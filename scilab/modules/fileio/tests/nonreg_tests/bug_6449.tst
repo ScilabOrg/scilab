@@ -12,7 +12,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=6449
 //
 // <-- Short Description -->
-// regexp() does not support ANSI-encoded input strings 
+// regexp() does not support ANSI-encoded input strings
 // mgetl problem in fact
 
 fid = mopen("SCI/modules/fileio/tests/nonreg_tests/bug_6449_ANSI.txt", "rt");

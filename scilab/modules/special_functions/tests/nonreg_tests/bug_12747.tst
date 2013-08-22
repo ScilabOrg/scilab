@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=12747
 //
 // <-- Short Description -->
-//    The legendre function did not manage the -1 and 1 values for the third 
+//    The legendre function did not manage the -1 and 1 values for the third
 //    argument.
 // =============================================================================
 

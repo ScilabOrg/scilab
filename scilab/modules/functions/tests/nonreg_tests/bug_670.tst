@@ -13,14 +13,14 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=670
 //
 // <-- Short Description -->
-//    Stack problem in FUN2STRING. Occurs in many different 
-//    situations, one situation can be reproduced using the code 
+//    Stack problem in FUN2STRING. Occurs in many different
+//    situations, one situation can be reproduced using the code
 //    below.
 
-deff('a = foo()', ...
-		'b = tlist([''b''; ''c''], 0); ' + ...
-		'a = tlist([''a''; ''b''], b); ' + ...
-		'a.b.c = getText() + ''text 2'' ');
+deff("a = foo()", ...
+"b = tlist([''b''; ''c''], 0); " + ...
+"a = tlist([''a''; ''b''], b); " + ...
+"a.b.c = getText() + ''text 2'' ");
 
 t=fun2string(foo);
 

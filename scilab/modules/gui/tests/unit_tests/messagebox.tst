@@ -14,14 +14,14 @@
 messagebox(["Simple message";"No scroll bar at all"],"modal");
 
 messagebox(["message with huge vertical part";
-           "Only vertical scroll bar"
-          string(1:50)'],"modal");
+"Only vertical scroll bar"
+string(1:50)'],"modal");
 
 messagebox(["message with huge horizontal  part";
-          "Only horizontal scroll bar"
-           strcat(string(1:150),' ')],"modal");
+"Only horizontal scroll bar"
+strcat(string(1:150)," ")],"modal");
 
 messagebox(["huge message";
-           "Vertical and horizontal scroll bars"
-           strcat(string(1:150)," ");
-           string(1:50)'],"modal");
+"Vertical and horizontal scroll bars"
+strcat(string(1:150)," ");
+string(1:50)'],"modal");

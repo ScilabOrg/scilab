@@ -9,9 +9,9 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40: 
+// Digits := 40:
 // writeto("acosd.ref"): interface(prettyprint = 0):
-// for i from -1 by 1/200 to 1 do print(i, evalf[30](arccos(i)*180/Pi, 30)) end do; 
+// for i from -1 by 1/200 to 1 do print(i, evalf[30](arccos(i)*180/Pi, 30)) end do;
 // writeto(terminal):
 
 ieee(2)

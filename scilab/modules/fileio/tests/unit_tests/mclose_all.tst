@@ -9,7 +9,7 @@
 // <-- INTERACTIVE TEST -->
 // <-- CLI SHELL MODE -->
 
-mclose('all');
+mclose("all");
 
 // Check that mclose('all') closes all files (except stdin and stdout)
 f1 = mopen(TMPDIR + filesep() + "mclose1.txt","w");

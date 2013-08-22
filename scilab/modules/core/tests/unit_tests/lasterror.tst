@@ -28,7 +28,7 @@ if ierr <> 4 then pause,end
 [str, n, l, f] = lasterror();
 if ierr <> n then pause,end
 if l <> 1 then pause,end
-if f <> '' then pause,end
+if f <> "" then pause,end
 if str <> msprintf(_("Undefined variable: %s\n"), "zzzzzzz") then pause,end
 
 ierr = execstr("a=zzzzzzz", "errcatch");
@@ -47,13 +47,13 @@ if str <> str2 then pause, end
 [str4, n4, l4, f4] = lasterror(%t);
 if n4 <> 0 then pause,end
 if l4 <> 0 then pause,end
-if f4 <> '' then pause,end
+if f4 <> "" then pause,end
 if str4 <> [] then pause, end
 
 
-ierr = execstr('a = lasterror(2);','errcatch');
+ierr = execstr("a = lasterror(2);","errcatch");
 if ierr <> 999 then pause,end
 
 
-ierr = execstr('a = lasterror([%t, %f]);','errcatch');
+ierr = execstr("a = lasterror([%t, %f]);","errcatch");
 if ierr <> 999 then pause,end

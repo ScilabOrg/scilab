@@ -20,10 +20,10 @@ n  = 100;
 a  = rand(m,n,"u");
 fd = mopen(TMPDIR+"/bug_fscanfMat","w");
 for i=1:m
-	for j=1:n
-		mfprintf(fd,"%5.2f ",a(i,j));
-	end
-	mfprintf(fd,"\n");
+    for j=1:n
+        mfprintf(fd,"%5.2f ",a(i,j));
+    end
+    mfprintf(fd,"\n");
 end
 mclose(fd);
 

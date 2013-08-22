@@ -24,7 +24,7 @@ B=squeeze(A(1,1,:));
 assert_checkequal(type(B), 1);
 
 // In Scilab 6, the hypermatrix type won't exist
-v = getversion('scilab');
+v = getversion("scilab");
 if v(1) > 5 then
     C(:,:,1) = zeros(32,32);
     C(:,:,2) = zeros(32,32);

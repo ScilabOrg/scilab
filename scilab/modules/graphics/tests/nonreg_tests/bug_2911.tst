@@ -14,10 +14,10 @@
 //
 // <-- Short Description -->
 // In scilab5 the grids can only be displayed if the axes_visible property is set to "on"
- 
+
 
 plot2d()
-ax=gca();ax.axes_visible='off';ax.grid=[1 1 1];
+ax=gca();ax.axes_visible="off";ax.grid=[1 1 1];
 
 // check that the grid is drawn even if the ticks are not
 

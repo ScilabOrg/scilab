@@ -14,35 +14,35 @@
 // C2F(scistring) in stack2.c was broken for macro names of exactly 2 characters.
 
 cd(TMPDIR);
-mkdir('bug_6830');
-cd('bug_6830'); 
-copyfile(SCI+'/modules/core/tests/nonreg_tests/bug_6830.c',TMPDIR + '/bug_6830/bug_6830.c');
-files=['bug_6830.c'];
+mkdir("bug_6830");
+cd("bug_6830");
+copyfile(SCI+"/modules/core/tests/nonreg_tests/bug_6830.c",TMPDIR + "/bug_6830/bug_6830.c");
+files=["bug_6830.c"];
 ilib_verbose(0);
-ilib_build('bug6830',['callscistring','sci_callscistring'],files,[]);
-exec('loader.sce');
+ilib_build("bug6830",["callscistring","sci_callscistring"],files,[]);
+exec("loader.sce");
 
 function r = scilabfoo(x,y)
-  disp("x =");
-  disp(x);
-  disp("y =");
-  disp(y);
-  r = x + y;
-  disp("r =");
-  disp(r);
+    disp("x =");
+    disp(x);
+    disp("y =");
+    disp(y);
+    r = x + y;
+    disp("r =");
+    disp(r);
 endfunction
- 
+
 ierr = execstr("callscistring(''scilabfoo'')","errcatch");
 if ierr <> 0 then pause,end
 
 function r = fo(x,y)
-  disp("x =");
-  disp(x);
-  disp("y =");
-  disp(y);
-  r = x + y;
-  disp("r =");  
-  disp(r);
+    disp("x =");
+    disp(x);
+    disp("y =");
+    disp(y);
+    r = x + y;
+    disp("r =");
+    disp(r);
 endfunction
 
 ierr = execstr("callscistring(''fo'')","errcatch");

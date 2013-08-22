@@ -10,7 +10,7 @@ doc = xmlDocument();
 root = xmlElement(doc, "root");
 doc.root = root;
 for i=1:5
-xmlAppend(doc.root, xmlElement(doc, "child_" + string(i)));
+    xmlAppend(doc.root, xmlElement(doc, "child_" + string(i)));
 end;
 
 assert_checkequal(doc.root.children(1).name,"child_1");

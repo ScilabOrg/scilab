@@ -13,16 +13,16 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=799
 //
 // <-- Short Description -->
-//    Reload large matrix file from disk with "fscanfMat" command 
+//    Reload large matrix file from disk with "fscanfMat" command
 //    crashes Scilab.
 
 stacksize(19e6);
 
 m = 10593;
 n = 696;
-a = rand(m,n,'u');
+a = rand(m,n,"u");
 
-fprintfMat(TMPDIR+'/Mat',a,'%5.2f');
-b=fscanfMat(TMPDIR+'/Mat');
+fprintfMat(TMPDIR+"/Mat",a,"%5.2f");
+b=fscanfMat(TMPDIR+"/Mat");
 
 if or( size(a) <> size(b) ) then pause, end

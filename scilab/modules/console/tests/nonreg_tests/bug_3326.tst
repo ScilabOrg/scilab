@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3326
 //
 // <-- Short Description -->
-// ESC key clears the command line in the console. 
+// ESC key clears the command line in the console.
 
 // <-- INTERACTIVE TEST -->
 

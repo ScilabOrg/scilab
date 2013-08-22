@@ -12,7 +12,7 @@
 // http://bugzilla.scilab.org/11096
 //
 // <-- Short Description -->
-// uimenu fails with a weird error message when adding a uimenu 
+// uimenu fails with a weird error message when adding a uimenu
 // to the console in NW mode.
 
 refMsg = msprintf(_("%s: can not add a menu into the console in this mode.\n"), "SetMenuParent");

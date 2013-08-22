@@ -18,7 +18,7 @@
 //    indicated by help on line.
 
 
-// exec("e:\testNonReg\629.sce");  
+// exec("e:\testNonReg\629.sce");
 // iReturnCode=execstr("[x,fs,bits] = wavread("e:\testNonReg\t1.wav")','errcatch');
 
 if execstr("wavread(SCI+''/modules/sound/tests/nonreg_tests/bug_629.wav'')","errcatch") <> 0 then pause,end

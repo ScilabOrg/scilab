@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Graphic demos launched using functions without arguments (such as plot3d()) may modify variables.
-// 
+//
 
 f = gdf();
 backupF = f;

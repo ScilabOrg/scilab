@@ -20,11 +20,11 @@ msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: a string expec
 assert_checkerror ("r = fullfile(SCI, 3, ''scilab.start'')", msgerr);
 
 if getos() <> "Windows" then
-  REF = ['/home/scilab/macros/util/fullfile.sci';
-         '/home/scilab/macros/util/toto.sci'];
+    REF = ["/home/scilab/macros/util/fullfile.sci";
+    "/home/scilab/macros/util/toto.sci"];
 else
-  REF = ['\home\scilab\macros\util\fullfile.sci';
-         '\home\scilab\macros\util\toto.sci'];
+    REF = ["\home\scilab\macros\util\fullfile.sci";
+    "\home\scilab\macros\util\toto.sci"];
 end
 
 r = fullfile("/home/","\scilab","macros","\util", ["fullfile.sci"; "toto.sci"]);

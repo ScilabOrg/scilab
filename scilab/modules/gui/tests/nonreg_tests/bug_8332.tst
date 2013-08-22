@@ -16,7 +16,7 @@
 // Some use of clipboard function crashed Scilab.
 
 clipboard("copy", 1);
-clipboard("copy", ['S' 'c' 'i'; 'l' 'a' 'b']);
+clipboard("copy", ["S" "c" "i"; "l" "a" "b"]);
 clipboard("copy", rand(2,2));
 clipboard("copy", rand(100,100));
 

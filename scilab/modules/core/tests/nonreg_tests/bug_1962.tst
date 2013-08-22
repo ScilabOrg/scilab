@@ -20,6 +20,6 @@ funcprot(0);
 function ok=clear(varargin),ok=%t,endfunction
 clear xxyyzz
 if ~ans then pause,end
-clear('xxyyzz')
+clear("xxyyzz")
 if ~ans then pause,end
 clear=null() //reset initial definition

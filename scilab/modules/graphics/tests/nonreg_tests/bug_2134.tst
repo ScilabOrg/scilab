@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // drawlater causes wrong placement of subplot titles for logarithmic plot2d
-// 
+//
 
 scf();
 subplot(121);

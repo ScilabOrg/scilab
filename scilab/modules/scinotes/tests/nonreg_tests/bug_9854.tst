@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // Miscolorization when a string contains several dots
 
-mputl('a=""..""', TMPDIR + '/bug_9854.sce')
-scinotes(TMPDIR + '/bug_9854.sce');
+mputl("a=""..""", TMPDIR + "/bug_9854.sce")
+scinotes(TMPDIR + "/bug_9854.sce");
 
 // All the string must have the same color.

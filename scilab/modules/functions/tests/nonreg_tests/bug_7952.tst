@@ -22,10 +22,10 @@ if lasterror() <> msprintf(_("%s: Wrong number of input argument(s): %d expected
 if execstr("macros = libraryinfo([""functionslib"", ""corelib""])", "errcatch") <> 999 then pause, end
 if lasterror() <> msprintf(_("%s: Wrong size for input argument #%d: String expected.\n"), "libraryinfo", 1) then pause, end
 
-macros = libraryinfo('functionslib');
+macros = libraryinfo("functionslib");
 if size(macros) == [] then pause,end
 
-[macroslist, pathmacros] = libraryinfo('functionslib');
+[macroslist, pathmacros] = libraryinfo("functionslib");
 if size(macros) == [] then pause,end
 if ~isdir(pathmacros) then pause,end
 

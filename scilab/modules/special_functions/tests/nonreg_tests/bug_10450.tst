@@ -12,8 +12,8 @@
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=10450
 //
-// Allows overloading for gamma, dlgamma and gammaln functions for list, tlist, 
-// mlist and hypermatrices types. 
+// Allows overloading for gamma, dlgamma and gammaln functions for list, tlist,
+// mlist and hypermatrices types.
 
 msgerr = msprintf(gettext("Function not defined for given argument type(s),\n"));
 
@@ -27,7 +27,7 @@ assert_checkerror("dlgamma(tl)", [msgerr; msprintf(gettext("  check arguments or
 assert_checkerror("gammaln(tl)", [msgerr; msprintf(gettext("  check arguments or define function %s for overloading.\n"), "%mytlist_gammaln")]);
 assert_checkerror("gamma(tl)", [msgerr; msprintf(gettext("  check arguments or define function %s for overloading.\n"), "%mytlist_gamma")]);
 
-ml = mlist(['mymlist','name','value'],['a','b';'c' 'd'],[1 2; 3 4]);
+ml = mlist(["mymlist","name","value"],["a","b";"c" "d"],[1 2; 3 4]);
 assert_checkerror("dlgamma(ml)", [msgerr; msprintf(gettext("  check arguments or define function %s for overloading.\n"), "%mymlist_dlgamma")]);
 assert_checkerror("gammaln(ml)", [msgerr; msprintf(gettext("  check arguments or define function %s for overloading.\n"), "%mymlist_gammaln")]);
 assert_checkerror("gamma(ml)", [msgerr; msprintf(gettext("  check arguments or define function %s for overloading.\n"), "%mymlist_gamma")]);
@@ -56,7 +56,7 @@ assert_checkequal(gamma(tl), %T);
 function Y = %mymlist_dlgamma(X),   Y = %T; endfunction
 function Y = %mymlist_gammaln(X),  Y = %T; endfunction
 function Y = %mymlist_gamma(X),  Y = %T; endfunction
-ml = mlist(['mymlist','name','value'],['a','b';'c' 'd'],[1 2; 3 4]);
+ml = mlist(["mymlist","name","value"],["a","b";"c" "d"],[1 2; 3 4]);
 assert_checkequal(dlgamma(ml), %T);
 assert_checkequal(gammaln(ml), %T);
 assert_checkequal(gamma(ml), %T);

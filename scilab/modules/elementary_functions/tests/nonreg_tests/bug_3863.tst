@@ -17,5 +17,5 @@
 
 r = expm([1/30, 0.1;0,0]);
 if or(isnan(r)) then pause,end
-if size(r,'*') <> 4 then pause,end
+if size(r,"*") <> 4 then pause,end
 

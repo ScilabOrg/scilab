@@ -18,4 +18,4 @@
 ierr = execstr("stacksize(''max'');r = stacksize();","errcatch");
 if ierr <> 0 then pause, end
 
- stacksize('max');stacksize();
+stacksize("max");stacksize();

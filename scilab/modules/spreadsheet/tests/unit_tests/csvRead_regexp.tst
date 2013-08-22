@@ -9,12 +9,12 @@ path = SCI+"/modules/spreadsheet/tests/unit_tests/";
 filename = fullfile(path, "csv_regexp.csv");
 [y, x] = csvRead(filename, [], [], [], [], "/\/\//");
 ref_x = ["// tata"; ..
-         "// titi"; ..
-         "// toto"; ..
-         "// tutu"];
+"// titi"; ..
+"// toto"; ..
+"// tutu"];
 ref_y = [    1.    0.    0.    0.    0.  ; ..
-             0.    1.    0.    0.    0.  ; ..
-             0.    0.    1.    0.    0.];
+0.    1.    0.    0.    0.  ; ..
+0.    0.    1.    0.    0.];
 
 assert_checkequal (ref_x , x);
 assert_checkequal (ref_y , y);

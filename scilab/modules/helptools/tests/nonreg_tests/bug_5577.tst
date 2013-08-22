@@ -15,7 +15,7 @@
 
 
 function [y,z]=foo(a,b),y=a+b,z=1,endfunction
-p = help_skeleton('foo',TMPDIR);
+p = help_skeleton("foo",TMPDIR);
 r = mgetl(p);
 
-if grep(r,'UTF-8') <> 1 then pause,end
+if grep(r,"UTF-8") <> 1 then pause,end

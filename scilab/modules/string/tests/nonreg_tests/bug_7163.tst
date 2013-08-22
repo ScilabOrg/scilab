@@ -15,7 +15,7 @@
 // tree2code wrongly replaced every (:) occurence in a function definition with (eye()).
 
 function foo(r)
- r(:)=1
+    r(:)=1
 endfunction
 
 txt = tree2code(macr2tree(foo));

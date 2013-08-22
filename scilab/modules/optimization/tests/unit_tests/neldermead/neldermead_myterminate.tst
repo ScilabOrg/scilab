@@ -16,25 +16,25 @@
 
 
 function stop = myoutputcmd ( state , data )
-  simplex = data.simplex
-  ssize = optimsimplex_size ( simplex , "sigmaplus" );
-  if ( ssize < 1.e-2 ) then
-    stop = %t;
-    status = "mysize";
-  else
-    stop = %f
-  end
+    simplex = data.simplex
+    ssize = optimsimplex_size ( simplex , "sigmaplus" );
+    if ( ssize < 1.e-2 ) then
+        stop = %t;
+        status = "mysize";
+    else
+        stop = %f
+    end
 endfunction
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 
 
 
 //
-// Test with my own termination criteria 
+// Test with my own termination criteria
 //
 nm = neldermead_new ();
 nm = neldermead_configure(nm,"-numberofvariables",2);

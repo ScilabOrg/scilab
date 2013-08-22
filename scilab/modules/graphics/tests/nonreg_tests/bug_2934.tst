@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2934
 //
 // <-- Short Description -->
-//In the "Bezier surface test" demo, the graphics titles are inverted compared to Scilab 4.1.2 
+//In the "Bezier surface test" demo, the graphics titles are inverted compared to Scilab 4.1.2
 
 subplot(211);
 a = gca();

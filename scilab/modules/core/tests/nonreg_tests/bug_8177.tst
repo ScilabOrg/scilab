@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 8079 -->
 //
 // <-- INTERACTIVE TEST -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=8177
 //

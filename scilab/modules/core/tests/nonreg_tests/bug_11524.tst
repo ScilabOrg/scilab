@@ -9,7 +9,7 @@
 //
 // <-- CLI SHELL MODE -->
 // <-- ENGLISH IMPOSED -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=11524
 //
@@ -25,8 +25,8 @@ sparse(3)^2;
 //the following tests display a warning that depends on the TMPDIR used by the test system
 //the diary will not be constant so we skip it for automatic test
 if %f then
-  [1  2 3]^2;
-  [1 %s]^3;
-  [1 1/%s]^3;
-  sparse([1 2 3])^2;
+    [1  2 3]^2;
+    [1 %s]^3;
+    [1 1/%s]^3;
+    sparse([1 2 3])^2;
 end

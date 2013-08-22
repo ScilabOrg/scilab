@@ -32,7 +32,7 @@ function [ y , index ] = rosenbrock ( x , index )
 endfunction
 
 //
-// Test with my own termination criteria 
+// Test with my own termination criteria
 //
 x0 = [1.1 1.1]';
 simplex0 = optimsimplex_new ( "axes" , x0.' );

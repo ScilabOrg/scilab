@@ -23,7 +23,7 @@ assert_checkalmostequal(c_ref(4:$-3)./(7-abs(ind)),c);
 
 x=[1 2*%i 3 4 3 2 1];
 c_ref=[ 1,2+%i*2,6+%i*4,14+%i*6,23+%i*8,32+%i*4,44,...
-        32-%i*4,23-%i*8,14-%i*6,6-%i*4,2-%i*2,1];
+32-%i*4,23-%i*8,14-%i*6,6-%i*4,2-%i*2,1];
 assert_checkalmostequal(c_ref,xcorr(x));
 assert_checkalmostequal(c_ref(4:$-3),xcorr(x,3));
 

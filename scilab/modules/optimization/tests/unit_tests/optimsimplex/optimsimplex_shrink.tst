@@ -12,7 +12,7 @@
 
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -25,9 +25,9 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,3);
 newsimplex = [
-    0.    0.  
-    1.    0.  
-    0.    1.  
+0.    0.
+1.    0.
+0.    1.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setallfv ( s1 , [-12.0 0.0 0.0]' );
@@ -35,9 +35,9 @@ s1 = optimsimplex_shrink ( s1 , rosenbrock );
 computed = optimsimplex_getall ( s1 );
 // The function value at vertex #1 is not re-computed, as expected.
 expected = [
-  -12.    0.     0.   
-    6.5    0.5    0.   
-    26.    0.     0.5  
+-12.    0.     0.
+6.5    0.5    0.
+26.    0.     0.5
 ];
 assert_checkequal ( computed , expected );
 s1 = optimsimplex_destroy ( s1 );
@@ -47,8 +47,8 @@ s1 = optimsimplex_destroy ( s1 );
 myobj = tlist(["T_MYSTUFF","nb"]);
 myobj.nb = 0;
 function [ y , myobj ] = mycostf ( x , myobj )
-  y = rosenbrock(x);
-  myobj.nb = myobj.nb + 1
+    y = rosenbrock(x);
+    myobj.nb = myobj.nb + 1
 endfunction
 s1 = optimsimplex_new ();
 newsimplex = [
@@ -61,9 +61,9 @@ s1 = optimsimplex_setall ( s1 , newsimplex );
 computed = optimsimplex_getall ( s1 );
 // The function value at vertex #1 is not re-computed, as expected.
 expected = [
-   -12.    0.     0.   
-    6.5    0.5    0.   
-    26.    0.     0.5  
+-12.    0.     0.
+6.5    0.5    0.
+26.    0.     0.5
 ];
 assert_checkequal ( computed , expected );
 assert_checkequal ( myobj.nb , 2 );
@@ -86,11 +86,11 @@ s1 = optimsimplex_shrink ( s1 , rosenbrock );
 computed = optimsimplex_getall ( s1 );
 // The function value at vertex #1 is not re-computed, as expected.
 expected = [
-    12.    0.     0.   
-    6.5    0.5    0.   
-    26.    0.     0.5  
-    6.5    0.5    0.5  
-    0.     1.     1.   
+12.    0.     0.
+6.5    0.5    0.
+26.    0.     0.5
+6.5    0.5    0.5
+0.     1.     1.
 ];
 assert_checkequal ( computed , expected );
 s1 = optimsimplex_destroy ( s1 );

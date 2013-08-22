@@ -23,7 +23,7 @@ cur_ref_dir = pwd();
 
 edit SCI/contrib/toolbox_skeleton/help/en_US/c_multiplybypi.xml
 
-// add a error in c_multiplybypi.xml 
+// add a error in c_multiplybypi.xml
 
 exec builder.sce;
 

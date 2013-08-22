@@ -27,6 +27,6 @@ ax = gca();
 ax.grid = [1,1];
 ax.auto_ticks = ["on","on","on"];
 
-ax.x_ticks = tlist(['ticks','locations','labels'],[-2;-1.5;-1;-0.5;0;0.5;1;1.5;2;2.5;3;3.5;4]*%pi,["$\scalebox{0.6}{-2\pi}$";"$\scalebox{0.6}{\frac{-3\pi}{2}}$";"$\scalebox{0.6}{-\pi}$";"$\scalebox{0.6}{\frac{-\pi}{2}}$";"";"$\scalebox{0.6}{\frac{\pi}{2}}$";"$\scalebox{0.6}{\pi}$";"$\scalebox{0.6}{\frac{3\pi}{2}}$";"$\scalebox{0.6}{2\pi}$";"$\scalebox{0.6}{\frac{5\pi}{2}}$";"$\scalebox{0.6}{3\pi}$";"$\scalebox{0.6}{\frac{7\pi}{2}}$";"$\scalebox{0.6}{4\pi}$"]);
+ax.x_ticks = tlist(["ticks","locations","labels"],[-2;-1.5;-1;-0.5;0;0.5;1;1.5;2;2.5;3;3.5;4]*%pi,["$\scalebox{0.6}{-2\pi}$";"$\scalebox{0.6}{\frac{-3\pi}{2}}$";"$\scalebox{0.6}{-\pi}$";"$\scalebox{0.6}{\frac{-\pi}{2}}$";"";"$\scalebox{0.6}{\frac{\pi}{2}}$";"$\scalebox{0.6}{\pi}$";"$\scalebox{0.6}{\frac{3\pi}{2}}$";"$\scalebox{0.6}{2\pi}$";"$\scalebox{0.6}{\frac{5\pi}{2}}$";"$\scalebox{0.6}{3\pi}$";"$\scalebox{0.6}{\frac{7\pi}{2}}$";"$\scalebox{0.6}{4\pi}$"]);
 plot2d(x,y);
 

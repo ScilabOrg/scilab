@@ -10,52 +10,51 @@
 // test of fscanfMat and fprintfMat
 // --------------------------------
 n=50;
-a=rand(n,n,'u');
-// now the data 
-fd=mopen(TMPDIR+'/Mat','w');
-texte=['Some text ';'Some more text'];
-for t=texte 
-  mfprintf(fd,'%s\n',t);
-end 
+a=rand(n,n,"u");
+// now the data
+fd=mopen(TMPDIR+"/Mat","w");
+texte=["Some text ";"Some more text"];
+for t=texte
+    mfprintf(fd,"%s\n",t);
+end
 for i=1:n ,
-  for j=1:n, mfprintf(fd,'%5.2f ',a(i,j));end;
-  mfprintf(fd,'\n');	
+    for j=1:n, mfprintf(fd,"%5.2f ",a(i,j));end;
+    mfprintf(fd,"\n");
 end
 mclose(fd);
-a1=fscanfMat(TMPDIR+'/Mat');
-if max(a1-a) > 1.e-1 then pause,end 
+a1=fscanfMat(TMPDIR+"/Mat");
+if max(a1-a) > 1.e-1 then pause,end
 
-[a1,txt]=fscanfMat(TMPDIR+'/Mat');
-if ~and(txt==texte) then pause,end 
-if max(a1-a) > 1.e-1 then pause,end 
+[a1,txt]=fscanfMat(TMPDIR+"/Mat");
+if ~and(txt==texte) then pause,end
+if max(a1-a) > 1.e-1 then pause,end
 
-// ---- test with fprintfMat 
+// ---- test with fprintfMat
 n=50;
-a=rand(n,n,'u');
-fprintfMat(TMPDIR+'/Mat',a,'%5.2f');
-a1=fscanfMat(TMPDIR+'/Mat');
-if max(a1-a) > 1.e-1 then pause,end 
+a=rand(n,n,"u");
+fprintfMat(TMPDIR+"/Mat",a,"%5.2f");
+a1=fscanfMat(TMPDIR+"/Mat");
+if max(a1-a) > 1.e-1 then pause,end
 
-// ---- test with fprintfMat 
+// ---- test with fprintfMat
 n=50;
-a=rand(n,n,'u');
-fprintfMat(TMPDIR+'/Mat',a,'%5.2f',txt);
-[a1,txt1]=fscanfMat(TMPDIR+'/Mat');
-if max(a1-a) > 1.e-1 then pause,end 
-if ~and(txt==txt1) then pause,end 
+a=rand(n,n,"u");
+fprintfMat(TMPDIR+"/Mat",a,"%5.2f",txt);
+[a1,txt1]=fscanfMat(TMPDIR+"/Mat");
+if max(a1-a) > 1.e-1 then pause,end
+if ~and(txt==txt1) then pause,end
 
 n=100;
-a=rand(n,n,'u');
-fprintfMat(TMPDIR+'/Mat',a)
-[a1]=fscanfMat(TMPDIR+'/Mat');
-if max(a1-a) > 1.e-1 then pause,end 
-[a1,S]=fscanfMat(TMPDIR+'/Mat');
-if S<>emptystr() then pause,end 
+a=rand(n,n,"u");
+fprintfMat(TMPDIR+"/Mat",a)
+[a1]=fscanfMat(TMPDIR+"/Mat");
+if max(a1-a) > 1.e-1 then pause,end
+[a1,S]=fscanfMat(TMPDIR+"/Mat");
+if S<>emptystr() then pause,end
 
-[a1,txt1]=fscanfMat('SCI/modules/fileio/tests/unit_tests/fscanfMatUTF8BOM.mat');
+[a1,txt1]=fscanfMat("SCI/modules/fileio/tests/unit_tests/fscanfMatUTF8BOM.mat");
 if size(a1, "r") <> 50 then pause, end
 if size(a1, "c") <> 50 then pause, end
 if size(txt1,"r") <> 12 then pause, end
 if size(txt1,"c") <> 1 then pause, end
 if txt1 <> "It is a high level programming language in that most of its functionality is based around the ability to specify many computations with few lines of code. It does this primarily by abstracting primitive data types to functionally equivalent matrices." then pause, end
- 

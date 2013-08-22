@@ -23,14 +23,14 @@ importXcosDiagram SCI/modules/xcos/demos/Simple_Demo.zcos
 Info = list();
 
 // first call perform a full-compilation, then ignore some blocks
-Info = scicos_simulate(scs_m, Info, 'nw');
+Info = scicos_simulate(scs_m, Info, "nw");
 blocks=list2vec(Info(2).sim.funs);
 assert_checkfalse(or(blocks == "cscope"));
 assert_checktrue(or(blocks == "trash"));
 
 // second call perform a partial-compilation, and should continue to ignore
 // some blocks
-Info = scicos_simulate(scs_m, Info, 'nw');
+Info = scicos_simulate(scs_m, Info, "nw");
 blocks=list2vec(Info(2).sim.funs);
 assert_checkfalse(or(blocks == "cscope"));
 assert_checktrue(or(blocks == "trash"));

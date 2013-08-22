@@ -10,7 +10,7 @@
 x = linspace(0,1,100)';
 y = x.^3;
 clf();
-plot(x,x.^2,'r');
+plot(x,x.^2,"r");
 e = gce();
 e = e.children;
 datatipCreate(e(1),50);

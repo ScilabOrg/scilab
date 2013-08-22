@@ -21,6 +21,6 @@
 // Rotate it (Ctrl-R)
 // Copy (Ctrl-C)
 // Paste (Ctrl-V)
-// Check that the ports and block representation are the same between the 
+// Check that the ports and block representation are the same between the
 // first and the pasted one.
 

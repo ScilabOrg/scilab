@@ -17,17 +17,17 @@
 // Blue triangles are placed over the yellow ones.
 
 indexfirst = [
-    0.3139532  
-    0.4423253  
-    8.086D-31  
+0.3139532
+0.4423253
+8.086D-31
 ]
 indextotal = [
-    0.5576747  
-    0.4423255  
-    0.2437215  
+0.5576747
+0.4423255
+0.2437215
 ]
-bar(indextotal,0.2,'blue');
-bar(indexfirst,0.15,'yellow');
+bar(indextotal,0.2,"blue");
+bar(indexfirst,0.15,"yellow");
 legend(["totale" "premier ordre"],pos=1);
 xtitle("Fonction Ishigami - Indice de sensibilité");
 xs2svg ( 0 , "export.svg" )

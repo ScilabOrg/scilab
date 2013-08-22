@@ -45,4 +45,5 @@ assert_checkequal(k, 1);
 
 [m k] = min(M(1,1,1,:));
 assert_checkequal(k, 1);
-
+
+

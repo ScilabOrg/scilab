@@ -14,9 +14,9 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5195
 //
 // <-- Short Description -->
-// "get" crashs with "Lycée" toolboxe
+// "get" crashs with "LycÃ©e" toolboxe
 
-// install and load "Lycée" toolboxe 
+// install and load "LycÃ©e" toolboxe
 // click on menu "ajustement affine"
 // you should not have a error message as
 //  Scilab has found a critical error (EXCEPTION_ACCESS_VIOLATION)

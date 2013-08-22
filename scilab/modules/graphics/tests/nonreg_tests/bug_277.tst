@@ -29,8 +29,8 @@ points = locate(4,1);
 
 // their coordinates must be within the data bounds
 for i=1:4,
-  if (points(1,i) > xMax ) then pause; end
-  if (points(1,i) < xMin ) then pause; end
+    if (points(1,i) > xMax ) then pause; end
+    if (points(1,i) < xMin ) then pause; end
 end
 
 

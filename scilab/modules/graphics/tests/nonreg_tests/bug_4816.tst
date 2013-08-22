@@ -17,6 +17,6 @@
 
 
 a=gca();
-a.auto_clear='on';
-plot(1:10, 1:10, 'ro', 1:10, 10 - (1:10), 'b.'); // will it bug ?
+a.auto_clear="on";
+plot(1:10, 1:10, "ro", 1:10, 10 - (1:10), "b."); // will it bug ?
 

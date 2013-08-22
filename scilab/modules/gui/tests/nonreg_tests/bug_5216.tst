@@ -16,8 +16,8 @@
 
 
 h = uicontrol("style","text",..
-	"string", "<a href=""http://www.scilab.org/"">Visit Scilab website...</a>",..
-	"position",[20 20 200 200], ...
-	"fontsize", 15)
+"string", "<a href=""http://www.scilab.org/"">Visit Scilab website...</a>",..
+"position",[20 20 200 200], ...
+"fontsize", 15)
 
 // Click on the link and check that a web browser is opened

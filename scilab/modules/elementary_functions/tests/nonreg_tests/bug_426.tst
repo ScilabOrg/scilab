@@ -15,8 +15,8 @@
 // <-- Short Description -->
 // Wrong permutation
 
-a = ['aaa';'eee';'ccc';'bbb';'ddd';'rrr'];
+a = ["aaa";"eee";"ccc";"bbb";"ddd";"rrr"];
 trueValue=[1; 4; 3; 5; 2; 6];
 
-[b result] = gsort(a,'r','i')
+[b result] = gsort(a,"r","i")
 assert_checkequal(result, trueValue);

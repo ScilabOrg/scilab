@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3006
 //
 // <-- Short Description -->
-// submatrix assignment impossible when the matrix is indexed with a boolean array of falses  
+// submatrix assignment impossible when the matrix is indexed with a boolean array of falses
 
 a=int16([1 2;3 4]);a_ref=a;
 

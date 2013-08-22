@@ -19,7 +19,7 @@
 //    Note that max(int8(10),-2.6) gives wrong result
 
 test1 = max(int8(10),2);
-err   = execstr('isdir(test1)','errcatch');
+err   = execstr("isdir(test1)","errcatch");
 test2 = max(int8(10),2);
 pwd();
 test3 = max(int8(10),2);

@@ -13,29 +13,29 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=596
 //
 // <-- Short Description -->
-//    uicontrol has problem in parsing string arguments: 'string' and 'callback' arguments containing 
+//    uicontrol has problem in parsing string arguments: 'string' and 'callback' arguments containing
 //    spaces, apostrophes and doublequotes give strange (repeatable) results
 
 
 f = figure(1);
 
 uicontrol(f,"style","pushbutton","position",[10 10 150 20],..
-          "string","Close figure","callback","close(f)");
-          
-uicontrol(f,"style","pushbutton",..
-          "position",[10 40 150 20],"string","disp, space, """"",..
-          "callback","disp(""second button"")");
+"string","Close figure","callback","close(f)");
 
 uicontrol(f,"style","pushbutton",..
-          "position",[10 70 150 20],"string","disp,-,""""",..
-          "callback","disp(""third-button"")");
+"position",[10 40 150 20],"string","disp, space, """"",..
+"callback","disp(""second button"")");
+
+uicontrol(f,"style","pushbutton",..
+"position",[10 70 150 20],"string","disp,-,""""",..
+"callback","disp(""third-button"")");
 
 uicontrol(f,"callback","disp(""fourth button"")",..
-           "string","disp, space, """"",..
-           "Position",[10 100 150 20],"Style", "pushbutton");
+"string","disp, space, """"",..
+"Position",[10 100 150 20],"Style", "pushbutton");
 
 uicontrol(f,"callback","disp(""fifth-button"")",..
-            "string","disp, -, """"",..
-            "Position",[10 130 150 20],"Style", "pushbutton");
+"string","disp, -, """"",..
+"Position",[10 130 150 20],"Style", "pushbutton");
 
 
