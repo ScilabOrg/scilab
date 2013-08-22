@@ -15,23 +15,23 @@
 // <-- Short Description -->
 //  basename('') returns a error and not ''
 
-ierr = execstr('basename('''');','errcatch');
+ierr = execstr("basename('''');","errcatch");
 if ierr <> 0 then pause,end
 
-r = basename('');
-if r <> '' then pause,end
+r = basename("");
+if r <> "" then pause,end
 
-r = basename('',%f,%f);
-if r <> '' then pause,end
+r = basename("",%f,%f);
+if r <> "" then pause,end
 
-r = basename('',%t,%f);
-if r <> '' then pause,end
+r = basename("",%t,%f);
+if r <> "" then pause,end
 
-r = basename('',%t,%t);
-if r <> '' then pause,end
+r = basename("",%t,%t);
+if r <> "" then pause,end
 
-r = basename('',%f,%t);
-if r <> '' then pause,end
+r = basename("",%f,%t);
+if r <> "" then pause,end
 
-ierr = execstr('basename(emptystr(2,2))','errcatch');
+ierr = execstr("basename(emptystr(2,2))","errcatch");
 if basename(emptystr(2,2)) <> emptystr(2,2) then pause,end

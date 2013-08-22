@@ -15,6 +15,6 @@
 // <-- BENCH START -->
 n = 1d6;
 for i=1:n
-  1 + 1;
+    1 + 1;
 end
 // <-- BENCH END -->

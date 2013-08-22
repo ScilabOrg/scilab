@@ -16,7 +16,7 @@
 
 driver("SVG")
 xinit(TMPDIR+"/plop.svg")
-xtitle('this appears as bezier','x','y')
+xtitle("this appears as bezier","x","y")
 xend();
 
 doc=xmlRead(TMPDIR+"/plop.svg");

@@ -16,7 +16,7 @@
 // <-- Short Description -->
 
 cd TMPDIR;
-unix('touch MotorDat.m');
-unix('touch MotorDat.sce');
+unix("touch MotorDat.m");
+unix("touch MotorDat.sce");
 
 // exec Mot<TAB> and double-click on an item

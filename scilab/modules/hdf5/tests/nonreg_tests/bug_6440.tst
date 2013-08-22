@@ -16,9 +16,9 @@
 // xcos demos did not work and returned an error "Unable to open file".
 //
 
-dataDirP1 = TMPDIR + '/世界您好';
-dataDirP2 = TMPDIR + '/世界您好/JOSÉDO~1/';
-dataFile = dataDirP2 + '/my_data.sod";
+dataDirP1 = TMPDIR + "/世界您好";
+dataDirP2 = TMPDIR + "/世界您好/JOSÉDO~1/";
+dataFile = dataDirP2 + "/my_data.sod";
 
 mkdir(dataDirP1);
 mkdir(dataDirP2);

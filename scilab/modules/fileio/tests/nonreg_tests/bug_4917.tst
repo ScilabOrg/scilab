@@ -13,5 +13,5 @@
 // <-- Short Description -->
 //   fileinfo(SCI+'/') fails on windows
 
-if fileinfo(SCI) <> fileinfo(SCI+'/') then pause,end
-if fileinfo(SCI+'/') == [] then pause,end
+if fileinfo(SCI) <> fileinfo(SCI+"/") then pause,end
+if fileinfo(SCI+"/") == [] then pause,end

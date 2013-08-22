@@ -22,20 +22,20 @@ if ierr <> 0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr <> 0 then pause, end
 
-a = mlist(['V']);
-if getfields('a.') <> '' then pause, end;
+a = mlist(["V"]);
+if getfields("a.") <> "" then pause, end;
 
-a = tlist(['V']);
-if getfields('a.') <> '' then pause, end;
+a = tlist(["V"]);
+if getfields("a.") <> "" then pause, end;
 
 a = struct();
-if getfields('a.') <> '' then pause, end;
+if getfields("a.") <> "" then pause, end;
 
-a = mlist(['V' 'f']);
-if getfields('a.') <> 'f' then pause, end;
+a = mlist(["V" "f"]);
+if getfields("a.") <> "f" then pause, end;
 
-a = tlist(['V' 'f']);
-if getfields('a.') <> 'f' then pause, end;
+a = tlist(["V" "f"]);
+if getfields("a.") <> "f" then pause, end;
 
-a = struct('f', 'v');
-if getfields('a.') <> 'f' then pause, end;
+a = struct("f", "v");
+if getfields("a.") <> "f" then pause, end;

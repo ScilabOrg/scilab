@@ -23,7 +23,7 @@ assert_checkalmostequal(norm(A), norm(AS));
 assert_checkalmostequal(norm(A'), norm(AS'));
 assert_checkequal(norm(A, 1), norm(AS, 1));
 assert_checkequal(norm(A, %inf), norm(AS, %inf));
-assert_checkequal(norm(A, 'fro'), norm(AS, 'fro'));
+assert_checkequal(norm(A, "fro"), norm(AS, "fro"));
 
 A = [1 1 1 1 1;-1 -1 -1 -1 -1];
 AS = sparse(A);
@@ -32,19 +32,19 @@ assert_checkalmostequal(norm(A), norm(AS));
 assert_checkalmostequal(norm(A)', norm(AS)');
 assert_checkequal(norm(A, 1), norm(AS, 1));
 assert_checkequal(norm(A, %inf), norm(AS, %inf));
-assert_checkequal(norm(A, 'fro'), norm(AS, 'fro'));
+assert_checkequal(norm(A, "fro"), norm(AS, "fro"));
 
 
 A = [
-    0.    0.    0.    0.    0.  
-    0.    0.    0.    0.    0.  
-    0.    0.   -1.    0.    1.  
-    0.    0.    0.    0.    0.  
-    0.    0.    1.    0.   -1.  ];
+0.    0.    0.    0.    0.
+0.    0.    0.    0.    0.
+0.    0.   -1.    0.    1.
+0.    0.    0.    0.    0.
+0.    0.    1.    0.   -1.  ];
 
 AS = sparse(A);
 
 assert_checkequal(norm(A), norm(AS));
 assert_checkequal(norm(A, 1), norm(AS, 1));
 assert_checkequal(norm(A, %inf), norm(AS, %inf));
-assert_checkequal(norm(A, 'fro'), norm(AS, 'fro'));
+assert_checkequal(norm(A, "fro"), norm(AS, "fro"));

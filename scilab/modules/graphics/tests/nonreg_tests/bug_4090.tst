@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // draw does not work any more while inside drawlater/drawnow scope.
-// 
+//
 
 x = 1:10;
 

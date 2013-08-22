@@ -25,8 +25,8 @@ hstop = uicontrol(f,"style","checkbox","string","Stop","min",0,"max",1,"value",0
 scf();
 stop=0;
 while stop<0.5
- stop=get(hstop,"value");
- mprintf("%d ",stop)
- clf;
- Matplot(rand(50,50)*32)
+    stop=get(hstop,"value");
+    mprintf("%d ",stop)
+    clf;
+    Matplot(rand(50,50)*32)
 end

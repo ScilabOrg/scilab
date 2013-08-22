@@ -13,15 +13,15 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4684
 // printf() does not properly deal with -%inf.
 
-ref = 'Value is: -Inf';
-tst = msprintf('Value is: %d', -%inf);
+ref = "Value is: -Inf";
+tst = msprintf("Value is: %d", -%inf);
 
 if ref <> tst then pause,end
 
-ref = 'Value is: Inf';
-tst = msprintf('Value is: %d', %inf);
+ref = "Value is: Inf";
+tst = msprintf("Value is: %d", %inf);
 
 if ref <> tst then pause,end
 
-printf('Value is: %d', -%inf);
-printf('Value is: %d', %inf);
+printf("Value is: %d", -%inf);
+printf("Value is: %d", %inf);

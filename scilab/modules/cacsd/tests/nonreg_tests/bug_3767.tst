@@ -22,6 +22,6 @@ R=R*R'+eye();
 
 B=B*inv(R)*B';
 
-X=ricc(A,B,C,'disc');
+X=ricc(A,B,C,"disc");
 
 if or(size(X)<>[3 3]) then pause,end

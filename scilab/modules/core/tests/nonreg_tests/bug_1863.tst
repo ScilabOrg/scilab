@@ -13,35 +13,35 @@
 // <-- Short Description -->
 //Incomplete if while select (missing first expression are not well handled
 pb=%f
-try        
-  function foo
-    if
-    end
-  endfunction
+try
+    function foo
+        if
+        end
+    endfunction
 catch
-  pb=%t
+    pb=%t
 end
 if ~pb  then pause,end
 
 pb=%f
-try        
-  function foo1
-    while
-    end
-  endfunction
+try
+    function foo1
+        while
+        end
+    endfunction
 catch
-  pb=%t
+    pb=%t
 end
 if ~pb  then pause,end
 
 pb=%f
-try        
-  function foo2
-    select
-    end
-  endfunction
+try
+    function foo2
+        select
+        end
+    endfunction
 catch
-  pb=%t
+    pb=%t
 end
 if ~pb  then pause,end
 

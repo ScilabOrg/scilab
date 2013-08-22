@@ -11,7 +11,7 @@
 // <-- CLI SHELL MODE -->
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 // Forward
@@ -40,8 +40,8 @@ s1 = optimsimplex_destroy ( s1 );
 myobj = tlist(["T_MYSTUFF","nb"]);
 myobj.nb = 0;
 function [ y , myobj ] = mycostf ( x , myobj )
-  y = rosenbrock(x);
-  myobj.nb = myobj.nb + 1
+    y = rosenbrock(x);
+    myobj.nb = myobj.nb + 1
 endfunction
 s1 = optimsimplex_new ();
 simplex = [

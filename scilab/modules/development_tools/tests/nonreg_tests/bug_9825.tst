@@ -16,12 +16,12 @@
 // The assert_computedigits function generously gives too large correct digits.
 
 function flag = MY_assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if computed==expected then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 e = 1;

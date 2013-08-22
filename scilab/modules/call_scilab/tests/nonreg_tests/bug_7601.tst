@@ -22,15 +22,15 @@
 int main(void)
 {
 #ifdef _MSC_VER
-        StartScilab(NULL, NULL, NULL);
+StartScilab(NULL, NULL, NULL);
 #else
-        StartScilab(getenv("SCI"), NULL, NULL);
+StartScilab(getenv("SCI"), NULL, NULL);
 #endif
 
-        SendScilabJob("disp([2,3]+[-44,39]);"); // Will display   - 42.    42.  
-        TerminateScilab(NULL);
-        return SendScilabJob("disp([2,3]+[-44,39]);")
-        
-}
+    SendScilabJob("disp([2,3]+[-44,39]);"); // Will display   - 42.    42.
+    TerminateScilab(NULL);
+    return SendScilabJob("disp([2,3]+[-44,39]);")
 
-default value returned by main will be -1
+    }
+
+    default value returned by main will be -1

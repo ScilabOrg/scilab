@@ -7,7 +7,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for meanf function 
+// unit tests for meanf function
 // =============================================================================
 
 assert_checkfalse(execstr("meanf()"   ,"errcatch") == 0);

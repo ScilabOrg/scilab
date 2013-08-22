@@ -11,10 +11,10 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1725
 //
 // <-- Short Description -->
-//    the function mtlb_axis returns an index error when called with an 
+//    the function mtlb_axis returns an index error when called with an
 //    argument of [ 1 500 -22.3 1.4] or any other argument.
 //
-//    This was traced to varargout(1) not being set to a.data_bounds within 
+//    This was traced to varargout(1) not being set to a.data_bounds within
 //    the code segment
 //    if rhs>0 then
 //
@@ -26,7 +26,7 @@
 //    end
 //    endfunction
 //
-//    Changing this to 
+//    Changing this to
 //    if rhs>0 then
 //
 //        statements

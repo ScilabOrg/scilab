@@ -14,22 +14,22 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3944
 //
 // <-- Short Description -->
-// ilib_mex_build() wasn't using the content of the 
+// ilib_mex_build() wasn't using the content of the
 // variable tables to compile other files
 
 ilib_verbose(0);
 
 cd(TMPDIR);
-mputl('ilib_mex_build(''libmex'',[''mexf16'',''mexfunction16'',''cmex''],[],[],'''','''','''','''')','builder.sce');
+mputl("ilib_mex_build(''libmex'',[''mexf16'',''mexfunction16'',''cmex''],[],[],'''','''','''','''')","builder.sce");
 
 mputl([
-'#include ""mex.h""'
-'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])'
-'{'
-'  int *dims = mxGetDimensions(prhs[0]);'
-'  sciprint(""%d %d %d\n"",dims[0],dims[1],dims[2]);'
-'}'
-],'mexfunction16.c');
-exec(TMPDIR+'/builder.sce');
-exec(TMPDIR+'/loader.sce');
+"#include ""mex.h"""
+"void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])"
+"{"
+"  int *dims = mxGetDimensions(prhs[0]);"
+"  sciprint(""%d %d %d\n"",dims[0],dims[1],dims[2]);"
+"}"
+],"mexfunction16.c");
+exec(TMPDIR+"/builder.sce");
+exec(TMPDIR+"/loader.sce");
 mexf16(rand(2,3,2));

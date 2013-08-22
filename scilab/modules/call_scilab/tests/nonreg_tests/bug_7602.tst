@@ -21,30 +21,30 @@
 
 int main(void)
 {
-    #define NB_LOOPS 10
-    int i = 0;
-    for (i = 0; i < NB_LOOPS; i++)
+#define NB_LOOPS 10
+int i = 0;
+for (i = 0; i < NB_LOOPS; i++)
     {
-        DisableInteractiveMode();
-#ifdef _MSC_VER
-        StartScilab(NULL, NULL, NULL);
-#else
-        StartScilab(getenv("SCI"), NULL, NULL);
-#endif
+    DisableInteractiveMode();
+    #ifdef _MSC_VER
+    StartScilab(NULL, NULL, NULL);
+    #else
+    StartScilab(getenv("SCI"), NULL, NULL);
+    #endif
 
         TerminateScilab(NULL);
 
         DisableInteractiveMode();
-#ifdef _MSC_VER
+        #ifdef _MSC_VER
         StartScilab(NULL, NULL, NULL);
-#else
+        #else
         StartScilab(getenv("SCI"), NULL, NULL);
-#endif
-        SendScilabJob("disp([2,3]+[-44,39]);"); // Will display   - 42.    42.
+        #endif
+            SendScilabJob("disp([2,3]+[-44,39]);"); // Will display   - 42.    42.
 
-        TerminateScilab(NULL);
-    }
-    return 0;
-}
+            TerminateScilab(NULL);
+            }
+            return 0;
+            }
 
-// you must have 10 display of    - 42.    42.
+            // you must have 10 display of    - 42.    42.

@@ -9,21 +9,21 @@
 //
 // <-- CLI SHELL MODE -->
 // <-- ENGLISH IMPOSED -->
-// <-- NO TRY CATCH --> 
-// 
+// <-- NO TRY CATCH -->
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=8050
 //
 // <-- Short Description -->
 // weird error message
-setlanguage('en');
+setlanguage("en");
 
 errcatch(-1,"continue")
 function foo,[,endfunction
 
 errclear(-1);errcatch(-1,"continue")
 function foo
-[
+    [
 endfunction
 
 

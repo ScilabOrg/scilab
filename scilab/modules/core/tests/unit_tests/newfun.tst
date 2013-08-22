@@ -13,20 +13,20 @@ if cos(2*%pi) <> cosAlias(2*%pi)                then pause,end
 if clearfun("cosAlias") <> %T                   then pause,end
 if execstr("cosAlias(2*%pi)","errcatch") ==  0  then pause,end
 
-ierr = execstr('newfun(''more_than_twenty_four_characters_function_name'',fptr_cos)','errcatch');
+ierr = execstr("newfun(''more_than_twenty_four_characters_function_name'',fptr_cos)","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('newfun(''1_function_name'',fptr_cos)','errcatch');
+ierr = execstr("newfun(''1_function_name'',fptr_cos)","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('newfun(''new_function_name'',[fptr_cos,fptr_cos])','errcatch');
+ierr = execstr("newfun(''new_function_name'',[fptr_cos,fptr_cos])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('newfun([''new_function_name'',''new_function_name''],[fptr_cos,fptr_cos])','errcatch');
+ierr = execstr("newfun([''new_function_name'',''new_function_name''],[fptr_cos,fptr_cos])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('newfun(1,[fptr_cos,fptr_cos])','errcatch');
+ierr = execstr("newfun(1,[fptr_cos,fptr_cos])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('newfun(1,''fptr_cos'')','errcatch');
+ierr = execstr("newfun(1,''fptr_cos'')","errcatch");
 if ierr <> 999 then pause,end

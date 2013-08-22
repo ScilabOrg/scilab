@@ -12,9 +12,9 @@ delay = 5;
 j = 2;
 tic();
 while ( %t )
-  t = toc();
-  if ( t > delay ) then
-    break
-  end
-  j = j+1;
+    t = toc();
+    if ( t > delay ) then
+        break
+    end
+    j = j+1;
 end

@@ -14,5 +14,5 @@
 // <-- Short Description -->
 //  Example with vectorized input added in help pages of mprintf and msprintf
 
-assert_checkequal(msprintf('%e ', [1;2;3]), ["1.000000e+00 2.000000e+00 3.000000e+00 "]);
-assert_checkequal(msprintf('%d %d\n', [1, 2; 3, 4]), ["1 2"; "3 4"]);
+assert_checkequal(msprintf("%e ", [1;2;3]), ["1.000000e+00 2.000000e+00 3.000000e+00 "]);
+assert_checkequal(msprintf("%d %d\n", [1, 2; 3, 4]), ["1 2"; "3 4"]);

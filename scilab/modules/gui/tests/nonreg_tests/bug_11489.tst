@@ -18,20 +18,20 @@
 // 1 - Create a slider without setting the SliderStep property
 f = gcf();
 editH = uicontrol("Parent", f, ..
-        "Style", "edit", ..
-        "Position", [60 36 50 16], ..
-        "String", "500", ..
-        "Backgroundcolor", [1 1 1], ..
-        "Tag", "edit");
+"Style", "edit", ..
+"Position", [60 36 50 16], ..
+"String", "500", ..
+"Backgroundcolor", [1 1 1], ..
+"Tag", "edit");
 
 sliderH = uicontrol("Parent", f, ..
-        "Style", "slider", ..
-        "Position", [10 8 200 20], ..
-        "Value", 500, ..
-        "Min", 0, ..
-        "Max", 1000, ..
-        "Tag", "slider", ..
-        "Callback", "cbSlider");
+"Style", "slider", ..
+"Position", [10 8 200 20], ..
+"Value", 500, ..
+"Min", 0, ..
+"Max", 1000, ..
+"Tag", "slider", ..
+"Callback", "cbSlider");
 
 function cbSlider()
     s = findobj("Tag", "slider");
@@ -48,21 +48,21 @@ delete(gcf())
 // 2 - Create a slider setting only the first value of the SliderStep property
 f = gcf();
 editH = uicontrol("Parent", f, ..
-        "Style", "edit", ..
-        "Position", [60 36 50 16], ..
-        "String", "500", ..
-        "Backgroundcolor", [1 1 1], ..
-        "Tag", "edit");
+"Style", "edit", ..
+"Position", [60 36 50 16], ..
+"String", "500", ..
+"Backgroundcolor", [1 1 1], ..
+"Tag", "edit");
 
 sliderH = uicontrol("Parent", f, ..
-        "Style", "slider", ..
-        "Position", [10 8 200 20], ..
-        "Value", 500, ..
-        "Min", 0, ..
-        "Max", 1000, ..
-        "Tag", "slider", ..
-        "SliderStep", 50, ..
-        "Callback", "cbSlider");
+"Style", "slider", ..
+"Position", [10 8 200 20], ..
+"Value", 500, ..
+"Min", 0, ..
+"Max", 1000, ..
+"Tag", "slider", ..
+"SliderStep", 50, ..
+"Callback", "cbSlider");
 
 function cbSlider()
     s = findobj("Tag", "slider");
@@ -77,21 +77,21 @@ endfunction
 // 3 - Create a slider setting the SliderStep property
 f = gcf();
 editH = uicontrol("Parent", f, ..
-        "Style", "edit", ..
-        "Position", [60 36 50 16], ..
-        "String", "500", ..
-        "Backgroundcolor", [1 1 1], ..
-        "Tag", "edit");
+"Style", "edit", ..
+"Position", [60 36 50 16], ..
+"String", "500", ..
+"Backgroundcolor", [1 1 1], ..
+"Tag", "edit");
 
 sliderH = uicontrol("Parent", f, ..
-        "Style", "slider", ..
-        "Position", [10 8 200 20], ..
-        "Value", 500, ..
-        "Min", 0, ..
-        "Max", 1000, ..
-        "Tag", "slider", ..
-        "SliderStep", [100 200], ..
-        "Callback", "cbSlider");
+"Style", "slider", ..
+"Position", [10 8 200 20], ..
+"Value", 500, ..
+"Min", 0, ..
+"Max", 1000, ..
+"Tag", "slider", ..
+"SliderStep", [100 200], ..
+"Callback", "cbSlider");
 
 function cbSlider()
     s = findobj("Tag", "slider");

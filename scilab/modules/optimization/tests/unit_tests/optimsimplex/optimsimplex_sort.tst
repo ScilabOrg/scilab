@@ -12,7 +12,7 @@
 
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -22,9 +22,9 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,3);
 newsimplex = [
-    1.    2.  
-    3.    4.  
-    5.    6.  
+1.    2.
+3.    4.
+5.    6.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setallfv ( s1 , [5.0 2.0 1.0]' );

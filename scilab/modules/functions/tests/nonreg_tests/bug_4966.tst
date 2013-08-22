@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4943
 //
 // <-- Short Description -->
-// execstr([]) should return [] 
+// execstr([]) should return []
 // =============================================================================
 if execstr([]) <> [] then pause,end
 // =============================================================================

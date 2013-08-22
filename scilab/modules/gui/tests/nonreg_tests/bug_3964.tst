@@ -18,9 +18,9 @@
 
 // try all lines
 
-uigetfile(["*.bin","BIN files"],"SCI/modules/gui/macros/") 
+uigetfile(["*.bin","BIN files"],"SCI/modules/gui/macros/")
 
-uigetfile(["*.bin";"*.sce";"*.cos*"]) 
+uigetfile(["*.bin";"*.sce";"*.cos*"])
 
 uigetfile(["*.sci";"*.bin"],"SCI/modules/gui/macros/")
 

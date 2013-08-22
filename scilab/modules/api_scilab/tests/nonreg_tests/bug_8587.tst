@@ -18,12 +18,12 @@
 ilib_verbose(0);
 currentpath = pwd();
 cd TMPDIR;
-mkdir('bug_8587');
-TEST_DIR = TMPDIR + filesep() + 'bug_8587';
-copyfile(SCI+'/modules/api_scilab/tests/nonreg_tests/bug_8587.c' , TEST_DIR + filesep() + 'bug_8587.c');
+mkdir("bug_8587");
+TEST_DIR = TMPDIR + filesep() + "bug_8587";
+copyfile(SCI+"/modules/api_scilab/tests/nonreg_tests/bug_8587.c" , TEST_DIR + filesep() + "bug_8587.c");
 chdir(TEST_DIR);
-files = ['bug_8587.c'];
-ilib_build('lib_bug_8587', ['readDoubles', 'sci_readDoubles'], files, []);
+files = ["bug_8587.c"];
+ilib_build("lib_bug_8587", ["readDoubles", "sci_readDoubles"], files, []);
 exec loader.sce;
 chdir(currentpath);
 REF_TEST_MATRIX = [1 2 3; 4 5 6];

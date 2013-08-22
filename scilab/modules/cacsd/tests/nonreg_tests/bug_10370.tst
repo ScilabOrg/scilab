@@ -17,12 +17,12 @@
 
 
 A2 = [0 1 0
-      1 0 1
-      0 0 -1];
+1 0 1
+0 0 -1];
 B2 = [0;0;10.523];
 C2 = [1 0 0];
 
-sl2 = syslin('c', A2,B2,C2);
+sl2 = syslin("c", A2,B2,C2);
 G2 = clean(ss2tf(sl2));
 REF =  10.523/ (-1 -%s + (%s*%s) + (%s*%s*%s));
 assert_checkalmostequal(coeff(G2(2)), coeff(REF(2)));

@@ -13,12 +13,12 @@
 // <-- Short Description -->
 // fullfile did not remove blanks and not create a valid path
 
-ref = pathconvert('SCI/modules/core',%f,%f);
-r = fullfile('     SCI     ','      modules    ','        core    ');
+ref = pathconvert("SCI/modules/core",%f,%f);
+r = fullfile("     SCI     ","      modules    ","        core    ");
 if r <> ref then pause,end
 
-ref = pathconvert('a/b/c/d/e/f/g/h/i/j',%f,%f);
-r = fullfile('a','b','c','d','e','f','g','h','i','j');
+ref = pathconvert("a/b/c/d/e/f/g/h/i/j",%f,%f);
+r = fullfile("a","b","c","d","e","f","g","h","i","j");
 if r <> ref then pause,end
 
 ref = []

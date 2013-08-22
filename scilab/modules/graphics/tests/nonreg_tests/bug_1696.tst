@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // zoom_box properties only applies on X and Y axis.
-// 
+//
 
 xSize = 10;
 x = 1:xSize;

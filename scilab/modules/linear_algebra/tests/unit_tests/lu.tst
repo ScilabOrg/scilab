@@ -5,10 +5,10 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x),r=norm(x,1),endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================      lu      ============================== 
+//==============================      lu      ==============================
 //==========================================================================
 //Empty matrix
 A=[];
@@ -27,7 +27,7 @@ if Err(L*U-E*Ac) >200*%eps then pause,end
 //---------------
 //Square
 A=rand(5,5);Ac=A+%i*rand(A);
-//Real case 
+//Real case
 
 [L,U]=lu(A);
 if Err(L*U-A) >200*%eps then pause,end

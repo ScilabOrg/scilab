@@ -19,7 +19,7 @@
 //    The file is always saved in SCI instead of the current directory
 
 
-editor('my_file.sci')
+editor("my_file.sci")
 
 
 

@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // In Scilab 4 and in isoview mode, some lines don't superpose although they should.
-// 
+//
 
 frame_size = 4.e-6
 a=get("current_axes");

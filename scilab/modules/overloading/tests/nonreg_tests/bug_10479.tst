@@ -27,5 +27,5 @@ M=max(A,B);
 assert_checkequal(M,matrix(max(A(:),B(:)),size(A)));
 
 A=matrix(1:27,3,3,3);
-assert_checkequal(max(A,'r'),matrix(3:3:27,1,3,3));
-assert_checkequal(max(A,'c'),matrix([7:9 16:18 25:27],3,1,3));
+assert_checkequal(max(A,"r"),matrix(3:3:27,1,3,3));
+assert_checkequal(max(A,"c"),matrix([7:9 16:18 25:27],3,1,3));

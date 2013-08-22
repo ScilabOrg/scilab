@@ -18,9 +18,9 @@
 
 
 r="/^b.*b.*b.*b.*b$/";
-b = "b"; 
+b = "b";
 for i = 1:123
-  b = b + "b";
+    b = b + "b";
 end;
 b = b + "r";
 ierr=execstr("regexp(b, r)","errcatch");

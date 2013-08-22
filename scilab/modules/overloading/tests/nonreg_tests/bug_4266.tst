@@ -37,12 +37,12 @@ a=rand(2,2,2);
 if or(size(a)<>[2 2 2]) then pause,end
 
 
-a=rand(2,2,1,'normal');
+a=rand(2,2,1,"normal");
 if or(size(a)<>[2 2]) then pause,end
-a=rand(2,2,1,1,'normal');
+a=rand(2,2,1,1,"normal");
 if or(size(a)<>[2 2]) then pause,end
 if or(a<>a(:,:)) then pause,end
-a=rand(2,2,2,'normal');
+a=rand(2,2,2,"normal");
 if or(size(a)<>[2 2 2]) then pause,end
 
 

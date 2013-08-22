@@ -24,15 +24,15 @@ doc = xmlRead(SCI + "/modules/xcos/etc/palettes.xml");
 blocks = xmlXPath(doc, "//block/@name");
 blocks = blocks.content;
 xmlDelete(doc);
-for blockIndex=1:size(blocks, '*')
+for blockIndex=1:size(blocks, "*")
     interfunction = blocks(blockIndex);
-    
+
     execstr("out = " + interfunction + "(''define'');");
-    
+
     xx = (modulo(blockIndex, 10) + 1) * 100;
     yy = int(blockIndex / 10) * 100;
     out.graphics.orig =[xx yy];
-    
+
     scs_m.objs(blockIndex) = out;
 end
 

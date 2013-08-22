@@ -4137,7 +4137,7 @@ assert_checkequal(erfc(0), 1);
 assert_checkequal(erfc(%inf), 0)
 
 
-x4=4; 
+x4=4;
 w4=4.1;
 z4=3.9;
 deff("y=f(t)","y=exp(-t^2)");

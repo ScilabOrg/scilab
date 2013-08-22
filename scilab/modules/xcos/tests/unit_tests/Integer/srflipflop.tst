@@ -14,7 +14,7 @@ assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/Integer/sr
 A_ref1 = int8(zeros(28,1));
 A_ref2 = int8(ones(172,1));
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values(1:28), A_ref1);
 assert_checkequal(A.values(29:$), A_ref2);

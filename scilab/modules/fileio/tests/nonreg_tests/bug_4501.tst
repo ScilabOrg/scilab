@@ -15,8 +15,8 @@
 // <-- Short Description -->
 //  mput() no more allowed integer types as first input argument.
 
-u = mopen(TMPDIR+'/foo','wb');
-ierr = execstr('mput(int32(1996),''l'',u);','errcatch');
+u = mopen(TMPDIR+"/foo","wb");
+ierr = execstr("mput(int32(1996),''l'',u);","errcatch");
 if ierr <> 0 then pause,end
 
 

@@ -14,9 +14,9 @@
 //
 // <-- Short Description -->
 //    Wrong results when solving linear systems when the matrix
-//    is sparse and 1x1, and rhs is compatible and sparse. 
+//    is sparse and 1x1, and rhs is compatible and sparse.
 //    In the example below, M\b and full(M)\b give a wrong result,
-//    whereas M\full(b) and full(M)\full(b) are ok. 
+//    whereas M\full(b) and full(M)\full(b) are ok.
 //
 //    Strangely, when the size of b is less than 10, then all
 //    cases give the correct answer !

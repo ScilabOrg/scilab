@@ -10,14 +10,13 @@
 //===============================
 // unit tests strcmpi
 //===============================
-TXT1 = ['scilab','SciLab';'Strcmp','STRcmp'];
-TXT2 = ['ScIlAb','sciLab';'sTrCmP','StrCMP'];
-TXT = 'Scilab';
+TXT1 = ["scilab","SciLab";"Strcmp","STRcmp"];
+TXT2 = ["ScIlAb","sciLab";"sTrCmP","StrCMP"];
+TXT = "Scilab";
 //===============================
 if strcmpi(TXT1,TXT2) <> [ 0 , 0 ; 0 , 0 ] then pause,end
 //===============================
 if strcmpi(TXT1,TXT) <> [ 0 , 0 ; 17 , 17 ] then pause,end
 //===============================
-if strcmpi('','') <> 0 then pause,end
+if strcmpi("","") <> 0 then pause,end
 //===============================
- 

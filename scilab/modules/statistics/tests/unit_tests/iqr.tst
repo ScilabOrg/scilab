@@ -7,7 +7,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for iqr function 
+// unit tests for iqr function
 // =============================================================================
 
 assert_checkfalse(execstr("iqr()"   ,"errcatch") == 0);

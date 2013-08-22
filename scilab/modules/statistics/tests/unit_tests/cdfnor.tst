@@ -15,40 +15,40 @@
 // References
 // Assessing the quality of the Normal distribution function
 // References
-//   Yalta, A. T. 2008. The accuracy of statistical distributions in Microsoft®Excel 2007. Comput. Stat. Data Anal. 52, 10 (Jun. 2008), 4579-4586. DOI= http://dx.doi.org/10.1016/j.csda.2008.03.005 
-//   Computation of Statistical Distributions (ELV), Leo Knüsel 
+//   Yalta, A. T. 2008. The accuracy of statistical distributions in Microsoft®Excel 2007. Comput. Stat. Data Anal. 52, 10 (Jun. 2008), 4579-4586. DOI= http://dx.doi.org/10.1016/j.csda.2008.03.005
+//   Computation of Statistical Distributions (ELV), Leo Knüsel
 // Table 6
 // Check inverse of normal law
 //
-  
+
 // Table from Yalta, 2008.
 table = [
-  0.5 , 0.0
-  1.e-1 , -1.28155
-  1.e-2 , -2.32635
-  1.e-3 , -3.09023
-  1.e-4 , -3.71902
-  1.e-5 , -4.26489
-  1.e-6 , -4.75342
-  1.e-7 , -5.19934
-  1.e-15 , -7.94135
-  1.e-16 , -8.22208
-  1.e-100 , -21.2735
-  1.e-197 , -29.9763
-  1.e-198 , -30.0529
-  1.e-300 , -37.0471
+0.5 , 0.0
+1.e-1 , -1.28155
+1.e-2 , -2.32635
+1.e-3 , -3.09023
+1.e-4 , -3.71902
+1.e-5 , -4.26489
+1.e-6 , -4.75342
+1.e-7 , -5.19934
+1.e-15 , -7.94135
+1.e-16 , -8.22208
+1.e-100 , -21.2735
+1.e-197 , -29.9763
+1.e-198 , -30.0529
+1.e-300 , -37.0471
 ];
 
 precision = 1.e-5;
 nt = size(table,"r");
 for k = 1 : nt
-  p = table(k,1);
-  expected = table(k,2);
-  q = 1 - p;
-  Mean = 0;
-  Std = 1;
-  computed = cdfnor ( "X" , Mean , Std , p , q );
-  assert_checkalmostequal ( computed , expected , precision );
+    p = table(k,1);
+    expected = table(k,2);
+    q = 1 - p;
+    Mean = 0;
+    Std = 1;
+    computed = cdfnor ( "X" , Mean , Std , p , q );
+    assert_checkalmostequal ( computed , expected , precision );
 end
 
 //
@@ -87,32 +87,32 @@ precinv = 1.e-8;
 
 nt = size(table,"r");
 for k = 1 : nt
-  x = table(k,1);
-  mu = table(k,2);
-  std = table(k,3);
-  p = table(k,5);
-  q = table(k,6);
-  [ p1 , q1 ] = cdfnor("PQ",x,mu,std);
-  x1 = cdfnor("X",mu,std,p,q);
-  mu1 = cdfnor("Mean",std,p,q,x);
-  std1 = cdfnor("Std",p,q,x,mu);
-  if ( %t ) then
-    assert_checkalmostequal ( p1 , p , precision );
-    assert_checkalmostequal ( q1 , q , precision );
-    assert_checkalmostequal ( x1 , x , precinv );
-    assert_checkalmostequal ( mu1 , mu , precinv );
-    if ( ~isnan(std1) ) then
-      assert_checkalmostequal ( std1 , std , precinv );
+    x = table(k,1);
+    mu = table(k,2);
+    std = table(k,3);
+    p = table(k,5);
+    q = table(k,6);
+    [ p1 , q1 ] = cdfnor("PQ",x,mu,std);
+    x1 = cdfnor("X",mu,std,p,q);
+    mu1 = cdfnor("Mean",std,p,q,x);
+    std1 = cdfnor("Std",p,q,x,mu);
+    if ( %t ) then
+        assert_checkalmostequal ( p1 , p , precision );
+        assert_checkalmostequal ( q1 , q , precision );
+        assert_checkalmostequal ( x1 , x , precinv );
+        assert_checkalmostequal ( mu1 , mu , precinv );
+        if ( ~isnan(std1) ) then
+            assert_checkalmostequal ( std1 , std , precinv );
+        end
     end
-  end
-  if ( %f ) then
-    dP = assert_computedigits ( p1 , p );
-    dQ = assert_computedigits ( q1 , q );
-    dx = assert_computedigits ( x1 , x );
-    dmu = assert_computedigits ( mu1 , mu );
-    dstd = assert_computedigits ( std1 , std );
-    mprintf("Test #%3d/%3d: Digits p1= %.1f, q1=%.1f, X=%.1f, M=%.1f, S=%.1f\n",k,nt,dP,dQ,dx,dmu,dstd);
-  end
+    if ( %f ) then
+        dP = assert_computedigits ( p1 , p );
+        dQ = assert_computedigits ( q1 , q );
+        dx = assert_computedigits ( x1 , x );
+        dmu = assert_computedigits ( mu1 , mu );
+        dstd = assert_computedigits ( std1 , std );
+        mprintf("Test #%3d/%3d: Digits p1= %.1f, q1=%.1f, X=%.1f, M=%.1f, S=%.1f\n",k,nt,dP,dQ,dx,dmu,dstd);
+    end
 end
 
 // IEEE support

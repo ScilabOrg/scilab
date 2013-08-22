@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=296
 //
 // <-- Short Description -->
-//     
+//
 
 
 if ([1+2*%i].*.[1])<>([1].*.[1+2*%i]) then pause,end

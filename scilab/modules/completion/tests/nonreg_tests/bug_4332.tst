@@ -24,11 +24,11 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 // You choose thermaSnap.img
-currentline = 'scipad thermaSnap.';
-r = completeline(currentline,'thermaSnap.img',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'scipad thermaSnap.img' then pause,end
+currentline = "scipad thermaSnap.";
+r = completeline(currentline,"thermaSnap.img",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "scipad thermaSnap.img" then pause,end
 
 // You choose thermaSnap.sce
-currentline = 'scipad thermaSnap.';
-r = completeline(currentline,'thermaSnap.sce',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'scipad thermaSnap.sce' then pause,end
+currentline = "scipad thermaSnap.";
+r = completeline(currentline,"thermaSnap.sce",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "scipad thermaSnap.sce" then pause,end

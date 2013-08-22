@@ -22,32 +22,32 @@ if ierr<>0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
-REF = 'cd cudascilab/sci_gateway/';
-currentline = 'cd cudascilab/sc';
-r = completeline(currentline,'sci_gateway/',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+REF = "cd cudascilab/sci_gateway/";
+currentline = "cd cudascilab/sc";
+r = completeline(currentline,"sci_gateway/",getfilepartlevel(currentline),getpartlevel(currentline),%t);
 assert_checkequal(r, REF);
 
 REF = "~/Downl";
-currentline = 'ls(""~/Downl';
+currentline = "ls(""~/Downl";
 r = getfilepartlevel(currentline);
 assert_checkequal(r, REF);
 
-currentline = 'out=ls(""~/Downl';
+currentline = "out=ls(""~/Downl";
 r = getfilepartlevel(currentline);
 assert_checkequal(r, REF);
 
-currentline = 'out =ls(""~/Downl';
+currentline = "out =ls(""~/Downl";
 r = getfilepartlevel(currentline);
 assert_checkequal(r, REF);
 
-currentline = 'out = ls(""~/Downl';
+currentline = "out = ls(""~/Downl";
 r = getfilepartlevel(currentline);
 assert_checkequal(r, REF);
 
-REF = 'c:\Program files';
-currentline = '  cd c:\Program files';
+REF = "c:\Program files";
+currentline = "  cd c:\Program files";
 r = getfilepartlevel(currentline);
 
-REF = 'c:\';
-currentline = 'for s=ls(""c:\';
+REF = "c:\";
+currentline = "for s=ls(""c:\";
 r = getfilepartlevel(currentline);

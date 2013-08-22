@@ -21,12 +21,12 @@ if y<>33 then pause,end
 
 
 
-if execstr("y=2;resume();y=-1",'errcatch')<>46 then pause,end
+if execstr("y=2;resume();y=-1","errcatch")<>46 then pause,end
 if y<>2  then pause,end
 function y=foo()
-y=1
-return()
-y=2
+    y=1
+    return()
+    y=2
 endfunction
 
 if execstr("foo()","errcatch")<>46 then pause,end

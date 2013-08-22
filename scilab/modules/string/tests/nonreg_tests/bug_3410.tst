@@ -19,7 +19,7 @@ if length(sparse(eye(12,2))) <> 12 then pause,end
 if length(sparse(eye(2,12))) <> 12 then pause,end
 if length(sparse(1)) <> 1 then pause,end
 
-if with_module('umfpack') then
-  A = ReadHBSparse(SCI+"/modules/umfpack/examples/bcsstk24.rsa");
-  if length(A) <> 3562 then pause,end
-end  
+if with_module("umfpack") then
+    A = ReadHBSparse(SCI+"/modules/umfpack/examples/bcsstk24.rsa");
+    if length(A) <> 3562 then pause,end
+end

@@ -4,16 +4,16 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-rand('normal')
+rand("normal")
 
 //define tools
 function A=testmat1(a,n)
-	//eigen values are given by a dilation of nth roots of 1
-	A=diag(a*ones(1,n-1),1)+diag((1/a)*ones(1,n-1),-1)
-	A(1,n)=1/a;A(n,1)=a
+    //eigen values are given by a dilation of nth roots of 1
+    A=diag(a*ones(1,n-1),1)+diag((1/a)*ones(1,n-1),-1)
+    A(1,n)=1/a;A(n,1)=a
 endfunction
 function r=Err(x)
-	r=norm(x,1)
+    r=norm(x,1)
 endfunction
 
 
@@ -41,15 +41,15 @@ if al<>[]|be<>[]|L<>[]|R<>[] then pause,end
 //Matrix with Inf or Nan (test de la detection d'erreur
 
 // 1 A Real, B, Real
-if execstr('spec([%inf 1;2 3],[%inf 1;2 3])','errcatch')==0 then pause,end
-if execstr('spec([%inf 1;2 3],[1 2;3 4])','errcatch')==0 then pause,end
-if execstr('spec([1 2;3 4],[1 %nan;2 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf 1;2 3],[%inf 1;2 3])","errcatch")==0 then pause,end
+if execstr("spec([%inf 1;2 3],[1 2;3 4])","errcatch")==0 then pause,end
+if execstr("spec([1 2;3 4],[1 %nan;2 3])","errcatch")==0 then pause,end
 // 2 A Complex, B Complex
-if execstr('spec([%inf %i;2 3],[%inf %i;2 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf %i;2 3],[%inf %i;2 3])","errcatch")==0 then pause,end
 // 3 A Real, B Complex
-if execstr('spec([%inf 1;2 3],[%inf %i;2 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf 1;2 3],[%inf %i;2 3])","errcatch")==0 then pause,end
 // 4 A Complex, B Real
-if execstr('spec([%inf %i;2 3],[%inf 1;2 3])','errcatch')==0 then pause,end
+if execstr("spec([%inf %i;2 3],[%inf 1;2 3])","errcatch")==0 then pause,end
 
 errorlevel = 1000*%eps;
 

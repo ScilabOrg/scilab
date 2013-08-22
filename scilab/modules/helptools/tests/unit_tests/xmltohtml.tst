@@ -33,7 +33,7 @@ clean_help(my_french_help_dir);
 setlanguage("en_US");
 my_english_help_dir    =  my_module_path+"/help/en_US";
 my_english_help_title  =  "TEST 1 [en_US]";
-xmltohtml(my_english_help_dir,my_english_help_title,'en_US');
+xmltohtml(my_english_help_dir,my_english_help_title,"en_US");
 
 html_info =  fileinfo(my_module_path+"/html/en_US/index.html");
 if html_info == [] then pause, end       // file existence
@@ -51,7 +51,7 @@ my_module_path = pathconvert(tmpPath + "/example_2",%f,%f);
 setlanguage("fr_FR");
 my_french_help_dir    =  my_module_path+"/help/fr_FR";
 my_french_help_title  =  "TEST 2 [fr_FR]";
-xmltohtml(my_french_help_dir,my_french_help_title,'fr_FR');
+xmltohtml(my_french_help_dir,my_french_help_title,"fr_FR");
 
 html_info =  fileinfo(my_module_path+"/html/fr_FR/index.html");
 if html_info == [] then pause, end       // file existence
@@ -63,7 +63,7 @@ clean_help(my_french_help_dir);
 setlanguage("en_US");
 my_english_help_dir    =  my_module_path+"/help/en_US";
 my_english_help_title  =  "TEST 2 [en_US]";
-xmltohtml(my_english_help_dir,my_english_help_title,'en_US');
+xmltohtml(my_english_help_dir,my_english_help_title,"en_US");
 
 html_info =  fileinfo(my_module_path+"/html/en_US/index.html");
 if html_info == [] then pause, end       // file existence

@@ -11,8 +11,8 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1568
 //
 // <-- Short Description -->
-//    The random number generator grand() does not always produce the same 
-//    result starting from the same seed, as shown by the following 
+//    The random number generator grand() does not always produce the same
+//    result starting from the same seed, as shown by the following
 //    transcript of a Scilab session:
 //
 //    $ scilab -nw
@@ -33,9 +33,9 @@
 //     ans  =
 // ...
 
-grand('setsd',12);
-A = grand(1,'prm',[1:5]');
-grand('setsd',12);
-B = grand(1,'prm',[1:5]');
+grand("setsd",12);
+A = grand(1,"prm",[1:5]');
+grand("setsd",12);
+B = grand(1,"prm",[1:5]');
 
 if or(A<>B) then pause,end

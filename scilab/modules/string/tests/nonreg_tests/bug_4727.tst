@@ -25,13 +25,13 @@ tab_ref = [
 
 if length(ascii(0)) <> 1 then pause,end
 
-for i = 1 : size(tab_ref,'*')
-  str = ascii(0) + tab_ref(i) + ascii(0);
-  if length(str) <> ( 1 + length(tab_ref(i)) + 1) then pause,end
-end  
+for i = 1 : size(tab_ref,"*")
+    str = ascii(0) + tab_ref(i) + ascii(0);
+    if length(str) <> ( 1 + length(tab_ref(i)) + 1) then pause,end
+end
 
 strs = [ascii(0) ; ascii(0)];
 if length(strs) <> [1;1] then pause,end
 
-strs = ['' ; ''];
+strs = ["" ; ""];
 if length(strs) <> [0;0] then pause,end

@@ -10,7 +10,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// Test optimsimplex_fvstdev with 3 vertices 
+// Test optimsimplex_fvstdev with 3 vertices
 s1 = optimsimplex_new ();
 simplex = [
 1. -2.0 1.0
@@ -22,7 +22,7 @@ sd = optimsimplex_fvstdev ( s1 );
 assert_checkalmostequal ( sd , 3.0 , %eps );
 s1 = optimsimplex_destroy ( s1 );
 
-// Test optimsimplex_fvstdev with 5 vertices 
+// Test optimsimplex_fvstdev with 5 vertices
 s1 = optimsimplex_new ();
 simplex = [
 4. -2.0 1.0

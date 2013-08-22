@@ -7,7 +7,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for detr function 
+// unit tests for detr function
 // =============================================================================
 
 assert_checkfalse(execstr("detr()"   ,"errcatch") == 0);

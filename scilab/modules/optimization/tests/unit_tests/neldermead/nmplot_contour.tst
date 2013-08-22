@@ -12,7 +12,7 @@
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 // Use 20 points in X and 20 points in Y
@@ -41,7 +41,7 @@ nm = nmplot_destroy(nm);
 
 // Test with a function for which the column orientation matters
 function [ y , index ] = myquad ( x , index )
-  y = x' * x;
+    y = x' * x;
 endfunction
 
 // Use 20 points in X and 20 points in Y

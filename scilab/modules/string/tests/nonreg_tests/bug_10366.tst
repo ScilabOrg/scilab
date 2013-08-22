@@ -15,7 +15,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=10366
 //
 // <-- Short Description -->
-// a warning about fun2string redefinition was displayed when we used 
+// a warning about fun2string redefinition was displayed when we used
 // "Edit label generator" and click "Ok"
 //
 

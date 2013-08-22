@@ -16,6 +16,6 @@
 
 // <-- INTERACTIVE TEST -->
 
-h=syslin('c',1/%s);
+h=syslin("c",1/%s);
 // Please click the 'OK' button, the program must return
 trfmod(h)

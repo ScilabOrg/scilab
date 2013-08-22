@@ -19,4 +19,4 @@
 // download a module and copy it in your home
 
 
-atomsInstall('~/grocer_1.52-1.bin.zip')
+atomsInstall("~/grocer_1.52-1.bin.zip")

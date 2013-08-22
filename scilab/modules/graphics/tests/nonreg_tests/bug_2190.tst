@@ -19,7 +19,7 @@
 stacksize(1e8)
 p=1:9000000;
 q=9000000:-1:1;
-plot2d(p,q)   
+plot2d(p,q)
 
 // scilab should display an error message, but not crash.
 

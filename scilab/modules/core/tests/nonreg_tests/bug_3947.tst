@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3687
 //
 // <-- Short Description -->
-// "format" doesn't check input value 
+// "format" doesn't check input value
 
 fmt = format();
 assert_checkequal(fmt, [1 10]);

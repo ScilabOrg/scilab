@@ -15,16 +15,16 @@
 //
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
 // Test optimsimplex_size with 3 vertices
 //
 simplex = [...
-    0.    0.  
-    1.    0.  
-    0.    2.  
+0.    0.
+1.    0.
+0.    2.
 ];
 s1 = optimsimplex_new();
 s1 = optimsimplex_setn ( s1 , 2 );

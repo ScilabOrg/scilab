@@ -16,7 +16,7 @@
 // Argument axesflag=2 does not work with plot2d
 //
 
- 
+
 // check all possible combinations
 x = 1:10;
 

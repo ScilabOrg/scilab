@@ -17,7 +17,7 @@ csvPath = SCI + "/modules/spreadsheet/tests/nonreg_tests/bug_12475.csv";
 val = csvRead(csvPath, ",", [], "string");
 
 ref = ["Model", "MDO4014-3"; ..
-       "FREQUENCY", "MATH<FFT(CH1, BLACKMANHARRIS, LOGRMS)>"];
+"FREQUENCY", "MATH<FFT(CH1, BLACKMANHARRIS, LOGRMS)>"];
 
 assert_checkequal(val, ref);
 

@@ -21,17 +21,17 @@
 prompt_str = "-" +"-"+ ">"; // tips since prompt is replaced by test_run
 l = [prompt_str + "mprintf(''hello world\n'')";"hello world";prompt_str + "diary(TMPDIR+''/bug557.dia'');"];
 l2 = ["hello world";" "];
-mputl(l, TMPDIR+'/bug557.ref');
+mputl(l, TMPDIR+"/bug557.ref");
 
 // Génération du fichier rapport
 
-diary(TMPDIR+'/bug557.dia');
-mprintf('hello world\n')
-diary(TMPDIR+'/bug557.dia');
+diary(TMPDIR+"/bug557.dia");
+mprintf("hello world\n")
+diary(TMPDIR+"/bug557.dia");
 
 // Comparaison
-ref = mgetl(TMPDIR+'/bug557.ref');
-dia = mgetl(TMPDIR+'/bug557.dia');
+ref = mgetl(TMPDIR+"/bug557.ref");
+dia = mgetl(TMPDIR+"/bug557.dia");
 
 // Affichage du résultat
 ref

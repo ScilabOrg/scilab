@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // After open and close a graphic window, scilab is crashing if a new window is opened.
-// 
+//
 
 plot3d();
 delete(gcf());

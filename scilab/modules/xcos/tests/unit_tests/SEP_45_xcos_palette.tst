@@ -21,8 +21,8 @@ xcosPalExport(pal, exportedFile);
 xcosPalAdd(exportedFile, palettePath);
 
 // Remove the palette and the palette path
-for i=size(palettePath, '*'):-1:1
-	xcosPalDelete(palettePath(1:i));
+for i=size(palettePath, "*"):-1:1
+    xcosPalDelete(palettePath(1:i));
 end
 
 
@@ -65,8 +65,8 @@ xcosPalEnable(palettePath);
 xcosPalDisable(palettePath);
 
 // Remove the palette and the palette path
-for i=size(palettePath, '*'):-1:1
-	xcosPalDelete(palettePath(1:i));
+for i=size(palettePath, "*"):-1:1
+    xcosPalDelete(palettePath(1:i));
 end
 
 

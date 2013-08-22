@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Legends do not appear correctly when axes are plotted in log scale.
-// 
+//
 
 f=scf(0);
 clf;
@@ -22,11 +22,11 @@ plot2d([0.01:0.01:0.1 0.2:0.1:1 2:1:10],[0.01:0.01:0.1 0.2:0.1:1 2:1:10].^2,styl
 plot2d([0.01:0.01:0.1 0.2:0.1:1 2:1:10],[0.01:0.01:0.1 0.2:0.1:1 2:1:10].^2.5,style=2);
 plot2d([0.01:0.01:0.1 0.2:0.1:1 2:1:10],[0.01:0.01:0.1 0.2:0.1:1 2:1:10],style=3);
 plot2d([0.01:0.01:0.1 0.2:0.1:1 2:1:10],sqrt([0.01:0.01:0.1 0.2:0.1:1 2:1:10]),style=4);
-legend('one','two','three','four',2);
+legend("one","two","three","four",2);
 f.children.children.children(2:5).mark_mode="on";
 f.children.children.children(2:5).mark_style=4;
 f.children.children.children(2:5).mark_size_unit="point";
 f.children.children.children(2:5).mark_size=4;
-f.children.log_flags='ll';
+f.children.log_flags="ll";
 
 // check that the legend line samples and text are facing.

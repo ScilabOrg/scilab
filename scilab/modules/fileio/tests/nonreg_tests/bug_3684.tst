@@ -17,8 +17,8 @@
 
 ref = [ 53  51  13 ];
 
-fid = mopen('SCI/modules/fileio/tests/nonreg_tests/'+'bug_3684.txt','rb');
-data = mgeti(512,'uc',fid);
+fid = mopen("SCI/modules/fileio/tests/nonreg_tests/"+"bug_3684.txt","rb");
+data = mgeti(512,"uc",fid);
 mclose(fid);
 
 if or(ref <> data(159:161) ) then pause,end

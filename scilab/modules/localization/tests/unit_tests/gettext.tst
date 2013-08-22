@@ -10,10 +10,10 @@
 //===============================
 
 // Void call
-if execstr('gettext()','errcatch')==0 then pause,end
+if execstr("gettext()","errcatch")==0 then pause,end
 
 // two inputs arguments
-str1="plop"; str2="plip"; if execstr('gettext(str1, str2)','errcatch')==0 then pause,end
+str1="plop"; str2="plip"; if execstr("gettext(str1, str2)","errcatch")==0 then pause,end
 
 // Try to translate from en_US to en_US to a string which doesn't exist
 lang="en_US"; setlanguage(lang); msg="Localization does not exist"; if gettext(msg) <> msg then pause, end

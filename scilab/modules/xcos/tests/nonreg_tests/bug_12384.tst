@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=12384
 //
 // <-- Short Description -->
-// Algebraic loop error while compiling a diagram with a modelica part linked 
+// Algebraic loop error while compiling a diagram with a modelica part linked
 // to another modelica part with an explicit link (using a sensor).
 
 ilib_verbose(0);

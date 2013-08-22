@@ -19,7 +19,7 @@
 // Dynamic link doesn't detect intel fortran compiler version 11 on Windows
 
 // Please be sure that you have installed Intel fortran 11
-// launch scilab 
+// launch scilab
 
 r = findmsifortcompiler();
 if r <> ifort11 then pause,end

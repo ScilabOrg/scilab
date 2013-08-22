@@ -17,11 +17,11 @@
 // as "closerequestfcn" and "resizefcn" properties.
 
 function resizeMe()
-  disp(gcbo);
+    disp(gcbo);
 endfunction
 function closeMe()
-  disp(gcbo);
-  delete(gcbo)
+    disp(gcbo);
+    delete(gcbo)
 endfunction
 
 f = figure();

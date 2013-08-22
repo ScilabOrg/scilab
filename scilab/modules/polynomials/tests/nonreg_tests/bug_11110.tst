@@ -18,14 +18,14 @@
 
 REF = [0 2 2 1];
 
-r = poly([0 -1+%i -1-%i],'s',"roots");
+r = poly([0 -1+%i -1-%i],"s","roots");
 assert_checkequal(coeff(r), REF);
 
-r = poly([-1+%i 0 -1-%i],'s',"roots");
+r = poly([-1+%i 0 -1-%i],"s","roots");
 assert_checkequal(coeff(r), REF);
 
-r = poly([-1+%i -1-%i 0],'s',"roots");
+r = poly([-1+%i -1-%i 0],"s","roots");
 assert_checkequal(coeff(r), REF);
 
-r = poly([-1-%i -1+%i 0],'s',"roots");
+r = poly([-1-%i -1+%i 0],"s","roots");
 assert_checkequal(coeff(r), REF);

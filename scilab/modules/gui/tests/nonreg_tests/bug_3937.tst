@@ -15,7 +15,7 @@
 // When we use x_choices, the size of the buttons depends on the largest string of the variable "title". So if the largest title is too long, the size of the buttons will also be too long, whatever the size of the string on these buttons.
 
 option= list(["Very veryyyyyyyyyyyyyyyyyyyyyyy loooooooooooooooonnnnnnnngg label"], 1, ["Yes", "No"]);
-choiceSettings=x_choices('Settings Menu', list(option));
+choiceSettings=x_choices("Settings Menu", list(option));
 
 // Check that the buttons width is smaller that the label width
 

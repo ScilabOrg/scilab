@@ -15,9 +15,9 @@
 // <-- Short Description -->
 // Last example of csim help page defines a function input() overwriting the scilab one
 
-s=poly(0,'s');
-rand('seed',0);
+s=poly(0,"s");
+rand("seed",0);
 w=ssrand(1,1,3);
-w('A')=w('A')-2*eye();
+w("A")=w("A")-2*eye();
 t=0:0.05:5;
 assert_checktrue(execstr("deff(''u=timefun(t)'',''u=abs(sin(t))'');", "errcatch") == 0);

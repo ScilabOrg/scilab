@@ -15,5 +15,5 @@
 // <-- Short Description -->
 // getmd5 crashed with a wrong second argument.
 
-ierr = execstr('getmd5(""toto"",""strin"")','errcatch');
+ierr = execstr("getmd5(""toto"",""strin"")","errcatch");
 if ierr <> 999 then pause,end

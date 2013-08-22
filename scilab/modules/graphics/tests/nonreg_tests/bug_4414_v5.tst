@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Complex grayplots are not saved correctly in scilab 5.1
-// 
+//
 warning("off");
 x = [1:2]';
 y = [1:4];

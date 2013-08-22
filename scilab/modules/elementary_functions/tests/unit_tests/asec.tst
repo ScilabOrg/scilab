@@ -1,7 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - INRIA - Serge Steer
-// Copyright (C) 2011 - DIGITEO - Michaël Baudin
+// Copyright (C) 2011 - DIGITEO - MichaÃ«l Baudin
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -9,12 +9,12 @@
 // <-- CLI SHELL MODE -->
 
 // Maple code used to create reference
-// Digits := 40: 
-// writeto("asec.ref"): interface(prettyprint = 0): 
-// for i from 1 by 1/100  to 10 do  print(i,evalf[30](arcsec(i), 30)) end do: 
+// Digits := 40:
+// writeto("asec.ref"): interface(prettyprint = 0):
+// for i from 1 by 1/100  to 10 do  print(i,evalf[30](arcsec(i), 30)) end do:
 // writeto(terminal):
-// writeto("aseci.ref"): interface(prettyprint = 0): 
-// for i from 1/100 by 1/100 to 1 do  print(i,evalf[30](Im(arcsec(i)), 30)) end do: 
+// writeto("aseci.ref"): interface(prettyprint = 0):
+// for i from 1/100 by 1/100 to 1 do  print(i,evalf[30](Im(arcsec(i)), 30)) end do:
 // writeto(terminal):
 
 ieee(2);
@@ -1027,31 +1027,31 @@ refi=[1/100, 5.29829236561048459070166683494
 ];
 
 
-     x=ref(:,1);
-	 y = asec(x);
-	 e=ref(:,2);
-     assert_checkalmostequal(y,e,10*%eps,[],"element");
-	 //
-     x=-ref(:,1);
-	 y = asec(x);
-	 e=pi-ref(:,2);
-     assert_checkalmostequal(y,e,10*%eps,[],"element");
-     
-     
-     x=refi(:,1);
-	 y = asec(x);
-	 e = imult(refi(:,2));
-     assert_checkalmostequal(y,e,20*%eps,[],"element");
-	//
-     x=-refi(:,1);
-	 y = asec(x);
-	 e = pi-imult(refi(:,2));
-     assert_checkalmostequal(y,e,20*%eps,[],"element");
- 
-     assert_checkequal(asec(0),imult(Inf));
-     assert_checkalmostequal(asec(Inf),pi/2,%eps,[],"element");
+x=ref(:,1);
+y = asec(x);
+e=ref(:,2);
+assert_checkalmostequal(y,e,10*%eps,[],"element");
+//
+x=-ref(:,1);
+y = asec(x);
+e=pi-ref(:,2);
+assert_checkalmostequal(y,e,10*%eps,[],"element");
 
-     assert_checkequal(asec(NaN),%nan);
 
-     assert_checkequal(asec([]),[]);
+x=refi(:,1);
+y = asec(x);
+e = imult(refi(:,2));
+assert_checkalmostequal(y,e,20*%eps,[],"element");
+//
+x=-refi(:,1);
+y = asec(x);
+e = pi-imult(refi(:,2));
+assert_checkalmostequal(y,e,20*%eps,[],"element");
+
+assert_checkequal(asec(0),imult(Inf));
+assert_checkalmostequal(asec(Inf),pi/2,%eps,[],"element");
+
+assert_checkequal(asec(NaN),%nan);
+
+assert_checkequal(asec([]),[]);
 

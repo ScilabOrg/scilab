@@ -24,9 +24,9 @@ memg = gstacksize();
 if (mem(1) <> MEM_STACKSIZE) then pause,end
 if (memg(1) <> MEM_GSTACKSIZE) then pause,end
 
-bug_function1('max');
-bug_function2('max');
+bug_function1("max");
+bug_function2("max");
 
-bug_function1('min');
-bug_function2('min');
+bug_function1("min");
+bug_function2("min");
 

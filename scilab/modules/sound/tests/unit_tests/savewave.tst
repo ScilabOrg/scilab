@@ -11,5 +11,4 @@ t=soundsec(0.5);
 s=sin(440*t)+sin(220*t)/2+sin(880*t)/2;
 [nr,nc]=size(t);
 s(nc/2:nc)=sin(330*t(nc/2:nc));
-savewave(TMPDIR+'/foo.wav',s);
- 
+savewave(TMPDIR+"/foo.wav",s);

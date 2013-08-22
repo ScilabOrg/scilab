@@ -13,17 +13,17 @@ global status;
 status = [];
 
 function continueSimulation = pre_xcos_simulate(scs_m, needcompile)
-  global status;
+    global status;
 
-  1 + "string"
-  status = [status 'pre_called'];
+    1 + "string"
+    status = [status "pre_called"];
 endfunction
 
 function post_xcos_simulate(%cpr, scs_m, needcompile)
-  global status;
+    global status;
 
-  1 + "string"
-  status = [status 'post_called'];
+    1 + "string"
+    status = [status "post_called"];
 endfunction
 
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/demos/Simple_Demo.zcos"));

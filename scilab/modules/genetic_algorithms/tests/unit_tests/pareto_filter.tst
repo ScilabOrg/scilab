@@ -11,31 +11,31 @@
 // <-- CLI SHELL MODE -->
 
 function Res = min_bd_deb_1(n)
-if ~isdef('n','local') then n = 10; end;
-Res = zeros(n,1);
+    if ~isdef("n","local") then n = 10; end;
+    Res = zeros(n,1);
 endfunction
 
 function Res = max_bd_deb_1(n)
-if ~isdef('n','local') then n = 10; end;
-Res = ones(n,1);
+    if ~isdef("n","local") then n = 10; end;
+    Res = ones(n,1);
 endfunction
 
 function f = get_opti_deb_1(x)
-f1_x1 = x(1);
-g_x2  = 1;
-h     = 1 - sqrt(f1_x1 / g_x2);
+    f1_x1 = x(1);
+    g_x2  = 1;
+    h     = 1 - sqrt(f1_x1 / g_x2);
 
-f(1,1) = f1_x1;
-f(1,2) = g_x2 * h;
+    f(1,1) = f1_x1;
+    f(1,2) = g_x2 * h;
 endfunction
 
 function f = deb_1(x)
-f1_x1 = x(1);
-g_x2  = 1 + 9 * sum((x(2:$)-x(1)).^2) / (length(x) - 1);
-h     = 1 - sqrt(f1_x1 / g_x2);
+    f1_x1 = x(1);
+    g_x2  = 1 + 9 * sum((x(2:$)-x(1)).^2) / (length(x) - 1);
+    h     = 1 - sqrt(f1_x1 / g_x2);
 
-f(1,1) = f1_x1;
-f(1,2) = g_x2 * h;
+    f(1,1) = f1_x1;
+    f(1,2) = g_x2 * h;
 endfunction
 
 Max = max_bd_deb_1(2);
@@ -43,8 +43,8 @@ Min = min_bd_deb_1(2);
 
 X_in = list();
 for i=1:100
-  X_in(i) = (Max - Min) .* rand(size(Max,1),size(Max,2)) + Min;
-  F_in(i,:) = deb_1(X_in(i));
+    X_in(i) = (Max - Min) .* rand(size(Max,1),size(Max,2)) + Min;
+    F_in(i,:) = deb_1(X_in(i));
 end
 
 [F_out, X_out, Ind_out] = pareto_filter(F_in, X_in);

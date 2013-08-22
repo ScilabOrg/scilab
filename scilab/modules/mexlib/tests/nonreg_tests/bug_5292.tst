@@ -11,13 +11,13 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5292
 //
 // <-- Short Description -->
-// There is a conflict between bool and scilab header mex.h 
+// There is a conflict between bool and scilab header mex.h
 
 ilib_verbose(0);
 
 my_current_directory = pwd();
 cd(TMPDIR);
-mputl('ilib_mex_build(''libmex'',[''mex_5292'',''mexfunction_5292'',''cmex''],[''mexfunction_5292.cpp''],[],'''','''','''','''')','builder.sce');
+mputl("ilib_mex_build(''libmex'',[''mex_5292'',''mexfunction_5292'',''cmex''],[''mexfunction_5292.cpp''],[],'''','''','''','''')","builder.sce");
 
 mputl(["#include <mex.h>"
 "#include <list>"
@@ -29,15 +29,15 @@ mputl(["#include <mex.h>"
 "    mexErrMsgTxt(""Two input arguments required."");"
 "  if (nlhs > 1)"
 "   mexErrMsgTxt(""Too many output arguments."");"
-"}"],'mexfunction_5292.cpp');
+"}"],"mexfunction_5292.cpp");
 
-exec('builder.sce');
-exec('loader.sce');
+exec("builder.sce");
+exec("loader.sce");
 
-ierr = execstr('mex_5292()','errcatch');
+ierr = execstr("mex_5292()","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('mex_5292(2,2)','errcatch');
+ierr = execstr("mex_5292(2,2)","errcatch");
 if ierr <> 0 then pause,end
 
 cd(my_current_directory);

@@ -17,7 +17,7 @@
 //it is not used when a new  figure is created.
 
 f=gdf() ;
-uimenu(f,'Label','foo');
+uimenu(f,"Label","foo");
 assert_checkequal(f.children(1).type, "uimenu");
 
 plot(1:10);

@@ -13,5 +13,5 @@
 // <-- Short Description -->
 //    a(2,3,2)='x' returns an empty matrix.
 
-a(2,3,2)='y'
+a(2,3,2)="y"
 if a == [] then pause,end

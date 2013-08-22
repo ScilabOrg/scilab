@@ -33,12 +33,12 @@ assert_checkequal(h.tag, "");
 
 f=scf();
 h = uimenu("Parent", f, ..
-    "Enable","off",..
-    "Label", "test", ..
-    "Visible","off",..
-    "Callback","disp(1)",..
-    "Checked", "on", ..
-    "Tag", "hello");
+"Enable","off",..
+"Label", "test", ..
+"Visible","off",..
+"Callback","disp(1)",..
+"Checked", "on", ..
+"Tag", "hello");
 assert_checkequal(h.parent, f);
 assert_checkequal(h.enable, "off");
 assert_checkequal(h.label, "test");

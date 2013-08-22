@@ -14,7 +14,7 @@
 // Bad syntax is the export
 
 docFile = help_from_sci(SCI+"/modules/helptools/tests/nonreg_tests/bug_5488.sci",TMPDIR);
-fd_r = mopen(docFile,'rt');
+fd_r = mopen(docFile,"rt");
 content = mgetl(fd_r);
 
 wrongString = "<synopsis>";

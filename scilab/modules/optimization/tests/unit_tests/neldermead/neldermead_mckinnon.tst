@@ -16,7 +16,7 @@
 // with respect to the conditionning of the direction matrix.
 // This is an expected message, because the simplex is degenerated
 // after the first optimization, which has failed.
-// The restart allows to compute a new simplex and makes the 
+// The restart allows to compute a new simplex and makes the
 // optimization converge toward the good point.
 
 
@@ -40,7 +40,7 @@
 //    algorithm to "converge" to a point which is not the minimizer
 //    of the function F.
 //
-//    Sample parameter values which cause problems for Nelder-Mead 
+//    Sample parameter values which cause problems for Nelder-Mead
 //    include:
 //
 //      TAU = 1, THETA = 15, PHI =  10;
@@ -51,9 +51,9 @@
 //
 //      X1 = (0,0),
 //      X2 = (1,1),
-//      X3 = (A,B), 
+//      X3 = (A,B),
 //
-//    where 
+//    where
 //
 //      A = (1+sqrt(33))/8 =  0.84307...
 //      B = (1-sqrt(33))/8 = -0.59307...
@@ -87,26 +87,26 @@
 
 function [ f , index ] = mckinnon3 ( x , index )
 
-  if ( length ( x ) ~= 2 )
-    error ( 'Error: function expects a two dimensional input\n' );
-  end
+    if ( length ( x ) ~= 2 )
+        error ( "Error: function expects a two dimensional input\n" );
+    end
 
-  tau = 3.0;
-  theta = 6.0;
-  phi = 400.0;
+    tau = 3.0;
+    theta = 6.0;
+    phi = 400.0;
 
-  if ( x(1) <= 0.0 )
-    f = theta * phi * abs ( x(1) ).^tau + x(2) * ( 1.0 + x(2) );
-  else
-    f = theta       *       x(1).^tau   + x(2) * ( 1.0 + x(2) );
-  end
+    if ( x(1) <= 0.0 )
+        f = theta * phi * abs ( x(1) ).^tau + x(2) * ( 1.0 + x(2) );
+    else
+        f = theta       *       x(1).^tau   + x(2) * ( 1.0 + x(2) );
+    end
 endfunction
 
 lambda1 = (1.0 + sqrt(33.0))/8.0;
 lambda2 = (1.0 - sqrt(33.0))/8.0;
 coords0 = [
 1.0  1.0
-0.0  0.0 
+0.0  0.0
 lambda1 lambda2
 ];
 
@@ -315,8 +315,8 @@ nm = neldermead_destroy(nm);
 // Test with auto-restart, Kelley stagnation detection and Kelley restart method
 // Use pfeffer simplex for restart.
 // Use a reduced alpha0 so that restart occur earlier (test is faster).
-// Pfeffer's initial simplex may be the better for restart, since it 
-// respects the optimal point computed so far. 
+// Pfeffer's initial simplex may be the better for restart, since it
+// respects the optimal point computed so far.
 //
 nm = neldermead_new ();
 nm = neldermead_configure(nm,"-numberofvariables",2);

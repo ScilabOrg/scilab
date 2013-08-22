@@ -18,7 +18,7 @@
 plot2d;
 
 fig = gcf();
-xs2gif(fig.figure_id,TMPDIR+'/foo.gif') ;
+xs2gif(fig.figure_id,TMPDIR+"/foo.gif") ;
 
 // open the exported fig and check that there is no warnings.
 xdel(winsid());

@@ -13,8 +13,8 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1914
 //
 // <-- Short Description -->
-// Function grep does not implement regular expressions. Therefore either the  
-// function name should change to something like "stringmatch" or true regular  
+// Function grep does not implement regular expressions. Therefore either the
+// function name should change to something like "stringmatch" or true regular
 // expression capabilities should be implemented.
 //
 

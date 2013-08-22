@@ -13,5 +13,5 @@
 // <-- Short Description -->
 // funcprot accepts non-integer arguments
 
-ierr = execstr('funcprot(2.5)','errcatch');
+ierr = execstr("funcprot(2.5)","errcatch");
 if ierr <> 999 then pause,end

@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=8348
 //
 // <-- Short Description -->
-// Opening a block parameters without modifying them should not re-position 
+// Opening a block parameters without modifying them should not re-position
 // ports.
 
 xcos(SCI + "/modules/xcos/tests/nonreg_tests/bug_8348.zcos");

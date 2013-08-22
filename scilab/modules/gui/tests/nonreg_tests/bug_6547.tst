@@ -16,12 +16,12 @@
 // <-- Short Description -->
 // uigetdir crashed Scilab when returning some "root" path
 
-if getos() == 'Windows' then
- r = uigetdir('c:\');
- // click on ok
- if r <> 'c:\' then pause,end
+if getos() == "Windows" then
+    r = uigetdir("c:\");
+    // click on ok
+    if r <> "c:\" then pause,end
 else
- r = uigetdir('/');
- // click on ok 
- if r <> '/' then pause,end
+    r = uigetdir("/");
+    // click on ok
+    if r <> "/" then pause,end
 end

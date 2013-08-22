@@ -21,6 +21,6 @@ funcprot(prot);
 
 A_ref = int8(zeros(128,1));
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values, A_ref);

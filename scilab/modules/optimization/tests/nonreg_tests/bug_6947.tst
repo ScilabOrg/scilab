@@ -12,13 +12,13 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=6947
 //
 // <-- Short Description -->
-// Some demos in "Optimization and Simulation" failed, 
+// Some demos in "Optimization and Simulation" failed,
 // without write rights in SCI subdirectory.
 //
 // =============================================================================
 // Install Scilab in c:\Program files  (on windows)
 // (a directory where you have not right in standard use)
-// 
-// Launch Scilab 
+//
+// Launch Scilab
 // start demos "Optimization and Simulation"
 // =============================================================================

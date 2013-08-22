@@ -11,12 +11,12 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4014
 //
 // <-- Short Description -->
-// ESC key clears the command line in the console. 
+// ESC key clears the command line in the console.
 
 // <-- INTERACTIVE TEST -->
 
 // 1] Type some commands into Console
-// Invoke Preferences -> Clear Console action 
+// Invoke Preferences -> Clear Console action
 // checks prompt position
 
 // 2] Type some commands into Console

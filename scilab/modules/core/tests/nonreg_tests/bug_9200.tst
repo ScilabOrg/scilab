@@ -10,13 +10,13 @@
 // <-- CLI SHELL MODE -->
 //
 // <-- INTERACTIVE TEST -->
-// 
+//
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=9200
 //
 // <-- Short Description -->
-// 
+//
 // perl.sci script crashed on Windows with a wrong error message.
 
-// Copy perl to the SCI\tools\Perl directory (according the Readme.txt file in that directory). 
+// Copy perl to the SCI\tools\Perl directory (according the Readme.txt file in that directory).
 // Run perl with any valid perl script as input.

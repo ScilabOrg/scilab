@@ -19,8 +19,8 @@
 // They are now forbidden with an error message.
 
 function f(n)
-  stacksize('min');
-  gstacksize('min');
+    stacksize("min");
+    gstacksize("min");
 endfunction
 
 f(1);

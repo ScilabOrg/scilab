@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=7242
 //
 // <-- Short Description -->
-// Check name is already used by a variable 
+// Check name is already used by a variable
 // or un function ( built-in or macro )
 
 BUGNAME = "bug_11093";
@@ -25,7 +25,7 @@ if haveacompiler() then
     DEST = TMPDIR + "/" + BUGNAME + "/" + BUGNAME + ".c";
     copyfile(SCI + "/modules/api_scilab/tests/nonreg_tests/" + BUGNAME + ".c", DEST);
     assert_checkequal(isfile(DEST), %T);
-    
+
     gw_functions = [BUGNAME, "sci_" + BUGNAME];
 
     ilib_build("lib" + BUGNAME, gw_functions, BUGNAME + ".c", []);

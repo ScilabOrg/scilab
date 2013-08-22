@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 3076 -->
 //
 // <-- Short Description -->
-//    getrelativefilename() doesn't return error message when input arguments 
+//    getrelativefilename() doesn't return error message when input arguments
 //    havn't the right size.
 //
 // <-- Bugzilla URL -->

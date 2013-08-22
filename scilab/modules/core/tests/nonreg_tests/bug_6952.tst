@@ -16,11 +16,11 @@
 // stacksize('max') did not return always maximum value.
 
 r = stacksize();
-stacksize('max');
+stacksize("max");
 mx = stacksize();
 
 for i = 1:100
-  stacksize('max');
-  m = stacksize();
-  if m(1) <> mx(1) then pause, end
+    stacksize("max");
+    m = stacksize();
+    if m(1) <> mx(1) then pause, end
 end

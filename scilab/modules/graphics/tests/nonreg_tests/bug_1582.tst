@@ -14,13 +14,13 @@
 //
 // <-- Short Description -->
 // If parametric 3d curve values are out of given ebox of 3d axes, this curve values are netherveless plotted.
-// 
+//
 
 xv = 1:10;
 yv = rand(1, length(xv))*20-10;
 param3d1(xv, yv, ...
-  list(zeros(length(yv), 1), 5), flag=[1, 4], theta = 35, ...
-  alpha = 45, ebox=[min(xv), max(xv), -1, 1, -5, 5]);   
-  
+list(zeros(length(yv), 1), 5), flag=[1, 4], theta = 35, ...
+alpha = 45, ebox=[min(xv), max(xv), -1, 1, -5, 5]);
+
 e = gce();
 if (e.clip_state <> "clipgrf") then pause; end

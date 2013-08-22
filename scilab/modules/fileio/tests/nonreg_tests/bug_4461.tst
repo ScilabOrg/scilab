@@ -20,8 +20,8 @@
 
 // with current diary we can not do many diaries
 
-diary(TMPDIR+'/testdiary.txt')
-prompt('- TEST Prompt ->')
+diary(TMPDIR+"/testdiary.txt")
+prompt("- TEST Prompt ->")
 1+1
 disp(1:10)
 diary(0)

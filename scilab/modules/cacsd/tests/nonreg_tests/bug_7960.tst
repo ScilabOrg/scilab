@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // plzr can not produce a pole zero plot of many simple transfer functions
 
-z=poly(0,'z');
+z=poly(0,"z");
 Num=0.64-1.5054092*z+z*z;
 Den=0.970225-1.9652966*z+z*z;
 HZ=Num/Den;

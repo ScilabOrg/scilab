@@ -23,5 +23,5 @@
 // Install Windows SDK 7.1 with x64 component
 
 
-test_run('dynamic_link')
+test_run("dynamic_link")
 

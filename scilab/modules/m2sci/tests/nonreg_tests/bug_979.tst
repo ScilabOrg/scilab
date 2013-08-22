@@ -28,13 +28,13 @@ mfile2sci(MFILE,TMPDIR);
 SCIFILECONTENTS=mgetl(SCIFILE);
 
 SCIFILECONTENTSREF=["";
-		"// Display mode";
-		"mode(0);";
-		"";
-		"// Display warning for floating point exception";
-		"ieee(1);";
-		"";
-		"comment = 1;";
-		"//This line is a comment line"];
+"// Display mode";
+"mode(0);";
+"";
+"// Display warning for floating point exception";
+"ieee(1);";
+"";
+"comment = 1;";
+"//This line is a comment line"];
 
 if or(SCIFILECONTENTSREF<>SCIFILECONTENTS) then pause,end

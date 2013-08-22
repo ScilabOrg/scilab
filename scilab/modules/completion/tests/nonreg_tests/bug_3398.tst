@@ -23,13 +23,12 @@ if ierr<>0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
-currentline = 'exec le';
+currentline = "exec le";
 r = getpartlevel(currentline);
-if r <> 'le' then pause,end
+if r <> "le" then pause,end
 
-if size(completion(r),'*') == [] then pause,end
+if size(completion(r),"*") == [] then pause,end
 
-r = completeline(currentline,'',getpartlevel(currentline),getfilepartlevel(currentline),%f);
+r = completeline(currentline,"",getpartlevel(currentline),getfilepartlevel(currentline),%f);
 if r <> currentline then pause,end
 
-     

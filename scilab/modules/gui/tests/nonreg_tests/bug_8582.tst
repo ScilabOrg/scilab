@@ -15,11 +15,11 @@
 // Under Linux & Mac OS the waitbar window was too small and we could not see the bar inside it.
 
 // Exec the following example
-winId=waitbar('This is an example');
+winId=waitbar("This is an example");
 realtimeinit(0.3);
 for j=0:0.1:1,
-  realtime(3*j);
-  waitbar(j,winId);
+    realtime(3*j);
+    waitbar(j,winId);
 end
 
 // Check you see the bar

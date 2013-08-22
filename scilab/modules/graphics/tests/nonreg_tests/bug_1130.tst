@@ -19,19 +19,19 @@
 t=%pi:0.1:3*%pi;
 m=sin(t)'*cos(t);
 
-//  set("figure_style","new")  
-          // not necessary in scilab3.0
+//  set("figure_style","new")
+// not necessary in scilab3.0
 axes=get("current_axes");
-		axes.data_bounds=[0,.001,-1000;1000,1000,1000];	
-	// unfortunetely necessary for strictly positive y-
-	// values too (to switch y-axis to logarithmic mode)
+axes.data_bounds=[0,.001,-1000;1000,1000,1000];
+// unfortunetely necessary for strictly positive y-
+// values too (to switch y-axis to logarithmic mode)
 set(axes,"log_flags","nl");
-//  axes.log_flags="nl";        // alternative 
+//  axes.log_flags="nl";        // alternative
 axes.box="off";
 axes.x_location="top";
 axes.y_location="left";
 
-grayplot(t,t,m)   
+grayplot(t,t,m)
 
 // the grayplot should appear and the box should be disable
 

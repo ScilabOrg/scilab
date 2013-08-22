@@ -18,5 +18,5 @@ scf(1);
 plot3d();
 
 for i = 1:20
-  unsetmenu(1, gettext("&Edit"), i);
+    unsetmenu(1, gettext("&Edit"), i);
 end

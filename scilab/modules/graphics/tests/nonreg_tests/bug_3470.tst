@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // plot2d(), followed by legends produce an unexpected error.
-// 
+//
 
 plot2d();
 legends(string([1:3]),[-1 -2 3],1);

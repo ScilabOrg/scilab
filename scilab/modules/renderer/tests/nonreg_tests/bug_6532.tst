@@ -21,9 +21,9 @@
 
 
 plot(1:10);
-xstring(5.5,5.5,'toto');s1=gce();s1.font_style = 9
-xstring(5,5,['qsdfsdf';'sqdsd';'QQQQQ'])
-s=gce();s.box='on';s.background=color(255,255,238);s.fill_mode='on';
+xstring(5.5,5.5,"toto");s1=gce();s1.font_style = 9
+xstring(5,5,["qsdfsdf";"sqdsd";"QQQQQ"])
+s=gce();s.box="on";s.background=color(255,255,238);s.fill_mode="on";
 
 // Here you should just see a part of the last 'o' of 'toto'
 

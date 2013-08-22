@@ -12,8 +12,8 @@
 
 test_list = init_param();
 
-test_list = add_param(test_list,'test',%T);
+test_list = add_param(test_list,"test",%T);
 
-test_list = remove_param(test_list,'test');
+test_list = remove_param(test_list,"test");
 
-if is_param(test_list,'test') then pause, end
+if is_param(test_list,"test") then pause, end

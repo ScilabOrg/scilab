@@ -11,21 +11,21 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=950
 //
 // <-- Short Description -->
-//    extra character in "select" line crashes Scilab instead of 
+//    extra character in "select" line crashes Scilab instead of
 //    issuing a "syntax error" message.
 
 try
-	function [] = Select (Type)
-	select Type, n
-		case 1 then
-			disp ("1")
-		case 2 then
-			disp ("2")
-	end;
-	endfunction;
-	
-	if %T then pause,end
-	
+    function [] = Select (Type)
+        select Type, n
+        case 1 then
+            disp ("1")
+        case 2 then
+            disp ("2")
+        end;
+    endfunction;
+
+    if %T then pause,end
+
 catch
-	
+
 end

@@ -10,26 +10,25 @@
 //===============================
 // unit tests strcmp
 //===============================
-TXT1 = ['scilab','SciLab';'Strcmp','STRcmp'];
-TXT2 = ['ScIlAb','sciLab';'sTrCmP','StrCMP'];
-TXT = 'Scilab';
+TXT1 = ["scilab","SciLab";"Strcmp","STRcmp"];
+TXT2 = ["ScIlAb","sciLab";"sTrCmP","StrCMP"];
+TXT = "Scilab";
 //===============================
 if strcmp(TXT1,TXT2) <> [ 1 , -1 ; -1 , -1 ] then pause,end
 //===============================
-if strcmp(TXT1,TXT2,'s') <> [ 1 , -1 ; -1 , -1 ] then pause,end
+if strcmp(TXT1,TXT2,"s") <> [ 1 , -1 ; -1 , -1 ] then pause,end
 //===============================
-if strcmp(TXT1,TXT2,'i') <> [ 0 , 0 ; 0 , 0 ] then pause,end
+if strcmp(TXT1,TXT2,"i") <> [ 0 , 0 ; 0 , 0 ] then pause,end
 //===============================
- if strcmp(TXT1,TXT1,'i') <> [ 0 , 0 ; 0 , 0 ] then pause,end
- //===============================
- if strcmp(TXT2,TXT2,'s') <> [ 0 , 0 ; 0 , 0 ] then pause,end
- //===============================
- if strcmp(TXT1,TXT,'s') <> [ 1 , -1 ; 1 , -1 ] then pause,end
- //===============================
- if strcmp(TXT1,TXT,'i') <> [ 0 , 0 ; 0 , 0 ] then pause,end
- //===============================
- if strcmp('','','i') <> 0 then pause,end
- //===============================
- if strcmp('','','s') <> 0 then pause,end
- //===============================
- 
+if strcmp(TXT1,TXT1,"i") <> [ 0 , 0 ; 0 , 0 ] then pause,end
+//===============================
+if strcmp(TXT2,TXT2,"s") <> [ 0 , 0 ; 0 , 0 ] then pause,end
+//===============================
+if strcmp(TXT1,TXT,"s") <> [ 1 , -1 ; 1 , -1 ] then pause,end
+//===============================
+if strcmp(TXT1,TXT,"i") <> [ 0 , 0 ; 0 , 0 ] then pause,end
+//===============================
+if strcmp("","","i") <> 0 then pause,end
+//===============================
+if strcmp("","","s") <> 0 then pause,end
+//===============================

@@ -11,7 +11,7 @@
 
 // <-- BENCH NB RUN : 100 -->
 stacksize(80000000);
-A = rand(1000,100,'n');
+A = rand(1000,100,"n");
 
 // <-- BENCH START -->
 [lambda,facpr,comprinc] = pca(A);

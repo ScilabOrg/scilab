@@ -67,8 +67,8 @@ r = csvRead(fullfile(path,"K_4.csv"), ";", [], "string");
 assert_checkequal (r,Kstr2);
 // =============================================================================
 S = [
-  "Allan",                  "2", "CORNET";
-  "csv read/write toolbox", "3", "for scilab"
+"Allan",                  "2", "CORNET";
+"csv read/write toolbox", "3", "for scilab"
 ];
 //
 r = csvRead(fullfile(path,"S_1.csv"), "|", [], "string");

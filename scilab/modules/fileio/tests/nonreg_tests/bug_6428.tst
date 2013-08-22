@@ -14,6 +14,6 @@
 // fscanfMat did not manage format parameter as fprintfMat
 
 A = ones(5,5) + 0.1;
-fprintfMat(TMPDIR+'/Matrix.txt',A,'%lg|blablabla|');
-B = fscanfMat(TMPDIR+'/Matrix.txt','%lg|blablabla|');
+fprintfMat(TMPDIR+"/Matrix.txt",A,"%lg|blablabla|");
+B = fscanfMat(TMPDIR+"/Matrix.txt","%lg|blablabla|");
 if ~and(A == B) then pause,end;

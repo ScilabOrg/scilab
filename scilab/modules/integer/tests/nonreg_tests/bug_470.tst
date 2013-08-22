@@ -32,5 +32,5 @@ result = execstr("a=int8(ones(2,2))","errcatch","n");
 if result <> 0 then pause,end
 
 if result == 0 then
-   if execstr("a(1,1)=uint8(2)","errcatch","n") <> 0 then pause,end
+    if execstr("a(1,1)=uint8(2)","errcatch","n") <> 0 then pause,end
 end

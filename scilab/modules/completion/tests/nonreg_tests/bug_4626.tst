@@ -11,10 +11,10 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4626
 //
 // <-- Short Description -->
-// 
+//
 // when using the CLI version (NO GRAPHICS), the autocompletion feature make Scilab crash
 
 
 // <-- CLI SHELL MODE -->
-r = completion('a','graphic_properties');
-if ~isdef('r') then pause,end
+r = completion("a","graphic_properties");
+if ~isdef("r") then pause,end

@@ -14,13 +14,13 @@
 //
 // <-- Short Description -->
 // rmdir() change directory permissions instead of deleting them.
-wm = warning('query');
-warning('off');
+wm = warning("query");
+warning("off");
 baseDir=TMPDIR+"/plop";
 mkdir(baseDir);
 mkdir(baseDir+"/aze");
 mkdir(baseDir+"/aze/aze");
 mkdir(baseDir+"/aze/aze/qsdq");
-res=rmdir(baseDir,'s');
+res=rmdir(baseDir,"s");
 if res <> 1 then pause,end
 if isdir(baseDir) <> %f then pause,end

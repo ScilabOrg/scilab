@@ -25,10 +25,10 @@ endfunction
 f=gcf();
 f.event_handler_enable = "on";
 
-f.event_handler = 'g';
+f.event_handler = "g";
 //Drag your cursor in the window and
 //see the zeros displayed.
 
-f.event_handler = 'h';
+f.event_handler = "h";
 //Drag your cursor in the window and
 //see the -1 displayed.

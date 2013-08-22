@@ -14,8 +14,8 @@
 //    Reshaping a global matrix can produce an invalid error
 
 function reshapeA
-global A
-A=matrix(A,[2 2 2])
+    global A
+    A=matrix(A,[2 2 2])
 endfunction
 
 global A

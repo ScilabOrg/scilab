@@ -18,11 +18,11 @@
 M=100;N=100;
 R=ones(M,N);
 for m=1:M;
-  for n=1:N;
-    A=floor(256*rand(n,m));
-    B=uint8(A);
-    R(m,n)=max(abs(sum(B,2,"double")-sum(A,2)));
-  end
+    for n=1:N;
+        A=floor(256*rand(n,m));
+        B=uint8(A);
+        R(m,n)=max(abs(sum(B,2,"double")-sum(A,2)));
+    end
 end
 F = find(R<>0)
 assert_checktrue(isempty(F));

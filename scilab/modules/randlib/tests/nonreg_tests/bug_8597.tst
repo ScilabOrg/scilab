@@ -18,9 +18,9 @@
 // Uncontrolled message of grand/clcg4 should be displayed as warning
 
 warning("off");
-grand('setgen',"clcg4");
-grand('setsd',123456,123456,123456,123456);
+grand("setgen","clcg4");
+grand("setsd",123456,123456,123456,123456);
 
 warning("on");
-grand('setgen',"clcg4");
-grand('setsd',123456,123456,123456,123456);
+grand("setgen","clcg4");
+grand("setsd",123456,123456,123456,123456);

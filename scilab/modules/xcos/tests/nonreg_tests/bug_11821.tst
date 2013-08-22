@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=11821
 //
 // <-- Short Description -->
-// Running XcosPalAdd example from help led to deadlock  
+// Running XcosPalAdd example from help led to deadlock
 
 
 pal = xcosPal();

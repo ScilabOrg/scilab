@@ -27,7 +27,7 @@ hist3d(Z);
 A = abs(rand(10,5));
 Z(91:100,:) = A;
 scf();
-hist3d(Z); 
+hist3d(Z);
 
 // all the 3 created figures should display something
 

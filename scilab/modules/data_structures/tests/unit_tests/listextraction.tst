@@ -35,15 +35,15 @@ l=list(a,list(b,c,d),h);if l(2)(3)(:,[$ 1])<>d(:,[$ 1]) then pause,end
 l=list(a,list(b,c,d),h);if l(2)(3)($,[$ 1])<>d($,[$ 1]) then pause,end
 //
 l=list(a,1/%s);if l(2)<>1/%s then pause,end
-l=list(a,1/%s);if l(2)('num')<>1 then pause,end
-l=list(a,1/%s,g);if l(2)('den')(1,1)<>%s then pause,end
+l=list(a,1/%s);if l(2)("num")<>1 then pause,end
+l=list(a,1/%s,g);if l(2)("den")(1,1)<>%s then pause,end
 l=list(a,1/%s,g);if l(2)<>1/%s then pause,end
-l=list(a,1/%s,g);if l(2)('num')<>1 then pause,end
-l=list(a,1/%s,g);if l(2)('den')(1,1)<>%s then pause,end
+l=list(a,1/%s,g);if l(2)("num")<>1 then pause,end
+l=list(a,1/%s,g);if l(2)("den")(1,1)<>%s then pause,end
 
 
-a=1:10,b=3:2:33;c=(-10:0)';d=[1 2+%s 3];e=['1';'2';'3';'4'];
-f=[%t %t %f];g=['12345','abcdefghijk'];
+a=1:10,b=3:2:33;c=(-10:0)';d=[1 2+%s 3];e=["1";"2";"3";"4"];
+f=[%t %t %f];g=["12345","abcdefghijk"];
 h=rand(3,3);i=eye(10,10);a0=10+%s;c0=20;b0=sparse(eye(30,30));
 
 l=list(a);if l(1)<>a then pause,end
@@ -71,9 +71,9 @@ l=list(a,list(b,c,d),h);if l(2)(3)($,[$ 1])<>d($,[$ 1]) then pause,end
 //
 N=[1 2 3];
 l=list(a,N/%s);if l(2)<>N/%s then pause,end
-l=list(a,N/%s);if l(2)('num')<>N then pause,end
-l=list(a,N/%s,g);if l(2)('den')(1,1)<>%s then pause,end
+l=list(a,N/%s);if l(2)("num")<>N then pause,end
+l=list(a,N/%s,g);if l(2)("den")(1,1)<>%s then pause,end
 l=list(a,N/%s,g);if l(2)<>N/%s then pause,end
-l=list(a,N/%s,g);if l(2)('num')<>N then pause,end
-l=list(a,N/%s,g);if l(2)('den')(1,1)<>%s then pause,end
+l=list(a,N/%s,g);if l(2)("num")<>N then pause,end
+l=list(a,N/%s,g);if l(2)("den")(1,1)<>%s then pause,end
 

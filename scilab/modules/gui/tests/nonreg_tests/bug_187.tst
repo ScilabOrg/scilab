@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=187
 //
 // <-- Short Description -->
-//     
+//
 
 // <-- INTERACTIVE TEST -->
 

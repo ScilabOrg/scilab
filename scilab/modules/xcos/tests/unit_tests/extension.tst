@@ -17,4 +17,4 @@ scilab -f SCI/modules/xcos/tests/unit_tests/canimxy3d.zcos
 // on windows
 wscilex -f SCI/modules/xcos/tests/unit_tests/canimxy3d.zcos
 
-// diagram opened in xcos 
+// diagram opened in xcos

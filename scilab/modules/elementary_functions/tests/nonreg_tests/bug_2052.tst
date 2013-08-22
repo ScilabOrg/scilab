@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2052
 //
 // <-- Short Description -->
-//    Bug dans la primitive "isequal" (au moins) avec des type de donn�es 
+//    Bug dans la primitive "isequal" (au moins) avec des type de donn�es
 //    utilisateur
 
 // Serge Steer - Scilab Project
@@ -25,25 +25,25 @@ ilib_verbose(0);
 
 cur=pwd();
 cd(TMPDIR);
-//first create a function changetype 
-code=['#define __USE_DEPRECATED_STACK_FUNCTIONS__'
-'#include ""stack-c.h""'
-'int intchangetype(fname)'
-'   char *fname;'
-'{'
-' int m1,n1,l1;'
-' CheckRhs(2,2);'
-' CheckLhs(1,1);'
-' GetRhsVar(2,""i"",&m1,&n1,&l1)'
-' /* change the type */'
-' *istk(iadr(*Lstk(Top-1)))=*istk(l1);'
-' C2F(intersci).ntypes[0] = ''$'';'
-' LhsVar(1)=1;'
-' return 0;'
-'}'];
-mputl(code,'intchangetype.c');
-ilib_build('libtest',['changetype','intchangetype'],'intchangetype.c',[]);
-exec('loader.sce');
+//first create a function changetype
+code=["#define __USE_DEPRECATED_STACK_FUNCTIONS__"
+"#include ""stack-c.h"""
+"int intchangetype(fname)"
+"   char *fname;"
+"{"
+" int m1,n1,l1;"
+" CheckRhs(2,2);"
+" CheckLhs(1,1);"
+" GetRhsVar(2,""i"",&m1,&n1,&l1)"
+" /* change the type */"
+" *istk(iadr(*Lstk(Top-1)))=*istk(l1);"
+" C2F(intersci).ntypes[0] = ''$'';"
+" LhsVar(1)=1;"
+" return 0;"
+"}"];
+mputl(code,"intchangetype.c");
+ilib_build("libtest",["changetype","intchangetype"],"intchangetype.c",[]);
+exec("loader.sce");
 cd(cur);
 
 
@@ -54,12 +54,12 @@ a=changetype(A,222);
 typename("bug2052", 222)
 //define overloading function for isequal
 function r=%bug2052_isequal(x,y)
-  r=type(x)==222&type(y)==222
-  if r then
-    x=changetype(x,1)
-    y=changetype(y,1)
-    r=r&and(x==y)
-  end
+    r=type(x)==222&type(y)==222
+    if r then
+        x=changetype(x,1)
+        y=changetype(y,1)
+        r=r&and(x==y)
+    end
 endfunction
 //Check if everything is ok
 l=list(1,2,3);

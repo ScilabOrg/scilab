@@ -14,16 +14,16 @@
 //
 // <-- Short Description -->
 // Clipping does not work in 3D.
-// 
+//
 
 lines(0);
 
 M = 10;
 N = 10;
 //Define and Discretize Domain (ft)
-xmax=50;           
+xmax=50;
 xmin=-xmax;
-ymax=50;            
+ymax=50;
 ymin=-ymax;
 dx=(xmax-xmin)/N;
 dy=(ymax-ymin)/M;
@@ -45,4 +45,4 @@ plot3d(x,y,Z,alpha=45,theta=45,flag=[5,3,4],ebox=[-10,10,-50,50,0,10]);
 
 // same with this:
 clf();
-t=-%pi:0.3:%pi;plot3d(t,t,sin(t)'*cos(t),75,45,'X@Y@Z',[2,1,4],ebox=[-2,2,-2,2,-1,1]);
+t=-%pi:0.3:%pi;plot3d(t,t,sin(t)'*cos(t),75,45,"X@Y@Z",[2,1,4],ebox=[-2,2,-2,2,-1,1]);

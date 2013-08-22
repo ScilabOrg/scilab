@@ -18,24 +18,24 @@
 wMode = warning("query");
 warning("off");
 
-fln = TMPDIR + filesep() +'bug_3905.txt';
-strs = ['txt1','txt2','txt3'];
+fln = TMPDIR + filesep() +"bug_3905.txt";
+strs = ["txt1","txt2","txt3"];
 mputl(strs, fln);
 
-[fi, err] = file('open', fln, 'old');
+[fi, err] = file("open", fln, "old");
 
 if err <> 0 then pause,end
 
-s1 = fscanf(fi,'%s');
-if s1 <> 'txt1' then pause,end
+s1 = fscanf(fi,"%s");
+if s1 <> "txt1" then pause,end
 
-s2 = fscanf(fi,'%s');
-if s2 <> 'txt2' then pause,end
+s2 = fscanf(fi,"%s");
+if s2 <> "txt2" then pause,end
 
-s3 = fscanf(fi,'%s');
-if s3 <> 'txt3' then pause,end
+s3 = fscanf(fi,"%s");
+if s3 <> "txt3" then pause,end
 
-file('close',fi);
+file("close",fi);
 
 ierr = execstr("fscanf(9999,''%s'');","errcatch");
 if ierr <> 999 then pause,end

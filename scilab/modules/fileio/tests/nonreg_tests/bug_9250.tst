@@ -17,9 +17,9 @@
 //
 
 try
-  mkdir(["a", "b"])
+    mkdir(["a", "b"])
 catch
-  [str,n]=lasterror();
-  if n <> 999 then pause, end
-  if str <> msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "mkdir", 1) then pause, end
+    [str,n]=lasterror();
+    if n <> 999 then pause, end
+    if str <> msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "mkdir", 1) then pause, end
 end

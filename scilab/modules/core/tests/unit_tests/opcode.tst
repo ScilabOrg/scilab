@@ -84,5 +84,5 @@ if type(foo())<>130 then pause,end
 
 sin=1
 sin //devrait repondre 1 or il essaye d'executer sin
-a=sin //est ok 
+a=sin //est ok
 prot=funcprot();funcprot(0);

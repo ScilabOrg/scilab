@@ -21,9 +21,9 @@
 my_mat_file = TMPDIR+"/bug_577.mat";
 
 x=rand(5,5,100)+%i;
-warning('off');
+warning("off");
 ierr = execstr("savematfile(my_mat_file,""x"")","errcatch");
-warning('on');
+warning("on");
 
 if ierr == 0 then pause,end
 if lasterror()<>msprintf(gettext("%s: Mlists of type %s can not be written to Matlab binary files.\n"), "GetMlistVariable", "hm") then pause,end

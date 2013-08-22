@@ -14,8 +14,8 @@
 //
 // <-- Short Description -->
 //mput ( 1 , 'plop' )
-wm = warning('query');
-warning('off');
-ierr = execstr('mput ( 1 , ''plop'' );','errcatch');
+wm = warning("query");
+warning("off");
+ierr = execstr("mput ( 1 , ''plop'' );","errcatch");
 warning(wm);
 if ierr <> 10000 then pause,end

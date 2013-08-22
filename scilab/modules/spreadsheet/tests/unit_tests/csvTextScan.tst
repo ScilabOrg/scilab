@@ -7,14 +7,14 @@
 A = "        1;        2;     3";
 B = "        4;        5;     6";
 C = [A;B];
-bbSTR = csvTextScan(C, ';', [], "string");
+bbSTR = csvTextScan(C, ";", [], "string");
 expected = [
 "        1" , "        2" , "     3"
 "        4" , "        5" , "     6"
 ];
 assert_checkequal ( bbSTR , expected );
 // =============================================================================
-bbDouble = csvTextScan(C, ';', [], 'double');
+bbDouble = csvTextScan(C, ";", [], "double");
 expected = [1 2 3;4 5 6];
 assert_checkequal ( bbDouble , expected );
 // =============================================================================
@@ -99,8 +99,8 @@ b = csvTextScan(r, ";", [], "string");
 assert_checkequal (b,Kstr2);
 // =============================================================================
 S = [
-  "Allan",                  "2", "CORNET";
-  "csv read/write toolbox", "3", "for scilab"
+"Allan",                  "2", "CORNET";
+"csv read/write toolbox", "3", "for scilab"
 ];
 //
 r = mgetl(fullfile(path,"S_1.csv"));
@@ -129,11 +129,11 @@ ref = [%nan , 2, %nan; %nan, 3, %nan];
 assert_checkequal ( b , ref);
 // =============================================================================
 r = mgetl(fullfile(path, "double_quotes.csv"), 5);
-ref = ['Dummy1', 'Dummy1'; ..
-       'Dummy2', 'Dummy2, Dummy2'; ..
-       'Dummy3', '(""Dummy3"")'; ..
-       '""Dummy4"" Dummy4','Dummy4'; ..
-       'Dummy5', 'Dummy5 ""Dummy5""'];
+ref = ["Dummy1", "Dummy1"; ..
+"Dummy2", "Dummy2, Dummy2"; ..
+"Dummy3", "(""Dummy3"")"; ..
+"""Dummy4"" Dummy4","Dummy4"; ..
+"Dummy5", "Dummy5 ""Dummy5"""];
 for i=1:5
     b = csvTextScan(r(i), ",", [], "string");
     assert_checkequal(b , ref(i,:));

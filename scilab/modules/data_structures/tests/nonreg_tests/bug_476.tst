@@ -19,18 +19,18 @@
 //      wrong result
 //    Commands:  -->a=hypermat([3,3,1],int8(1:9));
 //
-//    -->[i,j]=find(a==5)   
+//    -->[i,j]=find(a==5)
 //     j  =
 //
-//        1.  
+//        1.
 //     i  =
 //
-//        0.  
+//        0.
 //
 //    -->[i,j,k]=find(a==5)
 //     k  =
 //
-//        1.  
+//        1.
 // ...
 
 //correct=%F

@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // delete() always modify the current object handle.
-// 
+//
 
 x = 1:10;
 

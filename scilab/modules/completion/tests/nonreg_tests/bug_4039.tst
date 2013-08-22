@@ -23,17 +23,17 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 // wavread("/ho[TAB]
-currentline = 'wavread(""/ho';
+currentline = "wavread(""/ho";
 r = getfilepartlevel(currentline);
-if r <> '/ho' then pause,end
+if r <> "/ho" then pause,end
 
-newline = completeline(currentline,'home',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if newline <> 'wavread(""/home' then pause,end
+newline = completeline(currentline,"home",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if newline <> "wavread(""/home" then pause,end
 
 // wavread("/home/sy[TAB]
-currentline = 'wavread(""/home/sy';
+currentline = "wavread(""/home/sy";
 r = getfilepartlevel(currentline);
-if r <> '/home/sy' then pause,end
+if r <> "/home/sy" then pause,end
 
-newline = completeline(currentline,'sylvestre',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if newline <> 'wavread(""/home/sylvestre' then pause,end
+newline = completeline(currentline,"sylvestre",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if newline <> "wavread(""/home/sylvestre" then pause,end

@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // delete("all") does not refresh the graphic.
-// 
+//
 
 plot(1:10);
 

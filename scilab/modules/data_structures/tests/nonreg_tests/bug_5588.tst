@@ -21,13 +21,13 @@ clear  %0_i_a %0_i_A
 t=tlist(["a","b","c"],10,"foo");
 if execstr("t.b=null()","errcatch")==0 then pause,end
 function t=%0_i_a(i,void,t)
-  f=getfield(1,t);
-  k=find(f==i);
-  if k<>[] then
-    f(k)=[];
-    setfield(k,null(),t);
-    setfield(1,f,t);
-  end
+    f=getfield(1,t);
+    k=find(f==i);
+    if k<>[] then
+        f(k)=[];
+        setfield(k,null(),t);
+        setfield(1,f,t);
+    end
 endfunction
 if execstr("t.b=null()","errcatch")<>0 then pause,end
 if or(t<>tlist(["a","c"],"foo"))  then pause,end
@@ -50,7 +50,7 @@ if execstr("T(1)=null()","errcatch")==0 then pause,end
 
 
 //cell null assignment
-c=makecell([1,2],1,"xyz");   
+c=makecell([1,2],1,"xyz");
 if execstr("c(1,1)=null()","errcatch")==0 then pause,end
 if execstr("c.dims=null()","errcatch")==0 then pause,end
 

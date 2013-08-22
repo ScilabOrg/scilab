@@ -15,9 +15,9 @@
 A = floor(2^52 * rand(30,30));
 
 for i=1:size(A,"*");
-	B = strcat(string(bitget(A(i),[1:52])));
-	C = strrev(dec2bin(A(i),52));
-	if B<>C then pause, end
+    B = strcat(string(bitget(A(i),[1:52])));
+    C = strrev(dec2bin(A(i),52));
+    if B<>C then pause, end
 end
 
 // Test 1.2
@@ -25,9 +25,9 @@ end
 A = uint8(floor( 2^8 * rand(30,30)));
 
 for i=1:size(A,"*");
-	B = strcat(string(bitget(A(i),[1:8])));
-	C = strrev(dec2bin(A(i),8));
-	if B<>C then pause, end
+    B = strcat(string(bitget(A(i),[1:8])));
+    C = strrev(dec2bin(A(i),8));
+    if B<>C then pause, end
 end
 
 // Test 1.3
@@ -35,9 +35,9 @@ end
 A = uint16(floor( 2^16 * rand(30,30)));
 
 for i=1:size(A,"*");
-	B = strcat(string(bitget(A(i),[1:16])));
-	C = strrev(dec2bin(A(i),16));
-	if B<>C then pause, end
+    B = strcat(string(bitget(A(i),[1:16])));
+    C = strrev(dec2bin(A(i),16));
+    if B<>C then pause, end
 end
 
 // Test 1.4
@@ -45,9 +45,9 @@ end
 A = uint32(floor( 2^32 * rand(30,30)));
 
 for i=1:size(A,"*");
-	B = strcat(string(bitget(A(i),[1:32])));
-	C = strrev(dec2bin(A(i),32));
-	if B<>C then pause, end
+    B = strcat(string(bitget(A(i),[1:32])));
+    C = strrev(dec2bin(A(i),32));
+    if B<>C then pause, end
 end
 
 // Test 2

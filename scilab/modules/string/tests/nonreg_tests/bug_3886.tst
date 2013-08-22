@@ -15,6 +15,6 @@
 // Short description:
 // strsubst with regular expression was working only on the first element of the vector.
 //==============================================================
-names = ['foo.sci';'toto.sci';'titi.sci'];  
-names=strsubst(names, "/\.sci$/",'','r');
-if names <> ['foo';'toto';'titi'] then, pause, end
+names = ["foo.sci";"toto.sci";"titi.sci"];
+names=strsubst(names, "/\.sci$/","","r");
+if names <> ["foo";"toto";"titi"] then, pause, end

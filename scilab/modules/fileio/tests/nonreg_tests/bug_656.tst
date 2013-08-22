@@ -18,9 +18,9 @@
 //    isdir(getenv('SCI'))
 //    isdir(getenv('SCI')+"/")
 //
-//    True for Linux, the first one is True for Windows and False 
+//    True for Linux, the first one is True for Windows and False
 //    for the second one
 
-if ~isdir(getenv('SCI'))                            then pause,end
-if ~isdir(getenv('SCI')+"/")                        then pause,end
-if isdir(getenv('SCI')) <> isdir(getenv('SCI')+"/") then pause,end
+if ~isdir(getenv("SCI"))                            then pause,end
+if ~isdir(getenv("SCI")+"/")                        then pause,end
+if isdir(getenv("SCI")) <> isdir(getenv("SCI")+"/") then pause,end

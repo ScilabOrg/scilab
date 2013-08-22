@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=186
 //
 // <-- Short Description -->
-//     
+//
 
 
 a="100 100 z  ";

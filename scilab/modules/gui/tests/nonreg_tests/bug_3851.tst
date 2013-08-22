@@ -19,24 +19,24 @@
 // properties presented in the help file yield to an error.
 
 
-ierr = execstr('r = get(0, ""screendepth"")', 'errcatch');
+ierr = execstr("r = get(0, ""screendepth"")", "errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('r = get(0, ""screensize_px"")', 'errcatch');
+ierr = execstr("r = get(0, ""screensize_px"")", "errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('r = get(0, ""screensize_pt"")', 'errcatch');
+ierr = execstr("r = get(0, ""screensize_pt"")", "errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('r = get(0, ""screensize_mm"")', 'errcatch');
+ierr = execstr("r = get(0, ""screensize_mm"")", "errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('r = get(0, ""screensize_cm"")', 'errcatch');
+ierr = execstr("r = get(0, ""screensize_cm"")", "errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('r = get(0, ""screensize_in"")', 'errcatch');
+ierr = execstr("r = get(0, ""screensize_in"")", "errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('r = get(0, ""screensize_norm"")', 'errcatch');
+ierr = execstr("r = get(0, ""screensize_norm"")", "errcatch");
 if ierr <> 0 then pause,end
 

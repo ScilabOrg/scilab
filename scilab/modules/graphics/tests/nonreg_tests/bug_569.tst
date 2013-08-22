@@ -23,4 +23,4 @@ disp("check the result of the  graphic windows");
 x  = 0:0.1:1;
 f  = sin(2*%pi*x)'*cos(2*%pi*x);
 nz = [0,0.1,0.2];
-if execstr('contour(x,x,f,nz)','errcatch') <> 0 then pause,end
+if execstr("contour(x,x,f,nz)","errcatch") <> 0 then pause,end

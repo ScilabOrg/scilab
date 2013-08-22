@@ -25,6 +25,6 @@ x=matrix([5 2:8],2,4);
 
 if (msd(x)-3.5)                  >= %eps then pause,end
 if norm(msd(x,1)-[3 1 1 1]/2)    >= %eps then pause,end
-if norm(msd(x,'r')-[3 1 1 1]/2)  >= %eps then pause,end
+if norm(msd(x,"r")-[3 1 1 1]/2)  >= %eps then pause,end
 if norm(msd(x,2)-sqrt([2;5]))    >= %eps then pause,end
-if norm(msd(x,'c')-sqrt([2;5]))  >= %eps then pause,end
+if norm(msd(x,"c")-sqrt([2;5]))  >= %eps then pause,end

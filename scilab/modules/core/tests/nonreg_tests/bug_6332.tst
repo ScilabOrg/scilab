@@ -16,10 +16,10 @@
 // stacksize had problems on Mac OS X and 64 bit platforms
 
 r1 = stacksize();
-stacksize('max');
+stacksize("max");
 mx1 = stacksize();
 if r1(1) >= mx1(1) then pause, end
-stacksize('max');
+stacksize("max");
 mx2 = stacksize();
 if mx1(1) <> mx2(1) then pause, end
 

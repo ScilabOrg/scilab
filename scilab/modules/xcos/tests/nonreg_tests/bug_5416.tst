@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5416
 //
 // <-- Short Description -->
-// If one modify a value inside a superblock, the change is not propagated 
+// If one modify a value inside a superblock, the change is not propagated
 // to the whole diagram.
 
 

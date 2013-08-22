@@ -18,10 +18,9 @@
 // launch scilab standard mode
 // launch scilab --> menu ? --> click on "OK"
 // if you have not a message as :
-// !--error 2 
+// !--error 2
 //Invalid factor.
 // it works :)
 
 
 
-          

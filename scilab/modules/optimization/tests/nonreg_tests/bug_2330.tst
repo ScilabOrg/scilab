@@ -20,9 +20,9 @@
 //build the data to fit
 //---------------------
 function Xcalc=biexp(p,t)
-  Xcalc=p(1).*exp(-p(2).*t)+p(3).*exp(-p(4).*t)+p(5);
+    Xcalc=p(1).*exp(-p(2).*t)+p(3).*exp(-p(4).*t)+p(5);
 endfunction;
-t=(0:100:36000)'; 
+t=(0:100:36000)';
 p=[0.1;0.0001;0.2;0.0002;0.3];
 X=biexp(p,t);
 

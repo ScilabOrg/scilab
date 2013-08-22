@@ -20,4 +20,3 @@ editor()
 // Write some characters
 // CTRL+W
 // Try save the file in a directory where you do not have write access to.
-                    

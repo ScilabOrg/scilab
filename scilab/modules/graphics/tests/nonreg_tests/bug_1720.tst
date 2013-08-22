@@ -15,7 +15,7 @@
 // <-- Short Description -->
 //    Scilab 4.0-RC1
 //    Different default behavior of xfrect and xfarc
-//    xfrec does not draw the limit of the rectangle 
+//    xfrec does not draw the limit of the rectangle
 //    xfarc draws the limit of the circle
 //
 //    I don't know which is right and which is wrong, but there is an obvious
@@ -36,4 +36,4 @@ hc               = gce();
 hc.background    = 6;
 
 // check that xfarc fill the arc and don't draw the limit
-if hc.line_mode <> 'off' then pause,end
+if hc.line_mode <> "off" then pause,end

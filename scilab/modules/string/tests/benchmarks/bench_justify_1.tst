@@ -12,6 +12,6 @@
 in = ["1234","x","adfdfgdfghfgj" ;"1","354556","dgf";"sdfgd","","sdfsf"];
 
 // <-- BENCH START -->
-out = justify(in,'l');
+out = justify(in,"l");
 // <-- BENCH END -->
 

@@ -22,7 +22,7 @@ assert_checktrue(isdef("sim_in"));
 assert_checktrue(isdef("sim_out"));
 
 // Same filter as the diagram but in Scilab script
-sl = syslin('c', -eye(3,3), eye(3,3), eye(3,3), zeros(3,3), zeros(3,1));
+sl = syslin("c", -eye(3,3), eye(3,3), eye(3,3), zeros(3,3), zeros(3,1));
 t = 0:0.1:9.9;
 in = ones(100,1);
 in = (in * [1 2 3])';

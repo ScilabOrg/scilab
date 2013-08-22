@@ -9,31 +9,31 @@
 // =============================================================================
 wMode = warning("query");
 warning("off");
-fprintf(0,'My error which is going to be displayed on the stderr');
-fprintf(6,'My error which is going to be displayed on the stdout');
+fprintf(0,"My error which is going to be displayed on the stderr");
+fprintf(6,"My error which is going to be displayed on the stdout");
 // =============================================================================
-u=file('open',TMPDIR + filesep() + 'Fresults','unknown');
+u=file("open",TMPDIR + filesep() + "Fresults","unknown");
 t=0:0.1:2*%pi;
 for tk = t
-  fprintf(u,'time = %6.3f value = %6.3f',tk,sin(tk));
+    fprintf(u,"time = %6.3f value = %6.3f",tk,sin(tk));
 end
-file('close',u);
+file("close",u);
 
-if fileinfo(TMPDIR + filesep() + 'Fresults') ==  [] then pause,end
+if fileinfo(TMPDIR + filesep() + "Fresults") ==  [] then pause,end
 // =============================================================================
-fd = mopen(TMPDIR + filesep() + 'Cresults','wt');
+fd = mopen(TMPDIR + filesep() + "Cresults","wt");
 t=0:0.1:2*%pi;
 for tk = t
-  fprintf(fd,'time = %6.3f value = %6.3f',tk,sin(tk));
+    fprintf(fd,"time = %6.3f value = %6.3f",tk,sin(tk));
 end
 mclose(fd);
-if fileinfo(TMPDIR + filesep() + 'Fresults') ==  [] then pause,end
+if fileinfo(TMPDIR + filesep() + "Fresults") ==  [] then pause,end
 // =============================================================================
 t=0:0.1:2*%pi;
 for tk = t
-  fprintf(TMPDIR + filesep() + 'results2','time = %6.3f value = %6.3f',tk,sin(tk));
+    fprintf(TMPDIR + filesep() + "results2","time = %6.3f value = %6.3f",tk,sin(tk));
 end
-if fileinfo(TMPDIR + filesep() + 'results2') ==  [] then pause,end
+if fileinfo(TMPDIR + filesep() + "results2") ==  [] then pause,end
 // =============================================================================
 fprintf(6,"fprintf test 1:%s\n", "simple string");
 // =============================================================================
@@ -73,18 +73,18 @@ fprintf(6,"fprintf test 18:%.5s\n", "abcdefghij");
 // =============================================================================
 fprintf(6,"fprintf test 195:%-2s\n", "gazonk");
 // =============================================================================
-ierr = execstr('fprintf(6,5,5)','errcatch');
+ierr = execstr("fprintf(6,5,5)","errcatch");
 if ierr <> 999 then pause,end
 // =============================================================================
-ierr = execstr('fprintf(1000,''%d'',5)','errcatch');
+ierr = execstr("fprintf(1000,''%d'',5)","errcatch");
 if ierr <> 999 then pause,end
 // =============================================================================
-FILENAMES=[TMPDIR + filesep() + 'results1',TMPDIR + filesep() + 'results2'];
-ierr = execstr('fprintf(FILENAMES,''%d'',5)','errcatch');
+FILENAMES=[TMPDIR + filesep() + "results1",TMPDIR + filesep() + "results2"];
+ierr = execstr("fprintf(FILENAMES,''%d'',5)","errcatch");
 if ierr <> 999 then pause,end
 // =============================================================================
 FMTS=["%s","%s"];
-ierr = execstr('fprintf(6,FMTS,5)','errcatch');
+ierr = execstr("fprintf(6,FMTS,5)","errcatch");
 if ierr <> 999 then pause,end
 // =============================================================================
 warning(wMode);

@@ -9,7 +9,7 @@
 
 // Digits := 40:
 // writeto("cscd.ref"); interface(prettyprint = 0):
-// for i from 0 to 360 do if ((i<>0) and (i~=180) and (i~=360)) then print(-180+i, evalf[30](csc(-Pi+i*Pi/180), 30)) end end do; 
+// for i from 0 to 360 do if ((i<>0) and (i~=180) and (i~=360)) then print(-180+i, evalf[30](csc(-Pi+i*Pi/180), 30)) end end do;
 // writeto(terminal);
 ieee(2);
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab
@@ -383,7 +383,7 @@ if max(abs((cscd(x)-ref(:,2))./(cotg(x*%pi/180).*x.*cscd(x))))*180/pi>20*eps the
 if max(abs((ref(:,2)-cscd(x))./ref(:,2)))>10*eps then pause,end
 
 
-x=ref(:,1)+2^10*360; 
+x=ref(:,1)+2^10*360;
 if max(abs((cscd(x)-ref(:,2))./(cotg(x*%pi/180).*x.*cscd(x))))*180/pi>20*eps then pause,end
 if max(abs((ref(:,2)-cscd(x))./ref(:,2)))>10*eps then pause,end
 

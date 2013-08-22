@@ -17,8 +17,8 @@
 
 %helps = "toto";
 clear()
-assert_checkequal(isdef('%helps'), %f);
+assert_checkequal(isdef("%helps"), %f);
 
 %helps = "toto";
-clear('%helps');
-assert_checkequal(isdef('%helps'), %f);
+clear("%helps");
+assert_checkequal(isdef("%helps"), %f);

@@ -26,5 +26,5 @@ hf2 = scf (2);
 hf2.figure_position = [350,0];
 
 // check that the figures don't overlap
-      
+
 

@@ -15,5 +15,5 @@
 
 // <-- CLI SHELL MODE -->
 
-gstacksize('max');
+gstacksize("max");
 1+1;

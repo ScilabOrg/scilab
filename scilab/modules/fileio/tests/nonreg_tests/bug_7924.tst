@@ -17,9 +17,9 @@
 //
 
 if getos() == "Windows" then
-  sciPath = WSCI;
+    sciPath = WSCI;
 else
-  sciPath = SCI;
+    sciPath = SCI;
 end
 
 r1 = pathconvert(sciPath + "/etc/scilab.start", %F, %T, "u");

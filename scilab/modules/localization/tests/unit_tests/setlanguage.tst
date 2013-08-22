@@ -10,10 +10,10 @@
 //===============================
 
 // Void call
-if execstr('setlanguage()','errcatch')==0 then pause,end
+if execstr("setlanguage()","errcatch")==0 then pause,end
 
 // Double call
-lang="fr_FR"; lang2="en_US"; if execstr('setlanguage(lang, lang2)','errcatch')==0 then pause,end
+lang="fr_FR"; lang2="en_US"; if execstr("setlanguage(lang, lang2)","errcatch")==0 then pause,end
 
 // Empty call
 lang=getdefaultlanguage(); if setlanguage(lang) <> %T then pause,end

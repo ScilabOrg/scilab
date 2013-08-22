@@ -29,18 +29,18 @@
 //    endfunction
 
 function [a,b,c,d,e]=test()
-  a=1;b=2;c=3;d=4;e=5;
+    a=1;b=2;c=3;d=4;e=5;
 endfunction
 
 [out.a.t1,out.a.t2,out.a.t3,out.a.t4]=test();
 
 if or(out<>mlist(["st","dims","a"],int32([1,1]),..
-		   mlist(["st","dims","t4","t3","t2","t1"],int32([1,1]),4,3,2,1))) then pause,end
+mlist(["st","dims","t4","t3","t2","t1"],int32([1,1]),4,3,2,1))) then pause,end
 
 clear out
 [out.a.t1,t2,out.a.t3,t4]=test();
 if or(out<>mlist(["st","dims","a"],int32([1,1]),..
-		   mlist(["st","dims","t3","t1"],int32([1,1]),3,1))) then pause,end
+mlist(["st","dims","t3","t1"],int32([1,1]),3,1))) then pause,end
 if t2<>2 then pause,end
 if t4<>4 then pause,end
 

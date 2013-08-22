@@ -19,7 +19,7 @@
 
 ////////////////// gcd
 // Normal behavior, with polynomials
-s = poly(0, 's');
+s = poly(0, "s");
 p = [s, s*(s+1)^2, 2*s^2+s^3];
 [pgcd, u] = gcd(p);
 assert_checkequal(p*u, [0 0 s]);
@@ -39,7 +39,7 @@ assert_checkerror("gcd([15 20]);", refMsg2);
 
 ////////////////// lcm
 // Normal behavior, with polynomials
-s = poly(0, 's');
+s = poly(0, "s");
 p = [s, s*(s+1)^2, s^2*(s+2)];
 [pp, fact] = lcm(p);
 assert_checkequal(pp, [2*s^2 + 5*s^3 + 4*s^4 + s^5]);

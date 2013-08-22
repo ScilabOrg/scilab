@@ -16,6 +16,6 @@
 // <-- Short Description -->
 // prompt() removed trailing whites.
 
-prompt('abcd               ')
+prompt("abcd               ")
 
 // the whites must not be removed

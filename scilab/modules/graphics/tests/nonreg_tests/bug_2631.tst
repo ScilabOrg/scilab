@@ -15,9 +15,9 @@
 // <-- Short Description -->
 // Change the <figure_handle>.figure_name property not modify the window title like
 // with scilab-4.1.2
-// 
+//
 
-name = 'Something';
+name = "Something";
 my_figure_handle             = scf(10);
 my_figure_handle.figure_name = name;
 

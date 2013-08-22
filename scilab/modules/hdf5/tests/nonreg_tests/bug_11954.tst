@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=11954
 //
 // <-- Short Description -->
-// 
+//
 // save with two times the same name leads to an HDF5 error.
 
 x=123

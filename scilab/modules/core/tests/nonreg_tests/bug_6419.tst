@@ -13,10 +13,10 @@
 // <-- Short Description -->
 //  gstacksize() There was no way to retrieve minimum from scilab
 
-gstacksize('min');
+gstacksize("min");
 mingstacksize = gstacksize();
 
-ierr = execstr('gstacksize(2048)','errcatch');
+ierr = execstr("gstacksize(2048)","errcatch");
 if ierr <> 1504 then pause,end
 
 newmingstacksize = gstacksize();

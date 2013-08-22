@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Some optional parameters were not set in some case
-// 
+//
 
 A=rand(10,10);
 b=[linspace(1,10,11)];

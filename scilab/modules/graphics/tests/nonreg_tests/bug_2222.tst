@@ -20,14 +20,14 @@ data=ones(30000,100);
 subplot(231)
 plot(data)
 xgrid
-//now 
+//now
 subplot(232)
 plot(data)
 xgrid
-//and then until 
+//and then until
 subplot(236)
 xgrid
-plot(data) 
+plot(data)
 
 // check that is not too slow and that the graphic window don't flicker
 

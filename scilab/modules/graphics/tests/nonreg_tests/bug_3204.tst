@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Axes box drawign disappeared in histplot demo.
-// 
+//
 
 // first check axes
 subplot(2,2,1);

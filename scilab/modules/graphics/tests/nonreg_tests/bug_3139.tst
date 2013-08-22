@@ -17,7 +17,7 @@
 
 plot([0.01,100],[1,10]);
 a           = gca();
-a.log_flags = 'lnn';
+a.log_flags = "lnn";
 a.grid      = [12,-1];
 
 // check that all the grid line are drawn

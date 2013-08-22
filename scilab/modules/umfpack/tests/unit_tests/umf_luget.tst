@@ -10,10 +10,10 @@
 // this is the test matrix from UMFPACK
 
 A = sparse( [ 2  3  0  0  0;
-              3  0  4  0  6; 
-              0 -1 -3  2  0; 
-              0  0  1  0  0; 
-              0  4  2  0  1] );
+3  0  4  0  6;
+0 -1 -3  2  0;
+0  0  1  0  0;
+0  4  2  0  1] );
 Lup = umf_lufact(A);
 [L,U,p,q,R] = umf_luget(Lup);
 
@@ -35,10 +35,10 @@ umf_ludel(Lup); // clear memory
 
 // the same with a complex matrix
 A = sparse( [ 2+%i  3+2*%i  0      0    0;
-              3-%i  0       4+%i   0    6-3*%i; 
-              0    -1+%i   -3+6*%i 2-%i 0; 
-              0     0       1-5*%i 0    0; 
-              0     4       2-%i   0    1] );
+3-%i  0       4+%i   0    6-3*%i;
+0    -1+%i   -3+6*%i 2-%i 0;
+0     0       1-5*%i 0    0;
+0     4       2-%i   0    1] );
 Lup = umf_lufact(A);
 [L,U,p,q,R] = umf_luget(Lup);
 

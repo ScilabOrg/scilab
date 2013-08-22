@@ -14,7 +14,7 @@
 
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 nm = neldermead_new ();
@@ -27,9 +27,9 @@ nm = neldermead_search(nm);
 simplex = neldermead_get(nm,"-simplex0");
 computed = optimsimplex_getallx( simplex );
 expected = [
-    1.    2.  
-    2.    2.  
-    1.    3.  
+1.    2.
+2.    2.
+1.    3.
 ];
 assert_checkalmostequal ( computed , expected, %eps );
 nm = neldermead_destroy(nm);

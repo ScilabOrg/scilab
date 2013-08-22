@@ -20,7 +20,7 @@ m=1040;
 a=rand(n,m);
 
 for i=1:10
-  h=scf();
-  grayplot(1:n,1:m,a);
-  delete(h);
+    h=scf();
+    grayplot(1:n,1:m,a);
+    delete(h);
 end

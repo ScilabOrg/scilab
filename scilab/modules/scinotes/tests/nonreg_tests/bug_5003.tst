@@ -18,7 +18,7 @@
 //   If <Yes> is pressed, 2 tabs with the same name are created.
 
 // No more 2 tabs with the same name
-editor('my_file.sci')
+editor("my_file.sci")
 
 
 

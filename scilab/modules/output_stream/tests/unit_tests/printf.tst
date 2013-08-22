@@ -48,4 +48,3 @@ printf("printf test 18:%.5s\n", "abcdefghij");
 //==================================
 printf("printf test 195:%-2s\n", "gazonk");
 //==================================
- 

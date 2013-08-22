@@ -13,7 +13,7 @@
 F = tempname();
 assert_checkequal(isfile(F), %t);
 
-F = tempname('PRE');
+F = tempname("PRE");
 assert_checkequal(isfile(F), %t);
 
 msgerror = "%s: Wrong type for input argument #%d: A string expected.\n";
@@ -23,8 +23,8 @@ msgerror = "%s: Wrong size for input argument #%d: A scalar expected.\n";
 assert_checkerror ( "F = tempname([''A'',''B''])" , msgerror, 999, "tempname" , 1);
 
 if getos() == "Windows" then
-  msgerror = "%s: Wrong size for input argument #%d: A string (3 characters max.) expected.\n";
-  assert_checkerror ( "F = tempname(''toolongasprefixonwindows'')" , msgerror, 999, "tempname" , 1);
+    msgerror = "%s: Wrong size for input argument #%d: A string (3 characters max.) expected.\n";
+    assert_checkerror ( "F = tempname(''toolongasprefixonwindows'')" , msgerror, 999, "tempname" , 1);
 end
 
 F = tempname();
@@ -35,5 +35,5 @@ F = tempname("TMP");
 [p, f, ext] = fileparts(F);
 assert_checkequal(part(f,1:3), "TMP");
 if getos() == "Windows" then
-  assert_checkequal(ext, ".tmp");
+    assert_checkequal(ext, ".tmp");
 end

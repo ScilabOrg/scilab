@@ -7,7 +7,7 @@
 // <-- CLI SHELL MODE -->
 
 
-s=poly(0,'s');
+s=poly(0,"s");
 z = s^0;
 h=1/(2*s);
 assert_checkequal(size(h), [1 1]);

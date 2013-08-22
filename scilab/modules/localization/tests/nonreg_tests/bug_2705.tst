@@ -16,8 +16,8 @@
 LANG = getlanguage();
 if length(LANG) <> 5 then pause,end
 
-TOK = tokens(LANG,'_');
-if size(TOK,'*') <> 2 then pause,end
+TOK = tokens(LANG,"_");
+if size(TOK,"*") <> 2 then pause,end
 
 if length(TOK(1)) <> 2 then pause,end
 

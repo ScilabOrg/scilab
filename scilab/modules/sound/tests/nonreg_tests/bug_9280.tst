@@ -13,8 +13,8 @@
 // <-- Short Description -->
 // wavread failed to read PCM 32 bit float file format.
 
-filename = SCI + '/modules/sound/tests/nonreg_tests/bug_9280.wav';
-ierr = execstr('[Ip, Fs, bits] = wavread(filename);', 'errcatch');
+filename = SCI + "/modules/sound/tests/nonreg_tests/bug_9280.wav";
+ierr = execstr("[Ip, Fs, bits] = wavread(filename);", "errcatch");
 if ierr <> 0 then pause, end
 sIp = size(Ip);
 if sIp(1) <> 1 then pause, end

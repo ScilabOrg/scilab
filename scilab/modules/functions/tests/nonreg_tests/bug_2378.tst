@@ -15,9 +15,9 @@
 // <-- Short Description -->
 //     fun2string produces erroneous output (an extra 2 character appears) when there is a comment after an assignment.
 
-function []=f()                                          
-a=b//                                   
-endfunction   
+function []=f()
+    a=b//
+endfunction
 
 t=fun2string(f);
 if or(stripblanks(t)<>["function []=ans()";"a = b//";"endfunction"]) then pause,end

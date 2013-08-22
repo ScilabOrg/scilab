@@ -34,14 +34,14 @@ if TCL_GetVar("ScilabBis") <> "modified" then pause,end
 if TCL_GetVar("Scilab") <>  "modified" then pause,end
 if TCL_GetVar("Scilab") <> TCL_GetVar("ScilabBis") then pause,end
 // =============================================================================
-if TCL_CreateSlave('InterpBis') <> 'InterpBis' then pause,end
-if TCL_SetVar("Scilab","Good",'InterpBis') <> %t then pause,end
-if TCL_UpVar("Scilab","ScilabBis",'InterpBis') <> %t then pause,end
-if TCL_GetVar("ScilabBis",'InterpBis') <> 'Good' then pause,end
-if TCL_SetVar("Scilab","Not good",'InterpBis') <> %t then pause,end
-if TCL_GetVar("ScilabBis",'InterpBis') <> "Not good" then pause,end
-if TCL_SetVar("ScilabBis","modified again",'InterpBis') <> %t then pause,end
-if TCL_GetVar("ScilabBis",'InterpBis') <> "modified again" then pause,end
-if TCL_GetVar("Scilab",'InterpBis') <> TCL_GetVar("ScilabBis",'InterpBis') then pause,end
-TCL_DeleteInterp('InterpBis')
+if TCL_CreateSlave("InterpBis") <> "InterpBis" then pause,end
+if TCL_SetVar("Scilab","Good","InterpBis") <> %t then pause,end
+if TCL_UpVar("Scilab","ScilabBis","InterpBis") <> %t then pause,end
+if TCL_GetVar("ScilabBis","InterpBis") <> "Good" then pause,end
+if TCL_SetVar("Scilab","Not good","InterpBis") <> %t then pause,end
+if TCL_GetVar("ScilabBis","InterpBis") <> "Not good" then pause,end
+if TCL_SetVar("ScilabBis","modified again","InterpBis") <> %t then pause,end
+if TCL_GetVar("ScilabBis","InterpBis") <> "modified again" then pause,end
+if TCL_GetVar("Scilab","InterpBis") <> TCL_GetVar("ScilabBis","InterpBis") then pause,end
+TCL_DeleteInterp("InterpBis")
 // =============================================================================

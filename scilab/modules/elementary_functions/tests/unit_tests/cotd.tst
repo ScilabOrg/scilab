@@ -12,8 +12,8 @@
 
 // Maple code used to create reference
 // Digits := 40:
-// writeto("cotd.ref"): interface(prettyprint = 0): 
-// for i from -179 to 179 do if (i<>0) then print(i, evalf[30](cot(i*Pi/180), 30)) end end do; 
+// writeto("cotd.ref"): interface(prettyprint = 0):
+// for i from -179 to 179 do if (i<>0) then print(i, evalf[30](cot(i*Pi/180), 30)) end end do;
 // writeto(terminal):
 pi=%pi;eps=%eps;Inf=%inf;NaN=%nan; //used to make following code runnable under Matlab
 ieee(2);
@@ -383,13 +383,13 @@ computed = cotd(x);
 e=max(abs((expected-computed)./expected));
 if e>100*eps then pause,end
 //
-x=ref(:,1)+2^6*360; 
+x=ref(:,1)+2^6*360;
 expected = ref(:,2);
 computed = cotd(x);
 e=max(abs((expected-computed)./expected));
 if e>100*eps then pause,end
 //
-x=ref(:,1)+2^10*360; 
+x=ref(:,1)+2^10*360;
 expected = ref(:,2);
 computed = cotd(x);
 e=max(abs((expected-computed)./expected));

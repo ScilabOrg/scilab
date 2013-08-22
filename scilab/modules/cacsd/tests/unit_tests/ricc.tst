@@ -13,6 +13,6 @@ R=[2,9; 5,7];
 
 R=R*R'+eye();
 B=B*inv(R)*B';
-X=ricc(A,B,C,'cont');
+X=ricc(A,B,C,"cont");
 X_ref=[44.84688,2.304207,66.647924;2.304207,27.392655,10.625534;66.647924,10.625534,118.86653];
 assert_checkalmostequal(X, X_ref, 1e-6);

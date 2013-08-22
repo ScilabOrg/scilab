@@ -14,9 +14,9 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2333
 //
 // <-- Short Description -->
-//    I am trying to convert a large number of Matlab files to Scilab. Either 
-//    by using translatepath or a loop with mfile2sci I get the same error 
-//    message when converting specific .m files. It appears in recursive mode 
+//    I am trying to convert a large number of Matlab files to Scilab. Either
+//    by using translatepath or a loop with mfile2sci I get the same error
+//    message when converting specific .m files. It appears in recursive mode
 //    only when calling another matlab function.
 
 load("SCI/modules/m2sci/macros/kernel/lib");

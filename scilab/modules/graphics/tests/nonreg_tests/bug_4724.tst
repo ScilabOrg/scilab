@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // When the variation of f of a data set is too small, plot hangs
-// 
+//
 
 t=0:.01:%pi;
 y=1+1e-9*cos(t);

@@ -21,4 +21,4 @@ mputl(["function toto()", "a=""a ." + ".//a", "b ." + ".//b", "c""", "endfunctio
 scinotes(tmpfile);
 
 // Change the line numbering to be in whereami mode
-// All the lines in the body of toto must be numbered 
+// All the lines in the body of toto must be numbered

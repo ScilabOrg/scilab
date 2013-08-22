@@ -13,9 +13,9 @@
 // <-- Short Description -->
 // Bad exec was causing a seg fault of Scilab
 
-s=grand(500,1,'nor',0,1)';
+s=grand(500,1,"nor",0,1)';
 a=msprintf("%2.5f ",s')
 
-if getos() <> 'Windows' then
-	if unix("cat "+a+" > /dev/null 2>&1")<>256 then pause,end
+if getos() <> "Windows" then
+    if unix("cat "+a+" > /dev/null 2>&1")<>256 then pause,end
 end

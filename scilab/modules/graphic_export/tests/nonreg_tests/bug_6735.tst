@@ -17,4 +17,4 @@
 // not work as expected.
 
 plot2d();
-xs2eps(0, 'export.eps', 'landscape');
+xs2eps(0, "export.eps", "landscape");

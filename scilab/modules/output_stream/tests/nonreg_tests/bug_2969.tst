@@ -15,11 +15,10 @@
 
 x = uint32(170 * 256 * 256 * 256);
 disp(x);
-printf('(hex) x = %8x\n',x);
-printf('(int) x = %12u\n',x);
-printf('(float) x = %12.0f\n',x);
+printf("(hex) x = %8x\n",x);
+printf("(int) x = %12u\n",x);
+printf("(float) x = %12.0f\n",x);
 
-if sprintf('%8x',x) <> 'aa000000' then pause,end
-if sprintf('%12u',x) <> '  2852126720' then pause,end
-if sprintf('%12.0f',x) <> '  2852126720' then pause,end
-     
+if sprintf("%8x",x) <> "aa000000" then pause,end
+if sprintf("%12u",x) <> "  2852126720" then pause,end
+if sprintf("%12.0f",x) <> "  2852126720" then pause,end

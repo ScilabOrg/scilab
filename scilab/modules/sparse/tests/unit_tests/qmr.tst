@@ -6,9 +6,9 @@
 // =============================================================================
 // <-- CLI SHELL MODE -->
 
-// unit tests for qmr() function 
+// unit tests for qmr() function
 // =============================================================================
-warning('off')
+warning("off")
 
 // ----------------
 // If A is a matrix
@@ -292,7 +292,7 @@ assert_checkalmostequal ( xcomputed , xexpected , %eps);
 
 
 // --------------------
-// If A is a function 
+// If A is a function
 // -------------------
 
 // 1. Interface
@@ -311,9 +311,9 @@ xexpected=[1;1];
 
 function y = func_qmr(x,t)
     Amat = [10,1;1,10];
-    if (t == 'notransp') then
+    if (t == "notransp") then
         y = Amat*x;
-    elseif (t == 'transp') then
+    elseif (t == "transp") then
         y = Amat'*x;
     end
 endfunction
@@ -352,9 +352,9 @@ xexpected=[1;1];
 
 function y = func_qmr(x,t)
     Amat = [10,1;1,10];
-    if (t == 'notransp') then
+    if (t == "notransp") then
         y = Amat*x;
-    elseif (t == 'transp') then
+    elseif (t == "transp") then
         y = Amat'*x;
     end
 endfunction
@@ -385,9 +385,9 @@ xexpected=[1;1];
 
 function y = func_qmr(x,t)
     Amat = [10,1;1,10];
-    if (t == 'notransp') then
+    if (t == "notransp") then
         y = Amat*x;
-    elseif (t == 'transp') then
+    elseif (t == "transp") then
         y = Amat'*x;
     end
 endfunction
@@ -418,9 +418,9 @@ xexpected=[1;1];
 
 function y = func_qmr(x,t)
     Amat = [10,1;1,10];
-    if (t == 'notransp') then
+    if (t == "notransp") then
         y = Amat*x;
-    elseif (t == 'transp') then
+    elseif (t == "transp") then
         y = Amat'*x;
     end
 endfunction
@@ -452,9 +452,9 @@ xexpected=[1;1];
 
 function y = func_qmr(x,t)
     Amat = [10,1;1,10];
-    if (t == 'notransp') then
+    if (t == "notransp") then
         y = Amat*x;
-    elseif (t == 'transp') then
+    elseif (t == "transp") then
         y = Amat'*x;
     end
 endfunction
@@ -487,9 +487,9 @@ xexpected=[1;1];
 
 function y = func_qmr(x,t)
     Amat = [10,1;1,10];
-    if (t == 'notransp') then
+    if (t == "notransp") then
         y = Amat*x;
-    elseif (t == 'transp') then
+    elseif (t == "transp") then
         y = Amat'*x;
     end
 endfunction
@@ -550,7 +550,7 @@ assert_checkerror("qmr(A, b, x0, functionM1, 1)", refMsg);
 [xcomputed, flag, err, iter, res]=qmr(A,b,x0,functionM1,functionM1t);
 assert_checkalmostequal ( xcomputed , xexpected , %eps);
 
-// Test : A is a matrix, M1 is a function, M2 is a matrix 
+// Test : A is a matrix, M1 is a function, M2 is a matrix
 // ======================================================
 A = [10 1;1 10];
 b = [11;11];

@@ -7,10 +7,10 @@
 
 // Please be sure that current scilab is associated with .sce & .sci extensions
 //
-if getos() == 'Windows' then
-  r = findfileassociation('.sce');
-  if r == [] then pause,end
-  
-  r = findfileassociation('.sci');
-  if r == [] then pause,end
-end  
+if getos() == "Windows" then
+    r = findfileassociation(".sce");
+    if r == [] then pause,end
+
+    r = findfileassociation(".sci");
+    if r == [] then pause,end
+end

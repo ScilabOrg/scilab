@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3453
 //
 
-write(%io(2),'toto');
+write(%io(2),"toto");
 A = 1;
 write(%io(2),A);
 B = [1 2];

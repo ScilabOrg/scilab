@@ -21,5 +21,5 @@
 //
 //    Francois
 
-execstr('inttype(''hell'')','errcatch');
+execstr("inttype(''hell'')","errcatch");
 if lasterror() <> msprintf(gettext("Wrong first argument.\n")) then pause,end

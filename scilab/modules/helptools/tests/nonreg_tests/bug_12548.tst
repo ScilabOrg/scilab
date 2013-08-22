@@ -9,7 +9,7 @@
 //
 // <-- ENGLISH IMPOSED -->
 //
-// <-- NO CHECK ERROR OUTPUT --> 
+// <-- NO CHECK ERROR OUTPUT -->
 //
 // <-- Non-regression test for bug 12548 -->
 //
@@ -20,7 +20,7 @@
 // Duplicated code in xmltoformat
 
 function a = bug_12548(b, c, d)
-  a = 0;
+    a = 0;
 endfunction
 
 test_bug_12548 = "bug_12548";

@@ -29,7 +29,7 @@ function [ y , index ] = rosenbrock ( x , index )
         errmsg = msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"), "rosenbrock", 2);
         error(errmsg)
     end
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 opt = optimbase_new ();
@@ -51,8 +51,8 @@ function [ y , index ] = rosenbrock0 ( x , index )
         errmsg = msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"), "rosenbrock0", 2);
         error(errmsg)
     end
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
-  index = 0;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    index = 0;
 endfunction
 
 opt = optimbase_new ();
@@ -77,8 +77,8 @@ function [ y , index ] = rosenbrock2 ( x , index , mydata )
         errmsg = msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"), "rosenbrock2", 3);
         error(errmsg)
     end
-  a = mydata.a
-  y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
+    a = mydata.a
+    y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
 endfunction
 
 mystuff = tlist(["T_MYSTUFF","a"]);
@@ -96,15 +96,15 @@ opt = optimbase_destroy(opt);
 // Test with non linear constraints : there is an index
 // optimtestcase --
 //   Non linear inequality constraints are positive.
-//    
+//
 // Arguments
 //   x: the point where to compute the function
 //   index : the stuff to compute
 // Note
 //  The following protocol is used
-//  * if index=2, returns f, the value of the cost 
+//  * if index=2, returns f, the value of the cost
 //    function
-//  * if index=5, returns c, the value of the nonlinear inequality 
+//  * if index=5, returns c, the value of the nonlinear inequality
 //    constraints, as a row array
 //  * if index=6, returns f and c
 //  The inequality constraints are expected to be positive.
@@ -119,21 +119,21 @@ function [ f , c , index ] = optimtestcase ( x , index )
         errmsg = msprintf(gettext("%s: Wrong number of output argument: %d expected.\n"), "optimtestcase", 3);
         error(errmsg)
     end
-  f = []
-  c = []
-  if ( index == 2 | index == 6 ) then
-    f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
-      - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
-  end
-  if ( index == 5 | index == 6 ) then
-    c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
-              - x(1) + x(2) - x(3) + x(4) + 8
-    c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
-              + x(1) + x(4) + 10.0
-    c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
-              + x(2) + x(4) + 5.0
-    c = [c1 c2 c3]
-  end
+    f = []
+    c = []
+    if ( index == 2 | index == 6 ) then
+        f = x(1)^2 + x(2)^2 + 2.0 * x(3)^2 + x(4)^2 ...
+        - 5.0 * x(1) - 5.0 * x(2) - 21.0 * x(3) + 7.0 * x(4)
+    end
+    if ( index == 5 | index == 6 ) then
+        c1 = - x(1)^2 - x(2)^2 - x(3)^2 - x(4)^2 ...
+        - x(1) + x(2) - x(3) + x(4) + 8
+        c2 = - x(1)^2 - 2.0 * x(2)^2 - x(3)^2 - 2.0 * x(4)^2 ...
+        + x(1) + x(4) + 10.0
+        c3 = - 2.0 * x(1)^2 - x(2)^2 - x(3)^2 - 2.0 * x(1) ...
+        + x(2) + x(4) + 5.0
+        c = [c1 c2 c3]
+    end
 endfunction
 x0 = [0.0 0.0 0.0 0.0].';
 opt = optimbase_new ();
@@ -158,7 +158,7 @@ opt = optimbase_destroy(opt);
 //
 // Test when there are both nonlinear constraints and a customized data
 // boxproblemA --
-//   Computes the Box problem A cost function and 
+//   Computes the Box problem A cost function and
 //   inequality constraints.
 //
 // Arguments
@@ -181,40 +181,40 @@ function [ f , c , index ] = boxproblemA ( x , index , data )
         errmsg = msprintf(gettext("%s: Wrong number of output argument: %d expected.\n"), "boxproblemA", 3);
         error(errmsg)
     end
-  f = []
-  c = []
-  b = x(2) + 0.01 * x(3)
-  x6 = (data.k1 + data.k2 * x(2) ...
-            + data.k3 * x(3) + data.k4 * x(4) + data.k5 * x(5)) * x(1)
-  y1 = data.k6 + data.k7 * x(2) + data.k8 * x(3) ...
-            + data.k9 * x(4) + data.k10 * x(5)
-  y2 = data.k11 + data.k12 * x(2) + data.k13 * x(3) ...
-            + data.k14 * x(4) + data.k15 * x(5)
-  y3 = data.k16 + data.k17 * x(2) + data.k18 * x(3) ...
-            + data.k19 * x(4) + data.k20 * x(5)
-  y4 = data.k21 + data.k22 * x(2) + data.k23 * x(3) ...
-            + data.k24 * x(4) + data.k25 * x(5)
-  x7 = ( y1 + y2 + y3 ) * x(1)
-  x8 = (data.k26 + data.k27 * x(2) + data.k28 * x(3) ...
-            + data.k29 * x(4) ...
-            + data.k30 * x(5) ) * x(1) + x6 + x7
-  if ( index==2 | index==6 ) then
-    f = (data.a2 * y1 + data.a3 * y2 + data.a4 * y3 + data.a5 * y4 ...
-             + 7840 * data.a6 - 100000 * data.a0 ...
-             - 50800 * b * data.a7 + data.k31 + data.k32 * x(2) + data.k33 * x(3) ...
-             + data.k34 * x(4) + data.k35 * x(5)) * x(1) ...
-             - 24345 + data.a1 * x6
-    f = -f
-  end
-  if ( index==5 | index==6 ) then
-      c1 = x6
-      c2 = 294000 - x6
-      c3 = x7
-      c4 = 294000 - x7
-      c5 = x8
-      c6 = 277200 - x8
-      c = [c1 c2 c3 c4 c5 c6]
-  end
+    f = []
+    c = []
+    b = x(2) + 0.01 * x(3)
+    x6 = (data.k1 + data.k2 * x(2) ...
+    + data.k3 * x(3) + data.k4 * x(4) + data.k5 * x(5)) * x(1)
+    y1 = data.k6 + data.k7 * x(2) + data.k8 * x(3) ...
+    + data.k9 * x(4) + data.k10 * x(5)
+    y2 = data.k11 + data.k12 * x(2) + data.k13 * x(3) ...
+    + data.k14 * x(4) + data.k15 * x(5)
+    y3 = data.k16 + data.k17 * x(2) + data.k18 * x(3) ...
+    + data.k19 * x(4) + data.k20 * x(5)
+    y4 = data.k21 + data.k22 * x(2) + data.k23 * x(3) ...
+    + data.k24 * x(4) + data.k25 * x(5)
+    x7 = ( y1 + y2 + y3 ) * x(1)
+    x8 = (data.k26 + data.k27 * x(2) + data.k28 * x(3) ...
+    + data.k29 * x(4) ...
+    + data.k30 * x(5) ) * x(1) + x6 + x7
+    if ( index==2 | index==6 ) then
+        f = (data.a2 * y1 + data.a3 * y2 + data.a4 * y3 + data.a5 * y4 ...
+        + 7840 * data.a6 - 100000 * data.a0 ...
+        - 50800 * b * data.a7 + data.k31 + data.k32 * x(2) + data.k33 * x(3) ...
+        + data.k34 * x(4) + data.k35 * x(5)) * x(1) ...
+        - 24345 + data.a1 * x6
+        f = -f
+    end
+    if ( index==5 | index==6 ) then
+        c1 = x6
+        c2 = 294000 - x6
+        c3 = x7
+        c4 = 294000 - x7
+        c5 = x8
+        c6 = 277200 - x8
+        c = [c1 c2 c3 c4 c5 c6]
+    end
 endfunction
 
 boxparams = struct();
@@ -294,7 +294,7 @@ function [ y , index ] = rosenbrock3 ( x , index , mydata )
         errmsg = msprintf(gettext("%s: Wrong number of output argument: %d expected.\n"), "rosenbrock3", 2);
         error(errmsg)
     end
-  y = 100*(x(2)-x(1)^2)^2 + ( 1.0 - x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + ( 1.0 - x(1))^2;
 endfunction
 
 mystuff = tlist(["T_MYSTUFF","n"]);
@@ -318,7 +318,7 @@ opt = optimbase_destroy(opt);
 //      if index=2, compute f
 //      if index=3, compute g
 //      if index=4, compute f and g
-// Note : 
+// Note :
 //   This function could be accepted by optim, hence the test.
 //
 function [ f , g , index ] = rosenbrock4 ( x , index )
@@ -331,12 +331,12 @@ function [ f , g , index ] = rosenbrock4 ( x , index )
         errmsg = msprintf(gettext("%s: Wrong number of output argument: %d expected.\n"), "rosenbrock4", 3);
         error(errmsg)
     end
-  if index == 1 then
-    mprintf ( "index = %d, x = [%f %f]\n" , index , x(1) , x(2) );
-  end
-  f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
-  g(1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
-  g(2) = 200. * ( x(2) - x(1)**2 )
+    if index == 1 then
+        mprintf ( "index = %d, x = [%f %f]\n" , index , x(1) , x(2) );
+    end
+    f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    g(1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
+    g(2) = 200. * ( x(2) - x(1)**2 )
 endfunction
 
 opt = optimbase_new ();

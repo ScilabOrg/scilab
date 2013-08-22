@@ -9,6 +9,6 @@
 
 ref = ["aaaaaaaaa","aaaaacccc";"aaaaaaaaaaaaaaab","aaaabbbbccc"];
 A = [ "aaaabbbbccc" "aaaaaaaaa" ; "aaaaacccc" "aaaaaaaaaaaaaaab" ];
-B = gsort(A,'g','i');
+B = gsort(A,"g","i");
 if (ref<>B) then pause,end;
 // =============================================================================

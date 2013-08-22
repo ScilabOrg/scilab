@@ -13,14 +13,14 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5368
 //
 // <-- Short Description -->
-// 
+//
 
 v = [];
 for i = 1:20
-  v = input('Hit Return');
-  if v <> [] then
-    disp('NOK');
-  else
-    disp('OK');
-  end
+    v = input("Hit Return");
+    if v <> [] then
+        disp("NOK");
+    else
+        disp("OK");
+    end
 end

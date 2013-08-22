@@ -4,7 +4,7 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-a=dir('SCI\bin');
+a=dir("SCI\bin");
 f1=a(2);
 r1=newest(f1);
 clear a f1 r1
@@ -13,8 +13,8 @@ realtimeinit(2);
 realtime(0);
 
 for k=1:4
-	realtime(k);
-	mputl("",TMPDIR+"/newest_"+string(k));
+    realtime(k);
+    mputl("",TMPDIR+"/newest_"+string(k));
 end
 
 if newest([]) <> [] then pause,end
@@ -64,4 +64,4 @@ if newest([TMPDIR+"/no_file" ; TMPDIR+"/newest_3" ; TMPDIR+"/newest_4" ; TMPDIR+
 if newest([TMPDIR+"/newest_3" ; TMPDIR+"/newest_4" ; TMPDIR+"/newest_1" ; TMPDIR+"/no_file"] ) <> 2 then pause,end
 if newest([TMPDIR+"/newest_4" ; TMPDIR+"/newest_1" ; TMPDIR+"/no_file" ; TMPDIR+"/newest_3"] ) <> 1 then pause,end
 
-if execstr('newest(''rrr'',''SCI\bin\libscilab.dll'',3)','errcatch') <> 999 then pause,end
+if execstr("newest(''rrr'',''SCI\bin\libscilab.dll'',3)","errcatch") <> 999 then pause,end

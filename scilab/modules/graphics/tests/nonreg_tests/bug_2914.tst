@@ -20,18 +20,18 @@
 polarplot()
 //contour()
 a = gca();
- 
+
 function TextChildren(a)
 
     children = a.children;
-	for k=1:size(children, 1)
-		handle = children(k);
-		if(handle.type == "Text") then
-		  if(handle.clip_state <> "off") then pause, end
-		end
+    for k=1:size(children, 1)
+        handle = children(k);
+        if(handle.type == "Text") then
+            if(handle.clip_state <> "off") then pause, end
+        end
         TextChildren(children(k));
-	end	
-	
+    end
+
 endfunction
 
 TextChildren(a);

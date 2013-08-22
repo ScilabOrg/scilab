@@ -9,8 +9,8 @@ nx    = 10;
 
 nev   = 3;
 ncv   = 6;
-bmat  = 'I';
-which = 'LM';
+bmat  = "I";
+which = "LM";
 
 // Local Arrays
 
@@ -56,19 +56,19 @@ while(ido <> 99)
     [ido, resid, v, iparam, ipntr, workd, workl, info_dnaupd] = dnaupd(ido, bmat, nx, which, nev, tol, resid, ncv, v, iparam, ipntr, workd, workl, info_dnaupd);
 
     if(info_dnaupd < 0)
-        printf('\nError with dnaupd, info = %d\n',info_dnaupd);
-        printf('Check the documentation of dnaupd\n\n');
+        printf("\nError with dnaupd, info = %d\n",info_dnaupd);
+        printf("Check the documentation of dnaupd\n\n");
     end
 
     if(ido == -1 | ido == 1)
-        // Perform matrix vector multiplication 
+        // Perform matrix vector multiplication
         workd(ipntr(2):ipntr(2) + nx -1) = A * workd(ipntr(1):ipntr(1) + nx - 1);
     end
 end
 
 // Post-Process using DNEUPD.
 rvec    = 1;
-howmany = 'A';
+howmany = "A";
 info_dneupd = 0;
 
 [dr, di, z, resid, v, iparam, ipntr, workd, workl, info_dneupd] = dneupd(rvec, howmany, _select, dr, di, z, sigmar, sigmai, workev, ...

@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5532
 //
 // <-- Short Description -->
-// added a menu "Save All" to save all modified file by editor 
+// added a menu "Save All" to save all modified file by editor
 
 // launch editor
 // opens many files

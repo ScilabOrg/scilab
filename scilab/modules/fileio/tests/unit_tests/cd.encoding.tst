@@ -20,9 +20,9 @@ tab_ref = [
 "프로그램",
 "תוכנית"];
 
-for i = 1 : size(tab_ref,'*')
-	sz = "dir_" + tab_ref(i);
-	a = cd(sz);
-	if (a <> (tmp + filesep() + sz)) then pause, end
-	cd(TMPDIR);
+for i = 1 : size(tab_ref,"*")
+    sz = "dir_" + tab_ref(i);
+    a = cd(sz);
+    if (a <> (tmp + filesep() + sz)) then pause, end
+    cd(TMPDIR);
 end

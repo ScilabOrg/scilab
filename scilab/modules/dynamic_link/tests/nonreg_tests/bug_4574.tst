@@ -18,28 +18,28 @@
 ilib_verbose(0);
 chdir(TMPDIR);
 
-i=['#define __USE_DEPRECATED_STACK_FUNCTIONS__'
-   '#include ""stack-c.h""'
-   '#include ""stackTypeVariable.h""'
-   'int intfun1(char *fname)' 
-   '{'
-   '  return 0;'
-   '}'];
-mputl(i,'intfun1.c');
+i=["#define __USE_DEPRECATED_STACK_FUNCTIONS__"
+"#include ""stack-c.h"""
+"#include ""stackTypeVariable.h"""
+"int intfun1(char *fname)"
+"{"
+"  return 0;"
+"}"];
+mputl(i,"intfun1.c");
 
-ilib_build('foo',['scifun1','intfun1'],'intfun1.c',[]);
+ilib_build("foo",["scifun1","intfun1"],"intfun1.c",[]);
 exec loader.sce;
 
-i=['#define __USE_DEPRECATED_STACK_FUNCTIONS__'
-   '#include ""stack-c.h""'
-   '#include ""stackTypeVariable.h""'
-   'int intfun1(char *fname)' 
-   '{'
-   '  return 1;'
-   '}'];
-mputl(i,'intfun2.c');
+i=["#define __USE_DEPRECATED_STACK_FUNCTIONS__"
+"#include ""stack-c.h"""
+"#include ""stackTypeVariable.h"""
+"int intfun1(char *fname)"
+"{"
+"  return 1;"
+"}"];
+mputl(i,"intfun2.c");
 
 cmdstr = "ilib_build(''foo'',[''scifun1'',''intfun2''],''intfun2.c'',[]);"
-ierr = execstr(cmdstr, 'errcatch');
+ierr = execstr(cmdstr, "errcatch");
 if ierr <> 999 then pause,end
 

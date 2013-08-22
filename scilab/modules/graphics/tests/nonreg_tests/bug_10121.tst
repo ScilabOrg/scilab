@@ -28,5 +28,5 @@ delete(gcf())
 
 xload(SCI+"/modules/graphics/tests/nonreg_tests/plot_plein_degrade_xsave.scg");
 f=gcf();
-assert_checkequal(size(f.children, '*'),1);
+assert_checkequal(size(f.children, "*"),1);
 delete(gcf())

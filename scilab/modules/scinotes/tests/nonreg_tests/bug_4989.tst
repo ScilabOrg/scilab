@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 //   editor('myfolder/myfile.sci')
-//   The correct file is opened. But when I modify and save this file, 
+//   The correct file is opened. But when I modify and save this file,
 //   it is saved in ./myfile.sci instead of myfolder/myfile.sci
 
 //editor('myfolder/myfile.sci')

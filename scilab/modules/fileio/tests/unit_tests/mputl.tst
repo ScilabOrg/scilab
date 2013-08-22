@@ -11,10 +11,10 @@
 // Unitary tests for mputl function
 // =============================================================================
 
-ierr = execstr('mputl()','errcatch');
+ierr = execstr("mputl()","errcatch");
 if ierr<>999 then pause,end
 
-ierr = execstr('mputl(1)','errcatch');
+ierr = execstr("mputl(1)","errcatch");
 if ierr<>999 then pause,end
 
 // TEST 1 : dummy file
@@ -22,15 +22,15 @@ cd TMPDIR;
 // Deleting an existing file... Just in case...
 mdelete("dummyFile.dummy")
 
-TXT = [ 'I am a dummy String'; ..
-        'Multi lines '; ..
-        'to check that'; ..
-        ' mputl is okay'; ..
-        ' on linux and windows ... '];
+TXT = [ "I am a dummy String"; ..
+"Multi lines "; ..
+"to check that"; ..
+" mputl is okay"; ..
+" on linux and windows ... "];
 
-r = mputl(TXT, 'dummyFile.dummy');
+r = mputl(TXT, "dummyFile.dummy");
 if r <> %T then pause,end
-TXT2 = mgetl('dummyFile.dummy');
+TXT2 = mgetl("dummyFile.dummy");
 
 if TXT2 <> TXT then pause,end
 // =============================================================================

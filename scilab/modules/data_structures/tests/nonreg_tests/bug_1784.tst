@@ -16,11 +16,11 @@
 A = hypermat([3,3,2]);
 
 try
-	A(1,1:3,1:3)=[1 2 3;4 5 6;7 8 9];
+    A(1,1:3,1:3)=[1 2 3;4 5 6;7 8 9];
 catch
-	if %T then pause,end
-	return;
+    if %T then pause,end
+    return;
 end
 
 if or(A<>hypermat([3,3,3],[1;0;0;4;0;0;7;0;0;2;0;0;5;0;0;8;0;0;3;0;0; ...
-			6;0;0;9;0;0])) then pause,end
+6;0;0;9;0;0])) then pause,end

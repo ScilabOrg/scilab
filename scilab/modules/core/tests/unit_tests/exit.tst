@@ -8,22 +8,22 @@
 
 // Try to find the path of Scilab executable
 if (getos() <> "Windows") & (isempty(fileinfo(SCI + "/bin/scilab"))) then
-  // Linux binary version or Linux packaged version
-  SCIPATH = SCI + "/../../";
+    // Linux binary version or Linux packaged version
+    SCIPATH = SCI + "/../../";
 else
-  // Linux source version
-  // Windows source or binary version
-  SCIPATH = SCI;
+    // Linux source version
+    // Windows source or binary version
+    SCIPATH = SCI;
 end
 
 for i = 1:10
 
-  if getos() == "Windows" then
-	[outputs,status,exitcode] = dos(SCIPATH + "/bin/scilex.exe -nwni -e exit(" + string(i) + ")");
-  else
-	exitcode = unix(SCIPATH + "/bin/scilab -nwni -e ""exit(" + string(i) + ")""");
-  end
-  
-  if exitcode <> i then pause,end
-  
+    if getos() == "Windows" then
+        [outputs,status,exitcode] = dos(SCIPATH + "/bin/scilex.exe -nwni -e exit(" + string(i) + ")");
+    else
+        exitcode = unix(SCIPATH + "/bin/scilab -nwni -e ""exit(" + string(i) + ")""");
+    end
+
+    if exitcode <> i then pause,end
+
 end

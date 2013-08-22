@@ -11,7 +11,7 @@
 // <-- CLI SHELL MODE -->
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
@@ -24,9 +24,9 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,3);
 newsimplex = [
-    1.    2.  
-    3.    4.  
-    5.    6.  
+1.    2.
+3.    4.
+5.    6.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setallfv ( s1 , [3.0 4.0 5.0]' );
@@ -45,11 +45,11 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,5);
 newsimplex = [
-    1.    2.   
-    3.    4.   
-    5.    6.   
-    7.    8.   
-    9.    10.  
+1.    2.
+3.    4.
+5.    6.
+7.    8.
+9.    10.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setallfv ( s1 , [3.0 4.0 5.0 6.0 7.0]' );
@@ -71,10 +71,10 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,5);
 newsimplex = [
-    1.    2.  
-    3.    4.  
-    5.    6.  
-    7.    8.  
+1.    2.
+3.    4.
+5.    6.
+7.    8.
 ];
 cmd = "s1 = optimsimplex_setallx ( s1 , newsimplex );";
 assert_checkerror(cmd,"%s: The number of rows in x is %d, while expected %d.", [],"optimsimplex_setallx" , 4 , 5 );
@@ -86,10 +86,10 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,5);
 newsimplex = [
-1.0 
-3.0 
-5.0 
-7.0 
+1.0
+3.0
+5.0
+7.0
 8.0
 ];
 cmd = "s1 = optimsimplex_setallx ( s1 , newsimplex );";
@@ -103,11 +103,11 @@ s1 = optimsimplex_new ();
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,5);
 newsimplex = [
-    1.    1.  
-    3.    3.  
-    5.    5.  
-    7.    7.  
-    8.    8.  
+1.    1.
+3.    3.
+5.    5.
+7.    7.
+8.    8.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setnbve(s1,6);
@@ -116,7 +116,7 @@ cmd = "optimsimplex_check ( s1 );";
 assert_checkerror(cmd,"%s: Number of rows of x is %d, which is different from number of vertices = %d.",[],"optimsimplex_check" , 5 , 6);
 s1 = optimsimplex_destroy(s1);
 //
-// Test error case : number of vertices in the fv array does not match nbve 
+// Test error case : number of vertices in the fv array does not match nbve
 // because of unconsistent configurations
 //
 s1 = optimsimplex_new ();
@@ -125,11 +125,11 @@ s1 = optimsimplex_setallfv ( s1 , [3.0 4.0 5.0 6.0 7.0 8.0]' );
 s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,5);
 newsimplex = [
-    1.    1.  
-    3.    3.  
-    5.    5.  
-    7.    7.  
-    8.    8.  
+1.    1.
+3.    3.
+5.    5.
+7.    7.
+8.    8.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 cmd = "optimsimplex_check ( s1 );";
@@ -152,7 +152,7 @@ cmd = "s1 = optimsimplex_setallfv ( s1 , fv );";
 assert_checkerror(cmd,"%s: The number of columns in the function value array is %d, while expected 1.", [],"optimsimplex_setallfv" , 2);
 s1 = optimsimplex_destroy(s1);
 //
-// Test error case : number of vertices in the x array does not match nbve 
+// Test error case : number of vertices in the x array does not match nbve
 // because of unconsistent configurations
 //
 s1 = optimsimplex_new ();
@@ -160,11 +160,11 @@ s1 = optimsimplex_setn(s1,2);
 s1 = optimsimplex_setnbve(s1,5);
 s1 = optimsimplex_setallfv ( s1 , [3.0 4.0 5.0 6.0 7.0]' );
 newsimplex = [
-    1.    1.  
-    3.    3.  
-    5.    5.  
-    7.    7.  
-    8.    8.  
+1.    1.
+3.    3.
+5.    5.
+7.    7.
+8.    8.
 ];
 s1 = optimsimplex_setallx ( s1 , newsimplex );
 s1 = optimsimplex_setn(s1,3);

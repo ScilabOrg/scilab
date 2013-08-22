@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Wrong setting of figure_position in the default figure.
-// 
+//
 
 defaultFig = gdf();
 defaultPos = [200,300];

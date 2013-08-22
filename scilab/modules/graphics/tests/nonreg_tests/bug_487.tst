@@ -22,9 +22,9 @@
 //
 //    On Scilab 2.7 with " contour2d " function
 //    The Error Messages are:
-//       !--error   204 
+//       !--error   204
 //    Argument   2, wrong type argument: expecting a scalar
-//    at line       3 of function contour2d                called by :  
+//    at line       3 of function contour2d                called by :
 //        contour2d(rhogit,zgit,Jv, lvl, strf="041");
 //
 //    Commands: lvl in contour2d is a vector

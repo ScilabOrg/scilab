@@ -16,4 +16,4 @@
 // edit('toto.sce') created a file toto.sce.sci containing a function named
 // toto.sce and now edit should open in the editor the file toto.sce.
 
-edit(TMPDIR + '/toto.sce');
+edit(TMPDIR + "/toto.sce");

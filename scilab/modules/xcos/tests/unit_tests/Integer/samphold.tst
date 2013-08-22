@@ -19,6 +19,6 @@ MinusFour  = -4*ones(8, 1);
 
 A_ref = int32([MinusFour; MinusThree; MinusTwo; MinusOne; Zero; MinusOne; MinusTwo; MinusThree; MinusFour]);
 
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end
+try scicos_simulate(scs_m, "nw"); catch disp(lasterror()); end
 
 assert_checkequal(A.values, A_ref);

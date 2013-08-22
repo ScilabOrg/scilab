@@ -16,7 +16,7 @@
 
 function a=fun(),a=123,endfunction
 
-x=mlist(['foo', 'y'],fun);
+x=mlist(["foo", "y"],fun);
 
-if execstr('x.y()','errcatch')<>0 then pause,end
-if execstr('x.y(1)','errcatch')==0 then pause,end
+if execstr("x.y()","errcatch")<>0 then pause,end
+if execstr("x.y(1)","errcatch")==0 then pause,end

@@ -16,31 +16,31 @@
 // There was no simplified assert_checkerror calling sequence.
 
 function flag = MY_assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if computed==expected then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 function y=f(varargin)
-  [lhs,rhs]=argn()
-  if ( rhs <> 1 ) then
-    lclmsg = gettext("%s: Wrong number of input argument: %d expected.\n")
-    errmsg = sprintf ( lclmsg  , "f" , 1 )
-    error(errmsg,1234)
-  end
-  x = varargin(1)
-  y = x
+    [lhs,rhs]=argn()
+    if ( rhs <> 1 ) then
+        lclmsg = gettext("%s: Wrong number of input argument: %d expected.\n")
+        errmsg = sprintf ( lclmsg  , "f" , 1 )
+        error(errmsg,1234)
+    end
+    x = varargin(1)
+    y = x
 endfunction
 
-// Just check the error number: 
+// Just check the error number:
 // do not check the error message.
 assert_checkerror("f(1,2)",[],1234);
 
 // This is an impossible calling sequence of assert_checkerror.
-// Either the message or the error number must be set to 
+// Either the message or the error number must be set to
 // a non empty value.
 instr = "f(1,2)";
 statement = "assert_checkerror(instr,[],[])";

@@ -19,13 +19,13 @@
 
 // Interactive since it could have some modal messagebox
 
-ierr = execstr('editor([], [])','errcatch');
+ierr = execstr("editor([], [])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('editor([])','errcatch');
+ierr = execstr("editor([])","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('editor(''fff'',''fff'')','errcatch');
+ierr = execstr("editor(''fff'',''fff'')","errcatch");
 if ierr <> 0 then pause,end
 
 

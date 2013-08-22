@@ -16,7 +16,7 @@
 
 ilib_verbose(0);
 
-test_path = get_absolute_file_path('bug_3392.tst');
+test_path = get_absolute_file_path("bug_3392.tst");
 
 currentpath = pwd();
 
@@ -25,17 +25,17 @@ cd ../;
 OS_TMP_DIR = pwd();
 
 
-mkdir(OS_TMP_DIR,'bug_3392');
-TEST_DIR = OS_TMP_DIR + filesep() + 'bug_3392';
+mkdir(OS_TMP_DIR,"bug_3392");
+TEST_DIR = OS_TMP_DIR + filesep() + "bug_3392";
 
-copyfile(SCI+'/modules/dynamic_link/tests/nonreg_tests/bug_3392.c' , TEST_DIR + filesep() + 'bug_3392.c');
+copyfile(SCI+"/modules/dynamic_link/tests/nonreg_tests/bug_3392.c" , TEST_DIR + filesep() + "bug_3392.c");
 
 chdir(TEST_DIR);
 
-files=['bug_3392.c'];
-ilib_build('libc_fun',['c_sum','c_intsum';'c_sub','c_intsub'],files,[]);
+files=["bug_3392.c"];
+ilib_build("libc_fun",["c_sum","c_intsum";"c_sub","c_intsub"],files,[]);
 
-// load the shared library 
+// load the shared library
 exec loader.sce;
 
 chdir(currentpath);
@@ -48,5 +48,5 @@ if c_sub(3,8) <> 3-8 then pause,end
 ulink();
 
 //remove TMP_DIR
-rmdir(TEST_DIR,'s');
+rmdir(TEST_DIR,"s");
 // =============================================================================

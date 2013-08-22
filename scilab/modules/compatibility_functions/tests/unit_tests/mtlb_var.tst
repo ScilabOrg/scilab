@@ -8,24 +8,24 @@
 // Checks performed with Octave v3.0.3
 
 // With x as a row vector and 1 argument
-x = [0.9    0.7  
-    0.1    0.1  
-    0.5    0.4];
+x = [0.9    0.7
+0.1    0.1
+0.5    0.4];
 computed = mtlb_var(x);
 expected = [0.16 0.09];
 if abs(computed-expected)>%eps then pause,end
 // Normalization with N-1
-x = [0.9    0.7  
-    0.1    0.1  
-    0.5    0.4];
+x = [0.9    0.7
+0.1    0.1
+0.5    0.4];
 w = 0;
 computed = mtlb_var(x,w);
 expected = [0.16 0.09];
 if abs(computed-expected)>%eps then pause,end
 // Normalization with N
-x = [0.9    0.7  
-    0.1    0.1  
-    0.5    0.4];
+x = [0.9    0.7
+0.1    0.1
+0.5    0.4];
 w = 1;
 computed = mtlb_var(x,w);
 expected = [0.32 0.18] / 3;

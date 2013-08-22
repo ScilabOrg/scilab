@@ -25,7 +25,7 @@ a = gca();
 
 formerSubticks = a.sub_ticks;
 
-a.log_flags = 'lln'; // switch to log scale
+a.log_flags = "lln"; // switch to log scale
 
 // sub_ticks should have changed due to the switch to log scale.
 if (a.sub_ticks(1) == formerSubticks(1) | a.sub_ticks(2) == formerSubticks(2)) then pause; end;

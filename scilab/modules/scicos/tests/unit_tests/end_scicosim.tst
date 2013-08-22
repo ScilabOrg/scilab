@@ -5,5 +5,5 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-ierr=execstr("end_scicosim ()","errcatch"); 
+ierr=execstr("end_scicosim ()","errcatch");
 if ierr <> 999 then pause,end

@@ -23,6 +23,6 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 
-currentline = 'load(SCIH';
-r = completeline(currentline,'SCIHOME',getfilepartlevel(currentline),getpartlevel(currentline),%t,'/modules)');
-if r <> 'load(SCIHOME/modules)' then pause,end
+currentline = "load(SCIH";
+r = completeline(currentline,"SCIHOME",getfilepartlevel(currentline),getpartlevel(currentline),%t,"/modules)");
+if r <> "load(SCIHOME/modules)" then pause,end

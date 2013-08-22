@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 // completion: cd "..\L<tab>  does not work
-// 
+//
 
 
 // <-- CLI SHELL MODE -->
@@ -23,7 +23,7 @@ if ierr<>0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
-currentline = 'cd ""../et';
-if getfilepartlevel(currentline) <> '../et' then pause,end
-r = completeline(currentline,'etc/', getfilepartlevel(currentline), getpartlevel(currentline), %t);
-if r <> 'cd ""../etc/' then pause,end
+currentline = "cd ""../et";
+if getfilepartlevel(currentline) <> "../et" then pause,end
+r = completeline(currentline,"etc/", getfilepartlevel(currentline), getpartlevel(currentline), %t);
+if r <> "cd ""../etc/" then pause,end

@@ -15,9 +15,9 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5103
 //
 // <-- Short Description -->
-// 
+//
 
-// open editor 
+// open editor
 // File --> Save
 // Check the file selection dialog is opened
 

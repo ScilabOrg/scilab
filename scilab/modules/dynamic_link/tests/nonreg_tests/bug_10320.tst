@@ -18,16 +18,16 @@
 
 ilib_verbose(0);
 chdir(TMPDIR);
-f1 = ['int ext1c(int *n, double *a, double *b, double *c)'
-      '{int k;'
-      '  for (k = 0; k < *n; ++k) '
-      '      c[k] = a[k] + b[k];'
-      '  return(0);}'];
+f1 = ["int ext1c(int *n, double *a, double *b, double *c)"
+"{int k;"
+"  for (k = 0; k < *n; ++k) "
+"      c[k] = a[k] + b[k];"
+"  return(0);}"];
 
-mputl(f1, 'fun1.c');
-name = ilib_for_link('ext1c','fun1.c',[],"c", "", "", "toto");
+mputl(f1, "fun1.c");
+name = ilib_for_link("ext1c","fun1.c",[],"c", "", "", "toto");
 refname = "lib" + "toto" + getdynlibext();
 assert_checkequal(name, refname);
-exec('loader.sce');
+exec("loader.sce");
 
 

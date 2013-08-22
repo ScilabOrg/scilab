@@ -24,7 +24,7 @@
 //
 //    -->nanmax([%nan, 1])
 //     ans  = Inf
-//    The same for nanmin. 
+//    The same for nanmin.
 //    ========================================================
 //
 //    Btw, on a scilab cvs I don't see any problem with nanmin.

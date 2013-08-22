@@ -29,7 +29,7 @@
 //    On Scilab CVS with " ScilabEval " function
 //    The Error Messages are:
 //     --> a_wrong_string,return,
-//       !--error     4 
+//       !--error     4
 //    undefined variable : a_wrong_string
 //    in  execstr instruction    called by :
 //    disp(" a_wrong_string"),return,
@@ -37,10 +37,10 @@
 
 function foo(); a_wrong_string; endfunction
 
-tcl_script=['toplevel .w1'
-'button .w1.b -text ""Click here to see a new Scilab Graphic Window""\'
-'  -command {ScilabEval ""foo()""}'
-'pack .w1.b ']
-mputl(tcl_script,TMPDIR+'/test.tcl')
+tcl_script=["toplevel .w1"
+"button .w1.b -text ""Click here to see a new Scilab Graphic Window""\"
+"  -command {ScilabEval ""foo()""}"
+"pack .w1.b "]
+mputl(tcl_script,TMPDIR+"/test.tcl")
 // Execute the tcl script
-TCL_EvalFile(TMPDIR+'/test.tcl')
+TCL_EvalFile(TMPDIR+"/test.tcl")

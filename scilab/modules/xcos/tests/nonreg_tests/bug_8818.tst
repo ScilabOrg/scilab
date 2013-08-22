@@ -27,10 +27,10 @@ scs_m.graphics.exprs(7)($) = exp_value;
 fprot = funcprot();
 funcprot(0);
 function %str = x_mdialog(%desc,%labels,%ini)
-	%str = %ini;
+    %str = %ini;
 endfunction
 function result = x_dialog(labels, valueini)
-	result = valueini;
+    result = valueini;
 endfunction
 funcprot(fprot);
 

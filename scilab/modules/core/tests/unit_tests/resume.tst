@@ -106,26 +106,26 @@ clear foo x y z
 // =============================================================================
 clear  foo1  foo2  foo3
 function foo1()
-	clear var_a var_b var_c var_d;
-	foo2()
-	[va,vb,vc,vd] = resume(var_a,var_b,var_c,var_d);
+    clear var_a var_b var_c var_d;
+    foo2()
+    [va,vb,vc,vd] = resume(var_a,var_b,var_c,var_d);
 endfunction
 
 function foo2()
-	clear variable_a variable_b variable_c variable_d;
-	foo3()
-	[var_a,var_b,var_c,var_d] = resume(variable_a,variable_b,variable_c,variable_d);
+    clear variable_a variable_b variable_c variable_d;
+    foo3()
+    [var_a,var_b,var_c,var_d] = resume(variable_a,variable_b,variable_c,variable_d);
 endfunction
 
 function foo3()
-	a = [ 1 2 ; 3 4 ];
-	b = [ "un" "deux" ; "trois" "quatre" ];
-	c = [ %T %F ; %T %T ];
-	d = struct();
-	d("field1") = a;
-	d("field2") = b;
-	d("field3") = c;
-	[variable_a,variable_b,variable_c,variable_d] = resume(a,b,c,d);
+    a = [ 1 2 ; 3 4 ];
+    b = [ "un" "deux" ; "trois" "quatre" ];
+    c = [ %T %F ; %T %T ];
+    d = struct();
+    d("field1") = a;
+    d("field2") = b;
+    d("field3") = c;
+    [variable_a,variable_b,variable_c,variable_d] = resume(a,b,c,d);
 endfunction
 
 clear ref_a ref_b ref_c

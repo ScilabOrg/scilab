@@ -17,12 +17,12 @@
 //
 
 cd TMPDIR;
-specialName = '中文';
-dirName     = 'dir_'+specialName;
-fileName    = 'file_'+specialName;
-fileWithExt = 'file_'+specialName+'.ext';
+specialName = "中文";
+dirName     = "dir_"+specialName;
+fileName    = "file_"+specialName;
+fileWithExt = "file_"+specialName+".ext";
 
-mputl([specialName+'1';specialName+'2'],fileName);
+mputl([specialName+"1";specialName+"2"],fileName);
 
 if copyfile(fileName, fileWithExt) == 0 then pause,end;
 if (fileinfo(fileWithExt) == []) then pause, end

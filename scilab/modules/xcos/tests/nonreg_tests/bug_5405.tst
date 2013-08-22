@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5405
 //
 // <-- Short Description -->
-// If one modify a superblock, the main diagram is not updated while all the 
+// If one modify a superblock, the main diagram is not updated while all the
 // modified superblock and intermediate superblocks are closed
 
 

@@ -15,8 +15,8 @@
 // <-- Short Description -->
 // Error message occurs because of a cut-off frequency of 0.25Hz with irr
 
-hz=iir(2,'lp','butt',[0.25 0.25],[0 0]);
-z=poly(0,'z');
+hz=iir(2,"lp","butt",[0.25 0.25],[0 0]);
+z=poly(0,"z");
 num=0.292893218813+0.585786437627*z+0.292893218813*z^2;
 den=0.171572875254+5.55111512d-17*z+z^2;
 assert_checkalmostequal(coeff(numer(hz)), coeff(num), 1d-9);

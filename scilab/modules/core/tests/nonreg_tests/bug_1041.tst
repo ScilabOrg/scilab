@@ -16,64 +16,64 @@
 // An error inside a loop is reported as if it occurred on the "end" line
 clear bxx
 
-txt=['for i=1:10'
-     ' a=1; '
-     ' a=2;'
-     ' a=3;'
-     ' a=bxx;'
-     ' a=5'
-     ' a=6;'
-     'end'];
+txt=["for i=1:10"
+" a=1; "
+" a=2;"
+" a=3;"
+" a=bxx;"
+" a=5"
+" a=6;"
+"end"];
 
-ierr=execstr(txt,'errcatch');
+ierr=execstr(txt,"errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>5 then pause,end  
+if l<>5 then pause,end
 
 
-deff('foo',txt,'n');
-ierr=execstr('foo()','errcatch');
+deff("foo",txt,"n");
+ierr=execstr("foo()","errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>6 then pause,end  
+if l<>6 then pause,end
 
-deff('foo1',txt)
-ierr=execstr('foo1()','errcatch');
+deff("foo1",txt)
+ierr=execstr("foo1()","errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>6 then pause,end  
+if l<>6 then pause,end
 
 
-t1=['if %t then'
-    '  '+txt
-    'end'];
-ierr=execstr(t1,'errcatch');
+t1=["if %t then"
+"  "+txt
+"end"];
+ierr=execstr(t1,"errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>6 then pause,end  
+if l<>6 then pause,end
 
 clear foo foo1
-deff('foo',t1,'n');
-ierr=execstr('foo()','errcatch');
+deff("foo",t1,"n");
+ierr=execstr("foo()","errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>7 then pause,end  
+if l<>7 then pause,end
 
-deff('foo1',t1);
-ierr=execstr('foo1()','errcatch');
+deff("foo1",t1);
+ierr=execstr("foo1()","errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>7 then pause,end  
+if l<>7 then pause,end
 
 clear foo foo1
-deff('foo','execstr(txt)','n');
-ierr=execstr('foo()','errcatch');
+deff("foo","execstr(txt)","n");
+ierr=execstr("foo()","errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>5 then pause,end  
+if l<>5 then pause,end
 
-deff('foo1','execstr(txt)');
-ierr=execstr('foo1()','errcatch');
+deff("foo1","execstr(txt)");
+ierr=execstr("foo1()","errcatch");
 if ierr==0 then pause,end
 [str,n,l,func]=lasterror(%t);
-if l<>5 then pause,end  
+if l<>5 then pause,end

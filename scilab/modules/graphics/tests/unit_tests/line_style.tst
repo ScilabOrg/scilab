@@ -15,10 +15,10 @@
 // Try this :
 
 for i = [1:9] do
-  plot([i,i]);
-  e=gce();
-  e=e.children();
-  e.line_style = i;
+    plot([i,i]);
+    e=gce();
+    e=e.children();
+    e.line_style = i;
 end
 
 // check that you have bottom to up : dash, dash dot, longdash dot, bigdash dot, bigdash longdash, dot, double dot.

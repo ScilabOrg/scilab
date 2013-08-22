@@ -20,11 +20,11 @@
 
 // 2009-01-09 mtlb_save is removed => savematfile
 
-fileName = TMPDIR+'/bug558.mat';
+fileName = TMPDIR+"/bug558.mat";
 x = 20;
-warning('off');
-savematfile(fileName,'x');
-warning('on');
+warning("off");
+savematfile(fileName,"x");
+warning("on");
 w=fileinfo(fileName);
 if ( (w == []) | (w(1) == 0) )  then pause,end
 mdelete(fileName);

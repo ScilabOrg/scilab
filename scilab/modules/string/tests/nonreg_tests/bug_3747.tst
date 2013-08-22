@@ -24,7 +24,7 @@ if ierr <> 77 then pause,end
 ierr = execstr("string(eye())","errcatch");
 if ierr <> 0 then pause,end
 
-if typeof(string(eye())) <> typeof('') then pause,end
+if typeof(string(eye())) <> typeof("") then pause,end
 
 ierr = execstr("string(eye())+""b""","errcatch");
 if ierr <> 0 then pause,end

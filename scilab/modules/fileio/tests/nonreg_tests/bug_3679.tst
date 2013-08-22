@@ -15,12 +15,12 @@
 // <-- Short Description -->
 // mfscanf() returns numbers with slight errors using 5.0.x on Windows.
 
-test_path = get_absolute_file_path('bug_3679.tst');
+test_path = get_absolute_file_path("bug_3679.tst");
 
-fid = mopen('SCI/modules/fileio/tests/nonreg_tests/'+'bug_3679.txt','rt');
+fid = mopen("SCI/modules/fileio/tests/nonreg_tests/"+"bug_3679.txt","rt");
 
 for i=1:6
-  [n,y(i)]=mfscanf(fid, '%lg');  
+    [n,y(i)]=mfscanf(fid, "%lg");
 end
 
 mclose(fid);

@@ -7,7 +7,7 @@
 
 res = createGUID(1);
 if length(res) <> 36 then pause,end;
-if size(tokens(res,'-'),'*') <> 5 then pause,end; 
+if size(tokens(res,"-"),"*") <> 5 then pause,end;
 
 res = createGUID(100);
-if size(res,'*') <> 100 then pause,end;
+if size(res,"*") <> 100 then pause,end;

@@ -20,7 +20,7 @@ x=-7:0.4:7;
 z=feval(x,x,ff);z(10 :15,17:22)=%nan;
 f=gcf();f.color_map=hotcolormap(128);// choix de table de couleur
 
-clf();surf(x,x,z)  
+clf();surf(x,x,z)
 
 // the hole in the middle of the surface is expected
 // but i Scilb 4.x, some facets are missing along the surface edges

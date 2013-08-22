@@ -30,7 +30,7 @@ b = [154.
 178.
 231.];
 function y=Atimesx(x,mymatrix)
-  y=mymatrix*x
+    y=mymatrix*x
 endfunction
 // With the default 10 iterations, the algorithm performs well
 Alist = list(Atimesx,mymatrix)

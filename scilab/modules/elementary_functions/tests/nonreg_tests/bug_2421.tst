@@ -16,4 +16,4 @@
 //    colon (all elements) assignment from output arguments of a function beyond the
 //    first not possible
 
-if execstr('[a(:), v(1)] = (1, 2)','errcatch')<>0 then pause,end
+if execstr("[a(:), v(1)] = (1, 2)","errcatch")<>0 then pause,end

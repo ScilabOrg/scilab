@@ -14,10 +14,10 @@
 // http://bugzilla.scilab.org/10868
 //
 // <-- Short Description -->
-// 
+//
 
-mputl('xtitle(""TITLE"", ""$LaTeXed a^b$"", ""y"")', TMPDIR + '/bug_10868.sce')
-scinotes(TMPDIR + '/bug_10868.sce');
+mputl("xtitle(""TITLE"", ""$LaTeXed a^b$"", ""y"")", TMPDIR + "/bug_10868.sce")
+scinotes(TMPDIR + "/bug_10868.sce");
 
 // Select the string and execute the selection with echo (CTRL+E)
 // The string should appear in the console and executed.

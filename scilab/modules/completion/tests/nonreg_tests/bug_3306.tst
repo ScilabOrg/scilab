@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3306
 //
 // <-- Short Description -->
-// Automatic completion swallows the first completed letter when using double quotes (") around a string, while it gives good 
+// Automatic completion swallows the first completed letter when using double quotes (") around a string, while it gives good
 
 // <-- CLI SHELL MODE -->
 
@@ -21,7 +21,7 @@ if ierr<>0 then pause, end
 ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
-fd = mopen(TMPDIR+'/foofile.ext','wt');
+fd = mopen(TMPDIR+"/foofile.ext","wt");
 mclose(fd);
 
 cd TMPDIR;
@@ -30,24 +30,23 @@ cd TMPDIR;
 currentline = "scipad(''foof";
 
 r = getfilepartlevel(currentline);
-if r <> 'foof' then pause,end;
+if r <> "foof" then pause,end;
 
 r = completion(getfilepartlevel(currentline));
-if r <> 'foofile.ext' then pause,end
+if r <> "foofile.ext" then pause,end
 
-r = completeline(currentline,'foofile.ext',getpartlevel(currentline),getfilepartlevel(currentline),%t);
-if r <> 'scipad(''foofile.ext' then pause,end;
+r = completeline(currentline,"foofile.ext",getpartlevel(currentline),getfilepartlevel(currentline),%t);
+if r <> "scipad(''foofile.ext" then pause,end;
 
 //scipad("foof[TAB]
 currentline = "scipad(""foof";
 
 r = getfilepartlevel(currentline);
-if r <> 'foof' then pause,end
+if r <> "foof" then pause,end
 
 r = completion(getfilepartlevel(currentline));
-if r <> 'foofile.ext' then pause,end
+if r <> "foofile.ext" then pause,end
 
-r = completeline(currentline,'foofile.ext',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'scipad(""foofile.ext' then pause,end;
+r = completeline(currentline,"foofile.ext",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "scipad(""foofile.ext" then pause,end;
 
-                    

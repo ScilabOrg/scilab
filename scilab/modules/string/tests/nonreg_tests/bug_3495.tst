@@ -15,5 +15,5 @@
 // Short description:
 // Crash with PCRE when matching the whole string
 
-regexp('hello, world', '/hello, world/');
-regexp('hello, world', '/.+/');
+regexp("hello, world", "/hello, world/");
+regexp("hello, world", "/.+/");

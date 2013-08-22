@@ -23,7 +23,7 @@ h=[i 1 2 i 3];
 o=[1 i i 2 3]';
 b(2)=3;
 e1(1,3)=1;
-p='apcdefghijklmnopqrstuvwxyz0123456789';
+p="apcdefghijklmnopqrstuvwxyz0123456789";
 // test de stackg
 a,b,c,d,e1,f,g,h,o,p
 assert_checkequal(b(2),3);
@@ -107,10 +107,10 @@ rand(c)
 rand(3,3)
 rand(3,2)
 rand()
-rand('uniform')
-rand('normal')
-rand('seed',5)
-rand('seed',0)
+rand("uniform")
+rand("normal")
+rand("seed",5)
+rand("seed",0)
 //
 abs(c)
 abs(a)

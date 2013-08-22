@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // When we click many times on a button of the Graphic window the instruction will be done as much times we have clicked.
-// 
+//
 
 plot3d();
 rotate_axes();

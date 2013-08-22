@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 // User-defined ticks labels are misaligned for a bottom-positioned x-axis
-// 
+//
 
 f=scf();
 a=gca();

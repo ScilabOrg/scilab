@@ -15,12 +15,12 @@
 //
 //    1.7977E+308
 //
-//    Actually, every number greater than 1.797E+308 crashes 
+//    Actually, every number greater than 1.797E+308 crashes
 //    scilab (scilab3.0 under linux gives the correct answer Inf).
 //
 //    A popup window appears with the following message:
 //
-//    forrtl: severe(64): input conversion error, unit -5, file 
+//    forrtl: severe(64): input conversion error, unit -5, file
 //    Internal List Directed Read
 //    Image [...]
 //    LibScilab.dll [...]
@@ -28,7 +28,7 @@
 //
 //    [...] is text I don't think is important.
 //
-//    Basically overflow is translated in crashes where it should 
+//    Basically overflow is translated in crashes where it should
 //    be Inf.
 
 if 1.7977E+308 <> %inf then pause,end

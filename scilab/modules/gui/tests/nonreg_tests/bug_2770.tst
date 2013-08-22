@@ -12,10 +12,10 @@
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=2270
 //
-if getscilabmode() == 'STD' then
-  clipboard("copy","this is a string");
-  str = clipboard("paste");
-  if str <> "this is a string" then pause,end
+if getscilabmode() == "STD" then
+    clipboard("copy","this is a string");
+    str = clipboard("paste");
+    if str <> "this is a string" then pause,end
 end
 
 

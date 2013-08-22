@@ -17,4 +17,4 @@
 //
 plot3d();plot2d()
 e=gce();e=e.children(1);
-if execstr('datatipCreate(e,55)','errcatch')<>0 then pause,end
+if execstr("datatipCreate(e,55)","errcatch")<>0 then pause,end

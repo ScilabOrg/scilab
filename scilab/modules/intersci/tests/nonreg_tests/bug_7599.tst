@@ -16,12 +16,12 @@
 // Intersci-n and intersci did not create code from a .desc file if it was not ended by an empty line.
 //
 
-if getos() == 'Windows' then
-  copyfile(SCI+"/modules/intersci/tests/nonreg_tests/bug_7599.desc", TMPDIR+"/bug_7599.desc");
-  cd(TMPDIR);
-  s = dos(SCI+'/modules/intersci/bin/intersci-n.exe bug_7599');
-  if s <> %t then pause, end
-  r = mgetl(TMPDIR + '/bug_7599.c');
-  ref = mgetl(SCI+"/modules/intersci/tests/nonreg_tests/bug_7599.c");
-  if ~and(r == ref) then pause, end
+if getos() == "Windows" then
+    copyfile(SCI+"/modules/intersci/tests/nonreg_tests/bug_7599.desc", TMPDIR+"/bug_7599.desc");
+    cd(TMPDIR);
+    s = dos(SCI+"/modules/intersci/bin/intersci-n.exe bug_7599");
+    if s <> %t then pause, end
+    r = mgetl(TMPDIR + "/bug_7599.c");
+    ref = mgetl(SCI+"/modules/intersci/tests/nonreg_tests/bug_7599.c");
+    if ~and(r == ref) then pause, end
 end

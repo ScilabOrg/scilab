@@ -9,9 +9,9 @@
 // Return 3 values
 //
 function varargout=__test_function__()
-  varargout(1) = 42;
-  varargout(2) = "value";
-  varargout(3) = list(51);
+    varargout(1) = 42;
+    varargout(2) = "value";
+    varargout(3) = list(51);
 endfunction
 
 // Simple call
@@ -43,8 +43,8 @@ assert_checkfalse(ierr == 0);
 // Return a list of 3 elements with second missing.
 //
 function varargout=__test_function2__()
-  varargout(1) = 42;
-  varargout(3) = "value";
+    varargout(1) = 42;
+    varargout(3) = "value";
 endfunction
 
 // Simple call

@@ -47,19 +47,19 @@ assert_checkerror("xmlDelete(xmlFile)", msgerr);
 
 // Work with the structure
 xmlFile=xmlRead(SCI+"/etc/modules.xml");
-assert_checkequal(xmlFile.root.name,"modules");       
+assert_checkequal(xmlFile.root.name,"modules");
 assert_checkequal(xmlFile.root.type,"XML_ELEMENT_NODE");
 elements=xmlFile.root.children;
 assert_checktrue(xmlIsValidObject(elements));
 assert_checktrue(size(elements)>0);
 for (i=1:length(elements))
-  if (xmlFile.root.children(i).type<>"XML_COMMENT_NODE")
-    assert_checktrue(length(xmlFile.root.children(i).attributes.name)> 0);
-    assert_checktrue(xmlFile.root.children(i).attributes.activate=="yes" ...
-                   | xmlFile.root.children(i).attributes.activate=="no");
-  else
-// It is a comment, no attributes
-    assert_checkequal(length(xmlFile.root.children(i).attributes),0);
-  end
+    if (xmlFile.root.children(i).type<>"XML_COMMENT_NODE")
+        assert_checktrue(length(xmlFile.root.children(i).attributes.name)> 0);
+        assert_checktrue(xmlFile.root.children(i).attributes.activate=="yes" ...
+        | xmlFile.root.children(i).attributes.activate=="no");
+    else
+        // It is a comment, no attributes
+        assert_checkequal(length(xmlFile.root.children(i).attributes),0);
+    end
 end
 xmlDelete(xmlFile);

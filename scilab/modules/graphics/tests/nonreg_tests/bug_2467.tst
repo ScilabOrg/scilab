@@ -18,9 +18,9 @@
 
 plot(1:10)
 a             = gca();
-a.log_flags   = 'lnn';
-path          = TMPDIR+'/bug2467.scg';
+a.log_flags   = "lnn";
+path          = TMPDIR+"/bug2467.scg";
 xsave(path);
 clf();
 
-if execstr("xload(path)",'errcatch')<>0 then pause,end
+if execstr("xload(path)","errcatch")<>0 then pause,end

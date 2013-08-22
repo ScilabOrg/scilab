@@ -16,6 +16,6 @@
 //     modulo function error
 
 
-x=poly(0,'x');
+x=poly(0,"x");
 q=200001;
 if modulo(q*x,q)<>0 then pause,end

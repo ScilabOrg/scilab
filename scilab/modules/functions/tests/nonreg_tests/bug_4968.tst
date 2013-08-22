@@ -25,6 +25,6 @@ if length("http:§www.scilab.org") <> 20 then pause, end
 if i <> 20 then pause,end
 // =============================================================================
 server = strsubst(part(tmp, 1:i), "§", "//");
-if part(tmp, 1:i) <> 'http:§www.scilab.org' then pause, end
-if server <> 'http://www.scilab.org' then pause, end
+if part(tmp, 1:i) <> "http:§www.scilab.org" then pause, end
+if server <> "http://www.scilab.org" then pause, end
 // =============================================================================

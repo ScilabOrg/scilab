@@ -19,7 +19,7 @@
 
 // An unbounded problem.
 Aeq = [
- 2 -2 -1 1 0
+2 -2 -1 1 0
 -1 -4  1 0 1
 ];
 beq = [-1;-1];

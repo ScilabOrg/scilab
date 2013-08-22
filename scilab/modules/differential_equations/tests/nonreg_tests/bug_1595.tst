@@ -14,7 +14,7 @@
 //    When using the ode solver with a computation at mesh points (itask =2) in a
 //    backward integration the result is given at only one point.
 
- function xdot = RHS(t,x),xdot=x,endfunction;
+function xdot = RHS(t,x),xdot=x,endfunction;
 %ODEOPTIONS = [2,0,0,%inf,0,2,500,12,5,0,-1,-1];
-sol = ode('adams',0,0,-10,RHS);
+sol = ode("adams",0,0,-10,RHS);
 if size(sol,2)<>3 then pause,end

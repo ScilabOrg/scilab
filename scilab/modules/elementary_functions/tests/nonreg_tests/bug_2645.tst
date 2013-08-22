@@ -15,4 +15,4 @@
 // <-- Short Description -->
 // integration of an expression reduced to the variable name
 
-   if norm(integrate('x','x',0,10)-50)>1d-10 then pause,end
+if norm(integrate("x","x",0,10)-50)>1d-10 then pause,end

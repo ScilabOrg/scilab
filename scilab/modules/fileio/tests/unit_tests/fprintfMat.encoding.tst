@@ -21,10 +21,10 @@ tab_ref = [
 
 ref =1:20;
 
-for i = 1 : size(tab_ref,'*')
-  pathnam = TMPDIR + filesep() + 'dir_' + tab_ref(i);
-  filenam = pathnam + filesep() + 'file_' + tab_ref(i) + '.mat';
-  fprintfMat(filenam,ref,'%f');
-  r = fscanfMat(filenam);
-  if or (r <> ref) then pause,end
+for i = 1 : size(tab_ref,"*")
+    pathnam = TMPDIR + filesep() + "dir_" + tab_ref(i);
+    filenam = pathnam + filesep() + "file_" + tab_ref(i) + ".mat";
+    fprintfMat(filenam,ref,"%f");
+    r = fscanfMat(filenam);
+    if or (r <> ref) then pause,end
 end

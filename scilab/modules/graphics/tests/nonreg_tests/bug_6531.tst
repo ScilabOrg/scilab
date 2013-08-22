@@ -14,11 +14,11 @@
 //
 // <-- Short Description -->
 // the caption's default background color changes when a color is added to the current colormap
-// 
+//
 
 plot(sin(0:10));e=gce();
 p=e.children(1);
-c=captions(p,'foo');
+c=captions(p,"foo");
 c.background //-->-2 ok
 p.foreground=color(200,128,33);
 

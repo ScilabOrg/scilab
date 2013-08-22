@@ -13,5 +13,5 @@
 // <-- Short Description -->
 // home value is wrong on Windows
 
-if home <> getenv('USERPROFILE',SCI) then pause,end
+if home <> getenv("USERPROFILE",SCI) then pause,end
 

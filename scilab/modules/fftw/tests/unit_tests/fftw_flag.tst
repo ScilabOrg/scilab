@@ -18,5 +18,5 @@ assert_checkequal(double(r),4);
 //change flags and display current value of fftw flags (both integer and strings)
 [a,S]=fftw_flags("FFTW_PATIENT");
 assert_checkequal(double(a),32);
-assert_checkequal(S,'FFTW_PATIENT');
+assert_checkequal(S,"FFTW_PATIENT");
 //=============================================

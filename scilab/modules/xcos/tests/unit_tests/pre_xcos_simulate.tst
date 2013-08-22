@@ -20,41 +20,41 @@ endfunction
 // Register function
 pre_xcos_simulate = list("fail_pre_simulate");
 xcos_simulate(scs_m, 4);
-assert_checkfalse(isdef('cumsum_r'));
+assert_checkfalse(isdef("cumsum_r"));
 
 // Register function
 clear pre_xcos_simulate
 pre_xcos_simulate = fail_pre_simulate;
 xcos_simulate(scs_m, 4);
-assert_checkfalse(isdef('cumsum_r'));
+assert_checkfalse(isdef("cumsum_r"));
 
 function continueSimulation = analyze_pre_simulate(scs_m, needcompile)
-// Retrieve all objects
+    // Retrieve all objects
     objs = scs_m.objs;
 
     links = 0;
     blocks = 0;
     other = 0;
-// Count Links and Blocks
+    // Count Links and Blocks
     for i = 1:size(objs)
         currentType = typeof(objs(i));
         select (currentType)
-         case "Link"
-          links = links + 1;
-         case "Block"
-          blocks = blocks + 1;
+        case "Link"
+            links = links + 1;
+        case "Block"
+            blocks = blocks + 1;
         else
             other = other + 1;
         end
     end
 
-// Diplay Diagram analisys.
+    // Diplay Diagram analisys.
     disp("Diagram Analysis:")
     disp("Found "+string(blocks)+" Blocks.")
     disp("Found "+string(links)+" Links.")
     disp("Found "+string(other)+" Other component.")
 
-// Continue Simulation
+    // Continue Simulation
     continueSimulation = %T;
 endfunction
 
@@ -62,12 +62,12 @@ endfunction
 clear pre_xcos_simulate
 pre_xcos_simulate = list("analyze_pre_simulate");
 xcos_simulate(scs_m, 4);
-assert_checktrue(isdef('cumsum_r'));
+assert_checktrue(isdef("cumsum_r"));
 
-clear('cumsum_r');
+clear("cumsum_r");
 
 // Register function
 clear pre_xcos_simulate
 pre_xcos_simulate = analyze_pre_simulate;
 xcos_simulate(scs_m, 4);
-assert_checktrue(isdef('cumsum_r'));
+assert_checktrue(isdef("cumsum_r"));

@@ -14,8 +14,8 @@
 // Scilab External function executed by scifunction may make Scilab crash when they produce an error.
 A=rand(3,3);
 function s=extern1(ev)
-  if %t then error(msprintf(_("%s: zsefdsdfdsddsffsd %f\n"),'fsqp',1)),end
+    if %t then error(msprintf(_("%s: zsefdsdfdsddsffsd %f\n"),"fsqp",1)),end
 endfunction
 
-if execstr('[U,dim]=schur(A,extern1)','errcatch')<>10000 then pause,end
+if execstr("[U,dim]=schur(A,extern1)","errcatch")<>10000 then pause,end
 

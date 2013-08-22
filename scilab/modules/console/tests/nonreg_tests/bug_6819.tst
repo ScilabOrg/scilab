@@ -16,6 +16,6 @@
 // <-- Short Description -->
 // prompt() interpreted '<...>' as html
 
-prompt('<1>')
+prompt("<1>")
 
 // must display <1> !

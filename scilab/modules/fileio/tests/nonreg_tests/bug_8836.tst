@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // fileparts crashed scilab when matrix of strings was passed as input argument.
-// Following the commit: https://codereview.scilab.org/#/c/11620/, fileparts 
+// Following the commit: https://codereview.scilab.org/#/c/11620/, fileparts
 // manages the matrix of strings.
 
 assert_checktrue(execstr("fileparts(ls(""SCI/modules/fileio/macros/*.sci""))", "errcatch") == 0);

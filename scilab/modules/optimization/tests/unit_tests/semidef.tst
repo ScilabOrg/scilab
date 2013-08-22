@@ -15,19 +15,19 @@ x0=[0;0];
 // 2. Create a compressed representation of F
 // Define 3 symmetric block-diagonal matrices: F0, F1, F2
 F0=[2,1,0,0;
-    1,2,0,0;
-    0,0,3,1;
-    0,0,1,3];
+1,2,0,0;
+0,0,3,1;
+0,0,1,3];
 F1=[1,2,0,0;
-    2,1,0,0;
-    0,0,1,3;
-    0,0,3,1];
+2,1,0,0;
+0,0,1,3;
+0,0,3,1];
 F2=[2,2,0,0;
-    2,2,0,0;
-    0,0,3,4;
-    0,0,4,4];
+2,2,0,0;
+0,0,3,4;
+0,0,4,4];
 // Define the size of the two blocks:
-// the first block has size 2, 
+// the first block has size 2,
 // the second block has size 2.
 blocksizes=[2,2];
 // Extract the two blocks of the matrices.
@@ -37,12 +37,12 @@ F11=F1(1:2,1:2);
 F12=F1(3:4,3:4);
 F21=F2(1:2,1:2);
 F22=F2(3:4,3:4);
-// Create 3 column vectors, containing nonzero entries 
+// Create 3 column vectors, containing nonzero entries
 // in F0, F1, F2.
 F0nnz = list2vec(list(F01,F02));
 F1nnz = list2vec(list(F11,F12));
 F2nnz = list2vec(list(F21,F22));
-// Create a 16-by-3 matrix, representing the 
+// Create a 16-by-3 matrix, representing the
 // nonzero entries of the 3 matrices F0, F1, F2.
 FF=[F0nnz,F1nnz,F2nnz];
 // Compress FF
@@ -54,7 +54,7 @@ Z0=2*F0;
 // Extract the two blocks of the matrix
 Z01=Z0(1:2,1:2);
 Z02=Z0(3:4,3:4);
-// Create 2 column vectors, containing nonzero entries 
+// Create 2 column vectors, containing nonzero entries
 // in Z0.
 ZZ0 = [Z01(:);Z02(:)];
 // Compress ZZO
@@ -62,7 +62,7 @@ CZZ0 = pack(ZZ0,blocksizes);
 //
 // 4. Create the linear vector c
 c=[trace(F1*Z0);trace(F2*Z0)];
-// 
+//
 // 5. Define the algorithm options
 nu = 10;
 abstol=1.d-8;

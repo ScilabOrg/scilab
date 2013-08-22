@@ -18,23 +18,23 @@
 // Stack problem with diary([],"pause") and diary([],"resume")
 //
 
-FILENAME_DIARY = TMPDIR +'/foo.log';
-fd = diary(FILENAME_DIARY, 'new');
-FILENAME_DIARY2 = TMPDIR +'/foo2.log';
-fd2 = diary(FILENAME_DIARY2, 'new');
+FILENAME_DIARY = TMPDIR +"/foo.log";
+fd = diary(FILENAME_DIARY, "new");
+FILENAME_DIARY2 = TMPDIR +"/foo2.log";
+fd2 = diary(FILENAME_DIARY2, "new");
 a=1;
 
 diary([],"pause");
 a=2;
-txt = mgetl(FILENAME_DIARY); 
-assert_checkequal(txt($),'-->diary([],""pause"");');
+txt = mgetl(FILENAME_DIARY);
+assert_checkequal(txt($),"-->diary([],""pause"");");
 txt2 = mgetl(FILENAME_DIARY2);
-assert_checkequal(txt2($),'-->diary([],""pause"");');
+assert_checkequal(txt2($),"-->diary([],""pause"");");
 
 diary([],"resume");
 a=3;
 diary([],"close");
 txt=mgetl(FILENAME_DIARY);
-assert_checkequal(txt($-2),'-->a=3;');
+assert_checkequal(txt($-2),"-->a=3;");
 txt2=mgetl(FILENAME_DIARY2);
-assert_checkequal(txt($-2),'-->a=3;');
+assert_checkequal(txt($-2),"-->a=3;");

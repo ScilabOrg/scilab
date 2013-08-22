@@ -39,7 +39,7 @@ if s5 <> 1 then pause, end
 if n <> 3 then pause, end
 if m <> 2 then pause, end
 
-[n, m] = size(['a','b';'c','d']);
+[n, m] = size(["a","b";"c","d"]);
 if n <> 2 then pause, end
 if m <> 2 then pause, end
 

@@ -14,8 +14,8 @@
 // The function routh_t gives incorrect output for all denominators that include
 // gain value "k".
 
-s = poly(0, 's');
-k = poly(0,'k');
+s = poly(0, "s");
+k = poly(0,"k");
 P=s*(s+7)*(s+11);
 h=1/P;
 r_rat=routh_t(h,k,%t);

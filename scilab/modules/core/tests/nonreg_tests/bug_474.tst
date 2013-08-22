@@ -14,13 +14,13 @@
 //    Bug Report Id: 120442003624174827
 //    k should be a 2 element vector!! like
 //
-//    -->a=matrix(1:9,3,3); [m,k]=min(a)       
+//    -->a=matrix(1:9,3,3); [m,k]=min(a)
 //     k  =
 //
 //    !   1.    1. !
 //     m  =
 //
-//        1.  
+//        1.
 //
 //    -->a=matrix(1:9,3,3); [m,k]=max(a)
 //     k  =

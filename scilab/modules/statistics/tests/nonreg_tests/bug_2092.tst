@@ -14,6 +14,6 @@
 //    Incorrect handling of second input argument to function mad()
 
 A = mad([1:10;2:11],2);
-B = mad([1:10;2:11],'c');
+B = mad([1:10;2:11],"c");
 
 if or(A <> B) then pause,end

@@ -23,6 +23,6 @@ if ierr<>0 then pause, end
 
 //cd /h<TAB>
 
-currentline = 'cd /h';
-newline = completeline(currentline,'home',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if newline <> 'cd /home' then pause,end
+currentline = "cd /h";
+newline = completeline(currentline,"home",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if newline <> "cd /home" then pause,end

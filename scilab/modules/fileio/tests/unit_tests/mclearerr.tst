@@ -7,6 +7,6 @@
 
 // <-- CLI SHELL MODE -->
 
-ierr = execstr('mclearerr()','errcatch');
-ierr = execstr('mclearerr(''toto'')','errcatch');
-ierr = execstr('mclearerr([1 2])','errcatch');
+ierr = execstr("mclearerr()","errcatch");
+ierr = execstr("mclearerr(''toto'')","errcatch");
+ierr = execstr("mclearerr([1 2])","errcatch");

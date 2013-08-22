@@ -14,8 +14,8 @@
 //
 // <-- Short Description -->
 //    clear may erase protected variables
-mputl('clear',TMPDIR+'/foo')
+mputl("clear",TMPDIR+"/foo")
 execstr("exec(TMPDIR+''/foo'')")
-mdelete(TMPDIR+'/foo')
-if exists('home')==0 then pause,end
+mdelete(TMPDIR+"/foo")
+if exists("home")==0 then pause,end
 

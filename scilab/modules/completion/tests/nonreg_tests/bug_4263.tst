@@ -21,6 +21,6 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 
-currentline = 'cd d:\Sci';
-r = completeline(currentline,'d:\Scilab5',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'cd d:\Scilab5' then pause,end
+currentline = "cd d:\Sci";
+r = completeline(currentline,"d:\Scilab5",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "cd d:\Scilab5" then pause,end

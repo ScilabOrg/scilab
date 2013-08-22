@@ -30,7 +30,7 @@ clf();
 axes = gca();
 axes.box="off";
 x=linspace(-%pi,%pi,100);
-plot2d(x,sin(x)); 
+plot2d(x,sin(x));
 // axes box should be off
 if (axes.box <> "off") then pause; end
 

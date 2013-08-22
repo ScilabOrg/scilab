@@ -12,8 +12,8 @@
 
 test_list = init_param();
 
-test_list = add_param(test_list,'param_1',1);
-test_list = add_param(test_list,'param_2',2);
+test_list = add_param(test_list,"param_1",1);
+test_list = add_param(test_list,"param_2",2);
 
 list_of_params = list_param(test_list);
 

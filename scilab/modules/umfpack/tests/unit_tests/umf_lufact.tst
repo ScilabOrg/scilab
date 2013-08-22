@@ -10,10 +10,10 @@
 // this is the small linear test system from UMFPACK
 // whom solution must be [1;2;3;4;5]
 A = sparse( [ 2  3  0  0  0;
-              3  0  4  0  6;
-              0 -1 -3  2  0;
-              0  0  1  0  0;
-              0  4  2  0  1] );
+3  0  4  0  6;
+0 -1 -3  2  0;
+0  0  1  0  0;
+0  4  2  0  1] );
 b = [8 ; 45; -3; 3; 19];
 Lup = umf_lufact(A);
 x = umf_lusolve(Lup,b);

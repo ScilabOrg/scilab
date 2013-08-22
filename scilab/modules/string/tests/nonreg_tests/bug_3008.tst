@@ -13,14 +13,14 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3008
 //
 
-ref = ['|a|';'|b|'];
+ref = ["|a|";"|b|"];
 res = "|"+tokens("a b ")+"|";
-if size(res,'*') <> 2 then pause,end;
+if size(res,"*") <> 2 then pause,end;
 if strcmp(ref,res) <> 0 then pause,end;
 
 
-ref = ['|a|';'|b|'];
-res = "|"+tokens("aibi",'i')+"|";
-if size(res,'*') <> 2 then pause,end;
+ref = ["|a|";"|b|"];
+res = "|"+tokens("aibi","i")+"|";
+if size(res,"*") <> 2 then pause,end;
 if strcmp(ref,res) <> 0 then pause,end;
 

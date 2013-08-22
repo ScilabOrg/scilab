@@ -19,6 +19,6 @@
 plot2d("ll",1:1000,0.01:0.01:10)
 a = gca();
 xticks = a.x_ticks.locations;
-assert_checkequal(xticks,gsort(xticks, 'g', 'i'));
+assert_checkequal(xticks,gsort(xticks, "g", "i"));
 yticks = a.y_ticks.locations;
-assert_checkequal(yticks,gsort(yticks, 'g', 'i'));
+assert_checkequal(yticks,gsort(yticks, "g", "i"));

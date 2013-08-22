@@ -64,24 +64,24 @@ a = [ 0.9, 0.7;
 0.5, 0.4 ];
 data = a + a * 2 * %i;
 computed = variance(data,2);
-expected = [0.1    
-    0.     
-    0.025];
+expected = [0.1
+0.
+0.025];
 if abs(computed-expected)>%eps then pause,end
 
 // Normalization with N-1
-x = [0.9    0.7  
-    0.1    0.1  
-    0.5    0.4];
+x = [0.9    0.7
+0.1    0.1
+0.5    0.4];
 orien = 1;
 w = 0;
 computed = variance(x,orien,w);
 expected = [0.16 0.09];
 if abs(computed-expected)>%eps then pause,end
 // Normalization with N
-x = [0.9    0.7  
-    0.1    0.1  
-    0.5    0.4];
+x = [0.9    0.7
+0.1    0.1
+0.5    0.4];
 orien = 1;
 w = 1;
 computed = variance(x,orien,w);

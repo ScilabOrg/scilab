@@ -15,6 +15,6 @@
 
 
 A = [5 3 1;3 5 1; 1 1 5];
-computed = grand(10,'mn',[0  0 0]',A);
+computed = grand(10,"mn",[0  0 0]',A);
 assert_checkalmostequal ( size(computed) , [3 10] );
 

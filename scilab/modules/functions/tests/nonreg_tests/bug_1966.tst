@@ -25,8 +25,8 @@
 my_dir          = pathconvert(TMPDIR+"/bug_1966",%F,%F);
 my_file         = pathconvert(my_dir+"/bug_1966_tst.sci",%F,%F);
 my_function_str = ["function c=bug_1966_tst(a,b)"; ..
-                   "  c = a + b;"; ..
-                   "endfunction"];
+"  c = a + b;"; ..
+"endfunction"];
 
 mkdir(my_dir);
 

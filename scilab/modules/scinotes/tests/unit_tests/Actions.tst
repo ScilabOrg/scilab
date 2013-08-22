@@ -9,26 +9,26 @@
 
 f=TMPDIR + "/file_to_correct.sci";
 mputl(["a=''abcdef''									";
-       "if a==1";
-       "   b=1+""abcdef''         ";
-       "   			c=2";
-       " d=3			";
-       "					        if		                 		";
-       "a=''abcdef""""""";
-       "           end";
-       "				end              "], f);
+"if a==1";
+"   b=1+""abcdef''         ";
+"   			c=2";
+" d=3			";
+"					        if		                 		";
+"a=''abcdef""""""";
+"           end";
+"				end              "], f);
 
 scinotes(f, ["indent" "trailing" "quote"]);
 
 good = ["a=""abcdef""";
-        "if a==1";
-	"    b=1+""abcdef""";
-	"    c=2";
-	"    d=3";
-	"    if";
-	"        a=""abcdef""""""";
-	"    end";
-	"end"]
+"if a==1";
+"    b=1+""abcdef""";
+"    c=2";
+"    d=3";
+"    if";
+"        a=""abcdef""""""";
+"    end";
+"end"]
 
 corrected = mgetl(f);
 

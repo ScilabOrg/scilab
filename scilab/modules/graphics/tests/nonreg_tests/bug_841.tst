@@ -24,12 +24,12 @@
 // plot2d(x,y); // BUG: ordinate show -0.9, -0.6, -0.4, etc...
 //              //      So the first delta is 0.3 and then 0.2.
 // plot2d([0,5],[0,0]); // By plotting the zero line, we clearly
-//                      // see it doesn't go through zero.		
+//                      // see it doesn't go through zero.
 
- // Non reg test on string format in 2D Axes
+// Non reg test on string format in 2D Axes
 
 a              = gca();
-a.tight_limits = 'on';
+a.tight_limits = "on";
 x              = [0:0.1:5]';
 y              = cos(x);
 plot2d(x,y);          // 3 numbers after comma // CHECK HERE

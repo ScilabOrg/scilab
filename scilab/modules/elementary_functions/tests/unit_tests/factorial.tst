@@ -26,9 +26,9 @@ n = [
 ];
 x = factorial ( n );
 e = [
-    1.       2.        6.       
-    24.      120.      720.     
-    5040.    40320.    362880.  
+1.       2.        6.
+24.      120.      720.
+5040.    40320.    362880.
 ];
 assert_checkequal ( x , e );
 // Test with an hypermatrix

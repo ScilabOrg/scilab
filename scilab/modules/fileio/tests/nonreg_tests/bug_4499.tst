@@ -16,5 +16,5 @@
 // basename() strips directory and suffix from filenames
 // If a file or a directory starts with a dot, basename should not strip the suffix.
 
-files = basename('SCI/modules/fileio/macros/.myfile');
-if files <> '.myfile' then pause,end
+files = basename("SCI/modules/fileio/macros/.myfile");
+if files <> ".myfile" then pause,end

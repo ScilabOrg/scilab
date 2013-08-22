@@ -14,11 +14,11 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=5519
 //
 // <-- Short Description -->
-// added a message asking the user if he wants to exit the 
+// added a message asking the user if he wants to exit the
 //                   editor when he clicks on the cross.
 
 // launch editor
-// opens some file or not 
+// opens some file or not
 // click on cross to exit
 // a message box ask to confirm exit of text editor
 //

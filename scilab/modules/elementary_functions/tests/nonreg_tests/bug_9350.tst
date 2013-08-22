@@ -17,12 +17,12 @@
 
 
 function flag = assert_true ( computed )
-  if ( computed ) then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if ( computed ) then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 y = abs(complex(%nan,0));

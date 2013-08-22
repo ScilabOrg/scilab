@@ -19,14 +19,14 @@
 // getshortpathname & getlongpathname return '' and not a path with some special pathname
 
 function res = is8Dot3Disable()
-    if find(winqueryreg('name', 'HKEY_LOCAL_MACHINE', 'SYSTEM\CurrentControlSet\Control\FileSystem') == 'NtfsDisable8dot3NameCreation') then
-        res = bool2s(winqueryreg('HKEY_LOCAL_MACHINE', 'SYSTEM\CurrentControlSet\Control\FileSystem', 'NtfsDisable8dot3NameCreation'));
+    if find(winqueryreg("name", "HKEY_LOCAL_MACHINE", "SYSTEM\CurrentControlSet\Control\FileSystem") == "NtfsDisable8dot3NameCreation") then
+        res = bool2s(winqueryreg("HKEY_LOCAL_MACHINE", "SYSTEM\CurrentControlSet\Control\FileSystem", "NtfsDisable8dot3NameCreation"));
     else
         res = 0;
     end
 endfunction
 
-name_dir = 'L.P blabla';
+name_dir = "L.P blabla";
 cd(TMPDIR);
 
 mkdir(name_dir);
@@ -39,9 +39,9 @@ if isempty(a) then pause,end
 
 //depends of windows configuration
 //http://technet.microsoft.com/en-us/library/cc959352.aspx
-if (is8Dot3Disable() == 0 & a <> 'L3746~1.PBL' & a <> 'LDEE2~1.PBL') then pause,end
+if (is8Dot3Disable() == 0 & a <> "L3746~1.PBL" & a <> "LDEE2~1.PBL") then pause,end
 
-[a,b] = getshortpathname(TMPDIR + '\' + name_dir);
+[a,b] = getshortpathname(TMPDIR + "\" + name_dir);
 if b <> %t then pause,end
 if isempty(a) then pause,end
 
@@ -50,6 +50,6 @@ if b <> %t then pause,end
 if isempty(a) then pause,end
 if a <> name_dir then pause,end
 
-[a,b] = getlongpathname(TMPDIR + '\' + name_dir);
+[a,b] = getlongpathname(TMPDIR + "\" + name_dir);
 if b <> %t then pause,end
 if isempty(a) then pause,end

@@ -10,10 +10,10 @@
 function z = level1(x,y)
     a = y
     function z = level2()
-       function x = a()
-          x = 1
-       endfunction
-       z = a()
+        function x = a()
+            x = 1
+        endfunction
+        z = a()
     endfunction
     z = x + level2()
 endfunction

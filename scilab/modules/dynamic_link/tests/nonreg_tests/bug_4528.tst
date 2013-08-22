@@ -21,8 +21,7 @@
 
 cd SCI/contrib/toolbox_skeleton
 for i=1:10
-exec('builder.sce')
+    exec("builder.sce")
 end
 
 // check that only first exec build all
-                    

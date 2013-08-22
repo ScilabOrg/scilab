@@ -18,4 +18,4 @@
 x = rand(2,2,2);
 c = x*(1+%i);
 [dB phi] = dbphi(c);
-assert_checktrue(typeof(phi) == 'hypermat');
+assert_checktrue(typeof(phi) == "hypermat");

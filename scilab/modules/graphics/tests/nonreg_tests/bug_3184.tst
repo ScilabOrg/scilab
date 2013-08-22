@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // Misaligned ticks labels in colorbar.
- 
+
 colorbar(-200,100)
 
 // Labels should be here with ticks

@@ -9,7 +9,7 @@
 
 // Create a default figure
 function resizeMe()
-  disp("resize");
+    disp("resize");
 endfunction
 
 f = scf();

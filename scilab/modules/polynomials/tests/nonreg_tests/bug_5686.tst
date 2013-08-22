@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // Complex number manipulation could crash Scilab.
 
-s = poly(0,'s');
+s = poly(0,"s");
 tt = [ - 3.4817634, 0, 0, 0, 0, - 0.8107945, - 0.0311558, 0];
 tt1 = (0*%i+[ - 3.4859813,0, 0, 0, 0, - 0.8157716, - 0.0313009, 0]);
 ttt = [-.9, 10.7, 0,0,0,-1.1,-8.7,0];

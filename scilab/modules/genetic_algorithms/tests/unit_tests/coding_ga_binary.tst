@@ -13,11 +13,11 @@
 pop_in = list();
 pop_in(1) = 2;
 
-pop_out = coding_ga_binary(pop_in,'code',[]);
+pop_out = coding_ga_binary(pop_in,"code",[]);
 
 if length(pop_out(1))~=8 then pause,end
-if pop_out(1)~='11111111' then pause,end
+if pop_out(1)~="11111111" then pause,end
 
-pop_in_2 = coding_ga_binary(pop_out,'decode',[]);
+pop_in_2 = coding_ga_binary(pop_out,"decode",[]);
 
 if pop_in_2(1)~=2 then pause,end

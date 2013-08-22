@@ -17,4 +17,4 @@
 a=[1 3 4 6 ];
 b=[2 3 -1  6];
 [u,ka,kb]=union(a,b);
-if or(u<>gsort([a(ka) b(kb)],'g','i')) then pause,end
+if or(u<>gsort([a(ka) b(kb)],"g","i")) then pause,end

@@ -19,12 +19,12 @@
 //Warning !!!
 //Scilab has found a critical error (EXCEPTION_ACCESS_VIOLATION)
 
-u = mopen(TMPDIR+filesep()+'foo','wb');
-mput(int32(1996),'l',u)
+u = mopen(TMPDIR+filesep()+"foo","wb");
+mput(int32(1996),"l",u)
 mclose(u);
 
-u = mopen(TMPDIR+filesep()+'foo','rb');
-r = mget(u,'l');
+u = mopen(TMPDIR+filesep()+"foo","rb");
+r = mget(u,"l");
 mclose(u);
 
 if ( r <> int32(1996) ) then pause,end

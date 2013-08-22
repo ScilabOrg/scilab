@@ -27,7 +27,7 @@
 
 // <-- CLI SHELL MODE -->
 
-p = poly(0,'p');
-G = syslin('c', (1-p)/((p+1)*(p+3)));
+p = poly(0,"p");
+G = syslin("c", (1-p)/((p+1)*(p+3)));
 t = [0:1/100:8];
-csim('step',t,G);
+csim("step",t,G);

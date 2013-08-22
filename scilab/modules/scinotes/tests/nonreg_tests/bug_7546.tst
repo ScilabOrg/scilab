@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // It was not possible to select easily a block.
 
-path=get_function_path('test_run');
+path=get_function_path("test_run");
 scinotes(path, 147);
 
 // Put the caret on the 'if' and use ctrl+B to select all the block if...end

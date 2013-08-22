@@ -9,4 +9,4 @@
 // Benchmark for launching editor with a binary file
 //==============================================================================
 
-editor('SCI/modules/core/macros/add_demo.bin')
+editor("SCI/modules/core/macros/add_demo.bin")

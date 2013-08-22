@@ -13,5 +13,5 @@
 // <-- Short Description -->
 // "help toto tata" returns a error
 
-ierr = execstr('help toto tata','errcatch');
+ierr = execstr("help toto tata","errcatch");
 if ierr <> 0 then pause,end

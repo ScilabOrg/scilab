@@ -36,7 +36,7 @@ simplex = [
 s1 = optimsimplex_setall ( s1 , simplex );
 m = optimsimplex_dirmat ( s1 );
 assert_checkalmostequal ( m , [
-1. -1. -3. -5.0 
+1. -1. -3. -5.0
 2. 1. 2.0 3.0
 ], %eps );
 s1 = optimsimplex_destroy ( s1 );

@@ -19,7 +19,7 @@
 
 editor SCI/modules/atoms/macros/atomsInstall.sci
 // <ctrl+F>
-// Find : result 
+// Find : result
 // Replace : result10
 // See the line before last
 

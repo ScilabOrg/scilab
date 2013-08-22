@@ -13,10 +13,10 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2399
 //
 // <-- Short Description -->
-//    msscanf crashes scilab when scanning a vector of strings for float 
+//    msscanf crashes scilab when scanning a vector of strings for float
 //    values on Linux.
 
-toks = ['noddy';'holden'];
-vals = msscanf(-1,toks,'%f');
+toks = ["noddy";"holden"];
+vals = msscanf(-1,toks,"%f");
 
 if vals <> [] then pause,end

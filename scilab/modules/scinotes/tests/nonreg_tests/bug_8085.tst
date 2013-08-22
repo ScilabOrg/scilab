@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // It was not possible to disable the horizontal line wrapping.
 
-edit('test_run')
+edit("test_run")
 
 // Go to the menu 'Preference' and uncheck the menu Horizontal wrapping,
 // an horizontal scrollbar should appear and the lines of the document

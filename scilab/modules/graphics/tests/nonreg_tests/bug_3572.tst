@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // When using grayplot, you cannot have different dimensions in entry.
-// 
+//
 
 stacksize(1e8);
 

@@ -17,10 +17,10 @@
 // added a menu to choose EOL type when you save a file with editor
 
 // launch editor
-// type text & save 
+// type text & save
 // check that text file uses O.S EOL
 
-// menu --> document --> End Of Line --> choose another style 
+// menu --> document --> End Of Line --> choose another style
 // save
 // check that text file uses EOL that you choose
 

@@ -20,4 +20,4 @@
 [R, F]=strtod([ "123" "+i"]);
 assert_checkequal(R(1), 123);
 assert_checktrue(isnan(R(2)));
-assert_checkequal(F, ['' '+i']);
+assert_checkequal(F, ["" "+i"]);

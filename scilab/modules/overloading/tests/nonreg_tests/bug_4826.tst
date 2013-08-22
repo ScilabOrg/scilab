@@ -29,7 +29,7 @@ A=a(:,:,[1 1]);
 if typeof(A.dims)<>"int32" then pause,end
 if size(A.dims,1)<>1 then pause,end
 
-a=['1' '2';'3' '4'];
+a=["1" "2";"3" "4"];
 A=a(:,:,[1 1]);
 if typeof(A.dims)<>"int32" then pause,end
 if size(A.dims,1)<>1 then pause,end

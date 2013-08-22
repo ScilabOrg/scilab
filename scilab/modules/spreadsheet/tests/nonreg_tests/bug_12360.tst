@@ -16,7 +16,7 @@
 realMatrix = [0.211, 3, -4.0, 0.0];
 purelyRealComplexMatrix = complex(realMatrix);
 
-filename = fullfile(TMPDIR, 'bug_12360.csv');
+filename = fullfile(TMPDIR, "bug_12360.csv");
 write_csv(purelyRealComplexMatrix, filename, ascii(9), ".", "%5.3f");
 
 path = SCI + "/modules/spreadsheet/tests/nonreg_tests";

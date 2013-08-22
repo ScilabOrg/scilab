@@ -4,7 +4,7 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-// 
+//
 // <-- CLI SHELL MODE -->
 //
 // <-- Non-regression test for bug 8532 -->
@@ -17,7 +17,7 @@
 //
 
 A = 1:50;
-mputl(strcat(string(A),ascii(9)+" "), TMPDIR + '/foo.csv');
+mputl(strcat(string(A),ascii(9)+" "), TMPDIR + "/foo.csv");
 
 if execstr("B = read_csv(TMPDIR + ""/foo.csv"", ["" "", ""\t""]);", "errcatch") <> 999 then pause, end
 msg = lasterror();

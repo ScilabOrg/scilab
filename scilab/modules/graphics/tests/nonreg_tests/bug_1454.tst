@@ -18,4 +18,4 @@ M  = 20;
 x = [0:1/fs:M*fs];
 plot2d(x)
 
-disp('OK');
+disp("OK");

@@ -22,9 +22,9 @@ funcprot(0);
 // checking it's arguments only
 function [result]=x_mdialog(title,labels,default_inputs_vector)
 
-	if(and(size(labels) <> size(default_inputs_vector))) then pause, end;
-	
-	result = default_inputs_vector;
+    if(and(size(labels) <> size(default_inputs_vector))) then pause, end;
+
+    result = default_inputs_vector;
 endfunction
 
 scs_m = Capacitor("set", scs_m, []);

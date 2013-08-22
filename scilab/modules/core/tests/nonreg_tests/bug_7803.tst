@@ -8,7 +8,7 @@
 // <-- Non-regression test for bug 7803 -->
 //
 // <-- JVM MANDATORY -->
-// 
+//
 // <-- INTERACTIVE TEST -->
 //
 // <-- Bugzilla URL -->

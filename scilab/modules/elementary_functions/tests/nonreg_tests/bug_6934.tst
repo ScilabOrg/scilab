@@ -15,6 +15,6 @@
 // <-- Short Description -->
 // Denormalized floating point numbers are not present in Scilab's master.
 x = 3e-308;
-if x/2 == 0 then pause,end 
+if x/2 == 0 then pause,end
 if number_properties("denorm") == %f then pause,end
 

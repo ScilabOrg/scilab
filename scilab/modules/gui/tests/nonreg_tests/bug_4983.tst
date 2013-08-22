@@ -17,8 +17,8 @@
 // when scilab is started in nw mode, the addmenu examples are failing with a wierd error message.
 
 // launch scilab in NW or NWNI mode
-  foo = 'disp(''hello'')';
-  addmenu('foo');
-  
+foo = "disp(''hello'')";
+addmenu("foo");
+
 // it must return a error as:
 // addmenu: can not add a menu in console in this mode: NW.

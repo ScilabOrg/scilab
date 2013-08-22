@@ -16,7 +16,7 @@
 
 //Just type the following line
 for i=1:10
-a=1;
+    a=1;
 end
 // you should see something like
 //

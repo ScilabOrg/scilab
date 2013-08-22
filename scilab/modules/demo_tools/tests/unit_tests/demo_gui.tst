@@ -10,7 +10,7 @@
 
 // used to create java exceptions
 for i=1:100,
-  demo_gui();
-  delete(gcf());
+    demo_gui();
+    delete(gcf());
 end
 

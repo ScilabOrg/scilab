@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3849
 //
 // <-- Short Description -->
-// From a graphic window, the latest directory in which a figure has been exported is not memorized. The default directory proposed for any forthcoming exportation is always "Desktop\My documents", not the latest one. 
+// From a graphic window, the latest directory in which a figure has been exported is not memorized. The default directory proposed for any forthcoming exportation is always "Desktop\My documents", not the latest one.
 
 // plot3d
 // File -> Export to

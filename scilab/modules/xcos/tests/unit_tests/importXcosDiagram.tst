@@ -19,7 +19,7 @@ assert_checkequal(error_count, 1);
 
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/demos/Simple_Demo.zcos"));
 
-assert_checkequal(exists('scs_m'), 1);
+assert_checkequal(exists("scs_m"), 1);
 assert_checkequal(typeof(scs_m), "diagram");
 
 assert_checktrue(length(scs_m.objs) > 0);

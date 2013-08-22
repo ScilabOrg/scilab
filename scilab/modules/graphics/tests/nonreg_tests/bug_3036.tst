@@ -17,7 +17,7 @@
 
 xdel(winsid());
 x=linspace(-%pi,%pi,1000)';
-ierr = execstr('surf(x,x,sin(x)*cos(x)'');','errcatch');
+ierr = execstr("surf(x,x,sin(x)*cos(x)'');","errcatch");
 if ierr <> 17 then pause,end
 x=linspace(-%pi,%pi,100)';
 plot(x,x);

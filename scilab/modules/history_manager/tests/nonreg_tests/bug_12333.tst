@@ -26,6 +26,6 @@ resethistory();
 savehistory();
 
 // reload history => it should have less than 5 lines
-loadhistory(SCIHOME + '/history');
+loadhistory(SCIHOME + "/history");
 h = gethistory();
-assert_checktrue(size(h,'r') < 5);
+assert_checktrue(size(h,"r") < 5);

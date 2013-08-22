@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // The demo "Surface with hole 1" is not colorized (just blue, not multi-colored as in Scilab 4.1.2)
-// 
+//
 
 t     = linspace(-%pi,%pi,40);
 z     = sin(t)'*cos(t);

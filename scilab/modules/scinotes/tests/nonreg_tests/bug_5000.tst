@@ -18,6 +18,6 @@
 //
 // Open the Scilab editor
 // Open the "Search->Find/Replace" dialog
-// Enter "test_test" in the Find edit line and check if the underscore is 
+// Enter "test_test" in the Find edit line and check if the underscore is
 // correctly displayed
 //

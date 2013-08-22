@@ -15,5 +15,5 @@
 // <-- Short Description -->
 //    strindex('aaba','aa') return [1 4] instead of [1]
 
-if strindex('aaba','aa') <> 1 then pause, end
-if strindex('aabaaa','aa') <> [1 4 5] then pause, end
+if strindex("aaba","aa") <> 1 then pause, end
+if strindex("aabaaa","aa") <> [1 4 5] then pause, end

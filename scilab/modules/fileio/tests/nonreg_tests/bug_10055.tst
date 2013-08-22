@@ -20,10 +20,10 @@
 x = "保存";
 targetDir=TMPDIR+"/sub/";
 mkdir(targetDir);
-p = targetDir + 'foo';
-fd = mopen(p,'wt');
-p2 = targetDir + 'foo.2';
-fd2 = mopen(p2,'wt');
+p = targetDir + "foo";
+fd = mopen(p,"wt");
+p2 = targetDir + "foo.2";
+fd2 = mopen(p2,"wt");
 cd(targetDir);
 assert_checkequal(mputl(p, fd), %T);
 assert_checkequal(mputl(p, fd2), %T);

@@ -13,8 +13,8 @@
 // <-- Short Description -->
 // wavread failed to load some .wav files with error 44
 
-filename = SCI + '/modules/sound/tests/nonreg_tests/bug_7161.wav';
-ierr = execstr('[Ip, Fs, bits] = wavread(filename);', 'errcatch');
+filename = SCI + "/modules/sound/tests/nonreg_tests/bug_7161.wav";
+ierr = execstr("[Ip, Fs, bits] = wavread(filename);", "errcatch");
 if ierr <> 0 then pause, end
 sIp = size(Ip);
 if sIp(1) <> 1 then pause, end

@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2873
 //
 // <-- Short Description -->
-//    Use of getd() on the command line for a directory which contains a function named the same 
+//    Use of getd() on the command line for a directory which contains a function named the same
 //    as a permanent variable causes Scilab to stop responding to any input (on the command line or UI in general).
 //    The Scilab executable must be forced to close from tas
 

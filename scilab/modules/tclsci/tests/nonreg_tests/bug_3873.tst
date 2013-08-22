@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // While editing ticks'label on Axes, mouse click outside box or double clicks or using Tab key, program terminates.
-// 
+//
 
 plot2d;
 fig = gcf();

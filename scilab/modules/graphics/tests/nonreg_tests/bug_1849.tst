@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // The field line_mode of handle Legend does not work.
-// 
+//
 
 // plot something
 plot(1:10);

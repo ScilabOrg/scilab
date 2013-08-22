@@ -18,8 +18,8 @@
 
 
 // build toolbox_skeleton
-exec('SCI/contrib/toolbox_skeleton/builder.sce');
+exec("SCI/contrib/toolbox_skeleton/builder.sce");
 
 // check that tests are 'passed'
-test_run('SCI/contrib/toolbox_skeleton')
+test_run("SCI/contrib/toolbox_skeleton")
 

@@ -15,12 +15,12 @@
 // <-- INTERACTIVE TEST -->
 
 function ok = test ();
-  ok = %F;
-  abort;  // crashes Scilab 3.1 but stops running Scilab 
-  // never go here
-  3.0
-  ok = %T;
-endfunction;  
+    ok = %F;
+    abort;  // crashes Scilab 3.1 but stops running Scilab
+    // never go here
+    3.0
+    ok = %T;
+endfunction;
 
 test()
 

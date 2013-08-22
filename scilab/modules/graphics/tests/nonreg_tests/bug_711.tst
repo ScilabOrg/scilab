@@ -21,8 +21,8 @@ pos = initPos;
 
 // window should not move
 for k=1:10,
-  xset('wpos', pos);
-  pos = xget('wpos');
+    xset("wpos", pos);
+    pos = xget("wpos");
 end
 if (pos <> initPos) then pause; end;
 
@@ -31,8 +31,8 @@ pos = initPos;
 
 f=gcf();
 for k=1:10,
-  f.figure_position=pos;
-  pos = f.figure_position;
+    f.figure_position=pos;
+    pos = f.figure_position;
 end
 if (pos <> initPos) then pause; end;
 

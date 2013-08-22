@@ -16,9 +16,9 @@
 // <-- Short Description -->
 // Bad colorization of the comments after a command without parenthesis.
 
-tmpfile = TMPDIR+'/bug_8056.sci';
-fd = mopen(tmpfile,'wt');
-mputl('cd ""directory"" /abc //comment',fd);
+tmpfile = TMPDIR+"/bug_8056.sci";
+fd = mopen(tmpfile,"wt");
+mputl("cd ""directory"" /abc //comment",fd);
 mclose(fd);
 editor(tmpfile)
 

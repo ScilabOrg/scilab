@@ -18,13 +18,13 @@ assert_checkequal(string(10*log10(1/10)),"-10");
 
 N=[0.000001 0.001 0.1 1 10 100 10000 1000000];
 Ns=["0.000001" "0.001" "0.1","1","10","100","10000","1000000"] ;
-for k=1:size(N,'*')
-  n=N(k);
-  E=n*[0.5:0.01:3]*%eps;
-  for e=E
-    assert_checkequal(string(n+e),Ns(k));
-  end  
-  for e=E
-    assert_checkequal(string(-n+e),"-"+Ns(k));
-  end
+for k=1:size(N,"*")
+    n=N(k);
+    E=n*[0.5:0.01:3]*%eps;
+    for e=E
+        assert_checkequal(string(n+e),Ns(k));
+    end
+    for e=E
+        assert_checkequal(string(-n+e),"-"+Ns(k));
+    end
 end

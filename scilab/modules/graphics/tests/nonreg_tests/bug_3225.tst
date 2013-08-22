@@ -12,9 +12,9 @@
 //
 // <-- Short Description -->
 // The "symbol" font (number 1) is broken
-// 
+//
 
-xstring(0.2,0.2,['abcdefghijklmnopqrstuvwxyz';'ABCDEFGHIJKLMNOPQRSTUVWXYZ']);
+xstring(0.2,0.2,["abcdefghijklmnopqrstuvwxyz";"ABCDEFGHIJKLMNOPQRSTUVWXYZ"]);
 e=gce();
 e.font_style=1;
 

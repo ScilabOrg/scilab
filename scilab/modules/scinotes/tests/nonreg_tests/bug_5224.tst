@@ -20,8 +20,8 @@ editor()
 
 // write the 3 following line :
 
-//Eminuit autem inter humilia 
-//  supergressa iam impotentia 
+//Eminuit autem inter humilia
+//  supergressa iam impotentia
 //  fines mediocrium delictorum
 
 // Select line the whole line 2 & 3

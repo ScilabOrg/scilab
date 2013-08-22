@@ -8,9 +8,9 @@
 // =============================================================================
 // Unitary tests for mgetl function
 //==============================================================================
-if mgetl('SCI/etc/scilab.start', 0) <> [] then pause,end
+if mgetl("SCI/etc/scilab.start", 0) <> [] then pause,end
 //==============================================================================
-fd = mopen('SCI/etc/scilab.start', 'rt');
+fd = mopen("SCI/etc/scilab.start", "rt");
 if mgetl(fd, 0) <> [] then pause,end
 mclose(fd);
 //==============================================================================
@@ -56,21 +56,21 @@ txt = mgetl("SCI/modules/fileio/tests/unit_tests/text.txt");
 if and(size(txt) <> [6 1]) then pause,end
 //==============================================================================
 // creates a file with some differents end of line
-ref = ['A text with different end of line';
-'text with LF:';
-'text with CRLF:';
-'text no EOL.'];
+ref = ["A text with different end of line";
+"text with LF:";
+"text with CRLF:";
+"text no EOL."];
 
-CR = '\r';
-LF = '\n';
+CR = "\r";
+LF = "\n";
 
-fd = mopen(TMPDIR + '/mgetl_text_tst.txt', 'wt');
+fd = mopen(TMPDIR + "/mgetl_text_tst.txt", "wt");
 mfprintf(fd, ref(1) + CR + LF);
 mfprintf(fd, ref(2) + LF);
 mfprintf(fd, ref(3) + CR + LF);
 mfprintf(fd, ref(4));
 mclose(fd);
-r = mgetl(TMPDIR + '/mgetl_text_tst.txt');
+r = mgetl(TMPDIR + "/mgetl_text_tst.txt");
 if ~and(r == ref) then pause,end
 //==============================================================================
 txt = mgetl("SCI/modules/fileio/tests/unit_tests/text-UTF8BOM.txt");
@@ -79,12 +79,12 @@ r = "Scilab is a numerical computational package developed since 1990 by researc
 if r <> txt(1) then pause, end
 
 
-file_1 = TMPDIR+'/test_binary_1.bin';
-fid = mopen(file_1,'wb');
-mput(1996,'l');
-mputstr('Scilab');
+file_1 = TMPDIR+"/test_binary_1.bin";
+fid = mopen(file_1,"wb");
+mput(1996,"l");
+mputstr("Scilab");
 mclose(fid);
-fid = mopen(file_1,'rb');
-assert_checkequal(mget(1,'l'),1996);
+fid = mopen(file_1,"rb");
+assert_checkequal(mget(1,"l"),1996);
 assert_checkequal(mgetstr(6),"Scilab");
 mclose(fid);

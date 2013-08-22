@@ -14,10 +14,10 @@
 //
 // <-- Short Description -->
 // plot3d() => seg fault, occurs rarely.
-// 
+//
 
 for i=1:100,
-  plot3d();
+    plot3d();
 end
 
 // should not crash

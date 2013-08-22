@@ -7,17 +7,17 @@
 
 // <-- CLI SHELL MODE -->
 
-cd('SCI/etc');
+cd("SCI/etc");
 f1 = findfiles();
-f2 = findfiles(SCI+'/etc');
+f2 = findfiles(SCI+"/etc");
 if f1 <> f2 then pause,end
 // =============================================================================
-f3 = findfiles(SCI+'/etc','*.start');
-if f3 <> 'scilab.start' then pause,end
+f3 = findfiles(SCI+"/etc","*.start");
+if f3 <> "scilab.start" then pause,end
 // =============================================================================
 f = findfiles();
 f = findfiles(SCI);
-if size(f,'*') == [] then pause,end
-f = findfiles(SCI+'/modules/core/macros','*.sci');
-if size(f,'*') == [] then pause,end
+if size(f,"*") == [] then pause,end
+f = findfiles(SCI+"/modules/core/macros","*.sci");
+if size(f,"*") == [] then pause,end
 // =============================================================================

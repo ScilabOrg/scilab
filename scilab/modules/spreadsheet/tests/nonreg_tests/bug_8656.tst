@@ -4,7 +4,7 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-// 
+//
 // <-- JAVA NOT MANDATORY -->
 //
 // <-- Non-regression test for bug 8656 -->
@@ -16,7 +16,7 @@
 // Lost of precision
 //
 A = [1.01234567891234567,1.01234567891234567];
-filename=fullfile(TMPDIR,'data.csv');
+filename=fullfile(TMPDIR,"data.csv");
 csvWrite(A,filename,",",".");
 resString=mgetl(filename);
 assert_checkequal(A,evstr(resString));

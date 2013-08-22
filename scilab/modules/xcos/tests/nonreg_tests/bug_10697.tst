@@ -20,7 +20,7 @@ assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/demos/batch_simulation.z
 // define a dummy post_xcos_simulate
 clear post_xcos_simulate
 function post_xcos_simulate(%cpr, scs_m, needcompile)
-	disp("post_xcos_simulate")
+    disp("post_xcos_simulate")
 endfunction
 
 // simulate

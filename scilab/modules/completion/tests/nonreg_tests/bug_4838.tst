@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=4838
 //
 // <-- Short Description -->
-// completion returns wrong value with '..' 
+// completion returns wrong value with '..'
 // cd SCI/modules
 // cd ../et[tab]
 
@@ -24,6 +24,6 @@ ierr = exec(TMPDIR + "/completion/loader.sce","errcatch",-1);
 if ierr<>0 then pause, end
 
 
-currentline = 'cd ../et';
-r = completeline(currentline,'etc/',getfilepartlevel(currentline),getpartlevel(currentline),%t);
-if r <> 'cd ../etc/' then pause,end
+currentline = "cd ../et";
+r = completeline(currentline,"etc/",getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> "cd ../etc/" then pause,end

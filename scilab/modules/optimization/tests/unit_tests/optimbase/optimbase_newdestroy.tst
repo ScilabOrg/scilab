@@ -11,12 +11,12 @@
 // <-- CLI SHELL MODE -->
 
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 //
 // myoutputcmd --
-//  This command is called back by the Optimization 
+//  This command is called back by the Optimization
 //  algorithm.
 // Arguments
 //  state : the current state of the algorithm
@@ -30,14 +30,14 @@ endfunction
 // stop : set to %f to interrupt algorithm
 //
 function stop = myoutputcmd ( state , data )
-  global _OUTPUCMDFLAG_
-  // Unload the array, just to make sure that the minimum is there
-  iter = data.iteration
-  fc = data.funccount
-  fval = data.fval
-  x = data.x
-  _OUTPUCMDFLAG_ = 1
-  stop = %f
+    global _OUTPUCMDFLAG_
+    // Unload the array, just to make sure that the minimum is there
+    iter = data.iteration
+    fc = data.funccount
+    fval = data.fval
+    x = data.x
+    _OUTPUCMDFLAG_ = 1
+    stop = %f
 endfunction
 
 global _OUTPUCMDFLAG_
@@ -45,7 +45,7 @@ _OUTPUCMDFLAG_ = 0
 
 //
 // myoutputcmd2 --
-//  This command is called back by the Optimization 
+//  This command is called back by the Optimization
 //  algorithm.
 // Arguments
 //  state : the current state of the algorithm
@@ -60,14 +60,14 @@ _OUTPUCMDFLAG_ = 0
 // stop : set to %f to interrupt algorithm
 //
 function stop = myoutputcmd2 ( state , data , myobj )
-  global _OUTPUCMDFLAG_
-  // Unload the array, just to make sure that the minimum is there
-  iter = data.iteration
-  fc   = data.funccount
-  fval = data.fval
-  x    = data.x
-  _OUTPUCMDFLAG_ = myobj.myarg
-  stop = %f
+    global _OUTPUCMDFLAG_
+    // Unload the array, just to make sure that the minimum is there
+    iter = data.iteration
+    fc   = data.funccount
+    fval = data.fval
+    x    = data.x
+    _OUTPUCMDFLAG_ = myobj.myarg
+    stop = %f
 endfunction
 
 
@@ -84,8 +84,8 @@ myobj.myarg = 12;
 // and whatever variable name can be used.
 //
 function [ y , index ] = rosenbrock2 ( x , index , mydata )
-  a = mydata.a
-  y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
+    a = mydata.a
+    y = 100*(x(2)-x(1)^2)^2 + ( a - x(1))^2;
 endfunction
 
 //
@@ -165,8 +165,8 @@ opt = optimbase_configure(opt,"-verbosetermination",0);
 opt = optimbase_configure(opt,"-outputcommand",myoutputcmd);
 brutedata = optimbase_outstruct ( opt );
 mydata = tlist(["T_MYDATA",...
-      "x","fval","iteration","funccount",...
-      "myspecialdata"]);
+"x","fval","iteration","funccount",...
+"myspecialdata"]);
 mydata.x = brutedata.x;
 mydata.fval = brutedata.fval;
 mydata.iteration = brutedata.iteration;
@@ -178,8 +178,8 @@ assert_checkequal ( _OUTPUCMDFLAG_ , 1 );
 opt = optimbase_configure(opt,"-outputcommand",list(myoutputcmd2,myobj));
 brutedata = optimbase_outstruct ( opt );
 mydata = tlist(["T_MYDATA",...
-      "x","fval","iteration","funccount",...
-      "myspecialdata"]);
+"x","fval","iteration","funccount",...
+"myspecialdata"]);
 mydata.x = brutedata.x;
 mydata.fval = brutedata.fval;
 mydata.iteration = brutedata.iteration;
@@ -260,7 +260,7 @@ assert_checkerror(cmd,"%s: Unknown key %s",[],"optimbase_get" , "foo");
 opt = optimbase_destroy(opt);
 
 //
-// Test various errors 
+// Test various errors
 //
 opt = optimbase_new ();
 // Test -historyxopt when there is no history

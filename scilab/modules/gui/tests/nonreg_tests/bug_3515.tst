@@ -17,14 +17,14 @@
 // Submenus seems shifted by 1 in Scilab 5.0.1, besides doing an "out of bounds" setmenu causes a stack problem, see below.
 
 addmenu("Hello",["Franck";"Peter"])
-unsetmenu("Hello", -1); // Bad index 
-unsetmenu("Hello", 0); // Bad index 
+unsetmenu("Hello", -1); // Bad index
+unsetmenu("Hello", 0); // Bad index
 unsetmenu("Hello", 1); // Franck
 unsetmenu("Hello", 2); // Peter
 unsetmenu("Hello", 3); // Bad index
 
-setmenu("Hello", -1); // Bad index 
-setmenu("Hello", 0); // Bad index 
+setmenu("Hello", -1); // Bad index
+setmenu("Hello", 0); // Bad index
 setmenu("Hello", 1); // Franck
 setmenu("Hello", 2); // Peter
-setmenu("Hello", 3); // Bad index 
+setmenu("Hello", 3); // Bad index

@@ -15,5 +15,5 @@
 my_matrix(1, :) = [4, 5, 6];
 my_list = list(1, 2, 3);
 
-if execstr('my_matrix(1)=mylist','errcatch')==0 then pause,end;
-if execstr('my_matrix(1,:)=mylist','errcatch')==0 then pause,end;
+if execstr("my_matrix(1)=mylist","errcatch")==0 then pause,end;
+if execstr("my_matrix(1,:)=mylist","errcatch")==0 then pause,end;

@@ -19,8 +19,8 @@ winId=waitbar("This is an example");
 realtimeinit(0.3);
 
 for j=0:0.1:1,
-  realtime(3*j);
-  waitbar(j,winId);
+    realtime(3*j);
+    waitbar(j,winId);
 end
 
 delete(winId);

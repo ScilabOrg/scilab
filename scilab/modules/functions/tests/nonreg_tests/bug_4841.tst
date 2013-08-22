@@ -16,11 +16,11 @@
 // functions created by 'getd' were unknown to scilab.
 
 cd TMPDIR;
-mkdir('bug_2807');
-txt = ['function bug_2807()';
-       'endfunction'];
-mputl(txt, TMPDIR + '/bug_2807/bug_2807.sci');
+mkdir("bug_2807");
+txt = ["function bug_2807()";
+"endfunction"];
+mputl(txt, TMPDIR + "/bug_2807/bug_2807.sci");
 cd(SCI);
-getd(TMPDIR + '/bug_2807');
+getd(TMPDIR + "/bug_2807");
 v = getvariablesonstack();
-if grep(v,'bug_2807') == [] then pause, end
+if grep(v,"bug_2807") == [] then pause, end

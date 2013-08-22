@@ -24,16 +24,16 @@ A=1:10;
 //create the *.bin files in libdir
 libdir=TMPDIR;
 warning("off");
-save(libdir + '/myplus.bin', myplus);
-save(libdir + '/yourplus.bin', yourplus);
-save(libdir + '/A.bin', A);
+save(libdir + "/myplus.bin", myplus);
+save(libdir + "/yourplus.bin", yourplus);
+save(libdir + "/A.bin", A);
 
 //create the name file
-mputl(['myplus';'yourplus';'A'],TMPDIR+'/names');
+mputl(["myplus";"yourplus";"A"],TMPDIR+"/names");
 
 //build the library containing myplus and yourplus
-ierr = execstr('mylib = lib(libdir)','errcatch');
+ierr = execstr("mylib = lib(libdir)","errcatch");
 if ierr <> 0 then pause,end
 
-ierr = execstr('mylib = lib(libdir+filesep())','errcatch');
+ierr = execstr("mylib = lib(libdir+filesep())","errcatch");
 if ierr <> 0 then pause,end

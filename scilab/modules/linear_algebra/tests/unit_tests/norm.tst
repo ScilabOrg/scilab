@@ -11,7 +11,7 @@
 eps=100*%eps;
 
 
-// inf 
+// inf
 assert_checkequal ( norm([1,2,3,-1,-2,-3],0) , %inf );
 assert_checkequal ( norm([1,2,3,-1,-2,-3],%nan) , %nan );
 assert_checkequal ( norm([]) , 0 );
@@ -24,52 +24,52 @@ p=0.5;
 assert_checkalmostequal ( norm(x,p) , sum(abs(x).^p).^(1/p)       , eps );
 p=2.5;
 assert_checkalmostequal ( norm(x,p) ,     sum(abs(x).^p).^(1/p)   , eps );
-assert_checkalmostequal ( norm(x,'inf') , max(abs(x))           , eps );
-assert_checkalmostequal ( norm(x,'inf') , norm(x,%inf)          , eps );
-assert_checkalmostequal ( norm(x,'fro') , norm(x,2)             , eps );
-// complex 
+assert_checkalmostequal ( norm(x,"inf") , max(abs(x))           , eps );
+assert_checkalmostequal ( norm(x,"inf") , norm(x,%inf)          , eps );
+assert_checkalmostequal ( norm(x,"fro") , norm(x,2)             , eps );
+// complex
 x=x+%i*x;
 assert_checkalmostequal ( norm(x,1) , sum(abs(x))               , eps );
 assert_checkalmostequal ( norm(x,2) , sqrt(sum(abs(x).*abs(x))) , eps );
 assert_checkalmostequal ( norm(x,2) , norm(x)                   , eps );
 p=0.5;
-// 100*%eps is needed for linux 
+// 100*%eps is needed for linux
 assert_checkalmostequal ( norm(x,p) , max(abs(x))*sum((abs(x)/max(abs(x))).^p).^(1/p) , 100*%eps );
 p=2.5;
 assert_checkalmostequal ( norm(x,p) , max(abs(x))*sum((abs(x)/max(abs(x))).^p).^(1/p) , 100*%eps );
-assert_checkalmostequal ( norm(x,'inf') , max(abs(x))   , 100*%eps);
-assert_checkalmostequal ( norm(x,'inf') , norm(x,%inf)  , 100*%eps);
+assert_checkalmostequal ( norm(x,"inf") , max(abs(x))   , 100*%eps);
+assert_checkalmostequal ( norm(x,"inf") , norm(x,%inf)  , 100*%eps);
 // The Frobenius norm of this complex input x can be numerically complex,
 // e.g. 7.7459667 - 1.147D-16i
 // see http://bugzilla.scilab.org/show_bug.cgi?id=9204
 // assert_checkalmostequal ( norm(x,'fro') , norm(x,2)     , 100*%eps  , %eps );
 
-// scalar 
+// scalar
 
 x=[1.23];
 assert_checkalmostequal ( norm(x,1) , sum(abs(x))               , 100*%eps );
 assert_checkalmostequal ( norm(x,2) , sqrt(sum(abs(x).*abs(x))) , 100*%eps );
-assert_checkalmostequal ( norm(x,2) , norm(x)                   , 100*%eps ); 
+assert_checkalmostequal ( norm(x,2) , norm(x)                   , 100*%eps );
 p=0.5;
 assert_checkalmostequal ( norm(x,p) , sum(abs(x)^p)^(1/p) ,  100*%eps );
 p=2.5;
 assert_checkalmostequal ( norm(x,p) ,     sum(abs(x)^p)^(1/p) , 100*%eps );
-assert_checkalmostequal ( norm(x,'inf') , max(abs(x))         , 100*%eps);
-assert_checkalmostequal ( norm(x,'inf') , norm(x,%inf)        , 100*%eps );
-assert_checkalmostequal ( norm(x,'fro') , norm(x,2)           , 100*%eps );
+assert_checkalmostequal ( norm(x,"inf") , max(abs(x))         , 100*%eps);
+assert_checkalmostequal ( norm(x,"inf") , norm(x,%inf)        , 100*%eps );
+assert_checkalmostequal ( norm(x,"fro") , norm(x,2)           , 100*%eps );
 
-// Matrices 
-a=rand(10,10,'g');
-assert_checkalmostequal ( norm(a,1) , max(sum(abs(a),'r')),                100*%eps );
-assert_checkalmostequal ( norm(a,'inf') , max(sum(abs(a),'c')),            100*%eps );
-assert_checkalmostequal ( norm(a,%inf) , max(sum(abs(a),'c')),             100*%eps );
+// Matrices
+a=rand(10,10,"g");
+assert_checkalmostequal ( norm(a,1) , max(sum(abs(a),"r")),                100*%eps );
+assert_checkalmostequal ( norm(a,"inf") , max(sum(abs(a),"c")),            100*%eps );
+assert_checkalmostequal ( norm(a,%inf) , max(sum(abs(a),"c")),             100*%eps );
 assert_checkalmostequal ( norm(a,2) , max(svd(a)),                         100*%eps );
-assert_checkalmostequal ( norm(a,'fro') , norm(matrix(a,1,size(a,'*')),2), 100*%eps );
+assert_checkalmostequal ( norm(a,"fro") , norm(matrix(a,1,size(a,"*")),2), 100*%eps );
 
 a=a+%i*a;
-assert_checkalmostequal ( norm(a,1) , max(sum(abs(a),'r')),                100*%eps );
-assert_checkalmostequal ( norm(a,'inf') , max(sum(abs(a),'c')),            100*%eps );
-assert_checkalmostequal ( norm(a,%inf) , max(sum(abs(a),'c')),             100*%eps );
+assert_checkalmostequal ( norm(a,1) , max(sum(abs(a),"r")),                100*%eps );
+assert_checkalmostequal ( norm(a,"inf") , max(sum(abs(a),"c")),            100*%eps );
+assert_checkalmostequal ( norm(a,%inf) , max(sum(abs(a),"c")),             100*%eps );
 assert_checkalmostequal ( norm(a,2) , max(svd(a)),                         100*%eps );
 // see http://bugzilla.scilab.org/show_bug.cgi?id=9204
 // assert_checkalmostequal ( norm(a,'fro') , norm(matrix(a,1,size(a,'*')),2), 100*%eps );

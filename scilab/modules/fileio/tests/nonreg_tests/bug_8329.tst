@@ -17,6 +17,6 @@
 //
 
 for i = 1:100
-  ierr = execstr("v = fscanfMat(""SCI/modules/fileio/tests/nonreg_tests/bug_8329.txt"");", "errcatch");
-  if ierr <> 0 then pause, end
+    ierr = execstr("v = fscanfMat(""SCI/modules/fileio/tests/nonreg_tests/bug_8329.txt"");", "errcatch");
+    if ierr <> 0 then pause, end
 end

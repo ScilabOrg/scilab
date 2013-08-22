@@ -19,4 +19,4 @@
 mkdir(TMPDIR+"/bug_2636");
 mputl("test",TMPDIR+"/bug_2636.txt");
 copyfile(TMPDIR+"/bug_2636.txt",TMPDIR+"/bug_2636/bug_2636.txt");
-if mgetl(TMPDIR+"/bug_2636/bug_2636.txt") <> 'test' then pause,end
+if mgetl(TMPDIR+"/bug_2636/bug_2636.txt") <> "test" then pause,end

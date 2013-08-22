@@ -30,31 +30,31 @@ if getmd5(A,"string") <> "d4b8e88a8b72f9ce207063d7b0a17787" then pause, end
 // Test 4
 // =============================================================================
 
-A = [ 'abcd' 'efgh' ; 'ijkl' 'mnop' ];
-B = [ 'e2fc714c4727ee9395f324cd2e7f331f' '1f7690ebdd9b4caf8fab49ca1757bf27' ; ..
-      '09a0877d04abf8759f99adec02baf579' 'e132e96a5ddad6da8b07bba6f6131fef' ];
+A = [ "abcd" "efgh" ; "ijkl" "mnop" ];
+B = [ "e2fc714c4727ee9395f324cd2e7f331f" "1f7690ebdd9b4caf8fab49ca1757bf27" ; ..
+"09a0877d04abf8759f99adec02baf579" "e132e96a5ddad6da8b07bba6f6131fef" ];
 
 if getmd5(A,"string") <> B then pause, end
 
 // Test 5
 // =============================================================================
 
-A = [ 'abcd' 'efgh' 'ijkl' 'mnop' ];
-B = [ 'e2fc714c4727ee9395f324cd2e7f331f' '1f7690ebdd9b4caf8fab49ca1757bf27' ..
-      '09a0877d04abf8759f99adec02baf579' 'e132e96a5ddad6da8b07bba6f6131fef' ];
+A = [ "abcd" "efgh" "ijkl" "mnop" ];
+B = [ "e2fc714c4727ee9395f324cd2e7f331f" "1f7690ebdd9b4caf8fab49ca1757bf27" ..
+"09a0877d04abf8759f99adec02baf579" "e132e96a5ddad6da8b07bba6f6131fef" ];
 
 if getmd5(A,"string") <> B then pause, end
 
 // Test 6
 // =============================================================================
 
-A = [ 'abcd' ; 'efgh' ; 'ijkl' ; 'mnop' ];
-B = [ 'e2fc714c4727ee9395f324cd2e7f331f' ; '1f7690ebdd9b4caf8fab49ca1757bf27' ; ..
-      '09a0877d04abf8759f99adec02baf579' ; 'e132e96a5ddad6da8b07bba6f6131fef' ];
+A = [ "abcd" ; "efgh" ; "ijkl" ; "mnop" ];
+B = [ "e2fc714c4727ee9395f324cd2e7f331f" ; "1f7690ebdd9b4caf8fab49ca1757bf27" ; ..
+"09a0877d04abf8759f99adec02baf579" ; "e132e96a5ddad6da8b07bba6f6131fef" ];
 
 if getmd5(A,"string") <> B then pause, end
 
 // Test 7
 // =============================================================================
 
-if or(size(getmd5( SCI+'/modules/core/etc/'+['core.start' 'core.quit'])) <> [1 2]) then pause, end
+if or(size(getmd5( SCI+"/modules/core/etc/"+["core.start" "core.quit"])) <> [1 2]) then pause, end

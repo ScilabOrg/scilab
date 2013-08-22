@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1479
 //
 // <-- Short Description -->
-// The procedure xset ("line mode") and the function xget ("line mode") do 
+// The procedure xset ("line mode") and the function xget ("line mode") do
 // not work correctly
 
 hf = scf ();
@@ -38,7 +38,7 @@ xset ("line mode", 1);
 if ( ha.line_mode <> "on") then pause; end;
 xset ("line mode", 0);
 if (ha.line_mode <> "off") then pause; end;
-delete (hf);                  
+delete (hf);
 
 
 

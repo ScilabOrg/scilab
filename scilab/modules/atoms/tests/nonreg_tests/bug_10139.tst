@@ -18,7 +18,7 @@
 
 // Install a module
 
-atomsInstall('apifun')
-atomsTest('apifun')
-atomsTest('apifun', 'checkreal')
-atomsTest('apifun', ['checkreal', 'complete'])
+atomsInstall("apifun")
+atomsTest("apifun")
+atomsTest("apifun", "checkreal")
+atomsTest("apifun", ["checkreal", "complete"])

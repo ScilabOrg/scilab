@@ -14,14 +14,14 @@
 
 
 function m=saisieParBandes(lig,col,titre)
-	nl=max(size(lig));
-	nc=max(size(col));
-	mat=zeros(nl,nc);
-	m=x_mdialog(titre,string(lig),string(col),string(mat));
-	m=evstr(m);
+    nl=max(size(lig));
+    nc=max(size(col));
+    mat=zeros(nl,nc);
+    m=x_mdialog(titre,string(lig),string(col),string(mat));
+    m=evstr(m);
 endfunction
 
-r = saisieParBandes(['100Hz';'125Hz';'160Hz'],['Lp(dB)';'T(s)'],'essai');
+r = saisieParBandes(["100Hz";"125Hz";"160Hz"],["Lp(dB)";"T(s)"],"essai");
 
 if and(r<>0) then pause,end
 

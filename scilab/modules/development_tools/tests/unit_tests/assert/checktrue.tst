@@ -11,20 +11,20 @@
 // <-- ENGLISH IMPOSED -->
 
 function flag = MY_assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
+    if computed==expected then
+        flag = 1;
+    else
+        flag = 0;
+    end
+    if flag <> 1 then pause,end
 endfunction
 
 function checkassert ( flag , errmsg , ctype )
-  if ( ctype == "success" ) then
-    MY_assert_equal ( (flag==%t) & (errmsg==""), %t )
-  else
-    MY_assert_equal ( (flag==%f) & (errmsg<>""), %t )
-  end
+    if ( ctype == "success" ) then
+        MY_assert_equal ( (flag==%t) & (errmsg==""), %t )
+    else
+        MY_assert_equal ( (flag==%f) & (errmsg<>""), %t )
+    end
 endfunction
 
 format("v",10);

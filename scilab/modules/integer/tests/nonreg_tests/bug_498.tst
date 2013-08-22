@@ -20,17 +20,17 @@
 //    Commands:  --min(2,uint16(1))  >//WRONG
 //     ans  =
 //
-//        2.  
+//        2.
 //
 //    -->min(2,int16(1)) //OK
 //     ans  =
 //
-//        1.  
+//        1.
 //
 //    -->min(2,int8(1))   //OK
 //     ans  =
 //
-//        1.  
+//        1.
 // ...
 
 if min(2,uint16(1))   <>    1.  then pause,end

@@ -14,7 +14,7 @@
 //
 // <-- Short Description -->
 // move called with an already deleted handle crashes Scilab.
-// 
+//
 
 xpoly(1,1);
 point = gce();

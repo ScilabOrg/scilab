@@ -188,11 +188,11 @@ assert_checkequal ( csvStringToDouble("-1*%i") , complex(0,-1) );
 assert_checkequal ( csvStringToDouble("3e2 + 2e3*%i") , complex(300, 2000) );
 assert_checkequal ( csvStringToDouble("3e2 - 2e3*%i") , complex(300, -2000) );
 // =============================================================================
-assert_checkequal ( csvStringToDouble('a'), %nan );
-assert_checkequal ( csvStringToDouble('e'), %nan );
-assert_checkequal ( csvStringToDouble('d'), %nan );
-assert_checkequal ( csvStringToDouble('E'), %nan );
-assert_checkequal ( csvStringToDouble('e'), %nan );
+assert_checkequal ( csvStringToDouble("a"), %nan );
+assert_checkequal ( csvStringToDouble("e"), %nan );
+assert_checkequal ( csvStringToDouble("d"), %nan );
+assert_checkequal ( csvStringToDouble("E"), %nan );
+assert_checkequal ( csvStringToDouble("e"), %nan );
 // =============================================================================
 assert_checkequal ( csvStringToDouble("%pi") , %pi );
 assert_checkequal ( csvStringToDouble("-%pi") , -%pi );

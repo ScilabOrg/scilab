@@ -26,8 +26,8 @@ if (e.mark_mode <> "off") then pause, end;
 
 s = size(e.data);
 
-if (s(1) <> size(x, '*')) then pause, end;
-if (s(1) <> size(y, '*')) then pause, end;
+if (s(1) <> size(x, "*")) then pause, end;
+if (s(1) <> size(y, "*")) then pause, end;
 
 // 2 columns expected [x, y]
 if (s(2) <> 2) then pause, end;
@@ -42,8 +42,8 @@ e.data = [x', y'];
 
 s = size(e.data);
 
-if (s(1) <> size(x, '*')) then pause, end;
-if (s(1) <> size(y, '*')) then pause, end;
+if (s(1) <> size(x, "*")) then pause, end;
+if (s(1) <> size(y, "*")) then pause, end;
 
 // Z coordinates added
 z = linspace(0, 1, 2000);
@@ -55,9 +55,9 @@ s = size(e.data);
 // 3 columns expected [x, y, z]
 if (s(2) <> 3) then pause, end;
 
-if (s(1) <> size(x, '*')) then pause, end;
-if (s(1) <> size(y, '*')) then pause, end;
-if (s(1) <> size(z, '*')) then pause, end;
+if (s(1) <> size(x, "*")) then pause, end;
+if (s(1) <> size(y, "*")) then pause, end;
+if (s(1) <> size(z, "*")) then pause, end;
 
 // Deletes the data
 e.data = [];

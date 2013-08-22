@@ -14,14 +14,14 @@
 assert_checktrue(isempty([]));
 
 // character string
-assert_checktrue(isempty(''));
+assert_checktrue(isempty(""));
 
 // matrix of character string
-assert_checktrue(isempty([ '' , '' ; '' , '' ]));
-assert_checkfalse(isempty([ ' ' , '' ; '' , '' ]));
+assert_checktrue(isempty([ "" , "" ; "" , "" ]));
+assert_checkfalse(isempty([ " " , "" ; "" , "" ]));
 
 // empty list
 assert_checktrue(isempty(list()));
 
 // mlist is never empty
-assert_checkfalse(isempty(mlist('')));
+assert_checkfalse(isempty(mlist("")));

@@ -19,7 +19,7 @@
 A = [ 0.75+%i*0.6,0;0, 0.75-%i*0.6];
 B = [ 0.2-%i*0.45; 0.2+%i*0.45];
 C = [-0.04+%i*0.1,-0.04-%i*0.1];
-Sys =syslin('d',A,B,C,0);
+Sys =syslin("d",A,B,C,0);
 H = ss2tf(Sys);
 if norm(coeff((H.num-(-0.1011+0.074*%z))))>10*%eps then pause,end
 if norm(coeff((H.den-(0.9225-1.5*%z+%z^2))))>10*%eps then pause,end

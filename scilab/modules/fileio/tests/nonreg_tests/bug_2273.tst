@@ -17,8 +17,8 @@
 
 // creates a UNC path example \\MON-PC\TEST-UNC-PATH
 // launch scilab from this UNC path
-cd '\\MON-PC\TEST-UNC-PATH'
+cd "\\MON-PC\TEST-UNC-PATH"
 pwd
 cd SCI
 cd WSCI
-chdir '\\MON-PC\TEST-UNC-PATH'
+chdir "\\MON-PC\TEST-UNC-PATH"

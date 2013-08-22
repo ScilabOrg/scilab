@@ -17,11 +17,11 @@
 // atomsInstall required a network connection to install a local package.
 
 // download a module on hard drive
-// disable your network connection 
+// disable your network connection
 
-// disable your network connection 
-atomsSetConfig('offline', 'True')
+// disable your network connection
+atomsSetConfig("offline", "True")
 
 // be sure that you have no internet connection
-atomsInstall('~/grocer_1.52-1.bin.zip')
+atomsInstall("~/grocer_1.52-1.bin.zip")
 

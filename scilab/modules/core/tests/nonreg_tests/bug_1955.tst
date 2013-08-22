@@ -11,7 +11,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1955
 //
 // <-- Short Description -->
-//    Reshaping global hypermatrices is problematic, as demonstrated by the 
+//    Reshaping global hypermatrices is problematic, as demonstrated by the
 //    attached file 'bug.sci', which contains further comments.
 
 global ghm

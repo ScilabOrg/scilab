@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // if x axis is in log mode the x_ticks labels are not well placed (too high)
 
-subplot(212),plot([0.01,100],[1,10]);a=gca();a.log_flags='lnn';
+subplot(212),plot([0.01,100],[1,10]);a=gca();a.log_flags="lnn";
 
 // check that the ticks are below the axis
 

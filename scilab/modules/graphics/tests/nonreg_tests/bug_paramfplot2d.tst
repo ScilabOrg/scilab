@@ -13,7 +13,7 @@
 // <-- Short Description -->
 // paramfplot2d was failing with theta
 
-deff('y=f(x,t)','y=t*sin(x)');
+deff("y=f(x,t)","y=t*sin(x)");
 x=linspace(0,2*%pi,50);
 theta=0:0.05:1;
 clf;paramfplot2d(f,x,theta.');

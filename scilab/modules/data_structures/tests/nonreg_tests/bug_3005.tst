@@ -12,7 +12,7 @@
 //
 // <-- Short Description -->
 //can't modify a hypermatrix stored into a list.
-a = list(33,ones(2,2,2)); 
-if execstr('a(2)(2,2,2) = 3','errcatch')<>0 then pause,end
- 
- 
+a = list(33,ones(2,2,2));
+if execstr("a(2)(2,2,2) = 3","errcatch")<>0 then pause,end
+
+

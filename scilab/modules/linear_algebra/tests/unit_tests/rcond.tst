@@ -5,18 +5,18 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function r=Err(x),r=norm(x,1),endfunction
-rand('normal')
+rand("normal")
 
 //==========================================================================
-//==============================    rcond     ============================== 
+//==============================    rcond     ==============================
 //==========================================================================
 //Empty matrix
 A=[];
 if rcond(A)<>[] then pause,end
 
 //Rectangular matrix
-if execstr('rcond(rand(2,3))','errcatch')==0 then pause,end
-if execstr('rcond(rand(2,3)+%i*eye())','errcatch')==0 then pause,end
+if execstr("rcond(rand(2,3))","errcatch")==0 then pause,end
+if execstr("rcond(rand(2,3)+%i*eye())","errcatch")==0 then pause,end
 //Small dimension
 //---------------
 //Real Case

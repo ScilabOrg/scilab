@@ -15,7 +15,7 @@
 //
 // <-- Short Description -->
 // set("auto_clear","off") crashes Scilab.
-// 
+//
 
 assert_checktrue(execstr("set(""auto_clear"",""off"")", "errcatch") == 0);
 // should not crash Scilab.

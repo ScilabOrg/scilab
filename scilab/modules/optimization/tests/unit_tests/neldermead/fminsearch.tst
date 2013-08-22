@@ -12,7 +12,7 @@
 
 
 function y = rosenbrock ( x )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 //
 // Test basic use without parameters
@@ -27,7 +27,7 @@ assert_checkequal ( output.funcCount , 159 );
 assert_checkequal ( output.message(1) , "Optimization terminated:");
 assert_checkequal ( output.message(2) , " the current x satisfies the termination criteria using OPTIONS.TolX of 0.0001");
 assert_checkequal ( output.message(3) , " and F(X) satisfies the convergence criteria using OPTIONS.TolFun of 0.0001");
-// 
+//
 // fminsearch with incorrect number of input arguments
 //
 cmd = "fminsearch ( )";
@@ -162,7 +162,7 @@ assert_checkalmostequal ( x , [1.0   1.0], 1e-4 );
 //
 // Test extra arguments
 function y = bananaext (x,a,b)
-  y = a*(x(2)-x(1)^2)^2 + (b-x(1))^2;
+    y = a*(x(2)-x(1)^2)^2 + (b-x(1))^2;
 endfunction
 a = 100;
 b = 1;

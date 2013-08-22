@@ -16,7 +16,7 @@
 //
 
 function [ f , index ] = myquad ( x , index )
-  f = x(1)^2 + x(2)^2 + x(3)^2
+    f = x(1)^2 + x(2)^2 + x(3)^2
 endfunction
 x0 = [1.2 1.9].';
 nm = nmplot_new ();

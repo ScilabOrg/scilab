@@ -23,6 +23,6 @@
 
 // 2] start a xcos demos with modelica for example
 
-// 3] you should have a message box with : 
+// 3] you should have a message box with :
 // [_("Sorry compiling problem");_("A compatible C compiler required.")
 

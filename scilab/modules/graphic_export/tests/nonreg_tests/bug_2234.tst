@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // When using xs2gif or xs2bmp, when the graphic window is mimimized, the BMP files
 // are not created, and the GIF files are flawed (size = 1 KB)
-// 
+//
 
 plot2d;
 // minimize window

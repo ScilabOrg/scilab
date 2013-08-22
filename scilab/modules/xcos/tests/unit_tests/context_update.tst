@@ -14,17 +14,17 @@ assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/unit_tests/context
 
 // checking without context re-definition
 Context=struct();
-scicos_simulate(scs_m,list(),Context,'nw');
+scicos_simulate(scs_m,list(),Context,"nw");
 assert_checkequal(out.values, 1.0);
 
 // checking with context re-definition
 Context.in1=1;
 Context.in2=1;
-scicos_simulate(scs_m,list(),Context,'nw');
+scicos_simulate(scs_m,list(),Context,"nw");
 assert_checkequal(out.values, 0.0);
 
 // checking with context re-definition
 Context.in1=0;
 Context.in2=1;
-scicos_simulate(scs_m,list(),Context,'nw');
+scicos_simulate(scs_m,list(),Context,"nw");
 assert_checkequal(out.values, -1.0);

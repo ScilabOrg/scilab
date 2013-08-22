@@ -18,4 +18,4 @@
 // link('show') with only one symbol writes 'librairies' and not 'library'.
 
 ulink();
-link('show');
+link("show");

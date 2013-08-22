@@ -14,11 +14,11 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2270
 //
 // <-- Short Description -->
-//    datenum(Y,M,D) issues an incorrect error message when the third 
-//    parameter is invalid. The error should say 'The third argument must be 
-//    between 1 and 31', depending on the actual number of days in that 
+//    datenum(Y,M,D) issues an incorrect error message when the third
+//    parameter is invalid. The error should say 'The third argument must be
+//    between 1 and 31', depending on the actual number of days in that
 //    specific month.
 
-execstr('datenum(2006,12,32)','errcatch');
+execstr("datenum(2006,12,32)","errcatch");
 error_str = lasterror();
 if stripblanks(error_str) <> "datenum: Wrong value for input argument #3: Must be between 1 and 31."  then pause,end
