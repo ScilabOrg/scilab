@@ -16,6 +16,7 @@
 
 extern "C"
 {
+#include "MALLOC.h"
 #include "fullpath.h"
 #include "Scierror.h"
 #include "localization.h"
@@ -47,14 +48,14 @@ Function::ReturnValue sci_fullpath(typed_list &in, int _iRetCount, typed_list &o
         }
     */
 
-    wchar_t fullpath[PATH_MAX * 4];
+    char fullpath[PATH_MAX * 4];
     String* pIn = in[0]->getAs<String>();
     String* pOut = new String(pIn->getDims(), pIn->getDimsArray());
 
     for (int i = 0 ; i < pIn->getSize() ; i++)
     {
-        wchar_t *relPath = pIn->get(i);
-        if ( get_full_pathW( fullpath, relPath, PATH_MAX * 4 ) != NULL )
+        char* relPath = wide_string_to_UTF8(pIn->get(i));
+        if ( get_full_path( fullpath, relPath, PATH_MAX * 4 ) != NULL )
         {
             pOut->set(i, fullpath);
         }
@@ -62,7 +63,8 @@ Function::ReturnValue sci_fullpath(typed_list &in, int _iRetCount, typed_list &o
         {
             pOut->set(i, relPath);
         }
-        fullpath[0] = L'\0';
+        fullpath[0] = '\0';
+        FREE(relPath);
     }
 
     out.push_back(pOut);
