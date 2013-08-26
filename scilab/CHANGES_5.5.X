@@ -592,6 +592,8 @@ Bug fixes
 
 * Bug #12791 fixed - Give more information in case of failure during the ATOMS autoload step.
 
+* Bug #12793 fixed - Cacsd: improve the bode() plots.
+
 * Bug #12794 fixed - calfrq.sci code did not follow Scilab standard.
 
 * Bug #12795 fixed - Typo fixes in CACSD doc.
