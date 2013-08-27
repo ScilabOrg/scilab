@@ -38,7 +38,7 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 
 * In browsevar, allows a user to plot the variable (already available in
   editvar).
-  
+
 * Update Windows Solution to Visual Studio 2012.
 
 * The histplot command can now be used with the option polygon=%t/%f to add the
@@ -116,10 +116,10 @@ Xcos
 * Bug #7350 fixed - The superblock I/O ports numbering was not updated
                     when a new port was dropped.
 
-* Bug #8570 fixed - "Region to superblock" has been renamed to 
+* Bug #8570 fixed - "Region to superblock" has been renamed to
                     "Selection to superblock".
 
-* Bug #11518 fixed - CLR block-text was displayed out of the bounding box 
+* Bug #11518 fixed - CLR block-text was displayed out of the bounding box
                      when zooming.
 
 * Bug #12359 fixed - Xcos files has been converted to zcos to gain some space.
@@ -139,7 +139,7 @@ Xcos
 
 * Bug #12561 fixed - SELECT_m and RELAY_f no more behaved as expected.
 
-* Bug #12568 fixed - "Recent files" menu entry should be placed next to the 
+* Bug #12568 fixed - "Recent files" menu entry should be placed next to the
                      "Open" one.
 
 * Bug #12590 fixed - Block shape style was removed on file loading.
@@ -212,6 +212,8 @@ Bug fixes
 * Bug #5694 fixed - numdiff() help page clarified.
 
 * Bug #5779 fixed - xnumb number format was too small (+ unit test added).
+
+* Bug #6037 fixed - Improve documentation for macrovar().
 
 * Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear.
 
@@ -555,4 +557,3 @@ Bug fixes
 * Bug #12840 fixed - Fix typo in number_properties.xml.
 
 * Bug #12852 fixed - Visual Studio 2012 SDK configuration is incorrect.
-
