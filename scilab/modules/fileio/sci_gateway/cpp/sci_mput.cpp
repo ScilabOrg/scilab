@@ -156,6 +156,11 @@ Function::ReturnValue sci_mput(typed_list &in, int _iRetCount, typed_list &out)
     }
 
     C2F(mput)(&iFile, pData, &iSize, pstType, &iErr);
+    if (iErr)
+    {
+        Scierror(10000, "");
+        return types::Function::Error;
+    }
 
     FREE(pstType);
     if (in[0]->isDouble() == false)
