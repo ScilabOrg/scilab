@@ -682,7 +682,7 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
         default :
         {
             removeTemporaryVars(envId, tmpvars);
-            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Unable to wrap. Unmanaged datatype (%s) ?"), typ);
+            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Unable to wrap. Unmanaged datatype (%d) ?"), typ);
         }
     }
 }
@@ -695,20 +695,9 @@ int ScilabObjects::getMListType(int * mlist, void * pvApiCtx)
     int rows, cols;
     int type;
 
-    SciErr err = getVarType(pvApiCtx, mlist, &type);
-    if (err.iErr)
-    {
-        return EXTERNAL_INVALID;
-    }
-
-    if (type == 0)
+    if (mlist[0] == 0)
     {
         return EXTERNAL_VOID;
-    }
-
-    if (type != sci_mlist)
-    {
-        return EXTERNAL_INVALID;
     }
 
     if (mlist[0] != sci_mlist || mlist[1] != 3)
