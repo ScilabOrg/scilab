@@ -28,7 +28,7 @@ function v = intsplin(x,s)
         end
     end
     x=x(:);s=s(:);
-    d=splin(x,s);
+    d=splin(real(x),real(s));
     h=x(2:$)-x(1:$-1);
     v=sum((h.*(d(1:$-1)-d(2:$))/12 + (s(1:$-1)+s(2:$))/2).*h);
 endfunction
