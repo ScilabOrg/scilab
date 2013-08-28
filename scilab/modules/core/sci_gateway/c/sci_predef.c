@@ -20,47 +20,59 @@
 /*--------------------------------------------------------------------------*/
 int C2F(sci_predef)(char *fname, unsigned long fname_len)
 {
-    int previous_n_var_protected = 0;
+    int iRet = 0;
+    int nout = 0 , mout = 0;
+    int nbElements = 0;
+    int * piAddr = NULL;
+    double l1 = 0;
+    double previous_n_var_protected = 0;
+    double new_n_var_protected = 0;
+    double * out_values = NULL;
+    char * protectMode = NULL;
+    char ** variablesPredef = NULL;
+    SciErr sciErr;
 
     Rhs = Max(0, Rhs);
 
-    CheckRhs(0, 1);
-    CheckLhs(0, 1);
+    CheckInputArgument(pvApiCtx, 0, 1);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     previous_n_var_protected = getNumberPredefVariablesProtected();
 
     if (Rhs == 0)
     {
-        int one = 1 , l = 0;
-
-        CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &one, &one, &l);
-        *istk(l) = (int) previous_n_var_protected;
-
-        LhsVar(1) = Rhs + 1;
-        PutLhsVar();
+        iRet = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, previous_n_var_protected);
+        if (iRet)
+        {
+            return iRet;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+        ReturnArguments(pvApiCtx);
     }
     else /* Rhs == 1 */
     {
-        int *out_values = NULL;
-        int nout = 0 , mout = 0;
-        int new_n_var_protected = 0;
-
-        if ( VarType(1) == sci_matrix )
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
+        if (sciErr.iErr)
         {
-            int m1 = 0, n1 = 0, l1 = 0;
-            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
-            if ( (m1 == n1) && (n1 == 1) )
+            printError(&sciErr, 0);
+            return 0;
+        }
+        if (isDoubleType(pvApiCtx, piAddr))
+        {
+            if (isScalar(pvApiCtx, piAddr))
             {
-                double dn_var = *stk(l1);
-                int n_var = (int) dn_var;
-
-                if (dn_var != (double)n_var)
+                iRet = getScalarDouble(pvApiCtx, piAddr, &l1);
+				if (iRet)
+				{
+					return iRet;
+				}
+                if (l1 != (int) l1)
                 {
-                    Scierror(999, _("%s: Wrong value for input argument #%d: A int expected.\n"), fname, 1);
+                    Scierror(999, _("%s: Wrong value for input argument #%d: An integer expected.\n"), fname, 1);
                     return 0;
                 }
 
-                setNumberPredefVariablesProtected(n_var);
+                setNumberPredefVariablesProtected((int) l1);
             }
             else
             {
@@ -68,15 +80,16 @@ int C2F(sci_predef)(char *fname, unsigned long fname_len)
                 return 0;
             }
         }
-        else if ( VarType(1) == sci_strings )
+        else if (isStringType(pvApiCtx, piAddr))
         {
-            int m1 = 0, n1 = 0, l1 = 0;
-            char *protectMode = NULL;
-
-            GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
-            protectMode = cstk(l1);
-            if (protectMode)
+            if (isScalar(pvApiCtx, piAddr))
             {
+                iRet = getAllocatedSingleString(pvApiCtx, piAddr, &protectMode);
+                if (iRet)
+                {
+                    freeAllocatedSingleString(protectMode);
+                    return iRet;
+                }
                 if ( ((strlen(protectMode) == 1 ) && (protectMode[0] == 'c')) ||
                         (strcmp(protectMode, "clear") == 0) )
                 {
@@ -89,11 +102,15 @@ int C2F(sci_predef)(char *fname, unsigned long fname_len)
                 }
                 else if (strcmp(protectMode, "names") == 0)
                 {
-                    int nbElements = 0;
-                    char **variablesPredef = getPredefinedVariablesName(&nbElements);
+                    variablesPredef = getPredefinedVariablesName(&nbElements);
                     if (variablesPredef && (nbElements > 0))
                     {
-                        SciErr sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, nbElements, 1, variablesPredef);
+                        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, nbElements, 1, variablesPredef);
+                        if (sciErr.iErr)
+                        {
+                            printError(&sciErr, 0);
+                            return 0;
+                        }
                         freeArrayOfString(variablesPredef, nbElements);
                         variablesPredef = NULL;
                         if (sciErr.iErr)
@@ -103,24 +120,29 @@ int C2F(sci_predef)(char *fname, unsigned long fname_len)
                         }
                         else
                         {
-                            LhsVar(1) = Rhs + 1;
-                            PutLhsVar();
+                            AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+                            ReturnArguments(pvApiCtx);
                         }
                         return 0;
                     }
                     else
                     {
                         createEmptyMatrix(pvApiCtx, Rhs + 1);
-                        LhsVar(1) = Rhs + 1;
-                        PutLhsVar();
+                        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+                        ReturnArguments(pvApiCtx);
                         return 0;
                     }
                 }
                 else
                 {
-                    Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "clear", "all");
+                    Scierror(999, _("%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"), fname, 1, "clear", "all", "names");
                     return 0;
                 }
+            }
+            else
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
+                return 0;
             }
         }
         else
@@ -131,21 +153,26 @@ int C2F(sci_predef)(char *fname, unsigned long fname_len)
 
         new_n_var_protected = getNumberPredefVariablesProtected();
 
-        out_values = (int*)MALLOC(sizeof(int) * 2);
+        out_values = (double*) MALLOC(sizeof(double) * 2);
         out_values[0] = previous_n_var_protected;
         out_values[1] = new_n_var_protected;
 
-        nout = 1 ;
+        nout = 1;
         mout = 2;
-        CreateVarFromPtr(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &nout, &mout, &out_values);
+        sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, nout, mout, out_values);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
         if (out_values)
         {
             FREE(out_values);
             out_values = NULL;
         }
 
-        LhsVar(1) = Rhs + 1;
-        PutLhsVar();
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+        ReturnArguments(pvApiCtx);
     }
     return 0;
 }
