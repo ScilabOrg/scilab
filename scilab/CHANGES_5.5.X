@@ -174,6 +174,7 @@ Xcos
 
 * Bug #12874 fixed - CSCOPE marks size were too small.
 
+* Bug #12869 fixed - min and max used in the generated codes are not defined
 
 Toolbox skeleton
 =================
