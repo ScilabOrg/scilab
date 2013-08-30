@@ -188,6 +188,8 @@ Xcos
 
 * Bug #12874 fixed - CSCOPE marks sizes were too small.
 
+* Bug #12869 fixed - min and max used in the generated codes were not defined
+
 * Bug #12877 fixed - Incorrect output port dimensions and types in GENSIN_f, GENSQR_f, STEP_FUNCTION and STEP blocks fixed.
 
 
