@@ -57,8 +57,8 @@ function [X,Y]=checkXYPair(typeOfPlot,x,y,current_figure,cur_draw_mode)
         X=x;
         Y=y;
 
-        if size(X,1)==1, X=X', end;  // si l'un des vecteurs est une ligne
-        if size(Y,1)==1, Y=Y', end;  // on le transpose.
+        if size(X,1)==1, X=X', warning(_("Transposing row vector to get column vector")), end;  // If one of the vectors is a row,
+        if size(Y,1)==1, Y=Y', warning(_("Transposing row vector to get column vector")), end;  // transpose it.
 
         if (size(X)==[0 0])
             ok=%F
@@ -140,4 +140,3 @@ function [X,Y]=checkXYPair(typeOfPlot,x,y,current_figure,cur_draw_mode)
 
     // end of checkXYPair
 endfunction
-
