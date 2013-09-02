@@ -716,6 +716,8 @@ Bug Fixes
 
 * Bug #12875 fixed - phasemag returned an error for input vector containing zeros.
 
+* Bug #12880 fixed - Added a warning when transposing arguments of plot().
+
 * Bug #12887 fixed - Scilab hung with auto_clear set to on and log_flags set to true.
 
 * Bug #12888 fixed - sysdiag was not documented about block diagonal matrices build.
