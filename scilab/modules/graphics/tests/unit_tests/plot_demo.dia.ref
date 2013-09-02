@@ -8,6 +8,8 @@
 // test plot()
 // Check each default property
 plot();
+Warning : redefining function: mode                    . Use funcprot(0) to avoid this message
+
 f = gcf();
 a1 = f.children(1);
 a2 = f.children(2);
