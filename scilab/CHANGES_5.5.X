@@ -159,6 +159,8 @@ Scilab Bug Fixes
 * Bug #12784 fixed - Misleading error message in many functions when passing an integer
                      argument instead of double argument fixed.
 
+* Bug #12880 fixed - Added a warning when transposing arguments of plot().
+
 * Bug #12882 fixed - Some help pages were not clear.
 
 * Bug #12910 fixed - Some typos fixed.
