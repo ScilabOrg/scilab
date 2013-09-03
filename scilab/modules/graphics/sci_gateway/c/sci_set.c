@@ -172,7 +172,11 @@ int sci_set(char *fname, unsigned long fname_len)
                                     strcmp(pstProperty, "text") != 0 && stricmp(pstProperty, "string") != 0 &&
                                     stricmp(pstProperty, "tooltipstring") != 0) /* Added for uicontrols */
                             {
-                                getAllocatedSingleString(pvApiCtx, piAddr3, (char**)&_pvData);
+                                if (getAllocatedSingleString(pvApiCtx, piAddr3, (char**)&_pvData))
+                                {
+                                    Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 3);
+                                    return 1;
+                                }
                                 iRows3 = (int)strlen((char*)_pvData);
                                 iCols3 = 1;
                             }
