@@ -212,6 +212,7 @@ lib /DEF:"$(ProjectDir)functions_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\cpp\sort_inter.cpp" />
     <ClCompile Include="code2str.c" />
     <ClCompile Include="convstr.c" />
     <ClCompile Include="cvstr.c" />
@@ -318,6 +319,7 @@ lib /DEF:"$(ProjectDir)functions_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     <ClInclude Include="..\..\includes\men_Sutils.h" />
     <ClInclude Include="..\..\includes\pcre_private.h" />
     <ClInclude Include="..\..\includes\scistrtostr.h" />
+    <ClInclude Include="..\..\includes\sort_inter.h" />
     <ClInclude Include="..\..\includes\stricmp.h" />
     <ClInclude Include="..\..\includes\StringConvert.h" />
     <ClInclude Include="..\..\includes\stringToDouble.h" />
