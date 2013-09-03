@@ -27,6 +27,7 @@ public class MessagesGED {
     public static final String hide = Messages.gettext("Hide");
     public static final String show = Messages.gettext("Show");
     public static final String axes = Messages.gettext("Axes");
+    public static final String datatip = Messages.gettext("Datatip");
     public static final String polyline = Messages.gettext("Polyline");
     public static final String figure = Messages.gettext("Figure");
     public static final String legend = Messages.gettext("Legend");
@@ -34,10 +35,12 @@ public class MessagesGED {
     public static final String plot3d = Messages.gettext("Plot3D");
     public static final String fac3d = Messages.gettext("Fac3D");
     public static final String grayplot = Messages.gettext("Grayplot");
+    public static final String matplot = Messages.gettext("Matplot");
 
     //Base Properties - Labels
     public static final String anti_alising = Messages.gettext("Anti-alising");
     public static final String auto_clear = Messages.gettext("Auto Clear");
+    public static final String auto_orientation = Messages.gettext("Auto Orientation");
     public static final String auto_scale = Messages.gettext("Auto Scale");
     public static final String auto_resize = Messages.gettext("Auto Resize");
     public static final String axes_visible = Messages.gettext("Axes Visible");
@@ -47,8 +50,10 @@ public class MessagesGED {
     public static final String fill_mode = Messages.gettext("Fill Mode");
     public static final String immediate_drawing = Messages.gettext("Immediate Drawing");
     public static final String isometric_view = Messages.gettext("Isometric View");
+    public static final String label_mode = Messages.gettext("Label Mode");
     public static final String line_mode = Messages.gettext("Line Mode");
     public static final String mark_mode = Messages.gettext("Mark Mode");
+    public static final String orientation = Messages.gettext("Orientation");
     public static final String visible = Messages.gettext("Visible");
     public static final String base_properties = Messages.gettext("Base Properties");
     public static final String on = Messages.gettext("On");
@@ -99,14 +104,13 @@ public class MessagesGED {
     public static final String unary = Messages.gettext("unary");
     public static final String multiple = Messages.gettext("multiple");
 
-    public static final String font_color = Messages.gettext("Font Color");
-    public static final String font_size = Messages.gettext("Font Size");
-    public static final String font_style = Messages.gettext("Font Style");
-    public static final String fractional_font = Messages.gettext("Fractional Font");
-
     public static final String arrow_size_factor = Messages.gettext("Arrow Size Factor");
     public static final String bar_width = Messages.gettext("Bar Width");
+    public static final String color_mode = Messages.gettext("Color Mode");
+    public static final String color_flag = Messages.gettext("Color Flag");
+    public static final String hidden_color = Messages.gettext("Hidden Color");
     public static final String thickness = Messages.gettext("Thickness");
+    public static final String mark = Messages.gettext("Mark");
     public static final String mark_background = Messages.gettext("Mark Background");
     public static final String mark_foreground = Messages.gettext("Mark Foreground");
     public static final String mark_size = Messages.gettext("Mark Size");
@@ -114,6 +118,8 @@ public class MessagesGED {
 
     //Data - Labels
     public static final String data_properties = Messages.gettext("Data Properties");
+    public static final String data_mapping = Messages.gettext("Data Mapping");
+    public static final String direct = Messages.gettext("Direct");
     public static final String clip_box = Messages.gettext("Clip Box");
     public static final String upper_left = Messages.gettext("Upper-left");
     public static final String point = Messages.gettext("Point");
@@ -128,6 +134,7 @@ public class MessagesGED {
     public static final String x_label = Messages.gettext("X Label");
     public static final String y_label = Messages.gettext("Y Label");
     public static final String z_label = Messages.gettext("Z Label");
+    public static final String scaled = Messages.gettext("Scaled");
     public static final String title = Messages.gettext("Title");
 
     //Data - Tooltip
@@ -177,11 +184,22 @@ public class MessagesGED {
     public static final String reverse = Messages.gettext("Reverse");
 
     //Label - Labels
+    public static final String box_mode = Messages.gettext("Box Mode");
     public static final String label = Messages.gettext("Label");
     public static final String title_page = Messages.gettext("Title Page");
     public static final String axis_title = Messages.gettext("Axis Title");
 
+    //Font - Labels
+    public static final String font = Messages.gettext("Font");
+    public static final String font_color = Messages.gettext("Font Color");
+    public static final String font_size = Messages.gettext("Font Size");
+    public static final String font_style = Messages.gettext("Font Style");
+    public static final String fractional_font = Messages.gettext("Fractional Font");
+
     //Position - Labels
+    public static final String coordinates = Messages.gettext("Coordinates");
+    public static final String x_coordinate = Messages.gettext("X Coordinate");
+    public static final String y_coordinate = Messages.gettext("Y Coordinate");
     public static final String position = Messages.gettext("Position");
     public static final String axes_bounds = Messages.gettext("Axes Bounds");
     public static final String mark_size_unit = Messages.gettext("Mark Size Unit");

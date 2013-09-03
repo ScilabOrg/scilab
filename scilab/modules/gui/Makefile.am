@@ -138,7 +138,8 @@ src/jni/DatatipManager.cpp \
 src/jni/DatatipCreate.cpp \
 src/jni/DatatipDelete.cpp \
 src/jni/DatatipDrag.cpp \
-src/jni/DatatipSetStyle.cpp
+src/jni/DatatipSetStyle.cpp \
+src/jni/DatatipOrientation.cpp
 
 GIWS_WRAPPERS = \
 src/jni/SwingView.giws.xml \
@@ -212,7 +213,10 @@ sci_gateway/cpp/sci_plotbrowser.cpp \
 sci_gateway/cpp/sci_datatip_manager_mode.cpp \
 sci_gateway/cpp/sci_datatip_toggle.cpp \
 sci_gateway/cpp/sci_datatipmove.cpp \
-sci_gateway/cpp/sci_datatip_set_style.cpp
+sci_gateway/cpp/sci_datatip_set_style.cpp \
+sci_gateway/cpp/sci_datatip_set_display.cpp \
+sci_gateway/cpp/sci_datatip_set_interp.cpp \
+sci_gateway/cpp/sci_datatip_set_orient.cpp
 
 libscigui_la_CPPFLAGS = \
 			-I$(srcdir)/includes/ \

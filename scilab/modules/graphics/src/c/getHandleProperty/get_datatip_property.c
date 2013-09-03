@@ -116,18 +116,18 @@ int get_tip_auto_orientation_property(void* _pvCtx, char* pobjUID)
  */
 int get_tip_interp_mode_property(void* _pvCtx, char* pobjUID)
 {
-    int tip_auto_orientation;
-    int *piTip_auto_orientation = &tip_auto_orientation;
+    int tip_interp_mode;
+    int *piTip_interp_mode = &tip_interp_mode;
 
-    getGraphicObjectProperty(pobjUID, __GO_DATATIP_INTERP_MODE__, jni_bool, (void **)&piTip_auto_orientation);
+    getGraphicObjectProperty(pobjUID, __GO_DATATIP_INTERP_MODE__, jni_bool, (void **)&piTip_interp_mode);
 
-    if (piTip_auto_orientation == NULL)
+    if (piTip_interp_mode == NULL)
     {
         Scierror(999, _("'%s' property does not exist for this handle.\n"), "tip_interp_mode");
         return -1;
     }
 
-    if (tip_auto_orientation)
+    if (tip_interp_mode)
     {
         return sciReturnString(_pvCtx, "on");
     }
@@ -187,4 +187,22 @@ int get_tip_label_mode_property(void* _pvCtx, char* pobjUID)
     {
         return sciReturnString(_pvCtx, "off");
     }
+}
+
+
+/**
+ * Get the datatip display function.
+ */
+int get_tip_disp_function_property(void* _pvCtx, char* pobjUID)
+{
+    char *tip_disp_function = NULL;
+    getGraphicObjectProperty(pobjUID, __GO_DATATIP_DISPLAY_FNC__, jni_string, (void **)&tip_disp_function);
+
+    if (tip_disp_function == NULL)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tip_disp_function");
+        return -1;
+    }
+
+    return sciReturnString(_pvCtx, tip_disp_function);
 }
