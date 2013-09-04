@@ -638,6 +638,8 @@ Scilab Bug Fixes
 
 * Bug #9821 fixed - getrelativefilename did not manage matrix of strings.
 
+* Bug #9840 fixed - Default G tolerance in lsqrsolve() was too large.
+
 * Bug #9851 fixed - Error message occurred because of a cut-off frequency of 0.25Hz
                    with irr.
 
