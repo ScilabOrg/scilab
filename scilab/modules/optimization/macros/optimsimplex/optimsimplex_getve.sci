@@ -16,9 +16,20 @@
 //   ive : vertex index
 //
 function vertex = optimsimplex_getve ( this , ive )
+    if typeof(this) <> "TSIMPLEX" then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: TSIMPLEX expected.\n"), "optimsimplex_getve", 1));
+    end
+    if type(ive) <> 1 then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "optimsimplex_getve", 2));
+    end
+    if or(size(ive) <> [1 1]) then
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: (%d,%d) expected.\n"), "optimsimplex_getve", 2, 1, 1));
+    end
+    if ive-floor(ive) <> 0 then
+        error(msprintf(gettext("%s: Wrong value for input argument #%d: Integer expected.\n"), "optimsimplex_getve", 2));
+    end
     vertex = tlist(["T_VERTEX","x","n","fv"]);
     vertex.n = this.n;
     vertex.x = this.x ( ive , : );
     vertex.fv = this.fv ( ive );
 endfunction
-

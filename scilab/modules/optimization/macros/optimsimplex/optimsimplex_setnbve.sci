@@ -15,6 +15,17 @@
 //   nbve : the number of vertices
 //
 function this = optimsimplex_setnbve ( this , nbve )
+    if typeof(this) <> "TSIMPLEX" then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: TSIMPLEX expected.\n"), "optimsimplex_setnbve", 1));
+    end
+    if type(nbve) <> 1 then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "optimsimplex_setnbve", 2));
+    end
+    if or(size(nbve) <> [1 1]) then
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: (%d,%d) expected.\n"), "optimsimplex_setnbve", 2, 1, 1));
+    end
+    if nbve-floor(nbve) <> 0 then
+        error(msprintf(gettext("%s: Wrong value for input argument #%d: Integer expected.\n"), "optimsimplex_setnbve", 2));
+    end
     this.nbve = nbve;
 endfunction
-
