@@ -351,6 +351,8 @@ Bug fixes
 
 * Bug #9691 fixed - "imp" option of optim was poorly documented.
 
+* Bug #9694 fixed - Optimization doc: fixed optim() example to display correct counters.
+
 * Bug #9780 fixed - gmres solver did not run with complex systems.
 
 * Bug #9821 fixed - getrelativefilename did not manage matrix of strings.
