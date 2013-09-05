@@ -424,6 +424,8 @@ Bug Fixes
 
 * Bug #9601 fixed - Cylinder demonstration fixed.
 
+* Bug #9627 fixed - Checking arguments in optimsimplex_*() functions.
+
 * Bug #9690 fixed - The "imp" option for optim could crash Scilab and was not consistent with the help page.
 
 * Bug #9691 fixed - "imp" option in optim help page was poorly documented.
