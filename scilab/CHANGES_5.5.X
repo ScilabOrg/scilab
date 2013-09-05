@@ -70,7 +70,10 @@ Improvements
 
 * nthroot() is now vectorizable.
   See bug #12678.
-
+  
+* New optional output argument for routh_t.
+  See bug #12829.
+  
 
 Obsolete
 =========
@@ -585,6 +588,8 @@ Bug fixes
 
 * Bug #12800 fixed - Typo fix in Polynomials doc.
 
+* Bug #12804 fixed - Typos in help of routh_t function.
+
 * Bug #12808 fixed - Add missing </td> in doc generation (note, warning, ...).
 
 * Bug #12813 fixed - flipdim() function extended to any type of input data.
@@ -600,6 +605,10 @@ Bug fixes
 * Bug #12823 fixed - In help generation (toolbox) links were not correctly handled.
 
 * Bug #12827 fixed - Cacsd doc: noisgen() improved.
+
+* Bug #12828 fixed - routh_t gave a wrong result if the first element of a row is zero.
+
+* Bug #12829 fixed - New optional output argument for routh_t function.
 
 * Bug #12830 fixed - In SciNotes, it was not possible to replace from the caret position.
 
