@@ -517,6 +517,8 @@ Scilab Bug Fixes
 
 * Bug #9601 fixed - Cylinder demonstration fixed.
 
+* Bug #9627 fixed - Checking arguments in optimsimplex_*() functions.
+
 * Bug #9688 fixed - optim could crash when "imp" option was < 0. It is now set to 0 in
                     that case.
 
