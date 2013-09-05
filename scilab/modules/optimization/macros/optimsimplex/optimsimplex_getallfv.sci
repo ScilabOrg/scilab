@@ -18,6 +18,8 @@
 //   <no arg>
 //
 function fv = optimsimplex_getallfv ( this )
+    if typeof(this) <> "TSIMPLEX" then
+        error(msprintf(gettext("%s: Wrong type for first argument: TSIMPLEX expected.\n"), "optimsimplex_getallfv"));
+    end
     fv = this.fv ( 1:this.nbve , 1 )
 endfunction
-

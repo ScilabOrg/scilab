@@ -15,6 +15,8 @@
 //   <no arg>
 //
 function n = optimsimplex_getn ( this )
+    if typeof(this) <> "TSIMPLEX" then
+        error(msprintf(gettext("%s: Wrong type for first argument: TSIMPLEX expected.\n"), "optimsimplex_getn"));
+    end
     n = this.n
 endfunction
-

@@ -15,6 +15,17 @@
 //   n : the dimension
 //
 function this = optimsimplex_setn ( this , n )
+    if typeof(this) <> "TSIMPLEX" then
+        error(msprintf(gettext("%s: Wrong type for first argument: TSIMPLEX expected.\n"), "optimsimplex_setn"));
+    end
+    if type(n) <> 1 then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "optimsimplex_setn", 2));
+    end
+    if or(size(n) <> [1 1]) then
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: (%d,%d) expected.\n"), "optimsimplex_setn", 2, 1, 1));
+    end
+    if n-floor(n) <> 0 then
+        error(msprintf(gettext("%s: Wrong value for input argument #%d: Integer expected.\n"), "optimsimplex_setn", 2));
+    end
     this.n = n;
 endfunction
-
