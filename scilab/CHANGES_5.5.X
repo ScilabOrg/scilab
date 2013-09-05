@@ -347,6 +347,9 @@ Bug fixes
 
 * Bug #9459 fixed - Default values of the optional plot3d arguments were not documented.
 
+* Bug #9577 fixed - Optimization: setting neldermead_configure("-numberofvariables") is now optional,
+                    setting neldermead_configure("-x0") does both.
+
 * Bug #9601 fixed - Cylinder demo failed with a bad value.
 
 * Bug #9691 fixed - "imp" option of optim was poorly documented.
