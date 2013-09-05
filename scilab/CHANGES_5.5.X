@@ -47,7 +47,7 @@ BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPA
   See bug #9447
  - A user can now plot variables from the variable browser (already available in
   editvar).
-  
+
 * Added lighting effect for plot of surfaces. Lighting can be enabled
   creating light objects or disabled deleting them. The following function
   was introduced:
@@ -445,6 +445,8 @@ Bug Fixes
                     setting neldermead_configure("-x0") initializes -numberofvariables implicitly.
 
 * Bug #9601 fixed - Cylinder demonstration fixed.
+
+* Bug #9627 fixed - Checking arguments in optimsimplex_*() functions.
 
 * Bug #9688 fixed - optim() could crash when "imp" option was < 0. It is now set to 0 in that case.
 
