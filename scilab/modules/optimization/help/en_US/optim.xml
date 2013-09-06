@@ -25,6 +25,9 @@
             [fopt, xopt] = optim(...)
             [fopt, xopt, gopt] = optim(...)
             [fopt, xopt, gopt, work] = optim(...)
+            [fopt, xopt, gopt, work, iters] = optim(...)
+            [fopt, xopt, gopt, work, iters, evals] = optim(...)
+            [fopt, xopt, gopt, work, iters, evals, err] = optim(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -345,7 +348,6 @@
                                     </para>
                                 </listitem>
                             </itemizedlist>
-                            
                         </listitem>
                         <listitem>
                             <para>
@@ -442,6 +444,42 @@
                         array is automatically initialized by <literal>optim</literal> when
                         <literal>optim</literal> is invoked. It can be used as input
                         parameter to speed-up the calculations.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>iters</term>
+                <listitem>
+                    <para>
+                        scalar, the number of iterations that is displayed when <literal>imp=2</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>evals</term>
+                <listitem>
+                    <para>
+                        scalar, the number of <literal>cost</literal> function evaluations
+                        that is displayed when <literal>imp=2</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>err</term>
+                <listitem>
+                    <para>
+                        scalar, an error flag.
+                        The succession flag is <literal>9</literal>.
+                        <literal>err=1</literal>: Norm of projected gradient lower than...
+                        <literal>err=2</literal>: At last iteration f decreases by less than...
+                        <literal>err=3</literal>: Optimization stops because too small variations for x.
+                        <literal>err=4</literal>: Optim stops: maximum number of calls to f is reached.
+                        <literal>err=5</literal>: Optim stops: maximum number of iterations is reached.
+                        <literal>err=6</literal>: Optim stops: too small variations in gradient direction.
+                        <literal>err=7</literal>: Stop during calculation of descent direction.
+                        <literal>err=8</literal>: Stop during calculation of estimated hessian.
+                        <literal>err=9</literal>: End of optimization, successful completion.
+                        <literal>err=10</literal>: End of optimization (linear search fails).
                     </para>
                 </listitem>
             </varlistentry>
