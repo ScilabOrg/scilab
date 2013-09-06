@@ -347,6 +347,9 @@ Bug fixes
 
 * Bug #9459 fixed - Default values of the optional plot3d arguments were not documented.
 
+* Bug #9537 fixed - Optimization: optimbase_configure() only allowed row vector as initial value.
+                    Allowed column vector by transposing it.
+
 * Bug #9601 fixed - Cylinder demo failed with a bad value.
 
 * Bug #9691 fixed - "imp" option of optim was poorly documented.
