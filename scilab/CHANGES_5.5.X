@@ -343,6 +343,9 @@ Bug fixes
 
 * Bug #9109 fixed - nfreq tagged as obsolete.
 
+* Bug #9208 fixed - Added three optional output arguments to optim(),
+                    to retrieve #iterations, #evaluations and an error flag.
+
 * Bug #9385 fixed - The type checking in trigonometric functions has been added.
 
 * Bug #9459 fixed - Default values of the optional plot3d arguments were not documented.
