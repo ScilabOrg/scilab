@@ -559,6 +559,8 @@ Bug fixes
 
 * Bug #12747 fixed - legendre() now accepts the -1 and 1 values for the third argument.
 
+* Bug #12749 fixed - Update help page of fscanfMat function.
+
 * Bug #12758 fixed - Focus issue with plot3d() fixed.
 
 * Bug #12761 fixed - The https:// protocol was not supported on ATOMS.
