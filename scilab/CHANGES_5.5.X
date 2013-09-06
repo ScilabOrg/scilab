@@ -355,6 +355,8 @@ Bug fixes
 
 * Bug #9385 fixed - The type checking in trigonometric functions has been added.
 
+* Bug #9394 fixed - is_params() recognized "plist" as an existing field.
+
 * Bug #9459 fixed - Default values of the optional plot3d arguments were not documented.
 
 * Bug #9537 fixed - optimbase_configure() only allowed row vectors as initial value.
