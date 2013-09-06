@@ -428,6 +428,9 @@ Bug fixes
 
 * Bug #12085 fixed - On Windows csvWrite wrote wrong EOL.
 
+* Bug #12114 fixed - libstdc++ is now compiled as static instead of using the
+                     library from thirdparty.
+
 * Bug #12118 fixed - ode() could take complex externals.
 
 * Bug #12143 fixed - "stop entity picker" (ged(11)) returned an error message.
@@ -493,6 +496,8 @@ Bug fixes
 * Bug #12589 fixed - Call sequence for spzeros & spones were missing in the french help pages.
 
 * Bug #12593 fixed - A wrong error message was returned when running genlib with an error in the sci file.
+
+* Bug #12600 fixed - mput did not manage unsigned integer.
 
 * Bug #12606 fixed - Overloads for grand were not standard.
 
@@ -589,6 +594,8 @@ Bug fixes
 * Bug #12815 fixed - levin() redefined cov() as a variable.
 
 * Bug #12816 fixed - Numbers pasted in editvar were not parsed according to locale.
+
+* Bug #12818 fixed - Segfault in set function with invalid property values dimension.
 
 * Bug #12823 fixed - In help generation (toolbox) links were not correctly handled.
 
