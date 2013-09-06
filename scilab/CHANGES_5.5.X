@@ -347,6 +347,9 @@ Bug fixes
 
 * Bug #9459 fixed - Default values of the optional plot3d arguments were not documented.
 
+* Bug #9538 fixed - Optimization: optimbase_checkshape() only allowed row vectors as return from the cost function.
+                    Allowed column vectors by transposing them.
+
 * Bug #9601 fixed - Cylinder demo failed with a bad value.
 
 * Bug #9691 fixed - "imp" option of optim was poorly documented.
