@@ -24,6 +24,7 @@ public class MessagesGED {
     public static final String file = Messages.gettext("File");
     //Inspector - Labels
     public static final String quick_ged = Messages.gettext("Quick GED");
+    public static final String property_list = Messages.gettext("Property List");
     public static final String hide = Messages.gettext("Hide");
     public static final String show = Messages.gettext("Show");
     public static final String axes = Messages.gettext("Axes");
@@ -117,6 +118,7 @@ public class MessagesGED {
     public static final String mark_style = Messages.gettext("Mark Style");
 
     //Data - Labels
+    public static final String _3_Components = Messages.gettext("3 Components");
     public static final String data_properties = Messages.gettext("Data Properties");
     public static final String data_mapping = Messages.gettext("Data Mapping");
     public static final String direct = Messages.gettext("Direct");

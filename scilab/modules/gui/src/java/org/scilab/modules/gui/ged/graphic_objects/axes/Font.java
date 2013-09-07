@@ -14,23 +14,24 @@ package org.scilab.modules.gui.ged.graphic_objects.axes;
 import javax.swing.JPanel;
 import org.scilab.modules.gui.ged.MessagesGED;
 import org.scilab.modules.gui.ged.graphic_objects.SimpleSection;
-import org.scilab.modules.gui.ged.graphic_objects.properties.Axes;
+import org.scilab.modules.gui.ged.graphic_objects.properties.TextObject;
 
 /**
-* Construction and startup of all components of the section: Label.
+* Construction and startup of all components of the section: Font.
 * @author Marcos CARDINOT <mcardinot@gmail.com>
 */
-public class Label extends SimpleSection {
+public class Font extends SimpleSection {
     private JPanel sectionPanel;
-    private static Label instance;
-    private Axes axes = new Axes();
+    private static Font instance;
+    private String parentFigure;
+    private TextObject textObject = new TextObject();
 
     /**
     * Initializes the properties and the icons of the buttons.
     * @param objectID Enters the identification of object.
     */
-    public Label(String objectID) {
-        super(MessagesGED.label, "axes");
+    public Font(String objectID) {
+        super(MessagesGED.font, "axes");
         instance = this;
         sectionPanel = getSectionPanel();
         initComponents(objectID);
@@ -40,7 +41,7 @@ public class Label extends SimpleSection {
      * Get instance
      * @return instance
      */
-    public static Label getInstance() {
+    public static Font getInstance() {
         return instance;
     }
 
@@ -54,10 +55,16 @@ public class Label extends SimpleSection {
         final int leftmargin = 16; //to inner components
         int column = 0; //first column
 
-        //Components of the property: Title
-        axes.title(sectionPanel, row++, column, leftmargin, objectID);
+        //Components of the property: Font Color.
+        textObject.fontColor(sectionPanel, row++, column, leftmargin, objectID);
 
-        //Components of the property: Label
-        axes.label(sectionPanel, row++, column, leftmargin, objectID);
+        //Components of the property: Font Size.
+        textObject.fontSize(sectionPanel, row++, column, leftmargin, objectID);
+
+        //Components of the property: Font Style.
+        textObject.fontStyle(sectionPanel, row++, column, leftmargin, objectID);
+
+        //Components of the property: Fractional Font.
+        textObject.fractionalFont(sectionPanel, row++, column, leftmargin, objectID);
     }
 }
