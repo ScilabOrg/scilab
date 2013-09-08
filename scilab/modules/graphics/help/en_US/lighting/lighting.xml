@@ -61,14 +61,12 @@
         <para>
             <scilab:image>
                 plot3d();
-                s=gce();
                 light = light_create();
             </scilab:image>
         </para>
         <para>
             <scilab:image>
                 plot3d();
-                s=gce();
             </scilab:image>
         </para>
         
@@ -200,12 +198,13 @@ plot3d();
 s=gce();
 s.color_flag=0;
 s.thickness=0;
+s.hiddencolor = -1;
 light = light_create();
 //change diffuse color to orange
 s.diffuse_color = [1, 0.6, 0];
 s.color_material="off";
 //black spots turn dark orange
-s.ambient_color = [0.3, 0.1, 0];
+s.ambient_color = [1, 0.6, 0];
          ]]></programlisting>
         <para>
             Directional light:
@@ -218,6 +217,9 @@ s.color_flag=0;
 s.thickness=0;
 light.light_type = "directional";
 light.light_direction = [0 0 1];
+light.diffuse_color = [1 0.9 0.9];
+light.ambient_color = [0.5 0.4 0.4];
+light.specular_color = [0.5 0.3 0.7];
          ]]></programlisting>
     </refsection>
     <refsection role="see also">
