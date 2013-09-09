@@ -534,6 +534,8 @@ Scilab Bug Fixes
 * Bug #6390 fixed - The "external" argument of odecd was not well documented and
                     not tested.
 
+* Bug #6305 fixed - dsearch function did not work with integers, strings and hypermatrices.
+
 * Bug #6427 fixed - full([%T %F]) returned an error message.
 
 * Bug #6466 fixed - Example with vectorized input added in mprintf and msprintf help pages.
