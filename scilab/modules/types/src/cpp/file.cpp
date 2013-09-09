@@ -9,8 +9,14 @@
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-
+#include <fstream>
 #include "file.hxx"
+
+extern "C"
+{
+#include "charEncoding.h"
+#include "MALLOC.h"
+}
 
 namespace types
 {
@@ -90,19 +96,24 @@ void File::setFileModeAsInt(int _iMode)
 
     m_pstMode = L"";
 
-    switch(iMode)
+    switch (iMode)
     {
-        case 2 : m_pstMode += L"w"; break;
-        case 3 : m_pstMode += L"a"; break;
-        default: m_pstMode += L"r"; // default mode "rb"
+        case 2 :
+            m_pstMode += L"w";
+            break;
+        case 3 :
+            m_pstMode += L"a";
+            break;
+        default:
+            m_pstMode += L"r"; // default mode "rb"
     }
 
-    if(iPlus)
+    if (iPlus)
     {
         m_pstMode += L"+";
     }
 
-    if(iBin)
+    if (iBin)
     {
         m_pstMode += L"b";
     }
@@ -163,4 +174,22 @@ std::wstring File::getFilename()
 {
     return m_stFilename;
 }
+
+int File::getCountLines()
+{
+    char* pstFileName = wide_string_to_UTF8(m_stFilename.c_str());
+    std::ifstream in(pstFileName);
+    std::string stLine;
+    int iLines = 0;
+
+    while (std::getline(in, stLine))
+    {
+        iLines++;
+    }
+
+    in.close();
+    FREE(pstFileName);
+    return iLines;
+}
+
 }
