@@ -32,7 +32,7 @@
                 <term>X</term>
                 <listitem>
                     <para>
-                        a mx-by-nx matrix of doubles, the entries to locate.
+                        a mx-by-nx matrix (or a mx-by-nx-by-ox hypermatrix) of doubles, strings or integers, the entries to locate.
                     </para>
                 </listitem>
             </varlistentry>
@@ -40,10 +40,10 @@
                 <term>s</term>
                 <listitem>
                     <para>
-                        a n-by-1 or 1-by-n matrix of doubles, the 
+                        a n-by-1 or 1-by-n matrix of doubles, strings, or integers, the 
                         intervals (if ch="c") or the set (if ch="d"). 
                         The values in s must be in strictly increasing order:
-                        s(1) &lt; s(2) &lt; ... &lt; s(n)
+                        s(1) &lt; s(2) &lt; ... &lt; s(n).
                     </para>
                 </listitem>
             </varlistentry>
@@ -60,7 +60,7 @@
                 <term>ind</term>
                 <listitem>
                     <para>
-                        a mx-by-nx matrix of doubles. 
+                        a mx-by-nx matrix (or a mx-by-nx-by-ox hypermatrix) of doubles. 
                         The location of the X values in the intervals or the set defined by <literal>s</literal>.
                     </para>
                 </listitem>
@@ -169,6 +169,9 @@
         <para>
             The ch="c" option can be used to compute the empirical histogram of a function given a dataset.
             The ch="d" option can be used to compute the entries in X which are present in the set s.
+        </para>
+        <para>
+            Note that <varname>s</varname> must have the same type as <varname>X</varname> or it can simply be a matrix of doubles.
         </para>
     </refsection>
     <refsection>

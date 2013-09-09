@@ -75,9 +75,10 @@ c     get val
         il = iadr(istk(il + 1))
       endif
       if (istk(il) .ne. 1) then
-        err = 2
-        call error(202)
-        return
+         top = topk
+         call funnam(ids(1,pt+1),'dsearch',il)
+         fun=-1
+         return
       endif
       if( .not. getrvect(fname, topk, top, mval, nval, lval) ) return
       if (ch.eq.'d') then
@@ -119,9 +120,10 @@ c     get X
         il = iadr(istk(il + 1))
       endif
       if (istk(il) .ne. 1) then
-        err = 1
-        call error(202)
-        return
+         top = topk
+         call funnam(ids(1,pt+1),'dsearch',il)
+         fun=-1
+         return
       endif
       if( .not. getrmat(fname, topk, top, mX, nX, lX) ) return
 

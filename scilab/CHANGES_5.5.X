@@ -231,6 +231,8 @@ Bug fixes
 
 * Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear.
 
+* Bug #6305 fixed - dsearch function did not work with integers, strings and hypermatrices.
+
 * Bug #6427 fixed - full([%T %F]) returned an error message.
 
 * Bug #6466 fixed - Example with vectorized input added in help pages of mprintf and msprintf.
