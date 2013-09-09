@@ -19,6 +19,7 @@ import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.legend.Legend;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -448,17 +449,17 @@ public abstract class GraphicObject implements Cloneable {
      */
     public void setChildren(String[] children) {
         this.children = new LinkedList<String>(Arrays.asList(children));
-    }
+    } 
 
     /**
      * @return the identifier
      */
     public String getIdentifier() {
         return identifier;
-    }
+    } 
 
     /**
-     * @param identifier the identifier to set
+     * @param identifier the identifier to set 
      */
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
@@ -710,5 +711,24 @@ public abstract class GraphicObject implements Cloneable {
      */
     public void setReferenced(Boolean referenced) {
         this.referenced = referenced;
+    }
+
+    /**
+     * Help to debug
+     * @param the property id
+     * @return the property name
+     */
+    public static String getObjectPropertyName(int id) {
+	Class clazz = GraphicObjectProperties.class;
+	Field[] fields = clazz.getDeclaredFields();
+	try {
+	    for (Field f : fields) {
+		if (f.getInt(null) == id) {
+		    return f.getName();
+		}
+	    }
+	} catch (Exception e) { }
+
+	return "Unknown"; 
     }
 }
