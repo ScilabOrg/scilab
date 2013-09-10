@@ -1,4 +1,4 @@
-/*
+>/*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007-2009 - DIGITEO - Sylvestre LEDRU
  *
@@ -28,8 +28,8 @@ static MPITable Tab[] =
     {sci_mpi_bcast, "MPI_Bcast"},
     {sci_mpi_irecv, "MPI_Irecv"},
     {sci_mpi_isend, "MPI_Isend"},
-    {sci_mpi_wait, "MPI_Wait"}
-
+    {sci_mpi_wait, "MPI_Wait"},
+    {_wrap_MPI_Max, "MPI_MAX"}
 };
 
 /*static MPITable Tab[]=

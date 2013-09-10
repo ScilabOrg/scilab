@@ -8,7 +8,8 @@
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 MPI_C_SOURCES =     src/c/serialization.c \
-    src/c/deserialization.c
+    src/c/deserialization.c \
+	src/swig/mpi_wrap.c
 
 # List of the gateway c files
 GATEWAY_C_SOURCES = \
@@ -46,6 +47,8 @@ pkglib_LTLIBRARIES = libscimpi.la
 libscimpi_la_SOURCES =   $(GATEWAY_C_SOURCES)  $(MPI_C_SOURCES)
 #$(GATEWAY_FORTRAN_SOURCES) $(MPI_FORTRAN_SOURCES)
 
+
+SWIG_SCILAB_WRAPPERS=src/swig/mpi.i
 
 #### Target ######
 
