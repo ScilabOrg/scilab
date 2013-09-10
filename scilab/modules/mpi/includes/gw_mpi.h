@@ -32,4 +32,6 @@ int sci_mpi_bcast(char *fname, unsigned long fname_len);
 int sci_mpi_irecv(char *fname, unsigned long fname_len);
 int sci_mpi_isend(char *fname, unsigned long fname_len);
 int sci_mpi_wait(char *fname, unsigned long fname_len);
+int _wrap_MPI_Max(char *fname, unsigned long fname_len);
+
 #endif /*  __GW_MPI__ */

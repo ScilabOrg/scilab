@@ -178,7 +178,7 @@ am__objects_1 = libscimpi_la-sci_mpi_init.lo \
 	libscimpi_la-sci_mpi_bcast.lo libscimpi_la-sci_mpi_wait.lo \
 	libscimpi_la-sci_mpi_get_processor_name.lo
 am__objects_2 = libscimpi_la-serialization.lo \
-	libscimpi_la-deserialization.lo
+	libscimpi_la-deserialization.lo libscimpi_la-mpi_wrap.lo
 am_libscimpi_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libscimpi_la_OBJECTS = $(am_libscimpi_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -523,7 +523,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 MPI_C_SOURCES = src/c/serialization.c \
-    src/c/deserialization.c
+    src/c/deserialization.c \
+	src/swig/mpi_wrap.c
 
 
 # List of the gateway c files
@@ -559,6 +560,7 @@ pkglib_LTLIBRARIES = libscimpi.la
 # All the sources needed by libscimpi.la
 libscimpi_la_SOURCES = $(GATEWAY_C_SOURCES)  $(MPI_C_SOURCES)
 #$(GATEWAY_FORTRAN_SOURCES) $(MPI_FORTRAN_SOURCES)
+SWIG_SCILAB_WRAPPERS = src/swig/mpi.i
 
 #### Target ######
 
@@ -732,6 +734,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-deserialization.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-gw_mpi.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-mpi_wrap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-sci_mpi_bcast.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-sci_mpi_comm_rank.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-sci_mpi_comm_size.Plo@am__quote@
@@ -863,6 +866,13 @@ libscimpi_la-deserialization.lo: src/c/deserialization.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/c/deserialization.c' object='libscimpi_la-deserialization.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -c -o libscimpi_la-deserialization.lo `test -f 'src/c/deserialization.c' || echo '$(srcdir)/'`src/c/deserialization.c
+
+libscimpi_la-mpi_wrap.lo: src/swig/mpi_wrap.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -MT libscimpi_la-mpi_wrap.lo -MD -MP -MF $(DEPDIR)/libscimpi_la-mpi_wrap.Tpo -c -o libscimpi_la-mpi_wrap.lo `test -f 'src/swig/mpi_wrap.c' || echo '$(srcdir)/'`src/swig/mpi_wrap.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscimpi_la-mpi_wrap.Tpo $(DEPDIR)/libscimpi_la-mpi_wrap.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/swig/mpi_wrap.c' object='libscimpi_la-mpi_wrap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -c -o libscimpi_la-mpi_wrap.lo `test -f 'src/swig/mpi_wrap.c' || echo '$(srcdir)/'`src/swig/mpi_wrap.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
