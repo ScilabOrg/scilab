@@ -75,11 +75,13 @@ public final class BlockPositioning {
             final mxGeometry portGeom = port.getGeometry();
 
             double nonVariantPosition = -portGeom.getWidth();
-            final int order;
-            if (port.getOrdering() <= portsSize) {
-                order = port.getOrdering() - 1;
-            } else {
-                order = i;
+            int order = 0;
+            if (port.getOrdering() <= portsSize)
+            {
+            	order = port.getOrdering() - 1;
+            } else
+            {
+                continue;
             }
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
@@ -155,7 +157,7 @@ public final class BlockPositioning {
             if (port.getOrdering() <= portsSize) {
                 order = port.getOrdering() - 1;
             } else {
-                order = i;
+                continue;
             }
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
@@ -199,7 +201,7 @@ public final class BlockPositioning {
             if (port.getOrdering() <= portsSize) {
                 order = port.getOrdering() - 1;
             } else {
-                order = i;
+                continue;
             }
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
@@ -243,7 +245,7 @@ public final class BlockPositioning {
             if (port.getOrdering() <= portsSize) {
                 order = port.getOrdering() - 1;
             } else {
-                order = i;
+                continue;
             }
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
