@@ -14,6 +14,7 @@ package org.scilab.modules.xcos.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,29 @@ public final class BlockPositioning {
     /** This class is a static singleton, thus it must not be instantiated */
     private BlockPositioning() {
     }
+    
+    /**
+     *
+     */
+    public static class PortComparator implements Comparator<BasicPort>
+    {
+		@Override
+		public int compare(BasicPort arg0, BasicPort arg1) {
+			int order_0 = arg0.getOrdering();
+			int order_1 = arg1.getOrdering();
+			
+			if (order_0 < order_1)
+			{
+				return -1;
+			} else if (order_0 > order_1)
+			{
+				return 1;
+			} else
+			{
+				return 0;
+			}
+		}
+    }
 
     /**
      * Dispatch ports on Block's _WEST_ side.
@@ -63,6 +87,8 @@ public final class BlockPositioning {
             gridSize = block.getParentDiagram().getGridSize();
         }
 
+        Collections.sort(ports, new PortComparator());
+
         final mxGeometry blockGeom = block.getGeometry();
         assert blockGeom != null;
         final int portsSize = ports.size();
@@ -75,12 +101,7 @@ public final class BlockPositioning {
             final mxGeometry portGeom = port.getGeometry();
 
             double nonVariantPosition = -portGeom.getWidth();
-            final int order;
-            if (port.getOrdering() <= portsSize) {
-                order = port.getOrdering() - 1;
-            } else {
-                order = i;
-            }
+            final int order = i;
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
             portGeom.setX(nonVariantPosition);
@@ -139,6 +160,8 @@ public final class BlockPositioning {
             gridSize = block.getParentDiagram().getGridSize();
         }
 
+        Collections.sort(ports, new PortComparator());
+
         final mxGeometry blockGeom = block.getGeometry();
         assert blockGeom != null;
         final int portsSize = ports.size();
@@ -151,12 +174,7 @@ public final class BlockPositioning {
             final mxGeometry portGeom = port.getGeometry();
 
             double nonVariantPosition = -portGeom.getHeight();
-            final int order;
-            if (port.getOrdering() <= portsSize) {
-                order = port.getOrdering() - 1;
-            } else {
-                order = i;
-            }
+            final int order = i;
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
             portGeom.setX(alignedPosition);
@@ -183,6 +201,8 @@ public final class BlockPositioning {
             gridSize = block.getParentDiagram().getGridSize();
         }
 
+        Collections.sort(ports, new PortComparator());
+
         final mxGeometry blockGeom = block.getGeometry();
         assert blockGeom != null;
         final int portsSize = ports.size();
@@ -195,12 +215,7 @@ public final class BlockPositioning {
             final mxGeometry portGeom = port.getGeometry();
 
             double nonVariantPosition = blockGeom.getWidth();
-            final int order;
-            if (port.getOrdering() <= portsSize) {
-                order = port.getOrdering() - 1;
-            } else {
-                order = i;
-            }
+            final int order = i;
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
             portGeom.setX(nonVariantPosition);
@@ -227,6 +242,8 @@ public final class BlockPositioning {
             gridSize = block.getParentDiagram().getGridSize();
         }
 
+        Collections.sort(ports, new PortComparator());
+
         final mxGeometry blockGeom = block.getGeometry();
         assert blockGeom != null;
         final int portsSize = ports.size();
@@ -239,12 +256,7 @@ public final class BlockPositioning {
             final mxGeometry portGeom = port.getGeometry();
 
             double nonVariantPosition = blockGeom.getHeight();
-            final int order;
-            if (port.getOrdering() <= portsSize) {
-                order = port.getOrdering() - 1;
-            } else {
-                order = i;
-            }
+            final int order = i;
             double alignedPosition = calculateAlignedPosition(gridSize, segLength, order);
 
             portGeom.setX(alignedPosition);
@@ -287,11 +299,11 @@ public final class BlockPositioning {
      */
     private static void updatePortsPositions(BasicBlock block, List<BasicPort> ports, Orientation iter) {
         @SuppressWarnings("serial")
-        final List<BasicPort> invertedPorts = new ArrayList<BasicPort>(ports) {
-            {
-                Collections.reverse(this);
-            }
-        };
+            final List<BasicPort> invertedPorts = new ArrayList<BasicPort>(ports) {
+                {
+                    Collections.reverse(this);
+                }
+            };
         final boolean mirrored = block.getMirror();
         final boolean flipped = block.getFlip();
         final int angle = block.getAngle();
