@@ -13,6 +13,9 @@
 package org.scilab.modules.xcos.block;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -40,6 +43,7 @@ import org.scilab.modules.xcos.io.codec.XcosCodec;
 import org.scilab.modules.xcos.io.scicos.DiagramElement;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.port.BasicPort;
+import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosEvent;
@@ -352,6 +356,72 @@ public final class SuperBlock extends BasicBlock {
     public void setChild(SuperBlockDiagram child) {
         this.child = child;
     }
+    
+    /**
+     * Sort the blocks per first integer parameter value
+     *
+     * @param blocks
+     *            the block list
+     * @return the sorted block list (same instance)
+     */
+    private List <? extends mxICell > iparSort(final List <? extends mxICell > blocks) {
+        Collections.sort(blocks, new Comparator<mxICell>() {
+                @Override
+                public int compare(mxICell c1, mxICell c2) {
+                BasicBlock o1 = null;
+                if (c1 instanceof BasicBlock)
+                {
+                o1 = (BasicBlock) c1;
+                }
+                BasicBlock o2 = null;
+                if (c2 instanceof BasicBlock)
+                {
+                o2 = (BasicBlock) c2;
+                }
+                final ScilabDouble data1 = (ScilabDouble) o1.getIntegerParameters();
+                final ScilabDouble data2 = (ScilabDouble) o2.getIntegerParameters();
+
+                int value1 = 0;
+                int value2 = 0;
+
+                if (data1.getWidth() >= 1 && data1.getHeight() >= 1) {
+                value1 = (int) data1.getRealPart()[0][0];
+                }
+                if (data2.getWidth() >= 1 && data2.getHeight() >= 1) {
+                    value2 = (int) data2.getRealPart()[0][0];
+                }
+
+                return value1 - value2;
+                }
+        });
+        return blocks;
+    }
+
+    /**
+     * 
+     */
+    private List <? extends mxICell > orderingSort(final List <? extends mxICell > ports) {
+        Collections.sort(ports, new Comparator<mxICell>() {
+                @Override
+                public int compare(mxICell c1, mxICell c2) {
+                BasicPort o1 = null;
+                if (c1 instanceof BasicPort)
+                {
+                o1 = (BasicPort) c1;
+                }
+                BasicPort o2 = null;
+                if (c2 instanceof BasicPort)
+                {
+                o2 = (BasicPort) c2;
+                }
+                int value1 = o1.getOrdering();
+                int value2 = o2.getOrdering();
+
+                return value1 - value2;
+                }
+                });
+        return ports;
+    }
 
     /**
      * update super block ports in parent diagram
@@ -364,32 +434,180 @@ public final class SuperBlock extends BasicBlock {
             setParentDiagram(Xcos.findParent(this));
         }
 
+        // get a map of all the IOBlocks of the superdiagram
         final Map<IOBlocks, List<mxICell>> blocksMap = IOBlocks.getAllBlocks(this);
+        // get a map of all the ports of the superblock
         final Map<IOBlocks, List<mxICell>> portsMap = IOBlocks.getAllPorts(this);
-        for (IOBlocks block : IOBlocks.values()) {
-            final int blockCount = blocksMap.get(block).size();
-            int portCount = portsMap.get(block).size();
 
-            // add ports if required
-            while (blockCount > portCount) {
-                try {
-                    BasicPort port;
-                    port = block.getReferencedPortClass().newInstance();
-                    addPort(port);
-                } catch (InstantiationException e) {
-                    Logger.getLogger(SuperBlock.class.getName()).severe(e.toString());
-                } catch (IllegalAccessException e) {
-                    Logger.getLogger(SuperBlock.class.getName()).severe(e.toString());
+        // sort the superdiagram IOBlocks depending on their type
+        Hashtable<String, List<? extends mxICell>> context_block = new Hashtable<String, List<? extends mxICell>> ();
+
+        if (!context_block.containsKey(XcosDiagram.IN)) {
+            List<mxICell> cell_list = blocksMap.get(IOBlocks.ExplicitInBlock);
+            cell_list.addAll(blocksMap.get(IOBlocks.ImplicitInBlock));
+            context_block.put(XcosDiagram.IN, iparSort(cell_list));
+        }
+        if (!context_block.containsKey(XcosDiagram.OUT)) {
+            List<mxICell> cell_list = blocksMap.get(IOBlocks.ExplicitOutBlock);
+            cell_list.addAll(blocksMap.get(IOBlocks.ImplicitOutBlock));
+            context_block.put(XcosDiagram.OUT, iparSort(cell_list));
+        }
+        if (!context_block.containsKey(XcosDiagram.EIN)) {
+            List<mxICell> cell_list = blocksMap.get(IOBlocks.EventInBlock);
+            context_block.put(XcosDiagram.EIN, iparSort(cell_list));
+        }
+        if (!context_block.containsKey(XcosDiagram.EOUT)) {
+            List<mxICell> cell_list = blocksMap.get(IOBlocks.EventOutBlock);
+            context_block.put(XcosDiagram.EOUT, iparSort(cell_list));
+        }
+
+        // sort the superblock ports depending on their type
+        Hashtable<String, List<? extends mxICell>> context_port = new Hashtable<String, List<? extends mxICell>> ();
+        if (!context_port.containsKey(XcosDiagram.IN)) {
+            List<mxICell> cell_list = portsMap.get(IOBlocks.ExplicitInBlock);
+            cell_list.addAll(portsMap.get(IOBlocks.ImplicitInBlock));
+            context_port.put(XcosDiagram.IN, orderingSort(cell_list));
+        }
+        if (!context_port.containsKey(XcosDiagram.OUT)) {
+            List<mxICell> cell_list = portsMap.get(IOBlocks.ExplicitOutBlock);
+            cell_list.addAll(portsMap.get(IOBlocks.ImplicitOutBlock));
+            context_port.put(XcosDiagram.OUT, orderingSort(cell_list));
+        }
+        if (!context_port.containsKey(XcosDiagram.EIN)) {
+            List<mxICell> cell_list = portsMap.get(IOBlocks.EventInBlock);
+            context_port.put(XcosDiagram.EIN, orderingSort(cell_list));
+        }
+        if (!context_port.containsKey(XcosDiagram.EOUT)) {
+            List<mxICell> cell_list = portsMap.get(IOBlocks.EventOutBlock);
+            context_port.put(XcosDiagram.EOUT, orderingSort(cell_list));
+        }
+
+        // adding the new ports of the superblock
+        for (String key : context_block.keySet())
+        {
+            if (context_block.get(key).size() > context_port.get(key).size())
+            {
+                // iterate on the superdiagram blocks
+                for (mxICell cell : context_block.get(key))
+                {
+                    if (cell instanceof BasicBlock)
+                    {
+                        BasicBlock basicblock = (BasicBlock) cell;
+                        int order = (int) ((ScilabDouble) basicblock.getIntegerParameters()).getRealPart()[0][0];
+
+                        // get the new added block if found
+                        List<? extends mxICell> port_list = context_port.get(key);
+                        boolean port_found = false;
+                        for (mxICell port : port_list)
+                        {
+                            if (port instanceof BasicPort)
+                            {
+                                BasicPort basicport = (BasicPort) port;
+                                if (order == basicport.getOrdering())
+                                {
+                                    port_found = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (port_found == false)
+                        {
+                            // add the port on the superblock
+                            try 
+                            {
+                                for (IOBlocks b : IOBlocks.values()) {
+                                    if (basicblock.getClass().equals(b.getReferencedClass())) 
+                                    {
+                                        BasicPort port;
+                                        port = b.getReferencedPortClass().newInstance();
+                                        port.setOrdering(order);
+                                        insert(port);
+                                        BlockPositioning.updateBlockView(this);
+
+                                        // force a refresh of the block ports and links
+                                        // connected to these ports
+                                        final int childCount = this.getParentDiagram().getModel().getChildCount(this);
+                                        for (int i = 0; i < childCount; i++) {
+                                            final Object port_item = this.getParentDiagram().getModel().getChildAt(this, i);
+                                            this.getParentDiagram().getView().clear(port_item, true, true);
+                                            final int edgeCount = this.getParentDiagram().getModel().getEdgeCount(port_item);
+                                            for (int j = 0; j < edgeCount; j++) {
+                                                final Object edge = this.getParentDiagram().getModel().getEdgeAt(port_item, j);
+                                                this.getParentDiagram().getView().clear(edge, true, true);
+                                            }
+                                        }
+                                        // force a refresh of the block
+                                        this.getParentDiagram().getView().clear(this, true, true);
+
+                                        this.getParentDiagram().getView().validate();
+                                        this.getParentDiagram().repaint();
+                                    }
+                                }
+                            } catch (InstantiationException e) {
+                                Logger.getLogger(SuperBlock.class.getName()).severe(e.toString());
+                            } catch (IllegalAccessException e) {
+                                Logger.getLogger(SuperBlock.class.getName()).severe(e.toString());
+                            }
+                        }
+                    }
                 }
-                portCount++;
-            }
+            } else if (context_block.get(key).size() < context_port.get(key).size())
+            {
+                // iterate on the superblock ports
+                for (mxICell cell : context_port.get(key))
+                {
+                    if (cell instanceof BasicPort)
+                    {
+                        BasicPort basicport = (BasicPort) cell;
+                        int order = basicport.getOrdering();
 
-            // remove ports if required
-            while (portCount > blockCount) {
-                removePort((BasicPort) portsMap.get(block).get(portCount - 1));
-                portCount--;
+                        // get the port to remove
+                        List<? extends mxICell> block_list = context_block.get(key);
+                        boolean block_found = false;
+                        for (mxICell block : block_list)
+                        {
+                            if (block instanceof BasicBlock)
+                            {
+                                BasicBlock basicblock = (BasicBlock) block;
+                                int block_order = (int) ((ScilabDouble) basicblock.getIntegerParameters()).getRealPart()[0][0];
+                                if (order == block_order)
+                                {
+                                    block_found = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (block_found == false)
+                        {
+                            // delete the port
+                            removePort(basicport);
+                            BlockPositioning.updateBlockView(this);
+
+                            // force a refresh of the block ports and links
+                            // connected to these ports
+                            final int childCount = this.getParentDiagram().getModel().getChildCount(this);
+                            for (int i = 0; i < childCount; i++) {
+                                final Object port = this.getParentDiagram().getModel().getChildAt(this, i);
+                                this.getParentDiagram().getView().clear(port, true, true);
+                                final int edgeCount = this.getParentDiagram().getModel().getEdgeCount(port);
+                                for (int j = 0; j < edgeCount; j++) {
+                                    final Object edge = this.getParentDiagram().getModel().getEdgeAt(port, j);
+                                    this.getParentDiagram().getView().clear(edge, true, true);
+                                }
+                            }
+                            // force a refresh of the block
+                            this.getParentDiagram().getView().clear(this, true, true);
+
+                            this.getParentDiagram().getView().validate();
+                            this.getParentDiagram().repaint();
+                        }
+                    }
+                }
             }
         }
+
         getParentDiagram().fireEvent(new mxEventObject(XcosEvent.SUPER_BLOCK_UPDATED, XcosConstants.EVENT_BLOCK_UPDATED, this));
     }
 
