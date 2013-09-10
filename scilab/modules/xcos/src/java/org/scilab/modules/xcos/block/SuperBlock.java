@@ -367,11 +367,21 @@ public final class SuperBlock extends BasicBlock {
         final Map<IOBlocks, List<mxICell>> blocksMap = IOBlocks.getAllBlocks(this);
         final Map<IOBlocks, List<mxICell>> portsMap = IOBlocks.getAllPorts(this);
         for (IOBlocks block : IOBlocks.values()) {
-            final int blockCount = blocksMap.get(block).size();
             int portCount = portsMap.get(block).size();
 
-            // add ports if required
-            while (blockCount > portCount) {
+            // remove all the ports
+            for (int i = 0; i < portCount; i++)
+            {
+                removePort((BasicPort) portsMap.get(block).get(i));
+            }
+        }
+
+        for (IOBlocks block : IOBlocks.values()) {
+            final int blockCount = blocksMap.get(block).size();
+
+            // add ports
+            for (int i = 0; i < blockCount; i++)
+            {
                 try {
                     BasicPort port;
                     port = block.getReferencedPortClass().newInstance();
@@ -381,15 +391,9 @@ public final class SuperBlock extends BasicBlock {
                 } catch (IllegalAccessException e) {
                     Logger.getLogger(SuperBlock.class.getName()).severe(e.toString());
                 }
-                portCount++;
-            }
-
-            // remove ports if required
-            while (portCount > blockCount) {
-                removePort((BasicPort) portsMap.get(block).get(portCount - 1));
-                portCount--;
             }
         }
+
         getParentDiagram().fireEvent(new mxEventObject(XcosEvent.SUPER_BLOCK_UPDATED, XcosConstants.EVENT_BLOCK_UPDATED, this));
     }
 
