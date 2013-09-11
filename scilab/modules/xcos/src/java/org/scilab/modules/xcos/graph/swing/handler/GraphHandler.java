@@ -12,6 +12,7 @@
 
 package org.scilab.modules.xcos.graph.swing.handler;
 
+import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.handler.mxGraphHandler;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxPoint;
+import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
 
 /**
@@ -62,6 +64,61 @@ public class GraphHandler extends mxGraphHandler {
      */
     public GraphHandler(GraphComponent graphComponent) {
         super(graphComponent);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * also set the point to the parent origin (eg. block not ports) one.
+     */
+    @Override
+    protected Point getPreviewLocation(MouseEvent e, boolean gridEnabled) {
+        final mxRectangle localCellBounds = cellBounds;
+
+        /*
+         * This update is needed to align the block+ports on the block bounds while dragging.
+         */
+        if (cellBounds != null) {
+            cellBounds = calculateBlockCellBounds();
+        }
+
+        final Point pt = super.getPreviewLocation(e, gridEnabled);
+
+        if (cellBounds != null) {
+            cellBounds = localCellBounds;
+        }
+
+        return pt;
+    }
+
+    /**
+     * Update the cellBounds to set the origin bounds to the bloc origin not to the ports + block origin.
+     *
+     * This fix the grid alignement on a drag and drop.
+     *
+     * @return a new valid bounds
+     */
+    private final mxRectangle calculateBlockCellBounds() {
+        final mxGraph graph = graphComponent.getGraph();
+
+        final mxRectangle initialBounds = new mxRectangle(cellBounds);
+
+        final Object[] children = graph.getChildCells(cells[0]);
+        double dx = 0;
+        double dy = 0;
+        for (int i = 0; i < children.length && (dx == 0 || dy == 0); i++) {
+            final mxGeometry geom = graph.getCellGeometry(children[i]);
+            if (geom.getX() < 0) {
+                dx = BasicPort.DEFAULT_PORTSIZE;
+            }
+            if (geom.getY() < 0) {
+                dy = BasicPort.DEFAULT_PORTSIZE;
+            }
+        }
+        initialBounds.setX(cellBounds.getX() + dx);
+        initialBounds.setY(cellBounds.getY() - dy);
+
+        return initialBounds;
     }
 
     /**
