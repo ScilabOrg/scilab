@@ -1122,6 +1122,9 @@ Scilab Bug Fixes
 * Bug #11343 fixed - The "isoview" figure property did not work when the axes
                      margins had been modified.
 
+* Bug #11646 fixed - Autoload status of installed modules should be visible and
+                     swichable in the GUI.
+
 * Bug #11648 fixed - Copying graphic via the clipboard did not work.
 
 * Bug #11766 fixed - nthroot has been added to m2sci help page.
