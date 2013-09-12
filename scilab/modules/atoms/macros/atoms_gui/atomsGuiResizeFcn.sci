@@ -1,32 +1,37 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2012 - DIGITEO - Vincent COUVERT
+// Copyright (C) 2013 - Samuel GOUGEON : buttons management updated
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution. The terms
 // are also available at
-// http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function atomsGuiResizeFcn()
+    // Load Atoms Internals lib if it's not already loaded
+    if ~ exists("atomsinternalslib") then
+        load("SCI/modules/atoms/macros/atoms_internals/lib");
+    end
 
     atomsfig = findobj("tag","atomsFigure");
     atomsfigPosition = atomsfig.axes_size;
     figwidth     = atomsfigPosition(1);
     figheight    = atomsfigPosition(2);
 
-    margin       = 10;
-    widgetHeight   = 25;
+    margin       = 12;
+    widgetHeight = 25;
     msgHeight    = 30;
-    buttonHeight   = 20;
+    buttonHeight = 20;
 
-    listboxWidth        = 200;
-    listboxFrameWidth     = listboxWidth + 2*margin;
-    listboxFrameHeight    = figheight- 3*margin - msgHeight;
-    listboxHeight       = listboxFrameHeight - 2*margin;
+    listboxWidth       = 200;
+    listboxFrameWidth  = listboxWidth + 2*margin;
+    listboxFrameHeight = figheight- 3*margin - msgHeight;
+    listboxHeight      = listboxFrameHeight - 2*margin;
 
-    descFrameWidth       = figwidth - listboxFrameWidth - 3*margin;
-    descFrameHeight      = listboxFrameHeight;
-    descWidth        = descFrameWidth  - 2*margin;
+    descFrameWidth     = figwidth - listboxFrameWidth - 3*margin;
+    descFrameHeight    = listboxFrameHeight;
+    descWidth          = descFrameWidth  - 2*margin;
     descHeight         = descFrameHeight - 4*margin - buttonHeight;
 
     msgWidth     = figwidth -2*margin;
@@ -59,20 +64,14 @@ function atomsGuiResizeFcn()
 
     // Buttons
     // -------------------------------------------------------------------------
-
-    buttonWidth = (descFrameWidth - 4*margin) / 3;
-
-    // "Remove" Button
-    removeButton = findobj("Tag", "removeButton");
-    set(removeButton, "Position", [margin margin buttonWidth widgetHeight]);
-
-    // "Install" Button
-    installButton = findobj("Tag", "installButton");
-    set(installButton, "Position", [buttonWidth+2*margin margin buttonWidth widgetHeight]);
-
-    // "Update" Button
-    updateButton = findobj("Tag", "updateButton");
-    set(updateButton, "Position", [2*buttonWidth+3*margin margin buttonWidth widgetHeight]);
+    buttons = ["autoloadCheckbox" ["install" "update" "remove" "quit" ]+"Button" ]
+    nb = size(buttons,"*")
+    buttonWidth = (descFrameWidth - (nb+1)*margin) / nb;
+    fieldWidth = buttonWidth + margin
+    for i = 1:nb
+        button = findobj("Tag", buttons(i));
+        set(button, "Position", [margin+(i-1)*fieldWidth margin buttonWidth widgetHeight]);
+    end
 
     // Installed Modules: List of installed modules
     // =========================================================================
@@ -91,6 +90,7 @@ function atomsGuiResizeFcn()
     // Home
     HomeListbox = findobj("Tag", "HomeListbox");
     set(HomeListbox, "Position", [ margin margin descWidth descHeight]);
+    updateInstalledListbox()    // updating the widths of HTML columns
 
     // Message Frame
     // =========================================================================

@@ -1,12 +1,15 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2009 - DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
 // Copyright (C) 2009-2010 - DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+// Copyright (C) 2013 - Samuel GOUGEON : autoload: checkbox management
+//                                       autoload status added in installed list
+//                                       unrelevant buttons are now masked.
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution. The terms
 // are also available at
-// http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 // Internal function
 
@@ -31,6 +34,7 @@ function cbAtomsGui()
         selected = getSelected(UItag);
 
 
+
         if selected(1)=="module" then
 
             // Save the module name
@@ -40,7 +44,7 @@ function cbAtomsGui()
             updateDescFrame();
 
             // Show the description frame
-            showDesc();
+            showDesc(atomsIsInstalled(selected(2)));
 
         elseif selected(1)=="category" then
 
@@ -60,7 +64,7 @@ function cbAtomsGui()
 
     end
 
-    // A button has been pressed
+    // A button | autoload checkBox has been pressed | checked / unchecked
     // =========================================================================
 
     if or(UItag == ["installButton";"removeButton";"updateButton"]) then
@@ -71,10 +75,29 @@ function cbAtomsGui()
         disableAtomsGui();
     end
 
-    // Install selected module
+    // autoload checkbox Action
     // =========================================================================
+    if UItag == "autoloadCheckbox" then
+        module = get(DescFrame,"userdata")
+        element = findobj("Tag", "autoloadCheckbox")
+        if element.value==element.max then
+            atomsAutoloadAdd(module)
+            set(element, "Value", element.max)
+            msg = _("The module will be automatically loaded for all forthcoming startup")
+            msg = "<html><span style=""color:green"">"+msg+"</span>"
+            updateStatusBar("info",msg+" &hellip;")
+        else
+            atomsAutoloadDel(module)
+            set(element, "Value", element.min)
+            msg = _("Autoload at startup is cancelled. The ""Toolboxes"" menu or atomsLoad() can be used to load the module when needed")
+            msg = "<html><span style=""color:green"">"+msg+"</span>"
+            updateStatusBar("info",msg)
+        end
 
-    if UItag == "installButton" then
+        // Install selected module
+        // =========================================================================
+
+    elseif UItag == "installButton" then
 
         updateStatusBar("info",gettext("Installing")+" &hellip;");
 
@@ -82,9 +105,12 @@ function cbAtomsGui()
             updateStatusBar();
             messagebox(gettext("Installation failed!"),gettext("ATOMS error"),"error");
         else
-            updateDescFrame();
-            updateStatusBar("success",gettext("Installation done! Please restart Scilab to take changes into account."));
+            updateDescFrame()
+            msg = _("Installation done! Please restart Scilab to take changes into account.")
+            updateStatusBar("success", msg);
         end
+        reloadLeftListbox()
+        updateInstalledListbox()
 
         // Remove selected module
         // =========================================================================
@@ -96,9 +122,12 @@ function cbAtomsGui()
             updateStatusBar();
             messagebox(gettext("Remove failed!"),gettext("ATOMS error"),"error");
         else
-            updateDescFrame();
-            updateStatusBar("success",gettext("Remove done! Please restart Scilab to take changes into account. "));
+            updateDescFrame()
+            msg = _("Remove done! Please restart Scilab to take changes into account. ")
+            updateStatusBar("success", msg);
         end
+        reloadLeftListbox()
+        updateInstalledListbox()
 
         // Update selected module
         // =========================================================================
@@ -112,20 +141,28 @@ function cbAtomsGui()
             messagebox(gettext("Update failed!"),gettext("ATOMS error"),"error");
         else
             updateDescFrame();
-            updateStatusBar("success",gettext("Update done! Please restart Scilab to take changes into account."));
+            msg = _("Update done! Please restart Scilab to take changes into account.")
+            updateStatusBar("success", msg);
         end
 
-    end
+        // Quit button => display of installed modules
+        // =========================================================================
 
-    // End of the button action
-    // =========================================================================
+    elseif UItag == "quitButton" then
+        // update the home Listbox
+        HomeListbox             = findobj("tag","HomeListbox")
+        HomeListbox("String")   = setInstalledList(atomsGetInstalled())
 
-    if or(UItag == ["installButton";"removeButton";"updateButton"]) then
-        // Left listbox:
-        //  - Enable it
-        //  - Reload it
-        enableLeftListbox();
-        reloadLeftListbox();
+        // Erase the status bar
+        updateStatusBar()
+
+        // Show the Home page
+        show("HomeFrame");
+        show("HomeTitle");
+        show("HomeListbox");
+
+        // End of the button action
+        // =========================================================================
     end
 
     // Menu
@@ -147,6 +184,123 @@ function cbAtomsGui()
 
 endfunction
 
+// =============================================================================
+// getHomeListboxElements()
+//
+// Returns a struct that contains the followings fields:
+//  - elements("items_str")
+//  - elements("items_mat")
+//
+// =============================================================================
+
+function elements = getHomeListboxElements()
+    items_str  = [];
+    items_mat  = [];
+
+    installed  = atomsGetInstalled();
+    tmp = atomsAutoloadList("all")
+    autoloaded = tmp(:,1)
+    atomsfig   = findobj("tag","atomsFigure");
+    allModules = atomsfig("UserData");
+
+    items_str  = setInstalledList(installed)
+    items_mat = installed(:,1)
+    items_mat = [emptystr(items_mat)+"module" items_mat ]
+
+    if items_str==[] then
+        elements("items_str") = "";
+    else
+        elements("items_str") = items_str;
+    end
+
+    elements("items_mat") = items_mat;
+
+endfunction
+
+// =============================================================================
+//
+// items_str = setInstalledList(installed)
+//
+// items_str must be updated: it contains infos about the autoload status
+//  of each installed module, while this status can be interactively switched
+// =============================================================================
+function items_str = setInstalledList(installed)
+
+    // Load Atoms Internals lib if it's not already loaded
+    if ~exists("atomsinternalslib") then
+        load("SCI/modules/atoms/macros/atoms_internals/lib");
+    end
+
+    tmp = atomsAutoloadList("all")
+    autoloaded = tmp(:,1)
+    atomsfig   = findobj("tag","atomsFigure");
+    allModules = atomsfig("UserData");
+
+    // Widths of HTML columns
+    id = findobj("Tag", "HomeListbox")
+    col1Width = max([315 id.position(3)*0.83]);        // short description
+    col2Width = max([60 id.position(3)-col1Width ]);   // autoload status
+
+    items_str = []
+    for i = 1:size(installed(:,1),"*")
+        MRVersionAvailable = atomsGetMRVersion(installed(i,1));
+        MRVersionInstalled = atomsVersionSort(atomsGetInstalledVers(installed(i,1)),"DESC");
+        MRVersionInstalled = MRVersionInstalled(1);
+        if atomsVersionCompare(MRVersionInstalled,MRVersionAvailable) == -1 then
+            // Not up-to-date
+            icon = "software-update-notinstalled.png";
+        else
+            // The Most Recent Version is already installed
+            icon = "software-update-installed.png";
+        end
+
+        if modulo(i,2) == 0 then
+            background = "#eeeeee";
+        else
+            background = "#ffffff";
+        end
+
+        // Building the content
+        if or(installed(i,1)==autoloaded) then
+            tmp = "<span style=""color:green"">"+_("loaded<br>at startup")+"</span>"
+        else
+            tmp = "<span style=""color:#A0A0A0;font-size:10"">"+..
+            _("atomsLoad()<br>Toolboxes<br>menu")+..
+            "</span>"
+        end
+
+        thisItem = [
+        "<html>"
+        "<table style=""background-color:"+background+";color:#000000;"">"
+        "<tr>"
+        "<td>"
+        "<img src=""file:///"+SCI+"/modules/atoms/images/icons/16x16/status/"+icon+""" />"
+        "</td>"
+        "<td><div style=""width:"+sprintf("%d",col1Width*0.72)+"px;text-align:left;"">"
+        "<span style=""font-weight:bold;"">"
+        allModules(installed(i,1))(installed(i,2)).Title+" "
+        installed(i,2)
+        "</span>"
+        "<br/>"
+        "<span>"+allModules(installed(i,1))(installed(i,2)).Summary+"</span>"
+        "<br/>"
+        "<span style=""font-style:italic;"">"+installed(i,4)+"</span>"
+        "</div>"
+        "</td>"
+        "<td style=""text-align:center;width:"+sprintf("%d",col2Width*0.72)+"px"">"
+        tmp
+        "</td>"
+        "</tr>"
+        "</table>"
+        "</html>"
+        ]
+
+        items_str = [ items_str ; strcat(thisItem) ];
+    end
+    if items_str==[] then
+        items_str = ""
+    end
+endfunction
 
 // =============================================================================
 // getSelected()
@@ -155,13 +309,11 @@ endfunction
 // =============================================================================
 
 function selected = getSelected(listbox)
-
     index    = get(findobj("Tag",listbox),"Value");
     UserData = get(findobj("Tag",listbox),"UserData");
     selected = UserData(index,:);
 
 endfunction
-
 
 // =============================================================================
 // disableAtomsGui()
@@ -169,7 +321,6 @@ endfunction
 // =============================================================================
 
 function disableAtomsGui()
-
     set(findobj("tag", "installButton"), "Enable", "off");
     set(findobj("tag", "updateButton") , "Enable", "off");
     set(findobj("tag", "removeButton") , "Enable", "off");
@@ -191,11 +342,23 @@ endfunction
 // =============================================================================
 
 function reloadLeftListbox()
-    category                = get(findobj("tag","LeftFrame"),"UserData");
-    LeftListbox             = findobj("tag","LeftListbox");
-    LeftElements            = atomsGetLeftListboxElts(category);
-    LeftListbox("String")   = LeftElements("items_str");
-    LeftListbox("UserData") = LeftElements("items_mat");
+    category                = get(findobj("tag","LeftFrame"),"UserData")
+    LeftListbox             = findobj("tag","LeftListbox")
+    LeftElements            = atomsGetLeftListboxElts(category)
+    LeftListbox("String")   = LeftElements("items_str")
+    LeftListbox("UserData") = LeftElements("items_mat")
+    LeftListbox.Callback    = "cbAtomsGui"
+endfunction
+
+// =============================================================================
+// updateInstalledListbox()
+// =============================================================================
+
+function updateInstalledListbox()
+    InstalledElements         = getHomeListboxElements()
+    InstalledListbox          = findobj("tag","HomeListbox")
+    InstalledListbox.String   = InstalledElements("items_str")
+    InstalledListbox.UserData = InstalledElements("items_mat")
 endfunction
 
 // =============================================================================
@@ -361,6 +524,12 @@ function updateDescFrame()
         updateStatusBar("warning",sprintf(gettext("A new version (''%s'') of ''%s'' is available"),MRVersionAvailable,thisModuleDetails.Title));
     end
 
+    // Is autoloaded
+    // -------------
+    tmp = atomsAutoloadList()
+    val = bool2s(or(thisModuleName==tmp))
+    set(findobj("tag", "autoloadCheckbox"), "Value", val)
+
     // Can be removed
     // --------------------------
 
@@ -415,7 +584,9 @@ endfunction
 
 function show(tag)
     obj = findobj("tag",tag);
-    set(obj,"Visible","On");
+    if obj~=[]
+        set(obj,"Visible","On");
+    end
 endfunction
 
 // =============================================================================
@@ -424,7 +595,9 @@ endfunction
 
 function hide(tag)
     obj = findobj("tag",tag);
-    set(obj,"Visible","Off");
+    if obj~=[]
+        set(obj,"Visible","Off");
+    end
 endfunction
 
 // =============================================================================
@@ -445,12 +618,17 @@ function showHome()
     hide("removeButton");
     hide("installButton");
     hide("updateButton");
+    hide("quitButton");
 
     // update the left listbox
     LeftListbox             = findobj("tag","LeftListbox");
     LeftElements            = atomsGetLeftListboxElts("filter:main");
     LeftListbox("String")   = LeftElements("items_str");
     LeftListbox("UserData") = LeftElements("items_mat");
+
+    // update the home Listbox
+    HomeListbox             = findobj("tag","HomeListbox")
+    HomeListbox("String")   = setInstalledList(atomsGetInstalled())
 
     // Show the Home page
     show("HomeFrame");
@@ -465,20 +643,30 @@ endfunction
 // + Show the detailed description of a module
 // =============================================================================
 
-function showDesc()
+function showDesc(is_installed)
 
     // Show the Home page
     hide("HomeFrame");
     hide("HomeTitle");
     hide("HomeListbox");
 
-    // Hide the Desc frame
+    // Show the Desc frame
     show("DescFrame");
     show("DescTitle");
     show("Desc");
-    show("removeButton");
-    show("installButton");
-    show("updateButton");
+
+    show("quitButton")
+    if is_installed
+        show("autoloadCheckbox")
+        show("updateButton")
+        show("removeButton")
+        hide("installButton")
+    else
+        hide("autoloadCheckbox")
+        hide("updateButton")
+        hide("removeButton")
+        show("installButton")
+    end
 
 endfunction
 
