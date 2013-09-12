@@ -260,6 +260,8 @@ Bug fixes
 
 * Bug #7080 fixed - Some graphics macros did not use standard error messages.
 
+* Bug #7204 fixed - geomean(v) applied to an hypermat v gave wrong result.
+
 * Bug #7206 fixed - If the second input argument of meanf function was an hypermat, this function
                     returned an error.
 
