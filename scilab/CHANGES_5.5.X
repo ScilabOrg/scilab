@@ -287,6 +287,8 @@ Bug fixes
 
 * Bug #7848 fixed - The third argument of correl function is now optional.
 
+* Bug #7877 fixed - Due to a typo, iirgroup() used an undefined variable which created an error at every call.
+
 * Bug #7927 fixed - Output "flag" in qmr function was not well documented.
 
 * Bug #7960 fixed - plzr() could not produce pole zero plot for a simple transfer function.
@@ -656,4 +658,3 @@ Bug fixes
 * Bug #12909 fixed - Completion on (mt)list led to a crash.
 
 * Bug #12911 fixed - eig Matlab-equivalent help page updated.
-
