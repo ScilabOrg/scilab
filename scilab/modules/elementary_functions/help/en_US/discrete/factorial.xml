@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * 
+ *
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2011 - DIGITEO - Michael Baudin
- * 
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: added integer support
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
- * 
+ *
  -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="factorial" xml:lang="en">
     <refnamediv>
@@ -20,7 +21,6 @@
         <title>Calling Sequence</title>
         <synopsis>
             f = factorial ( n )
-            
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -29,13 +29,15 @@
             <varlistentry>
                 <term>n :</term>
                 <listitem>
-                    <para> a matrix of doubles. Must contain positive integers.</para>
+                    <para> a matrix of doubles or integers. Must contain positive integers.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>f :</term>
                 <listitem>
-                    <para> a matrix of doubles.</para>
+                    <para>
+                         a matrix of the same type as <literal>n</literal>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -43,11 +45,11 @@
     <refsection>
         <title>Description</title>
         <para>
-            Returns the factorial of n, that is, the product of all
-            integers 1 * 2 * ... * n.
+            Returns the factorial of <literal>n</literal>, that is, the product of all
+            integers <literal>1 * 2 * ... * n</literal>.
         </para>
         <para>
-            This function overflows as soon as n&gt;170.
+            This function overflows as soon as n &gt; 170.
         </para>
     </refsection>
     <refsection>
@@ -74,5 +76,14 @@ h.children.log_flags="nln";
         <para>
             <ulink url="http://www.scilab.org/en/support/documentation/tutorials">Introduction to discrete probabilities</ulink>, Michael Baudin
         </para>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Integer type support.</revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

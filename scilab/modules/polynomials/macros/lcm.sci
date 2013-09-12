@@ -7,7 +7,6 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-
 function [p, fact] = lcm(p)
     //p=lcm(p) computes the lcm of polynomial vector p
     //[pp,fact]=lcm(p) computes besides the vector fact of factors
