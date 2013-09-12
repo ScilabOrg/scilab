@@ -291,6 +291,8 @@ Bug fixes
 
 * Bug #7960 fixed - plzr() could not produce pole zero plot for a simple transfer function.
 
+* Bug #8058 fixed - intc() only worked with default tolerances. Let the user choose it.
+
 * Bug #8098 fixed - cumsum could not be applied to rational matrices.
 
 * Bug #8162 fixed - Area of stability of plzr was wrong for continuous systems (+unit test added).
@@ -656,4 +658,3 @@ Bug fixes
 * Bug #12909 fixed - Completion on (mt)list led to a crash.
 
 * Bug #12911 fixed - eig Matlab-equivalent help page updated.
-

@@ -98,3 +98,4 @@ SEP #099: Matrices of strings as input argument for clear
 SEP #100: Extends history size
 SEP #101: File browser
 SEP #102: members function.
+SEP #106: Error control in function intc.
