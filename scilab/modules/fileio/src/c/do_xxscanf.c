@@ -25,25 +25,6 @@
 #include "localization.h"
 #include "core_math.h"
 /*--------------------------------------------------------------------------*/
-typedef int (*XXSCANF) (FILE *, wchar_t *, ...);
-typedef int (*FLUSH) (FILE *);
-
-/*--------------------------------------------------------------------------*/
-static void set_xxscanf(FILE * fp, XXSCANF * xxscanf, wchar_t **target, wchar_t **strv)
-{
-    if (fp == (FILE *) 0)
-    {
-        *target = *strv;
-        *xxscanf = (XXSCANF) swscanf;
-    }
-    else
-    {
-        *target = (wchar_t *)fp;
-        *xxscanf = (XXSCANF) fwscanf;
-    }
-}
-
-/*--------------------------------------------------------------------------*/
 int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *strv, int *retval, rec_entry *buf, sfdir *type)
 {
     int nc[MAXSCAN];
@@ -61,13 +42,9 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
     wchar_t backupcurrrentchar;
     wchar_t directive;
     wchar_t *p1 = NULL;
-    wchar_t *target = NULL;
     wchar_t *sval = NULL;
     register wchar_t *currentchar = NULL;
 
-    XXSCANF xxscanf;
-
-    set_xxscanf(fp, &xxscanf, &target, &strv);
     currentchar = format;
     *retval = 0;
 
@@ -387,7 +364,27 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
         format = sformat;
     }
 
-    *retval = (*xxscanf) ((VPTR) target, format,
+    if (fp == (FILE *) 0)
+    {
+
+        *retval = swscanf ((VPTR) strv, format,
+                           ptrtab[0], ptrtab[1], ptrtab[2], ptrtab[3], ptrtab[4], ptrtab[5], ptrtab[6], ptrtab[7], ptrtab[8], ptrtab[9],
+                           ptrtab[10], ptrtab[11], ptrtab[12], ptrtab[13], ptrtab[14], ptrtab[15], ptrtab[16], ptrtab[17], ptrtab[18], ptrtab[19],
+                           ptrtab[20], ptrtab[21], ptrtab[22], ptrtab[23], ptrtab[24], ptrtab[25], ptrtab[26], ptrtab[27], ptrtab[28], ptrtab[29],
+                           ptrtab[30], ptrtab[31], ptrtab[32], ptrtab[33], ptrtab[34], ptrtab[35], ptrtab[36], ptrtab[37], ptrtab[38], ptrtab[39],
+                           ptrtab[40], ptrtab[41], ptrtab[42], ptrtab[43], ptrtab[44], ptrtab[45], ptrtab[46], ptrtab[47], ptrtab[48], ptrtab[49],
+                           ptrtab[50], ptrtab[51], ptrtab[52], ptrtab[53], ptrtab[54], ptrtab[55], ptrtab[56], ptrtab[57], ptrtab[58], ptrtab[59],
+                           ptrtab[60], ptrtab[61], ptrtab[62], ptrtab[63], ptrtab[64], ptrtab[65], ptrtab[66], ptrtab[67], ptrtab[68], ptrtab[69],
+                           ptrtab[70], ptrtab[71], ptrtab[72], ptrtab[73], ptrtab[74], ptrtab[75], ptrtab[76], ptrtab[77], ptrtab[78], ptrtab[79],
+                           ptrtab[80], ptrtab[81], ptrtab[82], ptrtab[83], ptrtab[84], ptrtab[85], ptrtab[86], ptrtab[87], ptrtab[88], ptrtab[89],
+                           ptrtab[90], ptrtab[91], ptrtab[92], ptrtab[93], ptrtab[94], ptrtab[95], ptrtab[96], ptrtab[97], ptrtab[98],
+                           ptrtab[MAXSCAN - 1]);
+
+    }
+    else
+    {
+        char* pstFormat = wide_string_to_UTF8(format);
+        *retval = fscanf ((VPTR) fp, pstFormat,
                           ptrtab[0], ptrtab[1], ptrtab[2], ptrtab[3], ptrtab[4], ptrtab[5], ptrtab[6], ptrtab[7], ptrtab[8], ptrtab[9],
                           ptrtab[10], ptrtab[11], ptrtab[12], ptrtab[13], ptrtab[14], ptrtab[15], ptrtab[16], ptrtab[17], ptrtab[18], ptrtab[19],
                           ptrtab[20], ptrtab[21], ptrtab[22], ptrtab[23], ptrtab[24], ptrtab[25], ptrtab[26], ptrtab[27], ptrtab[28], ptrtab[29],
@@ -399,6 +396,8 @@ int do_xxscanf (wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *
                           ptrtab[80], ptrtab[81], ptrtab[82], ptrtab[83], ptrtab[84], ptrtab[85], ptrtab[86], ptrtab[87], ptrtab[88], ptrtab[89],
                           ptrtab[90], ptrtab[91], ptrtab[92], ptrtab[93], ptrtab[94], ptrtab[95], ptrtab[96], ptrtab[97], ptrtab[98],
                           ptrtab[MAXSCAN - 1]);
+        FREE(pstFormat);
+    }
 
     *nargs = Min(num_conversion + 1, Max(*retval + n_directive_count, 0));
 
