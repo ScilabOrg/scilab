@@ -369,6 +369,7 @@ _LaTeX_atan.xml_1.png=bf9c1934886b64c591fe77c10bed390c
 _LaTeX_atan.xml_2.png=2e1789ad9c21de80deb3c3faa3c8786c
 _LaTeX_atan.xml_3.png=5e3804310dc7c19ffe0bf27d50327a07
 _LaTeX_atan.xml_4.png=cc41580fcadffac5d4fff0efd2d141b3
+_LaTeX_block_diag.xml_1.png=26bcad469ac051064707c071f102456c
 _LaTeX_bvode.xml_1.png=7d919bf8f33698749d88e30e99c33d7c
 _LaTeX_bvode.xml_2.png=417a5301693b60807fa658e5ef9f9535
 _LaTeX_bvode.xml_3.png=7e3c241c2dec821bd6c6fbd314fe4762

@@ -17,6 +17,7 @@ New Features
  - iscolumn - Check if a variable is a column vector. See bug #10456 fixed.
  - issquare - Check if a variable is a square matrix. See bug #10456 fixed.
  - cross - Vector cross product. See bug #9941 fixed.
+ - block_diag - Build a block diagonal matrix. See bug #12888 fixed.
 
 * Add a complete set of functions to read and write any HDF5 file from Scilab.
 
