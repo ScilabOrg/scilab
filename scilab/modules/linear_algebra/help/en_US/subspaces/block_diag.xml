@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - A. Khorshidi 
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="block_diag" xml:lang="en">
+    <refnamediv>
+        <refname>block_diag</refname>
+        <refpurpose>Create a block diagonal matrix from provided matrices</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            D = block_diag(A,B,C,...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>A,B,C,...</term>
+                <listitem>
+                    <para>constant, boolean, polynomail or rational matrices of any size </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>D</term>
+                <listitem>
+                    <para>a matrix with A, B, C, ... on the diagonal </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Given the inputs <varname>A</varname>, <varname>B</varname> and <varname>C</varname>, 
+            the output will have these matrices arranged on the diagonal: 
+            <latex>\begin{bmatrix} A \ \ 0 \ \ 0 \\ 0 \ \ B \ \ 0 \\ 0 \ \ 0 \ \ C \end{bmatrix}</latex>. 
+        </para>
+        <para>
+            <note>
+                If all the input matrices are square, the output is known as a <emphasis>block diagonal matrix</emphasis>.
+            </note>
+        </para>
+        	
+        <para>
+            Beside this function, you can also use <code>sparse()</code> primative to build a <emphasis>block diagonal sparse matrix</emphasis>.
+        </para>
+        <para>
+            For boolean matrices <code>block_diag()</code> always returns a zero one matrix in the corresponding block 
+            ("true" values are replaced by 1 and "false" value by 0). 
+        </para>
+        	
+        <para>		
+            <code>block_diag()</code> cannot be used to arrange matrices made of character strings, 
+            but you can overload it (see: <link linkend="overloading">overloading</link>). 
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[ 
+// a matrix of doubles: 
+A=[1 0; 0 1], B=[3 4 5; 6 7 8], C=7
+D=block_diag(A,B,C)
+// 
+block_diag([%t %f; %f %t], eye(2,2), ones(3,3))
+// a polynomial matrix: 
+s=%s; 
+block_diag([s 4*s; 4 s^4], [1 s^2 s+2; 3*s 2 s^2-1])
+// a rational matrix: 
+block_diag([1/s 2*s/(4*s+3)], [s; 4; 1/(s^2+2*s+1)]) 	
+// a block diagonal sparse matrix:
+S=block_diag([1 2; 3 4], [5 6; 7 8], [9 10; 11 12], [13 14; 15 16])
+S=sparse(S)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="diag">diag</link>
+            </member>
+            <member>
+                <link linkend="bdiag">bdiag</link>
+            </member>
+            <member>
+                <link linkend="sparse">sparse</link>
+            </member>
+            <member>
+                <link linkend="repmat">repmat</link>
+            </member>
+            	
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>References</title>
+        <para>
+            <ulink url="http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.block_diag.html">http://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.block_diag.html</ulink>
+        </para>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Function block_diag() introduced. </revremark>
+            </revision>
+            	
+        </revhistory>
+    </refsection>
+    	
+</refentry>

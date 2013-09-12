@@ -23,6 +23,7 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
  - iscolumn - Check if a variable is a column vector. See bug #10456 fixed.
  - issquare - Check if a variable is a square matrix. See bug #10456 fixed.
  - cross - Vector cross product. See bug #9941 fixed.
+ - block_diag - Build a block diagonal matrix. See bug #12888 fixed.
 
 * Based on the external module 'JIMS', Scilab provides functions to interact
   with Java objects.
