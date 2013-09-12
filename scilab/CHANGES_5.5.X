@@ -673,6 +673,8 @@ Bug Fixes
 
 * Bug #12875 fixed - phasemag returned an error for input vector containing zeros.
 
+* Bug #12888 fixed - sysdiag was not documented to build block diagonal matrices.
+
 * Bug #12906 fixed - champ and champ1 help pages updated
 
 * Bug #12909 fixed - Completion on (mt)list led to a crash.
