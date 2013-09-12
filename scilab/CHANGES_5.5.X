@@ -429,6 +429,9 @@ Bug fixes
 * Bug #11343 fixed - The "isoview" figure property did not work when the axes
                      margins had been modified.
 
+* Bug #11646 fixed - Autoload status of installed modules should be visible and
+                     swichable in the GUI.
+
 * Bug #11648 fixed - Copy graphic to clipboard did not work.
 
 * Bug #11766 fixed - nthroot has been added to the m2sci documentation.

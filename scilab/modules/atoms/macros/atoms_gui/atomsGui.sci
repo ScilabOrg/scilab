@@ -1,81 +1,19 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2009 - DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
 // Copyright (C) 2010 - DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
-// Copyright (C) 2012 - Samuel GOUGEON
+// Copyright (C) 2012 - Samuel GOUGEON : bug fixed
 // Copyright (C) 2012 - DIGITEO - Allan CORNET
+// Copyright (C) 2013 - Samuel GOUGEON : buttons: autoload checkbox + quit added.
+//                                                lighter background
+//                                       installed list: becomes updatable
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution. The terms
 // are also available at
-// http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function atomsGui()
-
-    // =============================================================================
-    // getHomeListboxElements() - not public
-    //
-    // Returns a struct that contains the followings fields:
-    //  - elements("items_str")
-    //  - elements("items_mat")
-    //
-    // =============================================================================
-
-    function elements = getHomeListboxElements()
-        items_str  = [];
-        items_mat  = [];
-
-        installed  = atomsGetInstalled();
-        atomsfig   = findobj("tag","atomsFigure");
-        allModules = atomsfig("UserData");
-
-
-        for i=1:size(installed(:,1), "*")
-            MRVersionAvailable = atomsGetMRVersion(installed(i,1));
-            MRVersionInstalled = atomsVersionSort(atomsGetInstalledVers(installed(i,1)),"DESC");
-            MRVersionInstalled = MRVersionInstalled(1);
-            if atomsVersionCompare(MRVersionInstalled,MRVersionAvailable) == -1 then
-                // Not up-to-date
-                icon = "software-update-notinstalled.png";
-            else
-                // The Most Recent Version is already installed
-                icon = "software-update-installed.png";
-            end
-
-            if modulo(i,2) == 0 then
-                background = "#eeeeee";
-            else
-                background = "#ffffff";
-            end
-
-            thisItem =      "<html>";
-
-            thisItem = thisItem + "<table style=""background-color:"+background+";color:#000000;"" ><tr>";
-            thisItem = thisItem + "<td><img src=""file:///"+SCI+"/modules/atoms/images/icons/16x16/status/"+icon+""" /></td>";
-            thisItem = thisItem + "<td>";
-            thisItem = thisItem + "  <div style=""width:383px;text-align:left;"">";
-            thisItem = thisItem + "  <span style=""font-weight:bold;"">"+allModules(installed(i,1))(installed(i,2)).Title+" "+installed(i,2)+"</span><br />";
-            thisItem = thisItem + "  <span>"+allModules(installed(i,1))(installed(i,2)).Summary+"</span><br />";
-            thisItem = thisItem + "  <span style=""font-style:italic;"">"+installed(i,4)+"</span>";
-            thisItem = thisItem + "  </div>";
-            thisItem = thisItem + "</td>";
-            thisItem = thisItem + "</tr></table>";
-            thisItem = thisItem + "</html>";
-
-            items_str = [items_str ; thisItem];
-            items_mat = [items_mat ; "module" installed(i,1)];
-        end
-
-        if items_str==[] then
-            elements("items_str") = "";
-        else
-            elements("items_str") = items_str;
-        end
-
-        elements("items_mat") = items_mat;
-
-    endfunction
-
 
     if ~ exists("atomsinternalslib") then
         load("SCI/modules/atoms/macros/atoms_internals/lib");
@@ -102,7 +40,7 @@ function atomsGui()
     figheight    = 500;
 
     // Margin
-    margin       = 10;
+    margin       = 12;
     widgetHeight   = 25;
 
     // Message Frame
@@ -187,10 +125,6 @@ function atomsGui()
     // Build the module list (listbox on the left)
     // =========================================================================
     LeftElements = atomsGetLeftListboxElts("filter:main");
-
-    // Build the installed module list
-    // =========================================================================
-    HomeElements = getHomeListboxElements();
 
     // Set the figure size ... after all delmenu(s)
     // =========================================================================
@@ -278,65 +212,97 @@ function atomsGui()
     // Buttons
     // -------------------------------------------------------------------------
 
-    buttonWidth = (descFrameWidth - 4*margin) / 3;
+    buttonWidth = (descFrameWidth - 6*margin) / 5;
+    fieldWidth = buttonWidth + margin
+    i = -1
 
-    // "Remove" Button
-    removeButton       = uicontrol( ..
-    "Parent"       , DescFrame,..
-    "Style"        , "pushbutton",..
-    "Position"       , [margin margin buttonWidth widgetHeight],..
-    "String"       , gettext("Remove"),..
-    "Callback"       , "cbAtomsGui", ..
-    "Enable"       , "off",..
-    "Tag"        , "removeButton");
+    // "Autoload"" Checkbox
+    i = i+1
+    autoloadCheckbox = uicontrol( ..
+    "Parent"     , DescFrame,..
+    "Style"      , "checkbox",..
+    "Position"   , [ margin+i*fieldWidth margin buttonWidth widgetHeight ],..
+    "String"     , gettext("Load at startup"),..
+    "background" , [ 1 1 1 ], ..
+    "Callback"   , "cbAtomsGui", ..
+    "Min"        , 0, ..
+    "Max"        , 1, ..
+    "Tag"        , "autoloadCheckbox")
 
     // "Install" Button
-    installButton      = uicontrol( ..
-    "Parent"       , DescFrame,..
-    "Style"        , "pushbutton",..
-    "Position"       , [buttonWidth+2*margin margin buttonWidth widgetHeight],..
-    "String"       , gettext("Install"),..
-    "Callback"       , "cbAtomsGui", ..
-    "Enable"       , "off", ..
-    "Tag"        , "installButton");
+    i = i+1
+    installButton = uicontrol( ..
+    "Parent"    , DescFrame,..
+    "Style"     , "pushbutton",..
+    "Position"  , [ margin+i*fieldWidth margin buttonWidth widgetHeight ],..
+    "String"    , gettext("Install"),..
+    "background" , [ 0.9 0.9 0.9 ], ..
+    "Callback"  , "cbAtomsGui", ..
+    "Enable"    , "off", ..
+    "Tag"       , "installButton");
 
     // "Update" Button
-    updateButton       = uicontrol( ..
-    "Parent"       , DescFrame,..
-    "Style"        , "pushbutton",..
-    "Position"       , [2*buttonWidth+3*margin margin buttonWidth widgetHeight],..
-    "String"       , gettext("Update"),..
-    "Callback"       , "cbAtomsGui", ..
-    "Enable"       , "off", ..
-    "Tag"        , "updateButton");
+    i = i+1
+    updateButton  = uicontrol( ..
+    "Parent"    , DescFrame,..
+    "Style"     , "pushbutton",..
+    "Position"  , [ margin+i*fieldWidth margin buttonWidth widgetHeight ],..
+    "String"    , gettext("Update"),..
+    "background" , [ 0.9 0.9 0.9 ], ..
+    "Callback"  , "cbAtomsGui", ..
+    "Enable"    , "off", ..
+    "Tag"       , "updateButton");
+
+    // "Remove" Button
+    i = i+1
+    removeButton  = uicontrol( ..
+    "Parent"    , DescFrame,..
+    "Style"     , "pushbutton",..
+    "Position"  , [ margin+i*fieldWidth margin buttonWidth widgetHeight ],..
+    "String"    , gettext("Remove"),..
+    "background" , [ 0.9 0.9 0.9 ], ..
+    "Callback"  , "cbAtomsGui", ..
+    "Enable"    , "off",..
+    "Tag"       , "removeButton");
+
+    // "Quit" Button
+    i = i+1
+    updateButton  = uicontrol( ..
+    "Parent"    , DescFrame,..
+    "Style"     , "pushbutton",..
+    "Position"  , [margin+i*fieldWidth margin buttonWidth widgetHeight],..
+    "String"    , gettext("Quit"),..
+    "background" , [ 0.9 0.9 0.9 ], ..
+    "Callback"  , "cbAtomsGui", ..
+    "Tag"       , "quitButton");
 
     // Installed Modules: List of installed modules
     // =========================================================================
 
     descWidth        = descFrameWidth  - 2*margin;
-    descHeight         = descFrameHeight - 3*margin;
+    descHeight       = descFrameHeight - 3*margin;
 
     // Frame
     HomeFrame        = uicontrol( ..
     "Parent"       , atomsfig,..
     "Style"        , "frame",..
     "Relief"       , "solid",..
-    "Background"     , [1 1 1],..
-    "Position"       , [listboxFrameWidth+2*margin widgetHeight+2*margin descFrameWidth descFrameHeight],..
-    "Tag"        , "HomeFrame");
+    "Background"   , [1 1 1],..
+    "Position"     , [listboxFrameWidth+2*margin widgetHeight+2*margin descFrameWidth descFrameHeight],..
+    "Tag"          , "HomeFrame");
 
     // Frame title
     HomeTitle        = uicontrol( ..
     "Parent"       , HomeFrame,..
     "Style"        , "text",..
-    "Position"       , [2*margin descFrameHeight-1.5*margin 200 widgetHeight],..
+    "Position"     , [2*margin descFrameHeight-1.5*margin 200 widgetHeight],..
     "HorizontalAlignment", "center",..
     "VerticalAlignment"  , "middle",..
     "String"       , gettext("List of installed modules"), ..
-    "FontWeight"     , "bold",..
-    "FontSize"       , 12,..
-    "Background"     , [1 1 1],..
-    "Tag"        , "HomeTitle");
+    "FontWeight"   , "bold",..
+    "FontSize"     , 12,..
+    "Background"   , [1 1 1],..
+    "Tag"          , "HomeTitle");
 
     // Home
     HomeListbox         = uicontrol( ..
@@ -345,23 +311,28 @@ function atomsGui()
     "Position"      , [ margin margin descWidth descHeight],..
     "Background"      , [1 1 1],..
     "FontSize"      , defaultFontSize,..
-    "String"        , HomeElements("items_str"),..
-    "UserData"      , HomeElements("items_mat"),..
     "Callback"      , "cbAtomsGui", ..
     "Min"         , 1, ..
     "Max"         , 1, ..
     "Tag"         , "HomeListbox");
 
+    // Build the list of installed modules only AFTER the box has been defined:
+    //  HTML columns are sized ACCORDING to the box size.
+    HomeElements = getHomeListboxElements();
+    HomeListbox.string   = HomeElements("items_str")
+    HomeListbox.userdata = HomeElements("items_mat")
+    HomeListbox.visible = "on"  // refresh the display
+
     // Message Frame
     // =========================================================================
 
     // Frame
-    msgFrame         = uicontrol( ..
-    "Parent"       , atomsfig,..
-    "Style"        , "frame",..
-    "Relief"       , "solid",..
-    "Background"     , [1 1 1],..
-    "Position"       , [margin margin msgWidth msgHeight],..
+    msgFrame       = uicontrol( ..
+    "Parent"     , atomsfig,..
+    "Style"      , "frame",..
+    "Relief"     , "solid",..
+    "Background" , [1 1 1],..
+    "Position"   , [margin margin msgWidth msgHeight],..
     "Tag"        , "msgFrame");
 
     // Text
@@ -371,10 +342,10 @@ function atomsGui()
     "HorizontalAlignment", "left",..
     "VerticalAlignment"  , "middle",..
     "String"       , "", ..
-    "FontSize"       , 12,..
-    "Background"     , [1 1 1],..
-    "Position"       , [2 2 msgWidth-10 msgHeight-4],..
-    "Tag"        , "msgText");
+    "FontSize"     , 12,..
+    "Background"   , [1 1 1],..
+    "Position"     , [2 2 msgWidth-10 msgHeight-4],..
+    "Tag"          , "msgText");
 
 endfunction
 
