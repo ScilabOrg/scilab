@@ -15,10 +15,10 @@
 // creates a very big file > 2 Go and try to read
 // resquires 10 minutes or more to execute
 
-SIZE_FILE = 4e8; 
+SIZE_FILE = 4e8;
 file3 = TMPDIR + '/test3.bin';
 fd1= mopen(file3,'wb');
-for i=1:SIZE_FILE, mput(i,'d'); end 
+for i=1:SIZE_FILE, mput(i,'d'); end
 mseek(0);
 mput(678,'d');
 mseek(0,fd1,'end');
