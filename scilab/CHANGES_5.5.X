@@ -671,6 +671,8 @@ Bug Fixes
 
 * Bug #12875 fixed - phasemag returned an error for input vector containing zeros.
 
+* Bug #12906 fixed - Update help page of champ and champ1.
+
 * Bug #12909 fixed - Completion on (mt)list led to a crash.
 
 * Bug #12911 fixed - Matlab to Scilab dictionary help page updated for eig.
