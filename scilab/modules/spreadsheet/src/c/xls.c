@@ -85,7 +85,7 @@ void xls_read(int *fd, int *cur_pos, double **data, int **chainesind, int *N, in
     *err = 0;
 
     *cur_pos = *cur_pos;
-    *err = mseek(*fd, *cur_pos, SEEK_SET);
+    *err = mseek(*fd, (long) * cur_pos, SEEK_SET);
     if (*err > 0)
     {
         goto ErrL;

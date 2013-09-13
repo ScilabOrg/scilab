@@ -26,7 +26,7 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 
-int mseek(int fd, int offset, int iflag)
+int mseek(int fd, long int offset, int iflag)
 {
 #if (defined(sun) && !defined(SYSV)) || defined(sgi)
     int irep;
@@ -68,7 +68,7 @@ int mseek(int fd, int offset, int iflag)
     if (fseek(fa, (long) offset, iflag) == -1 )
 #endif
 #else
-    if (fseek(fa, (long) offset, iflag) == -1)
+    if (fseek(fa, offset, iflag) == -1)
 #endif
     {
         return errno; // global variable produced by fseek
