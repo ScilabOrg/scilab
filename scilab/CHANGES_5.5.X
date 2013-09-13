@@ -262,6 +262,8 @@ Bug fixes
 
 * Bug #7486 fixed - DGELSY and ZGELSY closer to the upstream, to propose our modifications to LAPACK.
 
+* Bug #7562 fixed - Tell the user how to use lcm and gcd on real arrays: convert them into degree 1 polynomials.
+
 * Bug #7596 fixed - Same error happening in different places now yields the same error message.
 
 * Bug #7648 fixed - CDF functions now issue a warning for non integer "degrees of freedom" argument.
