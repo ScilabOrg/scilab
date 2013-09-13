@@ -294,6 +294,10 @@ Bug Fixes
 
 * Bug #7296 fixed - %nan, %inf and -%inf enabled for the cdf* functions.
 
+* Bug #7378 fixed - quart(x) did not detect NaNs, now it returns Nan whenever x contains a NaN.
+                    This alters backward compatibility but enables NaN propagation,
+                    rather than the %nans going undetected.
+
 * Bug #7411 fixed - clf forgot to turn off the datatip mode.
 
 * Bug #7486 fixed - LAPACK versions of DGELSY and ZGELSY now used.
