@@ -48,10 +48,14 @@
         <para>
             <literal>p.*fact = pp*ones(p)</literal>
         </para>
+        <para>
+            Si vous avez besoin du plus petit commun multiple d'une matrice <literal>p</literal> de réels, convertissez-la en polynôme
+            avant d'appeler <literal>lcm</literal>, grâce à la commande <literal>p = inv_coeff(p, 0)</literal>.
+        </para>
     </refsection>
     <refsection>
         <title>Exemples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 //cas des polynomes
 s=poly(0,'s');
 p=[s,s*(s+1)^2,s^2*(s+2)];
