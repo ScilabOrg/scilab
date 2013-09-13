@@ -603,3 +603,5 @@ Bug fixes
 * Bug #12858 fixed - Typo in French doc for debug() and pause().
 
 * Bug #12859 fixed - Core doc: fix optional argument of isdef().
+
+* Bug #12916 fixed - Improve the "power" help paged.
