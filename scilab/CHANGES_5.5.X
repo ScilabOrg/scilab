@@ -277,7 +277,11 @@ Bug Fixes
 
 * Bug #7296 fixed - %nan, %inf and -%inf enabled for the cdf* functions.
 
-* Bug #7411 fixed - clf forgot to turn off the datatip mode.
+* Bug #7378 fixed - quart(x) did not detect NaNs, now it returns Nan whenever x contains a NaN.
+                    This alters backward compatibility but enables NaN propagation,
+                    rather than the %nans going undetected.
+
+* Bug #7411 fixed - clf() forgot to turn off the datatip mode.
 
 * Bug #7486 fixed - LAPACK versions of DGELSY and ZGELSY now used.
 
@@ -688,7 +692,11 @@ Bug Fixes
 
 * Bug #12909 fixed - Completion on (mt)list led to a crash.
 
+<<<<<<< HEAD
 * Bug #12911 fixed - Matlab to Scilab dictionary help page updated for eig.
 
 * Bug #12916 fixed - power help page improved.
 
+=======
+* Bug #12911 fixed - eig Matlab-equivalent help page updated.
+>>>>>>> 84471c9... * Bug #7378 fixed - quartz now handles NaNs properly

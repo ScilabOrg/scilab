@@ -26,7 +26,7 @@ function q=quart(x,orien)
     //
     function y = vperctl(x,p)
         //inline function wich computes percentiles of a vector
-        k=isnan(x)
+        k=isnan(x);
         x(k)=[];
         n=size(x,"*")
         x=gsort(x,"g","i")
@@ -35,7 +35,7 @@ function q=quart(x,orien)
         y=interpln(data,p);
     endfunction
 
-    if x==[] then q=%nan, return, end
+    if x==[] | and(isnan(x)) then q=%nan, return, end
     [lhs,rhs]=argn(0)
     if rhs==0 then error(msprintf(gettext("%s: Wrong number of input argument: At least %d expected.\n"),"quart",1)), end
     if rhs==1 then
