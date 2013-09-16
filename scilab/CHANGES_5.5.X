@@ -253,6 +253,8 @@ Bug Fixes
 
 * Bug #6168 fixed - zpbutt, zpch1, zpch2 and zpell help pages were unclear.
 
+* Bug #6390 fixed - The external argument of odecd() was not documented well and not tested.
+
 * Bug #6427 fixed - full([%T %F]) returned an error message.
 
 * Bug #6466 fixed - Example with vectorized input added in mprintf and msprintf help pages.
@@ -688,4 +690,3 @@ Bug Fixes
 * Bug #12911 fixed - Matlab to Scilab dictionary help page updated for eig.
 
 * Bug #12916 fixed - power help page improved.
-
