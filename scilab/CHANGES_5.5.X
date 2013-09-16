@@ -260,6 +260,8 @@ Bug Fixes
 
 * Bug #6752 fixed - unit test scilab.tst has been split in different tests.
 
+* Bug #6824 fixed - resize_matrix could take hypermatrices.
+
 * Bug #6988 fixed - Error messages in modules/data_structures/src/c/hmops.c were not standard.
 
 * Bug #7026 fixed - There was no unit test for plot2d.
