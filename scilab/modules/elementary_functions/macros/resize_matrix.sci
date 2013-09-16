@@ -26,13 +26,17 @@ function resMat = resize_matrix(mat, nbRow, nbCol, typeOfMat)
         return
     end
 
-    matSize = size(mat) ;
+    if typeof(mat) == "hypermat" then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Hypermatrices are not handled.\n"), "resize_matrix", 1));
+    end
+
+    matSize = size(mat);
     minRow = min(nbRow, matSize(1));
     minCol = min(nbCol, matSize(2));
 
-    [lhs,rhs] = argn(0) ;
+    [lhs,rhs] = argn(0);
     if (rhs < 4) then
-        typeOfMat = typeof(mat) ;
+        typeOfMat = typeof(mat);
     end
 
     z = zeros(nbRow, nbCol);

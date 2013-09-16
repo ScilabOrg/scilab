@@ -1,0 +1,19 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 6824 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=6824
+//
+// <-- Short Description -->
+// resize_matrix could take hypermatrices.
+mat = rand(5, 5, 5);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: Hypermatrices are not handled.\n"), "resize_matrix", 1);
+assert_checkerror("resize_matrix(mat, 4, 6)", refMsg);
