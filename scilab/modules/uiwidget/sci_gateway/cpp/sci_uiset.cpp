@@ -107,6 +107,13 @@ int sci_uiset(char *fname, unsigned long fname_len)
         }
         if (!strcmp(str, "userdata") || !strcmp(str, "user_data"))
         {
+            if (path)
+            {
+                uid = UIWidget::getUidFromPath(getScilabJavaVM(), path);
+                freeAllocatedSingleString(path);
+                path = 0;
+            }
+
             UserDataHandler::put(uid, i + 1);
         }
         else
