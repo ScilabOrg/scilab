@@ -13,6 +13,8 @@ Scilab Bug Fixes
 * Bug #6689 & #6690 fixed - grand now works with complexes, polynomials, booleans, integers, sparses and strings,
                             and can take row vectors, matrices and hypermatrices of thoses types.
 
+* Bug #6824 fixed - resize_matrix did not manage hypermatrices.
+
 * Bug #7047 fixed - milk_drop is now obsolete. It will be removed in Scilab 5.5.1, but will be kept as a demo.
 
 * Bug #7570 fixed - The switch criterion on x and y is now explicited in beta() help page.
@@ -21,7 +23,7 @@ Scilab Bug Fixes
                     "dimension", "minbounds" and "maxbounds" fields.
 
 * Bug #7858 fixed - variance and variancef can now return the mean of the input
-                    in a new output argument.
+                    in a new output argument and take the a priori mean as input.
 
 * Bug #7879 fixed - string now accepts plist type, and printing a plist displays that string.
 
