@@ -382,6 +382,8 @@ Scilab Bug Fixes
 
 * Bug #6752 fixed - unit test scilab.tst has been split in different tests.
 
+* Bug #6824 fixed - resize_matrix did not handle hypermatrices.
+
 * Bug #6840 fixed - New line_style added.
 
 * Bug #6988 fixed - Error messages in modules/data_structures/src/c/hmops.c were not
