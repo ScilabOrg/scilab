@@ -2,22 +2,23 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Jean-Baptiste SILVY
- * 
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: added hypermatrix support
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="resize_matrix" xml:lang="en">
     <refnamediv>
         <refname>resize_matrix</refname>
-        <refpurpose>create a new matrix with a different size</refpurpose>
+        <refpurpose>create a new matrix or hypermatrix with a different size</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>resMat = resize_matrix(mat,nbRow,nbCol,[typeOfMat])</synopsis>
+        <synopsis>resMat = resize_matrix(mat, nbRow, nbCol [,nbLay] [,typeOfMat])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -25,7 +26,7 @@
             <varlistentry>
                 <term>mat</term>
                 <listitem>
-                    <para>input matrix from which the resized matrix will be
+                    <para>input matrix or hypermatrix from which the resized matrix will be
                         created.
                     </para>
                 </listitem>
@@ -40,6 +41,12 @@
                 <term>nbCol</term>
                 <listitem>
                     <para>number of column of the resized matrix.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nbLay</term>
+                <listitem>
+                    <para>number of layers (third dimension of the hypermatrix output).</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -60,35 +67,48 @@
         <title>Description</title>
         <para>
             Create a matrix of size <literal>nbRow</literal> x
-            <literal>nbCol</literal> and whose elements <literal>(i,j)</literal> are
-            <literal>mat(i,j)</literal> if <literal>(i,j)</literal> is in the range of
-            the input matrix. Otherwise elements <literal>(i,j)</literal> are
-            <literal>0</literal> for real or integer matrices, <literal>%f</literal>
-            for boolean matrices and an empty string for string matrices.
+            <literal>nbCol</literal> x <literal>nbLay</literal> (by default, <literal>nbLay=1</literal>)
+            and whose elements <literal>(i,j,k)</literal> are <literal>mat(i,j,k)</literal> if
+            <literal>(i,j,k)</literal> is in the range of the input matrix. Otherwise elements
+            <literal>(i,j,k)</literal> are <literal>0</literal> for real or integer matrices,
+            <literal>%f</literal> for boolean matrices and an empty string for string matrices.
         </para>
         <para>The type of the output matrix may be modified by specifying the
-            <literal>typeOfMat</literal> argument. In this case, be sure that the
+            <literal>typeOfMat</literal> argument. In this case, make sure that the
             input matrix type is compatible with this one.
         </para>
         <para>For now, only real, integer matrices, boolean and character string
             matrices are supported. This means that <literal>typeOfMat</literal> must
-            be chosen within: 'constant', 'boolean', 'string' or any integer type
-            ('int8', 'int16',...).
+            be chosen within: 'constant', 'boolean', 'string', any integer type
+            ('int8', 'int16',...) or 'hypermat'.
+        </para>
+        <para>
+            <note>
+                <literal>resize_matrix</literal> can shape matrices into hypermatrices and vice versa,
+                but it may not handle hypermatrices of more than 3 dimensions.
+            </note>
         </para>
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
-// number matrix
+        <programlisting role="example"><![CDATA[
+// Number matrix
 myMat = 5 * rand( 3, 4 )
 myMat = resize_matrix( myMat, 3, 3 ) // reduce the matrix size
 myMatInteger = resize_matrix( myMat, 4, 4, 'int32' ) // create an integer matrix
 myMatBoolean = resize_matrix( myMat, 2, 2, 'boolean' )
 myMatBoolean = resize_matrix( myMatBoolean, 3, 5 )
 
-// string matrix
+// String matrix
 myMatString = ["Scilab","the";"Open Source","Scientific";"Software","Package"]
 myMatString = resize_matrix( myMatString, 3, 1 )
+
+// Convert a number matrix into a string hypermatrix
+myMat = [
+0.6029980    4.2470508    3.2442814    3.7427533
+1.4276821    2.6285304    4.9615955    2.0520295
+4.3037573    4.9656049    0.2502099    3.0422632 ]
+myHyperMatString = resize_matrix( myMat, 3, 3, 2, "string")
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

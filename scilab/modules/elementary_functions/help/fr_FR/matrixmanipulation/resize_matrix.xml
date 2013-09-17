@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA - Jean-Baptiste SILVY
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: added hypermatrix support
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="resize_matrix" xml:lang="fr">
     <refnamediv>
         <refname>resize_matrix</refname>
-        <refpurpose>redimensionne une matrice</refpurpose>
+        <refpurpose>redimensionne une matrice ou une hypermatrice</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>resMat = resize_matrix(mat,nbRow,nbCol,[typeOfMat])</synopsis>
+        <synopsis>resMat = resize_matrix(mat, nbRow, nbCol [,nbLay] [,typeOfMat])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -32,6 +44,12 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>nbLay</term>
+                <listitem>
+                    <para>nombre de couches (troisième dimension de l'hypermatrice de retour).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>typeOfMat</term>
                 <listitem>
                     <para>chaîne de caractères spécifiant le type de la matrice
@@ -50,15 +68,13 @@
     <refsection>
         <title>Description</title>
         <para>
-            Crée une matrice de taille <literal>nbRow</literal> x<literal>
-                nbCol
-            </literal>
-            dont les éléments <literal>(i,j)</literal> sont
-            <literal>mat(i,j)</literal> si <literal>(i,j)</literal> est inférieur à 
-            la taille de la matrice. Sinon les éléments <literal>(i,j)</literal> sont
-            <literal>0</literal> pour les matrices de réels ou d'entier,
-            <literal>%f</literal> pour les matrices de booléens et une chaîne vide
-            pour les matrices de chaînes de caractères.
+            Crée une matrice de taille <literal>nbRow</literal> x <literal>nbCol</literal>
+            x <literal>nbLay</literal> (par défaut, <literal>nbLay=1</literal>) dont les éléments
+            <literal>(i,j,k)</literal> sont <literal>mat(i,j,k)</literal> si
+            <literal>(i,j,k)</literal> est inférieur à la taille de la matrice.
+            Sinon les éléments <literal>(i,j,k)</literal> sont <literal>0</literal>
+            pour les matrices de réels ou d'entiers, <literal>%f</literal> pour les matrices
+            de booléens et une chaîne vide pour les matrices de chaînes de caractères.
         </para>
         <para>Le type de la matrice de sortie peut être spécifié par l'argument
             <literal>typeOfMat</literal>. Dans ce cas, le type doit être compatible
@@ -67,24 +83,37 @@
         <para>Pour l'instant, seules les matrices de réels, d'entiers, de booléens
             et de chaînes de caractères sont supportées. Ainsi, l'argument
             <literal>typeOfMat</literal> doit prendre une valeur parmis : 'constant',
-            'boolean', 'string' ou un type entier ('int8', 'int16',...).
+            'boolean', 'string', un type entier ('int8', 'int16',...) ou 'hypermat'.
+        </para>
+        <para>
+            <note>
+                <literal>resize_matrix</literal> peut redimensionner des matrices en hypermatrices et vice-versa,
+                mais ne prend pas d'hypermatrices de plus de 3 dimensions.
+            </note>
         </para>
     </refsection>
     <refsection>
         <title>Exemples</title>
-        <programlisting role="example"><![CDATA[ 
-// matrice de chiffres
+        <programlisting role="example"><![CDATA[
+// Matrice de nombres
 myMat = 5 * rand( 3, 4 )
 myMat = resize_matrix( myMat, 3, 3 ) // réduction de la taille de la matrice
 
-// création d'une matrice d'entiers
+// Avec transtypage
 myMatInteger = resize_matrix( myMat, 4, 4, 'int32' )
 myMatBoolean = resize_matrix( myMat, 2, 2, 'boolean' )
 myMatBoolean = resize_matrix( myMatBoolean, 3, 5 )
 
-// matrice de chaînes de caractères
+// Matrice de chaînes de caractères
 myMatString = ["Scilab","the";"Open Source","Scientific";"Software","Package"]
 myMatString = resize_matrix( myMatString, 3, 1 )
+
+// Convertir un matrice de nombres en une hypermatrice de chaînes de caractères
+myMat = [
+0.6029980    4.2470508    3.2442814    3.7427533
+1.4276821    2.6285304    4.9615955    2.0520295
+4.3037573    4.9656049    0.2502099    3.0422632 ]
+myHyperMatString = resize_matrix( myMat, 3, 3, 2, "string")
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
