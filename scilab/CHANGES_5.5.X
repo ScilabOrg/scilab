@@ -722,4 +722,6 @@ Bug Fixes
 
 * Bug #12911 fixed - Matlab to Scilab dictionary help page updated for eig.
 
+* Bug #12913 fixed - linspace errored out if third argument was integer type.
+
 * Bug #12916 fixed - power help page improved.
