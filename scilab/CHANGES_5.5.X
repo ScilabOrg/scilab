@@ -504,6 +504,8 @@ Scilab Bug Fixes
 
 * Bug #9694 fixed - Example in optim help page fixed to display correct counters.
 
+* Bug #9697 fixed - Fixed printed information for optim "qn" and "gc" with bounds and imp=1.
+
 * Bug #9702 fixed - Contrary to what optim help page stated, the "gc" algorithm does use
                     the "epsx" parameter.
 
