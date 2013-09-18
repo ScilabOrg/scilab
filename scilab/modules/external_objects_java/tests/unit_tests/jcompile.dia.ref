@@ -10,6 +10,14 @@
 //
 // <-- JVM MANDATORY -->
 //
+// Add ecj to classpath if needed
+if getos()<>"Windows" then
+    if isdir(SCI + "/thirdparty/") then
+        javaclasspath(SCI + "/thirdparty/ecj.jar"); // Source version
+    elseif isdir(SCI + "/../../thirdparty/") then
+        javaclasspath(SCI + "/../../thirdparty/ecj.jar"); // Binary version
+    end
+end
 c = jcompile("Test", ["public class Test {";
        "public int field;";
        "public Test(int n) {";

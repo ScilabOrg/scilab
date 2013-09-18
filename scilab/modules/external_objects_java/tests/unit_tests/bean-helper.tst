@@ -5,17 +5,25 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// Add ecj to classpath if needed
+if getos()<>"Windows" then
+    if isdir(SCI + "/thirdparty/") then
+        javaclasspath(SCI + "/thirdparty/ecj.jar"); // Source version
+    elseif isdir(SCI + "/../../thirdparty/") then
+        javaclasspath(SCI + "/../../thirdparty/ecj.jar"); // Binary version
+    end
+end
 
 c = jcompile("Test", ["public class Test {";
-       "private double field;";
-       "public Test() {";
-       "}";
-       "public double getField() {";
-       "return field;";
-       "}";
-       "public void setField(double a) {";
-       "field = a;";
-       "}";
-       "}";]);
+"private double field;";
+"public Test() {";
+"}";
+"public double getField() {";
+"return field;";
+"}";
+"public void setField(double a) {";
+"field = a;";
+"}";
+"}";]);
 a = c.new();
 a.field=2;

@@ -5,6 +5,15 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// Add ecj to classpath if needed
+if getos()<>"Windows" then
+    if isdir(SCI + "/thirdparty/") then
+        javaclasspath(SCI + "/thirdparty/ecj.jar"); // Source version
+    elseif isdir(SCI + "/../../thirdparty/") then
+        javaclasspath(SCI + "/../../thirdparty/ecj.jar"); // Binary version
+    end
+end
+
 jautoUnwrap(%t)
 assert_checktrue(jautoUnwrap());
 jautoUnwrap(%f);

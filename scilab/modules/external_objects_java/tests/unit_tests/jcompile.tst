@@ -11,12 +11,21 @@
 // <-- JVM MANDATORY -->
 //
 
+// Add ecj to classpath if needed
+if getos()<>"Windows" then
+    if isdir(SCI + "/thirdparty/") then
+        javaclasspath(SCI + "/thirdparty/ecj.jar"); // Source version
+    elseif isdir(SCI + "/../../thirdparty/") then
+        javaclasspath(SCI + "/../../thirdparty/ecj.jar"); // Binary version
+    end
+end
+
 c = jcompile("Test", ["public class Test {";
-       "public int field;";
-       "public Test(int n) {";
-       "field = n;";
-       "}";
-       "}";]);
+"public int field;";
+"public Test(int n) {";
+"field = n;";
+"}";
+"}";]);
 assert_checkequal(jgetclassname(c),"Test");
 
 t = c.new(128);
@@ -28,12 +37,12 @@ v = jgetfield(t, "field");
 jremove c t v;
 
 
-fd = mopen(TMPDIR+'/HelloWorld.java','wt');
+fd = mopen(TMPDIR+"/HelloWorld.java","wt");
 mputl(["public class HelloWorld {"
-                   "public static String getHello() {"
-                   "return ""Hello World !!"";"
-                   "}"
-                   "}"],fd);
+"public static String getHello() {"
+"return ""Hello World !!"";"
+"}"
+"}"],fd);
 mclose(fd);
 
 jcompile(TMPDIR+"/HelloWorld.java")

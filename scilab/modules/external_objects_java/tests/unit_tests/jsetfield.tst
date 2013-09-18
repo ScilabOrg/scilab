@@ -5,15 +5,24 @@
 //  This file is distributed under the same license as the Scilab package.
 // ===================================================================
 
+// Add ecj to classpath if needed
+if getos()<>"Windows" then
+    if isdir(SCI + "/thirdparty/") then
+        javaclasspath(SCI + "/thirdparty/ecj.jar"); // Source version
+    elseif isdir(SCI + "/../../thirdparty/") then
+        javaclasspath(SCI + "/../../thirdparty/ecj.jar"); // Binary version
+    end
+end
+
 s = "Hello World !";
 r = jgetfield(jwrap(s), "CASE_INSENSITIVE_ORDER");
 
 c = jcompile("Test", ["public class Test {";
-       "public int field;";
-       "public Test(int n) {";
-       "field = n;";
-       "}";
-       "}";]);
+"public int field;";
+"public Test(int n) {";
+"field = n;";
+"}";
+"}";]);
 t = c.new(128);
 jsetfield(t, "field", 256);
 assert_checkequal(int32(256), jgetfield(t, "field"));

@@ -6,12 +6,21 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// Add ecj to classpath if needed
+if getos()<>"Windows" then
+    if isdir(SCI + "/thirdparty/") then
+        javaclasspath(SCI + "/thirdparty/ecj.jar"); // Source version
+    elseif isdir(SCI + "/../../thirdparty/") then
+        javaclasspath(SCI + "/../../thirdparty/ecj.jar"); // Binary version
+    end
+end
+
 c = jcompile("TestDirectBuffer",["import java.nio.DoubleBuffer;";
-                                 "public class TestDirectBuffer {";
-                                 "public static void increment(DoubleBuffer x) {";
-                                 "for (int i = 0; i < x.capacity(); i++) x.put(i, x.get(i) + 1);";
-                                 "}";
-                                 "}"])
+"public class TestDirectBuffer {";
+"public static void increment(DoubleBuffer x) {";
+"for (int i = 0; i < x.capacity(); i++) x.put(i, x.get(i) + 1);";
+"}";
+"}"])
 a = 1:10000;
 b = a + 1; // only used to compare with the following...
 jinvoke_db(c, "increment", "a");
