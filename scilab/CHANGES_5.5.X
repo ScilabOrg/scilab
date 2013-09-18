@@ -47,7 +47,7 @@ BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPA
   See bug #9447
  - A user can now plot variables from the variable browser (already available in
   editvar).
-  
+
 * Added lighting effect for plot of surfaces. Lighting can be enabled
   creating light objects or disabled deleting them. The following function
   was introduced:
@@ -453,6 +453,8 @@ Bug Fixes
 * Bug #9691 fixed - "imp" option in optim help page was poorly documented.
 
 * Bug #9694 fixed - Example in optim help page fixed to display correct counters.
+
+* Bug #9697 fixed - Fixed printed information for optim "qn" and "gc" with bounds and imp=1.
 
 * Bug #9702 fixed - Contrarily to what optim's help page read, the "gc" algorithm does use the "epsx" parameter.
 
