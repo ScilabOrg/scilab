@@ -277,6 +277,8 @@ Bug Fixes
 
 * Bug #6466 fixed - Example with vectorized input added in mprintf and msprintf help pages.
 
+* Bug #6638 fixed - The profiler output is incorrect by a factor of 1000
+
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
 
 * Bug #6752 fixed - unit test scilab.tst has been split in different tests.
