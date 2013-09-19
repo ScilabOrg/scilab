@@ -12,7 +12,7 @@ c
       integer id(nsiz)
       logical  getmat
 
-      integer tops
+      integer tops, isintegerM, isIntegerN
       double precision s
       integer iadr,sadr, mattyp1, areadr1, aimadr1
 c
@@ -56,22 +56,36 @@ c     ones sans argument
 c     ones(matrice)
       elseif(rhs.eq.2) then
 c     ones(m,n)
+         isIntegerN = 0
+         isIntegerM = 0
          call getdimfromvar(top,2,n)
          if(err.gt.0.or.err1.gt.0) return
+         il=iadr(lstk(top))
+         if(istk(il).eq.8.or.istk(il).eq.-8) then
+         isIntegerN = 1
+         endif
          top=top-1
          call getdimfromvar(top,1,m)
          if(err.gt.0.or.err1.gt.0) return
-         if (.not.getmat('ones', tops, top-rhs+2, 
-     +            mattyp1, u1, v1, areadr1, aimadr1)) return !To have the dimensions of argument #1 
-         if(u1.ne.u1.and.v1.ne.v1) then !detect nan because isanan does not work here
-            call error(21) !To avoid ones(:,5)
-            return
+         il=iadr(lstk(top))
+         if(istk(il).eq.8.or.istk(il).eq.-8) then
+            isIntegerM = 1
          endif
-         if (.not.getmat('ones', tops, top-rhs+3, 
+         if(isIntegerM.eq.0) then
+            if (.not.getmat('ones', tops, top-rhs+2, 
+     +            mattyp1, u1, v1, areadr1, aimadr1)) return !To have the dimensions of argument #1 
+            if(u1.ne.u1.and.v1.ne.v1) then !detect nan because isanan does not work here
+               call error(21) !To avoid ones(:,5)
+               return
+            endif
+         endif
+         if(isIntegerN.eq.0) then
+            if (.not.getmat('ones', tops, top-rhs+3, 
      +            mattyp1, u1, v1, areadr1, aimadr1)) return !To have the dimensions of argument #2
-         if(u1.ne.u1.and.v1.ne.v1) then !detect nan because isanan does not work here
-            call error(21) !To avoid ones(5,:)
-            return
+            if(u1.ne.u1.and.v1.ne.v1) then !detect nan because isanan does not work here
+               call error(21) !To avoid ones(5,:)
+               return
+            endif
          endif
       endif
 c
@@ -99,4 +113,3 @@ c     to avoid integer overflow
       return
       end
 c     -------------------------------
-      
