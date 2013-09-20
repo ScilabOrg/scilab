@@ -26,7 +26,7 @@
             this = neldermead_configure (this,key,value)
             value = neldermead_cget (this,key)
             value = neldermead_get ( this , key )
-            this = neldermead_search ( this )
+            this = neldermead_search ( this [,warn])
             this = neldermead_restart ( this )
             [ this , result ] = neldermead_function ( this , x )
             stop = neldermead_defaultoutput(state, data)
@@ -1199,6 +1199,19 @@
                             <term>this</term>
                             <listitem>
                                 <para>The current object.</para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>warn</term>
+                            <listitem>
+                                <para>Flag controlling the printing of warning messages.
+                                    <literal>warn</literal> = 0 or "off" turns off warnings, 
+                                    <literal>warn</literal> = 1 or "on" turns on warnings.
+                                    <literal>warn</literal> overrides the current warning mode and
+                                    reverts to it at the end of the function.
+                                    If it is absent, then the current warning mode is used.
+                                    See <link linkend="warning">warning</link>.
+                                </para>
                             </listitem>
                         </varlistentry>
                     </variablelist>

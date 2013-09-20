@@ -45,6 +45,7 @@ function [ this , terminate , status ] = optimbase_terminate (this , ...
         if ( this.iterations >= this.maxiter ) then
             terminate = %t;
             status = "maxiter";
+            warning(msprintf(_("Maximum number of iterations attained. Optimization may have failed.")));
         end
     end
     //
@@ -57,6 +58,7 @@ function [ this , terminate , status ] = optimbase_terminate (this , ...
         if ( this.funevals >= this.maxfunevals ) then
             terminate = %t;
             status = "maxfuneval";
+            warning(msprintf(_("Maximum number of function evaluations attained. Optimization may have failed.")));
         end
     end
     //
@@ -117,4 +119,3 @@ function [ this , terminate , status ] = optimbase_terminate (this , ...
         string(terminate) , status ));
     end
 endfunction
-
