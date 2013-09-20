@@ -463,6 +463,8 @@ Bug Fixes
 
 * Bug #10930 fixed - The comments in armax function were in French.
 
+* Bug #10936 fixed - Scilab hung with invalid strf in plot2d.
+
 * Bug #10995 fixed - Typo fixed in grand help page for Gamma law argument.
 
 * Bug #11139 fixed - conj was not defined for sparse matrices (+ unit test added).
