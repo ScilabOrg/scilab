@@ -157,8 +157,13 @@ BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPA
   See bugs #12523 and #10409
  - It is now possible to delete variables from the variable browser.
   See bug #9447
+<<<<<<< HEAD
  - A user can now plot variables from the variable browser (this functionality was
   already available in the variable editor).
+=======
+ - A user can now plot variables from the variable browser (already available in
+  editvar).
+>>>>>>> 9c6e439... * Bug #9701 fixed - optim gateway for large problems
 
 * Added lighting effect for plot of surfaces. Lighting can be enabled
   creating light objects or disabled by deleting them. The following function
@@ -526,6 +531,8 @@ Scilab Bug Fixes
 * Bug #9691 fixed - "imp" option in optim help page was poorly documented.
 
 * Bug #9694 fixed - Example in optim help page fixed to display correct counters.
+
+* Bug #9701 fixed - optim with "qn" option was failing for large problems.
 
 * Bug #9702 fixed - Contrary to what optim help page stated, the "gc" algorithm does use
                     the "epsx" parameter.
