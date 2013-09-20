@@ -1,10 +1,10 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
-c 
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
 c     --------------------------
@@ -95,7 +95,7 @@ c     traitement de simul
       endif
 c
 c Compute isim :
-c - isim=1 if the cost function is given as a string (code 10), that is, the cost function is 
+c - isim=1 if the cost function is given as a string (code 10), that is, the cost function is
 c   a C or Fortran routine.
 c   In that case, the cost function is computed with a call to "foptim".
 c - isim=2 if the cost function is given as a script (code 11), a compiled script (code 13),
@@ -115,7 +115,7 @@ c     cas simul=liste
          if(err.gt.0) return
          nomsub(nc+1:nc+1)=char(0)
          call setfoptim(nomsub,irep)
-         if ( irep.eq.1) then 
+         if ( irep.eq.1) then
             buf = nomsub
             call error(50)
             return
@@ -580,6 +580,12 @@ c     optimiseur n1qn1 : Quasi-Newton without constraints
       if(icontr.eq.1.and.ialg.eq.1) then
          lvar=ldisp
          mode=3
+c        If nx is greater than 46333, then we cannot compute nx*(nx+13)/2 properly,
+c        which is the required memory for the "qn" algorithm
+         if (nx.gt.46333) then
+            call error(17)
+            return
+         endif
          ntv=nx*(nx+13)/2
          ldisp=lvar + nx
          if(indtv.eq.0) then
