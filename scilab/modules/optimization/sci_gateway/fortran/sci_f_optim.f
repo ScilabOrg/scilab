@@ -1,17 +1,17 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
-c 
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
 c     --------------------------
 c     SCILAB function : optim
 c     --------------------------
       subroutine scioptim(fname)
-      
+
       character*(*) fname
 	INCLUDE 'stack.h'
       double precision tol,df0,zng,dxmin
@@ -23,21 +23,21 @@ c     --------------------------
       common /nird/ nizs,nrzs,ndzs
       external foptim,boptim,fuclid,ctonb,ctcab
       integer coin,coar,coti,cotd,cosi,cosd,nfac
-c     
+c
       character*(nlgh+1) namef,namej
       common/csolve/namef,namej
 c
       integer impn(nsiz)
       logical eqid, getscalar
       integer iadr, sadr
-c     
+c
       parameter (nsiz1=nsiz-1)
       data impn/672732690,nsiz1*673720360/
 c
       data coin,coar,coti,cotd,cosi,cosd,nfac
      &     /   5906,6922,4637,3357,4636,3356, 0/
-c     
-      
+c
+
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
 
@@ -75,7 +75,7 @@ c
       lrzs=ldisp
       ldzs=ldisp
       ldisp=ldzs+1
-c     
+c
       top2=top+1-rhs
       top3=top2
       topin=top2-1
@@ -84,8 +84,8 @@ c
          call error(39)
          return
       endif
-c     
-c     
+c
+c
 c     traitement de simul
       l1=istk(il)
       if((l1-10)*(l1-11)*(l1-13)*(l1-15).ne.0) then
@@ -95,7 +95,7 @@ c     traitement de simul
       endif
 c
 c Compute isim :
-c - isim=1 if the cost function is given as a string (code 10), that is, the cost function is 
+c - isim=1 if the cost function is given as a string (code 10), that is, the cost function is
 c   a C or Fortran routine.
 c   In that case, the cost function is computed with a call to "foptim".
 c - isim=2 if the cost function is given as a script (code 11), a compiled script (code 13),
@@ -115,7 +115,7 @@ c     cas simul=liste
          if(err.gt.0) return
          nomsub(nc+1:nc+1)=char(0)
          call setfoptim(nomsub,irep)
-         if ( irep.eq.1) then 
+         if ( irep.eq.1) then
             buf = nomsub
             call error(50)
             return
@@ -129,7 +129,7 @@ c     cas simul=macro
       endif
       top2=top2+1
       il=iadr(lstk(top2))
-c     
+c
 c Compute icontr
 c - icontr=1 if without constraints
 c - icontr=2 if with bound constraints
@@ -179,7 +179,7 @@ c     contraintes de borne :chaine "b" (code 11), xinf , xsup
          top2=top2+1
          il=iadr(lstk(top2))
       end if
-c     
+c
 c     point initial
       if(istk(il).gt.2.or.istk(il).eq.0)  then
          err=top2-topin
@@ -206,7 +206,7 @@ c     a quoi servent les 2 lignes suivantes. elle pose pb pour le nom de la macr
 c     simulateur dans les messages d'erreur
 c     idstk(1,top-1)=nx1
 c     idstk(2,top-1)=nx2
-c     
+c
 c     stockage de g
       lg=ldisp
       ldisp=lg + nx
@@ -218,7 +218,7 @@ c     stockage de g
       if (top2.eq.top) go to 200
       top2=top2+1
       il=iadr(lstk(top2))
-c     
+c
 c     choix d algorithme
 c
 c Compute ialg1
@@ -245,7 +245,7 @@ c
             il=iadr(lstk(top2))
          end if
       endif
-c     
+c
 c     df0
       if(istk(il).eq.1.and.istk(il+1)*istk(il+2).eq.1) then
          df0=stk(sadr(il+4))
@@ -257,7 +257,7 @@ c     df0
          top2=top2 + 1
          il=iadr(lstk(top2))
       endif
-c     
+c
 c     mmx
       if(istk(il).eq.1.and.istk(il+1)*istk(il+2).eq.1) then
          l=sadr(il+4)
@@ -267,7 +267,7 @@ c     mmx
          top2=top2+1
          il=iadr(lstk(top2))
       end if
-c     
+c
 c     hot start (optimiseurs n1qn1 et qnbd)
       if(istk(il).eq.1.and.istk(il+3).eq.0) then
          if (ialg.ne.1) then
@@ -286,7 +286,7 @@ c     hot start (optimiseurs n1qn1 et qnbd)
          top2=top2+1
          il=iadr(lstk(top2))
       end if
-c     
+c
 c     chaine 'ar'
       if(istk(il).ne.10)  then
          err=top2-topin
@@ -307,7 +307,7 @@ c     chaine 'ar'
       if (top2.eq.top) go to 200
       top2=top2+1
       il=iadr(lstk(top2))
-c     
+c
 c     napm et itmax
       if(istk(il).eq.1.and.istk(il+1)*istk(il+2).eq.1) then
          l=sadr(il+4)
@@ -323,7 +323,7 @@ c     napm et itmax
          top2=top2+1
          il=iadr(lstk(top2))
       end if
-c     
+c
 c     epsg,epsf,epsx (note : epsx est un vecteur)
       if(istk(il).eq.1.and.istk(il+1)*istk(il+2).eq.1) then
          epsg=stk(sadr(il+4))
@@ -348,7 +348,7 @@ c     epsg,epsf,epsx (note : epsx est un vecteur)
          top2=top2+1
          il=iadr(lstk(top2))
       endif
-c     
+c
 c     chaine 'in'
 c
  150  if(istk(il).ne.10) then
@@ -384,7 +384,7 @@ c     on initialise nizs,nrzs,ndzs
      &           izs,rzs,dzs)
          endif
          if(err.gt.0.or.err1.gt.0) return
-c     
+c
          if(indsim.le.0) then
             indopt=-7
             if(indsim.eq.0) indopt=0
@@ -415,7 +415,7 @@ c     stockage de izs,rzs,dzs dans la pile
          top2=top2 + 1
          il=iadr(lstk(top2))
       endif
-c     
+c
 c     izs et dzs en entree (chaine 'ti' et/ou 'td' suivie du tableau)
       if(istk(il).ne.10) then
          err=top2-topin
@@ -475,7 +475,7 @@ c     izs et dzs en entree (chaine 'ti' et/ou 'td' suivie du tableau)
             il=iadr(lstk(top2))
          endif
       endif
-c     
+c
 c     mettre ti = izs et/ou td = dzs en sortie (chaine 'si' ou 'sd')
       if(istk(il).ne.10) then
          err=top2-topin
@@ -498,7 +498,7 @@ c     mettre ti = izs et/ou td = dzs en sortie (chaine 'si' ou 'sd')
          top2=top2+1
          il=iadr(lstk(top2))
       endif
-c     
+c
       if(istk(il).ne.10) then
          err=top2-topin
          call error(55)
@@ -520,13 +520,13 @@ c
          return
       endif
       irecd=1
-c     
+c
 c     fin epluchage liste appel
  200  if (top.ne.top2) then
          call error(39)
          return
       endif
-c     
+c
 c     creation des variables contenant le simulateur et ind
       top=top+1
       topind=top
@@ -538,7 +538,7 @@ c     creation des variables contenant le simulateur et ind
       istk(il+3)=0
       ldisp=sadr(il+4)
       ldisp=ldisp+1
-c     
+c
       top=top+1
       lstk(top)=ldisp
       il=iadr(ldisp)
@@ -548,11 +548,11 @@ c
       istk(il+3)=topx
       istk(il+4)=topind
       ldisp=sadr(il+5)
-c     
+c
 c     initialisation eventuelle de f et g
       iarret=0
       if (napm.lt.2.or.itmax.lt.1) iarret=1
-c     
+c
       if((icontr.eq.1.and.(ialg.eq.2.or.ialg.eq.10)).or.
      &     (icontr.eq.2.and.ialg.eq.1.and.indtv.eq.1) .or.
      &     (iarret.eq.1)    )   then
@@ -573,19 +573,25 @@ c
          endif
          if (napm.lt.2.or.itmax.lt.1) go to 300
       endif
-c     
+c
 c     appel de l optimiseur
-c     
+c
 c     optimiseur n1qn1 : Quasi-Newton without constraints
       if(icontr.eq.1.and.ialg.eq.1) then
          lvar=ldisp
          mode=3
+c        If nx is greater than 46333, then we cannot compute nx*(nx+13)/2 properly (which is the required memory)
+         if (nx.gt.46333) then
+            call error(17)
+            return
+         endif
          ntv=nx*(nx+13)/2
          ldisp=lvar + nx
          if(indtv.eq.0) then
             mode=1
             ltv=lvar  + nx
             ldisp=ltv + ntv
+            print *,ldisp
          endif
          err=ldisp - lstk(bot)
          if (err.gt.0) then
@@ -597,12 +603,12 @@ c     optimiseur n1qn1 : Quasi-Newton without constraints
  50      continue
          nitv=0
          lstk(top + 1)=ldisp
-c     
+c
 c     mise en memoire de parametres d entree pour l affectation de indop
          itmax1=itmax
          napm1=napm
          epsg1=epsg
-c     
+c
          if(isim.eq.1) then
             call n1qn1(foptim,nx,stk(lx),stk(lf),stk(lg),
      &           stk(lvar),epsg,mode,itmax,napm,imp,io,stk(ltv),
@@ -652,7 +658,7 @@ c     tableaux de travail (mmx=nombre de mises a jour)
             return
          endif
          lstk(top+1)=ldisp
-c     
+c
          if(isim.eq.1) then
             indsim=4
             call foptim(indsim,nx,stk(lx),stk(lf),stk(lg),
@@ -681,7 +687,7 @@ c
          if (mode.eq.7) indopt=7
          go to 300
       endif
-c     
+c
 c     optimiseur n1fc1 : non smooth without constraints
       if(icontr.eq.1.and.ialg.eq.10) then
          if (immx.eq.0) mmx=10
@@ -727,7 +733,7 @@ c     interpretation de la cause de retour
          if (mode.eq.6)indopt=3
          go to 300
       endif
-c     
+c
 c     optimiseur qnbd : quasi-newton with bound constraints
       if(icontr.eq.2.and.ialg.eq.1) then
          if (iepsx.eq.1) then
@@ -784,7 +790,7 @@ c     optimiseur qnbd : quasi-newton with bound constraints
          if(err.gt.0.or.err1.gt.0) return
          go to 300
       endif
-c     
+c
 c     optimiseur gcbd : Gradient Conjugate with bound constraints
       if(icontr.eq.2.and.ialg.eq.2) then
          nt=2
@@ -825,22 +831,22 @@ c     optimiseur gcbd : Gradient Conjugate with bound constraints
          if(err.gt.0.or.err1.gt.0) return
          go to 300
       endif
-c     
+c
 c     algorithme non implante
       call error(136)
       return
-c     
+c
 c     laissons la pile aussi propre qu on aurait aime la trouver
  300  top2=top3
       top =top3 + lhs - 1
       fun=0
-c     
+c
       lhs1=lhs - ireci -irecd
       if (lhs1.le.0) then
          call error(41)
          return
       endif
-c     
+c
 c     sauvegarde de f
       il=iadr(lstk(top2))
       istk(il)=1
@@ -851,7 +857,7 @@ c     sauvegarde de f
       stk(l)=stk(lf)
       lstk(top+1)=l+1
       if(lhs.eq.1) go to 320
-c     
+c
 c     sauvegarde de x
       l=l+1
       top2=top2 + 1
@@ -868,7 +874,7 @@ c     sauvegarde de x
       lstk(top+1)=lx1+nx
       call unsfdcopy(nx,stk(lx) ,1,stk(lx1),1)
       if(lhs1.eq.2) go to 320
-c     
+c
 c     sauvegarde de g
       top2=top2 + 1
       lstk(top2)=lstk(top+1)
@@ -883,7 +889,7 @@ c     sauvegarde de g
       call unsfdcopy(nx,stk(lg) ,1,stk(l),1)
       lstk(top+1)=l+nx
       if(lhs1.eq.3) goto 320
-c     
+c
 c     sauvegarde de tv (tableau interne a l' optimiseur - pour hot start
       if (lhs1.ge.4) then
          istv=0
@@ -935,7 +941,7 @@ c     if (l+ntv+nitv+1.ge.sadr(lizs)) then
       endif
       lstk(top+1)=l + ntv + nitv
       if(lhs1.eq.4) goto 320
-c     
+c
 c     sauvegarde de niter
       top2=top2 + 1
       lstk(top2)=lstk(top+1)
@@ -948,7 +954,7 @@ c     sauvegarde de niter
       stk(l)=itmax
       lstk(top+1)=l+1
       if(lhs1.eq.5) go to 320
-c     
+c
 c     sauvegarde de napm
       top2=top2 + 1
       lstk(top2)=lstk(top+1)
@@ -961,7 +967,7 @@ c     sauvegarde de napm
       stk(l)=napm
       lstk(top+1)=l+1
       if(lhs1.eq.6) go to 320
-c     
+c
 c     sauvegarde de indopt
       top2=top2 + 1
       lstk(top2)=lstk(top+1)
@@ -973,7 +979,7 @@ c     sauvegarde de indopt
       l=sadr(il+4)
       stk(l)=indopt
       lstk(top+1)=l+1
-c     
+c
 c     sauvegarde de izs et dzs
  320  if (lhs.eq.lhs1) go to 350
       if (ireci.eq.1) then
@@ -1003,7 +1009,7 @@ c     sauvegarde de izs et dzs
          lstk(top+1)=l+ndzs
       endif
       go to 350
-c     
+c
 c     commentaires finaux
  350  continue
       if (iarret.eq.1) return
