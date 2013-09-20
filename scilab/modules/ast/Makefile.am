@@ -11,6 +11,9 @@
 ##
 ##
 
+#### Target ######
+modulename=ast
+
 pkglib_LTLIBRARIES 	= libsciast.la
 
 libsciast_la_SOURCES = \

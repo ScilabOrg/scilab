@@ -549,6 +549,9 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 yacc_present = @yacc_present@
+
+#### Target ######
+modulename = ast
 pkglib_LTLIBRARIES = libsciast.la
 libsciast_la_SOURCES = \
 	src/cpp/libAst.cpp \
