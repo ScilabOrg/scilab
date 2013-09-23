@@ -61,52 +61,71 @@ function histplot(n,data,style,strf,leg,rect,nax,logflag,frameflag,axesflag,norm
         return
     end
 
-    if rhs < 2
-        error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"),"histplot",2));
-    end
-
-    if type(n) ~= 1 |  ~isreal(n)
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",1));
-    elseif type(data) ~= 1 | ~isreal(data)
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",2));
-    end
-
-    // this is the only specific optionnal argument for histplot
+    // this is the only specific optional argument for histplot
     if ~exists("normalization","local") then, normalization=%t,end
     if ~exists("polygon","local") then, polygon=%f,end
 
-    // now parse optionnal arguments to be sent to plot2d
-    opt_arg_seq = []
-    opt_arg_list = ["style","strf","leg","rect","nax","logflag","frameflag","axesflag"]
-    for opt_arg = opt_arg_list
-        if exists(opt_arg,"local") then
-            opt_arg_seq = opt_arg_seq +","+ opt_arg + "=" + opt_arg
+    if typeof(n) <> "st" then // Raw data, compute it before plotting.
+
+        if type(n) ~= 1 |  ~isreal(n)
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",1));
+        elseif type(data) ~= 1 | ~isreal(data)
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: Real  expected.\n"),"histplot",2));
+        end
+
+        // now parse optionnal arguments to be sent to plot2d
+        opt_arg_seq = []
+        opt_arg_list = ["style","strf","leg","rect","nax","logflag","frameflag","axesflag"]
+        for opt_arg = opt_arg_list
+            if exists(opt_arg,"local") then
+                opt_arg_seq = opt_arg_seq +","+ opt_arg + "=" + opt_arg
+            end
+        end
+
+        p = length(data)
+        if length(n) == 1 then  // the number of classes is provided
+            if n < 1
+                error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the interval %s.\n"),"histplot",1,"[1, oo)"));
+            elseif n~=floor(n)
+                error(msprintf(gettext("%s: Wrong type for input argument #%d: Integer expected.\n"),"histplot",1))
+            end
+            mind = min(data);
+            maxd = max(data);
+            if (mind == maxd) then
+                mind = mind - floor(n/2);
+                maxd = maxd + ceil(n/2);
+            end
+            x = linspace(mind, maxd, n+1);
+        else                    // the classes are provided
+            x = matrix(n,1,-1)   // force row form
+            if min(diff(x)) <= 0 then
+                error(msprintf(gettext("%s: Wrong values for input argument #%d: Elements must be in increasing order.\n"),"histplot",1))
+            end
+            n = length(x)-1
+        end
+
+        [ind , y] = dsearch(data, x)
+
+    else // Output from hisctomp(), histogram just needs to be plotted.
+
+        if typeof(n) ~= "st"
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: Struct expected.\n"), "histplot", 1));
+        elseif ~(isfield(n, "x") & isfield(n, "y"))
+            error(msprintf(gettext("%s: Wrong value for input argument #%d: Fields ""%s"" and ""%y"" expected.\n"), "histplot", 1, "x", "y"));
+        end
+        x = n.x;
+        y = n.y;
+        p = length(y);
+        n = length(x)-1;
+        // Now parse optionnal arguments to be sent to plot2d
+        opt_arg_seq = []
+        opt_arg_list = ["data","style","strf","leg","rect","nax","logflag","frameflag"]
+        for opt_arg = opt_arg_list
+            if exists(opt_arg,"local") then
+                opt_arg_seq = opt_arg_seq +","+ opt_arg + "=" + opt_arg
+            end
         end
     end
-
-    p = length(data)
-    if length(n) == 1 then  // the number of classes is provided
-        if n < 1
-            error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the interval %s.\n"),"histplot",1,"[1, oo)"));
-        elseif n~=floor(n)
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: Integer expected.\n"),"histplot",1))
-        end
-        mind = min(data);
-        maxd = max(data);
-        if (mind == maxd) then
-            mind = mind - floor(n/2);
-            maxd = maxd + ceil(n/2);
-        end
-        x = linspace(mind, maxd, n+1);
-    else                    // the classes are provided
-        x = matrix(n,1,-1)   // force row form
-        if min(diff(x)) <= 0 then
-            error(msprintf(gettext("%s: Wrong values for input argument #%d: Elements must be in increasing order.\n"),"histplot",1))
-        end
-        n = length(x)-1
-    end
-
-    [ind , y] = dsearch(data, x)
 
     if normalization then y=y ./ (p *(x(2:$)-x(1:$-1))),end
 

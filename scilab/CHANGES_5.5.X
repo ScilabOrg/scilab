@@ -267,6 +267,9 @@ Bug Fixes
 
 * Bug #5779 fixed - xnumb number format was too small (+ unit test added).
 
+* Bug #6036 fixed - It is now possible to compute an histogram instead of plotting it
+                    with new function histcomp().
+
 * Bug #6037 fixed - macrovar help page improved.
 
 * Bug #6168 fixed - zpbutt, zpch1, zpch2 and zpell help pages were unclear.
@@ -727,5 +730,7 @@ Bug Fixes
 * Bug #12913 fixed - linspace returned an error if third argument was an integer type variable.
 
 * Bug #12916 fixed - power help page improved.
+
+* Bug #12925 fixed - new options to display histograms: cumulative, relative and percentage.
 
 * Bug #12927 fixed - ones function could not take integer type input.
