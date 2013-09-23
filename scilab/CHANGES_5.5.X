@@ -729,3 +729,5 @@ Bug Fixes
 * Bug #12916 fixed - power help page improved.
 
 * Bug #12927 fixed - ones function could not take integer type input.
+
+* Bug #12931 fixed - atoms redefined "message" keyword.
