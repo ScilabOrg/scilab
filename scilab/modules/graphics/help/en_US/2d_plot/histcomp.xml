@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA - Serge Steer
- * Copyright (C) INRIA - Paul Bignier: handling the ouput of histcomp() function
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,16 +10,16 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  --><!-- This document was created with Syntext Serna Free. -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="histplot">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="histcomp">
     <refnamediv>
-        <refname>histplot</refname>
-        <refpurpose>plot a histogram</refpurpose>
+        <refname>histcomp</refname>
+        <refpurpose>computes an histogram</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>histplot(n, data [,normalization] [,polygon], &lt;opt_args&gt;)
-            histplot(x, data [,normalization] [,polygon], &lt;opt_args&gt;)
-            histplot(st [,normalization] [,polygon], &lt;opt_args&gt;)
+        <synopsis>
+            res = histcomp(n, data [,yunit] [,cumulative])
+            res = histcomp(x, data [,yunit] [,cumulative])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -41,42 +40,29 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>st</term>
+                <term>res</term>
                 <listitem>
                     <para>
-                        struct containing the output of <link linkend="histcomp">histcomp</link>
-                        (three fields: <literal>x</literal>, <literal>y</literal> and <literal>p</literal>,
-                        representing the classes, the data and the number of values)
+                        struct containing three fields: <literal>x</literal>,
+                        <literal>y</literal> and <literal>p</literal>,
+                        representing the classes, the data and the number of elements.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>data</term>
-                <listitem>
-                    <para>vector (data to be analysed)</para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>normalization</term>
-                <listitem>
-                    <para>a boolean (%t (default value) or %f)</para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>polygon</term>
-                <listitem>
-                    <para>a boolean (%t or %f (default value))</para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>&lt;opt_args&gt;</term>
+                <term>yunit</term>
                 <listitem>
                     <para>
-                        This represents a sequence of statements <literal>key1=value1,key2=value2</literal>
-                        ,... where <literal>key1</literal>,
-                        <literal>key2,...</literal> can be any optional <link linkend="plot2d">plot2d</link> parameter (<literal>style,strf,leg, rect,nax, logflag,frameflag, axesflag </literal>
-                        ).
+                        string, indicating the type of frequency required:
+                        "count", "normalized", "relative" or "percentage".
+                        By default, "count" is selected.
                     </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>cumulative</term>
+                <listitem>
+                    <para>a boolean (%f (default value) or %t)</para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -84,18 +70,20 @@
     <refsection>
         <title>Description</title>
         <para>
-            This function plots a histogram of the <literal>data</literal> vector using the
+            This function computes a histogram of the <literal>data</literal> vector using the
             classes <literal>x</literal>. When the number <literal>n</literal> of classes is provided
             instead of <literal>x</literal>, the classes are chosen equally spaced and
             <emphasis>x(1) = min(data) &lt; x(2) = x(1) + dx &lt; ... &lt; x(n+1) = max(data)</emphasis>
             with <emphasis>dx = (x(n+1)-x(1))/n</emphasis>.
         </para>
-        <para> The classes are defined by C1 = [x(1), x(2)] and  Ci = ( x(i), x(i+1)] for i &gt;= 2.
-            Noting Nmax the total number of <literal>data</literal> (Nmax = length(data)) and Ni the number
-            of <literal>data</literal> components falling in Ci, the value of the histogram for x in Ci
-            is equal to <emphasis>Ni/(Nmax (x(i+1)-x(i)))</emphasis> when <literal>normalization</literal> is true
-            (default case) and else, simply equal to <emphasis>Ni</emphasis>. When normalization occurs the
-            histogram verifies:
+        <para>
+             The classes are defined by <literal>C1 = [x(1), x(2)]</literal> and <literal>Ci = ( x(i), x(i+1)]</literal> for i &gt;= 2.
+            Noting <literal>Nmax</literal> the total number of <literal>data</literal> (Nmax = length(data))
+            and <literal>Ni</literal> the number of <literal>data</literal> components falling in
+            <literal>Ci</literal>, the value of the histogram for <literal>x</literal> in
+            <literal>Ci</literal> is equal to <emphasis>Ni/(Nmax (x(i+1)-x(i)))</emphasis> when
+            <literal>"normalized"</literal> is selected and else, simply equal to <emphasis>Ni</emphasis>.
+            When normalization occurs the histogram verifies:
         </para>
         <para>
             <latex style="display"><![CDATA[ \int_{x(1)}^{x(n+1)}h(x)\,\mathrm{d}x=1 ]]></latex>
@@ -104,23 +92,7 @@
             when <emphasis>x(1)&lt;=min(data)</emphasis> and <emphasis>max(data) &lt;= x(n+1)</emphasis>
         </para>
         <para>
-            Any <link linkend="plot2d">plot2d</link> (optional) parameter may be provided; for instance to
-            plot a histogram with the color number 2 (blue if std colormap is used) and
-            to restrict the plot inside the rectangle [-3,3]x[0,0.5],
-            you may use <literal>histplot(n,data, style=2, rect=[-3,0,3,0.5])</literal>.
-        </para>
-        <para>
-            Frequency polygon is a line graph drawn by joining all the midpoints of the top of the bins of a histogram.
-            Therefore we can use <literal>histplot</literal> function to plot a polygon frequency chart.
-        </para>
-        <para>
-            The optional argument <literal>polygon</literal> connects the midpoint of the top of each bar of a histogram with straight lines.
-        </para>
-        <para>
-            If <literal>polygon=%t</literal> we will have a histogram with frequency polygon chart.
-        </para>
-        <para>
-            Enter the command <literal>histplot()</literal> to see a demo.
+            The <literal>res</literal> output is destined to be passed to <link linkend="histplot">histplot</link>.
         </para>
     </refsection>
     <refsection>
@@ -128,15 +100,26 @@
         <simplelist>
             <member> Example #1: variations around a histogram of a gaussian random sample
                 <programlisting role="example"><![CDATA[
-d=rand(1,10000,'normal');  // the gaussian random sample
-clf(); histplot(20,d)
-clf(); histplot(20,d,normalization=%f)
-clf(); histplot(20,d,leg='rand(1,10000,''normal'')',style=5)
-clf(); histplot(20,d,leg='rand(1,10000,''normal'')',style=16, rect=[-3,0,3,0.5]);
+d = rand(1, 10000, 'normal');  // The gaussian random sample
+res = histcomp(20, d, "normalized")
+clf(); histplot(res, normalization=%f)
+res = histcomp(20, d)
+clf(); histplot(res, normalization=%f)
+res = histcomp(20, d, "normalized")
+clf(); histplot(res, normalization=%f, leg='rand(1,10000,''normal'')', style=5)
+res = histcomp(20, d, "normalized")
+clf(); histplot(res, normalization=%f, leg='rand(1,10000,''normal'')',style=16, rect=[-3,0,3,0.5]);
 ]]></programlisting>
                 <scilab:image>
-                    d=rand(1,10000,'normal');
-                    clf();histplot(20,d,leg='rand(1,10000,''normal'')',style=16, rect=[-3,0,3,0.5]);
+                    d = rand(1, 10000, 'normal');
+                    res = histcomp(20, d, "normalized")
+                    clf(); histplot(res, normalization=%f)
+                    res = histcomp(20, d)
+                    clf(); histplot(res, normalization=%f)
+                    res = histcomp(20, d, "normalized")
+                    clf(); histplot(res, normalization=%f, leg='rand(1,10000,''normal'')', style=5)
+                    res = histcomp(20, d, "normalized")
+                    clf(); histplot(res, normalization=%f, leg='rand(1,10000,''normal'')',style=16, rect=[-3,0,3,0.5]);
                 </scilab:image>
             </member>
             <member>
@@ -146,17 +129,12 @@ d = grand(1000,1,"bin", 6, 0.5);
 c = linspace(-0.5,6.5,8);
 clf()
 subplot(2,1,1)
-histplot(c, d, style=2)
+res = histcomp(c, d, "normalized")
+histplot(res, normalization=%f, style=2)
 xtitle("Normalized histogram")
 subplot(2,1,2)
-histplot(c, d, normalization=%f, style=5)
-xtitle("Non normalized histogram")
-res = histcomp(c, d); // Compute the classes and the frequencies
-clf();subplot(2,1,1)
-histplot(res, style=2) // Plot the output from histcomp()
-xtitle("Normalized histogram")
-subplot(2,1,2)
-histplot(res, normalization=%f, style=5) // Plot the output from histcomp()
+res = histcomp(c, d)
+histplot(res, normalization=%f, style=5)
 xtitle("Non normalized histogram")
 ]]></programlisting>
                 <scilab:image localized="true">
@@ -164,11 +142,13 @@ xtitle("Non normalized histogram")
                     c = linspace(-0.5,6.5,8);
                     clf()
                     subplot(2,1,1)
-                    histplot(c, d, style=2)
-                    xtitle("normalized histogram")
+                    res = histcomp(c, d, "normalized")
+                    histplot(res, normalization=%f, style=2)
+                    xtitle("Normalized histogram")
                     subplot(2,1,2)
-                    histplot(c, d, normalization=%f, style=5)
-                    xtitle("non normalized histogram")
+                    res = histcomp(c, d)
+                    histplot(res, normalization=%f, style=5)
+                    xtitle("Non normalized histogram")
                 </scilab:image>
             </member>
             <member>
@@ -177,8 +157,9 @@ xtitle("Non normalized histogram")
 lambda = 2;
 X = grand(100000,1,"exp", 1/lambda);
 Xmax = max(X);
+res = histcomp(40, X, "normalized")
 clf()
-histplot(40, X, style=2)
+histplot(res, normalization=%f, style=2)
 x = linspace(0,max(Xmax),100)';
 plot2d(x,lambda*exp(-lambda*x),strf="000",style=5)
 legend(["exponential random sample histogram" "exact density curve"]);
@@ -187,8 +168,9 @@ legend(["exponential random sample histogram" "exact density curve"]);
                     lambda = 2;
                     X = grand(100000,1,"exp", 1/lambda);
                     Xmax = max(X);
+                    res = histcomp(40, X, "normalized")
                     clf()
-                    histplot(40, X, style=2)
+                    histplot(res, normalization=%f, style=2)
                     x = linspace(0,max(Xmax),100)';
                     plot2d(x,lambda*exp(-lambda*x),strf="000",style=5)
                     legend(["exponential random sample histogram" "exact density curve"]);
@@ -197,15 +179,17 @@ legend(["exponential random sample histogram" "exact density curve"]);
             <member>
                 Example #4: the frequency polygon chart and the histogram of a gaussian random sample
                 <programlisting role="example"><![CDATA[
-n=10;
-data=rand(1,1000,"normal");
-clf(); histplot(n, data, style=12, polygon=%t);
+n = 10;
+data = rand(1, 1000, "normal");
+res = histcomp(n, data, "normalized")
+clf(); histplot(res, normalization=%f, style=12, polygon=%t);
 legend(["normalized histogram" "frequency polygon chart"]);
 ]]></programlisting>
                 <scilab:image localized="true">
-                    n=10;
-                    data=rand(1,1000,"normal");
-                    clf(); histplot(n,data,style=12,polygon=%t);
+                    n = 10;
+                    data = rand(1, 1000, "normal");
+                    res = histcomp(n, data, "normalized")
+                    clf(); histplot(res, normalization=%f, style=12, polygon=%t);
                     legend(["normalized histogram" "frequency polygon chart"]);
                 </scilab:image>
             </member>
@@ -215,7 +199,7 @@ legend(["normalized histogram" "frequency polygon chart"]);
         <title>See Also</title>
         <simplelist type="inline">
             <member>
-                <link linkend="histcomp">histcomp</link>
+                <link linkend="histplot">histplot</link>
             </member>
             <member>
                 <link linkend="hist3d">hist3d</link>
