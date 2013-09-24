@@ -20,7 +20,7 @@
 
 
 
-int sci_light_create(char *fname, unsigned long fname_len)
+int sci_light(char *fname, unsigned long fname_len)
 {
     int type = -1;
     BOOL visible = 1;
