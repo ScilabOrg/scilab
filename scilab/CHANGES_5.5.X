@@ -439,6 +439,8 @@ Bug Fixes
 
 * Bug #9851 fixed - Error message occurred because of a cut-off frequency of 0.25Hz with irr.
 
+* Bug #9859 fixed - It was not possible to draw arrows in 3D with xarrows.
+
 * Bug #10146 fixed - In SciNotes, 'help on keyword' moved from bottom to top in the popup menu.
 
 * Bug #10180 fixed - det was not defined for sparse matrices.
