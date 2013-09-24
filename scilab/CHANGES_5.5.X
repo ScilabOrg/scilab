@@ -210,6 +210,8 @@ Xcos
 
 * Bug #12877 fixed - Incorrect output port dimensions and types in GENSIN_f, GENSQR_f, STEP_FUNCTION and STEP blocks fixed.
 
+* Bug #12934 fixed - Separate compilation of a super block may fail due to under determined signal sizes.
+
 
 Toolbox Skeleton
 =================
