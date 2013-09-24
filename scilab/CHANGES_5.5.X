@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #2067 fixed - Scilab crashed when plot was called with a large numerical value.
+
 * Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
 
 * Bug #5016 fixed - condestsp could return different results when repeated calls were performed.
@@ -323,8 +325,7 @@ Scilab Bug Fixes
 
 * paramfplot2d: When theta input argument was a column vector, an error occurred.
 
-* Bug #2267 fixed - Wrong error message when ticks locations and labels did not have the
-                    same sizes.
+* Bug #2267 fixed - Wrong error message when ticks locations and labels did not have the same sizes.
 
 * Bug #2416 fixed - Particular case (string([]) returns []) has been added in string help
                     page.
