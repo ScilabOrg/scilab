@@ -321,8 +321,9 @@ Scilab Bug Fixes
 
 * paramfplot2d: When theta input argument was a column vector, an error occurred.
 
-* Bug #2267 fixed - Wrong error message when ticks locations and labels did not have the
-                    same sizes.
+* Bug #2067 fixed - Scilab died when the Plot command is given a large numerical value.
+
+* Bug #2267 fixed - Wrong error message when ticks locations and labels did not have the same sizes.
 
 * Bug #2416 fixed - Particular case (string([]) returns []) has been added in string help
                     page.
