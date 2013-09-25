@@ -335,9 +335,9 @@ AC_PROG_F77_C_O
 
 
 # If this option is provided, enable the debug on C & C++
-if test "$enable_stop_on_warning" = yes; then
-   enable_debug=yes
-fi
+#if test "$enable_stop_on_warning" = yes; then
+#   enable_debug=yes
+#fi
 
 if test "$enable_debug" = yes; then
    enable_debug_fortran=yes
@@ -1879,8 +1879,8 @@ AC_CHECK_STDCPP_STATIC()
 #
 dnl @TODO : -O0 is only to bypass Stack shit... Must be removed.
 if test "$enable_stop_on_warning" = yes; then
-    WARNING_CFLAGS="-Werror=implicit-function-declaration -O0"
-    WARNING_CXXFLAGS="-Werror=implicit-function-declaration -O0"
+    WARNING_CFLAGS="-Werror=implicit-function-declaration"
+    WARNING_CXXFLAGS="-Werror=implicit-function-declaration"
 fi
 
 # SCI_*FLAGS contains all defaults values detected on configure

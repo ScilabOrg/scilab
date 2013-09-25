@@ -9493,9 +9493,9 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # If this option is provided, enable the debug on C & C++
-if test "$enable_stop_on_warning" = yes; then
-   enable_debug=yes
-fi
+#if test "$enable_stop_on_warning" = yes; then
+#   enable_debug=yes
+#fi
 
 if test "$enable_debug" = yes; then
    enable_debug_fortran=yes
@@ -40641,8 +40641,8 @@ fi
 # problem with AC_COMPILE (the -Werror is added to the test)
 #
 if test "$enable_stop_on_warning" = yes; then
-    WARNING_CFLAGS="-Werror=implicit-function-declaration -O0"
-    WARNING_CXXFLAGS="-Werror=implicit-function-declaration -O0"
+    WARNING_CFLAGS="-Werror=implicit-function-declaration"
+    WARNING_CXXFLAGS="-Werror=implicit-function-declaration"
 fi
 
 # SCI_*FLAGS contains all defaults values detected on configure
