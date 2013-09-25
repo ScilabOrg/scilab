@@ -514,6 +514,8 @@ Bug Fixes
 
 * Bug #11891 fixed - Fisher ratio could be inaccurate for one-way ANOVA.
 
+* Bug #11996 fixed - Extend eye() to hypermatrix.
+
 * Bug #11997 fixed - In case of invalid variable name, save function now returns an error instead of a compatibility warning.
 
 * Bug #12034 fixed - max function did not manage empty matrices.
