@@ -62,12 +62,12 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
 #else
     char *rp = NULL;
     int lenPath = (int)strlen(_Path);
-
-    rp = realpath(_Path, _FullPath);
     int lenFullPath = 0;
-    lenFullPath = (int)strlen(_FullPath);
     int haveFileSep = ((lenPath > 1) && isDirSeparator(_Path[lenPath - 1]));
     int addFileSep = 0;
+
+    rp = realpath(_Path, _FullPath);
+    lenFullPath = (int)strlen(_FullPath);
 
     if (rp == NULL)
     {
@@ -77,9 +77,9 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
         char * _Path_start;
         char * _FullPath_start;
         char* pstWorkingPath = NULL;
-        
+
         //if argument is a relative path, add currentdir at start
-        if(_Path[0] != '/')
+        if (_Path[0] != '/')
         {
             int ierr = 0;
             char* pstCurrentPath = scigetcwd(&ierr);
@@ -91,12 +91,12 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
         else
         {
             pstWorkingPath = strdup(_Path);
-        }        
-        
+        }
+
         _Path_tmp = (char *)MALLOC(sizeof(char) * (lenPath + 1));
         _Path_start = (char *)MALLOC(sizeof(char) * (lenPath + 1));
         _FullPath_start = (char *)MALLOC(sizeof(char) * (lenFullPath + 1));
-//First case(1): fullpath(TMPDIR+"/a/b/c"), second case(2): fullpath("a/b/c") or third case(3): fullpath("../a/b")
+        //First case(1): fullpath(TMPDIR+"/a/b/c"), second case(2): fullpath("a/b/c") or third case(3): fullpath("../a/b")
         strcpy(_Path_start, pstWorkingPath); // _Path_start=TMPDIR+"/a/b/c" (1) or _Path_start="a/b/c" (2) or _Path_start="../a/b/c" (3)
         strcpy(_FullPath_start, _FullPath); // _Fullpath_Start=TMPDIR+"/a" (1) or _FullPath_start=SCI+"/a" (2) or _FullPath_start=../SCI+"/a" (3)
         strtok(_Path_start, "/"); // _Path_start=/tmp  (1) or _Path_start="a" (2) or _Path_start="a/b/c" (3)
@@ -116,7 +116,7 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
         {
             strcpy(_Path_tmp, pstWorkingPath); //_Path_tmp="a/b/c" (2) or _Path_tmp="../a/b/c" (3)
             strtok(_Path_tmp, "./"); // _Path_tmp becomes a (2) or ../a (3)
-            toadd=strsub(pstWorkingPath, _Path_tmp, ""); // to add = "/b/c"
+            toadd = strsub(pstWorkingPath, _Path_tmp, ""); // to add = "/b/c"
             strcat(_FullPath, toadd); //_FullPath=_Fullpath+toadd
             FREE(_Path_tmp);
             _Path_tmp = NULL;
@@ -125,10 +125,10 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
             FREE(_FullPath_start);
             _FullPath_start = NULL;
         }
-   
+
         FREE(pstWorkingPath);
     }
-    
+
     lenFullPath = (int)strlen(_FullPath);
     addFileSep = ((lenFullPath > 1) && (!isDirSeparator(_FullPath[lenFullPath - 1])) && haveFileSep);
     if (addFileSep)
