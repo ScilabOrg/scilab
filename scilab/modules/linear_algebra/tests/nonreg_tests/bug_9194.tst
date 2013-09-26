@@ -1,0 +1,24 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 9194 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=9194
+//
+// <-- Short Description -->
+// lsq used with null tolerance now calls backslash operator
+
+rand("seed", 0);
+A = rand(4, 2)*rand(2, 3); // A rank 2 matrix
+b = rand(4, 1);
+X = lsq(A, b, 0);
+refX = A\b;
+
+assert_checkequal(X, refX);
