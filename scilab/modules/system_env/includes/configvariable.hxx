@@ -346,11 +346,14 @@ public :
     // where
 private :
     static std::list< std::pair<int, std::wstring> > m_Where;
+    static std::list<int> m_FirstMacroLine;
 public :
     static void where_begin(int _iLineNum, std::wstring _wstName);
     static void where_end();
     static std::list< std::pair<int, std::wstring> >& getWhere();
-
+    static void macroFirstLine_begin(int _iLine);
+    static void macroFirstLine_end();
+    static int getMacroFirstLines();
 };
 
 #endif /* !__CONFIGVARIABLE_HXX__ */
