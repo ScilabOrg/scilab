@@ -7,6 +7,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
 
 // optim.tst --
 //   Test the optim command with the Rosenbrock test case
@@ -171,4 +172,3 @@ assert_checkequal(ti, ti2);
 assert_checkequal(td, td2);
 // Clean-up
 ulink();
-

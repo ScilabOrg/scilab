@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
 
 // <-- Non-regression test for bug 4433 -->
 //
@@ -16,8 +17,8 @@
 // problem using optim. On some examples, the optim function makes scilab hangs.
 // =============================================================================
 for i=1:10
-  deff('[y,dy,imp] = testfunc(x,imp)','y=sum(x.^2); dy = 2*x;');
-  x0=40*ones(100,1);
-  [f,xo]=optim(testfunc,x0,algo='gc',imp=0);
-end  
+    deff("[y,dy,imp] = testfunc(x,imp)","y=sum(x.^2); dy = 2*x;");
+    x0=40*ones(100,1);
+    [f,xo]=optim(testfunc,x0,algo="gc",imp=0);
+end
 // =============================================================================
