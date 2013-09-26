@@ -21,16 +21,21 @@
 extern int C2F(complexify)(int *num);
 extern int C2F(intdgelsy)(char *fname, unsigned long fname_len);
 extern int C2F(intzgelsy)(char *fname, unsigned long fname_len);
+extern int C2F(intdgesv3)(char *fname, unsigned long fname_len);
+extern int C2F(intzgesv3)(char *fname, unsigned long fname_len);
 
 /*--------------------------------------------------------------------------*/
 int C2F(intlsq)(char *fname, unsigned long fname_len)
 {
     int *header1;
     int *header2;
+    int *header3;
     int CmplxA;
     int Cmplxb;
     int ret;
     int I2;
+    double* Tol;
+    double tol;
 
     /*   lsq(A,b)  */
     if (GetType(1) != sci_matrix)
@@ -45,8 +50,17 @@ int C2F(intlsq)(char *fname, unsigned long fname_len)
     }
     header1 = (int *) GetData(1);
     header2 = (int *) GetData(2);
+    Tol = (double *) GetData(3);
     CmplxA = header1[3];
     Cmplxb = header2[3];
+    if (Rhs == 3)
+    {
+        tol = Tol[2];
+    }
+    else
+    {
+        tol = -1; // If only two input arguments, we will not call the backslash operator
+    }
     switch (CmplxA)
     {
         case REAL:
@@ -54,13 +68,14 @@ int C2F(intlsq)(char *fname, unsigned long fname_len)
             {
                 case REAL :
                     /* A real, b real */
-                    ret = C2F(intdgelsy)("lsq", 3L);
+                    /* tol = 0 => do A\b, otherwise proceed to lsq(A,b)*/
+                    ret = (tol != 0) ? C2F(intdgelsy)("lsq", 3L) : C2F(intdgesv3)("lsq", 3L);
                     break;
 
                 case COMPLEX :
                     /* A real, b complex */
                     C2F(complexify)((I2 = 1, &I2));
-                    ret = C2F(intzgelsy)("lsq", 3L);
+                    ret = (tol != 0) ? C2F(intzgelsy)("lsq", 3L) : C2F(intzgesv3)("lsq", 3L);
                     break;
 
                 default:
@@ -74,12 +89,12 @@ int C2F(intlsq)(char *fname, unsigned long fname_len)
                 case REAL :
                     /* A complex, b real */
                     C2F(complexify)((I2 = 2, &I2));
-                    ret = C2F(intzgelsy)("lsq", 3L);
+                    ret = (tol != 0) ? C2F(intzgelsy)("lsq", 3L) : C2F(intzgesv3)("lsq", 3L);
                     break;
 
                 case COMPLEX :
                     /* A complex, b complex */
-                    ret = C2F(intzgelsy)("lsq", 3L);
+                    ret = (tol != 0) ? C2F(intzgelsy)("lsq", 3L) : C2F(intzgesv3)("lsq", 3L);
                     break;
 
                 default:

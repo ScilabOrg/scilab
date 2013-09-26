@@ -492,6 +492,8 @@ Scilab Bug Fixes
 * Bug #9158 fixed - zeros called with a big number returned an empty matrix instead
                     of an error.
 
+* Bug #9194 fixed - Added the possibility to call '\' operator from lsq function.
+
 * Bug #9208 fixed - Added three optional output arguments to optim,
                     to retrieve #iterations, #evaluations and a termination indicator.
 

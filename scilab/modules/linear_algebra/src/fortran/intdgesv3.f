@@ -25,7 +25,7 @@ c     a\b
 
 c
       minrhs=2
-      maxrhs=2
+      maxrhs=3 !In case the call comes from lsq(A,b,0)
       minlhs=1
       maxlhs=1
 c
@@ -136,5 +136,3 @@ c     SUBROUTINE DLACPY( UPLO, M, N, A, LDA, B, LDB )
       return
 c
       end
-
-
