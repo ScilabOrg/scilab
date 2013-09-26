@@ -977,11 +977,14 @@ std::list< std::pair<int, std::wstring> > ConfigVariable::m_Where;
 
 void ConfigVariable::where_begin(int _iLineNum, std::wstring _wstName)
 {
-    m_Where.push_back(std::pair<int, std::wstring>(_iLineNum, _wstName));
+    m_Where.push_front(std::pair<int, std::wstring>(_iLineNum, _wstName));
 }
 void ConfigVariable::where_end()
 {
-    m_Where.pop_back();
+    if (m_Where.empty() == false)
+    {
+        m_Where.pop_front();
+    }
 }
 std::list< std::pair<int, std::wstring> >& ConfigVariable::getWhere()
 {
