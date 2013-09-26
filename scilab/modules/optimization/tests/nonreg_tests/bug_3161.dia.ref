@@ -4,6 +4,8 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
+// <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
 // <-- Non-regression test for bug 3161 -->
 //
 // <-- Bugzilla URL -->
@@ -18,13 +20,15 @@ for x=0:.1:3, Y=[Y,FF(x,pg)+100*(rand()-.5)];X=[X,x];end
 Z=[Y;X];
 //The criterion function
 function e=G(p,z)
-   y=z(1),x=z(2);
-   e=y-FF(x,p);
+    y=z(1),x=z(2);
+    e=y-FF(x,p);
 endfunction
 //Solve the problem
 p0=[3;5;10];
 p = [];
 err = [];
 [p,err]=datafit(G,Z,p0);
+Optim stops: maximum number of calls to f is reached.
+
 if p == [] then bugmes();quit;end;
 if err == [] then bugmes();quit;end;
