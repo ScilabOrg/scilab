@@ -47,7 +47,7 @@ BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPA
   See bug #9447
  - A user can now plot variables from the variable browser (already available in
   editvar).
-  
+
 * Added lighting effect for plot of surfaces. Lighting can be enabled
   creating light objects or disabled deleting them. The following function
   was introduced:
@@ -122,6 +122,7 @@ Obsolete
 
 * fprintf removed, please use mfprintf for files opened with mopen or write for files opened with file instead.
 
+* add_param, second output argument tagged as obsolete. Will be removed in Scilab 5.5.1.
 
 Differential Equations
 ======================
