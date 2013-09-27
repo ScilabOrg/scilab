@@ -195,7 +195,7 @@ public class DragZoomRotateInteraction extends FigureInteraction {
                     doRotation(e);
                     break;
             }
-
+            System.out.println("!! Update previous event !!");
             previousEvent = e;
         }
 
@@ -218,20 +218,40 @@ public class DragZoomRotateInteraction extends FigureInteraction {
             if (currentAxes != null) {
                 if (currentAxes.getZoomEnabled()) {
                     Double[] bounds = currentAxes.getDisplayedBounds();
-                    double orientation = Math.signum(Math.cos(Math.toRadians(currentAxes.getRotationAngles()[0])));
+                    Double[] maxBounds = currentAxes.getMaximalDisplayedBounds();
+                    
+                    Integer[] winSize = (Integer[]) GraphicController.getController().getProperty(currentAxes.getParent(), GraphicObjectProperties.__GO_AXES_SIZE__);
+                    Double[] axesBounds = (Double[]) GraphicController.getController().getProperty(currentAxes.getIdentifier(), GraphicObjectProperties.__GO_AXES_BOUNDS__);
+                    Double[] axesMargins = (Double[]) GraphicController.getController().getProperty(currentAxes.getIdentifier(), GraphicObjectProperties.__GO_MARGINS__);
+                    Double[] zoomBox = (Double[]) GraphicController.getController().getProperty(currentAxes.getIdentifier(), GraphicObjectProperties.__GO_ZOOM_BOX__);
+                    for (int i = 0 ; i < 4 ; ++i) {
+                        //System.out.println("Bound["+i+"] = "+bounds[i]);
+                        //System.out.println("ZoomBox["+i+"] = "+zoomBox[i]);
+                        //System.out.println("maxBounds["+i+"] = "+maxBounds[i]);
+                    }
+                    double orientation = - Math.signum(Math.cos(Math.toRadians(currentAxes.getRotationAngles()[0])));
                     double angle = - orientation * Math.toRadians(currentAxes.getRotationAngles()[1]);
 
-                    double xDelta = (bounds[0] - bounds[1]) / 100;
-                    double yDelta = (bounds[2] - bounds[3]) / 100;
+                    //double xDelta = Math.abs(bounds[0] - bounds[1]) / Math.abs(maxBounds[0] - maxBounds[1]) / 100;
+                    //double yDelta = Math.abs(bounds[2] - bounds[3]) / Math.abs(maxBounds[2] - maxBounds[3]) / 100;
 
-                    double rotatedDX = dx * Math.sin(angle) + dy * Math.cos(angle);
-                    double rotatedDY = dx * Math.cos(angle) - dy * Math.sin(angle);
+                    double xDelta = Math.abs(bounds[0] - bounds[1]) / (winSize[0] * axesBounds[2] * (1 - axesMargins[0] - axesMargins[1]));
+                    double yDelta = Math.abs(bounds[2] - bounds[3]) / (winSize[1] * axesBounds[3] * (1 - axesMargins[2] - axesMargins[3]));
 
-                    bounds[0] += xDelta * rotatedDX * orientation;
-                    bounds[1] += xDelta * rotatedDX * orientation;
+                    //System.out.println("xDelta = "+xDelta);
+                    //System.out.println("yDelta = "+yDelta);
+                    
+                    //double rotatedDX = dx * Math.sin(angle) + dy * Math.cos(angle);
+                    //double rotatedDY = dx * Math.cos(angle) - dy * Math.sin(angle);
+                    
+                    //System.out.println("rotatedDX = " +rotatedDX);
+                    //System.out.println("rotatedDY = " + rotatedDY);
 
-                    bounds[2] += yDelta * rotatedDY;
-                    bounds[3] += yDelta * rotatedDY;
+                    bounds[0] -= dx * xDelta;// * orientation;// * rotatedDX;
+                    bounds[1] -= dx * xDelta;// * orientation;// * rotatedDX;
+
+                    bounds[2] += dy * yDelta;// * rotatedDY * orientation;
+                    bounds[3] += dy * yDelta;// * rotatedDY * orientation;
 
                     Boolean zoomed = tightZoomBoxToDataBounds(currentAxes, bounds);
                     GraphicController.getController().setProperty(currentAxes.getIdentifier(), GraphicObjectProperties.__GO_ZOOM_BOX__, bounds);
