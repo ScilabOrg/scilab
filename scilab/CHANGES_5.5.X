@@ -88,6 +88,38 @@ Improvements
   See bug #12829.
 
 
+Obsolete
+=========
+
+* Scilab 5.5.X family will be the latest family working under Windows XP/2003.
+
+* The third argument of poly function will be more strict.
+    Only the following strings are allowed: "roots", "coeff", "c", "r".
+
+* Option and direction arguments of gsort will be more strict in all cases.
+  Only the following strings are allowed: option: "r" "c" "g" "lr" "lc"
+                                              direction : "d" "i"
+
+* nfreq tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use tabul instead.
+
+* IsAScalar tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use isscalar instead.
+
+* chart tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use nicholschart instead.
+
+* Second output argument of add_param tagged as obsolete. Will be removed in Scilab 5.5.1.
+
+* dft removed, please use fft instead.
+
+* sscanf removed, please use msscanf instead.
+
+* fscanf removed, please use mfscanf for files opened with mopen or read for files opened with file instead.
+
+* fprintf removed, please use mfprintf for files opened with mopen or write for files opened with file instead.
+
+
 Differential Equations
 ======================
 
@@ -749,7 +781,7 @@ Scilab Bug Fixes
 
 
 Xcos Bug Fixes
-==============
+===============
 
 * Bug #7350 fixed - The I/O ports numbering of a superblock was not updated
                     when a new port was dropped.
