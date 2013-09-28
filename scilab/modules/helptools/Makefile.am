@@ -93,12 +93,6 @@ data/css/c_code.css \
 data/css/xml_code.css \
 data/css/style.css
 
-#### helptools : xsl files ####
-libscihelptools_la_xsl_convertdir = $(mydatadir)/xsl/convert
-libscihelptools_la_xsl_convert_DATA = \
-xsl/convert/man2manrev.xsl \
-xsl/convert/manrev2sci.xsl
-
 libscihelptools_la_xsl_fodir = $(mydatadir)/xsl/fo
 libscihelptools_la_xsl_fo_DATA = xsl/fo/docbook.xsl
 
