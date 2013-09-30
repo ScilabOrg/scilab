@@ -172,8 +172,12 @@ public class SetupDialog extends JDialog {
                              "Method: BDF, Nonlinear solver= NEWTON",
                              EnumSet.allOf(SetupDialog.SolverModifiers.class)),
 
-        new SolverDescriptor(101, "DDaskr",
+        new SolverDescriptor(101, "DDaskr - Newton",
                              "Method: BDF, Nonlinear solver= NEWTON",
+                             EnumSet.allOf(SetupDialog.SolverModifiers.class)),
+
+        new SolverDescriptor(102, "DDaskr - GRMes",
+                             "Method: BDF, Nonlinear solver= GRMES",
                              EnumSet.allOf(SetupDialog.SolverModifiers.class))
     };
 
