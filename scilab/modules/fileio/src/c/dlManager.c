@@ -183,7 +183,7 @@ int getProxyValues(char **proxyHost, long *proxyPort, char **proxyUserPwd)
 
 
     // parse each line to extract variables
-    tp = strtok(buffer, "\n");
+    tp = strtok(buffer, "\r\n");
     while (tp != NULL)
     {
 
@@ -255,7 +255,7 @@ int getProxyValues(char **proxyHost, long *proxyPort, char **proxyUserPwd)
         free(field);
         free(value);
 
-        tp = strtok(NULL, "\n");
+        tp = strtok(NULL, "\r\n");
     }
 
     // if proxy is set, update the parameters
