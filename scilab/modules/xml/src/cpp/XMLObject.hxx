@@ -68,7 +68,7 @@ public:
             return 0;
         }
 
-    /**
+        /**
          * Sets the attribute value.
          * @param name the attribute names
          * @param value the attribute values
@@ -79,7 +79,7 @@ public:
             return;
         }
 
-    /**
+        /**
          * Sets the attribute value with a prefix namespace.
          * @param prefix the namespace prefix or the namespace itself
          * @param name the attribute names
@@ -131,7 +131,8 @@ public:
             return static_cast < T * >(getVariableFromId(id));
         }
 
-protected:int id;
+protected:
+	int id;
         int scilabType;
 
         static VariableScope *scope;
