@@ -157,6 +157,8 @@ static int serialize_string(void *_pvCtx, int *_piAddr, int **_piBuffer, int *_p
 
     *_piBuffer = piOut;
     *_piBufferSize = iOutLen;
+
+    freeAllocatedMatrixOfString(iRows, iCols, pstData);
     return 0;
 }
 
@@ -312,11 +314,13 @@ static int serialize_int(void *_pvCtx, int *_piAddr, int **_piBuffer, int *_piBu
                 break;
                 }
         */ default:
+            FREE(piOut);
             return 1;
     }
 
     if (sciErr.iErr)
     {
+        FREE(piOut);
         printError(&sciErr, 0);
         return 1;
     }
@@ -394,16 +398,35 @@ static int serialize_sparse(void *_pvCtx, int *_piAddr, int **_piBuffer, int *_p
         double *pRealData = (double *)(piOut + 5 + iRows + iItemCount);
 
         C2F(dcopy) (&iItemCount, pdblR, &iOne, pRealData, &iOne);
+        FREE(pdblR);
         if (iComplex)
         {
             double *pImgData = pRealData + iItemCount;
 
             C2F(dcopy) (&iItemCount, pdblI, &iOne, pImgData, &iOne);
+            FREE(pdblI);
         }
     }
 
     *_piBuffer = piOut;
     *_piBufferSize = iOutLen;
+
+    if (_bData)
+    {
+        if (iComplex)
+        {
+            freeAllocatedSparseMatrix(piRowCount, piColPos, pdblR);
+        }
+        else
+        {
+            freeAllocatedComplexSparseMatrix(piRowCount, piColPos, pdblR, pdblI);
+        }
+    }
+    else
+    {
+        freeAllocatedBooleanSparse(piRowCount, piColPos);
+    }
+
     return 0;
 }
 
