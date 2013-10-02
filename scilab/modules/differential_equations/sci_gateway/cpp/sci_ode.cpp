@@ -172,12 +172,6 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
             Scierror(999, _("%s: Wrong type for input argument #%d : A real matrix expected.\n"), "ode", iPos + 1);
             return types::Function::Error;
         }
-
-        if (pDblY0->getCols() != 1)
-        {
-            Scierror(999, _("%s: Wrong size for input argument #%d : A real colunm vector expected (n x 1).\n"), "ode", iPos + 1);
-            return types::Function::Error;
-        }
     }
     /*
         else if(in[iPos]->isPoly())
@@ -269,7 +263,7 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
         }
     }
 
-    for (iPos++; iPos < in.size(); iPos++)
+    for (iPos++; iPos < (int)in.size(); iPos++)
     {
         if (in[iPos]->isDouble())
         {
@@ -303,7 +297,7 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
             }
             else if (pDblW == NULL && bFuncF == true && (bFuncG == true || meth != 3))
             {
-                if (in.size() == iPos + 2)
+                if ((int)in.size() == iPos + 2)
                 {
                     if (in[iPos + 1]->isDouble() == false)
                     {
@@ -997,7 +991,7 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
     }
 
     // *** Perform operation. ***
-    double ret = 0;
+    int err = 0;
     double t0 = pDblT0->get(0);
     bool bOneStep = false;
 
@@ -1020,60 +1014,75 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
 
         do
         {
-            char* strMeth;
-            switch (meth)
+            std::string strMeth = NULL;
+            try
             {
-                case 0 : // lsoda
+                switch (meth)
                 {
-                    strMeth = "lsoda";
-                    ret = C2F(lsoda)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt);
-                    break;
+                    case 1 : // lsode (adams)
+                    case 2 : // lsode (stiff)
+                    {
+                        strMeth = "lsode";
+                        int jacType = 10 * meth + jt;
+                        C2F(lsode)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jacType);
+                        break;
+                    }
+                    case 3 : // lsodar
+                    {
+                        strMeth = "lsodar";
+                        int ng = (int)pDblNg->get(0);
+                        C2F(lsodar)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt, ode_g, &ng, jroot);
+                        break;
+                    }
+                    case 4 : // lsdisc (discrete)
+                    {
+                        strMeth = "lsdisc";
+                        C2F(lsdisc)(ode_f, YSize, pdYData, &t0, &t, rwork, &rworkSize, &istate);
+                        break;
+                    }
+                    case 5 : // lsrgk (rk)
+                    {
+                        strMeth = "lsrgk";
+                        C2F(lsrgk)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
+                        break;
+                    }
+                    case 6 : // rkf45 (rkf)
+                    {
+                        strMeth = "rkf45";
+                        C2F(rkf45)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
+                        break;
+                    }
+                    case 7 : // rksimp (fix)
+                    {
+                        strMeth = "rksimp";
+                        C2F(rksimp)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
+                        break;
+                    }
+                    default : // case 0 : // lsoda
+                    {
+                        strMeth = "lsoda";
+                        C2F(lsoda)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt);
+                    }
                 }
-                case 1 : // lsode (adams)
-                case 2 : // lsode (stiff)
+
+                // check error
+                err = checkOdeError(meth, istate);
+                if (err == 1)
                 {
-                    strMeth = "lsode";
-                    int jacType = 10 * meth + jt;
-                    ret = C2F(lsode)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jacType);
-                    break;
-                }
-                case 3 : // lsodar
-                {
-                    strMeth = "lsodar";
-                    int ng = (int)pDblNg->get(0);
-                    ret = C2F(lsodar)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt, ode_g, &ng, jroot);
-                    break;
-                }
-                case 4 : // lsdisc (discrete)
-                {
-                    strMeth = "lsdisc";
-                    ret = C2F(lsdisc)(ode_f, YSize, pdYData, &t0, &t, rwork, &rworkSize, &istate);
-                    break;
-                }
-                case 5 : // lsrgk (rk)
-                {
-                    strMeth = "lsrgk";
-                    ret = C2F(lsrgk)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
-                    break;
-                }
-                case 6 : // rkf45 (rkf)
-                {
-                    strMeth = "rkf45";
-                    ret = C2F(rkf45)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
-                    break;
-                }
-                case 7 : // rksimp (fix)
-                {
-                    strMeth = "rksimp";
-                    ret = C2F(rksimp)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
-                    break;
+                    Scierror(999, _("%s: %s exit with state %d.\n"), "ode", strMeth.c_str(), istate);
                 }
             }
-            // check error
-            int err = checkOdeError(meth, istate);
+            catch (ScilabError &e) // catch error thrown by fake functions
+            {
+                char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
+                Scierror(999, _(pstrMsg), "ode");
+                FREE(pstrMsg);
+                err = 1;
+            }
+
+            // free allocated data
             if (err == 1) // error case
             {
-                Scierror(999, _("%s: %s exit with state %d.\n"), "ode", strMeth, istate);
                 DifferentialEquation::removeDifferentialEquationFunctions();
                 free(pdYData);
                 free(YSize);
@@ -1215,59 +1224,75 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
                 bBreak = true;
             }
 
-            switch (meth)
+            try
             {
-                case 0 : // lsoda
+                switch (meth)
                 {
-                    strMeth = "lsoda";
-                    ret = C2F(lsoda)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt);
-                    break;
+                    case 1 : // lsode (adams)
+                    case 2 : // lsode (stiff)
+                    {
+                        strMeth = "lsode";
+                        int jacType = 10 * meth + jt;
+                        C2F(lsode)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jacType);
+                        break;
+                    }
+                    case 3 : // lsodar
+                    {
+                        strMeth = "lsodar";
+                        int ng = (int)pDblNg->get(0);
+                        C2F(lsodar)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt, ode_g, &ng, jroot);
+                        break;
+                    }
+                    case 4 : // lsdisc (discrete)
+                    {
+                        strMeth = "lsdisc";
+                        C2F(lsdisc)(ode_f, YSize, pdYData, &t0, &t, rwork, &rworkSize, &istate);
+                        break;
+                    }
+                    case 5 : // lsrgk (rk)
+                    {
+                        strMeth = "lsrgk";
+                        C2F(lsrgk)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
+                        break;
+                    }
+                    case 6 : // rkf45 (rkf)
+                    {
+                        strMeth = "rkf45";
+                        C2F(rkf45)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
+                        break;
+                    }
+                    case 7 : // rksimp (fix)
+                    {
+                        strMeth = "rksimp";
+                        C2F(rksimp)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
+                        break;
+                    }
+                    default : // case 0 : // lsoda
+                    {
+                        strMeth = "lsoda";
+                        C2F(lsoda)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt);
+                        break;
+                    }
                 }
-                case 1 : // lsode (adams)
-                case 2 : // lsode (stiff)
+
+                // check error
+                err = checkOdeError(meth, istate);
+                if (err == 1)
                 {
-                    strMeth = "lsode";
-                    int jacType = 10 * meth + jt;
-                    ret = C2F(lsode)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jacType);
-                    break;
-                }
-                case 3 : // lsodar
-                {
-                    strMeth = "lsodar";
-                    int ng = (int)pDblNg->get(0);
-                    ret = C2F(lsodar)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &jt, ode_g, &ng, jroot);
-                    break;
-                }
-                case 4 : // lsdisc (discrete)
-                {
-                    strMeth = "lsdisc";
-                    ret = C2F(lsdisc)(ode_f, YSize, pdYData, &t0, &t, rwork, &rworkSize, &istate);
-                    break;
-                }
-                case 5 : // lsrgk (rk)
-                {
-                    strMeth = "lsrgk";
-                    ret = C2F(lsrgk)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
-                    break;
-                }
-                case 6 : // rkf45 (rkf)
-                {
-                    strMeth = "rkf45";
-                    ret = C2F(rkf45)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
-                    break;
-                }
-                case 7 : // rksimp (fix)
-                {
-                    strMeth = "rksimp";
-                    ret = C2F(rksimp)(ode_f, YSize, pdYData, &t0, &t, &itol, rtol, atol, &itask, &istate, &iopt, rwork, &rworkSize, iwork, &iworkSize, bFuncJac ? ode_jac : NULL, &meth);
-                    break;
+                    Scierror(999, _("%s: %s exit with state %d.\n"), "ode", strMeth, istate);
                 }
             }
-            // check error
-            int err = checkOdeError(meth, istate);
+            catch (ScilabError &e) // catch error thrown by fake functions
+            {
+                char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
+                Scierror(999, _(pstrMsg), "ode");
+                FREE(pstrMsg);
+                err = 1;
+            }
+
+            // free allocated data
             if (err == 1) // error case
             {
-                Scierror(999, _("%s: %s exit with state %d.\n"), "ode", strMeth, istate);
                 DifferentialEquation::removeDifferentialEquationFunctions();
                 free(pdYData);
                 free(YSize);

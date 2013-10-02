@@ -24,6 +24,8 @@ endfunction
 x0 = [1; 0];
 t0 = 0;
 t  = linspace(0, 10, 100);
+y = ode(zeros(1, 1), t0, t, f)
+
 
 refMsg = msprintf(_("%s: external must be real.\n"), "ode");
 assert_checkerror("y = ode(zeros(1, 1), t0, t, f);", refMsg);

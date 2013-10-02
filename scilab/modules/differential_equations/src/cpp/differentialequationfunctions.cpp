@@ -1133,12 +1133,12 @@ int DifferentialEquationFunctions::callOdeMacroF(int* n, double* t, double* y, d
             pDblYC->DecreaseRef();
             if (pDblYC->isDeletable())
             {
-                delete pDblY;
+                delete pDblYC;
             }
             pDblYD->DecreaseRef();
             if (pDblYD->isDeletable())
             {
-                delete pDblY;
+                delete pDblYD;
             }
             pDblFlag->DecreaseRef();
             if (pDblFlag->isDeletable())
@@ -1158,13 +1158,19 @@ int DifferentialEquationFunctions::callOdeMacroF(int* n, double* t, double* y, d
         out[0]->DecreaseRef();
         if (out[0]->isDouble())
         {
+            types::Double* pDblOut = out[0]->getAs<types::Double>();
+            if (pDblOut->isComplex())
+            {
+                throw ScilabError("%s: external must be real.\n");
+            }
+
             if (m_odedcFlag && m_odedcYDSize)
             {
-                C2F(dcopy)(&m_odedcYDSize, out[0]->getAs<types::Double>()->get(), &one, ydot, &one);
+                C2F(dcopy)(&m_odedcYDSize, pDblOut->get(), &one, ydot, &one);
             }
             else
             {
-                C2F(dcopy)(n, out[0]->getAs<types::Double>()->get(), &one, ydot, &one);
+                C2F(dcopy)(n, pDblOut->get(), &one, ydot, &one);
             }
 
             if (out[0]->isDeletable())
