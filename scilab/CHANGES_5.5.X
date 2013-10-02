@@ -753,6 +753,8 @@ Scilab Bug Fixes
 
 * Bug #12931 fixed - ATOMS redefined "message" keyword.
 
+* Bug #12943 fixed - Datatips misworked when 2D plots were rotated.
+
 
 Xcos Bug Fixes
 ===============
