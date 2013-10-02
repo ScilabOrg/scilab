@@ -231,13 +231,26 @@ types::Function::ReturnValue sci_int2d(types::typed_list &in, int _iRetCount, ty
     // *** Perform operation. ***
     int size = pDblX->getCols();
 
-    double* dwork   = (double*)malloc(9 * maxtri * sizeof(double));
-    int* iwork      = (int*)malloc(2 * maxtri * sizeof(int));
+    double* dwork   = (double*)MALLOC(9 * maxtri * sizeof(double));
+    int* iwork      = (int*)MALLOC(2 * maxtri * sizeof(int));
 
-    C2F(twodq)(int2d_f, &size, pDblX->get(), pDblY->get(), &tol, &iclose, &maxtri, &mevals, &result, &err, &nu, &nd, &nevals, &iflag, dwork, iwork);
+    try
+    {
+        C2F(twodq)(int2d_f, &size, pDblX->get(), pDblY->get(), &tol, &iclose, &maxtri, &mevals, &result, &err, &nu, &nd, &nevals, &iflag, dwork, iwork);
+    }
+    catch (ScilabError &e)
+    {
+        char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
+        sciprint(_("%s: exception caught in '%s' subroutine.\n"), "int2d", "twodq");
+        Scierror(999, pstrMsg);
+        FREE(dwork);
+        FREE(iwork);
+        DifferentialEquation::removeDifferentialEquationFunctions();
+        return types::Function::Error;
+    }
 
-    free(dwork);
-    free(iwork);
+    FREE(dwork);
+    FREE(iwork);
     DifferentialEquation::removeDifferentialEquationFunctions();
 
     if (iflag)
@@ -271,7 +284,7 @@ types::Function::ReturnValue sci_int2d(types::typed_list &in, int _iRetCount, ty
             }
             default :// normaly nerver call.
             {
-                Scierror(999, _("%s: twodq return with error %d.\n"), "int2d", iflag);
+                Scierror(999, _("%s: twodq return with state %d.\n"), "int2d", iflag);
             }
         }
         return types::Function::Error;

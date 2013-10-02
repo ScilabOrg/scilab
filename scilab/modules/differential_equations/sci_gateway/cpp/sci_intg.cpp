@@ -226,20 +226,33 @@ types::Function::ReturnValue sci_intg(types::typed_list &in, int _iRetCount, typ
     int last    = 0;
     int lenw    = 4 * limit;
 
-    double* dwork   = (double*)malloc(lenw * sizeof(double));
-    int* iwork      = (int*)malloc(limit * sizeof(int));
+    double* dwork   = (double*)MALLOC(lenw * sizeof(double));
+    int* iwork      = (int*)MALLOC(limit * sizeof(int));
 
     double epsabs   = fabs(pdEpsA);
     double epsrel   = fabs(pdEpsR);
 
     // *** Perform operation. ***
     int ier = 0;
-    C2F(dqags)(intg_f, &pdA, &pdB, &epsabs, &epsrel,
-               &result, &abserr, &neval, &ier,
-               &limit, &lenw, &last, iwork, dwork);
+    try
+    {
+        C2F(dqags)(intg_f, &pdA, &pdB, &epsabs, &epsrel,
+                   &result, &abserr, &neval, &ier,
+                   &limit, &lenw, &last, iwork, dwork);
+    }
+    catch (ScilabError &e)
+    {
+        char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
+        sciprint(_("%s: exception caught in '%s' subroutine.\n"), "intg", "dqags");
+        Scierror(999, pstrMsg);
+        FREE(dwork);
+        FREE(iwork);
+        DifferentialEquation::removeDifferentialEquationFunctions();
+        return types::Function::Error;
+    }
 
-    free(dwork);
-    free(iwork);
+    FREE(dwork);
+    FREE(iwork);
     DifferentialEquation::removeDifferentialEquationFunctions();
 
     if (ier)

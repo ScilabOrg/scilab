@@ -141,18 +141,6 @@ types::Function::ReturnValue sci_int3d(types::typed_list &in, int _iRetCount, ty
     {
         types::Callable* pCall = in[3]->getAs<types::Callable>();
         deFunctionsManager->setFFunction(pCall);
-
-        // check function
-        double xyz[3] = {1, 1, 1};
-        int numfun = 1;
-        double out;
-        double ret = int3d_f(xyz, &numfun, &out);
-        if (ret == 0)
-        {
-            Scierror(50, _("%s: Argument #%d : Variable returned by scilab argument function is incorrect.\n"), "int3d", 4);
-            DifferentialEquation::removeDifferentialEquationFunctions();
-            return types::Function::Error;
-        }
     }
     else if (in[3]->isString())
     {
@@ -304,30 +292,44 @@ types::Function::ReturnValue sci_int3d(types::typed_list &in, int _iRetCount, ty
 
     // input data : 3 rows, 4*maxsub cols
     int dataSize = 3 * 4 * maxsub;
-    double* pdData = (double*)malloc(dataSize * sizeof(double));
+    double* pdData = (double*)MALLOC(dataSize * sizeof(double));
     C2F(dcopy)(&size, pDblX->get(), &one, pdData, &three);
     C2F(dcopy)(&size, pDblY->get(), &one, pdData + 1, &three);
     C2F(dcopy)(&size, pDblZ->get(), &one, pdData + 2, &three);
 
     // output result
-    double* pdResult = (double*)malloc(nf * sizeof(double));
+    double* pdResult = (double*)MALLOC(nf * sizeof(double));
 
     // output err
-    double* pdErr = (double*)malloc(nf * sizeof(double));
+    double* pdErr = (double*)MALLOC(nf * sizeof(double));
 
     // workspace
     int mdiv = 1; // default value, but can be changed on parallel computers. (see dcutet.f)
     int dworkSize   = maxsub * (2 * nf + 1) + 7 * Max(8 * mdiv, pDblX->getCols()) * nf + 1;
     int iworkSize   = maxsub + mdiv;
-    double* dwork   = (double*)malloc(dworkSize * sizeof(double));
-    int* iwork      = (int*)malloc(iworkSize * sizeof(int));
+    double* dwork   = (double*)MALLOC(dworkSize * sizeof(double));
+    int* iwork      = (int*)MALLOC(iworkSize * sizeof(int));
 
     int cols = pDblX->getCols();
-    C2F(dcutet)(int3d_f, &nf, pdData, &cols, &minpts, &maxpts, &epsabs, &epsrel, &maxsub, &dworkSize, &irestar, pdResult, pdErr, &nevals, &ifail, dwork, iwork);
+    try
+    {
+        C2F(dcutet)(int3d_f, &nf, pdData, &cols, &minpts, &maxpts, &epsabs, &epsrel, &maxsub, &dworkSize, &irestar, pdResult, pdErr, &nevals, &ifail, dwork, iwork);
+    }
+    catch (ScilabError &e)
+    {
+        char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
+        sciprint(_("%s: exception caught in '%s' subroutine.\n"), "int3d", "dcutet");
+        Scierror(999, pstrMsg);
+        FREE(pdData);
+        FREE(dwork);
+        FREE(iwork);
+        DifferentialEquation::removeDifferentialEquationFunctions();
+        return types::Function::Error;
+    }
 
-    free(pdData);
-    free(dwork);
-    free(iwork);
+    FREE(pdData);
+    FREE(dwork);
+    FREE(iwork);
     DifferentialEquation::removeDifferentialEquationFunctions();
 
     if (ifail)
@@ -342,15 +344,15 @@ types::Function::ReturnValue sci_int3d(types::typed_list &in, int _iRetCount, ty
         else if (ifail == 3)
         {
             Scierror(999, _("%s: The volume of one of the initially given tetrahedrons is zero.\n"), "int3d");
-            free(pdResult);
-            free(pdErr);
+            FREE(pdResult);
+            FREE(pdErr);
             return types::Function::Error;
         }
         else // normaly nerver call.
         {
             Scierror(999, _("%s: dcutet return with error %d.\n"), "int3d", ifail);
-            free(pdResult);
-            free(pdErr);
+            FREE(pdResult);
+            FREE(pdErr);
             return types::Function::Error;
         }
     }
@@ -373,8 +375,8 @@ types::Function::ReturnValue sci_int3d(types::typed_list &in, int _iRetCount, ty
         out.push_back(pDblNevalsOut);
     }
 
-    free(pdResult);
-    free(pdErr);
+    FREE(pdResult);
+    FREE(pdErr);
 
     return types::Function::OK;
 }
