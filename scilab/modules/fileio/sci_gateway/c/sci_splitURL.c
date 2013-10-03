@@ -61,21 +61,35 @@ int sci_splitURL(char *fname, int fname_len)
     }
 
     // protocol (http, ftp...)
-    sciErr = createMatrixOfString(pvApiCtx, iRhs + 1, 1, 1, &c->scheme);
-    if (sciErr.iErr)
+    if (c->scheme != NULL)
     {
-        printError(&sciErr, 0);
-        return 0;
+        sciErr = createMatrixOfString(pvApiCtx, iRhs + 1, 1, 1, &c->scheme);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+    }
+    else
+    {
+        sciErr = createMatrixOfString(pvApiCtx, iRhs + 1, 1, 1, &emptyString);
     }
 
     AssignOutputVariable(pvApiCtx, 1) = iRhs + 1;
 
     // server
-    sciErr = createMatrixOfString(pvApiCtx, iRhs + 2, 1, 1, &c->server);
-    if (sciErr.iErr)
+    if (c->server != NULL)
     {
-        printError(&sciErr, 0);
-        return 0;
+        sciErr = createMatrixOfString(pvApiCtx, iRhs + 2, 1, 1, &c->server);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+    }
+    else
+    {
+        sciErr = createMatrixOfString(pvApiCtx, iRhs + 2, 1, 1, &emptyString);
     }
 
     AssignOutputVariable(pvApiCtx, 2) = iRhs + 2;
