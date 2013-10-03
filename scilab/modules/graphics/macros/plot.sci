@@ -206,36 +206,29 @@ function plot(varargin)
                 firstarg = ListArg(xyIndexLineSpec(i,1));
                 tmp = [];
 
-                for ii=1:sizefirstarg(1,2)
-                    for jj=1:sizefirstarg(1,1)
+                // function evaluation may fail
+                // try/cacth is buggy for now
+                // so use execstr until the bug is fixed
+                err = execstr("tmp = buildFunc(firstarg)","errcatch","n");
 
-                        // function evaluation may fail
-                        // try/cacth is buggy for now
-                        // so use execstr until the bug is fixed
-                        err = execstr("tmp(jj,ii) = buildFunc(firstarg(jj,ii))","errcatch","n");
+                if (err <> 0) then
+                    // reset data
+                    ResetFigureDDM(current_figure, cur_draw_mode);
 
-                        if (err <> 0) then
-                            // reset data
-                            ResetFigureDDM(current_figure, cur_draw_mode);
+                    // get error
+                    [err_message, err_number, err_line, err_func] = lasterror(%t);
 
-                            // get error
-                            [err_message, err_number, err_line, err_func] = lasterror(%t);
-
-                            clear buildFunc;
-                            // print it
-                            if (err_func <> "") then
-                                // ascii(10) = \n
-                                error(msprintf(gettext("%s: Error : unable to evaluate input function ''%s''.") + ascii(10) + gettext("Error %d at line %d of the function: ''%s''"), "plot", err_func,err_number, err_line, err_message));
-                            else
-                                error(msprintf(gettext("%s: Error : unable to evaluate input function.") + ascii(10) + gettext("Error %d at line %d of the function: ''%s''"), "plot", err_number, err_line, err_message));
-                            end
-                            // exit function
-                            return;
-                        end
-
+                    clear buildFunc;
+                    // print it
+                    if (err_func <> "") then
+                        // ascii(10) = \n
+                        error(msprintf(gettext("%s: Error : unable to evaluate input function ''%s''.") + ascii(10) + gettext("Error %d at line %d of the function: ''%s''"), "plot", err_func,err_number, err_line, err_message));
+                    else
+                        error(msprintf(gettext("%s: Error : unable to evaluate input function.") + ascii(10) + gettext("Error %d at line %d of the function: ''%s''"), "plot", err_number, err_line, err_message));
                     end
+                    // exit function
+                    return;
                 end
-
 
                 ListArg(xyIndexLineSpec(i,2)) = tmp;
                 // if there is an other iteration, we will have error message redefining function.
@@ -448,5 +441,3 @@ function plot(varargin)
     ResetFigureDDM(current_figure, cur_draw_mode)
 
 endfunction
-
-
