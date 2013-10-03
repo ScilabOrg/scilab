@@ -63,6 +63,8 @@ Scilab Bug Fixes
 
 * Bug #9697 fixed - Printed information for optim "qn" and "gc" with bounds and imp=1 fixed.
 
+* Bug #10012 fixed - lmisolver and lmitool called with no input now produce demos.
+
 * Bug #10175 fixed - Clearer example added for sp2adj to adj2sp conversion (and backwards conversion).
 
 * Bug #10234 fixed - reglin function moved from CACSD to Statistics module.
