@@ -11,6 +11,45 @@ function [txtdo]=lmitool(PROBNAME,XNAME,DNAME)
     [LHS,RHS]=argn(0);
     txtdo=[]
 
+    if RHS == 0 then // Run demo
+        messagebox(_(["lmitool() demo";
+        "// Find diagonal matrix X (i.e. X = diag(diag(X), p=1) such that";
+        "// A1''*X+X*A1+Q1 < 0, A2''*X+X*A2+Q2 < 0 (q=2) and trace(X) is maximized";
+        "n = 2"
+        "// Redefining messagebox() to avoid popup";
+        "prot = funcprot();";
+        "funcprot(0);";
+        "function messagebox(msg, msg_title, info)";
+        "endfunction";
+        "funcprot(prot);";
+        "lmitool(""prob"", ""X"", ""A1, A2""); // Create prob.sci";
+        "deletefile ""prob.sci"";";
+        "copyfile(""SCI/modules/optimization/tests/unit_tests/prob_bak.sci"", ""prob.sci""); // Replace prob.sci by prob_bak.sci";
+        "exec(""prob.sci"", -1);";
+        "X = prob(A1, A2)";]),"modal","info");
+        rand("seed", 0);
+        n  = 2;
+        A1 = rand(n, n);
+        A2 = rand(n, n);
+        Xs = diag(1:n);
+        Q1 = -(A1'*Xs+Xs*A1+0.1*eye());
+        Q2 = -(A2'*Xs+Xs*A2+0.2*eye());
+        // Redefining messagebox() to avoid popup
+        prot = funcprot();
+        funcprot(0);
+        function messagebox(msg, msg_title, info)
+        endfunction
+        funcprot(prot);
+        lmitool("prob", "X", "A1, A2"); // Create prob.sci
+        deletefile "prob.sci";
+        copyfile("SCI/modules/optimization/tests/unit_tests/prob_bak.sci", "prob.sci"); // Replace prob.sci by prob_bak.sci
+        exec("prob.sci", -1);
+        X = prob(A1, A2);
+        deletefile "prob.sci";
+        disp(X, "X =")
+        return
+    end
+
     if RHS ~=3 then
         messagebox([gettext("Welcome to LMITOOL");"      ";"   ";
         gettext("LMITOOL is a Scilab package for LMI optimization");
