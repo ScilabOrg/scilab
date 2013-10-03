@@ -11,6 +11,43 @@ function [%Xlist,%OPT]=lmisolver(%Xinit,%evalfunc,%options)
     %OPT=[];%Xlist=list();
     [LHS,RHS]=argn(0);
 
+    if RHS == 0 then // Run demo
+        messagebox([_(["lmisolver() demo";
+        "//Find diagonal matrix X (i.e. X = diag(diag(X), p=1) such that";
+        "//A1''*X+X*A1+Q1 < 0, A2''*X+X*A2+Q2 < 0 (q=2) and trace(X) is maximized";]);([
+        "n = 2"
+        "A1 = rand(n, n)";
+        "A2 = rand(n, n)";
+        "Xs = diag(1:n);";
+        "Q1 = -(A1''*Xs+Xs*A1+0.1*eye());";
+        "Q2 = -(A2''*Xs+Xs*A2+0.2*eye());";
+        "";
+        "function [LME, LMI, OBJ] = evalf(Xlist)";
+        "    X   = Xlist(1)";
+        "    LME = X-diag(diag(X))";
+        "    LMI = list(-(A1''*X+X*A1+Q1), -(A2''*X+X*A2+Q2))";
+        "    OBJ = -sum(diag(X))";
+        "endfunction";
+        "";
+        "X = lmisolver(list(zeros(A1)), evalf)";])],"modal","info");
+        rand("seed", 0);
+        n  = 2;
+        A1 = rand(n, n);
+        A2 = rand(n, n);
+        Xs = diag(1:n);
+        Q1 = -(A1'*Xs+Xs*A1+0.1*eye());
+        Q2 = -(A2'*Xs+Xs*A2+0.2*eye());
+        function [LME, LMI, OBJ] = evalf(Xlist)
+            X   = Xlist(1)
+            LME = X-diag(diag(X))
+            LMI = list(-(A1'*X+X*A1+Q1), -(A2'*X+X*A2+Q2))
+            OBJ = -sum(diag(X))
+        endfunction
+        X = lmisolver(list(zeros(A1)), evalf);
+        %Xlist = X(1);
+        return
+    end
+
     if RHS==2 then
         %Mb = 1e3;%ato = 1e-10;%nu = 10;%mite = 100;%rto = 1e-10;
     else
