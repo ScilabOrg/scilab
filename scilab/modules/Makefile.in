@@ -643,6 +643,7 @@ ENGINE_LIBS = $(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/linear_algebra/libscilinear_algebra.la \
 	$(top_builddir)/modules/localization/libscilocalization.la \
 	$(top_builddir)/modules/polynomials/libscipolynomials.la \
+	$(top_builddir)/modules/signal_processing/libscisignal_processing.la \
 	$(top_builddir)/modules/special_functions/libscispecial_functions.la \
 	$(top_builddir)/modules/time/libscitime.la \
 	$(top_builddir)/modules/windows_tools/libsciwindows_tools.la \
@@ -663,7 +664,6 @@ ENGINE_LIBS = $(top_builddir)/modules/fileio/libscifileio.la \
 # These libraries are loaded dynamically from Scilab.
 ENGINE_LIBS_DYNAMIC_LOAD = \
 	$(top_builddir)/modules/optimization/libscioptimization.la \
-	$(top_builddir)/modules/signal_processing/libscisignal_processing.la \
 	$(top_builddir)/modules/interpolation/libsciinterpolation.la \
 	$(top_builddir)/modules/symbolic/libscisymbolic.la \
 	$(top_builddir)/modules/arnoldi/libsciarnoldi.la \

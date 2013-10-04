@@ -2,15 +2,15 @@ LIBRARY    special_functions_f.dll
 
 
 EXPORTS
-; --------------------------------------- 
+; ---------------------------------------
 ; special_functions_f
-; --------------------------------------- 
+; ---------------------------------------
 intslgamma_
 intsgamma_
 intsdlgamma_
 intscalerf_
 zbesiv_
-dbesiv_ 
+dbesiv_
 zbesjv_
 dbesjv_
 zbeskv_
@@ -18,3 +18,4 @@ dbeskv_
 zbesyv_
 dbesyv_
 psi_
+scidelip_

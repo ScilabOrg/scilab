@@ -167,6 +167,7 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = src/c/libscispecial_functions_algo_la-zbeshv.lo
 am__objects_2 = src/fortran/dbesig.lo src/fortran/dbesjg.lo \
 	src/fortran/dbeskg.lo src/fortran/dbesyg.lo src/fortran/psi.lo \
+	src/fortran/deli2.lo src/fortran/delip.lo \
 	src/fortran/zbesig.lo src/fortran/zbesjg.lo \
 	src/fortran/zbeskg.lo src/fortran/zbesyg.lo
 am__objects_3 = src/cpp/libscispecial_functions_algo_la-faddeeva.lo
@@ -184,6 +185,7 @@ am__objects_4 =  \
 	sci_gateway/c/libscispecial_functions_la-sci_dlgamma.lo \
 	sci_gateway/c/libscispecial_functions_la-sci_bessely.lo \
 	sci_gateway/c/libscispecial_functions_la-sci_beta.lo \
+	sci_gateway/c/libscispecial_functions_la-sci_delip.lo \
 	sci_gateway/c/libscispecial_functions_la-sci_gamma.lo \
 	sci_gateway/c/libscispecial_functions_la-sci_legendre.lo \
 	sci_gateway/c/libscispecial_functions_la-sci_besselh.lo \
@@ -194,8 +196,9 @@ am__objects_4 =  \
 	sci_gateway/c/libscispecial_functions_la-sci_lgamma.lo
 am__objects_5 =  \
 	sci_gateway/cpp/libscispecial_functions_la-sci_faddeeva.lo
+am__objects_6 = sci_gateway/fortran/sci_f_delip.lo
 am_libscispecial_functions_la_OBJECTS = $(am__objects_4) \
-	$(am__objects_5)
+	$(am__objects_5) $(am__objects_6)
 libscispecial_functions_la_OBJECTS =  \
 	$(am_libscispecial_functions_la_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -580,6 +583,8 @@ src/fortran/dbesjg.f \
 src/fortran/dbeskg.f \
 src/fortran/dbesyg.f \
 src/fortran/psi.f \
+src/fortran/deli2.f \
+src/fortran/delip.f \
 src/fortran/zbesig.f \
 src/fortran/zbesjg.f \
 src/fortran/zbeskg.f \
@@ -589,6 +594,7 @@ GATEWAY_C_SOURCES = \
 sci_gateway/c/sci_dlgamma.c \
 sci_gateway/c/sci_bessely.c \
 sci_gateway/c/sci_beta.c \
+sci_gateway/c/sci_delip.c \
 sci_gateway/c/sci_gamma.c \
 sci_gateway/c/sci_legendre.c \
 sci_gateway/c/sci_besselh.c \
@@ -600,6 +606,9 @@ sci_gateway/c/sci_lgamma.c
 
 GATEWAY_CXX_SOURCES = \
 sci_gateway/cpp/sci_faddeeva.cpp
+
+GATEWAY_FORTRAN_SOURCES = \
+sci_gateway/fortran/sci_f_delip.f
 
 
 # Includes need for the compilation
@@ -618,7 +627,7 @@ $(AM_CPPFLAGS)
 pkglib_LTLIBRARIES = libscispecial_functions.la
 noinst_LTLIBRARIES = libscispecial_functions-algo.la
 libscispecial_functions_algo_la_SOURCES = $(SPECIAL_FUNCTIONS_C_SOURCES) $(SPECIAL_FUNCTIONS_FORTRAN_SOURCES) $(SPECIAL_FUNCTIONS_CXX_SOURCES)
-libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES)
+libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscispecial_functions_algo_la_CPPFLAGS = $(libscispecial_functions_la_CPPFLAGS)
 
 # For the code check (splint)
@@ -818,6 +827,10 @@ src/fortran/dbesyg.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/psi.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
+src/fortran/deli2.lo: src/fortran/$(am__dirstamp) \
+	src/fortran/$(DEPDIR)/$(am__dirstamp)
+src/fortran/delip.lo: src/fortran/$(am__dirstamp) \
+	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/zbesig.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/zbesjg.lo: src/fortran/$(am__dirstamp) \
@@ -850,6 +863,9 @@ sci_gateway/c/libscispecial_functions_la-sci_bessely.lo:  \
 	sci_gateway/c/$(am__dirstamp) \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 sci_gateway/c/libscispecial_functions_la-sci_beta.lo:  \
+	sci_gateway/c/$(am__dirstamp) \
+	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
+sci_gateway/c/libscispecial_functions_la-sci_delip.lo:  \
 	sci_gateway/c/$(am__dirstamp) \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 sci_gateway/c/libscispecial_functions_la-sci_gamma.lo:  \
@@ -885,6 +901,15 @@ sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp):
 sci_gateway/cpp/libscispecial_functions_la-sci_faddeeva.lo:  \
 	sci_gateway/cpp/$(am__dirstamp) \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
+sci_gateway/fortran/$(am__dirstamp):
+	@$(MKDIR_P) sci_gateway/fortran
+	@: > sci_gateway/fortran/$(am__dirstamp)
+sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) sci_gateway/fortran/$(DEPDIR)
+	@: > sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
+sci_gateway/fortran/sci_f_delip.lo:  \
+	sci_gateway/fortran/$(am__dirstamp) \
+	sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
 
 libscispecial_functions.la: $(libscispecial_functions_la_OBJECTS) $(libscispecial_functions_la_DEPENDENCIES) $(EXTRA_libscispecial_functions_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscispecial_functions_la_OBJECTS) $(libscispecial_functions_la_LIBADD) $(LIBS)
@@ -895,6 +920,8 @@ mostlyclean-compile:
 	-rm -f sci_gateway/c/*.lo
 	-rm -f sci_gateway/cpp/*.$(OBJEXT)
 	-rm -f sci_gateway/cpp/*.lo
+	-rm -f sci_gateway/fortran/*.$(OBJEXT)
+	-rm -f sci_gateway/fortran/*.lo
 	-rm -f src/c/*.$(OBJEXT)
 	-rm -f src/c/*.lo
 	-rm -f src/cpp/*.$(OBJEXT)
@@ -912,6 +939,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_besselk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_bessely.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_beta.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_delip.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_dlgamma.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_gamma.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_legendre.Plo@am__quote@
@@ -971,6 +999,13 @@ sci_gateway/c/libscispecial_functions_la-sci_beta.lo: sci_gateway/c/sci_beta.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_beta.c' object='sci_gateway/c/libscispecial_functions_la-sci_beta.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sci_gateway/c/libscispecial_functions_la-sci_beta.lo `test -f 'sci_gateway/c/sci_beta.c' || echo '$(srcdir)/'`sci_gateway/c/sci_beta.c
+
+sci_gateway/c/libscispecial_functions_la-sci_delip.lo: sci_gateway/c/sci_delip.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sci_gateway/c/libscispecial_functions_la-sci_delip.lo -MD -MP -MF sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_delip.Tpo -c -o sci_gateway/c/libscispecial_functions_la-sci_delip.lo `test -f 'sci_gateway/c/sci_delip.c' || echo '$(srcdir)/'`sci_gateway/c/sci_delip.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_delip.Tpo sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_delip.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_delip.c' object='sci_gateway/c/libscispecial_functions_la-sci_delip.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sci_gateway/c/libscispecial_functions_la-sci_delip.lo `test -f 'sci_gateway/c/sci_delip.c' || echo '$(srcdir)/'`sci_gateway/c/sci_delip.c
 
 sci_gateway/c/libscispecial_functions_la-sci_gamma.lo: sci_gateway/c/sci_gamma.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sci_gateway/c/libscispecial_functions_la-sci_gamma.lo -MD -MP -MF sci_gateway/c/$(DEPDIR)/libscispecial_functions_la-sci_gamma.Tpo -c -o sci_gateway/c/libscispecial_functions_la-sci_gamma.lo `test -f 'sci_gateway/c/sci_gamma.c' || echo '$(srcdir)/'`sci_gateway/c/sci_gamma.c
@@ -1082,6 +1117,7 @@ clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf sci_gateway/c/.libs sci_gateway/c/_libs
 	-rm -rf sci_gateway/cpp/.libs sci_gateway/cpp/_libs
+	-rm -rf sci_gateway/fortran/.libs sci_gateway/fortran/_libs
 	-rm -rf src/c/.libs src/c/_libs
 	-rm -rf src/cpp/.libs src/cpp/_libs
 	-rm -rf src/fortran/.libs src/fortran/_libs
@@ -1269,6 +1305,8 @@ distclean-generic:
 	-rm -f sci_gateway/c/$(am__dirstamp)
 	-rm -f sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 	-rm -f sci_gateway/cpp/$(am__dirstamp)
+	-rm -f sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
+	-rm -f sci_gateway/fortran/$(am__dirstamp)
 	-rm -f src/c/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/c/$(am__dirstamp)
 	-rm -f src/cpp/$(DEPDIR)/$(am__dirstamp)

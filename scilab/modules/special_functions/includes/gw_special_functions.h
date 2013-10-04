@@ -15,6 +15,7 @@
 #define __GW_SPECIAL_FUNCTIONS_H__
 /*--------------------------------------------------------------------------*/
 #include "dynlib_special_functions.h"
+#include "machine.h"
 /*--------------------------------------------------------------------------*/
 SPECIAL_FUNCTIONS_IMPEXP int gw_special_functions(void);
 /*--------------------------------------------------------------------------*/
@@ -24,6 +25,7 @@ int sci_besselj(char *fname, unsigned long fname_len);
 int sci_besselk(char *fname, unsigned long fname_len);
 int sci_bessely(char *fname, unsigned long fname_len);
 int sci_beta(char *fname, unsigned long fname_len);
+SPECIAL_FUNCTIONS_IMPEXP int C2F(sci_delip)(char *fname, unsigned long fname_len);
 int sci_legendre(char *fname, unsigned long fname_len);
 int sci_gamma(char *fname, unsigned long fname_len);
 int sci_lgamma(char *fname, unsigned long fname_len);
