@@ -8,5 +8,17 @@
 // Tests for standard deviation
 // =============================================================================
 if stdev(0) <> 0 then bugmes();quit;end
+WARNING: Feature stdev is obsolete.
+WARNING: Please use st_deviation instead.
+WARNING: This feature will be permanently removed in Scilab 5.5.1
+
 if stdev(zeros(3,3)) <> 0 then bugmes();quit;end
+WARNING: Feature stdev is obsolete.
+WARNING: Please use st_deviation instead.
+WARNING: This feature will be permanently removed in Scilab 5.5.1
+
 if stdev(zeros(3,3,3)) <> 0 then bugmes();quit;end
+WARNING: Feature stdev is obsolete.
+WARNING: Please use st_deviation instead.
+WARNING: This feature will be permanently removed in Scilab 5.5.1
+

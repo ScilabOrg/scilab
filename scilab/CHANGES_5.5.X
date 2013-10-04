@@ -6,6 +6,9 @@ Scilab Bug Fixes
 
 * Bug #7570 fixed - The switch criterion on x and y is now explicited in beta() help page.
 
+* Bug #7593 fixed - msd and stdev rendered obsolete,
+                    st_deviation now encompasses them both thanks to a new optional input argument.
+
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 

@@ -1,4 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: made obsolete, merged in st_deviation
 // Copyright (C) 2000 - INRIA - Carlos Klimann
 //
 // This file must be used under the terms of the CeCILL.
@@ -25,6 +26,8 @@ function sd=stdev(x,o)
     //the standard deviation of each row of x.
     //
     //
+    warnobsolete("st_deviation", "5.5.1");
+
     if argn(2)<2 then o="*",end
     if x == [] then sd=%nan;return ;end
 

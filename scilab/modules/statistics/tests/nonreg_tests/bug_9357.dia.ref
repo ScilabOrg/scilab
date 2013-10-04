@@ -18,6 +18,10 @@ a=[2,3,4,5,5];
 b=[2,3,4,5];
 fre=[1,1,1,2];
 ref= stdev(a);
+WARNING: Feature stdev is obsolete.
+WARNING: Please use st_deviation instead.
+WARNING: This feature will be permanently removed in Scilab 5.5.1
+
 assert_checkequal(stdevf(b,fre),ref);
 assert_checkequal(stdevf(b,fre,'*'),ref);
 assert_checkequal(stdevf(b,fre,2),ref);

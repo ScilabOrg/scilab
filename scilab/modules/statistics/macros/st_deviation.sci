@@ -1,4 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enteprises - Paul Bignier: added mean squared deviation
+//                                                        (third input argument)
 // Copyright (C) XXXX - INRIA
 // Copyright (C) XXXX - ENPC
 // Copyright (C) XXXX - Ecole des Mines de Nantes - Philippe Castagliola
@@ -8,33 +10,58 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-function sd=st_deviation(x,cr)
+function sd = st_deviation(x, cr, ms)
     //
-    if argn(2)<2 then cr="*",end
-    if x == [] then sd=%nan;return ;end
-    if typeof(x)=="hypermat" then sd=%hm_st_deviation(x,cr),return,end
-    [m,n]=size(x);
-    if cr=="*" then
-        n=m*n
+    if argn(2) < 3 then
+        ms = %f
+    elseif argn(2) == 3 & and(ms <> [%f %t]) then
+        error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"st_deviation",3,"%f","%t"));
+    end
+    if argn(2) < 2 then cr = "*", end
+
+    if x == [] then sd = %nan; return; end
+    if typeof(x) == "hypermat" then sd = %hm_st_deviation(x, cr), return, end
+
+    [m, n] = size(x);
+    if cr == "*" then
+        n = m*n
         select n
         case 0 then sd=%nan
-        case 1 then sd=0
+        case 1 then
+            if ms == %f then
+                sd = 0
+            else
+                sd = sqrt(sum((x-mean(x)).^2))
+            end
         else
-            sd=sqrt(sum((x-mean(x)).^2)/(n-1));
+            if ms == %f then
+                sd = sqrt(sum((x-mean(x)).^2)/(n-1));
+            else
+                sd = sqrt(sum((x-mean(x)).^2)/n);
+            end
         end
-    elseif cr=="c"|cr==2
-        if n==1 then
-            sd=zeros(m,1)
+    elseif cr == "c"| cr == 2
+        if n == 1 & ms == %f then
+            sd = zeros(m, 1)
         else
-            sd=sqrt(sum((x-mean(x,"c")*ones(x(1,:))).^2,"c")/(n-1));
+            if ms == %f then
+                sd = sqrt(sum((x-mean(x,"c")*ones(x(1,:))).^2,"c")/(n-1));
+            else
+                sd = sqrt(sum((x-mean(x,"c")*ones(x(1,:))).^2,"c")/n);
+            end
         end
-    elseif cr=="r"|cr==1
-        if m==1 then
-            sd=zeros(1,n)
+    elseif cr == "r" | cr == 1
+        if m == 1 & ms == %f then
+            sd = zeros(1, n)
         else
-            sd=sqrt(sum((x-ones(x(:,1))*mean(x,"r")).^2,"r")/(m-1));
+            if ms == %f then
+                sd = sqrt(sum((x-ones(x(:,1))*mean(x,"r")).^2,"r")/(m-1));
+            else
+                sd = sqrt(sum((x-ones(x(:,1))*mean(x,"r")).^2,"r")/m);
+            end
         end
     else
         error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', %d or %d expected.\n"),"st_deviation",2,"*","r","c",1,2));
     end
+
 endfunction
