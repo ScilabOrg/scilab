@@ -7,14 +7,15 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-function x=%hm_st_deviation(m,d)
+function x=%hm_stdev(m,d)
+
     if argn(2)==1|d=="*" then
-        x=st_deviation(m.entries)
+        x=stdev(m.entries)
         return
     end
     dims=double(m.dims);
     N=size(dims,"*");
-    p1=prod(dims(1:d-1));// step to build one vector on which st_deviation is applied
+    p1=prod(dims(1:d-1));// step to build one vector on which stdev is applied
     p2=p1*dims(d);//step for beginning of next vectors
     ind=(0:p1:p2-1)';// selection for building one vector
     deb=(1:p1);
@@ -23,7 +24,7 @@ function x=%hm_st_deviation(m,d)
     ind=(0:p2:prod(dims)-1);
     I=ones(ind).*.I+ind.*.ones(I)
 
-    x=st_deviation(matrix(m.entries(I),dims(d),-1),1)
+    x=stdev(matrix(m.entries(I),dims(d),-1),1)
     dims(d)=1
     if d==N then
         dims=dims(1:$)
