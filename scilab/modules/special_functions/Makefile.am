@@ -16,6 +16,7 @@ src/fortran/dbesig.f \
 src/fortran/dbesjg.f \
 src/fortran/dbeskg.f \
 src/fortran/dbesyg.f \
+src/fortran/delip.f \
 src/fortran/zbesig.f \
 src/fortran/zbesjg.f \
 src/fortran/zbeskg.f \
@@ -25,6 +26,7 @@ GATEWAY_C_SOURCES = \
 sci_gateway/c/sci_dlgamma.c \
 sci_gateway/c/sci_bessely.c \
 sci_gateway/c/sci_beta.c \
+sci_gateway/c/sci_delip.c \
 sci_gateway/c/sci_gamma.c \
 sci_gateway/c/sci_legendre.c \
 sci_gateway/c/sci_besselh.c \
@@ -33,6 +35,9 @@ sci_gateway/c/sci_besselj.c \
 sci_gateway/c/sci_besselk.c \
 sci_gateway/c/gw_special_functions.c \
 sci_gateway/c/sci_lgamma.c
+
+GATEWAY_FORTRAN_SOURCES =  \
+sci_gateway/fortran/sci_f_delip.f
 
 GATEWAY_CXX_SOURCES = \
 sci_gateway/cpp/sci_faddeeva.cpp

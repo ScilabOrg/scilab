@@ -24,7 +24,6 @@ static gw_generic_table Tab[] =
     {C2F(sci_corr), "corr"},
     {C2F(sci_rpem), "rpem"},
     {C2F(sci_amell), "amell"},
-    {C2F(sci_delip), "delip"},
     {C2F(sci_remez), "remez"},
     {C2F(sci_syredi), "syredi"},
     {sci_conv2, "conv2"}
