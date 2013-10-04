@@ -24,11 +24,9 @@ SIGNAL_PROCESSING_IMPEXP int C2F(sci_corr)(char *fname, unsigned long fname_len)
 SIGNAL_PROCESSING_IMPEXP int C2F(sci_fiir)(char *fname, unsigned long fname_len);
 SIGNAL_PROCESSING_IMPEXP int C2F(sci_rpem)(char *fname, unsigned long fname_len);
 SIGNAL_PROCESSING_IMPEXP int C2F(sci_amell)(char *fname, unsigned long fname_len);
-SIGNAL_PROCESSING_IMPEXP int C2F(sci_delip)(char *fname, unsigned long fname_len);
 SIGNAL_PROCESSING_IMPEXP int C2F(sci_remez)(char *fname, unsigned long fname_len);
 SIGNAL_PROCESSING_IMPEXP int C2F(sci_syredi)(char *fname, unsigned long fname_len);
 SIGNAL_PROCESSING_IMPEXP int sci_conv2(char *fname, unsigned long fname_len);
 
 #endif /*  __GW_SIGNAL__ */
 /*--------------------------------------------------------------------------*/
-
