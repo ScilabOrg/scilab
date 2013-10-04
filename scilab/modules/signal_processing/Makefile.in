@@ -171,18 +171,17 @@ am__objects_1 = src/fortran/degree.lo src/fortran/parcha.lo \
 	src/fortran/nstabl.lo src/fortran/ino.lo src/fortran/desia.lo \
 	src/fortran/desi11.lo src/fortran/cmpse3.lo \
 	src/fortran/cheby.lo src/fortran/trbize.lo src/fortran/r2tx.lo \
-	src/fortran/deli2.lo src/fortran/gee.lo src/fortran/r4tx.lo \
-	src/fortran/transn.lo src/fortran/r8tx.lo \
-	src/fortran/deli11.lo src/fortran/compel.lo \
-	src/fortran/filbut.lo src/fortran/desi01.lo \
-	src/fortran/desi22.lo src/fortran/amell.lo \
-	src/fortran/desi24.lo src/fortran/dellk.lo \
-	src/fortran/syredi.lo src/fortran/coeft.lo \
-	src/fortran/tranpo.lo src/fortran/blnumz.lo src/fortran/sn.lo \
-	src/fortran/bldenz.lo src/fortran/desib.lo \
-	src/fortran/freque.lo src/fortran/desi12.lo \
-	src/fortran/cmpse2.lo src/fortran/desi14.lo \
-	src/fortran/delip.lo src/fortran/deli1.lo \
+	src/fortran/gee.lo src/fortran/r4tx.lo src/fortran/transn.lo \
+	src/fortran/r8tx.lo src/fortran/deli11.lo \
+	src/fortran/compel.lo src/fortran/filbut.lo \
+	src/fortran/desi01.lo src/fortran/desi22.lo \
+	src/fortran/amell.lo src/fortran/desi24.lo \
+	src/fortran/dellk.lo src/fortran/syredi.lo \
+	src/fortran/coeft.lo src/fortran/tranpo.lo \
+	src/fortran/blnumz.lo src/fortran/sn.lo src/fortran/bldenz.lo \
+	src/fortran/desib.lo src/fortran/freque.lo \
+	src/fortran/desi12.lo src/fortran/cmpse2.lo \
+	src/fortran/desi14.lo src/fortran/deli1.lo \
 	src/fortran/trbipo.lo src/fortran/rpem.lo src/fortran/dfft2.lo \
 	src/fortran/dgee01.lo src/fortran/romeg.lo \
 	src/fortran/snell.lo src/fortran/fft842.lo \
@@ -208,12 +207,10 @@ am__objects_3 = sci_gateway/c/libscisignal_processing_la-sci_remez.lo \
 	sci_gateway/c/libscisignal_processing_la-sci_fiir.lo \
 	sci_gateway/c/libscisignal_processing_la-sci_amell.lo \
 	sci_gateway/c/libscisignal_processing_la-gw_signal.lo \
-	sci_gateway/c/libscisignal_processing_la-sci_delip.lo \
 	sci_gateway/c/libscisignal_processing_la-sci_fft.lo \
 	sci_gateway/c/libscisignal_processing_la-sci_syredi.lo \
 	sci_gateway/c/libscisignal_processing_la-sci_conv2.lo
-am__objects_4 = sci_gateway/fortran/sci_f_delip.lo \
-	sci_gateway/fortran/sci_f_fft.lo \
+am__objects_4 = sci_gateway/fortran/sci_f_fft.lo \
 	sci_gateway/fortran/sci_f_syredi.lo \
 	sci_gateway/fortran/sci_f_remez.lo \
 	sci_gateway/fortran/sci_f_rpem.lo \
@@ -597,7 +594,6 @@ src/fortran/cmpse3.f \
 src/fortran/cheby.f \
 src/fortran/trbize.f \
 src/fortran/r2tx.f \
-src/fortran/deli2.f \
 src/fortran/gee.f \
 src/fortran/r4tx.f \
 src/fortran/transn.f \
@@ -621,7 +617,6 @@ src/fortran/freque.f \
 src/fortran/desi12.f \
 src/fortran/cmpse2.f \
 src/fortran/desi14.f \
-src/fortran/delip.f \
 src/fortran/deli1.f \
 src/fortran/trbipo.f \
 src/fortran/rpem.f \
@@ -644,13 +639,11 @@ sci_gateway/c/sci_ffir.c \
 sci_gateway/c/sci_fiir.c \
 sci_gateway/c/sci_amell.c \
 sci_gateway/c/gw_signal.c \
-sci_gateway/c/sci_delip.c \
 sci_gateway/c/sci_fft.c \
 sci_gateway/c/sci_syredi.c \
 sci_gateway/c/sci_conv2.c
 
-GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_delip.f \
-sci_gateway/fortran/sci_f_fft.f \
+GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_fft.f \
 sci_gateway/fortran/sci_f_syredi.f \
 sci_gateway/fortran/sci_f_remez.f \
 sci_gateway/fortran/sci_f_rpem.f \
@@ -671,7 +664,7 @@ $(AM_CPPFLAGS)
 
 pkglib_LTLIBRARIES = libscisignal_processing.la
 noinst_LTLIBRARIES = libscisignal_processing-algo.la
-libscisignal_processing_algo_la_SOURCES = $(SIGNAL_PROCESSING_FORTRAN_SOURCES) $(SIGNAL_PROCESSING_C_SOURCES) 
+libscisignal_processing_algo_la_SOURCES = $(SIGNAL_PROCESSING_FORTRAN_SOURCES) $(SIGNAL_PROCESSING_C_SOURCES)
 libscisignal_processing_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscisignal_processing_algo_la_CPPFLAGS = $(libscisignal_processing_la_CPPFLAGS)
 
@@ -685,7 +678,7 @@ modulename = signal_processing
 
 #### signal_processing : Conf files ####
 libscisignal_processing_la_rootdir = $(mydatadir)
-libscisignal_processing_la_root_DATA = license.txt 
+libscisignal_processing_la_root_DATA = license.txt
 
 ####�signal_processing : init scripts ####
 libscisignal_processing_la_etcdir = $(mydatadir)/etc
@@ -890,8 +883,6 @@ src/fortran/trbize.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/r2tx.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
-src/fortran/deli2.lo: src/fortran/$(am__dirstamp) \
-	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/gee.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/r4tx.lo: src/fortran/$(am__dirstamp) \
@@ -937,8 +928,6 @@ src/fortran/desi12.lo: src/fortran/$(am__dirstamp) \
 src/fortran/cmpse2.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/desi14.lo: src/fortran/$(am__dirstamp) \
-	src/fortran/$(DEPDIR)/$(am__dirstamp)
-src/fortran/delip.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/deli1.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
@@ -1008,9 +997,6 @@ sci_gateway/c/libscisignal_processing_la-sci_amell.lo:  \
 sci_gateway/c/libscisignal_processing_la-gw_signal.lo:  \
 	sci_gateway/c/$(am__dirstamp) \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
-sci_gateway/c/libscisignal_processing_la-sci_delip.lo:  \
-	sci_gateway/c/$(am__dirstamp) \
-	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 sci_gateway/c/libscisignal_processing_la-sci_fft.lo:  \
 	sci_gateway/c/$(am__dirstamp) \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
@@ -1026,9 +1012,6 @@ sci_gateway/fortran/$(am__dirstamp):
 sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/fortran/$(DEPDIR)
 	@: > sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
-sci_gateway/fortran/sci_f_delip.lo:  \
-	sci_gateway/fortran/$(am__dirstamp) \
-	sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
 sci_gateway/fortran/sci_f_fft.lo: sci_gateway/fortran/$(am__dirstamp) \
 	sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
 sci_gateway/fortran/sci_f_syredi.lo:  \
@@ -1077,7 +1060,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_amell.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_conv2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_corr.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_delip.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_ffir.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_fft.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_fiir.Plo@am__quote@
@@ -1173,13 +1155,6 @@ sci_gateway/c/libscisignal_processing_la-gw_signal.lo: sci_gateway/c/gw_signal.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/gw_signal.c' object='sci_gateway/c/libscisignal_processing_la-gw_signal.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisignal_processing_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sci_gateway/c/libscisignal_processing_la-gw_signal.lo `test -f 'sci_gateway/c/gw_signal.c' || echo '$(srcdir)/'`sci_gateway/c/gw_signal.c
-
-sci_gateway/c/libscisignal_processing_la-sci_delip.lo: sci_gateway/c/sci_delip.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisignal_processing_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sci_gateway/c/libscisignal_processing_la-sci_delip.lo -MD -MP -MF sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_delip.Tpo -c -o sci_gateway/c/libscisignal_processing_la-sci_delip.lo `test -f 'sci_gateway/c/sci_delip.c' || echo '$(srcdir)/'`sci_gateway/c/sci_delip.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_delip.Tpo sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_delip.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_delip.c' object='sci_gateway/c/libscisignal_processing_la-sci_delip.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisignal_processing_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sci_gateway/c/libscisignal_processing_la-sci_delip.lo `test -f 'sci_gateway/c/sci_delip.c' || echo '$(srcdir)/'`sci_gateway/c/sci_delip.c
 
 sci_gateway/c/libscisignal_processing_la-sci_fft.lo: sci_gateway/c/sci_fft.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisignal_processing_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sci_gateway/c/libscisignal_processing_la-sci_fft.lo -MD -MP -MF sci_gateway/c/$(DEPDIR)/libscisignal_processing_la-sci_fft.Tpo -c -o sci_gateway/c/libscisignal_processing_la-sci_fft.lo `test -f 'sci_gateway/c/sci_fft.c' || echo '$(srcdir)/'`sci_gateway/c/sci_fft.c

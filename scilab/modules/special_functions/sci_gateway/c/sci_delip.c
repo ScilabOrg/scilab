@@ -11,7 +11,7 @@
  */
 
 #include <string.h>
-#include "gw_signal.h"
+#include "gw_special_functions.h"
 /*--------------------------------------------------------------------------*/
 extern int C2F(scidelip)(char *id, unsigned long fname_len);
 /*--------------------------------------------------------------------------*/
