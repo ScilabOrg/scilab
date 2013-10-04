@@ -164,8 +164,8 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 libscispecial_functions_algo_la_LIBADD =
 am__objects_1 = libscispecial_functions_algo_la-zbeshv.lo
-am__objects_2 = dbesig.lo dbesjg.lo dbeskg.lo dbesyg.lo zbesig.lo \
-	zbesjg.lo zbeskg.lo zbesyg.lo
+am__objects_2 = dbesig.lo dbesjg.lo dbeskg.lo dbesyg.lo delip.lo deli2.lo \
+	zbesig.lo zbesjg.lo zbeskg.lo zbesyg.lo
 am__objects_3 = libscispecial_functions_algo_la-faddeeva.lo
 am_libscispecial_functions_algo_la_OBJECTS = $(am__objects_1) \
 	$(am__objects_2) $(am__objects_3)
@@ -180,6 +180,7 @@ libscispecial_functions_la_DEPENDENCIES =  \
 am__objects_4 = libscispecial_functions_la-sci_dlgamma.lo \
 	libscispecial_functions_la-sci_bessely.lo \
 	libscispecial_functions_la-sci_beta.lo \
+	libscispecial_functions_la-sci_delip.lo \
 	libscispecial_functions_la-sci_gamma.lo \
 	libscispecial_functions_la-sci_legendre.lo \
 	libscispecial_functions_la-sci_besselh.lo \
@@ -570,6 +571,8 @@ src/fortran/dbesig.f \
 src/fortran/dbesjg.f \
 src/fortran/dbeskg.f \
 src/fortran/dbesyg.f \
+src/fortran/deli2.f \
+src/fortran/delip.f \
 src/fortran/zbesig.f \
 src/fortran/zbesjg.f \
 src/fortran/zbeskg.f \
@@ -579,6 +582,7 @@ GATEWAY_C_SOURCES = \
 sci_gateway/c/sci_dlgamma.c \
 sci_gateway/c/sci_bessely.c \
 sci_gateway/c/sci_beta.c \
+sci_gateway/c/sci_delip.c \
 sci_gateway/c/sci_gamma.c \
 sci_gateway/c/sci_legendre.c \
 sci_gateway/c/sci_besselh.c \
@@ -587,6 +591,9 @@ sci_gateway/c/sci_besselj.c \
 sci_gateway/c/sci_besselk.c \
 sci_gateway/c/gw_special_functions.c \
 sci_gateway/c/sci_lgamma.c
+
+GATEWAY_FORTRAN_SOURCES = \
+sci_gateway/fortran/sci_f_delip.f
 
 GATEWAY_CXX_SOURCES = \
 sci_gateway/cpp/sci_faddeeva.cpp
@@ -608,7 +615,7 @@ $(AM_CPPFLAGS)
 pkglib_LTLIBRARIES = libscispecial_functions.la
 noinst_LTLIBRARIES = libscispecial_functions-algo.la
 libscispecial_functions_algo_la_SOURCES = $(SPECIAL_FUNCTIONS_C_SOURCES) $(SPECIAL_FUNCTIONS_FORTRAN_SOURCES) $(SPECIAL_FUNCTIONS_CXX_SOURCES)
-libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES)
+libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscispecial_functions_algo_la_CPPFLAGS = $(libscispecial_functions_la_CPPFLAGS)
 
 # For the code check (splint)
@@ -806,6 +813,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_besselk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_bessely.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_beta.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_delip.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_dlgamma.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_faddeeva.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscispecial_functions_la-sci_gamma.Plo@am__quote@
@@ -860,6 +868,13 @@ libscispecial_functions_la-sci_beta.lo: sci_gateway/c/sci_beta.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_beta.c' object='libscispecial_functions_la-sci_beta.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscispecial_functions_la-sci_beta.lo `test -f 'sci_gateway/c/sci_beta.c' || echo '$(srcdir)/'`sci_gateway/c/sci_beta.c
+
+libscispecial_functions_la-sci_delip.lo: sci_gateway/c/sci_delip.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscispecial_functions_la-sci_delip.lo -MD -MP -MF $(DEPDIR)/libscispecial_functions_la-sci_delip.Tpo -c -o libscispecial_functions_la-sci_delip.lo `test -f 'sci_gateway/c/sci_delip.c' || echo '$(srcdir)/'`sci_gateway/c/sci_delip.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscispecial_functions_la-sci_delip.Tpo $(DEPDIR)/libscispecial_functions_la-sci_delip.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_delip.c' object='libscispecial_functions_la-sci_delip.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscispecial_functions_la-sci_delip.lo `test -f 'sci_gateway/c/sci_delip.c' || echo '$(srcdir)/'`sci_gateway/c/sci_delip.c
 
 libscispecial_functions_la-sci_gamma.lo: sci_gateway/c/sci_gamma.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscispecial_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscispecial_functions_la-sci_gamma.lo -MD -MP -MF $(DEPDIR)/libscispecial_functions_la-sci_gamma.Tpo -c -o libscispecial_functions_la-sci_gamma.lo `test -f 'sci_gateway/c/sci_gamma.c' || echo '$(srcdir)/'`sci_gateway/c/sci_gamma.c
@@ -972,6 +987,12 @@ dbeskg.lo: src/fortran/dbeskg.f
 
 dbesyg.lo: src/fortran/dbesyg.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o dbesyg.lo `test -f 'src/fortran/dbesyg.f' || echo '$(srcdir)/'`src/fortran/dbesyg.f
+
+deli2.lo: src/fortran/deli2.f
+	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o deli2.lo `test -f 'src/fortran/deli2.f' || echo '$(srcdir)/'`src/fortran/deli2.f
+
+delip.lo: src/fortran/delip.f
+	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o delip.lo `test -f 'src/fortran/delip.f' || echo '$(srcdir)/'`src/fortran/delip.f
 
 zbesig.lo: src/fortran/zbesig.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o zbesig.lo `test -f 'src/fortran/zbesig.f' || echo '$(srcdir)/'`src/fortran/zbesig.f
