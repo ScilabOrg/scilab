@@ -24,7 +24,6 @@ src/fortran/cmpse3.f \
 src/fortran/cheby.f \
 src/fortran/trbize.f \
 src/fortran/r2tx.f \
-src/fortran/deli2.f \
 src/fortran/gee.f \
 src/fortran/r4tx.f \
 src/fortran/transn.f \
@@ -48,7 +47,6 @@ src/fortran/freque.f \
 src/fortran/desi12.f \
 src/fortran/cmpse2.f \
 src/fortran/desi14.f \
-src/fortran/delip.f \
 src/fortran/deli1.f \
 src/fortran/trbipo.f \
 src/fortran/rpem.f \
@@ -71,13 +69,11 @@ sci_gateway/c/sci_ffir.c \
 sci_gateway/c/sci_fiir.c \
 sci_gateway/c/sci_amell.c \
 sci_gateway/c/gw_signal.c \
-sci_gateway/c/sci_delip.c \
 sci_gateway/c/sci_fft.c \
 sci_gateway/c/sci_syredi.c \
 sci_gateway/c/sci_conv2.c
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_delip.f \
-sci_gateway/fortran/sci_f_fft.f \
+GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_fft.f \
 sci_gateway/fortran/sci_f_syredi.f \
 sci_gateway/fortran/sci_f_remez.f \
 sci_gateway/fortran/sci_f_rpem.f \
@@ -100,7 +96,7 @@ pkglib_LTLIBRARIES = libscisignal_processing.la
 noinst_LTLIBRARIES = libscisignal_processing-algo.la
 
 
-libscisignal_processing_algo_la_SOURCES = $(SIGNAL_PROCESSING_FORTRAN_SOURCES) $(SIGNAL_PROCESSING_C_SOURCES) 
+libscisignal_processing_algo_la_SOURCES = $(SIGNAL_PROCESSING_FORTRAN_SOURCES) $(SIGNAL_PROCESSING_C_SOURCES)
 libscisignal_processing_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscisignal_processing_algo_la_CPPFLAGS = $(libscisignal_processing_la_CPPFLAGS)
 
@@ -116,7 +112,7 @@ modulename=signal_processing
 
 #### signal_processing : Conf files ####
 libscisignal_processing_la_rootdir = $(mydatadir)
-libscisignal_processing_la_root_DATA =  license.txt 
+libscisignal_processing_la_root_DATA =  license.txt
 
 
 ####�signal_processing : init scripts ####

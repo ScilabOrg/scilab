@@ -16,6 +16,8 @@ src/fortran/dbesig.f \
 src/fortran/dbesjg.f \
 src/fortran/dbeskg.f \
 src/fortran/dbesyg.f \
+src/fortran/deli2.f \
+src/fortran/delip.f \
 src/fortran/zbesig.f \
 src/fortran/zbesjg.f \
 src/fortran/zbeskg.f \
@@ -25,6 +27,7 @@ GATEWAY_C_SOURCES = \
 sci_gateway/c/sci_dlgamma.c \
 sci_gateway/c/sci_bessely.c \
 sci_gateway/c/sci_beta.c \
+sci_gateway/c/sci_delip.c \
 sci_gateway/c/sci_gamma.c \
 sci_gateway/c/sci_legendre.c \
 sci_gateway/c/sci_besselh.c \
@@ -36,6 +39,9 @@ sci_gateway/c/sci_lgamma.c
 
 GATEWAY_CXX_SOURCES = \
 sci_gateway/cpp/sci_faddeeva.cpp
+
+GATEWAY_FORTRAN_SOURCES =  \
+sci_gateway/fortran/sci_f_delip.f
 
 # Includes need for the compilation
 libscispecial_functions_la_CPPFLAGS = -I$(srcdir)/includes/ \
@@ -56,7 +62,7 @@ noinst_LTLIBRARIES = libscispecial_functions-algo.la
 
 
 libscispecial_functions_algo_la_SOURCES = $(SPECIAL_FUNCTIONS_C_SOURCES) $(SPECIAL_FUNCTIONS_FORTRAN_SOURCES) $(SPECIAL_FUNCTIONS_CXX_SOURCES)
-libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES)
+libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscispecial_functions_algo_la_CPPFLAGS = $(libscispecial_functions_la_CPPFLAGS)
 
 # For the code check (splint)

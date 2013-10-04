@@ -28,6 +28,7 @@ static gw_generic_table Tab[] =
     {sci_besselk, "besselk"},
     {sci_bessely, "bessely"},
     {sci_besselh, "besselh"},
+    {C2F(sci_delip), "delip"},
     {sci_gamma, "gamma"},
     {sci_lgamma, "gammaln"},
     {sci_dlgamma, "dlgamma"},
