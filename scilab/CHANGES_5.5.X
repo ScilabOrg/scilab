@@ -15,6 +15,9 @@ Scilab Bug Fixes
 
 * Bug #7570 fixed - The switch criterion on x and y is now explicited in beta() help page.
 
+* Bug #7593 fixed - msd and st_deviation rendered obsolete,
+                    stdev now encompasses them both thanks to a new optional input argument.
+
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
@@ -292,6 +295,8 @@ Obsolete & Removed Functions
   opened with file instead.
 
 * milk_drop tagged as obsolete. Will be removed in Scilab 5.5.1.
+
+* st_deviation and msd tagged as obsolete, please use stdev intead. Will be removed in Scilab 5.5.1.
 
 
 Scilab Bug Fixes
