@@ -820,7 +820,7 @@ types::Function::ReturnValue sci_daskr(types::typed_list &in, int _iRetCount, ty
         if (info[5] == 0)
         {
             // For the full (dense) JACOBIAN case
-            rworksize += pDblX0->getRows() + pDblX0->getRows();
+            rworksize += pDblX0->getRows() * pDblX0->getRows();
         }
         else if (info[4] == 1)
         {
@@ -1072,7 +1072,7 @@ types::Function::ReturnValue sci_daskr(types::typed_list &in, int _iRetCount, ty
 
         if (iret == 2) // warning
         {
-            if(ididtmp == -1 || ididtmp == 5 || ididtmp == 6)
+            if (ididtmp == -1 || ididtmp == 5 || ididtmp == 6)
             {
                 pDblOut->set(0, t0);
             }
