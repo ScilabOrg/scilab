@@ -4,6 +4,9 @@
 Scilab Bug Fixes
 ================
 
+* Bug #7593 fixed - msd and stdev rendered obsolete,
+                    st_deviation now encompasses them both thanks to a new optional input argument.
+
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
 
 * Bug #12943 fixed - Datatips misworked when 2D plots were rotated.
