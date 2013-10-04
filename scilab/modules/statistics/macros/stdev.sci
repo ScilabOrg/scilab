@@ -25,6 +25,8 @@ function sd=stdev(x,o)
     //the standard deviation of each row of x.
     //
     //
+    warnobsolete("stdev", "5.5.1");
+
     if argn(2)<2 then o="*",end
     if x == [] then sd=%nan;return ;end
 

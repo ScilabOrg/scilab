@@ -29,6 +29,8 @@ function m=msd(x,orien)
     //5th edition, John Wiley, 1990.
     //
     //
+    warnobsolete("msd", "5.5.1");
+
     rhs=argn(2)
     if rhs==0 then error(msprintf(gettext("%s: Wrong number of input argument: At least %d expected.\n"),"msd",1)), end
     if x==[] then s=%nan, return, end
