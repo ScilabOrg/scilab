@@ -179,6 +179,7 @@ public class DatatipCreate {
             GraphicController.getController().setProperty(newDatatip, GraphicObjectProperties.__GO_CLIP_STATE__, 0);
         }
 
+        insertPointArrayPolyline (polyline, coord);
         GraphicController.getController().setGraphicObjectRelationship(polyline, newDatatip);
         return newDatatip;
     }
@@ -193,6 +194,53 @@ public class DatatipCreate {
 
         GraphicController.getController().setProperty(datatipUid, GraphicObjectProperties.__GO_DATATIP_INTERP_MODE__, interpMode);
 
+    }
+    
+    public static double[] createDatatipField (String polylineUid, double[] coordDoubleXY) {
+    
+        double[] newDatatipsArray = new double[0];
+        
+        String[] polylineChildren = (String[])GraphicController.getController().getProperty(polylineUid, GraphicObjectProperties.__GO_CHILDREN__);
+        Integer childCount = (Integer)GraphicController.getController().getProperty(polylineUid, GraphicObjectProperties.__GO_CHILDREN_COUNT__);
+        for (int i = 0 ; i < childCount ; i++) {
+            Integer objType = (Integer)GraphicController.getController().getProperty(polylineChildren[i], GraphicObjectProperties.__GO_TYPE__);
+            if (objType == GraphicObjectProperties.__GO_DATATIP__) {
+                GraphicController.getController().removeRelationShipAndDelete(polylineChildren[i]);
+            }
+        }
+        
+        for (int i = 0 ; i < (coordDoubleXY.length / 3) ; i++) {
+            double x = coordDoubleXY[i];
+            double y = coordDoubleXY[i + (coordDoubleXY.length / 3)];
+            double z = coordDoubleXY[i + coordDoubleXY.length - (coordDoubleXY.length / 3)];
+            String datatipUid = createDatatipProgramCoord(polylineUid, new double[]{x, y, z});
+        }
+        
+        return newDatatipsArray;
+    
+    }
+    
+    private static void insertPointArrayPolyline (String polylineUid, double[] coordDoubleXY) {
+    
+        Double[] datatipsCoordsArray = (Double[]) GraphicController.getController().getProperty(polylineUid, GraphicObjectProperties.__GO_DATATIPS__);
+        Double[] newDatatipsCoordsArray = new Double[datatipsCoordsArray.length + 3];
+        
+        int j = 0;
+        for (int i = 0 ; i < newDatatipsCoordsArray.length ; i++) {
+            if (i == (datatipsCoordsArray.length / 3)) {
+                newDatatipsCoordsArray[i] = coordDoubleXY[0];
+            } else if (i == ((2 * (datatipsCoordsArray.length / 3))) + 1) {
+                newDatatipsCoordsArray[i] = coordDoubleXY[1];
+            } else if (i == (newDatatipsCoordsArray.length - 1)) {
+                newDatatipsCoordsArray[i] = coordDoubleXY[2];
+            } else {
+                newDatatipsCoordsArray[i] = datatipsCoordsArray[j];
+                j++;
+            }
+        }
+        
+        GraphicController.getController().setProperty(polylineUid, GraphicObjectProperties.__GO_DATATIPS__, newDatatipsCoordsArray);
+    
     }
 
 }

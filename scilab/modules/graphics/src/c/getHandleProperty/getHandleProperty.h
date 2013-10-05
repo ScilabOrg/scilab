@@ -197,5 +197,6 @@ int get_light_type_property(void* _pvCtx, char* pobjUID);
 int get_direction_property(void* _pvCtx, char* pobjUID);
 int get_image_type_property(void* _pvCtx, char* pobjUID);
 int get_video_mode_property(void* _pvCtx, char* pobjUID);
+int get_datatips_property(void* _pvCtx, char* pobjUID);
 
 #endif /* _GET_HANDLE_PROPERTY_H_ */

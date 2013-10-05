@@ -18,6 +18,7 @@ import org.scilab.modules.gui.datatip.DatatipCommon;
 import org.scilab.modules.gui.datatip.DatatipOrientation;
 
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.*;
 import org.scilab.modules.gui.editor.CommonHandler;
 
@@ -63,6 +64,7 @@ public class DatatipDrag {
                 newPos[1] = CommonHandler.InverseLogScale(newPos[1], logFlags[1]);
                 newPos[2] = CommonHandler.InverseLogScale(newPos[2], logFlags[2]);
 
+                updatePointArrayPolyline(datatipUid, newPos);
                 GraphicController.getController().setProperty(datatipUid, __GO_DATATIP_DATA__, newPos);
 
                 Boolean AutoOrientation = (Boolean)GraphicController.getController().getProperty(datatipUid, __GO_DATATIP_AUTOORIENTATION__);
@@ -87,6 +89,7 @@ public class DatatipDrag {
                 newPos3d[1] = CommonHandler.InverseLogScale(newPos3d[1], logFlags[1]);
                 newPos3d[2] = CommonHandler.InverseLogScale(newPos3d[2], logFlags[2]);
 
+                updatePointArrayPolyline(datatipUid, newPos3d);
                 GraphicController.getController().setProperty(datatipUid, __GO_DATATIP_DATA__, newPos3d);
 
                 Boolean AutoOrientation = (Boolean)GraphicController.getController().getProperty(datatipUid, __GO_DATATIP_AUTOORIENTATION__);
@@ -103,5 +106,27 @@ public class DatatipDrag {
                               (Boolean)GraphicController.getController().getProperty(axes, __GO_Y_AXIS_LOG_FLAG__),
                               (Boolean)GraphicController.getController().getProperty(axes, __GO_Z_AXIS_LOG_FLAG__)
                              };
+    }
+    
+    public static void updatePointArrayPolyline(String datatipUid, Double[] newDatatipPosition) {
+    
+        Double[] datatipPosition = (Double[]) GraphicController.getController().getProperty(datatipUid, GraphicObjectProperties.__GO_DATATIP_DATA__);
+        
+        String polylineUID = (String) GraphicController.getController().getProperty(datatipUid, GraphicObjectProperties.__GO_PARENT__);
+        Double[] datatipsCoordsArray = (Double[]) GraphicController.getController().getProperty(polylineUID, GraphicObjectProperties.__GO_DATATIPS__);
+        
+        for (int i = 0 ; i < (datatipsCoordsArray.length / 3) ; i++) {
+            if (datatipsCoordsArray[i].equals(datatipPosition[0])) {
+                if (datatipsCoordsArray[i + (datatipsCoordsArray.length / 3)].equals(datatipPosition[1])) {
+                    if (datatipsCoordsArray[i + datatipsCoordsArray.length - (datatipsCoordsArray.length / 3)].equals(datatipPosition[2])) {
+                        datatipsCoordsArray[i] = newDatatipPosition[0];
+                        datatipsCoordsArray[i + (datatipsCoordsArray.length / 3)] = newDatatipPosition[1];
+                        datatipsCoordsArray[i + datatipsCoordsArray.length - (datatipsCoordsArray.length / 3)] = newDatatipPosition[2];
+                        break;
+                    }
+                }
+            }
+        }
+    
     }
 }

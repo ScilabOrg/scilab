@@ -12,6 +12,10 @@
             <parameter name="datatipUid" type="String"/>
             <parameter name="interpMode" type="boolean"/>
         </method>
+	<method name="createDatatipField" returnType="double[]" modifier="static">
+	    <parameter name="polylineUid" type="String"/>
+	    <parameter name="coordDoubleXY" type="double[]"/>
+	</method>
     </object>
     <object name="DatatipDelete">
         <method name="datatipRemoveProgramIndex" returnType="void" modifier="static">

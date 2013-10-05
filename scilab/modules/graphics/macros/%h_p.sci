@@ -88,6 +88,7 @@ function %h_p(h)
             "bar_width = "+sci2exp(h.bar_width)
             "clip_state = "+sci2exp(h.clip_state)
             "clip_box = "+sci2exp(h.clip_box)
+            "datatips = matrix "+strcat(string(size(h.datatips)),"x")
             "user_data = "+fmtuser_data(u)
             "tag = "+h.tag
             ]

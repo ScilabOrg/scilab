@@ -15,6 +15,7 @@ package org.scilab.modules.gui.datatip;
 
 import org.scilab.modules.gui.datatip.DatatipCommon;
 import org.scilab.modules.gui.datatip.DatatipOrientation;
+import org.scilab.modules.gui.datatip.DatatipDrag;
 
 import org.scilab.modules.renderer.CallRenderer;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
@@ -90,6 +91,7 @@ public class DatatipMove {
             newPos[1] = CommonHandler.InverseLogScale(newPos[1], logFlags[1]);
             newPos[2] = CommonHandler.InverseLogScale(newPos[2], logFlags[2]);
 
+            DatatipDrag.updatePointArrayPolyline(datatipUid, newPos);
             GraphicController.getController().setProperty(datatipUid, __GO_DATATIP_DATA__, newPos);
 
             Boolean AutoOrientation = (Boolean)GraphicController.getController().getProperty(datatipUid, __GO_DATATIP_AUTOORIENTATION__);

@@ -38,7 +38,7 @@ public class DatatipDelete {
         graphCoordDouble[1] = datatipPosition[1];
         graphCoordDouble[2] = datatipPosition[2];
 
-
+        removeDatatipCoords (datatipUid);
         GraphicController.getController().removeRelationShipAndDelete(datatipUid);
     }
 
@@ -56,6 +56,7 @@ public class DatatipDelete {
             /* use index from 1 .. lenght (like scilab vectors)*/
             if (indexRemove >= 1 && indexRemove <= datatips.length) {
                 Double[] datatipPosition = (Double[]) GraphicController.getController().getProperty(datatips[indexRemove - 1], GraphicObjectProperties.__GO_DATATIP_DATA__);
+                removeDatatipCoords (datatips[indexRemove - 1]);
                 GraphicController.getController().removeRelationShipAndDelete(datatips[indexRemove - 1]);
             }
         }
@@ -71,6 +72,44 @@ public class DatatipDelete {
     */
     public static void datatipRemoveProgramHandler(String datatipUid, String figureUid) {
         deleteDatatip(datatipUid);
+    }
+    
+    private static void removeDatatipCoords (String datatipUid) {
+    
+        Double[] datatipPosition = (Double[]) GraphicController.getController().getProperty(datatipUid, GraphicObjectProperties.__GO_DATATIP_DATA__);
+        
+        String polylineUID = (String) GraphicController.getController().getProperty(datatipUid, GraphicObjectProperties.__GO_PARENT__);
+        Double[] datatipsCoordsArray = (Double[]) GraphicController.getController().getProperty(polylineUID, GraphicObjectProperties.__GO_DATATIPS__);
+        
+        if (datatipsCoordsArray.length != 0) {
+            Double[] newDatatipsCoordsArray = new Double[datatipsCoordsArray.length - 3];
+            
+            int xDel = -1;
+            int yDel = -1;
+            int zDel = -1;
+            for (int i = 0 ; i < (datatipsCoordsArray.length / 3) ; i++) {
+                if (datatipsCoordsArray[i].equals(datatipPosition[0])) {
+                    if (datatipsCoordsArray[i + (datatipsCoordsArray.length / 3)].equals(datatipPosition[1])) {
+                        if (datatipsCoordsArray[i + datatipsCoordsArray.length - (datatipsCoordsArray.length / 3)].equals(datatipPosition[2])) {
+                            xDel = i;
+                            yDel = i + (datatipsCoordsArray.length / 3);
+                            zDel = i + datatipsCoordsArray.length - (datatipsCoordsArray.length / 3);
+                        }
+                    }
+                }
+            }
+            
+            int k = 0;
+            for (int i = 0 ; i < datatipsCoordsArray.length ; i++) {
+                if (i != xDel && i != yDel && i != zDel) {
+                    newDatatipsCoordsArray[k] = datatipsCoordsArray[i];
+                    k++;
+                }
+            }
+            
+            GraphicController.getController().setProperty(polylineUID, GraphicObjectProperties.__GO_DATATIPS__, newDatatipsCoordsArray);
+        }
+    
     }
 
 }

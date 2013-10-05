@@ -1,19 +1,22 @@
-#ifndef __CALLDATATIPCREATEFIELD_H__
-#define __CALLDATATIPCREATEFIELD_H__
+#ifndef __CALLDATATIPCREATEFIELD_HXX__
+#define __CALLDATATIPCREATEFIELD_HXX__
 
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2013 - Gustavo Barbosa Libotte <gustavolibotte@gmail.com>
- *
+ * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at
+ * are also available at    
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
-#include "dynlib_gui.h"
+#include "DatatipCreate.hxx"
+extern "C" {
+#include "getScilabJavaVM.h"
+#include "CallDatatipCreateField.h"
+}
 
-GUI_IMPEXP double* CallDatatipCreateField(char const* polylineUid, double const* coordDoubleXY, int coordDoubleXYSize);
 #endif

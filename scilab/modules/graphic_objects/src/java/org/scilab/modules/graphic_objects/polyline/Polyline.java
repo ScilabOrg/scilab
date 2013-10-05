@@ -30,7 +30,7 @@ public class Polyline extends ClippableContouredObject {
     /** Polyline properties names */
     private enum PolylineProperty { CLOSED, ARROWSIZEFACTOR, POLYLINESTYLE,
                                     INTERPCOLORVECTOR, INTERPCOLORVECTORSET, INTERPCOLORMODE,
-                                    XSHIFT, YSHIFT, ZSHIFT, BARWIDTH
+                                    XSHIFT, YSHIFT, ZSHIFT, BARWIDTH, DATATIPS, DATATIPSSIZE
                                   };
 
     /** Specifies whether the polyline is closed */
@@ -62,6 +62,9 @@ public class Polyline extends ClippableContouredObject {
 
     /** Bar width */
     private double barWidth;
+    
+    /** Datatips property */
+    private Double[] datatips;
 
     /** Constructor */
     public Polyline() {
@@ -76,6 +79,7 @@ public class Polyline extends ClippableContouredObject {
         yShift = null;
         zShift = null;
         barWidth = 0.0;
+        datatips = new Double[0];
     }
 
     @Override
@@ -110,6 +114,10 @@ public class Polyline extends ClippableContouredObject {
                 return PolylineProperty.ZSHIFT;
             case __GO_BAR_WIDTH__ :
                 return PolylineProperty.BARWIDTH;
+            case __GO_DATATIPS__ :
+                return PolylineProperty.DATATIPS;
+            case __GO_DATATIPS_SIZE__ :
+                return PolylineProperty.DATATIPSSIZE;
             default :
                 return super.getPropertyFromName(propertyName);
         }
@@ -141,6 +149,10 @@ public class Polyline extends ClippableContouredObject {
             return getZShift();
         } else if (property == PolylineProperty.BARWIDTH) {
             return getBarWidth();
+        } else if (property == PolylineProperty.DATATIPS) {
+            return getDatatips();
+        } else if (property == PolylineProperty.DATATIPSSIZE) {
+            return getDatatipsSize();
         } else {
             return super.getProperty(property);
         }
@@ -174,6 +186,8 @@ public class Polyline extends ClippableContouredObject {
                 setZShift((double[]) value);
             } else if (property == PolylineProperty.BARWIDTH) {
                 setBarWidth((Double) value);
+            } else if (property == PolylineProperty.DATATIPS) {
+                setDatatips((Double[]) value);
             } else {
                 return super.setProperty(property, value);
             }
@@ -342,6 +356,28 @@ public class Polyline extends ClippableContouredObject {
      */
     public void setZShift(double[] shift) {
         zShift = shift;
+    }
+    
+    /**
+    * @param datatips datatips coordinates
+    */
+    public void setDatatips(Double[] datatips) {
+        this.datatips = datatips;
+    }
+
+    /**
+    * @return the datatips coordinates
+    */
+    public Double[] getDatatips() {
+        return datatips;
+    }
+
+    /**
+    * Return the number of datatips
+    * @return number of datatips stored
+    */
+    public int getDatatipsSize() {
+        return datatips.length / 3;
     }
 
     /**

@@ -198,5 +198,6 @@ int set_light_type_property(void* _pvCtx, char* pobj, void* _pvData, int valueTy
 int set_direction_property(void* _pvCtx, char* pobj, void* _pvData, int valueType, int nbRow, int nbCol);
 int set_image_type_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol);
 int set_video_mode_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol);
+int set_datatips_property(void* _pvCtx, char* pobj, void* _pvData, int valueType, int nbRow, int nbCol);
 
 #endif /* _SET_HANDLE_PROPERTY_H_ */
