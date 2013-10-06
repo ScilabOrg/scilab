@@ -256,7 +256,7 @@ msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr "%s: 第 %d 個輸入參數的資料型態錯誤: 應該是字串.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr "%s: 第 %d 個輸入參數的資料長度錯誤: 應該是字串.\n"
 
 #, c-format
@@ -313,7 +313,7 @@ msgstr "%s: 第 #%d 輸入參數的資料型別錯誤: 應該是布林值或是�
 
 #, c-format
 msgid ""
-"%s: Wrong size for input argument #%d: A boolean or single string expected.\n"
+"%s: Wrong type for input argument #%d: A boolean or single string expected.\n"
 msgstr "%s: 第 #%d 輸入參數的資料長度錯誤: 應該是布林值或是字串型別.\n"
 
 #, c-format
@@ -321,7 +321,7 @@ msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為布林數(boolean).\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr "%s: 第 %d 個輸入參數長度錯誤: 應為布林數(boolean).\n"
 
 #, c-format

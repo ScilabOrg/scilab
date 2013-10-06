@@ -673,7 +673,7 @@ msgstr ""
 #
 # File: macros/atomsList.sci, line: 39
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr ""
 
 #
@@ -767,7 +767,7 @@ msgstr ""
 # File: macros/atomsRemove.sci, line: 137
 #, c-format
 msgid ""
-"%s: Wrong size for input argument #%d: A boolean or single string expected.\n"
+"%s: Wrong type for input argument #%d: A boolean or single string expected.\n"
 msgstr ""
 
 #
@@ -781,7 +781,7 @@ msgstr ""
 # File: macros/atomsRemove.sci, line: 146
 # File: macros/atoms_internals/atomsGetAvailable.sci, line: 94
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #

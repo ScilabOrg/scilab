@@ -91,7 +91,7 @@ function packages = atomsGetAvailable(category,nameonly)
         end
 
         if size(nameonly,"*") <> 1 then
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: A boolean expected.\n"),"atomsGetAvailable",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A boolean expected.\n"),"atomsGetAvailable",2));
         end
 
     else

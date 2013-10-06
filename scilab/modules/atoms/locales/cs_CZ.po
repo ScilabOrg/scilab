@@ -290,7 +290,7 @@ msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr "%s: Špatná velikost vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -351,7 +351,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong size for input argument #%d: A boolean or single string expected.\n"
+"%s: Wrong type for input argument #%d: A boolean or single string expected.\n"
 msgstr ""
 "%s: Špatná velikost vstupního argumentu #%d: Očekáván jeden řetězec nebo "
 "boolean.\n"
@@ -361,7 +361,7 @@ msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván boolean.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr "%s: Špatná velikost vstupního argumentu #%d: Byl očekáván boolean.\n"
 
 #, c-format

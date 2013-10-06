@@ -104,7 +104,7 @@ function result = atomsRemove(packages,section,del)
         end
 
         if size(section, "*") <> 1 then
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: A boolean or single string expected.\n"),"atomsRemove",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A boolean or single string expected.\n"),"atomsRemove",2));
         end
 
         if typeof(section) == "string" then
@@ -134,7 +134,7 @@ function result = atomsRemove(packages,section,del)
         end
 
         if size(section, "*") <> 1 then
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: A boolean or single string expected.\n"),"atomsRemove",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A boolean or single string expected.\n"),"atomsRemove",2));
         end
 
         // Process the 3rd input argument : delete
@@ -143,7 +143,7 @@ function result = atomsRemove(packages,section,del)
         end
 
         if size(del, "*") <> 1 then
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: A boolean expected.\n"),"atomsRemove",3));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A boolean expected.\n"),"atomsRemove",3));
         end
 
         if typeof(section) == "string" then

@@ -287,7 +287,7 @@ msgstr ""
 "%s: Falscher Typ für Eingangsargument #%d: eine Zeichenkette erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr ""
 "%s: Falsche Größe für Eingangsargument #%d: eine Zeichenkette erwartet.\n"
 
@@ -351,7 +351,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong size for input argument #%d: A boolean or single string expected.\n"
+"%s: Wrong type for input argument #%d: A boolean or single string expected.\n"
 msgstr ""
 "%s: Falsche Größe des Eingangsarguments #%d: Eine Boolesche Variable oder "
 "einzelner String erwartet.\n"
@@ -362,7 +362,7 @@ msgstr ""
 "%s: Falscher Typ für Eingangsargument #%d: einen booleschen Wert erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 "%s: Falsche Größe für Eingangsargument #%d: einen booleschen Wert erwartet.\n"
 
