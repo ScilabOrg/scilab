@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2013-09-27 17:13+0100\n"
+"Revision-Date: 2013-10-06 13:53+0100\n"
 
 # File: macros/atomsAutoload.sci, line: 47
 # File: macros/atomsLoad.sci, line: 38
@@ -68,7 +68,6 @@ msgstr ""
 # File: macros/atomsIsInstalled.sci, line: 45
 # File: macros/atomsIsLoaded.sci, line: 48
 # File: macros/atomsLoad.sci, line: 42
-# File: macros/atomsRemove.sci, line: 46
 # File: macros/atomsRepositoryAdd.sci, line: 73
 # File: macros/atomsRepositoryDel.sci, line: 40
 # File: macros/atomsSetConfig.sci, line: 34
@@ -673,7 +672,7 @@ msgstr ""
 #
 # File: macros/atomsList.sci, line: 39
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: A single string expected.\n"
 msgstr ""
 
 #
@@ -755,8 +754,15 @@ msgid "%s: An error occurred while unloading '%s-%s':\n"
 msgstr ""
 
 #
+# File: macros/atomsRemove.sci, line: 46
+#, c-format
+msgid "%s: Wrong size for input argument #%d: String array expected.\n"
+msgstr ""
+
+#
 # File: macros/atomsRemove.sci, line: 103
 # File: macros/atomsRemove.sci, line: 133
+# File: macros/atomsRemove.sci, line: 137
 #, c-format
 msgid ""
 "%s: Wrong type for input argument #%d: A boolean or single string expected.\n"
@@ -764,7 +770,6 @@ msgstr ""
 
 #
 # File: macros/atomsRemove.sci, line: 107
-# File: macros/atomsRemove.sci, line: 137
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: A boolean or single string expected.\n"
@@ -772,16 +777,10 @@ msgstr ""
 
 #
 # File: macros/atomsRemove.sci, line: 142
+# File: macros/atomsRemove.sci, line: 146
 # File: macros/atoms_internals/atomsGetAvailable.sci, line: 90
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
-msgstr ""
-
-#
-# File: macros/atomsRemove.sci, line: 146
-# File: macros/atoms_internals/atomsGetAvailable.sci, line: 94
-#, c-format
-msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #
@@ -1396,8 +1395,8 @@ msgstr ""
 # File: macros/atoms_internals/atomsDownload.sci, line: 60
 #, c-format
 msgid ""
-"%s: Wrong value for input argument #%d: String that starts with 'http"
-"(s)?://','ftp://' or 'file://' expected.\n"
+"%s: Wrong value for input argument #%d: String that starts with "
+"'http(s)?://','ftp://' or 'file://' expected.\n"
 msgstr ""
 
 #
@@ -1570,6 +1569,12 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: A 1x1 or 1x2 string matrix expected.\n"
+msgstr ""
+
+#
+# File: macros/atoms_internals/atomsGetAvailable.sci, line: 94
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A single boolean expected.\n"
 msgstr ""
 
 #
