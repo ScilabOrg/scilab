@@ -10,6 +10,8 @@ Scilab Bug Fixes
 
 * Bug #12948 fixed - When host is not found, getURL provokes a Crash To Desktop.
 
+* Bug #12962 fixed - xinfo() documentation is not clear
+
 
                  Changes between version 5.4.1 and 5.5.0-beta-1
                  ==============================================
