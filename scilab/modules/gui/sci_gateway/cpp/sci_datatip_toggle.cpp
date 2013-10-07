@@ -28,8 +28,10 @@ using namespace org_scilab_modules_gui_datatip;
 int sci_datatip_toggle(char *fname, unsigned long fname_len)
 {
     const char* pstFigureUID = NULL;
-    bool enabled = false;
-    int nbRow = 0, nbCol = 0, stkAdr = 0;
+    int iErr            = 0;
+    bool enabled        = false;
+    long long llHandle  = 0;
+    int* piAddr         = 0;
 
     SciErr sciErr;
     CheckInputArgument(pvApiCtx, 0, 1);
@@ -46,18 +48,25 @@ int sci_datatip_toggle(char *fname, unsigned long fname_len)
     }
     else if (Rhs == 1)
     {
-        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-        if (nbRow * nbCol != 1)
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
+        if (sciErr.iErr)
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Datatip");
-            return FALSE;
+            printError(&sciErr, 0);
+            return 1;
         }
+
+        iErr = getScalarHandle(pvApiCtx, piAddr, &llHandle);
+        if (iErr)
+        {
+            Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
+            return 1;
+        }
+
         if (checkInputArgumentType(pvApiCtx, 1, sci_handles))
         {
-            pstFigureUID = (char *)getObjectFromHandle((unsigned long) * (hstk(stkAdr)));
+            pstFigureUID = (char *)getObjectFromHandle((unsigned long) llHandle);
             enabled = DatatipManager::isEnabled(getScilabJavaVM(), pstFigureUID);
             DatatipManager::setEnabled(getScilabJavaVM(), pstFigureUID, (!enabled));
-
         }
         else
         {
@@ -74,5 +83,5 @@ int sci_datatip_toggle(char *fname, unsigned long fname_len)
     LhsVar(1) = 0;
     PutLhsVar();
 
-    return TRUE;
+    return 0;
 }
