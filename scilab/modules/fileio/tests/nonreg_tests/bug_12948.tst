@@ -16,6 +16,6 @@
 // When host is not found, getURL provokes a Crash To Desktop
 
 instr = "getURL(''http://www.scilab-dummy.org'', ''scilab_homepage.html'');";
-errMsg = msprintf(_("Transfer did not complete successfully: Could not resolve host: www.scilab-dummy.org; Host not found\n"));
+errMsg = msprintf(_("Transfer did not complete successfully: Couldn''t resolve host ''www.scilab-dummy.org''"));
 assert_checkerror(instr, errMsg);
 
