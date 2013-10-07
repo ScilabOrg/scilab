@@ -35,14 +35,18 @@ using namespace org_scilab_modules_gui_datatip;
 
 int sci_datatipcreate(char *fname, unsigned long fname_len)
 {
-    int n = 0, nbRow = 0, nbCol = 0, l1 = 0, i = 0;
-    int* piAddr	= NULL;
-    int out_index = 0;
-    int stkAdr = 0;
-    int indexPoint = 0;
-    char* datatip_handler = NULL;
-    char* polylineUID = NULL;
-    double* pdblReal = NULL;
+    int iErr            = 0;
+    int nbRow           = 0;
+    int nbCol           = 0;
+    int indexPoint      = 0;
+    long long llHandle  = 0;
+
+    int* piAddressVarOne    = NULL;
+    int* piAddressVarTwo    = NULL;
+    char* datatip_handler   = NULL;
+    char* polylineUID       = NULL;
+    double* pdblReal        = NULL;
+
     int iType = 0;
     int *piType = &iType;
 
@@ -52,8 +56,22 @@ int sci_datatipcreate(char *fname, unsigned long fname_len)
 
     if (nbInputArgument(pvApiCtx) == 2)
     {
-        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-        polylineUID = (char *)getObjectFromHandle((unsigned long) * (hstk(stkAdr)));
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
+            return 1;
+        }
+
+        iErr = getScalarHandle(pvApiCtx, piAddressVarOne, &llHandle);
+        if (iErr)
+        {
+            Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
+            return 1;
+        }
+
+        polylineUID = (char *)getObjectFromHandle((unsigned long) llHandle);
 
         if (checkInputArgumentType(pvApiCtx, 1, sci_handles))
         {
@@ -62,18 +80,18 @@ int sci_datatipcreate(char *fname, unsigned long fname_len)
             {
                 if (checkInputArgumentType(pvApiCtx, 2, sci_matrix))
                 {
-                    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr);
+                    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);
-                        return 0;
+                        return 1;
                     }
 
-                    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &nbRow, &nbCol, &pdblReal);
+                    sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarTwo, &nbRow, &nbCol, &pdblReal);
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);
-                        return 0;
+                        return 1;
                     }
 
                     if (nbRow * nbCol == 1)
@@ -93,42 +111,43 @@ int sci_datatipcreate(char *fname, unsigned long fname_len)
                     else
                     {
                         Scierror(999, _("%s: Wrong size for input argument #%d: 1-by-%d or %d-by-1 vector expected.\n"), fname, 2, 2, 3);
-                        return FALSE;
+                        return 1;
                     }
                 }
                 else
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A scalar or a vector expected.\n"), fname, 2);
-                    return FALSE;
+                    return 1;
                 }
             }
             else
             {
                 Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Polyline");
-                return FALSE;
+                return 1;
             }
         }
         else
         {
             Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Polyline");
-            return FALSE;
+            return 1;
         }
-
     }
     else
     {
-
         Scierror(999, _("%s: Wrong number of input arguments: %d expected.\n"), fname, 2);
-        return FALSE;
+        return 1;
     }
 
-    nbRow = 1;
-    nbCol = 1;
-    CreateVar(Rhs + 1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &out_index);
-    hstk(out_index)[0] = getHandle(datatip_handler);
-    LhsVar(1) = Rhs + 1;
-    PutLhsVar();
+    iErr = createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, llHandle);
+    if (iErr)
+    {
+        Scierror(999, _("%s: Can not create output argument #%d.\n"), fname, 1);
+        return 1;
+    }
 
-    return TRUE;
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    ReturnArguments(pvApiCtx);
+
+    return 0;
 }
 

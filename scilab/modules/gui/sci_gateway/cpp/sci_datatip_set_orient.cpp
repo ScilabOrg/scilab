@@ -29,45 +29,54 @@ using namespace org_scilab_modules_gui_datatip;
 
 int sci_datatip_set_orient(char *fname, unsigned long fname_len)
 {
-
     SciErr sciErr;
     CheckInputArgument(pvApiCtx, 2, 2);
     CheckOutputArgument(pvApiCtx, 0, 1);
 
-    int nbRow = 0, nbCol = 0, stkAdr = 0;
-    char* datatipUID = NULL;
+    char* datatipUID    = NULL;
+    int* piAddr         = NULL;
+    int iRet            = 0;
+    int iErr            = 0;
+    int compVar         = 0;
+    long long llHandle  = 0;
+
     int iType = 0;
     int *piType = &iType;
-    int* piAddr = NULL;
-    int iRet = 0;
-    int compVar = 0;
 
     if (nbInputArgument(pvApiCtx) == 2)
     {
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 1;
+        }
 
-        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-        datatipUID = (char *)getObjectFromHandle((unsigned long) * (hstk(stkAdr)));
+        iErr = getScalarHandle(pvApiCtx, piAddr, &llHandle);
+        if (iErr)
+        {
+            Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
+            return 1;
+        }
+
+        datatipUID = (char *)getObjectFromHandle((unsigned long) llHandle);
 
         if (checkInputArgumentType(pvApiCtx, 1, sci_handles))
         {
-
             getGraphicObjectProperty(datatipUID, __GO_TYPE__, jni_int, (void**) &piType);
             if (iType == __GO_DATATIP__)
             {
-
                 if (checkInputArgumentType(pvApiCtx, 2, sci_strings))
                 {
-
                     sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr);
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);
-                        return 0;
+                        return 1;
                     }
 
                     if (isScalar(pvApiCtx, piAddr))
                     {
-
                         char* pstData = NULL;
 
                         iRet = getAllocatedSingleString(pvApiCtx, piAddr, &pstData);
@@ -84,7 +93,7 @@ int sci_datatip_set_orient(char *fname, unsigned long fname_len)
                             freeAllocatedSingleString(pstData);
                             LhsVar(1) = 0;
                             PutLhsVar();
-                            return TRUE;
+                            return 0;
                         }
 
                         compVar = strcmp(pstData, "upper right");
@@ -94,7 +103,7 @@ int sci_datatip_set_orient(char *fname, unsigned long fname_len)
                             freeAllocatedSingleString(pstData);
                             LhsVar(1) = 0;
                             PutLhsVar();
-                            return TRUE;
+                            return 0;
                         }
 
                         compVar = strcmp(pstData, "lower left");
@@ -104,7 +113,7 @@ int sci_datatip_set_orient(char *fname, unsigned long fname_len)
                             freeAllocatedSingleString(pstData);
                             LhsVar(1) = 0;
                             PutLhsVar();
-                            return TRUE;
+                            return 0;
                         }
 
                         compVar = strcmp(pstData, "lower right");
@@ -114,7 +123,7 @@ int sci_datatip_set_orient(char *fname, unsigned long fname_len)
                             freeAllocatedSingleString(pstData);
                             LhsVar(1) = 0;
                             PutLhsVar();
-                            return TRUE;
+                            return 0;
                         }
 
                         compVar = strcmp(pstData, "automatic");
@@ -124,59 +133,42 @@ int sci_datatip_set_orient(char *fname, unsigned long fname_len)
                             freeAllocatedSingleString(pstData);
                             LhsVar(1) = 0;
                             PutLhsVar();
-                            return TRUE;
+                            return 0;
                         }
-
 
                         DatatipOrientation::datatipSetOrientation(getScilabJavaVM(), (char*)datatipUID, (char*)pstData, -1);
                         freeAllocatedSingleString(pstData);
                         LhsVar(1) = 0;
                         PutLhsVar();
-                        return TRUE;
-
+                        return 0;
                     }
                     else
                     {
-
                         Scierror(999, _("%s: Wrong dimension for input argument #%d: A string expected.\n"), fname, 2);
-                        return FALSE;
-
+                        return 1;
                     }
-
                 }
                 else
                 {
-
                     Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
-                    return FALSE;
-
+                    return 1;
                 }
-
             }
             else
             {
-
                 Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Datatip");
-                return FALSE;
-
+                return 1;
             }
-
         }
         else
         {
-
             Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Datatip");
-            return FALSE;
-
+            return 1;
         }
-
     }
     else
     {
-
         Scierror(999, _("%s: Wrong number of input arguments: %d expected.\n"), fname, 2);
-        return FALSE;
-
+        return 1;
     }
-
 }
