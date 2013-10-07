@@ -206,7 +206,7 @@ function evans(n,d,kmax)
     for k=1:size(E.children,"*")
         datatipInitStruct(E.children(k),"formatfunction","formatEvansTip","K",kk)
     end
-    c=captions(lhandle,legs($:-1:1),"in_upper_right")
+    c=captions(lhandle,legs,"in_upper_right")
     c.background=a.background;
 
     f.immediate_drawing = immediate_drawing;
