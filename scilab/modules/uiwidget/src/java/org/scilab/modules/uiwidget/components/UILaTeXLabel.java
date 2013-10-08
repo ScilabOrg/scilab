@@ -166,8 +166,15 @@ public class UILaTeXLabel extends UIComponent {
                 g.fillRect(0, 0, getWidth(), getHeight());
                 g.setColor(old);
             }
-            icon.setForeground(getForeground());
-            icon.paintIcon(this, g, 0, 0);
+            if (isEnabled()) {
+                icon.setForeground(getForeground());
+                icon.paintIcon(this, g, 0, 0);
+            } else {
+                icon.setForeground(getBackground().brighter());
+                icon.paintIcon(this, g, 1, 1);
+                icon.setForeground(getBackground().darker());
+                icon.paintIcon(this, g, 0, 0);
+            }
         }
 
         /**
