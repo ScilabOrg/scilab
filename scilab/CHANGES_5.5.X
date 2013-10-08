@@ -16,6 +16,8 @@ Scilab Bug Fixes
 
 * Bug #12971 fixed - getURL() downloaded file name is wrong
 
+* Bug #12976 fixed - getURL() returns a file name instead of a file path.
+
 
                  Changes between version 5.4.1 and 5.5.0-beta-1
                  ==============================================
