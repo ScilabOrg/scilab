@@ -4,6 +4,10 @@
 Scilab Bug Fixes
 ================
 
+* Bug #6689 6690 fixed - grand now works with complexes, polynomials, booleans, integers, sparses and strings,
+                         and can take row vectors, matrices and hypermatrices of thoses types.
+                         To do that: new function grand_perm.
+
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
 
 * Bug #12943 fixed - Datatips misworked when 2D plots were rotated.
