@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Samuel GOUGEON
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="grand">
+    <refnamediv>
+        <refname>grand_perm</refname>
+        <refpurpose>Generates random permutation of an input</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            y = grand_perm(n, x)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>
+                        integer, number of permutations sought. This will condition the size of the output.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        a matrix (full or sparse) or hypermatrix, to be permuted.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        depending on the input, a matrix (full or sparse) or hypermatrix, with random entries.
+                        Same type as <literal>x</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>y = grand_perm(n, x)</literal> generates <literal>n</literal> random permutations of <literal>x</literal>.
+        </para>
+        <para>
+            <literal>x</literal> can be real, complex, integer, boolean, polynomial or string type.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Get 20 random permutations of the 1:10 vector
+x = 1:10
+y = grand_perm(20, X)
+
+// Get a 20-layer hypermatrix containing random permutations of the [1:10; 11:20] matrix
+x = 1:10
+x(2, :) = 11:20;
+y = grand_perm(20, X)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="grand">grand</link>
+            </member>
+            <member>
+                <link linkend="rand">rand</link>
+            </member>
+            <member>
+                <link linkend="sprand">sprand</link>
+            </member>
+            <member>
+                <link linkend="ssrand">ssrand</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
