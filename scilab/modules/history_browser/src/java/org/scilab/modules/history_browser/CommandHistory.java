@@ -53,7 +53,6 @@ import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ScilabToolBar;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
-import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.history_browser.actions.ClearAction;
 import org.scilab.modules.history_browser.actions.CloseAction;
 import org.scilab.modules.history_browser.actions.CopyAction;
@@ -75,8 +74,6 @@ public final class CommandHistory extends SwingScilabTab implements SimpleTab {
 
     public static final String COMMANDHISTORYUUID = "856207f6-0a60-47a0-b9f4-232feedd4bf4";
 
-    private static final int DEFAULT_WIDTH = 450;
-    private static final int DEFAULT_HEIGHT = 550;
     private static final String NEWLINE = "\n";
     private static final String SESSION_BEGINNING = "// -- ";
     private static final String SESSION_ENDING = " -- //";
@@ -402,7 +399,7 @@ public final class CommandHistory extends SwingScilabTab implements SimpleTab {
             boolean success = WindowsConfigurationManager.restoreUUID(COMMANDHISTORYUUID);
             if (!success) {
                 CommandHistoryTabFactory.getInstance().getTab(COMMANDHISTORYUUID);
-                SwingScilabWindow window = (SwingScilabWindow) ScilabWindow.createWindow().getAsSimpleWindow();
+                SwingScilabWindow window = new SwingScilabWindow();
                 window.addTab(browserTab);
                 window.setLocation(0, 0);
                 window.setSize(500, 500);

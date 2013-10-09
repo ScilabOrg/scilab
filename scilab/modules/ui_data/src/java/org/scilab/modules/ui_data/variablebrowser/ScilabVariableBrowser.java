@@ -20,7 +20,6 @@ import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
-import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.ui_data.BrowseVar;
 import org.scilab.modules.ui_data.tabfactory.VariableBrowserTab;
 import org.scilab.modules.ui_data.tabfactory.VariableBrowserTabFactory;
@@ -76,7 +75,7 @@ public final class ScilabVariableBrowser implements VariableBrowser {
             boolean success = WindowsConfigurationManager.restoreUUID(SwingScilabVariableBrowser.VARBROWSERUUID);
             if (!success) {
                 VariableBrowserTab.getVariableBrowserInstance();
-                SwingScilabWindow window = (SwingScilabWindow) ScilabWindow.createWindow().getAsSimpleWindow();
+                SwingScilabWindow window = new SwingScilabWindow();
                 window.addTab(browserTab);
                 window.setLocation(0, 0);
                 window.setSize(500, 500);

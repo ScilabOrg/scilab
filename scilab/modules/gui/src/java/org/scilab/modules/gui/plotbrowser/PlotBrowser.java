@@ -18,7 +18,6 @@ import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
-import org.scilab.modules.gui.window.ScilabWindow;
 
 /**
 * Plot Browser.
@@ -85,7 +84,7 @@ public class PlotBrowser {
             boolean success = WindowsConfigurationManager.restoreUUID(SwingPlotBrowser.PLOTBROWSERUUID);
             if (!success) {
                 PlotBrowserTab.getPlotBrowserInstance(objectID);
-                SwingScilabWindow window = (SwingScilabWindow) ScilabWindow.createWindow().getAsSimpleWindow();
+                SwingScilabWindow window = new SwingScilabWindow();
                 window.addTab(plotBrowserTab);
                 window.setLocation(0, 0);
                 window.setSize(300, 700);

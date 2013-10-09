@@ -19,7 +19,6 @@ import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
 import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
-import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.ui_data.tabfactory.FileBrowserTab;
 import org.scilab.modules.ui_data.tabfactory.FileBrowserTabFactory;
 import org.scilab.modules.ui_data.utils.UiDataMessages;
@@ -84,7 +83,7 @@ public final class ScilabFileBrowser {
             boolean success = WindowsConfigurationManager.restoreUUID(SwingScilabFileBrowser.FILEBROWSERUUID);
             if (!success) {
                 FileBrowserTab.getFileBrowserInstance();
-                SwingScilabWindow window = (SwingScilabWindow) ScilabWindow.createWindow().getAsSimpleWindow();
+                SwingScilabWindow window = new SwingScilabWindow();
                 window.addTab(instance);
                 window.setLocation(0, 0);
                 window.setSize(500, 500);

@@ -98,11 +98,6 @@ import org.scilab.modules.gui.radiobutton.RadioButton;
 import org.scilab.modules.gui.radiobutton.ScilabRadioButton;
 import org.scilab.modules.gui.slider.ScilabSlider;
 import org.scilab.modules.gui.slider.Slider;
-import org.scilab.modules.gui.tab.ScilabTab;
-import org.scilab.modules.gui.tab.Tab;
-import org.scilab.modules.gui.textbox.ScilabTextBox;
-import org.scilab.modules.gui.textbox.TextBox;
-import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.uidisplaytree.ScilabUiDisplayTree;
 import org.scilab.modules.gui.uidisplaytree.UiDisplayTree;
 import org.scilab.modules.gui.uitable.ScilabUiTable;
@@ -121,8 +116,6 @@ import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.gui.waitbar.WaitBar;
 import org.scilab.modules.gui.widget.Widget;
-import org.scilab.modules.gui.window.ScilabWindow;
-import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.localization.Messages;
 
 /**
@@ -260,16 +253,6 @@ public class CallScilabBridge {
     /* OBJECT CREATION BRIDGE */
     /*                        */
     /**************************/
-
-    /**
-     * Create a new Window in Scilab GUIs
-     * @return the ID of the window in the UIElementMapper
-     */
-    // TODO REMOVE ME (NO MORE USED IN JNI)
-    public static int newWindow() {
-        Window window = ScilabWindow.createWindow();
-        return UIElementMapper.add(window);
-    }
 
     /**
      * Create a new Menubar in Scilab GUIs
@@ -626,59 +609,6 @@ public class CallScilabBridge {
     public static void destroyFrame(int id) {
         ((Frame) UIElementMapper.getCorrespondingUIElement(id)).destroy();
         UIElementMapper.removeMapping(id);
-    }
-
-    /**
-     * Create a new window with id figureIndex.
-     * The created window contains an empty tab.
-     * @param figureIndex index of the figure to create
-     * @return id of the window
-     */
-    // TODO REMOVE ME (NO MORE USED IN JNI)
-    public static int newWindow(int figureIndex) {
-        Window newWindow = ScilabWindow.createWindow();
-
-        newWindow.setTitle(FIGURE_TITLE + figureIndex);
-        /* MENUBAR */
-        MenuBar menuBar = null; //MenuBarBuilder.buildMenuBar(MENUBARXMLFILE, figureIndex);
-        /* TOOLBAR */
-        ToolBar toolBar = null; //ToolBarBuilder.buildToolBar(TOOLBARXMLFILE, figureIndex);
-
-        TextBox infoBar = ScilabTextBox.createTextBox();
-
-        // create a tab able to display a figure handle
-        Tab graphicTab = ScilabTab.createTab(FIGURE_TITLE + figureIndex, figureIndex);
-        /* Destroy the graphic figure when the tab is closed */
-        // // check if figure is already closed
-        // if (get_figure_handle(fid) <> []) then
-        //   if (get(get_figure_handle(fid), 'event_handler_enable') == 'on') then
-        //     // execute closing call back
-        //     execstr(get(get_figure_handle(fid), 'event_handler') + '(fid, -1, -1, -1000)', 'errcatch', 'm');
-        //   end
-        //   // destroy the figure
-        //   delete(get_figure_handle(fid));
-        // end
-        String closingCommand =
-            "if (get_figure_handle(" + figureIndex + ") <> []) then"
-            +      "  if (get(get_figure_handle(" + figureIndex + "), 'event_handler_enable') == 'on') then"
-            +      "    execstr(get(get_figure_handle(" + figureIndex + "), 'event_handler')+'(" + figureIndex + ", -1, -1, -1000)', 'errcatch', 'm');"
-            +      "  end;"
-            +      "  delete(get_figure_handle(" + figureIndex + "));"
-            +      "end;";
-        //graphicTab.setCallback(ScilabCloseCallBack.create(figureIndex, closingCommand));
-        graphicTab.addMenuBar(menuBar);
-        graphicTab.addToolBar(toolBar);
-        graphicTab.addInfoBar(infoBar);
-        ((SwingScilabTab) graphicTab.getAsSimpleTab()).setWindowIcon("graphic-window");
-        newWindow.addTab(graphicTab);
-
-        // link the tab and canvas with their figure
-        //        DrawableFigureGL associatedFigure = FigureMapper.getCorrespondingFigure(figureIndex);
-        //associatedFigure.setRendererProperties(new ScilabRendererProperties(graphicTab, graphicCanvas));
-        //        associatedFigure.setRendererProperties(new ScilabRendererProperties(graphicTab, null, figureIndex));
-        // don't draw now, figure will show itself when all its parameters will be set
-
-        return 0;
     }
 
     /****************************/
