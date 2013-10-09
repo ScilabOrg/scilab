@@ -101,9 +101,18 @@ types::Function::ReturnValue sci_strindex(types::typed_list &in, int _iRetCount,
     }
 
     wchar_t* pwstData = in[0]->getAs<types::String>()->get()[0];
+    if (wcslen(pwstData) == 0)
+    {
+        out.push_back(types::Double::Empty());
+        if (_iRetCount == 2)
+        {
+            out.push_back(types::Double::Empty());
+        }
 
-    //be sure to not alloc 0
-    In* pstrResult = new In[wcslen(pwstData) == 0 ? 1 : wcslen(pwstData)];
+        return types::Function::OK;
+    }
+
+    In* pstrResult = new In[wcslen(pwstData)];
 
     //number of occurances
     int iValues = 0;
@@ -122,6 +131,7 @@ types::Function::ReturnValue sci_strindex(types::typed_list &in, int _iRetCount,
                 iPcreStatus = wide_pcre_private(pwstData + iStep, pwstSearch[i], &iStart, &iEnd, NULL, NULL);
                 if (iPcreStatus == PCRE_FINISHED_OK)
                 {
+                    printf("match\n");
                     pstrResult[iValues].data        = iStart + iStep + 1;
                     pstrResult[iValues].position    = i + 1;
                     iStep                           += iEnd;
