@@ -102,6 +102,12 @@ int sci_exportUI(char * fname, unsigned long fname_len)
         return FALSE;
     }
 
+    if (getFigureFromIndex(iFigureId) == NULL)
+    {
+        Scierror(999, _("%s: Not a valid figure id: %d.\n"), fname, iFigureId);
+        return FALSE;
+    }
+
     // call the export function
     exportUserInterface(iFigureId);
 
