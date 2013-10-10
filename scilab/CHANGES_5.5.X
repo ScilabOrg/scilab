@@ -9,6 +9,9 @@ Scilab Bug Fixes
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
+* Bug #7879 fixed - string now accepts plist type,
+                    and printing a plist displays that string.
+
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
 
 * Bug #12943 fixed - Datatips misworked when 2D plots were rotated.
