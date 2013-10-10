@@ -5,6 +5,8 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// <-- ENGLISH IMPOSED -->
+
 //splitURL
 
 [a,b,c,d]=splitURL("http://www.scilab.org");
