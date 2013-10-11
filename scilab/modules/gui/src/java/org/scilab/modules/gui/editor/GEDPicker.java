@@ -311,7 +311,6 @@ public class GEDPicker {
 
         Double[] corners = (Double[])GraphicController.getController().getProperty(obj, GraphicObjectProperties.__GO_CORNERS__);
         Double radAngle = (Double)GraphicController.getController().getProperty(obj, GraphicObjectProperties.__GO_FONT_ANGLE__);
-        double[][] factors = axes.getScaleTranslateFactors();
         int rotate = ((int)((radAngle * 2) / Math.PI)) % 2;
         if (rotate == 1) {
 
@@ -329,10 +328,6 @@ public class GEDPicker {
         boolean[] logScale = { 	(Boolean)GraphicController.getController().getProperty(axesUID, GraphicObjectProperties.__GO_X_AXIS_LOG_FLAG__),
                                 (Boolean)GraphicController.getController().getProperty(axesUID, GraphicObjectProperties.__GO_Y_AXIS_LOG_FLAG__)
                              };
-        coord[0] = (coord[0] *  factors[0][0]) + factors[1][0];
-        coord[1] = (coord[1] *  factors[0][1]) + factors[1][1];
-        coord[2] = (coord[2] *  factors[0][2]) + factors[1][1];
-
         coord[0] = CommonHandler.InverseLogScale(coord[0], logScale[0]);
         coord[1] = CommonHandler.InverseLogScale(coord[1], logScale[1]);
 
