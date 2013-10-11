@@ -1,5 +1,7 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) DIGITEO - 2009 - Allan CORNET
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: added icomplex and dcomplex orders,
+//                                                         to sort imaginary parts
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -46,12 +48,46 @@ function [matrix_sorted, origin_indices] = %_gsort(matrix_to_sort, sort_type, so
         error(999,msprintf(_("%s: Wrong value for input argument #%d: [''g'' ''r'' ''c'' ''lc'' ''lr''] expected.\n"),"gsort",2));
     end
 
-    if ~or(sort_direction == ["d" "i"]) then
+    if ~or(sort_direction == ["d" "i" "dcomplex" "icomplex"]) then
         error(999,msprintf(_("%s: Wrong value for input argument #%d: [''d'' ''i''] expected.\n"),"gsort",3));
     end
 
-    magnitude_matrix = abs(matrix_to_sort);
-
+    if sort_direction == "dcomplex" then
+        // We start by sorting the real part of the input
+        [matrix_sorted, origin_indices] = gsort(real(matrix_to_sort), sort_type, "d");
+        // Then we reconstitute the imaginary part
+        matrix_sorted = matrix(matrix_to_sort(origin_indices), size(matrix_to_sort));
+        // Next, we sort the imaginary part by decreasing order
+        // by switching the elements that have equal real parts, if necessary
+        to_sort = find(real(matrix_sorted(1:$-1)) == real(matrix_sorted(2:$)));
+        for i=1:length(to_sort)
+            for j=1:length(to_sort)
+                if imag(matrix_sorted(to_sort(j))) < imag(matrix_sorted(to_sort(j)+1)) then
+                    temp = matrix_sorted(to_sort(j));
+                    matrix_sorted(to_sort(j)) = matrix_sorted(to_sort(j)+1);
+                    matrix_sorted(to_sort(j)+1) = temp;
+                end
+            end
+        end
+        return
+    elseif sort_direction == "icomplex" then
+        [matrix_sorted, origin_indices] = gsort(real(matrix_to_sort), sort_type, "i");
+        matrix_sorted = matrix(matrix_to_sort(origin_indices), size(matrix_to_sort));
+        to_sort = find(real(matrix_sorted(1:$-1)) == real(matrix_sorted(2:$)));
+        // Here, we sort the imaginary parts by increasing order
+        for i=1:length(to_sort)
+            for j=1:length(to_sort)
+                if imag(matrix_sorted(to_sort(j))) > imag(matrix_sorted(to_sort(j)+1)) then
+                    temp = matrix_sorted(to_sort(j));
+                    matrix_sorted(to_sort(j)) = matrix_sorted(to_sort(j)+1);
+                    matrix_sorted(to_sort(j)+1) = temp;
+                end
+            end
+        end
+        return
+    else
+        magnitude_matrix = abs(matrix_to_sort);
+    end
 
     matrix_sorted = [];
     origin_indices = [];

@@ -2,11 +2,11 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
@@ -73,8 +73,10 @@
                 <term>direction</term>
                 <listitem>
                     <para>a character string. It gives the ordering direction:
-                        <literal>'i'</literal> stand for increasing and
-                        <literal>'d'</literal> for decreasing order (default).
+                        <literal>'i'</literal> stands for increasing,
+                        <literal>'d'</literal> for decreasing order (default),
+                        <literal>'icomplex'</literal> can be used for increasing complex input and
+                        <literal>'dcomplex'</literal> can be used for decreasing complex input.
                     </para>
                 </listitem>
             </varlistentry>
@@ -150,13 +152,18 @@
             the indices of the sorted values in <literal>A</literal>. If
             <literal>[B,k]=gsort(A,'g')</literal> one has <literal>B==A(k)</literal>.
             <emphasis role="bold">The algorithm preserve the relative order of
-                records with equal values. 
+                records with equal values.
             </emphasis>
         </para>
         <para>
             When <literal>v</literal> is complex, the elements are sorted by
             magnitude, i.e., abs(<literal>v</literal>) . Only <literal>'g'</literal>
             as second argument is managed with complex.
+        </para>
+        <para>
+            If <literal>'icomplex'</literal> or <literal>'dcomplex'</literal> directions are selected,
+            then the sorting is done by real parts, then by imaginary parts.
+            This provides numerical stability, avoiding the sketchy case when several elements have equal modulus.
         </para>
         <para>
             With complex numbers, <literal>gsort</literal> can be overloaded
@@ -176,7 +183,7 @@
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"> 
+        <programlisting role="example">
             alr=[1,2,2;
             1,2,1;
             1,1,2;
@@ -200,6 +207,10 @@
             
             gsort(v,'lr','i')
             gsort(v,'lc','i')
+            
+            v = [1-2*%i 3+%i 1+2*%i -1-2*%i 1+2*%i  1-2*%i 1+2*%i 1-2*%i 3+2*%i]
+            y = gsort( v , "g" , "icomplex" )
+            // Sorting the real part, then the imaginary part, by increasing order
         </programlisting>
     </refsection>
     <refsection role="see also">

@@ -61,9 +61,10 @@
                 <term>direction</term>
                 <listitem>
                     <para>Une chaîne de caractères définissant si le tri doit se faire
-                        dans l'ordre croissant <literal>('i')</literal> ou décroissant
-                        <literal>('d')</literal>. La valeur par défaut est
-                        <literal>('d')</literal>.
+                        dans l'ordre croissant <literal>('i')</literal>,
+                        décroissant <literal>('d')</literal> (défaut);
+                        pour les nombres complexes, on peut aussi utiliser <literal>'icomplex'</literal> et
+                        <literal>'dcomplex'</literal>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -147,8 +148,13 @@
             nombres complexes.
         </para>
         <para>
+            Si <literal>'icomplex'</literal> ou <literal>'dcomplex'</literal> sont sélectionnés,
+            alors le tri est réalisé sur les parties réelle puis imaginaire.
+            Ceci assure la stabilité numérique du tri en évitant le cas incertain où plusieurs éléments ont des modules égaux.
+        </para>
+        <para>
             Pour les nombres complexes, <literal>gsort</literal> peut être
-            surchargé. 
+            surchargé.
         </para>
         <para>voir la macro:
             SCI/modules/elementary_functions/macros/%_gsort.sci
@@ -165,7 +171,7 @@
     </refsection>
     <refsection>
         <title>Exemples</title>
-        <programlisting role="example"> 
+        <programlisting role="example">
             alr=[1,2,2;
             1,2,1;
             1,1,2;
@@ -189,6 +195,10 @@
             
             gsort(A,'lr','i')
             gsort(A,'lc','i')
+            
+            v = [1-2*%i 3+%i 1+2*%i -1-2*%i 1+2*%i  1-2*%i 1+2*%i 1-2*%i 3+2*%i]
+            y = gsort( v , "g" , "icomplex" )
+            // On trie d'abord la partie réelle, puis la partie imaginaire, par ordre croissant
         </programlisting>
     </refsection>
     <refsection role="see also">

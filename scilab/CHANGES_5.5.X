@@ -9,6 +9,9 @@ Scilab Bug Fixes
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
+* Bug #7948 fixed - gsort now sorts complex numbers by real and imaginary parts thanks to "dcomplex" and "icomplex".
+                    It was numerically unstable when two elements had equal modulus.
+
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
 
 * Bug #12943 fixed - Datatips misworked when 2D plots were rotated.
