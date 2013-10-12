@@ -82,10 +82,10 @@ void Objrect (double* x         ,
     /*newObjUID = ConstructRectangle(psubwinUID , *x, *y, *height, *width,
       foreground, background, isfilled, isline);*/
 
-    newObjUID = constructRectangles(psubwinUID, *x, *y, *height, *width,
-                                    foreground == NULL ? -1 : *foreground,
-                                    background == NULL ? -1 : *background,
-                                    (int)isfilled, (int)isline);
+    newObjUID = buildRect(psubwinUID, *x, *y, *height, *width,
+                          foreground == NULL ? -1 : *foreground,
+                          background == NULL ? -1 : *background,
+                          (int)isfilled, (int)isline);
 
     if (newObjUID == NULL)
     {
@@ -851,7 +851,7 @@ void Objplot3d (char    * fname ,
         char* pNewPolylineUID = NULL;
         char* currentSubwinUID = NULL;
 
-        if ((hdltab = MALLOC (*n * sizeof (long))) == NULL)
+        if ((hdltab = (long*)MALLOC (*n * sizeof (long))) == NULL)
         {
             Scierror(999, "%s: No more memory.\n", fname);
             return;

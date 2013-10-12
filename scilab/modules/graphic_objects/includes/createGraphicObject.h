@@ -14,6 +14,7 @@
 #define __CREATEGRAPHICOBJECT_H__
 
 #include "dynlib_graphic_objects.h"
+#include "BOOL.h"
 
 /*
 ** Ask Controller to create a graphic object
@@ -39,6 +40,14 @@ GRAPHIC_OBJECTS_IMPEXP char const* createDataObject(char const* _sId, int _iType
 */
 GRAPHIC_OBJECTS_IMPEXP void buildFigureMenuBar(char const* _sFigureId);
 
-GRAPHIC_OBJECTS_IMPEXP char * constructRectangles(char * pparentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline);
+GRAPHIC_OBJECTS_IMPEXP char * buildRect(char * pparentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline);
+GRAPHIC_OBJECTS_IMPEXP int cloneGraphicContext(char const* sourceIdentifier, char const* destIdentifier);
+GRAPHIC_OBJECTS_IMPEXP int cloneFontContext(char const* sourceIdentifier, char const* destIdentifier);
 
+GRAPHIC_OBJECTS_IMPEXP char* createHiddenLabel(char const* parent);
+GRAPHIC_OBJECTS_IMPEXP BOOL isAxesRedrawing(char const* subWin);
+GRAPHIC_OBJECTS_IMPEXP int createLabel(char const* parent, int type);
+GRAPHIC_OBJECTS_IMPEXP char* createNewFigureWithAxes();
+GRAPHIC_OBJECTS_IMPEXP void cloneMenus(char const* model, char const* newParent);
+GRAPHIC_OBJECTS_IMPEXP void cloneAxesModel(char const* parent);
 #endif /* !__CREATEGRAPHICOBJECT_H__ */

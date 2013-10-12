@@ -29,6 +29,7 @@
 
 #include "dynlib_graphics.h"
 #include "BOOL.h"
+#include "createGraphicObject.h"
 
 /** @name Text Alignment
  * Text alignement enum.
@@ -59,12 +60,6 @@ sciTypeOf3D;
  * If a current figure exists : return it
  * Otherwise create a new one.
  */
-GRAPHICS_IMPEXP char * createNewFigureWithAxes(void);
-
-GRAPHICS_IMPEXP void cloneAxesModel(char const* pstFigureUID);
-
-GRAPHICS_IMPEXP void cloneMenus(char * pModelUID, char * pCloneUID);
-
 GRAPHICS_IMPEXP char const* getOrCreateDefaultSubwin(void);
 
 GRAPHICS_IMPEXP char const* ConstructSubWin(char const* pparentfigure); /* BUILD */

@@ -49,7 +49,6 @@
 
 #include "Format.h"             // computeDefaultTicsLabels
 
-#include "createGraphicObject.h"
 #include "deleteGraphicObject.h"
 #include "returnType.h"
 #include "getGraphicObjectProperty.h"
@@ -60,106 +59,6 @@
 #include "CurrentObject.h"
 #include "FigureModel.h"
 #include "AxesModel.h"
-
-/**
- * If a current figure exists : return it
- * Otherwise create a new one.
- *
- * This method also alocate an axe object.
- *
- * After this call: the current figure the current axes and the current subwin
- * are set to the appropriate values.
- *
- * @return a reference to the current figure.
- */
-GRAPHICS_IMPEXP char * createNewFigureWithAxes()
-{
-    int iID = 0;
-    char *pFigureUID = NULL;
-    int* axesSize = NULL;
-
-    pFigureUID = cloneGraphicObject(getFigureModel());
-
-    /*
-     * Clone the default menus
-     */
-    cloneMenus((char*)getFigureModel(), pFigureUID);
-
-    setGraphicObjectProperty(pFigureUID, __GO_ID__, &iID, jni_int, 1);
-
-    /*
-     * Clone the default axes
-     */
-    cloneAxesModel(pFigureUID);
-    setCurrentFigure(pFigureUID);
-    /*
-     * Force axes size after window creation (Java)
-     */
-    getGraphicObjectProperty(getFigureModel(), __GO_AXES_SIZE__, jni_int_vector, (void **)&axesSize);
-    setGraphicObjectProperty(pFigureUID, __GO_AXES_SIZE__, axesSize, jni_int_vector, 2);
-
-    // return the reference to the current figure
-    releaseGraphicObjectProperty(__GO_PARENT__, pFigureUID, jni_string, 1);
-    return (char*)getCurrentFigure();
-}
-
-/**
- * Clone a new Axes object using the Axes model which is then
- * attached to the newly created Figure.
- *
- * After this call: tthe current axes and the current subwin are set to the
- * appropriate values.
- */
-GRAPHICS_IMPEXP void cloneAxesModel(char const* pstFigureUID)
-{
-    char *pAxesUID = cloneGraphicObject(getAxesModel());
-
-    /* Clone the Axes model's labels and attach them to the newly created Axes */
-    ConstructLabel(pAxesUID, "", 1);
-    ConstructLabel(pAxesUID, "", 2);
-    ConstructLabel(pAxesUID, "", 3);
-    ConstructLabel(pAxesUID, "", 4);
-
-    /* Sets the parent-child relationship within the MVC */
-    setGraphicObjectRelationship(pstFigureUID, pAxesUID);
-
-    /* Sets the newly created Axes as the Figure's current selected child */
-    setGraphicObjectProperty(pstFigureUID, __GO_SELECTED_CHILD__, pAxesUID, jni_string, 1);
-
-    // Set new axes as default too.
-    setCurrentObject(pAxesUID);
-    setCurrentSubWin(pAxesUID);
-
-    releaseGraphicObjectProperty(__GO_PARENT__, pAxesUID, jni_string, 1);
-}
-
-GRAPHICS_IMPEXP void cloneMenus(char * pModelUID, char * pCloneUID)
-{
-    int iNbChildren = 0;
-    int *piNbChildren = &iNbChildren;
-    int iChild = 0;
-    char *pChildUID = NULL;
-    char **pChildren = NULL;
-    int iChildType = -1;
-    int *piChildType = &iChildType;
-
-    getGraphicObjectProperty(pModelUID, __GO_CHILDREN_COUNT__, jni_int, (void **)&piNbChildren);
-    getGraphicObjectProperty(pModelUID, __GO_CHILDREN__, jni_string_vector, (void **)&pChildren);
-    for (iChild = iNbChildren - 1; iChild >= 0; iChild--)
-    {
-        getGraphicObjectProperty(pChildren[iChild], __GO_TYPE__, jni_int, (void **)&piChildType);
-        if (iChildType == __GO_UIMENU__)
-        {
-            pChildUID = cloneGraphicObject(pChildren[iChild]);
-
-            setGraphicObjectRelationship(pCloneUID, pChildUID);
-            cloneMenus(pChildren[iChild], pChildUID);
-
-            releaseGraphicObjectProperty(__GO_PARENT__, pChildUID, jni_string, 1);
-        }
-    }
-    releaseGraphicObjectProperty(__GO_CHILDREN__, pChildren, jni_string_vector, iNbChildren);
-}
 
 /**
  * If a current subwin exists: return it
@@ -1983,46 +1882,20 @@ char *ConstructCompoundSeq(int number)
 void ConstructLabel(char * pparentsubwinUID, char const* text, int type)
 {
     int const labelProperties[] = { __GO_X_AXIS_LABEL__, __GO_Y_AXIS_LABEL__, __GO_Z_AXIS_LABEL__, __GO_TITLE__ };
-    int parentType = -1;
-    int *piParentType = &parentType;
-    int labelType = 0;
-    char *modelLabelUID = NULL;
-    char *pobjUID = NULL;
-    int autoPosition = 0;
-    int *piAutoPosition = &autoPosition;
-    double position[3] = { 1.0, 1.0, 1.0 };
-
-    getGraphicObjectProperty(pparentsubwinUID, __GO_TYPE__, jni_int, (void**)&piParentType);
-
-    if (parentType != __GO_AXES__)
-    {
-        Scierror(999, _("The parent has to be a SUBWIN\n"));
-        return;
-    }
+    int ret = 0;
 
     if (type < 1 || type > 4)
     {
         return;
     }
 
-    labelType = labelProperties[type - 1];
+    //ret == 1 -> parent is not a __GO_AXES__
+    //ret == 0 -> no error
+    ret = createLabel(pparentsubwinUID, labelProperties[type - 1]);
+    if (ret == 1)
+    {
+        Scierror(999, _("The parent has to be a SUBWIN\n"));
+    }
 
-    getGraphicObjectProperty(getAxesModel(), labelType, jni_string, (void **)&modelLabelUID);
-
-    /* Creates a new Label object with the same properties as the Axes model's corresponding label */
-    pobjUID = cloneGraphicObject(modelLabelUID);
-
-    /* Position set to {1, 1, 1} as a default to take into account logarithmic coordinates */
-    setGraphicObjectProperty(pobjUID, __GO_POSITION__, position, jni_double_vector, 3);
-
-    /* Auto position must be reset as setting the position has set it to false */
-    getGraphicObjectProperty(modelLabelUID, __GO_AUTO_POSITION__, jni_bool, (void **)&piAutoPosition);
-    setGraphicObjectProperty(pobjUID, __GO_AUTO_POSITION__, &autoPosition, jni_bool, 1);
-
-    /* Attach the cloned label to its parent Axes and set the latter as the label's parent */
-    setGraphicObjectProperty(pparentsubwinUID, labelType, pobjUID, jni_string, 1);
-    setGraphicObjectRelationship(pparentsubwinUID, pobjUID);
-
-    releaseGraphicObjectProperty(labelType, modelLabelUID, jni_string, 1);
-    releaseGraphicObjectProperty(__GO_PARENT__, pobjUID, jni_string, 1);
+    return;
 }

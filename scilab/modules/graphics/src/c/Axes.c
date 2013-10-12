@@ -31,6 +31,7 @@
 #include "GetProperty.h"
 #include "HandleManagement.h"
 
+#include "createGraphicObject.h"
 #include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
@@ -39,121 +40,15 @@
 
 #include "deleteGraphicObject.h"
 /*--------------------------------------------------------------------------------*/
-static void initSubWinAngles(char * pSubWinUID);
-static void initSubWinBounds(char * pSubWinUID);
-/*--------------------------------------------------------------------------------*/
-/* reinit a subwindow (but don't change position) */
-static void reinitSubWin(char * pSubWinUID)
-{
-    int visible = 0;
-    int firstPlot = 0;
-    int axisLocation = 0;
-    char *labelUID = NULL;
-    int iChildrenCount = 0;
-    int *piChildrenCount = &iChildrenCount;
-    int i = 0;
-    char **pstChildrenUID = NULL;
-
-    /* Deletes the Axes' children */
-    getGraphicObjectProperty(pSubWinUID, __GO_CHILDREN_COUNT__, jni_int, (void **) &piChildrenCount);
-
-    if (iChildrenCount != 0)
-    {
-        getGraphicObjectProperty(pSubWinUID, __GO_CHILDREN__, jni_string_vector, (void **) &pstChildrenUID);
-
-        for (i = 0 ; i < iChildrenCount ; ++i)
-        {
-            deleteGraphicObject(pstChildrenUID[i]);
-        }
-    }
-
-    initSubWinBounds(pSubWinUID);
-
-    labelUID = initLabel(pSubWinUID);
-    setGraphicObjectProperty(pSubWinUID, __GO_TITLE__, labelUID, jni_string, 1);
-
-    labelUID = initLabel(pSubWinUID);
-    setGraphicObjectProperty(pSubWinUID, __GO_X_AXIS_LABEL__, labelUID, jni_string, 1);
-
-    labelUID = initLabel(pSubWinUID);
-    setGraphicObjectProperty(pSubWinUID, __GO_Y_AXIS_LABEL__, labelUID, jni_string, 1);
-
-    labelUID = initLabel(pSubWinUID);
-    setGraphicObjectProperty(pSubWinUID, __GO_Z_AXIS_LABEL__, labelUID, jni_string, 1);
-
-    /* bottom */
-    axisLocation = 0;
-    setGraphicObjectProperty(pSubWinUID, __GO_X_AXIS_LOCATION__, &axisLocation, jni_int, 1);
-    /* left */
-    axisLocation = 4;
-    setGraphicObjectProperty(pSubWinUID, __GO_Y_AXIS_LOCATION__, &axisLocation, jni_int, 1);
-
-    visible = 1;
-    setGraphicObjectProperty(pSubWinUID, __GO_VISIBLE__, &visible, jni_bool, 1);
-    firstPlot = 1;
-    setGraphicObjectProperty(pSubWinUID, __GO_FIRST_PLOT__, &firstPlot, jni_bool, 1);
-
-    initSubWinAngles(pSubWinUID);
-}
-/*--------------------------------------------------------------------------------*/
-/* reinit the viewing angles of a subwindow */
-static void initSubWinAngles(char * pSubWinUID)
-{
-    int iViewType = 0;
-    int* piViewType = &iViewType;
-    double* rotationAngles = NULL;
-    char* axesModelUID = (char*)getAxesModel();
-
-    getGraphicObjectProperty(axesModelUID, __GO_VIEW__, jni_int, (void **) &piViewType);
-    setGraphicObjectProperty(pSubWinUID, __GO_VIEW__, &iViewType, jni_int, 1);
-
-    getGraphicObjectProperty(axesModelUID, __GO_ROTATION_ANGLES__, jni_double_vector, (void **) &rotationAngles);
-    setGraphicObjectProperty(pSubWinUID, __GO_ROTATION_ANGLES__, rotationAngles, jni_double_vector, 2);
-
-    getGraphicObjectProperty(axesModelUID, __GO_ROTATION_ANGLES_3D__, jni_double_vector, (void **) &rotationAngles);
-    setGraphicObjectProperty(pSubWinUID, __GO_ROTATION_ANGLES_3D__, rotationAngles, jni_double_vector, 2);
-}
-
-/*--------------------------------------------------------------------------------*/
-/* set the data_bounds of the axes to the default value */
-static void initSubWinBounds(char * pSubWinUID)
-{
-    double* dataBounds = NULL;
-    double* realDataBounds = NULL;
-    char* axesModelUID = (char*)getAxesModel();
-    int linLogFlag = 0;
-
-    setGraphicObjectProperty(pSubWinUID, __GO_X_AXIS_LOG_FLAG__, &linLogFlag, jni_bool, 1);
-    setGraphicObjectProperty(pSubWinUID, __GO_Y_AXIS_LOG_FLAG__, &linLogFlag, jni_bool, 1);
-    setGraphicObjectProperty(pSubWinUID, __GO_Z_AXIS_LOG_FLAG__, &linLogFlag, jni_bool, 1);
-
-    getGraphicObjectProperty(axesModelUID, __GO_DATA_BOUNDS__, jni_double_vector, (void **)&dataBounds);
-    setGraphicObjectProperty(pSubWinUID, __GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 6);
-
-    getGraphicObjectProperty(axesModelUID, __GO_REAL_DATA_BOUNDS__, jni_double_vector, (void **)&realDataBounds);
-    setGraphicObjectProperty(pSubWinUID, __GO_REAL_DATA_BOUNDS__, realDataBounds, jni_double_vector, 6);
-}
-/*--------------------------------------------------------------------------------*/
 /* reinit the selected subwindow if the auto_clear property is set to on */
 /* return TRUE if the window has been redrawn */
 BOOL checkRedrawing(void)
 {
-    int iAutoClear = 0;
-    int* piAutoClear = &iAutoClear;
-
     //  nbCheckRedraw++;
     //  fprintf(stderr, "[DEBUG] checkRedrawing : %d\n", nbCheckRedraw);
     char* pstSubWinID = (char*)getCurrentSubWin();
 
-    getGraphicObjectProperty(pstSubWinID, __GO_AUTO_CLEAR__, jni_bool, (void **)&piAutoClear);
-
-    if (iAutoClear)
-    {
-        reinitSubWin(pstSubWinID);
-        return TRUE;
-    }
-
-    return FALSE;
+    return isAxesRedrawing(pstSubWinID);
 }
 /*--------------------------------------------------------------------------------*/
 sciLegendPlace propertyNameToLegendPlace(const char * string)

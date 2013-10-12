@@ -560,19 +560,19 @@ int InitAxesModel()
     setGraphicObjectProperty(paxesmdlUID, __GO_ARC_DRAWING_METHOD__, &arcDrawingMethod, jni_int, 1);
 
     /* Creates the Axes model's labels and sets the model as their parent */
-    labelUID = initLabel(paxesmdlUID);
+    labelUID = createHiddenLabel(paxesmdlUID);
     setGraphicObjectProperty(paxesmdlUID, __GO_TITLE__, labelUID, jni_string, 1);
     releaseGraphicObjectProperty(__GO_TITLE__, labelUID, jni_string, 0);
 
-    labelUID = initLabel(paxesmdlUID);
+    labelUID = createHiddenLabel(paxesmdlUID);
     setGraphicObjectProperty(paxesmdlUID, __GO_X_AXIS_LABEL__, labelUID, jni_string, 1);
     releaseGraphicObjectProperty(__GO_X_AXIS_LABEL__, labelUID, jni_string, 0);
 
-    labelUID = initLabel(paxesmdlUID);
+    labelUID = createHiddenLabel(paxesmdlUID);
     setGraphicObjectProperty(paxesmdlUID, __GO_Y_AXIS_LABEL__, labelUID, jni_string, 1);
     releaseGraphicObjectProperty(__GO_Y_AXIS_LABEL__, labelUID, jni_string, 0);
 
-    labelUID = initLabel(paxesmdlUID);
+    labelUID = createHiddenLabel(paxesmdlUID);
     setGraphicObjectProperty(paxesmdlUID, __GO_Z_AXIS_LABEL__, labelUID, jni_string, 1);
     releaseGraphicObjectProperty(__GO_Z_AXIS_LABEL__, labelUID, jni_string, 0);
 
@@ -698,28 +698,3 @@ default:
 
     return 0;
 }
-
-/*---------------------------------------------------------------------------------*/
-/* allocate and set a new label to default values */
-char *initLabel(char *parentObjUID)
-{
-    char *newLabel = NULL;
-    int iHidden = 1;
-    int autoPosition = 1;
-
-    newLabel = createGraphicObject(__GO_LABEL__);
-
-    /* Hide Label as they are non explicit children */
-    setGraphicObjectProperty(newLabel, __GO_HIDDEN__, &iHidden, jni_bool, 1);
-    setGraphicObjectProperty(newLabel, __GO_AUTO_POSITION__, &autoPosition, jni_bool, 1);
-    setGraphicObjectProperty(newLabel, __GO_AUTO_ROTATION__, &autoPosition, jni_bool, 1);
-
-    /* Sets the label's parent */
-    setGraphicObjectRelationship(parentObjUID, newLabel);
-
-    cloneGraphicContext(parentObjUID, newLabel);
-    cloneFontContext(parentObjUID, newLabel);
-
-    return newLabel;
-}
-/*---------------------------------------------------------------------------------*/

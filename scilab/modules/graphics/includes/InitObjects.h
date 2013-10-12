@@ -35,8 +35,6 @@ GRAPHICS_IMPEXP int C2F(graphicsmodels) (void);
 
 GRAPHICS_IMPEXP int sciInitGraphicMode (char* pobjUID);
 
-GRAPHICS_IMPEXP char *initLabel(char *parentObjUID) ; /* INITOBJECT */
-
 GRAPHICS_IMPEXP void InitFigureModel(char *pfiguremdlUID); /* INITOBJECT */
 
 GRAPHICS_IMPEXP int InitAxesModel(void);   /* INITOBJECT */

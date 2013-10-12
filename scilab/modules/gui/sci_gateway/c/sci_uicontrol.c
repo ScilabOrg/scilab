@@ -107,7 +107,8 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
         /* Create a pushbutton in current figure */
 
         /* Create a new pushbutton */
-        GraphicHandle = getHandle(CreateUIControl(NULL));
+        pUicontrol = CreateUIControl(NULL);
+        GraphicHandle = getHandle(pUicontrol);
 
         /* Set current figure as parent */
         pstCurrentFigure = getCurrentFigure();
@@ -115,8 +116,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
         {
             pstCurrentFigure = createNewFigureWithAxes();
         }
-        setGraphicObjectRelationship(pstCurrentFigure, (char*)getObjectFromHandle(GraphicHandle));
-        pUicontrol = (char*)getObjectFromHandle(GraphicHandle);
+        setGraphicObjectRelationship(pstCurrentFigure, pUicontrol);
     }
     else if (nbInputArgument(pvApiCtx) == 1)
     {
@@ -163,11 +163,12 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                 else if (iParentType == __GO_FIGURE__ || iParentType == __GO_UIMENU__)  /* PushButton creation */
                 {
                     /* Create a new pushbutton */
-                    GraphicHandle = getHandle(CreateUIControl(NULL));
+                    pUicontrol =  CreateUIControl(NULL);
+                    GraphicHandle = getHandle(pUicontrol);
 
                     /* First parameter is the parent */
-                    setGraphicObjectRelationship(pParentUID, getObjectFromHandle(GraphicHandle));
-                    setStatus = callSetProperty(pvApiCtx, (char*)getObjectFromHandle(GraphicHandle), &hParent, sci_handles, 1, 1, (char*)propertiesNames[1]);
+                    setGraphicObjectRelationship(pParentUID, pUicontrol);
+                    setStatus = callSetProperty(pvApiCtx, pUicontrol, &hParent, sci_handles, 1, 1, (char*)propertiesNames[1]);
                     if (setStatus == SET_PROPERTY_ERROR)
                     {
                         Scierror(999, _("%s: Could not set property '%s'.\n"), fname, propertyName);
@@ -187,7 +188,6 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                          "Uimenu");
                 return FALSE;
             }
-            pUicontrol = (char*)getObjectFromHandle(GraphicHandle);
         }
     }
     else
@@ -430,8 +430,6 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
         /* If no parent given then the current figure is the parent */
         if (propertiesValuesIndices[1] == NOT_FOUND)
         {
-            char *graphicObjectUID = (char*)getObjectFromHandle(GraphicHandle);
-
             /* Set the parent */
             pstCurrentFigure = (char*)getCurrentFigure();
 
@@ -439,7 +437,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
             {
                 pstCurrentFigure = createNewFigureWithAxes();
             }
-            setGraphicObjectRelationship(pstCurrentFigure, graphicObjectUID);
+            setGraphicObjectRelationship(pstCurrentFigure, pUicontrol);
         }
 
         /* Read and set all properties */
@@ -459,7 +457,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                 {
                     nbRow = -1;
                     nbCol = -1;
-                    setStatus = callSetProperty(pvApiCtx, (char*)getObjectFromHandle(GraphicHandle), piAddr, 0, 0, 0, (char*)propertiesNames[inputIndex]);
+                    setStatus = callSetProperty(pvApiCtx, pUicontrol, piAddr, 0, 0, 0, (char*)propertiesNames[inputIndex]);
                 }
                 else            /* All other properties */
                 {
@@ -477,7 +475,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                                 return 1;
                             }
 
-                            setStatus = callSetProperty(pvApiCtx, (char*)getObjectFromHandle(GraphicHandle), pdblValue, sci_matrix, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
+                            setStatus = callSetProperty(pvApiCtx, pUicontrol, pdblValue, sci_matrix, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
                             break;
                         }
                         case sci_strings:
@@ -491,7 +489,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                                     return 1;
                                 }
 
-                                setStatus = callSetProperty(pvApiCtx, (char*)getObjectFromHandle(GraphicHandle), pstValue, sci_strings, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
+                                setStatus = callSetProperty(pvApiCtx, pUicontrol, pstValue, sci_strings, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
                                 freeAllocatedMatrixOfString(nbRow, nbCol, pstValue);
                             }
                             else
@@ -505,7 +503,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
 
                                 nbRow = (int)strlen(pstValue);
                                 nbCol = 1;
-                                setStatus = callSetProperty(pvApiCtx, (char*)getObjectFromHandle(GraphicHandle), pstValue, sci_strings, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
+                                setStatus = callSetProperty(pvApiCtx, pUicontrol, pstValue, sci_strings, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
                                 freeAllocatedSingleString(pstValue);
                             }
                             break;
@@ -520,7 +518,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                                 return 1;
                             }
 
-                            setStatus = callSetProperty(pvApiCtx, (char*)getObjectFromHandle(GraphicHandle), pHandles, sci_handles, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
+                            setStatus = callSetProperty(pvApiCtx, pUicontrol, pHandles, sci_handles, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
                             break;
                         }
                         default:

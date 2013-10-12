@@ -17,9 +17,10 @@ extern "C"
 }
 
 #include "CallGraphicController.hxx"
-#include "GraphicObjectBuilder.hxx"
+#include "Builder.hxx"
 #include "DataController.hxx"
 
+using namespace org_scilab_modules_graphic_objects_builder;
 using namespace org_scilab_modules_graphic_objects;
 
 char *createGraphicObject(int _iType)
@@ -42,15 +43,48 @@ void buildFigureMenuBar(char const* _sFigureId)
     CallGraphicController::buildFigureMenuBar(getScilabJavaVM(), _sFigureId);
 }
 
-char * constructRectangles(char * pparentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline)
+char* buildRect(char * pparentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline)
 {
-    try
-    {
-        return GraphicObjectBuilder::constructRectangles(getScilabJavaVM(), pparentsubwinUID, x, y, height, width, foreground, background, isfilled, isline);
-    }
-    catch (std::exception & e)
-    {
-        printf("exception: %s\n", e.what());
-        return NULL;
-    }
+    return Builder::buildRect(getScilabJavaVM(), pparentsubwinUID, x, y, height, width, foreground, background, isfilled, isline);
+}
+
+int cloneGraphicContext(char const* sourceIdentifier, char const* destIdentifier)
+{
+    return Builder::cloneGraphicContext(getScilabJavaVM(), sourceIdentifier, destIdentifier);
+}
+
+int cloneFontContext(char const* sourceIdentifier, char const* destIdentifier)
+{
+    return Builder::cloneFontContext(getScilabJavaVM(), sourceIdentifier, destIdentifier);
+}
+
+char* createHiddenLabel(char const* parent)
+{
+    return Builder::createHiddenLabel(getScilabJavaVM(), parent);
+}
+
+BOOL isAxesRedrawing(char const* subWin)
+{
+    return booltoBOOL(Builder::isAxesRedrawing(getScilabJavaVM(), subWin));
+}
+
+int createLabel(char const* parent, int type)
+{
+    return Builder::createLabel(getScilabJavaVM(), parent, type);
+}
+
+char* createNewFigureWithAxes()
+{
+    return Builder::createNewFigureWithAxes(getScilabJavaVM());
+}
+
+void cloneMenus(char const* model, char const* newParent)
+{
+    Builder::cloneMenus(getScilabJavaVM(), model, newParent);
+}
+
+void cloneAxesModel(char const* parent)
+{
+    Builder::cloneAxesModel(getScilabJavaVM(), parent);
+
 }
