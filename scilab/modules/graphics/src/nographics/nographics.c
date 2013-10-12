@@ -13,32 +13,34 @@
  *
  */
 /*--------------------------------------------------------------------------*/
+#include "stack-c.h"
 #include <string.h>
 #include "gw_graphics.h"
-#include "stack-c.h"
-#include "callFunctionFromGateway.h"
-#include "graphicModuleLoad.h"
-#include "TerminateGraphics.h"
-#include "getDictionaryGetProperties.h"
-#include "getDictionarySetProperties.h"
-#include "DrawObjects.h"
 #include "GetProperty.h"
-#include "SetProperty.h"
-#include "math_graphics.h"
-#include "DestroyObjects.h"
-#include "axesScale.h"
-#include "BuildObjects.h"
-#include "BasicAlgos.h"
-#include "pixel_mode.h"
-#include "Axes.h"
-#include "getPropertyAssignedValue.h"
-#include "SetHashTable.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "Format.h"
-#include "MALLOC.h"
-#include "Interaction.h"
-#include "InitObjects.h"
+
+typedef enum
+{
+    ALIGN_NONE = 0,
+    ALIGN_LEFT = 1,
+    ALIGN_CENTER = 2,
+    ALIGN_RIGHT = 3
+}
+sciTextAlignment;
+
+/** @name Type of 3D Object
+ * Type of 3D Object enum
+ */
+typedef enum
+{
+    SCI_FAC3D = 0,
+    SCI_PLOT3D = 1,
+    SCI_CONTOUR,
+    SCI_PARAM3D,
+    SCI_PARAM3D1
+}
+sciTypeOf3D;
 
 /*--------------------------------------------------------------------------*/
 
@@ -401,7 +403,7 @@ BOOL sciIsExistingFigure(int figNum)
 }
 
 /*--------------------------------------------------------------------------*/
-void cloneAxesModel(int pstFigureUID)
+int cloneAxesModel(int pstFigureUID)
 {
 }
 

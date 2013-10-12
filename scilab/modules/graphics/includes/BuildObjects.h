@@ -29,6 +29,7 @@
 
 #include "dynlib_graphics.h"
 #include "BOOL.h"
+#include "createGraphicObject.h"
 
 /** @name Text Alignment
  * Text alignement enum.
@@ -59,15 +60,7 @@ sciTypeOf3D;
  * If a current figure exists : return it
  * Otherwise create a new one.
  */
-GRAPHICS_IMPEXP int createNewFigureWithAxes(void);
-
-GRAPHICS_IMPEXP void cloneAxesModel(int iFigureUID);
-
-GRAPHICS_IMPEXP void cloneMenus(int iModelUID, int iCloneUID);
-
 GRAPHICS_IMPEXP int getOrCreateDefaultSubwin(void);
-
-GRAPHICS_IMPEXP int ConstructSubWin(int iParentfigure); /* BUILD */
 
 GRAPHICS_IMPEXP int allocateText(int iParentsubwinUID,
                                  char **text,
@@ -92,9 +85,6 @@ GRAPHICS_IMPEXP int ConstructArc(int iParentsubwinUID, double x, double y,
                                  double height, double width, double alphabegin, double alphaend,
                                  int *foreground, int *background, BOOL isfilled, BOOL isline);
 
-GRAPHICS_IMPEXP int ConstructRectangle(int iParentsubwinUID, double x, double y,
-                                       double height, double width, int *foreground, int *background, int isfilled, int isline);
-
 GRAPHICS_IMPEXP int ConstructSurface(int iParentsubwinUID, sciTypeOf3D typeof3d, double *pvecx, double *pvecy, double *pvecz, double *zcol, int izcol, int dimzx, int dimzy, int *flag, double *ebox, int flagcolor, int *isfac, int *m1, int *n1, int *m2, int *n2, int *m3, int *n3, int *m3n, int *n3n); /* BUILD */
 
 GRAPHICS_IMPEXP int ConstructGrayplot(int iParentsubwinUID, double *vx, double *vy, double *vz, int nx, int ny, int type);  /* BUILD */
@@ -109,8 +99,6 @@ GRAPHICS_IMPEXP int ConstructSegs(int iParentsubwinUID, int type, double *vx, do
 
 GRAPHICS_IMPEXP int ConstructCompound(long *tabpointobj, int number); /* BUILD */
 GRAPHICS_IMPEXP int ConstructCompoundSeq(int number); /* BUILD */
-
-GRAPHICS_IMPEXP void ConstructLabel(int iParentsubwinUID, char const* text, int type); /* BUILD */
 
 /**
  * Create a polyline but does not add it to Scilab hierarchy

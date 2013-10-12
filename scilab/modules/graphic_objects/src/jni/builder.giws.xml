@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package name="org.scilab.modules.graphic_objects.builder">
+    <object name="Builder">
+        <method name="buildRect" returnType="int" modifier="static">
+            <parameter name="pparentsubwinUID" type="int"/>
+            <parameter name="x" type="double"/>
+            <parameter name="y" type="double"/>
+            <parameter name="height" type="double"/>
+            <parameter name="width" type="double"/>
+            <parameter name="foreground" type="int"/>
+            <parameter name="background" type="int"/>
+            <parameter name="isfilled" type="int"/>
+            <parameter name="isline" type="int"/>
+        </method>
+        <method name="cloneGraphicContext" returnType="int" modifier="static">
+            <parameter name="sourceIdentifier" type="int"/>
+            <parameter name="destIdentifier" type="int"/>
+        </method>
+        <method name="cloneFontContext" returnType="int" modifier="static">
+            <parameter name="sourceIdentifier" type="int"/>
+            <parameter name="destIdentifier" type="int"/>
+        </method>
+        <method name="createHiddenLabel" returnType="int" modifier="static">
+            <parameter name="parent" type="int"/>
+        </method>
+        <method name="isAxesRedrawing" returnType="boolean" modifier="static">
+            <parameter name="subWin" type="int"/>
+        </method>
+        <method name="createLabel" returnType="int" modifier="static">
+            <parameter name="parent" type="int"/>
+            <parameter name="type" type="int"/>
+        </method>
+        <method name="createNewFigureWithAxes" returnType="int" modifier="static" />
+        <method name="cloneMenus" returnType="void" modifier="static">
+            <parameter name="model" type="int"/>
+            <parameter name="newParent" type="int"/>
+        </method>
+        <method name="cloneAxesModel" returnType="int" modifier="static">
+            <parameter name="parent" type="int"/>
+        </method>
+        <method name="createSubWin" returnType="int" modifier="static">
+            <parameter name="parent" type="int"/>
+        </method>
+    </object>
+</package>

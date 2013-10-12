@@ -17,9 +17,10 @@ extern "C"
 }
 
 #include "CallGraphicController.hxx"
-#include "GraphicObjectBuilder.hxx"
+#include "Builder.hxx"
 #include "DataController.hxx"
 
+using namespace org_scilab_modules_graphic_objects_builder;
 using namespace org_scilab_modules_graphic_objects;
 
 int createGraphicObject(int _iType)
@@ -42,15 +43,52 @@ void buildFigureMenuBar(int _sFigureId)
     CallGraphicController::buildFigureMenuBar(getScilabJavaVM(), _sFigureId);
 }
 
-int constructRectangles(int iParentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline)
+int buildRect(int iParentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline)
 {
-    try
-    {
-        return GraphicObjectBuilder::constructRectangles(getScilabJavaVM(), iParentsubwinUID, x, y, height, width, foreground, background, isfilled, isline);
-    }
-    catch (std::exception & e)
-    {
-        printf("exception: %s\n", e.what());
-        return 0;
-    }
+    return Builder::buildRect(getScilabJavaVM(), iParentsubwinUID, x, y, height, width, foreground, background, isfilled, isline);
+}
+
+int cloneGraphicContext(int sourceIdentifier, int destIdentifier)
+{
+    return Builder::cloneGraphicContext(getScilabJavaVM(), sourceIdentifier, destIdentifier);
+}
+
+int cloneFontContext(int sourceIdentifier, int destIdentifier)
+{
+    return Builder::cloneFontContext(getScilabJavaVM(), sourceIdentifier, destIdentifier);
+}
+
+int createHiddenLabel(int parent)
+{
+    return Builder::createHiddenLabel(getScilabJavaVM(), parent);
+}
+
+BOOL isAxesRedrawing(int subWin)
+{
+    return booltoBOOL(Builder::isAxesRedrawing(getScilabJavaVM(), subWin));
+}
+
+int createLabel(int parent, int type)
+{
+    return Builder::createLabel(getScilabJavaVM(), parent, type);
+}
+
+int createNewFigureWithAxes()
+{
+    return Builder::createNewFigureWithAxes(getScilabJavaVM());
+}
+
+void cloneMenus(int model, int newParent)
+{
+    Builder::cloneMenus(getScilabJavaVM(), model, newParent);
+}
+
+int cloneAxesModel(int parent)
+{
+    return Builder::cloneAxesModel(getScilabJavaVM(), parent);
+}
+
+int createSubWin(int parent)
+{
+    return Builder::createSubWin(getScilabJavaVM(), parent);
 }
