@@ -531,12 +531,8 @@ public final class SwingView implements GraphicView {
      */
     private void setDefaultProperties(Widget uiControlObject, Integer id) {
         /* Visible property is set first to avoid to see the object rendered before all its properties to be set (See bug #10346) */
-        SwingViewWidget.update(uiControlObject, __GO_VISIBLE__,
-                               (Boolean) GraphicController.getController().getProperty(id, __GO_VISIBLE__));
         SwingViewWidget.update(uiControlObject, __GO_UI_BACKGROUNDCOLOR__,
                                (Double[]) GraphicController.getController().getProperty(id, __GO_UI_BACKGROUNDCOLOR__));
-        SwingViewWidget.update(uiControlObject, __GO_UI_ENABLE__,
-                               (Boolean) GraphicController.getController().getProperty(id, __GO_UI_ENABLE__));
         SwingViewWidget.update(uiControlObject, __GO_UI_ENABLE__,
                                (Boolean) GraphicController.getController().getProperty(id, __GO_UI_ENABLE__));
         SwingViewWidget.update(uiControlObject, __GO_UI_FONTANGLE__,
@@ -561,6 +557,8 @@ public final class SwingView implements GraphicView {
                                (String) GraphicController.getController().getProperty(id, __GO_UI_VERTICALALIGNMENT__));
         SwingViewWidget.update(uiControlObject, __GO_POSITION__,
                                (Double[]) GraphicController.getController().getProperty(id, __GO_POSITION__));
+        SwingViewWidget.update(uiControlObject, __GO_VISIBLE__,
+                               (Boolean) GraphicController.getController().getProperty(id, __GO_VISIBLE__));
     }
 
     public void deleteObject(Integer id) {
@@ -627,11 +625,11 @@ public final class SwingView implements GraphicView {
         final TypedObject registeredObject = allObjects.get(id);
 
         if (property == __GO_VALID__ && ((Boolean) GraphicController.getController().getProperty(id, __GO_VALID__))) {
-            if (registeredObject.getValue() instanceof SwingScilabTab){
+            if (registeredObject.getValue() instanceof SwingScilabTab) {
                 ((SwingScilabTab) registeredObject.getValue()).getParentWindow().setVisible(true);
                 ((SwingScilabTab) registeredObject.getValue()).setVisible(true);
                 Integer[] figureSize = (Integer[]) GraphicController.getController().getProperty(id, __GO_SIZE__);
-                ((SwingScilabTab) registeredObject.getValue()).getParentWindow().setDims(new Size(figureSize[0], figureSize[1]));                
+                ((SwingScilabTab) registeredObject.getValue()).getParentWindow().setDims(new Size(figureSize[0], figureSize[1]));
             }
         }
 

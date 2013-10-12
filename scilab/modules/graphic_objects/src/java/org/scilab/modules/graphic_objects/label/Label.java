@@ -130,20 +130,18 @@ public class Label extends TextObject {
      */
     public UpdateStatus setProperty(Object property, Object value) {
         if (property == LabelProperty.FONTANGLE) {
-            setFontAngle((Double) value);
+            return setFontAngle((Double) value);
         } else if (property == LabelProperty.AUTOPOSITION) {
-            setAutoPosition((Boolean) value);
+            return setAutoPosition((Boolean) value);
         } else if (property == LabelProperty.POSITION) {
-            setPosition((Double[]) value);
+            return setPosition((Double[]) value);
         } else if (property == LabelProperty.CORNERS) {
-            setCorners((Double[]) value);
+            return setCorners((Double[]) value);
         } else if (property == LabelProperty.AUTOROTATION) {
-            setAutoRotation((Boolean) value);
+            return setAutoRotation((Boolean) value);
         } else {
             return super.setProperty(property, value);
         }
-
-        return UpdateStatus.Success;
     }
 
     /**

@@ -14,6 +14,7 @@
 #define __CREATEGRAPHICOBJECT_H__
 
 #include "dynlib_graphic_objects.h"
+#include "BOOL.h"
 
 /*
 ** Ask Controller to create a graphic object
@@ -39,6 +40,17 @@ GRAPHIC_OBJECTS_IMPEXP int createDataObject(int iId, int _iType);
 */
 GRAPHIC_OBJECTS_IMPEXP void buildFigureMenuBar(int iFigureId);
 
-GRAPHIC_OBJECTS_IMPEXP int constructRectangles(int iParentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline);
+GRAPHIC_OBJECTS_IMPEXP int buildRect(int iParentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline);
+GRAPHIC_OBJECTS_IMPEXP int cloneGraphicContext(int iSourceIdentifier, int iDestIdentifier);
+GRAPHIC_OBJECTS_IMPEXP int cloneFontContext(int iSourceIdentifier, int iDestIdentifier);
+
+GRAPHIC_OBJECTS_IMPEXP int createHiddenLabel(int iParent);
+GRAPHIC_OBJECTS_IMPEXP BOOL isAxesRedrawing(int iSubWin);
+GRAPHIC_OBJECTS_IMPEXP int createLabel(int iParent, int type);
+GRAPHIC_OBJECTS_IMPEXP int createNewFigureWithAxes();
+GRAPHIC_OBJECTS_IMPEXP void cloneMenus(int iModel, int iNewParent);
+GRAPHIC_OBJECTS_IMPEXP int cloneAxesModel(int iParent);
+GRAPHIC_OBJECTS_IMPEXP int createSubWin(int iParent);
+GRAPHIC_OBJECTS_IMPEXP int allocateText(int iParentsubwinUID, char** text, int nbRow, int nbCol, double x, double y, BOOL autoSize, double* userSize, int  centerPos, int *foreground, int *background, BOOL isboxed, BOOL isline, BOOL isfilled, int align);
 
 #endif /* !__CREATEGRAPHICOBJECT_H__ */

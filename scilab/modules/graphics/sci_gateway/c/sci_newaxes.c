@@ -44,7 +44,7 @@ int sci_newaxes(char * fname, unsigned long fname_len)
 
     getOrCreateDefaultSubwin();
 
-    if ((iSubwinUID = ConstructSubWin (getCurrentFigure())) != 0)
+    if ((iSubwinUID = createSubWin (getCurrentFigure())) != 0)
     {
         if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(iSubwinUID)))
         {
