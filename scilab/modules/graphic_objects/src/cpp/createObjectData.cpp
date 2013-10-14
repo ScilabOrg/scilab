@@ -21,26 +21,27 @@ extern "C"
 #include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
-    extern char * createObject3dData(char *obj, char *newObj, int type);
+
+    int createObject3dData(int obj, int newObj, int type);
 
 }
 /*
  * Create the data object for the newObj
  * and copy the data from obj to newObj.
  */
-char * createObject3dData(char *obj, char *newObj, int type)
+int createObject3dData(int obj, int newObj, int type)
 {
     double *pvecx, *pvecy, *pvecz;
-    char *dataObj = NULL;
+    int dataObj = 0;
     int numElementsArray[3];
     BOOL result;
     int *ptr;
 
-    dataObj = (char*)createDataObject(newObj, type);
+    dataObj = createDataObject(newObj, type);
 
-    if (dataObj == NULL)
+    if (dataObj == 0)
     {
-        return NULL;
+        return 0;
     }
 
 
