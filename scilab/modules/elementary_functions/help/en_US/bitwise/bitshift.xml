@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="bitshift" xml:lang="en">
+    <refnamediv>
+        <refname>bitshift</refname>
+        <refpurpose>bitwise shifting</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            z = bitshift(x, y, mode)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Parameters</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, y, z</term>
+                <listitem>
+                    <para>
+                        scalars or matrices of reals or integer type (type = 1 or type = 8)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>
+                        optional scalar string to set the underflow / overflow behavior:
+                        "drop" or "wrap". By default, <literal>mode = "wrap"</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Given <varname>x</varname> and <varname>y</varname> two integers, this function returns the
+            number <varname>z</varname> whose binary form is that of <varname>x</varname> shifted by <varname>y</varname> bits.
+        </para>
+        <para>
+            If <code>y&#60;0</code>, then the shifting is done to the right: <code>z=x/2^abs(y)</code>.
+            Otherwise (<code>y&#62;0</code>), the shifting is done to the left: <code>z=x*2^y</code>.
+            Lastly, if <code>y&#61;0</code>, then <code>z=x</code>.
+        </para>
+        <para>
+            If <varname>x</varname> and <varname>y</varname> have the same size, then so does <varname>z</varname>.
+            Otherwise, <varname>x</varname> or <varname>y</varname> must be a scalar and <varname>z</varname> has the size of the one that is not a scalar.
+        </para>
+        <para>
+            If <varname>x</varname> and <varname>y</varname> have integer types and generate an underflow/overflow,
+            then if mode = "wrap", <literal>bitshift</literal> proceeds circularly;
+            otherwise (<literal>mode = "drop"</literal>), <literal>bitshift</literal> caps the result to
+            the maximum (resp minimum) value of the concerned integer type (thus preserving the sign of the input).
+        </para>
+        <para>
+            <emphasis role="bold">Rounding:</emphasis> the result for the odd elements of <varname>x</varname> is always truncated.
+            For instance, shifting 31 with -1 yields 15, because 31/2 = 15.5 and shifting -31 with -1 yields -15.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+        // Multiply 2^10 by 2^1:
+        bitshift(2^10,  1)
+
+        // Divide 2^10 by 2^1:
+        bitshift(2^10, -1)
+
+        // Elementwise shifting:
+        bitshift([2^10 2^10], [3 -3])
+
+        // One of the arguments is a scalar, but not the other: return the matrix applied to the scalar:
+        bitshift(2^10, [3 -3])
+
+        // Cross types. The result has the size of the largest argument and the type of the first one.
+        bitshift(int32(2^10), [3 -3])
+        bitshift(int16(2^5), int8([3 -3]))
+
+        // Rounding:
+        bitshift(10,  -2) // Returns 2 because the result 10/(2^2) = 2.5 is rounded to the inferior integer value.
+        bitshift(-10, -2) // Returns -3 for the same reason.
+
+        // Circularity of integer types:
+        bitshift(int8(63), int8(1)) // 63*2 = 126, still in the range of the int8 type.
+        bitshift(int8(64), int8(1)) // 64*2 = 128 = -128 in int8 type.
+        bitshift(int8(64), int8(1), "drop") // 64*2 = 128 = 127 as maximum value of int8 type.
+   ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="bitand">bitand</link>
+            </member>
+            <member>
+                <link linkend="bitor">bitor</link>
+            </member>
+            <member>
+                <link linkend="bin2dec">bin2dec</link>
+            </member>
+            <member>
+                <link linkend="dec2bin">dec2bin</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    Introduction
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
