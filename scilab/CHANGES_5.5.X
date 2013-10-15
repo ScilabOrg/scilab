@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #8337 fixed - mtlb_rand now uses the "uniform" rule, whatever the random rule set is.
 
+* Bug #9006 fixed - New function bitshift, to shift a specific number of bits of an input.
+
 * Bug #9110 fixed - Examples and references to other functions added in the Statistics help pages.
 
 * Bug #9697 fixed - Printed information for optim "qn" and "gc" with bounds and imp=1 fixed.

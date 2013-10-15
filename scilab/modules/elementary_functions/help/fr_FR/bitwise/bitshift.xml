@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="bitshift" xml:lang="fr">
+    <refnamediv>
+        <refname>bitshift</refname>
+        <refpurpose>décalage de bits</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            z = bitshift(x, y, mode)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>x, y, z</term>
+                <listitem>
+                    <para>
+                        scalaires ou matrices réelles on de type entier (type = 1 ou type = 8)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>
+                        scalaire texte optionnel pour configurer le comportement de <literal>bitshift</literal>
+                        en cas de dépassement: "drop" or "wrap". Par défaut, <literal>mode = "wrap"</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Etant donnés deux entiers <varname>x</varname> et <varname>y</varname>, cette fonction retourne le nombre
+            <varname>z</varname> dont la forme binaire est celle de <varname>x</varname> décalée de <varname>y</varname> bits.
+        </para>
+        <para>
+            Si <code>y&#60;0</code>, alors le décalage s'opère vers la droite: <code>z=x/2^abs(y)</code>.
+            Sinon (<code>y&#62;0</code>), le décalage s'opère sur la gauche: <code>z=x*2^y</code>.
+            Enfin, si <code>y&#61;0</code>, alors <code>z=x</code>.
+        </para>
+        <para>
+            Si <varname>x</varname> et <varname>y</varname> ont même taille, alors <varname>z</varname> aussi.
+            Sinon, <varname>x</varname> ou <varname>y</varname> doit être scalaire et <varname>z</varname> a la taille de celui qui n'est pas scalaire.
+        </para>
+        <para>
+            SI <varname>x</varname> et <varname>y</varname> sont de type entiers et génèrent un dépassement,
+            alors si mode = "wrap", <literal>bitshift</literal> procède circulairement;
+            sinon (<literal>mode = "drop"</literal>), <literal>bitshift</literal> limite le résultat à
+            la plus grande (resp plus petite) valeur du type d'entier concerné (préservant ainsi le signe de l'entrée).
+        </para>
+        <para>
+            <emphasis role="bold">Arrondi:</emphasis> le résultat des éléments impairs de <varname>x</varname> est toujours tronqué.
+            Par exemple, décaler 31 de -1 retourne 15, parce-que 31/2 = 15.5 et décaler -31 de -1 retourne -15.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+        // Multiplie 2^10 par 2^1:
+        bitshift(2^10,  1)
+
+        // Divise 2^10 par 2^1:
+        bitshift(2^10, -1)
+
+        // Décalage élément par élément:
+        bitshift([2^10 2^10], [3 -3])
+
+        // L'un des arguments est un scalaire, mais pas l'autre: retourne la matrice appliquée au scalaire:
+        bitshift(2^10, [3 -3])
+
+        // Croisement de types. Le résultat a la taille du plus grand argument et le type du premier.
+        bitshift(int32(2^10), [3 -3])
+        bitshift(int16(2^5), int8([3 -3]))
+
+        // Arrondi:
+        bitshift(10,  -2) // Retourne 2 parce-que le résultat 10/(2^2) = 2.5 est arrondi à l'entier inférieur.
+        bitshift(-10, -2) // Retourne -3 pour la même raison.
+
+        // Circularité des types entiers:
+        bitshift(int8(63), int8(1)) // 63*2 = 126, reste dans la limite des entiers 8bits.
+        bitshift(int8(64), int8(1)) // 64*2 = 128 = -128 en type int8.
+        bitshift(int8(64), int8(1), "drop") // 64*2 = 128 = 127, valeur maximale du type int8.
+   ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="bitand">bitand</link>
+            </member>
+            <member>
+                <link linkend="bitor">bitor</link>
+            </member>
+            <member>
+                <link linkend="bin2dec">bin2dec</link>
+            </member>
+            <member>
+                <link linkend="dec2bin">dec2bin</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    Introduction
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
