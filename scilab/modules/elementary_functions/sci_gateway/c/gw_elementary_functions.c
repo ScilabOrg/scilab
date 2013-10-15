@@ -73,7 +73,8 @@ static gw_generic_table Tab[] =
     {sci_rat, "rat"},
     {sci_base2dec, "base2dec"},
     {sci_dec2base, "dec2base"},
-    {C2F(sci_find), "find"}
+    {C2F(sci_find), "find"},
+    {sci_bitshift, "bitshift"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_elementary_functions(void)

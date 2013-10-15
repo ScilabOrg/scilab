@@ -188,6 +188,8 @@ Scilab Bug Fixes
 
 * Bug #8956 fixed - xpoly, xfpoly, xrect, xsegs and xarc did not update data_bounds property.
 
+* Bug #9006 fixed - New function bitshift, to shift a specific number of bits of an input.
+
 * Bug #9031 fixed - Misalignment of text when using xstring with a matrix fixed.
 
 * Bug #9033 fixed - auto_dimensionning property for text handles was not documented.
