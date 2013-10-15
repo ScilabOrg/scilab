@@ -304,7 +304,8 @@ sci_gateway/c/sci_maxi.c \
 sci_gateway/c/sci_gsort.c \
 sci_gateway/c/sci_isequalbitwise.c \
 sci_gateway/c/sci_base2dec.c \
-sci_gateway/c/sci_dec2base.c
+sci_gateway/c/sci_dec2base.c \
+sci_gateway/c/sci_bitshift.c
 
 GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_isequal.f \
 sci_gateway/fortran/sci_f_maxi.f \
