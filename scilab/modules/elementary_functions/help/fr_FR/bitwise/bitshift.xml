@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="bitshift" xml:lang="fr">
+    <refnamediv>
+        <refname>bitshift</refname>
+        <refpurpose>décalage de bits</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Séquence d'appel</title>
+        <synopsis>
+            z = bitshift(x, y)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Paramètres</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        matrice entière <literal>m1</literal>-par-<literal>n1</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        matrice entière <literal>m2</literal>-par-<literal>n2</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>
+                        matrice entière <literal>max(m1,m2)</literal>-par-<literal>max(n1,n2)</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Etant donnés deux entiers <varname>x</varname> et <varname>y</varname>, cette fonction retourne le nombre
+            <varname>z</varname> dont la forme binaire est celle de <varname>x</varname> décalée de <varname>y</varname> bits.
+        </para>
+        <para>
+            Si <varname>x</varname> et <varname>y</varname> ont même taille, alors <varname>z</varname> aussi.
+            Sinon, <varname>x</varname> ou <varname>y</varname> doit être scalaire et <varname>z</varname> a la taille de celui qui n'est pas scalaire.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+        // Multiplie 2^10 par 2^1:
+        bitshift(2^10,  1)
+
+        // Divise 2^10 par 2^1:
+        bitshift(2^10, -1)
+
+        // Décalage élément par élément:
+        bitshift([2^10 2^10], [3 -3])
+
+        // L'un des arguments est un scalaire, mais pas l'autre: retourne la matrice appliquée au scalaire:
+        bitshift(2^10, [3 -3])
+   ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="bitand">bitand</link>
+            </member>
+            <member>
+                <link linkend="bitor">bitor</link>
+            </member>
+            <member>
+                <link linkend="bin2dec">bin2dec</link>
+            </member>
+            <member>
+                <link linkend="dec2bin">dec2bin</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
