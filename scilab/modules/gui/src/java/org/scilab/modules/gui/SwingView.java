@@ -21,6 +21,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_PROGRESSIONBAR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_STYLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TYPE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICHECKEDMENU__;
@@ -115,6 +116,7 @@ import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
+import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.utils.ToolBarBuilder;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.gui.widget.Widget;
@@ -377,6 +379,8 @@ public final class SwingView implements GraphicView {
                 SwingScilabWindow window = new SwingScilabWindow();
 
                 window.setTitle(figureTitle);
+                Integer[] figureSize = figure.getSize();
+                window.setDims(new Size(figureSize[0]/2, figureSize[1]/2));
                 /* TOOLBAR */
                 ToolBar toolBar = ToolBarBuilder.buildToolBar(SwingScilabTab.GRAPHICS_TOOLBAR_DESCRIPTOR, figureId);
                 /* INFOBAR */
@@ -402,7 +406,7 @@ public final class SwingView implements GraphicView {
                 DockingManager.dock(tab, window.getDockingPort());
                 ActiveDockableTracker.requestDockableActivation(tab);
 
-                window.setVisible(true);
+                //window.setVisible(true);
                 tab.setVisible(true);
                 tab.setName(figureTitle);
 
@@ -621,11 +625,21 @@ public final class SwingView implements GraphicView {
 
     @Override
     public void updateObject(final Integer id, final int property) {
+        final TypedObject registeredObject = allObjects.get(id);
+
+        if (property == __GO_VALID__ && ((Boolean) GraphicController.getController().getProperty(id, __GO_VALID__))) {
+            if (registeredObject.getValue() instanceof SwingScilabTab){
+                ((SwingScilabTab) registeredObject.getValue()).getParentWindow().setVisible(true);
+                ((SwingScilabTab) registeredObject.getValue()).setVisible(true);
+                Integer[] figureSize = (Integer[]) GraphicController.getController().getProperty(id, __GO_SIZE__);
+                ((SwingScilabTab) registeredObject.getValue()).getParentWindow().setDims(new Size(figureSize[0], figureSize[1]));                
+            }
+        }
+
         if (property == __GO_IMMEDIATE_DRAWING__) {
             return;
         }
 
-        final TypedObject registeredObject = allObjects.get(id);
         if (registeredObject == null && property != __GO_STYLE__) {
             return;
         }
@@ -636,7 +650,27 @@ public final class SwingView implements GraphicView {
             allObjects.put(id, CreateObjectFromType(style, id));
             return;
         }
+        if (SwingUtilities.isEventDispatchThread()) {
+            updateObjectOnEDT(registeredObject, id, property);
+        } else {
+            Runnable updater = new Runnable() {
+                public void run() {
+                    updateObjectOnEDT(registeredObject, id, property);
+                }
+            };
 
+            if (property != __GO_CHILDREN__ && property != __GO_SIZE__ && property != __GO_AXES_SIZE__) {
+                SwingUtilities.invokeLater(updater);
+            } else {
+                try {
+                    SwingUtilities.invokeAndWait(updater);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        /*
         if (SwingUtilities.isEventDispatchThread()) {
             updateObjectOnEDT(registeredObject, id, property);
         } else {
@@ -655,6 +689,7 @@ public final class SwingView implements GraphicView {
                 e.printStackTrace();
             }
         }
+        */
     }
 
     public void updateObjectOnEDT(TypedObject registeredObject, final Integer id, final int property) {
