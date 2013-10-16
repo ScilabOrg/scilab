@@ -36,20 +36,20 @@ lang="ru_RU"; if setlanguage(lang) <> %T then bugmes();quit;end
 getlanguage()
  ans  =
  
- ru_RU   
+ en_US   
 // Switch to a wrong code
 lang="f"; if setlanguage(lang) <> %F then bugmes();quit;end
-setlanguage: Язык «f» не поддерживается.
+setlanguage : Langage 'f' non supporté.
 getlanguage()
  ans  =
  
- ru_RU   
+ en_US   
 // Switch to a wrong code
 lang="ff"; if setlanguage(lang) <> %F then bugmes();quit;end
-setlanguage: Язык «ff» не поддерживается.
+setlanguage : Langage 'ff' non supporté.
 // Switch to a wrong code
 lang="fff"; if setlanguage(lang) <> %F then bugmes();quit;end
-setlanguage: Язык «fff» не поддерживается.
+setlanguage : Langage 'fff' non supporté.
 // Switch to a wrong code
 lang="ffff"; if setlanguage(lang) <> %F then bugmes();quit;end
-setlanguage: Язык «ffff» не поддерживается.
+setlanguage : Langage 'ffff' non supporté.
