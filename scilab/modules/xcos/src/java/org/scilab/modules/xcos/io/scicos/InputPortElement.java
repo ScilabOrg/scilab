@@ -103,9 +103,10 @@ public final class InputPortElement extends AbstractElement<InputPort> {
         port = beforeDecode(element, port);
 
         decodeModel(port);
-        decodeGraphics(port);
-
-        // Update the index counter
+        decodeGraphicsStyle(port);
+		decodeGraphicsLabel(port);
+        
+		// Update the index counter
         alreadyDecodedCount++;
 
         port = afterDecode(element, port);
@@ -221,7 +222,7 @@ public final class InputPortElement extends AbstractElement<InputPort> {
      * @param port
      *            the target instance
      */
-    private void decodeGraphics(InputPort port) {
+    private void decodeGraphicsStyle(InputPort port) {
         // protection against previously stored blocks
         if (graphics.size() <= GRAPHICS_INSTYLE_INDEX || isEmptyField(graphics.get(GRAPHICS_INSTYLE_INDEX))) {
             return;
@@ -239,6 +240,9 @@ public final class InputPortElement extends AbstractElement<InputPort> {
             port.setStyle(new StyleMap(port.getStyle()).putAll(style).toString());
         }
 
+    }
+	
+	private void decodeGraphicsLabel(InputPort port) {
         // protection against previously stored blocks
         if (graphics.size() <= GRAPHICS_INLABEL_INDEX || isEmptyField(graphics.get(GRAPHICS_INLABEL_INDEX))) {
             return;
@@ -246,8 +250,8 @@ public final class InputPortElement extends AbstractElement<InputPort> {
 
         final ScilabString labels = (ScilabString) graphics.get(GRAPHICS_INLABEL_INDEX);
 
-        isColumnDominant = labels.getHeight() >= labels.getWidth();
-        indexes = getIndexes(alreadyDecodedCount, isColumnDominant);
+        boolean isColumnDominant = labels.getHeight() >= labels.getWidth();
+        int[] indexes = getIndexes(alreadyDecodedCount, isColumnDominant);
 
         if (canGet(labels, indexes)) {
             final String label = labels.getData()[indexes[0]][indexes[1]];
@@ -259,7 +263,6 @@ public final class InputPortElement extends AbstractElement<InputPort> {
             }
         }
     }
-
     /**
      * Test if the current instance can be used to decode the element
      *

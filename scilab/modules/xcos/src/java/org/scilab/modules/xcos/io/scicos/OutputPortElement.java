@@ -103,9 +103,10 @@ public final class OutputPortElement extends AbstractElement<OutputPort> {
         port = beforeDecode(element, port);
 
         decodeModel(port);
-        decodeGraphics(port);
-
-        // Update the index counter
+        decodeGraphicsStyle(port);
+		decodeGraphicsLabel(port);
+        
+		// Update the index counter
         alreadyDecodedCount++;
 
         port = afterDecode(element, port);
@@ -221,7 +222,7 @@ public final class OutputPortElement extends AbstractElement<OutputPort> {
      * @param port
      *            the target instance
      */
-    private void decodeGraphics(OutputPort port) {
+    private void decodeGraphicsStyle(OutputPort port) {
         // protection against previously stored blocks
         if (graphics.size() <= GRAPHICS_OUTSTYLE_INDEX || isEmptyField(graphics.get(GRAPHICS_OUTSTYLE_INDEX))) {
             return;
@@ -238,7 +239,8 @@ public final class OutputPortElement extends AbstractElement<OutputPort> {
             style = styles.getData()[indexes[0]][indexes[1]];
             port.setStyle(new StyleMap(port.getStyle()).putAll(style).toString());
         }
-
+    }
+	private void decodeGraphicsLabel(OutputPort port) {
         // protection against previously stored blocks
         if (graphics.size() <= GRAPHICS_OUTLABEL_INDEX || isEmptyField(graphics.get(GRAPHICS_OUTLABEL_INDEX))) {
             return;
@@ -246,10 +248,10 @@ public final class OutputPortElement extends AbstractElement<OutputPort> {
 
         final ScilabString labels = (ScilabString) graphics.get(GRAPHICS_OUTLABEL_INDEX);
 
-        isColumnDominant = labels.getHeight() >= labels.getWidth();
-        indexes = getIndexes(alreadyDecodedCount, isColumnDominant);
+        boolean isColumnDominant = labels.getHeight() >= labels.getWidth();
+        int[] indexes = getIndexes(alreadyDecodedCount, isColumnDominant);
 
-        if (canGet(styles, indexes)) {
+        if (canGet(labels, indexes)) {
             final String label = labels.getData()[indexes[0]][indexes[1]];
 
             if (label != null) {
@@ -259,7 +261,6 @@ public final class OutputPortElement extends AbstractElement<OutputPort> {
             }
         }
     }
-
     /**
      * Test if the current instance can be used to decode the element
      *
