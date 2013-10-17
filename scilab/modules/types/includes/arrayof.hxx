@@ -79,6 +79,16 @@ protected :
 
         for (int i = 0 ; i < m_iDims ; i++)
         {
+            // if one of dim is null, create an empty matrix
+            if (_piDims[i] == 0)
+            {
+                m_iDims = 2;
+                m_piDims[0] = 0;
+                m_piDims[1] = 0;
+                m_iSize = 0;
+                break;
+            }
+
             m_piDims[i] = _piDims[i];
 
             /*
