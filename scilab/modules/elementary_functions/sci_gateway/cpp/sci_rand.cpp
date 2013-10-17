@@ -178,6 +178,11 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
                 }
 
                 piDims[i] = (int)in[i]->getAs<types::Double>()->get(0);
+                if (piDims[i] == 0)
+                {
+                    out.push_back(types::Double::Empty());
+                    return types::Function::OK;
+                }
             }
 
             types::Double* pOut = new types::Double(iDims, piDims);

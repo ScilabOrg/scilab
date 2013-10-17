@@ -102,6 +102,12 @@ Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, types::typ
                     Scierror(999, _("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "ones", i + 1);
                     return Function::Error;
             }
+
+            if (piDims[i] == 0)
+            {
+                out.push_back(types::Double::Empty());
+                return types::Function::OK;
+            }
         }
         pOut = new Double(iDims, piDims);
         delete[] piDims;

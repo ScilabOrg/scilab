@@ -76,6 +76,12 @@ Function::ReturnValue sci_eye(types::typed_list &in, int _iRetCount, types::type
         iCols = in[1]->getAs<Double>()->getReal()[0];
     }
 
+    if (iRows == 0 || iCols == 0)
+    {
+        out.push_back(types::Double::Empty());
+        return types::Function::OK;
+    }
+
     Double* pOut = new Double(iRows, iCols);
     pOut->setZeros();
     for (int i = 0 ; i < Min(iRows, iCols) ; i++)
