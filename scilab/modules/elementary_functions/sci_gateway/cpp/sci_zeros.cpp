@@ -75,6 +75,12 @@ Function::ReturnValue sci_zeros(types::typed_list &in, int _iRetCount, types::ty
                 return Function::Error;
             }
             piDims[i] = static_cast<int>(pIn->getReal()[0]);
+
+            if (piDims[i] <= 0)
+            {
+                out.push_back(types::Double::Empty());
+                return types::Function::OK;
+            }
         }
         pOut = new Double(iDims, piDims);
         delete[] piDims;
