@@ -42,6 +42,8 @@ Xcos Bug Fixes
 
 * Bug #12423 fixed - Data types of SWITCH2_m were not documented.
 
+* Bug #12998 fixed - 'ans' was not ignored on the context results.
+
 
                  Changes between version 5.4.1 and 5.5.0-beta-1
                  ==============================================
