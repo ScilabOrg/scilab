@@ -36,6 +36,7 @@ Scilab Bug Fixes
 
 * Bug #12979 fixed - exportUI did not work with vectorial export.
 
+* Bug #11571 fixed - x_mdialog did not let the L&F select the window size.
 
 Xcos Bug Fixes
 ==============
