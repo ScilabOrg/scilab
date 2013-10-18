@@ -9,6 +9,8 @@ Scilab Bug Fixes
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
+* Bug #9110 fixed - Added missing examples and referenced files in the Statistics help pages.
+
 * Bug #12769 fixed - xset("window", 1) did not set the current axes.
 
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
