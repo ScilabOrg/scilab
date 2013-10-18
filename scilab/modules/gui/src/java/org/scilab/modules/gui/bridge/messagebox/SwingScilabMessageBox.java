@@ -13,6 +13,7 @@
 
 package org.scilab.modules.gui.bridge.messagebox;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,6 +21,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -48,6 +50,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -162,7 +165,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
     private String title;
     private final Image imageForIcon = ((ImageIcon) scilabIcon).getImage();
     private int messageType = -1;
-    private Object[] objs;
+    private Component[] objs;
     private Object[] buttons;
     private boolean modal = true;
     private JCheckBox checkbox;
@@ -294,7 +297,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
             // All objects in the MessageBox:
             //  - Message
             //  - Editable zone
-            objs = new Object[2];
+            objs = new Component[2];
 
             objs[0] = messageScrollPane;
 
@@ -419,7 +422,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
             // All objects in the MessageBox:
             //  - Message
             //  - Editable zone
-            objs = new Object[2];
+            objs = new Component[2];
 
             objs[0] = messageScrollPane;
 
@@ -445,7 +448,8 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
                 panel.add(new JLabel(""), constraints);
                 constraints.gridx++;
                 for (col = 0; col < columnLabels.length; col++) {
-                    panel.add(new JLabel(columnLabels[col]), constraints);
+                    // Center the column label lead to a better table-like rendering
+                    panel.add(new JLabel(columnLabels[col], SwingConstants.CENTER), constraints);
                     constraints.gridx++;
                 }
                 constraints.gridy++;
@@ -460,6 +464,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
                 userValues = new String[lineLabels.length * columnLabels.length];
                 textFields = new JTextField[lineLabels.length * columnLabels.length];
             }
+            constraints.weightx = 1; // on figure resize, resize the field parts not the labels ones
             for (line = 0; line < lineLabels.length; line++) {
                 constraints.gridx = 0;
                 panel.add(new JLabel(lineLabels[line]), constraints);
@@ -504,7 +509,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
             // All objects in the MessageBox:
             //  - Message
             //  - Listbox
-            objs = new Object[2];
+            objs = new Component[2];
 
             // Add the message
             objs[0] = messageScrollPane;
@@ -525,7 +530,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
             // All objects in the MessageBox:
             //  - Message
             //  - Editable zone
-            objs = new Object[2];
+            objs = new Component[2];
 
             objs[0] = messageScrollPane;
 
@@ -559,7 +564,7 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
             // All objects in the MessageBox:
             //  - Message
             int nb = checkbox == null ? 1 : 2;
-            objs = new Object[nb];
+            objs = new Component[nb];
 
             // Add the message
             objs[0] = messageScrollPane;
@@ -593,13 +598,26 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
         }
         // Display
         ((JScrollPane) objs[0]).setBorder(BorderFactory.createEmptyBorder());
+        final JPanel message = new JPanel(new BorderLayout());
+        message.add(objs[0], BorderLayout.NORTH);
+
+        if (objs.length == 2) {
+            message.add(objs[1], BorderLayout.CENTER);
+        } else {
+            // seems that this case is never called as x_message is no more available into Scilab.
+            final JPanel content = new JPanel();
+            for (int i = 1; i < objs.length; i++) {
+                content.add(objs[i]);
+            }
+            message.add(content, BorderLayout.CENTER);
+        }
         if (messageType != -1) {
-            setContentPane(new JOptionPane(objs, messageType, JOptionPane.CANCEL_OPTION, null, buttons));
+            setContentPane(new JOptionPane(message, messageType, JOptionPane.CANCEL_OPTION, null, buttons));
         } else {
             if (messageIcon == null) {
                 messageIcon = scilabIcon;
             }
-            setContentPane(new JOptionPane(objs, messageType, JOptionPane.CANCEL_OPTION, messageIcon, buttons));
+            setContentPane(new JOptionPane(message, messageType, JOptionPane.CANCEL_OPTION, messageIcon, buttons));
         }
         pack();
         super.setModal(modal); /* Must call the JDialog class setModal */
