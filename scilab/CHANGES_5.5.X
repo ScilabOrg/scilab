@@ -24,6 +24,7 @@ Scilab Bug Fixes
 
 * Bug #12971 fixed - getURL() downloaded file name was wrong.
 
+* Bug #13000 fixed - Endless recursive call on []./int8(3) and on int8(3)./[].
 
 
 Xcos Bug Fixes
