@@ -121,6 +121,11 @@ types::InternalType* Variables::get(const Symbol& _key) const
         VarMap::const_iterator itVar = m_vars.find(_key);
         if (itVar != m_vars.end())
         {
+            if (m_iLevel != itVar->second->back()->m_iLevel && itVar->second->back()->m_bGlobal == true)
+            {
+                return getGlobalValue(_key);
+            }
+
             return itVar->second->back()->m_pIT;
         }
         else
