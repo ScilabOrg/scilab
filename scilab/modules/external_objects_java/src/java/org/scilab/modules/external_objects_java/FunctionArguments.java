@@ -87,6 +87,19 @@ public final class FunctionArguments {
                 return from.isArray() && to.isAssignableFrom(ArrayList.class);
             }
         });
+
+        // Converter to convert a double[] to a ArrayList<Double> (or an other primitive type)
+        registerConverter(new Converter() {
+            @Override
+            public Object convert(Object original, Class<?> to) {
+                return Enum.valueOf((Class) to, (String) original);
+            }
+
+            @Override
+            public boolean canConvert(Class<?> from, Class<?> to) {
+                return String.class.isAssignableFrom(from) && to.isEnum();
+            }
+        });
     }
 
     /**
