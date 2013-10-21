@@ -133,7 +133,7 @@ public class ScilabJavaCompiler {
             compilationUnits.add(sourceString);
         }
 
-        String[] compileOptions = new String[] {"-d", BINPATH} ;
+        String[] compileOptions = new String[] {"-d", BINPATH, "-classpath", getClasspath()};
         Iterable<String> options = Arrays.asList(compileOptions);
 
         CompilationTask task = compiler.getTask(null, manager, diagnostics, options, null, compilationUnits);
@@ -154,6 +154,22 @@ public class ScilabJavaCompiler {
 
             throw new ScilabJavaException(buf.toString());
         }
+    }
+
+    /**
+     * Get the current classpath with the correct separator (':' under Unix and ';' under Windows)
+     * @return the classpath
+     */
+    public static String getClasspath() {
+        URLClassLoader loader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        URL[] urls = loader.getURLs();
+        StringBuffer buffer = new StringBuffer();
+
+        for (URL url : urls) {
+            buffer.append(url.getPath()).append(File.pathSeparatorChar);
+        }
+
+        return buffer.toString();
     }
 
     /**
