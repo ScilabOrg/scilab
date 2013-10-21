@@ -9,6 +9,8 @@ Scilab Bug Fixes
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
+* Bug #10175 fixed - Gave a clearer example of sp2adj to adj2sp conversion (and backwards conversion).
+
 * Bug #12769 fixed - xset("window", 1) did not set the current axes.
 
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
