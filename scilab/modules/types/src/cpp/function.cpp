@@ -201,7 +201,6 @@ Function::ReturnValue WrapFunction::call(typed_list &in, optional_list &opt, int
     gStr.m_pOutOrder = &outOrder[0];
 
     char* pFunctionName = wide_string_to_UTF8(m_wstName.c_str());
-
     //call gateway (thoses cast should looks  suspicious)
     iRet = m_pOldFunc(pFunctionName, reinterpret_cast<int*>(&gStr));
     FREE(pFunctionName);
@@ -234,7 +233,7 @@ Function::ReturnValue WrapFunction::call(typed_list &in, optional_list &opt, int
             }
             else
             {
-                std::size_t const iPos(outOrder[i] - inCopy.size() - 1);
+                std::size_t const iPos(outOrder[i] - gStr.m_iIn - 1);
                 if (tmpOut[iPos]->isDouble() && ((types::Double*)tmpOut[iPos])->isViewAsInteger())
                 {
                     types::Double* pD = tmpOut[iPos]->getAs<types::Double>();
