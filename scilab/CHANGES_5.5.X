@@ -48,6 +48,8 @@ Scilab Bug Fixes
 
 * Bug #13005 fixed - jcompile did not use the classpath to compile.
 
+* Bug #13007 fixed - JIMS: the compilation errors are not returned by jcompile.
+
 
 Xcos Bug Fixes
 ==============
