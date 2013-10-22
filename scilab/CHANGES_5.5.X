@@ -48,6 +48,8 @@ Scilab Bug Fixes
 
 * Bug #13005 fixed - jcompile did not use the classpath to compile.
 
+* Bug #13010 fixed - Wrong class was returned by jcompile (with ecj).
+
 
 Xcos Bug Fixes
 ==============
