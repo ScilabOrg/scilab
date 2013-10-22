@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.gui.uiwidget;
+package org.scilab.modules.scinotes.uiwidget;
 
 import java.awt.Color;
 import java.awt.Component;
