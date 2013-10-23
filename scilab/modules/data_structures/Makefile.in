@@ -185,8 +185,7 @@ am__objects_2 = libscidata_structures_la-sci_lsslist.lo \
 am__objects_3 = libscidata_structures_la-data_structures_gw.lo \
 	libscidata_structures_la-sci_getfield.lo \
 	libscidata_structures_la-sci_setfield.lo
-am__objects_4 = sci_f_definedfields.lo sci_f_lstsize.lo \
-	sci_f_lstcat.lo sci_f_list.lo
+am__objects_4 = sci_f_definedfields.lo
 am_libscidata_structures_la_OBJECTS = $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4)
 libscidata_structures_la_OBJECTS =  \
@@ -594,10 +593,7 @@ sci_gateway/cpp/sci_getfield.cpp \
 sci_gateway/cpp/sci_setfield.cpp
 
 GATEWAY_FORTRAN_SOURCES = \
-sci_gateway/fortran/sci_f_definedfields.f \
-sci_gateway/fortran/sci_f_lstsize.f \
-sci_gateway/fortran/sci_f_lstcat.f \
-sci_gateway/fortran/sci_f_list.f
+sci_gateway/fortran/sci_f_definedfields.f
 
 libscidata_structures_la_CPPFLAGS = \
 -I$(srcdir)/includes/ \
@@ -971,15 +967,6 @@ insertfield.lo: src/fortran/insertfield.f
 
 sci_f_definedfields.lo: sci_gateway/fortran/sci_f_definedfields.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_definedfields.lo `test -f 'sci_gateway/fortran/sci_f_definedfields.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_definedfields.f
-
-sci_f_lstsize.lo: sci_gateway/fortran/sci_f_lstsize.f
-	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_lstsize.lo `test -f 'sci_gateway/fortran/sci_f_lstsize.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_lstsize.f
-
-sci_f_lstcat.lo: sci_gateway/fortran/sci_f_lstcat.f
-	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_lstcat.lo `test -f 'sci_gateway/fortran/sci_f_lstcat.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_lstcat.f
-
-sci_f_list.lo: sci_gateway/fortran/sci_f_list.f
-	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_list.lo `test -f 'sci_gateway/fortran/sci_f_list.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_list.f
 
 mostlyclean-libtool:
 	-rm -f *.lo
