@@ -85,7 +85,7 @@ GRAPHICS_IMPEXP int sci_Legend(char *fname, void *pvApiCtx);
 GRAPHICS_IMPEXP int sci_is_handle_valid(char *fname, void *pvApiCtx);
 GRAPHICS_IMPEXP int sci_grayplot(char *fname, void *pvApiCtx);
 GRAPHICS_IMPEXP int sci_glue(char *fname, void *pvApiCtx);
-//GRAPHICS_IMPEXP int sci_get(char *fname, void *pvApiCtx);
+GRAPHICS_IMPEXP int sci_get(char *fname, void *pvApiCtx);
 GRAPHICS_IMPEXP int sci_geom3d(char *fname, void *pvApiCtx);
 GRAPHICS_IMPEXP int sci_fec(char *fname, void *pvApiCtx);
 GRAPHICS_IMPEXP int sci_drawnow(char *fname, void *pvApiCtx);
