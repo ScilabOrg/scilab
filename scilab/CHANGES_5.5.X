@@ -56,6 +56,8 @@ Scilab Bug Fixes
 
 * Bug #13007 fixed - Compilation errors were not returned by jcompile.
 
+* Bug #13008 fixed - 'help $' now directs to the Symbols help page.
+
 
 Xcos Bug Fixes
 ==============
