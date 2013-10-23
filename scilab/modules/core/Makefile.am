@@ -122,7 +122,7 @@ src/fortran/itosci.f \
 src/fortran/stackr2d.f \
 src/fortran/stacki2d.f \
 src/fortran/stackc2i.f \
-src/fortran/isinstring.f \
+src/fortranfortran/isinstring.f \
 src/fortran/read_inter.f \
 src/fortran/rewind_inter.f \
 src/fortran/backspace_inter.f
@@ -138,9 +138,6 @@ GATEWAY_C_SOURCES = \
 	sci_gateway/c/sci_type.c \
 	sci_gateway/c/sci_getdebuginfo.c \
 	sci_gateway/c/sci_readgateway.c
-
-GATEWAY_FORTRAN_SOURCES =  \
-sci_gateway/fortran/where.f
 
 GATEWAY_CPP_SOURCES = 	\
 	sci_gateway/cpp/core_gw.cpp \
@@ -235,7 +232,7 @@ CHECK_SRC= $(CORE_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicore_la_CPPFLAGS)
 
 libscicore_algo_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES)
-libscicore_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_CPP_SOURCES)
+libscicore_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscicore_algo_la_CPPFLAGS = $(libscicore_la_CPPFLAGS)
 
 # Commented because it is easier to comment first the core module
