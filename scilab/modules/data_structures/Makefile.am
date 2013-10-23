@@ -30,10 +30,7 @@ sci_gateway/cpp/sci_getfield.cpp \
 sci_gateway/cpp/sci_setfield.cpp
 
 GATEWAY_FORTRAN_SOURCES = \
-sci_gateway/fortran/sci_f_definedfields.f \
-sci_gateway/fortran/sci_f_lstsize.f \
-sci_gateway/fortran/sci_f_lstcat.f \
-sci_gateway/fortran/sci_f_list.f
+sci_gateway/fortran/sci_f_definedfields.f
 
 libscidata_structures_la_CPPFLAGS = \
 -I$(srcdir)/includes/ \
