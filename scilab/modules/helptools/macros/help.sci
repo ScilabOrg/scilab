@@ -35,7 +35,7 @@ function help(varargin)
             // Search a function name
             key=stripblanks(key)
 
-            if or(part(key,1)==["(",")","[","]","{","}","%","''","""",":","*","/","\",".","<",">","&","^","|","~","+","-"]) & exists(key)==0 then
+            if or(part(key,1)==["(",")","[","]","{","}","%","''","""",":","*","/","\",".","<",">","&","^","|","~","+","-","$"]) then
                 key="symbols";
             end
 
