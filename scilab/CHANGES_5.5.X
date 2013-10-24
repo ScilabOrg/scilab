@@ -50,6 +50,8 @@ Scilab Bug Fixes
 
 * Bug #13010 fixed - Wrong class was returned by jcompile (with ecj).
 
+* Bug #13012 fixed - Bad vectorial export of rotated strings.
+
 
 Xcos Bug Fixes
 ==============
