@@ -278,6 +278,8 @@ Obsolete & Removed Functions
 
 * milk_drop tagged as obsolete. Will be removed in Scilab 5.5.1.
 
+* pcg tagged as obsolete. A call to pcg(A,b,...) is replaced by cg(A,b,"pcg",...).
+
 
 Scilab Bug Fixes
 ================

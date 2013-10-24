@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: tagged as obsolete,
-//                                                         use cd(A,b,"pcg",...) instead
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: transformed into a gateway to
+//                                                         propose pcg, cgs, bicg and bicgstab.
 // Copyright (C) 2009 - INRIA - Michael Baudin
 // Copyright (C) 2008 - INRIA - Michael Baudin
 // Copyright (C) 2006 - INRIA - Serge Steer
@@ -13,15 +13,17 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 //
-// pcg --
-//   PCG solves the symmetric positive definite linear system %Ax=b
-//   using the Preconditionned Conjugate Gradient.
+// cg --
+//   This function regroups four methods from the "Conjugate Gradient family" to solve the linear system %Ax=b:
+//     - PCG (Preconditioned Conjugate Gradient): A must be symmetric positive definite,
+//     - CGS (preconditioned Conjugate Gradient Squared): A must be square,
+//     - BICG (preconditioned BiConjugate Gradient): A must be square,
+//     - BICGSTAB (preconditioned BiConjugate Gradient Stabilized): A must be square (default method).
 //   If M is given, it is used as a preconditionning matrix.
 //   If both M and M2 are given, the matrix M * M2 is used as a preconditionning
 //   matrix.
 //
-// input   %A       REAL symmetric positive definite matrix or a function
-//                  y=Ax(x) which computes  y=%A*x for a given x
+// input   %A       REAL matrix or a function y=Ax(x) which computes y=%A*x for a given x
 //         b        REAL right hand side vector
 //         tol, optional      REAL error tolerance (default: 1e-8)
 //         maxIter, optional  INTEGER maximum number of iterations (default: size(%b))
@@ -39,6 +41,7 @@
 //
 // References
 //
+//   PCG
 //     "Templates for the Solution of Linear Systems: Building Blocks
 //     for Iterative Methods",
 //     Barrett, Berry, Chan, Demmel, Donato, Dongarra, Eijkhout,
@@ -51,21 +54,48 @@
 //
 //     Golub and Van Loan, Matrix Computations
 //
+//   CGS
+//     "CGS, A Fast Lanczos-Type Solver for Nonsymmetric Linear systems"
+//     by Peter Sonneveld
+//
+//     http://epubs.siam.org/doi/abs/10.1137/0910004
+//     http://dl.acm.org/citation.cfm?id=64888&preflayout=flat
+//     http://mathworld.wolfram.com/ConjugateGradientSquaredMethod.html
+//
+//   BICG
+//     "Numerical Recipes: The Art of Scientific Computing." (third ed.)
+//     by William Press, Saul Teukolsky, William Vetterling, Brian Flannery.
+//
+//     http://apps.nrbook.com/empanel/index.html?pg=87
+//     http://dl.acm.org/citation.cfm?doid=1874391.187410
+//     http://mathworld.wolfram.com/BiconjugateGradientMethod.html
+//
+//   BICGSTAB
+//     "Bi-CGSTAB: A Fast and Smoothly Converging Variant of Bi-CG for the Solution of Nonsymmetric Linear Systems"
+//     by Henk van der Vorst.
+//
+//     http://epubs.siam.org/doi/abs/10.1137/0913035
+//     http://dl.acm.org/citation.cfm?id=131916.131930&coll=DL&dl=GUIDE&CFID=372773884&CFTOKEN=56630250
+//     http://mathworld.wolfram.com/BiconjugateGradientStabilizedMethod.html
+//
 // Notes
-//     This script was originally a matlab > scilab translation of the cg.m
-//     script from http://www.netlib.org/templates/matlab
 //
 //     The input / output arguments of this command are the same as
-//     Matlab's pcg command.
+//     Matlab's pcg, cgs, bicg and bicgstab command, augmented with the 'method' argument
 //
-function [x, flag, resNorm, iter, resVec] = pcg(%A, %b, tol, maxIter, %M, %M2, x0, verbose )
-    warnobsolete("cg", "5.5.1");
+
+function [x, flag, resNorm, iter, resVec] = cg(%A, %b, method, tol, maxIter, %M, %M2, x0, verbose )
+
     [lhs,rhs] = argn(0);
+
     if (rhs < 2),
-        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"pcg",2,7));
+        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"cg",2,7));
     end
-    if (rhs > 7),
-        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"pcg",2,7));
+    if (rhs > 8),
+        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"cg",2,7));
+    end
+    if exists("method","local")==0 then
+        method = "bicgstab";
     end
     if exists("tol","local")==0 then
         tol = 1e-8
@@ -112,30 +142,41 @@ function [x, flag, resNorm, iter, resVec] = pcg(%A, %b, tol, maxIter, %M, %M2, x
         %A=%A(1);
         matrixType = 0;
     else
-        error(msprintf(gettext("%s: Wrong type for input argument #%d.\n"),"pcg",1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d.\n"),"cg",1));
     end
     // If %A is a matrix (dense or sparse)
     if (matrixType == 1),
         if (size(%A,1) ~= size(%A,2)),
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: Square matrix expected.\n"),"pcg",1));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: Square matrix expected.\n"),"cg",1));
         end
     end
     // Check right hand side %b
     if (size(%b,2) ~= 1),
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Column vector expected.\n"),"pcg",2));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Column vector expected.\n"),"cg",2));
     end
     if (matrixType ==1),
         if (size(%b,1) ~= size(%A,1)),
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"pcg",2,1));
+            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"cg",2,1));
         end
+    end
+    if (matrixType ==1),
+        if (size(%b,1) ~= size(%A,1)),
+            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"cg",2,1));
+        end
+    end
+    // Check method
+    if (type(method)<>10 | size(method)<>[1 1]),
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Single String expected.\n"),"cg",3));
+    elseif and(method<>["pcg" "cgs" "bicg" "bicgstab"]),
+        error(msprintf(gettext("%s: Wrong value for input argument #%d: %s, %s, %s or %s expected.\n"),"cg",3,"pcg","cgs","bicg","bicgstab"));
     end
     // Check type of the error tolerance tol
     if or(size(tol) ~= [1 1]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Scalar expected.\n"),"pcg",3));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Scalar expected.\n"),"cg",4));
     end
     // Check the type of maximum number of iterations maxIter
     if or(size(maxIter) ~= [1 1]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Scalar expected.\n"),"pcg",4));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Scalar expected.\n"),"cg",5));
     end
     // Compute precondType
     select type(%M)
@@ -155,14 +196,14 @@ function [x, flag, resNorm, iter, resVec] = pcg(%A, %b, tol, maxIter, %M, %M2, x
         %M=%M(1);
         precondType = 2;
     else
-        error(msprintf(gettext("%s: Wrong type for input argument #%d.\n"),"pcg",5));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d.\n"),"cg",6));
     end
     if (precondType == 1),
         if (size(%M,1) ~= size(%M,2)),
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: Square matrix expected.\n"),"pcg",5));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: Square matrix expected.\n"),"cg",6));
         end
         if ( size(%M,1) ~= size(%b,1) ),
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"pcg",5,2));
+            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"cg",6,2));
         end
     end
     // Compute precondBis
@@ -184,115 +225,39 @@ function [x, flag, resNorm, iter, resVec] = pcg(%A, %b, tol, maxIter, %M, %M2, x
         // Caution : modify precondType again !
         precondType = 2;
     else
-        error(msprintf(gettext("%s: Wrong type for input argument #%d.\n"),"pcg",6));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d.\n"),"cg",7));
     end
     if (precondBis == 1),
         if (size(%M2,1) ~= size(%M2,2)),
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: Square matrix expected.\n"),"pcg",6));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: Square matrix expected.\n"),"cg",7));
         end
         if ( size(%M2,1) ~= size(%b,1) ),
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"pcg",6,2));
+            error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"cg",7,2));
         end
     end
     // Check size of the initial vector x0
     if (size(x0,2) ~= 1),
-        error(msprintf(gettext("%s: Wrong value for input argument #%d: Column vector expected.\n"),"pcg",7));
+        error(msprintf(gettext("%s: Wrong value for input argument #%d: Column vector expected.\n"),"cg",8));
     end
     if (size(x0,1) ~= size(%b,1)),
-        error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"pcg",7,2));
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: Same size as input argument #%d expected.\n"),"cg",8,2));
     end
+
     // ------------
     // Computations
     // ------------
-    // initialization
-    bnrm2 = norm(%b);
-    if (verbose==1) then
-        printf(gettext("Norm of right-hand side : %s\n"), string(bnrm2));
+    select method
+    case "pcg"
+        [x, resNorm, iter, resVec] = %pcg(%A, %b, tol, maxIter, %M, %M2, x0, verbose )
+    case "cgs"
+        [x, resNorm, iter, resVec] = %cgs(%A, %b, tol, maxIter, %M, %M2, x0, verbose )
+    case "bicg"
+        [x, resNorm, iter, resVec] = %bicg(%A, %b, tol, maxIter, %M, %M2, x0, verbose )
+    else // "bicgstab"
+        [x, resNorm, iter, resVec] = %bicgstab(%A, %b, tol, maxIter, %M, %M2, x0, verbose )
     end
-    if  (bnrm2 == 0) then
-        if (verbose==1) then
-            printf(gettext("Special processing where the right-hand side is zero.\n"));
-        end
-        // When rhs is 0, there is a trivial solution : x=0
-        x = zeros(%b);
-        resNorm = 0;
-        resVec = resNorm;
-    else
-        x = x0;
-        // r = %b - %A*x;
-        if (matrixType ==1),
-            r = %b - %A*x;
-        else
-            r = %b - %A(x,Aargs(:));
-        end
-        resNorm = norm(r) / bnrm2;
-        resVec = resNorm;
-    end
-    if (verbose==1) then
-        printf(gettext("  Type of preconditionning #1 : %d\n"),precondType);
-        printf(gettext("  Type of preconditionning #2 : %d\n"),precondBis);
-    end
-    // begin iteration
-    // Distinguish the number of iterations processed from the currentiter index
-    iter = 0
-    for currentiter = 1:maxIter
-        if (resNorm <= tol) then
-            if (verbose==1) then
-                printf(gettext("  New residual = %s < tol = %s => break\n"),string(resNorm),string(tol));
-            end
-            break;
-        end
-        iter = iter + 1
-        if (verbose==1) then
-            printf(gettext("  Iteration #%s/%s residual : %s\n"),string(currentiter),string(maxIter),string(resNorm));
-            printf("  x=\n");
-            disp(x);
-        end
-        if %M == [] & %M2 == [] then
-            z = r;
-        elseif %M2 == [] then
-            // Compute z so that M z = r
-            if (precondType == 1) then
-                z = %M \ r;
-            elseif (precondType == 2) then
-                z = %M(r,Margs(:));
-            else
-                z = r;
-            end
-        else
-            // Compute z so that M M2 z = r
-            if (precondBis == 1) then
-                z = %M \ r;
-                z = %M2 \ z;
-            elseif (precondBis == 2) then
-                z = %M(r,Margs(:));
-                z = %M2(z,M2args(:));
-            else
-                z = r;
-            end
-        end
-        rho = r'*z;
-        if (currentiter > 1) then
-            bet = rho / rho_old;
-            p = z + bet*p;
-        else
-            p = z;
-        end
-        // q = %A*p;
-        if (matrixType ==1),
-            q = %A*p;
-        else
-            q = %A(p);
-        end
-        alp = rho / (p'*q );
-        x = x + alp*p;
-        r = r - alp*q;
-        resNorm = norm(r) / bnrm2;
-        // Caution : transform the scalar resVec into vector resVec !
-        resVec = [resVec;resNorm];
-        rho_old = rho;
-    end
-    // test for convergence
+
+    // Test for convergence
     if (resNorm > tol) then
         if (verbose==1) then
             printf(gettext("Final residual = %s > tol =%s\n"),string(resNorm),string(tol));
@@ -300,7 +265,7 @@ function [x, flag, resNorm, iter, resVec] = pcg(%A, %b, tol, maxIter, %M, %M2, x
         end
         flag = 1;
         if (lhs < 2) then
-            warning(msprintf(gettext("%s: Convergence error.\n"),"pcg"));
+            warning(msprintf(gettext("%s: Convergence error.\n"),"cg"));
         end
     else
         flag = 0;
@@ -308,4 +273,5 @@ function [x, flag, resNorm, iter, resVec] = pcg(%A, %b, tol, maxIter, %M, %M2, x
             printf(gettext("Algorithm pass\n"));
         end
     end
+
 endfunction
