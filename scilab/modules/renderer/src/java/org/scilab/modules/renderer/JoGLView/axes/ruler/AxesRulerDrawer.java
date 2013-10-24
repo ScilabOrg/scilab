@@ -13,6 +13,11 @@
 
 package org.scilab.modules.renderer.JoGLView.axes.ruler;
 
+import java.nio.FloatBuffer;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
+
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.SciRendererException;
@@ -34,14 +39,12 @@ import org.scilab.modules.graphic_objects.axes.Camera;
 import org.scilab.modules.graphic_objects.figure.ColorMap;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
+import org.scilab.modules.graphic_objects.utils.AxisLocation;
+import org.scilab.modules.graphic_objects.utils.GridPosition;
+import org.scilab.modules.graphic_objects.utils.ViewType;
 import org.scilab.modules.renderer.JoGLView.axes.AxesDrawer;
 import org.scilab.modules.renderer.JoGLView.label.AxisLabelPositioner;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
-
-import java.nio.FloatBuffer;
-import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Pierre Lando
@@ -82,7 +85,7 @@ public class AxesRulerDrawer {
         DefaultRulerModel rulerModel = new DefaultRulerModel();
         rulerModel.setTicksLength(TICKS_LENGTH);
         rulerModel.setSubTicksLength(SUB_TICKS_LENGTH);
-        rulerModel.setLineWidth(axes.getLineThickness());
+        rulerModel.setLineWidth(axes.getThickness());
         rulerModel.setSpriteDistance(SPRITE_DISTANCE);
         rulerModel.setColor(ColorFactory.createColor(colorMap, axes.getLineColor()));
 
@@ -227,7 +230,7 @@ public class AxesRulerDrawer {
         }
 
         // Draw Z ruler
-        if (axes.getViewAsEnum() == Camera.ViewType.VIEW_3D && axes.getRotationAngles()[1] != 90.0) {
+        if (axes.getView() == ViewType.VIEW_3D && axes.getRotationAngles()[1] != 90.0) {
             double txs, tys, xs, ys;
 
             if (Math.abs(matrix[2]) < Math.abs(matrix[6])) {
@@ -305,21 +308,21 @@ public class AxesRulerDrawer {
     public void drawRuler(Axes axes, AxesDrawer axesDrawer, ColorMap colorMap, DrawingTools drawingTools) throws SciRendererException {
         Appearance gridAppearance = new Appearance();
         gridAppearance.setLinePattern(GRID_LINE_PATTERN);
-        gridAppearance.setLineWidth(axes.getLineThickness().floatValue());
+        gridAppearance.setLineWidth(axes.getThickness().floatValue());
 
         Double[] bounds = axes.getDisplayedBounds();
         double[] matrix = drawingTools.getTransformationManager().getModelViewStack().peek().getMatrix();
 
         RulerDrawer[] rulerDrawers = rulerDrawerManager.get(axes);
         ElementsBuffer vertexBuffer = drawingTools.getCanvas().getBuffersManager().createElementsBuffer();
-        final boolean is3D = axes.getViewAsEnum() == Camera.ViewType.VIEW_3D && axes.getRotationAngles()[1] != 90.0;
+        final boolean is3D = axes.getView() == ViewType.VIEW_3D && axes.getRotationAngles()[1] != 90.0;
 
         if (rulerDrawers[0].getModel() == null || rulerDrawers[1].getModel() == null || (is3D && rulerDrawers[2].getModel() == null)) {
             computeRulers(axes, axesDrawer, colorMap, drawingTools, drawingTools.getTransformationManager().getModelViewStack().peek(), drawingTools.getTransformationManager().getCanvasProjection());
         }
 
         int gridPosition;
-        if (axes.getGridPositionAsEnum().equals(Axes.GridPosition.FOREGROUND)) {
+        if (axes.getGridPosition().equals(GridPosition.FOREGROUND)) {
             gridPosition = 1;
         } else {
             gridPosition = -1;
@@ -478,7 +481,7 @@ public class AxesRulerDrawer {
         rulerModel.setValues(min, max);
     }
 
-    private Vector3d computeXAxisPosition(double[] projectionMatrix, Double[] bounds, AxisProperty.AxisLocation axisLocation) {
+    private Vector3d computeXAxisPosition(double[] projectionMatrix, Double[] bounds, AxisLocation axisLocation) {
         double y, z;
         switch (axisLocation) {
             default:
@@ -511,7 +514,7 @@ public class AxesRulerDrawer {
         return new Vector3d(0, y, z);
     }
 
-    private Vector3d computeYAxisPosition(double[] matrix, Double[] bounds, AxisProperty.AxisLocation axisLocation) {
+    private Vector3d computeYAxisPosition(double[] matrix, Double[] bounds, AxisLocation axisLocation) {
         double x, z;
         switch (axisLocation) {
             default:
