@@ -237,7 +237,6 @@ public class GraphicObjectProperties {
     public static final int __GO_ARROW_SIZE_FACTOR__ = 214;
     public static final int __GO_POLYLINE_STYLE__ = 215;
     public static final int __GO_INTERP_COLOR_VECTOR__ = 216;
-    public static final int __GO_INTERP_COLOR_VECTOR_SET__ = 217;
     public static final int __GO_INTERP_COLOR_MODE__ = 218;
     public static final int __GO_X_SHIFT__ = 219;
     public static final int __GO_Y_SHIFT__ = 220;
@@ -300,7 +299,6 @@ public class GraphicObjectProperties {
     public static final int __GO_UI_RELIEF__ = 277;
     public static final int __GO_UI_STRING__ = 278;
     public static final int __GO_UI_STRING_SIZE__ = 279;
-    public static final int __GO_UI_STRING_COLNB__ = 280;
     public static final int __GO_UI_TOOLTIPSTRING__ = 281;
     public static final int __GO_UI_TOOLTIPSTRING_SIZE__ = 282;
     public static final int __GO_UI_SLIDERSTEP__ = 283;

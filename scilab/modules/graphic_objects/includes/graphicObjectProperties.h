@@ -299,7 +299,6 @@
 #define __GO_UI_RELIEF__ 277
 #define __GO_UI_STRING__ 278
 #define __GO_UI_STRING_SIZE__ 279
-#define __GO_UI_STRING_COLNB__ 280
 #define __GO_UI_TOOLTIPSTRING__ 281
 #define __GO_UI_TOOLTIPSTRING_SIZE__ 282
 #define __GO_UI_SLIDERSTEP__ 283
