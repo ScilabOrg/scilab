@@ -144,6 +144,7 @@ Scilab Bug Fixes
 
 * Bug #12979 fixed - exportUI did not work with vectorial export.
 
+<<<<<<< HEAD
 * Bug #12990 fixed - GED features conflicted with figure events.
 
 * Bug #12992 fixed - The sigma value was always equals to "LM" in eigs.
@@ -151,6 +152,8 @@ Scilab Bug Fixes
 * Bug #13000 fixed - []./int8(3) and on int8(3)./[] led to an endless recursive.
 
 * Bug #13002 fixed - modulo() and pmodulo() did not support integers & hypermatrices.
+
+* Bug #12993 fixed - 'stdev()' returns depended on 'x' being defined in the environment.
 
 * Bug #13003 fixed - String to enum converter added to Java external objects.
 
