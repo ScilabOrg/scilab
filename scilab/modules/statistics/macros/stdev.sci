@@ -25,6 +25,9 @@ function sd=stdev(x,o)
     //the standard deviation of each row of x.
     //
     //
+    if argn(2) == 0 then
+        error(msprintf(_("%s: Wrong number of input arguments: at least %d expected.\n"),"stdev",1));
+    end
     if argn(2)<2 then o="*",end
     if x == [] then sd=%nan;return ;end
 

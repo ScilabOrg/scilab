@@ -68,6 +68,8 @@ Scilab Bug Fixes
 
 * Bug #12979 fixed - exportUI did not work with vectorial export.
 
+* Bug #12993 fixed - 'stdev()' and 'st_deviation()' returns depended on 'x' being defined in the environment.
+
 * Bug #13000 fixed - []./int8(3) and on int8(3)./[] led to an endless recursive.
 
 * Bug #13003 fixed - String to enum converter added to Java external objects.

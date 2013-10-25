@@ -10,6 +10,9 @@
 
 function sd=st_deviation(x,cr)
     //
+    if argn(2) == 0 then
+        error(msprintf(_("%s: Wrong number of input arguments: at least %d expected.\n"),"st_deviation",1));
+    end
     if argn(2)<2 then cr="*",end
     if x == [] then sd=%nan;return ;end
     if typeof(x)=="hypermat" then sd=%hm_st_deviation(x,cr),return,end
