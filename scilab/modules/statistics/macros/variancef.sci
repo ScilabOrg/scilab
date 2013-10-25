@@ -9,7 +9,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 //
 
-function [s,m]=variancef(x,fre,orien)
+function [s,m]=variancef(x,fre,orien,m)
     //
     //This function  computes  the variance  of the values  of   a vector or
     //matrix x, each  of  them  counted with  a  frequency signaled   by the
@@ -33,8 +33,8 @@ function [s,m]=variancef(x,fre,orien)
     //
     if x==[] then s=%nan, return, end
     [lhs,rhs]=argn(0)
-    if rhs<2|rhs>3 then
-        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"variancef",2,3)),
+    if rhs<2|rhs>4 then
+        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"variancef",2,4)),
     end
     if x==[]|fre==[]|fre==0, s=%nan;return,end
     if rhs==2 then
@@ -44,21 +44,48 @@ function [s,m]=variancef(x,fre,orien)
         s=(sum(((x-m).^2).*fre))/(sumfre-1),
         return,
     end
+    if rhs==4 then
+        if typeof(m)~="constant" then
+            tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+            error(msprintf(tmp, "variance", ))
+        elseif orien=="*" then
+            if ~isscalar(m) then
+                tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+                error(msprintf(tmp, "variance", ))
+            end
+        elseif orien=="r" then
+            if size(m)~=[1 size(x,"c")] then
+                tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+                error(msprintf(tmp, "variance", ))
+            end
+        elseif orien=="c" then
+            if size(m)~=[size(x,"r") 1] then
+                tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+                error(msprintf(tmp, "variance", ))
+            end
+        end
+    end
     if orien=="*",
         sumfre=sum(fre)
         if sumfre <= 1 then error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be > %d.\n"),"variancef", 2, 1)),end
-        m = meanf(x,fre)
+        if rhs<4 then
+            m = meanf(x,fre)
+        end
         s=(sum(((x-m).^2).*fre))/(sumfre-1),
     elseif orien=="r"|orien==1,
         sumfre=sum(fre,"r")
         if or(sumfre==0) then error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be > %d.\n"),"variancef",2,1)),end
-        m = meanf(x,fre,"r")
+        if rhs<4 then
+            m = meanf(x,fre,"r")
+        end
         m2 = ones(size(x,"r"),1)*m
         s=(sum(((x-m2).^2).*fre))./(sumfre-1)
     elseif orien=="c"|orien==2,
         sumfre=sum(fre,"c")
         if or(sumfre==0) then error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be > %d.\n"),"variancef",2,1)),end
-        m = meanf(x,fre,"c")
+        if rhs<4 then
+            m = meanf(x,fre,"c")
+        end
         m2 = m*ones(1,size(x,"c"))
         s=(sum((x-m2).^2,"c"))./(sumfre-1)
     else error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', %d or %d expected.\n"),"variancef",3,"*","c","r",1,2))

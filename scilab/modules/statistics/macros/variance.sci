@@ -9,7 +9,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 //
 
-function [s,m] = variance(x, orien, w)
+function [s, m] = variance(x, orien, m)
     //
     //This function computes  the  variance  of  the values of  a  vector or
     //matrix x.
@@ -56,21 +56,43 @@ function [s,m] = variance(x, orien, w)
         error(msprintf(tmp, "variance", "c", "r", 1, 2))
     end
 
-    if rhs<3 then
-        w = 0
-    elseif typeof(w)~="constant" | and(w~=[0 1]) then
-        tmp = gettext("%s: Wrong value of w : %s; %d or %d expected.\n")
-        error(msprintf(tmp, "variance", string(w), 0, 1))
+    if rhs==3 then
+        if typeof(m)~="constant" then
+            tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+            error(msprintf(tmp, "variance", ))
+        elseif orien=="*" then
+            if ~isscalar(m) then
+                tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+                error(msprintf(tmp, "variance", ))
+            end
+        elseif orien=="r" then
+            if size(m)~=[1 size(x,"c")] then
+                tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+                error(msprintf(tmp, "variance", ))
+            end
+        elseif orien=="c" then
+            if size(m)~=[size(x,"r") 1] then
+                tmp = gettext("%s: Wrong value of m : a priori mean expected.\n")
+                error(msprintf(tmp, "variance", ))
+            end
+        end
     end
 
     // Calculations
     // ------------
-    d = size(x, orien) - 1 + w    // denominator
+    d = size(x, orien) - 1 + exists("m","local") // Denominator. If m is given, then the a priori mean is known and we divide by size(n,orien)-1
     if orien=="*" then
-        m = mean(x)
+        if rhs < 3 then
+            m = mean(x)
+        end
     else
-        m = mean(x, orien).*.ones(size(x,1),1)
+        if rhs <= 3 then
+            m = mean(x, orien).*.ones(size(x,1),1)
+        else
+            m = m.*.ones(size(x,1),1)
+        end
     end
+
     s = sum(abs(x - m).^2, orien) / d
 
     m = m(1, :);

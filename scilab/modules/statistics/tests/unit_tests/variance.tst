@@ -52,7 +52,8 @@ expectedV = [500; 875]/3;
 assert_checkequal([Variance Mean], [expectedV expectedM]);
 
 // With x as a complex row vector and 1 argument
-a = [ 0.9, 0.7;
+a = [
+0.9, 0.7;
 0.1, 0.1;
 0.5, 0.4 ];
 data = a + a * 2 * %i;
@@ -62,7 +63,8 @@ expectedV = 0.515;
 assert_checkequal([Variance Mean], [expectedV expectedM]); // Must be variance(real(data)) + variance(imag(data))
 
 // With x as a complex row vector and computation by column
-a = [ 0.9, 0.7;
+a = [
+0.9, 0.7;
 0.1, 0.1;
 0.5, 0.4 ];
 data = a + a * 2 * %i;
@@ -71,7 +73,8 @@ expectedM = [0.5+%i 0.4+0.8*%i];
 expectedV = [0.8 0.45];
 assert_checkalmostequal([Variance Mean], [expectedV expectedM]);
 // With x as a complex row vector and computation by row
-a = [ 0.9, 0.7;
+a = [
+0.9, 0.7;
 0.1, 0.1;
 0.5, 0.4 ];
 data = a + a * 2 * %i;
@@ -80,23 +83,24 @@ expectedM = [0.8+1.6*%i; 0.1+0.2*%i; 0.45+0.9*%i];
 expectedV = [0.1; 0; 0.025];
 assert_checkalmostequal([Variance Mean], [expectedV expectedM]);
 
-// Normalization with N-1
-x = [0.9    0.7
+// Normalization with N-1, no a priori mean
+x = [
+0.9    0.7
 0.1    0.1
-0.5    0.4];
+0.5    0.4 ];
 orien = 1;
-w = 0;
-[Variance, Mean] = variance(x,orien,w);
+[Variance, Mean] = variance(x,orien);
 expectedM = [0.5 0.4];
 expectedV = [0.16 0.09];
 assert_checkalmostequal([Variance Mean], [expectedV expectedM]);
-// Normalization with N
-x = [0.9    0.7
+// Normalization with N, the a priori can be known
+x = [
+0.9    0.7
 0.1    0.1
-0.5    0.4];
+0.5    0.4 ];
 orien = 1;
 w = 1;
-[Variance, Mean] = variance(x,orien,w);
+[Variance, Mean] = variance(x,orien,mean(x,orien));
 expectedM = [0.5 0.4];
 expectedV = [0.32 0.18]/3;
 assert_checkalmostequal([Variance Mean], [expectedV expectedM]);
