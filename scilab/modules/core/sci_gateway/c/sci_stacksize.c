@@ -10,6 +10,11 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 *
 */
+#ifdef _MSC_VER
+#include <Windows.h>
+#endif
+
+
 #include "gw_core.h"
 #include "stack-c.h"
 #include "MALLOC.h"
@@ -240,6 +245,21 @@ static int setStacksizeMax(char *fname)
     /* it works on XP, Vista, S7ven */
     /* GetLargestFreeMemoryRegion() returns a superior size to real value */
     unsigned long maxmemfree = (GetLargestFreeMemoryRegion()) / sizeof(double);
+
+
+#ifdef _MSC_VER
+    MEMORYSTATUSEX statex;
+    statex.dwLength = sizeof (statex);
+    GlobalMemoryStatusEx (&statex);
+    //do not exceed available free memory
+
+    //use min value between max memory available and max "allocable" memory by Scilab
+    //if free memory is used, keep 10% to OS
+    if (statex.ullAvailPageFile / sizeof(double) < maxmemfree)
+    {
+        maxmemfree = (unsigned long)(statex.ullAvailPageFile / sizeof(double) * 0.9);
+    }
+#endif
 
     /* We have already max */
     if (maxmemfree <= backupSize)
