@@ -159,6 +159,8 @@ Scilab Bug Fixes
 
 * Bug #13002 fixed - modulo() and pmodulo() did not support integers & hypermatrices.
 
+* Bug #12993 fixed - 'stdev()' returns depended on 'x' being defined in the environment.
+
 * Bug #13003 fixed - String to enum converter added to Java external objects.
 
 * Bug #13004 fixed - Debug infos were printed on an error with eoj.
