@@ -39,6 +39,26 @@ Scilab Bug Fixes
 
 * Bug #12979 fixed - exportUI did not work with vectorial export.
 
+* Bug #12993 fixed - 'stdev()' returns depended on 'x' being defined in the environment.
+
+* Bug #13000 fixed - []./int8(3) and on int8(3)./[] led to an endless recursive.
+
+* Bug #13003 fixed - String to enum converter added to Java external objects.
+
+* Bug #13004 fixed - Debug infos were printed on an error with eoj.
+
+* Bug #13005 fixed - jcompile did not use the classpath to compile.
+
+* Bug #13007 fixed - Compilation errors were not returned by jcompile.
+
+* Bug #13008 fixed - 'help $' now opens the 'Symbols' help page.
+
+* Bug #13012 fixed - Vectorial export of rotated strings was wrong.
+
+* Bug #13014 fixed - Update of the Efficiency inner variable improved in optim_ga.
+
+* Bug #13015 fixed - Computation of Efficiency innver variable improved in optim_ga.
+
 
 Xcos Bug Fixes
 ==============

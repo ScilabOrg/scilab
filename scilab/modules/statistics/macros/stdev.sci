@@ -30,6 +30,9 @@ function sd = stdev(x, o, ms)
     //normalized by N.
     //
 
+    if argn(2) == 0 then
+        error(msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"),"stdev",1,3));
+    end
     if argn(2) < 3 then
         ms = %f
     end
