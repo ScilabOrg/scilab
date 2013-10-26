@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine btofm(x,ldx,nx,mx)
 c    scilab to fortran matrix transfer
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
       double precision x
       dimension x(*)

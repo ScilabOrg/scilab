@@ -13,7 +13,7 @@ c     --------------------------
       subroutine scioptim(fname)
       
       character*(*) fname
-	INCLUDE 'stack.h'
+	INCLUDE 'stack.h.f'
       double precision tol,df0,zng,dxmin
       double precision epsg,epsg1,epsf,dzs
       integer top2,topin,topind,topx,top3

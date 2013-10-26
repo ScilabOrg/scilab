@@ -16,7 +16,7 @@ c
       subroutine scifreq(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       double precision eps,rcond,ur,ui,vr,vi,xr,xi
       integer p,ind,q,job,ido,n,top1
       integer iadr,sadr

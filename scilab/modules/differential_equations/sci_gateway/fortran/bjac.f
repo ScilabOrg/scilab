@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
       subroutine bjac(ny,t,y,ml,mu,jac,nrowj)
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       double precision y(ny),jac(nrowj,ny),t(*)

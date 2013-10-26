@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
       subroutine orientandtype(orient,type)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer orient,type,native
       parameter (native=0)
 
@@ -54,7 +54,7 @@ c     .     orientation flag
       end
 
       subroutine getorient(k,sel)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       integer sel,row,col,star
       integer iadr,sadr
@@ -108,7 +108,7 @@ c
 
 c     -------------------------------
       subroutine getresulttype(k,type)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer type
       character*7 temp
       integer iadr

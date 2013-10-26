@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine depfun(lunit,trace,first)
 c     depile une macro ou un execstr
-      include 'stack.h'
+      include 'stack.h.f'
       integer lunit
       logical trace,first,callback
       integer sadr,ll,leng,ival(2)
@@ -109,7 +109,7 @@ c
 c     pflag ,indique si c'est une pause qui a ete depilee
 c Bug 1091 corrected - Francois VOGEL November 2004
 c Bug 1417 corrected - Francois VOGEL May 2005
-      include 'stack.h'
+      include 'stack.h.f'
       logical trace,first,pflag
       integer mode(2),lunit,ll
 
@@ -167,7 +167,7 @@ c     pause
 c     this routines shows the approximate location of the error in the
 c     current statement
 c!
-      include 'stack.h'
+      include 'stack.h.f'
 
 c      integer sadr
 
@@ -213,7 +213,7 @@ c
       subroutine errcontext()
 c     this routines stores the line number  of the instruction that
 c     produces  the error as well as the calling macro name if any
-      include 'stack.h'
+      include 'stack.h.f'
 
       integer sadr
       sadr(l)=(l/2)+1

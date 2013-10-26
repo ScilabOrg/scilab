@@ -13,7 +13,7 @@ c
       subroutine sciltitr(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       double precision eps
       integer p,ind,ido,n
       integer iadr,sadr

@@ -13,7 +13,7 @@ c
 c     implicit vector
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       double precision e1,e2,st,e1r,inf,npt,zero
       double precision dlamch

@@ -21,7 +21,7 @@ c
       subroutine intgetlabel(fname)
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr, sadr
       integer kfun
       integer getscilabel

@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       SUBROUTINE XERBLA( SRNAME, INFO )
       
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 *    XERBLA CUSTOMIZED FOR SCILAB
 *      
 *

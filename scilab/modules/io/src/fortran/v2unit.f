@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     given variable #k (scalar or string) and mode 
 c     v2unit return a  logical unit attached to corresponding file
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       logical opened
       integer mode(2)

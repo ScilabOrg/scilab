@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine intmtlbmode
-      include 'stack.h'
+      include 'stack.h.f'
 
       logical checkrhs,checklhs,crebmat,getbmat,checkval
 cDEC$ IF DEFINED (FORDLL)

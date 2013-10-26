@@ -17,7 +17,7 @@ c     kmac  : variable number of the compiled macro in the scilab stack
 c!    
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer nops,funnam(nsiz)
       parameter (nops=32)

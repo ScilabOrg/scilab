@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
     	subroutine scisylv(fname)
 
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
 c      
       call cvname(ids(1,pt+1),'sylv',0)

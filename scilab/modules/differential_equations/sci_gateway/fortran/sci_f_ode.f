@@ -13,7 +13,7 @@ c
 c     
 c     ode
 c     
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 c      
       character buftmp*(bsiz)

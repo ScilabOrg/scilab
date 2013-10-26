@@ -12,7 +12,7 @@ c     Interface for isequal:
 
       implicit none
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 
       integer id(nsiz)
       integer typ,m,n,l,il,il1,ilk,k,topk,top1,srhs,k1,it

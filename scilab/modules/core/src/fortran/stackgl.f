@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine stackgl(id,n)
 c     get variables out of a stored list
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr,fins,typ
       integer id(nsiz)
 c     

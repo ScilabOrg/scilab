@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine mattr
 
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer vol
       integer iadr,sadr

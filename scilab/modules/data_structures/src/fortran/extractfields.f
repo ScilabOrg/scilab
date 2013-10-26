@@ -15,7 +15,7 @@ c
 c     if n==-1 all fieds are extracted
 c
 
-      include 'stack.h'
+      include 'stack.h.f'
       integer ind(*)
 c
       integer vol2

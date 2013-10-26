@@ -850,9 +850,9 @@ msgstr "%s : Appel erroné sur %s (premier argument).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s : (%s) trop de variables dans la pile. Éditez stack.h et augmentez "
+"%s : (%s) trop de variables dans la pile. Éditez stack.h.f et augmentez "
 "intersiz.\n"
 
 #, c-format

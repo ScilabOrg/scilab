@@ -12,7 +12,7 @@ c     ======================================================================
 c     put variables into storage
 c     ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr
 cDEC$ IF DEFINED (FORDLL)
 cDEC$ ATTRIBUTES DLLIMPORT:: /mprot/

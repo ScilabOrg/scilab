@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     ==================================================================
 c     print object of id id(nsiz) stored at position lk in the stack
 c     ==================================================================
-      include 'stack.h'
+      include 'stack.h.f'
       integer id(nsiz),lk,id1(nsiz),dname(nsiz)
 c     
       common / ptkeep / lwk
@@ -605,7 +605,7 @@ c     set back preserved data
       end
 
       logical function clsave(topk,il,kl,li1,nl)
-      include 'stack.h'   
+      include 'stack.h.f'   
       logical crewimat 
       integer topk,il,kl,li1
       clsave=.false.
@@ -620,7 +620,7 @@ c     set back preserved data
       end
 
       subroutine clrest(topk,il,kl,li1,nl)
-      include 'stack.h'   
+      include 'stack.h.f'   
       integer topk,il,kl,li1
       logical getwimat 
       topk=topk-1
@@ -633,7 +633,7 @@ c     set back preserved data
       end
 
       subroutine listtype(lk,itype)
-      include 'stack.h'
+      include 'stack.h.f'
 c     implicit undefined (a-z)
       integer rat,gettype
       logical ilog,getilist,getsmat

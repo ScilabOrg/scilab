@@ -21,7 +21,7 @@ c     idebut : pointeur sur le debut de la ligne
 c     ifin   : pointeur sur la fin de la ligne
 c!
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer eol
       data eol/99/
 c

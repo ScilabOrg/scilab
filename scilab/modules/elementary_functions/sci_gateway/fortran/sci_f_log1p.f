@@ -12,7 +12,7 @@ c
 c     interface for log1p function (log(1+x))
 c     rmk : don't work in complex
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer id(nsiz)
 
       double precision logp1

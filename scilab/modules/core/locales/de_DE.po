@@ -769,9 +769,9 @@ msgstr "%s: Fehlaufruf nach %s! (Erstes Argument).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) Zu viele Argumente im Stack. Editiere stack.h and vergrößere "
+"%s: (%s) Zu viele Argumente im Stack. Editiere stack.h.f and vergrößere "
 "intersiz.\n"
 
 #, c-format

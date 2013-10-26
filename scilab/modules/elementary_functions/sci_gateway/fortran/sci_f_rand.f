@@ -10,7 +10,7 @@ c
       subroutine intrand(fname,id)
 c     -------------------------------
 c     Interface for rand function
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       character*(*) fname
       double precision sr,si,r
       save             si, r
@@ -228,7 +228,7 @@ C     switching back to the default randvalue
 
       subroutine randswitch(randtype)
       character*(20) randtype
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       if ( randtype(1:1).eq.'u') then 
          ran(2)=0
       else if ( randtype(1:1).eq.'g') then 
@@ -242,7 +242,7 @@ C     switching back to the default randvalue
       end
 
       subroutine randinfo(randtype,ilen) 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       character*(20) randtype
       integer ilen 
       if ( ran(2).eq.0) then 

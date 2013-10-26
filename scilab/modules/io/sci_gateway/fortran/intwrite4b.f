@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     --------------------
 c     write binaire real*4
 c     --------------------
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer mode(2),top2
 
       logical opened

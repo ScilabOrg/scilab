@@ -15,7 +15,7 @@ c     [VSL,VSR,dim]=gschur(A,B,function)
 c     [As,Bs,VSR,dim]=gschur(A,B,function)
 c     [VSR,dim]=gschur(A,B,function)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 

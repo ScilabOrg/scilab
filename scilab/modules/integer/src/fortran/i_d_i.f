@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine i_d_i
 c     element wise right division
-      include 'stack.h'
+      include 'stack.h.f'
       integer is1
       external memused
       integer memused

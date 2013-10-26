@@ -22,7 +22,7 @@ c
       subroutine scicosdebug(fname)
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
 Cc (DLL Intel Fortran)     
 cDEC$ IF DEFINED (FORDLL)
 cDEC$ ATTRIBUTES DLLIMPORT:: /cosdebug/

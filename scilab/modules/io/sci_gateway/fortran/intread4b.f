@@ -11,7 +11,7 @@ c     ------------
 c     read binaire real*4
 c     ------------
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer mode(2),top2
 
       logical opened

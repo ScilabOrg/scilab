@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine storeglobal(id,k)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical update
       integer iadr
       integer id(nsiz)
@@ -122,7 +122,7 @@ c     update type of the local pointer
 
       subroutine reallocglobal(mem)
 c     Copyright INRIA
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer offset
       logical eqid
       integer iadr

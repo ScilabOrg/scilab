@@ -13,7 +13,7 @@ c ======================================================================
 c     gestion external "soft" relatif a solve (jacobien fourni)
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       integer n,iflag

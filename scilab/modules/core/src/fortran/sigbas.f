@@ -15,7 +15,7 @@ c
 c traitement de l'erreur fortran ou du break
 c
       integer  n
-      include 'stack.h'
+      include 'stack.h.f'
       logical iflag,interruptible
 cDEC$ IF DEFINED (FORDLL)
 cDEC$ ATTRIBUTES DLLIMPORT:: /basbrk/

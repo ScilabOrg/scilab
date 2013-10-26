@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine interrcatch
-      include 'stack.h'
+      include 'stack.h.f'
       integer topk,p
       logical checkrhs,checklhs,getscalar,getsmat,checkval
       character*9 opt

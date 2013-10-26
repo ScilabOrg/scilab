@@ -759,7 +759,7 @@ C
      X NAMEB,RRHS,RWNAME,SECT,INMPS,IOLOG)
 C
 C
-      include 'stack.h'
+      include 'stack.h.f'
 C
 C *** PARAMETERS
       INTEGER*4 RCODE,MAXM,M,LINE,INMPS,IOLOG

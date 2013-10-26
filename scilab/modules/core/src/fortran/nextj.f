@@ -12,7 +12,7 @@ c     ==============================================================
 C     extracts the jth occurence of x in do x=val and stores its value on top 
 C     of the stack 
 c     ==============================================================
-      include 'stack.h'
+      include 'stack.h.f'
 c
       double precision dlamch,x
       integer id(nsiz),j,vt,semi

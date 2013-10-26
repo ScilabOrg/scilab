@@ -16,7 +16,7 @@ C     0,1,2,4,11,12,14 :
 C     (double,char, short,int,uchar, ushort,uint)
 C     ----------------------------------------------
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical checkrhs,checklhs
       integer iadr,sadr,memused
 c

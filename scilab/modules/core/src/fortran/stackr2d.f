@@ -13,7 +13,7 @@ c     =============================
 c     same as stacki2d but for reals 
 c     to double 
 c     ===============================
-      include 'stack.h'
+      include 'stack.h.f'
       integer n,sl1,dl1 
       integer iadr
       iadr(l)=l+l-1

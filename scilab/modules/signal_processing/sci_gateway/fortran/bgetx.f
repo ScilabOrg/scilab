@@ -14,7 +14,7 @@ c ======================================================================
 
 
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
       double precision x(*)
       character*(nlgh+1) namex,namey

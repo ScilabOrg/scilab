@@ -10,7 +10,7 @@ c$
       subroutine intzggbal(fname)
 c     [Ab,Bb,X,Y]=balanc(A,B)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 c     integer vfinite

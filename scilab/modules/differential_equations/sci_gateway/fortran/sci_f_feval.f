@@ -13,7 +13,7 @@ C     --------------------------------------------
 C     feval(x1,x2,external) -> external(x1(i),x2(j))
 C     feval(x1,external)    -> external(x1(i))
 c      implicit undefined (a-z)
-      include 'stack.h'
+      include 'stack.h.f'
       character*(5) fname
       character*(nlgh+1)   ename
       integer m1,n1,lb,m2,n2,la,i,j,nn,lr,lc,lb1,lbc1,lrr,lcr

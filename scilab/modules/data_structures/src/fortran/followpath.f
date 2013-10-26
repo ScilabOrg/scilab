@@ -45,7 +45,7 @@ c     of the object itself (null insertion).
 
 c =============================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       logical job
       integer indtop,listtop,ind(*)

@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intlstsize
 c     WARNING : argument of this interface may be passed by reference
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 c
       iadr(l)=l+l-1

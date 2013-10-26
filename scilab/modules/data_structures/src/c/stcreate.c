@@ -39,7 +39,7 @@ int C2F(stcreate)(int *lw, int *nz, int *sz, int *nf, char *fnames[], int *retva
 
     if (*lw > intersiz)
     {
-        Scierror(998, _("Too many arguments in the stack, edit stack.h and enlarge intersiz.\n"));
+        Scierror(998, _("Too many arguments in the stack, edit stack.h.f and enlarge intersiz.\n"));
         return 1;
     }
     sttyp(&n1, "size", nf, fnames);

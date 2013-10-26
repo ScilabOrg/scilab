@@ -429,7 +429,7 @@ cd ..
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\callinter.h.f" />
-    <ClInclude Include="..\..\includes\stack.h" />
+    <ClInclude Include="..\..\includes\stack.h.f" />
   </ItemGroup>
   <ItemGroup>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_argn.f" />

@@ -21,7 +21,7 @@ c
       subroutine  intree4(fname)
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
       logical createvar,getrhsvar
       character*(*) fname
       integer iadr

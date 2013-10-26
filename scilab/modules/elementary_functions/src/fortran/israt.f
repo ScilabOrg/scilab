@@ -13,7 +13,7 @@ c     israt checks is this variable is a rational fraction
 c     if ok it also returns ilnum and ilden the adress of the beginning
 c     of the variables (in istk) containing the numerator and the denominator
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr, sadr
 c     
       iadr(l)=l+l-1

@@ -812,9 +812,9 @@ msgstr "%s: Crida incorrecta a %s! (primer argument).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) massa arguments a la pila. Editeu stack.h i augmenteu intersiz.\n"
+"%s: (%s) massa arguments a la pila. Editeu stack.h.f i augmenteu intersiz.\n"
 
 #, c-format
 msgid "%s: (%s) bad third argument!\n"

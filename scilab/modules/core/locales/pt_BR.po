@@ -832,9 +832,9 @@ msgstr "%s: Chamada inválida para %s! (primeiro argumento)\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) muitos argumentos na pilha. Edite stack.h e aumente o valor de "
+"%s: (%s) muitos argumentos na pilha. Edite stack.h.f e aumente o valor de "
 "intersiz.\n"
 
 #, c-format

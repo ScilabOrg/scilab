@@ -13,7 +13,7 @@ c     --------------------------
       subroutine scisemidef(fname)
       
       character*(*) fname
-	INCLUDE 'stack.h'
+	INCLUDE 'stack.h.f'
       double precision abstol,reltol,nu,tv
       integer sz,upsz
       integer iadr, sadr

@@ -18,7 +18,7 @@ c     dvol: difference of the old and new sizes of the modified entry
 c!
       integer ind(*),dvol
       integer iadr,sadr
-      include 'stack.h'
+      include 'stack.h.f'
 
 c
       iadr(l)=l+l-1
@@ -50,7 +50,7 @@ c     nind: size of the path
 c     !
       integer ind(nind)
       integer iadr,sadr
-      include 'stack.h'
+      include 'stack.h.f'
 c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1

@@ -41,7 +41,7 @@ c           fortran : len
 c
 c ====================================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer       lunit,mode(*)
       character*(*) name
 c

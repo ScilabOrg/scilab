@@ -14,7 +14,7 @@ c ======================================================================
 c     Gestion des macros externals pour la primitive IMPL
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       double precision y(n),s(n),jac(nrowj,n),t(*)

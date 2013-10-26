@@ -43,7 +43,7 @@ c
 c     The result of getfunction is transformed into a function data type
 C     by the getfun routine.
 
-      include 'stack.h'
+      include 'stack.h.f'
       parameter (nz1=nsiz-1,nz2=nsiz-2,nz3=nsiz-3)
       integer cblock,rblock,fcount
       parameter (rblock=30,cblock=rblock*50)

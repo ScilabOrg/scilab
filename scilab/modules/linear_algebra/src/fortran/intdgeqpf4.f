@@ -13,7 +13,7 @@ c$
 c     [Q,R]=qr(A,'e')
 c     [Q,R,E]=qr(A,'e')
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       character fname*(*)

@@ -53,9 +53,9 @@ msgstr ""
 msgid "%s: Invalid hypermatrix insertion.\n"
 msgstr ""
 
-msgid "Too many arguments in the stack, edit stack.h and enlarge intersiz.\n"
+msgid "Too many arguments in the stack, edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"Zu viele Argumente im Stapel, editieren Sie stack.h und vergrößern Sie "
+"Zu viele Argumente im Stapel, editieren Sie stack.h.f und vergrößern Sie "
 "intersiz\n"
 
 #, c-format

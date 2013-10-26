@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     returns in name(1:n) the code associated with the type of the
 c     variable that began in istk(il)
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer nmax
       parameter (nmax=8)
 c     following common defines the initial database of type names

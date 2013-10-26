@@ -15,7 +15,7 @@ c     [VS,dim]=zfschur(A,'function')
 c     [VS,dim,T]=zfschur(A,'function')
 
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 

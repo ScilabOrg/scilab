@@ -11,7 +11,7 @@ c$
 
 c     [U,S,V,rk]=svd(A,tol)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 

@@ -56,9 +56,9 @@ msgstr "%s: Недопустимый индекс №%d в извлечении 
 msgid "%s: Invalid hypermatrix insertion.\n"
 msgstr "%s: Недопустимая вставка в гиперматрицу.\n"
 
-msgid "Too many arguments in the stack, edit stack.h and enlarge intersiz.\n"
+msgid "Too many arguments in the stack, edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"Слишком много параметров в стеке, отредактируйте stack.h и увеличьте "
+"Слишком много параметров в стеке, отредактируйте stack.h.f и увеличьте "
 "intersiz.\n"
 
 #, c-format

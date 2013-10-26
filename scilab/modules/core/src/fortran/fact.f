@@ -12,7 +12,7 @@ c     ======================================================================
 c     analyseur de facteurs
 c     ======================================================================
 c     
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       parameter (nz1=nsiz-1,nz2=nsiz-2)
       logical eptover
@@ -797,7 +797,7 @@ c
 
       subroutine name2var(id)
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     given a variable name code in id, creates a string variable 
 c     on the top of the stack
       integer id(nsiz)

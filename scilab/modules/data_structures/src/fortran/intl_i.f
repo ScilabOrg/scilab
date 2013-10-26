@@ -12,7 +12,7 @@ c     list insertions arg3(arg1)=arg2
 c =============================================================
 c
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c
       character tmpbuf * (bsiz)
       integer vol1,vol2,vol3,volv

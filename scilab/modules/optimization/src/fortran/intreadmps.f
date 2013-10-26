@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c SCILAB function : readmps, fin = 1
       subroutine intreadmps(id)
 c     
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr, sadr
       integer topk,rhsk, topf,mode(2)

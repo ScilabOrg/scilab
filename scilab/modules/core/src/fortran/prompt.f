@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c ====================================================================
 c     issue prompt with optional pause
 
-      include 'stack.h'
+      include 'stack.h.f'
       integer pause,escape,menusflag
 
       logical iflag,interruptible

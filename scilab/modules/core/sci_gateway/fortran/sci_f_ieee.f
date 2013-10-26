@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     --------------------------
       character*(*) fname
       logical checkrhs,checklhs
-      include 'stack.h'
+      include 'stack.h.f'
       logical cremat, getscalar
 
       integer iadr

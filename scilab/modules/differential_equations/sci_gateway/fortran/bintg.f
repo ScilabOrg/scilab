@@ -14,7 +14,7 @@ c ======================================================================
 c     gestion des macros externals pour le primitive INTG
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       double precision t(*),xx

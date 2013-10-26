@@ -14,7 +14,7 @@ c     --------------------------
 c     SCILAB function : ereduc
 c     --------------------------
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c     
       character*(*) fname
       double precision eps

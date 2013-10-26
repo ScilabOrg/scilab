@@ -10,7 +10,7 @@ c
       subroutine getdimfromvar(k,num,n)
       integer k,num,n
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 
       iadr(l)=l+l-1

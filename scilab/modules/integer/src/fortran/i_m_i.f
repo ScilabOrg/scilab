@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine i_m_i
 c     multiplication
-      include 'stack.h'
+      include 'stack.h.f'
       integer is1
       external memused
       integer memused

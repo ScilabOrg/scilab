@@ -12,7 +12,7 @@ c$
 c     [VS,dim,T]=fschur(A,"function")
 c     [VS,dim]=fschur(A,"function")
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 

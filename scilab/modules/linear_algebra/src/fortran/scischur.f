@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c$
       logical function scischur(re,im)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createcvar
       common /scisch/ lf, nx, nf
       integer iadr
@@ -33,7 +33,7 @@ c     stk(lx)=fct([re,im])  evaluated by scilab fct pointed to by lf
 
       logical function scichk()
 c     checks fct passed to schur
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createcvar
 c     
       integer iadr

@@ -13,7 +13,7 @@ c ======================================================================
 c     Soft and Fortrans coded externals for colnew 
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c      
       character tmpbuf * (bsiz)      
       integer iadr,sadr
@@ -110,7 +110,7 @@ c
 c ======================================================================
 C     Soft and Fortrans coded externals for colnew 
 c ======================================================================
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c      
       character tmpbuf * (bsiz) 
       integer iadr,sadr
@@ -211,7 +211,7 @@ c
 c ======================================================================
 C     Soft and Fortrans coded externals for colnew 
 c ======================================================================
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       character tmpbuf * (bsiz)       
       integer iadr,sadr
@@ -311,7 +311,7 @@ c
 c ======================================================================
 C     Soft and Fortrans coded externals for colnew 
 c ======================================================================
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       character tmpbuf * (bsiz)        
       integer iadr,sadr
@@ -409,7 +409,7 @@ c
 c ======================================================================
 C     Soft and Fortrans coded externals for colnew 
 c ======================================================================
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       character tmpbuf * (bsiz)       
       integer iadr,sadr

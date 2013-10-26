@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine intpprod(id)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr, sadr
       integer id(nsiz)
       integer vol

@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine mvptr(topk,il)
 C     just for dealing with lists 
-      include 'stack.h'
+      include 'stack.h.f'
       integer topk ,il
 cDEC$ IF DEFINED (FORDLL)
 cDEC$ ATTRIBUTES DLLIMPORT:: /ptkeep/
@@ -22,7 +22,7 @@ cDEC$ ENDIF
 
       subroutine ptrback(topk)
       integer topk 
-      include 'stack.h'
+      include 'stack.h.f'
 cDEC$ IF DEFINED (FORDLL)
 cDEC$ ATTRIBUTES DLLIMPORT:: /ptkeep/
 cDEC$ ENDIF            

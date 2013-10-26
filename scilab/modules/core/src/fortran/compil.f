@@ -12,7 +12,7 @@ c
 c     add  compiled instruction in compiled macro structure
 
       integer val1(*),val2,val3,val4,l
-      include 'stack.h'
+      include 'stack.h.f'
       external getendian
       integer getendian
       integer code,sadr

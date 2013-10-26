@@ -15,7 +15,7 @@ c     external "soft" management dealing with
 c     ddassl jacobian computation
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       common/ierode/iero

@@ -802,9 +802,9 @@ msgstr "%s: неправильный вызов %s! (1-й параметр).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) слишком много аргументов в стеке. Отредактируйте stack.h и "
+"%s: (%s) слишком много аргументов в стеке. Отредактируйте stack.h.f и "
 "увеличьте intersiz.\n"
 
 #, c-format

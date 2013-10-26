@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     
 c     operations on boolean sparse matrices
 c     
-      include 'stack.h'
+      include 'stack.h.f'
       integer op
 c     
       integer iadr,sadr

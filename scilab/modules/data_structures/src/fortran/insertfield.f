@@ -20,7 +20,7 @@ c     is the position of the result,if info<>0
 c     info
 c        if 0 list has been updated "in place"
 c        if 1 list needs to be stored
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer volfrom,voltos,volto,dvol,ind(*)
       integer typfrom,typto

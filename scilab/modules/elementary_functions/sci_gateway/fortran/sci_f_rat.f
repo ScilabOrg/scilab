@@ -10,7 +10,7 @@ c you should have received as part of this distribution.  The terms
 c are also available at    
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intrat
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c      
 c     [N,D]=rat(x [,tol])
 c     y=rat(x [,tol])      

@@ -1368,7 +1368,7 @@ msgstr ""
 # File: src/c/stack2.c, line: 3847
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
 
 #

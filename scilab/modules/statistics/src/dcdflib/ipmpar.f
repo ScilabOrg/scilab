@@ -38,7 +38,7 @@ C     for ipmpar(3)
 C-----------------------------------------------------------------------
       DOUBLE PRECISION   DLAMCH
       EXTERNAL DLAMCH 
-      include 'stack.h'
+      include 'stack.h.f'
       goto (1,1,3,4,1,1,1,1,9,10) i
  1    continue 
       call basout(io,wte,'ipmpar called with wrong argument')

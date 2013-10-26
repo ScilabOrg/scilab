@@ -17,7 +17,7 @@ c     Copyright Inria
       logical cmatptr
       dimension y(3), ydot(3)
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
 
 c     If variable 'param' exists gets its pointer in 

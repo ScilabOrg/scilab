@@ -12,7 +12,7 @@ c     form the list which represents recursive index
 c     (i1)(i2)...(in)(k1,...,km)
 c     i1,..in,k1,..km are supposed to be stored recursively in the stack
 c!
-      include 'stack.h'
+      include 'stack.h.f'
       integer n,m
       
       if(err1.gt.0) return

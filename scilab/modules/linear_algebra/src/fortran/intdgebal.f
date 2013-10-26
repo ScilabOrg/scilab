@@ -13,7 +13,7 @@ c$
 c     [V,D]=balanc(A)
 c     d = balanc(A)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 c      integer vfinite

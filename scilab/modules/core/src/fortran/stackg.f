@@ -35,7 +35,7 @@ c          non fin=0
 
 c     =============================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical compil,vcopyobj
       integer id(nsiz),vol,vk
       integer cbot

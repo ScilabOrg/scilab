@@ -12,7 +12,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     
 c     == <= >= <>
 
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer top0,op
       double precision  e1,e2,e1r,e2r,e1i,e2i

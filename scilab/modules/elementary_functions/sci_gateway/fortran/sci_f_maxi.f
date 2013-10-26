@@ -14,7 +14,7 @@ c     maxi mini interface
 c     -------------------------------
       character*(*) fname
 c     Interface for maxi and mini
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer id(nsiz)
       logical checklhs,cremat
       logical getrmat,test

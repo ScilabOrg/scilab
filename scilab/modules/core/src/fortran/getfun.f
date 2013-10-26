@@ -13,7 +13,7 @@ c ======================================================================
 c     get a user defined function
 c ======================================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       character *(*) caller
       integer lrecl,id(nsiz),retu(6),icount

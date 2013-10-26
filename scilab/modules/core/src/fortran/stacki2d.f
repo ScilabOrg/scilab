@@ -28,7 +28,7 @@ c     p= il1- iadr(dl1)
 c     we copy from 0 to p-1 ( then istk(il1+k) k>=p
 c     are not scratched and then from n-1 to p 
 c     ===============================
-      include 'stack.h'
+      include 'stack.h.f'
       integer n,il1,dl1 
       integer iadr
       iadr(l)=l+l-1

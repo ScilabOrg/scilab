@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine i_logic(op)
-      include 'stack.h'
+      include 'stack.h.f'
       integer less,great,equal
       integer op,is1(2)
       external memused

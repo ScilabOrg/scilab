@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c$
       integer function issymmetric(in)
 c     return 1 if matrix at position in is symmetric
-      include 'stack.h'
+      include 'stack.h.f'
       double precision sr
 c     
       integer iadr,sadr

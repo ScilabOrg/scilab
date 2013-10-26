@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txtc     --------------
 c
       subroutine intspones(fname,id)
 c     WARNING : argument of this interface may be passed by reference
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       character*(*) fname
       integer id(nsiz)
       logical ref

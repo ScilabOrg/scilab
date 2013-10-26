@@ -12,7 +12,7 @@ c
 c
 c      implicit undefined (a-z)
 c     -----------------------------------------------------
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
       character tmpbuf * (bsiz)
       character*(nlgh+1)   efsub,edfsub,egsub,edgsub,eguess

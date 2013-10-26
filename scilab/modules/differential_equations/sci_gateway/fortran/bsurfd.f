@@ -14,7 +14,7 @@ c     ====================================
 c     soft external for dasrt (surface crossing)
 c     ====================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       common/ierode/iero

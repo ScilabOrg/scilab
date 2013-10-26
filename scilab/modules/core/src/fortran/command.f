@@ -12,7 +12,7 @@ C     ====================================================================
 C     Scilab Command and Keyword
 C     ====================================================================
 C     id(nsiz) coded name of the command
-      include 'stack.h'
+      include 'stack.h.f'
       logical compil
 C
       integer lunit,mode(2)

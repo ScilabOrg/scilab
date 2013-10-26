@@ -144,7 +144,7 @@ c     threshold value may be larger.
 c
       implicit none
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       double precision xr, xi, yr, yi
 

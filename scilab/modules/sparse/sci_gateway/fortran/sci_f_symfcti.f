@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c SCILAB function symfcti
       subroutine intsymfcti(id)
       logical getrhsvar, createvar, putlhsvar
-      include 'stack.h'
+      include 'stack.h.f'
 c
        nbvars=0
 c*****************************************************

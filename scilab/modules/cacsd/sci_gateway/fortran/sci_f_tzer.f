@@ -13,7 +13,7 @@ c
       subroutine scitzer(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       double precision eps
       integer iadr,sadr
 

@@ -12,7 +12,7 @@ c     =============================
 c     same as stacki2d but for characters
 c     to integer and overlapping region 
 c     ===============================
-      include 'stack.h'
+      include 'stack.h.f'
       integer n,sl1,il1
       integer cadr
       cadr(l)=l+l+l+l-3      

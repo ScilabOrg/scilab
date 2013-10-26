@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     ====================================================================
 c     scan primitive function and scilab code function lists for a given name
 c     ====================================================================
-      include 'stack.h'
+      include 'stack.h.f'
       parameter (nz1=nsiz-1,nz2=nsiz-2)
       integer id(nsiz),istr(nlgh)
 c

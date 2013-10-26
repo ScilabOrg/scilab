@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     ======================================================================
 c     gestion des structures de controle
 c     ======================================================================
-      include 'stack.h'
+      include 'stack.h.f'
       integer while(nsiz),iff(nsiz),else(nsiz),ennd(nsiz)
       integer do(nsiz),thenn(nsiz),cas(nsiz),sel(nsiz)
       integer elsif(nsiz),for(nsiz),try(nsiz)

@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine definedfields
 c     returns index of defined fields of a list
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 c
       iadr(l)=l+l-1

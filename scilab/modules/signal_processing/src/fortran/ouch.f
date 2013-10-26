@@ -12,7 +12,7 @@ c   and the program stops.  in this latter case the
 c   filter design is probably acceptable, but should
 c   be checked by computing a frequency response.
 c!
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       common /oops/niter,iout
       character bufstr*(4096)
       

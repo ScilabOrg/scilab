@@ -12,7 +12,7 @@ c     extraction pour les list tlist, mlist
 c =============================================================
 c
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c
 c
       integer rhs1,vol1,vol2,vol

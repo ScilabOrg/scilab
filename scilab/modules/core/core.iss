@@ -57,7 +57,7 @@ Source: modules\{#CORE}\includes\stack3.h; DestDir: {app}\modules\{#CORE}\includ
 Source: modules\{#CORE}\includes\stack-c.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\sci_types.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\stack-def.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
-Source: modules\{#CORE}\includes\stack.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
+Source: modules\{#CORE}\includes\stack.h.f; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\stackinfo.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\stackTypeVariable.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\version.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}

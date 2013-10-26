@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine unarybit(op)
 c     addition
-      include 'stack.h'
+      include 'stack.h.f'
       
 Cc (DLL Intel Fortran)
 cDEC$ IF DEFINED (FORDLL)

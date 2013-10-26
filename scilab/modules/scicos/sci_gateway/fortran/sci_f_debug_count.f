@@ -21,7 +21,7 @@ c
 	subroutine scicosdebugcount(fname)
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
 
 Cc (DLL Intel Fortran)     
 cDEC$ IF DEFINED (FORDLL)

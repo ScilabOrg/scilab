@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txtc     -------------------------------
 c
     	subroutine inttan(id)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c     
 c     interface for tan
 c     

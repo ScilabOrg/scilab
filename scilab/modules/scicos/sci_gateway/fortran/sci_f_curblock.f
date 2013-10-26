@@ -21,7 +21,7 @@ c
       subroutine intcurblk(fname)
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer kfun
 Cc (DLL Intel Fortran)     
 cDEC$ IF DEFINED (FORDLL)

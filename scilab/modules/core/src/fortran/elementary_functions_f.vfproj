@@ -115,7 +115,7 @@ lib /DEF:&quot;$(InputDir)slatec_f_Import.def&quot; /SUBSYSTEM:WINDOWS /MACHINE:
 	<Files>
 		<Filter Name="Header Files" Filter="fi;fd">
 		<File RelativePath="..\..\includes\callinter.h.f"/>
-		<File RelativePath="..\..\includes\stack.h"/></Filter>
+		<File RelativePath="..\..\includes\stack.h.f"/></Filter>
 		<Filter Name="Library Dependencies"/>
 		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">

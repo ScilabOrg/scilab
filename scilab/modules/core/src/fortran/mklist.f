@@ -33,7 +33,7 @@ c!
 c     form the list built with last n variables stored in top-n+1:top
 c      positions of the stack
 c!
-      include 'stack.h'
+      include 'stack.h.f'
       integer n,typ,srhs,slhs,sfin
 c
       srhs=rhs

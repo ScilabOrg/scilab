@@ -514,7 +514,7 @@ int C2F(createvar) (int *lw, char *typex, int *m, int *n, int *lr, unsigned long
 
     if (*lw > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createvar");
         return FALSE;
     }
     Nbvars = Max(*lw, Nbvars);
@@ -666,7 +666,7 @@ int C2F(createcvar) (int *lw, char *typex, int *it, int *m, int *n, int *lr, int
 
     if (*lw > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createcvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createcvar");
         return FALSE;
     }
     Nbvars = Max(*lw, Nbvars);
@@ -725,7 +725,7 @@ int C2F(createlist) (int *lw, int *nel)
 
     if (*lw > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createlist");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createlist");
         return FALSE;
     }
     Nbvars = Max(*lw, Nbvars);
@@ -761,7 +761,7 @@ int C2F(createvarfrom) (int *lw, char *typex, int *m, int *n, int *lr, int *lar,
 
     if (*lw > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createvarfrom");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createvarfrom");
         return FALSE;
     }
     Nbvars = Max(*lw, Nbvars);
@@ -893,7 +893,7 @@ int C2F(createcvarfrom) (int *lw, char *typex, int *it, int *m, int *n, int *lr,
 
     if (*lw > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createcvarfrom");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createcvarfrom");
         return FALSE;
     }
     Nbvars = Max(*lw, Nbvars);
@@ -990,7 +990,7 @@ int C2F(createlistvarfrom) (int *lnumber, int *number, char *typex, int *m, int 
 
     if (*lnumber > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createlistvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createlistvar");
         return FALSE;
     }
     switch (Type)
@@ -1118,7 +1118,7 @@ int C2F(createlistcvarfrom) (int *lnumber, int *number, char *typex, int *it, in
 
     if (*lnumber > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createlistcvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createlistcvar");
         return FALSE;
     }
 
@@ -1211,7 +1211,7 @@ int C2F(createlistvarfromptr) (int *lnumber, int *number, char *typex, int *m, i
 
     if (*lnumber > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createlistvarfromptr");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createlistvarfromptr");
         return FALSE;
     }
 
@@ -1319,7 +1319,7 @@ int C2F(createlistcvarfromptr) (int *lnumber, int *number, char *typex, int *it,
 
     if (*lnumber > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createlistvarfromptr");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createlistvarfromptr");
         return FALSE;
     }
     switch (Type)
@@ -1384,7 +1384,7 @@ int C2F(creatework) (int *number, int *m, int *lr)
     if (*number > intersiz)
     {
 
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "creatework");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "creatework");
         return FALSE;
     }
     Nbvars = Max(*number, Nbvars);
@@ -1418,7 +1418,7 @@ int C2F(setworksize) (int *number, int *size)
 
     if (*number > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "creatework");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "creatework");
         return FALSE;
     }
     Nbvars = Max(*number, Nbvars);
@@ -1509,7 +1509,7 @@ int C2F(getrhsvar) (int *number, char *typex, int *m, int *n, int *lr, unsigned 
 
     if (*number > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "getrhsvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "getrhsvar");
         return FALSE;
     }
 
@@ -1766,7 +1766,7 @@ int C2F(getrhscvar) (int *number, char *typex, int *it, int *m, int *n, int *lr,
     }
     if (*number > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "getrhscvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "getrhscvar");
         return FALSE;
     }
     topk = Top;
@@ -1885,7 +1885,7 @@ int C2F(getlistrhsvar) (int *lnumber, int *number, char *typex, int *m, int *n, 
     }
     if (*lnumber > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "getlistrhsvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "getlistrhsvar");
         return FALSE;
     }
 
@@ -2040,7 +2040,7 @@ int C2F(getlistrhscvar) (int *lnumber, int *number, char *typex, int *it, int *m
     }
     if (*lnumber > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "getlistrhscvar");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "getlistrhscvar");
         return FALSE;
     }
     switch (Type)
@@ -3844,7 +3844,7 @@ int C2F(createdata) (int *lw, int n)
 
     if (*lw > intersiz)
     {
-        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createdata");
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"), fname, "createdata");
         return FALSE;
     }
     Nbvars = Max(*lw, Nbvars);

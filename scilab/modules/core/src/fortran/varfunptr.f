@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     ---------------------------------
 c     creates a variable with is a pointer on a primitive function 
 C     ---------------------------------
-      include 'stack.h'
+      include 'stack.h.f'
 
       logical compil
       integer bl(nsiz),id(*),ffun,ffin,iadr,sadr
@@ -39,7 +39,7 @@ c     compilation  [27]
       end
 
       subroutine isafunptr(k,id,ffun,ffin)
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr
       integer id(*),ffun,ffin
 

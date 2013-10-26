@@ -14,7 +14,7 @@ c ======================================================================
 c      interface pour l'external add de IMPL
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       double precision y(ny),p(nrowp,ny),t(*)

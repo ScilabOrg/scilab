@@ -12,7 +12,7 @@ c$
 
 c     a/b
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       character fname*(*)

@@ -55,8 +55,8 @@ msgstr "%s: ハイパー行列の展開時の添字 #%d が無効です. "
 msgid "%s: Invalid hypermatrix insertion.\n"
 msgstr "%s: ハイパー行列の挿入が無効です.\n"
 
-msgid "Too many arguments in the stack, edit stack.h and enlarge intersiz.\n"
-msgstr "スタック上の引数が多すぎます. stack.h を編集し,intersiz を大きくしてください.\n"
+msgid "Too many arguments in the stack, edit stack.h.f and enlarge intersiz.\n"
+msgstr "スタック上の引数が多すぎます. stack.h.f を編集し,intersiz を大きくしてください.\n"
 
 #, c-format
 msgid ""

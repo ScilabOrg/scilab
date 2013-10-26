@@ -803,9 +803,9 @@ msgstr "%s: złe odwołanie do %s! (pierwszy parametr).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) zbyt dużo parametrów w stosie, edytuj stack.h i zwiększ intersiz.\n"
+"%s: (%s) zbyt dużo parametrów w stosie, edytuj stack.h.f i zwiększ intersiz.\n"
 
 #, c-format
 msgid "%s: (%s) bad third argument!\n"

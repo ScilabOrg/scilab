@@ -13,7 +13,7 @@ c     macros or list externals for corr
 c ======================================================================
 
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
       double precision y(*)
       character*(nlgh+1) namex,namey

@@ -12,7 +12,7 @@ c----------------------------------------------
 c create a scalar variable
 c x=stk(lstk(isiz)) ==> stored in data base 
 c----------------------------------------------
-      include 'stack.h'
+      include 'stack.h.f'
       double precision x
       integer bl(nsiz),ix(2),lr,lc
       logical cremat,compil

@@ -8,7 +8,7 @@ c you should have received as part of this distribution.  The terms
 c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intprint
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       integer top2,tops
       integer mode(2)

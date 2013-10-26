@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =======================================
       subroutine scifft(fname)
 c     implicit undefined (a-z)
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
       integer lw,li,lr
       integer i,top2

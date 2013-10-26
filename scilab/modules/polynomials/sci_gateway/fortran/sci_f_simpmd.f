@@ -7,7 +7,7 @@ c you should have received as part of this distribution.  The terms
 c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intsimpmd(id)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 
 Cc (DLL Import Intel Fortran)     
 cDEC$ IF DEFINED (FORDLL)

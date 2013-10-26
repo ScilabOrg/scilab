@@ -24,7 +24,7 @@ c
 c
       implicit none
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 
       integer id(nsiz)
 

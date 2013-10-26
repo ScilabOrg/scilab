@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c$
       logical function complexify(n)
 c     transforms the real matrix at position n into complex
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer iadr
 c

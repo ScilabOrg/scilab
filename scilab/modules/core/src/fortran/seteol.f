@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =====================================
 c     insert eol code in compiled structure 
 c     ======================================
-      include 'stack.h'
+      include 'stack.h.f'
       logical compil,ilog
       if(err1.le.0) then
          ilog=compil(15,0,0,0,0)

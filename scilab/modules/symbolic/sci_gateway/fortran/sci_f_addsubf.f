@@ -10,7 +10,7 @@ c
       subroutine sciaddfsubf(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       
       logical isnum
       integer plus,minus

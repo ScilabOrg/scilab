@@ -10,7 +10,7 @@ c     http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine macro
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       parameter (nz2=nsiz-2,nz3=nsiz-3)
       double precision val
@@ -544,7 +544,7 @@ c
       end
 
       integer function scivarindex(l)
-      include 'stack.h'
+      include 'stack.h.f'
       integer k0,k1,k2,l
 
       if(l.ge.lstk(bot)) then

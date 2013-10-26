@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine btof(x,nx)
 c    scilab to fortran
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
       integer hsize
       double precision x

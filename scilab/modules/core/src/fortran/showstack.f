@@ -13,7 +13,7 @@ c     -------------------------
 c     this routines handle  display of calling tree
 c!
 
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer sadr
 c

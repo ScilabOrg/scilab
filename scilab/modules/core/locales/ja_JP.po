@@ -798,8 +798,8 @@ msgstr "%s: %s へのコールが間違っています (1番目の引数).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
-msgstr "%s: (%s) スタック上の引数が多すぎます. stack.h を編集して, intersiz を大きくしてください.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
+msgstr "%s: (%s) スタック上の引数が多すぎます. stack.h.f を編集して, intersiz を大きくしてください.\n"
 
 #, c-format
 msgid "%s: (%s) bad third argument!\n"

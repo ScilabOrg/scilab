@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =====================================
 c     interface for the scilab fort command 
 c     =====================================
-      include 'stack.h'
+      include 'stack.h.f'
 cc      implicit undefined (a-z)
       character*(*) fname
       character*1   type
@@ -31,7 +31,7 @@ cc      implicit undefined (a-z)
       
       nbvars = 0
       flag=.false.
-c     maximum number of variables ( see stack.h) 
+c     maximum number of variables ( see stack.h.f) 
 c     
       namax=intersiz
       call iset(namax,0,ladr,1)

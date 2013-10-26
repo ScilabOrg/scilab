@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     
 c     operations sur les matrices de handle
 c     
-      include 'stack.h'
+      include 'stack.h.f'
       character tmpbuf * (bsiz)
       integer op
 c     
@@ -100,7 +100,7 @@ c
 c     .'
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer vol
       integer iadr,sadr
@@ -140,7 +140,7 @@ c
 c     [a b]
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr
 c     
@@ -200,7 +200,7 @@ c
 c     [a;b]
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr
 c     
@@ -278,7 +278,7 @@ c
 c     B=A(i)
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr
 c     
@@ -399,7 +399,7 @@ c
 c     B=A(i,j)
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr
 c     
@@ -514,7 +514,7 @@ c
 c     A(i)=B
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       logical isany
       integer top0
@@ -818,7 +818,7 @@ c
 c     A(i,j)=B
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer top0
       integer iadr,sadr
@@ -1155,7 +1155,7 @@ c
 c     ==  <>
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer top0,op
       integer less,great,equal,cmp,comparehandles

@@ -15,7 +15,7 @@
 ilib_verbose(0);
 chdir(TMPDIR);
 src = ['      subroutine intsifdec()'
-'      include ''stack.h'''
+'      include ''stack.h.f'''
 '      logical getrhsvar,createvar'
 '      logical checklhs,checkrhs'
 '      external getrhsvar,createvar, checklhs,checkrhs'

@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine where
 c     extrait l'arbre d'appel de l'instruction courante
 c     cette routine est issue de la fin du sous programme error
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 
       integer p,lpts(6),lcts,r,vol,rios

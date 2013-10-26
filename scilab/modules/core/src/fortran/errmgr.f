@@ -17,7 +17,7 @@ c     recovery, display of calling tree
 c     n      : the error number
 c     errtyp : error type (recoverable:0 or not:1)
 c!
-      include 'stack.h'
+      include 'stack.h.f'
       integer errtyp,n
 c
       integer num,imess,imode,lunit

@@ -12,7 +12,7 @@ c$
 c     [VS,dim]=zschur(A,function)
 c     [VS,dim,T]=zschur(A,function)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       
@@ -118,7 +118,7 @@ c
       end
       
       logical function scizschur(w)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createcvar
       common /scisch/ lf, nx, nf
       integer iadr
@@ -144,7 +144,7 @@ c     stk(lx)=fct([re,im])  evaluated by scilab fct pointed to by lf
 
       logical function scizchk()
 c     checks fct passed to schur
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createcvar
 c     
       integer iadr

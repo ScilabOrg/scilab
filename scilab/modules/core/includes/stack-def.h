@@ -29,7 +29,7 @@
 #endif
 #endif
 
-/* C version of stack.h (fortran) */
+/* C version of stack.h.f (fortran) */
 
 /* csiz used for character coding */
 #define csiz 63
@@ -66,7 +66,7 @@
  */
 typedef struct
 {
-#ifdef USE_DYNAMIC_STACK
+#ifndef _MSC_VER
     double *Stk;
 #else
     double Stk[vsiz];

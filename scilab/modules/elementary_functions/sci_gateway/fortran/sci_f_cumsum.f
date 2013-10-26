@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txtc     --------------
 c
       subroutine intcumsum(id)
 c     WARNING : argument of this interface may be passed by reference
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer id(nsiz)
       logical ref
       integer mtlbsel

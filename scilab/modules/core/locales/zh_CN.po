@@ -732,8 +732,8 @@ msgstr "%s：调用 %s 失败！（第一个参数）\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
-msgstr "%s：（%s）栈中参数太多，请编辑 stack.h 并增大 intersiz。\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
+msgstr "%s：（%s）栈中参数太多，请编辑 stack.h.f 并增大 intersiz。\n"
 
 #, c-format
 msgid "%s: (%s) bad third argument!\n"

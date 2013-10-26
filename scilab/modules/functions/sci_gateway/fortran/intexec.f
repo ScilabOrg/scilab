@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intexec
 c     interface of exec function
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c     
       integer flag,semi,typ
       integer mode(2)

@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =======================================
       subroutine scisyredi(fname)
 c      
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
       double precision adelp,adels,fact,zzi(16),zzr(16),zpi(16),zpr(16)
       integer lo,lg

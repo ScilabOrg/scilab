@@ -52,9 +52,9 @@ msgstr "%s: Neplatný index #%d v extrakci hypermatici. "
 msgid "%s: Invalid hypermatrix insertion.\n"
 msgstr "%s: Neplatné vložení hypermatice.\n"
 
-msgid "Too many arguments in the stack, edit stack.h and enlarge intersiz.\n"
+msgid "Too many arguments in the stack, edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"Přílíš mnoho argumentů v zásobníku, upravte stack.h a zvětšete intersiz.\n"
+"Přílíš mnoho argumentů v zásobníku, upravte stack.h.f a zvětšete intersiz.\n"
 
 #, c-format
 msgid ""

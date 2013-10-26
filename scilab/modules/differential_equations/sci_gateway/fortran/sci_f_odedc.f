@@ -13,7 +13,7 @@ c ====================================================================
 c     simulation non lineaire hybride
 c ====================================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 c
 c     common de lsode,lsoda,lsodar
@@ -1135,7 +1135,7 @@ c     iw
 c     fin de odedc.....
       end
 c      subroutine pristk(il,n)
-c      include 'stack.h'
+c      include 'stack.h.f'
 c      write(6,*) (istk(il+i),i=0,n-1)
 c      end
 

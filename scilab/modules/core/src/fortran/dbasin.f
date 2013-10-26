@@ -13,7 +13,7 @@ c
 c     Management of the standard input
 c
 
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fmt
       double precision v(*)
       integer ierr,lunit

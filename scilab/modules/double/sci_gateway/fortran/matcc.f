@@ -12,7 +12,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     
 c     [a;b]
 
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr
 c     

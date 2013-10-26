@@ -37,7 +37,7 @@ c
       integer nipar,nu,ny
 
 
-      include 'stack.h'
+      include 'stack.h.f'
       integer i, n, jj
       integer mode(2)
       integer fmttyp

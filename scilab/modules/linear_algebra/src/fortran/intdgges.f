@@ -13,7 +13,7 @@ c$
 c     [AS,BS,VSL,VSR]=gschur(A,B)
 c     [AS,BS] = gschur(A,B)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       

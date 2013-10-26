@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     -------------------------------
 c     max interface 
 c     -------------------------------
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical checklhs
       integer gettype,itype,topk,sel
       integer iadr,sadr

@@ -16,7 +16,7 @@ c
 c     =================================================================
 c
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 
 C     c (DLL Intel Fortran)
 c     DEC$ IF DEFINED (FORDLL)

@@ -14,7 +14,7 @@ c     Scilab fsolve function
 c     ---------------------------
       character*(*) fname
 c      implicit undefined (a-z)
-      include 'stack.h'
+      include 'stack.h.f'
       integer topk,kres,kjac,kx,m1,n1,lr1,lr,lw,gettype
       logical checklhs,checkrhs,getrmat,getexternal,cremat,jac
       logical type,getscalar

@@ -19,7 +19,7 @@ c     ierr : return error flag
 c!   
 c====================================================================
       integer        ierr,ini1,vsizr
-      include 'stack.h'
+      include 'stack.h.f'
       parameter (nz1=nsiz-1,nz2=nsiz-2)
 c     
 c     common for Control-C interruptions

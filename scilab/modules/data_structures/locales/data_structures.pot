@@ -77,7 +77,7 @@ msgstr ""
 
 #
 # File: src/c/stcreate.c, line: 42
-msgid "Too many arguments in the stack, edit stack.h and enlarge intersiz.\n"
+msgid "Too many arguments in the stack, edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
 
 # File: macros/hypermat.sci, line: 21

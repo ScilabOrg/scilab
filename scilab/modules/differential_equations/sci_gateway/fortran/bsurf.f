@@ -15,7 +15,7 @@ c     gestion des macros external pour la primitive ODE
 c     (traversee de surface)
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       logical allowptr

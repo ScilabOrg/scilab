@@ -13,7 +13,7 @@ c$
 
 c     [X,rank]=lsq(A,B,rcond)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       character fname*(*)

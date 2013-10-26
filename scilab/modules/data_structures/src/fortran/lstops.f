@@ -12,7 +12,7 @@ c     elementary operations on lists
 c ==================================
 c
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c
 c
       character tmpbuf * (bsiz)

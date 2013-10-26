@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     ==================================================
       subroutine intsfind(nmax)
 c     find of a full standard or boolean matrix
-      include 'stack.h'
+      include 'stack.h.f'
 
 c
       logical ref
@@ -169,7 +169,7 @@ c
       end
 
       subroutine intspfind(nmax)
-      include 'stack.h'
+      include 'stack.h.f'
 
       logical ref
       double precision temp

@@ -12,7 +12,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     
 c     matrix/vector entrywize power
 c     
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr
 c     

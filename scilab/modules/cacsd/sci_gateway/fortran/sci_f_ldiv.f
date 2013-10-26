@@ -13,7 +13,7 @@ c
       subroutine scildiv(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 c
       integer vol1,vol2

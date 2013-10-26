@@ -12,7 +12,7 @@ c$
 
 c     U = chol(A)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar
       logical checklhs,checkrhs
       complex*16 ZERO

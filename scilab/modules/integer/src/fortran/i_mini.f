@@ -12,7 +12,7 @@ c     -------------------------------
 c     min interface 
 
 c     -------------------------------
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical checkrhs,checklhs
       integer gettype,itype,topk,sel
       integer iadr,sadr

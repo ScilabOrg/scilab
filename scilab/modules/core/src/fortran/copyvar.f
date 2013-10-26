@@ -12,7 +12,7 @@ c =============================================================
 c     copy a variable  at the top of the stack
 c =============================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
 c     il : pointer on the beginning of the variable
 c     sz : memory size used by the variable (in stk words)

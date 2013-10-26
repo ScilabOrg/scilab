@@ -10,7 +10,7 @@ c     -------------------------------
 c
       subroutine intcumprod(id)
 c     WARNING : argument of this interface may be passed by reference
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer id(nsiz)
       integer mtlbsel
       integer sel,tops,type

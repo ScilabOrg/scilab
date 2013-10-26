@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 c     ==================================================
       subroutine intsbool2s
-      include 'stack.h'
+      include 'stack.h.f'
 
       logical ref
       integer sadr,iadr

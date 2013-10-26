@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intfile
 c     interface for builtin file
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       integer status,access,form,recl,old,new,scratc,unknow
       integer sequen,direct,forma1,unform

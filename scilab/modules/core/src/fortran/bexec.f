@@ -15,7 +15,7 @@ c     in a character string str) within a C
 c     or fortran procedure
 c     ==========================================================
 
-      include 'stack.h'
+      include 'stack.h.f'
       integer sadr,iadr
       character*(*) str
       character*5 tmp

@@ -14,7 +14,7 @@ c     soft external for feval
 c     the result is real or complex according to itype value 
 c     ==========================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       character tmpbuf * (bsiz) 
       integer sadr,iadr

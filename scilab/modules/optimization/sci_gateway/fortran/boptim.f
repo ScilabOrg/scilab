@@ -13,7 +13,7 @@ c ======================================================================
 c     gestion des macros externals pour la primitive OPTIM
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       integer tops,vol

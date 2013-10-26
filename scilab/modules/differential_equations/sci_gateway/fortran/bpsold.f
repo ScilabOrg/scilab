@@ -14,7 +14,7 @@ c ======================================================================
 c     Management of external dealing with preconditioned linear systems.
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c
       common/ierode/iero

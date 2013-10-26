@@ -14,7 +14,7 @@ c$
 c     [As,Bs,VSR,dim]=gschur(A,B,'function')
 c     [VSR,dim]=gschur(A,B,'function')
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       
@@ -147,7 +147,7 @@ c     $    BWORK, INFO )
 
       
       logical function scigshur(alphar,alphai,beta)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createvar, createcvar
       common /scigsch/ lf, nx, nf
       integer iadr
@@ -175,7 +175,7 @@ c     to by lf
 
       logical function scigchk()
 c     checks fct passed to gschur
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createvar, createcvar
 c     
       integer iadr

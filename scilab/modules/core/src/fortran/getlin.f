@@ -29,7 +29,7 @@ C                    menus used when the parser is not in a state allowing
 C                    to execute the callback
 c ====================================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer job, menusflag
       integer lrecl,eol,slash,dot,blank,tab

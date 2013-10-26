@@ -12,7 +12,7 @@ c
 c     --------------------------------------------
 c     Scilab int3d 
 c      implicit undefined (a-z)
-      include 'stack.h'
+      include 'stack.h.f'
       character*(5) fname
       character*(nlgh+1) namef
       integer iero 

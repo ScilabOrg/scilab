@@ -12,7 +12,7 @@ c
 c     print variable names
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer id(nsiz,*),argcnt
       character name*(nlgh)
       logical printed

@@ -10,7 +10,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intexecstr
 c     Bug 1054 corrected by Francois VOGEL, October 2004
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c     
       integer retu(6),comma,eol,topk
       logical getsmat,checklhs,checkrhs,checkval

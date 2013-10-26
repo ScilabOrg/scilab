@@ -912,8 +912,8 @@ msgstr "%s: 錯誤的呼叫 %s! (第一參數).\n"
 # File: src/c/stack2.c, line: 3031
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
-msgstr "%s: (%s) 堆疊 (stacj) 上有太多參數, 編輯 stack.h 檔以加大 intersiz 數值.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
+msgstr "%s: (%s) 堆疊 (stacj) 上有太多參數, 編輯 stack.h.f 檔以加大 intersiz 數值.\n"
 
 #
 # File: src/c/stack2.c, line: 860
@@ -960,7 +960,7 @@ msgstr "%s: (%s)第二參數錯誤!\n"
 msgid ""
 "%s: createcvarfromptr: too many arguments on the stack, enlarge intersiz.\n"
 msgstr ""
-"%s: createcvarfromptr: 堆疊 (stack) 上有太多參數, 編輯 stack.h 檔以加大 intersiz 數值.\n"
+"%s: createcvarfromptr: 堆疊 (stack) 上有太多參數, 編輯 stack.h.f 檔以加大 intersiz 數值.\n"
 
 #
 # File: src/c/stack2.c, line: 1925

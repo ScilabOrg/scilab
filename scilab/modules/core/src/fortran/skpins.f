@@ -18,7 +18,7 @@ c
 c     attention skpins modifie la valeur de lpt en particulier lpt(4)
 c     et lpt(6)
 c     
-      include 'stack.h'
+      include 'stack.h.f'
       parameter (nz1=nsiz-1,nz2=nsiz-2)
 c     
       integer for(nsiz),while(nsiz),iff(nsiz),else(nsiz),ennd(nsiz)

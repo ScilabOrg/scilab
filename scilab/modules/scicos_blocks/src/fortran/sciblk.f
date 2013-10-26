@@ -36,7 +36,7 @@ C        flag   integer
 C        y      column vector block output
 C        xd     column vector block state derivative
 C!
-      include "stack.h"
+      include "stack.h.f"
 C
 
       double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)

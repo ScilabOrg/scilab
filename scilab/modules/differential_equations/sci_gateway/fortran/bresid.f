@@ -14,7 +14,7 @@ c ======================================================================
 c     Gestion des macros externals pour la primitive IMPL
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c     
       logical allowptr

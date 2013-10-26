@@ -10,7 +10,7 @@ c
       subroutine scirdivf(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       
       logical iseye,isnum
       integer lparen,rparen,star,minus,blanc,slash,bslash,symb

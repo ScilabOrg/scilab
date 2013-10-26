@@ -1396,9 +1396,9 @@ Code generation
 void WriteMainHeader(FILE * f, char *fname)
 {
     Fprintf(f, indent, "subroutine %s\n", fname);
-    /* path of stack.h must be defined in FFLAGS */
+    /* path of stack.h.f must be defined in FFLAGS */
     /* same behaviour that others definitions of this include see line 1232 */
-    Fprintf(f, indent, "include 'stack.h'\n");
+    Fprintf(f, indent, "include 'stack.h.f'\n");
     Fprintf(f, indent, "rhs = max(0,rhs)\n");
     FCprintf(f, "c\n");
 }
@@ -1408,7 +1408,7 @@ void WriteHeader(FILE * f, char *fname0, char *fname)
     Fprintf(f, indent, "subroutine %s%s(fname)\n", fname0, fname);
     FCprintf(f, "c\n");
     Fprintf(f, indent, "character*(*) fname\n");
-    Fprintf(f, indent, "include 'stack.h'\n");
+    Fprintf(f, indent, "include 'stack.h.f'\n");
     FCprintf(f, "c\n");
     Fprintf(f, indent, "integer iadr, sadr\n");
     WriteDeclaration(f);

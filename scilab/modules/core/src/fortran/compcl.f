@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     ======================================================================
 c     compilation des structures de controle
 c     ======================================================================
-      include 'stack.h'
+      include 'stack.h.f'
 c
       parameter (nz1=nsiz-1,nz2=nsiz-2)
       parameter (iif=1,iwhile=2,iselect=3)

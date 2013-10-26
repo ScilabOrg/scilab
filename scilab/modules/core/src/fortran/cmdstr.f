@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c ====================================================================
 c     interprets commands arguments (blank or quote delimited character strings)
 c ====================================================================
-      include 'stack.h'
+      include 'stack.h.f'
       integer quote,bl(nsiz),iadr,sadr
       logical cresmat,strtyp,last
       integer blank,eol,semi,comma,slash

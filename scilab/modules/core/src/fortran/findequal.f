@@ -14,7 +14,7 @@ c
 c     the result is returned in found
 c     on return the current char is the last analyzed character
 c
-      include 'stack.h'
+      include 'stack.h.f'
       logical found
 
       integer semi,equal,eol,lparen,rparen,dot,quote

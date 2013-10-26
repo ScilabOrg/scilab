@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine adjuststacksize(mem,offset)
 c     ajuste la stacksize apres allocation
 c     routine for intstacksize
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer offset,p
       integer iadr,sadr
 
@@ -83,7 +83,7 @@ c     Check if a compiled macro is running
       end
 c ====================================================================
       subroutine adjustgstacksize(mem,offset,l)
-      include 'stack.h'
+      include 'stack.h.f'
       integer offset
       integer l
       integer iadr

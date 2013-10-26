@@ -22,7 +22,7 @@ C.. External Calls ..
       external error, int2db
 C 
 C.. Include Statements ..
-      include "stack.h"
+      include "stack.h.f"
 C 
 C.. Statement Functions ..
       integer  iadr

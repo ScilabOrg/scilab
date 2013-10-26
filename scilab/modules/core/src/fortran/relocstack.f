@@ -10,7 +10,7 @@ c     http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     
       subroutine relocstack(new_stk, new_istk, new_sstk, new_cstk,
      $ new_zstk, nstk, nistk, nsstk, ncstk, nzstk)
-      include 'stack.h'
+      include 'stack.h.f'
       
       double precision, target, dimension(nstk)  ::  new_stk
       integer,          target, dimension(nistk) :: new_istk

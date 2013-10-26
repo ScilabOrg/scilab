@@ -72,7 +72,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 *           abs(c) == 40 => c is a blank "like" (blank or tab) char  
 *
       implicit none
-      include 'stack.h'
+      include 'stack.h.f'
       integer opt
       double precision syv
       integer namecd(nlgh), chcnt, io 

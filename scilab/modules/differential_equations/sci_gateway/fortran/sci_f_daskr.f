@@ -16,7 +16,7 @@ c
 c     This code was inspired by sci_f_dasrt.f from the same folder.
 c     daskr() has more optional parameters than dasrt(), so the gateway
 c has to adapt to the new options
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
 c
       character*(*) fname
       character*(nlgh+1) namjac

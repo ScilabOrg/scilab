@@ -21,7 +21,7 @@ c
       subroutine intctree(fname)
 c
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr, sadr
       character*(*) fname
       

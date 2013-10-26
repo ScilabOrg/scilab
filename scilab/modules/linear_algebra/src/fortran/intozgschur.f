@@ -12,7 +12,7 @@ c$
 c     [As,Bs,VSR,dim]=gshur(A,B,function)
 c     [VS,dim]=gshur(A,B,function)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
       
@@ -127,7 +127,7 @@ c
 
       
       logical function scizgshr(alpha,beta)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createcvar
       common /scizgsch/ lf, nx, nf
       integer iadr
@@ -159,7 +159,7 @@ c     lf
 
       logical function scizgchk()
 c     checks fct passed to zgshur
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       logical scifunction, createcvar
       
       integer iadr

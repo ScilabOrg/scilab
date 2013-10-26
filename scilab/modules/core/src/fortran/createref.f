@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine createref1(topk)
-      include 'stack.h'
+      include 'stack.h.f'
       integer topk
       integer iadr
 c
@@ -21,7 +21,7 @@ c =============================================================
 c     create a reference to a variable at the top of the stack
 c =============================================================
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
 c     il   : pointer on the beginning of the variable
 c     topk : index of the variable in lstk if any
@@ -66,7 +66,7 @@ c     corresponding variable as already been stored
 c =============================================================
 c
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c
 c     topk : index of the stored variable in lstk 
 c

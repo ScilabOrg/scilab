@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine intlstcat
 c     catenate two or more lists
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
 c
       iadr(l)=l+l-1

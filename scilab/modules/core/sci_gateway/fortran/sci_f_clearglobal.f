@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intclearglobal(fname)
 c     clear variables in the global area
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       character*(*) fname
       integer top0,id(nsiz),vk

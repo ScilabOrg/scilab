@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine i_i_i
 c     insertion
-      include 'stack.h'
+      include 'stack.h.f'
       logical ref
       integer top0
       integer is2

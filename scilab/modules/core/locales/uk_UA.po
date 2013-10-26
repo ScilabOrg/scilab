@@ -883,10 +883,10 @@ msgstr "%s: помилковий виклик %s (перший параметр)
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
 "%s: (%s) занадто багато параметрів у стеці, збільшіть значення intersiz у "
-"stack.h.\n"
+"stack.h.f.\n"
 
 #, c-format
 msgid "%s: (%s) bad third argument!\n"

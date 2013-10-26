@@ -48,7 +48,7 @@ C
 C**********************************************************************
 C     .. Scalar Arguments ..
 C      INTEGER p
-      include 'stack.h'
+      include 'stack.h.f'
       INTEGER p, ldcovm
 C     ..
 C     .. Array Arguments ..

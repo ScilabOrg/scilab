@@ -132,7 +132,7 @@ C **********************************************************************
 C
       SUBROUTINE sorder( NLHS, PLHS, NRHS, PRHS )
 C     ADDED FOR SCILAB ==========================
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       LOGICAL CREATEVAR
 C     ===========================================
 C

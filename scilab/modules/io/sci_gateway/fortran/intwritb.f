@@ -9,7 +9,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine intwritb
 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer top2
       integer mode(2)
       logical opened

@@ -12,7 +12,7 @@ c
 c     convertit un nom code scilab en une chaine scilab
 c     
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer blank
       parameter (blank=40)
       integer id(nsiz),ch

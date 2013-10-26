@@ -20,7 +20,7 @@ c     See the file ./license.txt
 c 
 	subroutine intvar2vec(fname)
       
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
       character*(*) fname
       

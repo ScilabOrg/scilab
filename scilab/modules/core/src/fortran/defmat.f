@@ -12,7 +12,7 @@ c     ---------------------------------
 C     Add an empty matrix on the stack 
 C     and blank var on vars
 C     ---------------------------------
-      include 'stack.h'
+      include 'stack.h.f'
       logical compil,cremat
       integer bl(nsiz)
       data bl/nsiz*673720360/

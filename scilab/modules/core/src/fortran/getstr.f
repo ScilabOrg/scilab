@@ -13,7 +13,7 @@ c             interpretation d une chaine de caracteres
 c               et rangement dans la base de donnees
 c ====================================================================
 
-      include 'stack.h'
+      include 'stack.h.f'
       integer quote,eol,bl(nsiz),iadr,sadr
       logical cresmat
       data quote/53/,eol/99/, bl/nsiz*673720360/

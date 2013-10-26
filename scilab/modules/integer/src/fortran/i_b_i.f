@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine i_b_i
 c     implicit vector
-      include 'stack.h'
+      include 'stack.h.f'
 
 Cc (DLL Intel Fortran)
 cDEC$ IF DEFINED (FORDLL)

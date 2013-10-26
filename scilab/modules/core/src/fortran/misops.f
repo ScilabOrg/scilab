@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine misops
 c     operations sur les types secondaires (macros librairies...)
 c     =============================================================
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,op,rhs1,r
       integer insert,extrac
@@ -68,7 +68,7 @@ c
 
       subroutine libops
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr,op,r
       integer id(nsiz)
@@ -256,7 +256,7 @@ c     *call* macro
 
       subroutine macroops
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer iadr,sadr,op
       integer equal,less,great

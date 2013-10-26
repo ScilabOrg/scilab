@@ -13,7 +13,7 @@ c     extract all variables contained in a list and store them
 c     at the top of the stack
 c =============================================================
 
-      include 'stack.h'
+      include 'stack.h.f'
 c
 c     il : pointer on the beginning of the list
 c     on return

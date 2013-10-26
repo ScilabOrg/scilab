@@ -13,7 +13,7 @@ c$
 c     [VS,T]=schur(A,'type')
 c     type is r orc$
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs 
 

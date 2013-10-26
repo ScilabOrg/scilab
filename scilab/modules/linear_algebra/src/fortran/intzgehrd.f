@@ -11,7 +11,7 @@ c$
 
 c     [Q,H]=hess(A)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 

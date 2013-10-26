@@ -13,7 +13,7 @@ c
       subroutine scirtitr(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       double precision eps
       integer job,ido
       integer iadr,sadr

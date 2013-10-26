@@ -20,7 +20,7 @@ c     See the file ./license.txt
 c 
 	subroutine  intree2(fname)
 c
-      include 'stack.h'
+      include 'stack.h.f'
       logical checklhs,checkrhs,putlhsvar
       logical createvar,getrhsvar
       character*(*) fname

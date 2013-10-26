@@ -14,7 +14,7 @@ c     list. The lhs is changed  from 1 to the number of extracted
 c     variables.
 c
       integer n,ierr
-      include 'stack.h'
+      include 'stack.h.f'
 
       ierr=0
 c      write(6,'(''forcerhs'',i5)') n

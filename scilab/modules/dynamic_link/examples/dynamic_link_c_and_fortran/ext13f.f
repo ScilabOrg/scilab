@@ -8,7 +8,7 @@ c This file is released under the 3-clause BSD license. See COPYING-BSD.
       subroutine ext13fi(fname)
       character*(*) fname
       logical getrhsvar, createvar,  putlhsvar
-      include 'stack.h'
+      include 'stack.h.f'
 c
       nbvars=0
       minrhs=3

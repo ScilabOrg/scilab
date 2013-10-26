@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     given il the adress of the begining of a scilab variable 
 c     in istk isany returns true if one of the variable entry is non
 c     zero or true
-      include 'stack.h'
+      include 'stack.h.f'
       integer genisany
       integer iadr,sadr
 c

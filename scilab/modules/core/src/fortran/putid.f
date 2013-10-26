@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
 c     store a name
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer x(nsiz),y(nsiz)
       do 10 i = 1, nsiz

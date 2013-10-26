@@ -12,7 +12,7 @@ c$
 c     [Q,R,rk,E]=qr(A,tol)
 c     [Q,R,rk,E]=qr(A)
 
-      include 'stack.h'
+      include 'stack.h.f'
       logical getrhsvar,createvar
       logical checklhs,checkrhs
 

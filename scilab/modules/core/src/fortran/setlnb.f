@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =======================================================
 c     compilation info for line counter 
 c     =======================================================
-      include 'stack.h'
+      include 'stack.h.f'
       logical ilog,compil
       if(err1.gt.0) return
       call whatln(lpt(1),lpt(2),lpt(6),nct,idebut,ifin)

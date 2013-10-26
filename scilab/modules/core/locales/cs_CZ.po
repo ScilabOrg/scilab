@@ -780,9 +780,9 @@ msgstr "%s: špatné volání %s! (1. argument).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) příliš mnoho argumentů v zásobníku, upravte stack.h a zvyšte "
+"%s: (%s) příliš mnoho argumentů v zásobníku, upravte stack.h.f a zvyšte "
 "intersiz.\n"
 
 #, c-format

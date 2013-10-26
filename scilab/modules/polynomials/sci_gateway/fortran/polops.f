@@ -16,7 +16,7 @@ c
 c     =================================================================
 c     ===
 c
-      include 'stack.h'
+      include 'stack.h.f'
 c
 
       integer plus,minus,star,dstar,slash,bslash,dot,colon

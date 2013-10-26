@@ -13,7 +13,7 @@ c
 c      .\
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       double precision sr,si
       integer iadr,sadr

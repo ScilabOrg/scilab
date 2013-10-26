@@ -13,7 +13,7 @@ c
       subroutine scippol(fname)
 c     ----------------------------
       character*(*) fname
-      include 'stack.h'
+      include 'stack.h.f'
       double precision eps
       integer n
       integer iadr,sadr

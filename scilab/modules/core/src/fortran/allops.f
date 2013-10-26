@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c ======================================================================
 c     Calling function according to arguments type
 c ======================================================================
-      include 'stack.h'
+      include 'stack.h.f'
       integer ogettype, vt,vt1,id(nsiz),r,op,bl(nsiz)
       logical compil,ptover
       integer iadr

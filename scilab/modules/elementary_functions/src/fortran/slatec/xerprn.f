@@ -74,7 +74,7 @@ C   891214  Prologue converted to Version 4.0 format.  (WRB)
 C   900510  Added code to break messages between words.  (RWC)
 C   920501  Reformatted the REFERENCES section.  (WRB)
 C***END PROLOGUE  XERPRN
-      include 'stack.h'
+      include 'stack.h.f'
       CHARACTER*(*) PREFIX, MESSG
       INTEGER NPREF, NWRAP
       CHARACTER*148 CBUFF

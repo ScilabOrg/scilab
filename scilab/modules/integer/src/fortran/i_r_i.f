@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine i_r_i
 c     division a droite
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr
 c     
       iadr(l)=l+l-1

@@ -11,7 +11,7 @@ c SCILAB function ordmmd
       subroutine intordmmd(id)
 c**********************************************************
       logical getrhsvar, createvar, putlhsvar
-      include 'stack.h'
+      include 'stack.h.f'
 c
        nbvars=0
 c*****************************************************

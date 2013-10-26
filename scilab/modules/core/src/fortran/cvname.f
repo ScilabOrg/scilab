@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =====================================
 c     Scilab internal coding of vars to string 
 c     =====================================
-      include 'stack.h'
+      include 'stack.h.f'
       integer id(nsiz),name(nlgh),ch,blank,star
       character*(*) str
       data blank/40/,star/47/
@@ -56,7 +56,7 @@ c     =====================================
 c     Scilab internal coding of vars to string 
 c      plus elimination of trailing blank
 c     =====================================
-      include 'stack.h'
+      include 'stack.h.f'
       integer id(nsiz),job,l
       character*(*) str
       call cvname(id,str,job)

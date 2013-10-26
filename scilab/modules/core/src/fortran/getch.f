@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
 c     get next character
 
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer eol
       data eol/99/

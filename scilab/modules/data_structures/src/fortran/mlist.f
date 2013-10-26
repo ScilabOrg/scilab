@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     create a tlist whose type description is given by external
 c     function typdsc
 c
-      include 'stack.h'
+      include 'stack.h.f'
       integer iadr,sadr
       external typdsc
 c

@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =======================================
       subroutine sciremez(fname)
 c      
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
       integer lw,lo
       integer iadr,sadr

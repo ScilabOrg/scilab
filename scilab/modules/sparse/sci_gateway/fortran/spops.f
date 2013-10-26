@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine spops
 c     
 c     operations on sparse matrices
-      include 'stack.h'
+      include 'stack.h.f'
       integer op
 Cc (DLL Intel Fortran)
 cDEC$ IF DEFINED (FORDLL)

@@ -1,5 +1,5 @@
 includes/machine.h
-includes/stack.h
+includes/stack.h.f
 includes/stamp-h1
 includes/version.h
 

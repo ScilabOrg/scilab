@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine funnam(id,fct,il1)
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer id(nsiz)
 
       character*(*) fct
@@ -33,7 +33,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       subroutine putfunnam(fct,k)
       character*(*) fct
       integer k
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr
       iadr(l)=l+l-1
       if (k .le. 0) then
@@ -46,7 +46,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine setfunnam(id,fct,nf)
 c     Copyright INRIA
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer id(nsiz)
       character*(*) fct
       integer name(nlgh)

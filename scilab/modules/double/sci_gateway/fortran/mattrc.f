@@ -13,7 +13,7 @@ c
 c      '
 c     
 c     Copyright INRIA
-      include 'stack.h'
+      include 'stack.h.f'
 c     
       integer vol
       integer iadr,sadr

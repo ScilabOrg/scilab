@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     Determine if stackg may get the variable id by reference (-4) or
 c      by value (0)
 c     
-      include 'stack.h'
+      include 'stack.h.f'
 c
       integer plus,minus,comma,rparen
       character tmpbuf * (bsiz)

@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =======================================
       subroutine scifiir(fname)
 c     implicit undefined (a-z)
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
       return
       end

@@ -9,7 +9,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c     =======================================
       subroutine scirpem(fname)
 c      
-      include 'stack.h'
+      include 'stack.h.f'
       character*(*) fname
       double precision alpha,beta,u,y,eps,eps1,v
       double precision kappa,lambda,mu,nu

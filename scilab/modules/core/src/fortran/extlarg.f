@@ -11,7 +11,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 C     Used in dealing with externals when 
 C     extra arguments are given by a list list(external,arg1,...,argn)
 C      implicit undefined (a-z) 
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer l,ils,nelt,vol,mrhs,i
       nelt=nelt-1
       if(nelt.ne.0) then

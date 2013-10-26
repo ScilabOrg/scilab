@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine intglobal()
-      include 'stack.h'
+      include 'stack.h.f'
       logical checklhs,getsmat,checkval
       integer topk,vol
       integer id(nsiz),blank,percen,ch

@@ -10,7 +10,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
        subroutine scita2lpd(fname)
 c
        character*(*) fname
-       include 'stack.h'
+       include 'stack.h.f'
 c
        integer iadr
        integer topk,rhsk,topl

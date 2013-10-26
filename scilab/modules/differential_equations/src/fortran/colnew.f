@@ -463,7 +463,7 @@ C      IMPLICIT REAL*8 (A-H,O-Z)
       DIMENSION M(*), ZETA(*), IPAR(*), LTOL(*), TOL(*), DUMMY(1),
      1          FIXPNT(*), ISPACE(*), FSPACE(*)
 C
-      include 'stack.h'
+      include 'stack.h.f'
       COMMON /COLOUT/ PRECIS, IOUT, IPRINT
       COMMON /COLLOC/ RHO(7), COEF(49)
       COMMON /COLORD/ K, NC, MSTAR, KD, MMAX, MT(20)

@@ -21,7 +21,7 @@ c
 	subroutine  intree3(fname)
 c
 c			
-      include 'stack.h'
+      include 'stack.h.f'
       logical checklhs,checkrhs,putlhsvar
       logical createvar,getrhsvar
       

@@ -14,7 +14,7 @@ c     Scilab intg
 c      implicit undefined (a-z)
       character*(4) fname
       character*6   namef
-      include 'stack.h'
+      include 'stack.h.f'
       integer iero
       common/ierajf/iero
       common/cintg/namef

@@ -862,9 +862,9 @@ msgstr "%s: chiamata sbagliata a %s! (1° argomento).\n"
 
 #, c-format
 msgid ""
-"%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"
+"%s: (%s) too many arguments in the stack edit stack.h.f and enlarge intersiz.\n"
 msgstr ""
-"%s: (%s) troppi argomenti nello stack, modificare stack.h e allargare "
+"%s: (%s) troppi argomenti nello stack, modificare stack.h.f e allargare "
 "intersiz.\n"
 
 #, c-format

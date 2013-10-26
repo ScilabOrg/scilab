@@ -14,7 +14,7 @@ c ======================================================================
 c     Management of external dealing with preconditioning of linear systems.
 c ======================================================================
 c
-      INCLUDE 'stack.h'
+      INCLUDE 'stack.h.f'
       integer iadr,sadr
 c
       common/ierode/iero
@@ -158,7 +158,7 @@ c      call btof(iwp,2*neq*neq)
       hsize=4
       n=istk(il2+1)*istk(il2+2)*(istk(il2+3)+1)
       liwp = 2*neq*neq
-c     Test if the variable on the stack has same type and size as the theoretical iwp
+c     Test if the variable on the stack.h.fas same type and size as the theoretical iwp
       if (istk(il2).ne.1.or.n.ne.liwp) then
          call error(98)
          return

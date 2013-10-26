@@ -15,7 +15,7 @@ c
        character*4 ityp
        INTEGER*8 val
 
-       include 'stack.h'
+       include 'stack.h.f'
 c
        integer iadr, sadr
        iadr(l)=l+l-1

@@ -14,7 +14,7 @@ C     checks if name is linked and optionaly linked form lib number ilib
 C     ================================================================
       character*(*) fname
 cc    implicit undefined (a-z)
-      include 'stack.h'
+      include 'stack.h.f'
       integer topk,iadr
 c      integer m3,n3,lr3,nlr3,m2,n2,il2,ild2,m1,n1,il1,ild1
       integer ilib,iv ,l1

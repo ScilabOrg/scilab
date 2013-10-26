@@ -12,7 +12,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 C     increment pt with inc and 
 C     checks overflow in pt counter 
 C     returns true if overflow
-      include 'stack.h'
+      include 'stack.h.f'
       pt=pt+inc 
       if(pt.gt.icheck) then
          call error(26)
@@ -28,7 +28,7 @@ C     returns true if overflow
       integer inc,icheck
 C     like ptover but returns true 
 C     if both pt overflows and err is present 
-      include 'stack.h'
+      include 'stack.h.f'
       pt=pt+inc 
       if(pt.gt.icheck) then
          call error(26)

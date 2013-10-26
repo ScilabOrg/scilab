@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine intfull(id)
-      include 'stack.h'
+      include 'stack.h.f'
       integer id(nsiz),top0
       integer iadr, sadr
 c
