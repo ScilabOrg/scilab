@@ -31,7 +31,7 @@ public interface TransformationStack {
         PUSHED,
 
         /**
-         * When the stack have been cleared.
+         * When the stack.have been cleared.
          */
         CLEARED
     }
