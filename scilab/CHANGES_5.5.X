@@ -227,6 +227,7 @@ Xcos
 
 * CBLOCK4 block added to the "User-Defined Functions"
 
+* xcos_debug_gui function added  for a simple use of the Debug block.
 
 Toolbox Skeleton
 =================
