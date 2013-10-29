@@ -17,4 +17,6 @@
 function r=%b_grand(arg)
     r="boolean overload for grand is %b_grand() as expected";
 endfunction
+Warning : redefining function: %b_grand                . Use funcprot(0) to avoid this message
+
 assert_checkequal(grand(%t),"boolean overload for grand is %b_grand() as expected");
