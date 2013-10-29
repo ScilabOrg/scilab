@@ -38,6 +38,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -53,6 +55,7 @@ import java.util.ListIterator;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
@@ -93,6 +96,7 @@ import org.scilab.modules.gui.checkbox.CheckBox;
 import org.scilab.modules.gui.console.Console;
 import org.scilab.modules.gui.dockable.Dockable;
 import org.scilab.modules.gui.editbox.EditBox;
+import org.scilab.modules.gui.editor.EditorEventListener;
 import org.scilab.modules.gui.events.ScilabEventListener;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.events.callback.ScilabCloseCallBack;
@@ -120,8 +124,6 @@ import org.scilab.modules.gui.utils.SciUndockingAction;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.utils.ToolBarBuilder;
-
-import org.scilab.modules.gui.editor.EditorEventListener;
 
 /**
  * Swing implementation for Scilab tabs in GUIs
@@ -160,6 +162,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
     /** Contains the canvas and widgets */
     private SwingScilabAxes contentPane;
     private JLayeredPane layerdPane;
+    private JPanel uicontrolFrame;
 
     /** Scroll the axes */
     private SwingScilabScrollPane scrolling;
@@ -285,11 +288,24 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
         layerdPane = new JLayeredPane();
         layerdPane.setLayout(null);
         layerdPane.add(canvas, JLayeredPane.FRAME_CONTENT_LAYER);
+        
+        uicontrolFrame = new JPanel();
+        uicontrolFrame.setLayout(null);
+        uicontrolFrame.setOpaque(false);
+        //uicontrolFrame.setForeground(Color.RED);
+        //uicontrolFrame.setBackground(Color.RED);
+        //uicontrolFrame.setFocusable(false);
+        layerdPane.add(uicontrolFrame, JLayeredPane.PALETTE_LAYER);
+        
 
-        scrolling = new SwingScilabScrollPane(layerdPane, canvas, figure);
-
+        
+        scrolling = new SwingScilabScrollPane(layerdPane, uicontrolFrame, canvas, figure);
         setContentPane(scrolling.getAsContainer());
+        
+        
         canvas.setVisible(true);
+        uicontrolFrame.setVisible(true);
+        
 
         /* Manage figure_position property */
         addHierarchyBoundsListener(new HierarchyBoundsListener() {
@@ -375,11 +391,11 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
     public void focusGained(FocusEvent e) {
         //ActiveDockableTracker.requestDockableActivation(this);
         if (contentPane != null) {
-            contentPane.requestFocus();
+            //contentPane.requestFocus();
         } else if (getContentPane() != null) {
-            getContentPane().requestFocus();
+            //getContentPane().requestFocus();
         } else {
-            SwingScilabTab.this.requestFocusInWindow();
+            //SwingScilabTab.this.requestFocusInWindow();
         }
     }
 
@@ -495,41 +511,6 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
     }
 
     /**
-     * Paint immediately this component
-     */
-    public void paintImmediately() {
-        // paint all
-        paintImmediately(0, 0, getWidth(), getHeight());
-    }
-
-    /**
-     * Draws a swing Scilab tab
-     * @see org.scilab.modules.gui.uielement.UIElement#draw()
-     */
-    @Override
-    public void draw() {
-        if (SwingUtilities.isEventDispatchThread()) {
-            setVisible(true);
-            paintImmediately();
-        } else {
-            try {
-                SwingUtilities.invokeAndWait(new Runnable() {
-                    @Override
-                    public void run() {
-                        setVisible(true);
-                        paintImmediately();
-                    }
-                });
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    /**
      * Gets the dimensions (width and height) of a swing Scilab tab
      * @return the dimensions of the tab
      * @see org.scilab.modules.gui.uielement.UIElement#getDims()
@@ -613,7 +594,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
          * Force adding Widget at JLayeredPane.DEFAULT_LAYER + 1
          * to draw them uppon GLJPanel (even if it is at level JLayeredPane.FRAME_CONTENT_LAYER)
          */
-        layerdPane.add((Component) member, JLayeredPane.DEFAULT_LAYER + 1, 0);
+        uicontrolFrame.add((Component) member);
     }
 
     /**
@@ -621,7 +602,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      * @param member the member to remove
      */
     public void removeMember(SwingViewObject member) {
-        layerdPane.remove((Component) member);
+        uicontrolFrame.remove((Component) member);
     }
 
     /**
@@ -718,6 +699,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      * @return index of member in ArrayList
      */
     private int addMember(SwingScilabPushButton member) {
+        System.err.println("{SwingScilabTab} addMember(SwingScilabPushButton member)");
         int res = contentPane.addWidget(member);
         repaint();
         return res;
@@ -1395,25 +1377,6 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
     }
 
     /**
-     * Redefine paint children to be sure that AWT components are well painted.
-     *  @param g a Graphics
-     */
-    @Override
-    public void paintChildren(Graphics g) {
-        if (paintEnable) {
-            Component[] children = getComponents();
-            for (int i = 0; i < children.length; i++) {
-                // AWT children don't draw themselves automatically
-                // so force their draw
-                if (!children[i].isLightweight()) {
-                    children[i].paint(g);
-                }
-            }
-            super.paintChildren(g);
-        }
-    }
-
-    /**
      * Update the tab after a modification of its properties
      * @param property the property name
      * @param value the property value
@@ -1585,5 +1548,11 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             contentCanvas.removeEventHandlerMouseListener(eventHandler);
             contentCanvas.removeEventHandlerMouseMotionListener(eventHandler);
         }
+    }
+
+    @Override
+    public void draw() {
+        // TODO Auto-generated method stub
+        
     }
 }

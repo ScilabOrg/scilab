@@ -45,14 +45,16 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
     private SwingScilabCanvas canvas;
     private Figure figure;
     private Component comp;
+    private Component comp2;
 
     /**
      * Create a new Scroll pane around an axes.
      * @param axes axes to scroll
      */
-    public SwingScilabScrollPane(Component comp, SwingScilabCanvas canvas, Figure figure) {
+    public SwingScilabScrollPane(Component comp, Component comp2, SwingScilabCanvas canvas, Figure figure) {
         super(comp);
         this.comp = comp;
+        this.comp2 = comp2;
         this.canvas = canvas;
         this.figure = figure;
         // use the axes background as default one
@@ -140,6 +142,8 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
                 Dimension d = new Dimension(figure.getAxesSize()[0], figure.getAxesSize()[1]);
                 comp.setPreferredSize(d);
                 comp.setSize(d);
+                comp2.setPreferredSize(d);
+                comp2.setSize(d);
                 canvas.setBounds(0, 0, figure.getAxesSize()[0], figure.getAxesSize()[1]);
             }
 
