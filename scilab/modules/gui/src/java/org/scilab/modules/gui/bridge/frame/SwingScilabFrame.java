@@ -13,17 +13,10 @@
 
 package org.scilab.modules.gui.bridge.frame;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CHILDREN__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
-
 import java.awt.Component;
 
 import javax.swing.JPanel;
 
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.gui.SwingView;
-import org.scilab.modules.gui.SwingViewObject;
-import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvas;
 import org.scilab.modules.gui.bridge.checkbox.SwingScilabCheckBox;
 import org.scilab.modules.gui.bridge.console.SwingScilabConsole;
@@ -63,7 +56,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleFrame {
+public class SwingScilabFrame extends JPanel implements SimpleFrame {
 
     private static final long serialVersionUID = -7401084975837285447L;
 
@@ -122,14 +115,6 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
     public void setPosition(Position newPosition) {
         Position javaPosition = PositionConverter.scilabToJava(newPosition, getDims(), getParent());
         setLocation(javaPosition.getX(), javaPosition.getY());
-    }
-
-    /**
-     * Add a SwingViewObject (from SwingView.java) to container and returns its index
-     * @param member the member to add
-     */
-    public void addMember(SwingViewObject member) {
-        this.add((Component) member);
     }
 
     /**
@@ -580,52 +565,16 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
     }
 
     /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
-    }
-
-    /**
      * Set the enable status of the frame and its children
      * @param status the status to set
      */
     public void setEnabled(boolean status) {
-        if (status) {
-            // Enable the frame
-            super.setEnabled(status);
-            // Enable its children according to their __GO_UI_ENABLE__ property
-            Integer[] children = (Integer[]) GraphicController.getController().getProperty(uid, __GO_CHILDREN__);
-            for (int kChild = 0; kChild < children.length; kChild++) {
-                Boolean childStatus = (Boolean) GraphicController.getController().getProperty(children[kChild], __GO_UI_ENABLE__);
-                SwingView.getFromId(children[kChild]).update(__GO_UI_ENABLE__, childStatus);
-            }
-        } else {
-            // Disable the frame
-            super.setEnabled(status);
-            // Disable its children
-            Component[] components = getComponents();
-            for (int compIndex = 0; compIndex < components.length; compIndex++) {
-                components[compIndex].setEnabled(false);
-            }
-        }
+	// Disable the frame
+	super.setEnabled(status);
+	// Disable its children
+	Component[] components = getComponents();
+	for (int compIndex = 0; compIndex < components.length; compIndex++) {
+	    components[compIndex].setEnabled(false);
+	}
     }
 }

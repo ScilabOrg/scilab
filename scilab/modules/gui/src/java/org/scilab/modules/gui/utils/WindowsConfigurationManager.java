@@ -485,7 +485,6 @@ public class WindowsConfigurationManager implements XConfigurationListener {
                                         window.requestFocus();
                                         window.toFront();
                                         window.setIsRestoring(false);
-
                                         ActiveDockableTracker.requestDockableActivation(mainTab);
                                     }
                                 });

@@ -29,12 +29,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
+import org.scilab.modules.graphic_objects.ScilabNativeView;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
+import org.scilab.modules.gui.uiwidget.callback.UICallback;
+import org.scilab.modules.gui.uiwidget.go.UIWidgetGraphicObject;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.types.ScilabHandle;
 import org.scilab.modules.types.ScilabStackPutter;
-import org.scilab.modules.gui.uiwidget.callback.UICallback;
 
 /**
  * Class to provide easy way to convert a Java object into a Scilab variable and to put the result
@@ -243,13 +245,13 @@ public final class ObjectToScilabConverters {
         converters.put(Rectangle.class, new ObjectConverter() {
             public void convert(Object o, int stackPos) {
                 Rectangle r = (Rectangle) o;
-                ScilabStackPutter.put(stackPos, new double[] {(double) r.x, (double) r.y, (double) r.width, (double) r.height} , false);
+                ScilabStackPutter.put(stackPos, new double[] {(double) r.x, (double) r.y, (double) r.width, (double) r.height} , true);
             }
         });
         converters.put(Rectangle2D.Double.class, new ObjectConverter() {
             public void convert(Object o, int stackPos) {
                 Rectangle2D.Double r = (Rectangle2D.Double) o;
-                ScilabStackPutter.put(stackPos, new double[] {r.x, r.y, r.width, r.height} , false);
+                ScilabStackPutter.put(stackPos, new double[] {r.x, r.y, r.width, r.height} , true);
             }
         });
         converters.put(Dimension.class, new ObjectConverter() {
@@ -286,6 +288,26 @@ public final class ObjectToScilabConverters {
             public void convert(Object o, int stackPos) {
                 UIComponent ui = (UIComponent) o;
                 ScilabHandle handle = new ScilabHandle((long) (-ui.getUid() - 1));
+                ScilabStackPutter.put(stackPos, handle);
+            }
+        });
+        converters.put(UIWidgetGraphicObject.class, new ObjectConverter() {
+            public void convert(Object o, int stackPos) {
+                UIWidgetGraphicObject go = (UIWidgetGraphicObject) o;
+		Integer id = go.getIdentifier();
+                ScilabHandle handle = new ScilabHandle((long) ScilabNativeView.ScilabNativeView__getObjectHandle(id));
+                ScilabStackPutter.put(stackPos, handle);
+            }
+        });
+        converters.put(UIWidgetGraphicObject[].class, new ObjectConverter() {
+            public void convert(Object o, int stackPos) {
+                UIWidgetGraphicObject[] gos = (UIWidgetGraphicObject[]) o;
+                long[][] hdls = new long[1][gos.length];
+                for (int i = 0; i < gos.length; i++) {
+                    hdls[0][i] = (long) ScilabNativeView.ScilabNativeView__getObjectHandle(gos[i].getIdentifier());
+                }		
+
+                ScilabHandle handle = new ScilabHandle(hdls);
                 ScilabStackPutter.put(stackPos, handle);
             }
         });

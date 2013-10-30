@@ -114,7 +114,7 @@ int sci_uiset(char *fname, unsigned long fname_len)
                 path = 0;
             }
 
-            UserDataHandler::put(uid, i + 1);
+            UserDataHandler::put(uid, i + 1, pvApiCtx);
         }
         else
         {

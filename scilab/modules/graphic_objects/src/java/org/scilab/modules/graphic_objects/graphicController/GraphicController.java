@@ -56,7 +56,7 @@ public class GraphicController {
     /**
      * Set of all views attached to this controller.
      */
-    private volatile static Set<GraphicView> allViews =  Collections.synchronizedSet(new HashSet<GraphicView>());
+    private volatile static Set<GraphicView> allViews = Collections.synchronizedSet(new HashSet<GraphicView>());
 
     /**
      * Graphic controller singleton.
@@ -154,6 +154,75 @@ public class GraphicController {
     }
 
     /**
+     * Fast property set method
+     * @param id the object id
+     * @return true if the property has been set, false otherwise
+     */
+    public boolean setProperty(Integer id) {
+        try {
+            switch (GraphicModel.getModel().setProperty(id)) {
+                case Success : // BroadCast Message + return true
+                    //objectUpdate(id, prop);
+                    return true;
+                case NoChange : // Do not broadcast message
+                    return true;
+                case Fail :
+                    return false;
+            }
+            return false;
+        } catch (Exception e) {
+            DEBUG("====== Exception caught ======");
+            DEBUG("setProperty : " + id);
+            e.printStackTrace();
+            DEBUG("====== Exception caught ======");
+            return false;
+        }
+    }
+
+    /**
+     * Fast property set method
+     * @param id the object id
+     * @return true if the property has been set, false otherwise
+     */
+    public boolean setProperty(String id) {
+        try {
+            switch (GraphicModel.getModel().setProperty(id)) {
+                case Success : // BroadCast Message + return true
+                    //objectUpdate(id, prop);
+                    return true;
+                case NoChange : // Do not broadcast message
+                    return true;
+                case Fail :
+                    return false;
+            }
+            return false;
+        } catch (Exception e) {
+            DEBUG("====== Exception caught ======");
+            DEBUG("setProperty : " + id);
+            e.printStackTrace();
+            DEBUG("====== Exception caught ======");
+            return false;
+        }
+    }
+
+    /**
+     * Fast property get method
+     * @param id the object id
+     * @param prop the property name
+     * @return the property value
+     */
+    public void getProperty(Integer id, String property, int stackPos) {
+        try {
+            GraphicModel.getModel().getProperty(id, property, stackPos);
+        } catch (Exception e) {
+            DEBUG("====== Exception caught ======");
+            DEBUG("getProperty : [" + id + "] " + property);
+            e.printStackTrace();
+            DEBUG("====== Exception caught ======");
+        }
+    }
+
+    /**
      * Fast property get method
      * @param id the object id
      * @param prop the property name
@@ -187,7 +256,6 @@ public class GraphicController {
      * @return the created object's id
      */
     public Integer askObject(Type type) {
-
         try {
             Integer id = createUID();
             GraphicModel.getModel().createObject(id, type);
@@ -201,7 +269,6 @@ public class GraphicController {
             DEBUG("====== Exception caught ======");
             return 0;
         }
-
     }
 
     /**

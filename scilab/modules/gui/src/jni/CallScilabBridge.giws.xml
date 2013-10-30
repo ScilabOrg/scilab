@@ -216,5 +216,6 @@
         <method name="fireClosingFinished" returnType="void" modifier="static">
             <parameter type="int" name="figUID"/>
         </method>
+        <method name="initUIControl" returnType="int" modifier="static"/>
     </object>
 </package>

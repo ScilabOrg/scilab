@@ -14,16 +14,11 @@
 
 package org.scilab.modules.gui.bridge.popupmenu;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.popupmenu.SimplePopupMenu;
@@ -40,7 +35,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabPopupMenu extends JComboBox implements SwingViewObject, SimplePopupMenu {
+public class SwingScilabPopupMenu extends JComboBox implements SimplePopupMenu {
 
     private static final long serialVersionUID = -4366581303317502544L;
 
@@ -59,9 +54,6 @@ public class SwingScilabPopupMenu extends JComboBox implements SwingViewObject, 
         putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
         defaultActionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Double[] scilabIndices = new Double[1];
-                scilabIndices[0] = (double) getUserSelectedIndex();
-                GraphicController.getController().setProperty(uid, __GO_UI_VALUE__, scilabIndices);
                 if (callback != null) {
                     callback.actionPerformed(null);
                 }
@@ -364,31 +356,6 @@ public class SwingScilabPopupMenu extends JComboBox implements SwingViewObject, 
         public String toString() {
             return textOfItem;
         }
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 }
 

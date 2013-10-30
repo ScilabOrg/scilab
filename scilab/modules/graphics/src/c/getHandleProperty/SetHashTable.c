@@ -52,7 +52,7 @@ typedef struct
 * don't forget to modify it each time the propertyTable
 * is modified.
 */
-#define NB_PROPERTIES 173
+#define NB_PROPERTIES 156
 
 /**
 * list of all property names and associated functions in scilab
@@ -185,24 +185,8 @@ static setHashTableCouple propertyTable[NB_PROPERTIES] =
     {"event_handler_enable", set_event_handler_enable_property},
     {"event_handler", set_event_handler_property},
     {"label", SetUimenuLabel},
-    {"string", SetUicontrolString},
-    {"backgroundcolor", SetUicontrolBackgroundColor},
     {"foregroundcolor", SetUiobjectForegroundColor},
-    {"fontweight", SetUicontrolFontWeight},
-    {"fontunits", SetUicontrolFontUnits},
-    {"fontsize", SetUicontrolFontSize},
-    {"fontangle", SetUicontrolFontAngle},
-    {"min", SetUicontrolMin},
-    {"max", SetUicontrolMax},
     {"tag", set_tag_property},
-    {"listboxtop", SetUicontrolListboxTop},
-    {"value", SetUicontrolValue},
-    {"units", SetUicontrolUnits},
-    {"relief", SetUicontrolRelief},
-    {"horizontalalignment", SetUicontrolHorizontalAlignment},
-    {"verticalalignment", SetUicontrolVerticalAlignment},
-    {"fontname", SetUicontrolFontName},
-    {"sliderstep", SetUicontrolSliderStep},
     {"checked", SetUimenuChecked},
     {"arc_drawing_method", set_arc_drawing_method_property},
     {"fractional_font", set_fractional_font_property},
@@ -215,7 +199,6 @@ static setHashTableCouple propertyTable[NB_PROPERTIES] =
     {"anti_aliasing", set_anti_aliasing_property},
     {"showhiddenhandles", SetConsoleShowHiddenHandles},
     {"resizefcn", set_figure_resizefcn_property},
-    {"tooltipstring", SetUicontrolTooltipString},
     {"closerequestfcn", set_figure_closerequestfcn_property},
     {"tip_data", set_tip_data_property},
     {"tip_orientation", set_tip_orientation_property},

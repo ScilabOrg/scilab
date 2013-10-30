@@ -20,8 +20,6 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.uitable.SimpleUiTable;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -38,7 +36,7 @@ import org.scilab.modules.gui.utils.Size;
  * Swing implementation for Scilab UiTable in GUIs
  * @author Han DONG
  */
-public class SwingScilabUiTable extends JScrollPane implements SwingViewObject, SimpleUiTable {
+public class SwingScilabUiTable extends JScrollPane implements SimpleUiTable {
 
     private static final long serialVersionUID = -5497171010652701217L;
 
@@ -394,30 +392,4 @@ public class SwingScilabUiTable extends JScrollPane implements SwingViewObject, 
         getViewport().add(uiTable);
         uiTable.doLayout();
     }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
-    }
-
 }

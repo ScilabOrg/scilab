@@ -35,7 +35,11 @@ public class Frame extends ScilabWidget {
     }
 
     public Object newInstance() {
-        JPanel frame = new JPanel();
+        JPanel frame = new JPanel() {
+                public boolean isOptimizedDrawingEnabled() {
+                    return !(getLayout() instanceof NoLayout);
+                }
+	    };
         frame.setLayout(new NoLayout());
 
         return frame;

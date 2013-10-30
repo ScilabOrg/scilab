@@ -166,16 +166,17 @@ public class NoLayout implements LayoutManager2 {
                             break;
                     }
 
-                    if (!c.getBounds().equals(rr)) {
+		    Rectangle bounds = c.getBounds();
+                    if (!bounds.equals(rr)) {
                         c.setBounds(rr);
-                        /*if (bounds.width != rr.width || bounds .height != rr.height) {
+                        if (bounds.width != rr.width || bounds.height != rr.height) {
                             if (c instanceof JComponent) {
                         	((JComponent) c).revalidate();
                             } else {
                         	c.invalidate();
                         	c.validate();
                             }
-                            }*/
+			}
                     }
                 }
             }
@@ -247,6 +248,10 @@ public class NoLayout implements LayoutManager2 {
             unit[2] = w;
             unit[3] = h;
         }
+
+	public void setUnit(int u) {
+	    setUnit(u, u, u, u);
+	}
 
 
         public String toString() {

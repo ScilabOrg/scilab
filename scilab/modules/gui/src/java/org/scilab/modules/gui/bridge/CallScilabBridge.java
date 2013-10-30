@@ -52,13 +52,13 @@ import org.scilab.modules.console.SciConsole;
 import org.scilab.modules.graphic_export.FileExporter;
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicFactory.GraphicFactory;
 import org.scilab.modules.gui.SwingView;
 import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvas;
 import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvasImpl;
 import org.scilab.modules.gui.bridge.console.SwingScilabConsole;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
-import org.scilab.modules.gui.bridge.frame.SwingScilabFrame;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.colorchooser.ColorChooser;
 import org.scilab.modules.gui.colorchooser.ScilabColorChooser;
@@ -71,6 +71,8 @@ import org.scilab.modules.gui.helpbrowser.HelpBrowser;
 import org.scilab.modules.gui.helpbrowser.ScilabHelpBrowser;
 import org.scilab.modules.gui.messagebox.MessageBox;
 import org.scilab.modules.gui.messagebox.ScilabMessageBox;
+import org.scilab.modules.gui.uiwidget.go.UIWidgetGraphicObject;
+import org.scilab.modules.gui.uiwidget.go.UIWidgetGraphicObjectFactory;
 import org.scilab.modules.gui.utils.BarUpdater;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.ConfigManager;
@@ -1281,13 +1283,7 @@ public class CallScilabBridge {
      * @param uicontrolUID the uicontrolUID of the Widget
      */
     public static void requestFocus(int uicontrolUID) {
-        SwingViewObject uicontrol = SwingView.getFromId(uicontrolUID);
-        if (uicontrol instanceof SwingScilabFrame) {
-            ((SwingScilabFrame) uicontrol).requestFocus();
-        } else {
-            ((Widget) uicontrol).requestFocus();
-        }
-
+	UIWidgetGraphicObject.requestFocus(uicontrolUID);
     }
 
     /**
@@ -1339,5 +1335,10 @@ public class CallScilabBridge {
     public static void fireClosingFinished(int figUID) {
         SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(figUID);
         ClosingOperationsManager.removeFromDunnoList(parentTab);
+    }
+
+    public static int initUIControl() {
+	UIWidgetGraphicObjectFactory.register();
+	return GraphicFactory.getGOHandler();
     }
 }

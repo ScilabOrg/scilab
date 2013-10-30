@@ -29,6 +29,7 @@ import javax.media.opengl.awt.GLJPanel;
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.commons.OS;
 import org.scilab.modules.gui.utils.Debug;
+import org.scilab.modules.gui.uiwidget.components.NoLayout;
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.graphic_objects.DataLoader;
 
@@ -226,6 +227,10 @@ public class SwingScilabCanvasImpl {
             }
         }
 
+	public boolean isOptimizedDrawingEnabled() {
+	    return !(getLayout() instanceof NoLayout);
+	}
+
         // protected void paintComponent(final Graphics g) {
         //     try {
         //         super.paintComponent(g);
@@ -265,9 +270,9 @@ public class SwingScilabCanvasImpl {
 
     public Component createOpenGLComponent(boolean isCanvas) {
         if (isCanvas) {
-            return new GLCanvas();
+            return new SafeGLCanvas();
         } else {
-            return new GLJPanel();
+            return new SafeGLJPanel();
         }
     }
 

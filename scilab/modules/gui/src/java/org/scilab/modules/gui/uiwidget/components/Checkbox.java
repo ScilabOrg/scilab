@@ -47,6 +47,18 @@ public class Checkbox extends ScilabWidget {
         }
     }
 
+    public void setValue(double[] value) {
+	if (value != null && value.length >= 1) {
+	    double v = value[0];
+	    if (v == getMin()) {
+		((JCheckBox) getModifiableComponent()).setSelected(false);
+	    } else if (v == getMax()) {
+		((JCheckBox) getModifiableComponent()).setSelected(true);
+	    }
+	}
+	super.setValue(value);
+    } 
+
     public double[] getValue() {
         if (((JCheckBox) getModifiableComponent()).isSelected()) {
             return new double[] {getMin()};

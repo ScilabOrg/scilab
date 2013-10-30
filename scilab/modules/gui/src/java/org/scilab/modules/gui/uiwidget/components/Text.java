@@ -59,7 +59,7 @@ public class Text extends ScilabWidget {
                     label.getVerticalScrollBar().setUnitIncrement(label.getFont().getSize());
                 }
             });
-            super.setString(strs);
+            super.setString(new String[][]{ s });
         }
     }
 }
