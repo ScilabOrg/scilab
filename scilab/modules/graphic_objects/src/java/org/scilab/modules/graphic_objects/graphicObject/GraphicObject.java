@@ -18,6 +18,7 @@ import org.scilab.modules.graphic_objects.axes.Axes;
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.legend.Legend;
+import org.scilab.modules.types.ScilabType;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -44,9 +45,8 @@ public abstract class GraphicObject implements Cloneable {
 
     /** Graphic objects types */
     public enum Type { ARC, AXES, AXESMODEL, AXIS, CHAMP, COMPOUND, FAC3D, FEC, FIGURE, FIGUREMODEL, GRAYPLOT,
-                       LABEL, LEGEND, MATPLOT, PLOT3D, POLYLINE, RECTANGLE, SEGS, TEXT, CHECKBOX, EDIT, FRAME,
-                       IMAGE, LISTBOX, POPUPMENU, PUSHBUTTON, RADIOBUTTON, CONSOLE, JAVACONSOLE, SLIDER, TABLE, UITEXT, UIMENU, UIMENUMODEL,
-                       PROGRESSIONBAR, WAITBAR, UICONTEXTMENU, DATATIP, LIGHT, UNKNOWNOBJECT
+                       LABEL, LEGEND, MATPLOT, PLOT3D, POLYLINE, RECTANGLE, SEGS, TEXT, CONSOLE, JAVACONSOLE, UIMENU, UIMENUMODEL,
+                       PROGRESSIONBAR, WAITBAR, UICONTEXTMENU, DATATIP, LIGHT, UICONTROL, UNKNOWNOBJECT
                      };
 
     /** GraphicObject properties */
@@ -189,28 +189,6 @@ public abstract class GraphicObject implements Cloneable {
                 return Type.SEGS;
             case __GO_TEXT__ :
                 return Type.TEXT;
-            case __GO_UI_CHECKBOX__ :
-                return Type.CHECKBOX;
-            case __GO_UI_EDIT__ :
-                return Type.EDIT;
-            case __GO_UI_FRAME__ :
-                return Type.FRAME;
-            case __GO_UI_IMAGE__ :
-                return Type.IMAGE;
-            case __GO_UI_LISTBOX__ :
-                return Type.LISTBOX;
-            case __GO_UI_POPUPMENU__ :
-                return Type.POPUPMENU;
-            case __GO_UI_PUSHBUTTON__ :
-                return Type.PUSHBUTTON;
-            case __GO_UI_RADIOBUTTON__ :
-                return Type.RADIOBUTTON;
-            case __GO_UI_SLIDER__ :
-                return Type.SLIDER;
-            case __GO_UI_TABLE__ :
-                return Type.TABLE;
-            case __GO_UI_TEXT__ :
-                return Type.UITEXT;
             case __GO_UIMENU__ :
                 return Type.UIMENU;
             case __GO_UICONTEXTMENU__ :
@@ -223,6 +201,8 @@ public abstract class GraphicObject implements Cloneable {
                 return Type.DATATIP;
             case __GO_LIGHT__ :
                 return Type.LIGHT;
+            case __GO_UICONTROL__ :
+                return Type.UICONTROL;
             default :
                 return Type.UNKNOWNOBJECT;
         }
@@ -332,6 +312,14 @@ public abstract class GraphicObject implements Cloneable {
             default:
                 return null;
         }
+    }
+
+    public void getProperty(Object property, int stackPos) {
+
+    }
+
+    public UpdateStatus setProperty(List<ScilabType> args) {
+        return UpdateStatus.Success;
     }
 
     /**

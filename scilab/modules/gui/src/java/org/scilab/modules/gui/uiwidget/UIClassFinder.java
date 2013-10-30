@@ -84,19 +84,19 @@ public final class UIClassFinder {
 
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL url = classLoader.getResource(pack.replace(".", "/"));
+            URL url = classLoader.getResource(pack.replace(".", "/")); 
 
             if (url.getProtocol().equals("jar")) {
                 JarURLConnection connection = (JarURLConnection) url.openConnection();
                 JarFile file = connection.getJarFile();
-                String parent = connection.getJarEntry().getName();
+                File parent = new File(connection.getJarEntry().getName());
 
                 Enumeration<JarEntry> entries = file.entries();
 
                 while (entries.hasMoreElements()) {
                     String name = entries.nextElement().getName();
                     File f = new File(name);
-                    if (parent.equals(f.getParent())) {
+                    if (parent.equals(f.getParentFile())) {
                         String n = f.getName();
                         int dot = n.lastIndexOf('.');
                         if (dot != -1) {

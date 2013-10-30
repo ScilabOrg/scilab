@@ -95,7 +95,7 @@ public final class Jxclick {
     /**
      * @return the windowID
      */
-    public static Integer getWindowID() {
+    public static int getWindowID() {
         return ClickInfos.getInstance().getWindowID();
     }
     /**

@@ -46,7 +46,7 @@ public class UIScilabFunctionCallback extends UICallback {
      */
     private final String getActionString(final UIComponent comp, final Object ... args) {
         StringBuilder buffer = new StringBuilder(128);
-        buffer.append(code).append("(createUIWidgetHandle(int32(").append(Integer.toString(-comp.getUid() - 1)).append("))");
+        buffer.append(code).append(comp.getObjectMapping());
         if (args.length >= 1) {
             buffer.append(",");
         }

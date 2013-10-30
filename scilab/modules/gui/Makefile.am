@@ -53,7 +53,6 @@ src/c/getMainWindowTitle.c \
 src/c/InitializeGUI.c \
 src/c/setMainWindowTitle.c \
 src/c/addmenu.c \
-src/c/CreateUIControl.c \
 src/c/CreateUimenu.c \
 src/c/checkColorRange.c \
 src/c/messageboxoptions.c \
@@ -78,49 +77,13 @@ src/cpp/Toolbar.cpp \
 src/cpp/Widget.cpp \
 src/cpp/SetUimenuLabel.cpp \
 src/cpp/GetUimenuLabel.cpp \
-src/cpp/GetUicontrolStyle.cpp \
-src/cpp/SetUicontrolString.cpp \
-src/cpp/GetUicontrolString.cpp \
-src/cpp/SetUicontrolTooltipString.cpp \
-src/cpp/GetUicontrolTooltipString.cpp \
-src/cpp/SetUicontrolBackgroundColor.cpp \
-src/cpp/GetUicontrolBackgroundColor.cpp \
 src/cpp/SetUiobjectForegroundColor.cpp \
 src/cpp/GetUiobjectForegroundColor.cpp \
-src/cpp/SetUicontrolPosition.cpp \
-src/cpp/GetUicontrolPosition.cpp \
-src/cpp/SetUicontrolFontName.cpp \
-src/cpp/GetUicontrolFontName.cpp \
-src/cpp/SetUicontrolFontWeight.cpp \
-src/cpp/GetUicontrolFontWeight.cpp \
-src/cpp/SetUicontrolFontUnits.cpp \
-src/cpp/GetUicontrolFontUnits.cpp \
-src/cpp/SetUicontrolFontSize.cpp \
-src/cpp/GetUicontrolFontSize.cpp \
-src/cpp/SetUicontrolFontAngle.cpp \
-src/cpp/GetUicontrolFontAngle.cpp \
 src/cpp/SetUiobjectEnable.cpp \
 src/cpp/GetUiobjectEnable.cpp \
 src/cpp/SetUimenuChecked.cpp \
 src/cpp/GetUimenuChecked.cpp \
-src/cpp/SetUicontrolMin.cpp \
-src/cpp/GetUicontrolMin.cpp \
-src/cpp/SetUicontrolMax.cpp \
-src/cpp/GetUicontrolMax.cpp \
-src/cpp/SetUicontrolValue.cpp \
-src/cpp/GetUicontrolValue.cpp \
-src/cpp/SetUicontrolListboxTop.cpp \
-src/cpp/GetUicontrolListboxTop.cpp \
-src/cpp/SetUicontrolUnits.cpp \
-src/cpp/GetUicontrolUnits.cpp \
-src/cpp/SetUicontrolRelief.cpp \
-src/cpp/GetUicontrolRelief.cpp \
-src/cpp/SetUicontrolHorizontalAlignment.cpp \
-src/cpp/GetUicontrolHorizontalAlignment.cpp \
-src/cpp/SetUicontrolVerticalAlignment.cpp \
-src/cpp/GetUicontrolVerticalAlignment.cpp \
-src/cpp/SetUicontrolSliderStep.cpp \
-src/cpp/GetUicontrolSliderStep.cpp \
+src/cpp/SetUicontrolPosition.cpp \
 src/cpp/SetConsoleShowHiddenHandles.cpp \
 src/cpp/GetConsoleShowHiddenHandles.cpp \
 src/cpp/UnitsConversion.cpp \
@@ -143,7 +106,8 @@ src/jni/DatatipDelete.cpp \
 src/jni/DatatipDrag.cpp \
 src/jni/DatatipSetStyle.cpp \
 src/jni/DatatipOrientation.cpp \
-src/jni/UIWidget.cpp
+src/jni/UIWidget.cpp \
+src/cpp/UIControl.cpp
 
 
 GIWS_WRAPPERS = \
@@ -181,7 +145,6 @@ sci_gateway/c/sci_setmenu.c \
 sci_gateway/c/sci_ClipBoard.c \
 sci_gateway/c/sci_toolbar.c \
 sci_gateway/c/sci_uicontextmenu.c \
-sci_gateway/c/sci_uicontrol.c \
 sci_gateway/c/sci_uimenu.c \
 sci_gateway/c/sci_uiwait.c \
 sci_gateway/c/sci_mpopup.c \
@@ -224,7 +187,8 @@ sci_gateway/cpp/sci_datatip_set_orient.cpp \
 sci_gateway/cpp/sci_uiwidget.cpp \
 sci_gateway/cpp/sci_uiget.cpp \
 sci_gateway/cpp/sci_uiset.cpp \
-sci_gateway/cpp/sci_createUIWidgetHandle.cpp
+sci_gateway/cpp/sci_createUIWidgetHandle.cpp \
+sci_gateway/cpp/sci_uicontrol.cpp
 
 libscigui_la_CPPFLAGS = \
 			-I$(srcdir)/includes/ \

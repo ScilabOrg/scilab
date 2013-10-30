@@ -46,7 +46,7 @@ typedef struct
  * don't forget to modify it each time the propertyTable
  * is modified.
  */
-#define NB_PROPERTIES 178
+#define NB_PROPERTIES 160
 
 /**
  * list of all property names and associated functions in scilab
@@ -182,25 +182,8 @@ static getHashTableCouple propertyTable[NB_PROPERTIES] =
     {"event_handler_enable", get_event_handler_enable_property},
     {"event_handler", get_event_handler_property},
     {"label", GetUimenuLabel},
-    {"string", GetUicontrolString},
-    {"style", GetUicontrolStyle},
-    {"backgroundcolor", GetUicontrolBackgroundColor},
     {"foregroundcolor", GetUiobjectForegroundColor},
-    {"fontweight", GetUicontrolFontWeight},
-    {"fontunits", GetUicontrolFontUnits},
-    {"fontsize", GetUicontrolFontSize},
-    {"fontangle", GetUicontrolFontAngle},
-    {"min", GetUicontrolMin},
-    {"max", GetUicontrolMax},
     {"tag", get_tag_property},
-    {"listboxtop", GetUicontrolListboxTop},
-    {"value", GetUicontrolValue},
-    {"units", GetUicontrolUnits},
-    {"relief", GetUicontrolRelief},
-    {"horizontalalignment", GetUicontrolHorizontalAlignment},
-    {"verticalalignment", GetUicontrolVerticalAlignment},
-    {"fontname", GetUicontrolFontName},
-    {"sliderstep", GetUicontrolSliderStep},
     {"checked", GetUimenuChecked},
     {"arc_drawing_method", get_arc_drawing_method_property},
     {"fractional_font", get_fractional_font_property},
@@ -214,7 +197,6 @@ static getHashTableCouple propertyTable[NB_PROPERTIES] =
     {"UID", get_UID},
     {"showhiddenhandles", GetConsoleShowHiddenHandles},
     {"resizefcn", get_figure_resizefcn_property},
-    {"tooltipstring", GetUicontrolTooltipString},
     {"closerequestfcn", get_figure_closerequestfcn_property},
     {"tip_data", get_tip_data_property},
     {"tip_orientation", get_tip_orientation_property},

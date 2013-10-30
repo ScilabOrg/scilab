@@ -14,13 +14,8 @@
 
 package org.scilab.modules.gui.bridge.listbox;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
-
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -29,9 +24,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.listbox.SimpleListBox;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -48,7 +40,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabListBox extends JScrollPane implements SwingViewObject, SimpleListBox {
+public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 
     private static final long serialVersionUID = 3507396207331058895L;
 
@@ -57,8 +49,6 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
     private CommonCallBack callback;
 
     private MouseListener mouseListener;
-
-    private AdjustmentListener adjustmentListener;
 
     /**
      * the JList we use
@@ -74,13 +64,6 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
 
         mouseListener = new MouseListener() {
             public void mouseClicked(MouseEvent e) {
-                // Scilab indices in Value begin at 1 and Java indices begin at 0
-                int[] javaIndices = getList().getSelectedIndices().clone();
-                Double[] scilabIndices = new Double[javaIndices.length];
-                for (int i = 0; i < getList().getSelectedIndices().length; i++) {
-                    scilabIndices[i] = (double) javaIndices[i] + 1;
-                }
-                GraphicController.getController().setProperty(uid, __GO_UI_VALUE__, scilabIndices);
                 if (e.getButton() == MouseEvent.BUTTON1 && callback != null) {
                     callback.actionPerformed(null);
                 }
@@ -91,15 +74,6 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
             public void mouseReleased(MouseEvent arg0) { }
         };
         getList().addMouseListener(mouseListener);
-        adjustmentListener = new AdjustmentListener() {
-            public void adjustmentValueChanged(AdjustmentEvent arg0) {
-                int listboxtopValue = getList().getUI().locationToIndex(getList(), getViewport().getViewPosition()) + 1;
-                Integer[] modelValue = new Integer[1];
-                modelValue[0] = listboxtopValue;
-                GraphicController.getController().setProperty(uid, __GO_UI_LISTBOXTOP__, modelValue);
-            }
-        };
-        getVerticalScrollBar().addAdjustmentListener(adjustmentListener);
     }
 
     /**
@@ -472,12 +446,10 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
      * @param index the index of the element to be displayed at the top of the ListBox.
      */
     public void setListBoxTop(int index) {
-        getVerticalScrollBar().removeAdjustmentListener(adjustmentListener);
         if (index > 0 & index != getListBoxTop()) {
             getViewport().setViewPosition(getList().getUI().indexToLocation(getList(), index - 1));
             doLayout();
         }
-        getVerticalScrollBar().addAdjustmentListener(adjustmentListener);
     }
 
     /**
@@ -486,30 +458,5 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
      */
     public int getListBoxTop() {
         return getList().getUI().locationToIndex(getList(), getViewport().getViewPosition()) + 1;
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 }

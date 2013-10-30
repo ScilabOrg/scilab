@@ -46,14 +46,14 @@ void UserDataHandler::put(const int uid, const int * data, const int size)
     put(uid, ud);
 }
 
-void UserDataHandler::put(const int uid, const int stackPos)
+void UserDataHandler::put(const int uid, const int stackPos, void * pvApiCtx)
 {
     const int iUserDataSize = GetDataSize(stackPos) * 2; /* GetDataSize returns the size of the variable in double words */
     const int * piUserData = (int *)GetData(stackPos);
     put(uid, piUserData, iUserDataSize);
 }
 
-int UserDataHandler::get(const int uid, void * pvApiCtx, const int stackPos)
+int UserDataHandler::get(const int uid, const int stackPos, void * pvApiCtx)
 {
     int status = 0;
     UserDataMapIt it = map.find(uid);

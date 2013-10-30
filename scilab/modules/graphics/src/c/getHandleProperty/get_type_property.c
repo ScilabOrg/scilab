@@ -68,8 +68,6 @@ static char *getTypeNameFromInt(int _iType)
             return "Segs";
         case __GO_TEXT__ :
             return "Text";
-        case __GO_UICONTROL__ :
-            return "uicontrol";
         case __GO_UIMENU__ :
             return "uimenu";
         case __GO_UICONTEXTMENU__ :

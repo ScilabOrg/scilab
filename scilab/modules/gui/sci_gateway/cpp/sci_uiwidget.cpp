@@ -152,7 +152,7 @@ int sci_uiwidget(char * fname, unsigned long fname_len)
         {
             if (userDataPos != -1)
             {
-                UserDataHandler::put(uid, userDataPos);
+                UserDataHandler::put(uid, userDataPos, pvApiCtx);
             }
 
             UIWidgetTools::createOnScilabStack(uid, nbIn + 1, pvApiCtx);

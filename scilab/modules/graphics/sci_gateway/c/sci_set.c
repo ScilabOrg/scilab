@@ -35,6 +35,12 @@
 #include "localization.h"
 #include "stricmp.h"
 #include "api_scilab.h"
+
+#include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
+#include "UIControl.h"
+#include "returnType.h"
+
 /*--------------------------------------------------------------------------
  * sciset(choice-name,x1,x2,x3,x4,x5)
  * or   xset()
@@ -63,11 +69,12 @@ int sci_set(char *fname, unsigned long fname_len)
         return 0;
     }
 
-    CheckRhs(2, 3);
-    CheckLhs(0, 1);
+    CheckInputArgumentAtLeast(pvApiCtx, 1);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     if (isDoubleType(pvApiCtx, piAddr1))   /* tclsci handle */
     {
+        checkInputArgument(pvApiCtx, 2, 3);
         /* call "set" for tcl/tk see tclsci/sci_gateway/c/sci_set.c */
         OverLoad(1);
         return 0;
@@ -86,6 +93,9 @@ int sci_set(char *fname, unsigned long fname_len)
         int valueType = 0;      /* type of the rhs */
 
         int setStatus = 0;
+        int type = -1;
+        int *piType = &type;
+
 
         /* after the call to sciSet get the status : 0 <=> OK,          */
         /*                                          -1 <=> Error,       */
@@ -105,7 +115,7 @@ int sci_set(char *fname, unsigned long fname_len)
             case sci_handles:
                 /* first is a scalar argument so it's a gset(hdl,"command",[param]) */
                 /* F.Leray; INFO: case 9 is considered for a matrix of graphic handles */
-                CheckRhs(3, 3);
+                CheckInputArgumentAtLeast(pvApiCtx, 1);
 
                 if (isScalar(pvApiCtx, piAddr1) == FALSE)
                 {
@@ -127,6 +137,18 @@ int sci_set(char *fname, unsigned long fname_len)
                 }
 
                 iObjUID = getObjectFromHandle((long)hdl);
+                getGraphicObjectProperty(iObjUID, __GO_TYPE__, jni_int, (void **)&piType);
+                if (type == __GO_UICONTROL__)
+                {
+                    int ret = setUICProperties(iObjUID, 2, (nbInputArgument(pvApiCtx) - 1) / 2, fname, pvApiCtx);
+
+                    AssignOutputVariable(pvApiCtx, 1) = 0;
+                    ReturnArguments(pvApiCtx);
+
+                    return ret;
+                }
+
+                checkInputArgument(pvApiCtx, 3, 3);
 
                 sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
                 if (sciErr.iErr)
@@ -205,7 +227,7 @@ int sci_set(char *fname, unsigned long fname_len)
                 }
                 break;
             case sci_strings:      /* first is a string argument so it's a set("command",[param]) */
-                CheckRhs(2, 2);
+                checkInputArgument(pvApiCtx, 2, 2);
                 if (getAllocatedSingleString(pvApiCtx, piAddr1, &pstProperty))
                 {
                     Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 1);
@@ -313,12 +335,12 @@ int sci_set(char *fname, unsigned long fname_len)
             /* 'figure_style' for compatibility but do nothing */
             /* others values must return a error */
             char *propertiesSupported[NB_PROPERTIES_SUPPORTED] = { "current_entity",
-                    "hdl",
-                    "current_figure",
-                    "current_axes",
-                    "figure_style",
-                    "default_values",
-                    "auto_clear"
+                                                                   "hdl",
+                                                                   "current_figure",
+                                                                   "current_axes",
+                                                                   "figure_style",
+                                                                   "default_values",
+                                                                   "auto_clear"
                                                                  };
 
             int i = 0;

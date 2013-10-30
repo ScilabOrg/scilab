@@ -14,7 +14,6 @@ package org.scilab.modules.gui.uiwidget.components;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -67,19 +66,24 @@ public class Image extends ScilabWidget {
 
     public void setValue(double[] value) {
         super.setValue(value);
-        if (value != null && value.length == 5) {
+        if (value != null) {
+	    double[] v = new double[]{1, 1, 0, 0, 0};
+	    for (int i = 0; i < Math.min(value.length, 5); i++) {
+		v[i] = value[i];
+	    }
             JLabel label = (JLabel) getModifiableComponent();
-            if (value[0] == 1 && value[1] == 1 && value[1] == 0 && value[1] == 0 && value[1] == 0 && label.getIcon() != baseIcon) {
+            if (v[0] == 1 && v[1] == 1 && v[1] == 0 && v[1] == 0 && v[1] == 0 && label.getIcon() != baseIcon) {
                 label.setIcon(baseIcon);
             } else if (baseIcon != null) {
-                Rectangle r = new Rectangle(0, 0, baseIcon.getIconWidth(), baseIcon.getIconHeight());
-                AffineTransform transf = AffineTransform.getScaleInstance(value[0], value[1]);
-                transf.shear(value[2], value[3]);
-                transf.rotate(Math.toRadians(value[4]), r.width * value[0] / 2, r.height * value[1] / 2);
-                r = transf.createTransformedShape(r).getBounds();
+		int w = (int) (baseIcon.getIconWidth() * v[0]);
+		int h = (int) (baseIcon.getIconHeight() * v[1]);
+                AffineTransform transf = AffineTransform.getScaleInstance(v[0], v[1]);
+                transf.shear(v[2], v[3]);
+                transf.rotate(Math.toRadians(v[4]), w / 2, h / 2);
 
-                BufferedImage newimg = new BufferedImage(r.width, r.height, BufferedImage.TRANSLUCENT);
+                BufferedImage newimg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
                 Graphics2D g2d = newimg.createGraphics();
+		g2d.fillRect(0, 0, w, h);
                 g2d.drawImage(baseIcon.getImage(), transf, label);
                 g2d.dispose();
 

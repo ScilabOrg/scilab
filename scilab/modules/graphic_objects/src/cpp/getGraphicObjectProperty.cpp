@@ -25,6 +25,11 @@ extern "C"
 
 using namespace org_scilab_modules_graphic_objects;
 
+void getUIControlProperty(int _iobjUID, char * pname, int stackPos)
+{
+    CallGraphicController::getUIControlProperty(getScilabJavaVM(), _iobjUID, pname, stackPos);
+}
+
 void getGraphicObjectProperty(int iUID, int _iName, _ReturnType_ _returnType, void **_pvData)
 {
     // do not perform anything if the id is undefined

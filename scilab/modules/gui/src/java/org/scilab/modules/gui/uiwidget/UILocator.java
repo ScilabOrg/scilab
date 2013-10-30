@@ -81,6 +81,7 @@ public final class UILocator {
         uids.put(ui.getUid(), ui);
     }
 
+
     /**
      * Paths to access components are cached, so give a way to remove the paths pointing to
      * the component from the cache.
@@ -119,6 +120,14 @@ public final class UILocator {
     public static void remove(final UIComponent ui) {
         removeFromCachedPaths(ui);
         uids.remove(ui.getUid());
+    }
+
+    /**
+     * Remove a component from caches
+     * @param ui the component to remove
+     */
+    public static void remove(int uid) {
+        uids.remove(uid);
     }
 
     /**
