@@ -18,6 +18,8 @@ Scilab Bug Fixes
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
+* Bug #7814 fixed - classmarkov called an undefined function (mat_2_graph).
+
 * Bug #7858 fixed - variance and variancef can now return the mean of the input
                     in a new output argument.
 

@@ -45,6 +45,7 @@ int sci_msparse (char *fname, unsigned long fname_len);
 int sci_mspget (char *fname, unsigned long fname_len);
 int sci_mfull (char *fname, unsigned long fname_len);
 extern int C2F(scita2lpd) (char *fname, unsigned long fname_len);
+extern int C2F(scim6compfc) (char *fname, unsigned long fname_len);
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_SPARSE__ */
 /*--------------------------------------------------------------------------*/

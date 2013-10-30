@@ -57,4 +57,5 @@
     <PRIMITIVE gatewayId="27" primitiveId="24" primitiveName="%msp_spget" />
     <PRIMITIVE gatewayId="27" primitiveId="25" primitiveName="%msp_full" />
     <PRIMITIVE gatewayId="27" primitiveId="26" primitiveName="ta2lpd" />
+    <PRIMITIVE gatewayId="27" primitiveId="27" primitiveName="m6compfc" />
 </GATEWAY>

@@ -183,7 +183,8 @@ am__objects_2 = spcompack.lo wsposp.lo findl.lo spcho1.lo dspful.lo \
 	spisp.lo dperm.lo spind.lo dspe2.lo wspasp.lo wij2sp.lo \
 	wspcsp.lo lspops.lo spifp.lo isort1.lo dspis.lo wspxs.lo \
 	lspe2.lo wspisp.lo dsmsp.lo dspms.lo spord.lo dsosp.lo \
-	dspmat.lo wspmsp.lo lspis.lo writebuf.lo ta2lpd.lo
+	dspmat.lo wspmsp.lo lspis.lo writebuf.lo ta2lpd.lo compfc.lo \
+	cfc.lo
 am_libscisparse_algo_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libscisparse_algo_la_OBJECTS = $(am_libscisparse_algo_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -212,7 +213,7 @@ am__objects_4 = sci_f_spcompa.lo sci_f_sparse.lo sci_f_full.lo \
 	sci_f_lufact.lo sci_f_symfcti.lo sci_f_luget.lo \
 	sci_f_ordmmd.lo sci_f_spget.lo sci_f_spclean.lo \
 	sci_f_spchol.lo sci_f_lusolve.lo sci_f_fadj2sp.lo \
-	sci_f_sfinit.lo sci_f_ta2lpd.lo
+	sci_f_sfinit.lo sci_f_ta2lpd.lo sci_f_m6compfc.lo
 am_libscisparse_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscisparse_la_OBJECTS = $(am_libscisparse_la_OBJECTS)
 @MAINTAINER_MODE_FALSE@am_libscisparse_la_rpath =
@@ -663,7 +664,9 @@ src/fortran/dspmat.f \
 src/fortran/wspmsp.f \
 src/fortran/lspis.f \
 src/fortran/writebuf.f \
-src/fortran/ta2lpd.f
+src/fortran/ta2lpd.f \
+src/fortran/compfc.f \
+src/fortran/cfc.f
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_spcompa.c \
 sci_gateway/c/sci_full.c \
@@ -711,7 +714,8 @@ sci_gateway/fortran/sci_f_spchol.f \
 sci_gateway/fortran/sci_f_lusolve.f \
 sci_gateway/fortran/sci_f_fadj2sp.f \
 sci_gateway/fortran/sci_f_sfinit.f \
-sci_gateway/fortran/sci_f_ta2lpd.f
+sci_gateway/fortran/sci_f_ta2lpd.f \
+sci_gateway/fortran/sci_f_m6compfc.f
 
 libscisparse_la_CPPFLAGS = -I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/api_scilab/includes/ \
@@ -1466,6 +1470,12 @@ writebuf.lo: src/fortran/writebuf.f
 ta2lpd.lo: src/fortran/ta2lpd.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o ta2lpd.lo `test -f 'src/fortran/ta2lpd.f' || echo '$(srcdir)/'`src/fortran/ta2lpd.f
 
+compfc.lo: src/fortran/compfc.f
+	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o compfc.lo `test -f 'src/fortran/compfc.f' || echo '$(srcdir)/'`src/fortran/compfc.f
+
+cfc.lo: src/fortran/cfc.f
+	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o cfc.lo `test -f 'src/fortran/cfc.f' || echo '$(srcdir)/'`src/fortran/cfc.f
+
 sci_f_spcompa.lo: sci_gateway/fortran/sci_f_spcompa.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_spcompa.lo `test -f 'sci_gateway/fortran/sci_f_spcompa.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_spcompa.f
 
@@ -1531,6 +1541,9 @@ sci_f_sfinit.lo: sci_gateway/fortran/sci_f_sfinit.f
 
 sci_f_ta2lpd.lo: sci_gateway/fortran/sci_f_ta2lpd.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_ta2lpd.lo `test -f 'sci_gateway/fortran/sci_f_ta2lpd.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_ta2lpd.f
+
+sci_f_m6compfc.lo: sci_gateway/fortran/sci_f_m6compfc.f
+	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_m6compfc.lo `test -f 'sci_gateway/fortran/sci_f_m6compfc.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_m6compfc.f
 
 mostlyclean-libtool:
 	-rm -f *.lo

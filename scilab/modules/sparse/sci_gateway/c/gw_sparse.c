@@ -44,7 +44,8 @@ static gw_generic_table Tab[] =
     {sci_msparse, "msparse"},
     {sci_mspget, "mspget"},
     {sci_mfull, "mfull"},
-    {C2F(scita2lpd), "ta2lpd"}
+    {C2F(scita2lpd), "ta2lpd"},
+    {C2F(scim6compfc), "m6compfc"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_sparse(void)
