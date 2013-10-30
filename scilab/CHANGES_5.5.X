@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
+
 * Bug #5016 fixed - condestsp could return different results when repeated calls were performed.
 
 * Bug #6689 & #6690 fixed - grand now works with complexes, polynomials, booleans, integers, sparses and strings,
@@ -67,6 +69,8 @@ Scilab Bug Fixes
 
 * Bug #12971 fixed - getURL downloaded file name was wrong.
 
+* Bug #12976 fixed - getURL returns a file name instead of a file path.
+
 * Bug #12978 fixed - exportUI returned an error when input argument was a figure handle.
 
 * Bug #12979 fixed - exportUI did not work with vectorial export.
@@ -83,6 +87,10 @@ Scilab Bug Fixes
 
 * Bug #13008 fixed - 'help $' now opens the 'Symbols' help page.
 
+* Bug #13010 fixed - Wrong class was returned by jcompile (with ecj).
+
+* Bug #13011 fixed - ilib_compile failed under MacOS X 10.9.
+
 * Bug #13012 fixed - Vectorial export of rotated strings was wrong.
 
 * Bug #13014 fixed - Update of the Efficiency inner variable improved in optim_ga.
@@ -92,6 +100,8 @@ Scilab Bug Fixes
 
 Xcos Bug Fixes
 ==============
+
+* xcos_debug_gui function added  for a simple use of the Debug block.
 
 * Bug #12423 fixed - Data types of SWITCH2_m were not documented.
 
