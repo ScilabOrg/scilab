@@ -68,6 +68,11 @@ int ScilabNativeView__getValidDefaultFigureId()
     return ScilabView::getValidDefaultFigureId();
 }
 
+long ScilabNativeView__getObjectHandle(int iUID)
+{
+    return ScilabView::getObjectHandle(iUID);
+}
+
 /**
  * \}
  */

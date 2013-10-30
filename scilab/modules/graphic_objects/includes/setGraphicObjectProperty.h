@@ -23,5 +23,6 @@
 
 GRAPHIC_OBJECTS_IMPEXP void setGraphicObjectRelationship(int iParentId, int iChildId);
 GRAPHIC_OBJECTS_IMPEXP BOOL setGraphicObjectProperty(int iUID, const int _iPropertyName, void const* _pvValue, enum _ReturnType_ _valueTtype, int numElements);
+GRAPHIC_OBJECTS_IMPEXP void setUIControlProperties(int _iobjUID);
 
 #endif /* !__SETGRAPHICOBJECTPROPERTY_H__ */

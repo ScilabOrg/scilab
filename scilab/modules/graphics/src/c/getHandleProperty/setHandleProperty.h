@@ -27,27 +27,10 @@
 #define _SET_HANDLE_PROPERTY_H_
 
 #include "SetUimenuLabel.h"
-#include "SetUicontrolString.h"
-#include "SetUicontrolBackgroundColor.h"
 #include "SetUiobjectForegroundColor.h"
-#include "SetUicontrolFontWeight.h"
-#include "SetUicontrolFontUnits.h"
-#include "SetUicontrolFontSize.h"
-#include "SetUicontrolFontAngle.h"
 #include "SetUiobjectEnable.h"
-#include "SetUicontrolMin.h"
-#include "SetUicontrolMax.h"
-#include "SetUicontrolUnits.h"
-#include "SetUicontrolListboxTop.h"
-#include "SetUicontrolValue.h"
-#include "SetUicontrolRelief.h"
-#include "SetUicontrolHorizontalAlignment.h"
-#include "SetUicontrolVerticalAlignment.h"
-#include "SetUicontrolFontName.h"
-#include "SetUicontrolSliderStep.h"
 #include "SetUimenuChecked.h"
 #include "SetConsoleShowHiddenHandles.h"
-#include "SetUicontrolTooltipString.h"
 
 
 int set_color_map_property(void* _pvCtx, int iObj, void* _pvData, int valueType, int nbRow, int nbCol);

@@ -42,7 +42,6 @@ public abstract class ScilabWidget extends UIComponent {
     protected double[] sliderStep;
     protected int listboxTop;
     protected String[][] string;
-    protected boolean usePreferredSize = true;
 
     public ScilabWidget(UIComponent parent) throws UIWidgetException {
         super(parent);
@@ -156,14 +155,6 @@ public abstract class ScilabWidget extends UIComponent {
         return listboxTop;
     }
 
-    public void setUsePreferredSize(boolean usePreferredSize) {
-        this.usePreferredSize = usePreferredSize;
-    }
-
-    public boolean setUsePreferredSize() {
-        return this.usePreferredSize;
-    }
-
     public void initialize() {
         super.initialize();
         try {
@@ -184,6 +175,22 @@ public abstract class ScilabWidget extends UIComponent {
             setValue(new double[] {0});
             setListboxTop(0);
         } catch (UIWidgetException e) { }
+    }
+
+    public String getVisible() {
+	try {
+	    return getJComponent().isVisible() ? "on" : "off";
+	} catch (UIWidgetException e) { }
+
+	return null;
+    }
+
+    public String getEnable() {
+	try {
+	    return isEnable() ? "on" : "off";
+	} catch (UIWidgetException e) { }
+
+	return null;
     }
 
     /**

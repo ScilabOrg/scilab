@@ -118,7 +118,7 @@ int sci_uiget(char *fname, unsigned long fname_len)
         }
         if (!stricmp(str, "userdata") || !stricmp(str, "user_data"))
         {
-            UserDataHandler::get(uid, pvApiCtx, nbIn + 1);
+            UserDataHandler::get(uid, nbIn + 1, pvApiCtx);
         }
         else
         {

@@ -24,8 +24,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import org.scilab.modules.console.utils.ScilabSpecialTextUtilities;
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.pushbutton.SimplePushButton;
@@ -43,7 +41,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabPushButton extends JButton implements SwingViewObject, SimplePushButton {
+public class SwingScilabPushButton extends JButton implements SimplePushButton {
 
     private static final long serialVersionUID = 2277539556048935959L;
 
@@ -275,30 +273,5 @@ public class SwingScilabPushButton extends JButton implements SwingViewObject, S
     public TextBox getInfoBar() {
         /* Unimplemented for PushButtons */
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 }

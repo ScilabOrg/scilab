@@ -68,7 +68,7 @@ public class ListBox extends ScilabWidget {
             for (int i = 0; i < s.length; i++) {
                 model.addElement(s[i]);
             }
-            super.setString(str);
+            super.setString(new String[][] { s });
         }
 
         list.setModel(model);
@@ -97,12 +97,12 @@ public class ListBox extends ScilabWidget {
 
     public void setMin(double min) {
         super.setMin(min);
-        list.setSelectionMode(Math.abs(getMax() - getMin()) > 1 ? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION : ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectionMode(Math.abs(getMax() - getMin()) >= 1 ? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION : ListSelectionModel.SINGLE_SELECTION);
     }
 
     public void setMax(double max) {
         super.setMax(max);
-        list.setSelectionMode(Math.abs(getMax() - getMin()) > 1 ? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION : ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectionMode(Math.abs(getMax() - getMin()) >= 1 ? ListSelectionModel.MULTIPLE_INTERVAL_SELECTION : ListSelectionModel.SINGLE_SELECTION);
     }
 
     public void setValue(double[] value) {

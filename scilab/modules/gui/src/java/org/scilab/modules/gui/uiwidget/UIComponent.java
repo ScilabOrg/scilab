@@ -64,6 +64,7 @@ import org.scilab.modules.gui.uiwidget.components.UIFocusListener;
 import org.scilab.modules.gui.uiwidget.components.UIMouseListener;
 import org.scilab.modules.gui.uiwidget.components.UITab;
 import org.scilab.modules.gui.uiwidget.components.UITools;
+import org.scilab.modules.gui.uiwidget.go.UIWidgetGraphicObject;
 import org.xml.sax.Attributes;
 
 /**
@@ -104,8 +105,9 @@ public abstract class UIComponent {
     protected boolean enableEvents = true;
     protected String relief;
     protected UITools.FontUnit fontUnit = UITools.FontUnit.POINTS;
-
     protected NoLayout.NoLayoutConstraint nolayoutconstraint;
+    protected String callbackMapping;
+    protected UIWidgetGraphicObject go;
 
     /**
      * Default empty constructor
@@ -127,6 +129,14 @@ public abstract class UIComponent {
         }
         UILocator.add(this);
         registerToParent();
+    }
+    
+    public void replaceUID(int uid) {
+	if (this.uid != uid) {
+	    UILocator.remove(getUid());
+	    this.uid = uid;
+	    UILocator.add(this);
+	}
     }
 
     /**
@@ -281,6 +291,26 @@ public abstract class UIComponent {
             e.getTargetException().printStackTrace();
             throw new UIWidgetException("Cannot instantiate the class " + pack + "." + name + ":\n" + e.getCause());
         }
+    }
+
+    public String getObjectMapping() {
+	if (callbackMapping == null) {
+	     callbackMapping = "createUIWidgetHandle(int32(" + Integer.toString(-getUid() - 1) + "))";
+	}
+	
+	return callbackMapping;
+    }
+
+    public void setObjectMapping(String mapping) {
+	callbackMapping = mapping;
+    }
+
+    public void setGO(UIWidgetGraphicObject go) {
+	this.go = go;
+    }
+
+    public UIWidgetGraphicObject getGO() {
+	return go;
     }
 
     public void setNoLayoutConstraint(double x, double y, double width, double height) {
@@ -931,6 +961,7 @@ public abstract class UIComponent {
         component = null;
         modifiableComponent = null;
         root = null;
+	go = null;
     }
 
     /**
@@ -1842,7 +1873,7 @@ public abstract class UIComponent {
      * Check if the component is enabled
      * @return true if the component is enabled
      */
-    public boolean getEnable() throws UIWidgetException {
+    public boolean isEnable() throws UIWidgetException {
         return getJComponent().isEnabled();
     }
 
@@ -2631,8 +2662,8 @@ public abstract class UIComponent {
                     if (component instanceof JComponent && nolayoutconstraint == null) {
                         JComponent jc = (JComponent) component;
                         Dimension d = jc.getPreferredSize();
-                        setNoLayoutConstraint(0, 0, (double) d.width, (double) d.height);
-                        nolayoutconstraint.setUnit(0, 0, 0, 0);
+                        setNoLayoutConstraint(20, 40, (double) d.width, (double) d.height);
+                        nolayoutconstraint.setUnit(NoLayout.UNIT_PIXELS);
                     }
                 }
             });
@@ -2642,8 +2673,8 @@ public abstract class UIComponent {
                     public void run() {
                         JComponent jc = (JComponent) component;
                         Dimension d = jc.getPreferredSize();
-                        setNoLayoutConstraint(0, 0, (double) d.width, (double) d.height);
-                        nolayoutconstraint.setUnit(0, 0, 0, 0);
+                        setNoLayoutConstraint(20, 40, (double) d.width, (double) d.height);
+                        nolayoutconstraint.setUnit(NoLayout.UNIT_PIXELS);
                     }
                 });
             }

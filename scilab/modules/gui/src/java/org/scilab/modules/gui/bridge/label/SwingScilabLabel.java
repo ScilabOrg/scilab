@@ -34,8 +34,6 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.label.SimpleLabel;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -56,7 +54,7 @@ import org.scilab.modules.console.utils.ScilabSpecialTextUtilities;
  * @author Marouane BEN JELLOUL
  */
 @SuppressWarnings(value = { "serial" })
-public class SwingScilabLabel extends JScrollPane implements SwingViewObject, SimpleLabel {
+public class SwingScilabLabel extends JScrollPane implements SimpleLabel {
 
     private static final long serialVersionUID = 7177323379068859441L;
 
@@ -435,31 +433,6 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
         }
 
         return alignmentPanel;
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 
     /**

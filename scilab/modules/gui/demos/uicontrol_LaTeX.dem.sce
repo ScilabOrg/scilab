@@ -39,12 +39,12 @@ mm1=uimenu(mmathml,"label", "<msup><mn>x</mn><mi>2</mi></msup>", "Callback", "ma
 mm2=uimenu(mmathml, "label", "<mrow><msup><mn>a</mn><mi>2</mi></msup><mo>+</mo><msup><mn>b</mn><mi>2</mi></msup><mo>=</mo><msup><mn>c</mn><mi>2</mi></msup></mrow>", ..
 "Callback", "mathml_callback()");
 
-demo_viewCode(SCI+ "/modules/gui/demos/uicontrol_LaTeX.dem.sce");
+demo_viewCode(SCI+ "/modules/gui/demos/uicontrol_LaTeX.dem.sce")
 
 latexButton=uicontrol(f,"style","pushbutton","string",'$\scalebox{2}{\LaTeX\ x^2}$', "Callback", "latex_callback()");
 latexButton.Position = [30, 70, 120, 40];
 latexLabel=uicontrol(f,"Style","text","string","$\text{Text: }\Gamma(s)=\int_0^\infty t^{s-1}\mathrm{e}^{-t}\,\mathrm{d}t$");
-latexLabel.fontsize=15;
+latexLabel.fontsize=15;disp(latexLabel.Position);
 latexLabel.Position = latexLabel.Position + [50, 0, 0, 0];
 mathmlButton=uicontrol(f, "style", "pushbutton", "string", "<mrow><mtext>MathML</mtext><mphantom><mi>a</mi></mphantom><msup><mi>x</mi><mn>2</mn></msup></mrow>",  ..
 "Callback", "mathml_callback()");

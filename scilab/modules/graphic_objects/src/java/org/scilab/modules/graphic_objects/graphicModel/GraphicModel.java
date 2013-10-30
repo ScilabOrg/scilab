@@ -38,21 +38,11 @@ import org.scilab.modules.graphic_objects.textObject.Text;
 import org.scilab.modules.graphic_objects.uibar.progressionbar.Progressionbar;
 import org.scilab.modules.graphic_objects.uibar.waitbar.Waitbar;
 import org.scilab.modules.graphic_objects.uicontextmenu.Uicontextmenu;
-import org.scilab.modules.graphic_objects.uicontrol.checkbox.CheckBox;
-import org.scilab.modules.graphic_objects.uicontrol.edit.Edit;
-import org.scilab.modules.graphic_objects.uicontrol.frame.Frame;
-import org.scilab.modules.graphic_objects.uicontrol.listbox.ListBox;
-import org.scilab.modules.graphic_objects.uicontrol.popupmenu.PopupMenu;
-import org.scilab.modules.graphic_objects.uicontrol.pushbutton.PushButton;
-import org.scilab.modules.graphic_objects.uicontrol.radiobutton.RadioButton;
-import org.scilab.modules.graphic_objects.uicontrol.slider.Slider;
-import org.scilab.modules.graphic_objects.uicontrol.table.Table;
-import org.scilab.modules.graphic_objects.uicontrol.uiimage.UiImage;
-import org.scilab.modules.graphic_objects.uicontrol.uitext.UiText;
 import org.scilab.modules.graphic_objects.uimenu.Uimenu;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
 import org.scilab.modules.graphic_objects.datatip.Datatip;
+import org.scilab.modules.graphic_objects.graphicFactory.GraphicFactory;
 
 /**
  * GraphicModel class
@@ -127,6 +117,19 @@ public final class GraphicModel {
     }
 
     /**
+     * Fast property get
+     * @param id object id
+     * @param property property name
+     * @return property value
+     */
+    public void getProperty(Integer id, String property, int stackPos) {
+        GraphicObject object = allObjects.get(id);
+        if (object != null) {
+            object.getProperty(property, stackPos);
+        }
+    }
+
+    /**
      * Fast property set
      * @param id object id
      * @param property name
@@ -141,6 +144,36 @@ public final class GraphicModel {
                 return object.setProperty(propertyType, value);
             }
         }
+        return UpdateStatus.Fail;
+    }
+
+    /**
+     * Fast property set
+     * @param id object id
+     * @param property name
+     * @param value property value
+     * @return true if the property has been set, false otherwise
+     */
+    public UpdateStatus setProperty(Integer id) {
+        GraphicObject object = allObjects.get(id);
+        if (object != null) {
+	    return object.setProperty(GraphicFactory.getArguments());
+        }
+        return UpdateStatus.Fail;
+    }
+
+    /**
+     * Fast property set
+     * @param id object id
+     * @param property name
+     * @param value property value
+     * @return true if the property has been set, false otherwise
+     */
+    public UpdateStatus setProperty(String id) {
+        /*GraphicObject object = allObjects.get(id);
+        if (object != null) {
+	    return object.setProperty(GraphicFactory.ARGUMENTS, GraphicFactory.getArguments());
+	    }*/
         return UpdateStatus.Fail;
     }
 
@@ -248,40 +281,6 @@ public final class GraphicModel {
             case TEXT:
                 createdObject = new Text();
                 break;
-                /* UICONTROLS */
-            case CHECKBOX:
-                createdObject = new CheckBox();
-                break;
-            case EDIT:
-                createdObject = new Edit();
-                break;
-            case FRAME:
-                createdObject = new Frame();
-                break;
-            case IMAGE:
-                createdObject = new UiImage();
-                break;
-            case LISTBOX:
-                createdObject = new ListBox();
-                break;
-            case POPUPMENU:
-                createdObject = new PopupMenu();
-                break;
-            case PUSHBUTTON:
-                createdObject = new PushButton();
-                break;
-            case RADIOBUTTON:
-                createdObject = new RadioButton();
-                break;
-            case SLIDER:
-                createdObject = new Slider();
-                break;
-            case TABLE:
-                createdObject = new Table();
-                break;
-            case UITEXT:
-                createdObject = new UiText();
-                break;
                 /* UIMENU */
             case UIMENU:
                 createdObject = new Uimenu();
@@ -316,8 +315,8 @@ public final class GraphicModel {
             case UNKNOWNOBJECT:
                 createdObject = null;
                 break;
-            case DATATIP:
-                createdObject = new Datatip();
+            case UICONTROL:
+                createdObject = GraphicFactory.createObject(type);
                 break;
             default:
                 createdObject = null;
@@ -334,6 +333,7 @@ public final class GraphicModel {
         synchronized (object) {
             allObjects.remove(id);
         }
+	GraphicFactory.deleteObject(id, GraphicObject.getTypeFromName(object.getType()));
     }
 
 }

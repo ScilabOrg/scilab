@@ -39,6 +39,12 @@
 #include "GetScreenProperty.h"
 #include "freeArrayOfString.h"
 #include "api_scilab.h"
+
+#include "graphicObjectProperties.h"
+#include "UIControl.h"
+#include "stricmp.h"
+#include "returnType.h"
+
 /*--------------------------------------------------------------------------*/
 int sciGet(void* _pvCtx, int iObjUID, char *marker)
 {
@@ -283,8 +289,22 @@ int sci_get(char *fname, unsigned long fname_len)
         iObjUID = getObjectFromHandle(hdl);
         if (iObjUID != 0)
         {
+	    int type = -1;
+	    int *piType = &type;
 
-            if (sciGet(pvApiCtx, iObjUID, (l2)) != 0)
+	    getGraphicObjectProperty(iObjUID, __GO_TYPE__, jni_int, (void **)&piType);
+	    if (type == __GO_UICONTROL__)
+	    {
+		if (stricmp(l2, "user_data") == 0 || stricmp(l2, "userdata") == 0)
+		{
+		    getUserData(iObjUID, nbInputArgument(pvApiCtx) + 1, pvApiCtx);
+		}
+		else
+		{
+		    getUICProperty(iObjUID, l2, nbInputArgument(pvApiCtx) + 1);
+		}
+	    }
+	    else if (sciGet(pvApiCtx, iObjUID, (l2)) != 0)
             {
                 /* An error has occurred */
                 freeAllocatedSingleString(l2);

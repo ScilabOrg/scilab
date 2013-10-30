@@ -18,7 +18,7 @@ import org.scilab.modules.gui.uiwidget.UIComponent;
 public class UIScilabCodeCallback extends UICallback {
 
     protected static final String BASE = "if exists('gcbo') then %%oldgcbo=gcbo;end;"
-                                         + "gcbo=createUIWidgetHandle(int32(%d));%s;"
+                                         + "gcbo=%s;%s;"
                                          + "if exists('%%oldgcbo') then gcbo=%%oldgcbo;else clear('gcbo');end;";
 
     public UIScilabCodeCallback(UIComponent uicomp, String code) {
@@ -30,7 +30,7 @@ public class UIScilabCodeCallback extends UICallback {
     }
 
     public String getStringToEval(UIComponent c) {
-        return String.format(BASE, -c.getUid() - 1, code);
+        return String.format(BASE, c.getObjectMapping(), code);
     }
 
     public void exec(final Object ... args) {

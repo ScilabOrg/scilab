@@ -44,7 +44,7 @@ int set_position_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTyp
 
     getGraphicObjectProperty(iObjUID, __GO_TYPE__, jni_int, (void **)&piType);
 
-    if (type == __GO_UICONTROL__ || type == __GO_FIGURE__)
+    if (type == __GO_FIGURE__)
     {
         return SetUicontrolPosition(iObjUID, _pvData, valueType, nbRow, nbCol);
     }
