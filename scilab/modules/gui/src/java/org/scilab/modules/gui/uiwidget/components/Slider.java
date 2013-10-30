@@ -18,7 +18,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-import org.scilab.modules.gui.bridge.slider.SwingScilabSlider;
+import javax.swing.JScrollBar;
 
 import org.scilab.modules.gui.uiwidget.UIComponent;
 import org.scilab.modules.gui.uiwidget.UIComponentAnnotation;
@@ -32,6 +32,7 @@ public class Slider extends ScilabWidget {
     private static final int MAXIMUM_VALUE = 10000;
 
     protected AdjustmentListener adjListener;
+    protected JScrollBar slider;
 
     public Slider(UIComponent parent) throws UIWidgetException {
         super(parent);
@@ -41,24 +42,24 @@ public class Slider extends ScilabWidget {
      * {@inheritDoc}
      */
     public Object newInstance() {
-        return new SwingScilabSlider();
+        slider = new JScrollBar();
+	
+	return slider;
     }
 
     @UIComponentAnnotation(attributes = {"slider-step"})
     public Object newInstance(double[] sliderstep) {
-        final SwingScilabSlider slider = new SwingScilabSlider();
-
-        AdjustmentListener[] als = slider.getAdjustmentListeners();
-        if (als != null && als.length > 0) {
-            slider.removeAdjustmentListener(als[als.length - 1]);
-        }
-
+        slider = new JScrollBar();
+	slider.setOpaque(true);
+	slider.setFocusable(true);
+	slider.setMinimum(MINIMUM_VALUE);
+	slider.setMaximum(MAXIMUM_VALUE + slider.getVisibleAmount());
         slider.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
                 if (slider.getWidth() > slider.getHeight()) {
-                    slider.setHorizontal();
+                    slider.setOrientation(JScrollBar.HORIZONTAL);
                 } else {
-                    slider.setVertical();
+                    slider.setOrientation(JScrollBar.VERTICAL);
                 }
                 slider.revalidate();
                 slider.repaint();
@@ -71,7 +72,6 @@ public class Slider extends ScilabWidget {
     }
 
     public void setValue(double[] value) {
-        SwingScilabSlider slider = (SwingScilabSlider) getModifiableComponent();
         super.setValue(value);
 
         if (value != null && value.length >= 1) {
@@ -88,7 +88,6 @@ public class Slider extends ScilabWidget {
     }
 
     public double[] getValue() {
-        SwingScilabSlider slider = (SwingScilabSlider) getModifiableComponent();
         return new double[] {min + ((slider.getValue() - MINIMUM_VALUE) * (getMax() - getMin()) / (MAXIMUM_VALUE - MINIMUM_VALUE))};
     }
 
@@ -115,7 +114,6 @@ public class Slider extends ScilabWidget {
      * @param space the increment value
      */
     public void setMajorTickSpacing(double space) {
-        SwingScilabSlider slider = (SwingScilabSlider) getModifiableComponent();
         if (adjListener != null) {
             slider.removeAdjustmentListener(adjListener);
         }
@@ -135,7 +133,6 @@ public class Slider extends ScilabWidget {
      * @param space the increment value
      */
     public void setMinorTickSpacing(double space) {
-        SwingScilabSlider slider = (SwingScilabSlider) getModifiableComponent();
         if (adjListener != null) {
             slider.removeAdjustmentListener(adjListener);
         }
@@ -155,7 +152,6 @@ public class Slider extends ScilabWidget {
     }
 
     public void setCallback(String callback) {
-        SwingScilabSlider slider = (SwingScilabSlider) getModifiableComponent();
         if (adjListener != null) {
             slider.removeAdjustmentListener(adjListener);
             adjListener = null;

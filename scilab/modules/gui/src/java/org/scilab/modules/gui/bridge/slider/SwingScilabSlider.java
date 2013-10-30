@@ -13,18 +13,11 @@
 
 package org.scilab.modules.gui.bridge.slider;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
-
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
 import javax.swing.JScrollBar;
 
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.slider.SimpleSlider;
@@ -41,7 +34,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabSlider extends JScrollBar implements SwingViewObject, SimpleSlider {
+public class SwingScilabSlider extends JScrollBar implements SimpleSlider {
 
     private static final long serialVersionUID = -4262320156090829309L;
 
@@ -68,7 +61,6 @@ public class SwingScilabSlider extends JScrollBar implements SwingViewObject, Si
         setMaximum(MAXIMUM_VALUE + getVisibleAmount());
         adjustmentListener = new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
-                updateModel();
                 if (callback != null) {
                     callback.actionPerformed(null);
                 }
@@ -208,7 +200,7 @@ public class SwingScilabSlider extends JScrollBar implements SwingViewObject, Si
      * @param value the minimum value
      */
     public void setMinimumValue(double value) {
-        updateModel(); /* Update the model according to the knob position */
+        /* Update the model according to the knob position */
     }
 
     /**
@@ -216,7 +208,7 @@ public class SwingScilabSlider extends JScrollBar implements SwingViewObject, Si
      * @param value the maximum value
      */
     public void setMaximumValue(double value) {
-        updateModel(); /* Update the model according to the knob position */
+        /* Update the model according to the knob position */
     }
 
     /**
@@ -225,41 +217,6 @@ public class SwingScilabSlider extends JScrollBar implements SwingViewObject, Si
      */
     public void setRelief(String reliefType) {
         setBorder(ScilabRelief.getBorderFromRelief(reliefType));
-    }
-
-    /**
-     * Set the major tick spacing for a Slider
-     * @param space the increment value
-     */
-    public void setMajorTickSpacing(double space) {
-        /* Remove the listener to avoid the callback to be executed */
-        removeAdjustmentListener(adjustmentListener);
-
-        double userMin = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
-        double userMax = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
-        setBlockIncrement((int) (space * (MAXIMUM_VALUE - MINIMUM_VALUE) / (userMax - userMin)));
-        int oldMax = getMaximum() - getVisibleAmount();
-        setVisibleAmount(Math.max((int) ((MAXIMUM_VALUE - MINIMUM_VALUE) / space), MIN_KNOB_SIZE));
-        setMaximum(oldMax + getVisibleAmount());
-
-        /* Put back the listener */
-        addAdjustmentListener(adjustmentListener);
-    }
-
-    /**
-     * Set the minor tick spacing for a Slider
-     * @param space the increment value
-     */
-    public void setMinorTickSpacing(double space) {
-        /* Remove the listener to avoid the callback to be executed */
-        removeAdjustmentListener(adjustmentListener);
-
-        double userMin = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
-        double userMax = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
-        setUnitIncrement((int) (space * (MAXIMUM_VALUE - MINIMUM_VALUE) / (userMax - userMin)));
-
-        /* Put back the listener */
-        addAdjustmentListener(adjustmentListener);
     }
 
     /**
@@ -306,50 +263,22 @@ public class SwingScilabSlider extends JScrollBar implements SwingViewObject, Si
      * @param value the new value
      */
     public void setUserValue(double value) {
-        /* Remove the listener to avoid the callback to be executed */
-        removeAdjustmentListener(adjustmentListener);
 
-        double userMin = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
-        double userMax = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
-        super.setValue(MINIMUM_VALUE + (int) ((value - userMin) * (MAXIMUM_VALUE - MINIMUM_VALUE) / (userMax - userMin)));
-
-        /* Put back the listener */
-        addAdjustmentListener(adjustmentListener);
     }
 
     /**
-     * Set the UID
-     * @param id the UID
+     * Set the major tick spacing for a Slider
+     * @param space the increment value
      */
-    public void setId(Integer id) {
-        uid = id;
+    public void setMajorTickSpacing(double space) {
+
     }
 
     /**
-     * Get the UID
-     * @return the UID
+     * Set the minor tick spacing for a Slider
+     * @param space the increment value
      */
-    public Integer getId() {
-        return uid;
-    }
+    public void setMinorTickSpacing(double space) {
 
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
-    }
-
-    /**
-     * Update values in the model when needed
-     */
-    private void updateModel() {
-        Double[] value = new Double[1];
-        double userMin = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
-        double userMax = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
-        value[0] = userMin + ((getValue() - MINIMUM_VALUE) * (userMax - userMin) / (MAXIMUM_VALUE - MINIMUM_VALUE));
-        GraphicController.getController().setProperty(uid, __GO_UI_VALUE__, value);
     }
 }

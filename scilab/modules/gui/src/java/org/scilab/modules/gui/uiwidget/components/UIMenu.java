@@ -129,8 +129,8 @@ public class UIMenu extends UIComponent {
             removeClickListener();
             clicklistener = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (onclickEnable) {
-                        UIWidgetTools.execAction(UIMenu.this.clickaction);
+		    if (onclickEnable) {
+			UIWidgetTools.execAction(UIMenu.this.clickaction);
                     }
                 }
             };

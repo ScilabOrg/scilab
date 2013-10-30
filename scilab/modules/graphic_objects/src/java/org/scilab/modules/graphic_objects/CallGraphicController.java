@@ -15,6 +15,7 @@ package org.scilab.modules.graphic_objects;
 import org.scilab.modules.graphic_objects.console.Console;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
+import org.scilab.modules.graphic_objects.graphicFactory.GraphicFactory;
 import org.scilab.modules.graphic_objects.graphicView.ScilabView;
 import org.scilab.modules.graphic_objects.utils.MenuBarBuilder;
 
@@ -192,4 +193,24 @@ public final class CallGraphicController {
     public static void buildFigureMenuBar(int figureId) {
         MenuBarBuilder.buildFigureMenuBar(figureId);
     }
+
+    /* UIControls */
+
+    public static void setUIControlProperty(int id) {
+	GraphicController.getController().setProperty(id);
+    }
+
+/*    public static void setUIControlProperty(String id) {
+	GraphicController.getController().setProperty(id);
+    }
+*/
+
+    public static void getUIControlProperty(int id, String pname, int stackPos) {
+	GraphicController.getController().getProperty(id, pname, stackPos);
+    }
+
+/*    public static void getUIControlProperty(String id, String pname, int stackPos) {
+	GraphicController.getController().getProperty(id, pname, stackPos);
+    }
+*/
 }

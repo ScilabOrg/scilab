@@ -47,6 +47,18 @@ public class Radiobutton extends ScilabWidget {
         }
     }
 
+    public void setValue(double[] value) {
+	if (value != null && value.length >= 1) {
+	    double v = value[0];
+	    if (v == getMin()) {
+		((JRadioButton) getModifiableComponent()).setSelected(false);
+	    } else if (v == getMax()) {
+		((JRadioButton) getModifiableComponent()).setSelected(true);
+	    }
+	}
+	super.setValue(value);
+    } 
+
     public double[] getValue() {
         if (((JRadioButton) getModifiableComponent()).isSelected()) {
             return new double[] {getMin()};

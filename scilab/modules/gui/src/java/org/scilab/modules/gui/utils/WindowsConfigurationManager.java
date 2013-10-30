@@ -461,7 +461,7 @@ public class WindowsConfigurationManager implements XConfigurationListener {
                 }
             }
 
-            if (requestFocus) {
+            if (false && requestFocus) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -485,7 +485,6 @@ public class WindowsConfigurationManager implements XConfigurationListener {
                                         window.requestFocus();
                                         window.toFront();
                                         window.setIsRestoring(false);
-
                                         ActiveDockableTracker.requestDockableActivation(mainTab);
                                     }
                                 });
@@ -495,14 +494,14 @@ public class WindowsConfigurationManager implements XConfigurationListener {
                     }
                 });
             } else {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        window.setIsRestoring(false);
-                        window.setVisible(true);
-                    }
-                });
-            }
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+			    window.setIsRestoring(false);
+			    window.setVisible(true);
+			}
+		    });
+	    }
         }
 
         return window;

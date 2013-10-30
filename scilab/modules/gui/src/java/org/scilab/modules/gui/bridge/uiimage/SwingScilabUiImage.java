@@ -20,8 +20,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import org.scilab.forge.scirenderer.shapes.appearance.Color;
-import org.scilab.modules.gui.SwingViewObject;
-import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.textbox.TextBox;
@@ -39,7 +37,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Han DONG
  * @author Vincent COUVERT
  */
-public class SwingScilabUiImage extends JLabel implements SwingViewObject, SimpleUiImage {
+public class SwingScilabUiImage extends JLabel implements SimpleUiImage {
 
     private static final long serialVersionUID = -3394912554085956130L;
 
@@ -268,30 +266,5 @@ public class SwingScilabUiImage extends JLabel implements SwingViewObject, Simpl
             g2.drawImage(img, 0, 0, imageWidth, imageHeight, this);
             setIcon(new ImageIcon(bim));
         }
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 }

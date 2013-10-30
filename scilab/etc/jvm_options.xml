@@ -23,6 +23,8 @@ $SCILAB : scilab path (SCI in Scilab)
     <option value="-Djava.compiler=JIT"/>
     <!-- Set Java Heap space to 256mb -->
     <option value="-Xmx256m"/>
+
+    <option value="-Djava.rmi.server.hostname=127.0.0.1"/>
     
     <!-- Set Java space for direct buffer allocation -->
     <!--

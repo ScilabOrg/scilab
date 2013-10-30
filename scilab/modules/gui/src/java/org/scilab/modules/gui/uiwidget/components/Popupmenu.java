@@ -48,7 +48,7 @@ public class Popupmenu extends ScilabWidget {
         JComboBox combo = (JComboBox) getModifiableComponent();
         String[] prev = getRowString(getString());
         boolean needUpdate = false;
-        if (prev.length != s.length) {
+        if (prev == null || prev.length != s.length) {
             needUpdate = true;
         } else {
             for (int i = 0; i < prev.length; i++) {
@@ -77,7 +77,7 @@ public class Popupmenu extends ScilabWidget {
             combo.addActionListener(commonCallBack);
         }
 
-        super.setString(str);
+        super.setString(new String[][]{ s });
     }
 
     public void setValue(double[] value) {

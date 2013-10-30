@@ -53,6 +53,7 @@ import java.util.ListIterator;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
@@ -110,6 +111,9 @@ import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.tree.Tree;
 import org.scilab.modules.gui.uidisplaytree.UiDisplayTree;
+import org.scilab.modules.gui.uiwidget.components.NoLayout;
+import org.scilab.modules.gui.uiwidget.components.UIPanel;
+import org.scilab.modules.gui.uiwidget.go.UIWidgetGraphicObject;
 import org.scilab.modules.gui.uitable.UiTable;
 import org.scilab.modules.gui.utils.BarUpdater;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
@@ -282,12 +286,16 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
         contentCanvas.addEventHandlerMouseListener(editorEventHandler);
         contentCanvas.addEventHandlerMouseMotionListener(editorEventHandler);
 
-        layerdPane = new JLayeredPane();
-        layerdPane.setLayout(null);
-        layerdPane.add(canvas, JLayeredPane.FRAME_CONTENT_LAYER);
+	UIPanel uipanel = UIPanel.createEmpty();
+	UIWidgetGraphicObject uiwgo = new UIWidgetGraphicObject(uipanel);
+	uiwgo.setIdentifier(figure.getIdentifier());	
 
-        scrolling = new SwingScilabScrollPane(layerdPane, canvas, figure);
+	JPanel panel = (JPanel) uipanel.getComponent();
+	panel.add(canvas, new NoLayout.NoLayoutConstraint(0, 0, 1, 1, NoLayout.UNIT_NORMALIZED), 0);
 
+        scrolling = new SwingScilabScrollPane(panel, canvas, figure);
+        setContentPane(scrolling.getAsContainer());
+	
         setContentPane(scrolling.getAsContainer());
         canvas.setVisible(true);
 

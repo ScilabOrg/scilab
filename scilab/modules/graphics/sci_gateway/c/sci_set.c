@@ -35,6 +35,11 @@
 #include "localization.h"
 #include "stricmp.h"
 #include "api_scilab.h"
+
+#include "graphicObjectProperties.h"
+#include "UIControl.h"
+#include "returnType.h"
+
 /*--------------------------------------------------------------------------
  * sciset(choice-name,x1,x2,x3,x4,x5)
  * or   xset()
@@ -63,11 +68,12 @@ int sci_set(char *fname, unsigned long fname_len)
         return 0;
     }
 
-    CheckRhs(2, 3);
-    CheckLhs(0, 1);
+    CheckInputArgumentAtLeast(pvApiCtx, 1);
+    CheckOutputArgument(pvApiCtx,0, 1);
 
     if (isDoubleType(pvApiCtx, piAddr1))   /* tclsci handle */
     {
+	checkInputArgument(pvApiCtx, 2, 3);
         /* call "set" for tcl/tk see tclsci/sci_gateway/c/sci_set.c */
         OverLoad(1);
         return 0;
@@ -86,6 +92,9 @@ int sci_set(char *fname, unsigned long fname_len)
         int valueType = 0;      /* type of the rhs */
 
         int setStatus = 0;
+        int type = -1;
+        int *piType = &type;
+
 
         /* after the call to sciSet get the status : 0 <=> OK,          */
         /*                                          -1 <=> Error,       */
@@ -102,176 +111,188 @@ int sci_set(char *fname, unsigned long fname_len)
 
         switch (iType1)
         {
-            case sci_handles:
-                /* first is a scalar argument so it's a gset(hdl,"command",[param]) */
-                /* F.Leray; INFO: case 9 is considered for a matrix of graphic handles */
-                CheckRhs(3, 3);
+        case sci_handles:
+            /* first is a scalar argument so it's a gset(hdl,"command",[param]) */
+            /* F.Leray; INFO: case 9 is considered for a matrix of graphic handles */
+            CheckInputArgumentAtLeast(pvApiCtx, 1);
 
-                if (isScalar(pvApiCtx, piAddr1) == FALSE)
-                {
-                    OverLoad(1);
-                    return 0;
-                }
+            if (isScalar(pvApiCtx, piAddr1) == FALSE)
+            {
+                OverLoad(1);
+                return 0;
+            }
 
-                getScalarHandle(pvApiCtx, piAddr1, &hdl);
-                if (hdl < 0)
-                {
-                    // UIWidget
-                    return sci_uiset(fname, fname_len);
-                }
+            getScalarHandle(pvApiCtx, piAddr1, &hdl);
+            if (hdl < 0)
+            {
+                // UIWidget
+                return sci_uiset(fname, fname_len);
+            }
 
-                if (getScalarHandle(pvApiCtx, piAddr1, (long long*)&hdl))
-                {
-                    Scierror(999, _("%s: Wrong size for input argument #%d: A single handle expected.\n"), fname, 1);
-                    return 1;
-                }
+            if (getScalarHandle(pvApiCtx, piAddr1, (long long*)&hdl))
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A single handle expected.\n"), fname, 1);
+                return 1;
+            }
 
-                iObjUID = getObjectFromHandle((long)hdl);
+            iObjUID = getObjectFromHandle((long)hdl);
+            getGraphicObjectProperty(iObjUID, __GO_TYPE__, jni_int, (void **)&piType);
+            if (type == __GO_UICONTROL__)
+            {
+		int ret = setUICProperties(iObjUID, 2, (nbInputArgument(pvApiCtx) - 1) / 2, fname, pvApiCtx);
 
-                sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
-                if (sciErr.iErr)
-                {
-                    Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
-                    return 1;
-                }
+                AssignOutputVariable(pvApiCtx, 1) = 0;
+                ReturnArguments(pvApiCtx);
 
-                if (getAllocatedSingleString(pvApiCtx, piAddr2, &pstProperty))
-                {
-                    Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 2);
-                    return 1;
-                }
-                valueType = getInputArgumentType(pvApiCtx, 3);
+                return ret;
+            }
 
-                sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3);
-                if (sciErr.iErr)
-                {
-                    Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 3);
-                    return 1;
-                }
+	    checkInputArgument(pvApiCtx, 3, 3);
 
-                if ((strcmp(pstProperty, "user_data") == 0) || (stricmp(pstProperty, "userdata") == 0))
+            sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+            if (sciErr.iErr)
+            {
+                Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
+                return 1;
+            }
+
+            if (getAllocatedSingleString(pvApiCtx, piAddr2, &pstProperty))
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 2);
+                return 1;
+            }
+            valueType = getInputArgumentType(pvApiCtx, 3);
+
+            sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3);
+            if (sciErr.iErr)
+            {
+                Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 3);
+                return 1;
+            }
+
+            if ((strcmp(pstProperty, "user_data") == 0) || (stricmp(pstProperty, "userdata") == 0))
+            {
+                /* in this case set_user_data_property
+                 * directly uses the  third position in the stack
+                 * to get the variable which is to be set in
+                 * the user_data property (any data type is allowed) S. Steer */
+                _pvData = (void*)piAddr3;         /*position in the stack */
+                iRows3 = -1;   /*unused */
+                iCols3 = -1;   /*unused */
+                valueType = -1;
+            }
+            else
+            {
+                switch (valueType)
                 {
-                    /* in this case set_user_data_property
-                     * directly uses the  third position in the stack
-                     * to get the variable which is to be set in
-                     * the user_data property (any data type is allowed) S. Steer */
-                    _pvData = (void*)piAddr3;         /*position in the stack */
-                    iRows3 = -1;   /*unused */
-                    iCols3 = -1;   /*unused */
-                    valueType = -1;
-                }
-                else
-                {
-                    switch (valueType)
+                case sci_matrix :
+                    getMatrixOfDouble(pvApiCtx, piAddr3, &iRows3, &iCols3, (double**)&_pvData);
+                    break;
+                case sci_boolean :
+                    getMatrixOfBoolean(pvApiCtx, piAddr3, &iRows3, &iCols3, (int**)&_pvData);
+                    break;
+                case sci_handles :
+                    getMatrixOfHandle(pvApiCtx, piAddr3, &iRows3, &iCols3, (long long**)&_pvData);
+                    break;
+                case sci_strings :
+                    if (   strcmp(pstProperty, "tics_labels") != 0 && strcmp(pstProperty, "auto_ticks") != 0 &&
+                           strcmp(pstProperty, "axes_visible") != 0 && strcmp(pstProperty, "axes_reverse") != 0 &&
+                           strcmp(pstProperty, "text") != 0 && stricmp(pstProperty, "string") != 0 &&
+                           stricmp(pstProperty, "tooltipstring") != 0) /* Added for uicontrols */
                     {
-                        case sci_matrix :
-                            getMatrixOfDouble(pvApiCtx, piAddr3, &iRows3, &iCols3, (double**)&_pvData);
-                            break;
-                        case sci_boolean :
-                            getMatrixOfBoolean(pvApiCtx, piAddr3, &iRows3, &iCols3, (int**)&_pvData);
-                            break;
-                        case sci_handles :
-                            getMatrixOfHandle(pvApiCtx, piAddr3, &iRows3, &iCols3, (long long**)&_pvData);
-                            break;
-                        case sci_strings :
-                            if (   strcmp(pstProperty, "tics_labels") != 0 && strcmp(pstProperty, "auto_ticks") != 0 &&
-                                    strcmp(pstProperty, "axes_visible") != 0 && strcmp(pstProperty, "axes_reverse") != 0 &&
-                                    strcmp(pstProperty, "text") != 0 && stricmp(pstProperty, "string") != 0 &&
-                                    stricmp(pstProperty, "tooltipstring") != 0) /* Added for uicontrols */
-                            {
-                                if (getAllocatedSingleString(pvApiCtx, piAddr3, (char**)&_pvData))
-                                {
-                                    Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 3);
-                                    return 1;
-                                }
-                                iRows3 = (int)strlen((char*)_pvData);
-                                iCols3 = 1;
-                            }
-                            else
-                            {
-                                isMatrixOfString = 1;
-                                getAllocatedMatrixOfString(pvApiCtx, piAddr3, &iRows3, &iCols3, (char***)&_pvData);
-                            }
-                            break;
-                        case sci_list :
-                            iCols3 = 1;
-                            getListItemNumber(pvApiCtx, piAddr3, &iRows3);
-                            _pvData = (void*)piAddr3;         /* In this case l3 is the list position in stack */
-                            break;
-                        default :
-                            _pvData = (void*)piAddr3;         /* In this case l3 is the list position in stack */
-                            break;
-                    }
-                }
-                break;
-            case sci_strings:      /* first is a string argument so it's a set("command",[param]) */
-                CheckRhs(2, 2);
-                if (getAllocatedSingleString(pvApiCtx, piAddr1, &pstProperty))
-                {
-                    Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 1);
-                    return 1;
-                }
-
-                hdl = 0;
-                iObjUID = 0;
-                valueType = getInputArgumentType(pvApiCtx, 2);
-                sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
-                if (sciErr.iErr)
-                {
-                    Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
-                    return 1;
-                }
-
-                if (valueType == sci_matrix)
-                {
-                    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows3, &iCols3, (double**)&_pvData);
-                    if (sciErr.iErr)
-                    {
-                        printError(&sciErr, 0);
-                        Scierror(999, _("%s: Wrong type for input argument #%d: Matrix expected.\n"), fname, 2);
-                        return sciErr.iErr;
-                    }
-                }
-                else if (valueType == sci_handles)
-                {
-                    sciErr = getMatrixOfHandle(pvApiCtx, piAddr2, &iRows3, &iCols3, (long long**)&_pvData);
-                    if (sciErr.iErr)
-                    {
-                        printError(&sciErr, 0);
-                        Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of handle expected.\n"), fname, 3);
-                        return 1;
-                    }
-                }
-                else if (valueType == sci_strings)
-                {
-                    if (strcmp(pstProperty, "tics_labels") == 0 || strcmp(pstProperty, "auto_ticks") == 0 ||
-                            strcmp(pstProperty, "axes_visible") == 0 || strcmp(pstProperty, "axes_reverse") == 0 ||
-                            strcmp(pstProperty, "text") == 0)
-                    {
-                        isMatrixOfString = 1;
-                        if (getAllocatedMatrixOfString(pvApiCtx, piAddr2, &iRows3, &iCols3, (char***)&_pvData))
+                        if (getAllocatedSingleString(pvApiCtx, piAddr3, (char**)&_pvData))
                         {
-                            Scierror(999, _("%s: Wrong size for input argument #%d: A matrix of string expected.\n"), fname, 2);
-                            return 1;
-                        }
-                    }
-                    else
-                    {
-                        if (getAllocatedSingleString(pvApiCtx, piAddr2, (char**)&_pvData))
-                        {
-                            Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 2);
+                            Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 3);
                             return 1;
                         }
                         iRows3 = (int)strlen((char*)_pvData);
                         iCols3 = 1;
                     }
+                    else
+                    {
+                        isMatrixOfString = 1;
+                        getAllocatedMatrixOfString(pvApiCtx, piAddr3, &iRows3, &iCols3, (char***)&_pvData);
+                    }
+                    break;
+                case sci_list :
+                    iCols3 = 1;
+                    getListItemNumber(pvApiCtx, piAddr3, &iRows3);
+                    _pvData = (void*)piAddr3;         /* In this case l3 is the list position in stack */
+                    break;
+                default :
+                    _pvData = (void*)piAddr3;         /* In this case l3 is the list position in stack */
+                    break;
                 }
-                break;
+            }
+            break;
+        case sci_strings:      /* first is a string argument so it's a set("command",[param]) */
+	    checkInputArgument(pvApiCtx, 2, 2);
+            if (getAllocatedSingleString(pvApiCtx, piAddr1, &pstProperty))
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 1);
+                return 1;
+            }
 
-            default:
-                Scierror(999, _("%s: Wrong type for input argument #%d: String or handle expected.\n"), fname, 1);
-                return 0;
-                break;
+            hdl = 0;
+            iObjUID = 0;
+            valueType = getInputArgumentType(pvApiCtx, 2);
+            sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+            if (sciErr.iErr)
+            {
+                Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
+                return 1;
+            }
+
+            if (valueType == sci_matrix)
+            {
+                sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows3, &iCols3, (double**)&_pvData);
+                if (sciErr.iErr)
+                {
+                    printError(&sciErr, 0);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: Matrix expected.\n"), fname, 2);
+                    return sciErr.iErr;
+                }
+            }
+            else if (valueType == sci_handles)
+            {
+                sciErr = getMatrixOfHandle(pvApiCtx, piAddr2, &iRows3, &iCols3, (long long**)&_pvData);
+                if (sciErr.iErr)
+                {
+                    printError(&sciErr, 0);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of handle expected.\n"), fname, 3);
+                    return 1;
+                }
+            }
+            else if (valueType == sci_strings)
+            {
+                if (strcmp(pstProperty, "tics_labels") == 0 || strcmp(pstProperty, "auto_ticks") == 0 ||
+                    strcmp(pstProperty, "axes_visible") == 0 || strcmp(pstProperty, "axes_reverse") == 0 ||
+                    strcmp(pstProperty, "text") == 0)
+                {
+                    isMatrixOfString = 1;
+                    if (getAllocatedMatrixOfString(pvApiCtx, piAddr2, &iRows3, &iCols3, (char***)&_pvData))
+                    {
+                        Scierror(999, _("%s: Wrong size for input argument #%d: A matrix of string expected.\n"), fname, 2);
+                        return 1;
+                    }
+                }
+                else
+                {
+                    if (getAllocatedSingleString(pvApiCtx, piAddr2, (char**)&_pvData))
+                    {
+                        Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 2);
+                        return 1;
+                    }
+                    iRows3 = (int)strlen((char*)_pvData);
+                    iCols3 = 1;
+                }
+            }
+            break;
+
+        default:
+            Scierror(999, _("%s: Wrong type for input argument #%d: String or handle expected.\n"), fname, 1);
+            return 0;
+            break;
         }
 
         if (hdl != 0)
@@ -313,13 +334,13 @@ int sci_set(char *fname, unsigned long fname_len)
             /* 'figure_style' for compatibility but do nothing */
             /* others values must return a error */
             char *propertiesSupported[NB_PROPERTIES_SUPPORTED] = { "current_entity",
-                    "hdl",
-                    "current_figure",
-                    "current_axes",
-                    "figure_style",
-                    "default_values",
-                    "auto_clear"
-                                                                 };
+                                                                   "hdl",
+                                                                   "current_figure",
+                                                                   "current_axes",
+                                                                   "figure_style",
+                                                                   "default_values",
+                                                                   "auto_clear"
+            };
 
             int i = 0;
             int iPropertyFound = 0;

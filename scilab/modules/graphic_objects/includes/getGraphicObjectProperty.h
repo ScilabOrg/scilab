@@ -39,4 +39,6 @@ GRAPHIC_OBJECTS_IMPEXP void getGraphicObjectProperty(int iID, const int _iName, 
  */
 GRAPHIC_OBJECTS_IMPEXP void releaseGraphicObjectProperty(const int _iName, void * _pvData, enum _ReturnType_ _returnType, int numElements);
 
+GRAPHIC_OBJECTS_IMPEXP void getUIControlProperty(int _iobjUID, char * pname, int stackPos);
+
 #endif /* !__GETGRAPHICOBJECTPROPERTY_H__ */

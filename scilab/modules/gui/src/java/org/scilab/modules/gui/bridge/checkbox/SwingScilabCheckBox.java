@@ -13,18 +13,11 @@
 
 package org.scilab.modules.gui.bridge.checkbox;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.checkbox.SimpleCheckBox;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -41,7 +34,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabCheckBox extends JCheckBox implements SwingViewObject, SimpleCheckBox {
+public class SwingScilabCheckBox extends JCheckBox implements SimpleCheckBox {
 
     private static final long serialVersionUID = 3435428345694647542L;
 
@@ -62,12 +55,6 @@ public class SwingScilabCheckBox extends JCheckBox implements SwingViewObject, S
         actListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Double[] value = new Double[1];
-                value[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
-                if (isSelected()) {
-                    value[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
-                }
-                GraphicController.getController().setProperty(uid, __GO_UI_VALUE__, value);
                 if (callback != null) {
                     callback.actionPerformed(e);
                 }
@@ -240,30 +227,5 @@ public class SwingScilabCheckBox extends JCheckBox implements SwingViewObject, S
     public TextBox getInfoBar() {
         /* Unimplemented for CheckBoxes */
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 }

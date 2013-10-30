@@ -73,9 +73,26 @@ public class UIPanel extends UIComponent {
      * {@inheritDoc}
      */
     public Object newInstance() {
-        panel = new JPanel();
+        panel = new JPanel() {
+                public boolean isOptimizedDrawingEnabled() {
+                    return !(getLayout() instanceof NoLayout);
+                }
+            };
 
         return panel;
+    }
+
+    public static UIPanel createEmpty() {
+        try {
+            UIPanel ui = new UIPanel(null);
+            JPanel jp = (JPanel) ui.newInstance();
+            jp.setLayout(new NoLayout());
+            ui.setComponent(jp);
+
+            return ui;
+        } catch (UIWidgetException e) {
+            return null;
+        }
     }
 
     @UIComponentAnnotation(attributes = {"width", "height", "background", "image", "image-style", "enable"})
@@ -83,11 +100,16 @@ public class UIPanel extends UIComponent {
         this.backgroundImage = backgroundImage;
         this.imageStyle = imageStyle;
         panel = new JPanel(new NoLayout()) {
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon im = UIPanel.this.backgroundImage;
-                if (im != null) {
-                    switch (UIPanel.this.imageStyle) {
+
+                public boolean isOptimizedDrawingEnabled() {
+                    return !(getLayout() instanceof NoLayout);
+                }
+
+                public void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    ImageIcon im = UIPanel.this.backgroundImage;
+                    if (im != null) {
+                        switch (UIPanel.this.imageStyle) {
                         case CENTER:
                             g.drawImage(im.getImage(), (getWidth() - im.getIconWidth()) / 2, (getHeight() - im.getIconHeight()) / 2, this);
                             break;
@@ -104,11 +126,11 @@ public class UIPanel extends UIComponent {
                                 }
                             }
                             break;
+                        }
                     }
                 }
-            }
 
-        };
+            };
 
         if (width != Integer.MAX_VALUE && height != Integer.MAX_VALUE) {
             panel.setSize(new Dimension(width, height));
@@ -244,25 +266,25 @@ public class UIPanel extends UIComponent {
             final Component comp = (Component) c.getComponent();
             final LayoutManager layout = panel.getLayout();
             UIAccessTools.execOnEDT(new Runnable() {
-                public void run() {
-                    if (layout instanceof BorderLayout) {
-                        String constraint = c.getLayoutConstraint() == null ? "c" : c.getLayoutConstraint().get("position");
-                        panel.add(comp, UILayoutFactory.BorderConstants.get(constraint));
-                    } else if (layout instanceof GridBagLayout) {
-                        if (c.getLayoutConstraint() == null) {
-                            System.err.println("Invalid layout constraint: must not be empty" + c);
-                            return;
+                    public void run() {
+                        if (layout instanceof BorderLayout) {
+                            String constraint = c.getLayoutConstraint() == null ? "c" : c.getLayoutConstraint().get("position");
+                            panel.add(comp, UILayoutFactory.BorderConstants.get(constraint));
+                        } else if (layout instanceof GridBagLayout) {
+                            if (c.getLayoutConstraint() == null) {
+                                System.err.println("Invalid layout constraint: must not be empty" + c);
+                                return;
+                            }
+                            add(panel, gbc, comp, c.getLayoutConstraint());
+                        } else if (layout instanceof NoLayout) {
+                            // In Swing (see JComponent::paintChildren), children are painted in reverse order
+                            // to keep uicontrol compatibility, first added is first painted !
+                            panel.add(comp, c.getNoLayoutConstraint(), 0);
+                        } else {
+                            panel.add(comp);
                         }
-                        add(panel, gbc, comp, c.getLayoutConstraint());
-                    } else if (layout instanceof NoLayout) {
-                        // In Swing (see JComponent::paintChildren), children are painted in reverse order
-                        // to keep uicontrol compatibility, first added is first painted !
-                        panel.add(comp, c.getNoLayoutConstraint(), 0);
-                    } else {
-                        panel.add(comp);
                     }
-                }
-            });
+                });
         }
     }
 
@@ -336,4 +358,4 @@ public class UIPanel extends UIComponent {
 /*
 
 
-*/
+ */

@@ -99,5 +99,14 @@
         <method name="buildFigureMenuBar" returnType="void" modifier="static">
             <parameter name="figureId" type="int"/>
         </method>
+        <method name="getGOHandler" returnType="int" modifier="static"/>
+        <method name="setUIControlProperty" returnType="void" modifier="static">
+	  <parameter name="id" type="int"/>
+	</method>
+        <method name="getUIControlProperty" returnType="void" modifier="static">
+	  <parameter name="id" type="int"/>
+	  <parameter name="pname" type="String"/>
+	  <parameter name="stackPos" type="int"/>
+	</method>
     </object>
 </package>

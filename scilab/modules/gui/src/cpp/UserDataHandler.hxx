@@ -62,7 +62,7 @@ public:
      * @param uid the uid of the Java object.
      * @param stackPos the stack position
      */
-    static void put(const int uid, const int stackPos);
+    static void put(const int uid, const int stackPos, void * pvApiCtx);
 
     /**
      * Get a data in the map and put it in the Scilab's stack.
@@ -71,7 +71,7 @@ public:
      * @param stackPos the stack position
      * @return an int corresponding to the success (or not) of the operation
      */
-    static int get(const int uid, void * pvApiCtx, const int stackPos);
+    static int get(const int uid, const int stackPos, void * pvApiCtx);
 
     /**
      * Remove the UserData associated with the uid

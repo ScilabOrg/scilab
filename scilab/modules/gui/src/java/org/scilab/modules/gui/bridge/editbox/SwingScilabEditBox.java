@@ -14,8 +14,6 @@
 
 package org.scilab.modules.gui.bridge.editbox;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -23,10 +21,6 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.gui.SwingView;
-import org.scilab.modules.gui.SwingViewWidget;
-import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.editbox.SimpleEditBox;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -44,7 +38,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabEditBox extends JTextField implements SwingViewObject, SimpleEditBox {
+public class SwingScilabEditBox extends JTextField implements SimpleEditBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -68,10 +62,7 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
             public void focusLost(FocusEvent arg0) {
                 // Validates user input
                 if (getParent() != null) { // To avoid to execute the callback when then parent figure is destroyed
-                    String[] stringProperty = new String[] {getText()};
-                    GraphicController.getController().setProperty(uid, __GO_UI_STRING__, stringProperty);
-
-                    if (SwingView.getFromId(uid) != null && callback != null) {
+                    if (callback != null) {
                         callback.actionPerformed(null);
                     }
                 }
@@ -85,9 +76,7 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
             public void actionPerformed(ActionEvent arg0) {
                 // Validates user input
                 if (getParent() != null) { // To avoid to execute the callback when then parent figure is destroyed
-                    String[] stringProperty = new String[] {getText()};
-                    GraphicController.getController().setProperty(uid, __GO_UI_STRING__, stringProperty);
-                    if (SwingView.getFromId(uid) != null && callback != null) {
+                    if (callback != null) {
                         callback.actionPerformed(null);
                     }
                 }
@@ -254,30 +243,5 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
     public TextBox getInfoBar() {
         /* Unimplemented for EditBoxes */
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Set the UID
-     * @param id the UID
-     */
-    public void setId(Integer id) {
-        uid = id;
-    }
-
-    /**
-     * Get the UID
-     * @return the UID
-     */
-    public Integer getId() {
-        return uid;
-    }
-
-    /**
-     * Generic update method
-     * @param property property name
-     * @param value property value
-     */
-    public void update(int property, Object value) {
-        SwingViewWidget.update(this, property, value);
     }
 }

@@ -556,6 +556,8 @@ function update_colormap()
         my_figure.color_map = graycolormap(128);
     end
 
+    disp(my_figure.color_map)
+
     if my_cur_bg_color_id > 32 then
 
         color_id = color( ..

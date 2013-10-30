@@ -36,6 +36,11 @@ void setGraphicObjectRelationship(int _parentId, int _childId)
     CallGraphicController::setGraphicObjectRelationship(getScilabJavaVM(), _parentId, _childId);
 }
 
+void setUIControlProperties(int _iobjUID)
+{
+    CallGraphicController::setUIControlProperty(getScilabJavaVM(), _iobjUID);
+}
+
 BOOL setGraphicObjectProperty(int _iID, int _iName, void const* _pvValue, _ReturnType_ _valueType, int numElements)
 {
     bool result = false;
