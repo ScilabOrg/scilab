@@ -22,12 +22,24 @@ function [perm,rec,tr,indsRec,indsT]=classmarkov(M)
     //are transient.
     //perm=[indsRec,indsT] where indsRec is a  vector of size sum(rec)
     //and indsT is a vector of size indsT.
+
+    if (type(M) <> 1 & typeof(M) <> "sparse") | ~isreal(M) then
+        error(msprintf(_("%s: Wrong type for input argument #%d: A full or sparse real matrix expected.\n"), "classmarkov", 1));
+    end
+
     if type(M)==1
         Mb=sparse(M<>0);
     else Mb=M<>0;
     end
-    g=mat_2_graph(bool2s(Mb),1,"node-node");
-    [nc,ncomp]=strong_connex(g);
+
+    [ij,v,mn]=spget(Mb);
+    n=mn(1)
+    he=ij(:,1); ta=ij(:,2);
+    // compute lp and ln
+    [lp,la,ln]=ta2lpd(he',ta',n+1,n)
+    // compute connexity
+    [nc,ncomp]=m6compfc(lp,ln,n)
+
     indsRec=[];indsT=[];rec=[];tr=0;
     for i=1:nc
         inds=find(ncomp==i);
@@ -43,4 +55,3 @@ function [perm,rec,tr,indsRec,indsT]=classmarkov(M)
     end
     perm=[indsRec,indsT];
 endfunction
-

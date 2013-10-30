@@ -1,0 +1,19 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+P = genmarkov([4 5], 2, "perm");
+[perm, rec, tr, indsRec, indsT] = classmarkov(P);
+res = P(perm, perm);
+// Adapt the check to the resulting P(perm,perm), which can be banded with 5x5 or 4x4 matrices
+assert_checkequal( res((rec(1)+1):$-tr, 1:rec(1)) ,  zeros(9-rec(1), rec(1))   );
+assert_checkequal( res(1:rec(1), (rec(1)+1):$)    ,  zeros(rec(1), 9-rec(1)+2) );
+
+// Error checks
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse real matrix expected.\n"),"classmarkov",1);
+assert_checkerror("classmarkov(%t)", refMsg);
+assert_checkerror("classmarkov(""P"")", refMsg);
+assert_checkerror("classmarkov(list())", refMsg);

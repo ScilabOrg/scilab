@@ -101,7 +101,9 @@ src/fortran/dspmat.f \
 src/fortran/wspmsp.f \
 src/fortran/lspis.f \
 src/fortran/writebuf.f \
-src/fortran/ta2lpd.f
+src/fortran/ta2lpd.f \
+src/fortran/compfc.f \
+src/fortran/cfc.f
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_spcompa.c \
 sci_gateway/c/sci_full.c \
@@ -149,7 +151,8 @@ sci_gateway/fortran/sci_f_spchol.f \
 sci_gateway/fortran/sci_f_lusolve.f \
 sci_gateway/fortran/sci_f_fadj2sp.f \
 sci_gateway/fortran/sci_f_sfinit.f \
-sci_gateway/fortran/sci_f_ta2lpd.f
+sci_gateway/fortran/sci_f_ta2lpd.f \
+sci_gateway/fortran/sci_f_m6compfc.f
 
 libscisparse_la_CPPFLAGS = -I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/api_scilab/includes/ \
