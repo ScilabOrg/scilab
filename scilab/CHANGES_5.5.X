@@ -99,6 +99,8 @@ Scilab Bug Fixes
 
 * Bug #13032 fixed - Fixed CMATVIEW help example and created one for CMAT3D.
 
+* Bug #13033 fixed - Could not use -1 in nax argument in plot2d.
+
 
 Xcos Bug Fixes
 ==============
