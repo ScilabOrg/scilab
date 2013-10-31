@@ -69,7 +69,7 @@ th0 = .02;
 
 // looking for the Superblock to linearize
 for i=1:length(scs_m.objs)
-    if typeof(scs_m.objs(i))=="Block" & scs_m.objs(i).gui=="SUPER_f" then
+    if typeof(scs_m.objs(i))=="Block" &amp; scs_m.objs(i).gui=="SUPER_f" then
         scs_m = scs_m.objs(i).model.rpar;
         break;
     end
