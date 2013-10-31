@@ -111,6 +111,8 @@ Xcos Bug Fixes
 
 * Bug #13006 fixed - Selection to Super block (in_f and out_f) was failing.
 
+* Bug #13030 fixed - Selection to Super block did not reset the origin.
+
 
                  Changes between version 5.4.1 and 5.5.0-beta-1
                  ==============================================
