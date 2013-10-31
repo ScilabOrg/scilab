@@ -66,6 +66,8 @@ class EXTERNAL_OBJECTS_JAVA_SCILAB_IMPEXP ScilabJavaEnvironment : public ScilabA
 
 public :
 
+    ScilabJavaEnvironment();
+
     ~ScilabJavaEnvironment();
 
     void Initialize();
@@ -171,8 +173,9 @@ public :
         return traceEnabled;
     }
 
+    int createJarArchive(char *jarFilePath, char **filePaths, int filePathsSize, char* filesRootPath);
+
 private:
-    ScilabJavaEnvironment();
 
     void getMethodResult(JavaVM * jvm_, const char * const methodName, int id, const ScilabStringStackAllocator & allocator);
 
