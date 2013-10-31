@@ -440,4 +440,5 @@ function m2sci_gui()
     "tag", "dirradio", ...
     "callback", "cb_m2sci_gui");
 
+    m2scifig.visible = "on";
 endfunction
