@@ -75,6 +75,8 @@ Scilab Bug Fixes
 
 * Bug #12979 fixed - exportUI did not work with vectorial export.
 
+* Bug #12882 fixed - Some help pages were not clear.
+
 * Bug #13000 fixed - []./int8(3) and on int8(3)./[] led to an endless recursive.
 
 * Bug #13003 fixed - String to enum converter added to Java external objects.
