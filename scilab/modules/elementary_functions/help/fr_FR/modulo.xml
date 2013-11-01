@@ -29,15 +29,20 @@
         <title>Paramètres</title>
         <variablelist>
             <varlistentry>
-                <term>n</term>
+                <term>m, n</term>
                 <listitem>
-                    <para>vecteur ou matrice de rééls ou de polynômes</para>
+                    <para>Scalaire, vecteur, matrice ou hypermatrice d'entiers encodés, de décimaux réels ou de polynômes (les hypermatrices de polynômes ne sont pas admises). 
+                        <varname>m</varname> et <varname>n</varname> doivent être de même type. Si aucune des deux n'est scalaire, elles doivent avoir les mêmes dimensions.
+                    </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>m</term>
+                <term>i</term>
                 <listitem>
-                    <para>vecteur ou matrice de rééls ou de polynômes</para>
+                    <para>
+                        Scalaire, vecteur, matrice ou hypermatrice du type de <varname>m</varname> et <varname>n</varname>. 
+                        <varname>i</varname> a les dimensions de la plus large de <varname>m</varname> ou<varname>n</varname>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -53,18 +58,10 @@
             <literal>n</literal> et/ou <literal>m</literal> sont négatifs.
         </para>
         <para>
-            <literal>pmodulo</literal> calcule <literal>i = n - |m| .* floor (n ./
-                |m|)
-            </literal>
-            ,la réponse est positive ou nulle.
+            <literal>pmodulo</literal> calcule <literal>i = n - |m| .* floor (n ./|m|)</literal>,la réponse est positive ou nulle.
         </para>
-    </refsection>
-    <refsection>
-        <title>Remarque</title>
         <para>
-            <note>
-                Si m et n sont des vecteurs ou des matrices, ils doivent être de même taille.
-            </note>
+            <code>modulo(x,0)</code> et <code>pmodulo(x,0)</code> produisent une division par zéro et sont traitées comme telle selon le mode <literal>ieee()</literal> actif. 			
         </para>
     </refsection>
     <refsection>
@@ -80,6 +77,48 @@ modulo(10, -4)
 pmodulo(-3, 9)
 pmodulo(10, -6)
 pmodulo(-10, -6)
+
+// Entiers encodés
+modulo( int8(-123), int16(-7))
+pmodulo(int8(-123), int16(-7))
+modulo( int8(-123), int16([-7 5]))
+pmodulo(int8(-123), int16([-7 5]))
+modulo( int8([-123 51]), int16(-7))
+pmodulo(int8([-123 51]), int16(-7))
+modulo( int8([-123 51]), int16([-7 5]))
+pmodulo(int8([-123 51]), int16([-7 5]))
+
+// Hypermatrices
+m = grand(2,2,2,"uin",-100,100)
+n = grand(2,2,2,"uin",-10 ,10)
+modulo(m, 5)
+pmodulo(m,5)
+modulo(51, n)
+pmodulo(51,n)
+modulo(m, n)
+pmodulo(m,n)
+
+// Polynômes
+modulo( %z^2+1, %z)
+pmodulo(%z^2+1, %z)
+
  ]]></programlisting>
+    </refsection>
+    <refsection role= "see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ieee">ieee</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Extension aux entiers encodés et aux hypermatrices d'entiers ou de réels.</revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
