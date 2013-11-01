@@ -2,6 +2,7 @@
 // Copyright (C) INRIA
 // Copyright (C) DIGITEO - 2011 - Allan CORNET
 // Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+// Copyright (C) 2013 - Samuel GOUGEON : Bug 13002 : extension to hypermatrices & integers
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -14,44 +15,52 @@ function i = modulo(n, m)
 
     [lhs, rhs] = argn(0);
     if rhs <> 2 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"modulo", 2));
+        msg = _("%s: Wrong number of input argument(s): %d expected.\n")
+        error(msprintf(msg, "modulo", 2))
     end
 
-    if and(typeof(n) <> ["constant", "polynomial"]) | ~isreal(n) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: A real expected.\n"), "modulo", 1));
+    m0 = m
+    n0 = n
+    m = m(:)
+    n = n(:)
+
+    // -----------------------  Checking arguments --------------------------
+
+    if and(type(n) <> [1 2 8]) | (typeof(n)=="constant" & ~isreal(n)) then
+        msg = _("%s: Wrong type for input argument #%d: A real expected.\n")
+        error(msprintf(msg, "modulo", 1))
     end
 
-    if typeof(m) <> "constant" & typeof(m) <> "polynomial" | ~isreal(m) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: A real expected.\n"), "modulo", 2));
+    if and(type(m) <> [1 2 8]) | (typeof(m)=="constant" & ~isreal(m)) then
+        msg = _("%s: Wrong type for input argument #%d: A real expected.\n")
+        error(msprintf(msg, "modulo", 2))
     end
 
-    if typeof(m) =="constant" & typeof(n) =="constant" then
-        if size(n,"*")==1 then
-            i = zeros(m);
-            k = find(m==0);
-            i(k) = n - int(n ./ m(k)) .* m(k);
-            k = find(m~=0);
-            i(k) = n-int(n./m(k)).*m(k);
-        elseif size(m,"*")==1 then
-            i = zeros(n);
-            if m == 0 then
-                i = n - int(n ./ m) .* m;
-            else
-                i = n-int(n./m).*m;
+    if type(n)==8 & type(n)~=type(m) then
+        msg = _("%s: Incompatible input arguments #%d and #%d: Same types expected.\n")
+        error(msprintf(msg, "pmodulo", 1, 2))
+    end
+
+    // --------------------------  Processing ----------------------------
+
+    if or(type(m)==[1 8]) & type(m)==type(n) then
+        if size(n0,"*")==1 | size(m0,"*")==1 then
+            i = n0 - int(n0 ./ m) .* m
+            if size(m0,"*")~=1 then
+                i = matrix(i, size(m0))
             end
         else
-            if or(size(n) <> size(m)) then
-                error(msprintf(gettext("%s: Wrong size for input arguments: Same size expected.\n"),"modulo"));
+            if or(size(n0) <> size(m0)) then
+                msg = _("%s: Wrong size for input arguments: Same size expected.\n")
+                error(msprintf(msg, "modulo"))
             end
-            i = zeros(n);
-            k = find(m==0);
-            i(k) = n(k) - int(n(k) ./ m(k)) .* m(k);
-            k = find(m~=0);
-            i(k) = n(k) - int(n(k)./m(k)).*m(k);
+            i = n - int(n ./ m) .* m
+            i = matrix(i, size(m0))
         end
     else
-        [i,q]=pdiv(n,m);
+        [i,q] = pdiv(n0, m0)
     end
+
 endfunction
 
 

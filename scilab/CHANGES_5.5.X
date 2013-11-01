@@ -1,6 +1,12 @@
                  Changes between version 5.5.0-beta-1 and 5.5.0
                  ==============================================
 
+New Features
+=============
+
+* modulo() and pmodulo() support integers & hypermatrices 
+
+
 Scilab Bug Fixes
 ================
 

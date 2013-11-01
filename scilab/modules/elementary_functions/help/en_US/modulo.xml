@@ -29,15 +29,20 @@
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>n</term>
+                <term>m, n</term>
                 <listitem>
-                    <para>real or polynomial vector or matrix </para>
+                    <para>Scalar, vector, matrix or hypermatrix of encoded integers, reals or polynomials (Hypermatrix is not supported for polynomials). 
+                        <varname>m</varname> and <varname>n</varname> must have the same type. If none of them is scalar, they must have the same sizes.
+                    </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>m</term>
+                <term>i</term>
                 <listitem>
-                    <para>real or polynomial vector or matrix </para>
+                    <para>
+                        Scalar, vector, matrix or hypermatrix of same type as <varname>m</varname> and <varname>n</varname>. 
+                        <varname>i</varname> takes the sizes of the bigger <varname>m</varname> or <varname>n</varname>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -45,34 +50,19 @@
     <refsection>
         <title>Description</title>
         <para>
-            <function>modulo</function> computes <code>i = n (modulo
-                m)
-            </code>
-            i.e. remainder of <varname>n</varname> divided by
-            <varname>m</varname>.
+            <function>modulo</function> computes <code>i = n (modulo m)</code>
+            i.e. remainder of <varname>n</varname> divided by <varname>m</varname>.
         </para>
         <para>
             <code>i = n - m .* int (n ./ m)</code>. Here the answer may be negative
             if <varname>n</varname> or <varname>m</varname> are negative.
         </para>
         <para>
-            <function>pmodulo</function> computes <code>i = n - |m| .* floor (n
-                ./ |m|)
-            </code>
-            , the answer is positive or zero.
+            <function>pmodulo</function> computes <code>i = n - |m| .* floor (n ./ |m|)</code>,
+            the answer is positive or zero.
         </para>
         <para>
-            <code>modulo(x,0)</code> returns an error message: "Division by zero...". With ieee(2), <code>modulo(x,0)</code> returns <constant>%nan</constant>.
-        </para>
-        <para>
-            <code>pmodulo(x,0)</code> returns an error message: "Division by zero...". With ieee(2), <code>pmodulo(x,0)</code> returns <constant>%nan</constant>.
-        </para>
-    </refsection>
-    <refsection>
-        <title>Remark</title>
-        <para><note>
-                If m and n are vector or matrix type, m and n must have the same dimensions.
-            </note>
+            <code>modulo(x,0)</code> and <code>pmodulo(x,0)</code> yield and are processed as a division by zero, according to the <literal>ieee()</literal> mode. 			
         </para>
     </refsection>
     <refsection>
@@ -88,6 +78,50 @@ modulo(10, -4)
 pmodulo(-3, 9)
 pmodulo(10, -6)
 pmodulo(-10, -6)
+
+// Encoded integers
+modulo( int8(-123), int16(-7))
+pmodulo(int8(-123), int16(-7))
+modulo( int8(-123), int16([-7 5]))
+pmodulo(int8(-123), int16([-7 5]))
+modulo( int8([-123 51]), int16(-7))
+pmodulo(int8([-123 51]), int16(-7))
+modulo( int8([-123 51]), int16([-7 5]))
+pmodulo(int8([-123 51]), int16([-7 5]))
+
+// Hypermatrices
+m = grand(2,2,2,"uin",-100,100)
+n = grand(2,2,2,"uin",-10 ,10)
+modulo(m, 5)
+pmodulo(m,5)
+modulo(51, n)
+pmodulo(51,n)
+modulo(m, n)
+pmodulo(m,n)
+
+// Polynomials
+modulo( %z^2+1, %z)
+pmodulo(%z^2+1, %z)
+
+
  ]]></programlisting>
     </refsection>
+    <refsection role= "see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="ieee">ieee</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>Extension to encoded integers and to hypermatrices of encoded integers or reals.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+    
 </refentry>
