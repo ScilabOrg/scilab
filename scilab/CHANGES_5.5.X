@@ -10,6 +10,8 @@ New Features
 * New functions introduced:
  - jcreatejar - Creates a Java archive (JAR) from a set of files / directories
 
+* modulo() and pmodulo() support integers & hypermatrices 
+
 
 Scilab Bug Fixes
 ================
