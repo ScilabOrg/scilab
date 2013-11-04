@@ -55,6 +55,11 @@ xml:lang="fr" xml:id="isnum">
             Les nombres complexes ne sont pas conernés par cela,
             puisqu'un nombre complexe est défini par l'addition de deux parties.
         </para>
+        <para>
+            <note>
+                <code>isnum("%nan")</code> et <code>isnum("Nan")</code> retournent %f; et par convention, <code>isnum("%inf")</code> retourne %t.
+            </note>
+        </para>
     </refsection>
     <refsection>
         <title>Exemples</title>

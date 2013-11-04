@@ -54,6 +54,11 @@ xml:lang="en" xml:id="isnum">
             For instance, <code>isnum("1+2*3")</code> will return <code>%f</code>.
             Complex numbers are not concerned, because one complex number is defined by the addition of two parts.
         </para>
+        <para>
+            <note>
+                <code>isnum("%nan")</code> and <code>isnum("Nan")</code> return %f; and by convention, <code>isnum("%inf")</code> return %t.
+            </note>
+        </para>
     </refsection>
     <refsection>
         <title>Examples</title>

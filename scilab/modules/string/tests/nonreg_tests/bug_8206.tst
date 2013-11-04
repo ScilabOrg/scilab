@@ -22,11 +22,11 @@ r = isnum(a);
 if ~or(r == ref) then pause, end
 
 if isnum("%inf") <> %t then pause, end
-if isnum("%nan") <> %t then pause, end
+if isnum("%nan") <> %f then pause, end
 
 b = ["-4.5", "", "%nan", "%f", "%i", "%pi"];
 r = isnum(b);
-ref = [%T %F %T %F %T %T];
+ref = [%T %F %F %F %T %T];
 if ~or(r == ref) then pause, end
 
 C = 1;

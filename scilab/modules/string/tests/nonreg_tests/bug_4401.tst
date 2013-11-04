@@ -19,17 +19,17 @@
 //========================================================================================
 assert_checktrue(  isnum("%pi")          );
 assert_checkfalse( isnum("bla_bla")      );
-assert_checktrue(  isnum("%nan")         );
+assert_checkfalse( isnum("%nan")         );
 assert_checktrue(  isnum("%inf")         );
 assert_checktrue(  isnum("%e")            );
 assert_checktrue(  isnum("%eps")          );
 assert_checktrue(  isnum("+%eps")         );
 assert_checktrue(  isnum("-%eps")         );
-assert_checktrue(  isnum("Nan")           );
+assert_checkfalse( isnum("Nan")           );
 assert_checktrue(  isnum("Inf")           );
-assert_checktrue(  isnum("Nan-%i*Nan")   );
+assert_checkfalse( isnum("Nan-%i*Nan")   );
 assert_checktrue(  isnum("-Inf+Inf*%i")  );
-assert_checktrue(  isnum("1-%i*%nan")  );
+assert_checkfalse( isnum("1-%i*%nan")  );
 assert_checktrue(  isnum("-%eps+%e*%i")  );
 assert_checkfalse( isnum("%t")            );
 assert_checktrue(  isnum("%i")            );

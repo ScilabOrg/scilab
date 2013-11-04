@@ -78,6 +78,7 @@ double stringToDouble(const char *pSTR, BOOL bConvertByNAN, stringToDoubleError 
                 (stricmp(pSTR, ScilabNanString) == 0) || (stricmp(pSTR, ScilabNegNanString) == 0))
         {
             dValue = returnNAN();
+            return dValue;
         }
         else if ((stricmp(pSTR, InfString) == 0) || (stricmp(pSTR, PosInfString) == 0) ||
                  (stricmp(pSTR, ScilabInfString) == 0) || (stricmp(pSTR, ScilabPosInfString) == 0))

@@ -5,6 +5,7 @@ Scilab Bug Fixes
 ================
 
 * Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
+                    Also, isnum considered Nans as numbers.
 
 * Bug #5016 fixed - condestsp could return different results when repeated calls were performed.
 

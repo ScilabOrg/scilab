@@ -180,19 +180,18 @@ static int ParseNumber(const char* tx)
     }
 
     // Special cases: constants
-    if (strlen(tx) >= 5 && strncmp(tx, "+%eps", 5) == 0 || strncmp(tx, "-%eps", 5) == 0 || strncmp(tx, "+%nan", 5) == 0 ||
-            strncmp(tx, "-%nan", 5) == 0 || strncmp(tx, "+%inf", 5) == 0 || strncmp(tx, "-%inf", 5) == 0)
+    if (strlen(tx) >= 5 && strncmp(tx, "+%eps", 5) == 0 || strncmp(tx, "-%eps", 5) == 0 ||
+            strncmp(tx, "+%inf", 5) == 0 || strncmp(tx, "-%inf", 5) == 0)
     {
         return 5;
     }
     else if (strlen(tx) >= 4 && strncmp(tx, "%eps", 4) == 0 || strncmp(tx, "+%pi", 4) == 0 || strncmp(tx, "-%pi", 4) == 0 ||
-             strncmp(tx, "+Inf", 4) == 0 || strncmp(tx, "-Inf", 4) == 0 || strncmp(tx, "+Nan", 4) == 0 ||
-             strncmp(tx, "-Nan", 4) == 0 || strncmp(tx, "%nan", 4) == 0 || strncmp(tx, "%inf", 4) == 0 )
+             strncmp(tx, "+Inf", 4) == 0 || strncmp(tx, "-Inf", 4) == 0 || strncmp(tx, "%inf", 4) == 0 )
     {
         return 4;
     }
-    else if (strlen(tx) >= 3 && strncmp(tx, "+%e", 3) == 0 || strncmp(tx, "-%e", 3) == 0 || strncmp(tx, "%pi", 3) == 0 ||
-             strncmp(tx, "Nan", 3) == 0 || strncmp(tx, "Inf", 3) == 0 || strncmp(tx, "%pi", 3) == 0)
+    else if (strlen(tx) >= 3 && strncmp(tx, "+%e", 3) == 0 || strncmp(tx, "-%e", 3) == 0 ||
+             strncmp(tx, "%pi", 3) == 0 || strncmp(tx, "Inf", 3) == 0 || strncmp(tx, "%pi", 3) == 0)
     {
         return 3;
     }

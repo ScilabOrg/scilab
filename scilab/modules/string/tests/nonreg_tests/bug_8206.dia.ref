@@ -20,10 +20,10 @@ ref = [%T %F; %F %T];
 r = isnum(a);
 if ~or(r == ref) then bugmes();quit;end
 if isnum("%inf") <> %t then bugmes();quit;end
-if isnum("%nan") <> %t then bugmes();quit;end
+if isnum("%nan") <> %f then bugmes();quit;end
 b = ["-4.5", "", "%nan", "%f", "%i", "%pi"];
 r = isnum(b);
-ref = [%T %F %T %F %T %T];
+ref = [%T %F %F %F %T %T];
 if ~or(r == ref) then bugmes();quit;end
 C = 1;
 c = ["-4.5", "blabla"; "C", "-5.6"];
