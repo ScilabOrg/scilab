@@ -103,6 +103,8 @@ Scilab Bug Fixes
 
 * Bug #13036 fixed - Bad help page associated to history browser.
 
+* Bug #13049 fixed - Add new handled protocols in links in SciNotes.
+
 
 Xcos Bug Fixes
 ==============
