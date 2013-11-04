@@ -37,6 +37,7 @@ C     ---------------------------------------------------------------
       integer intersiz
       parameter (intersiz=1024)
 c
+#ifndef _MSC_VER
       integer, pointer :: stack_reserved_for_c__
       double precision, pointer, dimension(:) ::  stk
       integer,          pointer, dimension(:) :: istk
@@ -45,7 +46,21 @@ c
       complex*16,       pointer, dimension(:) :: zstk
       common /stack/ stack_reserved_for_c__, stk,
      $  istk, sstk, cstk, zstk
+#else
+      double precision stk(vsiz)
+      common /stack/ stk
+      integer istk(2*vsiz)
+      equivalence (istk(1),stk(1))
 
+      real sstk(2*vsiz)
+      equivalence (sstk(1),stk(1))
+       
+      character cstk*(4*vsiz)
+      equivalence (cstk,stk(1))
+
+      complex*16 zstk(vsiz/2)
+      equivalence (zstk(1),stk(1))
+#endif
       integer bot,top,idstk(nsiz,isizt),lstk(isizt),leps,bbot,bot0,isiz
       integer gbot,gtop,infstk(isizt)
       common /vstk/ bot,top,idstk,lstk,leps,bbot,bot0,infstk,
@@ -56,6 +71,9 @@ c
       common /recu/ ids,pstk,rstk,pt,niv,macr,paus,icall,krec
 
       integer ddt,err,lct(8),lin(lsiz),lpt(6),rio,rte,wte
+#ifdef _MSC_VER
+      integer hio
+#endif
       common /iop/ ddt,err,lct,lin,lpt,rio,rte,wte
 
       integer err1,err2,errct,toperr,errpt,ieee,catch
