@@ -40347,6 +40347,8 @@ fi
 # This script is used by Xcos in order to regenerate the function/block list
 
 
+ac_config_commands="$ac_config_commands modules/core/includes/stack.h"
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -41650,6 +41652,10 @@ fi
 
 
 
+CPP="$CPP"
+   GREP="$GREP"
+   stack_h_cpp_flags="$stack_h_cpp_flags"
+
 
 _ACEOF
 
@@ -41756,6 +41762,7 @@ do
     "modules/helptools/etc/SciDocConf.xml") CONFIG_FILES="$CONFIG_FILES modules/helptools/etc/SciDocConf.xml" ;;
     "modules/core/includes/version.h") CONFIG_FILES="$CONFIG_FILES modules/core/includes/version.h" ;;
     "modules/development_tools/src/fake/Makefile") CONFIG_FILES="$CONFIG_FILES modules/development_tools/src/fake/Makefile" ;;
+    "modules/core/includes/stack.h") CONFIG_COMMANDS="$CONFIG_COMMANDS modules/core/includes/stack.h" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -43525,6 +43532,10 @@ compiler_lib_search_path=$lt_compiler_lib_search_path_F77
 _LT_EOF
 
  ;;
+    "modules/core/includes/stack.h":C) if ! $CPP $stack_h_cpp_flags - < $srcdir/modules/core/includes/stack.h.in |\
+              $GREP -v '^#' > $srcdir/modules/core/includes/stack.h ; then
+     as_fn_error $? "stack.h generation failed" "$LINENO" 5
+   fi ;;
 
   esac
 done # for ac_tag

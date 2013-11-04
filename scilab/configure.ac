@@ -1955,6 +1955,15 @@ fi
 # This script is used by Xcos in order to regenerate the function/block list
 AC_CONFIG_COMMANDS_POST([chmod +x $SCI_SRCDIR_FULL/modules/scicos_blocks/src/scripts/GenBlocks.sh $SCI_SRCDIR_FULL/modules/dynamic_link/src/scripts/scicompile.sh $SCI_SRCDIR_FULL/modules/dynamic_link/src/scripts/compilerDetection.sh $SCI_SRCDIR_FULL/modules/dynamic_link/src/scripts/configure])
 
+AC_CONFIG_COMMANDS([modules/core/includes/stack.h],		
+  [if ! $CPP $stack_h_cpp_flags - < $srcdir/modules/core/includes/stack.h.in |\		
+              $GREP -v '^#' > $srcdir/modules/core/includes/stack.h ; then		
+     AC_MSG_ERROR([stack.h generation failed])		
+   fi],		
+  [CPP="$CPP"		
+   GREP="$GREP"		
+   stack_h_cpp_flags="$stack_h_cpp_flags"		
+  ])
 AC_OUTPUT
 
 # To distribution packager, you can uncomment this stuff is you want to
