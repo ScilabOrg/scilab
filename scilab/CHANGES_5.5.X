@@ -101,6 +101,8 @@ Scilab Bug Fixes
 
 * Bug #13032 fixed - Fixed CMATVIEW help example and created one for CMAT3D.
 
+* Bug #13047 fixed - jcompile did not allow class reloading.
+
 
 Xcos Bug Fixes
 ==============
