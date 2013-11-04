@@ -101,6 +101,8 @@ Scilab Bug Fixes
 
 * Bug #13032 fixed - Fixed CMATVIEW help example and created one for CMAT3D.
 
+* Bug #13042 fixed - Text in plot were not correctly centered.
+
 
 Xcos Bug Fixes
 ==============
