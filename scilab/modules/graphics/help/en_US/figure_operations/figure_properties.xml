@@ -253,7 +253,7 @@
                         <varlistentry>
                             <term>visible: </term>
                             <listitem>
-                                <para>This field ules if the contents of the figure as to be
+                                <para>This field sets if the contents of the figure (axes and uuicontrols) has to be
                                     redrawn. Its value should be <literal>"on"</literal> or
                                     <literal>"off"</literal>.
                                 </para>
@@ -372,6 +372,10 @@ plot3d(t,t,sin(t)'*cos(t),35,45,'X@Y@Z',[15,2,4]);
     <refsection>
         <title>History</title>
         <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>"visible" property also applies to uicontrols.</revremark>
+            </revision>
             <revision>
                 <revnumber>5.4.0</revnumber>
                 <revremark>New resizefcn &amp; closerequestfcn properties introduced.</revremark>
