@@ -37,5 +37,5 @@ endfunction
 x0 = [-3 -1 -3 -1];
 
 [ fopt, xopt, gopt ] = optim ( woodFG, x0, "qn", imp=-1);
-[ fopt, xopt, gopt ] = optim ( woodFG, x0, "qn", imp=-1);
+[ fopt, xopt, gopt ] = optim ( woodFG, x0, "gc", imp=-1);
 [ fopt, xopt, gopt ] = optim ( woodFG, x0, "nd", imp=-1);

@@ -125,10 +125,14 @@ c     transfert des variables  de sortie vers fortran
       call btof(xind,1)
       indsim=int(xind)
       if(err.gt.0.or.err1.gt.0) return
-      call btof(g,n)
-      if(err.gt.0.or.err1.gt.0) return
-      call btof(f,1)
-      if(err.gt.0.or.err1.gt.0) return
+      if(indsim.ne.1) then
+        call btof(g,n)
+        if(err.gt.0.or.err1.gt.0) return
+        call btof(f,1)
+        if(err.gt.0.or.err1.gt.0) return
+      else
+        top=top-2
+      endif
 c+    
 c     normal return iero set to 0
       iero=indsim 

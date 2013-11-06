@@ -436,6 +436,11 @@
                             </itemizedlist>
                         </listitem>
                     </itemizedlist>
+                    <para>
+                        If <varname>imp</varname> is lower than 0, then the cost function is evaluated every
+                        <varname>-m</varname> iterations, with <literal>ind=1</literal>.
+                        For that value of <literal>ind</literal>, the return of the cost function is not taken into account.
+                    </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -909,35 +914,39 @@
             <literal>mydata</literal> is used to store the number of function
             evaluations as well as the number of iterations.
         </para>
-        <programlisting role="example">
-            function [f, g, ind] = cost(x, ind)
-            global _MYDATA_
-            if ( ind == 1 )
-            _MYDATA_.niter = _MYDATA_.niter + 1;
-            else
-            _MYDATA_.nfevals = _MYDATA_.nfevals + 1;
-            end
-            xref = [1; 2; 3];
-            if ( ind == 2 | ind == 4 ) then
+        <programlisting role="example"><![CDATA[
+function [f, g, ind] = cost(x, ind)
+    global _MYDATA_
+    if ( ind == 1 )
+        // ind=1 is used for side tasks, such as counting iterations,
+        // but not to update f and g
+        _MYDATA_.niter = _MYDATA_.niter + 1;
+    else
+        _MYDATA_.nfevals = _MYDATA_.nfevals + 1;
+        xref = [1; 2; 3];
+        if ( ind == 2 | ind == 4 ) then
             f = 0.5*norm(x-xref)^2;
-            else
+        else
             f = 0;
-            end
-            if ( ind == 3 | ind == 4 ) then
+        end
+        if ( ind == 3 | ind == 4 ) then
             g = x-xref;
-            else
+        else
             g = zeros(3, 1);
-            end
-            endfunction
-            x0 = [1; -1; 1];
-            global _MYDATA_
-            _MYDATA_ = tlist ( ["MYDATA", "niter", "nfevals"]);
-            _MYDATA_.niter = 0;
-            _MYDATA_.nfevals = 0;
-            [f, xopt] = optim(cost, x0, imp=-1);
-            mprintf ( "Number of function evaluations: %d\n", _MYDATA_.nfevals );
-            mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
-        </programlisting>
+        end
+    end
+endfunction
+
+x0 = [1; -1; 1];
+global _MYDATA_
+_MYDATA_ = tlist ( ["MYDATA", "niter", "nfevals"]);
+_MYDATA_.niter = 0;
+_MYDATA_.nfevals = 0;
+
+[f, xopt] = optim(cost, x0, imp=-1);
+mprintf ( "Number of function evaluations: %d\n", _MYDATA_.nfevals );
+mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
+        ]]></programlisting>
         <para>While the previous example perfectly works, there is a risk that the
             same variable <literal>_MYDATA_</literal> is used by some internal
             function used by <literal>optim</literal>. In this case, the value may be

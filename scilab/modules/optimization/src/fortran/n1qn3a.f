@@ -99,7 +99,6 @@ c
           if(mod(iter,-impres).eq.0) then
               indic=1
               call simul (indic,n,x,f,g,izs,rzs,dzs)
-              goto 100
           endif
       endif
       if (impres.ge.4) then
