@@ -1182,7 +1182,7 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbdptr[kk] != (SCSREAL_COP)outtbd[curouttbd + kk])
+                        if (outtbdptr[kk] != (SCSREAL_COP)outtbd[curouttbd + kk] && outtbdptr[kk] == outtbdptr[kk])
                         {
                             goto L30;
                         }
@@ -1195,7 +1195,7 @@ static void cosini(double *told)
                     sszz = 2 * outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbdptr[kk] != (SCSCOMPLEX_COP)outtbd[curouttbd + kk])
+                        if (outtbdptr[kk] != (SCSCOMPLEX_COP)outtbd[curouttbd + kk] && outtbdptr[kk] == outtbdptr[kk])
                         {
                             goto L30;
                         }
