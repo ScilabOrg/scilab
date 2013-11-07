@@ -143,6 +143,14 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>auto_dimensionning: </term>
+                <listitem>
+		  <para>
+		    auto_dimensionning set to "off" is equivalent to text_box_mode set to "filled". If text_box_mode is "off" or "centered" then it implies that auto_dimensionning is on.
+		  </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>font_foreground: </term>
                 <listitem>
                     <para>This field contains the color used to display the characters of
