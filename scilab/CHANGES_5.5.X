@@ -45,6 +45,8 @@ Scilab Bug Fixes
 
 * Bug #8337 fixed - mtlb_rand now uses the "uniform" rule, whatever the random rule set is.
 
+* Bug #9031 fixed - Misalignment when using xstring with a matrix.
+
 * Bug #9110 fixed - Examples and references to other functions added in the Statistics help pages.
 
 * Bug #9627 fixed - Arguments checking added in optimsimplex_* functions.
