@@ -159,11 +159,7 @@ packageName = 'packageManifest';
 jarSrcPath = createSubDir(testRootDir, packageName, %T);
 jarDestPath = fullfile(testRootDir, packageName + '.jar');
 // Create a manifest file somewhere
-manifestFilePath = fullfile(testRootDir, 'MANIFEST_TEST.MF')
- manifestFilePath  =
- 
- TMPDIR\jcreatejar\MANIFEST 
-      _TEST.MF                                                          
+manifestFilePath = fullfile(testRootDir, 'MANIFEST_TEST.MF');
 fd = mopen(manifestFilePath, 'wt');
 mputl(manifestData, fd);
 mclose(fd);
