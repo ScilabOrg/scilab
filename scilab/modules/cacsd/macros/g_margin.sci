@@ -1,4 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: added demo
 // Copyright (C) INRIA -  Author: Serge Steer
 //
 // This file must be used under the terms of the CeCILL.
@@ -9,6 +10,20 @@
 
 function [gm,fr]=g_margin(h)
     //compute the gain margin of a SISO transfer function
+
+    if argn(2) == 0 then
+        query = warning("query");
+        warning("off")
+        mprintf(_("\nWelcome to the g_margin demo\n\n"));
+        h = syslin(0.1,0.04798*%z+0.0464,%z^2-1.81*%z+0.9048); // Discrete time case
+        [g ,fr] = g_margin(h);
+        show_margins(h)
+        mprintf(_("The results are:\n\n"))
+        mprintf(_("Gain margin (dB) = "+string(g)+"\n"))
+        mprintf(_("Achieved frequency (Hz) = "+string(fr)+"\n"))
+        warning(query);
+    end
+
     select typeof(h)
     case "rational" then
     case "state-space" then
