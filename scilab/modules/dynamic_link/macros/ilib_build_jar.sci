@@ -1,0 +1,187 @@
+// ====================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// =====================================================================
+
+// Builds a Java package (JAR) from a set of Java sources (see SEP #115)
+// - jarFilePath: is the JAR target file path
+// - packageNames: names of packages to archive in the JAR
+// - sourcePaths: paths to directories containing Java sources
+// - classPaths (optional): paths to dependencies (JARs or directories)
+// - manifestFilePath (optional) : file path to manifest
+function ilib_build_jar(jarFilePath, packageNames, sourcePaths, classPaths, manifestFilePath)
+
+    // Returns all the java source files contained in a path tree
+    function javaFilePaths = findJavaFiles(path, javaFilePaths)
+        fileNames = listfiles(path)';
+        filePaths = fullfile(path, fileNames);
+
+        // First, explore sub directories
+        dirPaths = filePaths(find(isdir(filePaths)));
+        for i = 1:size(dirPaths, '*')
+            javaFilePaths = [javaFilePaths; findJavaFiles(dirPaths(i), [])];
+        end
+
+        // Then add Java files of that directory
+        dirJavaFilePaths = filePaths(find(fileext(filePaths) == '.java'));
+        javaFilePaths = [javaFilePaths; dirJavaFilePaths];
+    endfunction
+
+    // Returns the JIMS build root path
+    // It is the JIMS/bin folder in TMPDIR
+    function jimsBuildPath = getJimsBuildPath()
+        jimsBuildPath = fullfile(TMPDIR, "JIMS/bin");
+    endfunction
+
+    // Returns the package compilation path
+    // It is the 'deepest' directory containing the built classes
+    // if package is 'com.foo.package' the returned path will be:
+    //   TMPDIR/JIMS/bin/com/foo/package
+    function packageCompilePath = getPackageCompilePath(packageName)
+        packageSubPath = strsubst(packageName, '.', filesep());
+        packageCompilePath = fullfile(getJimsBuildPath(), packageSubPath);
+    endfunction
+
+    // Returns the jar root input path
+    // It is the directory that will be jar-ed
+    // if jar is 'com.foo.package' the returned path will be:
+    //   TMPDIR/JIMS/bin/com.foo.package
+    function jarInputRootPath = getJarInputRootPath(jarName)
+        jarInputRootPath = fullfile(getJimsBuildPath(), '_jar_' + jarName);
+        if isdir(jarInputRootPath) then
+            removedir(jarInputRootPath);
+        end
+        mkdir(jarInputRootPath);
+    endfunction
+
+    // Returns the package path in the jar input path
+    // It is the directory where the classes will be copied
+    // if package is 'com.foo.package' the returned path will be:
+    //   TMPDIR/JIMS/com.foo.package/bin/com/foo/package
+    function jarInputPackagePath = getJarPackagePath(jarInputRootPath, packageName)
+        if ~isempty(packageName) then
+            packagePath = strsubst(packageName, '.', filesep());
+            jarInputPackagePath = fullfile(jarInputRootPath, packagePath);
+            mkdir(jarInputPackagePath);
+        else
+            jarInputPackagePath = jarInputRootPath;
+        end
+    endfunction
+
+
+    // ilib_build_jar body
+
+    // ilib_build_jar needs Java, it is not usable in NWNI mode
+    if getscilabmode() == "NWNI"
+        error(msprintf(_("%s: function not available in NWNI mode.\n"), "ilib_build_jar"));
+        return;
+    end
+
+    // Check input arguments
+    [lhs, rhs] = argn(0);
+    if rhs < 3 then
+        error(msprintf(_("%s: Wrong number of input argument(s): 3 to 5 expected.\n"), "ilib_build_jar"));
+        return;
+    end
+
+    // Input argument 1: jar file path
+    if type(jarFilePath) <> 10 then
+        error(999, msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "ilib_build_jar", 1));
+    end
+    if size(jarFilePath, "*") <> 1 then
+        error(999, msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "ilib_build_jar", 1));
+        return;
+    end
+
+    // Input argument 2: package names
+    if rhs > 2 then
+        if type(packageNames) <> 10 then
+            error(999, msprintf(_("%s: Wrong type for input argument #%d: A matrix of strings expected.\n"), "ilib_build_jar", 2));
+        end
+    end
+
+    // Input argument 3: source paths
+    if type(sourcePaths) <> 10 then
+        error(999, msprintf(_("%s: Wrong type for input argument #%d: A matrix of strings expected.\n"), "ilib_build_jar", 3));
+    end
+
+    // Input argument 4 (optional): class paths
+    if rhs > 3 then
+        if type(classPaths) <> 10 then
+            error(999, msprintf(_("%s: Wrong type for input argument #%d: A matrix of strings expected.\n"), "ilib_build_jar", 4));
+        end
+    else
+        classPaths = '';
+    end
+
+    // Input argument 5 (optional): manifest file path
+    if rhs > 4 then
+        if type(manifestFilePath) <> 10 then
+            error(999, msprintf(_("%s: Wrong type for input argument #%d: A matrix of strings expected.\n"), "ilib_build_jar", 5));
+        end
+    else
+        manifestFilePath = '';
+    end
+
+    // Create a directory for jar creation
+    [jarDir, jarName] = fileparts(jarFilePath);
+    jarInputRootPath = getJarInputRootPath(jarName);
+    if ~isdir(jarInputRootPath) then
+        error(msprintf(_("Cannot create jar build dir %s"), jarInputRootPath));
+    end
+
+    // Dependencies
+    if ~isempty(classPaths) then
+        javaclasspath(classPaths);
+    end
+
+    nbPackages = size(packageNames, '*');
+    for i = 1:nbPackages
+        packageName = packageNames(i);
+
+        // Delete each package compilation directory if exists
+        packageCompilePath = getPackageCompilePath(packageName);
+        if isdir(packageCompilePath) then
+            removedir(packageCompilePath);
+        end
+
+        // Find all Java sources for that package and compile
+        sourcePath = sourcePaths(i);
+        javaFilePaths = findJavaFiles(sourcePath, []);
+        if javaFilePaths <> [] then
+            jcompile(javaFilePaths);
+        else
+            warning(msprintf(_("No Java sources in %s to compile for package %s"), sourcePath, packageName));
+        end
+
+        // Copy package compiled classes ...
+        packageCompilePath = getPackageCompilePath(packageName);
+        if isdir(packageCompilePath) then
+            // ... to its location in JAR
+            jarInputPackagePath = getJarPackagePath(jarInputRootPath, packageName);
+            if ~isdir(jarInputPackagePath) then
+                error(msprintf(_("Cannot create jar package directory %s"), jarInputRootPath));
+            end
+            copyfile(packageCompilePath, jarInputPackagePath);
+        else
+            warning(msprintf(_("Cannot find compilation directory %s for package %s"), packageCompilePath, packageName));
+        end
+    end
+
+    // Delete target jar if already exists
+    if isfile(jarFilePath) then
+        deletefile(jarFilePath);
+    end
+
+    // Create jar
+    jcreatejar(jarFilePath, jarInputRootPath, '', manifestFilePath);
+    if ~isfile(jarFilePath) then
+        error(msprintf(_("Cannot create jar %s"), jarFilePath));
+    end
+endfunction
