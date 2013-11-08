@@ -151,6 +151,8 @@ Scilab Bug Fixes
 
 * Bug #13053 fixed - datatipCreate did not return datatip handle.
 
+* Bug #13055 fixed - Array indexing did not follow Scilab convention.
+
 
 Xcos Bug Fixes
 ==============
