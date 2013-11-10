@@ -108,11 +108,6 @@ static void printf_scilab_error(char *buffer)
         if (getScilabMode() == SCILAB_STD)
         {
             ConsolePrintf(buffer);
-
-            if(strstr(buffer, "!--error") != NULL)
-            {
-                ConsolePrintf("\n");
-            }
         }
         else
         {
@@ -120,10 +115,6 @@ static void printf_scilab_error(char *buffer)
             TermPrintf_Windows(buffer);
 #else
             fprintf(stderr, buffer);
-            if(strstr(buffer, "!--error") != NULL)
-            {
-                fprintf(stderr, "\n");
-            }
 #endif
         }
 

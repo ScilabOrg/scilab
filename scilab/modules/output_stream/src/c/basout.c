@@ -96,6 +96,7 @@ int C2F(basout)(int *io, int *lunit, char *string, long int nbcharacters)
                     if(strstr(buffer, "!--error") == NULL)
                         sciprint("%s\n", buffer);
                     else{
+                        strcat(buffer, "\n");
                         sciprinterror(buffer);
                     }
 
