@@ -92,7 +92,13 @@ int C2F(basout)(int *io, int *lunit, char *string, long int nbcharacters)
                 {
                     strncpy(buffer, string, nbcharacters);
                     buffer[nbcharacters] = '\0';
-                    sciprint("%s\n", buffer);
+
+                    if(strstr(buffer, "!--error") == NULL)
+                        sciprint("%s\n", buffer);
+                    else{
+                        sciprinterror(buffer);
+                    }
+
                     FREE(buffer);
                     buffer = NULL;
                 }

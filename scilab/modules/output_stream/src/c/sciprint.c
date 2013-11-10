@@ -35,6 +35,7 @@
 * @param[in] buffer to disp
 */
 static void printf_scilab(char *buffer);
+static void printf_scilab_error(char *buffer);
 /*--------------------------------------------------------------------------*/
 void sciprint(const char *fmt, ...)
 {
@@ -43,6 +44,11 @@ void sciprint(const char *fmt, ...)
     va_start(ap, fmt);
     scivprint(fmt, ap);
     va_end (ap);
+}
+/*--------------------------------------------------------------------------*/
+void sciprinterror(const char *error)
+{
+    printf_scilab_error(error);
 }
 /*--------------------------------------------------------------------------*/
 int scivprint(const char *fmt, va_list args)
@@ -80,7 +86,44 @@ static void printf_scilab(char *buffer)
 #ifdef _MSC_VER
             TermPrintf_Windows(buffer);
 #else
-            printf("%s", buffer);
+            fprintf(stdout, buffer);
+#endif
+        }
+
+        wcBuffer = to_wide_string(buffer);
+        if (wcBuffer)
+        {
+            diaryWrite(wcBuffer, FALSE);
+            FREE(wcBuffer);
+            wcBuffer = NULL;
+        }
+    }
+}
+/*--------------------------------------------------------------------------*/
+static void printf_scilab_error(char *buffer)
+{
+    if (buffer)
+    {
+        wchar_t *wcBuffer = NULL;
+        if (getScilabMode() == SCILAB_STD)
+        {
+            ConsolePrintf(buffer);
+
+            if(strstr(buffer, "!--error") != NULL)
+            {
+                ConsolePrintf("\n");
+            }
+        }
+        else
+        {
+#ifdef _MSC_VER
+            TermPrintf_Windows(buffer);
+#else
+            fprintf(stderr, buffer);
+            if(strstr(buffer, "!--error") != NULL)
+            {
+                fprintf(stderr, "\n");
+            }
 #endif
         }
 

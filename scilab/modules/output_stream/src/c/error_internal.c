@@ -88,7 +88,8 @@ int error_internal(int *n, char *buffer)
 
             if (msgTmp)
             {
-                sciprint("%s", msgTmp);
+                sciprinterror(msgTmp);
+
                 FREE(msgTmp);
                 msgTmp = NULL;
             }
