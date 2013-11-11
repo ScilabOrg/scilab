@@ -29,12 +29,14 @@
 /*--------------------------------------------------------------------------*/
 /* sciprint uses scivprint */
 /* scivprint uses printf_scilab */
+/* sciprinterror uses printf_scilab_error */
 /*--------------------------------------------------------------------------*/
 /**
 * print a string
 * @param[in] buffer to disp
 */
 static void printf_scilab(char *buffer);
+static void printf_scilab_error(char *buffer);
 /*--------------------------------------------------------------------------*/
 void sciprint(const char *fmt, ...)
 {
@@ -43,6 +45,11 @@ void sciprint(const char *fmt, ...)
     va_start(ap, fmt);
     scivprint(fmt, ap);
     va_end (ap);
+}
+/*--------------------------------------------------------------------------*/
+void sciprinterror(const char *error)
+{
+    printf_scilab_error(error);
 }
 /*--------------------------------------------------------------------------*/
 int scivprint(const char *fmt, va_list args)
@@ -71,6 +78,15 @@ static void printf_scilab(char *buffer)
     if (buffer)
     {
         wchar_t *wcBuffer = NULL;
+
+        /*
+         * if getScilabMode() == SCILAB_STD, scilab is running
+         * in gui mode - then the output will be redirect to
+         * gui
+         *
+         * else, scilab is running in 'terminal' mode (NW or NWI)
+         * - then the output will be redirect to stdout
+         */
         if (getScilabMode() == SCILAB_STD)
         {
             ConsolePrintf(buffer);
@@ -80,7 +96,50 @@ static void printf_scilab(char *buffer)
 #ifdef _MSC_VER
             TermPrintf_Windows(buffer);
 #else
-            printf("%s", buffer);
+            /*
+             * redirecting buffer to stdout
+             */
+            fprintf(stdout, buffer);
+#endif
+        }
+
+        wcBuffer = to_wide_string(buffer);
+        if (wcBuffer)
+        {
+            diaryWrite(wcBuffer, FALSE);
+            FREE(wcBuffer);
+            wcBuffer = NULL;
+        }
+    }
+}
+/*--------------------------------------------------------------------------*/
+static void printf_scilab_error(char *buffer)
+{
+    if (buffer)
+    {
+        wchar_t *wcBuffer = NULL;
+
+        /*
+         * if getScilabMode() == SCILAB_STD, scilab is running
+         * in gui mode - then the error will be redirect to
+         * gui
+         *
+         * else, scilab is running in 'terminal' mode (NW or NWI)
+         * - then the error will be redirect to stderr
+         */
+        if (getScilabMode() == SCILAB_STD)
+        {
+            ConsolePrintf(buffer);
+        }
+        else
+        {
+#ifdef _MSC_VER
+            TermPrintf_Windows(buffer);
+#else
+            /*
+             * redirecting buffer to stderr
+             */
+            fprintf(stderr, buffer);
 #endif
         }
 

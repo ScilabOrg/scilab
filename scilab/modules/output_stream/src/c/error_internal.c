@@ -88,7 +88,12 @@ int error_internal(int *n, char *buffer)
 
             if (msgTmp)
             {
-                sciprint("%s", msgTmp);
+                /*
+                 * msgTmp is the error type message
+                 * then it will be redirect to stderr
+                 */
+                sciprinterror(msgTmp);
+
                 FREE(msgTmp);
                 msgTmp = NULL;
             }
