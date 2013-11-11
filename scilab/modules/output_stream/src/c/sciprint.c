@@ -29,6 +29,7 @@
 /*--------------------------------------------------------------------------*/
 /* sciprint uses scivprint */
 /* scivprint uses printf_scilab */
+/* sciprinterror uses printf_scilab_error */
 /*--------------------------------------------------------------------------*/
 /**
 * print a string
@@ -77,6 +78,15 @@ static void printf_scilab(char *buffer)
     if (buffer)
     {
         wchar_t *wcBuffer = NULL;
+
+        /*
+         * if getScilabMode() == SCILAB_STD, scilab is running
+         * in gui mode - then the output will be redirect to
+         * gui
+         *
+         * else, scilab is running in 'terminal' mode (NW or NWI)
+         * - then the output will be redirect to stdout
+         */
         if (getScilabMode() == SCILAB_STD)
         {
             ConsolePrintf(buffer);
@@ -86,6 +96,9 @@ static void printf_scilab(char *buffer)
 #ifdef _MSC_VER
             TermPrintf_Windows(buffer);
 #else
+            /*
+             * redirecting buffer to stdout
+             */
             fprintf(stdout, buffer);
 #endif
         }
@@ -105,6 +118,15 @@ static void printf_scilab_error(char *buffer)
     if (buffer)
     {
         wchar_t *wcBuffer = NULL;
+
+        /*
+         * if getScilabMode() == SCILAB_STD, scilab is running
+         * in gui mode - then the error will be redirect to
+         * gui
+         *
+         * else, scilab is running in 'terminal' mode (NW or NWI)
+         * - then the error will be redirect to stderr
+         */
         if (getScilabMode() == SCILAB_STD)
         {
             ConsolePrintf(buffer);
@@ -114,6 +136,9 @@ static void printf_scilab_error(char *buffer)
 #ifdef _MSC_VER
             TermPrintf_Windows(buffer);
 #else
+            /*
+             * redirecting buffer to stderr
+             */
             fprintf(stderr, buffer);
 #endif
         }

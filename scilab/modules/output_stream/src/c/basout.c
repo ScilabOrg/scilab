@@ -93,9 +93,22 @@ int C2F(basout)(int *io, int *lunit, char *string, long int nbcharacters)
                     strncpy(buffer, string, nbcharacters);
                     buffer[nbcharacters] = '\0';
 
+                    /*
+                     * If there is not '!--error' in buffer, it is
+                     * a normal output message and will be redirect
+                     * to stdout
+                     *
+                     * else, buffer is an error location message
+                     * and it will be redirect to stderr
+                     */
                     if(strstr(buffer, "!--error") == NULL)
                         sciprint("%s\n", buffer);
                     else{
+
+                        /*
+                         * '!--error' message need a \n to separate
+                         * the error location message and error type message
+                         */
                         strcat(buffer, "\n");
                         sciprinterror(buffer);
                     }
