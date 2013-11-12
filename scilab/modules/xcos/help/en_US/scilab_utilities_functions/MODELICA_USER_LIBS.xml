@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010 - DIGITEO - Jérôme PICARD
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,20 +10,16 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="getModelicaPath">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en_US" xml:id="MODELICA_USER_LIBS">
     <refnamediv>
-        <refname>getModelicaPath</refname>
-        <refpurpose>Get the Modelica directory path needed by Xcos diagram
+        <refname>%MODELICA_USER_LIBS</refname>
+        <refpurpose>Specify the Modelica directory path needed by Xcos diagram
             containing Modelica blocks
         </refpurpose>
     </refnamediv>
-    <refsynopsisdiv>
-        <title>Calling Sequence</title>
-        <synopsis>[modelica_path, modelica_directory] = getModelicaPath()</synopsis>
-    </refsynopsisdiv>
     <refsection>
         <title>Description</title>
-        <para>This function is used to know where are the Modelica files used to
+        <para>This variable is used to specify where are the Modelica files used to
             define Xcos Modelica blocks.
         </para>
         <para>If the user wants to define his own Modelica blocks, Modelica files
@@ -31,26 +27,7 @@
             to be declared as global before launching Xcos.
         </para>
     </refsection>
-    <refsection>
-        <title>Arguments</title>
-        <itemizedlist>
-            <listitem>
-                <para>
-                    <emphasis role="bold">modelica_path:</emphasis> a string providing
-                    the absolute path of the Modelica directory containing the defining
-                    blocks Modelica files.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <emphasis role="bold">modelica_directory:</emphasis> a string
-                    providing the name of the Modelica directory where are created the files
-                    needed for the simulation.
-                </para>
-            </listitem>
-        </itemizedlist>
-    </refsection>
-    <refsection id="Example_getModelicaPath">
+    <refsection id="Example_MODELICA_USER_LIBS">
         <title>Example</title>
         <programlisting role="example">
             // Get the current Modelica path and directory
@@ -68,8 +45,7 @@
             
             [modelica_path, modelica_directory] = getModelicaPath()
             
-            // To define user's Modelica blocks
-            // paths of the directory containing the user's Modelica files
+            // To add another Modelica folder
             %MODELICA_USER_LIBS = [%MODELICA_USER_LIBS , SCI + "/modules/xcos/my_modelica_blocks/Electrical_network"];
             
             // Launch Xcos
@@ -80,12 +56,12 @@
             
         </programlisting>
     </refsection>
-    <refsection id="SeeAlso_getModelicaPath">
+    <refsection id="SeeAlso_MODELICA_USER_LIBS">
         <title>See Also</title>
         <itemizedlist>
             <listitem>
                 <para>
-                    <link linkend="MODELICA_USER_LIBS">MODELICA_USER_LIBS</link>: specify the Modelica directory path needed by Xcos diagram containing Modelica blocks
+                    <link linkend="getModelicaPath">getModelicaPath</link>: get the Modelica directory path needed by Xcos diagram containing Modelica blocks
                 </para>
             </listitem>
         </itemizedlist>
