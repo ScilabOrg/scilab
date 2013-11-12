@@ -110,7 +110,15 @@ giws: $(GIWS_WRAPPERS)
 	if test -n "$(GIWS_WRAPPERS)"; then \
 		for file in $(GIWS_WRAPPERS) ; do \
 			echo "GIWS process of $$file ..."; \
-			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+			if [[ -z "$(GIWS_OPTIONS)" ]]; then \
+				$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+			else \
+				if [[ "$(GIWS_OPTIONS)" == "none" ]]; then \
+					$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+				else \
+					$(GIWS_BIN) $$GIWS_OPTIONS --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+				fi \
+			fi \
 		done; \
 	fi
 

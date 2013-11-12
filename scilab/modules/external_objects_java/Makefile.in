@@ -722,6 +722,7 @@ sci_gateway/cpp/sci_jgetinfo.cpp \
 sci_gateway/cpp/sci_jinvoke_db.cpp
 
 GIWS_WRAPPERS = src/jni/ScilabObjects.giws.xml
+@GIWS_TRUE@GIWS_OPTIONS = none
 @GIWS_TRUE@BUILT_SOURCES = giws
 GATEWAY_CPP_SOURCES = 
 libsciexternal_objects_java_la_CFLAGS = -I$(srcdir)/includes/ \
@@ -1628,7 +1629,15 @@ check-code:
 @GIWS_TRUE@	if test -n "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@			if [[ -z "$(GIWS_OPTIONS)" ]]; then \
+@GIWS_TRUE@				$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@			else \
+@GIWS_TRUE@				if [[ "$(GIWS_OPTIONS)" == "none" ]]; then \
+@GIWS_TRUE@					$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@				else \
+@GIWS_TRUE@					$(GIWS_BIN) $$GIWS_OPTIONS --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@				fi \
+@GIWS_TRUE@			fi \
 @GIWS_TRUE@		done; \
 @GIWS_TRUE@	fi
 
