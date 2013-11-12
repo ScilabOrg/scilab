@@ -153,6 +153,8 @@ Scilab Bug Fixes
 
 * Bug #13055 fixed - Array indexing did not follow Scilab convention in JIMS.
 
+* Bug #13069 fixed - %MODELICA_USER_LIBS variable was not well documented.
+
 
 Xcos Bug Fixes
 ==============
