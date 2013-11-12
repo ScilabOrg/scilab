@@ -21,7 +21,9 @@
 #include "macro.hxx"
 #include "macrofile.hxx"
 #include "symbol.hxx"
-
+#include "tlist.hxx"
+#include "overload.hxx"
+#include "execvisitor.hxx"
 
 extern "C"
 {
@@ -290,7 +292,14 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
             out.push_back(pBody);
             break;
         }
+        case GenericType::RealTList :
+        {
+            types::List* pTL = in[0]->getAs<types::List>();
+            wchar_t* wcsStr = pTL->get(0)->getAs<types::String>()->get(0);
 
+            std::wstring wstFuncName = L"%"  + std::wstring(wcsStr) + L"_string";
+            return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+        }
         default :
         {
             std::wostringstream ostr;
