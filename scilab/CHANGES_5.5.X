@@ -153,6 +153,8 @@ Scilab Bug Fixes
 
 * Bug #13055 fixed - Array indexing did not follow Scilab convention in JIMS.
 
+* Bug #13061 fixed - hdf5 demo failed with a read only file.
+
 
 Xcos Bug Fixes
 ==============
