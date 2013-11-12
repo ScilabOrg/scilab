@@ -153,6 +153,8 @@ Scilab Bug Fixes
 
 * Bug #13055 fixed - Array indexing did not follow Scilab convention in JIMS.
 
+* Bug #13066 fixed - data_bounds was not fully documented in axes_properties.
+
 
 Xcos Bug Fixes
 ==============
