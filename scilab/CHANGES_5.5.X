@@ -153,6 +153,8 @@ Scilab Bug Fixes
 
 * Bug #13055 fixed - Array indexing did not follow Scilab convention in JIMS.
 
+* Bug #13063 fixed - Color selection in SciNotes preferences threw exceptions.
+
 
 Xcos Bug Fixes
 ==============
