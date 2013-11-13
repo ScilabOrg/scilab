@@ -9,11 +9,11 @@
 
 assert_checkerror("hsvcolormap(0,1,2,3)", "%s: Wrong number of input argument(s): %d expected.\n", 10000, "hsvcolormap", 1);
 
-assert_checkerror("hsvcolormap(%t)", "%s: Wrong type for input argument #%d: An integer value expected.\n", 10000, "hsvcolormap", 1);
+assert_checkerror("hsvcolormap(%t)", "%s: Wrong type for input argument #%d: Real scalar expected.\n", 10000, "hsvcolormap", 1);
 
-assert_checkerror("hsvcolormap(%i)", "%s: Wrong type for input argument #%d: An integer value expected.\n", 10000, "hsvcolormap", 1);
+assert_checkerror("hsvcolormap(%i)", "%s: Wrong type for input argument #%d: Real scalar expected.\n", 10000, "hsvcolormap", 1);
 
-assert_checkerror("hsvcolormap([0 1 2 3])", "%s: Wrong size for input argument #%d: An integer value expected.\n", 10000, "hsvcolormap", 1);
+assert_checkerror("hsvcolormap([0 1 2 3])", "%s: Wrong size for input argument #%d: Real scalar expected.\n", 10000, "hsvcolormap", 1);
 
 assert_checkequal(hsvcolormap(0), []);
 
