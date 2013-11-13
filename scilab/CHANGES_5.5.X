@@ -9,6 +9,7 @@ New Features
 
 * New functions introduced:
  - jcreatejar - Creates a Java archive (JAR) from a set of files / directories
+ - ilib_build_jar - Builds Java packages from sources into a JAR file
 
 
 Scilab Bug Fixes
