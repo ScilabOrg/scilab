@@ -227,7 +227,7 @@ SCICOS_BLOCKS_IMPEXP void cmscope(scicos_block * block, scicos_flag flag)
                 break;
             }
             iFigureUID = getFigure(block);
-            if (iFigureUID == NULL)
+            if (iFigureUID == 0)
             {
                 // allocation error
                 set_block_error(-5);
@@ -237,7 +237,7 @@ SCICOS_BLOCKS_IMPEXP void cmscope(scicos_block * block, scicos_flag flag)
 
         case StateUpdate:
             iFigureUID = getFigure(block);
-            if (iFigureUID == NULL)
+            if (iFigureUID == 0)
             {
                 // allocation error
                 set_block_error(-5);
@@ -795,7 +795,7 @@ static int getFigure(scicos_block * block)
     // assert the sco is not NULL
     if (sco == NULL)
     {
-        return NULL;
+        return 0;
     }
 
     // fast path for an existing object
@@ -863,7 +863,7 @@ static int getAxe(int iFigureUID, scicos_block * block, int input)
     sco_data *sco = (sco_data *) * (block->work);
 
     // assert the sco is not NULL
-    if (sco == NULL || sco->scope.cachedAxeUID == NULL)
+    if (sco == NULL || sco->scope.cachedAxeUID == 0)
     {
         return 0;
     }
@@ -879,7 +879,7 @@ static int getAxe(int iFigureUID, scicos_block * block, int input)
     /*
      * Allocate if necessary
      */
-    if (iAxe == NULL)
+    if (iAxe == 0)
     {
         cloneAxesModel(iFigureUID);
         iAxe = findChildWithKindAt(iFigureUID, __GO_AXES__, input);
@@ -928,7 +928,7 @@ static int getPolyline(int iAxeUID, scicos_block * block, int input, int row, BO
     // assert the sco is not NULL
     if (sco == NULL)
     {
-        return NULL;
+        return 0;
     }
 
     if (!history)
@@ -943,9 +943,9 @@ static int getPolyline(int iAxeUID, scicos_block * block, int input, int row, BO
     }
 
     // assert that the structure is in a good shape
-    if (piPolylinesUIDs == NULL || piPolylinesUIDs[input] == NULL)
+    if (piPolylinesUIDs == NULL || piPolylinesUIDs[input] == 0)
     {
-        return NULL;
+        return 0;
     }
 
     // fast path for an existing object
