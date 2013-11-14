@@ -20,6 +20,9 @@ Scilab Bug Fixes
 
 * Bug #5016 fixed - condestsp could return different results when repeated calls were performed.
 
+* Bug #6036 fixed - It is now possible to compute an histogram instead of plotting it
+                    with new function histc(). Besides, histplot can now return the computed data.
+
 * Bug #6689 & #6690 fixed - grand now works with complexes, polynomials, booleans, integers, sparses and strings,
                             and can take row vectors, matrices and hypermatrices of thoses types.
 
