@@ -1,0 +1,48 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- TEST WITH GRAPHIC -->
+//
+// <-- Non-regression test for bug 6306 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=6306
+//
+// <-- Short Description -->
+// It was not possible to retrieve the data computed by histplot.
+// Also, new function histc to compute histogram data instead of plotting it.
+
+rand("seed", 0);
+d = rand(1, 10000, "normal");
+[cfC, indC] = histc(20, d);
+[cfP, indP] = histplot(20, d);
+
+assert_checkequal(indC, indP);
+assert_checkalmostequal(cfC, cfP);
+
+[cfC, indC] = histc(20, d, normalization=%f);
+[cfP, indP] = histplot(20, d, normalization=%f);
+
+assert_checkequal(indC, indP);
+assert_checkalmostequal(cfC, cfP);
+
+
+
+lambda = 2;
+grand("setsd", 0);
+X = grand(100000, 1, "exp", 1/lambda);
+[cfC, indC] = histc(40, X);
+[cfP, indP] = histplot(40, X);
+
+assert_checkequal(indC, indP);
+assert_checkalmostequal(cfC, cfP);
+
+[cfC, indC] = histc(40, X, normalization=%f);
+[cfP, indP] = histplot(40, X, normalization=%f);
+
+assert_checkequal(indC, indP);
+assert_checkalmostequal(cfC, cfP);
