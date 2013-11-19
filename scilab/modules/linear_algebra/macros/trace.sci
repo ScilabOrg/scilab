@@ -10,6 +10,9 @@
 
 function t=trace(a)
     // trace - computes the trace of a matrix
+    if argn(2) < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "trace", 1));
+    end
     select type(a)
     case 1 then
         [m,n]=size(a)

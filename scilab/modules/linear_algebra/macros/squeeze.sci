@@ -20,6 +20,9 @@ function A = squeeze(A)
     // * A = a hypermatrix or a matrix
     // ------------------------------------------------------------
 
+    if argn(2) < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "squeeze", 1));
+    end
     if or(typeof(A)==["hypermat","ce","st"]) then
         Dims=size(A)
         newDims = Dims(Dims <> 1) ;

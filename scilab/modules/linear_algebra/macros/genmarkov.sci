@@ -14,8 +14,10 @@ function M=genmarkov(rec,tr,flag)
     //entries respectively and tr transient states.
     // If the optional parameter flag='perm' is entered a random
     //permutation of the states is performed.
-    [lhs,rhs]=argn(0);
-    if rhs==2 then flag="noperm";end
+    [lhs, rhs] = argn(0);
+    if rhs < 2 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "genmarkov", 2, 3));
+    elseif rhs==2 then flag="noperm";end
     M=[];r=sum(rec);
     for k=rec
         m=rand(k,k,"u");

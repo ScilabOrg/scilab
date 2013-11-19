@@ -35,7 +35,9 @@ function [Q,Z,Qd,Zd,numbeps,numbeta]=kroneck(E,A)
     // interface  F.D. from Slicot-fstair
     // T. Beelen's routines
     [LHS,RHS]=argn(0);
-    if RHS==1 then [E,A]=pen2ea(E);end
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "kroneck", 1, 2));
+    elseif RHS==1 then [E,A]=pen2ea(E);end
     [Q,Z,Ec,Ac,Qd,Zd,numbeps]=quaskro(E,A);
     rows=Qd(1)+Qd(2)+1:Qd(1)+Qd(2)+Qd(3);
     cols=Zd(1)+Zd(2)+1:Zd(1)+Zd(2)+Zd(3);
