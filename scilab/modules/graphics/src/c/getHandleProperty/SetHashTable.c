@@ -52,7 +52,7 @@ typedef struct
 * don't forget to modify it each time the propertyTable
 * is modified.
 */
-#define NB_PROPERTIES 174
+#define NB_PROPERTIES 176
 
 /**
 * list of all property names and associated functions in scilab
@@ -99,6 +99,8 @@ static setHashTableCouple propertyTable[NB_PROPERTIES] =
     {"mark_size", set_mark_size_property},
     {"mark_foreground", set_mark_foreground_property},
     {"mark_background", set_mark_background_property},
+    {"mark_offset", set_mark_offset_property},
+    {"mark_stride", set_mark_stride_property},
     {"bar_layout", set_bar_layout_property},
     {"bar_width", set_bar_width_property},
     {"x_shift", set_x_shift_property},

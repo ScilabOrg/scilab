@@ -135,6 +135,48 @@ int sciSetMarkSize(int iObjUID, int marksize)
     return -1;
 }
 
+int sciSetMarkOffset(int iObjUID, int offset)
+{
+    if (offset < 0)
+    {
+        Scierror(999, _("The mark offset must be greater or equal than %d.\n"), 0);
+        return -1;
+    }
+    else
+    {
+        BOOL status = setGraphicObjectProperty(iObjUID, __GO_MARK_OFFSET__, &offset, jni_int, 1);
+
+        if (status == TRUE)
+        {
+            return 0;
+        }
+    }
+
+    printSetGetErrorMessage("mark_offset");
+    return -1;
+}
+
+int sciSetMarkStride(int iObjUID, int stride)
+{
+    if (stride < 1)
+    {
+        Scierror(999, _("The mark stride must be greater or equal than %d.\n"), 1);
+        return -1;
+    }
+    else
+    {
+        BOOL status = setGraphicObjectProperty(iObjUID, __GO_MARK_STRIDE__, &stride, jni_int, 1);
+
+        if (status == TRUE)
+        {
+            return 0;
+        }
+    }
+
+    printSetGetErrorMessage("mark_stride");
+    return -1;
+}
+
 /**sciSetText
  * Sets the Text in TEXT, TITLE or LEGEND
  * @param char * pobjUID: the pointer to the entity
@@ -308,7 +350,7 @@ int sciSetPoint(int iObjUID, double *tab, int *numrow, int *numcol)
             double* currentUpperLeftPoint = NULL;
             double upperLeftPoint[3];
             int widthIndex = 2;
-            int size = *numrow * *numcol;
+            int size = *numrow **numcol;
 
             if (size != 5 && size != 4)
             {
@@ -358,7 +400,7 @@ int sciSetPoint(int iObjUID, double *tab, int *numrow, int *numcol)
             double* currentUpperLeftPoint = NULL;
             int size = 0;
 
-            size = *numrow * *numcol;
+            size = *numrow **numcol;
 
             if ((size != 7) && (size != 6))
             {
@@ -413,7 +455,7 @@ int sciSetPoint(int iObjUID, double *tab, int *numrow, int *numcol)
             int iView = 0;
             int* piView = &iView;
 
-            if ((*numrow * *numcol != 2) && (*numrow * *numcol != 3))
+            if ((*numrow **numcol != 2) && (*numrow **numcol != 3))
             {
                 Scierror(999, _("Number of elements must be %d (%d if %s coordinate).\n"), 2, 3, "z");
                 return -1;

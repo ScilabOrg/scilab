@@ -16,6 +16,9 @@ New Features
 Scilab Bug Fixes
 ================
 
+* Bug #1253 fixed - There was no possibility to draw only few marks on a polyline which
+                    contains a lot of points.
+
 * Bug #2067 fixed - Scilab crashed when plot was called with a large numerical value.
 
 * Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
