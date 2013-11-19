@@ -16,8 +16,10 @@ function [Ws,Fs1]=rowshuff(Fs,alfa)
     // The poles @ infinity of Fs are put to alfa and the zeros of Ws are @ alfa.
     // Note that (s*E-A)^-1 = (s*E1-A1)^-1 * W(s) = (W(s)*(s*E-A))^-1 *W(s)
 
-    [LHS,RHS]=argn(0);
-    if RHS==1 then
+    [LHS, RHS] = argn(0);
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "rowshuff", 1, 2));
+    elseif RHS==1 then
         alfa=0;
     end
     [E,A]=pen2ea(Fs);

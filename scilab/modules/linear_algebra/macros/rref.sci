@@ -9,7 +9,10 @@
 
 function [A,jb]=rref(A,tol)
     //R = rref(A) produces the reduced row echelon form of A.
-    if argn(2)<2 then
+    [LHS, RHS] = argn(0);
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "rref", 1, 2));
+    elseif RHS<2 then
         tol=2*%eps*norm(A,"inf")*max(size(A))
     end
 

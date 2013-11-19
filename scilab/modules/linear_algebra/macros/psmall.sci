@@ -18,6 +18,10 @@ function [Q,M]=psmall(A,thres,flag)
     // M1*A*Q1 =evals of A with real part >= thres (case flag='d',...).
     // See also pbig
     //!
+    [LHS, RHS] = argn(0)
+    if RHS < 3 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "psmall", 3));
+    end
     [n,n]=size(A);
     thres=real(thres);
     if flag=="c" then

@@ -20,6 +20,9 @@ function [Bfs,Bis,chis]=glever(E,A,s)
     // See also shuffle, determ, invr, coffg
 
     [LHS,RHS]=argn(0);
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "glever", 1, 3));
+    end
     if RHS==1 then [E,A]=pen2ea(E),s=poly(0,"s");end
     if RHS==2 then s=poly(0,"s"),end;
     if RHS==3 then s=poly(0,s);end

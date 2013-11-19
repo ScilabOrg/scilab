@@ -17,7 +17,10 @@ function [x,dim]=spaninter(a,b,tol)
     // dim        dimension of subspace A inter B.
     // tol        threshold (sqrt(%eps) is the default value).
 
-    [lhs,rhs]=argn(0);
+    [lhs, rhs] = argn(0);
+    if rhs < 2 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "spaninter", 1, 3));
+    end
     [na,ma]=size(a);[nb,mb]=size(b);
     if ma*na==0 then dim=0;x=eye(nb,nb);return;end
     if mb*nb==0 then dim=0;x=eye(na,na);return;end

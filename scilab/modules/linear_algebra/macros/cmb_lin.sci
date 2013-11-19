@@ -8,12 +8,16 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-function [x]=cmb_lin(alfa,x,Beta,y)
+function [x] = cmb_lin(alfa, x, Beta, y)
     //  x =cmb_lin(alfa,x,Beta,y) evaluates alfa*x-Beta*y
     // (low-level routine)
     //!
-    n=prod(size(x));
+    [lhs, rhs] = argn(0)
+    if rhs < 4 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "cmb_lin", 4));
+    end
+    n = prod(size(x));
     for j=1:n,
-        x(j)=addf(mulf(alfa,x(j)),mulf(mulf("-1",Beta),y(j)));
+        x(j) = addf(mulf(alfa,x(j)),mulf(mulf("-1",Beta),y(j)));
     end
 endfunction
