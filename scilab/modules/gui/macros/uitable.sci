@@ -10,16 +10,21 @@ function h=uitable(varargin)
 
     Rhs = length(varargin);
 
-    //creates a preliminary uitable
+    if Rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"), "uitable", 1));
+    end
+
+    // Creates a preliminary uitable
     h = uicontrol("style", "uitable");
 
     if Rhs > 0 then
-        //sets the propertyName with its propertyValue
+        // Sets the propertyName with its propertyValue
         for i=1:2:Rhs
             propertyName = varargin(i);
             propertyValue = varargin(i+1);
             set(h, propertyName, propertyValue);
         end
     end
+
 endfunction
 //-----------------------------------------------------------------------------
