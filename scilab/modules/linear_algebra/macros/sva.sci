@@ -9,10 +9,14 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function [U,S,V]=sva(A,tol)
+    [lhs, rhs] = argn(0);
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "sva", 1, 2));
+    end
     // approximation de rang donne d'une matrice
     if A==[] then U=[],S=[],V=[],return,end
     [U,S,V]=svd(A,"e")
-    if argn(2)==1 then
+    if rhs==1 then
         tol = max(size(A)) * S(1) * %eps;
         rk = size(find(diag(S) > tol),"*");
     else

@@ -16,6 +16,9 @@ function [X,dim,Y]=im_inv(A,B,tol)
     // default value tol = 100*%eps;
 
     [lhs,rhs]=argn(0);
+    if rhs < 2 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "im_inv", 1, 3));
+    end
     [nA,mA]=size(A);[nB,mB]=size(B);
     if rhs==2 then tol=100*%eps*mA*nA*nB*mB,end;
     if nA<>nB then

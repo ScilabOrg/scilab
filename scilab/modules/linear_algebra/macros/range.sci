@@ -12,7 +12,10 @@ function [X,dim]=range(A,k)
     // Computation of Range A^k ; the first dim rows of X span the
     // range of A^k.
     //!
-    if argn(2)==1 then k=1,end
+    [lhs, rhs] = argn(0);
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "range", 1, 2));
+    ekseif rhs==1 then k=1,end
     k=double(k)
     if int(k)<>k|k<0 then
         error(msprintf(gettext("%s: Wrong value for input argument #%d: Non-negative integer expected.\n"),"range",2));

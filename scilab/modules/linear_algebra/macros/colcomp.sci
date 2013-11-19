@@ -19,6 +19,10 @@ function [w,rk]=colcomp(a,flag,tol)
     //tol tolerance parameter (of order %eps as defaut value)
     //the ma-rk first columns of w span the kernel of a when size(a)=(na,ma)
 
+    [lhs, rhs] = argn(0)
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "colcomp", 1, 3));
+    end
     [ma,na]=size(a)
     [lhs,rhs]=argn(0)
     if a==[] then w=[];rk=0;return;end

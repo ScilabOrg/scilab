@@ -15,15 +15,20 @@ function [ro,teta]=polar(a);
     // Teta hermitian >=0
     //F.D.
     //!
-    [U,s,V]=svd(a);
-    ro1=U*sqrt(s);
-    ro=ro1*ro1';
-    W=U*V';
+    if argn(2) < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "polar", 1));
+    end
+
+    [U,s,V] = svd(a);
+    ro1 = U*sqrt(s);
+    ro = ro1*ro1';
+    W = U*V';
     // A = Ro*W   (Ro sdp ; W unit)
-    // W=exp(%i*Teta)
+    // W = exp(%i*Teta)
     //
-    [ab,x,bs]=bdiag(W+0*%i*W);
-    z=log(diag(ab));
-    lw=x*diag(z)*inv(x);
-    teta=-%i*lw;
+    [ab,x,bs] = bdiag(W+0*%i*W);
+    z = log(diag(ab));
+    lw = x*diag(z)*inv(x);
+    teta = -%i*lw;
+
 endfunction

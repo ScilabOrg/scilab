@@ -14,6 +14,9 @@ function [x0,kerA]=linsolve(A,b,x0)
     // x0=particular solution; kerA=nullspace of A
     // Any x=x0+kerA*w with arbitrary w solves A*x+b=0
     [LHS,RHS]=argn(0);
+    if RHS < 2 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "linsolve", 1, 3));
+    end
     select type(A)
     case 1 then        //full matrix
         Ab=[A,b];[ma,na]=size(Ab);

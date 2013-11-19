@@ -27,8 +27,10 @@ function [Q,Z,Ec,Ac,Qd,Zd,numbeps]=quaskro(E,A,tol)
     // interface  from Slicot-fstair (F.D.)
     // T. Beelen's routines
     //!
-    [LHS,RHS]=argn(0);
-    if RHS==1 then [E,A]=pen2ea(E);tol=1.d-10;end
+    [LHS, RHS] = argn(0);
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "quaskro", 1));
+    elseif RHS==1 then [E,A]=pen2ea(E);tol=1.d-10;end
     if RHS==2 then
         if type(E)==2 then [E,A]=pen2ea(E);end  //quaskro(pencil,tol)
         if type(E)==1 then tol=1.d-10;end   //quaskro(E,A);

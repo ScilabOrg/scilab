@@ -16,6 +16,10 @@ function A = companion(p)
     // diagonal and block number i has characteristic polynomial
     // equal to p(i).
 
+    [lhs, rhs] = argn(0)
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "companion", 1));
+    end
     if type(p) ~= 2
         error(msprintf(gettext("%s: Wrong type for input argument #%d: Polynomial expected."),"companion",1));
     end

@@ -18,8 +18,10 @@ function [u,c]=givens(x,y)
     // givens(x,y)=givens([x;y])
     //
     //!
-    [lhs,rhs]=argn(0);
-    if rhs==2 then x=[x;y];end
+    [lhs, rhs] = argn(0);
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "givens", 1, 2));
+    elseif rhs==2 then x=[x;y];end
     if or(size(x)<>[2 1]) then
         error(msprintf(gettext("%s: Wrong size for input argument #%d: A column vector expected.\n"),"givens",1));
     end
