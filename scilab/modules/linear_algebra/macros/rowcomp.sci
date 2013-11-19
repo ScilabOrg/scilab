@@ -16,10 +16,13 @@ function [w,rk]=rowcomp(A,flag,tol)
     //the rk first (top) rows of w span the row range of a
     //the rk first columns of w' span the image of a
 
+    [lhs, rhs] = argn(0);
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "rowcomp", 1, 3));
+    end
     if A==[] then w=[];rk=0;return;end
 
     [ma,na]=size(A)
-    rhs=argn(2)
 
     if norm(A,1) < sqrt(%eps)/10 then rk=0,w=eye(ma,ma),return;end
 

@@ -18,6 +18,10 @@ function [Q,M]=pbig(A,thres,flag)
     // See also psmall.
     //!
 
+    [lhs, rhs] = argn(0);
+    if rhs < 3 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "pbig", 3));
+    end
     [n,n]=size(A);
     thres=real(thres);
     if flag=="c" then

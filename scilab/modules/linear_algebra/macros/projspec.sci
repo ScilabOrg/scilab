@@ -16,7 +16,10 @@ function [S,P,D,index]=projspec(A,tol)
     //D = Nilpotent operator at 0
     //index = index of the 0 eigenvalue
     //!
-    [LHS,RHS]=argn(0)
+    [LHS, RHS] = argn(0)
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "projspec", 1, 2));
+    end
     [n,n]=size(A);
     if RHS==1 then tol=1.d-6;end;
     // A=0 ?

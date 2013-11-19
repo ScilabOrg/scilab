@@ -19,12 +19,16 @@ function [Q,M,i1]=pencan(E,A)
     //                         0,I ]
     //See glever,  penlaur
     //!
-    [LHS,RHS]=argn(0);
-    if RHS==1 then [E,A]=pen2ea(E);end
-    [Si,Pi,Di,index]=penlaur(E,A);
-    [Q1,M1]=fullrf(Si);
-    [Q2,M2]=fullrf(Pi);
-    [i1,i2]=size(M1);
-    M=[M1;M2];
-    Q=[Q1,Q2];
+    [LHS, RHS] = argn(0);
+    if RHS < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "pencan", 1, 2));
+    elseif RHS==1 then [E,A] = pen2ea(E);end
+
+    [Si,Pi,Di,index] = penlaur(E,A);
+    [Q1,M1] = fullrf(Si);
+    [Q2,M2] = fullrf(Pi);
+    [i1,i2] = size(M1);
+    M = [M1;M2];
+    Q = [Q1,Q2];
+
 endfunction

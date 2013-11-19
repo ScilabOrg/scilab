@@ -16,9 +16,13 @@ function [n,d]=coff(m,var)
     // See also : coffg
     //!
     //
+    [lhs, rhs] = argn(0)
+    if rhs < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "coff", 1, 2));
+    end
     if type(m)<>1 then error(53,1),end
     if m==[] then n=[];d=1;end
-    [lhs,rhs]=argn(0);if rhs==1 then var="s",end
+    if rhs==1 then var="s",end
     d=clean(poly(m,var)); // denominator
     [n1,n1]=size(m);
     for k=1:n1,for l=1:n1,

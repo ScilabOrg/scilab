@@ -9,6 +9,9 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function [S]=sqroot(Q)
+    if argn(2) < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "sqroot", 1));
+    end
     Q1=(Q+Q')/2;
     if norm(Q1-Q,1) > 100*%eps then
         warning(msprintf(gettext("%s: Wrong size for input argument #%d: Symmetric expected"),"sqroot",1));

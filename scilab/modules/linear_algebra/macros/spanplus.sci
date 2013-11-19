@@ -15,12 +15,15 @@ function [x,dim,dima]=spanplus(a,b,tol)
     // relative to a. tol is an optional argument.
     // The dim first columns of x make a basis for A+B.
     //!
+    [lhs, rhs] = argn(0);
+    if rhs < 2 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "spaninter", 1, 3));
+    end
     [na,ma]=size(a);[nb,mb]=size(b);
     if na*ma==0 then
         dima=0;[x,dim]=rowcomp(b);x=x';return;
     end
     if nb*mb==0 then [x,dima]=rowcomp(a);dim=dima;x=x';return;end
-    [lhs,rhs]=argn(0);
     if rhs==2 then tol=%eps*na*nb*ma*mb;end
     if na<>nb then
         error(msprintf(gettext("%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"),"spanplus",1,2));
