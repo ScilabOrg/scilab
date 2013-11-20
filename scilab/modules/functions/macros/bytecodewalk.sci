@@ -10,6 +10,9 @@
 function c1=bytecodewalk(code,query,job)
     //walk along bytecode looking for a particular opcode (query) and
     //applying a function (job) at this point
+    if argn(2) < 1 then
+        error(sprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "bytecodewalk", 1, 3));
+    end
     c1=[];
     lc0=1;
     lc=lc0;
