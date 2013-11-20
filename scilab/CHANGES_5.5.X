@@ -10,6 +10,8 @@ New Features
 * New functions introduced:
  - jcreatejar - Creates a Java archive (JAR) from a set of files / directories
 
+* modulo() and pmodulo() now support integers & hypermatrices (See bug #13002).
+
 
 Scilab Bug Fixes
 ================
@@ -19,6 +21,8 @@ Scilab Bug Fixes
 * Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
 
 * Bug #5016 fixed - condestsp could return different results when repeated calls were performed.
+
+* Bug #6615 fixed - ui(get|put)file did not center the file dialog on the last focused window.
 
 * Bug #6689 & #6690 fixed - grand now works with complexes, polynomials, booleans, integers, sparses and strings,
                             and can take row vectors, matrices and hypermatrices of thoses types.
@@ -59,6 +63,8 @@ Scilab Bug Fixes
 
 * Bug #9110 fixed - Examples and references to other functions added in the Statistics help pages.
 
+* Bug #9319 fixed - Big polylines could not be exported in PS/EPS.
+
 * Bug #9627 fixed - Arguments checking added in optimsimplex_* functions.
 
 * Bug #9697 fixed - Printed information for optim "qn" and "gc" with bounds and imp=1 fixed.
@@ -74,7 +80,13 @@ Scilab Bug Fixes
 
 * Bug #11571 fixed - x_mdialog did not let the Look&Feel select the window size.
 
+* Bug #11575 fixed - There was no preview of GIF files in exportUI dialog.
+
+* Bug #11576 fixed - exportUI did not propose gcf().figure_name as default file name.
+
 * Bug #11680 fixed - GUI functions in Scilab 5.4.X were much slower than in Scilab 5.3.3.
+
+* Bug #12492 fixed - Exported EPS files were invalid when dash patterns were too long.
 
 * Bug #12682 fixed - Key events were disabled after zooming.
 
@@ -118,6 +130,8 @@ Scilab Bug Fixes
 * Bug #12992 fixed - The sigma value was always equals to "LM" in eigs.
 
 * Bug #13000 fixed - []./int8(3) and on int8(3)./[] led to an endless recursive.
+
+* Bug #13002 fixed - modulo() and pmodulo() did not support integers & hypermatrices.
 
 * Bug #13003 fixed - String to enum converter added to Java external objects.
 
@@ -173,6 +187,10 @@ Scilab Bug Fixes
 
 * Bug #13071 fixed - Three unused functions in Xcos macros now specified as not mandatory
                      to write new blocks.
+
+* Bug #13092 fixed - Optimizations now check the user function output (must be a real).
+
+* Bug #13093 fixed - Removed trailing "\n" in the head_comments error message.
 
 
 Xcos Bug Fixes
