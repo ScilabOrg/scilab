@@ -322,6 +322,7 @@ cd ..
   <ItemGroup>
     <ClCompile Include="..\c\withf2c.c" />
     <ClCompile Include="allowptr.c" />
+    <ClCompile Include="backspace_inter.c" />
     <ClCompile Include="basnms.c" />
     <ClCompile Include="clunit.c" />
     <ClCompile Include="cmplxt.c" />
@@ -351,6 +352,7 @@ cd ..
   </ItemGroup>
   <ItemGroup>
     <f2c_rule Include="allowptr.f" />
+    <f2c_rule Include="backspace_inter.f" />
     <f2c_rule Include="basnms.f" />
     <f2c_rule Include="clunit.f" />
     <f2c_rule Include="cmplxt.f" />
