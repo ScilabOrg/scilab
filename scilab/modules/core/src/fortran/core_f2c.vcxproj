@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -322,6 +322,7 @@ cd ..
   <ItemGroup>
     <ClCompile Include="..\c\withf2c.c" />
     <ClCompile Include="allowptr.c" />
+    <ClCompile Include="backspaceinter.c" />
     <ClCompile Include="basnms.c" />
     <ClCompile Include="clunit.c" />
     <ClCompile Include="cmplxt.c" />
@@ -351,6 +352,7 @@ cd ..
   </ItemGroup>
   <ItemGroup>
     <f2c_rule Include="allowptr.f" />
+    <f2c_rule Include="backspaceinter.f" />
     <f2c_rule Include="basnms.f" />
     <f2c_rule Include="clunit.f" />
     <f2c_rule Include="cmplxt.f" />
