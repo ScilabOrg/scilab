@@ -55,9 +55,14 @@ function [ this , data ] = optimsimplex_compsomefv ( varargin )
             end
         end
     else
+    disp("over here ?!")
+    disp(indices)
         for j = indices;
+        disp(j)
             [ this.fv(j) , data ]  = fun ( this.x(j,:) , data );
+        disp("end...")
         end
+    disp("no :(")
     end
 endfunction
 

@@ -334,7 +334,8 @@ public :
         int* piNewDims      = NULL;
         int iNewDims        = 0;
         ArrayOf* pSource = _pSource->getAs<ArrayOf>();
-
+    printf("_pSource : %x\n",_pSource);
+    printf("pSource : %x\n",pSource);
         //evaluate each argument and replace by appropriate value and compute the count of combinations
         int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
         if (iSeqCount == 0)
@@ -541,8 +542,12 @@ public :
         //free pArg content
         for (int iArg = 0 ; iArg < pArg.size() ; iArg++)
         {
+            printf("insert : \n");
+            printf("\tpArg[iArg] : %x\n",pArg[iArg]);
+            printf("\t(*_pArgs)[iArg] : %x\n",(*_pArgs)[iArg]);
             if (pArg[iArg] != (*_pArgs)[iArg] && pArg[iArg]->isDeletable())
             {
+                printf("delete %x\n", pArg[iArg]);
                 delete pArg[iArg];
             }
         }

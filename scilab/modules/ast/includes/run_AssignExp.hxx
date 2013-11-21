@@ -25,6 +25,7 @@ void visitprivate(const AssignExp  &e)
         const SimpleVar *pVar = dynamic_cast<const SimpleVar*>(&e.left_exp_get());
         if (pVar)
         {
+        printf("pVar\n");
             // x = ?
             /*getting what to assign*/
             InternalType *pIT = e.right_val_get();
@@ -87,6 +88,7 @@ void visitprivate(const AssignExp  &e)
         const CellCallExp *pCell = dynamic_cast<const CellCallExp*>(&e.left_exp_get());
         if (pCell)
         {
+        printf("pCell\n");
             InternalType *pIT;
             bool bNew           = false;
 
@@ -238,6 +240,7 @@ void visitprivate(const AssignExp  &e)
         const CallExp *pCall = dynamic_cast<const CallExp*>(&e.left_exp_get());
         if (pCall)
         {
+        printf("pCall\n");
             //x(?) = ?
             InternalType *pIT;
             bool bNew   = false;
@@ -301,12 +304,14 @@ void visitprivate(const AssignExp  &e)
                 }
             }
 
+            printf("get pArgs\n");
             typed_list *pArgs = GetArgumentList(pCall->args_get());
             InternalType *pOut	= NULL;
 
             //fisrt extract implicit list
             if (pITR->isColon())
             {
+            printf("isColon\n");
                 //double* pdbl = NULL;
                 //pITR = new Double(-1, -1, &pdbl);
                 //pdbl[0] = 1;
@@ -314,6 +319,7 @@ void visitprivate(const AssignExp  &e)
             }
             else if (pITR->isImplicitList())
             {
+            printf("isImplicitList\n");
                 InternalType *pIL = pITR->getAs<ImplicitList>()->extractFullMatrix();
                 if (pIL)
                 {
@@ -322,6 +328,7 @@ void visitprivate(const AssignExp  &e)
             }
             else if (pITR->isContainer() && pITR->isRef())
             {
+            printf("isContainer\n");
                 //std::cout << "assign container type during insertion" << std::endl;
                 InternalType* pIL = pITR->clone();
                 pITR = pIL;
@@ -329,12 +336,14 @@ void visitprivate(const AssignExp  &e)
 
             if (pITR->isDouble() && pITR->getAs<Double>()->isEmpty() && pIT == NULL)
             {
+            printf("1\n");
                 // l(x) = [] when l is not defined => create l = []
                 pOut = Double::Empty();
                 bNew = true;
             }
             else if (pITR->isDouble() && pITR->getAs<Double>()->isEmpty() && pIT->isStruct() == false && pIT->isList() == false)
             {
+            printf("2\n");
                 //insert [] so deletion except for Struct and List which can insert []
                 if (pIT->isDouble())
                 {
@@ -416,6 +425,7 @@ void visitprivate(const AssignExp  &e)
             }
             else if (pIT == NULL || (pIT->isDouble() && pIT->getAs<Double>()->getSize() == 0))
             {
+            printf("3");
                 //insert in a new variable or []
                 //call static insert function
                 //special case for insertion in []
@@ -445,6 +455,7 @@ void visitprivate(const AssignExp  &e)
                 }
                 else
                 {
+                printf("insertNew\n");
                     switch (pITR->getType())
                     {
                         case InternalType::RealDouble :
@@ -494,6 +505,7 @@ void visitprivate(const AssignExp  &e)
                             break;
                         default :
                         {
+                        printf("insertNew overloading\n");
                             //manage error
                             std::wostringstream os;
                             os << _W("Operation not yet managed.\n");
@@ -506,11 +518,18 @@ void visitprivate(const AssignExp  &e)
             }
             else
             {
+               printf("4\n");
                 //call type insert function
                 InternalType* pRet = NULL;
                 InternalType* pInsert = pITR;
-                //check types compatibilties
+                pIT->whoAmI();
+                printf("\n");
+                pInsert->whoAmI();
+                printf("\n");
 
+                printf("pITR : %x\n",pITR);
+                printf("pInsert : %x\n",pInsert);
+                //check types compatibilties
                 if (pIT->isDouble() && pInsert->isDouble())
                 {
                     pRet = pIT->getAs<Double>()->insert(pArgs, pInsert);
@@ -621,6 +640,7 @@ void visitprivate(const AssignExp  &e)
                 }
                 else if (pIT->isStruct())
                 {
+                printf("is Struct\n");
                     Struct* pStr = pIT->getAs<Struct>();
                     if (pArgs->size() == 1 && (*pArgs)[0]->isString())
                     {
@@ -646,9 +666,11 @@ void visitprivate(const AssignExp  &e)
                 }
                 else if (pIT->isTList() || pIT->isMList())
                 {
+                printf("TList or MList\n");
                     TList* pTL = pIT->getAs<TList>();
                     if (pArgs->size() == 1 && (*pArgs)[0]->isString())
                     {
+                    printf("if\n");
                         //s("x") = y
                         String *pS = (*pArgs)[0]->getAs<types::String>();
                         if (pS->isScalar() == false)
@@ -665,11 +687,13 @@ void visitprivate(const AssignExp  &e)
                     }
                     else
                     {
+                    printf("else\n");
                         pRet = pTL->insert(pArgs, pInsert);
                     }
                 }
                 else if (pIT->isList())
                 {
+                printf("isList\n");
                     pRet = pIT->getAs<List>()->insert(pArgs, pInsert);
                 }
                 else if (pIT->isHandle())
@@ -701,6 +725,7 @@ void visitprivate(const AssignExp  &e)
                 }
                 else
                 {
+                printf("overloading\n");
                     //overloading
                     types::typed_list in;
                     types::typed_list out;
@@ -803,27 +828,38 @@ void visitprivate(const AssignExp  &e)
             }
             //delete piMaxDim;
             //delete[] piDimSize;
+            printf("delete args\n");
             for (int iArg = 0 ; iArg < (int)pArgs->size() ; iArg++)
             {
+                printf("(*pArgs)[%d] : %x ", iArg, (*pArgs)[iArg]);
                 if ((*pArgs)[iArg]->isDeletable())
                 {
+                    printf("deleted !!!\n");
                     delete (*pArgs)[iArg];
+                }
+                else
+                {
+                    printf("not deleted.\n");
                 }
             }
 
             if (pITR->isDeletable())
             {
-                delete pITR;
+                pITR->whoAmI();
+                printf("delete pITR : %x\n",pITR);
+//                delete pITR;
             }
 
             result_clear();
             delete pArgs;
+            printf("end pCall\n");
             return;
         }
 
         const AssignListExp *pList = dynamic_cast<const AssignListExp*>(&e.left_exp_get());
         if (pList)
         {
+        printf("pList\n");
             //[x,y] = ?
             int iLhsCount = (int)pList->exps_get().size();
 
@@ -859,6 +895,7 @@ void visitprivate(const AssignExp  &e)
         const FieldExp *pField = dynamic_cast<const FieldExp*>(&e.left_exp_get());
         if (pField)
         {
+        printf("pField\n");
             //a.b = x
             //a.b can be a struct or a tlist/mlist or a handle
             /*getting what to assign*/
