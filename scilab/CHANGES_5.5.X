@@ -12,6 +12,20 @@ New Features
 
 * modulo() and pmodulo() now support integers & hypermatrices (See bug #13002).
 
+* test_run() can now separate 32bits systems from 64bits ones.
+
+
+Obsolete & Removed Functions
+============================
+
+* msd and st_deviation tagged as obsolete (See bug #7593). Will be removed in Scilab 5.5.1.
+  Please use stdev instead.
+
+* pcg tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use conjgrad instead.
+
+* milk_drop tagged as obsolete. Will be removed in Scilab 5.5.1.
+
 
 Scilab Bug Fixes
 ================
@@ -39,6 +53,8 @@ Scilab Bug Fixes
 
 * Bug #7570 fixed - The switch criterion on x and y is now explicited in beta() help page.
 
+* Bug #7593 fixed - stdev now encompasses msd and st_deviation thanks to a new optional input argument.
+
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
@@ -50,6 +66,10 @@ Scilab Bug Fixes
 * Bug #8031 fixed - cdfgam error message fixed.
 
 * Bug #8060 fixed - Display of a list improved in the variable browser.
+
+* Bug #8133 fixed - Ticks disappeared in planar 3D view.
+
+* Bug #8196 fixed - Wrong error message with negative thickness.
 
 * Bug #8231 fixed - xrect help page did not say that clipping property was inherited.
 
@@ -69,6 +89,12 @@ Scilab Bug Fixes
 
 * Bug #9697 fixed - Printed information for optim "qn" and "gc" with bounds and imp=1 fixed.
 
+* Bug #9701 fixed - optim with "qn" option was failing for large problems.
+
+* Bug #9840 fixed - Default G tolerance in lsqrsolve was too large.
+
+* Bug #10012 fixed - lmisolver and lmitool called with no input now produce errors.
+
 * Bug #10175 fixed - Clearer example added for sp2adj to adj2sp conversion (and backwards conversion).
 
 * Bug #10234 fixed - reglin function moved from CACSD to Statistics module.
@@ -77,6 +103,10 @@ Scilab Bug Fixes
                      input matrix defined by the two first input arguments.
 
 * Bug #10273 fixed - spchol help page now displays an example showing how to use its output arguments.
+
+* Bug #10936 fixed - Scilab hung with invalid strf in plot2d.
+
+* Bug #11007, #11008 & #11009 fixed - New function conjgrad (Conjugate Gradient methods "pcg", "cgs", "bicg" and "bicgstab").
 
 * Bug #11571 fixed - x_mdialog did not let the Look&Feel select the window size.
 
@@ -87,6 +117,8 @@ Scilab Bug Fixes
 * Bug #11680 fixed - GUI functions in Scilab 5.4.X were much slower than in Scilab 5.3.3.
 
 * Bug #12492 fixed - Exported EPS files were invalid when dash patterns were too long.
+
+* Bug #12673 fixed - Ticks were drawn outside of axes area.
 
 * Bug #12682 fixed - Key events were disabled after zooming.
 
@@ -129,9 +161,11 @@ Scilab Bug Fixes
 
 * Bug #12992 fixed - The sigma value was always equals to "LM" in eigs.
 
+* Bug #12993 fixed - stdev returned value depended on 'x' being defined in the environment.
+
 * Bug #13000 fixed - []./int8(3) and on int8(3)./[] led to an endless recursive.
 
-* Bug #13002 fixed - modulo() and pmodulo() did not support integers & hypermatrices.
+* Bug #13002 fixed - modulo and pmodulo did not support integers & hypermatrices.
 
 * Bug #13003 fixed - String to enum converter added to Java external objects.
 
@@ -154,6 +188,8 @@ Scilab Bug Fixes
 * Bug #13015 fixed - Computation of Efficiency inner variable improved in optim_ga.
 
 * Bug #13022 fixed - Vectorial export did not clip large segments.
+
+* Bug #13023 fixed - xs2pdf crashed under Windows when the target file was already open.
 
 * Bug #13027 fixed - There was no autowrap into array in JIMS.
 
@@ -280,8 +316,6 @@ BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPA
 
 * License update: switch to the CeCILL 2.1.
 
-* test_run() can now separate 32bits systems from 64bits ones.
-
 
 Improvements
 =============
@@ -387,8 +421,6 @@ Obsolete & Removed Functions
 
 * fprintf removed, please use mfprintf for files opened with mopen or write for files
   opened with file instead.
-
-* milk_drop tagged as obsolete. Will be removed in Scilab 5.5.1.
 
 
 Scilab Bug Fixes
