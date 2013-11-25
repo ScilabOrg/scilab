@@ -14,6 +14,9 @@ New Features
 
 * test_run() can now separate 32bits systems from 64bits ones.
 
+* pol2str(): support to polynomials with complex coefs and hypermat
+  (See bug #13109)
+
 
 Obsolete & Removed Functions
 ============================
