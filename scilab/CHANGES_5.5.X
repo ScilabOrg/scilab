@@ -67,6 +67,8 @@ Scilab Bug Fixes
 * Bug #7705 fixed - In the Genetic algorithms help pages, documented the
                     "dimension", "minbounds" and "maxbounds" fields.
 
+* Bug #7739 fixed - Invalid axis position in log modes.
+
 * Bug #7858 fixed - variance and variancef can now return the mean of the input
                     in a new output argument and take the a priori mean as input.
 
