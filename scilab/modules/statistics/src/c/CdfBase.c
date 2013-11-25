@@ -17,7 +17,7 @@
 #include "api_scilab.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sci_string_matrix.h"
 #include <string.h>
 
@@ -200,7 +200,7 @@ int CdfBase(char const * const fname, void* pvApiCtx, int inarg, int oarg, int s
         getMatrixOfDouble(pvApiCtx, p, &rows[i], &cols[i], &data[i]);
         /*check data are integers, by pass Inf and NaN*/
 
-        for(j = 0 ; j < rows[i] * cols[i] ; j++)
+        for (j = 0 ; j < rows[i] * cols[i] ; j++)
         {
             if (data[i][j] == data[i][j] && data[i][j] + 1 != data[i][j]) // NaN and Inf will be handled in the program
             {

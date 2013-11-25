@@ -21,7 +21,7 @@ using regular expression .                                      */
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "pcre.h"
 #include "pcre_private.h"

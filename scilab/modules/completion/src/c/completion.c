@@ -12,7 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "completion.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "getvariablesname.h"
 #include "commandwords.h"
 #include "getfunctionsname.h"

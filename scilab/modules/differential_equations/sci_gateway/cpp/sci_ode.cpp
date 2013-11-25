@@ -30,7 +30,7 @@ extern "C"
 #include "sciprint.h"
 #include "common_structure.h"
 #include "checkodeerror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 }
 /*--------------------------------------------------------------------------*/
 

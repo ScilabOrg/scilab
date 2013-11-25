@@ -20,7 +20,7 @@
 extern "C"
 {
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "PATH_MAX.h"
 #include "api_scilab.h"
 #include "getlongpathname.h"

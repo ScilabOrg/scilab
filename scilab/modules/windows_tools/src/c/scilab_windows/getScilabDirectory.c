@@ -14,7 +14,7 @@
 #include <windows.h>
 #include <stdlib.h>
 #include "getScilabDirectory.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sci_path.h"
 #include "charEncoding.h"
 /*--------------------------------------------------------------------------*/

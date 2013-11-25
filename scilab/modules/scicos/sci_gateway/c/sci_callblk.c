@@ -29,13 +29,13 @@
 #include "createblklist.h"
 #include "extractblklist.h"
 #include "scicos.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 extern int *listentry(int *header, int i);
 /*--------------------------------------------------------------------------*/
 int sci_callblk(char *fname, unsigned long fname_len)
 {
-    #if 0
+#if 0
     /* auxilary variables -dimension and address-
     * for scilab stack variables
     */

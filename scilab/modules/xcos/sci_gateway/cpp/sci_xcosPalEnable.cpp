@@ -20,7 +20,7 @@ extern "C"
 #include "api_scilab.h"
 #include "localization.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "freeArrayOfString.h"
 #include "getScilabJavaVM.h"
 }

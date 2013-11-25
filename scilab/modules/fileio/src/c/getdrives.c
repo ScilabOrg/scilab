@@ -16,7 +16,7 @@
 #include <windows.h>
 #endif
 #include "getdrives.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 char **getdrives(int *nbDrives)
 {

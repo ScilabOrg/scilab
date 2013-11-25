@@ -13,7 +13,7 @@
 extern "C"
 {
 #include "machine.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "BOOL.h"
 
 #include "getGraphicObjectProperty.h"

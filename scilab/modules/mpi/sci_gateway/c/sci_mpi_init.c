@@ -10,7 +10,7 @@
  *
  */
 #include <stdio.h>                      // for NULL, fprintf, stderr
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "BOOL.h"                       // for ::TRUE, ::FALSE, BOOL
 #include "api_scilab.h"                 // for pvApiCtx, etc
 #include "mpi.h"                        // for MPI_Request, etc

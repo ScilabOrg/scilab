@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "fscanfMat.h"
 #include "charEncoding.h"
 #include "BOOL.h"
@@ -87,7 +87,7 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator)
     char **lines = NULL;
     int nblines = 0;
     double *dValues = NULL;
-	wchar_t* filenameW = NULL;
+    wchar_t* filenameW = NULL;
 
     if ((filename == NULL) || (format == NULL) || (separator == NULL))
     {

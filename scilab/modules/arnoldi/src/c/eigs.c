@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include "eigs.h"
 #include "stack-c.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sciprint.h"
 #include "eigs_dependencies.h"
 /*--------------------------------------------------------------------------*/

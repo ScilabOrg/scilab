@@ -13,7 +13,7 @@
 /*--------------------------------------------------------------------------*/
 #include <windows.h>
 #include "gw_windows_tools.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "stack-c.h"
 #include "localization.h"
 #include "Scierror.h"

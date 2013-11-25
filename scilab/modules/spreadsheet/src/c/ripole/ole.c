@@ -21,7 +21,7 @@
 #define OLE_SECTORID_SAT	-3 /** Sector used by sector allocation Table  **/
 #define OLE_SECTORID_MSAT	-4 /** Sector used by master sector allocation Table **/
 
-#include "MALLOC.h"             /* MALLOC */
+#include "SCIMALLOC.h"             /* MALLOC */
 
 /* Main header accessors*/
 #define header_id(x)						((x) +0)

@@ -12,7 +12,7 @@
 
 /*--------------------------------------------------------------------------*/
 #include "gw_jvm.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "stack-c.h"
 #include "Scierror.h"
 #include "addToLibrarypath.h"

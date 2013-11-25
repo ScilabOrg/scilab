@@ -16,7 +16,7 @@ extern "C"
 {
 #include "lasterror.h"
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 }
 
 namespace ast

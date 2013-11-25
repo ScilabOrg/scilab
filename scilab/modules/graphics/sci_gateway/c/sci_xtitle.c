@@ -21,7 +21,7 @@
 #include "api_scilab.h"
 #include "Scierror.h"
 #include "SetProperty.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "freeArrayOfString.h"
 #include "localization.h"
 #include "HandleManagement.h"

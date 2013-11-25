@@ -92,7 +92,7 @@
 #include <string.h>
 
 #include "sci_tools.h"
-#include "MALLOC.h" /* MALLOC */
+#include "SCIMALLOC.h" /* MALLOC */
 
 #include "localization.h"
 #include "Scierror.h"

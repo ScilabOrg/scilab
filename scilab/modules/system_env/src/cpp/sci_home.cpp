@@ -19,7 +19,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sci_home.h"
 #include "os_strdup.h"
 #include "os_wcsdup.h"

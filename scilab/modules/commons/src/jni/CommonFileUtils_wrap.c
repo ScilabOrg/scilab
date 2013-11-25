@@ -188,7 +188,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 
 #include "../../includes/fileutils.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 
 #ifdef __cplusplus

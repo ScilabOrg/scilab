@@ -28,7 +28,7 @@
 #include "SetProperty.h"
 #include "HandleManagement.h"
 
-#include "MALLOC.h" /* MALLOC */
+#include "SCIMALLOC.h" /* MALLOC */
 #include "localization.h"
 #include "Scierror.h"
 #include "BasicAlgos.h"

@@ -30,7 +30,7 @@
 #include "SetHashTable.h"
 #include "SetPropertyStatus.h"
 
-#include "MALLOC.h"             /* MALLOC */
+#include "SCIMALLOC.h"             /* MALLOC */
 #include "localization.h"
 #include "stricmp.h"
 #include "api_scilab.h"
@@ -305,12 +305,12 @@ int sci_set(char *fname, void *pvApiCtx)
             /* 'figure_style' for compatibility but do nothing */
             /* others values must return a error */
             char *propertiesSupported[NB_PROPERTIES_SUPPORTED] = { "current_entity",
-                                                                   "hdl",
-                                                                   "current_figure",
-                                                                   "current_axes",
-                                                                   "figure_style",
-                                                                   "default_values",
-                                                                   "auto_clear"
+                    "hdl",
+                    "current_figure",
+                    "current_axes",
+                    "figure_style",
+                    "default_values",
+                    "auto_clear"
                                                                  };
 
             int i = 0;

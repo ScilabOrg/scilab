@@ -21,7 +21,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "mput.h"
 #include "localization.h"
 #include "Scierror.h"

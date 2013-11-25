@@ -15,7 +15,7 @@
 #include "gw_special_functions.h"
 #include "Scierror.h"
 #include "msgs.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
 extern void  C2F(dbesiv) (double *x, int* nx, double *alpha, int *na, int *kode, double *r, double *w, int *ierr);
@@ -71,7 +71,7 @@ int sci_besseli(char *fname, void* pvApiCtx)
             return 1;
         }
 
-        if (m1*n1 != 1)
+        if (m1 * n1 != 1)
         {
             Scierror(999, _("%s: Wrong size for input argument #%d.\n"), fname, 3);
             return 1;
@@ -96,7 +96,7 @@ int sci_besseli(char *fname, void* pvApiCtx)
         return 1;
     }
 
-    if (m1*n1 == 0)
+    if (m1 * n1 == 0)
     {
         /*besseli([],x) */
         AssignOutputVariable(pvApiCtx, 1) = 1;
@@ -120,7 +120,7 @@ int sci_besseli(char *fname, void* pvApiCtx)
         return 1;
     }
 
-    if (m2*n2 == 0)
+    if (m2 * n2 == 0)
     {
         /*besseli(alpha,[]) */
         AssignOutputVariable(pvApiCtx, 1) = 2;
@@ -176,7 +176,7 @@ int sci_besseli(char *fname, void* pvApiCtx)
         memset(pdblXI, 0x00, iSize);
     }
 
-    if (m1*n1 == 1)
+    if (m1 * n1 == 1)
     {
         /*besseli(scalar,matrix) */
         double wr[2], wi[2];
@@ -196,7 +196,7 @@ int sci_besseli(char *fname, void* pvApiCtx)
             C2F(zbesiv) (pdblXR, pdblXI, &nx, pdbl1, &na, &kode, lr, li, wr, wi, &ierr);
         }
     }
-    else if (m2*n2 == 1)
+    else if (m2 * n2 == 1)
     {
         /* besseli(matrix,scalar) */
         nx = 1;

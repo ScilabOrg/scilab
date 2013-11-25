@@ -16,7 +16,7 @@ extern "C"
 #include <stdlib.h> /* qsort */
 #include "Scierror.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "getfieldsdictionary.h"
 #include "getPartLine.h"
 #include "completion.h"

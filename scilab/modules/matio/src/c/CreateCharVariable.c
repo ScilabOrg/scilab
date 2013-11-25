@@ -16,7 +16,7 @@
 #include "CreateMatlabVariable.h"
 #include "freeArrayOfString.h"
 #include "os_strdup.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 

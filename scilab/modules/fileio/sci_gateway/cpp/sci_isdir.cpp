@@ -23,7 +23,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 #include "expandPathVariable.h"

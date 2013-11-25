@@ -13,7 +13,7 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_time.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
 int gw_time(void)

@@ -53,7 +53,7 @@
 #include "gw_umfpack.h"
 #include "common_umfpack.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
 extern CellAdr *ListCholFactors;

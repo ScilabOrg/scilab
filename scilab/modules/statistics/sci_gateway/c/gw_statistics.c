@@ -13,7 +13,7 @@
 
 #include "gw_statistics.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
 int gw_statistics()

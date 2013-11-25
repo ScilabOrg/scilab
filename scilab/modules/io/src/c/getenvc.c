@@ -18,7 +18,7 @@
 #endif
 #include "os_strdup.h"
 #include "os_wcsdup.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "getenvc.h"
 #include "localization.h"
 #include "sciprint.h"

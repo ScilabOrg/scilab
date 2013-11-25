@@ -20,7 +20,7 @@
  */
 /*--------------------------------------------------------------------------*/
 #include <string.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "machine.h"
 #include "scicos_block.h"
 #include "dynlib_scicos_blocks.h"

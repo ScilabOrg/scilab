@@ -24,7 +24,7 @@
 #include "CurrentSubwin.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "BuildObjects.h"
 #include "HandleManagement.h"

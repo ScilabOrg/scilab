@@ -26,7 +26,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "SetPropertyStatus.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*------------------------------------------------------------------------*/
 int set_figure_style_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {

@@ -16,7 +16,7 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_arnoldi.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
 /*

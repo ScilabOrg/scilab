@@ -23,7 +23,7 @@
 #include "gw_graphics.h"
 #include "api_scilab.h"
 #include "BuildObjects.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "GetProperty.h"
 #include "elementary_functions.h"
 #include "localization.h"

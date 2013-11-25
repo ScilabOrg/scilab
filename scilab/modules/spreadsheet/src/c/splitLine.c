@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "splitLine.h"
 #include "strsubst.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "freeArrayOfString.h"
 
 #define EMPTYFIELD "__EMPTY_FIELD_CSV__"

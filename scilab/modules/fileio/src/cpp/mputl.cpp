@@ -19,7 +19,7 @@
 extern "C"
 {
 #include "mputl.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 }
 /*--------------------------------------------------------------------------*/

@@ -15,7 +15,7 @@
 #include "CreateMatlabVariable.h"
 #include "freeArrayOfString.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 #include "sciprint.h"

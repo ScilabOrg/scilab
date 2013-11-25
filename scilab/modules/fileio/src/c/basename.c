@@ -11,7 +11,7 @@
 */
 /*--------------------------------------------------------------------------*/
 #include "basename.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "expandPathVariable.h"
 #include "splitpath.h"
 #include "charEncoding.h"

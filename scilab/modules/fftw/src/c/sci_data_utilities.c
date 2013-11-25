@@ -10,7 +10,7 @@
 *
 */
 #include <string.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "api_scilab.h"
 #include "localization.h"
 #include "Scierror.h"
@@ -57,7 +57,7 @@ int getArrayOfDouble(void* pvApiCtx, int *piAddr, int *ndims, int **dims, double
             return 0;
         }
         sciErr = getVarDimension(pvApiCtx, piAddrChild, &iRows, &iCols);
-        if (iRows*iCols != 3)
+        if (iRows * iCols != 3)
         {
             return 0;
         }

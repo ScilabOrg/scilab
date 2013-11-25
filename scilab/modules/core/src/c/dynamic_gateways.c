@@ -16,7 +16,7 @@
 #include "gw_dynamic_generic.h"
 #include "dynamic_parallel.h"
 #include "sci_mode.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 /* special_functions module */
 #define SPECIAL_FUNCTIONS_MODULE_NAME "special_functions"

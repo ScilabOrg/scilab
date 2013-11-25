@@ -15,7 +15,7 @@
 #include "gw_sparse.h"
 #include "callFunctionFromGateway.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 int gw_sparse(void)
 {

@@ -15,7 +15,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include <stdio.h>
 #include "api_scilab.h"
 #include "sciprint.h"

@@ -18,7 +18,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "mclose.h"

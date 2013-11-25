@@ -15,7 +15,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include "getLocaleInfo_Windows.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_swprintf.h"
 /*--------------------------------------------------------------------------*/
 char* getLocaleSystemInfo(void)

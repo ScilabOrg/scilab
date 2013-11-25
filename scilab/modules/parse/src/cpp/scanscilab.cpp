@@ -1281,7 +1281,7 @@ char *yytext;
 extern "C"
 {
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 }
 
 static int matrix_level = 0;

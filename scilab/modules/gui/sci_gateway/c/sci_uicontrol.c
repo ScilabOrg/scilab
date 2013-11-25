@@ -17,7 +17,7 @@
 /*--------------------------------------------------------------------------*/
 #include "CreateUIControl.h"
 #include "HandleManagement.h"
-#include "MALLOC.h"             /* MALLOC */
+#include "SCIMALLOC.h"             /* MALLOC */
 #include "localization.h"
 #include "stricmp.h"
 #include "SetPropertyStatus.h"

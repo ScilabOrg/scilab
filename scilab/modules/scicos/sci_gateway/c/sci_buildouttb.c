@@ -23,7 +23,7 @@
 #include "stack-c.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 /* intbuildouttb build an initialized outtb list
 *

@@ -68,7 +68,7 @@
 #include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "math.h"
 
 double * getChampX(char * uid)

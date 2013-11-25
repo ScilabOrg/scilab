@@ -11,7 +11,7 @@
 #include <windows.h>
 #include "gw_windows_tools.h"
 #include "stack-c.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/

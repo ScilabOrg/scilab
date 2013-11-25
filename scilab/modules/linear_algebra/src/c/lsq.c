@@ -14,7 +14,7 @@
 #include "doublecomplex.h"
 #include "machine.h"
 #include "core_math.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "lsq.h"
 

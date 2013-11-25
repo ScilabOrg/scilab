@@ -14,7 +14,7 @@
 #include "gw_elementary_functions.h"
 #include "callFunctionFromGateway.h"
 #include "recursionFunction.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 /*--------------------------------------------------------------------------*/
 int gw_elementary_functions(void)

@@ -23,7 +23,7 @@
 #include <libxml/xpath.h>
 #include <libxml/xmlreader.h>
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sci_mode.h"
 #include "funcmanager.hxx"
 #include "configvariable.hxx"

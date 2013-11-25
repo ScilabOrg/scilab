@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /*--------------------------------------------------------------------------*/
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "bt-int.h"
 /*--------------------------------------------------------------------------*/
 int BTI_init( struct bti_node **n )

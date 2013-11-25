@@ -18,7 +18,7 @@
 #include "Scierror.h"
 #include "PATH_MAX.h"
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 BOOL winopen(char *scilabfilename)
 {

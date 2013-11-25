@@ -29,7 +29,7 @@
 
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*------------------------------------------------------------------------*/
 int set_rotation_style_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {

@@ -26,7 +26,7 @@
 #include "charEncoding.h"
 #include "cvstr.h"
 #include "mget.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "dynlib_scicos_blocks.h"
 /*--------------------------------------------------------------------------*/

@@ -48,7 +48,7 @@
 |                                                             |
 +------------------------------------------------------------*/
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sciumfpack.h"
 #include "gw_umfpack.h"
 #include "Scierror.h"

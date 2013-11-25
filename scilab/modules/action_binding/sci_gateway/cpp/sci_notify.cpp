@@ -14,7 +14,7 @@
 extern "C"
 {
 #include "getScilabJavaVM.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 }

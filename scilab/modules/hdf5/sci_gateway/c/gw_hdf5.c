@@ -14,7 +14,7 @@
 #include "gw_hdf5.h"
 #include "callFunctionFromGateway.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 int gw_hdf5(void)
 {

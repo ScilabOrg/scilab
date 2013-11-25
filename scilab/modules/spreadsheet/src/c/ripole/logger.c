@@ -14,7 +14,7 @@
 
 #include "localization.h"
 #include "logger.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 
 //#define SYSLOG_ENABLE 1

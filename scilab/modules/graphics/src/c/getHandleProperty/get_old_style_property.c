@@ -23,7 +23,7 @@
 #include "returnProperty.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*------------------------------------------------------------------------*/
 
 void* get_old_style_property(void* _pvCtx, char* pobjUID)

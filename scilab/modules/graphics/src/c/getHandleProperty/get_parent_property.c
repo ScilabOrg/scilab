@@ -25,7 +25,7 @@
 #include "getHandleProperty.h"
 #include "HandleManagement.h"
 #include "returnProperty.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"

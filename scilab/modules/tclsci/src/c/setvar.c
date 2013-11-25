@@ -11,7 +11,7 @@
  */
 
 #include "setvar.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/

@@ -43,7 +43,7 @@
 #include <sys/stat.h>
 #include "ezxml.h"
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "os_strdup.h"
 

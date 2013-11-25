@@ -15,7 +15,7 @@
 #include "gw_mpi.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "serialization.h"
 
 #define TAG 0

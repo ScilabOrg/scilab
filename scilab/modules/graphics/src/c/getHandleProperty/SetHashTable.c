@@ -21,7 +21,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "getDictionarySetProperties.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_strdup.h"
 #include "BOOL.h"
 

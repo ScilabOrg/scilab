@@ -15,7 +15,7 @@
 #include "dynlib_scicos_blocks.h"
 #include "scoUtils.h"
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "elementary_functions.h"
 
 #include "getGraphicObjectProperty.h"

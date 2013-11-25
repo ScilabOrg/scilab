@@ -26,7 +26,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "scicos_block4.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "cvstr.h"
 #include "sciblk4.h"
 #include "sciblk2.h"

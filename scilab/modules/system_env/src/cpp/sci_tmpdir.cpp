@@ -19,7 +19,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #ifdef _MSC_VER
 #include <process.h>
 #else

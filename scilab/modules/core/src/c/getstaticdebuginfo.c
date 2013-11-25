@@ -33,7 +33,7 @@ Commented for now
 #endif
 #endif
 */
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "getstaticdebuginfo.h"
 #include "version.h"
 

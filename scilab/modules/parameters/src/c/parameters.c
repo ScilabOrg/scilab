@@ -16,7 +16,7 @@
 /*--------------------------------------------------------------------------*/
 #include "parameters.h"
 #include "sci_types.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "freeArrayOfString.h"
 #include "Scierror.h"
 #include "sciprint.h"

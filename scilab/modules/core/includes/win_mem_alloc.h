@@ -18,7 +18,7 @@
 #endif
 #define NULL 0
 
-#include <crtdefs.h>
+#include <malloc.h>
 
 
 void *MyHeapRealloc(void *lpAddress, size_t dwSize, char *file, int line);

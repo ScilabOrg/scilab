@@ -11,7 +11,7 @@
  */
 #include "isnum.h"
 #include "stringToComplex.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 // =============================================================================
 BOOL isNum(const char *pStr)
 {

@@ -15,7 +15,7 @@
 /*------------------------------------------------------------------------*/
 #include <string.h>
 #include <stdio.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "tokens.h"
 #include "os_wcsdup.h"
 #include "os_wcstok.h"

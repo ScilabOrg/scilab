@@ -19,7 +19,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "findfiles.h"
 #include "localization.h"
 #include "Scierror.h"

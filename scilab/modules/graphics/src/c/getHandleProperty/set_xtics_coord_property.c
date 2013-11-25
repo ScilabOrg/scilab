@@ -27,7 +27,7 @@
 #include "localization.h"
 #include "BasicAlgos.h"
 #include "Format.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"

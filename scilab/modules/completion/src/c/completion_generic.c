@@ -11,7 +11,7 @@
  */
 #include <string.h>
 #include "completion_generic.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_strdup.h"
 #include "stricmp.h"
 /*--------------------------------------------------------------------------*/

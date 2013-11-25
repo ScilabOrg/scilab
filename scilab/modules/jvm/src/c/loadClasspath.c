@@ -21,7 +21,7 @@
 #include "FileExist.h"
 #include "addToClasspath.h"
 #include "sci_path.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "sci_mode.h"
 #include "stricmp.h"

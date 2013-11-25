@@ -13,7 +13,7 @@
 #include "configvariable.hxx"
 
 extern "C" {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "grand.h"
 #include "clcg4.h"
 #include "others_generators.h"

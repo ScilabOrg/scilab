@@ -28,7 +28,7 @@
 #include "returnPropertyList.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "SetPropertyStatus.h"
 
 #include "getGraphicObjectProperty.h"

@@ -16,7 +16,7 @@
 extern "C"
 {
 #include "expandPathVariable.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 }
 

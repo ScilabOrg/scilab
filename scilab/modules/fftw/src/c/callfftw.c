@@ -14,7 +14,7 @@
 /*--------------------------------------------------------------------------*/
 #include "dynamiclibrary.h"
 #include "getshortpathname.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 typedef void (*PROC_FFTW_EXECUTE_SPLIT_DFT)     (const fftw_plan p, double *ri, double *ii, double *ro, double *io);

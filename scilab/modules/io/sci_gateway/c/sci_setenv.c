@@ -16,7 +16,7 @@
 #include "gw_io.h"
 #include "api_scilab.h"
 #include "setenvc.h"
-#include "MALLOC.h" /* MALLOC */
+#include "SCIMALLOC.h" /* MALLOC */
 #include "Scierror.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/

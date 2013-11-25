@@ -16,7 +16,7 @@
 #include "gw_fileio.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 #define DEFAULT_PREFIX L"SCI"
 /*--------------------------------------------------------------------------*/

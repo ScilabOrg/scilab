@@ -22,7 +22,7 @@
 #include <stdio.h>
 
 #include "machine.h"            /* C2F */
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 
 #include "scicos.h"

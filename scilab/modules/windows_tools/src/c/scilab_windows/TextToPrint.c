@@ -12,7 +12,7 @@
 
 /*--------------------------------------------------------------------------*/
 #include "TextToPrint.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 #include "os_strdup.h"
 /*--------------------------------------------------------------------------*/

@@ -16,7 +16,7 @@
 #include <tk.h>
 
 #include "PATH_MAX.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "EnvTclTk.h"
 #include "setenvtcl.h"
 #include "GlobalTclInterp.h"

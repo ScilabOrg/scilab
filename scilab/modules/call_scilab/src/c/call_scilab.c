@@ -17,7 +17,7 @@
 #include "BOOL.h"
 #include "call_scilab.h"
 #include "lasterror.h"          /* clearInternalLastError, getInternalLastErrorValue */
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sci_mode.h"
 #include "fromc.h"
 #include "LaunchScilabSignal.h"

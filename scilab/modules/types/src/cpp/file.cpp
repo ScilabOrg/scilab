@@ -15,7 +15,7 @@
 extern "C"
 {
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 }
 
 namespace types
@@ -96,19 +96,24 @@ void File::setFileModeAsInt(int _iMode)
 
     m_pstMode = L"";
 
-    switch(iMode)
+    switch (iMode)
     {
-        case 2 : m_pstMode += L"w"; break;
-        case 3 : m_pstMode += L"a"; break;
-        default: m_pstMode += L"r"; // default mode "rb"
+        case 2 :
+            m_pstMode += L"w";
+            break;
+        case 3 :
+            m_pstMode += L"a";
+            break;
+        default:
+            m_pstMode += L"r"; // default mode "rb"
     }
 
-    if(iPlus)
+    if (iPlus)
     {
         m_pstMode += L"+";
     }
 
-    if(iBin)
+    if (iBin)
     {
         m_pstMode += L"b";
     }

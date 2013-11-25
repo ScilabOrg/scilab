@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack-c.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sciprint.h"
 
 /**

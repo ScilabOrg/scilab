@@ -15,7 +15,7 @@
 /* Only for Windows */
 
 #include <Windows.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 char *GetExceptionString(DWORD ExceptionCode);
 

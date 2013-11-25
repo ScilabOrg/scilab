@@ -191,7 +191,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include "../c/completeLine_wrap_java.h"
 #include "getCommonPart.h"
 #include "getPartLine.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 
 #ifdef __cplusplus

@@ -31,7 +31,7 @@
 #include "scicos.h"
 #include "import.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 /* intsicosimc scicosim interface routine.
 *

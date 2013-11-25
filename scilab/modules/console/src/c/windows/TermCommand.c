@@ -17,7 +17,7 @@
 #include "storeCommand.h" /* StoreCommand */
 #include "clrscr_nw.h"
 #include "TermLine.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 void ControlC_Command(void)
 {

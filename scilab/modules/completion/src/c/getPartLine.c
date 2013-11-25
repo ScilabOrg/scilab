@@ -14,7 +14,7 @@
 #include "os_strdup.h"
 #include "getPartLine.h"
 #include "core_math.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 #define SPACE_CHAR ' '
 /*--------------------------------------------------------------------------*/

@@ -97,7 +97,7 @@
 #include "location.hxx"
 #include "symbol.hxx"
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #define StopOnError()                                           \
     {                                                           \
@@ -2761,9 +2761,9 @@ YYSTYPE yylval YY_INITIAL_VALUE(yyval_default);
 /* Location data for the lookahead symbol.  */
 YYLTYPE yylloc
 # if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
-= { 1, 1, 1, 1 }
+    = { 1, 1, 1, 1 }
 # endif
-  ;
+      ;
 
 
 /* Number of syntax errors so far.  */

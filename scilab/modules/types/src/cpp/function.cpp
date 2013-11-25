@@ -23,7 +23,7 @@ extern "C"
 #include "Scierror.h"
 #include "localization.h"
 #include "sci_path.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_swprintf.h"
 #include "lasterror.h"
 }

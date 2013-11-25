@@ -21,7 +21,7 @@
 #include <dirent.h>
 #endif
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "PATH_MAX.h"
 #include "scicurdir.h"

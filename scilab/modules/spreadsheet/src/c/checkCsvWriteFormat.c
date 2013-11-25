@@ -12,7 +12,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "csvDefault.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_strdup.h"
 #include "checkCsvWriteFormat.h"
 // =============================================================================

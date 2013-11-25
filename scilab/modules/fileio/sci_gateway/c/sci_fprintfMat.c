@@ -12,7 +12,7 @@
 */
 #include <string.h>
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "gw_fileio.h"
 #include "Scierror.h"
 #include "localization.h"

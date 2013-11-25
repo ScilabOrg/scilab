@@ -21,7 +21,7 @@
 #include "GetProperty.h"
 #include "axesScale.h"
 #include "math_graphics.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "BuildObjects.h"
 #include "DestroyObjects.h"
 #include "SetProperty.h"

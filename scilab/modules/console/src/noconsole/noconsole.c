@@ -21,7 +21,7 @@
 #include "SetConsolePrompt.h"
 #include "InitializeConsole.h"
 #include "PromptToHome.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "ScilabLinesUpdate.h"
 #include "GetCharWithoutOutput.h"
 #include "ConsoleIsWaitingForInput.h"

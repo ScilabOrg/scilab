@@ -13,7 +13,7 @@
 
 #include "gw_signal.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "elem_common.h"

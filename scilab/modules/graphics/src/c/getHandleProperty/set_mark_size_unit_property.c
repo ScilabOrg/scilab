@@ -29,7 +29,7 @@
 
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 /*------------------------------------------------------------------------*/
 int set_mark_size_unit_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)

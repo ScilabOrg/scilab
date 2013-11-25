@@ -24,7 +24,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "InitObjects.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "HandleManagement.h"
 #include "AxesModel.h"
 /*--------------------------------------------------------------------------*/

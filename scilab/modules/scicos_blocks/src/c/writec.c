@@ -27,7 +27,7 @@
 #include "cvstr.h"
 #include "mput.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "dynlib_scicos_blocks.h"
 /*--------------------------------------------------------------------------*/
 SCICOS_BLOCKS_IMPEXP void writec(int *flag, int *nevprt,

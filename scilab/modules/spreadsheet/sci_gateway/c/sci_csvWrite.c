@@ -18,7 +18,7 @@
 #include "gw_spreadsheet.h"
 #include "api_scilab.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "csvWrite.h"
 #include "localization.h"
 #include "freeArrayOfString.h"

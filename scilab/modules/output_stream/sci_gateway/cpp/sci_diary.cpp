@@ -19,7 +19,7 @@ extern "C"
 #include "localization.h"
 #include "charEncoding.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "freeArrayOfString.h"
 }
 /*--------------------------------------------------------------------------*/

@@ -21,7 +21,7 @@
 /*--------------------------------------------------------------------------*/
 #include <math.h>
 #include <stdlib.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sciprint.h"
 #include "core_math.h"
 #include "scicos_block.h"

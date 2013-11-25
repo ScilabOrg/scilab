@@ -14,7 +14,7 @@
 /*--------------------------------------------------------------------------*/
 #include <string.h>
 #include "isascii.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 BOOL* isasciiStringW(wchar_t* input_string, int* returnedSize)
 {

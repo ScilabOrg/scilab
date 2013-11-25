@@ -15,7 +15,7 @@
 #include "gw_gui.h"
 #include "api_scilab.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "Toolbar.h"
 #include "FigureList.h"

@@ -29,7 +29,7 @@
 #include "import.h"
 #include "createblklist.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 /* Define external function */
 extern int C2F(scierr)();

@@ -21,7 +21,7 @@ extern "C"
 #include "localization.h"
 #include "getScilabJavaVM.h"
 #include "expandPathVariable.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 }
 
 using namespace org_scilab_modules_preferences;

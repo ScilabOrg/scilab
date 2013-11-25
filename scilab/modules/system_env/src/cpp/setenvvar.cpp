@@ -23,6 +23,7 @@
 #ifdef _MSC_VER
 
 #include "windows.h"
+#include "SCIMALLOC.h"
 #define putenv _putenv
 
 #else

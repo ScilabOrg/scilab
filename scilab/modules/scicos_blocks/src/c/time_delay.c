@@ -20,7 +20,7 @@
 */
 /*--------------------------------------------------------------------------*/
 #include <math.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sciprint.h"
 #include "scicos_block.h"
 #include "localization.h"

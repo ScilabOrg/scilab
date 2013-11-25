@@ -30,7 +30,7 @@
 
 extern "C"
 {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Scierror.h"
 #include "api_scilab.h"
 #include "localization.h"

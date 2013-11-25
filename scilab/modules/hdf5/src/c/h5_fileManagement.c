@@ -19,7 +19,7 @@
 #include "isdir.h"
 #include "splitpath.h"
 #include "scicurdir.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_strdup.h"
 /*--------------------------------------------------------------------------*/
 static char *getPathFilename(char *fullfilename);

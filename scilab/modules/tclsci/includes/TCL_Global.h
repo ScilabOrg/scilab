@@ -22,7 +22,7 @@
 #include "dynlib_tclsci.h"
 #include "stack-c.h"
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 /*--------------------------------------------------------------------------*/
 extern Tk_Window TKmainWindow;

@@ -54,7 +54,7 @@
 #include "loadTextRenderingAPI.h"
 #include "sciprint.h"
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"

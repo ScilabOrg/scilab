@@ -17,7 +17,7 @@ extern "C"
 {
 #include "mgetstr.h"
 #include "filesmanagement.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 }
 

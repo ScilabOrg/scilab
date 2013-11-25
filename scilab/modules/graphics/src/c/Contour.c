@@ -18,7 +18,7 @@
 #include "math_graphics.h"
 #include "Scierror.h"
 #include "sciprint.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Format.h"
 #include "Contour.h"
 

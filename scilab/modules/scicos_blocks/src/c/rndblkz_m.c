@@ -22,7 +22,7 @@
 #include <math.h>
 #include "machine.h"
 #include "scicos_block4.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "dynlib_scicos_blocks.h"
 /*--------------------------------------------------------------------------*/
 extern double C2F(urand)();

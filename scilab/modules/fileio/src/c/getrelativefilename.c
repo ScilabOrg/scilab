@@ -15,7 +15,7 @@
 #include <string.h>
 #include "machine.h" /* DIR_SEPARATOR */
 #include "getrelativefilename.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "PATH_MAX.h"
 #include "strsubst.h"
 /* ================================================================================== */

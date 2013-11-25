@@ -14,7 +14,7 @@
 #include <shlwapi.h>
 #include <stdio.h>
 #include "FindFileAssociation.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_strdup.h"
 #include "PATH_MAX.h"
 #include "charEncoding.h"

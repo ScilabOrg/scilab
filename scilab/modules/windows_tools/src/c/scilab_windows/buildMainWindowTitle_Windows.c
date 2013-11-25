@@ -13,7 +13,7 @@
 /*--------------------------------------------------------------------------*/
 #include <Windows.h>
 #include "buildMainWindowTitle_Windows.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "version.h"
 #include "WndThread.h"
 /*--------------------------------------------------------------------------*/

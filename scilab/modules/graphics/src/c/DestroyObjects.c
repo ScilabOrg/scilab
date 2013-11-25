@@ -26,7 +26,7 @@
  --------------------------------------------------------------------------*/
 
 #include "DestroyObjects.h"
-#include "MALLOC.h" /* MALLOC */
+#include "SCIMALLOC.h" /* MALLOC */
 #include "FigureList.h"
 #include "deleteGraphicObject.h"
 

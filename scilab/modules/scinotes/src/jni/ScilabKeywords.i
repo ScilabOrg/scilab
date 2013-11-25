@@ -18,7 +18,7 @@
 %module ScilabKeywords
 
 %{
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "ScilabKeywords.h"
 %}
 

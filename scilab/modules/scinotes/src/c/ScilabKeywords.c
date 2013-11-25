@@ -19,7 +19,7 @@
 #include "getmacrosname.h"
 #include "BOOL.h"
 #include "ScilabKeywords.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "os_strdup.h"
 /*--------------------------------------------------------------------------*/
 

@@ -18,7 +18,7 @@
 #include <xmlversion.h>
 #include <tcl.h>
 #include <tk.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "getstaticDebugInfo_Windows.h"
 #include "localization.h"
 #include "version.h"

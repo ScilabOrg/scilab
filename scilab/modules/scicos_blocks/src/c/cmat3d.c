@@ -17,7 +17,7 @@
 #include "dynlib_scicos_blocks.h"
 #include "scoUtils.h"
 
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "core_math.h"
 #include "elementary_functions.h"
 

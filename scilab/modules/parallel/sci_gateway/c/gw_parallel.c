@@ -12,7 +12,7 @@
 #include <string.h>
 #include "api_scilab.h"
 #include "gw_parallel.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "callFunctionFromGateway.h"
 
 /*--------------------------------------------------------------------------*/

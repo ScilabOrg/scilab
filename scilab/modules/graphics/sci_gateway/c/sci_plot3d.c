@@ -23,7 +23,7 @@
 #include "api_scilab.h"
 #include "BuildObjects.h"
 #include "GetCommandArg.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "sciCall.h"
 #include "localization.h"
 #include "Scierror.h"

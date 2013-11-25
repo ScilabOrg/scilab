@@ -24,7 +24,7 @@
 #include "scicos_block4.h"
 #include "sciprint.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "dynlib_scicos_blocks.h"
 /*--------------------------------------------------------------------------*/
 SCICOS_BLOCKS_IMPEXP void gainblk_i32e(scicos_block *block, int flag)
@@ -47,7 +47,7 @@ SCICOS_BLOCKS_IMPEXP void gainblk_i32e(scicos_block *block, int flag)
         opar = Getint32OparPtrs(block, 1);
 
         k = pow(2, 32) / 2;
-        if (mo*no == 1)
+        if (mo * no == 1)
         {
             for (i = 0; i < ny * mu; ++i)
             {

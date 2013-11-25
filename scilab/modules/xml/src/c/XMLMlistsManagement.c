@@ -14,7 +14,7 @@
 #include "xml_mlist.h"
 #include "api_scilab.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 
 #define NB_XMLOBJECTS 8
 static const char *XMLObjects[] = { "XMLDoc", "XMLElem", "XMLAttr", "XMLNs", "XMLList", "XMLNH", "XMLSet", "XMLValid" };

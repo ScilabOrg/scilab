@@ -47,7 +47,7 @@
 
 
 #include "setgetlanguage.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "tableslanguages.h"
 #include "defaultlanguage.h"
 #include "scilabDefaults.h"

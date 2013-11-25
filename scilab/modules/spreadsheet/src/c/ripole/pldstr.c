@@ -8,7 +8,7 @@
 
 #include "logger.h"
 #include "pldstr.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 
 #include "os_strdup.h"

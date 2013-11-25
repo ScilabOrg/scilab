@@ -14,7 +14,7 @@
 #include "gw_matio.h"
 
 #include "CreateMatlabVariable.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 #include "sciprint.h"

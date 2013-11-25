@@ -15,7 +15,7 @@
 #include <string.h>
 #include "gw_integer.h"
 #include "api_scilab.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER

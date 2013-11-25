@@ -19,7 +19,7 @@
 extern "C"
 {
 #include <string.h>
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "removedir.h"
 #include "isdir.h"
 #include "expandPathVariable.h"

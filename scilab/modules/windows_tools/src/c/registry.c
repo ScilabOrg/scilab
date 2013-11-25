@@ -14,7 +14,7 @@
 /*--------------------------------------------------------------------------*/
 #include "registry.h"
 #include "PATH_MAX.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "GetWindowsVersion.h"
 #include "os_strdup.h"
 /*--------------------------------------------------------------------------*/

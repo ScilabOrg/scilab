@@ -20,7 +20,7 @@
 #include "charEncoding.h"
 #include "setgetlanguage.h"
 #include "version.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "GetWindowsVersion.h"
 /*--------------------------------------------------------------------------*/
 #define HKCU_LANGUAGE_FORMAT L"SOFTWARE\\Scilab\\%s\\Settings" /* r/w registry */

@@ -23,7 +23,7 @@
 #endif
 #include "sciprint.h"
 #include "scicurdir.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 #include "charEncoding.h"
 #include "warningmode.h"

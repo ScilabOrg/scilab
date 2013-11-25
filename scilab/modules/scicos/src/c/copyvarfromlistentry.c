@@ -20,7 +20,7 @@
 */
 /*--------------------------------------------------------------------------*/
 #include "copyvarfromlistentry.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
 extern int *listentry(int *header, int i); /* mexlib.h */

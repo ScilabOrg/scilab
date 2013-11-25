@@ -21,7 +21,7 @@
 #ifdef _MSC_VER
 #include "windows.h"
 #include "charEncoding.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #endif
 
 extern "C"

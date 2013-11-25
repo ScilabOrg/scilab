@@ -16,7 +16,7 @@
 #include "getLibrarypath.h"
 #include "getScilabJNIEnv.h"
 #include "fromjava.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 /*--------------------------------------------------------------------------*/
 char **getLibrarypath(int *sizeLibrarypathArray)
 {

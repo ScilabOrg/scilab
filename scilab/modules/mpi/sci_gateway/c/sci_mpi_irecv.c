@@ -16,7 +16,7 @@
 #include "sci_mpi.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "deserialization.h"
 
 int sci_mpi_irecv(char *fname, unsigned long fname_len)

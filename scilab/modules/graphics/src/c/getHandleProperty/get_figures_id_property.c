@@ -20,7 +20,7 @@
 
 #include "getHandleProperty.h"
 #include "returnProperty.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "FigureList.h"

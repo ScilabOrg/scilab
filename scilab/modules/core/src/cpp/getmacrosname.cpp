@@ -13,7 +13,7 @@
 #include "context.hxx"
 
 extern "C" {
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "getmacrosname.h"
 }
 /*----------------------------------------------------------------------------------*/

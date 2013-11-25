@@ -14,7 +14,7 @@
 #include "sciprint.h"
 #include "api_scilab.h"
 #include "Scierror.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "localization.h"
 
 /* ==================================================================== */

@@ -15,7 +15,7 @@ extern "C"
 #include "stdarg.h"
 #include "localization.h"
 #include "os_swprintf.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 }
 
 #include "callable.hxx"

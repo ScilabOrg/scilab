@@ -15,7 +15,7 @@
 #endif
 #include <string.h>
 #include "getlongpathname.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 #include "os_strdup.h"
 /*--------------------------------------------------------------------------*/

@@ -84,6 +84,8 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_DEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>

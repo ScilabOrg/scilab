@@ -14,7 +14,7 @@
 #include "InterpreterManagement.h"
 #include "storeCommand.h"
 #include "sigbas.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int putCommandInScilabQueue(char *command)

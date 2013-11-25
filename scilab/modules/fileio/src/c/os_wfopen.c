@@ -11,7 +11,7 @@
  */
 
 #include "os_wfopen.h"
-#include "MALLOC.h"
+#include "SCIMALLOC.h"
 #include "charEncoding.h"
 
 #ifndef _MSC_VER
