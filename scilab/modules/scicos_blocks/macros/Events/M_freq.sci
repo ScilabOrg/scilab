@@ -20,16 +20,10 @@
 //
 
 function [x,y,typ]=M_freq(job,arg1,arg2)
-    x=[];y=[];typ=[]
+    x=[];
+    y=[];
+    typ=[];
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1;
         graphics=arg1.graphics;
@@ -40,11 +34,17 @@ function [x,y,typ]=M_freq(job,arg1,arg2)
             ["Sample time";"Offset"],..
             list("vec",-1,"vec",-1),exprs)
             if ~ok then break,end
-            offset=offset(:);frequ=frequ(:);
-            if (size(frequ,"*"))<>(size(offset,"*")) then message("offset and frequency must have the same size");ok=%f;
-            elseif or(frequ<0) then message("Frequency must be a positif number");ok=%f;
+            offset=offset(:);
+            frequ=frequ(:);
+            if (size(frequ,"*"))<>(size(offset,"*")) then
+                message("offset and frequency must have the same size");
+                ok=%f;
+            elseif or(frequ<0) then
+                message("Frequency must be a positif number");
+                ok=%f;
             elseif or(abs(offset) > frequ) then
-                message("The |Offset| must be less than the Frequency");ok=%f
+                message("The |Offset| must be less than the Frequency");
+                ok=%f
             end
             if ok then
                 [m,den,off,count,m1,fir,frequ,offset,ok]=mfrequ_clk(frequ,offset);
@@ -74,7 +74,7 @@ function [x,y,typ]=M_freq(job,arg1,arg2)
         model.firing=[0 -1 -1]
         model.dep_ut=[%f %f]
         exprs=[sci2exp([1;2]);sci2exp([0;0])]
-        gr_i=["xstringb(orig(1),orig(2),[''      Multiple    '';''    Frequency    ''],sz(1),sz(2),''fill'');"]
+        gr_i=[]
         x=standard_define([3 2],model,exprs,gr_i)
     end
 endfunction
