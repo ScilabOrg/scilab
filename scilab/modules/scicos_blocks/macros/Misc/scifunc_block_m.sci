@@ -21,22 +21,6 @@
 
 function [x,y,typ]=scifunc_block_m(job,arg1,arg2)
     //%Description
-    // job=='plot' :      block drawing
-    //                    arg1 is block data structure
-    //                    arg2 :unused
-    // job=='getinputs' : return position and type of inputs ports
-    //                    arg1 is block data structure
-    //                    x  : x coordinates of ports
-    //                    x  : y coordinates of ports
-    //                    typ: type of ports
-    // job=='getoutputs' : return position and type of outputs ports
-    //                    arg1 is block data structure
-    //                    x  : x coordinates of ports
-    //                    x  : y coordinates of ports
-    //                    typ: type of ports
-    // job=='getorigin'  : return block origin coordinates
-    //                    x  : x coordinates of block origin
-    //                    x  : y coordinates of block origin
     // job=='set'        : block parameters acquisition
     //                    arg1 is block data structure
     //                    x is returned block data structure
@@ -44,7 +28,9 @@ function [x,y,typ]=scifunc_block_m(job,arg1,arg2)
     //                    arg1: name of block parameters acquisition macro
     //                    x   : block data structure
     //
-    x=[];y=[];typ=[];
+    x=[];
+    y=[];
+    typ=[];
     select job
     case "plot" then
         standard_draw(arg1)
