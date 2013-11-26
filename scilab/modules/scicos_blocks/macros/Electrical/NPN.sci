@@ -22,7 +22,9 @@
 function [x,y,typ]=NPN(job,arg1,arg2)
     // the automatically generated interface block for Modelica NPN.mo model
     //   - avec un dialogue de saisie de parametre
-    x=[];y=[];typ=[];
+    x=[];
+    y=[];
+    typ=[];
     select job
     case "plot" then
         standard_draw(arg1,%f,NPN_draw_ports)
@@ -34,7 +36,8 @@ function [x,y,typ]=NPN(job,arg1,arg2)
         [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1;
-        graphics=arg1.graphics;exprs=graphics.exprs
+        graphics=arg1.graphics;
+        exprs=graphics.exprs
         model=arg1.model;
         x=arg1
         exprs=x.graphics.exprs
@@ -50,7 +53,10 @@ function [x,y,typ]=NPN(job,arg1,arg2)
         PrametersValue=[50;0.1;0;0.02;1.200D-10;5.000D-09;1.000D-12;4.000D-13;5.000D-13;0.8;0.4;0.8;0.333;1.000D-15;1.000D-15;0.02585;40]
         ParametersName=["Bf";"Br";"Is";"Vak";"Tauf";"Taur";"Ccs";"Cje";"Cjc";"Phie";"Me";"Phic";"Mc";"Gbc";"Gbe";"Vt";"EMinMax"]
         model=scicos_model()
-        Typein=[];Typeout=[];MI=[];MO=[]
+        Typein=[];
+        Typeout=[];
+        MI=[];
+        MO=[]
         P=[100,90,-2,0; 0,50,2,0; 100,10,-2,0]
         PortName=["C";"B";"E"]
         for i=1:size(P,"r")
@@ -67,7 +73,7 @@ function [x,y,typ]=NPN(job,arg1,arg2)
         model.rpar=PrametersValue;
         mo.parameters=list(ParametersName,PrametersValue,zeros(ParametersName));
         exprs=["50";"0.1";"1.e-16";"0.02";"0.12e-9";"5e-9";"1e-12";"0.4e-12";"0.5e-12";"0.8";"0.4";"0.8";"0.333";"1e-15";"1e-15";"0.02585";"40"]
-        gr_i=["";"if orient then";"  xpolys(orig(1)+[0.45,0.45,0.65,0.45,0.65,1;0.45,0,0.45,0.65,1,0.65]*sz(1),orig(2)+[0.8333333,0.5,0.9166667,0.4166667,0.0833333,0.9166667;0.1666667,0.5,0.5833333,0.0833333,0.0833333,0.9166667]*sz(2),[1,1,1,1,1,1])";"  xset(''color'',0)";"  xfpolys(orig(1)+[0.65;0.62;0.58;0.65]*sz(1),orig(2)+[0.0833333;0.2;0.1333333;0.0833333]*sz(2),2)";"else";"  xpolys(orig(1)+[0.55,0.55,0.35,0.55,0.35,0;0.55,1,0.55,0.35,0,0.35]*sz(1),orig(2)+[0.8333333,0.5,0.9166667,0.4166667,0.0833333,0.9166667;0.1666667,0.5,0.5833333,0.0833333,0.0833333,0.9166667]*sz(2),[1,1,1,1,1,1])";"  xset(''color'',0)";"  xfpolys(orig(1)+[0.35;0.38;0.42;0.35]*sz(1),orig(2)+[0.0833333;0.2;0.1333333;0.0833333]*sz(2),2)";"end"]
+        gr_i=[]
         model.blocktype="c"
         model.dep_ut=[%f %t]
         mo.model=ModelName
