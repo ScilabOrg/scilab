@@ -21,19 +21,14 @@
 
 function [x,y,typ]=RICC(job,arg1,arg2)
     //
-    x=[];y=[];typ=[];
+    x=[];
+    y=[];
+    typ=[];
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1
-        graphics=arg1.graphics;label=graphics.exprs
+        graphics=arg1.graphics;
+        label=graphics.exprs
         model=arg1.model;
         if size(label,"*")==14 then label(9)=[],end //compatiblity
         while %t do
@@ -48,7 +43,8 @@ function [x,y,typ]=RICC(job,arg1,arg2)
             if ok then
                 model.ipar=[tpe;mod]
                 graphics.exprs=label;
-                arg1.graphics=graphics;arg1.model=model;
+                arg1.graphics=graphics;
+                arg1.model=model;
                 x=arg1
                 break
             end
@@ -74,7 +70,7 @@ function [x,y,typ]=RICC(job,arg1,arg2)
         model.firing=[]
         model.dep_ut=[%t %f]
         label=[sci2exp(1);sci2exp(1)];
-        gr_i=["xstringb(orig(1),orig(2),''RICC'',sz(1),sz(2),''fill'');"]
+        gr_i=[]
         x=standard_define([2 2],model,label,gr_i)
     end
 endfunction
