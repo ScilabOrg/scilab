@@ -20,19 +20,14 @@
 //
 
 function [x,y,typ]=MUX_f(job,arg1,arg2)
-    x=[];y=[];typ=[];
+    x=[];
+    y=[];
+    typ=[];
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1;
-        graphics=arg1.graphics;exprs=graphics.exprs
+        graphics=arg1.graphics;
+        exprs=graphics.exprs
         model=arg1.model;
         while %t do
             [ok,in,exprs]=scicos_getvalue("Set MUX block parameters",..
@@ -57,8 +52,10 @@ function [x,y,typ]=MUX_f(job,arg1,arg2)
                 end
             end
             if ok then
-                graphics.exprs=exprs;model.ipar=in
-                x.graphics=graphics;x.model=model
+                graphics.exprs=exprs;
+                model.ipar=in
+                x.graphics=graphics;
+                x.model=model
                 break
             end
         end
@@ -73,7 +70,7 @@ function [x,y,typ]=MUX_f(job,arg1,arg2)
         model.dep_ut=[%t %f]
 
         exprs=string(in)
-        gr_i="xstringb(orig(1),orig(2),''Mux'',sz(1),sz(2),''fill'')"
+        gr_i=[]
         x=standard_define([0.5 2],model,exprs,gr_i)
     end
 endfunction

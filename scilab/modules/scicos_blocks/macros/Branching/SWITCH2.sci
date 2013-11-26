@@ -20,19 +20,14 @@
 //
 
 function [x,y,typ]=SWITCH2(job,arg1,arg2)
-    x=[];y=[];typ=[]
+    x=[];
+    y=[];
+    typ=[];
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1;
-        graphics=arg1.graphics;exprs=graphics.exprs
+        graphics=arg1.graphics;
+        exprs=graphics.exprs
         model=arg1.model;
         while %t do
             [ok,rule,thra,nzz,exprs]=scicos_getvalue("Set parameters",..
@@ -53,7 +48,8 @@ function [x,y,typ]=SWITCH2(job,arg1,arg2)
                 model.nmode=0
                 model.nzcross=0
             end
-            x.graphics=graphics;x.model=model
+            x.graphics=graphics;
+            x.model=model
             break
         end
     case "define" then
@@ -75,7 +71,7 @@ function [x,y,typ]=SWITCH2(job,arg1,arg2)
 
         exprs=[string(ipar);string(rpar);string(nzz)]
 
-        gr_i=["xstringb(orig(1),orig(2),[''switch''],sz(1),sz(2),''fill'');"]
+        gr_i=[]
         x=standard_define([2 2],model,exprs,gr_i)
     end
 endfunction

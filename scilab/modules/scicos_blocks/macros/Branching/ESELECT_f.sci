@@ -20,19 +20,14 @@
 //
 
 function [x,y,typ]=ESELECT_f(job,arg1,arg2)
-    x=[];y=[];typ=[]
+    x=[];
+    y=[];
+    typ=[]
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1;
-        graphics=arg1.graphics;exprs=graphics.exprs
+        graphics=arg1.graphics;
+        exprs=graphics.exprs
         if size(exprs,"*")==1 then exprs(2)=string(1);end
         if size(exprs,"*")==2 then exprs(3)=string(0);end
         model=arg1.model;
@@ -50,7 +45,9 @@ function [x,y,typ]=ESELECT_f(job,arg1,arg2)
             else
                 [model,graphics,ok]=check_io(model,graphics,1,[],inh,[ones(out,1)])
                 if ok then
-                    graphics.exprs=exprs;model.evtout=ones(out,1); model.firing=-ones(out,1)
+                    graphics.exprs=exprs;
+                    model.evtout=ones(out,1);
+                    model.firing=-ones(out,1)
                     x.graphics=graphics;
                     model.nmode=nmod
                     model.nzcross=nmod
@@ -74,8 +71,7 @@ function [x,y,typ]=ESELECT_f(job,arg1,arg2)
         model.nmode=0
         model.nzcross=0
 
-        gr_i=["txt=[''event select''];";
-        "xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');"]
+        gr_i=[]
         exprs=[string(out);string(1);string(model.nmode)]
         x=standard_define([4 2],model,exprs,gr_i)
     end

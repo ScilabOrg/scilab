@@ -20,20 +20,16 @@
 //
 
 function [x,y,typ]=SWITCH_f(job,arg1,arg2)
-    x=[];y=[];typ=[]
+    x=[];
+    y=[];
+    typ=[];
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
         x=arg1;
-        graphics=arg1.graphics;exprs=graphics.exprs
-        model=arg1.model;ipar=model.ipar
+        graphics=arg1.graphics;
+        exprs=graphics.exprs
+        model=arg1.model;
+        ipar=model.ipar
         while %t do
             [ok,nin,z0,exprs]=scicos_getvalue("Set switch parameters",..
             ["number of inputs";"connected input"],..
@@ -46,7 +42,8 @@ function [x,y,typ]=SWITCH_f(job,arg1,arg2)
                 if ok then
                     graphics.exprs=exprs;
                     model.ipar=z0-1
-                    x.graphics=graphics;x.model=model
+                    x.graphics=graphics;
+                    x.model=model
                     break
                 end
             end
@@ -65,7 +62,7 @@ function [x,y,typ]=SWITCH_f(job,arg1,arg2)
         model.dep_ut=[%t %t]
 
         exprs=[string(nin);string(i0+1)]
-        gr_i=["xstringb(orig(1),orig(2),[''switch'';string(model.ipar+1)],sz(1),sz(2),''fill'');"]
+        gr_i=[]
         x=standard_define([2 2],model,exprs,gr_i)
     end
 endfunction
