@@ -137,7 +137,7 @@ Scilab Bug Fixes
 
 * Bug #12769 fixed - xset("window", 1) did not set the current axes.
 
-* Bug #12784 fixed - Misleading error message in many functions when passing an integer 
+* Bug #12784 fixed - Misleading error message in many functions when passing an integer
                      argument instead of double argument fixed.
 
 * Bug #12882 fixed - Some help pages were not clear.
@@ -243,6 +243,8 @@ Scilab Bug Fixes
 * Bug #13092 fixed - Optimizations now check the user function output (must be a real).
 
 * Bug #13093 fixed - Removed trailing "\n" in the head_comments error message.
+
+* Bug #13116 fixed - qpsolve now respects constraints.
 
 
 Xcos Bug Fixes
