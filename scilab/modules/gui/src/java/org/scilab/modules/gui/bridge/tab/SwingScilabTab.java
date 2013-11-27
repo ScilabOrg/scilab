@@ -1333,6 +1333,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      * @param status is true to set the event handler active
      */
     public void setEventHandlerEnabled(boolean status) {
+        System.out.println(status + ":::" + eventEnabled);
         if (status && eventEnabled) {
             return;
         }
@@ -1590,7 +1591,6 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             contentCanvas.removeEventHandlerKeyListener(eventHandler);
             contentCanvas.removeEventHandlerMouseListener(eventHandler);
             contentCanvas.removeEventHandlerMouseMotionListener(eventHandler);
-            eventHandler = null;
         }
     }
 }
