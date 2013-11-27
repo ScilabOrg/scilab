@@ -578,7 +578,6 @@ public :
         if (bUndefine)
         {
             //manage : and $ in creation by insertion
-            int iSource         = 0;
             int *piSourceDims   = pSource->getDimsArray();
 
             for (int i = 0 ; i < iDims ; i++)
@@ -586,24 +585,10 @@ public :
                 if (pArg[i] == NULL)
                 {
                     //undefine value
-                    if (pSource->isScalar())
-                    {
-                        piMaxDim[i]     = 1;
-                        piCountDim[i]   = 1;
-                    }
-                    else
-                    {
-                        piMaxDim[i]     = piSourceDims[iSource];
-                        piCountDim[i]   = piSourceDims[iSource];
-                    }
-                    iSource++;
+                    piMaxDim[i] = piSourceDims[i];
                     //replace pArg value by the new one
                     pArg[i] = createDoubleVector(piMaxDim[i]);
                 }
-                //else
-                //{
-                //    piMaxDim[i] = piCountDim[i];
-                //}
             }
         }
 
