@@ -24,16 +24,10 @@ function [x,y,typ]=LOOKUP_c(job,arg1,arg2)
     // origine: serge Steer, Habib Jreij INRIA 1993
     // Copyright INRIA
 
-    x=[];y=[];typ=[];
+    x=[];
+    y=[];
+    typ=[];
     select job
-    case "plot" then
-        standard_draw(arg1)
-    case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
-    case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
-    case "getorigin" then
-        [x,y]=standard_origin(arg1)
     case "set" then
 
         x=arg1
@@ -54,19 +48,42 @@ function [x,y,typ]=LOOKUP_c(job,arg1,arg2)
             // extra: 0:hold; 1: use end values
             //
 
-            if  ~ok then break;end
+            if  ~ok then
+                break;
+            end
             PeriodicOption="n";
 
-            if PeriodicOption=="y" | PeriodicOption=="Y" then,PO=1;else,PO=0;end
-            mtd=int(Method); if mtd<0 then mtd=0;end; if mtd>9 then mtd=9;end;
+            if PeriodicOption=="y" | PeriodicOption=="Y" then,
+                PO=1;
+            else,
+                PO=0;
+            end
+            mtd=int(Method);
+            if mtd<0 then
+                mtd=0;
+            end;
+            if mtd>9 then
+                mtd=9;
+            end;
             METHOD=getmethod(mtd);
-            extrapo=int(extrapo); if extrapo<0 then extrapo=0;end; if extrapo>1 then extrapo=1;end;
+            extrapo=int(extrapo);
+            if extrapo<0 then
+                extrapo=0;
+            end;
+            if extrapo>1 then
+                extrapo=1;
+            end;
 
 
             if ~Ask_again then
-                xx=xx(:);yy=yy(:);
-                [nx,mx]=size(xx); [ny,my]=size(yy);
-                if ~((nx==ny)&(mx==my)) then, x_message("incompatible size of x and y");  Ask_again=%t;end
+                xx=xx(:);
+                yy=yy(:);
+                [nx,mx]=size(xx);
+                [ny,my]=size(yy);
+                if ~((nx==ny)&(mx==my)) then,
+                    x_message("incompatible size of x and y");
+                    Ask_again=%t;
+                end
             end
 
             if ~Ask_again then//+++++++++++++++++++++++++++++++++++++++
@@ -85,23 +102,36 @@ function [x,y,typ]=LOOKUP_c(job,arg1,arg2)
                     curwin=max(winsid())+1;
                     [orpar,oipar,ok]=poke_point(xy,ipar,rpar);
                     curwin=save_curwin;
-                    if ~ok then break;end;//  exit without save
+                    if ~ok then
+                        break;
+                    end;//  exit without save
 
                     // verifying the data change
-                    N2=oipar(1);xy2=[orpar(1:N2),orpar(N2+1:2*N2)];
+                    N2=oipar(1);
+                    xy2=[orpar(1:N2),orpar(N2+1:2*N2)];
                     New_methhod=oipar(2);
                     DChange=%f;
                     METHOD=getmethod(New_methhod);
-                    if or(xy(:,1)<>xy2(:,1)) then, DChange=%t;end
-                    if or(xy(1:N-1,2)<>xy2(1:N2-1,2)) then, DChange=%t;end
-                    if (xy(N,2)<>xy2(N2,2) & (METHOD<>"periodic")) then, DChange=%t;end
+                    if or(xy(:,1)<>xy2(:,1)) then,
+                        DChange=%t;
+                    end
+                    if or(xy(1:N-1,2)<>xy2(1:N2-1,2)) then,
+                        DChange=%t;
+                    end
+                    if (xy(N,2)<>xy2(N2,2) & (METHOD<>"periodic")) then,
+                        DChange=%t;
+                    end
                     if DChange then
                         exprs(2)=strcat(sci2exp(xy2(:,1)))
                         exprs(3)=strcat(sci2exp(xy2(:,2)))
                     end
                     exprs(1)=sci2exp(New_methhod);
                     exprs(4)=sci2exp(oipar(4));
-                    if oipar(3)==1 then,perop="y";else,perop="n";end
+                    if oipar(3)==1 then,
+                        perop="y";
+                    else,
+                        perop="n";
+                    end
                     SaveExit=%t
                 else//_____________________No graphics__________________________
                     [Xdummy,Ydummy,orpar]=Do_Spline(N,mtd,xy(:,1),xy(:,2),xy($,1),xy(1,1),0);
@@ -141,7 +171,9 @@ function [x,y,typ]=LOOKUP_c(job,arg1,arg2)
 
         xx=[-1;0.5;1;1.5;2.5]
         yy=[-6;-1;-3;3;-4]
-        N=length(xx);  Method=1;   Graf="n"
+        N=length(xx);
+        Method=1;
+        Graf="n"
         model.sim=list("lookup_c",4)
         model.in=-1
         model.in2=-2
@@ -160,19 +192,7 @@ function [x,y,typ]=LOOKUP_c(job,arg1,arg2)
         model.firing=0
         exprs=[sci2exp(Method);sci2exp(xx);sci2exp(yy);sci2exp(0);Graf]
 
-        gr_i=["rpar=arg1.model.rpar;n=model.ipar(1);order=model.ipar(2);";
-        "xx=rpar(1:n);yy=rpar(n+1:2*n);";
-        "[XX,YY,rpardummy]=Do_Spline(n,order,xx,yy,xx(n),xx(1),model.ipar(4))";
-        "xmx=max(XX);xmn=min(XX);";
-        "ymx=max(YY);ymn=min(YY);";
-        "dx=xmx-xmn;if dx==0 then dx=max(xmx/2,1);end";
-        "xmn=xmn-dx/20;xmx=xmx+dx/20;";
-        "dy=ymx-ymn;if dy==0 then dy=max(ymx/2,1);end;";
-        "ymn=ymn-dy/20;ymx=ymx+dy/20;";
-        "xx2=orig(1)+sz(1)*((XX-xmn)/(xmx-xmn));";
-        "yy2=orig(2)+sz(2)*((YY-ymn)/(ymx-ymn));";
-        "xset(''color'',2)";
-        "xpoly(xx2,yy2,''lines'');"]
+        gr_i=[]
         x=standard_define([2 2],model,exprs,gr_i)
     end
 endfunction
