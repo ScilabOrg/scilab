@@ -130,6 +130,8 @@ Scilab Bug Fixes
 
 * Bug #11680 fixed - GUI functions in Scilab 5.4.X were much slower than in Scilab 5.3.3.
 
+* Bug #12334 fixed - Invalid mark color in legend.
+
 * Bug #12492 fixed - Exported EPS files were invalid when dash patterns were too long.
 
 * Bug #12673 fixed - Ticks were drawn outside of axes area.
