@@ -102,6 +102,9 @@ public class LegendDrawer {
     /** The z-value corresponding to the frontmost position */
     private static final float Z_FRONT = 0.99f;
 
+    /** The z-value corresponding to the frontmost position */
+    private static final float Z_FRONT_EPS = Z_FRONT + 1e-7f;
+
     /** The legend background's vertices */
     private ElementsBuffer rectangleVertices;
 
@@ -372,9 +375,9 @@ public class LegendDrawer {
         drawingTools.draw(legendRectangle, appearance);
 
         /* Lines: 3 vertices each, left, middle, and right */
-        float [] lineVertexData = new float[] {0.25f, 0.75f, Z_FRONT, 1.0f,
-                                               0.5f, 0.75f, Z_FRONT, 1.0f,
-                                               0.75f, 0.75f, Z_FRONT, 1.0f
+        float [] lineVertexData = new float[] {0.25f, 0.75f, Z_FRONT_EPS, 1.0f,
+                                               0.5f, 0.75f, Z_FRONT_EPS, 1.0f,
+                                               0.75f, 0.75f, Z_FRONT_EPS, 1.0f
                                               };
 
         double normSpriteMargin = 0.0;
@@ -403,10 +406,10 @@ public class LegendDrawer {
         lineVertexData[9] = lineVertexData[9] + 0.5f * deltaHeight;
 
         /* Bar vertex data: lower-left, lower-right, upper-left and upper-right corners */
-        float [] barVertexData = new float[] {0.25f, 0.75f, Z_FRONT, 1.0f,
-                                              0.75f, 0.75f, Z_FRONT, 1.0f,
-                                              0.25f, 1.00f, Z_FRONT, 1.0f,
-                                              0.75f, 1.00f, Z_FRONT, 1.0f
+        float [] barVertexData = new float[] {0.25f, 0.75f, Z_FRONT_EPS, 1.0f,
+                                              0.75f, 0.75f, Z_FRONT_EPS, 1.0f,
+                                              0.25f, 1.00f, Z_FRONT_EPS, 1.0f,
+                                              0.75f, 1.00f, Z_FRONT_EPS, 1.0f
                                              };
 
         float barHeight = BAR_HEIGHT * deltaHeight;
@@ -440,7 +443,7 @@ public class LegendDrawer {
         }
 
         /* Legend text */
-        float [] spritePosition = new float[] {lineVertexData[8] + (float) xOffset, (float) (legendCorner[1] + yOffset), Z_FRONT};
+        float [] spritePosition = new float[] {lineVertexData[8] + (float) xOffset, (float) (legendCorner[1] + yOffset), Z_FRONT_EPS};
 
         /* Draw the sprite only if there are valid links */
         if (nbValidLinks > 0) {
