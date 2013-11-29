@@ -63,11 +63,11 @@ function clf(varargin)
         curFig.immediate_drawing = "off";
 
         delete(curFig.children);
-        
+
         // drawnow
         curFig.immediate_drawing = immediateMode;
     end
-    
+
     curFig.info_message = "";
 
     // reset figures to default values if needed
@@ -88,7 +88,6 @@ function clf(varargin)
             "figure_name",
             "color_map",
             "info_message",
-            "pixmap",
             "pixel_drawing_mode",
             "immediate_drawing",
             "background",
