@@ -19,7 +19,6 @@ if f.auto_resize <> "on" then pause, end
 if or(f.viewport <> [0,0]) then pause, end
 if f.figure_name <> gettext("Graphic window number %d") then pause, end
 if f.figure_id <> 0 then pause, end
-if f.pixmap <> "off" then pause, end
 if f.pixel_drawing_mode <> "copy" then pause, end
 if f.anti_aliasing <> "off" then pause, end
 if f.immediate_drawing <> "on" then pause, end
