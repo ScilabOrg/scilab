@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // xbasc() doesn't clear the current graphics window.
 // xbasc replaced by clf
-// 
+//
 
 x = 1:10;
 plot(x);
@@ -24,22 +24,19 @@ clf();
 // check that there only an axes below the current figure
 fig = gcf();
 // only axes
-if (size(fig.children) <> [1,1]) then pause; end
+assert_checkequal(size(fig.children), [1,1]);
 // no children below axes
-if (fig.children(1).children <> []) then pause; end
+assert_checkequal(fig.children(1).children, []);
 
 // same with other version of xbasc
 plot(x);
 plot3d(x,x,cos(x)'*sin(x));
 
-// erase all figure with index from 0 to 3
-
+// erase all figure with index from 0 to 3 even if some of them do no exist
 clf(0:3);
 
-// we should have only empty figures
-for i=1:3,
-  fig = get_figure_handle(i);
-  if (size(fig.children) <> [0,0]) then pause; end
-  // no children below axes
-  if (fig.children(1).children <> []) then pause; end
-end
+// Current figure must be empty
+fig = get_figure_handle(0);
+assert_checkequal(size(fig.children), [1,1]); // Default axes
+// no children below axes
+assert_checkequal(fig.children(1).children, []);
