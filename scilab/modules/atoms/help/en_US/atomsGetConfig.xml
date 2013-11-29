@@ -155,6 +155,11 @@
                     <td> Get timeout used for download</td>
                     <td> "5" is the default value</td>
                 </tr>
+                <tr>
+                    <td>updateTime</td>
+                    <td> Get time between updates</td>
+                    <td> one month is the default value</td>
+                </tr>
             </informaltable>
         </para>
     </refsection>

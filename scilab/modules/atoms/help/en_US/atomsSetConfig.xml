@@ -162,6 +162,11 @@
                     <td>Set timeout for download</td>
                     <td>"5" by default</td>
                 </tr>
+                <tr>
+                    <td>updateTime</td>
+                    <td>Set time between updates</td>
+                    <td>one month by default</td>
+                </tr>
             </informaltable>
         </para>
     </refsection>
