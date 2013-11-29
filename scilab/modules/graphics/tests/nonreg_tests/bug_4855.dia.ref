@@ -70,12 +70,10 @@ f.event_handler='test';
 for i = [0:9] do
   [svalue, value]=TestedParameter(i);
   f.auto_resize = value;
-  f.pixmap = value;
   f.immediate_drawing = value;
   f.visible = value;
   f.event_handler_enable = value;
   if f.auto_resize <> svalue then bugmes();quit;end;
-  if f.pixmap <> svalue then bugmes();quit;end;
   if f.immediate_drawing <> svalue then bugmes();quit;end;
   if f.visible <> svalue then bugmes();quit;end;
   if f.event_handler_enable <> svalue then bugmes();quit;end;

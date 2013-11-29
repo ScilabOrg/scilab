@@ -67,7 +67,6 @@ static getHashTableCouple propertyTable[NB_PROPERTIES] =
     {"figure_id", get_figure_id_property},
     {"rotation_style", get_rotation_style_property},
     {"immediate_drawing", get_immediate_drawing_property},
-    {"pixmap", get_pixmap_property},
     {"type", get_type_property},
     {"parent", get_parent_property},
     {"current_axes", get_current_axes_property},
