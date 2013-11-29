@@ -271,6 +271,8 @@ Scilab Bug Fixes
 
 * Bug #13101 fixed - When x-axis was in reverse position x_location='origin' failed.
 
+* Bug #13108 fixed - Time between ATOMS updates from a day to a month.
+
 * Bug #13109 fixed - pll2str now supports polynomials with complex coefficients and hypermatrices.
 
 * Bug #13114 fixed - clear_pixmap should have been removed in Scilab 5.4.1.

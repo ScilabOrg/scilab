@@ -117,7 +117,7 @@ function [packages,categories_flat,categories] = atomsDESCRIPTIONget(update)
 
     // If necessary, rebuild the struct
     // =========================================================================
-    TIME_BEFORE_NEW_UPDATE = 86400;
+    TIME_BEFORE_NEW_UPDATE = 86400*30; // One month
     if (packages_path_info == []) ..
         | (getdate("s") - packages_path_info(6) > TIME_BEFORE_NEW_UPDATE) ..
         | (rhs == 1 & update) then
