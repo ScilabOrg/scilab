@@ -16,7 +16,6 @@
 //disable warnings about exports STL items
 #pragma warning (disable : 4251)
 
-#include <list>
 #include <map>
 #include <string>
 #include "callable.hxx"
@@ -350,6 +349,14 @@ public :
     static void where_begin(int _iLineNum, std::wstring _wstName);
     static void where_end();
     static std::list< std::pair<int, std::wstring> >& getWhere();
+
+    // Memory Leak Detection
+private :
+    static _CrtMemState crtStart;
+    static _CrtMemState crtEnd;
+    static _CrtMemState crtDiff;
+public :
+    static int setMemState(int _iCheckPoint);
 
 };
 

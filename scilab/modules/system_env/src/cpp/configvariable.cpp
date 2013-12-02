@@ -991,3 +991,41 @@ std::list< std::pair<int, std::wstring> >& ConfigVariable::getWhere()
 /*
 ** \}
 */
+
+
+/*
+** Memory Leak Detection
+** \{
+*/
+
+_CrtMemState ConfigVariable::crtStart;
+_CrtMemState ConfigVariable::crtEnd;
+_CrtMemState ConfigVariable::crtDiff;
+
+int ConfigVariable::setMemState (int _iCheckPoint)
+{
+    int iFound = 0;
+    if (_iCheckPoint)
+    {
+        _CrtMemCheckpoint(&(ConfigVariable::crtStart));
+        //_CrtSetAllocHook(MyAllocHook);
+    }
+    else
+    {
+        _CrtMemCheckpoint(&(ConfigVariable::crtEnd));
+        if ( _CrtMemDifference( &(ConfigVariable::crtDiff),
+                                &(ConfigVariable::crtStart),
+                                &(ConfigVariable::crtEnd)))
+        {
+            _CrtMemDumpStatistics(&(ConfigVariable::crtDiff));
+            _CrtMemDumpAllObjectsSince(&(ConfigVariable::crtStart));
+            iFound = 1;//_CrtDumpMemoryLeaks();
+        }
+    }
+
+    return iFound;
+}
+
+/*
+** \}
+*/

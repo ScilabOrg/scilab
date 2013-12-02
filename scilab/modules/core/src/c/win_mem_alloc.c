@@ -25,6 +25,37 @@
 /*-----------------------------------------------------------------------------------*/
 #define FREE_FLAGS 0
 /*-----------------------------------------------------------------------------------*/
+int __cdecl MyAllocHook(
+    int      nAllocType,
+    void   * pvData,
+    size_t   nSize,
+    int      nBlockUse,
+    long     lRequest,
+    const unsigned char * szFileName,
+    int      nLine
+)
+{
+    char *operation[] = { "", "allocating", "re-allocating", "freeing" };
+    char *blockType[] = { "Free", "Normal", "CRT", "Ignore", "Client" };
+
+    if ( nBlockUse == _CRT_BLOCK )   // Ignore internal C runtime library allocations
+    {
+        return( TRUE );
+    }
+
+    _ASSERT( ( nAllocType > 0 ) && ( nAllocType < 4 ) );
+    _ASSERT( ( nBlockUse >= 0 ) && ( nBlockUse < 5 ) );
+
+    printf( "Memory operation in %s, line %d: %s a %d-byte '%s' block (# %ld)\n",
+            szFileName, nLine, operation[nAllocType], nSize,
+            blockType[nBlockUse], lRequest );
+    if ( pvData != NULL )
+    {
+        printf( " at %X", pvData );
+    }
+
+    return( TRUE );         // Allow the memory operation to proceed
+}
 void *MyHeapRealloc(void *lpAddress, size_t dwSize, char *file, int line)
 {
     LPVOID NewPointer = NULL;
