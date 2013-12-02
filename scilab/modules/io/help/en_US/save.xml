@@ -2,11 +2,11 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) XXXX-2008 - INRIA
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
@@ -19,8 +19,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>save(filename [,x1,x2,...,xn])
-            save(fd [,x1,x2,...,xn])
+        <synopsis>save(filename, [,x1,x2,...,xn])
+            save(fd, [,x1,x2,...,xn])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -77,7 +77,7 @@
             The change of format between the family 5 and 6 of Scilab has been decided because the 5 format is undocumented, not specified and hard to read. SOD (Scilab 6 default format) is fully documented and easy to read through HDF5 libraries or applications.
         </para>
         <para>
-            Saved variables can be reloaded by the 
+            Saved variables can be reloaded by the
             <literal>
                 <link linkend="load">load</link>
             </literal>
@@ -88,7 +88,7 @@
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 // Binary format readable up to Scilab 5 family
 a=eye(2,2);b=ones(a);
 save('val.dat',a,b);
@@ -106,7 +106,7 @@ mclose(fd)
 
 // appending variables to an old save file
 fd=mopen('TMPDIR/foo','rb+')
-mseek(0,fd,'end') 
+mseek(0,fd,'end')
 lst=list(1,2,3)
 save(fd,lst)
 mclose(fd)
