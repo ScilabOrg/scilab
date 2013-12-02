@@ -75,4 +75,4 @@ endfunction
 t=0:0.01:40;
 
 refMsg = msprintf(_("Invalid index."));
-assert_checkerror("res=ode(""rk"",[x0;y0;v0;teta0;],t0,t,right)", refMsg);
+assert_checkerror("res=ode(""rk"",[x0;y0;v0;teta0],t0,t,right)", refMsg);
