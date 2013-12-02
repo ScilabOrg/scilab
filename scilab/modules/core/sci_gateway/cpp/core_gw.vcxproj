@@ -203,6 +203,7 @@
     <ClCompile Include="sci_quit.cpp" />
     <ClCompile Include="sci_stacksize.cpp" />
     <ClCompile Include="sci_typename.cpp" />
+    <ClCompile Include="sci_memcheck.cpp" />
     <ClCompile Include="sci_warning.cpp" />
     <ClCompile Include="sci_where.cpp" />
     <ClCompile Include="sci_who.cpp" />

@@ -77,7 +77,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>includes;..\core\includes;../symbol/includes;../types/includes;../ast/includes;../windows_tools/includes;../localization/includes;../io/includes;../../libs/intl;../fileio/includes;../string/includes;../threads/includes;../differential_equations/includes;../elementary_functions/includes;../api_scilab/includes;../operations/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SYSTEM_ENV_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRTDBG_MAP_ALLOC;WIN32;_DEBUG;_WINDOWS;_USRDLL;SYSTEM_ENV_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -129,7 +129,7 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>includes;..\core\includes;../symbol/includes;../types/includes;../ast/includes;../windows_tools/includes;../localization/includes;../io/includes;../../libs/intl;../fileio/includes;../string/includes;../threads/includes;../differential_equations/includes;../elementary_functions/includes;../api_scilab/includes;../operations/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SYSTEM_ENV_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRTDBG_MAP_ALLOC;WIN32;NDEBUG;_WINDOWS;_USRDLL;SYSTEM_ENV_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -156,7 +156,7 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>includes;..\core\includes;../symbol/includes;../types/includes;../ast/includes;../windows_tools/includes;../localization/includes;../io/includes;../../libs/intl;../fileio/includes;../string/includes;../threads/includes;../differential_equations/includes;../elementary_functions/includes;../api_scilab/includes;../operations/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SYSTEM_ENV_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRTDBG_MAP_ALLOC;WIN32;NDEBUG;_WINDOWS;_USRDLL;SYSTEM_ENV_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>

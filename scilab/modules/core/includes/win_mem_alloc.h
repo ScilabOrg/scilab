@@ -19,7 +19,19 @@
 #define NULL 0
 
 #include <crtdefs.h>
+#define _CRTDBG_MAP_ALLOC
+#define _CRTDBG_MAP_ALLOC_NEW
+int __cdecl MyAllocHook(
+    int      nAllocType,
+    void   * pvData,
+    size_t   nSize,
+    int      nBlockUse,
+    long     lRequest,
+    const unsigned char * szFileName,
+    int      nLine
+);
 
+#include <crtdbg.h>
 
 void *MyHeapRealloc(void *lpAddress, size_t dwSize, char *file, int line);
 void *MyHeapAlloc(size_t dwSize, char *file, int line);
