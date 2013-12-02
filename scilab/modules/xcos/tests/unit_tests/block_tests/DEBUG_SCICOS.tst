@@ -16,7 +16,7 @@
 
 global Result;Result=[];
 
-importXcosDiagram('SCI/modules/xcos/tests/nonreg_tests/bug_8480.zcos');
+importXcosDiagram("SCI/modules/xcos/tests/nonreg_tests/bug_8480.zcos");
 Info=scicos_simulate(scs_m,list());
 
 guis = [];
@@ -24,42 +24,32 @@ for i=1:length(scs_m.objs) do
     o = scs_m.objs(i);
     if typeof(o) == "Block" then
         gui=o.gui;
-        
+
         guis = [guis ; gui];
         execstr(gui + "_index = i;");
     end
 end
 
-Result_ref = [CLOCK_c_index 4 0;
+Result_ref = [GENSQR_f_index 4 0;
+GENSQR_f_index 4 0;
+TRASH_f_index 4 0;
+TRASH_f_index 4 0;
+MUX_index 4 0;
+MUX_index 4 0;
+DOLLAR_f_index 4 0;
+DOLLAR_f_index 4 0;
+CLOCK_c_index 4 0;
 CLOCK_c_index 4 0;
 GENSQR_f_index 4 0;
 GENSQR_f_index 4 0;
-DOLLAR_f_index 4 0;
-DOLLAR_f_index 4 0;
-MUX_index 4 0;
-MUX_index 4 0;
 TRASH_f_index 4 0;
 TRASH_f_index 4 0;
-CLOCK_c_index 6 0;
-CLOCK_c_index 6 0;
-GENSQR_f_index 6 0;
-GENSQR_f_index 6 0;
-DOLLAR_f_index 6 0;
-DOLLAR_f_index 6 0;
-MUX_index 6 0;
-MUX_index 6 0;
-TRASH_f_index 6 0;
-TRASH_f_index 6 0;
-CLOCK_c_index 6 0;
-CLOCK_c_index 6 0;
-GENSQR_f_index 6 0;
-GENSQR_f_index 6 0;
-DOLLAR_f_index 6 0;
-DOLLAR_f_index 6 0;
-MUX_index 6 0;
-MUX_index 6 0;
-TRASH_f_index 6 0;
-TRASH_f_index 6 0;
+MUX_index 4 0;
+MUX_index 4 0;
+DOLLAR_f_index 4 0;
+DOLLAR_f_index 4 0;
+CLOCK_c_index 4 0;
+CLOCK_c_index 4 0;
 CLOCK_c_index 1 0;
 CLOCK_c_index 1 0;
 GENSQR_f_index 1 0;

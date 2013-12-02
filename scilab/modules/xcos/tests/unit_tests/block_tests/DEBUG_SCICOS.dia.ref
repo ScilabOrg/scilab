@@ -6,8 +6,7 @@
 // =============================================================================
 //
 // <-- ENGLISH IMPOSED -->
-//
-// <-- TEST WITH XCOS -->
+// <-- XCOS TEST -->
 //
 // <-- Unit test for DEBUG_SCICOS -->
 //
@@ -30,21 +29,6 @@ block 4 is called with flag 4 at time 0.000000
 Entering the block 
 Leaving block 4 
 block 6 is called with flag 4 at time 0.000000 
-Entering the block 
-Leaving block 6 
-block 1 is called with flag 6 at time 0.000000 
-Entering the block 
-Leaving block 1 
-block 2 is called with flag 6 at time 0.000000 
-Entering the block 
-Leaving block 2 
-block 3 is called with flag 6 at time 0.000000 
-Entering the block 
-Leaving block 3 
-block 4 is called with flag 6 at time 0.000000 
-Entering the block 
-Leaving block 4 
-block 6 is called with flag 6 at time 0.000000 
 Entering the block 
 Leaving block 6 
 block 1 is called with flag 6 at time 0.000000 
@@ -146,36 +130,26 @@ for i=1:length(scs_m.objs) do
         execstr(gui + "_index = i;");
     end
 end
-Result_ref = [CLOCK_c_index 4 0;
+Result_ref = [GENSQR_f_index 4 0;
+GENSQR_f_index 4 0;
+TRASH_f_index 4 0;
+TRASH_f_index 4 0;
+MUX_index 4 0;
+MUX_index 4 0;
+DOLLAR_f_index 4 0;
+DOLLAR_f_index 4 0;
+CLOCK_c_index 4 0;
 CLOCK_c_index 4 0;
 GENSQR_f_index 4 0;
 GENSQR_f_index 4 0;
-DOLLAR_f_index 4 0;
-DOLLAR_f_index 4 0;
-MUX_index 4 0;
-MUX_index 4 0;
 TRASH_f_index 4 0;
 TRASH_f_index 4 0;
-CLOCK_c_index 6 0;
-CLOCK_c_index 6 0;
-GENSQR_f_index 6 0;
-GENSQR_f_index 6 0;
-DOLLAR_f_index 6 0;
-DOLLAR_f_index 6 0;
-MUX_index 6 0;
-MUX_index 6 0;
-TRASH_f_index 6 0;
-TRASH_f_index 6 0;
-CLOCK_c_index 6 0;
-CLOCK_c_index 6 0;
-GENSQR_f_index 6 0;
-GENSQR_f_index 6 0;
-DOLLAR_f_index 6 0;
-DOLLAR_f_index 6 0;
-MUX_index 6 0;
-MUX_index 6 0;
-TRASH_f_index 6 0;
-TRASH_f_index 6 0;
+MUX_index 4 0;
+MUX_index 4 0;
+DOLLAR_f_index 4 0;
+DOLLAR_f_index 4 0;
+CLOCK_c_index 4 0;
+CLOCK_c_index 4 0;
 CLOCK_c_index 1 0;
 CLOCK_c_index 1 0;
 GENSQR_f_index 1 0;
