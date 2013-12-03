@@ -1,10 +1,11 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+c Copyright (C) 2013 - Scilab Enterprises - Paul Bignier: bug #11001 fixed
 c Copyright (C) INRIA
-c 
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 
@@ -20,7 +21,7 @@ c
       data local/21/
       data nolocal/23/
       data all/10/
-c    
+c
       iadr(l)=l+l-1
 c
       topk=top
@@ -59,9 +60,9 @@ c        isdef
       endif
 
       do 10, i=1, m1*n1
- 
+
          call namstr(id,istk(il+i-1),n,0)
-c        look for  variables in the stack
+c        look for variables in the stack
          if(flag.eq.2) then
 c        in the full calling context
 c        but not in the local environment
@@ -93,6 +94,11 @@ c           look for libraries functions
             endif
          endif
 c
+         if(fin.le.0) then
+c        variable not found, look for primitives
+            call funtab(id, fin, 1, 'NULL_NAME', 0)
+         endif
+c
          if(job.eq.0) then
 c        exists returns 0 or 1
             if (fin.gt.0) then
@@ -108,9 +114,9 @@ c        isdef returns %f or %t
                istk(l+i-1)=0.0d0
             endif
          endif
-         
- 10   continue 
-      
+
+ 10   continue
+
       fin=1
       return
       end
