@@ -11,6 +11,7 @@
  *
  */
 /*--------------------------------------------------------------------------*/
+#include <stdio.h>
 #include "rk4.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
@@ -19,8 +20,8 @@
 /*     The original version has been modified to replace statically
  *    allocated arrays yt, dym and dyt by rwork arguments parts
  *    array + blas use. Serge Steer INRIA- feb 2012*/
-
 /*--------------------------------------------------------------------------*/
+
 int C2F(rk4)(double *y, double *dydx, int *n, double *x, double *h, double *yout, void (*derivs)(), double *rwork)
 {
     double d = 0.0;
@@ -40,7 +41,7 @@ int C2F(rk4)(double *y, double *dydx, int *n, double *x, double *h, double *yout
         yt[i] = y[i] + hh * dydx[i];
     }
     (*derivs)(n, &xh, yt, dyt);
-
+    printf("iero : %d\n", C2F(ierode).iero);
     if (C2F(ierode).iero > 0)
     {
         return 0;
