@@ -64,20 +64,11 @@ c     the third argument is optional. It's not used here
                   return
                endif
             endif
-            if(sel.eq.0) then
-               istk(ilr)=1
-               istk(ilr+1)=1
-               istk(ilr+2)=1
-               istk(ilr+3)=0
-               stk(l1)=0.0d0
-               lstk(top+1)=l1+1
-            else
-               istk(ilr)=1
-               istk(ilr+1)=0
-               istk(ilr+2)=0
-               istk(ilr+3)=0
-               lstk(top+1)=l1
-            endif
+            istk(ilr)=1
+            istk(ilr+1)=0
+            istk(ilr+2)=0
+            istk(ilr+3)=0
+            lstk(top+1)=l1
             return
          endif
 
