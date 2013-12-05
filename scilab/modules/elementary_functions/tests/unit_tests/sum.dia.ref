@@ -130,8 +130,8 @@ assert_checkerror("sum(d, [""r"", ""c""])", refMsg);
 //empty matrices
 T=list(list(),list('native'),list('double'));
 for typ=T
-    assert_checkequal(sum([], typ(:)), 0);
-    assert_checkequal(sum([], "*", typ(:)), 0);
+    assert_checkequal(sum([], typ(:)), []);
+    assert_checkequal(sum([], "*", typ(:)), []);
     assert_checkequal(sum([], 1, typ(:)), []);
     assert_checkequal(sum([], 2, typ(:)), []);
     assert_checkequal(sum([], 3, typ(:)), []);
