@@ -766,9 +766,11 @@ void visitprivate(const AssignExp  &e)
                         //so we have to retrieve struct and children to assign new value
                         InternalType* pMain     = NULL;
                         InternalType* pCurrent  = NULL;
-                        getStructFromExp(&pCall->name_get(), &pMain, &pCurrent, NULL, pOut);
-                        //change pOut only to toString call
-                        pOut = pMain;
+                        if (getStructFromExp(&pCall->name_get(), &pMain, &pCurrent, NULL, pOut))
+                        {
+                            //change pOut only to toString call only if pOut is a struct
+                            pOut = pMain;
+                        }
                     }
                     else
                     {
