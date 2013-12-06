@@ -73,16 +73,11 @@
             (ignoring     NANs)    of     the     columns    of     x:
             s(i,:)=nancumsum(x(i,:))
         </para>
-        <para>
-            For the  last two cases,  if a row  or column is  in whole
-            composed of NAN, the corresponding place of s will contain
-            a NAN.
-        </para>
     </refsection>
     <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[ 
-a=[1 2 3;4 5 6]
+a=[1 2 %nan;%nan 5 6]
 s=nancumsum(a)
 s=nancumsum(a,'r')
 s=nancumsum(a,'c')
