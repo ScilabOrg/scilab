@@ -680,8 +680,8 @@ assert_checkequal(prod(a, n), [2;-12;-30]+0*%i);
 assert_checkequal(prod(a+0, n), [2;-12;-30]+0*%i);
 
 a=[];
-assert_checkequal(prod(a), 1);
-assert_checkequal(prod([]), 1);
+assert_checkequal(prod(a), []);
+assert_checkequal(prod([]), []);
 assert_checkequal(prod(a, 1), []);
 assert_checkequal(prod([], 1), []);
 

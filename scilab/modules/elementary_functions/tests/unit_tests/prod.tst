@@ -154,11 +154,11 @@ assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 //empty matrices
 T=list(list(),list('native'),list('double'));
 for typ=T
-  if prod([],typ(:))<>1 then pause,end
-  if prod([],'*',typ(:))<>1 then pause,end
-  if prod([],1,typ(:))<>[] then pause,end
-  if prod([],2,typ(:))<>[] then pause,end
-  if prod([],3,typ(:))<>[] then pause,end
+    assert_checkequal(prod([], typ(:)), []);
+    assert_checkequal(prod([], "*", typ(:)), []);
+    assert_checkequal(prod([], 1, typ(:)), []);
+    assert_checkequal(prod([], 2, typ(:)), []);
+    assert_checkequal(prod([], 3, typ(:)), []);
 end
 
 //=======================================================================
