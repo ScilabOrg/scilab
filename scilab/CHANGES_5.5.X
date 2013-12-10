@@ -18,6 +18,8 @@ New Features
 
 * pol2str(): support to polynomials with complex coefficients and hypermatrices (See bug #13109).
 
+* variancef(): support of complex arguments.
+
 
 Obsolete & Removed Functions
 ============================

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2013 - Samuel GOUGEON
  * Copyright (C) 2000 - INRIA - Carlos Klimann
+ * Copyright (C) 2013 - Samuel GOUGEON
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -18,18 +18,17 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>
-            [s [,mc]] = variancef(x, fre [,orien [,m]])
+        <synopsis>[s, mc] = variancef(x, fre [,orien [,m]])
             
             [s, mc] = variancef(x)
-            [s, mc] = variancef(x, fre, "r"|1 )
-            [s, mc] = variancef(x, fre, "c"|2 )
-            [s, mc] = variancef(x, fre, "*"  , %nan)
-            [s, mc] = variancef(x, fre, "r"|1, %nan)
-            [s, mc] = variancef(x, fre, "c"|2, %nan)
-            s = variancef(x, fre, "*", m)
-            s = variancef(x, fre, "r", m)
-            s = variancef(x, fre, "c", m)
+            [s, mc] = variancef(x, fre, 'r'|1 )
+            [s, mc] = variancef(x, fre, 'c'|2 )
+            [s, mc] = variancef(x, fre, '*'  , %nan)
+            [s, mc] = variancef(x, fre, 'r'|1, %nan)
+            [s, mc] = variancef(x, fre, 'c'|2, %nan)
+            s = variancef(x, fre, '*', m)
+            s = variancef(x, fre, 'r', m)
+            s = variancef(x, fre, 'c', m)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -47,7 +46,7 @@
                 <term>fre</term>
                 <listitem>
                     <para>
-                        vector or matrix of positive decimal integers = frequencies: <code>fre(i,j)</code> is the number of times that <code>x(i,j)</code> must be counted.
+                        vector or matrix of positive decimal integers = frequences: <code>fre(i,j)</code> is the number of times that <code>x(i,j)</code> must be counted. 
                         <varname>fre</varname> and <varname>x</varname> have same sizes.
                     </para>
                 </listitem>
@@ -55,7 +54,7 @@
             <varlistentry>
                 <term>orien</term>
                 <listitem>
-                    <para>the orientation of the computation. Valid values are:
+                    <para>the orientation of the computation. Valid values are
                         <itemizedlist>
                             <listitem>1 or "r" : result is a row, after a column-wise computation.</listitem>
                             <listitem>2 or "c" : result is a column, after a row-wise computation.</listitem>
@@ -70,30 +69,30 @@
                 <term>m</term>
                 <listitem>
                     <para>
-                        The known mean of the underlying statistical distribution law (assuming that it is known).
+                        The known mean of the underlying statistical distribution law (assuming that it is known). 
                         <itemizedlist>
                             <listitem>
                                 "*" mode (default): <varname>m</varname> must be scalar
                             </listitem>
                             <listitem>
-                                "r" or 1 mode: <varname>m</varname> is a row of length <literal>size(x,2)</literal>. The variance along the column #j is computed using <literal>m(j)</literal> as the mean for the considered column. If <literal>m(j)</literal> is the same for all columns, it can be provided as a scalar <varname>m</varname>.
+                                "c" or 1 mode: <varname>m</varname> is a column of length <literal>size(x,1)</literal>. The variance along the row #i is computed using <literal>m(i)</literal> as the mean for the considered row. If <literal>m(i)</literal> is the same for all rows, it can be provided as a scalar <varname>m</varname>.
                             </listitem>
                             <listitem>
-                                "c" or 2 mode: <varname>m</varname> is a column of length <literal>size(x,1)</literal>. The variance along the row #i is computed using <literal>m(i)</literal> as the mean for the considered row. If <literal>m(i)</literal> is the same for all rows, it can be provided as a scalar <varname>m</varname>.
+                                "r" or 2 mode: <varname>m</varname> is a row of length <literal>size(x,2)</literal>. The variance along the column #j is computed using <literal>m(j)</literal> as the mean for the considered column. If <literal>m(j)</literal> is the same for all columns, it can be provided as a scalar <varname>m</varname>.
                             </listitem>
                         </itemizedlist>
                     </para>
                     <para>
-                        When <varname>m</varname> is not provided, the <literal>variance</literal> is built dividing the quadratic distance of n values to <literal>mean(x,fre)</literal>(or <literal>mean(x,fre,"c")</literal> or <literal>mean(x,fre,"r")</literal>) by (n-1) (n being sum(fre) or sum(fre,"c") or sum(fre,"r")). If the elements of <varname>x</varname> are mutually independent, the result is then statistically unbiased.
+                        When <varname>m</varname> is not provided, the <literal>variance</literal> is built dividing the quadratic distance of n values to <literal>mean(x,fre)</literal>(or <literal>mean(x,fre,"c")</literal> or <literal>mean(x,fre,"r")</literal>) by (n-1) (n being sum(fre) or sum(fre,"c") or sum(fre,"r")). If elements of <varname>x</varname> are mutually independent, the result is then statistically unbiased.
                     </para>
                     <para>
-                        Else, the <literal>variance</literal> is built dividing the quadratic distance of values to <varname>m</varname> by the number n of considered values.
+                        Else, the variance is built dividing the quadratic distance of values to <varname>m</varname> by the number n of considered values.
                     </para>
                     <para>
                         If a true value <varname>m</varname> independent from x elements is used, <varname>x</varname> and <varname>m</varname> values are mutually independent, and the result is then unbiased.
                     </para>
                     <para>
-                        When the special value <literal>m = %nan</literal> is provided, the variance is still normalized by n (not n-1) but is computed using
+                        When the special value <literal>m = %nan</literal> is provided, the variance is still normalized by n (not n-1) but is computed using 
                         <literal>m = mean(x, fre)</literal> instead (or <literal>m = mean(x,fre,"c")</literal> or <literal>m = mean(x,fre,"r")</literal>). This <varname>m</varname> does not bring independent information, and yields a statistically biased result.
                     </para>
                 </listitem>
@@ -117,22 +116,23 @@
         <para>
             This function computes the variance of the values of a
             vector or matrix <varname>x</varname>, each of them <literal>x(i,j)</literal> being counted <literal>fre(i,j)</literal> times.
-            If <literal>x</literal> is complex, then <literal>variancef(x,fre,..) = variancef(real(x),fre,..) + variancef(imag(x),fre,..)</literal> is returned.
+            If <literal>x</literal> is complex, <literal>variancef(x,fre,..) = variancef(real(x),fre,..) + variancef(imag(x),fre,..)</literal> is returned.
         </para>
         <para>
-            <literal>s = variancef(x,fre)</literal> (or <literal>s=variancef(x,fre,"*")</literal>) returns the scalar variance computed over all values of <varname>x</varname>.
+            <literal>s = variancef(x,fre)</literal> (or <literal>s=variancef(x,fre,'*')</literal>) returns the scalar variance computed over all values of <varname>s</varname>.
         </para>
         <para>
-            <literal>s = variancef(x,fre,"r")</literal>(or equivalently <literal>s = variancef(x,fre,1)</literal>) returns a row <varname>s</varname> such that for each j,
+            <literal>s = variancef(x,fre,'r')</literal>(or equivalently <literal>s = variancef(x,fre,1)</literal>) returns a row <varname>s</varname> such that for each j,
             <literal>s(j) = variancef(x(:,j),fre(:,j),..)</literal>.
         </para>
         <para>
-            <literal>s = variancef(x,fre,"c")</literal>(or equivalently <literal>s = variancef(x,fre,2)</literal>) returns a column <varname>s</varname> such that for each i,
+            <literal>s = variancef(x,fre,'c')</literal>(or equivalently <literal>s = variancef(x,fre,2)</literal>) returns a column <varname>s</varname> such that for each i,
             <literal>s(i) = variancef(x(i,:),fre(i,:),..)</literal>.
         </para>
         <para>
-            When the mean <varname>m</varname> is provided, it is used as reference in the variance computation instead of being internally estimated from <varname>x</varname> (unless it is equal to the special value <code>%nan</code>: See <varname>m</varname>'s description). This allows to compute the variance of a sample <varname>x</varname> with respect to a given statistical model (rather than extracting an empirical statistical dispersion in order to build the model).
+            When the mean <varname>m</varname> is provided, it is used as reference in the variance computation instead of being internally estimated from <varname>x</varname> (unless it is equal to the special value <code>%nan</code>: See <varname>m</varname>'s description). This allows to compute the variance of a sample <varname>x</varname>with respect to a given statistical model (rather than extracting an empirical statistical dispersion in order to build the model).
         </para>
+        
     </refsection>
     <refsection>
         <title>Examples</title>
@@ -144,17 +144,17 @@ fre = [1 2 3; 3 4 3]
 [s, m] = variancef(x, fre, "c")
 
 // Example #2:
-x0 = grand(20, 7, "uin", -9, 10)+0.4
-x = matrix((-9:10)+0.4, 5, 4)
-fre = members(x, x0)        // Computes the frequencies of x's elements in x0
-[s, m] = variancef(x, fre)  // Should be equal to variance(x0)
+x0 = grand(20,7,"uin",-9,10)+0.4
+x = matrix((-9:10)+0.4,5,4)
+fre = members(x, x0) 		// computes the frequencies of x's in x0
+[s, m] = variancef(x, fre)  // should be equal to variance(x0)
 [s, m] = variance(x0)
 
 // Example #2 (follow-up):
-m = (-9+10)/2+0.4               // Known asymptotic mean (if x0 had an infinite number of elements)
+m = (-9+10)/2+0.4				// Known asymptotic mean (if x0 had an infinite number of elements)
 s = variancef(x, fre, "*", m)   // Sample variance wrt the true mean
-s0 = (10 - (-9))^2 /12            // Known asymptotic variance
-s2 = variancef(x, fre, "*", %nan) // Takes m = meanf(x,fre) =>  always <= s
+s0 = (10 - (-9))^2 /12			// Known asymptotic variance
+s2 = variancef(x, fre, "*", %nan)   // takes m = meanf(x,fre) =>  always <= s
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

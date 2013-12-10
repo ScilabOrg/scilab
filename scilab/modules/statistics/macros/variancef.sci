@@ -1,8 +1,8 @@
 
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2000 - INRIA - Carlos Klimann
 // Copyright (C) 2013 - Scilab Enterprises - Paul BIGNIER : m parameter added
 // Copyright (C) 2013 - Samuel GOUGEON : http://bugzilla.scilab.org/11209 fixed
-// Copyright (C) 2000 - INRIA - Carlos Klimann
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,7 +11,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 //
 
-function [s, m] = variancef(x, fre, orien, m)
+function [s,m] = variancef(x,fre,orien,m)
     //
     //This function  computes  the variance  of the values  of   a vector or
     //matrix x, each  of  them  counted with  a  frequency signaled   by the
@@ -38,7 +38,7 @@ function [s, m] = variancef(x, fre, orien, m)
     //
 
     [lhs,rhs] = argn(0)
-    if rhs<2 | rhs>4 then
+    if rhs<2|rhs>4 then
         msg = gettext("%s: Wrong number of input arguments: %d to %d expected.\n")
         error(msprintf(msg, "variancef", 2, 4))
     end
@@ -94,8 +94,8 @@ function [s, m] = variancef(x, fre, orien, m)
         else
             s = sum((abs(x-m).^2).*fre) / sumfre
         end
-    elseif orien=="r" | orien==1,
-        sumfre = sum(fre, "r")
+    elseif orien=="r"|orien==1,
+        sumfre = sum(fre,"r")
         if or(sumfre==0) then
             msg = _("%s: Wrong value for input argument #%d: Must be > %d.\n")
             error(msprintf(msg, "variancef", 2, 1))
@@ -103,7 +103,7 @@ function [s, m] = variancef(x, fre, orien, m)
         if rhs<4 | biased == %t then
             m = meanf(x,fre,"r")
         elseif isscalar(m) then
-            m = m*ones(1, size(x,"c"));
+            m = m*ones(1, size(x,"c"))
         end
         m2 = ones(size(x,"r"),1)*m
         if rhs<4 then
@@ -112,7 +112,7 @@ function [s, m] = variancef(x, fre, orien, m)
             s = sum((abs(x-m2).^2).*fre, "r") ./ sumfre
         end
     elseif orien=="c" | orien==2,
-        sumfre = sum(fre, "c")
+        sumfre = sum(fre,"c")
         if or(sumfre==0) then
             msg = _("%s: Wrong value for input argument #%d: Must be > %d.\n")
             error(msprintf(msg, "variancef", 2, 1))
@@ -120,7 +120,7 @@ function [s, m] = variancef(x, fre, orien, m)
         if rhs<4 | biased == %t then
             m = meanf(x,fre,"c")
         elseif isscalar(m) then
-            m = m*ones(size(x,"r"), 1);
+            m = m*ones(size(x,"r"), 1)
         end
         m2 = m*ones(1,size(x,"c"))
         if rhs<4 then
