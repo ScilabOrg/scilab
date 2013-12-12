@@ -60,8 +60,19 @@ function [X,Y]=checkXYPair(typeOfPlot,x,y,current_figure,cur_draw_mode)
         XScal = isscalar(X);
         YScal = isscalar(Y);
 
-        if size(X,1)==1 & ~XScal, X=X', warning(_("Transposing row vector to get column vector")), end; // If one of the vectors is a row, transpose it,
-        if size(Y,1)==1 & ~YScal, Y=Y', warning(_("Transposing row vector to get column vector")), end; // but no need to transpose scalars.
+        transposeX = %f;
+        transposeY = %f;
+
+        if size(X,1)==1 & ~XScal, X=X', transposeX = %t; end; // Transpose the row vectors,
+        if size(Y,1)==1 & ~YScal, Y=Y', transposeY = %t; end; // but no need to transpose scalars.
+
+        if transposeX == ~transposeY then
+            if transposeX == %t then
+                warning(_("Transposing row vector X to get compatible dimensions"));
+            else
+                warning(_("Transposing row vector Y to get compatible dimensions"));
+            end
+        end
 
         if (size(X)==[0 0])
             ok=%F
@@ -95,7 +106,7 @@ function [X,Y]=checkXYPair(typeOfPlot,x,y,current_figure,cur_draw_mode)
             // X is a column vector and Y has as many columns as X has rows.
             // Y cannot be a square matrix here, because it would have fallen in the previous case (above) and returned.
             if ~YScal then
-                warning(_("Transposing data matrix to get compatible dimensions"));
+                warning(_("Transposing data matrix Y to get compatible dimensions"));
                 Y=Y';
             end
             ok=%T;
@@ -119,11 +130,11 @@ function [X,Y]=checkXYPair(typeOfPlot,x,y,current_figure,cur_draw_mode)
                 y=Y;
             elseif size(X,1) == size(Y,2) & ~YScal then
                 // Y has as many columns as X has rows. Transpose Y to fit X.
-                warning(_("Transposing data matrix to get compatible dimensions"));
+                warning(_("Transposing data matrix Y to get compatible dimensions"));
                 y=Y(:);
             elseif size(X,2) == size(Y,1) & ~YScal & ~XScal then
-                // Y has as many rows as X has columns. Transpose Y to fit X.
-                warning(_("Transposing column vector to get row vector"));
+                // Y has as many rows as X has columns. Transpose X to fit Y.
+                warning(_("Transposing column vector X to get row vector"));
                 X=X';
                 y=Y(:);
             elseif size(X,2) == size(Y,2) then
