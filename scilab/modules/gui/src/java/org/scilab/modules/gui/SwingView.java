@@ -656,14 +656,12 @@ public final class SwingView implements GraphicView {
             return;
         }
 
-        if (registeredObject == null && property != __GO_STYLE__) {
-            return;
-        }
-
-        /* On uicontrol style is set after object creation */
-        if (registeredObject == null && property == __GO_STYLE__) {
-            int style = (Integer) GraphicController.getController().getProperty(id, __GO_STYLE__);
-            allObjects.put(id, CreateObjectFromType(style, id));
+        if (registeredObject == null) {
+            /* On uicontrol style is set after object creation */
+            if (property == __GO_STYLE__) {
+                int style = (Integer) GraphicController.getController().getProperty(id, __GO_STYLE__);
+                allObjects.put(id, CreateObjectFromType(style, id));
+            }
             return;
         }
 
@@ -687,9 +685,15 @@ public final class SwingView implements GraphicView {
         }
     }
 
+    /**
+     * Update an registered object (registeredObject!=null) in EDT
+     * @param registeredObject modified object
+     * @param id object identifier
+     * @param property modified property
+     */
     public void updateObjectOnEDT(TypedObject registeredObject, final Integer id, final int property) {
         /* Removes the swing object if its parent is not display */
-        if (registeredObject != null && property == __GO_PARENT__) {
+        if (property == __GO_PARENT__) {
             Integer parentId = (Integer)GraphicController.getController().getProperty(id, __GO_PARENT__);
             TypedObject registeredParent = allObjects.get(parentId);
             if (registeredParent == null) {
@@ -699,7 +703,7 @@ public final class SwingView implements GraphicView {
 
         int type = (Integer) GraphicController.getController().getProperty(id, __GO_TYPE__);
         /* Children list update */
-        if (registeredObject != null && property == __GO_CHILDREN__) {
+        if (property == __GO_CHILDREN__) {
             final Integer[] newChildren = (Integer[]) GraphicController.getController().getProperty(id, __GO_CHILDREN__);
 
             switch (type) {
@@ -743,7 +747,7 @@ public final class SwingView implements GraphicView {
          * When the CHECKED property is updated for a UIMENU,
          * the object is converted to a SwingScilabCheckBoxMenuItem is not already of this type
          */
-        if (registeredObject != null && property == __GO_UI_CHECKED__) {
+        if (property == __GO_UI_CHECKED__) {
             if (type == __GO_UIMENU__) {
                 switch (registeredObject.getType()) {
                     case UiParentMenu:
@@ -778,7 +782,7 @@ public final class SwingView implements GraphicView {
          * When the property is set to TRUE: A separator is added if not already done
          * When the property is set to FALSE: The previous separator is removed if it exists
          */
-        if (registeredObject != null && property == __GO_UI_SEPARATOR__) {
+        if (property == __GO_UI_SEPARATOR__) {
             if (type == __GO_UIMENU__) {
                 Integer parentId = (Integer) GraphicController.getController().getProperty(id, __GO_PARENT__);
                 int menuPosition = -1;
@@ -807,11 +811,9 @@ public final class SwingView implements GraphicView {
             }
         }
 
-        if (registeredObject != null) {
-            final SwingViewObject swingObject = registeredObject.getValue();
-            if (swingObject != null) {
-                swingObject.update(property, GraphicController.getController().getProperty(id, property));
-            }
+        final SwingViewObject swingObject = registeredObject.getValue();
+        if (swingObject != null) {
+            swingObject.update(property, GraphicController.getController().getProperty(id, property));
         }
     }
 
