@@ -312,6 +312,8 @@ Scilab Bug Fixes
 
 * Bug #13116 fixed - qpsolve now respects upper-bounds constraints.
 
+* Bug #13119 fixed - mget and mgetl did not accept integer type as number of lines.
+
 * Bug #13121 fixed - ode "rk" option crashed Scilab when the user derivative function failed.
 
 * Bug #13127 fixed - There were no subticks with user defined ticks.

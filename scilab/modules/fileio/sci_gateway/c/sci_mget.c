@@ -32,12 +32,13 @@ int sci_mget(char *fname, unsigned long fname_len)
     int fd = ALL_FILES_DESCRIPTOR;
     int n = 1;
     int one = 1;
+    SciIntMat varTwo;
 
     Nbvars = 0;
     CheckRhs(1, 3);
     CheckLhs(1, 1);
 
-    if ( Rhs >= 1)
+    if (Rhs >= 1)
     {
         if (GetType(1) == sci_matrix)
         {
@@ -48,14 +49,30 @@ int sci_mget(char *fname, unsigned long fname_len)
             }
             else
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: An integer expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
                 return 0;
             }
         }
         else
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: An integer expected.\n"), fname, 1);
-            return 0;
+            if (GetType(1) == sci_ints)
+            {
+                GetRhsVar(1, MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, &m1, &n1, &varTwo);
+                if (m1*n1 == 1)
+                {
+                    n  = *(int*) varTwo.D;
+                }
+                else
+                {
+                    Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
+                    return 0;
+                }
+            }
+            else
+            {
+                Scierror(999, _("%s: Wrong type for input argument #%d: A real number expected.\n"), fname, 1);
+                return 0;
+            }
         }
     }
 

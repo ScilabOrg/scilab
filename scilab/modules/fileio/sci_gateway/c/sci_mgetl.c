@@ -44,6 +44,13 @@ int sci_mgetl(char *fname, unsigned long fname_len)
     if (Rhs == 2)
     {
         int *piAddressVarTwo = NULL;
+        int iPrec1 = 0;
+        char cValue = 0;
+        short sValue = 0;
+        int iValue = 0;
+        unsigned char ucValue = 0;
+        unsigned short usValue = 0;
+        unsigned int uiValue = 0;
 
         sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
         if (sciErr.iErr)
@@ -58,7 +65,7 @@ int sci_mgetl(char *fname, unsigned long fname_len)
             double dValue = 0.;
             if (!isScalar(pvApiCtx, piAddressVarTwo))
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: Integer expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 2);
                 return 0;
             }
 
@@ -74,8 +81,97 @@ int sci_mgetl(char *fname, unsigned long fname_len)
         }
         else
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Integer expected.\n"), fname, 2);
-            return 0;
+            if ( isIntegerType(pvApiCtx, piAddressVarTwo) )
+            {
+                if (!isScalar(pvApiCtx, piAddressVarTwo))
+                {
+                    Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 2);
+                    return 0;
+                }
+
+                sciErr = getMatrixOfIntegerPrecision(pvApiCtx, piAddressVarTwo, &iPrec1);
+                if (sciErr.iErr)
+                {
+                    printError(&sciErr, 0);
+                    return sciErr.iErr;
+                }
+                switch (iPrec1)
+                {
+                    case SCI_INT8 :
+                        if ( getScalarInteger8(pvApiCtx, piAddressVarTwo, &cValue) == 0)
+                        {
+                            numberOfLinesToRead = (int) cValue;
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                        break;
+                    case SCI_INT16 :
+                        if ( getScalarInteger16(pvApiCtx, piAddressVarTwo, &sValue) == 0)
+                        {
+                            numberOfLinesToRead = (int) sValue;
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                        break;
+                    case SCI_INT32 :
+                        if ( getScalarInteger32(pvApiCtx, piAddressVarTwo, &iValue) == 0)
+                        {
+                            numberOfLinesToRead = (int) iValue;
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                        break;
+                    case SCI_UINT8 :
+                        if ( getScalarUnsignedInteger8(pvApiCtx, piAddressVarTwo, &ucValue) == 0)
+                        {
+                            numberOfLinesToRead = (int) ucValue;
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                        break;
+                    case SCI_UINT16 :
+                        if ( getScalarUnsignedInteger16(pvApiCtx, piAddressVarTwo, &usValue) == 0)
+                        {
+                            numberOfLinesToRead = (int) usValue;
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                        break;
+                    case SCI_UINT32 :
+                        if ( getScalarUnsignedInteger32(pvApiCtx, piAddressVarTwo, &uiValue) == 0)
+                        {
+                            numberOfLinesToRead = (int) uiValue;
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Scierror(999, _("%s: Wrong type for input argument #%d: A real number expected.\n"), fname, 2);
+                return 0;
+            }
         }
     }
 
