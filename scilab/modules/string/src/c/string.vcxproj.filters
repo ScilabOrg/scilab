@@ -107,9 +107,6 @@
     <ClCompile Include="..\..\sci_gateway\c\sci_strcat.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\c\sci_strchr.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\sci_gateway\c\sci_strcmp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -201,6 +198,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\cpp\sort_inter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sci_strrchr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

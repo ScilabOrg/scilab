@@ -272,6 +272,8 @@ Scilab Bug Fixes
 
 * Bug #13042 fixed - Texts in graphics were not correctly centered.
 
+* Bug #13045 fixed - strchr was slower than strstr, now is the same function.
+
 * Bug #13047 fixed - jcompile did not allow class reloading.
 
 * Bug #13049 fixed - New handled protocols added in links in SciNotes.

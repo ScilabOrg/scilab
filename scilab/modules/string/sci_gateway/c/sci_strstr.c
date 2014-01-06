@@ -12,149 +12,152 @@
  */
 
 /*----------------------------------------------------------------------------*/
-#include <string.h>
-#include <stdio.h>
-#include <ctype.h>
 #include "gw_string.h"
-#include "stack-c.h"
+#include "api_scilab.h"
 #include "MALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "freeArrayOfString.h"
+#include "charEncoding.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
 /*----------------------------------------------------------------------------*/
 int sci_strstr(char *fname, unsigned long fname_len)
 {
-    CheckRhs(2, 2);
-    CheckLhs(0, 1);
+    SciErr sciErr;
+    int iErr = 0;
 
-    if ( (GetType(1) == sci_strings) && (GetType(2) == sci_strings) )
+    int* piAddr1 = NULL;
+    char** pStrVarOne = NULL;
+    int m1 = 0;
+    int n1 = 0;
+
+    int* piAddr2 = NULL;
+    char** pStrVarTwo = NULL;
+    int m2 = 0;
+    int n2 = 0;
+
+    int iRhs = nbInputArgument(pvApiCtx);
+    int i = 0;
+    BOOL is_strstr = (strcmp(fname, "strstr") == 0);
+
+    char** pstOutput_Strings = NULL;
+
+    CheckInputArgument(pvApiCtx, 2, 2);
+    CheckOutputArgument(pvApiCtx, 0, 1);
+
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);
+    if (sciErr.iErr)
     {
-        int m1 = 0;
-        int n1 = 0;
-        char **InputString_Parameter1 = NULL;
-        int m1n1 = 0; /* m1 * n1 */
+        printError(&sciErr, 0);
+        Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
+        return 0;
+    }
 
-        int m2 = 0;
-        int n2 = 0 ;
-        char **InputString_Parameter2 = NULL;
-        int m2n2 = 0; /* m2 * n2 */
+    if (getAllocatedMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, &pStrVarOne))
+    {
+        freeAllocatedMatrixOfString(m1, n1, pStrVarOne);
+        Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, 1);
+        return 0;
+    }
 
-        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &InputString_Parameter1);
-        m1n1 = m1 * n1;
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
+        return 0;
+    }
 
-        GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &m2, &n2, &InputString_Parameter2);
-        m2n2 = m2 * n2;
+    if (getAllocatedMatrixOfString(pvApiCtx, piAddr2, &m2, &n2, &pStrVarTwo))
+    {
+        freeAllocatedMatrixOfString(m1, n1, pStrVarOne);
+        freeAllocatedMatrixOfString(m2, n2, pStrVarTwo);
+        Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, 2);
+        return 0;
+    }
 
-        if (m2n2 == 0)
+    //check size of var1 and var2
+    if (m2 * n2 != 1 && m2 * n2 != m1 * n1)
+    {
+        freeAllocatedMatrixOfString(m1, n1, pStrVarOne);
+        freeAllocatedMatrixOfString(m2, n2, pStrVarTwo);
+        Scierror(999, _("%s: Wrong size for input argument #%d: Same size expected.\n"), fname, 2);
+        return 0;
+    }
+
+    //only for strchr, must be a single character
+    if (is_strstr == FALSE)
+    {
+        for (i = 0; i < m2 * n2; i++)
         {
-            freeArrayOfString(InputString_Parameter1, m1n1);
-            freeArrayOfString(InputString_Parameter2, m2n2);
-            Scierror(999, _("%s: Wrong size for input argument #%d: Non-empty matrix of strings expected.\n"), fname, 2);
-            return 0;
-        }
-        else
-        {
-            int j = 0;
-            if ( ((m1 == m2) && (n1 == n2)) || (m2n2 == 1) )
+            if (strlen(pStrVarTwo[i]) != 1)
             {
-                char **OutputStrings = NULL;
-
-                OutputStrings = (char**)CALLOC(m1n1, sizeof(char*));
-                if (OutputStrings == NULL)
+                wchar_t* pwst = to_wide_string(pStrVarTwo[i]);
+                if (wcslen(pwst) != 1)
                 {
-                    freeArrayOfString(InputString_Parameter1, m1n1);
-                    freeArrayOfString(InputString_Parameter2, m2n2);
-                    Scierror(999, _("%s: No more memory.\n"), fname);
+                    FREE(pwst);
+                    freeAllocatedMatrixOfString(m1, n1, pStrVarOne);
+                    freeAllocatedMatrixOfString(m2, n2, pStrVarTwo);
+                    Scierror(999, _("%s: Wrong size for input argument #%d: A character expected.\n"), fname, 2);
                     return 0;
                 }
 
-                for (j = 0; j < m1n1; j++)
-                {
-                    int i = 0;
+                FREE(pwst);
+            }
+        }
+    }
 
-                    if (m2n2 == 1)
-                    {
-                        i = 0; /* Second input argument is one dimensional */
-                    }
-                    else
-                    {
-                        i = j; /* First and second input arguments have same size */
-                    }
+    //alloc output variable
+    pstOutput_Strings = (char**)MALLOC(sizeof(char**) * n1 * m1);
 
-                    if (strlen(InputString_Parameter1[j]) < strlen(InputString_Parameter2[i]))
-                    {
-                        OutputStrings[j] = strdup("");
-                        if (OutputStrings[j] == NULL)
-                        {
-                            freeArrayOfString(OutputStrings, m1n1);
-                            freeArrayOfString(InputString_Parameter1, m1n1);
-                            freeArrayOfString(InputString_Parameter2, m2n2);
-                            Scierror(999, _("%s: No more memory.\n"), fname);
-                            return 0;
-                        }
-                    }
-                    else
-                    {
-                        char *ptrstrstr = strstr(InputString_Parameter1[j], InputString_Parameter2[i]);
-                        if (ptrstrstr)
-                        {
-                            OutputStrings[j] = strdup(ptrstrstr);
-                            if (OutputStrings[j] == NULL)
-                            {
-                                freeArrayOfString(OutputStrings, m1n1);
-                                freeArrayOfString(InputString_Parameter1, m1n1);
-                                freeArrayOfString(InputString_Parameter2, m2n2);
-                                Scierror(999, _("%s: No more memory.\n"), fname);
-                                return 0;
-                            }
-                        }
-                        else
-                        {
-                            OutputStrings[j] = strdup("");
-                            if (OutputStrings[j] == NULL)
-                            {
-                                freeArrayOfString(OutputStrings, m1n1);
-                                freeArrayOfString(InputString_Parameter1, m1n1);
-                                freeArrayOfString(InputString_Parameter2, m2n2);
-                                Scierror(999, _("%s: No more memory.\n"), fname);
-                                return 0;
-                            }
-                        }
-                    }
-                }
-
-                CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, OutputStrings);
-
-                freeArrayOfString(OutputStrings, m1n1);
-                freeArrayOfString(InputString_Parameter1, m1n1);
-                freeArrayOfString(InputString_Parameter2, m2n2);
-
-                LhsVar(1) = Rhs + 1 ;
-                PutLhsVar();
+    //two cases, var2 is scalar or not
+    if (m2 * n2 == 1)
+    {
+        int i = 0;
+        for (i = 0 ; i < m1 * n1 ; i++)
+        {
+            char* pst = strstr(pStrVarOne[i], pStrVarTwo[0]);
+            if (pst)
+            {
+                pstOutput_Strings[i] = strdup(pst);
             }
             else
             {
-                freeArrayOfString(InputString_Parameter1, m1n1);
-                freeArrayOfString(InputString_Parameter2, m2n2);
-                Scierror(999, _("%s: Wrong size for input argument #%d.\n"), fname, 2);
-                return 0;
+                pstOutput_Strings[i] = strdup("");
             }
         }
     }
     else
     {
-        if (GetType(1) != sci_strings)
+        int i = 0;
+        for (i = 0 ; i < m1 * n1 ; i++)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of strings expected.\n"), fname, 1);
-        }
-        else
-        {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of strings expected.\n"), fname, 2);
+            char* pst = strstr(pStrVarOne[i], pStrVarTwo[i]);
+            if (pst)
+            {
+                pstOutput_Strings[i] = strdup(pst);
+            }
+            else
+            {
+                pstOutput_Strings[i] = strdup("");
+            }
         }
     }
+
+    sciErr = createMatrixOfString(pvApiCtx, iRhs + 1 , m1, n1, pstOutput_Strings);
+    freeAllocatedMatrixOfString(m1, n1, pstOutput_Strings);
+
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        Scierror(999, _("%s: Memory allocation error.\n"), fname);
+        return 0;
+    }
+
+    AssignOutputVariable(pvApiCtx, 1) = iRhs + 1 ;
+    ReturnArguments(pvApiCtx);
     return 0;
 }
 /*--------------------------------------------------------------------------*/
