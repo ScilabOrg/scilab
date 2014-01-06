@@ -244,7 +244,6 @@ lib /DEF:"$(ProjectDir)functions_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MinSpace</Optimization>
     </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\c\sci_strchr.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_strcmp.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_strcspn.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_strindex.c" />
@@ -261,6 +260,7 @@ lib /DEF:"$(ProjectDir)functions_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     <ClCompile Include="..\..\sci_gateway\c\sci_tokens.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_isnum.c" />
     <ClCompile Include="scistrtostr.c" />
+    <ClCompile Include="sci_strrchr.c" />
     <ClCompile Include="setScilabCharactersCodes.c" />
     <ClCompile Include="StringConvert.c" />
     <ClCompile Include="stringsCompare.c" />

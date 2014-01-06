@@ -40,6 +40,7 @@ STRING_IMPEXP int sci_isascii(char *fname, unsigned long fname_len);
 STRING_IMPEXP int sci_strcspn(char *fname, unsigned long fname_len);
 STRING_IMPEXP int sci_strncpy(char *fname, unsigned long fname_len);
 STRING_IMPEXP int sci_strchr(char *fname, unsigned long fname_len);
+STRING_IMPEXP int sci_strrchr(char *fname, unsigned long fname_len);
 STRING_IMPEXP int sci_strstr(char *fname, unsigned long fname_len);
 STRING_IMPEXP int sci_strrev(char *fname, unsigned long fname_len);
 STRING_IMPEXP int sci_strtok(char *fname, unsigned long fname_len);

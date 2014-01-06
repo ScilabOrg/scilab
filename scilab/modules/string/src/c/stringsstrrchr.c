@@ -37,8 +37,8 @@ wchar_t ** strings_wcsrchr(const wchar_t **InputStrings, int Dim_InputStrings,
             int i = 0;
             for (i = 0; i < Dim_InputStrings; i++)
             {
-                int c = 0;
-                wchar_t *ptrStr = NULL;
+                wchar_t c = 0;
+                const wchar_t *ptrStr = NULL;
 
                 if (Dim_InputChar == 1)
                 {
@@ -51,11 +51,11 @@ wchar_t ** strings_wcsrchr(const wchar_t **InputStrings, int Dim_InputStrings,
 
                 if (do_strchr)
                 {
-                    ptrStr = wcschr(InputStrings[i], (wchar_t)c);
+                    ptrStr = wcschr(InputStrings[i], c);
                 }
                 else
                 {
-                    ptrStr = wcsrchr(InputStrings[i], (wchar_t)c);
+                    ptrStr = wcsrchr(InputStrings[i], c);
                 }
 
                 if (ptrStr)
