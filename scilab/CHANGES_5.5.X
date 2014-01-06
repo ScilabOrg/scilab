@@ -40,7 +40,7 @@ Scilab Bug Fixes
 * Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
 
 * Bug #4649 fixed - License issue in the xs2ppm help page fixed.
-
+tests/nonreg_tests/bug_13136.tst
 * Bug #4677 fixed - xclick did not return correct mouse position on keyboard event.
 
 * Bug #4965 fixed - Setting links property for a handle of type legend did not work.
@@ -282,6 +282,8 @@ Scilab Bug Fixes
 * Bug #13116 fixed - qpsolve now respects upper-bounds constraints.
 
 * Bug #13121 fixed - ode "rk" option crashed Scilab when the user derivative function failed.
+
+* Bug #13136 fixed - exists() and isdef() failed for input arguments longer than 1.
 
 
 Xcos Bug Fixes
