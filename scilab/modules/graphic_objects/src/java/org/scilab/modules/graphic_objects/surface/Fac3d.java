@@ -119,7 +119,7 @@ public class Fac3d extends Surface {
     /**
      * @param dataMapping the dataMapping to set
      */
-    public UpdateStatus setDataMapping(Integer dataMapping) {
+    public UpdateStatus setDataMapping(int dataMapping) {
         setDataMappingAsEnum(DataMapping.intToEnum(dataMapping));
         return UpdateStatus.Success;
     }
