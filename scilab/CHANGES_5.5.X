@@ -110,6 +110,9 @@ Scilab Bug Fixes
 
 * Bug #9319 fixed - Big polylines could not be exported in PS/EPS.
 
+* Bug #9621 fixed - We could save a tlist with undefined fields.
+                    Bug will be fixed in Scilab 6 but there was no nonreg test.
+
 * Bug #9627 fixed - Arguments checking added in optimsimplex_* functions.
 
 * Bug #9697 fixed - Printed information for optim "qn" and "gc" with bounds and imp=1 fixed.
