@@ -28,6 +28,9 @@ Obsolete & Removed Functions
 * pcg tagged as obsolete. Will be removed in Scilab 5.5.1.
   Please use conjgrad instead.
 
+* fplot2d tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use plot2d instead.
+
 * milk_drop tagged as obsolete. Will be removed in Scilab 5.5.1.
 
 * clear_pixmap removed, please use drawlater/drawnow instead.
@@ -327,6 +330,8 @@ Scilab Bug Fixes
 * Bug #13146 fixed - profile failed when a comment was on the same line as a function declaration.
 
 * Bug #13152 fixed - Typo fixed in syslin french help page.
+
+* Bug #13167 fixed - fplot2d tagged as obsolete, please use plot2d instead.
 
 
 Xcos Bug Fixes

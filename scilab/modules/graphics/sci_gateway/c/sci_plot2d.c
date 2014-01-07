@@ -99,7 +99,7 @@ int sci_plot2d(char* fname, unsigned long fname_len)
         iskip = 1;
     }
 
-    if (FirstOpt() == 2 + iskip)                                /** plot2d([loglags,] y, <opt_args>); **/
+    if (FirstOpt() == 2 + iskip)                                /** plot2d([logflags,] y, <opt_args>); **/
     {
         sciErr = getVarAddressFromPosition(pvApiCtx, 1 + iskip, &piAddrl2);
         if (sciErr.iErr)
@@ -161,7 +161,7 @@ int sci_plot2d(char* fname, unsigned long fname_len)
             }
         }
     }
-    else if (FirstOpt() >= 3 + iskip)     /** plot2d([loglags,] x, y[, style [,...]]); **/
+    else if (FirstOpt() >= 3 + iskip)     /** plot2d([logflags,] x, y[, style [,...]]); **/
     {
         /* x */
         sciErr = getVarAddressFromPosition(pvApiCtx, 1 + iskip, &piAddrl1);
@@ -230,7 +230,9 @@ int sci_plot2d(char* fname, unsigned long fname_len)
         }
         else
         {
-            lw = 2 + nbArgumentOnStack(pvApiCtx) - nbInputArgument(pvApiCtx);
+            // y is a macro, primitive or a string.
+            // Overload on x to call %s_plot2d([logflags,] x, y[, style [,...]]);
+            lw = 1 + iskip + nbArgumentOnStack(pvApiCtx) - nbInputArgument(pvApiCtx);
             C2F(overload)(&lw, "plot2d", 6);
             return 0;
         }
@@ -297,7 +299,7 @@ int sci_plot2d(char* fname, unsigned long fname_len)
         }
         else if ((m1 == 1 && n1 == 1) && (n2 != 1))
         {
-            /* a single y row vector  for a single x */
+            /* a single y row vector for a single x */
             sciErr = allocMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n2, &lt);
             if (sciErr.iErr)
             {
