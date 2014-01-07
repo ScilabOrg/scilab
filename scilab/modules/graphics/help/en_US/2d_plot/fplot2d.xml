@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2014 - Scilab Enterprises - Paul Bignier: tagged obsolete, please use plot2d instead (bug #13167)
  * Copyright (C) ENPC - Jean-Philippe Chancelier
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="fplot2d">
     <refnamediv>
         <refname>fplot2d</refname>
-        <refpurpose>2D plot of a curve defined by a
-            function
+        <refpurpose>2D plot of a curve defined by a function
+            <emphasis role="bold">This function is obsolete.</emphasis>
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
@@ -36,7 +37,7 @@
                 <term>f</term>
                 <listitem>
                     <para>
-                        external of type <literal>y=f(x)</literal> i.e. a scilab function or
+                        external of type <literal>y=f(x)</literal> i.e. a Scilab function or
                         a dynamically linked routine referred to as a string.
                     </para>
                 </listitem>
@@ -77,7 +78,7 @@
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 deff("[y]=f(x)","y=sin(x)+cos(x)")
 x=[0:0.1:10]*%pi/10;
 fplot2d(x,f)
@@ -87,8 +88,7 @@ fplot2d(x,f)
             x=[0:0.1:10]*%pi/10;
             fplot2d(x,f)
         </scilab:image>
-        
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 clf();
 deff("[y]=f(x)","y=sin(x)+cos(x)")
 x=[0:0.1:10]*%pi/10;
@@ -114,5 +114,16 @@ fplot2d(1:10,'parab')
                 <link linkend="paramfplot2d">paramfplot2d</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.1</revnumber>
+                <revdescription>
+                    <literal>fplot2d</literal> obsolete, please use <literal>plot2d</literal> instead.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

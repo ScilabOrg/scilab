@@ -16,9 +16,6 @@ assert_checkerror("plot2d( logflag=""nn"", style=[-1,-2,3], rect=[0,-2,2*%pi,2],
 errmsg=msprintf(_("%s: Wrong size for input arguments: Incompatible sizes.\n"),"plot2d");
 assert_checkerror("plot2d(1, sin(x), logflag=""nn"", style=[-1,-2,3], rect=[0,-2,2*%pi,2], axesflag=1)",errmsg);
 
-errmsg=[msprintf(_("Function not defined for given argument type(s),\n"));msprintf(_("  check arguments or define function %s for overloading.\n"), "%c_plot2d")];
-assert_checkerror("plot2d(x, ""s"", logflag=""nn"", style=[-1,-2,3], rect=[0,-2,2*%pi,2], axesflag=1)",errmsg);
-
 // Error messages with log mode
 errmsg=msprintf(_("%s: Bounds on y axis must be strictly positive to use logarithmic mode.\n"),"plot2d");
 assert_checkerror("plot2d(x, [sin(x)], logflag=""nl"", style=[-1,-2,3], rect=[0,-2,2*%pi,2], axesflag=1)", errmsg);
@@ -138,7 +135,7 @@ assert_checkequal(p.clip_state, "clipgrf");
 assert_checkequal(p.clip_box, []);
 assert_checkequal(p.user_data, []);
 
-// Check plot2d(x, sin(x), loglag="nl")
+// Check plot2d(x, sin(x), logflag="nl")
 close
 x=(0.1:0.1:2*%pi)';
 plot2d(x, sin(x), logflag="nl");

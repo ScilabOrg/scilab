@@ -28,6 +28,9 @@ Obsolete & Removed Functions
 * pcg tagged as obsolete. Will be removed in Scilab 5.5.1.
   Please use conjgrad instead.
 
+* fplot2d tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use plot2d instead.
+
 * milk_drop tagged as obsolete. Will be removed in Scilab 5.5.1.
 
 * clear_pixmap removed, please use drawlater/drawnow instead.
@@ -47,6 +50,8 @@ Scilab Bug Fixes
 * Bug #4965 fixed - Setting links property for a handle of type legend did not work.
 
 * Bug #5016 fixed - condestsp could return different results when repeated calls were performed.
+
+* Bug #5721 fixed - fplot2d tagged as obsolete, please use plot2d instead.
 
 * Bug #5886 fixed - There was no property labels_font_style on axis.
 

@@ -6,28 +6,27 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-function []=fplot2d(xr,f,style,strf,leg,rect,nax,void)
-    // 2D plot of function f : a Scilab function or the name (as a string)
+function []=%s_plot2d(xr,f,style,strf,leg,rect,nax,void)
+    // 2D plot of function f: a Scilab function or the name (as a string)
     //  of a dynamically linked function.
-    // Enter fplot2d() for an example.
-    // deff('<y>=f(x)','y=sin(x)+cos(x)');
-    // fplot2d(f,0:0.1:%pi);
     //!
-    warnobsolete("plot2d", "5.5.1");
 
-    [lhs,rhs]=argn(0)
-    if rhs <= 0 then   // demo
-        deff("[y]=f(x)","y=sin(x)+cos(x)");
-        fplot2d(0:0.1:%pi,f);
-        return
-    end
+    [lhs, rhs] = argn(0)
 
-    if type(xr)=="10" then // logflag passed first
-        error(msprintf(gettext("%s: Wrong size for input argument #%d: A vector expected.\n"), "fplot2d", 1));
+    if type(xr) == 10 then // logflag passed first
+        logflag = xr;
+        xr = f;
+        f = style;
+        clear style; // In the case %s_plot2d(logflag, xr, f), the variable style is defined
+        if exists("strf","local")==1 then style = strf; end
+        if exists("leg","local")==1 then strf = leg; end
+        if exists("rect","local")==1 then leg = rect; end
+        if exists("nax","local")==1 then rect = nax; end
+        if exists("void","local")==1 then nax = void; end
     elseif rhs < 2 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "fplot2d", 2));
+        error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "plot2d", 2));
     end
-    //handling optional arguments
+    // Handling optional arguments
 
     opts=[]
 
@@ -40,7 +39,7 @@ function []=fplot2d(xr,f,style,strf,leg,rect,nax,void)
     if exists("frameflag","local")==1 then opts=[opts,"frameflag=frameflag"],end
     if exists("axesflag","local")==1 then opts=[opts,"axesflag=axesflag"],end
     if size(opts,2)<rhs-2 then
-        error(msprintf(gettext("%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' expected.\n"),"fplot2d","style","strf","leg","rect","nax","logflag","frameflag","axesflag"));
+        error(msprintf(gettext("%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' expected.\n"),"plot2d","style","strf","leg","rect","nax","logflag","frameflag","axesflag"));
     end
     execstr("plot2d(xr,feval(xr,f),"+strcat(opts,",")+")")
 
