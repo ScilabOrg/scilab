@@ -151,5 +151,7 @@
             <parameter name="arsize" type="double"/>
             <parameter name="typeofchamp" type="boolean"/>
         </method>
+        <method name="createTest" returnType="int" modifier="static">
+        </method>
     </object>
 </package>
