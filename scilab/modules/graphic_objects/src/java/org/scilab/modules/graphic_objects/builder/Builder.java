@@ -30,6 +30,7 @@ import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.imageplot.Imageplot;
 import org.scilab.modules.graphic_objects.label.Label;
 import org.scilab.modules.graphic_objects.legend.Legend;
+import org.scilab.modules.graphic_objects.lighting.Light;
 import org.scilab.modules.graphic_objects.polyline.Polyline;
 import org.scilab.modules.graphic_objects.rectangle.Rectangle;
 import org.scilab.modules.graphic_objects.surface.Surface;
@@ -37,6 +38,7 @@ import org.scilab.modules.graphic_objects.textObject.Font;
 import org.scilab.modules.graphic_objects.textObject.Text;
 import org.scilab.modules.graphic_objects.utils.Alignment;
 import org.scilab.modules.graphic_objects.utils.ClipStateType;
+import org.scilab.modules.graphic_objects.utils.LightType;
 import org.scilab.modules.graphic_objects.utils.LineType;
 import org.scilab.modules.graphic_objects.utils.TextBoxMode;
 import org.scilab.modules.graphic_objects.utils.TicksDirection;
@@ -1068,6 +1070,39 @@ public final class Builder {
         }
 
         return new double[] {refMin, refMax};
+    }
+
+    static int createLight(int parent, int type, boolean visible, double[] pos,
+                           double[] dir, double[] ambient, double[] diffuse, double[] specular) {
+        GraphicController controller = GraphicController.getController();
+
+        int iLight = controller.askObject(Type.LIGHT);
+        Light light = (Light) controller.getObjectFromId(iLight);
+
+        light.setVisible(visible);
+        light.setLightType(LightType.intToEnum(type));
+
+        if (pos.length == 3) {
+            light.setPosition(pos);
+        }
+
+        if (dir.length == 3) {
+            light.setDirection(dir);
+        }
+        if (ambient.length == 3) {
+            light.setAmbientColor(ambient);
+        }
+        if (diffuse.length == 3) {
+            light.setDiffuseColor(diffuse);
+        }
+        if (specular.length == 3) {
+            light.setSpecularColor(specular);
+        }
+
+        controller.objectCreated(iLight);
+        // Set light's parent
+        controller.setGraphicObjectRelationship(parent, iLight);
+        return iLight;
     }
 }
 
