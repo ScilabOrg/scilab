@@ -1,7 +1,6 @@
-
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA - Allan CORNET
+ * Copyright (C) 2014 - Scilab Enterprises - Cedric Delamarre
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,20 +9,34 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
-
 /*--------------------------------------------------------------------------*/
-#ifndef __GW_CACSD1__
-#define __GW_CACSD1__
+#ifndef __GW_CACSD__
+#define __GW_CACSD__
 /*--------------------------------------------------------------------------*/
 #include "machine.h"
 #include "dynlib_cacsd.h"
+#include "c_gateway_prototype.h"
 /*--------------------------------------------------------------------------*/
-CACSD_IMPEXP int gw_cacsd1(void);
+// use in mex gateways
+#define CSIZE 64000
+
+#define CHECK_PARAM(CTX, POS) \
+    if(checkParam(CTX, POS, fname)) return 0;
+
+int checkParam(void* _pvCtx, int _iPos, char* fname);
+char getIntegerValue(void* _pvCtx, int _iPos);
+
 /*--------------------------------------------------------------------------*/
-int C2F(scilyap)(char *fname, unsigned long fname_len);
-int C2F(scisylv)(char *fname, unsigned long fname_len);
-int C2F(intricc)(char *fname, unsigned long fname_len);
-/*--------------------------------------------------------------------------*/
-#endif /*  __GW_CACSD1__ */
+C_GATEWAY_PROTOTYPE(sci_contr);
+C_GATEWAY_PROTOTYPE(sci_dhinf);
+C_GATEWAY_PROTOTYPE(sci_hinf);
+C_GATEWAY_PROTOTYPE(sci_linmeq);
+C_GATEWAY_PROTOTYPE(sci_mucomp);
+C_GATEWAY_PROTOTYPE(sci_rankqr);
+C_GATEWAY_PROTOTYPE(sci_ricc);
+C_GATEWAY_PROTOTYPE(sci_sident);
+C_GATEWAY_PROTOTYPE(sci_sorder);
+C_GATEWAY_PROTOTYPE(sci_findbd);
+#endif /*  __GW_CACSD__ */
 /*--------------------------------------------------------------------------*/
 

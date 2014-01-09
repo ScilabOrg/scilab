@@ -1228,5 +1228,6 @@ int sci_linmeq(char *fname, void* pvApiCtx)
         sciprint(_("%s: Warning: the equation is (almost) singular. Perturbed values have been used.\n"), fname);
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }

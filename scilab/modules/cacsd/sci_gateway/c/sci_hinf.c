@@ -404,5 +404,6 @@ int sci_hinf(char *fname, void* pvApiCtx)
         AssignOutputVariable(pvApiCtx, 5) = 14;
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }

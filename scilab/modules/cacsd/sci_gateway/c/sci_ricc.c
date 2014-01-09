@@ -20,7 +20,7 @@ extern int C2F(riccms)();
 extern int C2F(ricdsl)();
 extern int C2F(ricdmf)();
 
-int sci_ricc2(char *fname, void* pvApiCtx)
+int sci_ricc(char *fname, void* pvApiCtx)
 {
     SciErr sciErr;
 
@@ -366,5 +366,6 @@ int sci_ricc2(char *fname, void* pvApiCtx)
         AssignOutputVariable(pvApiCtx, 3) = k + 4;
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }
