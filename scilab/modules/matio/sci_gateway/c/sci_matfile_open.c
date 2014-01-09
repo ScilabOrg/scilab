@@ -1,5 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2014 - Scilab Enterprises - Paul Bignier: bug #13102 fixed
  * Copyright (C) 2008 - INRIA - Vincent COUVERT
  * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
  *
@@ -30,10 +31,11 @@ int sci_matfile_open(char *fname, unsigned long fname_len)
     char * filename  = NULL;
     char * optionStr = NULL;
     int option = 0, var_type;
-    int * filename_addr = NULL, * option_addr = NULL;
+    int * filename_addr = NULL, * option_addr = NULL, * version_addr = NULL;
+    double version = 0;
     SciErr sciErr;
 
-    CheckRhs(1, 2);
+    CheckRhs(1, 3);
     CheckLhs(1, 1);
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &filename_addr);
@@ -140,10 +142,41 @@ int sci_matfile_open(char *fname, unsigned long fname_len)
         option = MAT_ACC_RDONLY;
     }
 
+    if (Rhs >= 3)
+    {
+        sciErr = getVarAddressFromPosition(pvApiCtx, 3, &version_addr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        sciErr = getVarType(pvApiCtx, version_addr, &var_type);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        if (var_type == sci_matrix)
+        {
+            getScalarDouble(pvApiCtx, version_addr, &version);
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: An integer expected.\n"), fname, 3);
+            return 0;
+        }
+        if ((int) version == MAT_FT_MAT73)
+        {
+            option = MAT_ACC_RDWR; // To force the creation of a Matlab 7.3 file
+        }
+    }
+
     if (option == MAT_ACC_RDWR)
     {
-        /* create a Matlab 5 file */
-        matfile = Mat_CreateVer(filename, NULL, 0);
+        /* create a Matlab 5 or 7.3 file */
+        matfile = Mat_CreateVer(filename, NULL, (int) version);
     }
     else
     {
