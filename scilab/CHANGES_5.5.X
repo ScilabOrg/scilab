@@ -38,6 +38,8 @@ Scilab Bug Fixes
 
 * Bug #2067 fixed - Scilab crashed when plot was called with a large numerical value.
 
+* Bug #4177 fixed - 'find' function moved to the "elementary_functions" module.
+
 * Bug #4401 fixed - isnum did not recognize all constants or some complex numbers.
 
 * Bug #4649 fixed - License issue in the xs2ppm help page fixed.
