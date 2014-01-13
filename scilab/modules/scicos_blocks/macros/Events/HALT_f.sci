@@ -25,6 +25,11 @@ function [x,y,typ]=HALT_f(job,arg1,arg2)
     typ=[];
     select job
     case "set" then
+        warnobsolete("END_c", "6.0.0");
+        warnMessage = msprintf(_("Feature %s is obsolete."), "HALT_f");
+        warnAdvise = msprintf(_("Please use %s instead."), "END_c");
+        warnXcosMessage = msprintf("%s %s", warnMessage, warnAdvise);
+        warnBlockByUID(arg1.model.label, warnXcosMessage);
         x=arg1;
         graphics=arg1.graphics;
         exprs=graphics.exprs
