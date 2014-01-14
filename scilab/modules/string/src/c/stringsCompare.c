@@ -16,6 +16,7 @@
 #include "stringsCompare.h"
 #include "MALLOC.h"
 #include "stricmp.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 static int sign(int x)
 {
@@ -41,6 +42,8 @@ int * stringsCompare(char **Input_String_One, int dim_One, char **Input_String_T
         int i = 0;
         for (i = 0; i < dim_One; i++)
         {
+            wchar_t* pwst1 = to_wide_string(Input_String_One[i]);
+            wchar_t* pwst2 = to_wide_string(Input_String_Two[i]);
             if (dim_Two == 1)
             {
                 j = 0;
@@ -52,12 +55,15 @@ int * stringsCompare(char **Input_String_One, int dim_One, char **Input_String_T
 
             if (dostricmp)
             {
-                returnedValues[i] = sign(stricmp(Input_String_One[i], Input_String_Two[j]));
+                returnedValues[i] = sign(_wcsicmp(pwst1, pwst2));
             }
             else
             {
-                returnedValues[i] = sign(strcmp(Input_String_One[i], Input_String_Two[j]));
+                returnedValues[i] = sign(wcscmp(pwst1, pwst2));
             }
+
+            FREE(pwst1);
+            FREE(pwst2);
         }
     }
     return returnedValues;
