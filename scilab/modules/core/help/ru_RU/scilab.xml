@@ -137,7 +137,7 @@
                         В некоторых системах для правильного отображения шрифтов в кодировке UTF-8 локали должны быть откомпилированы.
                     </para>
                     <para>Scilab также может быть запущен следующим образом:</para>
-                    <programlisting role="no-scilab-exec">LANG=ja_JP scilab
+                    <programlisting role="no-scilab-exec">LANGUAGE=ja_JP scilab
                         #  то же, что и
                         scilab -l ja_JP
                     </programlisting>

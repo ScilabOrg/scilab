@@ -138,7 +138,7 @@
                         ロケールをコンパイルする必要があります.
                     </para>
                     <para>Scilab を以下のようにコールすることも可能です:</para>
-                    <programlisting>LANG=ja_JP scilab
+                    <programlisting>LANGUAGE=ja_JP scilab
                         # これは以下と等価です
                         scilab -l ja_JP
                     </programlisting>

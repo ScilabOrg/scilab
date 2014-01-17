@@ -147,7 +147,7 @@
                         nécessaire pour rendre correctement les polices UTF-8.
                     </para>
                     <para>Scilab peut être aussi appellé de la manière suivante:</para>
-                    <programlisting>LANG=ja_JP scilab
+                    <programlisting>LANGUAGE=ja_JP scilab
                         # équivalent à
                         scilab -l ja_JP
                     </programlisting>

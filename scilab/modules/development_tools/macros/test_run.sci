@@ -788,7 +788,7 @@ function status = test_single(_module, _testPath, _testName)
     elseif getos() == "Windows" then
         language_arg = "-l "+ language;
     else
-        language_arg = "LANG=" + language + " ";
+        language_arg = "LANGUAGE=" + language + " ";
     end
 
     loader_path = pathconvert(fullfile(_module.moduleName, "loader.sce"), %f);

@@ -113,7 +113,7 @@ TARGETS_ALL+=check-java
 endif
 
 # check is performed with scilab, so use the serial-tests on purpose
-TESTS_ENVIRONMENT = LANG=C $(top_builddir)/bin/scilab-cli -nb -noatomsautoload -f
+TESTS_ENVIRONMENT = LANGUAGE=C $(top_builddir)/bin/scilab-cli -nb -noatomsautoload -f
 TESTS = $(top_builddir)/modules/development_tools/tests/unit_tests/test_run_level_1.tst
 
 all-local: $(TARGETS_ALL)
@@ -232,8 +232,8 @@ if BUILD_HELP
 		for l in $(ALL_LINGUAS_DOC); do \
 			echo "-- Building documentation ($$l) --"; \
 			COMMAND="try xmltojar([],[],'$$l');catch disp(lasterror()); exit(-1);end;exit(0);"; \
-			echo "LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -noatomsautoload -nb -nouserstartup -e \"$$COMMAND\"";\
-			LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -noatomsautoload -nb -l $$l -nouserstartup -e "$$COMMAND" || exit 1;\
+			echo "LANGUAGE=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -noatomsautoload -nb -nouserstartup -e \"$$COMMAND\"";\
+			LANGUAGE=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -noatomsautoload -nb -l $$l -nouserstartup -e "$$COMMAND" || exit 1;\
 		done; \
 	else \
 		echo "Cannot find Scilab-adv-cli binary"; \
@@ -249,8 +249,8 @@ if BUILD_HELP
 		for l in $(ALL_LINGUAS_DOC); do \
 			echo "-- Building documentation ($$l) --"; \
 			COMMAND="try xmltoweb([],[],'$$l');catch exit(-1);end;exit(0);";\
-			echo "LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -l $$l -noatomsautoload -nouserstartup -e \"$$COMMAND\"";\
-			LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -l $$l -noatomsautoload -nouserstartup -e "$$COMMAND" || exit 1;\
+			echo "LANGUAGE=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -l $$l -noatomsautoload -nouserstartup -e \"$$COMMAND\"";\
+			LANGUAGE=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -l $$l -noatomsautoload -nouserstartup -e "$$COMMAND" || exit 1;\
 			JAVADOC_TARGET=$(top_builddir)/modules/helptools/web/$$l/javasci; \
 			if test ! -d $$JAVADOC_TARGET; then \
 				mkdir $$JAVADOC_TARGET; \

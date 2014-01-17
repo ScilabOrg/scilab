@@ -134,7 +134,7 @@
                         UTF-8 fonts.
                     </para>
                     <para>Scilab can be also called the following way:</para>
-                    <programlisting role="no-scilab-exec">LANG=ja_JP scilab
+                    <programlisting role="no-scilab-exec">LANGUAGE=ja_JP scilab
                         # equivalent to
                         scilab -l ja_JP
                     </programlisting>
