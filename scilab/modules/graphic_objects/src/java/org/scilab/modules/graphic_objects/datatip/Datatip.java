@@ -328,13 +328,13 @@ public class Datatip extends Text {
         }
 
         String updateCommand = "try;" +
-                               "d = getcallbackobject(" + getIdentifier() + ");" +
-                               "d.text = " + fnc + "(d.data);" +
-                               "clear(\"d\");" +
+                               "    d = getcallbackobject(" + getIdentifier() + ");" +
+                               "    d.text = " + fnc + "(d);" +
+                               "    clear(\"d\");" +
                                "catch;" +
-                               "d.tip_disp_function = \"\";" +
-                               "clear(\"d\");" +
-                               "error(msprintf(_( \"%s: Wrong name of input argument #%d: Function ''%s'' not defined.\n\"),\"datatipSetDisplay\",2,\"" + fnc + "\"));" +
+                               "    d.tip_disp_function = \"\";" +
+                               "    clear(\"d\");" +
+                               "    error(msprintf(_( \"%s: Wrong name of input argument #%d: Function ''%s'' not defined.\n\"), \"datatipSetDisplay\",2,\"" + fnc + "\"));" +
                                "end;";
         InterpreterManagement.requestScilabExec(updateCommand);
     }
