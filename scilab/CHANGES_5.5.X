@@ -343,6 +343,8 @@ Scilab Bug Fixes
 
 * Bug #13174 fixed - Scilab crashed after XML element removal.
 
+* Bug #13188 fixed - The output argument of eomday function was not pre-dimensioned.
+
 * Bug #13392 fixed - Typo in the CACSD help chapter fixed.
 
 
