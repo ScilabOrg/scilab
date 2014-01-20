@@ -342,5 +342,12 @@ public class GraphicObjectProperties {
     public static final int __GO_DATATIPS__ = 319;
     public static final int __GO_DATATIPS_COUNT__ = 320;
     public static final int __GO_DATATIP_INDEXES__ = 321;
+    public static final int __GO_RESIZE__ = 322;
+    public static final int __GO_TOOLBAR__ = 323;
+    public static final int __GO_TOOLBAR_VISIBLE__ = 324;
+    public static final int __GO_MENUBAR__ = 325;
+    public static final int __GO_MENUBAR_VISIBLE__ = 326;
+    public static final int __GO_INFOBAR__ = 327;
+    public static final int __GO_DOCKABLE__ = 328;
 
 }

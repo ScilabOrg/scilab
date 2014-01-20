@@ -32,6 +32,13 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_ROTATION_TYPE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_VIEWPORT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_RESIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TOOLBAR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TOOLBAR_VISIBLE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_MENUBAR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_MENUBAR_VISIBLE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_INFOBAR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_DOCKABLE__;
 
 import java.util.Arrays;
 
@@ -45,8 +52,8 @@ import org.scilab.modules.graphic_objects.graphicObject.Visitor;
 public class Figure extends GraphicObject {
     /** Figure properties names */
     private enum FigureProperty {
-        INFOMESSAGE, COLORMAP, COLORMAPSIZE,
-        BACKGROUND, ROTATIONTYPE, RESIZEFCN, CLOSEREQUESTFCN
+        INFOMESSAGE, COLORMAP, COLORMAPSIZE, BACKGROUND, ROTATIONTYPE,
+        RESIZEFCN, CLOSEREQUESTFCN, RESIZE, TOOLBAR, TOOLBAR_VISIBLE, MENUBAR, MENUBAR_VISIBLE, INFOBAR, DOCKABLE
     };
 
     /** Specifies whether rotation applies to a single subwindow or to all the figure's subwindows */
@@ -352,6 +359,23 @@ public class Figure extends GraphicObject {
     /** Rotation type */
     private RotationType rotation;
 
+    /** resize */
+    private Boolean resize;
+
+    /** toolbar */
+    private String toolbar;
+    private Boolean toolbarVisible;
+
+    /** menubar */
+    private String menubar;
+    private Boolean menubarVisible;
+
+    /** infobar */
+    private Boolean infobar;
+
+    /** dockable */
+    private Boolean dockable;
+
     /** Constructor */
     public Figure() {
         super();
@@ -367,6 +391,13 @@ public class Figure extends GraphicObject {
         resizeFcn = "";
         closeRequestFcn = "";
         rotation = RotationType.UNARY;
+        resize = true;
+        toolbarVisible = true;
+        toolbar = "figure";
+        menubarVisible = true;
+        menubar = "figure";
+        infobar = true;
+        dockable = true;
     }
 
     @Override
@@ -438,6 +469,20 @@ public class Figure extends GraphicObject {
                 return FigureProperty.RESIZEFCN;
             case __GO_CLOSEREQUESTFCN__ :
                 return FigureProperty.CLOSEREQUESTFCN;
+            case __GO_RESIZE__ :
+                return FigureProperty.RESIZE;
+            case __GO_TOOLBAR__ :
+                return FigureProperty.TOOLBAR;
+            case __GO_TOOLBAR_VISIBLE__ :
+                return FigureProperty.TOOLBAR_VISIBLE;
+            case __GO_MENUBAR__ :
+                return FigureProperty.MENUBAR;
+            case __GO_MENUBAR_VISIBLE__ :
+                return FigureProperty.MENUBAR_VISIBLE;
+            case __GO_INFOBAR__ :
+                return FigureProperty.INFOBAR;
+            case __GO_DOCKABLE__ :
+                return FigureProperty.DOCKABLE;
             default :
                 return super.getPropertyFromName(propertyName);
         }
@@ -489,6 +534,20 @@ public class Figure extends GraphicObject {
             return getResizeFcn();
         } else if (property == FigureProperty.CLOSEREQUESTFCN) {
             return getCloseRequestFcn();
+        } else if (property == FigureProperty.RESIZE) {
+            return getResize();
+        } else if (property == FigureProperty.TOOLBAR) {
+            return getToolbar();
+        } else if (property == FigureProperty.TOOLBAR_VISIBLE) {
+            return getToolbarVisible();
+        } else if (property == FigureProperty.MENUBAR) {
+            return getMenubar();
+        } else if (property == FigureProperty.MENUBAR_VISIBLE) {
+            return getMenubarVisible();
+        } else if (property == FigureProperty.INFOBAR) {
+            return getInfobar();
+        } else if (property == FigureProperty.DOCKABLE) {
+            return getDockable();
         } else {
             return super.getProperty(property);
         }
@@ -517,6 +576,22 @@ public class Figure extends GraphicObject {
                     return setResizeFcn((String) value);
                 case ROTATIONTYPE:
                     return setRotation((Integer) value);
+                case RESIZE:
+                    return setResize((Boolean) value);
+                case TOOLBAR:
+                    return setToolbar((String) value);
+                case TOOLBAR_VISIBLE:
+                    return setToolbarVisible((Boolean) value);
+                case MENUBAR:
+                    return setMenubar((String) value);
+                case MENUBAR_VISIBLE:
+                    return setMenubarVisible((Boolean) value);
+                case INFOBAR:
+                    return setInfobar((Boolean) value);
+                case DOCKABLE:
+                    return setDockable((Boolean) value);
+                default:
+                    break;
             }
         } else if (property instanceof CanvasProperty) {
             switch ((CanvasProperty)property) {
@@ -1047,6 +1122,98 @@ public class Figure extends GraphicObject {
             return UpdateStatus.NoChange;
         }
         this.closeRequestFcn = closeRequestFcn;
+        return UpdateStatus.Success;
+    }
+
+
+    public Boolean getResize() {
+        return resize;
+    }
+
+    public UpdateStatus setResize(Boolean status) {
+        if (status.equals(resize)) {
+            return UpdateStatus.NoChange;
+        }
+
+        resize = status;
+        return UpdateStatus.Success;
+    }
+
+    public Boolean getToolbarVisible() {
+        return toolbarVisible;
+    }
+
+    public UpdateStatus setToolbarVisible(Boolean status) {
+        if (status.equals(toolbarVisible)) {
+            return UpdateStatus.NoChange;
+        }
+
+        toolbarVisible = status;
+        return UpdateStatus.Success;
+    }
+
+    public String getToolbar() {
+        return toolbar;
+    }
+
+    public UpdateStatus setToolbar(String toolbar) {
+        if (toolbar.equals(this.toolbar)) {
+            return UpdateStatus.NoChange;
+        }
+
+        this.toolbar = toolbar;
+        return UpdateStatus.Success;
+    }
+
+    public Boolean getMenubarVisible() {
+        return menubarVisible;
+    }
+
+    public UpdateStatus setMenubarVisible(Boolean status) {
+        if (status.equals(menubarVisible)) {
+            return UpdateStatus.NoChange;
+        }
+
+        menubarVisible = status;
+        return UpdateStatus.Success;
+    }
+
+    public String getMenubar() {
+        return menubar;
+    }
+
+    public UpdateStatus setMenubar(String menubar) {
+        if (menubar.equals(this.menubar)) {
+            return UpdateStatus.NoChange;
+        }
+
+        this.menubar = menubar;
+        return UpdateStatus.Success;
+    }
+
+    public Boolean getInfobar() {
+        return infobar;
+    }
+
+    public UpdateStatus setInfobar(Boolean status) {
+        if (status.equals(infobar)) {
+            return UpdateStatus.NoChange;
+        }
+
+        infobar = status;
+        return UpdateStatus.Success;
+    }
+
+    public Boolean getDockable() {
+        return dockable;
+    }
+
+    public UpdateStatus setDockable(Boolean status) {
+        if (status.equals(dockable)) {
+            return UpdateStatus.NoChange;
+        }
+
+        dockable = status;
         return UpdateStatus.Success;
     }
 
