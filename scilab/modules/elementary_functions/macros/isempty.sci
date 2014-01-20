@@ -47,7 +47,8 @@ function answ = isempty(m)
     case 16
         // typed list
         answ = %t;
-        for i=1:size(m),
+        // m(1) contains the list type and field names (bug #7650)
+        for i=2:size(m),
             clear __element__;
             __element__ = m(i);
             if isdef("__element__") then
