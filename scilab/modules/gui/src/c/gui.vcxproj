@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -472,6 +472,8 @@
     <ClInclude Include="..\..\includes\TerminateGui.h" />
     <ClInclude Include="..\..\includes\Toolbar.h" />
     <ClInclude Include="..\..\includes\Widget.h" />
+    <ClInclude Include="..\cpp\GetUicontrolSelected.hxx" />
+    <ClInclude Include="..\cpp\SetUicontrolSelected.hxx" />
     <ClInclude Include="..\jni\DatatipCreate.hxx" />
     <ClInclude Include="..\jni\DatatipSetStyle.hxx" />
     <ClInclude Include="..\jni\DatatipDelete.hxx" />

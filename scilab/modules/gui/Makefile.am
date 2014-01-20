@@ -141,6 +141,7 @@ src/jni/DatatipDrag.cpp \
 src/jni/DatatipSetStyle.cpp \
 src/jni/DatatipOrientation.cpp
 
+
 GIWS_WRAPPERS = \
 src/jni/SwingView.giws.xml \
 src/jni/CallScilabBridge.giws.xml \
