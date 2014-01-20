@@ -13,13 +13,14 @@
 
 package org.scilab.modules.graphic_objects.uicontrol;
 
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_LAYOUT_SET__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_LAYOUT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_STYLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICONTROL__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_BACKGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_CHECKBOX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_EDIT__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTANGLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTNAME__;
@@ -27,29 +28,30 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTUNITS__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTWEIGHT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_HORIZONTALALIGNMENT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_IMAGE__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOX__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP_SIZE__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_POPUPMENU__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PUSHBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RADIOBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RELIEF__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDER__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDERSTEP__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDER__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_COLNB__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TEXT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_UNITS__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VERTICALALIGNMENT__;
 
 import java.util.Arrays;
@@ -57,8 +59,7 @@ import java.util.StringTokenizer;
 
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.Visitor;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.GraphicObjectPropertyType;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.UpdateStatus;
+import org.scilab.modules.graphic_objects.utils.LayoutType;
 
 /**
  * @author Bruno JOFRET
@@ -110,6 +111,7 @@ public class Uicontrol extends GraphicObject {
     private String units = "pixels";
     private Double[] value;
     private String verticalAlignment = "middle";
+    private LayoutType layout = LayoutType.NONE;
 
     /**
      * All uicontrol properties
@@ -142,7 +144,9 @@ public class Uicontrol extends GraphicObject {
         UNITS,
         VALUE,
         VALUE_SIZE,
-        VERTICALALIGNMENT
+        VERTICALALIGNMENT,
+        LAYOUT,
+        LAYOUT_SET
     };
 
     /**
@@ -306,6 +310,10 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolProperty.VALUE_SIZE;
             case __GO_UI_VERTICALALIGNMENT__ :
                 return UicontrolProperty.VERTICALALIGNMENT;
+            case __GO_LAYOUT__ :
+                return UicontrolProperty.LAYOUT;
+            case __GO_LAYOUT_SET__ :
+                return UicontrolProperty.LAYOUT_SET;
             default :
                 return super.getPropertyFromName(propertyName);
         }
@@ -369,6 +377,10 @@ public class Uicontrol extends GraphicObject {
             return getUiValueSize();
         } else if (property == UicontrolProperty.VERTICALALIGNMENT) {
             return getVerticalAlignment();
+        } else if (property == UicontrolProperty.LAYOUT) {
+            return getLayout();
+        } else if (property == UicontrolProperty.LAYOUT_SET) {
+            return isLayoutSettable();
         } else {
             return super.getProperty(property);
         }
@@ -431,6 +443,8 @@ public class Uicontrol extends GraphicObject {
                 return setUiValue((Double[]) value);
             case VERTICALALIGNMENT:
                 return setVerticalAlignment((String) value);
+            case LAYOUT:
+                return setLayout((Integer) value);
             default:
                 return super.setProperty(property, value);
         }
@@ -770,6 +784,36 @@ public class Uicontrol extends GraphicObject {
         }
         this.verticalAlignment = alignment;
         return UpdateStatus.Success;
+    }
+
+    public Integer getLayout() {
+        return layout.ordinal();
+    }
+
+    public LayoutType getLayoutAsEnum() {
+        return layout;
+    }
+
+    public boolean isLayoutSettable() {
+        return (this.layout == LayoutType.NONE);
+    }
+
+    public UpdateStatus setLayout(Integer value) {
+        return setLayout(LayoutType.intToEnum(value));
+    }
+
+    public UpdateStatus setLayout(LayoutType layout) {
+        //avoid to set layout twice
+        if (this.layout == LayoutType.NONE) {
+            if (layout == LayoutType.NONE) {
+                return UpdateStatus.NoChange;
+            }
+
+            this.layout = layout;
+            return UpdateStatus.Success;
+        }
+
+        return UpdateStatus.Fail;
     }
 
     public void accept(Visitor visitor) {
