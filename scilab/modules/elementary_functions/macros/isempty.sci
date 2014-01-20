@@ -15,6 +15,10 @@ function answ = isempty(m)
         error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "isempty", 1));
     end
 
+    if typeof(m) == "rational" then
+        m = numer(m);
+    end
+
     m_type = type(m);
 
     if( (type(m) >= 11) & (type(m) <= 13) | (type(m) >= 128) ) then
