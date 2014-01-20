@@ -346,5 +346,8 @@
 #define __GO_MENUBAR__ 324
 #define __GO_INFOBAR__ 325
 #define __GO_DOCKABLE__ 326
+#define __GO_UI_TABGROUP__ 327
+#define __GO_UI_TAB__ 328
+#define __GO_UI_SELECTED__ 329
 
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */

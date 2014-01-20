@@ -19,7 +19,6 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_BACKGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_CHECKBOX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_EDIT__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTANGLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTNAME__;
@@ -27,38 +26,40 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTUNITS__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTWEIGHT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_HORIZONTALALIGNMENT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_IMAGE__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOX__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP_SIZE__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_POPUPMENU__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PUSHBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RADIOBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RELIEF__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDER__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDERSTEP__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDER__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_COLNB__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TABGROUP__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TABLE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TAB__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TEXT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_UNITS__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VERTICALALIGNMENT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SELECTED__;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.Visitor;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.GraphicObjectPropertyType;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.UpdateStatus;
 
 /**
  * @author Bruno JOFRET
@@ -110,6 +111,7 @@ public class Uicontrol extends GraphicObject {
     private String units = "pixels";
     private Double[] value;
     private String verticalAlignment = "middle";
+    private Integer selected = -1;
 
     /**
      * All uicontrol properties
@@ -142,7 +144,8 @@ public class Uicontrol extends GraphicObject {
         UNITS,
         VALUE,
         VALUE_SIZE,
-        VERTICALALIGNMENT
+        VERTICALALIGNMENT,
+        SELECTED
     };
 
     /**
@@ -159,7 +162,9 @@ public class Uicontrol extends GraphicObject {
         RADIOBUTTON,
         SLIDER,
         TABLE,
-        TEXT
+        TEXT,
+        TABGROUP,
+        TAB
     };
 
     /**
@@ -199,6 +204,10 @@ public class Uicontrol extends GraphicObject {
                 return __GO_UI_TABLE__;
             case TEXT:
                 return __GO_UI_TEXT__;
+            case TABGROUP:
+                return __GO_UI_TABGROUP__;
+            case TAB:
+                return __GO_UI_TAB__;
             default :
                 return -1;
         }
@@ -233,6 +242,10 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolStyle.TABLE;
             case __GO_UI_TEXT__ :
                 return UicontrolStyle.TEXT;
+            case __GO_UI_TABGROUP__:
+                return UicontrolStyle.TABGROUP;
+            case __GO_UI_TAB__:
+                return UicontrolStyle.TAB;
             default :
                 return null;
         }
@@ -306,6 +319,8 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolProperty.VALUE_SIZE;
             case __GO_UI_VERTICALALIGNMENT__ :
                 return UicontrolProperty.VERTICALALIGNMENT;
+            case __GO_UI_SELECTED__ :
+                return UicontrolProperty.SELECTED;
             default :
                 return super.getPropertyFromName(propertyName);
         }
@@ -369,6 +384,8 @@ public class Uicontrol extends GraphicObject {
             return getUiValueSize();
         } else if (property == UicontrolProperty.VERTICALALIGNMENT) {
             return getVerticalAlignment();
+        } else if (property == UicontrolProperty.SELECTED) {
+            return getSelected();
         } else {
             return super.getProperty(property);
         }
@@ -431,6 +448,8 @@ public class Uicontrol extends GraphicObject {
                 return setUiValue((Double[]) value);
             case VERTICALALIGNMENT:
                 return setVerticalAlignment((String) value);
+            case SELECTED:
+                return setSelected((Integer) value);
             default:
                 return super.setProperty(property, value);
         }
@@ -776,4 +795,16 @@ public class Uicontrol extends GraphicObject {
 
     }
 
+    /* Selected Tab Item */
+    public Integer getSelected() {
+        return selected;
+    }
+
+    public UpdateStatus setSelected(Integer selected) {
+        if (this.selected.equals(selected)) {
+            return UpdateStatus.NoChange;
+        }
+        this.selected = selected;
+        return UpdateStatus.Success;
+    }
 }

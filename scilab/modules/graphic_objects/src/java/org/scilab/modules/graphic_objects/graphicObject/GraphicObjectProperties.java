@@ -347,5 +347,8 @@ public class GraphicObjectProperties {
     public static final int __GO_MENUBAR__ = 324;
     public static final int __GO_INFOBAR__ = 325;
     public static final int __GO_DOCKABLE__ = 326;
+    public static final int __GO_UI_TABGROUP__ = 327;
+    public static final int __GO_UI_TAB__ = 328;
+    public static final int __GO_UI_SELECTED__ = 329;
 
 }

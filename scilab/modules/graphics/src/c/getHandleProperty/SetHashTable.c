@@ -230,7 +230,8 @@ static setHashTableCouple propertySetTable[] =
     {"toolbar", set_toolbar_property},
     {"menubar", set_menubar_property},
     {"infobar", set_infobar_property},
-    {"dockable", set_dockable_property}
+    {"dockable", set_dockable_property},
+    {"selected", SetUicontrolSelected}
 };
 
 /*--------------------------------------------------------------------------*/
