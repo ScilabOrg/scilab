@@ -1202,7 +1202,7 @@ int C2F(getlistscalar) (char *fname, int *topk, int *spos, int *lnum, int *lr, u
 
     if (m * n != 1)
     {
-        Scierror(999, _("%s: Wrong type for element %d of argument #%d: Scalar expected.\n"), get_fname(fname, fname_len), *lnum, Rhs + (*spos - *topk));
+        Scierror(999, _("%s: Wrong size for element %d of argument #%d: Scalar expected.\n"), get_fname(fname, fname_len), *lnum, Rhs + (*spos - *topk));
         return FALSE;
     }
     return TRUE;
@@ -1229,7 +1229,7 @@ int C2F(getscalar) (char *fname, int *topk, int *lw, int *lr, unsigned long fnam
 
     if (m * n != 1)
     {
-        Scierror(204, _("%s: Wrong type for argument #%d: Scalar expected.\n"), get_fname(fname, fname_len), Rhs + (*lw - *topk));
+        Scierror(204, _("%s: Wrong size for argument #%d: Scalar expected.\n"), get_fname(fname, fname_len), Rhs + (*lw - *topk));
         return FALSE;
     };
     return TRUE;

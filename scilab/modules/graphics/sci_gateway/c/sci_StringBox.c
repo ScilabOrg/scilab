@@ -133,7 +133,7 @@ int sci_stringbox(char * fname, unsigned long fname_len)
 
         if (m * n != 1)
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A 'Text' handle expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
             return 0;
         }
 
