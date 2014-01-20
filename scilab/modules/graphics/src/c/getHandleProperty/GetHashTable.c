@@ -229,7 +229,8 @@ static getHashTableCouple propertyGetTable[] =
     {"toolbar", get_toolbar_property},
     {"menubar", get_menubar_property},
     {"infobar", get_infobar_property},
-    {"dockable", get_dockable_property}
+    {"dockable", get_dockable_property},
+    {"selected", GetUicontrolSelected}
 };
 
 /*--------------------------------------------------------------------------*/
