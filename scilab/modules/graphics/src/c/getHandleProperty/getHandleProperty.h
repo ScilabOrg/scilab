@@ -44,6 +44,7 @@
 #include "GetUimenuChecked.h"
 #include "GetConsoleShowHiddenHandles.h"
 #include "GetUicontrolTooltipString.h"
+#include "GetUicontrolSelected.h"
 
 int get_figures_id_property(void* _pvCtx, int iObjUID);
 int get_visible_property(void* _pvCtx, int iObjUID);

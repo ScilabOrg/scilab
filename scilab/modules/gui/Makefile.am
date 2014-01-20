@@ -139,7 +139,10 @@ src/jni/DatatipCreate.cpp \
 src/jni/DatatipDelete.cpp \
 src/jni/DatatipDrag.cpp \
 src/jni/DatatipSetStyle.cpp \
-src/jni/DatatipOrientation.cpp
+src/jni/DatatipOrientation.cpp \
+src/cpp/SetUicontrolSelected.cpp \
+src/cpp/GetUicontrolSelected.cpp
+
 
 GIWS_WRAPPERS = \
 src/jni/SwingView.giws.xml \

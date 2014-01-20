@@ -48,7 +48,9 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_COLNB__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TABGROUP__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TABLE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TAB__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TEXT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TOOLTIPSTRING__;
@@ -56,6 +58,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VERTICALALIGNMENT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SELECTED__;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -137,6 +140,7 @@ public class Uicontrol extends GraphicObject {
     private Double[] margins = new Double[] {0.0, 0.0, 0.0, 0.0};
     private BorderLayoutType borderConstraints = BorderLayoutType.CENTER;
     private Double[] gridConstraints = new Double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    private Integer selected = -1;
 
     /**
      * All uicontrol properties
@@ -174,7 +178,8 @@ public class Uicontrol extends GraphicObject {
         LAYOUT_SET,
         MARGINS,
         BORDERCONSTRAINTS,
-        GRIDCONSTRAINTS;
+        GRIDCONSTRAINTS,
+        SELECTED
     };
 
     /**
@@ -191,7 +196,9 @@ public class Uicontrol extends GraphicObject {
         RADIOBUTTON,
         SLIDER,
         TABLE,
-        TEXT
+        TEXT,
+        TABGROUP,
+        TAB
     };
 
     /**
@@ -231,6 +238,10 @@ public class Uicontrol extends GraphicObject {
                 return __GO_UI_TABLE__;
             case TEXT:
                 return __GO_UI_TEXT__;
+            case TABGROUP:
+                return __GO_UI_TABGROUP__;
+            case TAB:
+                return __GO_UI_TAB__;
             default :
                 return -1;
         }
@@ -265,6 +276,10 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolStyle.TABLE;
             case __GO_UI_TEXT__ :
                 return UicontrolStyle.TEXT;
+            case __GO_UI_TABGROUP__:
+                return UicontrolStyle.TABGROUP;
+            case __GO_UI_TAB__:
+                return UicontrolStyle.TAB;
             default :
                 return null;
         }
@@ -348,6 +363,8 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolProperty.BORDERCONSTRAINTS;
             case __GO_UI_GRID_CONSTRAINTS__:
                 return UicontrolProperty.GRIDCONSTRAINTS;
+            case __GO_UI_SELECTED__ :
+                return UicontrolProperty.SELECTED;
             default :
                 return super.getPropertyFromName(propertyName);
         }
@@ -421,6 +438,8 @@ public class Uicontrol extends GraphicObject {
             return getBorderConstraints();
         } else if (property == UicontrolProperty.GRIDCONSTRAINTS) {
             return getGridConstraints();
+        } else if (property == UicontrolProperty.SELECTED) {
+            return getSelected();
         } else {
             return super.getProperty(property);
         }
@@ -491,6 +510,8 @@ public class Uicontrol extends GraphicObject {
                 return setBorderConstraints((Integer) value);
             case GRIDCONSTRAINTS:
                 return setGridConstraints((Double[]) value);
+            case SELECTED:
+                return setSelected((Integer) value);
             default:
                 return super.setProperty(property, value);
         }
@@ -926,4 +947,16 @@ public class Uicontrol extends GraphicObject {
     public void accept(Visitor visitor) {
     }
 
+    /* Selected Tab Item */
+    public Integer getSelected() {
+        return selected;
+    }
+
+    public UpdateStatus setSelected(Integer selected) {
+        if (this.selected.equals(selected)) {
+            return UpdateStatus.NoChange;
+        }
+        this.selected = selected;
+        return UpdateStatus.Success;
+    }
 }
