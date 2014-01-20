@@ -30,3 +30,9 @@ if f.event_handler <> "" then pause, end
 if f.event_handler_enable <> "off" then pause, end
 if f.user_data <> [] then pause, end
 if f.tag <> "" then pause, end
+assert_checkequal(f.resize, "on");
+assert_checkequal(f.toolbar, "on");
+assert_checkequal(f.menubar, "on");
+assert_checkequal(f.infobar, "on");
+assert_checkequal(f.dockable, "on");
+

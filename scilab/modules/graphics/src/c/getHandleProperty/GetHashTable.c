@@ -224,7 +224,12 @@ static getHashTableCouple propertyGetTable[] =
     {"light_type", get_light_type_property},
     {"direction", get_direction_property},
     {"image_type", get_image_type_property},
-    {"datatips", get_datatips_property}
+    {"datatips", get_datatips_property},
+    {"resize", get_resize_property},
+    {"toolbar", get_toolbar_property},
+    {"menubar", get_menubar_property},
+    {"infobar", get_infobar_property},
+    {"dockable", get_dockable_property}
 };
 
 /*--------------------------------------------------------------------------*/

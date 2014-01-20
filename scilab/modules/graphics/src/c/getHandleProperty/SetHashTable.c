@@ -225,7 +225,12 @@ static setHashTableCouple propertySetTable[] =
     {"light_type", set_light_type_property},
     {"direction", set_direction_property},
     {"image_type", set_image_type_property},
-    {"datatips", set_datatips_property}
+    {"datatips", set_datatips_property},
+    {"resize", set_resize_property},
+    {"toolbar", set_toolbar_property},
+    {"menubar", set_menubar_property},
+    {"infobar", set_infobar_property},
+    {"dockable", set_dockable_property}
 };
 
 /*--------------------------------------------------------------------------*/
