@@ -79,6 +79,8 @@ Scilab Bug Fixes
 
 * Bug #7133 fixed - help_from_sci with no input argument now launches a full demonstration.
 
+* Bug #7561 fixed - Illustrate that poly and roots take the coefficients in a contrary order.
+
 * Bug #7570 fixed - The switch criterion on x and y is now explicited in beta() help page.
 
 * Bug #7593 fixed - stdev now encompasses msd and st_deviation thanks to a new optional input argument.
