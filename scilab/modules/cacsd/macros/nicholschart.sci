@@ -189,13 +189,13 @@ endfunction
 function str=formatNicholsGainTip(curve,pt,index)
     //This function is called by the datatip mechanism to format the tip
     //string for the Nichols chart iso gain curves.
-    ud=datatipGetStruct(curve);
+    ud = curve.datatips;
     str=msprintf("%.2g"+_("dB"),ud.gain);
 endfunction
 
 function str=formatNicholsPhaseTip(curve,pt,index)
     //This function is called by the datatip mechanism to format the tip
     //string for the Nichols chart iso phase curves.
-    ud=datatipGetStruct(curve);
-    str=msprintf("%.2g°",ud.phase)
+    ud = curve.datatips;
+    str=msprintf("%.2gÂ°",ud.phase)
 endfunction
