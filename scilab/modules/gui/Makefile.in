@@ -266,7 +266,9 @@ am__objects_2 = src/cpp/libscigui_algo_la-InitUIMenu.lo \
 	src/jni/libscigui_algo_la-DatatipDelete.lo \
 	src/jni/libscigui_algo_la-DatatipDrag.lo \
 	src/jni/libscigui_algo_la-DatatipSetStyle.lo \
-	src/jni/libscigui_algo_la-DatatipOrientation.lo
+	src/jni/libscigui_algo_la-DatatipOrientation.lo \
+	src/cpp/libscigui_algo_la-SetUicontrolSelected.lo \
+	src/cpp/libscigui_algo_la-GetUicontrolSelected.lo
 am_libscigui_algo_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libscigui_algo_la_OBJECTS = $(am_libscigui_algo_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -811,7 +813,9 @@ src/jni/DatatipCreate.cpp \
 src/jni/DatatipDelete.cpp \
 src/jni/DatatipDrag.cpp \
 src/jni/DatatipSetStyle.cpp \
-src/jni/DatatipOrientation.cpp
+src/jni/DatatipOrientation.cpp \
+src/cpp/SetUicontrolSelected.cpp \
+src/cpp/GetUicontrolSelected.cpp
 
 GIWS_WRAPPERS = \
 src/jni/SwingView.giws.xml \
@@ -1423,6 +1427,10 @@ src/jni/libscigui_algo_la-DatatipSetStyle.lo: src/jni/$(am__dirstamp) \
 	src/jni/$(DEPDIR)/$(am__dirstamp)
 src/jni/libscigui_algo_la-DatatipOrientation.lo:  \
 	src/jni/$(am__dirstamp) src/jni/$(DEPDIR)/$(am__dirstamp)
+src/cpp/libscigui_algo_la-SetUicontrolSelected.lo:  \
+	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
+src/cpp/libscigui_algo_la-GetUicontrolSelected.lo:  \
+	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscigui-algo.la: $(libscigui_algo_la_OBJECTS) $(libscigui_algo_la_DEPENDENCIES) $(EXTRA_libscigui_algo_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) $(am_libscigui_algo_la_rpath) $(libscigui_algo_la_OBJECTS) $(libscigui_algo_la_LIBADD) $(LIBS)
@@ -1707,6 +1715,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolMin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolPosition.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolRelief.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolSelected.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolSliderStep.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolString.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolStyle.Plo@am__quote@
@@ -1732,6 +1741,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolMin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolPosition.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolRelief.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolSelected.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolSliderStep.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolString.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolTooltipString.Plo@am__quote@
@@ -2625,6 +2635,20 @@ src/jni/libscigui_algo_la-DatatipOrientation.lo: src/jni/DatatipOrientation.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/jni/DatatipOrientation.cpp' object='src/jni/libscigui_algo_la-DatatipOrientation.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/jni/libscigui_algo_la-DatatipOrientation.lo `test -f 'src/jni/DatatipOrientation.cpp' || echo '$(srcdir)/'`src/jni/DatatipOrientation.cpp
+
+src/cpp/libscigui_algo_la-SetUicontrolSelected.lo: src/cpp/SetUicontrolSelected.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libscigui_algo_la-SetUicontrolSelected.lo -MD -MP -MF src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolSelected.Tpo -c -o src/cpp/libscigui_algo_la-SetUicontrolSelected.lo `test -f 'src/cpp/SetUicontrolSelected.cpp' || echo '$(srcdir)/'`src/cpp/SetUicontrolSelected.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolSelected.Tpo src/cpp/$(DEPDIR)/libscigui_algo_la-SetUicontrolSelected.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/SetUicontrolSelected.cpp' object='src/cpp/libscigui_algo_la-SetUicontrolSelected.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libscigui_algo_la-SetUicontrolSelected.lo `test -f 'src/cpp/SetUicontrolSelected.cpp' || echo '$(srcdir)/'`src/cpp/SetUicontrolSelected.cpp
+
+src/cpp/libscigui_algo_la-GetUicontrolSelected.lo: src/cpp/GetUicontrolSelected.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libscigui_algo_la-GetUicontrolSelected.lo -MD -MP -MF src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolSelected.Tpo -c -o src/cpp/libscigui_algo_la-GetUicontrolSelected.lo `test -f 'src/cpp/GetUicontrolSelected.cpp' || echo '$(srcdir)/'`src/cpp/GetUicontrolSelected.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolSelected.Tpo src/cpp/$(DEPDIR)/libscigui_algo_la-GetUicontrolSelected.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/GetUicontrolSelected.cpp' object='src/cpp/libscigui_algo_la-GetUicontrolSelected.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libscigui_algo_la-GetUicontrolSelected.lo `test -f 'src/cpp/GetUicontrolSelected.cpp' || echo '$(srcdir)/'`src/cpp/GetUicontrolSelected.cpp
 
 sci_gateway/cpp/libscigui_la-sci_printsetupbox.lo: sci_gateway/cpp/sci_printsetupbox.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sci_gateway/cpp/libscigui_la-sci_printsetupbox.lo -MD -MP -MF sci_gateway/cpp/$(DEPDIR)/libscigui_la-sci_printsetupbox.Tpo -c -o sci_gateway/cpp/libscigui_la-sci_printsetupbox.lo `test -f 'sci_gateway/cpp/sci_printsetupbox.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_printsetupbox.cpp
