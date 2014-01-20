@@ -198,4 +198,13 @@ int get_image_type_property(void* _pvCtx, int iObjUID);
 int get_video_mode_property(void* _pvCtx, int iObjUID);
 int get_datatips_property(void* _pvCtx, int iObjUID);
 
+int get_resize_property(void* _pvCtx, int iObjUID);
+int get_toolbar_property(void* _pvCtx, int iObjUID);
+int get_toolbar_visible_property(void* _pvCtx, int iObjUID);
+int get_menubar_property(void* _pvCtx, int iObjUID);
+int get_menubar_visible_property(void* _pvCtx, int iObjUID);
+int get_infobar_visible_property(void* _pvCtx, int iObjUID);
+int get_dockable_property(void* _pvCtx, int iObjUID);
+int get_layout_property(void* _pvCtx, int iObjUID);
+
 #endif /* _GET_HANDLE_PROPERTY_H_ */
