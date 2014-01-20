@@ -315,6 +315,11 @@ function %h_p(h)
             "user_data = "+fmtuser_data(u)
             "resizefcn = "+sci2exp(h.resizefcn)
             "closerequestfcn = "+sci2exp(h.closerequestfcn)
+            "resize = "+sci2exp(h.resize)
+            "toolbar = "+sci2exp(h.toolbar)
+            "menubar = "+sci2exp(h.menubar)
+            "infobar = "+sci2exp(h.infobar)
+            "dockable = "+sci2exp(h.dockable)
             "tag = "+sci2exp(h.tag)
             ]
 

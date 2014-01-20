@@ -342,4 +342,10 @@
 #define __GO_DATATIPS_COUNT__ 320
 #define __GO_DATATIP_INDEXES__ 321
 
+#define __GO_RESIZE__ 322
+#define __GO_TOOLBAR__ 323
+#define __GO_MENUBAR__ 324
+#define __GO_INFOBAR__ 325
+#define __GO_DOCKABLE__ 326
+
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */
