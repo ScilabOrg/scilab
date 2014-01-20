@@ -341,5 +341,16 @@
 #define __GO_DATATIPS__ 319
 #define __GO_DATATIPS_COUNT__ 320
 #define __GO_DATATIP_INDEXES__ 321
+#define __GO_RESIZE__ 322
+#define __GO_TOOLBAR__ 323
+#define __GO_TOOLBAR_VISIBLE__ 324
+#define __GO_MENUBAR__ 325
+#define __GO_MENUBAR_VISIBLE__ 326
+#define __GO_INFOBAR_VISIBLE__ 327
+#define __GO_DOCKABLE__ 328
+#define __GO_LAYOUT__ 329
+#define __GO_LAYOUT_SET__ 330
+#define __GO_UI_BORDER_CONTRAINTS__ 331
+#define __GO_UI_GRID_CONTRAINTS__ 332
 
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */
