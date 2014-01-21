@@ -162,6 +162,8 @@ Scilab Bug Fixes
 
 * Bug #11996 fixed - eye extended to hypermatrix.
 
+* Bug #12073 fixed - XML help: reduced the size of the examples.
+
 * Bug #12082 fixed - convstr function did not work with non-ASCII symbols.
 
 * Bug #12121 fixed - inv function did not work for complex sparse matrices.
