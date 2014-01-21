@@ -346,6 +346,8 @@ Scilab Bug Fixes
 
 * Bug #13174 fixed - Scilab crashed after XML element removal.
 
+* Bug #13194 fixed - part help page has been improved.
+
 * Bug #13392 fixed - Typo in the CACSD help chapter fixed.
 
 
