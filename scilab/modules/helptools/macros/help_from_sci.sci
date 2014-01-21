@@ -2,6 +2,7 @@
 // Copyright (C) 2008-2009 - T. Pettersen
 // Copyright (C) 2010 - DIGITEO - Allan CORNET
 // Copyright (C) 2011 - DIGITEO - Michael Baudin
+// Copyright (C) 2012 - DIGITEO - Michael Baudin: bug #11714 fixed
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -258,15 +259,24 @@ function [helptxt,demotxt]=help_from_sci(funname,helpdir,demodir)
                 in = "";
             end
         else
+
             in = strsplit(line, i(1) + 1);
             in = stripblanks(in(2));
             code = in;  // store original line for the demos.
             if (doing ~= "Examples") then // Replacing characters like <, > or & should not be done in the Examples
                 in = strsubst(in, "&", "&amp;"); // remove elements that make xml crash.
                 in = strsubst(in, "< ", "&lt; ");
-                if strindex(in ,"<") then if isempty(regexp(in, "/\<*[a-z]\>/")) then in = strsubst(in, "<", "&lt;"); end; end
+                if strindex(in ,"<") then
+                    if ~helpfromsci_isxmlstr(in) then
+                        in = strsubst(in, "<", "&lt;");
+                    end;
+                end
                 in = strsubst(in, " >", " &gt;");
-                if strindex(in, ">") then if isempty(regexp(in, "/\<*[a-z]\>/")) then in = strsubst(in, ">", "&gt;"); end; end
+                if strindex(in, ">") then
+                    if ~helpfromsci_isxmlstr(in) then
+                        in = strsubst(in, ">", "&gt;");
+                    end;
+                end
             end
         end
 
@@ -361,6 +371,17 @@ function [helptxt,demotxt]=help_from_sci(funname,helpdir,demodir)
             printf(gettext("%s: File skipped %s."), "help_from_sci", out + ".demo.sce");
             demotxt = "";
         end
+    end
+endfunction
+//==============================================================================
+function tf = helpfromsci_isxmlstr(str)
+    // Returns %t if the current string is a xml line
+    if ( ~isempty(regexp(str, "/\<*[a-z]\>/")) ) then
+        tf=%t
+    elseif ( ~isempty(regexp(str, "/\<(.*)\/\>/")) ) then
+        tf=%t
+    else
+        tf=%f
     end
 endfunction
 //==============================================================================

@@ -1,0 +1,31 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 11714 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11714
+//
+// <-- Short Description -->
+// help_from_sci sometimes failed when function had "<imagedata>" comments.
+
+path = SCI+"/modules/helptools/tests/nonreg_tests/";
+
+help_from_sci(path+"test_image.sci", path); // Create test_image.xml
+
+assert_checktrue(isfile(path+"test_image.xml"));
+fd = mopen(path+"test_image.xml");
+mgetl(fd, 28);
+image = mgetl(fd, 1); // Read the 29th line of test_image.xml
+
+refImage = "<imagedata fileref=""myimage.png"" align=""center"" valign=""middle""/>";
+assert_checkequal(image, refImage);
+
+mclose(fd);
+deletefile(path+"test_image.xml");
