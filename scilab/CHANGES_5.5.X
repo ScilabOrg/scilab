@@ -202,6 +202,8 @@ Scilab Bug Fixes
 
 * Bug #12882 fixed - Some help pages were not clear.
 
+* Bug #12896 fixed - Fixed typos.
+
 * Bug #12910 fixed - Some typos fixed.
 
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
