@@ -323,6 +323,188 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
     }
 
     /*
+    ** DOUBLE == POLY
+    */
+    if (TypeL == GenericType::RealDouble && TypeR == GenericType::RealPoly)
+    {
+        Double *pL  = pIL->getAs<Double>();
+        Polynom *pR = pIR->getAs<Polynom>();
+
+        if (pR->isScalar())
+        {
+            pResult         = new Bool(pL->getDims(), pL->getDimsArray());
+            int* piResult   = pResult->getAs<Bool>()->get();
+            int iSize       = pL->getSize();
+            int iRank       = 0;
+
+            pR->getRealRank(&iRank);
+            if(iRank != 0) // check rank
+            {
+                memset(piResult, 0x00, iSize * sizeof(int));
+            }
+            else
+            {
+                // check values
+                double dR       = pR->get(0)->getCoef()->get(0);
+                double* pdblL   = pL->get();
+                for (int i = 0 ; i < iSize; i++)
+                {
+                    piResult[i] = (int)(dR == pdblL[i]);
+                }
+            }
+
+            clearAlloc(bAllocL, pIL, bAllocR, pIR);
+            return pResult;
+        }
+
+        if (pL->isScalar())
+        {
+            pResult         = new Bool(pR->getDims(), pR->getDimsArray());
+            int* piResult   = pResult->getAs<Bool>()->get();
+            int iSize       = pR->getSize();
+            int* piRank     = new int[iSize];
+            double dL       = pL->get(0);
+
+            pR->getRealRank(piRank);
+
+            for (int i = 0 ; i < iSize; i++)
+            {
+                piResult[i] = piRank[i] ? 0 : (int)(dL == pR->get(i)->getCoef()->get(0));
+            }
+
+            clearAlloc(bAllocL, pIL, bAllocR, pIR);
+            delete[] piRank;
+            return pResult;
+        }
+
+        if (pL->getDims() != pR->getDims())
+        {
+            clearAlloc(bAllocL, pIL, bAllocR, pIR);
+            return new Bool(false);
+        }
+
+        int* piDims1 = pL->getDimsArray();
+        int* piDims2 = pR->getDimsArray();
+
+        for (int i = 0 ; i < pL->getDims() ; i++)
+        {
+            if (piDims1[i] != piDims2[i])
+            {
+                clearAlloc(bAllocL, pIL, bAllocR, pIR);
+                return new Bool(false);
+            }
+        }
+
+        pResult         = new Bool(pL->getDims(), pL->getDimsArray());
+        int* piResult   = pResult->getAs<Bool>()->get();
+        int iSize       = pL->getSize();
+        int* piRank     = new int[iSize];
+        double* pdblL   = pL->get();
+
+        pR->getRealRank(piRank);
+
+        for (int i = 0 ; i < iSize; i++)
+        {
+            piResult[i] = piRank[i] ? 0 : (int)(pdblL[i] == pR->get(i)->getCoef()->get(0));
+        }
+
+        clearAlloc(bAllocL, pIL, bAllocR, pIR);
+        delete[] piRank;
+        return pResult;
+    }
+
+    /*
+    ** POLY == DOUBLE
+    */
+    if (TypeL == GenericType::RealPoly && TypeR == GenericType::RealDouble)
+    {
+        Polynom *pL = pIL->getAs<Polynom>();
+        Double *pR  = pIR->getAs<Double>();
+
+        if (pL->isScalar())
+        {
+            pResult         = new Bool(pR->getDims(), pR->getDimsArray());
+            int* piResult   = pResult->getAs<Bool>()->get();
+            int iSize       = pR->getSize();
+            int iRank       = 0;
+
+            pL->getRealRank(&iRank);
+            if(iRank != 0) // check rank
+            {
+                memset(piResult, 0x00, iSize * sizeof(int));
+            }
+            else
+            {
+                // check values
+                double dL       = pL->get(0)->getCoef()->get(0);
+                double* pdblR   = pR->get();
+                for (int i = 0 ; i < iSize; i++)
+                {
+                    piResult[i] = (int)(dL == pdblR[i]);
+                }
+            }
+
+            clearAlloc(bAllocL, pIL, bAllocR, pIR);
+            return pResult;
+        }
+
+        if (pR->isScalar())
+        {
+            pResult         = new Bool(pL->getDims(), pL->getDimsArray());
+            int* piResult   = pResult->getAs<Bool>()->get();
+            int iSize       = pL->getSize();
+            int* piRank     = new int[iSize];
+            double dR       = pR->get(0);
+
+            pL->getRealRank(piRank);
+
+            for (int i = 0 ; i < iSize; i++)
+            {
+                piResult[i] = piRank[i] ? 0 : (int)(dR == pL->get(i)->getCoef()->get(0));
+            }
+
+            clearAlloc(bAllocL, pIL, bAllocR, pIR);
+            delete[] piRank;
+            return pResult;
+        }
+
+        if (pL->getDims() != pR->getDims())
+        {
+            clearAlloc(bAllocL, pIL, bAllocR, pIR);
+            return new Bool(false);
+        }
+
+        int* piDims1 = pL->getDimsArray();
+        int* piDims2 = pR->getDimsArray();
+
+        for (int i = 0 ; i < pL->getDims() ; i++)
+        {
+            if (piDims1[i] != piDims2[i])
+            {
+                clearAlloc(bAllocL, pIL, bAllocR, pIR);
+                return new Bool(false);
+            }
+        }
+
+        pResult         = new Bool(pL->getDims(), pL->getDimsArray());
+        int* piResult   = pResult->getAs<Bool>()->get();
+        int iSize       = pL->getSize();
+        int* piRank     = new int[iSize];
+        double* pdblR   = pR->get();
+
+        pL->getRealRank(piRank);
+
+        for (int i = 0 ; i < iSize; i++)
+        {
+            piResult[i] = piRank[i] ? 0 : (int)(pdblR[i] == pL->get(i)->getCoef()->get(0));
+        }
+
+        clearAlloc(bAllocL, pIL, bAllocR, pIR);
+        delete[] piRank;
+        return pResult;
+    }
+
+    /*
     ** LIST == LIST
     */
     if (TypeL == GenericType::RealList && TypeR == GenericType::RealList)
