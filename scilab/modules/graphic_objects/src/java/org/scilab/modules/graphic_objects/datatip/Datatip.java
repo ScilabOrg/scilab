@@ -334,7 +334,9 @@ public class Datatip extends Text {
                                "    d.text = " + fnc + "(d);" +
                                "    clear(\"d\");" +
                                "catch;" +
+                               "disp(lasterror());" +
                                "    d.display_function = \"\";" +
+                               "    d.parent.display_function = \"\";" +
                                "    clear(\"d\");" +
                                "    error(msprintf(" + errMsg + ", \"display_function\"));" +
                                "end;";
