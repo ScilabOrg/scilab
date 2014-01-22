@@ -344,6 +344,8 @@ Scilab Bug Fixes
 
 * Bug #13152 fixed - Typo fixed in syslin french help page.
 
+* Bug #13170 fixed - Fixed legends for plzr plots.
+
 * Bug #13174 fixed - Scilab crashed after XML element removal.
 
 * Bug #13392 fixed - Typo in the CACSD help chapter fixed.
