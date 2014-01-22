@@ -225,7 +225,8 @@ static setHashTableCouple propertySetTable[] =
     {"light_type", set_light_type_property},
     {"direction", set_direction_property},
     {"image_type", set_image_type_property},
-    {"datatips", set_datatips_property}
+    {"datatips", set_datatips_property},
+    {"rect", set_rect_property}
 };
 
 /*--------------------------------------------------------------------------*/
