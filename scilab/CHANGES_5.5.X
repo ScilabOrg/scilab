@@ -170,6 +170,8 @@ Scilab Bug Fixes
 
 * Bug #12334 fixed - Mark color in legend was invalid.
 
+* Bug #12439 fixed - edit_error returned a wrong message when there was no last recorded error.
+
 * Bug #12481 fixed - xlabel could not be used with Scilab property names.
 
 * Bug #12485 fixed - xchange returned bad values with log scale.
