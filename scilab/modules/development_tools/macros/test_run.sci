@@ -801,10 +801,18 @@ function status = test_single(_module, _testPath, _testName)
             test_cmd = "( """ + SCI_BIN + "\bin\scilex.exe" + """" + " " + mode_arg + " " + language_arg + " -nb -f """ + tmp_tst + """ > """ + tmp_res + """ ) 2> """ + tmp_err + """";
         end
     else
-        if (isdir(_module.moduleName) & isfile(loader_path))
-            test_cmd = "( " + language_arg + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -e ""exec(''" + loader_path + "'');exec(''" + tmp_tst +"'');""" + " > " + tmp_res + " ) 2> " + tmp_err;
+        // Look for timeout or gtimeout
+        if getos() == "Linux" then
+            timeout_cmd = "timeout 3m";
         else
-            test_cmd = "( " + language_arg + " " + prefix_bin + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -f " + tmp_tst + " > " + tmp_res + " ) 2> " + tmp_err;
+            if ~isempty(unix_g("which gtimeout")) then
+                timeout_cmd = "gtimeout 3m";
+            end
+        end
+        if (isdir(_module.moduleName) & isfile(loader_path))
+            test_cmd = "("+timeout_cmd+" " + language_arg + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -e ""exec(''" + loader_path + "'');exec(''" + tmp_tst +"'');""" + " > " + tmp_res + " ) 2> " + tmp_err;
+        else
+            test_cmd = "("+timeout_cmd+" " + language_arg + " " + prefix_bin + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -f " + tmp_tst + " > " + tmp_res + " ) 2> " + tmp_err;
         end
     end
 
@@ -829,7 +837,13 @@ function status = test_single(_module, _testPath, _testName)
     mputl(sciFile, tmp_tst);
 
     //execute test
-    host(test_cmd);
+    returnStatus = host(test_cmd);
+    //Check return status
+    if (returnStatus <> 0)
+        status.id = 5;
+        status.message = "failed: Slave Scilab exited with error code "+string(returnStatus);
+        return;
+    end
 
     //Check errors
     if (error_output == "check") & (_module.error_output == "check") then
