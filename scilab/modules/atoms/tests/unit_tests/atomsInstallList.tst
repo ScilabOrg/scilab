@@ -16,25 +16,25 @@ atomsRepositorySetOfl("http://scene10.test.atoms.scilab.org");
 
 // -----------------------------------------------------------------------------
 
-ref = [ "+" "U" "toolbox_4" "1.0-1" ;
-        "+" ""  "toolbox_2" "1.0-1" ;
-        "+" ""  "toolbox_1" "1.0-1" ];
+ref = [ "+" "U" "toolbox_4" "1.1-1" ;
+"+" ""  "toolbox_2" "1.0-1" ;
+"+" ""  "toolbox_1" "1.0-1" ];
 
 if or(atomsInstallList("toolbox_4")<>ref) then pause, end
 
 // -----------------------------------------------------------------------------
 
 ref = [ "+" "U" "toolbox_3" "1.0-1" ;
-        "+" ""  "toolbox_2" "2.0-1" ;
-        "+" ""  "toolbox_1" "1.0-1" ];
+"+" ""  "toolbox_2" "2.1-1" ;
+"+" ""  "toolbox_1" "1.0-1" ];
 
 if or(atomsInstallList("toolbox_3")<>ref) then pause, end
 
 // -----------------------------------------------------------------------------
 
 ref = [ "+" "U" "toolbox_6" "1.0-1" ;
-        "+" ""  "toolbox_1" "1.0-1" ;
-        "+" ""  "toolbox_2" "2.0-1" ];
+"+" ""  "toolbox_1" "1.0-1" ;
+"+" ""  "toolbox_2" "2.1-1" ];
 
 if or(atomsInstallList("toolbox_6")<>ref) then pause, end
 
@@ -48,24 +48,24 @@ atomsRepositorySetOfl("http://scene11.test.atoms.scilab.org");
 // -----------------------------------------------------------------------------
 
 ref = [ "+" "U" "toolbox_4" "1.1-1" ;
-        "+" ""  "toolbox_2" "1.0-1" ;
-        "+" ""  "toolbox_1" "1.0-1" ];
+"+" ""  "toolbox_2" "1.0-1" ;
+"+" ""  "toolbox_1" "1.0-1" ];
 
 if or(atomsInstallList("toolbox_4")<>ref) then pause, end
 
 // -----------------------------------------------------------------------------
 
 ref = [ "+" "U" "toolbox_3" "1.0-1" ;
-        "+" ""  "toolbox_2" "2.1-1" ;
-        "+" ""  "toolbox_1" "1.0-1" ];
+"+" ""  "toolbox_2" "2.1-1" ;
+"+" ""  "toolbox_1" "1.0-1" ];
 
 if or(atomsInstallList("toolbox_3")<>ref) then pause, end
 
 // -----------------------------------------------------------------------------
 
 ref = [ "+" "U" "toolbox_6" "1.0-1" ;
-        "+" ""  "toolbox_1" "1.0-1" ;
-        "+" ""  "toolbox_2" "2.1-1" ];
+"+" ""  "toolbox_1" "1.0-1" ;
+"+" ""  "toolbox_2" "2.1-1" ];
 
 if or(atomsInstallList("toolbox_6")<>ref) then pause, end
 
