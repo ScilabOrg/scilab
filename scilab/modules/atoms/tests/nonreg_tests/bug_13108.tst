@@ -15,11 +15,16 @@
 // <-- Short Description -->
 // The time between two updates can now be configured thanks to atomsSetConfig("updateTime", time)
 
-atomsSaveConfig();
+// Save config file (rename it), but don't use atomsSaveConfig() in case config.bak already exists.
+load("SCI/modules/atoms/macros/atoms_internals/lib");
+pathsystemuser = atomsPath("system", "user");
+copyfile(pathsystemuser + "config", pathsystemuser + "config2");
 
 // Set Atoms update time to the default value
 atomsSetConfig("updateTime", "30");
 
 assert_checkequal(strtod(atomsGetConfig("updateTime")), 30);
 
-atomsRestoreConfig(%T);
+// Restore config
+copyfile(pathsystemuser + "config2", pathsystemuser + "config");
+deletefile(pathsystemuser + "config2");
