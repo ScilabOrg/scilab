@@ -806,6 +806,12 @@ function %_sodload(%__filename__, varargin)
                 for k=1:size(children, "*")
                     set(children(k), "parent", h);
                 end
+            elseif fields(i) == "constraints" then
+                if is_handle_valid(h) then
+                    if h.parent.layout == "none" then // constraints property is removed when layout property is equals to "none"
+                        fields(i) == [];
+                    end
+                end
             else
                 set(h, fields(i), uicontrolProperties(fields(i)));
             end
