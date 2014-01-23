@@ -20,7 +20,7 @@
         <para>
             <inlinemediaobject>
                 <imageobject>
-                    <imagedata fileref="../images/scinotes/editor.png" width="100" depth="100" scalefit="0" align="center" valign="middle"/>
+                    <imagedata fileref="../../images/scinotes/editor.png" width="100" depth="100" scalefit="0" align="center" valign="middle"/>
                 </imageobject>
             </inlinemediaobject>
         </para>
@@ -52,7 +52,7 @@
         <para>
             <inlinemediaobject>
                 <imageobject>
-                    <imagedata fileref="../images/scinotes/scinotes_general_settings.png" width="100" depth="100" scalefit="0" align="center" valign="middle"/>
+                    <imagedata fileref="../../images/scinotes/scinotes_general_settings.png" width="100" depth="100" scalefit="0" align="center" valign="middle"/>
                 </imageobject>
             </inlinemediaobject>
         </para>

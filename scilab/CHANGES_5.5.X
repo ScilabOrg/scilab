@@ -206,6 +206,8 @@ Scilab Bug Fixes
 
 * Bug #12785 fixed - plot did not allow int data as first argument.
 
+* Bug #12872 fixed - Moved some help pages to the right chapter.
+
 * Bug #12880 fixed - A warning is displayed when transposing arguments of plot.
 
 * Bug #12882 fixed - Some help pages were not clear.
