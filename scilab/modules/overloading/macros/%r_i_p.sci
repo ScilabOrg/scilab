@@ -10,8 +10,14 @@
 function f2=%r_i_p(varargin)
     // /author Serge Steer INRIA
     //
+
     f2=varargin($-1)
     n= varargin($)
+    disp(" >>>>>>> %r_i_p <<<<<<<")
+    for i=1:size(varargin)
+        disp("var"+string(i))
+        disp(varargin(i))
+    end
     // f2=%r_i_p(i,j,f2,p)   insertion
     d=ones(n);
     n(varargin(1:$-2))=f2.num;
