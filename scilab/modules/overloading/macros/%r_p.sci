@@ -62,14 +62,14 @@ function %r_p(h)
             nt=size(txt,1)
             txt=part(txt,1:max(length(txt)))
             if k0==0&last==n then
-                write(%io(2),del(ones(nt,1))+txt+blank(ones(nt,1))+del(ones(nt,1)))
+                disp(del(ones(nt,1))+txt+blank(ones(nt,1))+del(ones(nt,1)))
             else
                 if last==1 then
                     leg="column "+string(k0+1)
                 else
                     leg="column "+string(k0+1)+" to "+string(k0+last)
                 end
-                write(%io(2),[" ";
+                disp([" ";
                 leg;
                 " ";
                 del(ones(nt,1))+txt+blank(ones(nt,1))+del(ones(nt,1))])
@@ -194,7 +194,7 @@ function   %hmr_p(h)
     k=1;sz=dims(1)*dims(2)
     for II=I
         tit="(:,:,"+strcat(string(II'),",")+")"
-        write(%io(2),tit)
+        disp(tit)
         hb=rlist(matrix(num.entries(k:k-1+sz),dims(1),dims(2)),matrix(den.entries(k:k-1+sz),dims(1),dims(2)),h.dt)
         disp(hb)
         k=k+sz
