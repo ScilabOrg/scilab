@@ -39,8 +39,7 @@ void visitprivate(const MatrixExp &e)
         {
             InternalType* poRow = NULL;
             for (col = (*row)->columns_get().begin() ; col != (*row)->columns_get().end() ; col++)
-            {
-                (*col)->accept(*this);
+            {(*col)->accept(*this);
 
                 InternalType *pIT = result_get();
                 if (pIT == NULL)
@@ -84,6 +83,26 @@ void visitprivate(const MatrixExp &e)
                 }
 
                 GenericType* pGTResult = poRow->getAs<GenericType>();
+
+                if(pGT->isList() || pGTResult->isList())
+                {
+                    poRow = callOverload(L"c", pGTResult, pGT);
+                    poRow->IncreaseRef();
+
+                    if (pGTResult->isDeletable())
+                    {
+                        delete pGTResult;
+                    }
+
+                    if (pGT->isDeletable())
+                    {
+                        delete pGT;
+                    }
+
+                    poRow->DecreaseRef();
+                    continue;
+                }
+
                 //check dimension
                 if (pGT->getDims() != 2 || pGT->getRows() != pGTResult->getRows())
                 {
@@ -131,6 +150,26 @@ void visitprivate(const MatrixExp &e)
 
             //check dimension
             GenericType* pGTResult = poResult->getAs<GenericType>();
+
+            if(pGT->isList() || pGTResult->isList())
+            {
+                poResult = callOverload(L"f", pGTResult, pGT);
+                poResult->IncreaseRef();
+
+                if (pGTResult->isDeletable())
+                {
+                    delete pGTResult;
+                }
+
+                if (pGT->isDeletable())
+                {
+                    delete pGT;
+                }
+
+                poResult->DecreaseRef();
+                continue;
+            }
+
             //check dimension
             if (pGT->getCols() != pGTResult->getCols())
             {
@@ -178,4 +217,23 @@ void visitprivate(const MatrixExp &e)
     {
         throw error;
     }
+}
+
+types::InternalType* callOverload(std::wstring strType, types::InternalType* _paramL, types::InternalType* _paramR)
+{
+    types::typed_list in;
+    types::typed_list out;
+
+    _paramL->IncreaseRef();
+    _paramR->IncreaseRef();
+
+    in.push_back(_paramL);
+    in.push_back(_paramR);
+
+    Overload::call(L"%" + _paramL->getAs<List>()->getShortTypeStr() + L"_" + strType + L"_" +_paramR->getAs<List>()->getShortTypeStr(), in, 1, out, this);
+
+    _paramL->DecreaseRef();
+    _paramR->DecreaseRef();
+
+    return out[0];
 }

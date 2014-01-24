@@ -12,7 +12,11 @@ function s1=%r_i_r(varargin)
     s1=varargin($-1)
     s2=varargin($)
     // %r_i_r(i,j,s1,s2) insertion  s2(i,j)=s1
-
+    disp(" >>>>>>> %r_i_r <<<<<<<")
+    for i=1:size(varargin)
+        disp("var"+string(i))
+        disp(varargin(i))
+    end
     [s1,s2]=sysconv(s1,s2)
     n=s2.num;
     n(varargin(1:$-2))=s1.num,

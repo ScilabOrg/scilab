@@ -61,6 +61,14 @@ types::Function::ReturnValue sci_matrix(types::typed_list &in, int _iRetCount, t
         return types::Function::OK;
     }
 
+    // calls the overload if it exists.
+    std::wstring wstFuncName = L"%"  + in[0]->getTypeStr() + L"_matrix";
+    types::InternalType *pIT = symbol::Context::getInstance()->get(symbol::Symbol(wstFuncName));
+    if(pIT)
+    {
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+    }
+
     pGTOut = pGTIn->clone()->getAs<types::GenericType>();
 
     if (in.size() == 2)

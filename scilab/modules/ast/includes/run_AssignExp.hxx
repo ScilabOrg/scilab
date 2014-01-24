@@ -218,7 +218,7 @@ void visitprivate(const AssignExp  &e)
             {
                 //manage error
                 std::wostringstream os;
-                os << _W("Invalid Index.\n");
+                os << _W("Invalid Index 1 .\n");
                 //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
                 throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
@@ -434,7 +434,7 @@ void visitprivate(const AssignExp  &e)
                     {
                         //manage error
                         std::wostringstream os;
-                        os << _W("Invalid Index.\n");
+                        os << _W("Invalid Index 2 .\n");
                         //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
                         throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
                     }
@@ -630,7 +630,7 @@ void visitprivate(const AssignExp  &e)
                         {
                             //manage error
                             std::wostringstream os;
-                            os << _W("Invalid Index.\n");
+                            os << _W("Invalid Index 3 .\n");
                             //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
                             throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
                         }
@@ -644,8 +644,9 @@ void visitprivate(const AssignExp  &e)
                         pRet = pStr->insert(pArgs, pInsert);
                     }
                 }
-                else if (pIT->isTList() || pIT->isMList())
+                else if ((pIT->isTList() || pIT->isMList()) && pIT->getShortTypeStr() != L"r")
                 {
+                    printf("T/MList !\n");
                     TList* pTL = pIT->getAs<TList>();
                     if (pArgs->size() == 1 && (*pArgs)[0]->isString())
                     {
@@ -655,7 +656,7 @@ void visitprivate(const AssignExp  &e)
                         {
                             //manage error
                             std::wostringstream os;
-                            os << _W("Invalid Index.\n");
+                            os << _W("Invalid Index 4 .\n");
                             //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
                             throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
                         }
@@ -663,6 +664,10 @@ void visitprivate(const AssignExp  &e)
                         pTL->set(pS->get(0), pInsert);
                         pRet = pTL;
                     }
+//                    else if(pTL->getShortTypeStr() == L"r")
+//                    {
+//                        pRet = callOverload(L"i", pArgs, pIT, pInsert);
+//                    }
                     else
                     {
                         pRet = pTL->insert(pArgs, pInsert);
@@ -702,6 +707,7 @@ void visitprivate(const AssignExp  &e)
                 else
                 {
                     //overloading
+                    printf("Overloading !\n");
                     types::typed_list in;
                     types::typed_list out;
 
@@ -729,7 +735,13 @@ void visitprivate(const AssignExp  &e)
                     //b : type that receive data
                     std::wstring function_name;
                     function_name = L"%" + pInsert->getShortTypeStr() + L"_i_" + pIT->getShortTypeStr();
-                    Overload::call(function_name, in, 1, out, this);
+                    if(Overload::call(function_name, in, 1, out, this) != types::Function::OK)
+                    {
+                        std::wostringstream os;
+                        os << _W("Overload fail.\n");
+                        //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
+                        throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                    }
 
                     pIT->DecreaseRef();
                     pInsert->DecreaseRef();
@@ -797,7 +809,7 @@ void visitprivate(const AssignExp  &e)
             {
                 //manage error
                 std::wostringstream os;
-                os << _W("Invalid index.\n");
+                os << _W("Invalid index 5 .\n");
                 //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
                 throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
@@ -1070,3 +1082,33 @@ void visitprivate(const AssignExp  &e)
         throw error;
     }
 }
+
+//types::InternalType* callOverload(std::wstring strType, types::typed_list* _pArgs, types::InternalType* _paramL, types::InternalType* _paramR)
+//{
+//    types::typed_list in;
+//    types::typed_list out;
+//
+//    for(int i = 0; i < _pArgs->size(); i++)
+//    {
+//        (*_pArgs)[i]->IncreaseRef();
+//        in.push_back((*_pArgs)[i]);
+//    }
+//
+//    _paramL->IncreaseRef();
+//    _paramR->IncreaseRef();
+//
+//    in.push_back(_paramR);
+//    in.push_back(_paramL);
+//
+//    Overload::call(L"%" + _paramL->getAs<List>()->getShortTypeStr() + L"_" + strType + L"_" +_paramR->getAs<List>()->getShortTypeStr(), in, 1, out, this);
+//
+//    for(int i = 0; i < _pArgs->size(); i++)
+//    {
+//        (*_pArgs)[i]->DecreaseRef();
+//    }
+//
+//    _paramL->DecreaseRef();
+//    _paramR->DecreaseRef();
+//
+//    return out[0];
+//}
