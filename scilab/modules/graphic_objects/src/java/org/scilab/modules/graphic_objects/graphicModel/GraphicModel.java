@@ -42,6 +42,7 @@ import org.scilab.modules.graphic_objects.uicontextmenu.Uicontextmenu;
 import org.scilab.modules.graphic_objects.uicontrol.checkbox.CheckBox;
 import org.scilab.modules.graphic_objects.uicontrol.edit.Edit;
 import org.scilab.modules.graphic_objects.uicontrol.frame.Frame;
+import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder;
 import org.scilab.modules.graphic_objects.uicontrol.listbox.ListBox;
 import org.scilab.modules.graphic_objects.uicontrol.popupmenu.PopupMenu;
 import org.scilab.modules.graphic_objects.uicontrol.pushbutton.PushButton;
@@ -314,14 +315,17 @@ public final class GraphicModel {
             case LIGHT:
                 createdObject = new Light();
                 break;
-            case UNKNOWNOBJECT:
-                createdObject = null;
-                break;
             case DATATIP:
                 createdObject = new Datatip();
                 break;
             case TAB:
                 createdObject = new Tab();
+                break;
+            case BORDER:
+                createdObject = new FrameBorder();
+                break;
+            case UNKNOWNOBJECT:
+                createdObject = null;
                 break;
             default:
                 createdObject = null;
