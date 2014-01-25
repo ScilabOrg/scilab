@@ -371,4 +371,9 @@
 #define __GO_UI_GRID_PADDING__ 349
 #define __GO_UI_BORDER_POSITION__ 350
 
+#define __GO_GRID_OPT_GRID__ 351
+#define __GO_GRID_OPT_PADDING__ 352
+#define __GO_BORDER_OPT_PADDING__ 353
+
+
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */

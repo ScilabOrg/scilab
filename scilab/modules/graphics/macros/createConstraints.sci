@@ -18,7 +18,7 @@ function ret = createConstraints(constType, varargin)
     end
 
     ret = [];
-    if constType == "nolayout" then
+    if constType == "nolayout" | constType == "none" then
         ret = tlist(["NoLayoutConstraint"]);
     elseif constType == "border" then
         arg1 = "center"
@@ -96,5 +96,7 @@ function ret = createConstraints(constType, varargin)
         end
 
         ret = tlist(["GridBagConstraints","grid","weight","fill","anchor","padding"], arg1, arg2, arg3, arg4, arg5);
+    else
+        error(999, msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "createConstraints", 1, "none/nolayout, border, grid, gridbag"));
     end
 endfunction

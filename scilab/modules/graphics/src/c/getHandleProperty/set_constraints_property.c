@@ -362,7 +362,7 @@ int set_constraints_property(void* _pvCtx, int iObjUID, void* _pvData, int value
 int clearConstraints(int iObjUID)
 {
     //reset all constraints data in model
-    int pi[6] = {0, 0, 0, 0, 0, 0};
+    int pi[4] = {0, 0, 0, 0};
     double pdbl[2] = {0, 0};
     int iPos = BORDER_CENTER;
     int iFill = FILL_NONE;
