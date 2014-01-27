@@ -67,81 +67,81 @@ public class Figure extends GraphicObject {
     /** Specifies whether rotation applies to a single subwindow or to all the figure's subwindows */
     public enum RotationType { UNARY, MULTIPLE;
 
-                               /**
-                                * Converts an integer to the corresponding enum
-                                * @param intValue the integer value
-                                * @return the rotation type enum
-                                */
+    /**
+     * Converts an integer to the corresponding enum
+     * @param intValue the integer value
+     * @return the rotation type enum
+     */
     public static RotationType intToEnum(Integer intValue) {
         switch (intValue) {
-            case 0:
-                return RotationType.UNARY;
-            case 1:
-                return RotationType.MULTIPLE;
-            default:
-                return null;
+        case 0:
+            return RotationType.UNARY;
+        case 1:
+            return RotationType.MULTIPLE;
+        default:
+            return null;
         }
     }
-                             }
+    }
     public enum BarType { NONE, FIGURE;
     public static BarType intToEnum(Integer intValue) {
         switch (intValue) {
-            default:
-            case 0:
-                return BarType.NONE;
-            case 1:
-                return BarType.FIGURE;
+        default:
+        case 0:
+            return BarType.NONE;
+        case 1:
+            return BarType.FIGURE;
         }
     }
-                        }
+    }
     /** Pixel drawing logical operations */
     private enum PixelDrawingMode { CLEAR, AND, ANDREVERSE, COPY, ANDINVERTED, NOOP, XOR, OR, NOR,
-                                    EQUIV, INVERT, ORREVERSE, COPYINVERTED, ORINVERTED, NAND, SET;
+        EQUIV, INVERT, ORREVERSE, COPYINVERTED, ORINVERTED, NAND, SET;
 
-                                    /**
-                                     * Converts an integer to the corresponding enum
-                                     * @param intValue the integer value
-                                     * @return the pixel drawing mode enum
-                                     */
+    /**
+     * Converts an integer to the corresponding enum
+     * @param intValue the integer value
+     * @return the pixel drawing mode enum
+     */
     public static PixelDrawingMode intToEnum(Integer intValue) {
         switch (intValue) {
-            case 0:
-                return PixelDrawingMode.CLEAR;
-            case 1:
-                return PixelDrawingMode.AND;
-            case 2:
-                return PixelDrawingMode.ANDREVERSE;
-            case 3:
-                return PixelDrawingMode.COPY;
-            case 4:
-                return PixelDrawingMode.ANDINVERTED;
-            case 5:
-                return PixelDrawingMode.NOOP;
-            case 6:
-                return PixelDrawingMode.XOR;
-            case 7:
-                return PixelDrawingMode.OR;
-            case 8:
-                return PixelDrawingMode.NOR;
-            case 9:
-                return PixelDrawingMode.EQUIV;
-            case 10:
-                return PixelDrawingMode.INVERT;
-            case 11:
-                return PixelDrawingMode.ORREVERSE;
-            case 12:
-                return PixelDrawingMode.COPYINVERTED;
-            case 13:
-                return PixelDrawingMode.ORINVERTED;
-            case 14:
-                return PixelDrawingMode.NAND;
-            case 15:
-                return PixelDrawingMode.SET;
-            default:
-                return null;
+        case 0:
+            return PixelDrawingMode.CLEAR;
+        case 1:
+            return PixelDrawingMode.AND;
+        case 2:
+            return PixelDrawingMode.ANDREVERSE;
+        case 3:
+            return PixelDrawingMode.COPY;
+        case 4:
+            return PixelDrawingMode.ANDINVERTED;
+        case 5:
+            return PixelDrawingMode.NOOP;
+        case 6:
+            return PixelDrawingMode.XOR;
+        case 7:
+            return PixelDrawingMode.OR;
+        case 8:
+            return PixelDrawingMode.NOR;
+        case 9:
+            return PixelDrawingMode.EQUIV;
+        case 10:
+            return PixelDrawingMode.INVERT;
+        case 11:
+            return PixelDrawingMode.ORREVERSE;
+        case 12:
+            return PixelDrawingMode.COPYINVERTED;
+        case 13:
+            return PixelDrawingMode.ORINVERTED;
+        case 14:
+            return PixelDrawingMode.NAND;
+        case 15:
+            return PixelDrawingMode.SET;
+        default:
+            return null;
         }
     }
-                                  };
+    };
 
     /** FigureDimensions properties names */
     public enum FigureDimensionsProperty { POSITION, SIZE };
@@ -438,7 +438,10 @@ public class Figure extends GraphicObject {
         copy.colorMap = new ColorMap(this.colorMap);
         copy.renderingMode = new RenderingMode(this.renderingMode);
         copy.eventHandler = new EventHandler(this.eventHandler);
-
+        copy.gridOptGrid = new Integer[] {0,0};
+        copy.gridOptPadding = new Integer[] {0,0};
+        copy.borderOptPadding = new Integer[] {0,0};
+        
         copy.setValid(true);
 
         return copy;
@@ -456,72 +459,72 @@ public class Figure extends GraphicObject {
      */
     public Object getPropertyFromName(int propertyName) {
         switch (propertyName) {
-            case __GO_POSITION__ :
-                return FigureDimensionsProperty.POSITION;
-            case __GO_SIZE__ :
-                return FigureDimensionsProperty.SIZE;
-            case __GO_AUTORESIZE__ :
-                return CanvasProperty.AUTORESIZE;
-            case __GO_VIEWPORT__ :
-                return CanvasProperty.VIEWPORT;
-            case __GO_AXES_SIZE__ :
-                return CanvasProperty.AXESSIZE;
-            case __GO_NAME__ :
-                return FigureNameProperty.NAME;
-            case __GO_ID__ :
-                return FigureNameProperty.ID;
-            case __GO_INFO_MESSAGE__ :
-                return FigureProperty.INFOMESSAGE;
-            case __GO_COLORMAP__ :
-                return FigureProperty.COLORMAP;
-            case __GO_COLORMAP_SIZE__ :
-                return FigureProperty.COLORMAPSIZE;
-            case __GO_PIXMAP__ :
-                return RenderingModeProperty.PIXMAP;
-            case __GO_PIXEL_DRAWING_MODE__ :
-                return RenderingModeProperty.PIXELDRAWINGMODE;
-            case __GO_ANTIALIASING__ :
-                return RenderingModeProperty.ANTIALIASING;
-            case __GO_IMMEDIATE_DRAWING__ :
-                return RenderingModeProperty.IMMEDIATEDRAWING;
-            case __GO_BACKGROUND__ :
-                return FigureProperty.BACKGROUND;
-            case __GO_EVENTHANDLER_NAME__ :
-                return EventHandlerProperty.EVENTHANDLER;
-            case __GO_EVENTHANDLER_ENABLE__ :
-                return EventHandlerProperty.EVENTHANDLERENABLE;
-            case __GO_ROTATION_TYPE__ :
-                return FigureProperty.ROTATIONTYPE;
-            case __GO_RESIZEFCN__ :
-                return FigureProperty.RESIZEFCN;
-            case __GO_CLOSEREQUESTFCN__ :
-                return FigureProperty.CLOSEREQUESTFCN;
-            case __GO_RESIZE__ :
-                return FigureProperty.RESIZE;
-            case __GO_TOOLBAR__ :
-                return FigureProperty.TOOLBAR;
-            case __GO_TOOLBAR_VISIBLE__ :
-                return FigureProperty.TOOLBAR_VISIBLE;
-            case __GO_MENUBAR__ :
-                return FigureProperty.MENUBAR;
-            case __GO_MENUBAR_VISIBLE__ :
-                return FigureProperty.MENUBAR_VISIBLE;
-            case __GO_INFOBAR_VISIBLE__ :
-                return FigureProperty.INFOBAR_VISIBLE;
-            case __GO_DOCKABLE__ :
-                return FigureProperty.DOCKABLE;
-            case __GO_LAYOUT__ :
-                return FigureProperty.LAYOUT;
-            case __GO_LAYOUT_SET__ :
-                return FigureProperty.LAYOUT_SET;
-            case __GO_GRID_OPT_GRID__ :
-                return FigureProperty.GRIDOPT_GRID;
-            case __GO_GRID_OPT_PADDING__ :
-                return FigureProperty.GRIDOPT_PADDING;
-            case __GO_BORDER_OPT_PADDING__ :
-                return FigureProperty.BORDEROPT_PADDING;
-            default :
-                return super.getPropertyFromName(propertyName);
+        case __GO_POSITION__ :
+            return FigureDimensionsProperty.POSITION;
+        case __GO_SIZE__ :
+            return FigureDimensionsProperty.SIZE;
+        case __GO_AUTORESIZE__ :
+            return CanvasProperty.AUTORESIZE;
+        case __GO_VIEWPORT__ :
+            return CanvasProperty.VIEWPORT;
+        case __GO_AXES_SIZE__ :
+            return CanvasProperty.AXESSIZE;
+        case __GO_NAME__ :
+            return FigureNameProperty.NAME;
+        case __GO_ID__ :
+            return FigureNameProperty.ID;
+        case __GO_INFO_MESSAGE__ :
+            return FigureProperty.INFOMESSAGE;
+        case __GO_COLORMAP__ :
+            return FigureProperty.COLORMAP;
+        case __GO_COLORMAP_SIZE__ :
+            return FigureProperty.COLORMAPSIZE;
+        case __GO_PIXMAP__ :
+            return RenderingModeProperty.PIXMAP;
+        case __GO_PIXEL_DRAWING_MODE__ :
+            return RenderingModeProperty.PIXELDRAWINGMODE;
+        case __GO_ANTIALIASING__ :
+            return RenderingModeProperty.ANTIALIASING;
+        case __GO_IMMEDIATE_DRAWING__ :
+            return RenderingModeProperty.IMMEDIATEDRAWING;
+        case __GO_BACKGROUND__ :
+            return FigureProperty.BACKGROUND;
+        case __GO_EVENTHANDLER_NAME__ :
+            return EventHandlerProperty.EVENTHANDLER;
+        case __GO_EVENTHANDLER_ENABLE__ :
+            return EventHandlerProperty.EVENTHANDLERENABLE;
+        case __GO_ROTATION_TYPE__ :
+            return FigureProperty.ROTATIONTYPE;
+        case __GO_RESIZEFCN__ :
+            return FigureProperty.RESIZEFCN;
+        case __GO_CLOSEREQUESTFCN__ :
+            return FigureProperty.CLOSEREQUESTFCN;
+        case __GO_RESIZE__ :
+            return FigureProperty.RESIZE;
+        case __GO_TOOLBAR__ :
+            return FigureProperty.TOOLBAR;
+        case __GO_TOOLBAR_VISIBLE__ :
+            return FigureProperty.TOOLBAR_VISIBLE;
+        case __GO_MENUBAR__ :
+            return FigureProperty.MENUBAR;
+        case __GO_MENUBAR_VISIBLE__ :
+            return FigureProperty.MENUBAR_VISIBLE;
+        case __GO_INFOBAR_VISIBLE__ :
+            return FigureProperty.INFOBAR_VISIBLE;
+        case __GO_DOCKABLE__ :
+            return FigureProperty.DOCKABLE;
+        case __GO_LAYOUT__ :
+            return FigureProperty.LAYOUT;
+        case __GO_LAYOUT_SET__ :
+            return FigureProperty.LAYOUT_SET;
+        case __GO_GRID_OPT_GRID__ :
+            return FigureProperty.GRIDOPT_GRID;
+        case __GO_GRID_OPT_PADDING__ :
+            return FigureProperty.GRIDOPT_PADDING;
+        case __GO_BORDER_OPT_PADDING__ :
+            return FigureProperty.BORDEROPT_PADDING;
+        default :
+            return super.getPropertyFromName(propertyName);
         }
     }
 
@@ -609,85 +612,85 @@ public class Figure extends GraphicObject {
     public UpdateStatus setProperty(Object property, Object value) {
         if (property instanceof FigureProperty) {
             switch ((FigureProperty)property) {
-                case BACKGROUND:
-                    return setBackground((Integer) value);
-                case CLOSEREQUESTFCN:
-                    return setCloseRequestFcn((String) value);
-                case COLORMAP:
-                    return getColorMap().setData((Double[]) value);
-                case COLORMAPSIZE:
-                    return UpdateStatus.NoChange;
-                case INFOMESSAGE:
-                    return setInfoMessage((String) value);
-                case RESIZEFCN:
-                    return setResizeFcn((String) value);
-                case ROTATIONTYPE:
-                    return setRotation((Integer) value);
-                case RESIZE:
-                    return setResize((Boolean) value);
-                case TOOLBAR:
-                    return setToolbar((Integer) value);
-                case TOOLBAR_VISIBLE:
-                    return setToolbarVisible((Boolean) value);
-                case MENUBAR:
-                    return setMenubar((Integer) value);
-                case MENUBAR_VISIBLE:
-                    return setMenubarVisible((Boolean) value);
-                case INFOBAR_VISIBLE:
-                    return setInfobarVisible((Boolean) value);
-                case DOCKABLE:
-                    return setDockable((Boolean) value);
-                case LAYOUT:
-                    return setLayout((Integer) value);
-                case GRIDOPT_GRID:
-                    return setGridOptGrid((Integer[]) value);
-                case GRIDOPT_PADDING:
-                    return setGridOptPadding((Integer[]) value);
-                case BORDEROPT_PADDING:
-                    return setBorderOptPadding((Integer[]) value);
-                default:
-                    break;
+            case BACKGROUND:
+                return setBackground((Integer) value);
+            case CLOSEREQUESTFCN:
+                return setCloseRequestFcn((String) value);
+            case COLORMAP:
+                return getColorMap().setData((Double[]) value);
+            case COLORMAPSIZE:
+                return UpdateStatus.NoChange;
+            case INFOMESSAGE:
+                return setInfoMessage((String) value);
+            case RESIZEFCN:
+                return setResizeFcn((String) value);
+            case ROTATIONTYPE:
+                return setRotation((Integer) value);
+            case RESIZE:
+                return setResize((Boolean) value);
+            case TOOLBAR:
+                return setToolbar((Integer) value);
+            case TOOLBAR_VISIBLE:
+                return setToolbarVisible((Boolean) value);
+            case MENUBAR:
+                return setMenubar((Integer) value);
+            case MENUBAR_VISIBLE:
+                return setMenubarVisible((Boolean) value);
+            case INFOBAR_VISIBLE:
+                return setInfobarVisible((Boolean) value);
+            case DOCKABLE:
+                return setDockable((Boolean) value);
+            case LAYOUT:
+                return setLayout((Integer) value);
+            case GRIDOPT_GRID:
+                return setGridOptGrid((Integer[]) value);
+            case GRIDOPT_PADDING:
+                return setGridOptPadding((Integer[]) value);
+            case BORDEROPT_PADDING:
+                return setBorderOptPadding((Integer[]) value);
+            default:
+                break;
             }
         } else if (property instanceof CanvasProperty) {
             switch ((CanvasProperty)property) {
-                case AUTORESIZE:
-                    return setAutoResize((Boolean) value);
-                case AXESSIZE:
-                    return setAxesSize((Integer[]) value);
-                case VIEWPORT:
-                    return setViewport((Integer[]) value);
+            case AUTORESIZE:
+                return setAutoResize((Boolean) value);
+            case AXESSIZE:
+                return setAxesSize((Integer[]) value);
+            case VIEWPORT:
+                return setViewport((Integer[]) value);
             }
         } else if (property instanceof FigureDimensionsProperty) {
             switch ((FigureDimensionsProperty)property) {
-                case POSITION:
-                    return setPosition((Integer[]) value);
-                case SIZE:
-                    return setSize((Integer[]) value);
+            case POSITION:
+                return setPosition((Integer[]) value);
+            case SIZE:
+                return setSize((Integer[]) value);
             }
         } else if (property instanceof FigureNameProperty) {
             switch ((FigureNameProperty)property) {
-                case ID:
-                    return setId((Integer) value);
-                case NAME:
-                    return setName((String) value);
+            case ID:
+                return setId((Integer) value);
+            case NAME:
+                return setName((String) value);
             }
         } else if (property instanceof RenderingModeProperty) {
             switch ((RenderingModeProperty)property) {
-                case ANTIALIASING:
-                    return setAntialiasing((Integer) value);
-                case IMMEDIATEDRAWING:
-                    return setImmediateDrawing((Boolean) value);
-                case PIXELDRAWINGMODE:
-                    return setPixelDrawingMode((Integer) value);
-                case PIXMAP:
-                    return setPixmap((Boolean) value);
+            case ANTIALIASING:
+                return setAntialiasing((Integer) value);
+            case IMMEDIATEDRAWING:
+                return setImmediateDrawing((Boolean) value);
+            case PIXELDRAWINGMODE:
+                return setPixelDrawingMode((Integer) value);
+            case PIXMAP:
+                return setPixmap((Boolean) value);
             }
         } else if (property instanceof EventHandlerProperty) {
             switch ((EventHandlerProperty)property) {
-                case EVENTHANDLER:
-                    return setEventHandlerString((String) value);
-                case EVENTHANDLERENABLE:
-                    return setEventHandlerEnable((Boolean) value);
+            case EVENTHANDLER:
+                return setEventHandlerString((String) value);
+            case EVENTHANDLERENABLE:
+                return setEventHandlerEnable((Boolean) value);
             }
         } else {
             return super.setProperty(property, value);
