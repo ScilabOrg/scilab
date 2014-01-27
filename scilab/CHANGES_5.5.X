@@ -421,6 +421,8 @@ Scilab Bug Fixes
 
 * Bug #13202 fixed - kernel help page improved.
 
+* Bug #13208 fixed - reglin now filters NaNs if x and y are vectors.
+
 * Bug #13392 fixed - Typo in the CACSD help chapter fixed.
 
 

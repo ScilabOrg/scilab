@@ -25,10 +25,26 @@ function [a,b,sig]=reglin(x,y,dflag)
     if n2<>p2 then
         error(msprintf(gettext("%s: Incompatible input arguments #%d and #%d: Same column dimensions expected.\n"),"reglin",1,2));
     end;
+    if size(y, "r") == 1 then
+        // A column of x defines an element of y, but each line of y defines an independent problem, that is why we treat the y vector case separately here.
+        // If x(:,i) contains %nan or y(i) = %nan, then both x(:,i) and y(i) are removed.
+        nanX = isnan(x);
+        nanY = isnan(y);
+        if or(isnan(x)) | or(isnan(y)) then // At least one NaN is x or y.
+            nan_indexes = [nanX; nanY];
+            x(:, floor((find(nan_indexes==%t)-1)./(n1+1)+1)) = [];
+            y(floor((find(nan_indexes==%t)-1)./(n1+1)+1)) = [];
+            [n1, n2] = size(x);
+            [p1, p2] = size(y);
+        end
+    elseif or(isnan(x)) | or(isnan(y)) then
+        // This case is much more complicated if we don't want to lose any information. For now, just return NaNs.
+        warning(msprintf(_("%s: NaNs detected in input arguments: NaNs will be returned.\n"), "reglin"))
+    end
 
     xmoy=sum(x,2)/n2
     ymoy=sum(y,2)/n2
-    // We use armax for apropriate orders which will perform
+    // We use armax for appropriate orders which will perform
     // nothing but a least square
     // We could directly call pinv or \
     [arc,la,lb,sig]=armax(0,0,y-ymoy*ones(1,n2),x-xmoy*ones(1,n2),0,dflag);
