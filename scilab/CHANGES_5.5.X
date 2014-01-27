@@ -199,6 +199,8 @@ Scilab Bug Fixes
 
 * Bug #11714 fixed - help_from_sci sometimes failed when input function had "<imagedata>" comments.
 
+* Bug #11975 fixed - Inverted Pendulum demo did not compile.
+
 * Bug #11996 fixed - eye extended to hypermatrix.
 
 * Bug #12073 fixed - Width of code examples has been decreased in XML help pages.

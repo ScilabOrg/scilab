@@ -20,90 +20,77 @@
 //
 
 function  [%cpr,ok] = do_compile(scs_m)
-    show_trace = %f //** tracing and profiling (probably by Alan L. )
-    if show_trace then
-        disp("c_pass0:"+string(timer()));
+    // Load the block libs if not defined
+    prot = funcprot();
+    funcprot(0);
+    if ~exists("scicos_diagram") then
+        loadXcosLibs();
     end
+    funcprot(prot);
+    [modelica_libs, scicos_pal_libs, %scicos_with_grid, %scs_wgrid] = initial_scicos_tables();
 
-    if exists("%scicos_solver")==0 then
-        %scicos_solver = 0 ;
-    end
+    //**---- prepare from and to workspace stuff ( "From workspace" block )
+    scicos_workspace_init()
 
-    par = scs_m.props;
+    //** extract tolerances from scs_m.props.tol
+    tolerances = scs_m.props.tol ;
+    //** extract solver type from tolerances
+    solver = tolerances(6) ;
+    //** initialize a "scicos_debug_gr" variable
+    %scicos_debug_gr = %f;
 
-    if alreadyran then
-        // terminate current simulation
-        do_terminate();
-    end
+    ////////////////////////////////////////////////////////////////
+    // Add global environment variable so that scicos is not lost //
+    ////////////////////////////////////////////////////////////////
+    needcompile = 4;
+    %state0     = list();
+    needcompile = 4;
+    curwin      = 1000;
+    %cpr        = struct();
+    %tcur       = 0;
+    %cpr.state  = %state0;
+    alreadyran = %f;
 
-    timer() ; //** profiling timer
+    tf          = scs_m.props.tf;
+    %zoom       = 1.4;
+    Select      = [];
 
-    IN=[];OUT=[];
-    for i=1:lstsize(scs_m.objs)
-        if typeof(scs_m.objs(i))=="Block" then
-            if scs_m.objs(i).gui=="IN_f" then
-                scs_m.objs(i).gui="INPUTPORT";
-                scs_m.objs(i).model.sim="bidon"
-                IN=[IN scs_m.objs(i).model.ipar]
-            elseif scs_m.objs(i).gui=="OUT_f" then
-                scs_m.objs(i).gui="OUTPUTPORT";
-                scs_m.objs(i).model.sim="bidon"
-                OUT=[OUT  scs_m.objs(i).model.ipar]
+    //** extract tolerances from scs_m.props.tol
+    tolerances = scs_m.props.tol ;
+    //** extract solver type from tolerances
+    solver = tolerances(6) ;
+
+    // Propagate context through all blocks
+    %scicos_context = struct();
+    context = scs_m.props.context;
+    //** context eval here
+    [%scicos_context, ierr] = script2var(context, %scicos_context);
+
+    // For backward compatibility for scifunc
+    if ierr==0 then
+        %mm = getfield(1,%scicos_context)
+        for %mi=%mm(3:$)
+            ierr = execstr(%mi+"=%scicos_context(%mi)","errcatch")
+            if ierr<>0 then
+                break; //** in case of error exit
             end
         end
     end
+    // End of for backward compatibility for scifuncpagate context values
 
-    IN=-gsort(-IN);
-    if or(IN<>[1:size(IN,"*")]) then
-        ok=%f;%cpr=list()
-        messagebox("Input ports are not numbered properly.","modal")
-        return
+    [scs_m,%cpr,needcompile,ok] = do_eval(scs_m, %cpr, %scicos_context);
+    if ~ok then
+        msg = msprintf(gettext("%s: Error during block parameters evaluation.\n"), "Xcos");
+        messagebox(msg, "Xcos", "error");
+        error(msprintf(gettext("%s: Error during block parameters evaluation.\n"), "xcos_simulate"));
     end
 
-    OUT=-gsort(-OUT);
-    if or(OUT<>[1:size(OUT,"*")]) then
-        ok=%f;%cpr=list()
-        messagebox("Output ports are not numbered properly.","modal")
-        return
+    //** update parameters or compilation results
+    [%cpr,%state0_n,needcompile,alreadyran,ok] = do_update(%cpr,%state0,needcompile)
+    if ~ok then
+        error(msprintf(gettext("%s: Error during block parameters update.\n"), "xcos_simulate"));
     end
 
-    //** First PASSAGE
-    [bllst,connectmat,clkconnect,cor,corinv,ok] = c_pass1(scs_m);
-
-    if show_trace then
-        disp("c_pass1:"+string(timer()))
-    end
-
-    if ~ok then %cpr=list()
-        return ; //** incase of any error EXIT
-    end
-
-    if size(connectmat,2)==6 then
-        connectmat = connectmat(:,[1 2 4 5])
-    end
-
-
-    scs_m = null() ;
-
-    if ~ok then %cpr=list()
-        return
-    end
-
-    // newc_pass2 destroys the corinv component associated
-    // to the modelica blocks preserve it
-    // clast=corinv($)
-    // if type(clast)==15 then corinv($)=clast(1),klast=size(corinv),end
-    // %cpr=newc_pass2(bllst,connectmat,clkconnect,cor,corinv);
-    // newc_pass2 destroys the corinv component associated
-    // to the modelica blocks
-    // if type(clast)==15 then %cpr.corinv(klast)=clast,end
-
-
-    //** Second PASSAGE
-    %cpr = c_pass2(bllst,connectmat,clkconnect,cor,corinv);
-
-    if %cpr==list() then
-        ok = %f ;
-    end
+    clear alreadyran, %state0_n, needcompile;
 
 endfunction
