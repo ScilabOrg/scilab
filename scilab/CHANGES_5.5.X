@@ -545,6 +545,8 @@ Scilab Bug Fixes
 
 * Bug #13205 fixed - group accepted continuous transfer functions.
 
+* Bug #13208 fixed - reglin now filters NaNs if x and y are vectors.
+
 * Bug #13210 fixed - Incorrect argument description in the mseek help page.
 
 * Bug #13213 fixed - User defined margins were reset by auto computation of the margins.

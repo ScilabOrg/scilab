@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA -
+ * Copyright (C) 2014 - Scilab Enterprises - Paul Bignier
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,22 +10,22 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="reglin">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr_FR" xml:id="reglin">
     <refnamediv>
         <refname>reglin</refname>
-        <refpurpose>Linear regression</refpurpose>
+        <refpurpose>Régréssion linéaire</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Séquence d'appel</title>
         <synopsis>[a,b,sig]=reglin(x,y)</synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>Arguments</title>
+        <title>Paramètres</title>
         <variablelist>
             <varlistentry>
                 <term>x, y, a, b, sig</term>
                 <listitem>
-                    <para>numerical vectors or matrices.</para>
+                    <para>Vecteurs or Matrices numériques.</para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -33,28 +33,28 @@
     <refsection>
         <title>Description</title>
         <para>
-            Solve the regression problem y=a*x+b in the least square sense.
-            <literal>sig</literal> is the standard deviation of the residual. <literal>x</literal> and <literal>y</literal>
-            are two matrices of size <literal>x(p,n)</literal> and <literal>y(q,n)</literal>, where <literal>n</literal>
-            is the number of samples.
+            Résout le problème de régréssion <literal>y=a*x+b</literal> au sens des moindres carrés.
+            <literal>sig</literal> est l'écart-type du résidu. <literal>x</literal> et <literal>y</literal>
+            sont deux matrices de taille <literal>x(p,n)</literal> et <literal>y(q,n)</literal>, où <literal>n</literal>
+            est le nombre d'échantillons.
         </para>
         <para>
-            The estimator <literal>a</literal> is a matrix of size <literal>(q,p)</literal> and <literal>b</literal> is a
-            vector of size <literal>(q,1)</literal>.
+            L'estimateur <literal>a</literal> est une matrice de taille <literal>(q,p)</literal> et <literal>b</literal> est un
+            vecteur de taille <literal>(q,1)</literal>.
         </para>
         <para>
-            If <literal>y</literal> is a vector and <literal>x</literal> or <literal>y</literal> contain a NaN
-            (<literal>x(i,j) = %nan</literal> or <literal>y(j) = %nan</literal>),
-            then <literal>x(:,j)</literal> and <literal>y(j)</literal> are ignored, as if the point [x(:,j); y(j)] did not exist.
+            Si <literal>y</literal> est un vecteur et <literal>x</literal> ou <literal>y</literal> contient un NaN
+            (<literal>x(i,j) = %nan</literal> ou <literal>y(j) = %nan</literal>),
+            alors <literal>x(:,j)</literal> et <literal>y(j)</literal> sont ignorés, comme si le point [x(:,j); y(j)] n'existait pas.
         </para>
         <para>
-            If <literal>y</literal> is a matrix containing NaNs, use <link linkend="nanreglin">nanreglin</link>.
+            Si <literal>y</literal> est une matrice contenant des NaN, utilisez <link linkend="nanreglin">nanreglin</link>.
         </para>
     </refsection>
     <refsection>
-        <title>Examples</title>
+        <title>Exemples</title>
         <programlisting role="example"><![CDATA[
-// Simulation of data for a(3, 5) and b(3, 1)
+// Simulation de données pour a(3, 5) et b(3, 1)
 x  = rand(5, 100);
 aa = testmatrix("magi", 5); aa = aa(1:3, :);
 bb = [9; 10; 11];
@@ -65,20 +65,20 @@ y  = aa*x +bb*ones(1, 100)+ 0.1*rand(3, 100);
 max(abs(aa-a))
 max(abs(bb-b))
 
-// Another example: fitting a polynomial
+// Autre exemple : adaptation d'un polynôme
 f = 1:100; x = [f.*f; f];
 y = [2 3]*x + 10*ones(f) + 0.1*rand(f);
 [a, b] = reglin(x, y)
  ]]></programlisting>
         <para>
-            Graphical example:
+            Exemple graphique :
         </para>
         <programlisting role="example"><![CDATA[
-// Generating an odd function (symmetric with respect to the origin)
+// Génération d'une fonction impaire (symétrique à l'origine)
 x = -30:30;
 y = x.^3;
 
-// Extracting the least square mean of that function and displaying
+// Extraction de la moyenne des moindres carrés de cette fonction et affichage
 [a, b] = reglin(x, y);
 plot(x, y, "red")
 plot(x, a*x+b)
@@ -91,19 +91,19 @@ plot(x, a*x+b)
             plot(x, a*x+b)
         </scilab:image>
         <para>
-            Example with NaN:
+            Exemple avec un NaN :
         </para>
         <programlisting role="example"><![CDATA[
-// Same values as in the previous example, but with a NaN
+// Mêmes valeurs que dans l'exemple précédent, mais avec un NaN
 x = -30:30;
 y = x.^3;
 y(10) = %nan;
 
-// Extracting the least square mean of that function and displaying
+// Extraction de la moyenne des moindres carrés de cette fonction et affichage
 [a, b] = reglin(x, y);
 plot(x, y, "red")
 plot(x, a*x+b)
-// The point [x(10), y(10)] was ignored, resulting in a non-zero value for b.
+// Le point [x(10), y(10)] a été ignoré, résultant en une valeur non-nulle pour b.
  ]]></programlisting>
         <scilab:image>
             x = -30:30;
@@ -115,7 +115,7 @@ plot(x, a*x+b)
         </scilab:image>
     </refsection>
     <refsection role="see also">
-        <title>See Also</title>
+        <title>Vori aussi</title>
         <simplelist type="inline">
             <member>
                 <link linkend="nanreglin">nanreglin</link>
