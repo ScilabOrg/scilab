@@ -20,6 +20,13 @@ function [a,b,sig]=reglin(x,y,dflag)
         error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"reglin",2,3))
     end
     if rhs <=2;dflag=0;end
+    if size(x,"r") == 1 & size(y,"r") == 1 then
+        // Start by removing NaNs
+        x(isnan(y)) = [];
+        y(isnan(y)) = [];
+    elseif or(isnan(y)) then
+        warning(msprintf(_("%s: NaNs detected in input argument #%d: NaNs will be returned.\n"), "reglin", 2))
+    end
     [n1,n2]=size(x)
     [p1,p2]=size(y)
     if n2<>p2 then
