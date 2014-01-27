@@ -72,8 +72,6 @@ import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.Visitor;
 import org.scilab.modules.graphic_objects.utils.LayoutType;
 
-import sun.font.EAttribute;
-
 /**
  * @author Bruno JOFRET
  * @author Vincent COUVERT
@@ -291,9 +289,9 @@ public class Uicontrol extends GraphicObject {
     private BorderLayoutType borderPosition = BorderLayoutType.CENTER;
 
     /** layout options */
-    private Integer[] gridOptGrid = new Integer[2];
-    private Integer[] gridOptPadding = new Integer[2];
-    private Integer[] borderOptPadding = new Integer[2];
+    private Integer[] gridOptGrid = new Integer[] {0, 0};
+    private Integer[] gridOptPadding = new Integer[] {0, 0};
+    private Integer[] borderOptPadding = new Integer[] {0, 0};
 
     /**
      * All uicontrol properties
