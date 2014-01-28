@@ -664,11 +664,7 @@ public class SwingScilabDockable extends View implements SimpleTab, FocusListene
                 default:
                     break;
             }
-            //layerdPane.add((Component) member, GraphicController.getController().getProperty(member.getId(), __GO_CONSTRAINTS__));
         } else if (uiContentPane.getLayout() instanceof GridBagLayout) {
-            System.err.println("{SwingScilabDockable} addMember(SwingViewObject member)");
-            
-            //GridBagConstraints constraints = new GridBagConstraints(grid[0], grid[1], grid[2], grid[3], weightx, weighty, anchor, fill, insets, ipadx, ipady);
             GridBagConstraints constraints = new GridBagConstraints();
             
             // Grid
