@@ -94,8 +94,6 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
                             newValue[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
                             GraphicController.getController().setProperty(rb.getId(), __GO_UI_VALUE__, newValue);
                         }
-
-                        System.out.println("");
                     }
                 }
 
