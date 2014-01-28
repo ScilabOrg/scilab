@@ -13,13 +13,20 @@
 
 package org.scilab.modules.gui.bridge.radiobutton;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_GROUP_NAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
@@ -52,6 +59,8 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
 
     private ActionListener actListener;
 
+    private static Map<String, ButtonGroup> buttonGroup = new HashMap<String, ButtonGroup>();
+
     /**
      * Constructor
      */
@@ -64,10 +73,32 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
             @Override
             public void actionPerformed(ActionEvent e) {
                 Double[] value = new Double[1];
-                value[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
                 if (isSelected()) {
                     value[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
+                } else {
+                    value[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
                 }
+
+                if (isSelected()) {
+                    String groupname = (String) GraphicController.getController().getProperty(uid, __GO_UI_GROUP_NAME__);
+                    if (groupname != null && groupname.equals("") == false) {
+                        Enumeration<AbstractButton> elements = getGroupElements(groupname);
+                        while (elements.hasMoreElements()) {
+                            SwingScilabRadioButton rb = (SwingScilabRadioButton) elements.nextElement();
+                            if (rb == e.getSource()) {
+                                continue;
+                            }
+
+                            //update model with min value
+                            Double newValue[] = new Double[1];
+                            newValue[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
+                            GraphicController.getController().setProperty(rb.getId(), __GO_UI_VALUE__, newValue);
+                        }
+
+                        System.out.println("");
+                    }
+                }
+
                 GraphicController.getController().setProperty(uid, __GO_UI_VALUE__, value);
                 if (callback != null) {
                     callback.actionPerformed(e);
@@ -193,7 +224,31 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
             removeActionListener(actListener);
         }
 
-        setSelected(status);
+
+        String groupname = (String) GraphicController.getController().getProperty(uid, __GO_UI_GROUP_NAME__);
+        if (groupname != null && groupname.equals("") == false) {
+            // use setSelected of ButtonGroup instead of JRadioButton
+            ButtonGroup group = buttonGroup.get(groupname);
+            group.setSelected(getModel(), status);
+
+            //update model with changes
+            Enumeration<AbstractButton> elements = getGroupElements(groupname);
+            while (elements.hasMoreElements()) {
+                SwingScilabRadioButton rb = (SwingScilabRadioButton) elements.nextElement();
+
+                // update model with min value
+                Double newValue[] = new Double[1];
+                if (rb.isSelected()) {
+                    newValue[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MAX__);
+                } else {
+                    newValue[0] = (Double) GraphicController.getController().getProperty(uid, __GO_UI_MIN__);
+                }
+                GraphicController.getController().setProperty(rb.getId(), __GO_UI_VALUE__, newValue);
+            }
+
+        } else {
+            setSelected(status);
+        }
 
         /* Put back the listener */
         if (actListener != null) {
@@ -258,6 +313,31 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
         return uid;
     }
 
+    public void addToGroup(String groupName, SwingScilabRadioButton obj) {
+
+        //first is to remove obj from others group
+        removeFromGroup(obj);
+
+        ButtonGroup group = buttonGroup.get(groupName);
+        if (group == null) {
+            group = new ButtonGroup();
+            buttonGroup.put(groupName, group);
+        }
+
+        group.add(obj);
+    }
+
+    public void removeFromGroup(SwingScilabRadioButton obj) {
+        Collection<ButtonGroup> groupList = buttonGroup.values();
+        for (ButtonGroup group : groupList) {
+            group.remove(obj);
+        }
+    }
+
+    public Enumeration<AbstractButton> getGroupElements(String groupname) {
+        ButtonGroup group = buttonGroup.get(groupname);
+        return group.getElements();
+    }
     /**
      * Generic update method
      * @param property property name
