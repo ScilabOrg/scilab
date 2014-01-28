@@ -892,8 +892,13 @@ void visitprivate(const AssignExp  &e)
                 if (pstName)
                 {
                     InternalType* pCurrentStr = symbol::Context::getInstance()->getCurrentLevel(symbol::Symbol(*pstName));
-                    InternalType* pHigherStr = symbol::Context::getInstance()->get(symbol::Symbol(*pstName));
-                    if (pHigherStr && pHigherStr->isStruct() && pCurrentStr == NULL)
+                    InternalType* pHigherStr = symbol::Context::getInstance()->getAllButCurrentLevel(symbol::Symbol(*pstName));
+                    if (pCurrentStr && (pCurrentStr->isStruct() || pCurrentStr->isTList() || pCurrentStr->isMList()) && pCurrentStr != result_getContainer())
+                    {
+                        InternalType *pITClone = pCurrentStr->clone();
+                        symbol::Context::getInstance()->put(symbol::Symbol(*pstName), *pITClone);
+                    }
+                    else if (pHigherStr && (pHigherStr->isStruct() || pHigherStr->isTList() || pHigherStr->isMList()) && pCurrentStr == NULL)
                     {
                         //struct come from higher scope, so we need to clone and put it in current scope
                         InternalType *pITClone = pHigherStr->clone();

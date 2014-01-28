@@ -70,6 +70,7 @@ public:
         _excepted_result = -1;
         _resultVect.push_back(NULL);
         _result = NULL;
+        _resultContainer = NULL;
         m_bSingleResult = true;
         m_pAns = new symbol::Symbol(L"ans");
     }
@@ -177,6 +178,16 @@ public:
         }
     }
 
+    types::InternalType* result_getContainer(void)
+    {
+        return _resultContainer;
+    }
+
+    void result_setContainer(const types::InternalType *gtVal)
+    {
+        _resultContainer = const_cast<types::InternalType *>(gtVal);
+    }
+
     void result_set(int _iPos, const types::InternalType *gtVal)
     {
         m_bSingleResult = false;
@@ -213,6 +224,7 @@ public:
 protected:
     vector<types::InternalType*>	_resultVect;
     types::InternalType*	_result;
+    types::InternalType*	_resultContainer;
     bool m_bSingleResult;
     int _excepted_result;
     symbol::Symbol* m_pAns;
@@ -545,6 +557,7 @@ public :
             if (psvRightMember != NULL)
             {
                 TList* psValue = ((InternalType*)result_get())->getAs<TList>();
+                result_setContainer(psValue);
                 result_set(NULL);
                 if (psValue->exists(psvRightMember->name_get().name_get()))
                 {

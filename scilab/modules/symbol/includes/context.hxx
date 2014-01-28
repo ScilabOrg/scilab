@@ -47,6 +47,9 @@ public :
     ** and the env table too. */
     void scope_end();
 
+    /** return the current level. */
+    int getLevel();
+
     /** If key was associated to some Entry_T in the open scopes, return the
     ** most recent insertion. Otherwise return the empty pointer. */
     types::InternalType* get(const symbol::Symbol& key) const;

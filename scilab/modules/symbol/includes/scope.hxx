@@ -54,6 +54,10 @@ public :
 
     void scope_begin();
     void scope_end();
+    int getLevel()
+    {
+        return m_iLevel;
+    }
 
     /*setters*/
 

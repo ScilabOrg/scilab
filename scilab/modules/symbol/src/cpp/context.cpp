@@ -55,6 +55,11 @@ void Context::scope_end()
     m_scopes->scope_end();
 }
 
+int Context::getLevel()
+{
+    return m_scopes->getLevel();
+}
+
 types::InternalType* Context::get(const symbol::Symbol& _key) const
 {
     return m_scopes->get(_key);
