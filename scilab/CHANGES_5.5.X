@@ -1223,6 +1223,8 @@ Scilab Bug Fixes
 
 * Bug #12931 fixed - ATOMS redefined "message" keyword.
 
+* Bug #13210 fixed - Incorrect argument description in the mseek help page.
+
 
 Xcos Bug Fixes
 ===============
