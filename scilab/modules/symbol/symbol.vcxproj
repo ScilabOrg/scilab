@@ -183,6 +183,7 @@
     <ClInclude Include="includes\addGatewayInContext.h" />
     <ClInclude Include="includes\context.hxx" />
     <ClInclude Include="includes\export_symbol.h" />
+    <ClInclude Include="includes\scope.hxx" />
     <ClInclude Include="includes\symbol.hxx" />
     <ClInclude Include="includes\variables.hxx" />
   </ItemGroup>
