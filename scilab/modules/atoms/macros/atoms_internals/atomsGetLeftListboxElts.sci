@@ -216,7 +216,34 @@ function elements = atomsGetLeftListboxElts(category)
     elseif category=="filter:all" then
         elements("title") = gettext("All modules");
     else
-        elements("title") = category;
+        elements("title") = gettext(category);
     end
 
+    if %f then
+        // NEVER EXECUTED ON PURPOSE
+        // inlined category "filter:main" data to ease localization
+        gettext("Aerospace");
+        gettext("Contributed Scilab Binaries");
+        gettext("Data Analysis And Statistics");
+        gettext("Data Handling");
+        gettext("Editor Styles");
+        gettext("Education");
+        gettext("GUI");
+        gettext("Graphics");
+        gettext("Graphs");
+        gettext("Image Processing");
+        gettext("Instruments Control");
+        gettext("Linear algebra");
+        gettext("Modeling and Control Tools");
+        gettext("Number theory");
+        gettext("Numerical Maths");
+        gettext("Optimization");
+        gettext("Physics");
+        gettext("Real-Time");
+        gettext("Scilab development");
+        gettext("Signal Processing");
+        gettext("Technical");
+        gettext("Tests");
+        gettext("Xcos");
+    end
 endfunction
