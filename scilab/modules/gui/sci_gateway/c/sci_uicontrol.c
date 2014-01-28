@@ -71,6 +71,7 @@ static const char* propertiesNames[] =
     "layout",
     "margins"
     "borders",
+    "group"
 };
 
 /*--------------------------------------------------------------------------*/

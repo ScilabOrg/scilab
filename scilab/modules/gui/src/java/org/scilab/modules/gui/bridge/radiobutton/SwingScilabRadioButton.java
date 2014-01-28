@@ -13,13 +13,21 @@
 
 package org.scilab.modules.gui.bridge.radiobutton;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
@@ -51,6 +59,8 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
     private CommonCallBack callback;
 
     private ActionListener actListener;
+
+    private static Map<String, ButtonGroup> buttonGroup = new HashMap<String, ButtonGroup>();
 
     /**
      * Constructor
@@ -258,6 +268,31 @@ public class SwingScilabRadioButton extends JRadioButton implements SwingViewObj
         return uid;
     }
 
+    public void addToGroup(String groupName, SwingScilabRadioButton obj) {
+
+        //first is to remove obj from others group
+        removeFromGroup(obj);
+
+        ButtonGroup group = buttonGroup.get(groupName);
+        if (group == null) {
+            System.out.println("create a new group : " + groupName);
+            group = new ButtonGroup();
+            buttonGroup.put(groupName, group);
+        }
+
+        group.add(obj);
+    }
+
+    public void removeFromGroup(SwingScilabRadioButton obj) {
+        Collection<ButtonGroup> groupList = buttonGroup.values();
+        for (ButtonGroup group : groupList) {
+            int count = group.getButtonCount();
+            group.remove(obj);
+            if (count != group.getButtonCount()) {
+                System.out.println("delete from group");
+            }
+        }
+    }
     /**
      * Generic update method
      * @param property property name
