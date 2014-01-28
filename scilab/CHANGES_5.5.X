@@ -1223,6 +1223,8 @@ Scilab Bug Fixes
 
 * Bug #12931 fixed - ATOMS redefined "message" keyword.
 
+* Bug #13175 fixed - Update argn() help page.
+
 
 Xcos Bug Fixes
 ===============
