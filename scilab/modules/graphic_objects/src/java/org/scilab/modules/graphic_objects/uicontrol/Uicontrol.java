@@ -13,8 +13,8 @@
 
 package org.scilab.modules.graphic_objects.uicontrol;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_LAYOUT_SET__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_LAYOUT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_LAYOUT_SET__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_MARGINS__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_STYLE__;
@@ -65,6 +65,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_GRID_OPT_GRID__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_GRID_OPT_PADDING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME_BORDER__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_GROUP_NAME__;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -298,6 +299,9 @@ public class Uicontrol extends GraphicObject {
     /** border options */
     private Integer frameBorder = 0;
 
+    /** groupname for radiobutton */
+    private String groupName = "";
+
     /**
      * All uicontrol properties
      */
@@ -342,7 +346,8 @@ public class Uicontrol extends GraphicObject {
         GRIDOPT_GRID,
         GRIDOPT_PADDING,
         BORDEROPT_PADDING,
-        FRAMEBORDER
+        FRAMEBORDER,
+        GROUPNAME
     };
 
     /**
@@ -538,6 +543,8 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolProperty.BORDEROPT_PADDING;
             case __GO_UI_FRAME_BORDER__:
                 return UicontrolProperty.FRAMEBORDER;
+            case __GO_UI_GROUP_NAME__:
+                return UicontrolProperty.GROUPNAME;
             default :
                 return super.getPropertyFromName(propertyName);
         }
@@ -627,6 +634,8 @@ public class Uicontrol extends GraphicObject {
             return getBorderOptPadding();
         } else if (property == UicontrolProperty.FRAMEBORDER) {
             return getFrameBorder();
+        } else if (property == UicontrolProperty.GROUPNAME) {
+            return getGroupName();
         } else {
             return super.getProperty(property);
         }
@@ -713,6 +722,8 @@ public class Uicontrol extends GraphicObject {
                 return setBorderOptPadding((Integer[]) value);
             case FRAMEBORDER:
                 return setFrameBorder((Integer) value);
+            case GROUPNAME:
+                return setGroupName((String) value);
             default:
                 return super.setProperty(property, value);
         }
@@ -1297,6 +1308,19 @@ public class Uicontrol extends GraphicObject {
         }
 
         frameBorder = value;
+        return UpdateStatus.Success;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public UpdateStatus setGroupName(String value) {
+        if (groupName.equals(value)) {
+            return UpdateStatus.NoChange;
+        }
+
+        groupName = value;
         return UpdateStatus.Success;
     }
 
