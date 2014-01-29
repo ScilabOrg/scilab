@@ -6,7 +6,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>[xk]=mfft(x,flag,dim)</synopsis>
+        <synopsis>[xk]=mfft(x,flag [,dim])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -29,7 +29,7 @@
                 <term>dim</term>
                 <listitem>
                     <para>
-                        dimension vector which gives the number of values of <literal>x</literal> for each of its indices
+                        dimension vector which gives the number of values of <varname>x</varname> for each of its indices, by default dim=size(<varname>x</varname>).
                     </para>
                 </listitem>
             </varlistentry>
@@ -38,7 +38,7 @@
                 <listitem>
                     <para>
                         output of multidimensional fft in same format as for
-                        <literal>x</literal>
+                        <varname>x</varname>
                     </para>
                 </listitem>
             </varlistentry>
@@ -64,11 +64,11 @@ x=[x(1,1,1),x(2,1,1),x(3,1,1),...
    x(1,2,3),x(2,2,3),x(3,2,3)]
  ]]></programlisting>
         <para>
-            and the <literal>dim</literal> vector is:
+            and the <varname>dim</varname> vector is:
             <literal>dim=[3,2,3]</literal>
         </para>
         <para>
-            <literal>mfft</literal> is superseeded by <link
+            <function>mfft</function> is superseeded by <link
       linkend="fft">fft</link>: <literal> mfft(x,flag,dim)</literal>
             is equivalent to
             <literal>matrix(fft(matrix(x,dim),flag),size(x))</literal>.

@@ -1,0 +1,23 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for bug 6584 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=6584
+//
+// <-- Short Description -->
+// Last input argument of mfft function should be optionnal.
+
+x=[1 2 3 4;5 6 7 8; 9 10 11 12];
+assert_checkequal(mfft(x,1),mfft(x,1,[3,4]));
+assert_checkequal(mfft(x,-1),mfft(x,-1,[3,4]));
+x=hypermat([3,2,4],1:24);
+assert_checkequal(mfft(x,1),mfft(x,1,[3,2,4]));
+assert_checkequal(mfft(x,-1),mfft(x,-1,[3,2,4]));

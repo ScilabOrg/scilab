@@ -35,7 +35,12 @@ function xk=mfft(x,flag,dim)
     //      dim=[3,2,3]
     //
     //!
-
-    xk=matrix(fft(matrix(x,dim),flag),size(x))
+    rhs = argn(2);
+    if rhs==2 then
+        dim = size(x);
+    elseif rhs~=2 & rhs~=3 then
+        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"), "mfft", 2, 3));
+    end
+    xk=matrix(fft(matrix(x,dim),flag),size(x));
 
 endfunction

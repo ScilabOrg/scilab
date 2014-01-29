@@ -705,6 +705,8 @@ Scilab Bug Fixes
 
 * Bug #6466 fixed - Example with vectorized input added in mprintf and msprintf help pages.
 
+* Bug #6584 fixed - Last input argument of mfft function should be optionnal.
+
 * Bug #6638 fixed - The profiler output was incorrect by a factor of 1000 under Windows.
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
