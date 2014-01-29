@@ -644,6 +644,9 @@ Obsolete & Removed Functions
 * fprintf removed, please use mfprintf for files opened with mopen or write for files
   opened with file instead.
 
+* mfft tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use fft instead.
+
 
 Scilab Bug Fixes
 ================
@@ -704,6 +707,8 @@ Scilab Bug Fixes
 * Bug #6427 fixed - full([%T %F]) returned an error message.
 
 * Bug #6466 fixed - Example with vectorized input added in mprintf and msprintf help pages.
+
+* Bug #6584 fixed - mfft tagged as obsolete.
 
 * Bug #6638 fixed - The profiler output was incorrect by a factor of 1000 under Windows.
 
