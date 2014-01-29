@@ -199,7 +199,7 @@ public class Figure extends GraphicObject {
          * Default constructor
          */
         public Canvas() {
-            autoResize = false;
+            autoResize = true;
             viewport = new Integer[2];
             axesSize = new Integer[2];
         }

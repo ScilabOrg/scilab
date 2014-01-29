@@ -90,12 +90,13 @@ int sci_figure(char * fname, unsigned long fname_len)
         iNewId = iNewId + 1;
 
         //create a new window with id = iNewId
-        iFig = createNewFigureWithAxes();
+        //iFig = createNewFigureWithAxes();
+        iFig = createGraphicObject(__GO_WINDOW__);
         setGraphicObjectProperty(iFig, __GO_ID__, &iNewId, jni_int, 1);
         setCurrentFigure(iFig);
 
         getGraphicObjectProperty(iFig, __GO_SELECTED_CHILD__, jni_int,  (void**)&piAxes);
-        setCurrentSubWin(iAxes);
+        //setCurrentSubWin(iAxes);
 
         //setting up new figure
         setDefaultProperties(iFig, FALSE);
@@ -135,16 +136,17 @@ int sci_figure(char * fname, unsigned long fname_len)
         if (iFig == 0)
         {
             // No Figure available with this index, should create it  !!
-            iFig = createNewFigureWithAxes();
+            //iFig = createNewFigureWithAxes();
+            iFig = createGraphicObject(__GO_WINDOW__);
             setGraphicObjectProperty(iFig, __GO_ID__, &iId, jni_int, 1);
         }
 
         setCurrentFigure(iFig);
         getGraphicObjectProperty(iFig, __GO_SELECTED_CHILD__, jni_int,  (void**)&piAxes);
-        setCurrentSubWin(iAxes);
+        //setCurrentSubWin(iAxes);
 
         //setting up new figure
-        setDefaultProperties(iFig, FALSE);
+        //setDefaultProperties(iFig, FALSE);
 
         iPos = 1;
     }

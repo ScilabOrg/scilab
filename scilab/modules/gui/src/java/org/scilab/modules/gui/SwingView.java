@@ -620,13 +620,16 @@ public final class SwingView implements GraphicView {
 
                                 @Override
                                 public void run() {
-                                    final SwingScilabDockablePanel tab = (SwingScilabDockablePanel) requestedObject.getValue();
-                                    tab.disablePaint();
-                                    DockingManager.close(tab);
-                                    DockingManager.unregisterDockable((Dockable) tab);
-                                    ClosingOperationsManager.unregisterClosingOperation(tab);
-                                    ClosingOperationsManager.removeDependency(tab);
-                                    ClosingOperationsManager.checkTabForClosing(tab);
+                                    final SwingScilabPanel tab = (SwingScilabPanel) requestedObject.getValue();
+                                    if (tab instanceof SwingScilabDockablePanel) {
+                                        final SwingScilabDockablePanel dockableTab = (SwingScilabDockablePanel) tab;
+                                        dockableTab.disablePaint();
+                                        DockingManager.close(dockableTab);
+                                        DockingManager.unregisterDockable((Dockable) dockableTab);
+                                        ClosingOperationsManager.unregisterClosingOperation(dockableTab);
+                                        ClosingOperationsManager.removeDependency(dockableTab);
+                                        ClosingOperationsManager.checkTabForClosing(dockableTab);
+                                    }
                                     tab.close();
                                 }
 
@@ -884,6 +887,7 @@ public final class SwingView implements GraphicView {
                 /* Add an uicontrol */
                 if (childType == __GO_UICONTROL__) {
                     SwingViewObject uiContol = allObjects.get(childId).getValue();
+                    System.err.println(updatedComponent.getClass().getCanonicalName());
                     ((SwingScilabPanel) updatedComponent).addMember(uiContol);
 
                     // Force Position
