@@ -81,7 +81,7 @@ int createNewFigureWithAxes()
 
 int createFigure(int iDockable, int iMenubarType, int iToolbarType, int iDefaultAxes)
 {
-    return Builder::createFigure(getScilabJavaVM(), iDockable, iMenubarType, iToolbarType, iDefaultAxes);
+    return Builder::createFigure(getScilabJavaVM(), iDockable != 0, iMenubarType, iToolbarType, iDefaultAxes != 0);
 }
 
 void cloneMenus(int model, int newParent)
