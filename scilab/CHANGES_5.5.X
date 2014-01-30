@@ -685,6 +685,8 @@ Scilab Bug Fixes
 
 * Bug #4481 fixed - iir help page updated to precise that frq can be a scalar.
 
+* Bug #4490 fixed - Input argument of sinc function must be in rad: update help page.
+
 * Bug #4731 fixed - lqr failed when the time domain of an input was a number.
 
 * Bug #4743 fixed - Graphics with too big or too small values did not work.
