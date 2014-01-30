@@ -340,4 +340,8 @@ public class SwingScilabCommonPanel {
             }
         }
     }
+    
+    protected static void  removeMember(SwingScilabPanel component,SwingViewObject member) {
+        component.getWidgetPane().remove((Component) member);
+    }
 }
