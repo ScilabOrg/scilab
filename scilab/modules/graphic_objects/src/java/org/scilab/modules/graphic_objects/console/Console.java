@@ -34,9 +34,12 @@ public final class Console extends GraphicObject {
 
     private ScilabMode scilabMode;
 
+    private boolean useDeprecatedLF = false;
+
     /** Console properties names */
     private enum ConsoleProperty {
-        SHOWHIDDENHANDLES
+        SHOWHIDDENHANDLES,
+        USEDEPRECATEDLF
     };
 
     /**
@@ -131,6 +134,8 @@ public final class Console extends GraphicObject {
     public Object getProperty(Object property) {
         if (property == ConsoleProperty.SHOWHIDDENHANDLES) {
             return getShowHiddenHandles();
+        } else if (property == ConsoleProperty.USEDEPRECATEDLF) {
+            return getUseDeprecatedLF();
         } else {
             return super.getProperty(property);
         }
@@ -145,10 +150,25 @@ public final class Console extends GraphicObject {
     public UpdateStatus setProperty(Object property, Object value) {
         if (property == ConsoleProperty.SHOWHIDDENHANDLES) {
             setShowHiddenHandles((Boolean) value);
+        } else if (property == ConsoleProperty.USEDEPRECATEDLF) {
+            setUseDeprecatedLF((Boolean) value);
         } else {
             return super.setProperty(property, value);
         }
         return UpdateStatus.Success;
     }
+
+    public boolean getUseDeprecatedLF() {
+        return useDeprecatedLF;
+    }
+
+    public UpdateStatus setUseDeprecatedLF(boolean useDeprecatedLF) {
+        if (this.useDeprecatedLF == useDeprecatedLF) {
+            return UpdateStatus.NoChange;
+        }
+        this.useDeprecatedLF = useDeprecatedLF;
+        return UpdateStatus.Success;
+    }
+
 
 }
