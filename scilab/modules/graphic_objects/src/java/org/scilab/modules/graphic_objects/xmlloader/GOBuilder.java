@@ -44,8 +44,10 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_GRIDBAG_PADDING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_GRIDBAG_WEIGHT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_HORIZONTALALIGNMENT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PUSHBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TAB__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TEXT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_VISIBLE__;
 
@@ -64,8 +66,7 @@ import org.xml.sax.Attributes;
 public class GOBuilder {
     public static Integer figureBuilder(GraphicController controller, Attributes attributes) {
         Integer fig = Builder.createFigure(false, 0, 0, false);
-        // Integer fig =
-        // controller.askObject(GraphicObject.getTypeFromName(__GO_WINDOW__));
+        //Integer fig = Builder.createNewFigureWithAxes();
         String item = null;
 
         // hide toolbar
@@ -83,11 +84,9 @@ public class GOBuilder {
         // id
         XmlTools.setPropAsString(fig, __GO_TAG__, attributes.getValue("id"));
 
-        // visible
-        XmlTools.setPropAsBoolean(fig, __GO_VISIBLE__, attributes.getValue("visible"));
-
         // position
         Integer[] position = (Integer[]) controller.getProperty(fig, __GO_POSITION__);
+
         // posX
         item = attributes.getValue("posX");
         if (item != null) {
@@ -131,6 +130,10 @@ public class GOBuilder {
 
         // layout and layout_options
         setLayoutProperty(controller, fig, attributes.getValue("layout"));
+
+        // visible
+        XmlTools.setPropAsBoolean(fig, __GO_VISIBLE__, attributes.getValue("visible"));
+
         return fig;
     }
 
@@ -245,16 +248,61 @@ public class GOBuilder {
                     Integer border = createBorder(controller, uic, borderType, map);
                     controller.setProperty(uic, __GO_UI_FRAME_BORDER__, border);
 
+                    String[] text = new String[1];
+                    text[0] = attributes.getValue("tab-title");
+                    if (text[0] != null) {
+                        controller.setProperty(uic, __GO_UI_STRING__, text);
+                    }
                     break;
                 }
 
-                case __GO_UI_CHECKBOX__:
+                case __GO_UI_TAB__: {
+                    item = attributes.getValue("ui-style");
+                    if (item != null) {
+                        map = CSSParser.parseLine(item);
+                        item = XmlTools.getFromMap(map, "bold", "false");
+                        if (item.equals("true")) {
+                            controller.setProperty(uic, __GO_UI_FONTWEIGHT__, "bold");
+                        }
+
+                        item = XmlTools.getFromMap(map, "italic", "false");
+                        if (item.equals("true")) {
+                            controller.setProperty(uic, __GO_UI_FONTANGLE__, "italic");
+                        }
+                    }
+                    break;
+                }
+                case __GO_UI_CHECKBOX__: {
                     controller.setProperty(uic, __GO_UI_HORIZONTALALIGNMENT__, "left");
-                case __GO_UI_PUSHBUTTON__:
-                case __GO_UI_TEXT__:
+
                     String[] text = new String[1];
                     text[0] = attributes.getValue("text");
-                    controller.setProperty(uic, __GO_UI_STRING__, text);
+                    if (text[0] != null) {
+                        controller.setProperty(uic, __GO_UI_STRING__, text);
+                    }
+                    break;
+                }
+                case __GO_UI_PUSHBUTTON__: {
+                    String[] text = new String[1];
+                    text[0] = attributes.getValue("text");
+                    if (text[0] != null) {
+                        controller.setProperty(uic, __GO_UI_STRING__, text);
+                    }
+                    break;
+                }
+                case __GO_UI_TEXT__:
+                    controller.setProperty(uic, __GO_UI_HORIZONTALALIGNMENT__, "left");
+                    String[] text = new String[1];
+                    text[0] = attributes.getValue("text");
+                    if (text[0] != null) {
+                        controller.setProperty(uic, __GO_UI_STRING__, text);
+                    }
+
+                    String columns = attributes.getValue("columns");
+                    if (columns != null) {
+                        System.out.println("columns : " + columns);
+                        controller.setProperty(uic, __GO_UI_MAX__, Double.parseDouble(columns));
+                    }
                     break;
             }
 
