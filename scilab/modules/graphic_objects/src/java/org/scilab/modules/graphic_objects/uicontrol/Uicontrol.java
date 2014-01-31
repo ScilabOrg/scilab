@@ -278,7 +278,7 @@ public class Uicontrol extends GraphicObject {
     private static final String STRING_SEPARATOR = "|";
 
     private UicontrolStyle style;
-    private Double[] backgroundColor = {DEFAULT_RED_BACKGROUND, DEFAULT_GREEN_BACKGROUND, DEFAULT_BLUE_BACKGROUND};
+    private Double[] backgroundColor = {-1.0, -1.0, -1.0};
     private boolean enable = true;
     private String fontAngle = DEFAULTFONTANGLE;
     private String fontName = DEFAULTFONTNAME;

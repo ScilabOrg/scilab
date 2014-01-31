@@ -638,6 +638,7 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
      */
     public void setRelief(String reliefType) {
         //setBorder(ScilabRelief.getBorderFromRelief(reliefType));
+        setBorder(null);
     }
 
     /**

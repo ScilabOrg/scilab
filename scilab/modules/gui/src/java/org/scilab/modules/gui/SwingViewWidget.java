@@ -116,9 +116,14 @@ public final class SwingViewWidget {
         switch (property) {
             case __GO_UI_BACKGROUNDCOLOR__ :
                 allColors = ((Double[]) value);
-                uiControl.setBackground(new Color((int) (allColors[0] * COLORS_COEFF),
-                                                  (int) (allColors[1] * COLORS_COEFF),
-                                                  (int) (allColors[2] * COLORS_COEFF)));
+                if (allColors[0] != -1) {
+                    uiControl.setBackground(new Color((int) (allColors[0] * COLORS_COEFF),
+                            (int) (allColors[1] * COLORS_COEFF),
+                            (int) (allColors[2] * COLORS_COEFF)));
+                } else {
+                    // Do not set BackgroundColor for widgets
+                    // rely on Look and Feel
+                }
                 break;
             case __GO_CALLBACK__ :
                 int cbType = (Integer) controller.getProperty(uid, __GO_CALLBACKTYPE__);
