@@ -390,7 +390,7 @@ public :
                 ostr << e.name_get().name_get() << L"  = " << L"(" << pI->getRef() << L")" << std::endl;
                 ostr << std::endl;
                 scilabWriteW(ostr.str().c_str());
-                VariableToString(pI);
+                VariableToString(pI, e.name_get().name_get().c_str());
             }
         }
         else
@@ -1201,7 +1201,7 @@ public :
                         {
                             //TODO manage multiple returns
                             scilabWriteW(L" ans  =\n\n");
-                            VariableToString(pITAns);
+                            VariableToString(pITAns, L"ans");
                         }
                     }
                 }
@@ -1933,12 +1933,18 @@ public :
         }
     }
 
-    void VariableToString(types::InternalType* pIT)
+    void VariableToString(types::InternalType* pIT, const wchar_t* wcsVarName)
     {
+        std::wostringstream ostr;
+
+        if(pIT->isContainer())
+        {
+            ostr << wcsVarName;
+        }
+
         if (pIT->isMList() || pIT->isTList() || pIT->hasToString() == false)
         {
             //call overload %type_p
-            std::wostringstream ostr;
             types::typed_list in;
             types::typed_list out;
 
@@ -1959,8 +1965,6 @@ public :
         }
         else
         {
-            std::wostringstream ostr;
-
             //to manage lines information
             int iLines = ConfigVariable::getConsoleLines();
 
