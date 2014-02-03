@@ -109,6 +109,8 @@ Scilab Bug Fixes
 
 * Bug #7244 fixed - Extraction from a struct array with a boolean vector had a strange behavior.
 
+* Bug #7417 fixed - Auto-positionning datatips did not take into account the curvature.
+
 * Bug #7561 fixed - roots help page now explains that it uses coefficients in the contrary order of poly.
 
 * Bug #7570 fixed - The switch criterion on x and y is now explicited in beta() help page.
