@@ -16,17 +16,35 @@ package org.scilab.modules.gui.bridge.editbox;
 
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import javax.swing.JTextField;
+import javax.swing.InputMap;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.BoxView;
+import javax.swing.text.ComponentView;
+import javax.swing.text.Element;
+import javax.swing.text.IconView;
+import javax.swing.text.LabelView;
+import javax.swing.text.ParagraphView;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.StyledEditorKit;
+import javax.swing.text.View;
+import javax.swing.text.ViewFactory;
 
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.gui.SwingView;
-import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.SwingViewObject;
+import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.editbox.SimpleEditBox;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -34,7 +52,6 @@ import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.PositionConverter;
-import org.scilab.modules.gui.utils.ScilabAlignment;
 import org.scilab.modules.gui.utils.ScilabRelief;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.gui.utils.Size;
@@ -44,7 +61,7 @@ import org.scilab.modules.gui.utils.Size;
  * @author Vincent COUVERT
  * @author Marouane BEN JELLOUL
  */
-public class SwingScilabEditBox extends JTextField implements SwingViewObject, SimpleEditBox {
+public class SwingScilabEditBox extends JScrollPane implements SwingViewObject, SimpleEditBox {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,22 +70,94 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
     private CommonCallBack callback;
 
     private FocusListener focusListener;
-    private ActionListener actionListener;
+    private KeyListener keyListener;
+
+    private StyledDocument doc;
+    private SimpleAttributeSet docAttributes = new SimpleAttributeSet();
+
+    private JTextPane textPane = new JTextPane();
+
+    private Object enterKeyAction;
+
+    private class EditBoxView extends BoxView {
+        public EditBoxView(Element elem, int axis) {
+            super(elem, axis);
+        }
+
+        protected void layoutMajorAxis(int targetSpan, int axis, int[] offsets, int[] spans) {
+            super.layoutMajorAxis(targetSpan, axis, offsets, spans);
+            int textBlockHeight = 0;
+            int offset = 0;
+
+            if (textPane.getAlignmentY() == BOTTOM_ALIGNMENT) {
+                for (int i = 0; i < spans.length; i++) {
+                    textBlockHeight += spans[i];
+                }
+                offset = (targetSpan - textBlockHeight);
+                for (int i = 0; i < offsets.length; i++) {
+                    offsets[i] += offset;
+                }
+            } else if (textPane.getAlignmentY() == CENTER_ALIGNMENT) {
+                for (int i = 0; i < spans.length; i++) {
+                    textBlockHeight += spans[i];
+                }
+                offset = (targetSpan - textBlockHeight) / 2;
+                for (int i = 0; i < offsets.length; i++) {
+                    offsets[i] += offset;
+                }
+            } else {
+                // TOP_ALIGNEMENT or other 
+                // default behaviour : do nothing special 
+            }
+        }
+    }
+
+    private class EditBoxEditorKit extends StyledEditorKit {
+        public ViewFactory getViewFactory() {
+            return new ViewFactory() {
+                public View create(Element elem) {
+                    String kind = elem.getName();
+                    if (kind != null) {
+                        if (kind.equals(AbstractDocument.ContentElementName)) {
+                            return new LabelView(elem);
+                        } else if (kind.equals(AbstractDocument.ParagraphElementName)) {
+                            return new ParagraphView(elem);
+                        } else if (kind.equals(AbstractDocument.SectionElementName)) {
+                            return new EditBoxView(elem, View.Y_AXIS);
+                        } else if (kind.equals(StyleConstants.ComponentElementName)) {
+                            return new ComponentView(elem);
+                        } else if (kind.equals(StyleConstants.IconElementName)) {
+                            return new IconView(elem);
+                        }
+                    }
+                    return new LabelView(elem);
+                }
+            };
+        }
+    }
 
     /**
      * Constructor
      */
     public SwingScilabEditBox() {
-        super();
+        super(new JTextPane());
+        textPane = (JTextPane) getViewport().getView();
+        setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        textPane.setEditorKit(new EditBoxEditorKit());
+        doc = (StyledDocument) textPane.getDocument();
+
         // Create a focus listener to call the callback action
         focusListener = new FocusListener() {
             public void focusGained(FocusEvent arg0) {
                 // Do nothing
             }
+
             public void focusLost(FocusEvent arg0) {
                 // Validates user input
                 if (getParent() != null) { // To avoid to execute the callback when then parent figure is destroyed
-                    String[] stringProperty = new String[] {getText()};
+
+                    String[] stringProperty = getText().split("\n");
                     GraphicController.getController().setProperty(uid, __GO_UI_STRING__, stringProperty);
 
                     if (SwingView.getFromId(uid) != null && callback != null) {
@@ -77,24 +166,12 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
                 }
             }
         };
-        addFocusListener(focusListener);
+        textPane.addFocusListener(focusListener);
+        KeyStroke enterKey = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        InputMap map = textPane.getInputMap();
+        enterKeyAction = map.get(enterKey);
 
-        // Create n action listener to get ENTER keystrokes
-        actionListener = new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {
-                // Validates user input
-                if (getParent() != null) { // To avoid to execute the callback when then parent figure is destroyed
-                    String[] stringProperty = new String[] {getText()};
-                    GraphicController.getController().setProperty(uid, __GO_UI_STRING__, stringProperty);
-                    if (SwingView.getFromId(uid) != null && callback != null) {
-                        callback.actionPerformed(null);
-                    }
-                }
-            }
-
-        };
-        addActionListener(actionListener);
+        StyleConstants.setAlignment(docAttributes, StyleConstants.ALIGN_CENTER);
     }
 
     /**
@@ -151,6 +228,30 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
         this.callback = cb;
     }
 
+    public void setText(String[] texts) {
+        StringBuffer newText = new StringBuffer(texts[0]);
+
+        for (int i = 1; i < texts.length; ++i) {
+            newText.append("\n" + texts[i]);
+        }
+
+        try {
+            textPane.setText(newText.toString());
+            doc.setParagraphAttributes(0, doc.getLength() - 1, docAttributes, true);
+        } catch (Exception e) {
+            // Do nothing
+        }
+    }
+
+    public void setText(String text) {
+        try {
+            textPane.setText(text);
+            doc.setParagraphAttributes(0, doc.getLength() - 1, docAttributes, true);
+        } catch (Exception e) {
+            // Do nothing
+        }
+    }
+
     /**
      * Set if the EditBox is enabled or not
      * @param status true if the EditBox is enabled
@@ -161,12 +262,12 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
         if (callback != null) {
             if (status) {
                 removeFocusListener(focusListener); /* To be sure the callback is not added two times */
-                removeActionListener(actionListener); /* To be sure the callback is not added two times */
+                //removeActionListener(actionListener); /* To be sure the callback is not added two times */
                 addFocusListener(focusListener);
-                addActionListener(actionListener);
+                //addActionListener(actionListener);
             } else {
                 removeFocusListener(focusListener);
-                removeActionListener(actionListener);
+                //removeActionListener(actionListener);
             }
         }
     }
@@ -212,7 +313,15 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
      * @param alignment the value for the alignment (See ScilabAlignment.java)
      */
     public void setHorizontalAlignment(String alignment) {
-        setHorizontalAlignment(ScilabAlignment.toSwingAlignment(alignment));
+        int alignConstant = StyleConstants.ALIGN_LEFT;
+        if (alignment.equals("right")) {
+            alignConstant = StyleConstants.ALIGN_RIGHT;
+        } else if (alignment.equals("center")) {
+            alignConstant = StyleConstants.ALIGN_CENTER;
+        }
+
+        StyleConstants.setAlignment(docAttributes, alignConstant);
+        doc.setParagraphAttributes(0, doc.getLength(), docAttributes, true);
     }
 
     /**
@@ -220,7 +329,15 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
      * @param alignment the value for the alignment (See ScilabAlignment.java)
      */
     public void setVerticalAlignment(String alignment) {
-        // NOTHING TO DO HERE UNTIL WE HAVE MULTI-LINE EDIT UICONTROLS
+        if (alignment.equals("bottom")) {
+            textPane.setAlignmentY(BOTTOM_ALIGNMENT);
+        } else if (alignment.equals("top")) {
+            textPane.setAlignmentY(TOP_ALIGNMENT);
+        } else if (alignment.equals("middle")) {
+            textPane.setAlignmentY(CENTER_ALIGNMENT);
+        }
+        // Force text update to render
+        setText(getText());
     }
 
     /**
@@ -228,7 +345,7 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
      * @param reliefType the type of the relief to set (See ScilabRelief.java)
      */
     public void setRelief(String reliefType) {
-        setBorder(ScilabRelief.getBorderFromRelief(reliefType));
+        textPane.setBorder(ScilabRelief.getBorderFromRelief(reliefType));
     }
 
     /**
@@ -272,6 +389,11 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
         return uid;
     }
 
+    public void setBackgroung(Color bg) {
+        super.setBackground(bg);
+        StyleConstants.setBackground(docAttributes, bg);
+    }
+
     /**
      * Generic update method
      * @param property property name
@@ -279,5 +401,20 @@ public class SwingScilabEditBox extends JTextField implements SwingViewObject, S
      */
     public void update(int property, Object value) {
         SwingViewWidget.update(this, property, value);
+    }
+
+    public String getText() {
+        return textPane.getText();
+    }
+
+    public void setMultiLineText(boolean enable) {
+        KeyStroke enterKey = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        if (enable) {
+            textPane.getInputMap().remove(enterKey);
+            textPane.getInputMap().put(enterKey, enterKeyAction);
+        } else {
+            textPane.getInputMap().remove(enterKey);
+            textPane.getInputMap().put(enterKey, "none");
+        }
     }
 }
