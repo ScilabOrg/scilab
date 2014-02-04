@@ -370,6 +370,7 @@ includes/stack.h \
 includes/stack1.h \
 includes/stack2.h \
 includes/stack3.h \
+includes/stack-optional.h \
 includes/stackinfo.h \
 includes/stackTypeVariable.h \
 includes/version.h \
