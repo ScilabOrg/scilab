@@ -100,6 +100,7 @@ import org.scilab.modules.gui.bridge.console.SwingScilabConsole;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.bridge.editbox.SwingScilabEditBox;
 import org.scilab.modules.gui.bridge.frame.SwingScilabFrame;
+import org.scilab.modules.gui.bridge.frame.SwingScilabLayer;
 import org.scilab.modules.gui.bridge.label.SwingScilabLabel;
 import org.scilab.modules.gui.bridge.listbox.SwingScilabListBox;
 import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
@@ -518,8 +519,7 @@ public final class SwingView implements GraphicView {
                 //TabGroup.update(property, value);
                 return TabGroup;
             case Layer:
-                SwingScilabFrame layer = new SwingScilabFrame();
-                layer.setLayout(new CardLayout());
+                SwingScilabLayer layer = new SwingScilabLayer();
                 layer.setId(id);
                 return layer;
             default:
@@ -993,7 +993,6 @@ public final class SwingView implements GraphicView {
      */
     private void updateLayerChildren(TypedObject updatedObject, Integer[] newChildren) {
         Container updatedComponent = (SwingScilabFrame) updatedObject.getValue();
-        boolean needRevalidate = false;
 
         // Add new children
         for (Integer childId : newChildren) {
@@ -1006,8 +1005,10 @@ public final class SwingView implements GraphicView {
 
                 /* Add an uicontrol */
                 if (childType == __GO_UICONTROL__) {
-                    ((SwingScilabFrame) updatedComponent).add((Component) allObjects.get(childId).getValue(), Integer.toString(allObjects.get(childId).getValue().getId()));
-                    needRevalidate = true;
+                    int childStyle = (Integer) GraphicController.getController().getProperty(childId, __GO_STYLE__);
+                    if (childStyle == __GO_UI_FRAME__) {
+                        ((SwingScilabLayer) updatedComponent).addMember((SwingScilabFrame) allObjects.get(childId).getValue());
+                    }
                 }
             }
         }
@@ -1026,13 +1027,12 @@ public final class SwingView implements GraphicView {
 
                 /* Remove an uicontrol */
                 if (childType == __GO_UICONTROL__) {
-                    updatedComponent.remove((Component) allObjects.get(childId).getValue());
-                    needRevalidate = true;
+                    int childStyle = (Integer) GraphicController.getController().getProperty(childId, __GO_STYLE__);
+                    if (childStyle == __GO_UI_FRAME__) {
+                        ((SwingScilabLayer) updatedComponent).removeMember((SwingScilabFrame) allObjects.get(childId).getValue());
+                    }
                 }
             }
-        }
-        if (needRevalidate && updatedComponent != null) {
-            ((JPanel) updatedComponent).revalidate();
         }
     }
 
