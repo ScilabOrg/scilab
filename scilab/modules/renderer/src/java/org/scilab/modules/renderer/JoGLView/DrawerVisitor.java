@@ -90,32 +90,32 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
 
     /** Set of properties changed during a draw if auto-ticks is on for X axis. */
     private static final Set<Integer> X_AXIS_TICKS_PROPERTIES = new HashSet<Integer>(Arrays.asList(
-                GraphicObjectProperties.__GO_X_AXIS_TICKS_LOCATIONS__,
-                GraphicObjectProperties.__GO_X_AXIS_TICKS_LABELS__
-            ));
+                                                                                         GraphicObjectProperties.__GO_X_AXIS_TICKS_LOCATIONS__,
+                                                                                         GraphicObjectProperties.__GO_X_AXIS_TICKS_LABELS__
+                                                                                         ));
 
     /** Set of properties changed during a draw if auto-ticks is on for Y axis. */
     private static final Set<Integer> Y_AXIS_TICKS_PROPERTIES = new HashSet<Integer>(Arrays.asList(
-                GraphicObjectProperties.__GO_Y_AXIS_TICKS_LOCATIONS__,
-                GraphicObjectProperties.__GO_Y_AXIS_TICKS_LABELS__
-            ));
+                                                                                         GraphicObjectProperties.__GO_Y_AXIS_TICKS_LOCATIONS__,
+                                                                                         GraphicObjectProperties.__GO_Y_AXIS_TICKS_LABELS__
+                                                                                         ));
 
     /** Set of properties changed during a draw if auto-ticks is on for Z axis. */
     private static final Set<Integer> Z_AXIS_TICKS_PROPERTIES = new HashSet<Integer>(Arrays.asList(
-                GraphicObjectProperties.__GO_Z_AXIS_TICKS_LOCATIONS__,
-                GraphicObjectProperties.__GO_Z_AXIS_TICKS_LABELS__
-            ));
+                                                                                         GraphicObjectProperties.__GO_Z_AXIS_TICKS_LOCATIONS__,
+                                                                                         GraphicObjectProperties.__GO_Z_AXIS_TICKS_LABELS__
+                                                                                         ));
 
     /** Set of figure properties for witch a change doesn't lead to a redraw */
     private static final Set<Integer> SILENT_FIGURE_PROPERTIES = new HashSet<Integer>(Arrays.asList(
-                GraphicObjectProperties.__GO_ROTATION_TYPE__,
-                GraphicObjectProperties.__GO_INFO_MESSAGE__,
-                GraphicObjectProperties.__GO_FIGURE_NAME__,
-                GraphicObjectProperties.__GO_AUTORESIZE__,
-                GraphicObjectProperties.__GO_POSITION__,
-                GraphicObjectProperties.__GO_SIZE__,
-                GraphicObjectProperties.__GO_ID__
-            ));
+                                                                                          GraphicObjectProperties.__GO_ROTATION_TYPE__,
+                                                                                          GraphicObjectProperties.__GO_INFO_MESSAGE__,
+                                                                                          GraphicObjectProperties.__GO_FIGURE_NAME__,
+                                                                                          GraphicObjectProperties.__GO_AUTORESIZE__,
+                                                                                          GraphicObjectProperties.__GO_POSITION__,
+                                                                                          GraphicObjectProperties.__GO_SIZE__,
+                                                                                          GraphicObjectProperties.__GO_ID__
+                                                                                          ));
 
     private static final boolean DEBUG_MODE = false;
 
@@ -418,12 +418,12 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 Appearance trianglesAppearance = new Appearance();
                 drawingTools.draw(triangles, trianglesAppearance);
                 /*} catch (ObjectRemovedException e) {
-                        invalidate(grayplot, e);
-                    } catch (SciRendererException e) {
-                        invalidate(grayplot, e);
-                    } catch (OutOfMemoryException e) {
-                        invalidate(grayplot, e);
-                }*/
+                  invalidate(grayplot, e);
+                  } catch (SciRendererException e) {
+                  invalidate(grayplot, e);
+                  } catch (OutOfMemoryException e) {
+                  invalidate(grayplot, e);
+                  }*/
             } catch (Exception e) {
                 System.err.println(e);
                 e.printStackTrace();
@@ -990,8 +990,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         GraphicObject object = GraphicController.getController().getObjectFromId(id);
         int objectType = (Integer) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_TYPE__);
         if ((object != null) && isFigureChild(id)
-                && objectType != GraphicObjectProperties.__GO_UICONTROL__
-                && objectType != GraphicObjectProperties.__GO_UIMENU__) {
+            && objectType != GraphicObjectProperties.__GO_UICONTROL__
+            && objectType != GraphicObjectProperties.__GO_UIMENU__) {
 
             if (GraphicObjectProperties.__GO_VALID__ == property) {
                 return false;
@@ -1023,9 +1023,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 if (parent instanceof Axes) {
                     Axes axes = (Axes) parent;
                     if (axes.getXAxisLabel().equals(id) ||
-                            axes.getYAxisLabel().equals(id) ||
-                            axes.getZAxisLabel().equals(id) ||
-                            axes.getTitle().equals(id)) {
+                        axes.getYAxisLabel().equals(id) ||
+                        axes.getZAxisLabel().equals(id) ||
+                        axes.getTitle().equals(id)) {
                         labelManager.update(id, property);
                         axesDrawer.computeMargins(axes);
                     } else if (object instanceof Legend && property == GraphicObjectProperties.__GO_LEGEND_LOCATION__) {
@@ -1048,7 +1048,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     return false;
                 }
             } else if (object instanceof Axes && property == GraphicObjectProperties.__GO_X_AXIS_LOCATION__ ||
-                       property == GraphicObjectProperties.__GO_Y_AXIS_LOCATION__) {
+                       property == GraphicObjectProperties.__GO_Y_AXIS_LOCATION__ || property == GraphicObjectProperties.__GO_AUTO_MARGINS__) {
                 axesDrawer.computeMargins((Axes) object);
             }
 
@@ -1107,10 +1107,10 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         } else {
             try {
                 SwingUtilities.invokeAndWait(new Runnable() {
-                    public void run() {
-                        canvas.destroy();
-                    }
-                });
+                        public void run() {
+                            canvas.destroy();
+                        }
+                    });
             } catch (Exception e) { }
         }
     }

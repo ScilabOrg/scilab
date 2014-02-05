@@ -164,8 +164,6 @@ public class AxesDrawer {
             double w = ((double) (int) size[0]) / 2;
             double h = ((double) (int) size[1]) / 2;
 
-            //computeMargins(axes);
-
             Transformation windowTrans = TransformationFactory.getAffineTransformation(new Vector3d(w, h, 1), new Vector3d(w, h, 0));
             Transformation zoneProjection = computeZoneProjection(axes);
             Transformation transformation = computeBoxTransformation(axes, new Dimension(size[0], size[1]), false);
@@ -178,7 +176,7 @@ public class AxesDrawer {
     }
 
     public void computeMargins(Axes axes) {
-        if (axes.getViewAsEnum() == ViewType.VIEW_2D) {
+        if (axes.getAutoMargins() && axes.getViewAsEnum() == ViewType.VIEW_2D) {
             ColorMap colorMap = visitor.getColorMap();
             Dimension[] marginLabels = labelManager.getLabelsSize(colorMap, axes, this);
             Integer[] size = visitor.getFigure().getAxesSize();
@@ -257,32 +255,32 @@ public class AxesDrawer {
                              *   legend.w = ab[2] * m[1] * size[0].
                              */
                             switch (legLoc) {
-                                case OUT_UPPER_RIGHT:
-                                case OUT_LOWER_RIGHT:
-                                    // 1/8 of LINE_WIDTH is xOffset
-                                    // see legendDims[0] = ... in LegendDrawer::draw
-                                    // we add 2*xoffset to have a little space around the box
-                                    C = LegendDrawer.LINE_WIDTH * (3. / 8. + 1 + 2. / 8.);
-                                    m[0] = Math.max(ma[0] + mt[0], DEFAULT_MARGIN);
-                                    m[1] = Math.max(((legDims.width + 2) / (axesBounds[2] * size[0]) + C * (1 - m[0])) / (1 + C) + ma[1] + mt[1], DEFAULT_MARGIN);
-                                    break;
-                                case OUT_UPPER_LEFT:
-                                case OUT_LOWER_LEFT:
-                                    C = LegendDrawer.LINE_WIDTH * (3. / 8. + 1 + 2. / 8.);
-                                    m[1] = Math.max(ma[1] + mt[1], DEFAULT_MARGIN);
-                                    m[0] = Math.max(((legDims.width + 2) / (axesBounds[2] * size[0]) + C * (1 - m[1])) / (1 + C) + ma[0] + mt[0], DEFAULT_MARGIN);
-                                    break;
-                                case UPPER_CAPTION:
-                                    C = LegendDrawer.Y_OFFSET * (3. + 2.);
-                                    m[3] = Math.max(ma[3] + mt[3], DEFAULT_MARGIN);
-                                    m[2] = Math.max(Math.max(((legDims.height + 2) / (axesBounds[3] * size[1]) + C * (1 - m[3])) / (1 + C), mt[2]) + ma[2], DEFAULT_MARGIN);
-                                    break;
-                                case LOWER_CAPTION:
-                                    C = LegendDrawer.Y_OFFSET * (3. + 2.);
-                                    m[2] = Math.max(ma[2] + mt[2], DEFAULT_MARGIN);
-                                    m[3] = Math.max(Math.max(((legDims.height + 2) / (axesBounds[3] * size[1]) + C * (1 - m[2])) / (1 + C), mt[3]) + ma[3], DEFAULT_MARGIN);
-                                    break;
-                                default:
+                            case OUT_UPPER_RIGHT:
+                            case OUT_LOWER_RIGHT:
+                                // 1/8 of LINE_WIDTH is xOffset
+                                // see legendDims[0] = ... in LegendDrawer::draw
+                                // we add 2*xoffset to have a little space around the box
+                                C = LegendDrawer.LINE_WIDTH * (3. / 8. + 1 + 2. / 8.);
+                                m[0] = Math.max(ma[0] + mt[0], DEFAULT_MARGIN);
+                                m[1] = Math.max(((legDims.width + 2) / (axesBounds[2] * size[0]) + C * (1 - m[0])) / (1 + C) + ma[1] + mt[1], DEFAULT_MARGIN);
+                                break;
+                            case OUT_UPPER_LEFT:
+                            case OUT_LOWER_LEFT:
+                                C = LegendDrawer.LINE_WIDTH * (3. / 8. + 1 + 2. / 8.);
+                                m[1] = Math.max(ma[1] + mt[1], DEFAULT_MARGIN);
+                                m[0] = Math.max(((legDims.width + 2) / (axesBounds[2] * size[0]) + C * (1 - m[1])) / (1 + C) + ma[0] + mt[0], DEFAULT_MARGIN);
+                                break;
+                            case UPPER_CAPTION:
+                                C = LegendDrawer.Y_OFFSET * (3. + 2.);
+                                m[3] = Math.max(ma[3] + mt[3], DEFAULT_MARGIN);
+                                m[2] = Math.max(Math.max(((legDims.height + 2) / (axesBounds[3] * size[1]) + C * (1 - m[3])) / (1 + C), mt[2]) + ma[2], DEFAULT_MARGIN);
+                                break;
+                            case LOWER_CAPTION:
+                                C = LegendDrawer.Y_OFFSET * (3. + 2.);
+                                m[2] = Math.max(ma[2] + mt[2], DEFAULT_MARGIN);
+                                m[3] = Math.max(Math.max(((legDims.height + 2) / (axesBounds[3] * size[1]) + C * (1 - m[2])) / (1 + C), mt[3]) + ma[3], DEFAULT_MARGIN);
+                                break;
+                            default:
                             }
                         }
                         break;
@@ -456,10 +454,10 @@ public class AxesDrawer {
         double[] matrix = transformation.getMatrix();
         try {
             return TransformationFactory.getScaleTransformation(
-                       matrix[2] < 0 ? 1 : -1,
-                       matrix[6] < 0 ? 1 : -1,
-                       matrix[10] < 0 ? 1 : -1
-                   );
+                matrix[2] < 0 ? 1 : -1,
+                matrix[6] < 0 ? 1 : -1,
+                matrix[10] < 0 ? 1 : -1
+                );
         } catch (DegenerateMatrixException e) {
             // Should never happen.
             return TransformationFactory.getIdentity();
@@ -520,29 +518,29 @@ public class AxesDrawer {
     private Transformation computeDataTransformation(Axes axes) throws DegenerateMatrixException {
         // Reverse data if needed.
         Transformation transformation = TransformationFactory.getScaleTransformation(
-                                            axes.getAxes()[0].getReverse() ? 1 : -1,
-                                            axes.getAxes()[1].getReverse() ? 1 : -1,
-                                            axes.getAxes()[2].getReverse() ? 1 : -1
-                                        );
+            axes.getAxes()[0].getReverse() ? 1 : -1,
+            axes.getAxes()[1].getReverse() ? 1 : -1,
+            axes.getAxes()[2].getReverse() ? 1 : -1
+            );
 
         if (axes.getZoomEnabled()) {
             Double[] bounds = axes.getCorrectedBounds();
 
             // Scale data.
             Transformation scaleTransformation = TransformationFactory.getScaleTransformation(
-                    2.0 / (bounds[1] - bounds[0]),
-                    2.0 / (bounds[3] - bounds[2]),
-                    2.0 / (bounds[5] - bounds[4])
-                                                 );
+                2.0 / (bounds[1] - bounds[0]),
+                2.0 / (bounds[3] - bounds[2]),
+                2.0 / (bounds[5] - bounds[4])
+                );
             transformation = transformation.rightTimes(scaleTransformation);
 
 
             // Translate data.
             Transformation translateTransformation = TransformationFactory.getTranslateTransformation(
-                        -(bounds[0] + bounds[1]) / 2.0,
-                        -(bounds[2] + bounds[3]) / 2.0,
-                        -(bounds[4] + bounds[5]) / 2.0
-                    );
+                -(bounds[0] + bounds[1]) / 2.0,
+                -(bounds[2] + bounds[3]) / 2.0,
+                -(bounds[4] + bounds[5]) / 2.0
+                );
             transformation = transformation.rightTimes(translateTransformation);
 
             return transformation;
