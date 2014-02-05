@@ -164,8 +164,6 @@ public class AxesDrawer {
             double w = ((double) (int) size[0]) / 2;
             double h = ((double) (int) size[1]) / 2;
 
-            //computeMargins(axes);
-
             Transformation windowTrans = TransformationFactory.getAffineTransformation(new Vector3d(w, h, 1), new Vector3d(w, h, 0));
             Transformation zoneProjection = computeZoneProjection(axes);
             Transformation transformation = computeBoxTransformation(axes, new Dimension(size[0], size[1]), false);
@@ -178,7 +176,7 @@ public class AxesDrawer {
     }
 
     public void computeMargins(Axes axes) {
-        if (axes.getViewAsEnum() == ViewType.VIEW_2D) {
+        if (!axes.getUserMargins() && axes.getViewAsEnum() == ViewType.VIEW_2D) {
             ColorMap colorMap = visitor.getColorMap();
             Dimension[] marginLabels = labelManager.getLabelsSize(colorMap, axes, this);
             Integer[] size = visitor.getFigure().getAxesSize();

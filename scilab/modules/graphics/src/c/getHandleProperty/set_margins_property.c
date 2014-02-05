@@ -50,6 +50,8 @@ int set_margins_property(void* _pvCtx, int iObjUID, void* _pvData, int valueType
 
     if (status == TRUE)
     {
+        int axes_margins_set = 1;
+        setGraphicObjectProperty(iObjUID, __GO_USER_MARGINS__, &axes_margins_set, jni_bool, 1);
         return SET_PROPERTY_SUCCEED;
     }
     else

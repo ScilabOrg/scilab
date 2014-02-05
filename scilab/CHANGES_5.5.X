@@ -478,6 +478,8 @@ Scilab Bug Fixes
 
 * Bug #13210 fixed - Incorrect argument description in the mseek help page.
 
+* Bug #13213 fixed - User defined margins were reset by auto computation of the margins.
+
 * Bug #13218 fixed - Typos fixed in core module help pages.
 
 

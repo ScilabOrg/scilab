@@ -61,7 +61,7 @@ public class Axes extends GraphicObject {
         AUTOSUBTICKS,
         FONT_STYLE, FONT_SIZE, FONT_COLOR, FONT_FRACTIONAL,
         GRIDPOSITION, TITLE, AUTOCLEAR, FILLED, BACKGROUND,
-        MARGINS, AXESBOUNDS,
+        MARGINS, USER_MARGINS, AXESBOUNDS,
         HIDDENCOLOR
     };
 
@@ -121,6 +121,7 @@ public class Axes extends GraphicObject {
 
     /** Margins enclosing the drawing area (left, right, top, bottom) */
     private double[] margins;
+    private boolean user_margins;
 
     /**
      * Axes bounds relative to their parent figure's
@@ -186,6 +187,7 @@ public class Axes extends GraphicObject {
         }
 
         copy.margins = newMargins;
+        copy.user_margins = user_margins;
 
         double [] newAxesBounds = new double[4];
         for (int i = 0; i < this.axesBounds.length; i++) {
@@ -347,6 +349,8 @@ public class Axes extends GraphicObject {
                 return Box.BoxProperty.FIRSTPLOT;
             case __GO_MARGINS__ :
                 return AxesProperty.MARGINS;
+            case __GO_USER_MARGINS__ :
+                return AxesProperty.USER_MARGINS;
             case __GO_AXES_BOUNDS__ :
                 return AxesProperty.AXESBOUNDS;
             case __GO_HIDDEN_COLOR__ :
@@ -499,6 +503,8 @@ public class Axes extends GraphicObject {
                     return getBackground();
                 case MARGINS:
                     return getMargins();
+                case USER_MARGINS:
+                    return getUserMargins();
                 case AXESBOUNDS:
                     return getAxesBounds();
                 case HIDDENCOLOR:
@@ -695,6 +701,8 @@ public class Axes extends GraphicObject {
                     return setBackground((Integer) value);
                 case MARGINS:
                     return setMargins((Double[]) value);
+                case USER_MARGINS:
+                    return setUserMargins((Boolean) value);
                 case AXESBOUNDS:
                     return setAxesBounds((Double[]) value);
                 case HIDDENCOLOR:
@@ -2485,6 +2493,25 @@ public class Axes extends GraphicObject {
             this.margins[2] = margins[2];
             this.margins[3] = margins[3];
 
+            return UpdateStatus.Success;
+        }
+
+        return UpdateStatus.NoChange;
+    }
+
+    /**
+     * @return the margins
+     */
+    public Boolean getUserMargins() {
+        return new Boolean(user_margins);
+    }
+
+    /**
+     * @param margins the margins to set
+     */
+    public UpdateStatus setUserMargins(Boolean user_margins) {
+        if (this.user_margins != user_margins) {
+            this.user_margins = user_margins;
             return UpdateStatus.Success;
         }
 
