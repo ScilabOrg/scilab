@@ -2,7 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2011 - INRIA - Vincent COUVERT
  * Copyright (C) 2011 -         Pierre GRADIT
- * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+ * Copyright (C) 2012-2014 - Scilab Enterprises - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -45,9 +45,14 @@ import org.scilab.modules.commons.ScilabCommonsUtils;
 import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.commons.xml.XConfiguration;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.gui.messagebox.ScilabModalDialog;
+import org.scilab.modules.gui.messagebox.ScilabModalDialog.AnswerOption;
+import org.scilab.modules.gui.messagebox.ScilabModalDialog.ButtonType;
+import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.preferences.ScilabPreferences.ToolboxInfos;
 
 /**
@@ -57,6 +62,9 @@ import org.scilab.modules.preferences.ScilabPreferences.ToolboxInfos;
  * @author Vincent COUVERT
  */
 public final class XConfigManager extends XCommonManager {
+
+    private static final String RESET_DEFAULT_LAYOUT_QUESTION = Messages.gettext("The default layout will be restored at next session. Are you sure ?");
+    private static final String RESET_LAYOUT_TITLE = Messages.gettext("Reset layout");
 
     /** Exclusive activity flag between all XCommonManager descendants.*/
     public static boolean active = false;
@@ -300,6 +308,16 @@ public final class XConfigManager extends XCommonManager {
         if (callback.equals("Save Backup")) {
             String path = getAttribute(action, "path");
             writeDocument(ScilabCommonsUtils.getCorrectedPath(path), document);
+
+            return true;
+        }
+
+        if (callback.equals("Reset layout")) {
+            if (ScilabModalDialog.show(dialog, new String[] {RESET_DEFAULT_LAYOUT_QUESTION}, RESET_LAYOUT_TITLE, IconType.QUESTION_ICON, ButtonType.YES_NO) == AnswerOption.NO_OPTION) {
+                return false;
+            }
+
+            WindowsConfigurationManager.resetLayout();
 
             return true;
         }
