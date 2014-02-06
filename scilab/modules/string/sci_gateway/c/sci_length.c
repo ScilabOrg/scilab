@@ -390,14 +390,8 @@ static int lengthMList(const char *fname, int *piAddressVar)
                         return sciErr.iErr;
                     }
                     sciErr = getVarType(pvApiCtx, piAddrChild3, &iType);
-                    if (iType == sci_matrix)
+                    if (iType == sci_matrix || iType == sci_ints)
                     {
-                        sciErr = getMatrixOfDouble(pvApiCtx, piAddrChild3, &iRows, &iCols, &pdblReal);
-                        if (sciErr.iErr)
-                        {
-                            printError(&sciErr, 0);
-                            return sciErr.iErr;
-                        }
                         return lengthDefault(piAddrChild3);
                     }
                 }
