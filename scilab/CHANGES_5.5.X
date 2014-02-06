@@ -775,6 +775,8 @@ Scilab Bug Fixes
 
 * Bug #7204 fixed - geomean applied to a hypermatrix gave wrong results.
 
+* bug #7205 fixed - length(H) applied to a non-string hypermat H returns 3 instead of size(H,"*"). 
+
 * Bug #7206 fixed - If the second input argument of meanf function was a hypermatrix,
                     this function returned an error.
 
