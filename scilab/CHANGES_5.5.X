@@ -111,6 +111,8 @@ Scilab Bug Fixes
 
 * Bug #7244 fixed - Extraction from a struct array with a boolean vector had a strange behavior.
 
+* Bug #7304 fixed - ExportUI did not switch filename extension when filter changed.
+
 * Bug #7417 fixed - Auto-positionning of datatips did not take the curvature into account.
 
 * Bug #7561 fixed - roots help page now explains that it uses coefficients in the contrary order of poly.
