@@ -11,20 +11,11 @@
 
 package org.scilab.forge.scirenderer.implementation.jogl;
 
-import org.scilab.forge.scirenderer.Canvas;
-import org.scilab.forge.scirenderer.Drawer;
-import org.scilab.forge.scirenderer.implementation.jogl.buffers.JoGLBuffersManager;
-import org.scilab.forge.scirenderer.implementation.jogl.picking.JoGLPickingManager;
-import org.scilab.forge.scirenderer.implementation.jogl.renderer.JoGLRendererManager;
-import org.scilab.forge.scirenderer.implementation.jogl.texture.JoGLTextureManager;
-import org.scilab.forge.scirenderer.picking.PickingManager;
-
-import com.jogamp.opengl.util.awt.ImageUtil;
-import com.jogamp.opengl.util.awt.Screenshot;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.Semaphore;
+
 import javax.media.opengl.DebugGL2;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -36,6 +27,18 @@ import javax.media.opengl.GLException;
 import javax.media.opengl.GLPbuffer;
 import javax.media.opengl.GLProfile;
 import javax.swing.SwingUtilities;
+
+import org.scilab.forge.scirenderer.Canvas;
+import org.scilab.forge.scirenderer.Drawer;
+import org.scilab.forge.scirenderer.implementation.jogl.buffers.JoGLBuffersManager;
+import org.scilab.forge.scirenderer.implementation.jogl.picking.JoGLPickingManager;
+import org.scilab.forge.scirenderer.implementation.jogl.renderer.JoGLRendererManager;
+import org.scilab.forge.scirenderer.implementation.jogl.texture.JoGLTextureManager;
+import org.scilab.forge.scirenderer.picking.PickingManager;
+
+import com.jogamp.opengl.util.Animator;
+import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.awt.Screenshot;
 
 /**
  * JoGL implementation of a Canvas.
@@ -71,7 +74,8 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
     private final JoGLPickingManager pickingManager;
     private final JoGLTextureManager textureManager;
 
-    private final CanvasAnimator canvasAnimator;
+    private final FPSAnimator canvasAnimator;
+    private final Thread animatorStopper;
     private boolean isOffscreen;
     private DebugGL2 debug;
     private boolean isValid = true;
@@ -98,8 +102,30 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
         textureManager = new JoGLTextureManager(this);
 
         autoDrawable.addGLEventListener(this);
-        canvasAnimator = new CanvasAnimator(autoDrawable);
-        canvasAnimator.redraw();
+        //canvasAnimator = new CanvasAnimator(autoDrawable);
+        //canvasAnimator.redraw();
+        //System.err.println("[JoGLCanvas] create Animator");
+        canvasAnimator = new FPSAnimator(autoDrawable, 30);
+        canvasAnimator.start();
+        animatorStopper = new Thread(
+                new Runnable() {
+                    public void run() {
+                        boolean shouldRun = true;
+                        while (shouldRun) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                //System.err.println("[JoGLCanvas] Stop stopper ...");
+                                shouldRun = false;
+                            }
+                            //System.err.println("[JoGLCanvas] Calm down ...");
+                            synchronized (canvasAnimator) {
+                                canvasAnimator.stop();
+                            }
+                        }
+                    }
+                });
+        animatorStopper.start();
     }
 
     /**
@@ -169,23 +195,25 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
 
     @Override
     public void redraw() {
-        canvasAnimator.redraw();
-    }
-
-    @Override
-    public void redrawAndWait() {
-        try {
-            SwingUtilities.invokeAndWait(new Runnable() {
-                public void run() {
-                    autoDrawable.display();
-                }
-            });
-        } catch (Exception e) { }
+        //System.err.println("[JoGLCanvas] Redraw asked "+canvasAnimator.isAnimating());
+        //System.err.println("[JoGLCanvas] Redraw asked "+canvasAnimator.isPaused());
+        //if (!canvasAnimator.isAnimating()) {
+            synchronized (canvasAnimator) {
+                canvasAnimator.start();
+            }
+        //}
+        //Thread.dumpStack();
     }
 
     @Override
     public void waitImage() {
-        canvasAnimator.waitEndOfDrawing();
+        //System.err.println("[JoGLCanvas] waitImage");
+        try {
+            Thread.sleep(60);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -225,7 +253,8 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
      * @return an image
      */
     public BufferedImage getImage() {
-        while (!canvasAnimator.isDrawFinished() || !displayFinished) {
+        System.err.println("JoGLCanvas getImage()");
+        while (!canvasAnimator.isAnimating() || !displayFinished) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -263,7 +292,10 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
         }
         try {
             isValid = false;
-            canvasAnimator.finalize();//Thread.dumpStack();
+            animatorStopper.interrupt();//Thread.dumpStack();
+            synchronized (canvasAnimator) {
+                canvasAnimator.stop();
+            }
         } catch (Throwable e) {
             // TODO: handle exception
         }
@@ -285,6 +317,7 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
     // Implementation of function from GLEventListener.
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
+        //System.err.println("[JoGLCanvas] display");
         if (isValid) {
             displayFinished = false;
             GL2 gl = getGl().getGL2();
@@ -362,11 +395,12 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
             this.autoDrawable = autoDrawable;
             this.thread = new Thread(this);
             thread.start();
-            //System.err.println("[DEBUG] nb threads = "+Thread.activeCount());
+            System.err.println("[CanvasAnimator] [DEBUG] nb threads = "+Thread.activeCount());
         }
 
         @Override
         public void finalize() throws Throwable {
+            System.err.println("[CanvasAnimator] finalize");
             running = false;
             // we increment the semaphore to allow run() to unlock it and to be sure
             // to go out.
@@ -389,8 +423,8 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
             semaphore.drainPermits();
         }
 
-        @Override
         public void run() {
+            System.err.println("[Canvas Renderer] run()");
             while (running) {
                 try {
                     semaphore.acquire();
@@ -411,5 +445,11 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
                 }
             }
         }
+    }
+
+    @Override
+    public void redrawAndWait() {
+        // TODO Auto-generated method stub
+        
     }
 }

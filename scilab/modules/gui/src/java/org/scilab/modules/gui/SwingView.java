@@ -700,23 +700,27 @@ public final class SwingView implements GraphicView {
             allObjects.put(id, CreateObjectFromType(style, id));
             return;
         }
-
-        if (SwingUtilities.isEventDispatchThread()) {
+        
+        if (true) {
             updateObjectOnEDT(registeredObject, id, property);
         } else {
-            try {
-                SwingUtilities.invokeAndWait(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateObjectOnEDT(registeredObject, id, property);
-                    }
-                });
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            if (SwingUtilities.isEventDispatchThread()) {
+                updateObjectOnEDT(registeredObject, id, property);
+            } else {
+                try {
+                    SwingUtilities.invokeAndWait(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateObjectOnEDT(registeredObject, id, property);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
     }
