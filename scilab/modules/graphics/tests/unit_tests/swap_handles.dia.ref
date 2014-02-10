@@ -5,6 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- TEST WITH GRAPHIC -->
+// <-- ENGLISH IMPOSED -->
 // first test : swap two brothers
 a1 = gca() ;
 xrect(0.1,0.1,0.1,0.1);
@@ -21,6 +22,7 @@ e = gce() ;
 swap_handles( e, a1.children(1) ) ;
 if ( a1.children(1).type <> "Arc" ) then bugmes();quit;end
 if ( a2.children(1).type <> "Rectangle" ) then bugmes();quit;end
+assert_checkerror("swap_handles(e, a1)", "%s: Handles have not the same parent and not the same type.\n", 999, "swap_handles");
 // third test : swap two objects from different figure
 xdel( winsid() ) ;
 plot3d ;

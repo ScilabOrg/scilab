@@ -1,11 +1,13 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2006-2008 - INRIA - Jean-Baptiste SILVY <jean-baptiste.silvy@inria.fr>
+// Copyright (C) 2014 - Scilab Enterprises - Calixte DENIZET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
 // <-- TEST WITH GRAPHIC -->
+// <-- ENGLISH IMPOSED -->
 
 // first test : swap two brothers
 a1 = gca() ;
@@ -27,6 +29,7 @@ swap_handles( e, a1.children(1) ) ;
 if ( a1.children(1).type <> "Arc" ) then pause,end
 if ( a2.children(1).type <> "Rectangle" ) then pause,end
 
+assert_checkerror("swap_handles(e, a1)", "%s: Handles have not the same parent and not the same type.\n", 999, "swap_handles");
 
 // third test : swap two objects from different figure
 xdel( winsid() ) ;
