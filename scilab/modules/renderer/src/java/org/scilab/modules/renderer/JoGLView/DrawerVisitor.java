@@ -11,6 +11,20 @@
 
 package org.scilab.modules.renderer.JoGLView;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.SwingUtilities;
+
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
@@ -19,20 +33,22 @@ import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.geometry.DefaultGeometry;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
-import org.scilab.forge.scirenderer.texture.AnchorPosition;
 import org.scilab.forge.scirenderer.texture.AbstractTextureDataProvider;
+import org.scilab.forge.scirenderer.texture.AnchorPosition;
 import org.scilab.forge.scirenderer.texture.Texture;
-import org.scilab.forge.scirenderer.tranformations.Vector3d;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.TransformationStack;
+import org.scilab.forge.scirenderer.tranformations.Vector3d;
 import org.scilab.forge.scirenderer.utils.shapes.geometry.CubeFactory;
 import org.scilab.modules.graphic_objects.ObjectRemovedException;
 import org.scilab.modules.graphic_objects.arc.Arc;
 import org.scilab.modules.graphic_objects.axes.Axes;
+import org.scilab.modules.graphic_objects.axes.AxesContainer;
 import org.scilab.modules.graphic_objects.axes.Camera.ViewType;
 import org.scilab.modules.graphic_objects.axis.Axis;
 import org.scilab.modules.graphic_objects.compound.Compound;
+import org.scilab.modules.graphic_objects.datatip.Datatip;
 import org.scilab.modules.graphic_objects.fec.Fec;
 import org.scilab.modules.graphic_objects.figure.ColorMap;
 import org.scilab.modules.graphic_objects.figure.Figure;
@@ -50,13 +66,14 @@ import org.scilab.modules.graphic_objects.rectangle.Rectangle;
 import org.scilab.modules.graphic_objects.surface.Fac3d;
 import org.scilab.modules.graphic_objects.surface.Plot3d;
 import org.scilab.modules.graphic_objects.textObject.Text;
+import org.scilab.modules.graphic_objects.uicontrol.frame.Frame;
 import org.scilab.modules.graphic_objects.vectfield.Arrow;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
-import org.scilab.modules.graphic_objects.datatip.Datatip;
 import org.scilab.modules.renderer.JoGLView.arrowDrawing.ArrowDrawer;
 import org.scilab.modules.renderer.JoGLView.axes.AxesDrawer;
 import org.scilab.modules.renderer.JoGLView.contouredObject.ContouredObjectDrawer;
+import org.scilab.modules.renderer.JoGLView.datatip.DatatipTextDrawer;
 import org.scilab.modules.renderer.JoGLView.interaction.InteractionManager;
 import org.scilab.modules.renderer.JoGLView.label.LabelManager;
 import org.scilab.modules.renderer.JoGLView.legend.LegendDrawer;
@@ -64,24 +81,9 @@ import org.scilab.modules.renderer.JoGLView.mark.MarkSpriteManager;
 import org.scilab.modules.renderer.JoGLView.postRendering.PostRendered;
 import org.scilab.modules.renderer.JoGLView.text.TextManager;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
+import org.scilab.modules.renderer.JoGLView.util.LightingUtils;
 import org.scilab.modules.renderer.JoGLView.util.OutOfMemoryException;
 import org.scilab.modules.renderer.utils.textRendering.FontManager;
-import org.scilab.modules.renderer.JoGLView.datatip.DatatipTextDrawer;
-import org.scilab.modules.renderer.JoGLView.util.LightingUtils;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.SwingUtilities;
 
 /**
  * @author Pierre Lando
@@ -120,7 +122,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private static final boolean DEBUG_MODE = false;
 
     private final Component component;
-    private final Figure figure;
+    private final AxesContainer figure;
     private final InteractionManager interactionManager;
 
     private final ColorMapTextureDataProvider colorMapTextureDataProvider;
@@ -155,7 +157,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private final List<PostRendered> postRenderedList = new LinkedList<PostRendered>();
     private final static Map<Integer, List<Integer>> openGLChildren = new HashMap<Integer, List<Integer>>();
 
-    public DrawerVisitor(Component component, Canvas canvas, Figure figure) {
+    public DrawerVisitor(Component component, Canvas canvas, AxesContainer figure) {
         GraphicController.getController().register(this);
 
         this.component = component;
@@ -283,6 +285,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
 
     @Override
     public void draw(DrawingTools drawingTools) {
+        System.err.println("[DrawerVisitor] draw id="+figure.getIdentifier());
         this.drawingTools = drawingTools;
         figure.accept(this);
 
@@ -397,6 +400,22 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 drawingTools.clearDepthBuffer();
                 if (figure.isValid() && figure.getVisible() && figure.getImmediateDrawing()) {
                     askAcceptVisitor(figure.getChildren());
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+    }
+    
+    public void visit(Frame frame) {
+        synchronized (frame) {
+            /** Set the current {@see ColorMap}. */
+            try {
+                colorMap = frame.getColorMap();
+                drawingTools.clear(ColorFactory.createColor(colorMap, frame.getBackground()));
+                drawingTools.clearDepthBuffer();
+                if (frame.isValid() && frame.getVisible()) {
+                    askAcceptVisitor(frame.getChildren());
                 }
             } catch (Exception e) {
                 System.err.println(e);
@@ -906,6 +925,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         /*
          * Check if property is CHILDREN and if there is a new child I should care about
          */
+        System.err.println("[DrawerVisitor] updateObject "+id + "property = "+property);
         Integer type = (Integer) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_TYPE__);
         if (id != figure.getIdentifier() &&  (type == GraphicObjectProperties.__GO_UICONTROL__ || type == GraphicObjectProperties.__GO_UIMENU__)) {
             return;
@@ -938,6 +958,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             }
         }
         try {
+            boolean updateMe = needUpdate(id, property);
+            System.err.println("needUpdate = "+updateMe);
             if (needUpdate(id, property)) {
                 if (GraphicObjectProperties.__GO_COLORMAP__ == property && figure.getIdentifier().equals(id)) {
                     labelManager.disposeAll();
@@ -965,7 +987,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     canvas.setAntiAliasingLevel(figure.getAntialiasing());
                 }
 
-                if (isImmediateDrawing(id)) {
+                if (figure instanceof Frame || isImmediateDrawing(id)) {
                     if (GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__ == property) {
                         canvas.redrawAndWait();
                     } else {
@@ -1131,8 +1153,19 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
      * @return true if the given id correspond to a child of the current {@see Figure}.
      */
     private boolean isFigureChild(Integer id) {
-        Integer parentFigureID = (Integer) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_PARENT_FIGURE__);
-        return figure.getIdentifier() == parentFigureID;
+        //Integer parentFigureID = (Integer) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_PARENT_FIGURE__);
+        //System.err.println("[DrawerVisitor] isFigureChild "+(figure.getIdentifier() == parentFigureID));
+        Integer parentUID = (Integer) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_PARENT__);
+        while (parentUID != 0) {
+            if (figure.getIdentifier() == parentUID) {
+                System.err.println("[DrawerVisitor] isFigureChild TRUE !!");
+                return true;
+            }
+            parentUID = (Integer) GraphicController.getController().getProperty(parentUID, GraphicObjectProperties.__GO_PARENT__);
+        }
+        System.err.println("[DrawerVisitor] isFigureChild FALSE !!");
+        return false;
+        //return figure.getIdentifier() == parentFigureID;
     }
 
     /**
@@ -1169,7 +1202,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
      * Figure getter.
      * @return the figure this visitor draw.
      */
-    public Figure getFigure() {
+    public AxesContainer getFigure() {
         return figure;
     }
 
