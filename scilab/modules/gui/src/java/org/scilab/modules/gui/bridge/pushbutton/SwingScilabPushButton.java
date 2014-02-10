@@ -14,7 +14,7 @@
 
 package org.scilab.modules.gui.bridge.pushbutton;
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Font;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,10 +22,10 @@ import java.beans.PropertyChangeListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 import org.scilab.modules.console.utils.ScilabSpecialTextUtilities;
 import org.scilab.modules.graphic_objects.console.Console;
-import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
@@ -306,5 +306,22 @@ public class SwingScilabPushButton extends JButton implements SwingViewObject, S
      */
     public void update(int property, Object value) {
         SwingViewWidget.update(this, property, value);
+    }
+
+    public void setBackground(Color color) {
+        setContentAreaFilled(false);
+        setOpaque(true);
+        super.setBackground(color);
+    }
+
+    public void resetBackground() {
+        Color color = (Color)UIManager.getLookAndFeelDefaults().get("Button.background");
+        if (color != null) {
+            setContentAreaFilled(true);
+            setOpaque(false);
+            super.setBackground(color);
+        } else {
+            System.out.println("Button.background");
+        }
     }
 }

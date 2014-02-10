@@ -60,7 +60,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.AbstractButton;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.plaf.ComponentUI;
 
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.CallBack;
@@ -137,6 +140,7 @@ public final class SwingViewWidget {
                 } else {
                     // Do not set BackgroundColor for widgets
                     // rely on Look and Feel
+                    uiControl.resetBackground();
                 }
                 break;
             case __GO_CALLBACK__:
