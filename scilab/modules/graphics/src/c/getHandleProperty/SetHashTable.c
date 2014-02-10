@@ -247,7 +247,9 @@ static setHashTableCouple propertySetTable[] =
     {"groupname", set_groupname_property},
     {"title_position", set_title_position_property},
     {"title_scroll", set_title_scroll_property},
-    {"default_axes", set_default_axes_property}
+    {"default_axes", set_default_axes_property},
+    {"line_width", set_line_width_property},
+    {"marks_count", set_marks_count_property}
 };
 
 /*--------------------------------------------------------------------------*/
