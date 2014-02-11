@@ -30,7 +30,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 
 /**
  * Manage Delete Actions
@@ -40,7 +40,7 @@ public final class DeleteAction extends CommonCallBack {
 
     private static final long serialVersionUID = 1L;
 
-    private static ImageIcon icon = new ImageIcon(ScilabSwingUtilities.findIcon("edit-delete"));
+    private static ImageIcon icon = new ImageIcon(FindIconHelper.findIcon("edit-delete"));
 
     private static final char MNEMONIC = 'D';
 

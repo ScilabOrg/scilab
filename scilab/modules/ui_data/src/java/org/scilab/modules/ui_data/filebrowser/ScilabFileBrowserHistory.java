@@ -29,7 +29,7 @@ import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 import org.scilab.modules.ui_data.utils.UiDataMessages;
 
 /**
@@ -39,8 +39,8 @@ import org.scilab.modules.ui_data.utils.UiDataMessages;
 @SuppressWarnings(value = { "serial" })
 public class ScilabFileBrowserHistory {
 
-    private static final String PREVIOUSICON = ScilabSwingUtilities.findIcon("go-previous");
-    private static final String NEXTICON = ScilabSwingUtilities.findIcon("go-next");
+    private static final String PREVIOUSICON = FindIconHelper.findIcon("go-previous");
+    private static final String NEXTICON = FindIconHelper.findIcon("go-next");
 
     private final SwingScilabTreeTable stt;
     private final List<String> history = new ArrayList<String>();

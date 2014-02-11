@@ -26,7 +26,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 
 /**
  * Manage Modify Actions
@@ -36,7 +36,7 @@ public final class ModifyAction extends CommonCallBack {
 
     private static final long serialVersionUID = 1L;
 
-    private static ImageIcon icon = new ImageIcon(ScilabSwingUtilities.findIcon("rrze_table"));
+    private static ImageIcon icon = new ImageIcon(FindIconHelper.findIcon("rrze_table"));
 
     private static final char MNEMONIC = 'M';
 

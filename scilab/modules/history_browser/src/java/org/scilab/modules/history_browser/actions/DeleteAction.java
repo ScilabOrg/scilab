@@ -26,7 +26,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 import org.scilab.modules.history_browser.CommandHistory;
 import org.scilab.modules.history_browser.CommandHistoryMessages;
 import org.scilab.modules.history_manager.HistoryManagement;
@@ -40,7 +40,7 @@ public final class DeleteAction extends CommonCallBack {
     private static final long serialVersionUID = 1L;
 
     private static final String LABEL = CommandHistoryMessages.DELETE;
-    private static final String ICON = ScilabSwingUtilities.findIcon("edit-delete");
+    private static final String ICON = FindIconHelper.findIcon("edit-delete");
     private static final char MNEMONIC = 'D';
 
     private static final String KEY = "DELETE";

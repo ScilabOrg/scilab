@@ -23,7 +23,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 
 /**
  * Launch Scilab help class
@@ -32,7 +32,7 @@ import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 @SuppressWarnings(value = { "serial" })
 public final class HelpAction extends CommonCallBack {
 
-    private static ImageIcon icon = new ImageIcon(ScilabSwingUtilities.findIcon("help-browser"));
+    private static ImageIcon icon = new ImageIcon(FindIconHelper.findIcon("help-browser"));
 
     /**
      * Constructor

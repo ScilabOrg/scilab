@@ -43,7 +43,9 @@ import java.util.Stack;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.flexdock.plaf.FlexViewComponentUI;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -156,6 +158,12 @@ public class XmlLoader extends DefaultHandler {
     public int parse(String filename) throws SAXException {
         this.filename = filename;
         File f = new File(filename);
+        //add filename filepath in ScilabSwingUtilities paths
+        String absoluteFilePath = f.getAbsolutePath();
+        String path = absoluteFilePath.substring(0,
+                      absoluteFilePath.lastIndexOf(File.separator));
+        FindIconHelper.addThemePath(path);
+
         FileInputStream in = null;
         try {
             in = new FileInputStream(f);

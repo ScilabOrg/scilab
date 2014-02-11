@@ -33,7 +33,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 import org.scilab.modules.ui_data.datatable.SwingEditvarTableModel;
 import org.scilab.modules.ui_data.variableeditor.SwingScilabVariableEditor;
 
@@ -143,7 +143,7 @@ public final class PasteAction extends CommonCallBack {
         PushButton button = ScilabPushButton.createPushButton();
         ((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(new PasteAction(editor, title));
         button.setToolTipText(title);
-        ImageIcon imageIcon = new ImageIcon(ScilabSwingUtilities.findIcon("edit-paste"));
+        ImageIcon imageIcon = new ImageIcon(FindIconHelper.findIcon("edit-paste"));
         ((SwingScilabPushButton) button.getAsSimplePushButton()).setIcon(imageIcon);
 
         return button;

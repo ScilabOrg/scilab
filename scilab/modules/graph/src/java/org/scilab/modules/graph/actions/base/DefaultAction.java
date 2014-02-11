@@ -34,7 +34,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 
 import com.mxgraph.swing.mxGraphComponent;
 
@@ -85,7 +85,7 @@ public abstract class DefaultAction extends CommonCallBack {
              */
             String iconName = (String) getClass().getField("SMALL_ICON").get(null);
             if (iconName != null && !iconName.isEmpty()) {
-                icon = new ImageIcon(ScilabSwingUtilities.findIcon(iconName));
+                icon = new ImageIcon(FindIconHelper.findIcon(iconName));
             }
 
             mnemonic = getClass().getField("MNEMONIC_KEY").getInt(null);

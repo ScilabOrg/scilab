@@ -26,7 +26,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.graphic_objects.utils.FindIconHelper;
 
 /**
  * RefreshAction class
@@ -40,7 +40,7 @@ public final class RefreshAction extends CommonCallBack {
     /** Accelerator key for the action */
     public static final int ACCELERATOR_KEY = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
-    private static ImageIcon icon = new ImageIcon(ScilabSwingUtilities.findIcon("view-refresh"));
+    private static ImageIcon icon = new ImageIcon(FindIconHelper.findIcon("view-refresh"));
 
     /**
      * Constructor
