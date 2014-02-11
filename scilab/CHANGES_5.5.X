@@ -225,6 +225,8 @@ Scilab Bug Fixes
 
 * Bug #10816 fixed - Typo in part error message fixed.
 
+* Bug #10830 fixed - Hypermatrix insertion with a negative index gave a wrong error message.
+
 * Bug #10856 fixed - analpf did not return the right result.
 
 * Bug #10936 fixed - Scilab hung with invalid strf in plot2d.
