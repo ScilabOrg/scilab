@@ -62,6 +62,7 @@ public class XmlLoader extends DefaultHandler {
     private static HashMap<String, Integer> nameToGO = new HashMap<String, Integer>();
     private static HashMap<String, HashMap<String, Entry<Integer, Map<String, String>>>> models = new HashMap<String, HashMap<String, Entry<Integer, Map<String, String>>>>();
     private Stack<Integer> stackGO = new Stack<Integer>();
+    private String currentPath = "";
 
     private GraphicController controller;
 
@@ -156,11 +157,30 @@ public class XmlLoader extends DefaultHandler {
     public int parse(String filename) throws SAXException {
         this.filename = filename;
         File f = new File(filename);
+        if (f.exists()) {
+            //add filename filepath in ScilabSwingUtilities paths
+            String absoluteFilePath = f.getAbsolutePath();
+            String path = absoluteFilePath.substring(0, absoluteFilePath.lastIndexOf(File.separator));
+            currentPath = path;
+        } else {
+            //try to find file in currentPath
+            if (f.isAbsolute()) {
+                //failed
+                return 1;
+            }
+
+            f = new File(currentPath + File.separator + filename);
+            if (f.exists() == false) {
+                return 1;
+            }
+        }
+
         FileInputStream in = null;
         try {
             in = new FileInputStream(f);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
+            return 1;
         }
 
         SAXParser parser;
@@ -172,6 +192,12 @@ public class XmlLoader extends DefaultHandler {
             factory.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
             parser = factory.newSAXParser();
         } catch (Exception e) {
+            try {
+                in.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return 1;
+            }
             throw new SAXException(String.format("Cannot initialize the XML parser: %s", e.getMessage()));
         }
 
