@@ -8,6 +8,9 @@ Obsolete & Removed Functions
 
 * Second output argument of add_param removed (See SEP #132).
 
+* strcmpi tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use strcmp instead.
+
 
 Scilab Bug Fixes
 ================
@@ -60,6 +63,8 @@ Scilab Bug Fixes
 * Bug #12700 fixed - edit_curv (used by CURV_f) was broken.
 
 * Bug #12834 fixed - Graphics did not work on Fedora (GLIBC issue).
+
+* Bug #12837 fixed - strcmpi is a duclicate of strcmp and should be removed.
 
 * Bug #12918 fixed - OpenSUSE 12.3 x64 did not have gluegen2-rt in librarypath.
 
