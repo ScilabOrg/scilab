@@ -15,6 +15,10 @@
 extern "C"
 {
 #include "FigureList.h"
+#ifdef _MSC_VER
+#include "strdup_windows.h"
+#endif
+#include "FigureList.h"
 }
 
 int sciGetNbFigure(void)
@@ -50,3 +54,15 @@ void unregisterToController()
 {
     ScilabView::unregisterToController();
 }
+
+int search_path(char* _pstPath)
+{
+    return ScilabView::search_path(_pstPath);
+}
+
+char* get_path(int uid)
+{
+    std::string path = ScilabView::get_path(uid);
+    return strdup(path.c_str());
+}
+
