@@ -180,7 +180,7 @@ for typ=list(list(),list('native'));
   assert_checkequal(cumprod(i,1,typ(:)), hypermat([2,2,2],uint8([1;254;10;90;1;0;0;0])));
   assert_checkequal(cumprod(i,2,typ(:)), hypermat([2,2,2],uint8([1;254;10;238;1;0;0;0])));
   assert_checkequal(cumprod(i,3,typ(:)), hypermat([2,2,2],uint8([1;254;10;9;1;0;0;0])));
-  assert_checkequal(cumprod(i,5,typ(:)), double(i));
+  assert_checkequal(cumprod(i,5,typ(:)), i);
 end
 assert_checkequal(cumprod(i,'double'), hypermat([2,2,2],[1;254;2540;22860;22860;0;0;0]));
 assert_checkequal(cumprod(i,'*','double'), hypermat([2,2,2],[1;254;2540;22860;22860;0;0;0]));
