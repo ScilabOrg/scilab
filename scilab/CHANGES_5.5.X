@@ -2028,6 +2028,9 @@ Obsolete & Removed Functions
 
 * getfont, getmark, getlinestyle and getsymbol removed. Please use ged instead.
 
+* strcmpi tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use strcmp instead.
+
 
 Compilation
 ============
@@ -2420,6 +2423,8 @@ Scilab Bug Fixes
 * Bug #12854 fixed - configure failed to detect custom installation of docbook.
 
 * Bug #12860 fixed - Missing semicolon in style.css added.
+
+* Bug #12837 fixed - strcmpi is a duclicate of strcmp and should be removed.
 
 * Bug #12880 fixed - A warning is displayed when transposing arguments of plot.
 

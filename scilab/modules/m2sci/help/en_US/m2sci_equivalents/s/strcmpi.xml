@@ -34,7 +34,7 @@ strcmpi(str1,str2)
                 </td>
                 <td>
                     <programlisting role="example"><![CDATA[
-convstr(str1)==convstr(str2)
+strcmp(str1,str2,'i')
 ]]></programlisting>
                 </td>
             </tr>
@@ -44,7 +44,7 @@ convstr(str1)==convstr(str2)
         <title>Particular cases</title>
         <para>
             <note>
-                Note that <emphasis role="bold">strcmpi</emphasis> can be use with not string inputs, in this case Matlab returns <emphasis role="bold">0</emphasis>. Scilab <emphasis role="bold">==</emphasis> will in this case return <emphasis role="bold">%T</emphasis> if both inputs are equal.
+                Note that <emphasis role="bold">strcmpi</emphasis> can be use with not string inputs, in this case Matlab returns <emphasis role="bold">0</emphasis>.
             </note>
         </para>
     </refsection>
