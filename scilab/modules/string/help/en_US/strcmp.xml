@@ -42,8 +42,8 @@
                 <term>'i'</term>
                 <listitem>
                     <para>
-                        an optional parameter to do <function>strcmpi</function>
-                        (case independent), default value is <literal>'s'</literal>.
+                        an optional parameter for case independence or not,
+                        default value is <literal>'s'</literal> (case dependent).
                     </para>
                 </listitem>
             </varlistentry>
@@ -96,9 +96,6 @@ strcmp(TXT1,TXT2,'s')
         <simplelist type="inline">
             <member>
                 <link linkend="strcat">strcat</link>
-            </member>
-            <member>
-                <link linkend="strcmpi">strcmpi</link>
             </member>
         </simplelist>
     </refsection>

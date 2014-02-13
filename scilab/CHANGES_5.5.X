@@ -61,6 +61,8 @@ Scilab Bug Fixes
 
 * Bug #12834 fixed - Graphics did not work on Fedora (GLIBC issue).
 
+* Bug #12837 fixed - strcmpi is a duclicate of strcmp and should be removed.
+
 * Bug #12918 fixed - OpenSUSE 12.3 x64 did not have gluegen2-rt in librarypath.
 
 * Bug #12986 fixed - Scilab did not start on CentOS 5.9 (GLIBC issue).
@@ -2224,6 +2226,9 @@ Obsolete & Removed Functions
 * datatipInitStruct and datatipRedraw removed.
 
 * getfont, getmark, getlinestyle and getsymbol removed. Please use ged instead.
+
+* strcmpi tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use strcmp instead.
 
 
 Compilation

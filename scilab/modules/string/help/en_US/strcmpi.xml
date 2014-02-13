@@ -14,7 +14,7 @@
     <refnamediv>
         <refname>strcmpi</refname>
         <refpurpose>
-            compare character strings (case independent)
+            compare character strings (case independent). <emphasis role="bold">This function is obsolete.</emphasis>
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
@@ -59,6 +59,10 @@
             is equal to <varname>string_two</varname> (case independently),
             <literal>1</literal> if <varname>string_one</varname> is greater than <varname>string_two</varname> and <literal>-1</literal> else.
         </para>
+        <para>
+            <warning>This function is obsolete.</warning>
+            It is better to use <link linkend="strcmp">strcmp</link> instead of <literal>strcmpi</literal>.
+        </para>
     </refsection>
     <refsection>
         <title>Examples</title>
@@ -79,5 +83,16 @@ strcmpi(TXT1,'scilab')
                 <link linkend="strcmp">strcmp</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    Function tagged as obsolete. Will be removed in 5.5.1. Please use <link linkend="strcmp">strcmp</link> instead.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
