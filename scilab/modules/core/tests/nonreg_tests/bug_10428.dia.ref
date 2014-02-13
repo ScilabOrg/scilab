@@ -1,0 +1,26 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Calixte DENIZET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+// <-- UNIX ONLY -->
+//
+// <-- Non-regression test for bug 10428 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/10428
+//
+// <-- Short Description -->
+//
+// Java apps shew a library load error in CLI
+assert_checkerror("xcos", msprintf(_("Scilab ''%s'' module not installed.\n"), "xcos"));
+assert_checkerror("scinotes", msprintf(_("Scilab ''%s'' module not installed.\n"), "scinotes"));
+assert_checkerror("browsehistory", msprintf(_("Scilab ''%s'' module not installed.\n"), "history_browser"));
+assert_checkerror("browsevar", msprintf(_("Scilab ''%s'' module not installed.\n"), "ui_data"));
+assert_checkerror("filebrowser", msprintf(_("Scilab ''%s'' module not installed.\n"), "ui_data"));
+assert_checkerror("editvar(''a'')", msprintf(_("Scilab ''%s'' module not installed.\n"), "ui_data"));
+assert_checkerror("driver(''png'')", msprintf(_("Scilab Graphic export module not installed.\n")));
+assert_checkerror("plot2d()", msprintf(_("Scilab Graphics module not installed.\n")));
