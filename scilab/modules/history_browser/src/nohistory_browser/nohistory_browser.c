@@ -1,7 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - INRIA - Allan CORNET
- *
+ * Copyright (C) 2014 - Scilab Enterprises - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,21 +9,21 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
-
-#include "gw_graphic_export.h"
+/*--------------------------------------------------------------------------*/
+#include "nohistory_browser.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "scilabmode.h"
 /*--------------------------------------------------------------------------*/
-int gw_graphic_export(void)
+int gw_history_browser(void)
 {
     if (getScilabMode() == SCILAB_NWNI)
     {
-        Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "graphic_export");
+        Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "history_browser");
     }
     else
     {
-        Scierror(999, _("Scilab '%s' module not installed.\n"), "graphic_export");
+        Scierror(999, _("Scilab '%s' module not installed.\n"), "history_browser");
     }
     return 0;
 }

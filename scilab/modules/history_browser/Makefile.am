@@ -50,8 +50,12 @@ libscihistory_browser_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 $(AM_CPPFLAGS)
 
 # Without the history_browser module 
-libscihistory_browser_disable_la_CPPFLAGS = -I$(srcdir)/includes/ $(AM_CPPFLAGS)
-HISTORY_BROWSER_DISABLE_C_SOURCES =  src/nohistory_browser/CommandHistory_Wrap_Fake.c
+libscihistory_browser_disable_la_CPPFLAGS = -I$(srcdir)/includes/ \
+    -I$(top_srcdir)/modules/localization/includes/ \
+    -I$(top_srcdir)/modules/output_stream/includes/ \
+     $(AM_CPPFLAGS)
+
+HISTORY_BROWSER_DISABLE_C_SOURCES =  src/nohistory_browser/CommandHistory_Wrap_Fake.c src/nohistory_browser/nohistory_browser.c
 libscihistory_browser_disable_la_SOURCES = $(HISTORY_BROWSER_DISABLE_C_SOURCES)
 
 pkglib_LTLIBRARIES = libscihistory_browser-disable.la

@@ -16,10 +16,18 @@
 #include "BrowseVarManager.h"
 #include "FileBrowserChDir.h"
 #include "BOOL.h"
+#include "scilabmode.h"
 /*--------------------------------------------------------------------------*/
 int gw_ui_data(void)
 {
-    Scierror(999, _("Scilab '%s' module not installed.\n"), "ui_data");
+    if (getScilabMode() == SCILAB_NWNI)
+    {
+        Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "ui_data");
+    }
+    else
+    {
+        Scierror(999, _("Scilab '%s' module not installed.\n"), "ui_data");
+    }
     return 0;
 }
 /*--------------------------------------------------------------------------*/
