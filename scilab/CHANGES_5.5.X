@@ -52,6 +52,9 @@ Obsolete & Removed Functions
 * %asn tagged as obsolete. Will be removed in Scilab 5.5.1.
   Please use delip instead.
 
+* strcmpi tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use strcmp instead.
+
 
 Compilation
 ============
@@ -324,6 +327,8 @@ Scilab Bug Fixes
 * Bug #12803 fixed - warning(['foo','bar']) printed two 'WARNING: '.
 
 * Bug #12819 fixed - Link to contributors website page fixed in the help pages.
+
+* Bug #12837 fixed - strcmpi is a duclicate of strcmp and should be removed.
 
 * Bug #12880 fixed - A warning is displayed when transposing arguments of plot.
 

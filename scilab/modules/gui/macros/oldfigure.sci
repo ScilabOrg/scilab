@@ -39,9 +39,9 @@ function h=oldfigure(varargin)
         // Vincent COUVERT - INRIA 2008
         // Get the Java figure property corresponding to the TK figure property
 
-        if strcmpi(tkFigProperty, "backgroundcolor") == 0 then
+        if strcmp(tkFigProperty, "backgroundcolor","i") == 0 then
             sciFigProperty = "background";
-        elseif strcmpi(tkFigProperty, "foregroundcolor") == 0 then
+        elseif strcmp(tkFigProperty, "foregroundcolor","i") == 0 then
             sciFigProperty = "foreground";
         else
             sciFigProperty = tkFigProperty;
@@ -54,9 +54,9 @@ function h=oldfigure(varargin)
         // Vincent COUVERT - INRIA 2008
         // Get the Java property value corresponding to the TK property value
 
-        if strcmpi(tkFigProperty, "backgroundcolor") == 0 then
+        if strcmp(tkFigProperty, "backgroundcolor","i") == 0 then
             sciPropertyValue = addcolor(tkPropertyValue);
-        elseif strcmpi(tkFigProperty, "foregroundcolor") == 0 then
+        elseif strcmp(tkFigProperty, "foregroundcolor","i") == 0 then
             sciPropertyValue = addcolor(tkPropertyValue);
         else
             sciPropertyValue = tkPropertyValue;

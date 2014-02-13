@@ -97,9 +97,6 @@ strcmp(TXT1,TXT2,'s')
             <member>
                 <link linkend="strcat">strcat</link>
             </member>
-            <member>
-                <link linkend="strcmpi">strcmpi</link>
-            </member>
         </simplelist>
     </refsection>
 </refentry>

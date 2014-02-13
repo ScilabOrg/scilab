@@ -18,7 +18,7 @@ function h =  findobj(propertyName, propertyValue)
     if rhs == 1 then
         h = get(propertyName);
         return;
-    elseif strcmpi(propertyName, "tag") == 0 then
+    elseif strcmp(propertyName, "tag","i") == 0 then
         h = get(propertyValue);
         return;
     end
