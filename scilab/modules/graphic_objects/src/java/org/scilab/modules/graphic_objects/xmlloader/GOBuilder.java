@@ -57,7 +57,6 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_VISIBLE__;
 
 import java.awt.Color;
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -507,8 +506,6 @@ public class GOBuilder {
             }
             case TITLED: {
 
-                FrameBorderType borderOut = FrameBorderType.stringToEnum(XmlTools.getFromMap(map, "border", "none"));
-                Integer out = createBorder(controller, border, borderOut, map);
                 String title = XmlTools.getFromMap(map, "title", "");
                 FrameBorder.JustificationType justify = FrameBorder.JustificationType.stringToEnum(XmlTools.getFromMap(map, "justify", "leading"));
                 String fontName = XmlTools.getFromMap(map, "font-name", "");
@@ -520,7 +517,8 @@ public class GOBuilder {
 
                 String color = XmlTools.getFromMap(map, "color", "black");
 
-                controller.setProperty(border, __GO_UI_FRAME_BORDER_OUT_BORDER__, out);
+                FrameBorderType borderOut = FrameBorderType.stringToEnum(XmlTools.getFromMap(map, "border", "none"));
+                Integer out = createBorder(controller, border, borderOut, map);
 
                 controller.setProperty(border, __GO_UI_FRAME_BORDER_TITLE__, out);
                 controller.setProperty(border, __GO_TITLE__, title);

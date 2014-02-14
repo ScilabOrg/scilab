@@ -386,7 +386,7 @@ public class Uicontrol extends GraphicObject {
     /**
      * All uicontrol styles
      */
-    private enum UicontrolStyle {
+    public enum UicontrolStyle {
         CHECKBOX,
         EDIT,
         FRAME,
@@ -812,7 +812,11 @@ public class Uicontrol extends GraphicObject {
          * @return the style
          */
     public Integer getStyle() {
-        return styleEnumToInt(this.style);
+        return styleEnumToInt(style);
+    }
+
+    public UicontrolStyle getStyleAsEnum() {
+        return style;
     }
 
     /**
