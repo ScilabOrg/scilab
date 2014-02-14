@@ -547,6 +547,8 @@ Scilab Bug Fixes
 
 * Bug #13233 fixed - Wrong result for simulation of step response csim('step',t,H) fixed.
 
+* Bug #13236 fixed - "parents" help page renamed into "parenthesis".
+
 
 Xcos
 ====

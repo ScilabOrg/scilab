@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="parents">
     <refnamediv>
-        <refname>parents ( )</refname>
+        <refname>parenthesis ( )</refname>
         <refpurpose>parenthèses droite et gauche  </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
@@ -20,7 +20,7 @@
             <varlistentry>
                 <term>x  </term>
                 <listitem>
-                    <para>matrice de tout type 
+                    <para>matrice de tout type
                     </para>
                 </listitem>
             </varlistentry>
@@ -57,15 +57,15 @@
     <refsection>
         <title>Description</title>
         <para>
-            Les parenthèses droite et gauche sont utilisées pour : 
+            Les parenthèses droite et gauche sont utilisées pour :
         </para>
         <para>
             *
-            Spécifier l'ordre d'évaluation dans des expressions, 
+            Spécifier l'ordre d'évaluation dans des expressions,
         </para>
         <para>
             *
-            Former la liste des arguments d'entrée d'une fonction. Les arguments multiples sont séparés par des virgules, 
+            Former la liste des arguments d'entrée d'une fonction. Les arguments multiples sont séparés par des virgules,
         </para>
         <para>
             *
@@ -85,7 +85,7 @@
     </refsection>
     <refsection>
         <title>Exemples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 3^(-1)
 x=poly(0,"x");
 //
@@ -100,7 +100,7 @@ a(:,$+1)=[10;11;12]
 //
 w=ssrand(2,2,2);ssprint(w)
 ssprint(w(:,1))
-ss2tf(w(:,1)) 
+ss2tf(w(:,1))
 //
 l=list(1,2,3,4)
 [a,b,c,d]=l(:)
