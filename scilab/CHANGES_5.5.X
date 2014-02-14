@@ -1335,6 +1335,7 @@ Scilab Bug Fixes
 
 * Bug #12931 fixed - ATOMS redefined "message" keyword.
 
+* Bug #13186 fixed - csvRead freezes if separator is empty string.
 
 Xcos Bug Fixes
 ===============
