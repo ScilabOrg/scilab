@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="while">
+    <refnamediv>
+        <refname>while</refname>
+        <refpurpose>while کلید‌واژه</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            عبارت شرطی <literal>while</literal> حتما باید به <literal>"end"</literal> 
+            ختم شود. 
+        </para>
+        <para>
+            <literal>while expr ,instructions,...[,else instructions], end</literal>
+        </para>
+        <para>
+            <literal>while expr do instructions,...[,else instructions], end</literal>
+        </para>
+        <para>
+            <literal>while expr then instructions,...[,else instructions], end</literal>
+        </para>
+        <para>نکته‌ها:</para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    تنها محدودیتی که وجود دارد این است که هر کلید‌واژه‌ی  <literal>then</literal>  یا 
+                    <literal>do</literal> باید در همان خط مربوط به کلید‌واژه‌ی <literal>while</literal> آورده شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    کلید‌واژه‌ی <literal>then</literal> یا <literal>do</literal>  می‌تواند با یک سر خط آورنده و یا یک ویرگول جایگزین شود. 
+                    برای سازگاری بیشتر با نرم‌افزار متلب این امکان نیز وجود دارد که عبارت شرطی  را با یک فاصله از 
+                    دستور‌العمل بعد از آن جدا کنید. البته استفاده از فاصله توصیه نمی شود. 					 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    ساختار اختیاری <literal>[,else instructions]</literal>، اجازه‌ی اجرای دستور‌العمل‌های بعدی را در صورت اشتباه بودن عبارت شرطی 
+                    <literal>expr</literal> می‌دهد. 
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            مطابق با قرارداد‌های کد نویسی برای زبان برنامه نویسی سایلب، توصیه می‌شود که: 
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    هر عبارت در یک خط جدید آغاز شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    در هر خط فقط یک عبارت ساده نوشته شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    عبارت‌های مرکب در چندین خط شکسته شود. 
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            برای مثال، از دستورات زیر :
+        </para>
+        <programlisting role=""><![CDATA[
+      i = 0
+      while i<5 
+          disp("i");
+          i = i + 1; 
+      end
+]]></programlisting>
+        <para>
+            به جای دستوراتی که در ادامه خواهد آمد، استفاده کنید
+        </para>
+        <programlisting role=""><![CDATA[
+      i = 0; while i<5 disp("i"); i = i + 1; end
+]]></programlisting>
+        <para>
+            هشدار: تعداد نویسه‌های (کاراکتر) مورد استفاده برای تعریف بدنه‌ی هر دستور شرطی (از جمله: "if" "while" "for" or "select/case") 
+            باید به شانزده کیلو‌بایت (16k) محدود شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+e=1; a=1; k=1;
+while norm(a-(a+e),1) > %eps, 
+    e=e/2; 
+    k=k+1; 
+end
+e,k
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="return">return</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

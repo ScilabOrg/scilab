@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="with_macros_source">
+    <refnamediv>
+        <refname>with_macros_source</refname>
+        <refpurpose>بررسی می‌کند آیا کد‌منبع ماکرو‌ها نصب شده‌اند</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>r = with_macros_source()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>بولی</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            مقدار <literal>%t</literal> را بر می‌گرداند اگر کد‌‌منبع (سورس) ماکرو‌ها نصب باشند و 
+            در غیر این صورت <literal>%f</literal> خواهد بود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+if with_macros_source() == %t then
+   disp("Scilab macro sources are installed");
+end
+ ]]></programlisting>
+    </refsection>
+    
+</refentry>

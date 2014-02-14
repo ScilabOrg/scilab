@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="case">
+    <refnamediv>
+        <refname>case</refname>
+        <refpurpose>کلید‌واژه‌ی مورد استفاده در عبارت "select"</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            این کلید‌واژه در عبارت <literal>select ... case ... end</literal> استفاده می‌شود. 
+        </para>
+        <para>
+            کلید‌واژه‌ی <literal>case</literal> یکی از مقادیر متغیری را برجسته می‌کند (این آن مقداریست که از گستره‌ای از مقادیر انتخاب می‌شود). 
+        </para>
+        <para>
+            در موارد زیر از آن استفاده کنید:
+            <programlisting role="no-scilab-exec"><![CDATA[ 
+select expr0
+    case expr1 then
+        instructions 1
+    case expr2 then
+        instructions 2
+	  ...  
+    case exprn then
+        instructions n
+    [else instructions]
+end
+     ]]></programlisting>
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+OS=getos()
+select OS
+case "Windows" then
+  disp("Scilab on Windows")
+case "Linux" then
+  disp("Scilab on Linux")
+case "Darwin" then
+  disp("Scilab on MacOs")
+else
+  error("Scilab on Unknown platform")
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="select">select</link>
+            </member>
+            <member>
+                <link linkend="while">while</link>
+            </member>
+            <member>
+                <link linkend="end">end</link>
+            </member>
+            <member>
+                <link linkend="for">for</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

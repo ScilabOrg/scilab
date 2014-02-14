@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="percent">
+    <refnamediv>
+        <refname>percent</refname>
+        <refpurpose>علامت درصد(%)؛ کاراکتر خاص </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            نام برخی از متغیر‌های از پیش تعریف‌شده با <literal>%</literal> شروع می‌شود، از جمله : 			
+            <literal>%i</literal> (برای رادیکال -۱)، <literal>%inf</literal> (برای بی‌نهایت)، <literal>%pi</literal> (برای ۳٫۱۴)،
+            <literal>%T</literal> (برای ثابت بولی <literal>"true"</literal>) و ... . 
+        </para>
+        <para>
+            علاوه بر این، توابعی که نام آنها با <literal>%</literal> آغاز می‌شوند خاص می‌باشند: 
+            در واقع برای سربارگذاری عملگر‌ها و توابع اصلی (primitives) مورد استفاده قرار می‌گیرند. (ببینید:  <literal>overloading</literal>) 
+        </para>
+        <para>
+            برای مثال، تابع <literal>%rmr</literal> عمل ضرب (با <literal>m</literal> نشان داده شده است) را برای ماتریس‌های گویای 
+            <literal>x</literal> و <literal>y</literal> انجام می‌دهد (یعنی <literal>x*y</literal>). 
+            قرارداد‌های مربوط به این کدنویسی در فصل سربارگذاری (<link linkend="overloading">overloading</link> ) آمده است. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+x1=tlist('x',1,2);
+x2=tlist('x',2,3);
+deff('x=%xmx(x1,x2)','x=list(''x'',x1(2)*x2(2),x2(3)*x2(3))');
+x1*x2
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

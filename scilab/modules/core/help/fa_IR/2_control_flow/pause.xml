@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="pause">
+    <refnamediv>
+        <refname>pause</refname>
+        <refpurpose>حالت مکث, invoke keyboard</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            به حالت <code>pause</code> سوئیچ می‌کند؛ 
+            در داخل بدنه‌ی یک تابع ، دستور <code>pause</code> اجرای تابع را متوقف می‌کند: 
+            کاربر یک نماد اعلان دریافت می‌کند که سطح مکث را نشان می‌دهد (یعنی <literal>-1-&gt;</literal>). 
+            در این حالت کاربر در محیط‌کاری جدیدی می‌باشد که در آن کلیه‌ی متغیر‌های سطوح پایین‌تر (و به طور خاص کلیه‌ی متغیر‌های تابع) در 
+            دسترس می باشند. برای بازگشت به محیط‌کاری فراخواننده دستور <code>return</code> را وارد نمایید. 
+        </para>
+        <!--calling workspace-->		
+        <para>
+            در این مورد، دستور <literal>[...]=return(...) </literal> 
+            متغیر‌های مربوط به آرگومان <literal>(...)</literal> را به محبط کاری فراخوانی و تحت نام‌های تعربف‌شده در خروجی 
+            <literal>[...]</literal> بر می‌گرداند. در غیر این صورت، 
+            متغیر‌های سطح-پایین‌تر محافظت می‌شوند و نمی‌توانند اصلاح شوند. 
+        </para>
+        <para>
+            دستور <literal>pause</literal> برای اهداف خطایابی به‌شدت مفید می‌باشد. 
+        </para>
+        <para>
+            این حالت با دستور <code>abort</code> از بین می‌برد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+    function c=foo(b)
+    a=42+b
+    disp("Thanks to the pause, you can investigate if ''a'' has the right value");
+    disp("Value can be changed too if needed.");
+    pause
+    c=a+2
+    endfunction
+    
+    foo(2)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="halt">halt</link>
+            </member>
+            <member>
+                <link linkend="return">return</link>
+            </member>
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+            <member>
+                <link linkend="quit">quit</link>
+            </member>
+            <member>
+                <link linkend="whereami">whereami</link>
+            </member>
+            <member>
+                <link linkend="where">where</link>
+            </member>
+            <member>
+                <link linkend="sleep">sleep</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

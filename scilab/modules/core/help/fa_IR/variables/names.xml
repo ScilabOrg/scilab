@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="names">
+    <refnamediv>
+        <refname>names</refname>
+        <refpurpose>نحو اسامی در سایلب</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title><para>
+            نام متغیر‌ها و توابع باید با یک حرف الفبای انگلیسی و یا یکی از نویسه‌‌های ویژه 
+            '<literal>%</literal>', '<literal>_</literal>', '<literal>#</literal>', '<literal>!</literal>', '<literal>$</literal>', '<literal>?</literal>' شروع شوند. 
+        </para>
+        <para>
+            کاراکتر‌های(بخوانید: کَرکتر) بعدی می‌توانند حروف، ارقام و یا هر یک از کاراکتر‌های ویژه 
+            '<literal>_</literal>', '<literal>#</literal>', '<literal>!</literal>', '<literal>$</literal>', '<literal>?</literal>' باشند. 
+        </para>
+        <para>
+        </para>
+        در نام‌گذاری متغیر‌ها، حروف بزرگ و کوچک الفبای انگلیسی متفاوت می‌باشند. 
+        <!--در نام‌گذاری متغیر‌ها، استفاده از حروف کوچک و بزرگ باعث متفاوت شدن متغیر‌هامی‌شود-->
+        <para>
+            شما می‌توانید اسامی خیلی طولانی داشته باشد اما فقط ۲۴ نویسه‌ی اول آن‌ها در نظر گرفته می‌شود. 
+            اگر از این حد فراتر بروید، پیغام هشداری دریافت می‌کنید. لطفا توجه داشته باشید که این محدودیت با انتشار نسخه‌ی ۶ سایلب برطرف خواهد شد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+//Valid names
+%eps
+A1=123
+#Color=8
+My_Special_Color_Table=rand(10,3)
+//Non valid names
+//1A , b%, .C
+
+// Long names
+Try_to_use_a_long_name = 1 // long, but not too
+Try_to_use_a_too_long_name = 1 // too long
+
+// let we insert a second variable with similar long name...
+Try_to_use_a_too_long_name2 = 2
+
+// ... and see the value of first variable
+disp(Try_to_use_a_too_long_name)
+// Please note that this limitation will be fixed with the release of Scilab 6.
+ ]]></programlisting>
+    </refsection>
+</refentry>

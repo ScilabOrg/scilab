@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="who_user">
+    <refnamediv>
+        <refname>who_user</refname>
+        <refpurpose>فهرستی از متغیر‌های کاربر</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله ی فراخوانی</title>
+        <synopsis>varList = who_user([bPrint])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>bPrint</term>
+                <listitem>
+                    <para>
+                        فعال یا غیر فعال نمودن خروجی‌های صفحه (مقدار پیش‌فرض: %t). 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>مقدار بازگشتی</title>
+        <variablelist>
+            <varlistentry>
+                <term>varList</term>
+                <listitem>
+                    <para>
+                        برداری ستونی از متغیر‌های کاربر و یا ماتریس تهی [] اگر کاربر متغیری نداشته باشد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>who_user</literal> نام متغیر‌های کاربر را نمایش می‌دهد و/یا بر‌می‌گرداند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="code_scilab">
+            <![CDATA[ 
+clear;
+who_user()
+who_user(%t)
+who_user(%f)
+a = 1;
+b = 2;
+who_user()
+who_user(%t)
+who_user(%f)
+clear;
+ ]]>
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="whos">whos</link>
+            </member>
+            <member>
+                <link linkend="who">who</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>تاریخچه</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>who_user can now return user's variable names in a column vector of character strings.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="getshell">
+    <refnamediv>
+        <refname>getshell</refname>
+        <refpurpose>مفسر کنونی فرمان را بر می‌گرداند
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>getshell()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>getshell()</literal> نام مفسر فعلی فرمان‌ها را بر می‌گرداند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+getshell()
+ ]]></programlisting>
+    </refsection>
+</refentry>

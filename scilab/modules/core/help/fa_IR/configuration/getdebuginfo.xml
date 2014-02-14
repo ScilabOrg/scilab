@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="getdebuginfo" xml:lang="fa">
+    <refnamediv>
+        <refname>getdebuginfo</refname>
+        <refpurpose>گرفتن اطلاعات مورد نیاز برای اشکال‌زدایی</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>getdebuginfo()
+            dynamic_info = getdebuginfo();
+            [dynamic_info, static_info] = getdebuginfo();
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <function>getdebuginfo</function> اطلاعات مربوط به سایلب را به منظور خطایابی بدست می‌آورد. 
+        </para>
+        <para>
+            <code>dynamic_info = getdebuginfo();</code> اطلاعات مربوط به سیستم شما را بر می‌گرداند. 
+        </para>
+        <para>
+            <code>[dynamic_info,static_info] = getdebuginfo();</code> اطلاعات مربوط به سیستم شما ونیز نسخه‌ی فعلی سایلب را برمی‌گرداند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+[a,b]=getdebuginfo()
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="getversion">getversion</link>
+            </member>
+            <member>
+                <link linkend="getos">getos</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

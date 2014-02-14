@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="errcatch">
+    <refnamediv>
+        <refname>errcatch</refname>
+        <refpurpose>رهگیری خطا</refpurpose>
+        
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>errcatch(n [,'action'] [,'option'])
+            errcatch()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>عدد صحیح</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>action, option</term>
+                <listitem>
+                    <para>رشته</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <function>errcatch</function> فعالیتی را ،به عنوان دستگیره خطا، تعریف می‌کند تا 
+            به هنگام رخداد یک خطا از نوع <varname>n</varname> انجام شود. 
+            <!--provides an error-handling routine (error-handler or action) -->        
+        </para>
+        <para>
+            <varname>n</varname> را به صورت زیر توصیف می‌کنیم: 
+        </para>
+        <para>
+            اگر <varname>n</varname><literal>&gt;0</literal> آن‌گاه <varname>n</varname> شماره‌ی خطایی می‌باشد که باید به دام بیافتد. 
+        </para>
+        <para>
+            اگر <varname>n</varname><literal>&lt;0</literal> تمام خطا‌ها به دام خواهند افتاد. 
+        </para>
+        <para>
+            <varname>action</varname> یکی از کاراکتر‌های رشته‌ای زیر می‌باشد: 
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>"pause"</term>
+                <listitem>
+                    <para>هنگامی‌که خطا گرفته‌شد، حالت مکث ایجاد می‌شود. 
+                        این گزینه برای اهدافی چون رفع خطا‌ها (اشکال‌زدایی) مفید خواهد بود. 
+                        از تابع <code>whereami()</code>  برای دریافت اطلاعات در محیط جاری استفاده کنید. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"continue"</term>
+                <listitem>
+                    <para>دستور‌العمل بعدی در تابع و یا فایل اسکریپت اجرا می‌شود، و 
+                        دستورالعمل فعلی نادیده گرفته می‌شود. البته با کمک تابع <link linkend="iserror">iserror</link> 
+                        امکان این وجود دارد که بررسی کنیم آیا خطایی رخ داده است یا خیر. 
+                        حتماً فراموش نشود که بلافاصله این خطا را با کمک تابع <link linkend="errclear">errclear</link> پاک کنید. 
+                        این گزینه برای ترمیم خطا مفید است. در بسیاری از موارد، به‌جای <literal> errcatch(n,"continue",..)</literal>  می‌توان 
+                        از تابع <link linkend="execstr">execstr</link> یا ساختار کنترلی <link linkend="try">try</link>  استفاده کرد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"kill"</term>
+                <listitem>
+                    <para>حالت پیش‌فرض، تمام توابع میانی از بین می‌روند، و سایلب 
+                        به سطح اعلان صفر (محیط اصلی) بر می‌گردد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>"stop"</term>
+                <listitem>
+                    <para> جلسه‌ی فعلی سایلب را قطع می‌کند؛ برای هنگامی که سایلب توسط یک برنامه‌ی خارجی فراخوانی شود مفید می‌باشد. </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            <varname>option</varname> رشته‌ی کارکتری <literal>'nomessage'</literal> می‌باشد به منظور عدم نمایش پیغام خطا. 
+        </para>
+        <para>
+            برای بازگشت به حالت پیش‌فرض ، وارد کنید: <code>errcatch(-1,"kill")</code> و یا 
+            <code>errcatch(-1)</code> . توجه کنید که <code>errcatch()</code> معادلی منسوخ‌شده برای <code>errcatch(-1)</code> می باشد. 
+        </para>
+        <para/>
+        <para>
+            عمل‌های تابع <function>errcatch</function> بر روی محیط محاسبه‌ی جاری یعنی ( 
+            <literal>function</literal>, <literal>exec</literal>, <literal>pause</literal>) و نیز تمام زیر-سطح‌ها اعمال می‌شوند. 
+            فراخوانی ثانویه یک <function>errcatch</function> در یک زیر-سطح، فراخوانی اولیه‌ی آن را برای این زیر-سطح پنهان می‌کند. 
+            اگر دومین فراخوانی <function>errcatch</function> در سطحی یکسان با اولین آن صورت گیرید، آن‌گاه اثر آن فراخوانی اولیه را از بین می‌برد. 
+            <!--زمینه‌ی ارزیابی==محیط محاسبه -->   			
+        </para>
+         
+        <para>
+            هنگامی‌که در محیط یک تابع سایلب و یا یک فایل اسکریپت فراخوانی شود، آن‌گاه <function>errcatch</function> 
+            به صورت خودکار با بازگشت تابع (هنگامی‌که تابعی از دستور‌کار جاری کنار برود) ریست شده و به حالت اولیه باز می‌گردد. 
+            <!--متن==بدنه==محیط -->   			
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+errcatch(144,"continue")
+2/"foo"
+disp(a) // Without the errcatch, this line would not be executed
+
+errcatch(-1,"kill") // Come back in the normal mode
+errcatch(144,"pause")
+2/"foo" // Enter in "pause" mode
+
+errcatch(27,'continue','nomessage')
+b=2/0 // No error message but b will not exist
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="try">try</link>
+            </member>
+            <member>
+                <link linkend="errclear">errclear</link>
+            </member>
+            <member>
+                <link linkend="iserror">iserror</link>
+            </member>
+            <member>
+                <link linkend="whereami">whereami</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="exec">exec</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

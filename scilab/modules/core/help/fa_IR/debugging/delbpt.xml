@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="delbpt" xml:lang="fa">
+    <refnamediv>
+        <refname>delbpt</refname>
+        <refpurpose>حذف توقف‌گاه</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>delbpt([macroname [,linenumb]])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>macroname</term>
+                <listitem>
+                    <para>رشته</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>linenumb</term>
+                <listitem>
+                    <para>یک عدد صحیح یا برداری از اعداد صحیح</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            نقطه‌ی توقف موجود در خط <literal>linenumb</literal> از تابع <literal>macroname</literal> 
+            را حذف می‌کند. 
+        </para>
+        <para>
+            <varname>linenumb</varname> می‌تواند یک بردار سطری یا ستونی از شماره‌های خطوط و یا عددی تنها مربوط به شماره‌ی یک خط باشد. 
+        </para>
+        <para>
+            شماره‌های خطوط در <varname>linenumb</varname> شماره‌‌ی خطوط <emphasis>فیزیکی</emphasis> در 
+            تابع <varname>macroname</varname> هستند. 
+            توجه داشته باشد که نسخه‌های قبل از سایلب ۵٫۰ از شماره‌ی خطوط <emphasis>منطقی</emphasis> استفاده می‌کردند. 
+            تفاوت بین شماره‌‌ی خط فیزیکی و منطقی در تعداد <emphasis>خطوط اتصالی</emphasis> می‌باشد (ببینید: <link linkend="dot">dot</link>). 
+        </para>
+        <para>
+            اگر مقدار <literal>linenumb</literal> ذکر نشود، تمام توقف‌گاه‌های موجود در تابع 
+            <literal>macroname</literal> حذف می‌شوند. 
+        </para>
+        <para>
+            اگر هر دو مقدار  <literal>macroname</literal> و <literal>linenumb</literal> از قلم بیافتند، 
+            تمام نقطه‌های شکست(توقف‌گاه‌ها) از تمامی توابع حذف می‌شوند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+setbpt('foo',1),setbpt('foo',10),delbpt('foo',10),dispbpt()
+delbpt('foo',1),dispbpt()
+
+setbpt('foo1',4),setbpt('foo1',9),setbpt('foo2',6),setbpt('foo3',8),dispbpt()
+delbpt('foo2'),dispbpt()
+delbpt(),dispbpt()
+
+delbpt('foo',[1,2,5,6]),dispbpt()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببنید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="setbpt">setbpt</link>
+            </member>
+            <member>
+                <link linkend="dispbpt">dispbpt</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

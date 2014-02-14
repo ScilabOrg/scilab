@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="end">
+    <refnamediv>
+        <refname>end</refname>
+        <refpurpose>کلید‌واژه‌ی end</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            در انتهای حلقه‌ها و یا شرط ها استفاده می‌شود. 
+            
+            <literal>for</literal>, <literal>while</literal>, <literal>if</literal>, <literal>select</literal> باید به <literal>end</literal> ختم شوند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+a=42
+if a==42 then
+   disp("the answer to all questions")
+end
+
+i = 0
+while i<5
+   disp("i");
+   i = i + 1;
+end
+
+n=5;
+برای i = 1:n
+    برای j = 1:n
+        a(i,j) = 1/(i+j-1);
+    end;
+end
+
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="while">while</link>
+            </member>
+            <member>
+                <link linkend="if">if</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

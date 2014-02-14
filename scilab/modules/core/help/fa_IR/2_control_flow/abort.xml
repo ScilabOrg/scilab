@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="abort">
+    <refnamediv>
+        <refname>abort</refname>
+        <refpurpose>توقف محاسبات </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <code>abort</code> ارزیابی فعلی را متوقف کرده و اعلان را نمایش می‌دهد. درون یک 
+            سطح مکث (<code>pause</code>) ، دستور <code>abort</code> اعلان سطح صفر را بر‌می‌گرداند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+a=2
+b=3
+abort // The execution will stop here.
+c=4   // c will not be defined
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="quit">quit</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

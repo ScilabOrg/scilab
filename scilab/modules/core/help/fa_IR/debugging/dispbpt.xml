@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="dispbpt" xml:lang="fa">
+    <refnamediv>
+        <refname>dispbpt</refname>
+        <refpurpose>نمایش توقف‌گاه‌ها</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>dispbpt()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <code>dispbpt()</code> تمام نقاط شکست (توقف‌گاه‌های) فعال  که در حال حاضر در توابع وارد شده‌اند را نمایش می‌دهد. 
+        </para>
+        <para>
+            شماره‌ی خطوطی که توسط <code>dispbpt()</code> نمایش‌داده می‌شود مربوط به شماره‌ی خطوط  <emphasis>فیزیکی</emphasis> 
+            در تابع مذکور می‌باشند. توجه داشته باشید که نسخه‌های قبل از سایلب ۵٫۰ شماره‌ی خطوط <emphasis>منطقی</emphasis> را نمایش می‌دادند. 
+            تفاوت بین شماره‌‌ی خط فیزیکی و منطقی در تعداد <emphasis>خطوط اتصالی یا زنجیره‌ای</emphasis> می‌باشد (ببینید: <link linkend="dot">dot</link>). 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+setbpt('foo')
+setbpt('foo',10)
+dispbpt()
+delbpt()
+setbpt('foo',[1,2,5,6])
+dispbpt()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببنید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="setbpt">setbpt</link>
+            </member>
+            <member>
+                <link linkend="delbpt">delbpt</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

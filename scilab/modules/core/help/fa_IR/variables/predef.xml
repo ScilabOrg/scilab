@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="predef">
+    <refnamediv>
+        <refname>predef</refname>
+        <refpurpose>حفاظت متغیر‌ها</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>n</title>
+        <synopsis>n = predef()
+            oldnew = predef(n)
+            oldnew = predef('all')
+            oldnew = predef('clear')
+            variables_name = predef('names')
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            تابعی کاربردی برای آن‌که «قدیمی‌ترین» متغیر‌ها را به صورت محافظت شده تعریف نماید. 
+            متغیر‌های محافظت‌شده نمی‌توانند از بین بروند. آن‌ها با دستور 
+            <function>save</function> ذخیره نمی‌شوند. «قدیمی‌ترین» متغیر‌ها، آنهایی هستند که در انتهای فهرست 
+            <code>who('get')</code> ظاهر می‌شوند. 
+        </para>
+        <para>
+            <code>predef()</code> تعداد متغیر‌های محافظت شده را نتیجه می‌دهد. 
+        </para>
+        <para>
+            <code>predef('a[ll]')</code> تمام متغیر‌ها را محافظت شده قرار می‌دهد، همچنین تعداد متغیر‌های محافظت‌شده فعلی و قبلی را بر می‌گرداند. 
+        </para>
+        <para>
+            <code>predef('c[lear]')</code> کلیه متغیر‌ها بجز هفت مورد آخر را از حالت محافظت‌شده خارج می‌کند؛ همچنین 
+            تعداد متغیر‌های محافظت‌شده‌ی فعلی و قبلی را بر می‌گرداند.
+        </para>
+        <para>
+            <code>predef(n)</code> تعداد <code>max(n,7)</code> مورد از آخرین متغیر‌های تعریف‌شده را به صورت محافظت‌شده در می‌آورد. همچنین 
+            تعداد متغیر‌های محافظت‌شده‌ی فعلی و قبلی را بر می‌گرداند.
+        </para>
+        <para>
+            <code>predef('names')</code> نام متغیر‌های محافظت شده را در برداری از رشته‌ها بر می‌گرداند. 
+        </para>
+        <para>
+            <code>predef('clear')</code> تمام متغیر‌های از پیش‌تعریف شده را از فهرست پاک می‌کند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>نکته‌ها</title>
+        <para>
+            متغیر <literal>ans</literal> ، که به صورت خودکار هنگامی‌که عبارت‌ها اختصاص داده نشوند ایجا می‌شود، با دستور <code>predef('all')</code> هرگز 
+            محافظت نمی‌شود. 
+        </para>
+        <para>
+            تعدادی از متغیر‌های محافظت شده در فایل راه‌انداز <literal>SCI/etc/scilab.start</literal> تنظیم می‌شوند. 
+            در موارد خاص کاربر می‌تواند متغیر‌های محافظت‌شده خود را در فایل‌های راه‌انداز کاربر <literal>SCIHOME/.scilab</literal> یا 
+            <literal>SCIHOME/scilab.ini</literal> قرار دهد. 
+        </para>
+        <para>
+            <important>
+                توجه داشته باشد که در حال حاضر نمی‌توان با دستور <code>predef(1)</code> متغیر جدیدی که تعریف کرده‌اید را محافظت کنید. 
+                این بدان معنی‌است که برای محافظت از یک متغیر تنها، سایلب نیاز دارد تا تمامی متغیر‌هایی که قبل از این متغیر ایجاد شده‌اند را محافظت کند. 
+                این محدودیت احتمالا با انتشار خانواده‌ی سایلب ۶ ، که طراحی آن بر اساس پشته نیست، برطرف خواهد شد. 
+            </important>
+            	
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+errcatch(13, "continue") // Make sure we continue even when "clear a" will fail
+a = 1;
+predef("all");
+clear a // fails
+predef("clear")
+clear a // works
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="clear">clear</link>
+            </member>
+            <member>
+                <link linkend="save">save</link>
+            </member>
+            <member>
+                <link linkend="ans">ans</link>
+            </member>
+            <member>
+                <link linkend="startup">startup</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

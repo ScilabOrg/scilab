@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="try" xml:lang="fa">
+    <refnamediv>
+        <refname>try</refname>
+        <refpurpose>آغاز بخش (بلوک) try در ساختار کنترلی try-catch
+        </refpurpose>
+    </refnamediv>
+    <refnamediv xml:id="catch">
+        <refname>catch</refname>
+        <refpurpose>آغاز بلوک catch  در ساختار کنترلی try-catch
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>
+            try
+            statements
+            catch
+            statements
+            end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            ساختار کنترلی <literal>try</literal>-<literal>catch</literal> برای مدیریت کد‌‌هایی که 
+            توانایی نمایش خطا‌های احتمالی را دارند، بکار می‌رود. 
+        </para>
+        <para>
+            هنگام اجرای ساختار کنترلی <literal>try</literal>-<literal>catch</literal>، معمولا 
+            عبارت‌های بین کلید‌واژه‌های <literal>try</literal> و <literal>catch</literal> اجرا خواهند شد. 
+            اما اگر خطایی هنگام اجرای هر کدام از این عبارات رخ دهد، 
+            این خطا ثبت‌ شده و بقیه‌ی عبارت‌ها تا کلید‌واژه <literal>catch</literal> از دستورکار خارج شده و 
+            عبارت‌های مابین کلید‌واژه‌های  <literal>catch</literal> و <literal>end</literal> با استفاده از حالت مدیریت خطای پیش‌فرض ( 
+            ببینید: <link linkend="errcatch">errcatch</link>)، اجرا می‌شوند. 
+        </para>
+        <para>
+            خطای ثبت‌شده را با کمک تابع <link linkend="lasterror">lasterror</link> می‌توان بازیابی کرد. 
+        </para>
+        <para>
+            عبارت‌های قسمت <literal>catch</literal> و نیز خود کلید‌واژه‌ی <literal>catch</literal> 
+            می‌توانند حذف شوند در صورتی که هیچ عبارت جایگزینی مد‌نظر نداشته باشیم. 
+        </para>
+        <para>
+            توجه داشته‌باشید که می‌توانید از تابع  <link linkend="execstr">execstr</link> به همراه 
+            آرگومان <literal>'errcatch'</literal>  برای مدیریت خطا استفاده کنید. 
+            این مورد به طور خاص برای مدیریت خطا‌های نحوی مفبد خواهد بود. 
+        </para>
+        <para>
+            همچنین توجه داشته باشید که <literal>try-catch</literal> کم‌وبیش شبیه عبارت زیر می‌باشد: 
+        </para>
+        <programlisting role=""><![CDATA[ 
+if execstr("<try instructions>","errcatch")<>0 then
+  <catch instructions>
+end
+ ]]></programlisting>
+        <para>
+            این مورد مکانیزم داخلی یکسانی با  <link linkend="errcatch">errcatch</link> دارد. 
+            دلیل این که چرا نمی‌توان از <link linkend="errcatch">errcatch</link> یا 
+            <emphasis>execstr(...,"errcatch")</emphasis> در داخل ساختار کنترلی 
+            <literal>try</literal>-<literal>catch</literal> 
+            استفاده کرد، نیز همین می‌باشد. 
+            این متن آشکار می‌شود و یک پیغام خطای مشخص تولید می‌کند 
+            (این خطا نیز همانند سایر پیغام‌های خطای دیگر اگر داخل بلوک <literal>try</literal> راه‌اندازی شود، 
+            می‌توان آن‌را به تله انداخت و ذخیره کرد). 
+        </para>
+        <para>
+            در عین حال، ساختار‌های کنترلی <literal>try</literal>-<literal>catch</literal> می‌توانند 
+            به صورت تو‌در‌تو مورد استفاده قرار گیرند (مثال دوم را ببینید). 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+// example 1
+file_path=TMPDIR+'/wrong'
+try
+  u=mopen(file_path,'r')
+  x=mget(10,'c',u)
+catch
+  disp(['file '+file_path+ ' cannot be read','using default values for x'])
+  x=1:10
+end 
+ [error_message,error_number]=lasterror(%t)
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[ 
+// example 2 (nested try/catch structures)
+function nestedtry(a,b)
+disp("START")
+mprintf("\ta is %s\t\tb is %s\n",string(a),string(b))
+try
+  disp("try 1")
+  try
+    disp("try 2")
+    z=a+1;  // err when string
+  catch
+    disp("catch 2")
+    t=b+1;  // err when string
+  end
+  disp("after try 2")
+catch
+  disp("catch 1")
+end
+disp("after try 1 - THE END")
+endfunction
+nestedtry(1,1)
+nestedtry("a string",1)
+nestedtry(1,"a string")
+nestedtry("a string","a string")
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="error">error</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="if">if</link>
+            </member>
+            <member>
+                <link linkend="lasterror">lasterror</link>
+            </member>
+            <member>
+                <link linkend="errcatch">errcatch</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

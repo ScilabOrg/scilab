@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - DIGITEO - Allan CORNET
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="percenteps" xml:lang="fa">
+    <refnamediv>
+        <refname>%eps</refname>
+        <refpurpose>اپسیلن، دقت نسبی ممیز شناور</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>%eps</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>%eps</literal> یک متغیر از پیش‌تعریف‌شده می‌باشد، 
+            <literal>%eps =
+                2^(-52)
+            </literal>
+            .
+        </para>
+        <para>
+            محاسبات دقیق نیستند اما برای یک دقت مفروض انجام می‌شوند؛ سایلب از استاندارد IEEE 754 استفاده می‌کند. 
+        </para>
+        <!--داده شده== مفروض== معلوم== معين-->		
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example">%eps
+            format(20)
+            1 + %eps
+            1 + (%eps / 2) == 1
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="format">format</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

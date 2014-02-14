@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="tilde">
+    <refnamediv>
+        <refname>tilde</refname>
+        <refpurpose>مدّک (~) ؛ نه منطقی</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>~m</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>m</term>
+                <listitem>
+                    <para>ماتریس بولی</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <code>~m</code> (بخوانید: تیلدا ام یا نیست متغیر ام) نفی داریه‌به‌درایه روی درایه‌های ماتریس بولی با نام <code>m</code> 
+            را می‌دهد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+a = %T
+~a == %F
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="not">not</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
