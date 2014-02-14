@@ -458,6 +458,9 @@
     <ClCompile Include="..\cpp\CreateUIControl.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\cpp\sci_saveGui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="core_import.def">
