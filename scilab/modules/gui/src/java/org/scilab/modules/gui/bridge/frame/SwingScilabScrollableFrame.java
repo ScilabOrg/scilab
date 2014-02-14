@@ -21,6 +21,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -231,6 +232,11 @@ public class SwingScilabScrollableFrame extends JScrollPane implements SwingView
             Integer[] padding = uicontrol.getGridBagPadding();
             constraints.ipadx = padding[0];
             constraints.ipady = padding[1];
+
+            Integer[] preferredSize = uicontrol.getGridBagPreferredSize();
+            if (preferredSize[0].equals(-1) == false && preferredSize[1].equals(-1) == false) {
+                ((Component) member).setPreferredSize(new Dimension(preferredSize[0], preferredSize[1]));
+            }
 
             panel.add((Component) member, constraints);
             revalidate();
