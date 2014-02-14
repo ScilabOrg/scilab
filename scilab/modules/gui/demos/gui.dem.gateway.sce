@@ -23,6 +23,14 @@ function subdemolist = demo_gateway()
     subdemolist = [ subdemolist ;
     _("Show images with uicontrols ") ,  "uicontrol_image.dem.sce" ];
 
+    subdemolist = [ subdemolist ;
+    _("All uicontrol Styles") ,  "uicontrol_all.dem.sce" ];
+
+    subdemolist = [ subdemolist ;
+    _("All layouts") ,  "uicontrol_layout.dem.sce" ];
+
+
+
     subdemolist(:,2) = demopath + subdemolist(:,2);
 endfunction
 
