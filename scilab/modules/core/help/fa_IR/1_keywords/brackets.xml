@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="brackets">
+    <refnamediv>
+        <refname>brackets</refname>
+        <refpurpose>کروشه‌های چپ و راست ([,]) </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>[a11,a12,...;a21,a22,...;...]
+            [s1,s2,...]=func(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>a11,a12,...  </term>
+                <listitem>
+                    <para>
+                        هر نوع ماتریس ( حقیقی، چند‌جمله‌ای، گویا، لیست <literal>syslin</literal> و ...) البته با ابعاد مناسب 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>s1,s2,...  </term>
+                <listitem>
+                    <para>هر نام مجاز برای متغیر‌ها</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            کروشه‌های راست و چپ برای نمایش الحاق بردار و ماتریس استفاده می‌شوند. 
+            بعلاوه این نماد‌ها برای نشان دادن آرگومان‌های خروجی در تعربف توابع استفاده می‌شوند. 
+        </para>
+        <para>
+            درون کروشه‌های الحاق، فاصله یا ویر‌گول به معنای اتصال ستونی و نقطه‌ویر‌گول یا سر‌خط آورنده (با یک اینتر) 
+            به معنای اتصال سطری می‌باشد. 
+        </para>
+        <para>
+            <note>
+                نکته-۱: برای اجتناب از سردرگمی، مطمئن‌تر آن است که از ویرگول بجای فاصله برای جداسازی ستون‌ها استفاده شود. 
+            </note>
+            <para>
+                نکته-۲: متغبر‌های درون کروشه‌های سمت چپ یک تابع باید با ویرگول از یکدیگر جدا شوند. 
+            </para>
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+[6.9,9.64; sqrt(-1) 0]
+[1 +%i  2 -%i  3]
+[]
+['this is';'a string';'vector']
+s=poly(0,'s');[1/s,2/s]
+[tf2ss(1/s),tf2ss(2/s)]
+
+[u,s]=schur(rand(3,3))
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="parents">parents</link>
+            </member>
+            <member>
+                <link linkend="comma">comma</link>
+            </member>
+            <member>
+                <link linkend="semicolon">semicolon</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

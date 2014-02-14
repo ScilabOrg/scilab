@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="do">
+    <refnamediv>
+        <refname>do</refname>
+        <refpurpose>کلید‌واژه‌ی زبانی برای حلقه‌ها</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            درون دستورات <literal>for</literal> یا <literal>while</literal> برای جداسازی متغیر حلقه 
+            از مجموعه دستورات آن حلقه می‌تواند مورد استفاده قرار گیرد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+      i = 0
+      while i<5 do
+          disp("i");
+          i = i + 1;
+      end
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+n=5;
+for i = 1:n do
+    for j = 1:n do
+        a(i,j) = 1/(i+j-1);
+    end;
+end
+
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="while">while</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

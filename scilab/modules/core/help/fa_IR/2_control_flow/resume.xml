@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="resume">
+    <refnamediv>
+        <refname>resume</refname>
+        <refpurpose>باز‌ گرداندن یا از سر گرفتن اجرا‌ و رونوشت‌ از برخی متغیر‌های محلی</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>resume
+            [x1,..,xn]=resume(a1,..,an)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>x1,..,xn</term>
+                <listitem>
+                    <para>متغیر‌ها در محیط فراخوانی</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>a1,..,an</term>
+                <listitem>
+                    <para>متغیر‌های محلی</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            در داخل بدنه‌ی یک تابع دستور <literal>resume</literal> اجرای تابع را متفوقف می‌کند؛ 
+            دستور <literal>[x1,..,xn]=resume(a1,..,an)</literal> علاوه بر توقف اجرای تابع، متغیر‌های محلی 
+            <literal>ai</literal> را تحت نام‌های <literal>xi</literal> به محیط فراخوانی می‌آورد. 
+        </para>
+        <para>
+            در سطح مکث <literal>pause</literal>، این دستور اجازه‌ی بازگشت به سطح پایین‌تر را می‌دهد. 
+            دستور <literal>[x1,..,xn]=resume(a1,..,an)</literal> نیز ضمن بازگشت به سطح اعلان پایین‌تر ، 
+            متغیر‌های محلی <literal>ai</literal> را با نام‌های <literal>xi</literal> به محیط فراخوانی برمی‌گرداند. 
+        </para>
+        <para>
+            استفاده از آن در داخل <literal>execstr</literal> که توسط یک تابع فراخوانی شده، دستور <literal>[..]=resume(..)</literal> 
+            علاوه بر توقف اجرای تابع، متغیر‌های محلی 
+            <literal>ai</literal> را تحت نام‌های <literal>xi</literal> به محیط فراخوانی می‌آورد. 
+        </para>
+        <para>
+            <literal>resume</literal> معادلی برای <literal>return</literal> می‌باشد. 
+        </para>
+        <para>
+            <note>
+                نکته: استفاده از این ویژگی ممکن است باعث پیچیدگی کد‌نویسی شود. 
+                به جای آن، نحو <code>function b = foo()</code> توصیه می‌شود.  
+            </note>
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+function foo(a)
+         a=a+1
+         b=resume(a)
+         c=52
+endfunction
+
+foo(42);
+assert_checkequal(b,43);
+// c does not exist
+
+]]></programlisting>
+        <programlisting role="example"><![CDATA[
+
+// with several function calls
+function foo1()
+  a=1;
+  b=2;
+  c=3;
+  [x,y,z]=resume(a, b, c)
+endfunction
+
+function foo2()
+  foo1()
+  x, y, z // Declared
+endfunction
+
+foo2()
+// x y z does not exist here
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="quit">quit</link>
+            </member>
+            <member>
+                <link linkend="return">return</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

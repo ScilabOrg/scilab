@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="warning">
+    <refnamediv>
+        <refname>warning</refname>
+        <refpurpose>پیغام هشدار</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>warning('string')
+            warning('off')
+            warning('on')
+            mode = warning('query')
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>warning('string')</literal> رشته‌ی کاراکتری <literal>'string'</literal> را 
+            به‌عنوان یکپیغام خطا چاپ می‌کند. 
+        </para>
+        <para>
+            <literal>'on'</literal> پیغام‌های خطا را فعال می‌کند. 
+        </para>
+        <para>
+            <literal>'off'</literal> پیغام‌های خطا را غیر‌فعال می‌کند. 
+        </para>
+        <para>
+            <literal>'query'</literal> وضعیت <literal>'on'</literal> یا <literal>'off'</literal> را پرس‌وجو می‌کند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+warning('on') 
+warning('this is a warning')
+warning('off')
+warning('this is a warning')
+warning('query')
+warning('on')
+// Example with a localized message
+warning(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"myFunction",2));
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="error">error</link>
+            </member>
+            <member>
+                <link linkend="gettext">gettext</link>
+            </member>
+            <member>
+                <link linkend="msprintf">msprintf</link>
+            </member>
+            <member>
+                <link linkend="messagebox">messagebox</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

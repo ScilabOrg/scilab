@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="lasterror" xml:lang="fa">
+    <refnamediv>
+        <refname>lasterror</refname>
+        <refpurpose>آخرین پیغام خطای ثبت شده را بدست می‌آورد</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>str=lasterror( [opt] )
+            [str,n]=lasterror([opt])
+            [str,n,line,func]=lasterror([opt])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>str</term>
+                <listitem>
+                    <para>برداری از رشته‌های کاراکتری و یا ماتریس تهی: 
+                        آخرین پیغام خطای ثبت‌شده
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>یک عدد صحیح: صفر یا شماره‌ی آخرین خطای ثبت‌شده</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>line</term>
+                <listitem>
+                    <para>یک عدد صحیح: صفر یا شماره‌ی خط آخرین تابع ثبت‌شده</para>
+                    <!--یک عدد صحیح: صفر یا آخرین شماره‌ی ثبت شده مربوط به خطی از تابع که خطا در آن گرفته‌شده است-->					
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>func</term>
+                <listitem>
+                    <para>یک رشته: نام آخرین تابع ثبت شده</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>opt</term>
+                <listitem>
+                    <para>یک بولی: اگر درست  (%t) باشد پیغام ثبت‌شده پاک می‌شود (حالت پیش‌فرض).
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>هر زمان خطایی رخ دهد، دستگیره‌ی خطای سایلب آن را در یک جدول درونی ثبت می‌کند (توجه داشته باشد که فقط آخرین خطا ثبت می‌شود) . 
+            تابع <literal>lasterror</literal> جدای از این جدول، اجازه‌ی دریافت پیغام خطا، شماره‌ی خطا، نام تابع جاری (در صورت وجود) ، و 
+            شماره‌ خط اخیر در تابع جاری را می‌دهد. 
+        </para>
+        <para>
+            شماره‌ی خط ثبت شده شماره‌ی خط <emphasis>فیزیکی</emphasis> می‌باشد که خطا در آن رخ داده است. 
+            توجه کنید که نسخه‌هاس قبل از سایلب ۵٫۰ شماره‌ی خط <emphasis>منطقی</emphasis> مربوط به آخرین خطا را گزارش می‌دهد. 
+            تفاوت فقط در این است که تابع مورد‌نظر دارای <emphasis>خطوط اتصالی یا پیوست شده</emphasis> (ببینید: <link linkend="dot">dot</link> ) قبل از 
+            مکان وقوع خطا باشد یا خیر. 
+        </para>
+        <para>
+            این تابع به طور خاص برای زمانی‌که از تابع <link linkend="errcatch">errcatch</link> و یا <link linkend="execstr">execstr</link> استفاده می‌کنیم 
+            مفید خواهد بود. 
+        </para>
+        <para>
+            با کمک <literal>lasterror(%f)</literal>، 
+            پیغام خطای ثبت‌شده را می‌توان برای یک فراخوانی دیگر به تابع <literal>lasterror</literal> در آینده حفظ کرد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+ierr=execstr('a=zzzzzzz','errcatch')
+if ierr>0 then 
+  disp(lasterror())
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="errcatch">errcatch</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="error">error</link>
+            </member>
+            <member>
+                <link linkend="errclear">errclear</link>
+            </member>
+            <member>
+                <link linkend="edit_error">edit_error</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

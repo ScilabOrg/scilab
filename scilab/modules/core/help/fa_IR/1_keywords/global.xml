@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="global">
+    <refnamediv>
+        <refname>global</refname>
+        <refpurpose>تعریف متغیر عمومی </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>global('nam1',...,'namn')
+            global nam1 ... namn
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>nam1,..., namn</term>
+                <listitem>
+                    <para>نام‌‌های معتبر متغیر‌ها</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            معمولا، هر تابع سایلب متغیر‌های محلی خودش را دارد و می‌تواند 
+            همه‌ی متغیر‌هایی را که در فضای کاری پایه یا توسط (آن) توابع فراخواننده ایجاد‌‌ شده‌اند، بخواند.	 
+            کلید‌واژه‌ی <literal>global</literal> اجازه‌ی خواندن/نوشتن متغیر‌ها را در میان توابع می‌دهد (منظور اشتراک یک متغیر عمومی ما بین چند تابع).  
+            هر تخصیصی به آن متغیر، در هر تابعی، برای تمامی توابع دیگر که آن را به صورت <literal>global</literal> 
+            اعلان می‌کنند، در دسترس می‌باشد. 
+        </para>
+        <para>
+            اگر متغیر عمومی پیش از صدور دستور <literal>global</literal> مقدار‌دهی اولیه نشده باشد، به محض ‌آن‌که به صورت عمومی تعریف شود 
+            مقدار اولیه‌ی آن برابر ماتریس تهی قرار داده خواهد شد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+//first: calling environnment and a function share a variable
+global a
+a=1
+deff('y=f1(x)','global a,a=x^2,y=a^2')
+f1(2)
+a
+//second: three functions share variables
+deff('initdata()','global A C ;A=10,C=30')
+deff('letsgo()','global A C ;disp(A) ;C=70')
+deff('letsgo1()','global C ;disp(C)')
+initdata()
+letsgo()
+letsgo1()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="who">who</link>
+            </member>
+            <member>
+                <link linkend="isglobal">isglobal</link>
+            </member>
+            <member>
+                <link linkend="clearglobal">clearglobal</link>
+            </member>
+            <member>
+                <link linkend="gstacksize">gstacksize</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

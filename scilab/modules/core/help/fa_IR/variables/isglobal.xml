@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="isglobal">
+    <refnamediv>
+        <refname>isglobal</refname>
+        <refpurpose>بررسی می‌کند آیا یک متغیر عمومی است یا نه</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>t=isglobal(x)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>یک متغیر</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>t</term>
+                <listitem>
+                    <para>یک مقدار بولی</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>isglobal(x)</literal> مقدار <emphasis>true</emphasis> را بر می‌گرداند اگر <literal>x</literal> 
+            به عنوان یک متغیر عمومی اعلان شده باشد، در غیر این صورت مقدار <emphasis>false</emphasis> را بر می‌گرداند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+isglobal(1)
+global a
+isglobal(a)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="global">global</link>
+            </member>
+            <member>
+                <link linkend="clearglobal">clearglobal</link>
+            </member>
+            <member>
+                <link linkend="who">who</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

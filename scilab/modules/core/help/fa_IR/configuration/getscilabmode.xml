@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="getscilabmode">
+    <refnamediv>
+        <refname>getscilabmode</refname>
+        <refpurpose>حالت سایلب را بر‌می‌گرداند</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>m = getscilabmode()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>حالت (نما) سایلب را بر می‌گرداند. ۴ حالت امکان‌پذیر می‌باشند: STD, API, NW, NWNI. </para>
+        <para>
+            <literal>API</literal>: سایلب به عنوان API آغاز می‌شود. 
+        </para>
+        <para>
+            <literal>STD</literal>: سایلب استاندارد (gui, plot ...).
+        </para>
+        <para>
+            <literal>NW</literal>: سایلب در خط فرمان به همراه نمودار‌ها (قابلیت ترسیم نمودار‌ها). 
+        </para>
+        <para>
+            <literal>NWNI</literal>: سایلب در خط فرمان بدون هیچ قابلیت گرافیکی. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+getscilabmode()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scilab">scilab</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

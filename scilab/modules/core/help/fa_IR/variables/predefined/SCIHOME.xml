@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Allan CORNET
+ * Copyright (C) 2013 - Scilab Enterprises - Vincent COUVERT
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="SCIHOME" xml:lang="fa">
+    <refnamediv>
+        <refname>SCIHOME</refname>
+        <refpurpose>
+            این متغیر مسیر فایل‌های تاریخچه و ترجیحات مربوط به جلسه‌ی سایلب شما را در بر دارد.
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            متغیر <literal>SCIHOME</literal> مسیر فایل‌های تاریخچه و ترجیحات مربوط به جلسه‌ی سایلب شما را در بر دارد.
+        </para>
+        <para>
+            تعریف <literal>SCIHOME</literal> : 
+        </para>
+        <para>
+            در ویندوز XP: 
+            "%USERPROFILE%\Application Data\Scilab\&lt;Scilab-Version&gt;" در جایی‌که 
+            %USERPROFILE% مشابه است با 
+            "C:\Documents and Settings\&lt;User&gt;".
+        </para>
+        <para>
+            در ویندوز Vista، 7 و 8 : 
+            "%USERPROFILE%\AppData\Roaming\Scilab\&lt;Scilab-Version&gt;" در جایی‌که 
+            %USERPROFILE% مشابه است با 
+            "C:\Users\&lt;User&gt;".
+        </para>
+        <para>
+            در گنو/لینوکس یا یونیکس: 
+            /home/&lt;User&gt;/.Scilab/&lt;Scilab-Version&gt;
+        </para>
+        <para>
+            در مک اُو اس ایکس: 
+            /Users/&lt;User&gt;/.Scilab/&lt;Scilab-Version&gt;
+        </para>
+        <para>
+            &lt;User&gt; نام کاربری جاری سیستم شما.
+        </para>
+        <para>
+            &lt;Scilab-Version&gt; نسخه‌ی فعلی سایلب که مورد استفاده می‌باشد.
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+disp(SCIHOME);
+isdir(SCIHOME)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+        </simplelist>
+        <simplelist type="inline">
+            <member>
+                <link linkend="TMPDIR">TMPDIR</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

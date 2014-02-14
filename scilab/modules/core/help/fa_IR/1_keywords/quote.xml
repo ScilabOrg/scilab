@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="quote">
+    <refnamediv>
+        <refname>quote</refname>
+        <refpurpose>علامت نقل قول (')؛ عملگر ترانهاده، دربرگیرنده‌ی رشته‌ها </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            علامت نقل‌قول (<literal>'</literal>) برای ترانهاده‌مزدوج یک ماتریس استفاده می‌شود. 
+        </para>
+        <para>
+            علامت نقل‌قول (<literal>.'</literal>) برای ترانهاده‌ی غیرمزدوج استفاده می‌شود. 
+        </para>
+        <para>
+            علامت‌های یگانه و دوگانه‌ی نقل‌قول (تک و جفت کوتیشن) یعنی (') و (") برای تعریف رشته‌های 
+            کاراکتری نیز استفاده می‌شوند. (رشته‌های کاراکتری بین یک جفت علامت نقل‌قول تعریف می‌شوند). 
+            اگر یک رشته‌ی کاراکتری خود دارای علامت نقل‌قول باشد ، برای نشان دادن آن نقل‌قول از دو تک-کوتیش('') و یا دو جفت-کوتیشن("") استفاده می‌شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+[1+%i, 2]'
+[1+%i, 2].'
+x='This is a character string'
+x="This is another character string"
+'He said:''Good'''
+'He said:""Very Good""'
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="conj">conj</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

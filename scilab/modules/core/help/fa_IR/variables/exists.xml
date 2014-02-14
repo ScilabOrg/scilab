@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="exists" xml:lang="fa">
+    <refnamediv>
+        <refname>exists</refname>
+        <refpurpose>موجودیت متغیر را بررسی می‌کند</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>ve = exists(name [,where])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>ve</term>
+                <listitem>
+                    <para>نتیجه‌ی خروجی با مقادیر ممکن: 
+                        <literal>1</literal> اگر درست (true) باشد، 
+                        <literal>0</literal> اگر نادرست (false) باشد
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>name</term>
+                <listitem>
+                    <para>یک رشته‌ی کاراکتری</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>where</term>
+                <listitem>
+                    <para>یک کاراکتر اختیاری با مقادیر ممکن: 
+                        <literal>'l'</literal> (محلی)، <literal>'n'</literal>
+                        (غیر‌محلی) و  <literal>'a'</literal> (همه). 
+                        مقدار پیش‌فرض <literal>'a'</literal> می‌باشد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>exists(name)</literal> مقدار <literal>1</literal> را بر می‌گرداند اگر 
+            متغیری با نام <literal>name</literal> موجود باشد، در غیر این صورت مقدار <literal>0</literal> را برمی‌گرداند. 
+        </para>
+        <para>
+            هشدار: یک تابع که در داخل بدنه‌ی آن از <literal>exists</literal> استفاده شده باشد ، ممکن است 
+            نتیجه‌ای که برمی‌گرداند به محیط آن بستگی داشته باشد! 
+        </para>
+        <!--منظور از محیط، سطح مکث یا سطح شل سایلب نمی‌باشد بلکه منظور محیط تعریف/فراخوانی تابع یا همان محیط داخلی تابع می‌باشد-->		
+        <para>
+            <literal>exists(name,'l')</literal> مقدار <literal>1</literal> را برمی‌گرداند اگر 
+            متغیری با نام <literal>name</literal> در محیط تعریف تابع جاری وجود داشته باشد، 
+            در غیر این صورت مقدار <literal>0</literal>  را بر می‌گرداند. 
+        </para>
+        <para>
+            <literal>exists(name,'n')</literal> مقدار <literal>1</literal> را بر می‌گرداند اگر 
+            متغیری با نام <literal>name</literal>  در هر سطحی از محیط فراخوانی آن تابع جاری (به اضافه سطح اصلی شل سایلب) وجود داشته باشد، 
+            در غیر این صورت <literal>0</literal> را بر می‌گرداند. 
+        </para>
+        <para>
+            هشدار: تابع <literal>exists</literal> متغیر‌هایی را که در فضای نامی <link linkend="global">global</link> وجود دارند ، وارسی نمی‌کند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+exists("myNotLikelyToExistVariable")
+myNotLikelyToExistVariable = 1;
+exists("myNotLikelyToExistVariable")
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[ 
+deff('foo(x)',..
+['disp([exists(''a12''),exists(''a12'',''l'')])'
+ 'disp([exists(''x''),exists(''x'',''l'')])'])
+foo(1)
+a12=[];foo(1)
+
+function level1()
+  function level2()
+    disp(exists("a","a"));
+    disp(exists("a","l"));
+    disp(exists("a","n"));
+  endfunction
+  level2()
+endfunction
+function go()
+  a=1;
+  level1()
+endfunction
+go()
+ ]]></programlisting>
+    </refsection>
+    <!--
+What's the meaning of "the local/calling environment of the current function" ?!
+-->	
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="isdef">isdef</link>
+            </member>
+            <member>
+                <link linkend="isglobal">isglobal</link>
+            </member>
+            <member>
+                <link linkend="whereis">whereis</link>
+            </member>
+            <member>
+                <link linkend="type">type</link>
+            </member>
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+            <member>
+                <link linkend="macrovar">macrovar</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

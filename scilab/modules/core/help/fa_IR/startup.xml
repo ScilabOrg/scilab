@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="startup" xml:lang="fa">
+    <refnamediv>
+        <refname>startup</refname>
+        <refpurpose>فایل‌های راه‌انداز</refpurpose>		
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            فایل‌های راه‌انداز <link linkend="SCIHOME">SCIHOME</link>/.scilab یا 
+            <link linkend="SCIHOME">SCIHOME</link>/scilab.ini در زمان احضار سایلب، به صورت خودکار اجرا می‌شوند (اگر موجود باشند)، به همراه فایل‌ 
+            <link linkend="SCI">SCI</link>/etc/scilab.start. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>تذکر</title>
+        <para>
+            آخرین خط از یک فایل راه‌انداز باید با یک خط جدید تمام شده باشد تا در نظر گرفته شود.
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+ls(SCIHOME)
+if ls(SCIHOME+"/scilab.ini") == [] & ls(SCIHOME+"/.scilab") == []
+   disp("No startup file defined");
+end
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="scilab">scilab</link>
+            </member>
+        </simplelist>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SCIHOME">SCIHOME</link>
+            </member>
+        </simplelist>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+        </simplelist>
+        <simplelist type="inline">
+            <member>
+                <link linkend="TMPDIR">TMPDIR</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

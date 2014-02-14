@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="colon">
+    <refnamediv>
+        <refname>colon</refname>
+        <refpurpose>عملگر دو‌نقطه(:) </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            نماد دونقطه (کالن) <literal>:</literal>  برای تشکیل بردار‌های غیر‌صریح بکار می‌رود. 
+            (همچنین ببینید: <link linkend="linspace">linspace</link>,  <link linkend="logspace">logspace</link>) :
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>j:k</term>
+                <listitem>
+                    <para>
+                        برادر <literal>[j, j+1,...,k]</literal> می‌باشد (جواب تهی بوده اگر <literal>j&gt;k</literal>) 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>j:d:k</term>
+                <listitem>
+                    <para>
+                        بردار <literal>[j, j+d, ..., j+m*d] </literal> می‌باشد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            علامت دونقطه همچنین برای جداکردن سطر‌ها، ستون‌ها و درایه‌های بردار‌ها و ماتریس‌ها مورد استفاده قرار می‌گیرد. 
+            (همچنین ببینید: <link linkend="extraction">extraction</link>,<link linkend="insertion">insertion</link>):
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>A(:)</term>
+                <listitem>
+                    <para>
+                        نتیجه برداری ستونی شامل تمام درایه‌های <literal>A</literal> می‌باشد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A(:,j)</term>
+                <listitem>
+                    <para>
+                        ستون <literal>j</literal>-ام <literal>A</literal>;
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A(i,:)</term>
+                <listitem>
+                    <para>
+                        ستون <literal>i</literal>-ام <literal>A</literal>;
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A(j:k)</term>
+                <listitem>
+                    <para>
+                        یعنی <literal>[A(j),A(j+1),...,A(k)]</literal>;
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A(:,j:k)</term>
+                <listitem>
+                    <para>
+                        یعنی تمامی سطر‌ها برای ستون‌‌های j تا k: 
+                        <programlisting><![CDATA[
+              [A(1,j)  A(1,j+1)  ... A(1,k)
+              A(2,j)  A(2,j+1)  ... A(2,k)
+              . . . . . . . . . . .
+              A(M,j)  A(M,j+1)  ... A(M,k)]
+             ]]></programlisting>
+                        اگر اندازه‌ی <literal>A</literal> ، <literal>M</literal>-در-<literal>N</literal> باشد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A(j:k,:)</term>
+                <listitem>
+                    <para>یعنی تمامی ستون‌ها برای سطر‌های  j تا k: 
+                        <programlisting><![CDATA[
+              [A(j,1)    A(j,2)   ... A(j,N)
+              A(j+1,1)  A(j+1,2) ... A(j+1,N)
+              . . . . . . . . . . .
+              A(k,1)    A(k,2)   ... A(k,N)]
+             ]]></programlisting>
+                        اگر اندازه‌ی <literal>A</literal> ، <literal>M</literal>-در-<literal>N</literal> باشد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A(:)=w</term>
+                <listitem>
+                    <para>
+                        ماتریس <literal>A</literal> را با درایه‌های ماتریس/بردار <literal>w</literal> پر می‌کند. 
+                        ( اگر <literal>w</literal> یک ماتریس باشد، این عمل به صورت ستون به ستون انجام می‌گیرد). 
+                        تعداد درایه‌های <literal>A</literal> و <literal>w</literal> باید برابر باشند. 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            لطفا توجه داشته باشید که اگر <literal>i</literal> ، <literal>j</literal> ، 
+            <literal>k</literal> با <literal>d</literal> قسمت اعشاری داشته باشند، فقط قسمت صحیح در نظر گرفته می‌شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting><![CDATA[ 
+a = 1:5
+b = 1:3:12
+A = matrix(1:42,7,6);
+// vector of all the elements of A
+A(:)
+
+// the j-th column of A
+A(:,j)
+
+// the i-th row of A
+A(i,:)
+
+// elements of columns from j to k and all rows
+A(:,j:k)
+
+// elements of all columns and rows from j to k
+A(j:k,:)
+
+w = matrix(101:142,7,6);
+A(:) = w
+
+// if indices are not integer
+i = 1:0.4:10; //indices
+A(i)
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="matrix">matrix</link>
+            </member>
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="linspace">linspace</link>
+            </member>
+            <member>
+                <link linkend="logspace">logspace</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

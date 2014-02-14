@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="left">
+    <refnamediv>
+        <refname>left</refname>
+        <refpurpose>کروشه‌ی چپ ([)</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>[a11,a12,...;a21,a22,...;...]
+            [s1,s2,...]=func(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>a11,a12,...  </term>
+                <listitem>
+                    <para>ماتریسی نوع-سازگار و اندازه-سازگار </para>
+                </listitem>
+                <term>s1,s2,... </term>
+                <listitem>
+                    <para>هر نام مجاز برای متغیر</para>
+                </listitem>
+                	
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            کروشه‌(براکت)‌های چپ و راست برای الحاق (اتصال) بردار‌ها و ماتریس‌ها کاربرد دارند. 
+            بعلاوه این نماد‌ها برای نشان‌دادن متغیر‌های سمت چپ در تعریف یک تابع مورد استفاده قرار می‌گیرند (دنباله‌ی فراخوانی دوم). 
+        </para>
+        <para>
+            در درون یک جفت براکت، برای «الحاق ستونی» از کاراکتر‌های ویرگول یا جای‌خالی(فاصله) استفاده می‌کنیم و 
+            برای «الحاق سطری» از کاراکتر‌های نقطه‌ویرگول و سر خط آورنده (carriage-return) بهره می‌بریم. 
+        </para>
+        <!--تعويض سطر،بازگشت نورد،سر سطر رفتن، نقل به خط جدید-->		
+        <para>
+            <note>
+                نکته: برای اجتناب از سردرگمی، مطمئن‌تر آن است که برای جداسازی ستون‌ها از ویرگول به جای فاصله (بلنک) استفاده کنید. 
+            </note>
+        </para>
+        <para>
+            درون براکت‌های چندگانه‌ی سمت چپ(دنباله‌ی فراخوانی دوم) نام متغیر‌ها باید با ویرگول از یکدیگر جدا شوند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+[6.9,9.64; sqrt(-1) 0]
+[1 +%i  2 -%i  3]
+[]
+['this is';'a string';'vector']
+s=poly(0,'s');[1/s,2/s]
+[tf2ss(1/s),tf2ss(2/s)]
+
+[u,s]=schur(rand(3,3))
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="comma">comma</link>
+            </member>
+            <member>
+                <link linkend="semicolon">semicolon</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

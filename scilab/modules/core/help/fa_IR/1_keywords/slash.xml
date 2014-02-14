@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="slash">
+    <refnamediv>
+        <refname>slash</refname>
+        <refpurpose>علامت اسلش (/)؛ تقسیم راست و فیدبک </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            تقسیم راست: <code>X=A/B</code> جواب معادله‌ی خطی <code>X*B=A</code> می‌باشد. 
+        </para>
+        <para>
+            عملگر‌های اسلش (تقسم راست) و بک‌اسلش (تقسیم چپ) با معادله‌ی زیر به یکدیگر مرتبط می‌شوند: 
+            <code>B/A=(A'\B')'</code>.
+        </para>
+        <para>
+            اگر <literal>A</literal> یک ماتریس مربعی باشد، ماتریس جواب <literal>X</literal> 
+            یا از روش تجزیه LU و یا از یک حل‌گر حداقل مربعات خطی محاسبه می‌شود. 
+            اگر عدد حالت (عدد شرط) ماتریس <literal>A</literal> کوچکتر از <code>1/(10*%eps)</code> 
+            باشد (یعنی اگر ماتریس <literal>A</literal> «خوش حالت» باشد )، روش تجزیه LU 
+            با محور‌یابی سطری (محورگیری ردیفی) استفاده می شود. 
+            در غیر این صورت (یعنی اگر <literal>A</literal> «بد/ناخوش حالت» باشد) ، آن‌گاه 
+            <literal>X</literal> جواب مینیمم-نرم (حداقل نرم) بوده که نرم <literal>||A*X-B||</literal> را با استفاده از 
+            تجزیه متعامد کامل <literal>A</literal>، کمینه می‌سازد‌ ( یعنی 
+            <literal>X</literal> جواب یک مسئله‌ی کمترین مربعات خطی می‌باشد). 
+        </para>
+        <para>
+            <code>A./B</code> تقسیم راست درایه-به-درایه بوده ، یعنی جواب ماتریسی با درایه‌های <literal>A(i,j)/B(i,j)</literal> 
+            می‌باشد. اگر <literal>B</literal> یک عدد (ماترس ۱-در-۱) باشد، این عمل مشابه <code>A./B*ones(A)</code> می‌باشد. 
+            اگر  <literal>A</literal> یک عدد باشد، همین قرارداد پابرجاست. .
+        </para>
+        <para>
+            <note>
+                به خاطر داشته باشید که <code>123./B</code> به عنوان <code>(123.)/B</code> تفسیر می‌شود. 
+                در این گونه موارد علامت نقطه جزیی از عملگر محسوب نمی‌شود. 
+            </note>
+        </para>
+        <para>
+            <note>
+                پسخورد (فیدبک) سیستم: <code>S = G/.K</code> عبارت <code>S = G*(eye() + K*G)^(-1)</code> 
+                را محاسبه می‌کند. این عملگر کسر حاصله را ساده‌سازی نمی‌کند. 
+            </note>
+             
+        </para>
+        <para>
+            <note>
+                به خاطر داشته باشید که <code>G/.5</code> به عنوان <code>G/(.5)</code> تفسیر می‌شود. 
+                در این گونه موارد علامت نقطه جزیی از عدد می‌باشد نه عملگر. 
+            </note>
+        </para>
+        <para>
+            <note>		
+                دو اسلش متوالی <code>//</code>  نماد توضیحات و نظرات بوده و 
+                و خطوط توضیحی که با <code>//</code>  آغاز می‌شوند توسط مفسر نادیده گرفته می‌شود. 
+            </note>
+             
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+a=[3.,-24.,30.];
+B=[
+   9.   -36.    30.
+  -36.   192.  -180.
+   30.  -180.   180.
+];
+x=a/B
+x*B-a // close to zero
+
+a=4 / 2; // Should be 2
+a=2 ./ [2,4]; //     1.    0.5
+// Comments are good. They help to understand code
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="inv">inv</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+            <member>
+                <link linkend="comments">comments</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>تاریخچه</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revremark>
+                    
+                    The threshold level for conditioning in slash increased.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+    
+</refentry>

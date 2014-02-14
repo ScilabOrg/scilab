@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="power">
+    <refnamediv>
+        <refname>power</refname>
+        <refpurpose>عملگر توان (^,.^) </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>t=A^b
+            t=A**b
+            t=A.^b
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>A,t</term>
+                <listitem>
+                    <para>ماتریسی از اعداد، چند‌جمله‌ای‌ها و یا کسر‌های گویا</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>b</term>
+                <listitem>
+                    <para>یک عدد، یک بردار و یا ماتریسی از اعداد</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    اگر <literal>A</literal> یک ماتریس مربعی و <literal>b</literal>  یک عدد باشد، آن‌گاه <literal>A^b</literal> 
+                    یعنی ماتریس <literal>A</literal> به‌توان <literal>b</literal>. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    اگر <literal>b</literal> یک عدد و <literal>A</literal> یک ماتریس باشد، آن‌گاه 
+                    <literal>A.^b</literal> یعنی هر یک از درایه‌های ماتریس <literal>A</literal> به توان <literal>b</literal> 
+                    برسد (توان درایه-به-درایه). 
+                    اگر <literal>b</literal> یک عدد اما <literal>A</literal> یک بردار باشد، آن‌گاه 
+                    <literal>A^b</literal> و <literal>A.^b</literal> معادل بود و عمل یکسانی را انجام می‌دهند 
+                    (یعنی توان درایه-به-درایه).  
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    اگر <literal>A</literal> یک عدد و <literal>b</literal> یک ماتریس یا بردار باشد، آن‌گاه 
+                    <literal>A^b</literal> و <literal>A.^b</literal> ماتریس‌ها یا بردار‌هایی حاصل از <literal> a^(b(i,j))</literal> می‌باشند. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    اگر <literal>A</literal> و <literal>b</literal> بردار‌ها (ماتریس‌هایی) با اندازه یکسان باشند، 
+                    آن‌گاه <literal>A.^b</literal>  برداری حاصل از <literal>A(i)^b(i)</literal> می‌باشد (یا ماتریسی حاصل از <literal>A(i,j)^b(i,j)</literal>).
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            نکته‌ها:
+        </para>
+        <para>
+            -
+            برای ماتریس‌های مربعی حاصل <literal>A^p</literal> از طریق ضرب پی‌در‌پی ماتریسی پیدا می‌شود 
+            اگر <literal>p</literal> یک عدد مثبت باشد. در غیر این صورت حاصل بوسیله‌ی روش «قطری کردن» محاسبه می‌شود. 
+        </para>
+        <para>
+            -
+            عملگر‌های <literal>**</literal> and <literal>^</literal> مترادف می‌باشند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+A=[1 2;3 4];
+A^2.5,
+A.^2.5
+(1:10)^2
+(1:10).^2
+
+s=poly(0,'s')
+s^(1:10)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="exp">exp</link>
+            </member>
+            <member>
+                <link linkend="hat">hat</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

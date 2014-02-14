@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="star">
+    <refnamediv>
+        <refname>star</refname>
+        <refpurpose>عملگر ضرب (*) </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            بیانگر عمل ضرب می‌باشد. در همان معنای متداولش بکار می‌رود. 
+            برای ماتریس‌های ثابت، بولی، چند‌جمله‌ای و گویا و نیز لیست‌های <literal>syslin</literal> معتبر می‌باشد. 
+            ( در مورد آخری منظور اتصال ستونی یا خطی ماتریس‌های حالت می‌باشد) 
+        </para>
+        <para>
+            عمل ضرب درایه‌-‌به‌-درایه به صورت <literal>x.*y</literal> نشان داده می‌شود. 
+            اگر <literal>x</literal> یا <literal>y</literal> عدد باشند، آنگاه عملگر <literal> .* </literal> 
+            با <literal>*</literal> معادل می‌باشند. 
+        </para>
+        <para>
+            ضرب کرونکر به صورت <literal>x.*.y</literal> نشان داده می‌شود. 
+        </para>
+        <para>
+            <literal>A*.B</literal>  یک عملگر جدید بوده که معنای از پیش تعریف شده‌ای ندارد. 
+            شاید لازم باشد تا عملگر جدیدی تعریف کنید که مقدم بر عملگر‌های <literal>*</literal> یا <literal>/</literal> باشد، در این صورت 
+            این عملگر جدید مفید خواهد بود (برای توضیحات بیشتر ببینید : <link linkend="overloading">overloading</link>) . 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+// Basic numerical operations
+2 * 2 // 4
+2 * [%pi, %eps] // 6.2831853    4.441D-16
+rand(2,2) * rand(2)
+[1, 2; 3, 4] * [%pi,%eps; %e, %pi]
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+// Polynomial operations
+s=poly(0,"s");
+p=1+s+2*s^2;
+q=1+s+2*s^3;
+p * q
+//               2    3    4    5
+//    1 + 2s + 3s + 4s + 2s + 4s
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+// Rational
+s=poly(0,'s');
+W=[1/s,1/(s+1)];
+W' * W
+//    1           1          
+//    -         -----        
+//     2             2       
+//    s         s + s        
+//                           
+//      1           1        
+//    -----     ---------    
+//         2              2  
+//    s + s     1 + 2s + s   
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="dot">dot</link>
+            </member>
+            <member>
+                <link linkend="slash">slash</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+            <member>
+                <link linkend="syslin">syslin</link>
+            </member>
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

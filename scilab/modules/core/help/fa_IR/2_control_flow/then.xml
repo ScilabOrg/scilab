@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="then">
+    <refnamediv>
+        <refname>then</refname>
+        <refpurpose>کلید‌واژه‌ای در روند‌های کنترلی 'if' و 'select'</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            در روند‌های کنترلی <literal>if</literal> و <literal>select</literal> مورد استفاده قرار می‌گیرد. 
+            هر کلید‌واژه‌ی <literal>then</literal> باید در همان خط کلید‌واژه‌ی شرطی مربوطه‌اش 
+            ( <literal>if</literal> یا <literal>elseif</literal> یا <literal>case</literal>) ذکر شود. 
+        </para>
+        <para>
+            به جای کلید‌واژه‌ی <literal>then</literal> می‌توانید از ویرگول یا سر‌خط‌آورنده استفاده کنید. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+if 2*2 == 4 then
+   disp("It works")
+end
+
+n=round(10*rand(1,1))
+select n
+    case 0 then
+        disp(0)
+    case 1 then
+        disp(1)
+    else
+      disp(n);
+end
+        ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="if">if</link>
+            </member>
+            <member>
+                <link linkend="elseif">elseif</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+            <member>
+                <link linkend="case">case</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="gstacksize">
+    <refnamediv>
+        <refname>gstacksize</refname>
+        <refpurpose>تنظیم/دریافت اندازه‌ی پشته‌ی(استک) متغیر‌های عمومی سایلب</refpurpose>
+        <!--
+تغییر/بدست آوردن
+-->		
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>gstacksize(n)
+            gstacksize('max')
+            gstacksize('min')
+            sz=gstacksize()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>عدد صحیح، اندازه‌ی پشته‌ی عمومی سایلب، تعداد کلمات ۸ بایتی با دقت مضاعف </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sz</term>
+                <listitem>
+                    <para>بردار دوستونه [ستون اول اندازه کل، ستون دوم اندازه استفاده شده]</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            سایلب متغیر‌های عمومی را در یک پشته ذخیره می‌کند. 
+        </para>
+        <para>
+            <code>gstacksize(n)</code> اجازه‌ی افزایش یا کاهش اندازه‌ی این پشته را می‌دهد. بیشینه‌ی اندازه مجاز به 
+            مقدار حافظه‌ی فیزیکی و مجازی آزاد در آن زمان بستگی‌ دارد. 
+            توجه داشته‌باشید که هر زمان لازم باشد سایلب به طور خودکار اندازه‌ی پشته‌ی عمومی را افزایش می‌دهد. 
+        </para>
+        <para>
+            <code>sz=gstacksize()</code> یک بردار دوعنصره را که حاوی اندازه‌ی کنونی پشته‌ی عمومی مجموع و نیز استفاده‌شده می‌باشد بر می‌گرداند. 
+        </para>
+        <para>
+            <code>gstacksize('max')</code> اجازه‌ی افزایش اندازه پشته‌ی عمومی تا مقدار ماکزیمم را می‌دهد.
+        </para>
+        <para>
+            <code>gstacksize('min')</code> به کاربر اجازه‌ی کاهش اندازه‌ی  پشته‌ی عمومی تا مقدار مینیمم را می‌دهد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+currentStackSize = gstacksize();
+disp("Maximum stacksize: " + string(currentStackSize(1)))
+disp("Current usage: "+ string(currentStackSize(2)))
+
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="who">who</link>
+            </member>
+            <member>
+                <link linkend="stacksize">stacksize</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

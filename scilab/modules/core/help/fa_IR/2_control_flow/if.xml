@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="if">
+    <refnamediv>
+        <refname>if</refname>
+        <refpurpose>کلید‌واژه برای عمل شرطی</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>
+            if expr1 then
+            statements
+            elseif expri then
+            statements
+            ....
+            else 
+            statements
+            end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>expr1, expri</term>
+                <listitem>
+                    <para>
+                        گزاره‌های منطقی
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>statements</term>
+                <listitem>
+                    <para>
+                        بلوک‌هایی از عبارات معتبر. 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            عبارت <literal>if</literal> یک گزاره‌ی منطقی را اجرا کرده و اگر آن گزاره درست باشد ، 
+            مجموعه‌ای از عبارت‌ها را اجرا می‌کند. 
+        </para>
+        <para>
+            گزاره‌ی <literal>expri</literal> گزاره‌هایی با مقادیر عددی یا بولی می‌باشند. 
+            اگر <literal>expri</literal> یک مقدار غیر عددی (برای مثال یک بردار) باشد 
+            آن‌گاه آن شرط بر قرار می‌باشد، تنها اگر تمام درایه‌های این مقدار مذکور درست باشند یا مخالف صفر باشند. 
+        </para>
+        <para>
+            ساختار‌های اختیاری  <literal>elseif</literal> و <literal>else</literal> برای اجرای 
+            گروه‌های یدکی (فرعی) از عبارات ارائه شده‌اند. یک کلید‌واژه‌ی <literal>end</literal> ، متناظر با یک <literal>if</literal>، 
+            آخرین گروه از عبارات را تمام می کند. 
+            یک ساختار خطی از <literal>if</literal> چندان با ارزش نیست؛ تنها محدودیت آن است که هر کلید‌واژه‌ی <literal>then</literal> 
+            باید در خط یکسانی با کلید‌واژه‌های <literal>if</literal> یا <literal>elseif</literal> مربوطه‌اش ، قرار داشته باشد. 
+        </para>
+        <para>
+            کلید‌واژه‌ی <literal>then</literal> می‌تواند با یک سر خط آورنده و یا یک ویرگول جایگزین شود. 
+        </para>
+        <para>
+            مطابق با قرارداد‌های کد نویسی برای زبان برنامه نویسی سایلب، توصیه می‌شود که: 
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    هر عبارت در یک خط جدید آغاز شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    در هر خط فقط یک عبارت ساده نوشته شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    عبارت‌های مرکب در چندین خط شکسته شود. 
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            برای مثال، از دستورات زیر :
+        </para>
+        <programlisting role=""><![CDATA[
+      if rand(1,1) > 0.5 then
+	disp("True");
+      else
+	disp("False");
+      end
+]]></programlisting>
+        <para>
+            به جای دستوراتی که در ادامه خواهد آمد، استفاده کنید
+        </para>
+        <programlisting role=""><![CDATA[
+      if rand(1,1) > 0.5 then disp("True"); else disp("False"); end
+]]></programlisting>
+        <para>
+            هشدار: تعداد نویسه‌های (کاراکتر) مورد استفاده برای تعریف بدنه‌ی هر دستور شرطی (از جمله: "if" "while" "for" or "select/case") 
+            باید به شانزده کیلو‌بایت (16k) محدود شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+i=2
+for j = 1:3,
+  if i == j then
+    a(i,j) = 2;
+  elseif abs(i-j) == 1 then
+    a(i,j) = -1;
+  else a(i,j) = 0;
+  end,
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="try">try</link>
+            </member>
+            <member>
+                <link linkend="while">while</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+            <member>
+                <link linkend="boolean">boolean</link>
+            </member>
+            <member>
+                <link linkend="end">end</link>
+            </member>
+            <member>
+                <link linkend="then">then</link>
+            </member>
+            <member>
+                <link linkend="else">else</link>
+            </member>
+            <member>
+                <link linkend="comparison">comparison</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

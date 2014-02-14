@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="perl">
+    <refnamediv>
+        <refname>perl</refname>
+        <refpurpose>فراخوانی اسکریپت زبان پرل با کمک فایل قابل‌اجرای مناسب با سیستم‌عامل
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>perl('perlfile')
+            perl('perlfile',arg1,arg2,...)
+            result = perl(...)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>perl('perlfile')</literal> اسکریپت پرل با نام <literal>perlfile</literal> را با کمک فایل قابل اجرای مناسب با سیستم‌عامل ، فراخوانی می‌کند. 
+        </para>
+        <para>
+            <literal>perl('perlfile',arg1,arg2,...)</literal> اسکریپت پرل با نام <literal>perlfile</literal> را فراخوانی می‌کند، 
+            با کمک فایل قابل اجرای پرل که مناسب با سیستم‌عامل باشد؛ و آرگومان‌های <literal>arg1</literal> و <literal>arg2</literal> و 
+            غیره..، را به <literal>perlfile</literal> منتقل می‌کند. 
+        </para>
+        <para>
+            <literal>result = perl(...)</literal> نتایج مربوط به فراخوانی (نا‌تمام) اسکریپت پرل را در <literal>result</literal>  بر می‌گرداند. 
+        </para>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="unix">unix</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

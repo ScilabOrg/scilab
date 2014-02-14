@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="elseif">
+    <refnamediv>
+        <refname>elseif</refname>
+        <refpurpose>کلید‌وازه مورد استفاده در if-then-else</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            اگر بیش از یک شرط وجود داشته باشد، آن‌گاه کلید‌واژه‌ی <literal>elseif</literal> مفید می‌باشد. 
+            اگر چند <literal>elseif</literal> داشته باشیم، ان‌گاه اولین شرط درست انتخاب خواهد شد حتی اگر بقیه‌ی شرط‌ها نیز درست باشند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+a=1;
+if a==1 then
+    disp("a equals 1")
+elseif a==2 then
+    disp("a equals 2")
+elseif a==1 & a>0 then
+    disp("this condition is true, but never will be selected, because it is the second true condition.")
+else
+    disp("Case not handled.")
+end
+     ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="if">if</link>
+            </member>
+            <member>
+                <link linkend="select">select</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

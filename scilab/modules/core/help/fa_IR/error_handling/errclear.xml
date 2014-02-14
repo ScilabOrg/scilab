@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="errclear" xml:lang="fa">
+    <refnamediv>
+        <refname>errclear</refname>
+        <refpurpose>پاک‌کردن خطا</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>errclear([n])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            عمل (دستگیره‌ی خطا) متصل به خطای شماره‌ی <literal>n</literal> را پاک می‌کند. 
+        </para>
+        <para>
+            اگر <literal>n</literal> عددی مثبت باشد (n &gt; 0) ، بیان‌گر شماره‌ی خطای پاک‌شده می‌باشد؛ 
+            در غیر این‌صورت (n &lt;= 0) تمام خطا‌ها پاک می‌شوند (حالت پیش‌فرض). 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example">a = 1;
+            b = undefinedvariable + a;
+            lasterror()
+            b = undefinedvariable + a;
+            errclear()
+            lasterror()
+            b = undefinedvariable + a;
+            errclear(5)  // error 4 always as last error
+            lasterror()
+            b = undefinedvariable + a;
+            errclear(4)
+            lasterror()
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="errcatch">errcatch</link>
+            </member>
+            <member>
+                <link linkend="iserror">iserror</link>
+            </member>
+            <member>
+                <link linkend="lasterror">lasterror</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

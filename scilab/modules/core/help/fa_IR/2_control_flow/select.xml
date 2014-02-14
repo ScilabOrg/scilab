@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="select">
+    <refnamediv>
+        <refname>select</refname>
+        <refpurpose>کلید‌واژه‌ی انتخاب</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>
+            select variable
+            case value1 then
+            instructions 1
+            case value2 then
+            instructions 2
+            ...
+            case valuen then
+            instructions n
+            [else instructions]
+            end
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>variable</term>
+                <listitem>
+                    <para>
+                        متغیری که مقدار آن باید مورد تحلیل و بررسی قرار بگیرد.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>value1, ..., valuen</term>
+                <listitem>
+                    <para>
+                        مقادیر مختلف متغیر <literal>variable</literal> که برای هر مقدار، یک بلوک دستور‌العمل مناسب با نام‌های <literal>instructions 1, ..., instructions n</literal> وجود دارد. 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>instructions</term>
+                <listitem>
+                    <para>
+                        بلوک‌هایی از دستورات معتبر. 
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            نکته‌ها:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    تنها محدویت این می‌باشد که هر کلید‌واژه‌ی <literal>then</literal> باید در همان خط مربوط به 
+                    کلید‌واژه‌ی <literal>case</literal> آورده شود. ( یا
+                    از یک نشان استمرار - منظور سه نقطه ... - استفاده شود، ببیند <link linkend="dot">dot</link>). 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    کلید‌واژه‌ی <literal>"then"</literal> می‌تواند با یک سطر خط آورنده و یا یک ویرگول جایگزین شود. 
+                    دستور‌العمل <literal>instructions1</literal> در صورتی اجرا می‌شود که <literal>expr1=expr</literal> باشد، و غیره. 
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            مطابق با قرارداد‌های کد نویسی برای زبان برنامه نویسی سایلب، توصیه می‌شود که: 
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    هر عبارت در یک خط جدید آغاز شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    در هر خط فقط یک عبارت ساده نوشته شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    عبارت‌های مرکب در چندین خط شکسته شود. 
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            برای مثال، از دستورات زیر :
+        </para>
+        <programlisting role=""><![CDATA[
+A = 2
+select A
+case 1 then
+    disp(1)
+case 2 then
+    disp(2)
+else
+    disp(3)
+end
+]]></programlisting>
+        <para>
+            به جای دستوراتی که در ادامه خواهد آمد، استفاده کنید
+        </para>
+        <programlisting role=""><![CDATA[
+A = 2;select A case 1 then disp(1); case 2 then disp(2); else  disp(3); end
+]]></programlisting>
+        <para>
+            هشدار: تعداد نویسه‌های (کاراکتر) مورد استفاده برای تعریف بدنه‌ی هر دستور شرطی (از جمله: "if" "while" "for" or "select/case") 
+            باید به شانزده کیلو‌بایت (16k) محدود شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+while %t do
+    n=round(10*rand(1,1))
+    select n
+        case 0 then 
+        disp(0)
+    case 1 then
+        disp(1)
+    else
+        break
+    end
+end
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="if">if</link>
+            </member>
+            <member>
+                <link linkend="while">while</link>
+            </member>
+            <member>
+                <link linkend="for">for</link>
+            </member>
+            <member>
+                <link linkend="case">case</link>
+            </member>
+            	
+        </simplelist>
+    </refsection>
+</refentry>
