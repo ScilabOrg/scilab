@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="error">
+    <refnamediv>
+        <refname>error</refname>
+        <refpurpose>پیغام خطا</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>error(message)
+            error(message, n)
+            error(n)
+            error(n, message)
+            error(n, pos)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>message</term>
+                <listitem>
+                    <para>یک رشته یا برداری از رشته‌ها: پیغام خطایی که باید نمایش داده شود</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>یک عدد صحیح: شماره‌ی مربوط به پیغام خطا</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>pos</term>
+                <listitem>
+                    <para>یک عدد صحیح: پارامتری برای پیغام خطا</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            تابع <literal>error</literal> اجازه ی صدور پیغام خطا و مدیریت خطا را می‌دهد. 
+            به صورت پیش‌فرض، <literal>error</literal> اجرای کنونی را متوقف کرده و به سطح اعلان بر می‌گردد. 
+            این حالت پیش‌فرض می‌تواند با کمک تابع <literal>errcatch</literal> و یا <literal>execstr(...,'errcatch')</literal> 
+            تغییر کند. 
+            <!--فرستادن=ارسال کردن- انتشار دادن=صادر کردن-->			
+        </para>
+        <para>
+            <literal>error(message)</literal> رشته‌ی کاراکتری درون <literal>message</literal> را چاپ می‌کند. 
+            شماره‌ی مربوط به این خطا ۱۰۰۰۰ می‌باشد. 
+        </para>
+        <para>
+            <literal>error(message,n)</literal> رشته‌ی کاراکتری درون <literal>message</literal> را چاپ می‌کند. 
+            شماره‌ی مربوط به این خطا با <literal>n</literal> داده شده است. این شماره باید 
+            بزرگتر از ۱۰۰۰۰ باشد. 
+        </para>
+        <para>
+            <literal>error(n)</literal> پیغام از پیش ‌تعریف‌شده مربوط به خطای شماره‌ی 
+            <literal>n</literal> را چاپ می‌کند.  
+        </para>
+        <para>
+            برخی از پیغام‌های خطای از پیش تعریف‌شده به یک پارامتر نیازمندند ( ببینید: <link linkend="error_table">error_table</link> ). 
+            در این حالت آرگومان ثانویه <literal>pos</literal> مقدار این پارمتر را مشخص می‌کند : <literal>error(n,pos)</literal>. 
+            در بقیه‌ی موارد آرگومان <literal>pos</literal> نادیده گرفته می‌شود. 
+        </para>
+        <para>
+            برای مشاهده‌ی فهرستی از پیغام‌های خطا و شماره‌ی مربوط به هریک به <link linkend="error_table">error_table</link> 
+            مراجعه کنید. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[error('my error message')
+error(43)
+error(52, 3)
+error(10001, ['A'; 'multi';'line';'error';'message'])
+lasterror()]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="warning">warning</link>
+            </member>
+            <member>
+                <link linkend="errcatch">errcatch</link>
+            </member>
+            <member>
+                <link linkend="execstr">execstr</link>
+            </member>
+            <member>
+                <link linkend="lasterror">lasterror</link>
+            </member>
+            <member>
+                <link linkend="error_table">error_table</link>
+            </member>
+            <member>
+                <link linkend="messagebox">messagebox</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>تاریخچه</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    The <literal>error</literal> function can take vector of strings as input argument.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

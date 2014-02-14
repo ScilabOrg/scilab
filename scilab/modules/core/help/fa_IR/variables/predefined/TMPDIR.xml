@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2010 - Digiteo - Vincent LIARD
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="TMPDIR" xml:lang="fa">
+    <refnamediv>
+        <refname>TMPDIR</refname>
+        <refpurpose>مسیر دیرکتوری موقت</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            ثابت <literal>TMPDIR</literal> مسیر مطلق دایرکتوری(بخوانید: دیرکتوری) موقت مربوط به یک فرآیند سایلب را نگه می‌دارد. 
+            هر فرآیند (پروسه) سایلب دیرکتوری موقت خودش را دارد، که در زمان راه‌اندازی سایلب ایجاد و به 
+            <literal>TMPDIR</literal> ارجاع داده می‌شود. 
+            دیرکتوری موقت با پایان یافتن سایلب حذف می‌شود. 
+        </para>
+        <para>
+            این دیرکتوری‌های موقت به‌عنوان زیر-دیرکتور‌های پوشه‌ی موقت سیستم با نام 
+            SCI_TMP_&lt;unique&gt; ایجاد می‌شوند، 
+            جایی‌که 
+            &lt;unique&gt; 
+            متشکل از چند عدد می‌باشد که در هنگام راه‌اندازی سایلب برای آن‌که هر نام منحصر بفرد باشد، تولید می شود. 
+            در گنو/لینوکس، یونیکس و مک اُو اس ایکس ، حقوق دسترسی به دیرکتوری به کاربر سایلب محدود می‌شود. 
+        </para>
+        <para>
+            در هنگام اجرای سایلب نمی‌توانیم ثابت <literal>TMPDIR</literal> را تغییر دهیم. 
+            با این حال، در گنو/لینوکس، یونیکس و مک اُو اس ایکس، پوشه‌ی موقت سیستم (معمولا /tmp) را می‌توان با تغییر متغیر سیستمی <literal>TMPDIR</literal> انتخاب نمود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+ls TMPDIR
+ls(TMPDIR)
+cd(TMPDIR)
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SCIHOME">SCIHOME</link>
+            </member>
+        </simplelist>
+        <simplelist type="inline">
+            <member>
+                <link linkend="SCI">SCI</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

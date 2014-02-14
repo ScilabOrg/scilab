@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="where">
+    <refnamediv>
+        <refname>where</refname>
+        <refpurpose>بدست آوردن درخت فراخوانی دستور‌العمل‌های جاری</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>[linenum, callername] = where()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>linenum</term>
+                <listitem>
+                    <para>یک بردار ستونی از اعداد صحیح</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>callername</term>
+                <listitem>
+                    <para>یک بردار ستونی از رشته‌ها</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <code>[linenum, callername] = where()</code> مقادیر <varname>linenum</varname> و 
+            <varname>callername</varname> را بر می‌گرداند، که مثلاً نشان می‌دهد 
+            دستورالعمل جاری توسط خط شماره‌ی <code>linenum(1)</code> از تابع <code>callername(1)</code> 
+            فراخوانی شده ، و این تابع <code>callername(1)</code> توسط خط <code>linenum(2)</code> از 
+            تابع <code>callername(2)</code> فراخوانی شده است و 
+            به همین ترتیب تا آخر. 
+        </para>
+        <para>
+            در حالت کلی، <code>callername(i)</code> نام یک تابع می‌باشد اما می‌تواند 
+            <literal>"exec"</literal> یا <literal>"execstr"</literal> نیز باشد البته اگر دستور‌العمل در داخل یک فایل اسکریپت 
+            و یا داخل آرگومان رشته‌ای تابع execstr قرار داشته‌باشد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+function foo()
+         [a,b] = where()
+         disp("Line:")
+         disp(a);
+         disp("Function:")
+         disp(b);
+endfunction
+
+function bar()
+         function beer()
+                  foo()
+         endfunction
+         beer()
+endfunction
+
+bar()
+
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="whereami">whereami</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

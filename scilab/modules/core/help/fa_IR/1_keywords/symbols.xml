@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" scilab:needs-examples="fa" xml:id="symbols">
+    <refnamediv>
+        <refname>symbols</refname>
+        <refpurpose>نام عملگر‌های سایلب </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            از نام‌های زیر برای دریافت راهنمای هر نماد خاص استفاده کنید. 
+        </para>
+        <informaltable border="1">
+            <tr>
+                <td> عملگر </td>
+                <td> نام (انگلسیی) در راهنمای سایلب </td>
+                <td> معادل فارسی </td>
+            </tr>
+            <tr>
+                <td>
+                    <literal>',", .'</literal>
+                </td>
+                <td>
+                    <link linkend="quote">quote</link>
+                </td>
+                <td>
+                    <link linkend="quote">نقل‌قول، کوتیشن</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>+</literal>
+                </td>
+                <td>
+                    <link linkend="plus">plus</link>
+                </td>
+                <td>
+                    <link linkend="plus">عملگر جمع</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>-</literal>
+                </td>
+                <td>
+                    <link linkend="minus">minus</link>
+                </td>
+                <td>
+                    <link linkend="minus">عملگر تفریق </link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>*,.*</literal>
+                </td>
+                <td>
+                    <link linkend="star">star</link>
+                </td>
+                <td>
+                    <link linkend="star"> عملگر ضرب</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>/, ./, /.</literal>
+                </td>
+                <td>
+                    <link linkend="slash">slash</link>
+                </td>
+                <td>
+                    <link linkend="slash">اسلش، عملگر تقسم راست </link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>\,.\ ,\.</literal>
+                </td>
+                <td>
+                    <link linkend="backslash">backslash</link>
+                </td>
+                <td>
+                    <link linkend="backslash">بک‌اسلش، عملگر تقسیم چپ </link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>.</literal>
+                </td>
+                <td>
+                    <link linkend="dot">dot</link>
+                </td>
+                <td>
+                    <link linkend="dot">نقطه</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>=, ==</literal>
+                </td>
+                <td>
+                    <link linkend="equal">equal</link>
+                </td>
+                <td>
+                    <link linkend="equal">علامت مساوی</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>&lt;,&gt;,&gt;=,&lt;=,&lt;&gt;</literal>
+                </td>
+                <td>
+                    <link linkend="less">less</link>, <link linkend="greater">greater</link>
+                </td>
+                <td>
+                    <link linkend="less">کوچکتر</link>, <link linkend="greater">بزرگتر</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>~</literal>
+                </td>
+                <td>
+                    <link linkend="tilde">tilde</link>
+                </td>
+                <td>
+                    <link linkend="tilde">مدّک، تیلدا</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>[]</literal>
+                </td>
+                <td>
+                    <link linkend="brackets">brackets</link>
+                </td>
+                <td>
+                    <link linkend="brackets">کروشه، براکت</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>()</literal>
+                </td>
+                <td>
+                    <link linkend="parents">parents</link>
+                </td>
+                <td>
+                    <link linkend="parents">پرانتز</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>%</literal>
+                </td>
+                <td>
+                    <link linkend="percent">percent</link>
+                </td>
+                <td>
+                    <link linkend="percent">علامت درصد</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>:</literal>
+                </td>
+                <td>
+                    <link linkend="colon">colon</link>
+                </td>
+                <td>
+                    <link linkend="colon">دو‌نقطه، کولن</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>,</literal>
+                </td>
+                <td>
+                    <link linkend="comma">comma</link>
+                </td>
+                <td>
+                    <link linkend="comma">ویر‌گول، کاما</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>;</literal>
+                </td>
+                <td>
+                    <link linkend="semicolon">semicolon</link>
+                </td>
+                <td>
+                    <link linkend="semicolon">نقطه‌ویرگول، سیمی‌کولن</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>^</literal>
+                </td>
+                <td>
+                    <link linkend="hat">hat</link>
+                </td>
+                <td>
+                    <link linkend="hat">نما، توان</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>.^</literal>
+                </td>
+                <td>
+                    <link linkend="power">power</link>
+                </td>
+                <td>
+                    <link linkend="power">توان</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>|</literal>
+                </td>
+                <td>
+                    <link linkend="or_op">or_op</link>
+                </td>
+                <td>
+                    <link linkend="or_op">یا" منطقی"</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>&amp;</literal>
+                </td>
+                <td>
+                    <link linkend="and_op">and_op</link>
+                </td>
+                <td>
+                    <link linkend="and_op">و" منطقی"</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>.*., ./., .\.</literal>
+                </td>
+                <td>
+                    <link linkend="kron">kron</link>
+                </td>
+                <td>
+                    <link linkend="kron">عملگر‌های کرونکر</link>
+                </td>
+                	
+            </tr>
+            <tr>
+                <td>
+                    <literal>$</literal>
+                </td>
+                <td>
+                    <link linkend="dollar">dollar</link>
+                </td>
+                <td>
+                    <link linkend="dollar">علامت دلار</link>
+                </td>
+                	
+            </tr>
+        </informaltable>
+    </refsection>
+    <refsection>
+        <title>نکته‌ها</title>
+        <para>به دلایل تاریخی، نماد‌های مختلف ممکن است معرّف عملگر‌های یکسانی باشند: </para>
+        <para>
+            <literal>{</literal> هم معنی‌ایست با <literal>[</literal>
+        </para>
+        <para>
+            <literal>}</literal> هم معنی‌ایست با <literal>]</literal>
+        </para>
+        <para>
+            <literal>@</literal> هم معنی‌ایست با <literal>~</literal>
+        </para>
+        <para>
+            <literal>`</literal> هم معنی‌ایست با &lt;
+        </para>
+        <para> شدیداً توصیه می‌شود که از این ویژگی‌ها استفاده نکیند زیرا در آینده حذف خواهند شد. </para>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

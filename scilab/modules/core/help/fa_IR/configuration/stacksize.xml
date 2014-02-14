@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="stacksize">
+    <refnamediv>
+        <refname>stacksize</refname>
+        <refpurpose>تغییر اندازه‌ی پشته‌ی سایلب</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>stacksize(n)
+            stacksize('max')
+            stacksize('min')
+            sz = stacksize()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>یک عدد صحیح، اندازه‌ی پشته‌ی سایلب ، تعداد کلمات ۸ بایتی با دقت مضاعف</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>sz</term>
+                <listitem>
+                    <para>یک بردار دوستونه [ستون اول اندازه کل، ستون دوم اندازه استفاده شده]</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            سایلب متغیر‌های «عادی» را در پشته‌ی <literal>stk</literal> ذخیره می‌کند. 
+            (برای متغیر‌های عمومی ببنید: <link linkend="gstacksize">gstacksize</link>). 
+        </para>
+        <para>
+            <code>stacksize(n)</code> اجازه‌ی افزایش یا کاهش اندازه‌ی این پشته را می‌دهد. بیشینه‌ی اندازه مجاز به 
+            مقدار حافظه‌ی آزاد و فضای مبادله‌ای (حافظه‌ی مجازی) در آن زمان بستگی‌ دارد.     
+        </para>
+        <para>
+            <code>stacksize('max')</code> اجازه‌ی افزایش اندازه این پشته تا مقدار ماکزیمم را می‌دهد.
+        </para>
+        <para>
+            <code>stacksize('min')</code> به کاربر اجازه‌ی کاهش اندازه‌ی این پشته تا مقدار مینیمم را می‌دهد. 
+        </para>
+        <para>
+            هم‌اکنون این تابع با آرگومان ورودی <code>n</code> در هر جایی می‌تواند استفاده شود. 
+        </para>
+        <para>
+            <code>sz = stacksize()</code> یک بردار دوعنصره را که حاوی اندازه‌ی کنونی پشته‌ی کل و نیز استفاده‌شده می‌باشد بر می‌گرداند. 
+        </para>
+        <para>به صورت پیش‌فرض، اندازه‌ی این پشته برابر ده میلیون ۱۰٫۰۰۰٫۰۰۰ کلمه (تقریبا ۷۶ مگا‌بایت) می‌باشد. </para>
+        <!-- 10e6*8/1024^2 = 76.293945 -->
+        <para>بروی پلتفرم‌های ۶۴ بیتی ، مقدار بیشینه‌ی این پشته به ۲۶۸٫۴۳۵٫۴۵۴ محدود می‌شود. </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+currentStackSize = stacksize();
+disp("Maximum stacksize: " + string(currentStackSize(1)))
+disp("Current usage: "+ string(currentStackSize(2)))
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="who">who</link>
+            </member>
+            <member>
+                <link linkend="gstacksize">gstacksize</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

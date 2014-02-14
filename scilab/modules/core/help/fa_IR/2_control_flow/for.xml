@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="for">
+    <refnamediv>
+        <refname>for</refname>
+        <refpurpose>کلید‌واژه‌ی زبانی برای حلقه‌ها</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            برای تعریف حلقه‌ها بکار می‌رود. نحو آن به این صورت است: 
+        </para>
+        <para>
+            <literal> for variable=expression ,instruction, .. ,instruction,end</literal>
+        </para>
+        <para> و 
+        </para>
+        <para>
+            <literal> for variable=expression do instruction,   ,instruction,end</literal>
+        </para>
+        <para>
+            اگر <literal>expression</literal> یک ماتریس یا بردار سطری باشد، <literal>variable</literal> 
+            مقادیر هر ستون از ماتریس را به صورت پى در پى در نظر می‌گیرد. 
+        </para>
+        <para>
+            یک نمونه خاص استفاده از عملگر دو نقطه <link linkend="colon">colon</link> برای ایجاد بردار‌های 
+            سطری با فواصل یکسان بوده که به شکل سنتی این نوع حلقه نیز بسیار شبیه می‌باشد: 
+        </para>
+        <para>
+            <literal>for variable=n1:step:n2, ...,end</literal>
+        </para>
+        <para>
+            اگر عبارت <literal>expression</literal> یک لیست باشد، متغیر <literal>variable</literal> 
+            درایه‌های متوالی آن لیست را به‌عنوان مقادیر در نظر می‌گیرد. 
+        </para>
+        <para>
+            مطابق با قرارداد‌های کد نویسی برای زبان برنامه نویسی سایلب، توصیه می‌شود که: 
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    هر عبارت در یک خط جدید آغاز شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    در هر خط فقط یک عبارت ساده نوشته شود. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    عبارت‌های مرکب در چندین خط شکسته شود. 
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            برای مثال، از دستورات زیر :
+        </para>
+        <programlisting role=""><![CDATA[
+      for i = 1:5 
+          disp(i);
+      end
+]]></programlisting>
+        <para>
+            به جای دستوراتی که در ادامه خواهد آمد، استفاده کنید
+        </para>
+        <programlisting role=""><![CDATA[
+      for i = 1:5 disp(i); end
+]]></programlisting>
+        <para>
+            هشدار: تعداد نویسه‌های (کاراکتر) مورد استفاده برای تعریف بدنه‌ی هر دستور شرطی (از جمله: "if" "while" "for" or "select/case") 
+            باید به شانزده کیلو‌بایت (16k) محدود شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+// "traditional" for loops
+n=5;
+for i = 1:n
+    for j = 1:n
+        a(i,j) = 1/(i+j-1);
+    end;
+end
+for j = 2:n-1
+    a(j,j) = j; 
+end; 
+a
+for j= 4:-1:1
+    disp(j);
+end // decreasing loop
+
+//loop on matrix columns
+for  e=eye(3,3), e, end  
+for v=a, write(6,v), end
+for j=1:n, v=a(:,j), write(6,v), end 
+
+//loop on list entries
+for l=list(1,2,'example'); l, end 
+
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="while">while</link>
+            </member>
+            <member>
+                <link linkend="end">end</link>
+            </member>
+            <member>
+                <link linkend="do">do</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

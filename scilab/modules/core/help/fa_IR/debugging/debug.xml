@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="debug">
+    <refnamediv>
+        <refname>debug</refname>
+        <refpurpose>سطح اشکال‌زدایی درونیات سایلب</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>debug(level_int)
+            level_int = debug()
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>level_int</term>
+                <listitem>
+                    <para>عدد صحیح (از ۱- تا ۴)</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            برای مقادیر ۰٫۱٫۲٫۳٫۴ از <varname>level_int</varname> ، دستور <code>debug</code> 
+            سطوح مختلفی از اشکال‌زدایی (خطایابی) را تعریف می‌کند. این سطوح روی تجزیه‌کننده (parser) هدف‌گذاری می‌شوند، 
+            نه روی اسکریپت‌های سایلب؛ و فقط مختص متخصصان سایلب می‌باشد. 
+            <!--
+تحلیل‌گر نحو- تجزیه‌کننده-انالیزور نحو= پارسر
+-->
+        </para>
+        <para>
+            <note>
+                خروجی این تابع در نسخه‌ی ۶٫۰٫۰ سایلب تغییر خواهد کرد. 
+            </note>
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+debug(3);
+2+2
+//  0.200E+01
+//+
+//  0.200E+01
+// eol
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection>
+        <title>تاریخچه</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>Previous value is returned as output argument when setting a new value.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

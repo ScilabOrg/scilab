@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="semicolon">
+    <refnamediv>
+        <refname>semicolon</refname>
+        <refpurpose>نقطه‌ویرگول (;) پایان یک عبارت و جداکننده‌ی سطور</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            نقطه‌ویرگول‌ها (سیمی‌کولن‌) برای جداسازی سطر‌ها در یک ماتریس [داخل براکت‌ها] مورد استفاده قرار می‌گیرند. 
+        </para>
+        <para>
+            همچنین نقطه‌ویرگول می‌تواند در پایان هر دستور‌العمل (چه در داخل یک فایل و چه در سایلب کنسول) مورد استفاده قرار 
+            گیرد. در این حالت نتیجه(ها) نمایش داده نمی شوند. برای نمایش آن‌ها باید از ویرگول یا کاما (,) بهره ببرید. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+a=[1,2,3;4,5,6];
+a=1;b=1,c=2
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="comma">comma</link>
+            </member>
+            <member>
+                <link linkend="brackets">brackets</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="setbpt" xml:lang="fa">
+    <refnamediv>
+        <refname>setbpt</refname>
+        <refpurpose>ایجاد توقف‌گاه</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>setbpt(macroname [,linenumb])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>macroname</term>
+                <listitem>
+                    <para>یک رشته</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>linenumb</term>
+                <listitem>
+                    <para>یک عدد صحیح یا برداری از اعداد صحیح</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <function>setbpt</function> به‌صورت محاوره‌ای یک نقطه‌ی شکست (توقف‌گاه) در (انتهای) خط 
+            شماره‌ی <varname>linenumb</varname> از تابع <varname>macroname</varname> 
+            قرار می‌دهد (به صورت پیش‌فرض خط اول). 
+            <!--
+تعاملی =فعل و انفعالی =محاوره‌ای = متقابل = هم‌کنشی = سوال و جوابی
+-->			
+        </para>
+        <para>
+            <varname>linenumb</varname> می‌تواند یک بردار سطری یا ستونی از شماره‌های خطوط و یا عددی تنها مربوط به شماره‌ی یک خط باشد. 
+        </para>
+        <para>
+            شماره‌های خطوط در <varname>linenumb</varname> شماره‌‌ی خطوط <emphasis>فیزیکی</emphasis> در 
+            تابع <varname>macroname</varname> هستند. 
+            توجه داشته باشد که نسخه‌های قبل از سایلب ۵٫۰ از شماره‌ی خطوط <emphasis>منطقی</emphasis> استفاده می‌کردند. 
+            تفاوت بین شماره‌‌ی خط فیزیکی و منطقی در تعداد <emphasis>خطوط اتصالی</emphasis> می‌باشد (ببینید: <link linkend="dot">dot</link>). 
+        </para>
+        <para>به محض رسیدن به نقطه‌ی توقف، سایلب خط فیزیکی مشخص‌شده را محاسبه کرده و روند اجرا متوقف می‌شود. 
+            اگر این تابع کامپال‌نشده باشد (ببینید: <link linkend="comp">comp</link>) این خط روی صفحه چاپ می‌شود. 
+            سپس سایلب به حالت <link linkend="pause">pause</link> می‌رود که در (محیط جدید) کاربر می‌تواند مقادیر جاری را وارسی کند. 
+            سطح <link linkend="pause">pause</link> با دستور <link linkend="resume">resume</link> یا <link linkend="abort">abort</link> خارج می شود. 
+        </para>
+         
+        <para>تعریف مجدد تابع این نقطه‌های شکست را پاک نمی‌کند، لذا کاربر باید صریحاً از تابع 
+            <link linkend="delbpt">delbpt</link> برای حذف این نقاط استفاده کند. 
+            حداکثر تعداد توابع دارای نقطه انفصال باید کمتر از ۱۰۰ عدد باشند، و حداکثر تعداد نقاط انفصال در مجموع برابر ۱۰۰۰ قرار داده‌شده است. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+setbpt('foo')
+setbpt('foo',10)
+dispbpt()
+delbpt()
+setbpt('foo',[1,2,5,6])
+dispbpt()
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببنید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="delbpt">delbpt</link>
+            </member>
+            <member>
+                <link linkend="dispbpt">dispbpt</link>
+            </member>
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+            <member>
+                <link linkend="quit">quit</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

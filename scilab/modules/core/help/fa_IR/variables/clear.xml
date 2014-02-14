@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="clear">
+    <refnamediv>
+        <refname>clear</refname>
+        <refpurpose>متغیر‌ها را از بین می‌برد</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>
+            clear a b c
+            clear('a','b','c')
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>a, b, c...</term>
+                <listitem>
+                    <para>متغیر‌هایی از هر نوع و هر اندازه، اما محافظت‌شده نباشند</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            این دستور متغیر‌هایی که محافظت شده نباشند را از بین می‌برد. 
+            این دستور متغیر‌های نام‌برده (مشخص) را از محیط پاک می‌کند. 
+            استفاده‌ی تنها از <code>clear</code> تمام متغیر‌ها را به جز متغیر‌هایی که بوسیله‌ی <code>predef</code> محافظت‌ شده‌اند از بین می‌برد. 
+            بنابراین این دو دستور یعنی <code>predef(0)</code> و <code>clear</code> تمام متغیر‌ها را پاک می‌کنند. 
+        </para>
+        <para>
+            در اکثر مواقع کتابخانه‌های استاندارد و متغیر‌هایی با پیشوند درصد، متغیر‌های محافظت‌شده می‌باشند. 
+        </para>
+        <para>
+            <note>
+                توجه داشته باشید که نحو خاص آن به صورت <code>clear a</code> و <code>clear('a')</code> بوده و نه به صورت <code>clear(a)</code>. 
+                همچنین توجه داشته باشید که <code>a=[]</code> متغیر <varname>a</varname> را پاک نمی‌کند اما مقدار آن را برابر ماتریس تهی قرار می‌دهد. 
+            </note>
+        </para>
+        <para>
+            دستور <code>clear</code> می‌تواند متغیر های ناموجود را نیز پاک کند! یعنی، 
+            <code>clear</code> متغیر‌هایی که وجود ندارد را از بین می‌برد مثل اینکه گویی آنها وجود داشته‌اند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+a=2;
+b=3;
+c=4;
+clear a
+isdef("a") // F
+isdef("b") // T
+clear("b");
+isdef("b") // F
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="predef">predef</link>
+            </member>
+            <member>
+                <link linkend="who">who</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

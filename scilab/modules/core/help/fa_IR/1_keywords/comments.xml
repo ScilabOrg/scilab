@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="comments">
+    <refnamediv>
+        <refname>comments</refname>
+        <refpurpose>جفت اسلش (//)؛ نظرات</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            دنباله‌ای از دو علامت اسلش متوالی <literal>//</literal> خارج از تعریف یک رشته ، 
+            شروع یک نظر یا هر عبارت توضیحی را نشان می‌دهد. 
+            این اسلش‌ها و نیز تمام کاراکتر‌های بعد از آن‌ها تا انتهای خطوط تفسیر نمی‌شوند. 
+        </para>
+        <para>درون یک تابع، ممکن است اولین خطوط توضیحی تا شروع اولین دستور یا  یک خط خالی 
+            به منظور محتویات پیش‌فرض برای راهنمای تابع مورد استفاده قرار گیرند. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+g=9.81// the gravity
+
+text='a//b'
+
+function y=myfunction(x)
+  // myfunction computes y=x^2+1
+  // x should be a vector or matrix
+  y=x^2+1
+endfunction
+
+help myfunction
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="slash">slash</link>
+            </member>
+            <member>
+                <link linkend="backslash">backslash</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

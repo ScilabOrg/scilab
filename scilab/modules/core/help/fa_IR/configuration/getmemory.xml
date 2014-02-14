@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="getmemory">
+    <refnamediv>
+        <refname>getmemory</refname>
+        <refpurpose>مقدار حافظه‌ی کل و آزاد سیستم</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله ی فراخوانی</title>
+        <synopsis>[free, total]=getmemory()</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <code>getmemory()</code> مقدار حافظه آزاد سیستم را بر می‌گرداند (بر حسب کیلو‌بایت) بر می‌گرداند. 
+        </para>
+        <para>
+            <code>[free, total] = getmemory()</code> مقدار حافظه‌ی کل و آزاد سیستم را بر حسب کیلو‌بایت بر می‌گرداند. 
+            <!--octet [fr]: eight-bit = byte-->			
+        </para>
+        <para>
+            <note>
+                توجه: زیاد به این تابع اعتماد نکنید. به سبب سطوح متنوع کش‌کننده ، یافتن مقدار حافظه‌ی آزاد در بسیاری از سیستم عامل‌‌های امروزی
+                یک امر فریبنده می‌باشد. 
+            </note>
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+[a,b]=getmemory()
+ ]]></programlisting>
+    </refsection>
+    
+</refentry>

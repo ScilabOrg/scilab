@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="whos">
+    <refnamediv>
+        <refname>whos</refname>
+        <refpurpose>فهرستی از نام متغیر‌ها با جزئیات بیشتر</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله ی فراخوانی</title>
+        <synopsis>whos()
+            whos -type typ
+            whos -name nam
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>typ</term>
+                <listitem>
+                    <para>
+                        عنوان مربوط به نوع متغیر انتخابی (ببینید <link linkend="typeof">typeof</link>) 
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nam</term>
+                <listitem>
+                    <para>اولین کرکتر‌های نام متغیر موردنظر</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>whos()</literal> نام تمام متغیر‌های جاری را بر اساس نام آنها مرتب می‌کند. همچنین نوع متغیر و حافطه‌ی مورد استفاده را نمایش می‌دهد. 
+        </para>
+        <para>
+            <literal>whos -type typ</literal> تمام متغیر‌های جاری از نوع <literal>typ</literal> را نمایش می‌دهد. 
+        </para>
+        <para>
+            <literal>whos -name nam</literal> تمام متغیر‌هایی که نام آنها با <literal>nam</literal> شروع می‌شود را نمایش می‌دهد. 
+        </para>
+        <para>نکته: اگر یک متغیر عمومی باشد، یک علامت ستاره * بعد از نوع آن ظاهر می‌شود. </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+lines(0) 
+whos()
+whos -type boolean
+whos -name %
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="who">who</link>
+            </member>
+            <member>
+                <link linkend="who_user">who_user</link>
+            </member>
+            <member>
+                <link linkend="typeof">typeof</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

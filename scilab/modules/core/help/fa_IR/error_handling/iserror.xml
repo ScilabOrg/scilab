@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="iserror">
+    <refnamediv>
+        <refname>iserror</refname>
+        <refpurpose>بررسی وقوع خطا</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>iserror([n])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>n</term>
+                <listitem>
+                    <para>یک عدد صحیح: شماره‌ی خطا</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            بررسی می‌کند آیا خطای شماره‌ی <varname>n</varname> رخ داده است (بعد از فراخوانی به <function>errcatch</function>) 
+            تابع <function>iserror</function> مقدار <literal>1</literal> را بر می‌گرداند اگر خطایی رخ داده باشد و در 
+            غیر این صورت مقدار <literal>0</literal> . 
+        </para>
+         
+        <para>
+            <varname>n</varname><literal>&gt;0</literal> شماره‌ی خطای مورد‌نظر می‌باشد؛ اگر <varname>n</varname><literal>&lt;0</literal> باشد 
+            آن‌گاه رخداد تمام خطا‌ها بررسی می‌شود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+errcatch(4,'continue') // trap undefined variable
+unknown
+iserror() // 1
+errclear()
+iserror() // 0
+        ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="error">error</link>
+            </member>
+            <member>
+                <link linkend="error_table">error_table</link>
+            </member>
+            <member>
+                <link linkend="errcatch">errcatch</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

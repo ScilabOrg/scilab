@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="ans">
+    <refnamediv>
+        <refname>ans</refname>
+        <refpurpose>پاسخ</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>ans</literal> به معنی «پاسخ یا نتیجه» می‌باشد. 
+            متغیر <literal>ans</literal> به طور خودکار برای عبارت‌های تخصیص داده نشده ایجاد می‌شود. 
+            متغیر <literal>ans</literal> آخرین عبارت محاسبه‌شده‌ی نامنسوب را در بر دارد. 
+        </para>
+        <para>
+            تابع <function>predef</function> متغیر <literal>ans</literal> را به صورت محافظت شده در نمی آورد. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[
+2+2
+ans // 4
+ans=10 // 10
+clear ans
+a=2+2;
+isdef("ans") // F
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="predef">predef</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="quit">
+    <refnamediv>
+        <refname>quit</refname>
+        <refpurpose>خروج از سایلب یا کاهش سطح مکث </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>quit</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            دستور <literal>quit</literal> بر اساس سطح محیط فراخوانی دو تفسیر متفاوت دارد: 
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>
+                    اگر هیچ مکثی (<literal>pause</literal>) فعال نباشد، 
+                </term>
+                <listitem>
+                    <para>
+                        آنگاه دستور <literal>quit</literal> باعث خروج سایلب می‌شود، حتی اگر 
+                        این دستور در داخل بدنه‌ی یک تابع فراخوانی شود.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>
+                    اگر یک مکث فعال بود(منظور اگر سطح محیط جدید یک یا بالاتر بود)، 
+                </term>
+                <listitem>
+                    <para>
+                        آنگاه دستور <literal>quit</literal>  دستورالعمل‌هایی را که در این محیط جدید (محیط مکث) آغاز شده‌اند لغو کرده و 
+                        سطح جاری مکث را به‌پایان می ‌رساند.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+// quit Scilab
+function foo(x)
+if x then 
+   quit
+end
+endfunction
+foo(%t) //quits scilab
+
+//terminate instruction started in a pause context
+function foo(x)
+if x then
+   quit
+end
+endfunction
+pause
+foo(%t) //returns at the main prompt level
+
+function foo1(x)
+mprintf('P1\n')
+if x then 
+   pause
+   mprintf('P2\n')
+end
+mprintf('P3\n')
+endfunction
+     
+foo1(%t) //enter quit at the following prompt
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="pause">pause</link>
+            </member>
+            <member>
+                <link linkend="break">break</link>
+            </member>
+            <member>
+                <link linkend="abort">abort</link>
+            </member>
+            <member>
+                <link linkend="exit">exit</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

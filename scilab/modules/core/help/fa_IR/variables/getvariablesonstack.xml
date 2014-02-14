@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="getvariablesonstack">
+    <refnamediv>
+        <refname>getvariablesonstack</refname>
+        <refpurpose>نام متغیر‌های درون پشته (=مکان‌های حافظه) سایلب را دریافت می‌کند</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>
+            s=getvariablesonstack()
+            s=getvariablesonstack('local')
+            s=getvariablesonstack('global')
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>s</term>
+                <listitem>
+                    <para>یک ماتریس رشته‌ای</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            <literal>s=getvariablesonstack()</literal> نام متغیر‌های درون پیشته‌ی سایلب را در متغیر <literal>s</literal> بر می‌گرداند. 
+        </para>
+        <para>
+            <literal>getvariablesonstack('local')</literal> نام متغیر‌های محلی موجود در پشته‌ی سایلب را بر می‌گرداند. 
+        </para>
+        <para>
+            <literal>getvariablesonstack('global')</literal> نام متغیر‌های عمومی موجود در پشته‌ی سایلب را بر می‌گرداند. 
+        </para>
+        <para>متغیر‌ها به ترتیب حروف الفبا دسته‌بندی می‌شوند. </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+getvariablesonstack()
+getvariablesonstack('local')
+getvariablesonstack('global')
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="who">who</link>
+            </member>
+            <member>
+                <link linkend="whos">whos</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

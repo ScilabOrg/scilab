@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fa" xml:id="with_module">
+    <refnamediv>
+        <refname>with_module</refname>
+        <refpurpose>بررسی می‌کند آیا ماژول‌های سایلب نصب ‌شده‌اند
+        </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله ی فراخوانی</title>
+        <synopsis>r = with_module(module_name)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>بولی</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>module_name</term>
+                <listitem>
+                    <para>
+                        یک رشته، برای مثال: <literal>'core'</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>
+            مقدار <constant>%t</constant> را بر می‌گرداند اگر یک ماژول سایلب با نام <literal>module_name</literal> 
+            نصب باشد و در غیر این‌صورت <constant>%f</constant> خواهد بود. 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+withXML = with_module("xml");
+if withXML == %t then
+   disp("XML module enabled");
+else
+   disp("XML module disabled");
+end
+ ]]></programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="getmodules">getmodules</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>

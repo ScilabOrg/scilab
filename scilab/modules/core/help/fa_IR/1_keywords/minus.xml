@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2008 - INRIA
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="minus" xml:lang="fa">
+    <refnamediv>
+        <refname>minus</refname>
+        <refpurpose>عملگر تفریق و تغییرات علامت (-) </refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>دنباله‌ی فراخوانی</title>
+        <synopsis>
+            X-Y
+            -Y
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>آرگومان‌ها</title>
+        <variablelist>
+            <varlistentry>
+                <term>X</term>
+                <listitem>
+                    <para>عدد، بردار یا ماتریسی از اعداد ، چند‌جمله‌ای‌ها، توابع گویا. 
+                        حتی می‌تواند یک لیست <literal>syslin</literal> باشد.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Y</term>
+                <listitem>
+                    <para>عدد، بردار یا ماتریسی از اعداد ، چند‌جمله‌ای‌ها، توابع گویا. 
+                        حتی می‌تواند یک لیست <literal>syslin</literal> باشد.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>توصیف</title>
+        <para>تفریق</para>
+        <para>برای عملوند‌های عددی، همان مفهوم همیشگی تفریق را داراست. 
+            اگر یکی از عملوند‌ها ماتریس و دیگری عدد باشد، عملیات به صورت درایه‌-به-درایه انجام می شود. 
+            در تفربق <literal>X - Y</literal> ، اگر  <literal>Y==[]</literal> آن‌گاه مقدار <literal>X</literal> به عنوان جواب برگردانده می شود؛ 
+            اگر <literal>X==[]</literal> آنگاه مقدار <literal>-Y</literal> بر گردانده می‌شود. 
+        </para>
+        <para>عمل تفریق را می‌توان از طریق عملیات «نرم-کد‌شده» بر روی سایر انواع داده‌ها نیز تعریف کرد 
+            (ببینید: <link linkend="overloading">overloading</link>). 
+        </para>
+    </refsection>
+    <refsection>
+        <title>مثال‌ها</title>
+        <programlisting role="example"><![CDATA[ 
+[1,2]-1
+[]-2
+
+%s-2
+1/%s-2
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>همچنین ببینید</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="addf">addf</link>
+            </member>
+            <member>
+                <link linkend="mtlb_mode">mtlb_mode</link>
+            </member>
+            <member>
+                <link linkend="plus">plus</link>
+            </member>
+            <member>
+                <link linkend="overloading">overloading</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
