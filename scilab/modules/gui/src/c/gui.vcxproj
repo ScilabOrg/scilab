@@ -211,6 +211,7 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_openged.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatipcreate.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatipremove.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_saveGui.cpp" />
     <ClCompile Include="..\cpp\CreateUIControl.cpp" />
     <ClCompile Include="..\cpp\GetConsoleShowHiddenHandles.cpp" />
     <ClCompile Include="..\cpp\GetUicontrolIcon.cpp" />

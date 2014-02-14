@@ -200,3 +200,8 @@ int xmlload(char* xmlfile)
 {
     return CallXmlLoader::Load(getScilabJavaVM(), xmlfile);
 }
+
+char* xmlsave(int id, char* xmlfile)
+{
+    return CallXmlLoader::Save(getScilabJavaVM(), id, xmlfile);
+}

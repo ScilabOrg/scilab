@@ -81,4 +81,5 @@
     <PRIMITIVE gatewayId="25" primitiveId="48" primitiveName="datatipSetInterp" />
     <PRIMITIVE gatewayId="25" primitiveId="49" primitiveName="datatipSetOrientation" />
     <PRIMITIVE gatewayId="25" primitiveId="50" primitiveName="figure"/>
+    <PRIMITIVE gatewayId="25" primitiveId="51" primitiveName="saveGui"/>
 </GATEWAY>

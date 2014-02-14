@@ -74,7 +74,8 @@ static gw_generic_table Tab[] =
     {sci_datatip_set_display, "datatipSetDisplay"},
     {sci_datatip_set_interp, "datatipSetInterp"},
     {sci_datatip_set_orient, "datatipSetOrientation"},
-    {sci_figure, "figure"}
+    {sci_figure, "figure"},
+    {sci_saveGui, "saveGui"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_gui(void)
