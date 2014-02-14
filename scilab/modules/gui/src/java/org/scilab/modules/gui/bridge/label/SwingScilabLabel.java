@@ -42,6 +42,7 @@ import javax.swing.text.html.StyleSheet;
 
 import org.scilab.modules.commons.gui.FindIconHelper;
 import org.scilab.modules.console.utils.ScilabSpecialTextUtilities;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.SwingViewWidget;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
@@ -96,8 +97,8 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
     public SwingScilabLabel() {
         super();
         alignmentPanel.setLayout(alignmentLayout);
-        alignmentPanel.add(label);
-        getViewport().add(alignmentPanel);
+        //        alignmentPanel.add(label);
+        setViewportView(label);
         setBorder(BorderFactory.createEmptyBorder());
         setViewportBorder(BorderFactory.createEmptyBorder());
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -373,6 +374,7 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
         Dimension dims = label.getSize();
         label.setVisible(false);
 
+
         alignmentPanel.remove(label);
 
         if (!isJLabel) {
@@ -394,8 +396,16 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
                 styleSheet.addRule("body {font-style:normal;}");
             }
             label = newLabel;
+            alignmentPanel.add(label);
+            alignmentPanel.revalidate();
+            setViewportView(alignmentPanel);
+            setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         } else {
             label = new JLabel();
+            setViewportView(label);
+            //reload icon
+            update(__GO_UI_ICON__, GraphicController.getController().getProperty(uid, __GO_UI_ICON__));
+            setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         }
 
         label.setBackground(bgColor);
@@ -403,8 +413,6 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
         label.setFont(font);
         label.setSize(dims);
         label.setVisible(true);
-        alignmentPanel.add(label);
-        alignmentPanel.revalidate();
     }
 
     /**
@@ -413,6 +421,13 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
     private void setAlignment() {
         GridBagConstraints gbc = new GridBagConstraints();
 
+        if (isJLabel) {
+            ((JLabel)label).setVerticalAlignment(ScilabAlignment.toSwingAlignment(verticalAlignment));
+            ((JLabel)label).setHorizontalAlignment(ScilabAlignment.toSwingAlignment(horizontalAlignment));
+            return;
+        }
+
+        //only for JTextPane component
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
