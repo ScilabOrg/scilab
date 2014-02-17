@@ -209,6 +209,16 @@
             </listitem>
         </itemizedlist>
     </refsection>
+    <refsection id="Example_MATINV">
+        <title>Exemple de Matrice inverse : expm([0 sin(t) ; sqrt(t) 0])</title>
+        <link type="scilab" linkend="scilab.xcos/xcos/examples/matrix_pal/MATINV_Example.zcos">
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata align="center" fileref="../../../../examples/matrix_pal/MATINV_Example.zcos" valign="middle"/>
+                </imageobject>
+            </inlinemediaobject>
+        </link>
+    </refsection>
     <refsection id="Seealso_MATINV">
         <title>Voir aussi</title>
         <itemizedlist>
