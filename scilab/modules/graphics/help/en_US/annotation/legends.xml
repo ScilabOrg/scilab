@@ -13,7 +13,7 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="legends">
     <refnamediv>
         <refname>legends</refname>
-        <refpurpose>draw graph legend</refpurpose>
+        <refpurpose>draw graph legend. <emphasis role="bold">This function is obsolete.</emphasis></refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
@@ -113,6 +113,10 @@
     </refsection>
     <refsection>
         <title>Description</title>
+        <warning>
+            This function is obsolete.
+            It will be permanently removed in Scilab 5.5.1
+        </warning>
         <para>
             Puts a legend on the current plot using the specified strings as
             labels.
@@ -210,5 +214,16 @@ legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3], opt=2, font_size=1 )
                 <link linkend="legend">legend</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+                    Function tagged as obsolete. Will be removed in 5.5.1.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

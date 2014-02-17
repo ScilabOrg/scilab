@@ -35,5 +35,8 @@ contour2d(x,x,z,-0.75:0.25:0.75,frameflag=3,rect=[0,0,5*%pi,4*%pi]);
 // trick 3: use legends (note that the more practical legend function
 //          will not work as soon as one of the level is formed by 2 curves)  
 legends(string(-0.75:0.25:0.75),1:7,"lr");
+AVERTISSEMENT : La fonctionnalité legends est obsolète.
+                Cette fonctionnalité va être définitivement supprimée dans Scilab 5.5.1
+
 xtitle("Some level curves of the function cos(x)cos(y)");
 close(h);

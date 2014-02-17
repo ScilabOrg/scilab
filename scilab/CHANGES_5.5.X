@@ -55,6 +55,9 @@ Obsolete & Removed Functions
 * jmat tagged as obsolete. Will be removed in Scilab 5.5.1.
   Please use flipdim instead
 
+* legends tagged as obsolete. Will be removed in Scilab 5.5.1.
+  Please use legend instead
+
 
 Compilation
 ============

@@ -16,6 +16,7 @@ function c=legend(varargin)
     "in_lower_right";"by_coordinates";"out_upper_right";
     "out_upper_left";"out_lower_left";"out_lower_right";
     "upper_caption";"lower_caption"];
+    old_options_names=["ur"; "ul"; "ll"; "lr"; "?"; ""; ""; ""; ""; ""; "below"];
 
     options_codes=[1;2;3;
     4;5;-1;
@@ -57,6 +58,10 @@ function c=legend(varargin)
     elseif  type(varargin(narg))==10 then
         k=find(varargin(narg)==options_names)
         if ~isempty(k) then
+            kopt=k
+            narg=narg-1
+        else
+            k=find(varargin(narg)==old_options_names)
             kopt=k
             narg=narg-1
         end

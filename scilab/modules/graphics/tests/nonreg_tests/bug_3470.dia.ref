@@ -12,7 +12,10 @@
 //
 // <-- Short Description -->
 // plot2d(), followed by legends produce an unexpected error.
-//
+// 
 plot2d();
 legends(string([1:3]),[-1 -2 3],1);
+AVERTISSEMENT : La fonctionnalité legends est obsolète.
+                Cette fonctionnalité va être définitivement supprimée dans Scilab 5.5.1
+
 // plot2d used to corrupt the stack and legends was producing an error

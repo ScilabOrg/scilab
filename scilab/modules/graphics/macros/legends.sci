@@ -9,6 +9,8 @@
 
 
 function legends(leg, style, opt, with_box, font_size )
+    warnobsolete(scilabRemovedVersion="5.5.1");
+
     //
     // PURPOSE
     //    draw legends on a plot

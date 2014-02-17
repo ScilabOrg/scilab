@@ -16,5 +16,8 @@ clf();
 plot2d();
 c=color("red");
 legends("cos(t)", style=[-1; c],opt="lr")
+AVERTISSEMENT : La fonctionnalité legends est obsolète.
+                Cette fonctionnalité va être définitivement supprimée dans Scilab 5.5.1
+
 e = gce();
 assert_checkequal(c, e.children(2).mark_foreground);
