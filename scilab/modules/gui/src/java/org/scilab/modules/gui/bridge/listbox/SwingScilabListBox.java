@@ -14,8 +14,7 @@
 
 package org.scilab.modules.gui.bridge.listbox;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -52,6 +51,8 @@ import org.scilab.modules.gui.utils.Size;
 public class SwingScilabListBox extends JScrollPane implements SwingViewObject, SimpleListBox {
 
     private static final long serialVersionUID = 3507396207331058895L;
+
+    private static final int COLORS_COEFF = 255;
 
     private Integer uid;
 
@@ -516,6 +517,7 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
      * @param value property value
      */
     public void update(int property, Object value) {
+        GraphicController controller = GraphicController.getController();
         switch (property) {
             case __GO_UI_VALUE__ : {
                 Double[] indexes = (Double[])value;
@@ -526,9 +528,46 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
                 setSelectedIndices(index);
                 break;
             }
-
-            default : {
+            case __GO_UI_BACKGROUNDCOLOR__ : {
+                Double[] allColors = ((Double[]) value);
+                if (allColors[0] != -1) {
+                    setListBackground(new Color((int) (allColors[0] * COLORS_COEFF),
+                                                (int) (allColors[1] * COLORS_COEFF),
+                                                (int) (allColors[2] * COLORS_COEFF)));
+                } else {
+                    resetBackground();
+                }
+                break;
+            }
+            case __GO_UI_STRING__ : {
+                // Listboxes manage string vectors
+                setText((String[]) value);
+                break;
+            }
+            case __GO_UI_MAX__ : {
+                Double maxValue = ((Double) value);
+                // Enable/Disable multiple selection
+                double minValue = (Double) controller.getProperty(uid, __GO_UI_MIN__);
+                setMultipleSelectionEnabled(maxValue - minValue > 1);
+                break;
+            }
+            case __GO_UI_MIN__ : {
+                Double minValue = ((Double) value);
+                // Enable/Disable multiple selection
+                Double maxValue = (Double) controller.getProperty(uid, __GO_UI_MAX__);
+                setMultipleSelectionEnabled(maxValue - minValue > 1);
+                break;
+            }
+            case __GO_UI_LISTBOXTOP__: {
+                Integer[] listboxtopValue = ((Integer[]) value);
+                if (listboxtopValue.length > 0) {
+                    setListBoxTop(listboxtopValue[0]);
+                }
+                break;
+            }
+            default: {
                 SwingViewWidget.update(this, property, value);
+                break;
             }
         }
     }
