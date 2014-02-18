@@ -45,9 +45,12 @@
             The user can use this handle to set or get the figure properties default
             values.
         </para>
-        <para>Note that an equivalent default graphic entity exists for axes entities
+        <para>
+	  <note>
+	    Note that an equivalent default graphic entity exists for axes entities
             too (see <literal>gda</literal>).
-        </para>
+	  </note>
+	</para>
     </refsection>
     <refsection>
         <title>Examples</title>
