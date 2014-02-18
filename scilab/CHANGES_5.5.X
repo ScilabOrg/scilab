@@ -338,6 +338,8 @@ Scilab Bug Fixes
 
 * Bug #12819 fixed - Link to contributors website page fixed in the help pages.
 
+* Bug #12826 fixed - Missing <warning> and <note> in help pages.
+
 * Bug #12880 fixed - A warning is displayed when transposing arguments of plot.
 
 * Bug #12882 fixed - Some help pages were not clear.

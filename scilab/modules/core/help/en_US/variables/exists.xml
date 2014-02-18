@@ -61,8 +61,10 @@
             <literal>0</literal> otherwise.
         </para>
         <para>
+	  <warning>
             Warning: the <literal>exists</literal> function does not check if a variable exists in
             the <link linkend="global">global</link> namespace.
+	  </warning>
         </para>
     </refsection>
     <refsection>
