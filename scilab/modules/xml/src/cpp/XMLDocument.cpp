@@ -30,12 +30,19 @@ extern "C"
 namespace org_modules_xml
 {
 
+bool XMLDocument::__proxy = false;
 std::string * XMLDocument::errorBuffer = 0;
 std::string * XMLDocument::errorXPathBuffer = 0;
 std::list < XMLDocument * >&XMLDocument::openDocs = *new std::list < XMLDocument * >();
 
 XMLDocument::XMLDocument(const char *path, bool validate, std::string * error, const char * encoding): XMLObject()
 {
+    if (!__proxy)
+    {
+        initProxy();
+        __proxy = true;
+    }
+
     char *expandedPath = expandPathVariable(const_cast<char *>(path));
     if (expandedPath)
     {
@@ -397,4 +404,23 @@ void XMLDocument::errorXPathFunction(void *ctx, xmlError * error)
 {
     errorXPathBuffer->append(error->message);
 }
+
+bool XMLDocument::initProxy()
+{
+    char * host = 0;
+    long port = 0;
+    char * userpwd = 0;
+    int hasProxy = getProxyValues(&host, &port, &userpwd);
+    if (hasProxy)
+    {
+        std::stringstream ss;
+        ss << "http://" << userpwd << "@" << host << ":" << port;
+
+        xmlNanoHTTPScanProxy(ss.str().c_str());
+        return true;
+    }
+
+    return false;
+}
+
 }

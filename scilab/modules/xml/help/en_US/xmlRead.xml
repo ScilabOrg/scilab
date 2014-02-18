@@ -54,9 +54,12 @@
         <title>Description</title>
         <para>Read and parse a XML file. The returned document allows to access to the DOM tree which is kept in memory.</para>
         <para>If validateDTD is set to true, the document will be validated or not during the parsing operation.</para>
-	<para>The encoding argument is used to precise the file encoding.</para>
+        <para>The encoding argument is used to precise the file encoding.</para>
+        <para>Since path can be an URL, the proxy configuration is used (it uses the parameters from ATOMS config file).</para>
         <para>
-            It is important to notice that the tree must be freed (to avoid memory leaks) with the function <link linkend="xmlDelete">xmlDelete</link>.
+            <warning>
+                It is important to notice that the tree must be freed (to avoid memory leaks) with the function <link linkend="xmlDelete">xmlDelete</link>.
+            </warning>
         </para>
     </refsection>
     <refsection>

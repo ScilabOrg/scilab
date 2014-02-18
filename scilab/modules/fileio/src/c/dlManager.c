@@ -28,6 +28,7 @@
 #include "machine.h"
 #include "scicurdir.h"
 #include "splitpath.h"
+#include "dlManager.h"
 /* ==================================================================== */
 #ifndef HAVE_BASENAME
 static char *Curl_basename(char *path);
@@ -36,7 +37,6 @@ static char *Curl_basename(char *path);
 /* ==================================================================== */
 static char errorBuffer[CURL_ERROR_SIZE];
 /* ==================================================================== */
-static int getProxyValues(char **proxyHost, long *proxyPort, char **proxyUserPwd);
 /* ==================================================================== */
 typedef struct __INPUTSTRING__
 {

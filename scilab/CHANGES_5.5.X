@@ -1388,6 +1388,8 @@ Xcos Bug Fixes
 
 * Bug #12568 fixed - "Recent files" menu entry is now below the "Open" one.
 
+* Bug #12572 fixed - xmlRead did not use the proxy settings.
+
 * Bug #12590 fixed - Block shape style was removed on file loading.
 
 * Bug #12603 fixed - ZCOS files could contain blocks with modified (eg. invalid)

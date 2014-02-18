@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+ * Copyright (C) 2014 - Scilab Enterprises - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,13 +10,9 @@
  *
  */
 
-#include <libxml/tree.h>
-#include <libxml/parser.h>
-#include <libxml/xpath.h>
-#include <libxml/xpathInternals.h>
-#include <libxml/valid.h>
-#include <libxml/schemasInternals.h>
-#include <libxml/xmlschemas.h>
-#include <libxml/relaxng.h>
-#include <libxml/xmlreader.h>
-#include <libxml/nanohttp.h>
+#ifndef __DLMANAGER_H__
+#define __DLMANAGER_H__
+
+int getProxyValues(char **proxyHost, long *proxyPort, char **proxyUserPwd);
+
+#endif //__DLMANAGER_H__

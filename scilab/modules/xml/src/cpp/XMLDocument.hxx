@@ -16,6 +16,7 @@
 #include <cstdio>
 #include <list>
 #include <cstring>
+#include <sstream>
 #include <string>
 
 #include "dynlib_xml_scilab.h"
@@ -23,6 +24,7 @@
 extern "C"
 {
 #include "xml.h"
+#include "dlManager.h"
 #ifndef XML_XPATH_CHECKNS
 #define XML_XPATH_CHECKNS
 #endif
@@ -46,6 +48,7 @@ class XMLValidation;
  */
 class XML_SCILAB_IMPEXP XMLDocument: public XMLObject
 {
+    static bool __proxy;
     static std::list < XMLDocument * >&openDocs;
     xmlDoc *document;
 
@@ -188,6 +191,7 @@ private:
 
     static std::string * errorBuffer;
     static std::string * errorXPathBuffer;
+    static bool initProxy();
 };
 }
 
