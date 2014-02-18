@@ -116,7 +116,7 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
             public void componentShown(ComponentEvent e) { }
 
             public void componentResized(ComponentEvent e) {
-                if (getId() != -1 && getParent() != null && getParent().getLayout() == null) {
+                if (getId() != -1 && getParent() != null && getParent().getLayout() != null) {
 
                     Double[] newPosition = new Double[4];
                     Double[] positions = (Double[]) GraphicController.getController().getProperty(getId(), GraphicObjectProperties.__GO_POSITION__);
@@ -780,9 +780,11 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
                     intValue[k] = doubleValue[k].intValue();
                 }
 
-                SwingScilabLayer layer = (SwingScilabLayer) this;
-                //if intValue[0] is out of bounds, do not update view but let "wrong" value in model
-                layer.setActiveLayer(intValue[0]);
+                if (this instanceof SwingScilabLayer) {
+                    SwingScilabLayer layer = (SwingScilabLayer) this;
+                    //if intValue[0] is out of bounds, do not update view but let "wrong" value in model
+                    layer.setActiveLayer(intValue[0]);
+                }
                 break;
             }
             case __GO_UI_STRING__: {
