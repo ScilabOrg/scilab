@@ -102,6 +102,16 @@
                                 <literal>2</literal> a Scilab function
                             </para>
                         </listitem>
+                        <listitem>
+                            <para>
+                                <literal>10</literal> a not-interruptible Scilab instruction (other callback will be queued).
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                <literal>12</literal> a not-interruptible Scilab function (other callback will be queued).
+                            </para>
+                        </listitem>
                     </itemizedlist>
                 </listitem>
             </varlistentry>
@@ -562,5 +572,19 @@ matrix(ut.string,size(table))
                 <link linkend="math_rendering_features_in_graphic">LaTeX and MathML</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>
+                    <itemizedlist>
+                        <listitem>Scilab function/instruction callbacks can now be made uninterruptible.</listitem>
+                        <listitem>"default" relief property value (based on Look and Feel) added.</listitem>
+                    </itemizedlist>
+                </revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
