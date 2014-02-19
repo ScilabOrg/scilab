@@ -250,6 +250,8 @@ Scilab Bug Fixes
 
 * Bug #11007, #11008 & #11009 fixed - New function conjgrad (Conjugate Gradient methods "pcg", "cgs", "bicg" and "bicgstab").
 
+* Bug #11303 fixed - Exception while searching with multiple tabs.
+
 * Bug #11305 fixed - Performances improved with a better way to update data.
 
 * Bug #11571 fixed - x_mdialog did not let the Look&Feel select the window size.
