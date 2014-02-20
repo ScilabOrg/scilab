@@ -543,6 +543,8 @@ Scilab Bug Fixes
 
 * Bug #13233 fixed - Wrong result for simulation of step response csim('step',t,H) fixed.
 
+* Bug #13243 fixed - optim() with "gc" option failed when imp<0.
+
 
 Xcos
 ====
