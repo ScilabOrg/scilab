@@ -2429,6 +2429,8 @@ Scilab Bug Fixes
 
 * Bug #12535 fixed - In a French localized Scilab, comma was used as decimal separator when zooming (rather than point).
 
+* Bug #12559 fixed - Fixed some memory leaks in FFTW.
+
 * Bug #12567 fixed - Error messages fixed in ricc.
 
 * Bug #12622 fixed - Various typos fixed in error messages.
