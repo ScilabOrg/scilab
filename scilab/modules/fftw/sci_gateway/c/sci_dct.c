@@ -324,10 +324,10 @@ int sci_dct_2args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
     * Return results in lhs argument *
     ***********************************/
 
-    ReturnArguments(_pvCtx);
-
     FREE(gdim.dims);
     FREE(gdim.howmany_dims);
+    ReturnArguments(_pvCtx);
+
     return 0;
 }
 
@@ -1084,11 +1084,13 @@ int sci_dct_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         if (errflag == 1)
         {
             Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+            FREE(kind);
             return 0;
         }
         else if (errflag == 2)
         {
             Scierror(999, _("%s: Creation of requested fftw plan failed.\n"), fname);
+            FREE(kind);
             return 0;
         }
         /* execute FFTW plan */
@@ -1117,6 +1119,7 @@ int sci_dct_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         if (errflag == 1)
         {
             Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+            FREE(kind);
             FREE(dims1);
             FREE(incr1);
             return 0;
@@ -1124,6 +1127,7 @@ int sci_dct_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         else if (errflag == 2)
         {
             Scierror(999, _("%s: Creation of requested fftw plan failed.\n"), fname);
+            FREE(kind);
             FREE(dims1);
             FREE(incr1);
             return 0;
@@ -1134,6 +1138,7 @@ int sci_dct_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         if ((dims1 = (int *)MALLOC(sizeof(int) * howmany_rank)) == NULL)
         {
             Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+            FREE(kind);
             FREE(dims1);
             FREE(incr1);
             return 0;
@@ -1148,6 +1153,7 @@ int sci_dct_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         if ((incr1 = (int *)MALLOC(sizeof(int) * howmany_rank)) == NULL)
         {
             Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+            FREE(kind);
             FREE(dims1);
             FREE(incr1);
             return 0;
@@ -1198,9 +1204,11 @@ int sci_dct_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         if (dct_scale_array(Ar, Ai, gdim, isn) == -1)
         {
             Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+            FREE(kind);
             return 0;
         }
     }
+    FREE(kind);
     return 1;
 }
 
