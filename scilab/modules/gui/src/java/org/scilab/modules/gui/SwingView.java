@@ -457,9 +457,6 @@ public final class SwingView implements GraphicView {
                 } else {
                     infoBar.setText(infoMessage);
                 }
-                tab.update(__GO_SIZE__, GraphicController.getController().getProperty(id, __GO_SIZE__));
-                tab.update(__GO_POSITION__, GraphicController.getController().getProperty(id, __GO_POSITION__));
-
                 String icon = (String)GraphicController.getController().getProperty(id, __GO_UI_ICON__);
                 if (icon != null && icon.equals("") == false) {
                     tab.update(__GO_UI_ICON__, icon);
@@ -467,8 +464,11 @@ public final class SwingView implements GraphicView {
 
                 // TODO set other default properties
 
-                window.setVisible(figure.getVisible());
                 window.pack();
+                tab.update(__GO_SIZE__, GraphicController.getController().getProperty(id, __GO_SIZE__));
+                tab.update(__GO_POSITION__, GraphicController.getController().getProperty(id, __GO_POSITION__));
+                window.setVisible(figure.getVisible());
+
                 return tab;
             }
             case Axes:

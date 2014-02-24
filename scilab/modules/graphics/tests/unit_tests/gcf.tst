@@ -11,8 +11,8 @@
 
 // Check each current figure property
 f = gcf();
-//assert_checkequal(f.figure_position, [200,200]);
-//assert_checkequal(f.figure_size, [614,568]);
+assert_checkequal(f.figure_position, [200,200]);
+// Do not check figure_size since related to OS/LaF
 assert_checkequal(f.axes_size, [610,460]);
 assert_checkequal(f.auto_resize, "on");
 assert_checkequal(f.viewport, [0,0]);
@@ -35,3 +35,8 @@ assert_checkequal(f.menubar_visible, "on");
 assert_checkequal(f.infobar_visible, "on");
 assert_checkequal(f.dockable, "on");
 assert_checkequal(f.layout, "none");
+
+set(f, "axes_size", [610,460]);
+assert_checkequal(f.axes_size, [610,460]);
+set(f, "figure_size", [800,600]);
+assert_checkequal(f.figure_size, [800,600]);
