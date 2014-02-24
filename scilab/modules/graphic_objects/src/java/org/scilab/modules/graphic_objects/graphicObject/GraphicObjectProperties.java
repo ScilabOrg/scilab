@@ -399,5 +399,7 @@ public class GraphicObjectProperties {
     public static final int __GO_UI_TITLE_SCROLL__ = 376;
     public static final int __GO_UI_FRAME_BORDER_TYPE__ = 377;
     public static final int __GO_UI_SCROLLABLE__ = 378;
+    public static final int __GO_UI_TAB_VALUE__ = 379;
+    public static final int __GO_UI_TAB_STRING__ = 380;
 
 }

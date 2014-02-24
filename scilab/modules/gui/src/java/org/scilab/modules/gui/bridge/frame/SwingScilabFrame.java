@@ -194,6 +194,7 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
             add(canvas, BorderLayout.CENTER);
             return;
         }
+
         Uicontrol uicontrol = (Uicontrol) GraphicModel.getModel().getObjectFromId(member.getId());
         if (getLayout() instanceof BorderLayout) {
             switch (uicontrol.getBorderPositionAsEnum()) {
@@ -302,6 +303,9 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
         } else {
             this.add((Component) member);
         }
+
+        //force update position
+        member.update(__GO_POSITION__, GraphicController.getController().getProperty(member.getId(), __GO_POSITION__));
     }
 
     /**

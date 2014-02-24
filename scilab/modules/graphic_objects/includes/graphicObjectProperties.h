@@ -398,5 +398,7 @@
 #define __GO_UI_TITLE_SCROLL__ 376
 #define __GO_UI_FRAME_BORDER_TYPE__ 377
 #define __GO_UI_SCROLLABLE__ 378
+#define __GO_UI_TAB_VALUE__ 379
+#define __GO_UI_TAB_STRING__ 380
 
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */
