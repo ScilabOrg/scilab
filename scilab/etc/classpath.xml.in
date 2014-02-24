@@ -50,19 +50,19 @@ The option is "disableUnderMode" and can be:
 	<load on="documentationGeneration"/>
 </path>
 
-<path value="@SCIRENDERER_CP@" load="onUse">
+<path value="@SCIRENDERER_CP@">
 	<load on="graphics"/>
     <load on="graphic_ojects"/>
     <load on="Xcos"/>
 </path>
 
-<path value="@JOGL2@" load="onUse">
+<path value="@JOGL2@">
 	<load on="graphics"/>
 	<load on="graphic_export"/>
 	<load on="Xcos"/>
 </path>
 
-<path value="@GLUEGEN2_RT@" load="onUse">
+<path value="@GLUEGEN2_RT@">
 	<load on="graphics"/>
 	<load on="graphic_export"/>
 	<load on="Xcos"/>
