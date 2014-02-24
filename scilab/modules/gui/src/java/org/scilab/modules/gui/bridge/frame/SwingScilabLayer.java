@@ -3,6 +3,7 @@ package org.scilab.modules.gui.bridge.frame;
 
 
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_VISIBLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TAG__;
 
@@ -25,25 +26,22 @@ public class SwingScilabLayer extends SwingScilabFrame {
     public void addMember(SwingScilabFrame member) {
         String name = member.getId().toString();
         member.setName(name);
-        layers.add(member.getId());
+        layers.add(0, member.getId());
         add(member, name);
         revalidate();
-        //active the first child
-        if (getActiveLayer() == -1) {
-            setActiveLayer(1);
-        }
+        //active added child
+        setActiveLayer(1);
     }
 
     public void addMember(SwingScilabScrollableFrame member) {
         String name = member.getId().toString();
         member.setName(name);
-        layers.add(member.getId());
+        layers.add(0, member.getId());
         add(member, name);
         revalidate();
-        //active the first child
-        if (getActiveLayer() == -1) {
-            setActiveLayer(1);
-        }
+
+        //active added child
+        setActiveLayer(1);
     }
 
     public Integer getActiveLayer() {
@@ -68,7 +66,7 @@ public class SwingScilabLayer extends SwingScilabFrame {
             return null;
         }
 
-        return getComponent(layer - 1);
+        return getComponent(getComponentCount() - layer);
     }
 
     private Integer getLayerIndex(Component layer) {
@@ -108,9 +106,6 @@ public class SwingScilabLayer extends SwingScilabFrame {
                 active = 1;
             }
         }
-
-        //update model with new index
-        GraphicController.getController().setProperty(getId(),  __GO_UI_VALUE__, new Double[] {active.doubleValue()});
     }
 
     public void removeMember(SwingScilabFrame member) {
@@ -125,9 +120,6 @@ public class SwingScilabLayer extends SwingScilabFrame {
                 active = 1;
             }
         }
-
-        //update model with new index
-        GraphicController.getController().setProperty(getId(),  __GO_UI_VALUE__, new Double[] {active.doubleValue()});
     }
 
     public boolean setActiveLayer(Integer layerPos) {
@@ -136,12 +128,18 @@ public class SwingScilabLayer extends SwingScilabFrame {
         }
 
         Integer previous = getActiveLayer();
+
+        //avoid loop between model and view
+        if (previous.equals(layerPos)) {
+            return true;
+        }
+
         if (setActiveLayer(layers.get(layerPos - 1).toString()) == false) {
             return false;
         }
 
         Integer next = getActiveLayer();
-        updateChildrenVisible(previous, next);
+        updateModelProperties(previous, next, layerPos);
         return true;
     }
 
@@ -165,19 +163,22 @@ public class SwingScilabLayer extends SwingScilabFrame {
 
         return false;
     }
-    private void updateChildrenVisible(Integer previous, Integer next) {
+
+    private void updateModelProperties(Integer previous, Integer next, Integer layerPos) {
         SwingViewObject previousFrame = (SwingViewObject)getLayerFromIndex(previous);
         SwingViewObject nextFrame = (SwingViewObject) getLayerFromIndex(next);
 
+        String name = null;
         if (previousFrame != null) {
             GraphicController.getController().setProperty(previousFrame.getId(), __GO_VISIBLE__, false);
         }
 
         if (nextFrame != null) {
             GraphicController.getController().setProperty(nextFrame.getId(), __GO_VISIBLE__, true);
+            name = (String)GraphicController.getController().getProperty(nextFrame.getId(), __GO_TAG__);
         }
 
         GraphicController.getController().setProperty(getId(),  __GO_UI_VALUE__, new Double[] {next.doubleValue()});
-
+        GraphicController.getController().setProperty(getId(),  __GO_UI_STRING__, new String[] {name});
     }
 }
