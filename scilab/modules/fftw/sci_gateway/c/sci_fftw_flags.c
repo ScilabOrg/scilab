@@ -208,6 +208,7 @@ int sci_fftw_flags(char *fname, unsigned long fname_len)
                 sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, piLen, NULL);
                 if (sciErr.iErr)
                 {
+                    free(piLen);
                     printError(&sciErr, 0);
                     return 1;
                 }
@@ -222,6 +223,9 @@ int sci_fftw_flags(char *fname, unsigned long fname_len)
                 sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, piLen, Str1);
                 if (sciErr.iErr)
                 {
+                    free(piLen);
+                    freeArrayOfString(Str1, m1 * n1);
+                    free(Str1);
                     printError(&sciErr, 0);
                     return 1;
                 }
@@ -232,13 +236,18 @@ int sci_fftw_flags(char *fname, unsigned long fname_len)
                     {
                         if (strcmp(Str1[j], Str[i]) == 0)
                         {
+                            free(piLen);
+                            freeArrayOfString(Str1, m1 * n1);
+                            free(Str1);
                             break;
                         }
                     }
 
                     if (i == nb_flag)
                     {
+                        free(piLen);
                         freeArrayOfString(Str1, m1 * n1);
+                        free(Str1);
                         Scierror(999, _("%s: Wrong values for input argument #%d: FFTW flag expected.\n"), fname, 1);
                         return 0;
                     }
@@ -252,7 +261,9 @@ int sci_fftw_flags(char *fname, unsigned long fname_len)
                 }
 
                 uiVar1 = (unsigned int)flagv;
+                free(piLen);
                 freeArrayOfString(Str1, m1 * n1);
+                free(Str1);
                 m1 = 1;
                 n1 = 1;
                 break;
