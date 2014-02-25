@@ -100,7 +100,33 @@
             <varlistentry>
                 <term>Userdata</term>
                 <listitem>
-                    <para>this can be used to associate some Scilab objects to a fugure.</para>
+                    <para>this can be used to associate some Scilab objects to a figure.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Dockable</term>
+                <listitem>
+                    <para>
+                        This property determines if created window can be docked inside Scilab environnment. If its value is <literal>"on"</literal> then the window will have a bar enabling the user to dock/undock it. Else the window will look like a standard OS window. This value can only be set at creation.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Menubar</term>
+                <listitem>
+                    <para>{"figure"} | "none"</para>
+                    <para>
+                        This property determines the type of the menubar of the figure. If its value is <literal>"none"</literal> then the window will not have any menubar until a menu is added using <link linkend="uimenu">uimenu function</link>. Else the window will be created with default figure menus. This value can only be set at creation.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Toolbar</term>
+                <listitem>
+                    <para>{"figure"} | "none"</para>
+                    <para>
+                        This property determines the type of the toolbar of the figure. If its value is <literal>"none"</literal> then the window will not have any menubar. Else the window will be created with a default figure toolbar. This value can only be set at creation.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -140,5 +166,16 @@ close(h);
                 <link linkend="gcf">gcf</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revremark>"Dockable" property added.</revremark>
+                <revremark>"Menubar" property added.</revremark>
+                <revremark>"Toolbar" property added.</revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

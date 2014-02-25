@@ -233,6 +233,47 @@
                                 <para>When this property is set, the "figure closed" event (-1000) will no more be trapped by the event handler function.</para>
                             </listitem>
                         </varlistentry>
+                        <varlistentry>
+                            <term>icon: </term>
+                            <listitem>
+                                <para>This field can be used to customize the icon of a Scilab figure.</para>
+                                <para>
+                                    Its value is a character string containing the (absolute or relaitve to Scilab <link linkend="pwd">current working directory.</link> path of the image file containing the icon.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>menubar_visible: </term>
+                            <listitem>
+                                <para>
+                                    This property controls the figure menubar visibility. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>toolbar_visible: </term>
+                            <listitem>
+                                <para>
+                                    This property controls the figure toolbar visibility. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>infobar_visible: </term>
+                            <listitem>
+                                <para>
+                                    This property controls the figure status bar visibility. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal>.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>resize: </term>
+                            <listitem>
+                                <para>
+                                    This property locks the figure size. Its value can be <literal>"on"</literal> (default value) or <literal>"off"</literal> (the figure can not be resized neither through <link linkend="set">set</link> nor mouse events). 
+                                </para>
+                            </listitem>
+                        </varlistentry>
                     </variablelist>
                 </listitem>
             </varlistentry>
@@ -364,6 +405,11 @@ plot3d(t,t,sin(t)'*cos(t),35,45,'X@Y@Z',[15,2,4]);
             <revision>
                 <revnumber>5.5.0</revnumber>
                 <revremark>"visible" property also applies to uicontrols.</revremark>
+                <revremark>"icon" property added to allow figure icon change.</revremark>
+                <revremark>"menubar_visible" property added.</revremark>
+                <revremark>"toolbar_visible" property added.</revremark>
+                <revremark>"infobar_visible" property added.</revremark>
+                <revremark>"resize" property added.</revremark>
             </revision>
             <revision>
                 <revnumber>5.4.0</revnumber>
