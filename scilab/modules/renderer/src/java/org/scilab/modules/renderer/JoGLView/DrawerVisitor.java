@@ -67,6 +67,7 @@ import org.scilab.modules.graphic_objects.surface.Fac3d;
 import org.scilab.modules.graphic_objects.surface.Plot3d;
 import org.scilab.modules.graphic_objects.textObject.Text;
 import org.scilab.modules.graphic_objects.uicontrol.frame.Frame;
+import org.scilab.modules.graphic_objects.utils.LayoutType;
 import org.scilab.modules.graphic_objects.vectfield.Arrow;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
@@ -83,7 +84,6 @@ import org.scilab.modules.renderer.JoGLView.text.TextManager;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 import org.scilab.modules.renderer.JoGLView.util.LightingUtils;
 import org.scilab.modules.renderer.JoGLView.util.OutOfMemoryException;
-import org.scilab.modules.renderer.utils.textRendering.FontManager;
 
 /**
  * @author Pierre Lando
@@ -332,6 +332,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             if (axes.isValid() && axes.getVisible()) {
                 try {
                     currentAxes = axes;
+                    axesDrawer.computeRulers(axes);
                     axesDrawer.draw(axes);
                 } catch (SciRendererException e) {
                     invalidate(axes, e);
@@ -987,11 +988,14 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     canvas.setAntiAliasingLevel(figure.getAntialiasing());
                 }
 
-                if (figure instanceof Frame || isImmediateDrawing(id)) {
-                    if (figure instanceof Frame || GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__ == property) {
-                        canvas.redrawAndWait();
-                    } else {
-                        canvas.redraw();
+                Figure parentFigure = (Figure) GraphicController.getController().getObjectFromId(figure.getParentFigure());
+                if (figure.getVisible() && parentFigure != null && parentFigure.getVisible()) {
+                    if (figure instanceof Frame || isImmediateDrawing(id)) {
+                        if (figure instanceof Frame || GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__ == property) {
+                            canvas.redrawAndWait();
+                        } else {
+                            canvas.redraw();
+                        }
                     }
                 }
             }
@@ -1082,8 +1086,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     if (go instanceof Axes) {
                         axesDrawer.computeRulers((Axes) go);
                     }
-                }
-                return true;
+                }               
+                
             } else if (object instanceof Axes && property == GraphicObjectProperties.__GO_X_AXIS_LOCATION__ ||
                        property == GraphicObjectProperties.__GO_Y_AXIS_LOCATION__ || property == GraphicObjectProperties.__GO_AUTO_MARGINS__) {
                 axesDrawer.computeMargins((Axes) object);
