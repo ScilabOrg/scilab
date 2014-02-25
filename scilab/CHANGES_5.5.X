@@ -104,6 +104,8 @@ Scilab Bug Fixes
 
 * Bug #13180 fixed - surf did not handle degenerate cases.
 
+* Bug #13217 fixed - augment() yielded a wrong result when flag2="i".
+
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not system-wide available.
 
