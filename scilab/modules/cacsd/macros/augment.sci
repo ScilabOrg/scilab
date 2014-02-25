@@ -194,7 +194,7 @@ function [P,r]=augment(G,SRT,flag)
                 P=[Iu,-Iu;
                 G,-G;
                 Ouu,Iu;
-                -G,G]
+                G,-G]
             end
             return
         case 2 then
@@ -210,7 +210,7 @@ function [P,r]=augment(G,SRT,flag)
                 if ssSRT==1 then
                     P=[Iu,-Iu;
                     G,-G;
-                    -G,G]
+                    G,-G]
                 end
                 return
             end
@@ -226,7 +226,7 @@ function [P,r]=augment(G,SRT,flag)
                 if ssSRT ==1 then
                     P=[Iu,-Iu;
                     Ouu,Iu;
-                    -G,G]
+                    G,-G]
                 end
                 return
             end
@@ -242,7 +242,7 @@ function [P,r]=augment(G,SRT,flag)
                 if ssSRT ==1 then
                     P=[G,-G;
                     Ouu,Iu;
-                    -G,G]
+                    G,-G]
                 end
                 return
             end
@@ -262,7 +262,7 @@ function [P,r]=augment(G,SRT,flag)
                 end;
                 if ssSRT ==1 then
                     P=[Iu,-Iu;
-                    -G,G]
+                    G,-G]
                 end
                 return
             end
@@ -276,7 +276,7 @@ function [P,r]=augment(G,SRT,flag)
                 end
                 if ssSRT ==1 then
                     P=[G,-G;
-                    -G,G]
+                    G,-G]
                 end
                 return
             end
@@ -290,7 +290,7 @@ function [P,r]=augment(G,SRT,flag)
                 end
                 if ssSRT ==1 then
                     P=[Ouu,Iu;
-                    -G,G]
+                    G,-G]
                 end
                 return
             end

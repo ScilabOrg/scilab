@@ -535,6 +535,8 @@ Scilab Bug Fixes
 
 * Bug #13215 fixed - clf(1001) returned an error.
 
+* Bug #13217 fixed - augment() yielded a wrong result when flag2="i".
+
 * Bug #13218 fixed - Typos fixed in core module help pages.
 
 * Bug #13226 fixed - Completion with accentued chars could lead to a crash.
