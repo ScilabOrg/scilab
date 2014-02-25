@@ -65,6 +65,8 @@ Scilab Bug Fixes
 
 * Bug #13180 fixed - surf did not handle degenerate cases.
 
+* Bug #13217 fixed - augment() yielded a wrong result when flag2="i".
+
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not available system-wide.
 
@@ -197,7 +199,7 @@ Xcos Bug Fixes
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
-* Bug #13513 fixed - EXPRESSION block with "u1" as expression failed with a 
+* Bug #13513 fixed - EXPRESSION block with "u1" as expression failed with a
                      singularity error.
 
 * Bug #13514 fixed - External modules' loader_pal.sce file contained absolute path.
