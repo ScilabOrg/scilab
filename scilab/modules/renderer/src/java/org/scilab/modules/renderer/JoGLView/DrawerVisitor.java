@@ -67,6 +67,7 @@ import org.scilab.modules.graphic_objects.surface.Fac3d;
 import org.scilab.modules.graphic_objects.surface.Plot3d;
 import org.scilab.modules.graphic_objects.textObject.Text;
 import org.scilab.modules.graphic_objects.uicontrol.frame.Frame;
+import org.scilab.modules.graphic_objects.utils.LayoutType;
 import org.scilab.modules.graphic_objects.vectfield.Arrow;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
@@ -83,7 +84,6 @@ import org.scilab.modules.renderer.JoGLView.text.TextManager;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 import org.scilab.modules.renderer.JoGLView.util.LightingUtils;
 import org.scilab.modules.renderer.JoGLView.util.OutOfMemoryException;
-import org.scilab.modules.renderer.utils.textRendering.FontManager;
 
 /**
  * @author Pierre Lando
@@ -148,6 +148,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private Axes currentAxes;
     private Canvas canvas;
 
+    private boolean fromFrame = false;
+    
     /**
      * The map between the existing Figures' identifiers and their corresponding Visitor.
      * Used to get access to the DrawerVisitor corresponding to a given Figure when the
@@ -332,6 +334,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             if (axes.isValid() && axes.getVisible()) {
                 try {
                     currentAxes = axes;
+                    if (fromFrame) {
+                        //axesDrawer.update(axes.getIdentifier(), GraphicObjectProperties.__GO_POSITION__);
+                    }
                     axesDrawer.draw(axes);
                 } catch (SciRendererException e) {
                     invalidate(axes, e);
@@ -413,6 +418,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 if (frame.isValid() && frame.getVisible()) {
                     DrawerVisitor visitor = visitorMap.get(frame.getIdentifier());
                     if (visitor != null) {
+                        visitor.fromFrame = true;
                         visitor.setDrawingTools(drawingTools);
                         visitor.askAcceptVisitor(frame.getChildren());
                     }
@@ -988,6 +994,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 }
 
                 if (figure instanceof Frame || isImmediateDrawing(id)) {
+                    if (figure instanceof Frame) {
+                        
+                    }
                     if (figure instanceof Frame || GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__ == property) {
                         canvas.redrawAndWait();
                     } else {
@@ -997,6 +1006,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             }
 
             if (GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__ == property && !isImmediateDrawing(id)) {
+                System.err.println("[DrawerVisitor] canvas.waitImage()");
                 canvas.waitImage();
             }
 
@@ -1088,7 +1098,12 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                         axesDrawer.computeRulers((Axes) go);
                     }
                 }
-                return true;
+                // Let the layout manage redraw for position update
+                if (fig.getLayoutAsEnum() == LayoutType.NONE) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else if (object instanceof Axes && property == GraphicObjectProperties.__GO_X_AXIS_LOCATION__ ||
                        property == GraphicObjectProperties.__GO_Y_AXIS_LOCATION__ || property == GraphicObjectProperties.__GO_AUTO_MARGINS__) {
                 axesDrawer.computeMargins((Axes) object);

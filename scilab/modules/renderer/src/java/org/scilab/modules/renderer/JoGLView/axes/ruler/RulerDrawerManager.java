@@ -35,6 +35,7 @@ class RulerDrawerManager {
      * Set of properties that affect ruler sprites.
      */
     private static final Set<Integer> SPRITE_PROPERTIES = new HashSet<Integer>(Arrays.asList(
+                GraphicObjectProperties.__GO_POSITION__,
                 GraphicObjectProperties.__GO_FONT_SIZE__,
                 GraphicObjectProperties.__GO_FONT_COLOR__,
                 GraphicObjectProperties.__GO_FONT_STYLE__,
