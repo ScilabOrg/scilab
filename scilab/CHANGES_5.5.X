@@ -6,6 +6,7 @@ New Features
 
 * The figures "visible" property now also applies to uicontrols.
   In previous releases, only axes were managed by this property setting.
+  TODO: figure visible property vs Dockable
 
 * New functions introduced:
  - jcreatejar - Creates a Java archive (JAR) from a set of files / directories
@@ -18,6 +19,18 @@ New Features
 * test_run() can now separate 32bits systems from 64bits ones.
 
 * pol2str(): support to polynomials with complex coefficients and hypermatrices (See bug #13109).
+
+* New figures properties:
+ - icon: allows to customize the figure icon.
+ - menubar_visible: manages menubar visibility.
+ - toolbar_visible: manages toolbar visibility.
+ - infobar_visible: manages infobar visibility.
+ - resize: allows to lock window size.
+
+* New figure function options:
+ - dockable: allows to create dockable/standard windows.
+ - menubar: allows to create windows without any menubar (default menus will not be created).
+ - toolbar: allows to create windows without any toolbar (default toolbar will not be created).
 
 
 Obsolete & Removed Functions
@@ -103,6 +116,8 @@ Scilab Bug Fixes
 * Bug #6306 fixed - It is now possible to compute an histogram instead of plotting it
                     with new function histc(). Besides, histplot can now return the computed data.
 
+* Bug #6363 fixed - It was not possible to create figures without menubar/toolbar.
+
 * Bug #6404 fixed - xrects help page was not clear about argument specification.
 
 * Bug #6512 fixed - %asn function tagged as obsolete.
@@ -161,6 +176,8 @@ Scilab Bug Fixes
                     in a new output argument and take the a priori mean as input.
 
 * Bug #7879 fixed - string now accepts plist type, and printing a plist displays that string.
+
+* Bug #7905 fixed - Figure icon can now be changed using dedicated property.
 
 * Bug #7916 fixed - nansum([]) returned Nan value while this function must ignore it.
 
@@ -242,13 +259,19 @@ Scilab Bug Fixes
 
 * Bug #10470 fixed - In SciNotes, split "Horizontally" or "Vertically" was meaningless.
 
+* Bug #10621 fixed - Figure without docking/undocking capabilities can now be created.
+
 * Bug #10645 fixed - File encoding could not be given as argument in xmlRead.
+
+* Bug #10718 fixed - New "Resize" property added to figures.
 
 * Bug #10816 fixed - Typo in part error message fixed.
 
 * Bug #10830 fixed - Hypermatrix insertion with a negative index returned a wrong error message.
 
 * Bug #10833 fixed - Help page of exists updated.
+
+* Bug #10840 fixed - Keyboard arrows were disabled on 'slider' type uicontrols.
 
 * Bug #10856 fixed - analpf did not return the right result.
 
@@ -271,6 +294,8 @@ Scilab Bug Fixes
 * Bug #11575 fixed - There was no preview of GIF files in exportUI dialog.
 
 * Bug #11576 fixed - exportUI did not propose gcf().figure_name as default file name.
+
+* Bug #11616 fixed - Figure's menubar could not be toggled on/off
 
 * Bug #11629 fixed - Interactive zoom misworked in datatip mode.
 
