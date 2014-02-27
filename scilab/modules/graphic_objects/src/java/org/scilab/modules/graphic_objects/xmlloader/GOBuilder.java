@@ -483,7 +483,9 @@ public class GOBuilder {
                 case __GO_UI_EDIT__ : {
                     item = attributes.getValue("columns");
                     if (item != null) {
-                        controller.setProperty(uic, __GO_UI_MAX__, Double.parseDouble(item));
+                        Double val = Double.parseDouble(item);
+                        controller.setProperty(uic, __GO_UI_MAX__, val);
+                        controller.setProperty(uic, __GO_UI_MIN__, val);
                     }
 
                     //callback
