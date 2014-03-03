@@ -3,7 +3,7 @@
 # Copyright (C) INRIA - 2006-2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009-2011 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009 - Pierre MARECHAL <pierre.marechal@scilab.org>
-# Copyright (C) Scilab Enterprises - 2014 - Clement DAVID <clement.david@scilab-enterprises.com>
+# Copyright (C) Scilab Enterprises - 2014-2015 - Clement DAVID
 #
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
@@ -149,7 +149,6 @@ AC_ARG_WITH(gui,
 AC_ARG_ENABLE(build-swig,
     AS_HELP_STRING([--enable-build-swig=path],[Regenerate Java => C and Scilab => C wrappers produces by Swig]))
 
-
 AC_ARG_ENABLE(build-giws,
     AS_HELP_STRING([--enable-build-giws],[Regenerate C/C++ => Java wrappers produces by Giws]))
 
@@ -161,6 +160,7 @@ AC_ARG_ENABLE(build-parser,
 ########## compilator & misc programs detection
 ################################################
 
+PKG_PROG_PKG_CONFIG
 AC_PROG_CPP
 AC_PROG_GREP
 
@@ -218,12 +218,6 @@ case "$host" in
     fi
 ;;
 esac
-
-
-#####################################################
-## Look for pkg-config
-#####################################################
-PKG_PROG_PKG_CONFIG
 
 #####################################################
 ## check if options are correct (or not)
@@ -1424,12 +1418,16 @@ AC_ARG_WITH(fftw,
 
 FFTW_ENABLE=no
 if test "$with_fftw" != no; then
-   AC_FFTW()
-   FFTW_ENABLE=yes
-fi
+  PKG_CHECK_MODULES(FFTW, fftw3)
+  AC_SUBST(PCRE_LIBS)
+  AC_SUBST(PCRE_CFLAGS)
+  AC_SUBST(PCRE_VERSION)  
 
+  AC_DEFINE([WITH_FFTW], [], [With the FFTW 3 library])
+  FFTW_ENABLE=yes
+fi
 AC_SUBST(FFTW_ENABLE)
-AM_CONDITIONAL(FFTW, test "$with_fftw" != no)
+AM_CONDITIONAL(FFTW, test "$FFTW_ENABLE" != no)
 
 
 #################
@@ -1491,7 +1489,10 @@ AM_CONDITIONAL(OPENMP, test "$with_openmp" != no)
 ## Test for libxml
 #######################
 
-AC_LIBXML2()
+PKG_CHECK_MODULES(XML, libxml-2.0)
+AC_SUBST(XML_LIBS)
+AC_SUBST(XML_CFLAGS)
+AC_SUBST(XML_VERSION)
 
 #######################
 ## Test for gettext
@@ -1588,13 +1589,19 @@ AM_CONDITIONAL(UMFPACK, test "$with_umfpack" != no)
 ## Test for PCRE
 #######################
 
-AC_PCRE()
+PKG_CHECK_MODULES(PCRE, libpcreposix)
+AC_SUBST(PCRE_LIBS)
+AC_SUBST(PCRE_CFLAGS)
+AC_SUBST(PCRE_VERSION)
 
 #######################
 ## Test for CURL
 #######################
 
-AC_CURL()
+PKG_CHECK_MODULES(CURL, libcurl)
+AC_SUBST(CURL_LIBS)
+AC_SUBST(CURL_CFLAGS)
+AC_SUBST(CURL_VERSION)
 
 #################
 ## Tcl/Tk library
@@ -1664,57 +1671,21 @@ AM_CONDITIONAL(TCLTK, test "$WITH_TKSCI" = yes)
 ## MATIO LIBRARY (MAT File I/O Library)
 #################
 
-
 AC_ARG_WITH(matio,
     AS_HELP_STRING([--without-matio],[Disable the interface to Matio (MAT File I/O library)]))
 
-AC_ARG_WITH(matio_include,
-        AS_HELP_STRING([--with-matio-include=DIR],[Set the path to the MATIO headers]),
-        [with_matio_include="-I$withval"], [])
-
-AC_ARG_WITH(matio_library,
-        AS_HELP_STRING([--with-matio-library=DIR],[Set the path to the MATIO libraries]),
-        [with_matio_library="-L$withval"], [])
-
 MATIO_ENABLE=no
-
 if test "$with_matio" != no; then
-   if test -n "$with_matio_include" -o -n "$with_matio_library" ; then
-      MATIO_CFLAGS="$with_matio_include"
-      MATIO_LIBS="$with_matio_library -lm -lz -lmatio -lhdf5"
-   else
-      if $WITH_DEVTOOLS; then # Scilab thirdparties
-         MATIO_CFLAGS="-I$DEVTOOLS_INCDIR"
-         MATIO_LIBS="-L$DEVTOOLS_LIBDIR -lm -lz -lmatio -lhdf5"
-      else
-         PKG_CHECK_MODULES(MATIO, [matio >= 1.5.0])
-      fi
-   fi
-
-   save_CFLAGS="$CFLAGS"
-   save_LIBS="$LIBS"
-
-   CFLAGS="$CFLAGS $MATIO_CFLAGS"
-   LIBS="$LIBS $MATIO_LIBS"
-
-   AC_CHECK_HEADERS([matio.h], [],
-     [AC_MSG_ERROR([Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS.])])
-   AC_CHECK_LIB([matio], [Mat_Open], [],
-     [AC_MSG_ERROR([Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS.])])
-
-   LIBS="$save_LIBS"
-   CFLAGS="$save_CFLAGS"
+   PKG_CHECK_MODULES(MATIO, [matio >= 1.5.0])
+   AC_SUBST(MATIO_LIBS)
+   AC_SUBST(MATIO_CFLAGS)
+   AC_SUBST(MATIO_VERSION)
 
    AC_DEFINE([WITH_MATIO], [], [With the MATIO library])
    MATIO_ENABLE=yes
-
-   AC_SUBST(MATIO_LIBS)
-   AC_SUBST(MATIO_CFLAGS)
 fi
-
-
-AC_SUBST(MATIO_ENABLE)
-AM_CONDITIONAL(MATIO, test "$with_matio" != no)
+AC_SUBST(WITH_MATIO)
+AM_CONDITIONAL(MATIO, test "$MATIO_ENABLE" != no)
 
 #############################
 ## Documentation management #
@@ -2176,79 +2147,83 @@ echo "  Compile with Scilab thirdparties ................. = $WITH_DEVTOOLS"
 
 echo ""
 if test "$with_gui" = no; then
-   echo "Not using Xcos because of the option --without-gui"
+  echo "Not using Xcos because of the option --without-gui"
 else
 if test $XCOS_ENABLE = yes; then
-   echo "Xcos enable"
-   echo "Build modelica compiler (--without-modelica) ....... = $with_modelica"
-   echo ""
-   if test "$with_modelica" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
-     echo "Ocaml Configuration (for Modelica compiler):"
-     echo "  OCAMLC ............. = $OCAMLC"
-     echo "  OCAMLOPT ........... = $OCAMLOPT"
-     echo "  OCAMLDEP ........... = $OCAMLDEP"
-   else
-     echo "Will not build Modelica compiler"
-   fi
+  echo "Xcos enable"
+  echo "Build modelica compiler (--without-modelica) ....... = $with_modelica"
+  echo ""
+  if test "$with_modelica" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
+    echo "Ocaml Configuration (for Modelica compiler):"
+    echo "  OCAMLC ................ = $OCAMLC"
+    echo "  OCAMLOPT .............. = $OCAMLOPT"
+    echo "  OCAMLDEP .............. = $OCAMLDEP"
+  else
+    echo "Will not build Modelica compiler"
+  fi
 else
-   echo "Not using Xcos"
+  echo "Not using Xcos"
 fi
 fi
 
 echo ""
 if test "$enable_code_coverage" = yes;  then
-   echo "Code coverage configuration:"
-   echo "  LCOV .............. = $LCOV"
-   echo "  GENHTML ........... = $GENHTML"
+  echo "Code coverage configuration:"
+  echo "  LCOV .................. = $LCOV"
+  echo "  GENHTML ............... = $GENHTML"
 else
-   echo "Not using code coverage"
+  echo "Not using code coverage"
 fi
 
 echo ""
 if test $OPENMP_ENABLE = yes; then
-   echo "OpenMP Configuration:"
-   echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
-   echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
-   echo "OpenMP LIBS ........ = $OPENMP_LIBS"
-   echo "OpenMP LDFLAGS ..... = $OPENMP_LDFLAGS"
+  echo "OpenMP Configuration:"
+  echo "OpenMP CFLAGS ........... = $OPENMP_CFLAGS"
+  echo "OpenMP CXXFLAGS ......... = $OPENMP_CXXFLAGS"
+  echo "OpenMP LIBS ............. = $OPENMP_LIBS"
+  echo "OpenMP LDFLAGS .......... = $OPENMP_LDFLAGS"
 else
-   echo "Not using OpenMP"
+  echo "Not using OpenMP"
 fi
 
 echo ""
 if test $FFTW_ENABLE = yes;  then
-   echo "FFTW Configuration:"
-   echo "  FFTW LIBS .......... = $FFTW3_LIB"
-   echo "  FFTW CFLAGS ........ = $FFTW3_CFLAGS"
+  echo "FFTW Configuration:"
+  echo "  FFTW_LIBS ............. = $FFTW_LIBS"
+  echo "  FFTW_CFLAGS ........... = $FFTW_CFLAGS"
+  echo "  FFTW_VERSION .......... = $FFTW_VERSION"
 else
-   echo "Not using FFTW"
+  echo "Not using FFTW"
 fi
 
 echo ""
 echo "Eigen3 Configuration:"
-echo "  EIGEN CPPFLAGS ...... = $EIGEN_CPPFLAGS"
+echo "  EIGEN_CFLAGS .......... = $EIGEN_CFLAGS"
+echo "  EIGEN_VERSION ......... = $EIGEN_VERSION"
 
 echo ""
 if test $MATIO_ENABLE = yes;  then
-   echo "MATIO Configuration:"
-   echo "  MATIO LIBS .......... = $MATIO_LIBS"
-   echo "  MATIO CFLAGS ........ = $MATIO_CFLAGS"
+  echo "MATIO Configuration:"
+  echo "  MATIO_LIBS ............ = $MATIO_LIBS"
+  echo "  MATIO_CFLAGS .......... = $MATIO_CFLAGS"
+  echo "  MATIO_VERSION ......... = $MATIO_VERSION"
 else
-   echo "Not using MATIO"
+  echo "Not using MATIO"
 fi
 
 echo ""
 if test $UMFPACK_ENABLE = yes;  then
-   echo "UMFPACK Configuration:"
-   echo "  UMFPACK LIBS ....... = $UMFPACK_LIB"
-   echo "  UMFPACK CFLAGS ..... = $UMFPACK_CFLAGS"
-   if test $SUITESPARSE = yes; then
-      echo "  UMFPACK SUITESPARSE  = Yes"
-   else
-      echo "  UMFPACK SUITESPARSE  = No"
-   fi
+  echo "UMFPACK Configuration:"
+  echo "  UMFPACK_LIBS .......... = $UMFPACK_LIB"
+  echo "  UMFPACK_CFLAGS ........ = $UMFPACK_CFLAGS"
+  echo "  UMFPACK_VERSION ....... = $UMFPACK_VERSION"
+  if test $SUITESPARSE = yes; then
+    echo "  UMFPACK SUITESPARSE  = Yes"
+  else
+    echo "  UMFPACK SUITESPARSE  = No"
+  fi
 else
-   echo "Not using UMFPACK"
+  echo "Not using UMFPACK"
 fi
 
 
@@ -2263,51 +2238,51 @@ echo ""
 
 
 if test "$with_mpi" == yes; then
-   echo "OpenMPI Configuration:"
-   echo "OpenMPI LIBS ........... = $OPENMPI_LIBS"
-   echo "OpenMPI C Compiler ..... = $OPENMPI_CC"
-   echo "OpenMPI C++ Compiler ... = $OPENMPI_CXX"
-   echo "OpenMPI F77 Compiler ... = $MPIF77"
+  echo "OpenMPI Configuration:"
+  echo "OpenMPI LIBS ............ = $OPENMPI_LIBS"
+  echo "OpenMPI C Compiler ...... = $OPENMPI_CC"
+  echo "OpenMPI C++ Compiler .... = $OPENMPI_CXX"
+  echo "OpenMPI F77 Compiler .... = $MPIF77"
 else
-   echo "Not using MPI"
+  echo "Not using MPI"
 fi
 
 echo ""
 if test $BUILD_LOCALIZATION_ENABLE != no; then
-   echo "Gettext/localization configuration:"
-   echo "  xgettext ............... = $XGETTEXT"
-   echo "  msgfmt  ................ = $MSGFMT"
-   echo "  msgfmt_opts ............ = $MSGFMT_OPTS"
-   echo "  msgcat  ................ = $MSGCAT"
+  echo "Gettext/localization configuration:"
+  echo "  xgettext .............. = $XGETTEXT"
+  echo "  msgfmt  ............... = $MSGFMT"
+  echo "  msgfmt_opts ........... = $MSGFMT_OPTS"
+  echo "  msgcat  ............... = $MSGCAT"
 else
-   echo "Won't generate localization files"
+  echo "Won't generate localization files"
 fi
 
 echo ""
 if test $HELP_ENABLE = yes; then
-   echo "Documentation building configuration:"
-   echo "  Docbook XSL path ....... = $DOCBOOK_ROOT"
-   echo "  Saxon XSLT ............. = $SAXON"
-   echo "  XML commons external ... = $XML_APIS_EXT"
+  echo "Documentation building configuration:"
+  echo "  Docbook XSL path ...... = $DOCBOOK_ROOT"
+  echo "  Saxon XSLT ............ = $SAXON"
+  echo "  XML commons external .. = $XML_APIS_EXT"
 else
-   echo "No documentation generated"
+  echo "No documentation generated"
 fi
 
 echo ""
 echo "Java Configuration:"
 if test ! -z "$JAVAC"; then
-echo "  JAVA_HOME ........... = $JAVA_HOME"
-echo "  JAVAC ............... = $JAVAC"
-echo "  JAVA_CLASSPATH ...... = $JAVA_CLASSPATH"
-echo "  JAVA_VERSION ........ = $JAVA_VERSION"
-echo "  JAVAC_FLAGS ......... = $JAVAC_FLAGS"
-echo "  JAVA_JNI_INCLUDE .... = $JAVA_JNI_INCLUDE"
-echo "  JAVA_JNI_LIBS ....... = $JAVA_JNI_LIBS"
-echo "  JAVA_JNI_LIBS_PRELOAD = $JAVA_JNI_LIBS_PRELOAD"
-echo "  JAVA ................ = $JAVA"
-echo "  JAVADOC ............. = $JAVADOC"
-echo "  JAR ................. = $JAR"
-echo "  ANT ................. = $ANT"
+echo "  JAVA_HOME ............. = $JAVA_HOME"
+echo "  JAVAC ................. = $JAVAC"
+echo "  JAVA_CLASSPATH ........ = $JAVA_CLASSPATH"
+echo "  JAVA_VERSION .......... = $JAVA_VERSION"
+echo "  JAVAC_FLAGS ........... = $JAVAC_FLAGS"
+echo "  JAVA_JNI_INCLUDE ...... = $JAVA_JNI_INCLUDE"
+echo "  JAVA_JNI_LIBS ......... = $JAVA_JNI_LIBS"
+echo "  JAVA_JNI_LIBS_PRELOAD . = $JAVA_JNI_LIBS_PRELOAD"
+echo "  JAVA .................. = $JAVA"
+echo "  JAVADOC ............... = $JAVADOC"
+echo "  JAR ................... = $JAR"
+echo "  ANT ................... = $ANT"
 else
 echo "  JAVA disabled"
 fi
@@ -2316,90 +2291,92 @@ fi
 echo ""
 echo "Java dependencies:"
 if test ! -z "$JAVAC"; then
-echo "  Flexdock ............ = $FLEXDOCK"
-echo "  JOGL 2............... = $JOGL2"
-echo "  JOGL 2 LIBS (JNI) ... = $JOGL2_LIBS"
-echo "  Gluegen 2 ........... = $GLUEGEN2_RT"
-echo "  Gluegen 2 LIBS (JNI)  = $GLUEGEN2_RT_LIBS"
-echo "  Jeuclid (MathML) .... = $JEUCLID_CORE"
-echo "  Jhall  .............. = $JHALL"
-echo "  Jrosetta (API) ...... = $JROSETTA_API"
-echo "  Jrosetta (Engine) ... = $JROSETTA_ENGINE"
-echo "  Commons Logging ..... = $COMMONS_LOGGING"
-echo "  JGraph X ............ = $JGRAPHX"
-echo "  SciRenderer ......... = $SCIRENDERER"
-echo "  JLaTeXMath .......... = $JLATEXMATH"
-echo "  ECJ ................. = $ECJ"
+echo "  Flexdock .............. = $FLEXDOCK"
+echo "  JOGL 2................. = $JOGL2"
+echo "  JOGL 2 LIBS (JNI) ..... = $JOGL2_LIBS"
+echo "  Gluegen 2 ............. = $GLUEGEN2_RT"
+echo "  Gluegen 2 LIBS (JNI) .. = $GLUEGEN2_RT_LIBS"
+echo "  Jeuclid (MathML) ...... = $JEUCLID_CORE"
+echo "  Jhall  ................ = $JHALL"
+echo "  Jrosetta (API) ........ = $JROSETTA_API"
+echo "  Jrosetta (Engine) ..... = $JROSETTA_ENGINE"
+echo "  Commons Logging ....... = $COMMONS_LOGGING"
+echo "  JGraph X .............. = $JGRAPHX"
+echo "  SciRenderer ........... = $SCIRENDERER"
+echo "  JLaTeXMath ............ = $JLATEXMATH"
+echo "  ECJ ................... = $ECJ"
 fi
 
 echo ""
 if test ! -z "$JAVAC"; then
 echo "Documentation, graphic export:"
-echo "  FOP (XML => PDF) .... = $FOP"
-echo "  JLaTeXMath Fop ...... = $JLATEXMATH_FOP"
-echo "  Batik (SVG) ......... = $BATIK"
-echo "  Avalon Framework .... = $AVALON_FRAMEWORK"
-echo "  Commons I/O ......... = $COMMONS_IO"
-echo "  XML graphics commons  = $XMLGRAPHICS_COMMONS"
+echo "  FOP (XML => PDF) ...... = $FOP"
+echo "  JLaTeXMath Fop ........ = $JLATEXMATH_FOP"
+echo "  Batik (SVG) ........... = $BATIK"
+echo "  Avalon Framework ...... = $AVALON_FRAMEWORK"
+echo "  Commons I/O ........... = $COMMONS_IO"
+echo "  XML graphics commons .. = $XMLGRAPHICS_COMMONS"
 fi
 
 
 echo ""
 echo "Code quality (optional):"
-echo "  Checkstyle .......... = $CHECKSTYLE"
-echo "  Commons-beanutils ... = $COMMONS_BEANUTILS"
-echo "  Antlr ............... = $ANTLR"
-echo "  Junit4 .............. = $JUNIT4"
-echo "  Hamcrest ............ = $HAMCREST"
-echo "  Cobertura ........... = $COBERTURA"
-echo "  splint .............. = $SPLINT"
+echo "  Checkstyle ............ = $CHECKSTYLE"
+echo "  Commons-beanutils ..... = $COMMONS_BEANUTILS"
+echo "  Antlr ................. = $ANTLR"
+echo "  Junit4 ................ = $JUNIT4"
+echo "  Hamcrest .............. = $HAMCREST"
+echo "  Cobertura ............. = $COBERTURA"
+echo "  splint ................ = $SPLINT"
 
 echo ""
 echo "TCL/TK configuration:"
-echo "  TK_INC_PATH ........ = $TK_INC_PATH"
-echo "  TCL_INC_PATH ....... = $TCL_INC_PATH"
-echo "  TCLTK_LIBS ......... = $TCLTK_LIBS"
-echo "  TCL_SERIAL_VERSION . = $TCL_SERIAL_VERSION"
-echo "  TK_SERIAL_VERSION .. = $TK_SERIAL_VERSION"
+echo "  TK_INC_PATH ........... = $TK_INC_PATH"
+echo "  TCL_INC_PATH .......... = $TCL_INC_PATH"
+echo "  TCLTK_LIBS ............ = $TCLTK_LIBS"
+echo "  TCL_SERIAL_VERSION .... = $TCL_SERIAL_VERSION"
+echo "  TK_SERIAL_VERSION ..... = $TK_SERIAL_VERSION"
 
 echo ""
 echo "XML configuration:"
-echo "  XML_FLAGS .......... = $XML_FLAGS"
-echo "  XML_LIBS ........... = $XML_LIBS"
-echo "  XML_VERSION ........ = $XML_VERSION"
+echo "  XML_CFLAGS ............ = $XML_CFLAGS"
+echo "  XML_LIBS .............. = $XML_LIBS"
+echo "  XML_VERSION ........... = $XML_VERSION"
 
 echo ""
 echo "HDF5 configuration:"
-echo "  HDF5 CFLAGS ......... = $HDF5_CFLAGS"
-echo "  HDF5 LIBS ........... = $HDF5_LIBS"
+echo "  HDF5_CFLAGS ........... = $HDF5_CFLAGS"
+echo "  HDF5_LIBS ............. = $HDF5_LIBS"
+echo "  HDF5_VERSION .......... = $HDF5_VERSION"
 
 echo ""
 echo "PCRE configuration:"
-echo "  PCRE_CFLAGS ........ = $PCRE_CFLAGS"
-echo "  PCRE_LIBS .......... = $PCRE_LIBS"
-echo "  PCRE_VERSION ....... = $PCRE_VERSION"
+echo "  PCRE_CFLAGS ........... = $PCRE_CFLAGS"
+echo "  PCRE_LIBS ............. = $PCRE_LIBS"
+echo "  PCRE_VERSION .......... = $PCRE_VERSION"
 
 echo ""
 echo "Regenerate Scilab's parser"
 if test "$enable_build_parser" != no; then
-echo "  YACC ............... = $YACC"
-echo "  LEX ................ = $LEX"
-echo "  YFLAGS ............. = $YFLAGS"
+echo "  YACC .................. = $YACC"
+echo "  LEX ................... = $LEX"
+echo "  YFLAGS ................ = $YFLAGS"
 else
 echo "  Regenerate parser disabled (will use embedded sources)"
 fi
 
 echo ""
 echo "CURL configuration:"
-echo "  CURL_CFLAGS ........ = $CURL_CFLAGS"
-echo "  CURL_LIBS .......... = $CURL_LIBS"
-echo "  CURL_VERSION ....... = $CURL_VERSION"
+echo "  CURL_CFLAGS ........... = $CURL_CFLAGS"
+echo "  CURL_LIBS ............. = $CURL_LIBS"
+echo "  CURL_VERSION .......... = $CURL_VERSION"
 
 echo ""
 echo "SWIG Configuration:"
 if test ! -z "$SWIG_BIN"; then
-echo "  SWIG_BIN ........... = $SWIG_BIN"
-echo "  SWIG_JAVA .......... = $SWIG_JAVA"
+echo "  SWIG_BIN .............. = $SWIG_BIN"
+echo "  SWIG_JAVA ............. = $SWIG_JAVA"
+echo "  SWIG_VERSION .......... = $SWIG_VERSION"
 else
 echo "  SWIG generation disabled"
 fi
@@ -2407,67 +2384,69 @@ fi
 echo ""
 echo "GIWS Configuration:"
 if test ! -z "$GIWS_BIN"; then
-echo "  GIWS_BIN ........... = $GIWS_BIN"
+echo "  GIWS_BIN .............. = $GIWS_BIN"
+echo "  GIWS_VERSION .......... = $GIWS_VERSION"
 else
 echo "  GIWS generation disabled"
 fi
 
 echo ""
 echo "Valgrind configuration:"
-echo "  VALGRIND_CFLAGS .... = $VALGRIND_CFLAGS"
-echo "  VALGRIND_LIBS ...... = $VALGRIND_LIBS"
+echo "  VALGRIND_CFLAGS ....... = $VALGRIND_CFLAGS"
+echo "  VALGRIND_LIBS ......... = $VALGRIND_LIBS"
+echo "  VALGRIND_VERSION ...... = $VALGRIND_VERSION"
 echo ""
 
 echo ""
 echo "Libtool config:"
-echo "  objext .............. = $objext"
-echo "  libext (static) ..... = $libext"
-echo "  shrext_cmds ......... = $shrext_cmds"
-echo "  exeext .............. = $exeext"
+echo "  objext ................ = $objext"
+echo "  libext (static) ....... = $libext"
+echo "  shrext_cmds ........... = $shrext_cmds"
+echo "  exeext ................ = $exeext"
 
 echo ""
 
 echo "Compilation paths:"
-echo "  srcdir .............. = $SCI_SRCDIR"
-echo "  srcdir_full ......... = $SCI_SRCDIR_FULL"
-echo "  builddir ............ = $SCI_BUILDDIR"
+echo "  srcdir ................ = $SCI_SRCDIR"
+echo "  srcdir_full ........... = $SCI_SRCDIR_FULL"
+echo "  builddir .............. = $SCI_BUILDDIR"
 if test "$SCI_SRCDIR_FULL" != "$SCI_BUILDDIR"; then
-echo "  VPATH build ......... = Activated"
+echo "  VPATH build ........... = Activated"
 fi
 
 echo ""
 echo "Platform information:"
-echo "  host ........... = $host"
-echo "  host_cpu ....... = $host_cpu"
-echo "  host_vendor .... = $host_vendor"
-echo "  host_os ... .... = $host_os"
-echo "  hostname ....... = $ac_hostname"
-echo "  CPU 64 bits .... = $IS_64_BITS_CPU"
+echo "  host .................. = $host"
+echo "  host_cpu .............. = $host_cpu"
+echo "  host_vendor ........... = $host_vendor"
+echo "  host_os ... ........... = $host_os"
+echo "  hostname .............. = $ac_hostname"
+echo "  CPU 64 bits ........... = $IS_64_BITS_CPU"
 if test -n "$MAC_DETECTED_ARCH"; then
-echo "  Mac OS X arch .. = $MAC_DETECTED_ARCH"
-echo "  Mac OS X version = $macosx_version"
+echo "  Mac OS X arch ......... = $MAC_DETECTED_ARCH"
+echo "  Mac OS X version ...... = $macosx_version"
 fi
 
 echo ""
 echo "Options used to compile and link:"
-echo "  prefix ......... = $prefix"
-echo "  localedir ...... = $localedir"
-echo "  VERSION ........ = $PACKAGE_VERSION"
-echo "  CC ............. = $CC"
-echo "  CFLAGS ......... = $CFLAGS"
-echo "  SCI_CFLAGS ..... = $SCI_CFLAGS"
-echo "  DEFS ........... = $DEFS"
-echo "  LD ............. = $LD"
-echo "  LDFLAGS ........ = $LDFLAGS"
-echo "  SCI_LDFLAGS .... = $SCI_LDFLAGS"
-echo "  LIBS ........... = $LIBS"
-echo "  CXX ............ = $CXX"
-echo "  CXXFLAGS ....... = $CXXFLAGS"
-echo "  SCI_CXXFLAGS ... = $SCI_CXXFLAGS"
-echo "  F77 ............ = $F77"
-echo "  FFLAGS ......... = $FFLAGS"
-echo "  SCI_FFLAGS ..... = $SCI_FFLAGS"
-echo "  F77_LDFLAGS .... = $F77_LDFLAGS"
-echo "  FLIBS...... .... = $FLIBS"
-echo "  TERMCAP_LIB .... = $TERMCAP_LIB"
+echo "  prefix ................ = $prefix"
+echo "  localedir ............. = $localedir"
+echo "  VERSION ............... = $PACKAGE_VERSION"
+echo "  CC .................... = $CC"
+echo "  CFLAGS ................ = $CFLAGS"
+echo "  SCI_CFLAGS ............ = $SCI_CFLAGS"
+echo "  DEFS .................. = $DEFS"
+echo "  LD .................... = $LD"
+echo "  LDFLAGS ............... = $LDFLAGS"
+echo "  SCI_LDFLAGS ........... = $SCI_LDFLAGS"
+echo "  LIBS .................. = $LIBS"
+echo "  CXX ................... = $CXX"
+echo "  CXXFLAGS .............. = $CXXFLAGS"
+echo "  SCI_CXXFLAGS .......... = $SCI_CXXFLAGS"
+echo "  F77 ................... = $F77"
+echo "  FFLAGS ................ = $FFLAGS"
+echo "  SCI_FFLAGS ............ = $SCI_FFLAGS"
+echo "  F77_LDFLAGS ........... = $F77_LDFLAGS"
+echo "  FLIBS...... ........... = $FLIBS"
+echo "  TERMCAP_LIB ........... = $TERMCAP_LIB"
 echo ""
