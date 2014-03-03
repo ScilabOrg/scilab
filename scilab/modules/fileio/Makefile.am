@@ -117,7 +117,7 @@ libscifileio_la_CPPFLAGS = -I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/api_scilab/includes/ \
 				-I$(top_srcdir)/modules/string/includes/ \
 				-I$(top_srcdir)/modules/localization/includes/ \
-			    $(XML_FLAGS) \
+			    $(XML_CFLAGS) \
 				$(AM_CPPFLAGS)
 
 if MAINTAINER_MODE
