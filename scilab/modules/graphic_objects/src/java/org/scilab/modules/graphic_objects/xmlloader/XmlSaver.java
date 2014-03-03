@@ -1,14 +1,14 @@
 package org.scilab.modules.graphic_objects.xmlloader;
 
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TAB__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LAYER__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_LAYOUT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_PARENT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TYPE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICONTEXTMENU__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICONTROL__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UIMENU__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LAYER__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TAB__;
 
 import java.io.File;
 
@@ -31,6 +31,7 @@ import org.scilab.modules.graphic_objects.uicontrol.Uicontrol;
 import org.scilab.modules.graphic_objects.uicontrol.Uicontrol.UicontrolStyle;
 import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder;
 import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorderType;
+import org.scilab.modules.graphic_objects.uimenu.Uimenu;
 import org.scilab.modules.graphic_objects.utils.LayoutType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,6 +39,7 @@ import org.w3c.dom.Element;
 
 public class XmlSaver {
     static private Uicontrol defaultUi = null;
+    static private Uimenu defaultMenu = null;
     static private Figure defaultFig = null;
     static private FrameBorder defaultBorder = null;
 
@@ -185,7 +187,7 @@ public class XmlSaver {
             }
             case __GO_UIMENU__ : {
                 //Uimenu uim = (Uimenu)controller.getObjectFromId(id);
-                return doc.createElement("menu");
+                return createUimenu(doc, id, reverseChildren);
             }
             case __GO_UICONTEXTMENU__ : {
                 //Uicontextmenu uicm = (Uicontextmenu)controller.getObjectFromId(id);
@@ -413,6 +415,41 @@ public class XmlSaver {
         return elemUi;
     }
 
+    private static Element createUimenu(Document doc, Integer id, boolean reverseChildren) {
+        GraphicController controller = GraphicController.getController();
+        Uimenu uim = (Uimenu)controller.getObjectFromId(id);
+        initDefaultMenu();
+        Element elemMenu = doc.createElement("menu");
+
+        //enable
+        setAttribute(elemMenu, "enable", createAttribute(uim.getEnable()), createAttribute(defaultMenu.getEnable()));
+        //foregroundcolor
+        setAttribute(elemMenu, "foregroundcolor", createAttribute(uim.getForegroundColor()), createAttribute(defaultMenu.getForegroundColor()));
+        //label
+        setAttribute(elemMenu, "label", createAttribute(uim.getLabel()), createAttribute(defaultMenu.getLabel()));
+        //handle_visible
+        setAttribute(elemMenu, "hidden", createAttribute(uim.isHidden()), createAttribute(defaultMenu.isHidden()));
+        //visible
+        setAttribute(elemMenu, "visible", createAttribute(uim.getVisible()), createAttribute(defaultMenu.getVisible()));
+        //callback
+        setAttribute(elemMenu, "callback", createAttribute(uim.getCallbackString()), createAttribute(defaultMenu.getCallbackString()));
+        //callback_type
+        setAttribute(elemMenu, "callback_type", createAttribute(uim.getCallbackType()), createAttribute(defaultMenu.getCallbackType()));
+        //checked
+        setAttribute(elemMenu, "checked", createAttribute(uim.getChecked()), createAttribute(defaultMenu.getChecked()));
+        //icon
+        setAttribute(elemMenu, "icon", createAttribute(uim.getIcon()), createAttribute(defaultMenu.getIcon()));
+        //tag
+        setAttribute(elemMenu, "tag", createAttribute(uim.getTag()), createAttribute(defaultMenu.getTag()));
+
+        //children
+        Integer[] children = uim.getChildren();
+        for (int i = 0 ; i < children.length ; i++) {
+            elemMenu.appendChild(createElement(doc, children[i], reverseChildren));
+        }
+        return elemMenu;
+    }
+
     private static String createAttribute(Boolean val) {
         if (val == null) {
             return "off";
@@ -533,6 +570,11 @@ public class XmlSaver {
     private static void initDefaultui(Integer uicontrolStyle) {
         Integer uic = GraphicController.getController().askObject(GraphicObject.getTypeFromName(uicontrolStyle));
         defaultUi = (Uicontrol) GraphicController.getController().getObjectFromId(uic);
+    }
+
+    private static void initDefaultMenu() {
+        Integer uic = GraphicController.getController().askObject(GraphicObject.getTypeFromName(__GO_UIMENU__));
+        defaultMenu = (Uimenu) GraphicController.getController().getObjectFromId(uic);
     }
 
 }
