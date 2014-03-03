@@ -1,8 +1,11 @@
 # pkg.m4 - Macros to locate and utilise pkg-config.            -*- Autoconf -*-
 # 
 # Incorporated into Scilab source tree because aclocal had issue to
-# find the macro from time to time
+# find the macro from time to time.
 #
+# CHANGES:
+#  * export pkg-config --mod-version as _VERSION
+
 # Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -114,6 +117,9 @@ AC_MSG_CHECKING([for $1])
 
 _PKG_CONFIG([$1][_CFLAGS], [cflags], [$2])
 _PKG_CONFIG([$1][_LIBS], [libs], [$2])
+if test -n $[$1][_CFLAGS] -a -n $[$1][_LIBS]; then
+        _PKG_CONFIG([$1][_VERSION], [modversion], [$2])
+fi
 
 m4_define([_PKG_TEXT], [Alternatively, you may set the environment variables $1[]_CFLAGS
 and $1[]_LIBS to avoid the need to call pkg-config.
@@ -154,7 +160,9 @@ To get pkg-config, see <http://pkg-config.freedesktop.org/>.])],
 else
 	$1[]_CFLAGS=$pkg_cv_[]$1[]_CFLAGS
 	$1[]_LIBS=$pkg_cv_[]$1[]_LIBS
+	$1[]_VERSION=$pkg_cv_[]$1[]_VERSION
         AC_MSG_RESULT([yes])
 	ifelse([$3], , :, [$3])
 fi[]dnl
 ])# PKG_CHECK_MODULES
+

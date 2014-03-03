@@ -29,7 +29,7 @@ libscijvm_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/dynamic_link/includes/ \
 			-I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c \
-			$(XML_FLAGS) \
+			$(XML_CFLAGS) \
 			-I$(top_srcdir)/modules/output_stream/includes/ \
 			-I$(top_srcdir)/modules/localization/includes/ \
 			-I$(top_srcdir)/modules/string/includes/ \

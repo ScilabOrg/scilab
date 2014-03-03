@@ -2943,7 +2943,8 @@ to "yes", and re-run configure.
 END
     AC_MSG_ERROR([Your 'rm' program is bad, sorry.])
   fi
-fi])
+fi
+])
 
 dnl Hook into '_AC_COMPILER_EXEEXT' early to learn its expansion.  Do not
 dnl add the conditional right here, as _AC_COMPILER_EXEEXT may be further
@@ -3555,10 +3556,8 @@ AC_SUBST([am__untar])
 
 m4_include([m4/backtrace.m4])
 m4_include([m4/compiler.m4])
-m4_include([m4/curl.m4])
 m4_include([m4/docbook.m4])
 m4_include([m4/doxygen.m4])
-m4_include([m4/fftw.m4])
 m4_include([m4/fortran.m4])
 m4_include([m4/giws.m4])
 m4_include([m4/hdf5.m4])
@@ -3569,7 +3568,6 @@ m4_include([m4/largefile.m4])
 m4_include([m4/lib-ld.m4])
 m4_include([m4/libsmath.m4])
 m4_include([m4/libtool.m4])
-m4_include([m4/libxml2.m4])
 m4_include([m4/ltoptions.m4])
 m4_include([m4/ltsugar.m4])
 m4_include([m4/ltversion.m4])
@@ -3577,7 +3575,6 @@ m4_include([m4/lt~obsolete.m4])
 m4_include([m4/macosx.m4])
 m4_include([m4/mpi.m4])
 m4_include([m4/ocaml.m4])
-m4_include([m4/pcre.m4])
 m4_include([m4/pkg.m4])
 m4_include([m4/relocatable.m4])
 m4_include([m4/swig.m4])

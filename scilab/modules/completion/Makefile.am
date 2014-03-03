@@ -60,7 +60,7 @@ libscicompletion_la_CPPFLAGS = -I$(srcdir)/includes/ \
     -I$(top_srcdir)/modules/xml/src/cpp/ \
     -I$(top_srcdir)/modules/external_objects/includes \
     $(JAVA_JNI_INCLUDE) \
-    $(XML_FLAGS) \
+    $(XML_CFLAGS) \
     $(COMPLETION_FLAGS) \
     $(AM_CPPFLAGS)
 
