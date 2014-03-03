@@ -116,19 +116,17 @@ subdir = modules/statistics
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx_11.m4 \
 	$(top_srcdir)/m4/backtrace.m4 $(top_srcdir)/m4/compiler.m4 \
-	$(top_srcdir)/m4/curl.m4 $(top_srcdir)/m4/docbook.m4 \
-	$(top_srcdir)/m4/doxygen.m4 $(top_srcdir)/m4/eigen.m4 \
-	$(top_srcdir)/m4/fftw.m4 $(top_srcdir)/m4/fortran.m4 \
+	$(top_srcdir)/m4/docbook.m4 $(top_srcdir)/m4/doxygen.m4 \
+	$(top_srcdir)/m4/eigen.m4 $(top_srcdir)/m4/fortran.m4 \
 	$(top_srcdir)/m4/giws.m4 $(top_srcdir)/m4/hdf5.m4 \
 	$(top_srcdir)/m4/intel_compiler.m4 \
 	$(top_srcdir)/m4/java-thirdparty.m4 $(top_srcdir)/m4/java.m4 \
 	$(top_srcdir)/m4/largefile.m4 $(top_srcdir)/m4/lib-ld.m4 \
 	$(top_srcdir)/m4/libsmath.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/libxml2.m4 $(top_srcdir)/m4/ltoptions.m4 \
-	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
-	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/macosx.m4 \
-	$(top_srcdir)/m4/mpi.m4 $(top_srcdir)/m4/ocaml.m4 \
-	$(top_srcdir)/m4/pcre.m4 $(top_srcdir)/m4/pkg.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/m4/macosx.m4 $(top_srcdir)/m4/mpi.m4 \
+	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/pkg.m4 \
 	$(top_srcdir)/m4/relocatable.m4 $(top_srcdir)/m4/swig.m4 \
 	$(top_srcdir)/m4/symlinks.m4 $(top_srcdir)/m4/tcltk.m4 \
 	$(top_srcdir)/m4/umfpack.m4 $(top_srcdir)/configure.ac
@@ -339,7 +337,6 @@ COMMONS_LOGGING = @COMMONS_LOGGING@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CURL_CFLAGS = @CURL_CFLAGS@
-CURL_CONFIG = @CURL_CONFIG@
 CURL_LIBS = @CURL_LIBS@
 CURL_VERSION = @CURL_VERSION@
 CXX = @CXX@
@@ -364,8 +361,9 @@ EIGEN_CPPFLAGS = @EIGEN_CPPFLAGS@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
-FFTW3_LIB = @FFTW3_LIB@
+FFTW_CFLAGS = @FFTW_CFLAGS@
 FFTW_ENABLE = @FFTW_ENABLE@
+FFTW_LIBS = @FFTW_LIBS@
 FGREP = @FGREP@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
@@ -442,8 +440,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MATIO_CFLAGS = @MATIO_CFLAGS@
-MATIO_ENABLE = @MATIO_ENABLE@
 MATIO_LIBS = @MATIO_LIBS@
+MATIO_VERSION = @MATIO_VERSION@
 MKDIR_P = @MKDIR_P@
 MPI_ENABLE = @MPI_ENABLE@
 MSGCAT = @MSGCAT@
@@ -479,7 +477,6 @@ PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PCRE_CFLAGS = @PCRE_CFLAGS@
-PCRE_CONFIG = @PCRE_CONFIG@
 PCRE_LIBS = @PCRE_LIBS@
 PCRE_VERSION = @PCRE_VERSION@
 PKG_CONFIG = @PKG_CONFIG@
@@ -522,6 +519,7 @@ USE_NLS = @USE_NLS@
 VALGRIND_CFLAGS = @VALGRIND_CFLAGS@
 VALGRIND_LIBS = @VALGRIND_LIBS@
 VERSION = @VERSION@
+WITH_MATIO = @WITH_MATIO@
 WITH_OCAML = @WITH_OCAML@
 WITH_TKSCI = @WITH_TKSCI@
 XCOS_ENABLE = @XCOS_ENABLE@
@@ -531,8 +529,7 @@ XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 XMKMF = @XMKMF@
 XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
 XML_APIS_EXT = @XML_APIS_EXT@
-XML_CONFIG = @XML_CONFIG@
-XML_FLAGS = @XML_FLAGS@
+XML_CFLAGS = @XML_CFLAGS@
 XML_LIBS = @XML_LIBS@
 XML_VERSION = @XML_VERSION@
 X_CFLAGS = @X_CFLAGS@

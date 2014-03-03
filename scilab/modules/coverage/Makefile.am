@@ -61,7 +61,7 @@ libscicoverage_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes/ \
     -I$(top_srcdir)/modules/dynamic_link/includes \
     -I$(top_srcdir)/modules/threads/includes/ \
-    $(XML_FLAGS) \
+    $(XML_CFLAGS) \
     $(COVERAGE_FLAGS) \
     $(AM_CPPFLAGS)
 

@@ -61,7 +61,7 @@ libscipreferences_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c/ \
     -I$(srcdir)/src/jni/ \
-    $(XML_FLAGS) \
+    $(XML_CFLAGS) \
     -I$(top_srcdir)/modules/ast/includes/ast/ \
     -I$(top_srcdir)/modules/ast/includes/analysis/ \
     -I$(top_srcdir)/modules/ast/includes/exps/ \

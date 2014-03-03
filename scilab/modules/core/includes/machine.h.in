@@ -14,15 +14,6 @@
 /* Cname */
 #undef CNAME
 
-/* CURL flags */
-#undef CURL_CFLAGS
-
-/* CURL library */
-#undef CURL_LIBS
-
-/* CURL version */
-#undef CURL_VERSION
-
 /* Have MPI features */
 #undef ENABLE_MPI
 
@@ -71,9 +62,6 @@
 
 /* HAVE_CPLUS_DEMANGLE */
 #undef HAVE_CPLUS_DEMANGLE
-
-/* Define to 1 if you have the <curl.h> header file. */
-#undef HAVE_CURL_H
 
 /* Define to 1 if you have the <curses.h> header file. */
 #undef HAVE_CURSES_H
@@ -167,9 +155,6 @@
 /* Define to 1 if you have the `iswprint' function. */
 #undef HAVE_ISWPRINT
 
-/* Define to 1 if you have the `curl' library (-lcurl). */
-#undef HAVE_LIBCURL
-
 /* Define to 1 if you have the `curses' library (-lcurses). */
 #undef HAVE_LIBCURSES
 
@@ -185,20 +170,8 @@
 /* Define to 1 if you have the <libintl.h> header file. */
 #undef HAVE_LIBINTL_H
 
-/* Define to 1 if you have the `matio' library (-lmatio). */
-#undef HAVE_LIBMATIO
-
 /* Define to 1 if you have the `ncurses' library (-lncurses). */
 #undef HAVE_LIBNCURSES
-
-/* Define to 1 if you have the `pcre' library (-lpcre). */
-#undef HAVE_LIBPCRE
-
-/* Define to 1 if you have the `pcreposix' library (-lpcreposix). */
-#undef HAVE_LIBPCREPOSIX
-
-/* Define to 1 if you have the `xml2' library (-lxml2). */
-#undef HAVE_LIBXML2
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
@@ -211,9 +184,6 @@
 
 /* Define to 1 if you have the <malloc.h> header file. */
 #undef HAVE_MALLOC_H
-
-/* Define to 1 if you have the <matio.h> header file. */
-#undef HAVE_MATIO_H
 
 /* Define to 1 if you have the `memmove' function. */
 #undef HAVE_MEMMOVE
@@ -247,9 +217,6 @@
 
 /* Define to 1 if you have the <omp.h> header file. */
 #undef HAVE_OMP_H
-
-/* Define to 1 if you have the <pcre.h> header file. */
-#undef HAVE_PCRE_H
 
 /* Define to 1 if you have the `pow' function. */
 #undef HAVE_POW
@@ -432,12 +399,6 @@
 /* Define to the value of ${prefix}, as a string. */
 #undef INSTALLPREFIX
 
-/* libXML2 flags */
-#undef LIBXML_FLAGS
-
-/* libXML2 library */
-#undef LIBXML_LIBS
-
 /* Define to 1 if `lstat' dereferences a symlink specified with a trailing
    slash. */
 #undef LSTAT_FOLLOWS_SLASHED_SYMLINK
@@ -472,15 +433,6 @@
 
 /* The default path separator character. */
 #undef PATH_SEPARATOR
-
-/* PCRE flags */
-#undef PCRE_CFLAGS
-
-/* PCRE library */
-#undef PCRE_LIBS
-
-/* PCRE version */
-#undef PCRE_VERSION
 
 /* Define as the return type of signal handlers (`int' or `void'). */
 #undef RETSIGTYPE
@@ -518,7 +470,7 @@
 /* With the EIGEN library */
 #undef WITH_EIGEN
 
-/* With the FFTW library */
+/* With the FFTW 3 library */
 #undef WITH_FFTW
 
 /* With the JAVA stuff (GUI, Console, JOGL...) */

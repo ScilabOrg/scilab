@@ -61,7 +61,7 @@ libsciio_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/console/includes \
     -I$(top_srcdir)/modules/hdf5/includes \
     -I$(top_srcdir)/modules/tclsci/includes \
-    $(XML_FLAGS) \
+    $(XML_CFLAGS) \
     $(AM_CPPFLAGS)
 
 if MAINTAINER_MODE

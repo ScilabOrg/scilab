@@ -681,7 +681,8 @@ SAXON
 DOCBOOK_ROOT
 MATIO_FALSE
 MATIO_TRUE
-MATIO_ENABLE
+WITH_MATIO
+MATIO_VERSION
 MATIO_LIBS
 MATIO_CFLAGS
 TCLTK_FALSE
@@ -698,11 +699,6 @@ XMKMF
 CURL_VERSION
 CURL_LIBS
 CURL_CFLAGS
-CURL_CONFIG
-PCRE_VERSION
-PCRE_LIBS
-PCRE_CFLAGS
-PCRE_CONFIG
 UMFPACK_FALSE
 UMFPACK_TRUE
 UMFPACK_ENABLE
@@ -722,8 +718,7 @@ ALL_LINGUAS_DOC
 ALL_LINGUAS
 XML_VERSION
 XML_LIBS
-XML_FLAGS
-XML_CONFIG
+XML_CFLAGS
 OPENMP_FALSE
 OPENMP_TRUE
 OPENMP_LIBS
@@ -743,7 +738,11 @@ CXXCPP
 FFTW_FALSE
 FFTW_TRUE
 FFTW_ENABLE
-FFTW3_LIB
+PCRE_VERSION
+PCRE_CFLAGS
+PCRE_LIBS
+FFTW_LIBS
+FFTW_CFLAGS
 POSUB
 LTLIBINTL
 LIBINTL
@@ -1035,12 +1034,9 @@ enable_nls
 with_libiconv_prefix
 with_libintl_prefix
 with_fftw
-with_fftw_include
-with_fftw_library
 with_eigen_include
 with_mpi
 with_openmp
-with_libxml2
 enable_build_localization
 with_blas_library
 with_lapack_library
@@ -1049,16 +1045,12 @@ with_arpack_library
 with_umfpack
 with_umfpack_library
 with_umfpack_include
-with_pcre
-with_curl
 with_tcl_library
 with_tcl_include
 with_tk_library
 with_tk_include
 with_x
 with_matio
-with_matio_include
-with_matio_library
 enable_build_help
 with_docbook
 with_install_help_xml
@@ -1090,7 +1082,11 @@ CXXFLAGS
 CCC
 YACC
 YFLAGS
+FFTW_CFLAGS
+FFTW_LIBS
 CXXCPP
+XML_CFLAGS
+XML_LIBS
 BLAS_CFLAGS
 BLAS_LIBS
 PCRE_CFLAGS
@@ -1809,14 +1805,11 @@ Optional Packages:
   --with-libintl-prefix[=DIR]  search for libintl in DIR/include and DIR/lib
   --without-libintl-prefix     don't search for libintl in includedir and libdir
   --without-fftw          Disable the interface to the FFTW 3 library
-  --with-fftw-include=DIR Set the path to the FFTW headers
-  --with-fftw-library=DIR Set the path to the FFTW libraries
   --with-eigen-include=DIR
                           Set the path to the EIGEN headers
   --with-mpi              compile with MPI library
   --without-openmp        Disable the usage of OpenMP (parallelization of some
                           algoritms)
-  --with-libxml2=PREFIX   Set the path to your libxml2 installation
   --with-blas-library=DIR set the path to the BLAS (refblas, Atlas, MKL...)
                           library
   --with-lapack-library=DIR
@@ -1829,9 +1822,6 @@ Optional Packages:
                           Set the path to the UMFPACK libraries
   --with-umfpack-include=DIR
                           Set the path to the UMFPACK headers
-  --with-pcre=DIR         Set the path to your PCRE (Perl 5 Compatible Regular
-                          Expression Library) installation
-  --with-curl=DIR         Set the path to your CURL installation
   --with-tcl-library=DIR  Set the path to the TCL library
   --with-tcl-include=DIR  Set the path to the TCL headers
   --with-tk-library=DIR   Set the path to the TK library
@@ -1839,10 +1829,6 @@ Optional Packages:
   --with-x                use the X Window System
   --without-matio         Disable the interface to Matio (MAT File I/O
                           library)
-  --with-matio-include=DIR
-                          Set the path to the MATIO headers
-  --with-matio-library=DIR
-                          Set the path to the MATIO libraries
   --with-docbook=DIR      Set the path to the docbook package
   --with-install-help-xml make install will install XML files
 
@@ -1872,7 +1858,11 @@ Some influential environment variables:
   YFLAGS      The list of arguments that will be passed by default to $YACC.
               This script will default YFLAGS to the empty string to avoid a
               default value of `-d' given by some make applications.
+  FFTW_CFLAGS C compiler flags for FFTW, overriding pkg-config
+  FFTW_LIBS   linker flags for FFTW, overriding pkg-config
   CXXCPP      C++ preprocessor
+  XML_CFLAGS  C compiler flags for XML, overriding pkg-config
+  XML_LIBS    linker flags for XML, overriding pkg-config
   BLAS_CFLAGS C compiler flags for BLAS, overriding pkg-config
   BLAS_LIBS   linker flags for BLAS, overriding pkg-config
   PCRE_CFLAGS C compiler flags for PCRE, overriding pkg-config
@@ -6332,7 +6322,6 @@ if test "${enable_build_swig+set}" = set; then :
 fi
 
 
-
 # Check whether --enable-build-giws was given.
 if test "${enable_build_giws+set}" = set; then :
   enableval=$enable_build_giws;
@@ -6350,6 +6339,122 @@ fi
 ########## compilator & misc programs detection
 ################################################
 
+
+
+if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
+	if test -n "$ac_tool_prefix"; then
+  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
+set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_PKG_CONFIG+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+PKG_CONFIG=$ac_cv_path_PKG_CONFIG
+if test -n "$PKG_CONFIG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PKG_CONFIG" >&5
+$as_echo "$PKG_CONFIG" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+fi
+if test -z "$ac_cv_path_PKG_CONFIG"; then
+  ac_pt_PKG_CONFIG=$PKG_CONFIG
+  # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_ac_pt_PKG_CONFIG+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $ac_pt_PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
+if test -n "$ac_pt_PKG_CONFIG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_pt_PKG_CONFIG" >&5
+$as_echo "$ac_pt_PKG_CONFIG" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+  if test "x$ac_pt_PKG_CONFIG" = x; then
+    PKG_CONFIG=""
+  else
+    case $cross_compiling:$ac_tool_warned in
+yes:)
+{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: using cross tools not prefixed with host triplet" >&5
+$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
+ac_tool_warned=yes ;;
+esac
+    PKG_CONFIG=$ac_pt_PKG_CONFIG
+  fi
+else
+  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
+fi
+
+fi
+if test -n "$PKG_CONFIG"; then
+	_pkg_min_version=0.9.0
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking pkg-config is at least version $_pkg_min_version" >&5
+$as_echo_n "checking pkg-config is at least version $_pkg_min_version... " >&6; }
+	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	else
+		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+		PKG_CONFIG=""
+	fi
+
+fi
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -6635,127 +6740,6 @@ case "$host" in
     fi
 ;;
 esac
-
-
-#####################################################
-## Look for pkg-config
-#####################################################
-
-
-if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
-	if test -n "$ac_tool_prefix"; then
-  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
-set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_PKG_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $PKG_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-PKG_CONFIG=$ac_cv_path_PKG_CONFIG
-if test -n "$PKG_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PKG_CONFIG" >&5
-$as_echo "$PKG_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-fi
-if test -z "$ac_cv_path_PKG_CONFIG"; then
-  ac_pt_PKG_CONFIG=$PKG_CONFIG
-  # Extract the first word of "pkg-config", so it can be a program name with args.
-set dummy pkg-config; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_ac_pt_PKG_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $ac_pt_PKG_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
-if test -n "$ac_pt_PKG_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_pt_PKG_CONFIG" >&5
-$as_echo "$ac_pt_PKG_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-  if test "x$ac_pt_PKG_CONFIG" = x; then
-    PKG_CONFIG=""
-  else
-    case $cross_compiling:$ac_tool_warned in
-yes:)
-{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: using cross tools not prefixed with host triplet" >&5
-$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
-ac_tool_warned=yes ;;
-esac
-    PKG_CONFIG=$ac_pt_PKG_CONFIG
-  fi
-else
-  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
-fi
-
-fi
-if test -n "$PKG_CONFIG"; then
-	_pkg_min_version=0.9.0
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking pkg-config is at least version $_pkg_min_version" >&5
-$as_echo_n "checking pkg-config is at least version $_pkg_min_version... " >&6; }
-	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	else
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-		PKG_CONFIG=""
-	fi
-
-fi
 
 #####################################################
 ## check if options are correct (or not)
@@ -11678,7 +11662,7 @@ $as_echo "$ac_java_classpath" >&6; }
 $as_echo_n "checking to see if the java compiler works... " >&6; }
 
     cat << \EOF > conftest.java
-// #line 11681 "configure"
+// #line 11665 "configure"
 import java.util.regex.Pattern;
 
 
@@ -11765,7 +11749,7 @@ $as_echo_n "checking type of jvm... " >&6; }
     if test "x$ac_java_jvm_name" = "x" ; then
 
     cat << \EOF > conftest.java
-// #line 11768 "configure"
+// #line 11752 "configure"
 import java.util.regex.Pattern;
 
 import gnu.java.io.EncodingManager;
@@ -11849,7 +11833,7 @@ $as_echo_n "checking java API version... " >&6; }
     # The class java.nio.charset.Charset is new to 1.4
 
     cat << \EOF > conftest.java
-// #line 11852 "configure"
+// #line 11836 "configure"
 import java.util.regex.Pattern;
 
 import java.nio.charset.Charset;
@@ -11914,7 +11898,7 @@ EOF
     # The class java.lang.StringBuilder is new to 1.5
 
     cat << \EOF > conftest.java
-// #line 11917 "configure"
+// #line 11901 "configure"
 import java.util.regex.Pattern;
 
 import java.lang.StringBuilder;
@@ -11979,7 +11963,7 @@ EOF
     # The class java.util.ArrayDeque is new to 1.6
 
     cat << \EOF > conftest.java
-// #line 11982 "configure"
+// #line 11966 "configure"
 import java.util.regex.Pattern;
 
 import java.util.ArrayDeque;
@@ -12044,7 +12028,7 @@ EOF
     # The class java.nio.file.Path is new to 1.7
 
     cat << \EOF > conftest.java
-// #line 12047 "configure"
+// #line 12031 "configure"
 import java.util.regex.Pattern;
 
 import java.nio.file.Path;
@@ -12109,7 +12093,7 @@ EOF
     # The class java.util.stream.DoubleStream is new to 1.8
 
     cat << \EOF > conftest.java
-// #line 12112 "configure"
+// #line 12096 "configure"
 import java.util.regex.Pattern;
 
 import java.util.stream.DoubleStream;
@@ -13572,7 +13556,7 @@ fi
                    # jgraphx
 
     cat << \EOF > conftestSharedChecker.java
-// #line 13575 "configure"
+// #line 13559 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -13761,7 +13745,7 @@ $as_echo_n "checking jgraphx... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 13764 "configure"
+// #line 13748 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -13982,7 +13966,7 @@ $as_echo_n "checking scirenderer... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 13985 "configure"
+// #line 13969 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -14209,7 +14193,7 @@ $as_echo_n "checking flexdock... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 14212 "configure"
+// #line 14196 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -14428,7 +14412,7 @@ $as_echo_n "checking looks... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 14431 "configure"
+// #line 14415 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -14647,7 +14631,7 @@ $as_echo_n "checking jgoodies-looks... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 14650 "configure"
+// #line 14634 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -14867,7 +14851,7 @@ $as_echo_n "checking skinlf... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 14870 "configure"
+// #line 14854 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -15086,7 +15070,7 @@ $as_echo_n "checking jogl2... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 15089 "configure"
+// #line 15073 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -15297,7 +15281,7 @@ $as_echo_n "checking minimal version (Specification-Version 2.2) of jogl2... " >
     if test "x" == "x"; then
 
     cat << \EOF > conftest.java
-// #line 15300 "configure"
+// #line 15284 "configure"
 import java.util.regex.Pattern;
 
 import java.io.IOException;
@@ -15374,7 +15358,7 @@ EOF
     else
 
     cat << \EOF > conftest.java
-// #line 15377 "configure"
+// #line 15361 "configure"
 import java.util.regex.Pattern;
 
 import java.io.IOException;
@@ -15573,7 +15557,7 @@ $as_echo_n "checking gluegen2-rt... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 15576 "configure"
+// #line 15560 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -15849,7 +15833,7 @@ $as_echo_n "checking jhall... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 15852 "configure"
+// #line 15836 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16066,7 +16050,7 @@ $as_echo_n "checking javahelp2... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16069 "configure"
+// #line 16053 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16286,7 +16270,7 @@ $as_echo_n "checking jrosetta-API... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16289 "configure"
+// #line 16273 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16502,7 +16486,7 @@ $as_echo_n "checking jrosetta-api... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16505 "configure"
+// #line 16489 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16722,7 +16706,7 @@ $as_echo_n "checking jrosetta-engine... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16725 "configure"
+// #line 16709 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16943,7 +16927,7 @@ $as_echo_n "checking jeuclid-core... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16946 "configure"
+// #line 16930 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17164,7 +17148,7 @@ $as_echo_n "checking fop... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17167 "configure"
+// #line 17151 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17390,7 +17374,7 @@ $as_echo_n "checking freehep-graphics2d... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17393 "configure"
+// #line 17377 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17609,7 +17593,7 @@ $as_echo_n "checking freehep-graphicsio... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17612 "configure"
+// #line 17596 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17828,7 +17812,7 @@ $as_echo_n "checking freehep-graphicsio-emf... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17831 "configure"
+// #line 17815 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18047,7 +18031,7 @@ $as_echo_n "checking freehep-io... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18050 "configure"
+// #line 18034 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18266,7 +18250,7 @@ $as_echo_n "checking freehep-util... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18269 "configure"
+// #line 18253 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18486,7 +18470,7 @@ $as_echo_n "checking batik-all... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18489 "configure"
+// #line 18473 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18705,7 +18689,7 @@ $as_echo_n "checking batik... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18708 "configure"
+// #line 18692 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18925,7 +18909,7 @@ $as_echo_n "checking commons-io... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18928 "configure"
+// #line 18912 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19144,7 +19128,7 @@ $as_echo_n "checking xmlgraphics-commons... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19147 "configure"
+// #line 19131 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19363,7 +19347,7 @@ $as_echo_n "checking avalon-framework... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19366 "configure"
+// #line 19350 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19582,7 +19566,7 @@ $as_echo_n "checking xml-apis-ext... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19585 "configure"
+// #line 19569 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19801,7 +19785,7 @@ $as_echo_n "checking xml-commons-apis-ext... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19804 "configure"
+// #line 19788 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20024,7 +20008,7 @@ $as_echo_n "checking commons-logging... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20027 "configure"
+// #line 20011 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20243,7 +20227,7 @@ $as_echo_n "checking jlatexmath... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20246 "configure"
+// #line 20230 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20462,7 +20446,7 @@ $as_echo_n "checking jlatexmath-fop... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20465 "configure"
+// #line 20449 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20687,7 +20671,7 @@ $as_echo_n "checking checkstyle... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20690 "configure"
+// #line 20674 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20906,7 +20890,7 @@ $as_echo_n "checking commons-beanutils... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20909 "configure"
+// #line 20893 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21125,7 +21109,7 @@ $as_echo_n "checking antlr... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21128 "configure"
+// #line 21112 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21344,7 +21328,7 @@ $as_echo_n "checking junit4... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21347 "configure"
+// #line 21331 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21560,7 +21544,7 @@ $as_echo_n "checking junit... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21563 "configure"
+// #line 21547 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21783,7 +21767,7 @@ $as_echo_n "checking hamcrest-all... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21786 "configure"
+// #line 21770 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21999,7 +21983,7 @@ $as_echo_n "checking hamcrest/all... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22002 "configure"
+// #line 21986 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22219,7 +22203,7 @@ $as_echo_n "checking cobertura... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22222 "configure"
+// #line 22206 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22438,7 +22422,7 @@ $as_echo_n "checking asm3... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22441 "configure"
+// #line 22425 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22654,7 +22638,7 @@ $as_echo_n "checking asm... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22657 "configure"
+// #line 22641 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22873,7 +22857,7 @@ $as_echo_n "checking ecj... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22876 "configure"
+// #line 22860 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -26859,166 +26843,127 @@ fi
 FFTW_ENABLE=no
 if test "$with_fftw" != no; then
 
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for FFTW" >&5
+$as_echo_n "checking for FFTW... " >&6; }
 
-
-# Check whether --with-fftw_include was given.
-if test "${with_fftw_include+set}" = set; then :
-  withval=$with_fftw_include; with_fftw_include=$withval
-else
-  with_fftw_include='yes'
-
-fi
-
-
-
-# Check whether --with-fftw_library was given.
-if test "${with_fftw_library+set}" = set; then :
-  withval=$with_fftw_library; with_fftw_library=$withval
-else
-  with_fftw_library='yes'
-
-fi
-
-
-if test "x$with_fftw_include" != "xyes"; then
-	save_CFLAGS="$CFLAGS"
-	CFLAGS="-I$with_fftw_include"
-	ac_fn_c_check_header_mongrel "$LINENO" "fftw3.h" "ac_cv_header_fftw3_h" "$ac_includes_default"
-if test "x$ac_cv_header_fftw3_h" = xyes; then :
-  FFTW3_CFLAGS="$CFLAGS"
-else
-  as_fn_error $? "Cannot find headers (fftw3.h) of the library FFTW in $with_fftw_include. Please install the dev package (Debian : libfftw3-dev)" "$LINENO" 5
-
-fi
-
-
-	CFLAGS="$save_CFLAGS"
-else
-    if $WITH_DEVTOOLS; then # Scilab thirdparties
-        FFTW3_CFLAGS="-I$DEVTOOLS_INCDIR"
+if test -n "$PKG_CONFIG"; then
+    if test -n "$FFTW_CFLAGS"; then
+        pkg_cv_FFTW_CFLAGS="$FFTW_CFLAGS"
     else
-        ac_fn_c_check_header_mongrel "$LINENO" "fftw3.h" "ac_cv_header_fftw3_h" "$ac_includes_default"
-if test "x$ac_cv_header_fftw3_h" = xyes; then :
-  FFTW3_CFLAGS=""
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"fftw3\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "fftw3") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_FFTW_CFLAGS=`$PKG_CONFIG --cflags "fftw3" 2>/dev/null`
 else
-  as_fn_error $? "Cannot find headers (fftw3.h) of the library fftw. Please install the dev package (Debian : libfftw3-dev)" "$LINENO" 5
+  pkg_failed=yes
 fi
-
-
     fi
-fi
-
-
-# --with-fftw-library set then check in this dir
-if test "x$with_fftw_library" != "xyes"; then
-    save_LIBS="$LIBS"
-    LIBS="-L$with_fftw_library -lfftw3"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for fftw_plan_dft_r2c in -lfftw3" >&5
-$as_echo_n "checking for fftw_plan_dft_r2c in -lfftw3... " >&6; }
-if ${ac_cv_lib_fftw3_fftw_plan_dft_r2c+:} false; then :
-  $as_echo_n "(cached) " >&6
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lfftw3  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char fftw_plan_dft_r2c ();
-int
-main ()
-{
-return fftw_plan_dft_r2c ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_fftw3_fftw_plan_dft_r2c=yes
-else
-  ac_cv_lib_fftw3_fftw_plan_dft_r2c=no
+	pkg_failed=untried
 fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_fftw3_fftw_plan_dft_r2c" >&5
-$as_echo "$ac_cv_lib_fftw3_fftw_plan_dft_r2c" >&6; }
-if test "x$ac_cv_lib_fftw3_fftw_plan_dft_r2c" = xyes; then :
-  FFTW3_LIB="-L$with_fftw_library -lfftw3"
-else
-  as_fn_error $? "libfftw3 : library missing. (Cannot find symbol fftw_plan_dft_r2c) in $with_fftw_library. Check if libfftw3 is installed and if the version is correct" "$LINENO" 5
-
-fi
-
-    LIBS="$save_LIBS"
-else
-    save_LIBS="$LIBS"
-    if $WITH_DEVTOOLS; then # Scilab thirdparties
-        FFTW3_LIB="-L$DEVTOOLS_LIBDIR -lfftw3"
+if test -n "$PKG_CONFIG"; then
+    if test -n "$FFTW_LIBS"; then
+        pkg_cv_FFTW_LIBS="$FFTW_LIBS"
     else
-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for fftw_plan_dft_r2c in -lfftw3" >&5
-$as_echo_n "checking for fftw_plan_dft_r2c in -lfftw3... " >&6; }
-if ${ac_cv_lib_fftw3_fftw_plan_dft_r2c+:} false; then :
-  $as_echo_n "(cached) " >&6
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"fftw3\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "fftw3") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_FFTW_LIBS=`$PKG_CONFIG --libs "fftw3" 2>/dev/null`
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lfftw3  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char fftw_plan_dft_r2c ();
-int
-main ()
-{
-return fftw_plan_dft_r2c ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_fftw3_fftw_plan_dft_r2c=yes
-else
-  ac_cv_lib_fftw3_fftw_plan_dft_r2c=no
+  pkg_failed=yes
 fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_fftw3_fftw_plan_dft_r2c" >&5
-$as_echo "$ac_cv_lib_fftw3_fftw_plan_dft_r2c" >&6; }
-if test "x$ac_cv_lib_fftw3_fftw_plan_dft_r2c" = xyes; then :
-  FFTW3_LIB="-lfftw3"
-else
-  as_fn_error $? "libfftw3 : library missing. (Cannot find symbol fftw_plan_dft_r2c). Check if libfftw3 is installed and if the version is correct" "$LINENO" 5
-
-fi
-
     fi
-    LIBS="$save_LIBS"
+else
+	pkg_failed=untried
 fi
+if test -n $FFTW_CFLAGS -a -n $FFTW_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$FFTW_VERSION"; then
+        pkg_cv_FFTW_VERSION="$FFTW_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"fftw3\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "fftw3") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_FFTW_VERSION=`$PKG_CONFIG --modversion "fftw3" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        FFTW_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "fftw3"`
+        else
+	        FFTW_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "fftw3"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$FFTW_PKG_ERRORS" >&5
+
+	as_fn_error $? "Package requirements (fftw3) were not met:
+
+$FFTW_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables FFTW_CFLAGS
+and FFTW_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" "$LINENO" 5
+elif test $pkg_failed = untried; then
+	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables FFTW_CFLAGS
+and FFTW_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details" "$LINENO" 5; }
+else
+	FFTW_CFLAGS=$pkg_cv_FFTW_CFLAGS
+	FFTW_LIBS=$pkg_cv_FFTW_LIBS
+	FFTW_VERSION=$pkg_cv_FFTW_VERSION
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	:
+fi
+
+
+
 
 
 $as_echo "#define WITH_FFTW /**/" >>confdefs.h
 
-
-
-   FFTW_ENABLE=yes
+  FFTW_ENABLE=yes
 fi
 
-
- if test "$with_fftw" != no; then
+ if test "$FFTW_ENABLE" != no; then
   FFTW_TRUE=
   FFTW_FALSE='#'
 else
@@ -27244,7 +27189,7 @@ CHK_EIGEN_MINOR=0
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking if Eigen is version $CHK_EIGEN_WORLD.$CHK_EIGEN_MAJOR.$CHK_EIGEN_MINOR or later" >&5
 $as_echo_n "checking if Eigen is version $CHK_EIGEN_WORLD.$CHK_EIGEN_MAJOR.$CHK_EIGEN_MINOR or later... " >&6; }
 cat > conftest.$ac_ext <<EOF
-#line 27247 "configure"
+#line 27192 "configure"
 #include "confdefs.h"
 
 #include "$PATH_TO_EIGEN/Eigen/Sparse"
@@ -27538,219 +27483,118 @@ fi
 #######################
 
 
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for XML" >&5
+$as_echo_n "checking for XML... " >&6; }
 
-
-# Check whether --with-libxml2 was given.
-if test "${with_libxml2+set}" = set; then :
-  withval=$with_libxml2; with_libxml2=$withval
-else
-  with_libxml2='yes'
-
-fi
-
-
-if test "$with_libxml2" != 'yes' -a "$with_libxml2" != 'no'; then
-    # Look if xml-config xml2_config (which provides cflags and ldflags) is available
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking libxml2, for xml-config" >&5
-$as_echo_n "checking libxml2, for xml-config... " >&6; }
-    XML_CONFIG="$with_libxml2/bin/xml2-config"
-    if test -x "$XML_CONFIG"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $XML_CONFIG" >&5
-$as_echo "$XML_CONFIG" >&6; }
+if test -n "$PKG_CONFIG"; then
+    if test -n "$XML_CFLAGS"; then
+        pkg_cv_XML_CFLAGS="$XML_CFLAGS"
     else
-        as_fn_error $? "Unable to find $XML_CONFIG. Please check the path you provided" "$LINENO" 5
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxml-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libxml-2.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_XML_CFLAGS=`$PKG_CONFIG --cflags "libxml-2.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
     fi
 else
-    if $WITH_DEVTOOLS; then # Scilab thirparties
-        XML_CONFIG="$DEVTOOLS_BINDIR/xml2-config"
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$XML_LIBS"; then
+        pkg_cv_XML_LIBS="$XML_LIBS"
     else
-        for ac_prog in xml2-config
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_XML_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxml-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libxml-2.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_XML_LIBS=`$PKG_CONFIG --libs "libxml-2.0" 2>/dev/null`
 else
-  if test -n "$XML_CONFIG"; then
-  ac_cv_prog_XML_CONFIG="$XML_CONFIG" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_XML_CONFIG="$ac_prog"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
+  pkg_failed=yes
 fi
-fi
-XML_CONFIG=$ac_cv_prog_XML_CONFIG
-if test -n "$XML_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $XML_CONFIG" >&5
-$as_echo "$XML_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$XML_CONFIG" && break
-done
-test -n "$XML_CONFIG" || XML_CONFIG="no"
-
     fi
-    if test "x$XML_CONFIG" = "xno"; then
-        as_fn_error $? "Unable to find xml2-config in the path. Please check your installation of libxml2" "$LINENO" 5
+else
+	pkg_failed=untried
+fi
+if test -n $XML_CFLAGS -a -n $XML_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$XML_VERSION"; then
+        pkg_cv_XML_VERSION="$XML_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libxml-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libxml-2.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_XML_VERSION=`$PKG_CONFIG --modversion "libxml-2.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
     fi
-fi
-saved_cflags=$CFLAGS
-saved_LIBS="$LIBS"
-
-XML_FLAGS=`$XML_CONFIG --cflags`
-XML_LIBS=`$XML_CONFIG --libs`
-XML_VERSION=`$XML_CONFIG --version`
-
-CFLAGS="$CFLAGS $XML_FLAGS"
-LIBS="$LIBS $XML_LIBS"
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for xmlReaderForFile in -lxml2" >&5
-$as_echo_n "checking for xmlReaderForFile in -lxml2... " >&6; }
-if ${ac_cv_lib_xml2_xmlReaderForFile+:} false; then :
-  $as_echo_n "(cached) " >&6
 else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lxml2  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
+	pkg_failed=untried
+fi
+fi
 
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char xmlReaderForFile ();
-int
-main ()
-{
-return xmlReaderForFile ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_xml2_xmlReaderForFile=yes
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
 else
-  ac_cv_lib_xml2_xmlReaderForFile=no
+        _pkg_short_errors_supported=no
 fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_xml2_xmlReaderForFile" >&5
-$as_echo "$ac_cv_lib_xml2_xmlReaderForFile" >&6; }
-if test "x$ac_cv_lib_xml2_xmlReaderForFile" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBXML2 1
-_ACEOF
+        if test $_pkg_short_errors_supported = yes; then
+	        XML_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libxml-2.0"`
+        else
+	        XML_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libxml-2.0"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$XML_PKG_ERRORS" >&5
 
-  LIBS="-lxml2 $LIBS"
+	as_fn_error $? "Package requirements (libxml-2.0) were not met:
 
+$XML_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables XML_CFLAGS
+and XML_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" "$LINENO" 5
+elif test $pkg_failed = untried; then
+	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables XML_CFLAGS
+and XML_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details" "$LINENO" 5; }
 else
-  as_fn_error $? "libxml2 : library missing. (Cannot find symbol xmlReaderForFile). Check if libxml2 is installed and if the version is correct" "$LINENO" 5
-
-fi
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for xmlBufferDetach in -lxml2" >&5
-$as_echo_n "checking for xmlBufferDetach in -lxml2... " >&6; }
-if ${ac_cv_lib_xml2_xmlBufferDetach+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lxml2  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char xmlBufferDetach ();
-int
-main ()
-{
-return xmlBufferDetach ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_xml2_xmlBufferDetach=yes
-else
-  ac_cv_lib_xml2_xmlBufferDetach=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_xml2_xmlBufferDetach" >&5
-$as_echo "$ac_cv_lib_xml2_xmlBufferDetach" >&6; }
-if test "x$ac_cv_lib_xml2_xmlBufferDetach" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBXML2 1
-_ACEOF
-
-  LIBS="-lxml2 $LIBS"
-
-else
-  as_fn_error $? "libxml2 : library missing. (Cannot find symbol xmlBufferDetach). Check if libxml2 is installed and if the version is correct" "$LINENO" 5
-
+	XML_CFLAGS=$pkg_cv_XML_CFLAGS
+	XML_LIBS=$pkg_cv_XML_LIBS
+	XML_VERSION=$pkg_cv_XML_VERSION
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	:
 fi
 
 
-#AC_CHECK_HEADERS([libxml/xmlreader.h])
-#AC_CHECK_HEADERS([libxml/parser.h])
-#AC_CHECK_HEADERS([libxml/tree.h])
-
-#AC_CHECK_HEADERS([libxml/xpath.h])
-#AC_CHECK_HEADERS([libxml/xpathInternals.h])
-
-CFLAGS=$saved_cflags
-LIBS="$saved_LIBS"
-
-
-
-
-
-
-cat >>confdefs.h <<_ACEOF
-#define LIBXML_FLAGS "$XML_FLAGS"
-_ACEOF
-
-
-cat >>confdefs.h <<_ACEOF
-#define LIBXML_LIBS "$XML_LIBS"
-_ACEOF
-
-
-#CFLAGS="$CFLAGS $XML_FLAGS"
-#AC_CHECK_LIB(xml2,xmlInitParserCtxt,,[AC_MSG_ERROR([libxml2 : library missing])])
-
-
-#AC_CHECK_HEADERS([libxml/tree.h],,[AC_MSG_ERROR([libxml2 : library missing missing])])
-
-# Gets compilation and library flags
 
 
 #######################
@@ -28696,6 +28540,26 @@ fi
 else
 	pkg_failed=untried
 fi
+if test -n $BLAS_CFLAGS -a -n $BLAS_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$BLAS_VERSION"; then
+        pkg_cv_BLAS_VERSION="$BLAS_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"atlas\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "atlas") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_BLAS_VERSION=`$PKG_CONFIG --modversion "atlas" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+fi
 
 
 
@@ -28722,6 +28586,7 @@ elif test $pkg_failed = untried; then
 else
 	BLAS_CFLAGS=$pkg_cv_BLAS_CFLAGS
 	BLAS_LIBS=$pkg_cv_BLAS_LIBS
+	BLAS_VERSION=$pkg_cv_BLAS_VERSION
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 	acx_blas_ok=yes; BLAS_TYPE="Atlas"
@@ -30370,103 +30235,6 @@ fi
 #######################
 
 
-
-
-
-# Check whether --with-pcre was given.
-if test "${with_pcre+set}" = set; then :
-  withval=$with_pcre; with_pcre=$withval
-else
-  with_pcre='yes'
-
-fi
-
-
-if test "$with_pcre" != 'yes' -a "$with_pcre" != 'no'; then
-    # Look if pcre-config (which provides cflags and ldflags) is available
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking pcre, for pcre-config" >&5
-$as_echo_n "checking pcre, for pcre-config... " >&6; }
-    PCRE_FOUND=0
-    PCRE_CONFIG="$with_pcre/bin/pcre-config"
-    if test -x "$PCRE_CONFIG"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PCRE_CONFIG" >&5
-$as_echo "$PCRE_CONFIG" >&6; }
-        PCRE_FOUND=1
-    fi
-    if test $PCRE_FOUND -eq 0; then
-        PCRE_CONFIG="$with_pcre/pcre-config"
-        if test -x "$PCRE_CONFIG"; then
-            PCRE_FOUND=1
-            { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PCRE_CONFIG" >&5
-$as_echo "$PCRE_CONFIG" >&6; }
-        fi
-    fi
-    if test $PCRE_FOUND -eq 0; then
-        as_fn_error $? "Unable to find $PCRE_CONFIG. Please check the path you provided" "$LINENO" 5
-    else
-        unset PCRE_FOUND
-    fi
-else
-    if $WITH_DEVTOOLS; then # Scilab thirdparties
-        PCRE_CONFIG="$DEVTOOLS_BINDIR/pcre-config"
-    else
-        for ac_prog in pcre-config
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_PCRE_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$PCRE_CONFIG"; then
-  ac_cv_prog_PCRE_CONFIG="$PCRE_CONFIG" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_PCRE_CONFIG="$ac_prog"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-fi
-fi
-PCRE_CONFIG=$ac_cv_prog_PCRE_CONFIG
-if test -n "$PCRE_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PCRE_CONFIG" >&5
-$as_echo "$PCRE_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$PCRE_CONFIG" && break
-done
-test -n "$PCRE_CONFIG" || PCRE_CONFIG="no"
-
-    fi
-    if test "x$PCRE_CONFIG" = "xno"; then
-        as_fn_error $? "Unable to find pcre-config in the path. Please check your installation of pcre (example : libpcre3 & libpcre3-dev with Debian)" "$LINENO" 5
-    fi
-fi
-saved_cflags="$CFLAGS"
-saved_LIBS="$LIBS"
-
-PCRE_CFLAGS=`$PCRE_CONFIG --cflags`
-PCRE_LIBS=`$PCRE_CONFIG --libs-posix`
-PCRE_VERSION=`$PCRE_CONFIG --version`
-
-PCRE_REQUIRED_VERSION=7.6
-
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for PCRE" >&5
 $as_echo_n "checking for PCRE... " >&6; }
@@ -30476,12 +30244,12 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_PCRE_CFLAGS="$PCRE_CFLAGS"
     else
         if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcre >= \$PCRE_REQUIRED_VERSION\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "libpcre >= $PCRE_REQUIRED_VERSION") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcreposix\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpcreposix") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PCRE_CFLAGS=`$PKG_CONFIG --cflags "libpcre >= $PCRE_REQUIRED_VERSION" 2>/dev/null`
+  pkg_cv_PCRE_CFLAGS=`$PKG_CONFIG --cflags "libpcreposix" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -30494,18 +30262,38 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_PCRE_LIBS="$PCRE_LIBS"
     else
         if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcre >= \$PCRE_REQUIRED_VERSION\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "libpcre >= $PCRE_REQUIRED_VERSION") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcreposix\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpcreposix") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PCRE_LIBS=`$PKG_CONFIG --libs "libpcre >= $PCRE_REQUIRED_VERSION" 2>/dev/null`
+  pkg_cv_PCRE_LIBS=`$PKG_CONFIG --libs "libpcreposix" 2>/dev/null`
 else
   pkg_failed=yes
 fi
     fi
 else
 	pkg_failed=untried
+fi
+if test -n $PCRE_CFLAGS -a -n $PCRE_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$PCRE_VERSION"; then
+        pkg_cv_PCRE_VERSION="$PCRE_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpcreposix\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpcreposix") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PCRE_VERSION=`$PKG_CONFIG --modversion "libpcreposix" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
 fi
 
 
@@ -30518,14 +30306,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        PCRE_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libpcre >= $PCRE_REQUIRED_VERSION"`
+	        PCRE_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libpcreposix"`
         else
-	        PCRE_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libpcre >= $PCRE_REQUIRED_VERSION"`
+	        PCRE_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libpcreposix"`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$PCRE_PKG_ERRORS" >&5
 
-	as_fn_error $? "Package requirements (libpcre >= $PCRE_REQUIRED_VERSION) were not met:
+	as_fn_error $? "Package requirements (libpcreposix) were not met:
 
 $PCRE_PKG_ERRORS
 
@@ -30552,267 +30340,19 @@ See \`config.log' for more details" "$LINENO" 5; }
 else
 	PCRE_CFLAGS=$pkg_cv_PCRE_CFLAGS
 	PCRE_LIBS=$pkg_cv_PCRE_LIBS
+	PCRE_VERSION=$pkg_cv_PCRE_VERSION
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 	:
 fi
 
-LIBS="$PCRE_LIBS $LIBS"
-CFLAGS="$PCRE_CFLAGS $CFLAGS"
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for pcre_compile in -lpcre" >&5
-$as_echo_n "checking for pcre_compile in -lpcre... " >&6; }
-if ${ac_cv_lib_pcre_pcre_compile+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lpcre  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char pcre_compile ();
-#ifdef F77_DUMMY_MAIN
-
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
-
-#endif
-int
-main ()
-{
-return pcre_compile ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_pcre_pcre_compile=yes
-else
-  ac_cv_lib_pcre_pcre_compile=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_pcre_pcre_compile" >&5
-$as_echo "$ac_cv_lib_pcre_pcre_compile" >&6; }
-if test "x$ac_cv_lib_pcre_pcre_compile" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBPCRE 1
-_ACEOF
-
-  LIBS="-lpcre $LIBS"
-
-else
-  as_fn_error $? "pcre : library missing. (Cannot find symbol pcre_compile). Check if pcre is installed and if the version is correct" "$LINENO" 5
-
-fi
-
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for regexec in -lpcreposix" >&5
-$as_echo_n "checking for regexec in -lpcreposix... " >&6; }
-if ${ac_cv_lib_pcreposix_regexec+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lpcreposix  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char regexec ();
-#ifdef F77_DUMMY_MAIN
-
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
-
-#endif
-int
-main ()
-{
-return regexec ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_pcreposix_regexec=yes
-else
-  ac_cv_lib_pcreposix_regexec=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_pcreposix_regexec" >&5
-$as_echo "$ac_cv_lib_pcreposix_regexec" >&6; }
-if test "x$ac_cv_lib_pcreposix_regexec" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBPCREPOSIX 1
-_ACEOF
-
-  LIBS="-lpcreposix $LIBS"
-
-else
-  as_fn_error $? "pcreposix : library missing. (Cannot find symbol regexec). Check if pcre is installed and if the version is correct" "$LINENO" 5
-
-fi
-
-for ac_header in pcre.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "pcre.h" "ac_cv_header_pcre_h" "$ac_includes_default"
-if test "x$ac_cv_header_pcre_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_PCRE_H 1
-_ACEOF
-
-fi
-
-done
-
-
-LIBS="$saved_LIBS"
-CFLAGS="$saved_cflags"
-
-
-
-
-
-
-cat >>confdefs.h <<_ACEOF
-#define PCRE_CFLAGS "$PCRE_CFLAGS"
-_ACEOF
-
-
-cat >>confdefs.h <<_ACEOF
-#define PCRE_LIBS "$PCRE_LIBS"
-_ACEOF
-
-
-cat >>confdefs.h <<_ACEOF
-#define PCRE_VERSION "$PCRE_VERSION"
-_ACEOF
-
-
-# Gets compilation and library flags
 
 
 #######################
 ## Test for CURL
 #######################
 
-
-
-
-
-# Check whether --with-curl was given.
-if test "${with_curl+set}" = set; then :
-  withval=$with_curl; with_curl=$withval
-else
-  with_curl='yes'
-
-fi
-
-
-if test "$with_curl" != 'yes' -a "$with_curl" != 'no'; then
-    # Look if curl-config (which provides cflags and ldflags) is available
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking curl, for curl-config" >&5
-$as_echo_n "checking curl, for curl-config... " >&6; }
-    CURL_FOUND=0
-    CURL_CONFIG="$with_curl/bin/curl-config"
-    if test -x "$CURL_CONFIG"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CURL_CONFIG" >&5
-$as_echo "$CURL_CONFIG" >&6; }
-        CURL_FOUND=1
-    fi
-    if test $CURL_FOUND -eq 0; then
-        CURL_CONFIG="$with_curl/curl-config"
-        if test -x "$CURL_CONFIG"; then
-            CURL_FOUND=1
-            { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CURL_CONFIG" >&5
-$as_echo "$CURL_CONFIG" >&6; }
-        fi
-    fi
-    if test $CURL_FOUND -eq 0; then
-        as_fn_error $? "Unable to find $CURL_CONFIG. Please check the path you provided" "$LINENO" 5
-    else
-       unset CURL_FOUND
-    fi
-else
-    if $WITH_DEVTOOLS; then # Scilab thirdparties
-        CURL_CONFIG="$DEVTOOLS_BINDIR/curl-config"
-    else
-        for ac_prog in curl-config
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_CURL_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$CURL_CONFIG"; then
-  ac_cv_prog_CURL_CONFIG="$CURL_CONFIG" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_CURL_CONFIG="$ac_prog"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-fi
-fi
-CURL_CONFIG=$ac_cv_prog_CURL_CONFIG
-if test -n "$CURL_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CURL_CONFIG" >&5
-$as_echo "$CURL_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$CURL_CONFIG" && break
-done
-test -n "$CURL_CONFIG" || CURL_CONFIG="no"
-
-        if test "x$CURL_CONFIG" = "xno"; then
-            as_fn_error $? "Unable to find curl-config in the path. Please check your installation of curl (example : libcurl3 & libcurl3-dev with Debian)" "$LINENO" 5
-        fi
-    fi
-fi
-saved_cflags="$CFLAGS"
-saved_LIBS="$LIBS"
-
-CURL_CFLAGS=`$CURL_CONFIG --cflags`
-CURL_LIBS=`$CURL_CONFIG --libs`
-CURL_VERSION=`$CURL_CONFIG --version`
-
-CURL_REQUIRED_VERSION=7.6
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for CURL" >&5
@@ -30823,12 +30363,12 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_CURL_CFLAGS="$CURL_CFLAGS"
     else
         if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libcurl >= \$CURL_REQUIRED_VERSION\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "libcurl >= $CURL_REQUIRED_VERSION") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libcurl\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libcurl") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CURL_CFLAGS=`$PKG_CONFIG --cflags "libcurl >= $CURL_REQUIRED_VERSION" 2>/dev/null`
+  pkg_cv_CURL_CFLAGS=`$PKG_CONFIG --cflags "libcurl" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -30841,18 +30381,38 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_CURL_LIBS="$CURL_LIBS"
     else
         if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libcurl >= \$CURL_REQUIRED_VERSION\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "libcurl >= $CURL_REQUIRED_VERSION") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libcurl\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libcurl") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CURL_LIBS=`$PKG_CONFIG --libs "libcurl >= $CURL_REQUIRED_VERSION" 2>/dev/null`
+  pkg_cv_CURL_LIBS=`$PKG_CONFIG --libs "libcurl" 2>/dev/null`
 else
   pkg_failed=yes
 fi
     fi
 else
 	pkg_failed=untried
+fi
+if test -n $CURL_CFLAGS -a -n $CURL_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$CURL_VERSION"; then
+        pkg_cv_CURL_VERSION="$CURL_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libcurl\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libcurl") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_CURL_VERSION=`$PKG_CONFIG --modversion "libcurl" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
 fi
 
 
@@ -30865,14 +30425,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        CURL_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libcurl >= $CURL_REQUIRED_VERSION"`
+	        CURL_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libcurl"`
         else
-	        CURL_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libcurl >= $CURL_REQUIRED_VERSION"`
+	        CURL_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libcurl"`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$CURL_PKG_ERRORS" >&5
 
-	as_fn_error $? "Package requirements (libcurl >= $CURL_REQUIRED_VERSION) were not met:
+	as_fn_error $? "Package requirements (libcurl) were not met:
 
 $CURL_PKG_ERRORS
 
@@ -30899,108 +30459,13 @@ See \`config.log' for more details" "$LINENO" 5; }
 else
 	CURL_CFLAGS=$pkg_cv_CURL_CFLAGS
 	CURL_LIBS=$pkg_cv_CURL_LIBS
+	CURL_VERSION=$pkg_cv_CURL_VERSION
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 	:
 fi
 
-LIBS="$CURL_LIBS $LIBS"
-CFLAGS="$CURL_CFLAGS $CFLAGS"
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for curl_easy_setopt in -lcurl" >&5
-$as_echo_n "checking for curl_easy_setopt in -lcurl... " >&6; }
-if ${ac_cv_lib_curl_curl_easy_setopt+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lcurl  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char curl_easy_setopt ();
-#ifdef F77_DUMMY_MAIN
-
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
-
-#endif
-int
-main ()
-{
-return curl_easy_setopt ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_curl_curl_easy_setopt=yes
-else
-  ac_cv_lib_curl_curl_easy_setopt=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_curl_curl_easy_setopt" >&5
-$as_echo "$ac_cv_lib_curl_curl_easy_setopt" >&6; }
-if test "x$ac_cv_lib_curl_curl_easy_setopt" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBCURL 1
-_ACEOF
-
-  LIBS="-lcurl $LIBS"
-
-else
-  as_fn_error $? "curl : library missing. (Cannot find symbol curl_easy_setopt). Check if curl is installed and if the version is correct" "$LINENO" 5
-
-fi
-
-
-for ac_header in curl.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "curl.h" "ac_cv_header_curl_h" "$ac_includes_default"
-if test "x$ac_cv_header_curl_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_CURL_H 1
-_ACEOF
-
-fi
-
-done
-
-
-LIBS="$saved_LIBS"
-CFLAGS="$saved_cflags"
-
-
-
-
-
-
-cat >>confdefs.h <<_ACEOF
-#define CURL_CFLAGS "$CURL_CFLAGS"
-_ACEOF
-
-
-cat >>confdefs.h <<_ACEOF
-#define CURL_LIBS "$CURL_LIBS"
-_ACEOF
-
-
-cat >>confdefs.h <<_ACEOF
-#define CURL_VERSION "$CURL_VERSION"
-_ACEOF
-
-
-# Gets compilation and library flags
 
 
 #################
@@ -31908,7 +31373,7 @@ CPPFLAGS="$CPPFLAGS -I$CHK_TCL_INCLUDE_PATH"
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking if tcl is version $CHK_TCL_MAJOR.$CHK_TCL_MINOR or later" >&5
 $as_echo_n "checking if tcl is version $CHK_TCL_MAJOR.$CHK_TCL_MINOR or later... " >&6; }
 cat > conftest.$ac_ext <<EOF
-#line 31911 "configure"
+#line 31376 "configure"
 #include "confdefs.h"
 
 #include "$CHK_TCL_INCLUDE_PATH/$CHK_TCL_INC_NAME"
@@ -32219,7 +31684,7 @@ CPPFLAGS="$CPPFLAGS $TCL_INC_PATH -I$CHK_TK_INCLUDE_PATH $X_CFLAGS"
 $as_echo_n "checking if tk is version $CHK_TK_MAJOR.$CHK_TK_MINOR or later... " >&6; }
 
 cat > conftest.$ac_ext <<EOF
-#line 32222 "configure"
+#line 31687 "configure"
 #include "confdefs.h"
 
 #include "$CHK_TK_INCLUDE_PATH/$CHK_TK_INC_NAME"
@@ -32526,38 +31991,14 @@ fi
 #################
 
 
-
 # Check whether --with-matio was given.
 if test "${with_matio+set}" = set; then :
   withval=$with_matio;
 fi
 
 
-
-# Check whether --with-matio_include was given.
-if test "${with_matio_include+set}" = set; then :
-  withval=$with_matio_include; with_matio_include="-I$withval"
-fi
-
-
-
-# Check whether --with-matio_library was given.
-if test "${with_matio_library+set}" = set; then :
-  withval=$with_matio_library; with_matio_library="-L$withval"
-fi
-
-
 MATIO_ENABLE=no
-
 if test "$with_matio" != no; then
-   if test -n "$with_matio_include" -o -n "$with_matio_library" ; then
-      MATIO_CFLAGS="$with_matio_include"
-      MATIO_LIBS="$with_matio_library -lm -lz -lmatio -lhdf5"
-   else
-      if $WITH_DEVTOOLS; then # Scilab thirdparties
-         MATIO_CFLAGS="-I$DEVTOOLS_INCDIR"
-         MATIO_LIBS="-L$DEVTOOLS_LIBDIR -lm -lz -lmatio -lhdf5"
-      else
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for MATIO" >&5
@@ -32598,6 +32039,26 @@ fi
     fi
 else
 	pkg_failed=untried
+fi
+if test -n $MATIO_CFLAGS -a -n $MATIO_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$MATIO_VERSION"; then
+        pkg_cv_MATIO_VERSION="$MATIO_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"matio >= 1.5.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "matio >= 1.5.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_MATIO_VERSION=`$PKG_CONFIG --modversion "matio >= 1.5.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
 fi
 
 
@@ -32644,104 +32105,22 @@ See \`config.log' for more details" "$LINENO" 5; }
 else
 	MATIO_CFLAGS=$pkg_cv_MATIO_CFLAGS
 	MATIO_LIBS=$pkg_cv_MATIO_LIBS
+	MATIO_VERSION=$pkg_cv_MATIO_VERSION
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 	:
 fi
-      fi
-   fi
-
-   save_CFLAGS="$CFLAGS"
-   save_LIBS="$LIBS"
-
-   CFLAGS="$CFLAGS $MATIO_CFLAGS"
-   LIBS="$LIBS $MATIO_LIBS"
-
-   for ac_header in matio.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "matio.h" "ac_cv_header_matio_h" "$ac_includes_default"
-if test "x$ac_cv_header_matio_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_MATIO_H 1
-_ACEOF
-
-else
-  as_fn_error $? "Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS." "$LINENO" 5
-fi
-
-done
-
-   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Mat_Open in -lmatio" >&5
-$as_echo_n "checking for Mat_Open in -lmatio... " >&6; }
-if ${ac_cv_lib_matio_Mat_Open+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lmatio  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char Mat_Open ();
-#ifdef F77_DUMMY_MAIN
-
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
-
-#endif
-int
-main ()
-{
-return Mat_Open ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_matio_Mat_Open=yes
-else
-  ac_cv_lib_matio_Mat_Open=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_matio_Mat_Open" >&5
-$as_echo "$ac_cv_lib_matio_Mat_Open" >&6; }
-if test "x$ac_cv_lib_matio_Mat_Open" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBMATIO 1
-_ACEOF
-
-  LIBS="-lmatio $LIBS"
-
-else
-  as_fn_error $? "Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS." "$LINENO" 5
-fi
 
 
-   LIBS="$save_LIBS"
-   CFLAGS="$save_CFLAGS"
+
 
 
 $as_echo "#define WITH_MATIO /**/" >>confdefs.h
 
    MATIO_ENABLE=yes
-
-
-
 fi
 
-
-
- if test "$with_matio" != no; then
+ if test "$MATIO_ENABLE" != no; then
   MATIO_TRUE=
   MATIO_FALSE='#'
 else
@@ -32808,7 +32187,7 @@ $as_echo_n "checking saxon9he... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 32811 "configure"
+// #line 32190 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -33025,7 +32404,7 @@ $as_echo_n "checking saxon... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 33028 "configure"
+// #line 32407 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -33243,7 +32622,7 @@ $as_echo_n "checking saxon... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 33246 "configure"
+// #line 32625 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -33623,6 +33002,26 @@ fi
 else
 	pkg_failed=untried
 fi
+if test -n $VALGRIND_CFLAGS -a -n $VALGRIND_LIBS; then
+        if test -n "$PKG_CONFIG"; then
+    if test -n "$VALGRIND_VERSION"; then
+        pkg_cv_VALGRIND_VERSION="$VALGRIND_VERSION"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"valgrind\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "valgrind") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_VALGRIND_VERSION=`$PKG_CONFIG --modversion "valgrind" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+fi
 
 
 
@@ -33668,6 +33067,7 @@ See \`config.log' for more details" "$LINENO" 5; }
 else
 	VALGRIND_CFLAGS=$pkg_cv_VALGRIND_CFLAGS
 	VALGRIND_LIBS=$pkg_cv_VALGRIND_LIBS
+	VALGRIND_VERSION=$pkg_cv_VALGRIND_VERSION
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
@@ -51040,79 +50440,83 @@ echo "  Compile with Scilab thirdparties ................. = $WITH_DEVTOOLS"
 
 echo ""
 if test "$with_gui" = no; then
-   echo "Not using Xcos because of the option --without-gui"
+  echo "Not using Xcos because of the option --without-gui"
 else
 if test $XCOS_ENABLE = yes; then
-   echo "Xcos enable"
-   echo "Build modelica compiler (--without-modelica) ....... = $with_modelica"
-   echo ""
-   if test "$with_modelica" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
-     echo "Ocaml Configuration (for Modelica compiler):"
-     echo "  OCAMLC ............. = $OCAMLC"
-     echo "  OCAMLOPT ........... = $OCAMLOPT"
-     echo "  OCAMLDEP ........... = $OCAMLDEP"
-   else
-     echo "Will not build Modelica compiler"
-   fi
+  echo "Xcos enable"
+  echo "Build modelica compiler (--without-modelica) ....... = $with_modelica"
+  echo ""
+  if test "$with_modelica" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
+    echo "Ocaml Configuration (for Modelica compiler):"
+    echo "  OCAMLC ................ = $OCAMLC"
+    echo "  OCAMLOPT .............. = $OCAMLOPT"
+    echo "  OCAMLDEP .............. = $OCAMLDEP"
+  else
+    echo "Will not build Modelica compiler"
+  fi
 else
-   echo "Not using Xcos"
+  echo "Not using Xcos"
 fi
 fi
 
 echo ""
 if test "$enable_code_coverage" = yes;  then
-   echo "Code coverage configuration:"
-   echo "  LCOV .............. = $LCOV"
-   echo "  GENHTML ........... = $GENHTML"
+  echo "Code coverage configuration:"
+  echo "  LCOV .................. = $LCOV"
+  echo "  GENHTML ............... = $GENHTML"
 else
-   echo "Not using code coverage"
+  echo "Not using code coverage"
 fi
 
 echo ""
 if test $OPENMP_ENABLE = yes; then
-   echo "OpenMP Configuration:"
-   echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
-   echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
-   echo "OpenMP LIBS ........ = $OPENMP_LIBS"
-   echo "OpenMP LDFLAGS ..... = $OPENMP_LDFLAGS"
+  echo "OpenMP Configuration:"
+  echo "OpenMP CFLAGS ........... = $OPENMP_CFLAGS"
+  echo "OpenMP CXXFLAGS ......... = $OPENMP_CXXFLAGS"
+  echo "OpenMP LIBS ............. = $OPENMP_LIBS"
+  echo "OpenMP LDFLAGS .......... = $OPENMP_LDFLAGS"
 else
-   echo "Not using OpenMP"
+  echo "Not using OpenMP"
 fi
 
 echo ""
 if test $FFTW_ENABLE = yes;  then
-   echo "FFTW Configuration:"
-   echo "  FFTW LIBS .......... = $FFTW3_LIB"
-   echo "  FFTW CFLAGS ........ = $FFTW3_CFLAGS"
+  echo "FFTW Configuration:"
+  echo "  FFTW_LIBS ............. = $FFTW_LIBS"
+  echo "  FFTW_CFLAGS ........... = $FFTW_CFLAGS"
+  echo "  FFTW_VERSION .......... = $FFTW_VERSION"
 else
-   echo "Not using FFTW"
+  echo "Not using FFTW"
 fi
 
 echo ""
 echo "Eigen3 Configuration:"
-echo "  EIGEN CPPFLAGS ...... = $EIGEN_CPPFLAGS"
+echo "  EIGEN_CFLAGS .......... = $EIGEN_CFLAGS"
+echo "  EIGEN_VERSION ......... = $EIGEN_VERSION"
 
 echo ""
 if test $MATIO_ENABLE = yes;  then
-   echo "MATIO Configuration:"
-   echo "  MATIO LIBS .......... = $MATIO_LIBS"
-   echo "  MATIO CFLAGS ........ = $MATIO_CFLAGS"
+  echo "MATIO Configuration:"
+  echo "  MATIO_LIBS ............ = $MATIO_LIBS"
+  echo "  MATIO_CFLAGS .......... = $MATIO_CFLAGS"
+  echo "  MATIO_VERSION ......... = $MATIO_VERSION"
 else
-   echo "Not using MATIO"
+  echo "Not using MATIO"
 fi
 
 echo ""
 if test $UMFPACK_ENABLE = yes;  then
-   echo "UMFPACK Configuration:"
-   echo "  UMFPACK LIBS ....... = $UMFPACK_LIB"
-   echo "  UMFPACK CFLAGS ..... = $UMFPACK_CFLAGS"
-   if test $SUITESPARSE = yes; then
-      echo "  UMFPACK SUITESPARSE  = Yes"
-   else
-      echo "  UMFPACK SUITESPARSE  = No"
-   fi
+  echo "UMFPACK Configuration:"
+  echo "  UMFPACK_LIBS .......... = $UMFPACK_LIB"
+  echo "  UMFPACK_CFLAGS ........ = $UMFPACK_CFLAGS"
+  echo "  UMFPACK_VERSION ....... = $UMFPACK_VERSION"
+  if test $SUITESPARSE = yes; then
+    echo "  UMFPACK SUITESPARSE  = Yes"
+  else
+    echo "  UMFPACK SUITESPARSE  = No"
+  fi
 else
-   echo "Not using UMFPACK"
+  echo "Not using UMFPACK"
 fi
 
 
@@ -51127,51 +50531,51 @@ echo ""
 
 
 if test "$with_mpi" == yes; then
-   echo "OpenMPI Configuration:"
-   echo "OpenMPI LIBS ........... = $OPENMPI_LIBS"
-   echo "OpenMPI C Compiler ..... = $OPENMPI_CC"
-   echo "OpenMPI C++ Compiler ... = $OPENMPI_CXX"
-   echo "OpenMPI F77 Compiler ... = $MPIF77"
+  echo "OpenMPI Configuration:"
+  echo "OpenMPI LIBS ............ = $OPENMPI_LIBS"
+  echo "OpenMPI C Compiler ...... = $OPENMPI_CC"
+  echo "OpenMPI C++ Compiler .... = $OPENMPI_CXX"
+  echo "OpenMPI F77 Compiler .... = $MPIF77"
 else
-   echo "Not using MPI"
+  echo "Not using MPI"
 fi
 
 echo ""
 if test $BUILD_LOCALIZATION_ENABLE != no; then
-   echo "Gettext/localization configuration:"
-   echo "  xgettext ............... = $XGETTEXT"
-   echo "  msgfmt  ................ = $MSGFMT"
-   echo "  msgfmt_opts ............ = $MSGFMT_OPTS"
-   echo "  msgcat  ................ = $MSGCAT"
+  echo "Gettext/localization configuration:"
+  echo "  xgettext .............. = $XGETTEXT"
+  echo "  msgfmt  ............... = $MSGFMT"
+  echo "  msgfmt_opts ........... = $MSGFMT_OPTS"
+  echo "  msgcat  ............... = $MSGCAT"
 else
-   echo "Won't generate localization files"
+  echo "Won't generate localization files"
 fi
 
 echo ""
 if test $HELP_ENABLE = yes; then
-   echo "Documentation building configuration:"
-   echo "  Docbook XSL path ....... = $DOCBOOK_ROOT"
-   echo "  Saxon XSLT ............. = $SAXON"
-   echo "  XML commons external ... = $XML_APIS_EXT"
+  echo "Documentation building configuration:"
+  echo "  Docbook XSL path ...... = $DOCBOOK_ROOT"
+  echo "  Saxon XSLT ............ = $SAXON"
+  echo "  XML commons external .. = $XML_APIS_EXT"
 else
-   echo "No documentation generated"
+  echo "No documentation generated"
 fi
 
 echo ""
 echo "Java Configuration:"
 if test ! -z "$JAVAC"; then
-echo "  JAVA_HOME ........... = $JAVA_HOME"
-echo "  JAVAC ............... = $JAVAC"
-echo "  JAVA_CLASSPATH ...... = $JAVA_CLASSPATH"
-echo "  JAVA_VERSION ........ = $JAVA_VERSION"
-echo "  JAVAC_FLAGS ......... = $JAVAC_FLAGS"
-echo "  JAVA_JNI_INCLUDE .... = $JAVA_JNI_INCLUDE"
-echo "  JAVA_JNI_LIBS ....... = $JAVA_JNI_LIBS"
-echo "  JAVA_JNI_LIBS_PRELOAD = $JAVA_JNI_LIBS_PRELOAD"
-echo "  JAVA ................ = $JAVA"
-echo "  JAVADOC ............. = $JAVADOC"
-echo "  JAR ................. = $JAR"
-echo "  ANT ................. = $ANT"
+echo "  JAVA_HOME ............. = $JAVA_HOME"
+echo "  JAVAC ................. = $JAVAC"
+echo "  JAVA_CLASSPATH ........ = $JAVA_CLASSPATH"
+echo "  JAVA_VERSION .......... = $JAVA_VERSION"
+echo "  JAVAC_FLAGS ........... = $JAVAC_FLAGS"
+echo "  JAVA_JNI_INCLUDE ...... = $JAVA_JNI_INCLUDE"
+echo "  JAVA_JNI_LIBS ......... = $JAVA_JNI_LIBS"
+echo "  JAVA_JNI_LIBS_PRELOAD . = $JAVA_JNI_LIBS_PRELOAD"
+echo "  JAVA .................. = $JAVA"
+echo "  JAVADOC ............... = $JAVADOC"
+echo "  JAR ................... = $JAR"
+echo "  ANT ................... = $ANT"
 else
 echo "  JAVA disabled"
 fi
@@ -51180,90 +50584,92 @@ fi
 echo ""
 echo "Java dependencies:"
 if test ! -z "$JAVAC"; then
-echo "  Flexdock ............ = $FLEXDOCK"
-echo "  JOGL 2............... = $JOGL2"
-echo "  JOGL 2 LIBS (JNI) ... = $JOGL2_LIBS"
-echo "  Gluegen 2 ........... = $GLUEGEN2_RT"
-echo "  Gluegen 2 LIBS (JNI)  = $GLUEGEN2_RT_LIBS"
-echo "  Jeuclid (MathML) .... = $JEUCLID_CORE"
-echo "  Jhall  .............. = $JHALL"
-echo "  Jrosetta (API) ...... = $JROSETTA_API"
-echo "  Jrosetta (Engine) ... = $JROSETTA_ENGINE"
-echo "  Commons Logging ..... = $COMMONS_LOGGING"
-echo "  JGraph X ............ = $JGRAPHX"
-echo "  SciRenderer ......... = $SCIRENDERER"
-echo "  JLaTeXMath .......... = $JLATEXMATH"
-echo "  ECJ ................. = $ECJ"
+echo "  Flexdock .............. = $FLEXDOCK"
+echo "  JOGL 2................. = $JOGL2"
+echo "  JOGL 2 LIBS (JNI) ..... = $JOGL2_LIBS"
+echo "  Gluegen 2 ............. = $GLUEGEN2_RT"
+echo "  Gluegen 2 LIBS (JNI) .. = $GLUEGEN2_RT_LIBS"
+echo "  Jeuclid (MathML) ...... = $JEUCLID_CORE"
+echo "  Jhall  ................ = $JHALL"
+echo "  Jrosetta (API) ........ = $JROSETTA_API"
+echo "  Jrosetta (Engine) ..... = $JROSETTA_ENGINE"
+echo "  Commons Logging ....... = $COMMONS_LOGGING"
+echo "  JGraph X .............. = $JGRAPHX"
+echo "  SciRenderer ........... = $SCIRENDERER"
+echo "  JLaTeXMath ............ = $JLATEXMATH"
+echo "  ECJ ................... = $ECJ"
 fi
 
 echo ""
 if test ! -z "$JAVAC"; then
 echo "Documentation, graphic export:"
-echo "  FOP (XML => PDF) .... = $FOP"
-echo "  JLaTeXMath Fop ...... = $JLATEXMATH_FOP"
-echo "  Batik (SVG) ......... = $BATIK"
-echo "  Avalon Framework .... = $AVALON_FRAMEWORK"
-echo "  Commons I/O ......... = $COMMONS_IO"
-echo "  XML graphics commons  = $XMLGRAPHICS_COMMONS"
+echo "  FOP (XML => PDF) ...... = $FOP"
+echo "  JLaTeXMath Fop ........ = $JLATEXMATH_FOP"
+echo "  Batik (SVG) ........... = $BATIK"
+echo "  Avalon Framework ...... = $AVALON_FRAMEWORK"
+echo "  Commons I/O ........... = $COMMONS_IO"
+echo "  XML graphics commons .. = $XMLGRAPHICS_COMMONS"
 fi
 
 
 echo ""
 echo "Code quality (optional):"
-echo "  Checkstyle .......... = $CHECKSTYLE"
-echo "  Commons-beanutils ... = $COMMONS_BEANUTILS"
-echo "  Antlr ............... = $ANTLR"
-echo "  Junit4 .............. = $JUNIT4"
-echo "  Hamcrest ............ = $HAMCREST"
-echo "  Cobertura ........... = $COBERTURA"
-echo "  splint .............. = $SPLINT"
+echo "  Checkstyle ............ = $CHECKSTYLE"
+echo "  Commons-beanutils ..... = $COMMONS_BEANUTILS"
+echo "  Antlr ................. = $ANTLR"
+echo "  Junit4 ................ = $JUNIT4"
+echo "  Hamcrest .............. = $HAMCREST"
+echo "  Cobertura ............. = $COBERTURA"
+echo "  splint ................ = $SPLINT"
 
 echo ""
 echo "TCL/TK configuration:"
-echo "  TK_INC_PATH ........ = $TK_INC_PATH"
-echo "  TCL_INC_PATH ....... = $TCL_INC_PATH"
-echo "  TCLTK_LIBS ......... = $TCLTK_LIBS"
-echo "  TCL_SERIAL_VERSION . = $TCL_SERIAL_VERSION"
-echo "  TK_SERIAL_VERSION .. = $TK_SERIAL_VERSION"
+echo "  TK_INC_PATH ........... = $TK_INC_PATH"
+echo "  TCL_INC_PATH .......... = $TCL_INC_PATH"
+echo "  TCLTK_LIBS ............ = $TCLTK_LIBS"
+echo "  TCL_SERIAL_VERSION .... = $TCL_SERIAL_VERSION"
+echo "  TK_SERIAL_VERSION ..... = $TK_SERIAL_VERSION"
 
 echo ""
 echo "XML configuration:"
-echo "  XML_FLAGS .......... = $XML_FLAGS"
-echo "  XML_LIBS ........... = $XML_LIBS"
-echo "  XML_VERSION ........ = $XML_VERSION"
+echo "  XML_CFLAGS ............ = $XML_CFLAGS"
+echo "  XML_LIBS .............. = $XML_LIBS"
+echo "  XML_VERSION ........... = $XML_VERSION"
 
 echo ""
 echo "HDF5 configuration:"
-echo "  HDF5 CFLAGS ......... = $HDF5_CFLAGS"
-echo "  HDF5 LIBS ........... = $HDF5_LIBS"
+echo "  HDF5_CFLAGS ........... = $HDF5_CFLAGS"
+echo "  HDF5_LIBS ............. = $HDF5_LIBS"
+echo "  HDF5_VERSION .......... = $HDF5_VERSION"
 
 echo ""
 echo "PCRE configuration:"
-echo "  PCRE_CFLAGS ........ = $PCRE_CFLAGS"
-echo "  PCRE_LIBS .......... = $PCRE_LIBS"
-echo "  PCRE_VERSION ....... = $PCRE_VERSION"
+echo "  PCRE_CFLAGS ........... = $PCRE_CFLAGS"
+echo "  PCRE_LIBS ............. = $PCRE_LIBS"
+echo "  PCRE_VERSION .......... = $PCRE_VERSION"
 
 echo ""
 echo "Regenerate Scilab's parser"
 if test "$enable_build_parser" != no; then
-echo "  YACC ............... = $YACC"
-echo "  LEX ................ = $LEX"
-echo "  YFLAGS ............. = $YFLAGS"
+echo "  YACC .................. = $YACC"
+echo "  LEX ................... = $LEX"
+echo "  YFLAGS ................ = $YFLAGS"
 else
 echo "  Regenerate parser disabled (will use embedded sources)"
 fi
 
 echo ""
 echo "CURL configuration:"
-echo "  CURL_CFLAGS ........ = $CURL_CFLAGS"
-echo "  CURL_LIBS .......... = $CURL_LIBS"
-echo "  CURL_VERSION ....... = $CURL_VERSION"
+echo "  CURL_CFLAGS ........... = $CURL_CFLAGS"
+echo "  CURL_LIBS ............. = $CURL_LIBS"
+echo "  CURL_VERSION .......... = $CURL_VERSION"
 
 echo ""
 echo "SWIG Configuration:"
 if test ! -z "$SWIG_BIN"; then
-echo "  SWIG_BIN ........... = $SWIG_BIN"
-echo "  SWIG_JAVA .......... = $SWIG_JAVA"
+echo "  SWIG_BIN .............. = $SWIG_BIN"
+echo "  SWIG_JAVA ............. = $SWIG_JAVA"
+echo "  SWIG_VERSION .......... = $SWIG_VERSION"
 else
 echo "  SWIG generation disabled"
 fi
@@ -51271,67 +50677,69 @@ fi
 echo ""
 echo "GIWS Configuration:"
 if test ! -z "$GIWS_BIN"; then
-echo "  GIWS_BIN ........... = $GIWS_BIN"
+echo "  GIWS_BIN .............. = $GIWS_BIN"
+echo "  GIWS_VERSION .......... = $GIWS_VERSION"
 else
 echo "  GIWS generation disabled"
 fi
 
 echo ""
 echo "Valgrind configuration:"
-echo "  VALGRIND_CFLAGS .... = $VALGRIND_CFLAGS"
-echo "  VALGRIND_LIBS ...... = $VALGRIND_LIBS"
+echo "  VALGRIND_CFLAGS ....... = $VALGRIND_CFLAGS"
+echo "  VALGRIND_LIBS ......... = $VALGRIND_LIBS"
+echo "  VALGRIND_VERSION ...... = $VALGRIND_VERSION"
 echo ""
 
 echo ""
 echo "Libtool config:"
-echo "  objext .............. = $objext"
-echo "  libext (static) ..... = $libext"
-echo "  shrext_cmds ......... = $shrext_cmds"
-echo "  exeext .............. = $exeext"
+echo "  objext ................ = $objext"
+echo "  libext (static) ....... = $libext"
+echo "  shrext_cmds ........... = $shrext_cmds"
+echo "  exeext ................ = $exeext"
 
 echo ""
 
 echo "Compilation paths:"
-echo "  srcdir .............. = $SCI_SRCDIR"
-echo "  srcdir_full ......... = $SCI_SRCDIR_FULL"
-echo "  builddir ............ = $SCI_BUILDDIR"
+echo "  srcdir ................ = $SCI_SRCDIR"
+echo "  srcdir_full ........... = $SCI_SRCDIR_FULL"
+echo "  builddir .............. = $SCI_BUILDDIR"
 if test "$SCI_SRCDIR_FULL" != "$SCI_BUILDDIR"; then
-echo "  VPATH build ......... = Activated"
+echo "  VPATH build ........... = Activated"
 fi
 
 echo ""
 echo "Platform information:"
-echo "  host ........... = $host"
-echo "  host_cpu ....... = $host_cpu"
-echo "  host_vendor .... = $host_vendor"
-echo "  host_os ... .... = $host_os"
-echo "  hostname ....... = $ac_hostname"
-echo "  CPU 64 bits .... = $IS_64_BITS_CPU"
+echo "  host .................. = $host"
+echo "  host_cpu .............. = $host_cpu"
+echo "  host_vendor ........... = $host_vendor"
+echo "  host_os ... ........... = $host_os"
+echo "  hostname .............. = $ac_hostname"
+echo "  CPU 64 bits ........... = $IS_64_BITS_CPU"
 if test -n "$MAC_DETECTED_ARCH"; then
-echo "  Mac OS X arch .. = $MAC_DETECTED_ARCH"
-echo "  Mac OS X version = $macosx_version"
+echo "  Mac OS X arch ......... = $MAC_DETECTED_ARCH"
+echo "  Mac OS X version ...... = $macosx_version"
 fi
 
 echo ""
 echo "Options used to compile and link:"
-echo "  prefix ......... = $prefix"
-echo "  localedir ...... = $localedir"
-echo "  VERSION ........ = $PACKAGE_VERSION"
-echo "  CC ............. = $CC"
-echo "  CFLAGS ......... = $CFLAGS"
-echo "  SCI_CFLAGS ..... = $SCI_CFLAGS"
-echo "  DEFS ........... = $DEFS"
-echo "  LD ............. = $LD"
-echo "  LDFLAGS ........ = $LDFLAGS"
-echo "  SCI_LDFLAGS .... = $SCI_LDFLAGS"
-echo "  LIBS ........... = $LIBS"
-echo "  CXX ............ = $CXX"
-echo "  CXXFLAGS ....... = $CXXFLAGS"
-echo "  SCI_CXXFLAGS ... = $SCI_CXXFLAGS"
-echo "  F77 ............ = $F77"
-echo "  FFLAGS ......... = $FFLAGS"
-echo "  SCI_FFLAGS ..... = $SCI_FFLAGS"
-echo "  F77_LDFLAGS .... = $F77_LDFLAGS"
-echo "  FLIBS...... .... = $FLIBS"
-echo "  TERMCAP_LIB .... = $TERMCAP_LIB"
+echo "  prefix ................ = $prefix"
+echo "  localedir ............. = $localedir"
+echo "  VERSION ............... = $PACKAGE_VERSION"
+echo "  CC .................... = $CC"
+echo "  CFLAGS ................ = $CFLAGS"
+echo "  SCI_CFLAGS ............ = $SCI_CFLAGS"
+echo "  DEFS .................. = $DEFS"
+echo "  LD .................... = $LD"
+echo "  LDFLAGS ............... = $LDFLAGS"
+echo "  SCI_LDFLAGS ........... = $SCI_LDFLAGS"
+echo "  LIBS .................. = $LIBS"
+echo "  CXX ................... = $CXX"
+echo "  CXXFLAGS .............. = $CXXFLAGS"
+echo "  SCI_CXXFLAGS .......... = $SCI_CXXFLAGS"
+echo "  F77 ................... = $F77"
+echo "  FFLAGS ................ = $FFLAGS"
+echo "  SCI_FFLAGS ............ = $SCI_FFLAGS"
+echo "  F77_LDFLAGS ........... = $F77_LDFLAGS"
+echo "  FLIBS...... ........... = $FLIBS"
+echo "  TERMCAP_LIB ........... = $TERMCAP_LIB"
 echo ""

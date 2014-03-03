@@ -171,7 +171,7 @@ libscicore_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/hdf5/includes/ \
     -I$(top_srcdir)/modules/fftw/includes/ \
     -I$(top_srcdir)/modules/ui_data/includes/ \
-    $(XML_FLAGS) \
+    $(XML_CFLAGS) \
     $(AM_CPPFLAGS)
 
 # Used by sci_getdebuginfo:

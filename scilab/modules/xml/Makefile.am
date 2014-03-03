@@ -107,7 +107,7 @@ libscixml_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/fileio/includes/ \
     -I$(top_srcdir)/modules/string/includes/ \
     -I$(top_srcdir)/modules/dynamic_link/includes \
-    $(XML_FLAGS) \
+    $(XML_CFLAGS) \
     $(AM_CPPFLAGS)
 
 pkglib_LTLIBRARIES = libscixml.la
