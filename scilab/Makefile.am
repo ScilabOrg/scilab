@@ -69,13 +69,12 @@ scilab_bin_CPPFLAGS = -I$(top_srcdir)/modules/io/includes/ \
 # (causing issues on some platform)
 COMMON_LIBS = $(LTLIBINTL)
 
+# Match scilab -nwni (ie command line without graphics)
 scilab_bin_SOURCES		= modules/startup/src/c/mainscic.cpp
-
 scilab_bin_LDADD 		= $(COMMON_LIBS) $(top_builddir)/modules/libscilab.la $(FLIBS)
 
 # Match scilab -nwni (ie command line without graphics)
 scilab_cli_bin_SOURCES	= modules/startup/src/c/mainscic.cpp
-
 scilab_cli_bin_CPPFLAGS = -DWITHOUT_GUI $(scilab_bin_CPPFLAGS)
 scilab_cli_bin_LDADD 	= $(COMMON_LIBS) $(top_builddir)/modules/libscilab-cli.la $(FLIBS)
 
