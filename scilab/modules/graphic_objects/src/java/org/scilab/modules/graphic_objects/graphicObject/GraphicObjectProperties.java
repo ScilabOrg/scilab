@@ -409,4 +409,6 @@ public class GraphicObjectProperties {
     public static final int __GO_UI_FRAME_BORDER_TYPE__ = 386;
     public static final int __GO_UI_SCROLLABLE__ = 387;
 
+    public static final int __GO_UI_SPINNER__ = 388;
+
 }

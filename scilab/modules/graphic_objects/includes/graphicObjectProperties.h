@@ -408,4 +408,6 @@
 #define __GO_UI_FRAME_BORDER_TYPE__ 386
 #define __GO_UI_SCROLLABLE__ 387
 
+
+#define __GO_UI_SPINNER__ 388
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */
