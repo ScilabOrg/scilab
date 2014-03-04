@@ -19,10 +19,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
+import org.scilab.modules.graphic_objects.MVCDebugView;
 import org.scilab.modules.graphic_objects.graphicModel.GraphicModel;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.Type;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicView.FlattenTreeView;
 import org.scilab.modules.graphic_objects.graphicView.GedTreeView;
 import org.scilab.modules.graphic_objects.graphicView.GraphicView;
@@ -35,7 +36,7 @@ import org.scilab.modules.graphic_objects.graphicView.LogView;
  */
 public class GraphicController {
 
-    private static boolean MVCViewEnable = false;
+    private static boolean MVCViewEnable = true;
     private static boolean debugEnable = false;
     private static boolean infoEnable = false;
     private static Integer lastId = 0;
@@ -70,6 +71,8 @@ public class GraphicController {
             register(GuiLogView.createGuiLogView());
             register(GedTreeView.create());
             register(FlattenTreeView.create());
+
+            MVCDebugView.showGedView();
         }
         if (infoEnable) {
             register(LogView.createLogView());
@@ -222,7 +225,7 @@ public class GraphicController {
             return 0;
         }
     }
-    
+
     /**
      * Ask the model to clone an object
      * @param id : the ID of the object to clone.
@@ -235,13 +238,37 @@ public class GraphicController {
     public Integer askObject(Type type) {
         return askObject(type, true);
     }
-    
+
     /**
      * Deletes an object
      * @param id the deleted object's id
      */
     public void deleteObject(Integer id) {
         try {
+            //            Integer type = (Integer)getProperty(id, GraphicObjectProperties.__GO_TYPE__);
+            //            if(type == GraphicObjectProperties.__GO_UICONTROL__) {
+            //                Integer frame = (Integer)getProperty(id, GraphicObjectProperties.__GO_UI_FRAME_BORDER__);
+            //                if(frame.intValue() != 0) {
+            //                    System.out.println(frame);
+            //                    deleteObject(frame);
+            //                }
+            //            } else if(type == GraphicObjectProperties.__GO_UI_FRAME_BORDER__) {
+            //                Integer borderIn = (Integer)getProperty(id, GraphicObjectProperties.__GO_UI_FRAME_BORDER_IN_BORDER__);
+            //                if(borderIn != null && borderIn.intValue() != 0) {
+            //                    deleteObject(borderIn);
+            //                }
+            //
+            //                Integer borderOut = (Integer)getProperty(id, GraphicObjectProperties.__GO_UI_FRAME_BORDER_OUT_BORDER__);
+            //                if(borderOut != null && borderOut.intValue() != 0) {
+            //                    deleteObject(borderOut);
+            //                }
+            //
+            //                Integer borderTitled = (Integer)getProperty(id, GraphicObjectProperties.__GO_UI_FRAME_BORDER_TITLE__);
+            //                if(borderTitled != null && borderTitled.intValue() != 0) {
+            //                    deleteObject(borderTitled);
+            //                }
+            //            }
+
             objectDeleted(id);
             GraphicModel.getModel().deleteObject(id);
         } catch (Exception e) {

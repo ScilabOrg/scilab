@@ -172,6 +172,7 @@ void ScilabView::createObject(int iUID)
     item->uid = iUID;
 
     m_pathList[iUID] = item;
+    printf("createObject size : %d\n", m_pathList.size());
 
     //get existing information from current object
     updateObject(iUID, __GO_PARENT__);
@@ -233,6 +234,8 @@ void ScilabView::deleteObject(int iUID)
     deleteDataObject(iUID);
 
     m_pathList.erase(iUID);
+    printf("deleteObject size : %d\n", m_pathList.size());
+
 }
 
 void ScilabView::updateObject(int iUID, int iProperty)
@@ -256,6 +259,8 @@ void ScilabView::updateObject(int iUID, int iProperty)
                 m_figureList[iUID] = iNewId;
                 //std::cerr << "### [ScilabView] updateMap UID=" << iUID << " id=" << iNewId << std::endl;
             }
+
+            //printf("__GO_ID__ size : %d\n", m_figureList.size());
             break;
         }
         case __GO_CHILDREN__ :
@@ -296,6 +301,8 @@ void ScilabView::updateObject(int iUID, int iProperty)
                 PathItem* item = (*it).second;
                 item->parent = iParent;
             }
+
+            break;
         }
         case __GO_TAG__ :
         {
@@ -324,6 +331,8 @@ void ScilabView::updateObject(int iUID, int iProperty)
                 item->tag = tag;
                 free(tag);
             }
+
+            //printf("__GO_TAG__ size : %d\n", m_pathList.size());
             break;
         }
         default:
