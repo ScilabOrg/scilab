@@ -376,6 +376,8 @@ Scilab Bug Fixes
 
 * Bug #12896 fixed - Typos fixed in XML module error messages.
 
+* Bug #12900 fixed - It was not possible to set proxy options in Preferences.
+
 * Bug #12910 fixed - Some typos fixed.
 
 * Bug #12938 fixed - No java compiler was available in Linux binary version.
