@@ -1022,7 +1022,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         int objectStyle = (objectType == GraphicObjectProperties.__GO_UICONTROL__ ? (Integer) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_STYLE__) : -1);
         if ((object != null) && isFigureChild(id)
                 || (objectType == GraphicObjectProperties.__GO_UICONTROL__ && objectStyle == GraphicObjectProperties.__GO_UI_FRAME__)
-                && objectType != GraphicObjectProperties.__GO_UIMENU__) {
+                && objectType != GraphicObjectProperties.__GO_UIMENU__ && objectType != GraphicObjectProperties.__GO_UI_FRAME_BORDER__) {
 
             if (GraphicObjectProperties.__GO_VALID__ == property) {
                 return false;
