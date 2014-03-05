@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2014-03-06 10:33+0100\n"
+"Revision-Date: 2014-03-06 16:12+0100\n"
 
 # File: sci_gateway/c/gw_graphics.c, line: 131
 # File: src/nographics/nographics.c, line: 83
@@ -2673,7 +2673,7 @@ msgid "Imaginary part"
 msgstr ""
 
 #
-# File: demos/2d_3d_plots/plotyy.dem.sce, line: 37
+# File: demos/2d_3d_plots/plotyy.dem.sce, line: 39
 msgid "Graphics with 2 different Y-scales"
 msgstr ""
 
@@ -3539,7 +3539,6 @@ msgstr ""
 #
 # File: macros/createBorders.sci, line: 17
 # File: macros/createConstraints.sci, line: 17
-# File: macros/createFontBorder.sci, line: 20
 # File: macros/createLayoutOptions.sci, line: 17
 #, c-format
 msgid "%s: Wrong number of input argument(s): At least %d expected."
@@ -3620,25 +3619,6 @@ msgstr ""
 # File: macros/setTitleLabelProperty.sci, line: 49
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A real matrix expected.\n"
-msgstr ""
-
-#
-# File: macros/createFontBorder.sci, line: 30
-# File: macros/createFontBorder.sci, line: 36
-# File: macros/createFontBorder.sci, line: 47
-#, c-format
-msgid "%s: Wrong type for input argument #%d: A integer value expected.\n"
-msgstr ""
-
-#
-# File: macros/createFontBorder.sci, line: 40
-# File: macros/createFontBorder.sci, line: 51
-# File: macros/setPlotProperty.sci, line: 75
-# File: macros/setPlotProperty.sci, line: 307
-# File: macros/setSurfProperty.sci, line: 64
-# File: macros/setSurfProperty.sci, line: 402
-#, c-format
-msgid "%s: Wrong value for input argument #%d: %s or %s expected.\n"
 msgstr ""
 
 #
@@ -4383,6 +4363,15 @@ msgstr ""
 msgid ""
 "%s: Wrong type for input argument #%d: 3 elements vector or index in the "
 "colormap expected.\n"
+msgstr ""
+
+#
+# File: macros/setPlotProperty.sci, line: 75
+# File: macros/setPlotProperty.sci, line: 307
+# File: macros/setSurfProperty.sci, line: 64
+# File: macros/setSurfProperty.sci, line: 402
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s or %s expected.\n"
 msgstr ""
 
 #

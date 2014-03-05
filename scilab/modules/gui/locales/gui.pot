@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2014-03-06 10:33+0100\n"
+"Revision-Date: 2014-03-06 16:11+0100\n"
 
 # File: sci_gateway/c/gw_gui.c, line: 89
 #, c-format
@@ -2238,7 +2238,6 @@ msgstr ""
 #
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 70
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 150
-#, c-format
 msgid ""
 "WARNING: Due to your configuration limitations, Scilab switched in a mode "
 "where mixing uicontrols and graphics is not available. Type %s for more "
@@ -2249,7 +2248,6 @@ msgstr ""
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 71
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 151
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 161
-#, c-format
 msgid "In some cases, %s fixes the issue"
 msgstr ""
 
@@ -2320,7 +2318,6 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/bridge/filechooser/ExportOptionWindow.java, line: 75
-#, c-format
 msgid "Option for %s format"
 msgstr ""
 
@@ -2356,7 +2353,6 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/bridge/filechooser/ExportOptionWindow.java, line: 175
-#, c-format
 msgid "An error occurred during export: %s"
 msgstr ""
 
@@ -2467,7 +2463,6 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/bridge/filechooser/SwingScilabExportFileChooser.java, line: 282
-#, c-format
 msgid ""
 "Unrecognized extension '%s'.\n"
 " Please specify a valid file format."
@@ -3805,7 +3800,6 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/tabfactory/ScilabTabFactory.java, line: 40
-#, c-format
 msgid ""
 "The tab with uuid %s cannot be restored.\n"
 "Please report a bug with the previous message and in attaching the file %s."
@@ -3813,13 +3807,11 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/ClosingOperationsManager.java, line: 56
-#, c-format
 msgid "Are you sure you want to close %s ?"
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/ClosingOperationsManager.java, line: 57
-#, c-format
 msgid "Are you sure you want to close %s and %s ?"
 msgstr ""
 
@@ -3906,7 +3898,6 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/SciFileFilter.java, line: 82
-#, c-format
 msgid "All %s files"
 msgstr ""
 
@@ -3959,9 +3950,28 @@ msgstr ""
 msgid "Error. A signal has been caught.\n"
 msgstr ""
 
-#
-# File: demos/cb_uicontrol_plot3d.dem.sci, line: 67
+# File: demos/cb_uicontrol_plot3d.dem.sci, line: 29
 msgid "Control Plot3d"
+msgstr ""
+
+#
+# File: demos/cb_uicontrol_plot3d.dem.sci, line: 46
+msgid "Control Panel"
+msgstr ""
+
+#
+# File: demos/cb_uicontrol_plot3d.dem.sci, line: 61
+msgid "Rotation angle"
+msgstr ""
+
+#
+# File: demos/cb_uicontrol_plot3d.dem.sci, line: 84
+msgid "Colormap"
+msgstr ""
+
+#
+# File: demos/cb_uicontrol_plot3d.dem.sci, line: 149
+msgid "Show / Hide"
 msgstr ""
 
 #
@@ -4255,6 +4265,27 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: Wrong type for input argument #%d: A graphic handle or a real expected.\n"
+msgstr ""
+
+#
+# File: macros/createBorderFont.sci, line: 20
+#, c-format
+msgid "%s: Wrong number of input argument(s): At least %d expected."
+msgstr ""
+
+#
+# File: macros/createBorderFont.sci, line: 30
+# File: macros/createBorderFont.sci, line: 36
+# File: macros/createBorderFont.sci, line: 47
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A integer value expected.\n"
+msgstr ""
+
+#
+# File: macros/createBorderFont.sci, line: 40
+# File: macros/createBorderFont.sci, line: 51
+#, c-format
+msgid "%s: Wrong value for input argument #%d: %s or %s expected.\n"
 msgstr ""
 
 #
