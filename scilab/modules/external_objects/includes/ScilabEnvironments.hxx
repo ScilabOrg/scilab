@@ -25,6 +25,7 @@ extern "C" {
 
 namespace org_modules_external_objects
 {
+	template class EXTERNAL_OBJECTS_SCILAB_IMPEXP std::vector<ScilabAbstractEnvironment*>;
 
 class EXTERNAL_OBJECTS_SCILAB_IMPEXP ScilabEnvironments
 {

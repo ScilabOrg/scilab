@@ -68,8 +68,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 
 namespace GiwsException {
-
-
+	template class GIWSEXPORT std::basic_string<char>;
 
 /**
 * Parent class for exceptions which may occure in JNI code.
