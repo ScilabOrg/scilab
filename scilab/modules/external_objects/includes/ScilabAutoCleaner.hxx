@@ -25,7 +25,9 @@
 
 namespace org_modules_external_objects
 {
-
+#if defined(_MSC_VER)
+	template class EXTERNAL_OBJECTS_SCILAB_IMPEXP std::map<int, std::set<int> >;
+#endif
 typedef std::map<int, std::set<int> > _MapIds;
 
 class EXTERNAL_OBJECTS_SCILAB_IMPEXP ScilabAutoCleaner

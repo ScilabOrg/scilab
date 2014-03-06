@@ -26,6 +26,10 @@ extern "C" {
 namespace org_modules_external_objects
 {
 
+#if defined(_MSC_VER)
+	template class EXTERNAL_OBJECTS_SCILAB_IMPEXP std::vector<org_modules_external_objects::ScilabAbstractEnvironment*>;
+#endif
+
 class EXTERNAL_OBJECTS_SCILAB_IMPEXP ScilabEnvironments
 {
     static std::vector<ScilabAbstractEnvironment*> environments;
