@@ -82,6 +82,7 @@ import java.util.Map;
 import org.scilab.modules.graphic_objects.builder.Builder;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.Type;
 import org.scilab.modules.graphic_objects.uicontrol.Uicontrol;
 import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder;
 import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder.BorderType;
@@ -179,6 +180,13 @@ public class GOBuilder {
 
 
         return fig;
+    }
+
+    public static Integer axesBuilder(GraphicController controller, Attributes attributes) {
+        Integer axes = GraphicController.getController().askObject(Type.AXES);
+        String id = attributes.getValue("id");
+        controller.setProperty(axes, __GO_TAG__, id);
+        return axes;
     }
 
     public static Integer uicontrolBuilder(GraphicController controller, int type, Attributes attributes, int parent) {
@@ -517,10 +525,8 @@ public class GOBuilder {
                     //color
                     item = xmlAttributes.get("color");
                     if (item != null) {
-                        System.out.println("Color : " + item);
                         Color color = Color.decode(item);
                         Double[] val = new Double[] {(double) color.getRed() / 255, (double) color.getGreen() / 255, (double) color.getBlue() / 255};
-                        System.out.println("color : [" + val[0] + "," + val[1] + "," + val[2] + "]");
                         controller.setProperty(uic, __GO_UI_FOREGROUNDCOLOR__, val);
                     }
 
