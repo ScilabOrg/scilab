@@ -247,12 +247,17 @@ char * getPrefAttributeValue(const char * xpath, const char * attribute)
     xmlDocPtr doc = NULL;
     xmlXPathContextPtr xpathCtxt = NULL;
     char * ret = NULL;
-
     unsigned int xlen = 0;
     unsigned int alen = 0;
-    char * query = (char *)MALLOC((xlen + alen + 2 + 1) * sizeof(char));
+    char * query = NULL;
 
     if (!xpath || !attribute)
+    {
+        return NULL;
+    }
+
+    query = (char *)MALLOC((xlen + alen + 2 + 1) * sizeof(char));
+    if (!query)
     {
         return NULL;
     }
@@ -263,6 +268,7 @@ char * getPrefAttributeValue(const char * xpath, const char * attribute)
     getDocAndCtxt(&doc, &xpathCtxt);
     if (doc == NULL)
     {
+        FREE(query);
         return NULL;
     }
 
