@@ -1,6 +1,7 @@
 package org.scilab.modules.graphic_objects.xmlloader;
 
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_BORDER_OPT_PADDING__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CALLBACKTYPE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CALLBACK__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CLOSEREQUESTFCN__;
@@ -81,6 +82,7 @@ import java.util.Map;
 import org.scilab.modules.graphic_objects.builder.Builder;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.Type;
 import org.scilab.modules.graphic_objects.uicontrol.Uicontrol;
 import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder;
 import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder.BorderType;
@@ -178,6 +180,15 @@ public class GOBuilder {
 
 
         return fig;
+    }
+
+    public static Integer axesBuilder(GraphicController controller, Attributes attributes) {
+        Integer axes = GraphicController.getController().askObject(Type.AXES);
+        String id = attributes.getValue("id");
+        if(id != null) {
+            controller.setProperty(axes, __GO_TAG__, id);
+        }
+        return axes;
     }
 
     public static Integer uicontrolBuilder(GraphicController controller, int type, Attributes attributes, int parent) {
@@ -513,6 +524,13 @@ public class GOBuilder {
                         controller.setProperty(uic, __GO_UI_ICON__, item);
                     }
 
+                    //color
+                    item = xmlAttributes.get("color");
+                    if (item != null) {
+                        Color color = Color.decode(item);
+                        Double[] val = new Double[] {(double) color.getRed() / 255, (double) color.getGreen() / 255, (double) color.getBlue() / 255};
+                        controller.setProperty(uic, __GO_UI_FOREGROUNDCOLOR__, val);
+                    }
                     break;
                 }
                 case __GO_UI_EDIT__ : {
