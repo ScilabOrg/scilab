@@ -20,7 +20,7 @@ function cbAtomsGui()
     UItag = get(gcbo,"Tag");
 
     // Get the description frame object
-    DescFrame = findobj("tag","DescFrame");
+    DescFrame = get("DescFrame");
 
     // Display selected module information
     // =========================================================================
@@ -44,17 +44,14 @@ function cbAtomsGui()
 
         elseif selected(1)=="category" then
 
-            LeftListbox             = findobj("tag","LeftListbox");
             LeftElements            = atomsGetLeftListboxElts(selected(2));
-            LeftListbox("String")   = LeftElements("items_str");
-            LeftListbox("UserData") = LeftElements("items_mat");
+            set("LeftListbox", "String", LeftElements("items_str"));
+            set("LeftListbox", "UserData", LeftElements("items_mat"));
 
-            LeftFrame               = findobj("tag","LeftFrame");
-            LeftFrame("UserData")   = selected(2);
+            set("LeftFrame", "UserData", selected(2));
 
             // Figure name
-            atomsfig                = findobj("tag","atomsFigure");
-            atomsfig("figure_name") = LeftElements("title")+" - ATOMS";
+            set("atomsFigure", "figure_name", LeftElements("title") + " - ATOMS");
 
         end
 
@@ -137,7 +134,7 @@ function cbAtomsGui()
 
         // File:Close
     elseif UItag == "closeMenu" then
-        delete(findobj("Tag", "atomsFigure"));
+        delete(get("atomsFigure"));
 
         // ?:Help
     elseif UItag == "helpMenu" then
@@ -155,11 +152,9 @@ endfunction
 // =============================================================================
 
 function selected = getSelected(listbox)
-
-    index    = get(findobj("Tag",listbox),"Value");
-    UserData = get(findobj("Tag",listbox),"UserData");
+    index    = get(listbox ,"Value");
+    UserData = get(listbox,"UserData");
     selected = UserData(index,:);
-
 endfunction
 
 
@@ -170,20 +165,20 @@ endfunction
 
 function disableAtomsGui()
 
-    set(findobj("tag", "installButton"), "Enable", "off");
-    set(findobj("tag", "updateButton") , "Enable", "off");
-    set(findobj("tag", "removeButton") , "Enable", "off");
+    set("installButton", "Enable", "off");
+    set("updateButton", "Enable", "off");
+    set("removeButton" , "Enable", "off");
     disableLeftListbox()
 endfunction
 
 function disableLeftListbox()
-    set(findobj("tag", "LeftListbox"),"Callback", "");
-    set(findobj("tag", "LeftListbox"),"ForegroundColor",[0.5 0.5 0.5]);
+    set("LeftListbox", "Callback", "");
+    set("LeftListbox", "ForegroundColor", [0.5 0.5 0.5]);
 endfunction
 
 function enableLeftListbox()
-    set(findobj("tag", "LeftListbox"),"Callback", "cbAtomsGui");
-    set(findobj("tag", "LeftListbox"),"ForegroundColor",[0 0 0]);
+    set("LeftListbox" ,"Callback", "cbAtomsGui");
+    set("LeftListbox", "ForegroundColor", [0 0 0]);
 endfunction
 
 // =============================================================================
@@ -191,11 +186,10 @@ endfunction
 // =============================================================================
 
 function reloadLeftListbox()
-    category                = get(findobj("tag","LeftFrame"),"UserData");
-    LeftListbox             = findobj("tag","LeftListbox");
+    category                = get("LeftFrame", "UserData");
     LeftElements            = atomsGetLeftListboxElts(category);
-    LeftListbox("String")   = LeftElements("items_str");
-    LeftListbox("UserData") = LeftElements("items_mat");
+    set("LeftListbox", "String", LeftElements("items_str"));
+    set("LeftListbox", "UserData", LeftElements("items_mat"));
 endfunction
 
 // =============================================================================
@@ -212,19 +206,12 @@ function updateDescFrame()
 
     // Get the modules list and the selected module
     // =========================================================================
-
-    thisFigure     = findobj("tag","atomsFigure");
-
-    Desc           = findobj("tag","Desc");
-    DescFrame      = findobj("tag","DescFrame");
-    DescTitle      = findobj("tag","DescTitle");
-
-    allModules     = get(thisFigure,"userdata");
-    thisModuleName = get(DescFrame ,"userdata");
+    allModules     = get("atomsFigure","userdata");
+    thisModuleName = get("DescFrame" ,"userdata");
 
     // Reset the message frame
     // =========================================================================
-    set(findobj("tag","msgText"),"String","");
+    set("msgText","String","");
 
     // Get the module details
     // =========================================================================
@@ -334,18 +321,12 @@ function updateDescFrame()
     htmlcode = processHTMLLinks(htmlcode);
 
     // Update the main description
-    set(Desc,"String",htmlcode);
+    set("Desc","String", htmlcode);
 
     // Description title management
     // =========================================================================
 
-    descFrameHTML    = thisModuleDetails.Title;
-
-    descFramePos     = get(DescTitle,"Position");
-    descFramePos(3)  = 300;
-
-    set(DescTitle, "String"   , descFrameHTML );
-    set(DescTitle, "Position" , descFramePos );
+    set("DescFrame", "borders", createBorders("titled", createBorders("line", "black"), thisModuleDetails.Title));
 
     // Buttons
     // =========================================================================
@@ -382,9 +363,9 @@ function updateDescFrame()
     // Update the buttons
     // --------------------------
 
-    set(findobj("tag", "installButton"), "Enable", canInstall);
-    set(findobj("tag", "updateButton") , "Enable", canUpdate );
-    set(findobj("tag", "removeButton") , "Enable", canRemove );
+    set("installButton", "Enable", canInstall);
+    set("updateButton" , "Enable", canUpdate );
+    set("removeButton" , "Enable", canRemove );
 
 endfunction
 
@@ -414,8 +395,7 @@ endfunction
 // =============================================================================
 
 function show(tag)
-    obj = findobj("tag",tag);
-    set(obj,"Visible","On");
+    set(tag, "Visible", "On");
 endfunction
 
 // =============================================================================
@@ -436,26 +416,15 @@ endfunction
 function showHome()
 
     // Reset the message frame
-    set(findobj("tag","msgText"),"String","");
+    set("msgText","String", "");
 
-    // Hide the Desc frame
-    hide("DescFrame");
-    hide("DescTitle");
-    hide("Desc");
-    hide("removeButton");
-    hide("installButton");
-    hide("updateButton");
+    //Show the Home page
+    set("LayerFrame","value", 1);
 
     // update the left listbox
-    LeftListbox             = findobj("tag","LeftListbox");
-    LeftElements            = atomsGetLeftListboxElts("filter:main");
-    LeftListbox("String")   = LeftElements("items_str");
-    LeftListbox("UserData") = LeftElements("items_mat");
-
-    // Show the Home page
-    show("HomeFrame");
-    show("HomeTitle");
-    show("HomeListbox");
+    LeftElements = atomsGetLeftListboxElts("filter:main");
+    set("LeftListbox", "String", LeftElements("items_str"));
+    set("LeftListbox", "UserData", LeftElements("items_mat"));
 
 endfunction
 
@@ -466,20 +435,8 @@ endfunction
 // =============================================================================
 
 function showDesc()
-
-    // Show the Home page
-    hide("HomeFrame");
-    hide("HomeTitle");
-    hide("HomeListbox");
-
-    // Hide the Desc frame
-    show("DescFrame");
-    show("DescTitle");
-    show("Desc");
-    show("removeButton");
-    show("installButton");
-    show("updateButton");
-
+    // Show the Desc frame
+    set("LayerFrame", "value", 2);
 endfunction
 
 
@@ -492,7 +449,7 @@ function updateStatusBar(status,msg)
 
     rhs = argn(2);
 
-    msgText = findobj("tag","msgText");
+    msgText = get("msgText");
 
     if rhs==0 then
         set(msgText,"String","");

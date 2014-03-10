@@ -549,4 +549,11 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
             label.setBackground(color);
         }
     }
+
+    public void resetForeground() {
+        Color color = (Color)UIManager.getLookAndFeelDefaults().get("Label.foreground");
+        if (color != null) {
+            super.setForeground(color);
+        }
+    }
 }
