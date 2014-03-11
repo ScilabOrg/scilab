@@ -687,6 +687,8 @@ Scilab Bug Fixes
 
 * Bug #13165 fixed - Preferences reset did not show a confirmation pop-up.
 
+* Bug #13168 fixed - Invalid interpretation of star followed by minus.
+
 * Bug #13170 fixed - Legends for plzr plots fixed.
 
 * Bug #13174 fixed - Scilab crashed after XML element removal.
