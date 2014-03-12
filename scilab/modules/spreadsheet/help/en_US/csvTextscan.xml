@@ -46,6 +46,7 @@
                 
                 <listitem>
                     <para>a 1-by-1 matrix of strings, the column separator mark.</para>
+		    <para><literal>separator</literal> cannot be the empty string ""</para>
                 </listitem>
             </varlistentry>
             
