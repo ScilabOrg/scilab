@@ -754,6 +754,8 @@ Scilab Bug Fixes
 
 * Bug #13258 fixed - Bad number display in datatips fixed.
 
+* Bug #13271 fixed - plot2d with logscale and %nan value freezed scilab.
+
 
 Xcos Bug Fixes
 ==============
