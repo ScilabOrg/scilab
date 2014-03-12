@@ -214,6 +214,22 @@ csvResult* csvTextScan(const char **lines, int numberOfLines, const char *separa
     char **cleanedLines = NULL;
     int nbLines = numberOfLines;
 
+    if (strcmp(separator,"") == 0)
+    {
+	    //Separator must not be empty to avoid infinite evaluation 
+	    result = (csvResult*)(MALLOC(sizeof(csvResult)));
+	    if (result)
+	    {
+		    result->err = CSV_READ_SEPARATOR_EMPTY;
+		    result->m = 0;
+		    result->n = 0;
+		    result->pstrValues = NULL;
+		    result->pstrComments = NULL;
+		    result->nbComments = 0;
+	    }
+	    return result;
+    }
+
     if (strcmp(separator, decimal) == 0)
     {
         result = (csvResult*)(MALLOC(sizeof(csvResult)));

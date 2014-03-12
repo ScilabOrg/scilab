@@ -2,7 +2,8 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - 2012 - INRIA - Allan CORNET
  * Copyright (C) 2011 - INRIA - Michael Baudin
- *
+ * Copyright (C) 20xx - 2014 - Pierre-Aime Agnel
+ * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -181,6 +182,12 @@ int sci_csvTextScan(char *fname, unsigned long fname_len)
             case CSV_READ_SEPARATOR_DECIMAL_EQUAL:
             {
                 Scierror(999, _("%s: separator and decimal must have different values.\n"), fname);
+            }
+            break;
+
+            case CSV_READ_SEPARATOR_EMPTY:
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: non-empty string expected .\n"), fname,2);
             }
             break;
 

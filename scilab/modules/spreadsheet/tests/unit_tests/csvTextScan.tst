@@ -1,6 +1,7 @@
 // =============================================================================
 // Copyright (C) 2011 - INRIA - Michael Baudin
 // Copyright (C) 2010 - 2011 - INRIA - Allan CORNET
+// Copyright (C) 2010 - 2014 - Scilab Enterprises - Pierre-Aime Agnel
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
 // =============================================================================
@@ -138,3 +139,20 @@ for i=1:5
     b = csvTextScan(r(i), ",", [], "string");
     assert_checkequal(b , ref(i,:));
 end
+
+// =============================================================================
+// Check error handling if called with an empty separator
+// csvTextScan should not allow an empty separator
+sometxt    = "a***b**c*d";
+sep        = "";
+dec_sep    = ".";
+conversion = "string"
+
+err_empty_sep_msg = msprintf(...
+    _("%s: Wrong value for input argument #%d: non-empty string expected .\n"), ...
+    "csvTextScan", 2);
+
+assert_checkerror(...
+    'csvTextScan(sometxt, sep, dec_sep, conversion)', ...
+    err_empty_sep_msg)
+// =============================================================================

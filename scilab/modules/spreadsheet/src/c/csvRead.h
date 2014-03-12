@@ -22,7 +22,8 @@ typedef enum
     CSV_READ_COLUMNS_ERROR = 5,
     CSV_READ_ERROR = 6,
     CSV_READ_SEPARATOR_DECIMAL_EQUAL = 7,
-    CSV_READ_REGEXP_ERROR = 8
+    CSV_READ_REGEXP_ERROR = 8,
+    CSV_READ_SEPARATOR_EMPTY = 9
 } csvReadError;
 
 typedef struct
