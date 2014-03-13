@@ -32,11 +32,11 @@
 #endif
 
 #include "sciprint.h"
+#include "addColor.h"
 
 #define COLOR_COMPONENT 3
 /*--------------------------------------------------------------------------*/
-void setDefaultProperties(int _iFig);
-int addColor(int _iFig, double* _pdblColor);
+int setDefaultProperties(int _iFig, BOOL bDefaultAxes);
 /*--------------------------------------------------------------------------*/
 int sci_figure(char * fname, unsigned long fname_len)
 {
@@ -49,7 +49,6 @@ int sci_figure(char * fname, unsigned long fname_len)
     int i = 0;
     int iNewId = -1;
     int iAxes = 0;
-    int* piAxes = &iAxes;
     int iPropertyOffset = 0;
     BOOL bDoCreation = TRUE;
     BOOL bVisible = TRUE; // Create a visible figure by default
@@ -58,6 +57,7 @@ int sci_figure(char * fname, unsigned long fname_len)
     int iMenubarType = 1; // Create a 'figure' menubar by default
     int iToolbarType = 1; // Create a 'figure' toolbar by default
     double dblId = 0;
+    BOOL status = FALSE;
 
     //figure(num) -> scf(num)
     //figure() -> scf()
@@ -68,7 +68,7 @@ int sci_figure(char * fname, unsigned long fname_len)
     if (iRhs == 0) // Auto ID
     {
         iFig = createNewFigureWithAxes();
-        setDefaultProperties(iFig);
+        iAxes = setDefaultProperties(iFig, TRUE);
         createScalarHandle(pvApiCtx, iRhs + 1, getHandle(iFig));
         AssignOutputVariable(pvApiCtx, 1) = iRhs + 1;
         ReturnArguments(pvApiCtx);
@@ -106,7 +106,7 @@ int sci_figure(char * fname, unsigned long fname_len)
         {
             iFig = createNewFigureWithAxes();
             setGraphicObjectProperty(iFig, __GO_ID__, &iId, jni_int,  1);
-            setDefaultProperties(iFig);
+            iAxes = setDefaultProperties(iFig, TRUE);
         }
 
         createScalarHandle(pvApiCtx, iRhs + 1, getHandle(iFig));
@@ -292,7 +292,7 @@ int sci_figure(char * fname, unsigned long fname_len)
         }
         iFig = createFigure(bDockable, iMenubarType, iToolbarType, bDefaultAxes, bVisible);
         setGraphicObjectProperty(iFig, __GO_ID__, &iNewId, jni_int, 1);
-
+        setDefaultProperties(iFig, bDefaultAxes);
     }
 
     //set(iFig, iPos, iPos + 1)
@@ -329,18 +329,6 @@ int sci_figure(char * fname, unsigned long fname_len)
             // Already set creating new figure
             // but let the set_ function fail if figure already exists
             continue;
-        }
-
-        //check property value to compatibility
-        if (stricmp(pstProName, "backgroundcolor") == 0)
-        {
-            freeAllocatedSingleString(pstProName);
-            pstProName = strdup("background");
-        }
-        else if (stricmp(pstProName, "foregroundcolor") == 0)
-        {
-            freeAllocatedSingleString(pstProName);
-            pstProName = strdup("foreground");
         }
 
         //get address of value on stack
@@ -409,6 +397,20 @@ int sci_figure(char * fname, unsigned long fname_len)
         }
 
         callSetProperty(pvApiCtx, iFig, _pvData, iType, iRows, iCols, pstProName);
+
+        // If backgroundcolor is set :
+        // * add it to colormap => performed by callSetProperty
+        // * set background to index => performed by callSetProperty
+        // * copy value into axes background property
+        if (stricmp(pstProName, "backgroundcolor") == 0 && iAxes > 0)
+        {
+            int iBackground = 0;
+            int *piBackground = &iBackground;
+
+            getGraphicObjectProperty(iFig, __GO_BACKGROUND__, jni_int, (void **)&piBackground);
+            setGraphicObjectProperty(iAxes, __GO_BACKGROUND__, piBackground, jni_int, 1);
+        }
+
         if (iType == sci_strings)
         {
             //free allacted data
@@ -430,10 +432,10 @@ int sci_figure(char * fname, unsigned long fname_len)
     return 0;
 }
 /*--------------------------------------------------------------------------*/
-void setDefaultProperties(int _iFig)
+int setDefaultProperties(int _iFig, BOOL _bDefaultAxes)
 {
     //get figure axes
-    int iAxes = getOrCreateDefaultSubwin();
+    int iAxes = -1;
     int iDrawing = 0;
     int iColorIndex = 0;
     int iFilled = 0;
@@ -444,21 +446,26 @@ void setDefaultProperties(int _iFig)
 
     iColorIndex = addColor(_iFig, pdblNewColor);
 
-    //set background in figure and axes to new ( or existting ) color
     setGraphicObjectProperty(_iFig, __GO_BACKGROUND__, &iColorIndex, jni_int, 1);
-    setGraphicObjectProperty(iAxes, __GO_BACKGROUND__, &iColorIndex, jni_int, 1);
+    if (_bDefaultAxes)
+    {
+        iAxes = getOrCreateDefaultSubwin();
+        //set background in figure and axes to new ( or existting ) color
+        setGraphicObjectProperty(iAxes, __GO_BACKGROUND__, &iColorIndex, jni_int, 1);
 
-    //a.filled = "off"
-    setGraphicObjectProperty(iAxes, __GO_FILLED__, &iFilled, jni_bool, 1);
+        //a.filled = "off"
+        setGraphicObjectProperty(iAxes, __GO_FILLED__, &iFilled, jni_bool, 1);
 
-    //a.axes_visible = "off"
-    setGraphicObjectProperty(iAxes, __GO_X_AXIS_VISIBLE__, &iAxesVisible, jni_bool, 1);
-    setGraphicObjectProperty(iAxes, __GO_Y_AXIS_VISIBLE__, &iAxesVisible, jni_bool, 1);
-    setGraphicObjectProperty(iAxes, __GO_Z_AXIS_VISIBLE__, &iAxesVisible, jni_bool, 1);
-
+        //a.axes_visible = "off"
+        setGraphicObjectProperty(iAxes, __GO_X_AXIS_VISIBLE__, &iAxesVisible, jni_bool, 1);
+        setGraphicObjectProperty(iAxes, __GO_Y_AXIS_VISIBLE__, &iAxesVisible, jni_bool, 1);
+        setGraphicObjectProperty(iAxes, __GO_Z_AXIS_VISIBLE__, &iAxesVisible, jni_bool, 1);
+    }
     //f.immediate_drawing = "on"
     iDrawing = 1;
     setGraphicObjectProperty(_iFig, __GO_IMMEDIATE_DRAWING__, &iDrawing, jni_bool, 1);
+
+    return iAxes;
 }
 /*--------------------------------------------------------------------------*/
 int addColor(int _iFig, double* _pdblNewColor)
