@@ -239,32 +239,27 @@
     <refsection id="Example_IN_f">
         <title>Example</title>
         <para>
-            In the following example the Super block is an amplitude modulator. The IN_f block is used as a modulation signal input. Its data type is defined by the input type of the gain block that is a scalar double data type.
-        </para>
-        <para><link type="scilab" linkend="scilab.xcos/xcos/examples/portaction_pal/en_US/IN_f_en_US.zcos">
-                Open this example in Xcos
-            </link>
-        </para>
-        <para/>
-        <para>
-            <mediaobject>
-                <imageobject>
-                    <imagedata fileref="../../../../examples/portaction_pal/en_US/IN_f_en_US.zcos"/>
-                </imageobject>
-            </mediaobject>
-            <mediaobject>
-                <imageobject>
-                    <imagedata fileref="../../../../examples/portaction_pal/en_US/IN_f_internal_en_US.zcos"/>
-                </imageobject>
-            </mediaobject>
+            In the following example the Super block is an amplitude modulator. 
+			The IN_f block is used as a modulation signal input. 
+			Its data type is defined by the input type of the gain block that is a scalar double data type.
         </para>
         <para>
+			<link type="scilab" linkend="scilab.xcos/xcos/examples/portaction_pal/en_US/IN_f_en_US.zcos">
+				<inlinemediaobject>
+					<imageobject>
+						<imagedata fileref="../../../../examples/portaction_pal/en_US/IN_f_en_US.zcos" align="center" valign="middle"/>
+					</imageobject>
+				</inlinemediaobject>
+			</link>
+        </para>
+		<para>
             The following figure shows the output of the bloc :
         </para>
-        <scilab:image><![CDATA[
-importXcosDiagram(SCI + "/modules/xcos/examples/portaction_pal/en_US/IN_f_en_US.zcos");
-xcos_simulate(scs_m, 4);
-]]></scilab:image>
+		<scilab:image>
+			<![CDATA[
+			importXcosDiagram(SCI + "/modules/xcos/examples/portaction_pal/en_US/IN_f_en_US.zcos");
+			xcos_simulate(scs_m, 4);]]>
+		</scilab:image>
     </refsection>
     <refsection id="Interfacingfunction_IN_f">
         <title>Interfacing function</title>
