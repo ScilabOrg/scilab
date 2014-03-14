@@ -187,7 +187,9 @@ public class SwingScilabDockablePanel extends View implements SimpleTab, FocusLi
         scrolling = null;
 
         this.setVisible(true);
-
+        setOpaque(true);
+        setBackground(Color.CYAN);
+        
         getTitlebar().addFocusListener(this);
         addFocusListener(this);
         setCallback(null);
@@ -219,7 +221,9 @@ public class SwingScilabDockablePanel extends View implements SimpleTab, FocusLi
         //setContentPane(scrolling.getAsContainer());
 
         this.setVisible(true);
-
+        setOpaque(true);
+        setBackground(Color.CYAN);
+        
         getTitlebar().addFocusListener(this);
         addFocusListener(this);
         setCallback(null);
@@ -281,7 +285,7 @@ public class SwingScilabDockablePanel extends View implements SimpleTab, FocusLi
         layerdPane.setBorder(null);
         //layerdPane.add(canvas, JLayeredPane.FRAME_CONTENT_LAYER);
         uiContentPane = new JLayeredPane();
-        uiContentPane.setOpaque(false);
+        uiContentPane.setOpaque(true);
         uiContentPane.setLayout(null);
         uiContentPane.setBorder(null);
         layerdPane.add(uiContentPane, JLayeredPane.DEFAULT_LAYER + 1, 0);
