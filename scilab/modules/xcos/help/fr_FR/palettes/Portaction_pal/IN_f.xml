@@ -226,18 +226,24 @@
     <refsection id="Example_IN_f">
         <title>Exemple</title>
         <para>
-            Dans l'exemple suivant le Super bloc créé est un modulateur d'amplitude. Le bloc IN_f est utilisé comme entrée de signal de modulation. Son type de données est défini par le type d'entrée du bloc de gain qui est un scalaire de type double.
-            <link type="scilab" linkend="scilab.xcos/xcos/examples/portaction_pal/fr_FR/IN_f_fr_FR.zcos">
-                Ouvrir cet exemple dans Xcos
-            </link>
-            .
+            Dans l'exemple suivant le Super bloc créé est un modulateur d'amplitude. 
+			Le bloc IN_f est utilisé comme entrée de signal de modulation. 
+			Son type de données est défini par le type d'entrée du bloc de gain qui est un scalaire de type double.
         </para>
-        <para/>
-        <mediaobject>
-            <imageobject>
-                <imagedata fileref="../../../../examples/portaction_pal/fr_FR/IN_f_fr_FR.zcos"/>
-            </imageobject>
-        </mediaobject>
+		<para>
+			<link type="scilab" linkend="scilab.xcos/xcos/examples/portaction_pal/fr_FR/IN_f_fr_FR.zcos">
+			<inlinemediaobject>
+				<imageobject>
+					<imagedata fileref="../../../../examples/portaction_pal/fr_FR/IN_f_fr_FR.zcos" align="center" valign="middle"/>
+				</imageobject>
+			</inlinemediaobject>
+			</link>
+		</para>
+		<scilab:image>
+			<![CDATA[
+			importXcosDiagram(SCI + "/modules/xcos/examples/portaction_pal/fr_FR/IN_f_fr_FR.zcos");
+			xcos_simulate(scs_m, 4);]]>
+		</scilab:image>
     </refsection>
     <refsection id="Interfacingfunction_IN_f">
         <title>Fonction d'interfaçage</title>
