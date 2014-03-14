@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Transparency;
 import java.io.File;
 import java.io.IOException;
 
@@ -555,10 +556,11 @@ public class SwingScilabLabel extends JScrollPane implements SwingViewObject, Si
 
     public void resetBackground() {
         Color color = (Color) UIManager.getLookAndFeelDefaults().get("Label.background");
+        System.out.println("color.getTransparency() =" + (color.getTransparency() == Transparency.OPAQUE));
         if (color != null) {
             //bypass setBackground
             if (label instanceof JLabel) {
-                ((JLabel)label).setOpaque(false);
+                ((JLabel)label).setOpaque(color.getTransparency() == Transparency.OPAQUE);
             }
             label.setBackground(color);
         }
