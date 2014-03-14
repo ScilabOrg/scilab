@@ -320,6 +320,9 @@
             If a matrix entry is outside the colormap, the corresponding rectangle is not displayed.
         </para>
         <para>
+            Since the version 5.5.1, it is possible to use a matrix (or an hypermatrix) containing RGB, RGBA, ... data (see <link linkend="Matplot_properties">Matplot_properties</link>).
+        </para>
+        <para>
             Enter the command <code>Matplot()</code> to see a demo.
         </para>
     </refsection>
