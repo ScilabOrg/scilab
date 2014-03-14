@@ -320,6 +320,9 @@
             If a matrix entry is outside the colormap, the corresponding rectangle is not displayed.
         </para>
         <para>
+            <warning>To update the Matplot data, the field data of the corresponding handle should be used.</warning>
+        </para>
+        <para>
             Enter the command <code>Matplot()</code> to see a demo.
         </para>
     </refsection>
