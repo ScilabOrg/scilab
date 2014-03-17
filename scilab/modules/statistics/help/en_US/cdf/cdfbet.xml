@@ -136,6 +136,9 @@ plot2d2("gnn",[0:10]',p,5,"111","Repartition",[0,0,10,1])
             <member>
                 <link linkend="cdft">cdft</link>
             </member>
+            <member>
+                <link linkend="cdftnc">cdftnc</link>
+            </member>
         </simplelist>
     </refsection>
 </refentry>

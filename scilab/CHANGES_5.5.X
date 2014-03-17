@@ -12,6 +12,7 @@ New Features
  - ilib_build_jar - Builds Java packages from sources into a JAR file
  - ifftshift - inverse FFT shift
  - unwrap - unwraps/unfolds a Y(x) profile
+ - cdftnc - cumulative distribution function non-central Student's T distribution
 
 * modulo() and pmodulo() now support integers & hypermatrices (See bug #13002).
 
@@ -542,6 +543,8 @@ Scilab Bug Fixes
 * Bug #13227 fixed - Invalid windowsConfiguration.xml file could avoid Scilab's startup.
 
 * Bug #13233 fixed - Wrong result for simulation of step response csim('step',t,H) fixed.
+
+* Bug #13260 fixed - New function cdftnc for the non-central Student's distribution.
 
 
 Xcos
