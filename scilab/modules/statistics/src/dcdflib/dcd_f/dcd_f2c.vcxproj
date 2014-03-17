@@ -263,6 +263,7 @@ cd ..
     <ClCompile Include="..\cdfnor.c" />
     <ClCompile Include="..\cdfpoi.c" />
     <ClCompile Include="..\cdft.c" />
+    <ClCompile Include="..\cdftnc.c" />
     <ClCompile Include="..\cumbet.c" />
     <ClCompile Include="..\cumbin.c" />
     <ClCompile Include="..\cumchi.c" />
@@ -328,6 +329,7 @@ cd ..
     <f2c_rule Include="..\cdfnor.f" />
     <f2c_rule Include="..\cdfpoi.f" />
     <f2c_rule Include="..\cdft.f" />
+    <f2c_rule Include="..\cdftnc.f" />
     <f2c_rule Include="..\cumbet.f" />
     <f2c_rule Include="..\cumbin.f" />
     <f2c_rule Include="..\cumchi.f" />

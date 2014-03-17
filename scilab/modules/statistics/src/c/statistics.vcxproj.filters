@@ -68,6 +68,10 @@
     <ClCompile Include="..\..\sci_gateway\c\sci_cdft.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_cdftnc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CdfBase.h">

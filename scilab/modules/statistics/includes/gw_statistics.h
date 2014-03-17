@@ -28,6 +28,7 @@ STATISTICS_IMPEXP int cdfnbnI(char* fname, unsigned long l);
 STATISTICS_IMPEXP int cdfnorI(char* fname, unsigned long l);
 STATISTICS_IMPEXP int cdfpoiI(char* fname, unsigned long l);
 STATISTICS_IMPEXP int cdftI(char* fname, unsigned long l);
+STATISTICS_IMPEXP int cdftncI(char* fname, unsigned long l);
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_STATISTICS__ */
 /*--------------------------------------------------------------------------*/

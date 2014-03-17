@@ -28,7 +28,8 @@ static gw_generic_table Tab[] =
     {cdfnbnI, "cdfnbn"},
     {cdfnorI, "cdfnor"},
     {cdfpoiI, "cdfpoi"},
-    {cdftI, "cdft"}
+    {cdftI, "cdft"},
+    {cdftncI, "cdftnc"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_statistics()

@@ -81,13 +81,16 @@
         <programlisting role="example"><![CDATA[
     T = 5;
     Df = 2;
-    // Expected : P = 0.9811252 and Q = 1-P
+    // Attendu : P = 0.9811252 and Q = 1-P
     [P, Q] = cdft("PQ", T, Df)
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
         <title>Voir aussi</title>
         <simplelist type="inline">
+            <member>
+                <link linkend="cdftnc">cdftnc</link>
+            </member>
             <member>
                 <link linkend="cdfbet">cdfbet</link>
             </member>

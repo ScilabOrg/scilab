@@ -147,6 +147,9 @@
             <member>
                 <link linkend="cdft">cdft</link>
             </member>
+            <member>
+                <link linkend="cdftnc">cdftnc</link>
+            </member>
         </simplelist>
     </refsection>
 </refentry>

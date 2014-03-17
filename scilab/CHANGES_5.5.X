@@ -107,9 +107,9 @@ Xcos Bug Fixes
 
 * Bug #13385 fixed - TOWS_c and FROMWSB Xcos blocs needed better examples on how
                      to get or write a Scilab variable.
-                     
+
 * Bug #13391 fixed - scifunc_block_m help page was not clear about the block using.
-                     Example has been added.  
+                     Example has been added.
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
@@ -2004,6 +2004,7 @@ Scilab
  - getPreferencesValue/setPreferencesValue - Get or set values in the preferences file.
  - htmlDump/htmlRead/htmlReadStr/htmlWrite - Read and write data from/in HTML files.
  - numderivative - Approximate derivatives of a function (Jacobian or Hessian).
+ - cdftnc - cumulative distribution function non-central Student's T distribution
 
 * modulo and pmodulo now support integers & hypermatrices (See bug #13002).
 
@@ -2716,6 +2717,8 @@ Scilab Bug Fixes
 
 * Bug #13258 fixed - Bad number display in datatips fixed.
 
+* Bug #13260 fixed - New function cdftnc for the non-central Student's distribution.
+
 * Bug #13267 fixed - Implicit typecasts in scicos.c fixed.
 
 * Bug #13271 fixed - plot2d with logarithmic scale and %nan value froze Scilab.
@@ -2723,6 +2726,8 @@ Scilab Bug Fixes
 * Bug #13272 fixed - Error occurring when reading CSV files with comment option on a CSV file without comment fixed.
 
 * Bug #13280 fixed - Axes were not always displayed properly after figure resize.
+
+* Bug #13271 fixed - plot2d with logarithmic scale and %nan value freezed Scilab.
 
 
 Xcos Bug Fixes
