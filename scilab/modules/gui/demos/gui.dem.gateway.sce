@@ -24,6 +24,9 @@ function subdemolist = demo_gateway()
     _("Show images with uicontrols ") ,  "uicontrol_image.dem.sce" ];
 
     subdemolist = [ subdemolist ;
+    _("New and old uicontrols look and feel") ,  "new_and_old_uicontrols_look_and_feel.dem.sce" ];
+
+    subdemolist = [ subdemolist ;
     _("Listboxes and Popupmenus") ,  "uicontrol_listbox_popupmenu.dem.sce" ];
 
     subdemolist(:,2) = demopath + subdemolist(:,2);
