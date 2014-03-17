@@ -10,54 +10,56 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="cdfbin">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="cdftnc">
     <refnamediv>
-        <refname>cdfbin</refname>
-        <refpurpose>fonction de répartition de la distribution binomiale  </refpurpose>
+        <refname>cdftnc</refname>
+        <refpurpose>fonction de répartition de la distribution de Student non centrée</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>[P,Q]=cdfbin("PQ",S,Xn,Pr,Ompr)
-            [S]=cdfbin("S",Xn,Pr,Ompr,P,Q)
-            [Xn]=cdfbin("Xn",Pr,Ompr,P,Q,S)
-            [Pr,Ompr]=cdfbin("PrOmpr",P,Q,S,Xn)
+        <synopsis>
+            [P,Q]=cdftnc("PQ",T,Df,Pnonc)
+            [T]=cdftnc("T",Df,Pnonc,P,Q)
+            [Df]=cdftnc("Df",Pnonc,P,Q,T)
+            [Pnonc]=cdftnc("Pnonc",P,Q,T,Df)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
         <variablelist>
             <varlistentry>
-                <term>P,Q,S,Xn,Pr,Ompr  </term>
+                <term>P,Q,T,Df,Pnonc</term>
                 <listitem>
-                    <para>six vecteurs réels de même taille.
+                    <para>cinq vecteurs réels de même taille.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>P,Q (Q=1-P)  </term>
+                <term>P,Q (Q=1-P)</term>
                 <listitem>
-                    <para>La somme de 0 à S de la distribution (Probabilité de S succès ou moins en XN essais de probabilité de succès PR)  En entrée : [0,1].
+                    <para>l'intégrale de -infini à T de la densité de Student. comprise entre : (0,1].
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>S  </term>
+                <term>T</term>
                 <listitem>
-                    <para>Le nombre de succès observés En entrée : [0, XN] En recherche : [0, XN]
+                    <para>borne d'intégration supérieure. En entrée : ( -infini, +infini). En recherche : [ -1E150, 1E150 ]
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>Xn  </term>
+                <term>Df</term>
                 <listitem>
-                    <para>Le nombre d'essais binomiaux En entrée : (0, +infini). En recherche : [1E-300, 1E300]
+                    <para>
+                        Degrés de libertés de la distribution. En entrée : (0 , +infini). En recherche : [1e-300, 1E10]
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>Pr,Ompr (Ompr=1-Pr)  </term>
+                <term>Pnonc</term>
                 <listitem>
-                    <para>La probabilité de succès de chaque essai En entrée : [0,1]. En recherche : [0,1]
+                    <para>Paramètre de décentrage En entrée : (-infini,infini) En recherche : [-1E4,1E4]
                     </para>
                 </listitem>
             </varlistentry>
@@ -66,46 +68,49 @@
     <refsection>
         <title>Description</title>
         <para>
-            Étant donnés les autres, calcule un paramètre de la distribution binomiale
+            Étant donnés les autres, calcule un paramètre de la distribution de Student non-centrée.
         </para>
         <para>
-            La formule  26.5.24  de   Abramowitz  et  Stegun,   Handbook   of
-            Mathematical Functions  (1966) est utilisée pour réduire le calcul de la fonction de répartition de la distribution à celle d'une loi beta incomplète.
+            La queue supérieure de la distribution de Student non-centrée est calculée en utilisant les formules
+            de la page 532 de Johnson, Kotz, Balakrishnan, Coninuou Univariate Distributions, Vol 2, 2nd Edition. Wiley (1995)
         </para>
         <para>
             Le calcul des autres paramètres implique une recherche d'une valeur conduisant à la valeur désirée pour P. La recherche dépend de la monotonicité de P par rapport aux autres paramètres.
         </para>
         <para>
-            Tiré de la bibliothèque DCDFLIB: Library of Fortran Routines for Cumulative Distribution
-            Functions, Inverses, and Other Parameters (February, 1994)
-            Barry W. Brown, James Lovato and Kathy Russell. The University of
-            Texas.
+            Il arrive dans certains cas que les degrés de liberté ne soient pas des entiers. Scilab affiche alors un avertissement.
         </para>
     </refsection>
     <refsection>
         <title>Exemples</title>
+        <para>
+            Dans l'exemple suivant, on calcule la probabilité de l'événement <literal>T=5</literal>
+            pour la fonction de distribution de Student non centrée avec <literal>Df=2</literal>
+            et <literal>Pnonc=1</literal>.
+        </para>
         <programlisting role="example"><![CDATA[
-	S = 0:1:10;
-	Pr  = 0.3 * ones(S);
-	Ompr  = 1-Pr;
-	Xn = 10*ones(S);
-	[p,q]=cdfbin('PQ',S,Xn,Pr,Ompr);
-	plot2d2("gnn",[0:10]',p,5,"111","Repartition",[0,0,10,1])
-   ]]></programlisting>
-        <scilab:image>
-            S = 0:1:10;
-            Pr  = 0.3 * ones(S);
-            Ompr  = 1-Pr;
-            Xn = 10*ones(S);
-            [p,q]=cdfbin('PQ',S,Xn,Pr,Ompr);
-            plot2d2("gnn",[0:10]',p,5,"111","Repartition",[0,0,10,1])
-        </scilab:image>
+    T = 5;
+    Df = 2;
+    Pnonc = 1;
+    // Attendu : P = 0.9301738 and Q = 1-P
+    [P, Q] = cdftnc("PQ", T, Df, Pnonc)
+    // Si Pnonc = 0, alors on obtient le même résultat qu'avec cdft :
+    [P1, Q1] = cdft("PQ", T, Df);
+    [P2, Q2] = cdftnc("PQ", T, Df, 0);
+    assert_checkequal([P1 Q1], [P2 Q2])
+ ]]></programlisting>
     </refsection>
     <refsection role="see also">
         <title>Voir aussi</title>
         <simplelist type="inline">
             <member>
+                <link linkend="cdft">cdft</link>
+            </member>
+            <member>
                 <link linkend="cdfbet">cdfbet</link>
+            </member>
+            <member>
+                <link linkend="cdfbin">cdfbin</link>
             </member>
             <member>
                 <link linkend="cdfchi">cdfchi</link>
@@ -130,12 +135,6 @@
             </member>
             <member>
                 <link linkend="cdfpoi">cdfpoi</link>
-            </member>
-            <member>
-                <link linkend="cdft">cdft</link>
-            </member>
-            <member>
-                <link linkend="cdftnc">cdftnc</link>
             </member>
         </simplelist>
     </refsection>

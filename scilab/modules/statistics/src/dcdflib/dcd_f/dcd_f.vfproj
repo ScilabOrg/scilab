@@ -119,6 +119,7 @@ lib /DEF:&quot;$(InputDir)elementary_functions_Import.def&quot; /SUBSYSTEM:WINDO
 		<File RelativePath="..\cdfnor.f"/>
 		<File RelativePath="..\cdfpoi.f"/>
 		<File RelativePath="..\cdft.f"/>
+		<File RelativePath="..\cdftnc.f"/>
 		<File RelativePath="..\cumbet.f"/>
 		<File RelativePath="..\cumbin.f"/>
 		<File RelativePath="..\cumchi.f"/>

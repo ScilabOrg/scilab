@@ -96,6 +96,9 @@
     <ClCompile Include="..\cdft.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\cdftnc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\cumbet.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -285,6 +288,9 @@
       <Filter>Fortran Files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\cdft.f">
+      <Filter>Fortran Files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="..\cdftnc.f">
       <Filter>Fortran Files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\cumbet.f">
