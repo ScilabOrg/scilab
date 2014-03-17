@@ -1,0 +1,48 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// =============================================================================
+// Tests for cdftnc() function
+// using a table
+// =============================================================================
+
+prec   = 1.e-5;
+
+Tab    = [0.9 0.5];
+Df     = [1 2];
+Th     = [0.158 0.816];
+Pnonc  = [0 0];
+
+[P,Q]  = cdftnc("PQ", Th, Df, Pnonc);
+Th1    = cdftnc("T", Df, Pnonc, P, Q);
+Df1    = cdftnc("Df", Pnonc, P, Q, Th);
+Pnonc1 = cdftnc("Pnonc", P, Q, Th, Df);
+
+assert_checktrue(norm(Th1-Th) <= prec);
+assert_checktrue(norm(Df1-Df) <= prec);
+//assert_checktrue(norm(Pnonc1-Pnonc) <= prec);
+
+// Equivalence with cdft when Pnonc = 0
+[P1, Q1] = cdft("PQ", Th, Df);
+[P2, Q2] = cdftnc("PQ", Th, Df, [0 0]);
+assert_checkequal([P1 Q1], [P2 Q2]);
+
+
+// IEEE support
+// See http://bugzilla.scilab.org/show_bug.cgi?id=7296
+Df    = 1;
+Pnonc = 1;
+
+T      = %inf; // Inf
+[P, Q] = cdftnc("PQ", T, Df, Pnonc);
+assert_checkequal(P, 1);
+assert_checkequal(Q, 0);
+
+T       = %nan; // NaN
+[P, Q] = cdftnc("PQ", T, Df, Pnonc);
+assert_checkequal(P, %nan);
+assert_checkequal(Q, %nan);

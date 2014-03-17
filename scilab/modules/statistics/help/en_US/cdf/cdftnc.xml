@@ -10,29 +10,31 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="cdft">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="cdftnc">
     <refnamediv>
-        <refname>cdft</refname>
-        <refpurpose>cumulative distribution function Student's T distribution</refpurpose>
+        <refname>cdftnc</refname>
+        <refpurpose>cumulative distribution function non-central Student's T distribution</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>[P,Q]=cdft("PQ",T,Df)
-            [T]=cdft("T",Df,P,Q)
-            [Df]=cdft("Df",P,Q,T)
+        <synopsis>
+            [P,Q]=cdftnc("PQ",T,Df,Pnonc)
+            [T]=cdftnc("T",Df,Pnonc,P,Q)
+            [Df]=cdftnc("Df",Pnonc,P,Q,T)
+            [Pnonc]=cdftnc("Pnonc",P,Q,T,Df)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>P,Q,T,Df</term>
+                <term>P,Q,T,Df,Pnonc</term>
                 <listitem>
-                    <para>six real vectors of the same size.</para>
+                    <para>five real vectors of the same size.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>P,Q (Q=1-P)  </term>
+                <term>P,Q (Q=1-P)</term>
                 <listitem>
                     <para>The integral from -infinity to t of the t-density. Input range: (0,1].</para>
                 </listitem>
@@ -49,47 +51,57 @@
                     <para>Degrees of freedom of the t-distribution. Input range: (0 , +infinity). Search range: [1e-300, 1E10]</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>Pnonc</term>
+                <listitem>
+                    <para>The non-centrality parameter Input range: (-infinity,infinity) Search range: [-1E4,1E4]</para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
         <title>Description</title>
         <para>
-            Calculates any one parameter of the T distribution given
-            values for the others.
+            Calculates any one parameter of the noncentral T distribution given values for the others.
         </para>
         <para>
-            Formula  26.5.27  of   Abramowitz   and  Stegun,   Handbook   of
-            Mathematical Functions  (1966) is used to reduce the computation
-            of the cumulative distribution function to that of an incomplete
-            beta.
+            Upper tail of the cumulative noncentral T is calculated using
+            formulae from page 532 of Johnson, Kotz, Balakrishnan, Coninuou
+            Univariate Distributions, Vol 2, 2nd Edition. Wiley (1995)
         </para>
         <para>
             In certain cases, the degrees of freedom are not integers. Scilab then issues a warning.
         </para>
         <para>
-            Computation of other parameters involve a search for a value that
-            produces  the desired  value  of P.   The search relies  on  the
-            monotonicity of P with the other parameter.
+            Computation of other parameters involve a seach for a value that
+            produces the desired value of P. The search relies on the
+            monotinicity of P with the other parameter.
         </para>
     </refsection>
     <refsection>
         <title>Examples</title>
         <para>
             In the following example, we compute the probability of the event <literal>T=5</literal>
-            for the Student's T distribution function with <literal>Df=2</literal>.
+            for the non-central Student's T distribution function with <literal>Df=2</literal>
+            and <literal>Pnonc=1</literal>.
         </para>
         <programlisting role="example"><![CDATA[
     T = 5;
     Df = 2;
-    // Expected: P = 0.9811252 and Q = 1-P
-    [P, Q] = cdft("PQ", T, Df)
+    Pnonc = 1;
+    // Expected: P = 0.9301738 and Q = 1-P
+    [P, Q] = cdftnc("PQ", T, Df, Pnonc)
+    // If Pnonc = 0, then we get the same result as cdft:
+    [P1, Q1] = cdft("PQ", T, Df);
+    [P2, Q2] = cdftnc("PQ", T, Df, 0);
+    assert_checkequal([P1 Q1], [P2 Q2])
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
         <title>See Also</title>
         <simplelist type="inline">
             <member>
-                <link linkend="cdftnc">cdftnc</link>
+                <link linkend="cdft">cdft</link>
             </member>
             <member>
                 <link linkend="cdfbet">cdfbet</link>

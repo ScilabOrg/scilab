@@ -18,6 +18,7 @@ src/dcdflib/cumchi.f \
 src/dcdflib/apser.f \
 src/dcdflib/gamln1.f \
 src/dcdflib/cdft.f \
+src/dcdflib/cdftnc.f \
 src/dcdflib/gaminv.f \
 src/dcdflib/cumnbn.f \
 src/dcdflib/cdffnc.f \
@@ -43,6 +44,7 @@ src/dcdflib/gamln.f \
 src/dcdflib/betaln.f \
 src/dcdflib/stvaln.f \
 src/dcdflib/cumt.f \
+src/dcdflib/cumtnc.f \
 src/dcdflib/esum.f \
 src/dcdflib/bpser.f \
 src/dcdflib/cdfnor.f \
@@ -72,6 +74,7 @@ src/dcdflib/cdfbet.f
 GATEWAY_C_SOURCES = sci_gateway/c/gw_statistics.c \
 sci_gateway/c/sci_cdfchi.c \
 sci_gateway/c/sci_cdft.c \
+sci_gateway/c/sci_cdftnc.c \
 sci_gateway/c/sci_cdfgam.c \
 sci_gateway/c/sci_cdff.c \
 sci_gateway/c/sci_cdffnc.c \
@@ -103,7 +106,7 @@ libscistatistics_algo_la_CPPFLAGS = $(libscistatistics_la_CPPFLAGS)
 CHECK_SRC= $(STATISTICS_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscistatistics_la_CPPFLAGS)
 
-libscistatistics_la_LIBADD = libscistatistics-algo.la 
+libscistatistics_la_LIBADD = libscistatistics-algo.la
 
 #### Target ######
 modulename=statistics
@@ -111,7 +114,7 @@ modulename=statistics
 
 #### statistics : Conf files ####
 libscistatistics_la_rootdir = $(mydatadir)
-libscistatistics_la_root_DATA =  license.txt 
+libscistatistics_la_root_DATA =  license.txt
 
 
 #### statistics : init scripts ####

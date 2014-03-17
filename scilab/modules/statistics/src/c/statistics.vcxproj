@@ -205,6 +205,7 @@ lib /DEF:"$(ProjectDir)dcd_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform)
     <ClCompile Include="..\..\sci_gateway\c\sci_cdfnor.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_cdfpoi.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_cdft.c" />
+    <ClCompile Include="..\..\sci_gateway\c\sci_cdftnc.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CdfBase.h" />

@@ -130,7 +130,7 @@ static void cdffErr(int status, double bound)
         {
             Scierror(999, " P + Q .ne. 1 \n");
         }
-        break ;
+        break;
         default :
         {
             CdfDefaultError(param, status, bound);

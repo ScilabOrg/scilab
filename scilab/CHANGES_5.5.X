@@ -141,6 +141,7 @@ Scilab
  - ifftshift - Inverses FFT shift
  - unwrap - Unwraps/unfolds a Y(x) profile
  - getPreferencesValue/setPreferencesValue - get or set values in the preferences file.
+ - cdftnc - cumulative distribution function non-central Student's T distribution
 
 * modulo() and pmodulo() now support integers & hypermatrices (See bug #13002).
 
@@ -764,6 +765,8 @@ Scilab Bug Fixes
 * Bug #13252 fixed - Minor typos fixed in Graphics messages.
 
 * Bug #13258 fixed - Bad number display in datatips fixed.
+
+* Bug #13260 fixed - New function cdftnc for the non-central Student's distribution.
 
 * Bug #13271 fixed - plot2d with logarithmic scale and %nan value freezed Scilab.
 
