@@ -1,10 +1,8 @@
 package org.scilab.modules.graphic_objects.xmlloader;
 
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_BORDER_OPT_PADDING__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CALLBACKTYPE__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_BORDER_OPT_PADDING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CALLBACK__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CLOSEREQUESTFCN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_DOCKABLE__;
@@ -38,6 +36,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTNAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTSIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTWEIGHT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME_BORDER_COLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME_BORDER_HIGHLIGHT_IN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME_BORDER_HIGHLIGHT_OUT__;
@@ -187,7 +186,7 @@ public class GOBuilder {
     public static Integer axesBuilder(GraphicController controller, Attributes attributes) {
         Integer axes = GraphicController.getController().askObject(Type.AXES);
         String id = attributes.getValue("id");
-        if(id != null) {
+        if (id != null) {
             controller.setProperty(axes, __GO_TAG__, id);
         }
         return axes;
@@ -290,6 +289,8 @@ public class GOBuilder {
 
 
             //font properties
+
+            //fontname
             item = xmlAttributes.get("font-name");
             if (item != null) {
                 controller.setProperty(uic, __GO_UI_FONTNAME__, item);
@@ -300,6 +301,7 @@ public class GOBuilder {
                 controller.setProperty(uic, __GO_UI_FONTNAME__, item);
             }
 
+            //fontsize
             item = xmlAttributes.get("font-size");
             if (item != null) {
                 controller.setProperty(uic, __GO_UI_FONTSIZE__, Double.parseDouble(item));
@@ -310,6 +312,34 @@ public class GOBuilder {
                 controller.setProperty(uic, __GO_UI_FONTSIZE__, Double.parseDouble(item));
             }
 
+            //units and position
+            String[] units = null;
+            item = xmlAttributes.get("units");
+            if (item != null) {
+                units = item.split("[,;]");
+            }
+
+            //position, take care of units values
+            item = xmlAttributes.get("position");
+            if (item != null) {
+                Double[] pos = new Double[4];
+                Double[] parentSize = new Double[] {934.0, 511.0};
+                String[] strPos = item.split("[,;]");
+                for (int i = 0 ; i < strPos.length ; i++) {
+                    pos[i] = Double.parseDouble(strPos[i]);
+                    if (units != null && units[i].equals("n")) {
+                        //convert %age to pixel
+                        pos[i] = parentSize[i % 2] * pos[i];
+                    }
+                }
+
+                controller.setProperty(uic,  __GO_POSITION__, pos);
+            }
+
+            item = xmlAttributes.get("opaque");
+            if (item != null && (item.equals("false") || item.equals("off"))) {
+                controller.setProperty(uic, __GO_UI_BACKGROUNDCOLOR__, new Double[] { -2.0, -2.0, -2.0});
+            }
 
             if (layout != LayoutType.NONE) {
                 item = xmlAttributes.get("constraint");
@@ -324,7 +354,7 @@ public class GOBuilder {
                         Integer[] preferredsize = new Integer[] { -1, -1};
                         item = xmlAttributes.get("preferred-size");
                         if (item != null) {
-                            String[] pref = item.split(",");
+                            String[] pref = item.split("[,;]");
                             for (int i = 0; i < pref.length && i < 4; i++) {
                                 preferredsize[i] = Integer.parseInt(pref[i]);
                             }
@@ -354,7 +384,7 @@ public class GOBuilder {
                         Integer[] preferredsize = new Integer[] { -1, -1};
                         item = xmlAttributes.get("preferred-size");
                         if (item != null) {
-                            String[] pref = item.split(",");
+                            String[] pref = item.split("[,;]");
                             for (int i = 0; i < pref.length && i < 4; i++) {
                                 preferredsize[i] = Integer.parseInt(pref[i]);
                             }
@@ -374,7 +404,7 @@ public class GOBuilder {
                 // insets -> marging
                 String insets = XmlTools.getFromMap(map, "insets", "0,0,0,0");
                 Double[] margins = new Double[] { 0.0, 0.0, 0.0, 0.0 };
-                String[] inset = insets.split(",");
+                String[] inset = insets.split("[,;]");
                 for (int i = 0; i < inset.length && i < 4; i++) {
                     margins[i] = Double.parseDouble(inset[i]);
                 }
