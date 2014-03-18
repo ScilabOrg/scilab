@@ -63,6 +63,7 @@ function clf(varargin)
         curFig = h(k)
         if curFig.type == "uicontrol" then
             delete(curFig.children);
+            newaxes(curFig);
         else
             // drawlater
             immediateMode = curFig.immediate_drawing;
@@ -75,7 +76,6 @@ function clf(varargin)
         end
     end
 
-    curFig.info_message = "";
 
     // reset figures to default values if needed
     if (job == "reset") then
@@ -85,6 +85,8 @@ function clf(varargin)
             if curFig.type == "uicontrol" then
                 continue;
             end
+
+            curFig.info_message = "";
 
             // drawlater
             immediateMode = curFig.immediate_drawing;
