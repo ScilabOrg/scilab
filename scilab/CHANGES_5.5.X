@@ -439,6 +439,8 @@ Scilab Bug Fixes
 
 * Bug #11714 fixed - help_from_sci sometimes failed when input function had "<imagedata>" comments.
 
+* Bug #11789 fixed - add document for nbInputArgument.
+
 * Bug #11814 fixed - Typo in CACSD help chapter fixed.
 
 * Bug #11953 fixed - Scilab crashed when global("") was typed.
