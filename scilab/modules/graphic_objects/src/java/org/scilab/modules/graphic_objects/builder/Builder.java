@@ -345,6 +345,7 @@ public final class Builder {
         GraphicController controller = GraphicController.getController();
         Integer figModel  = GraphicModel.getFigureModel().getIdentifier();
 
+        System.out.println("createNewFigureWithAxes");
         //clone default figure
         Integer newFigure = createFigureFromModel();
 
@@ -359,13 +360,12 @@ public final class Builder {
         ScilabNativeView.ScilabNativeView__setCurrentFigure(newFigure);
 
         //Force axes size after window creation
-        Integer[] figureSize = (Integer[]) controller.getProperty(figModel, GraphicObjectProperties.__GO_SIZE__);
-        controller.setProperty(newFigure, GraphicObjectProperties.__GO_SIZE__, figureSize);
         Integer[] axesSize = (Integer[]) controller.getProperty(figModel, GraphicObjectProperties.__GO_AXES_SIZE__);
         controller.setProperty(newFigure, GraphicObjectProperties.__GO_AXES_SIZE__, axesSize);
+        System.out.println("END createNewFigureWithAxes");
+        System.out.println("");
 
         controller.setProperty(newFigure, GraphicObjectProperties.__GO_VALID__, true);
-
 
         return newFigure;
     }
