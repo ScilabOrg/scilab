@@ -800,6 +800,11 @@ public class Figure extends GraphicObject implements AxesContainer {
      * @param axesSize the axes size to set
      */
     public UpdateStatus setAxesSize(Integer[] axesSize) {
+        System.out.println("model axes : " + getIdentifier());
+        System.out.println("old : " + canvas.axesSize[0] + "," + canvas.axesSize[1]);
+        System.out.println("new : " + axesSize[0] + "," + axesSize[1]);
+        System.out.println("");
+
         if (Arrays.equals(canvas.axesSize, axesSize)) {
             //must return Success to broadcast information
             return UpdateStatus.Success;
@@ -875,6 +880,10 @@ public class Figure extends GraphicObject implements AxesContainer {
      * @param size the size to set
      */
     public UpdateStatus setSize(Integer[] size) {
+        System.out.println("model figure : " + getIdentifier());
+        System.out.println("old : " + dimensions.size[0] + "," + dimensions.size[1]);
+        System.out.println("new : " + size[0] + "," + size[1]);
+        System.out.println("");
         if (Arrays.equals(dimensions.size, size)) {
             return UpdateStatus.NoChange;
         }
