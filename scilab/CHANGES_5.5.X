@@ -895,6 +895,7 @@ Improvements
 * New optional output argument for routh_t.
   See bug #12829.
 
+* New optional input argument for matfile2sci to append or write the sci file (by default matfile2sci appended). Better error handling in the macro.
 
 Differential Equations
 ======================
