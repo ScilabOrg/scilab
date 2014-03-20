@@ -15,6 +15,7 @@
     </refsynopsisdiv>
     <refsection>
         <title>Description</title>
+	<warning> This function is deprecated in Scilab 5.5.0 and will be removed in Scilab 6.0.0</warning>
         <para>
             <literal>perl('perlfile')</literal> calls the Perl script <literal>perlfile</literal>, using 
             the appropriate operating system Perl executable.

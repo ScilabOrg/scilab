@@ -197,6 +197,7 @@ Obsolete & Removed Functions
 * jmat tagged as obsolete. Will be removed in Scilab 5.5.1.
   Please use flipdim instead
 
+* perl tagged as obsolete. Will be removed in Scilab 6.0.0.
 
 Compilation
 ============
