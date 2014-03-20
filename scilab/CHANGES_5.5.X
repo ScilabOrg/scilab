@@ -197,6 +197,7 @@ Obsolete & Removed Functions
 * jmat tagged as obsolete. Will be removed in Scilab 5.5.1.
   Please use flipdim instead
 
+* perl tagged as obsolete. Will be removed in Scilab 6.0.0.
 
 Compilation
 ============
@@ -455,6 +456,8 @@ Scilab Bug Fixes
 * Bug #11953 fixed - Scilab crashed when global("") was typed.
 
 * Bug #11996 fixed - eye extended to hypermatrix.
+
+* Bug #12012 fixed - warning added for perl obsolescence
 
 * Bug #12037 fixed - Simplified Chinese version of SciNotes displayed warnings at startup.
 

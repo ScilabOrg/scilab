@@ -13,6 +13,7 @@
     </refsynopsisdiv>
     <refsection>
         <title>Description</title>
+	<warning> Cette fonction est obsolète en version 5.5.0 et sera retirée en version 6.0.0</warning>
         <para>perl('perlfile') appelle le script Perl perlfile.</para>
         <para>perl('perlfile',arg1,arg2,...) appelle le script Perl perlfile et passe
             les arguments arg1, arg2, ..., à perlfile.
