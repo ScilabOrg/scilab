@@ -19,7 +19,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>matfile2sci(mat_file_path,sci_file_path)</synopsis>
+        <synopsis>matfile2sci(mat_file_path,sci_file_path[, mode])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -36,6 +36,12 @@
                     <para>character string containing the path of the Scilab output file</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>mode</term>
+                <listitem>
+                    <para>character string: either "a" for append to the output file (default behaviour), or "w" for write (any existing file will be overwritten)</para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -45,6 +51,9 @@
             with the function <literal>load</literal> (See <link linkend="save">save</link> for more information). The Matlab data types are
             converted into the Scilab equivalents.
         </para>
+	<para>
+	    The function exits without creating an output file if no variables was found in the input file. 
+	</para>
     </refsection>
     <refsection role="see also">
         <title>See Also</title>
