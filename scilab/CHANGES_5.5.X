@@ -324,6 +324,8 @@ Scilab Bug Fixes
 
 * Bug #8133 fixed - Ticks disappeared in planar 3-D view.
 
+* Bug #8190 fixed - Fixed ICSE demos of Optimization module.
+
 * Bug #8196 fixed - Error messages dealing with negative thickness were not standard.
 
 * Bug #8231 fixed - xrect help page did not say that clipping property was inherited.
