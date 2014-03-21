@@ -265,6 +265,8 @@ Scilab Bug Fixes
 
 * Bug #7038 fixed - A toggle button now manages datatip mode.
 
+* Bug #7040 fixed - Modification of the example and the description for getMatrixOfIntegerPrecision.
+
 * Bug #7047 fixed - milk_drop is now obsolete. It will be removed in Scilab 5.5.1, but will be kept as a demonstration.
 
 * Bug #7051 fixed - fieldnames help page updated.
