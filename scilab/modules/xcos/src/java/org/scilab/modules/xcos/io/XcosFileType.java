@@ -43,6 +43,7 @@ import org.scilab.modules.commons.xml.ScilabTransformerFactory;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.codec.XcosCodec;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
+import org.scilab.modules.xcos.io.scicos.ScilabTextHandler;
 import org.scilab.modules.xcos.io.spec.XcosPackage;
 import org.scilab.modules.xcos.utils.XcosMessages;
 import org.w3c.dom.Node;
@@ -141,7 +142,7 @@ public enum XcosFileType {
 
         @Override
         public void save(String file, XcosDiagram from) throws Exception {
-            throw new UnsupportedOperationException();
+            new ScilabTextHandler(new File(file)).writeDiagram(from);
         }
     },
     /**
@@ -436,6 +437,7 @@ public enum XcosFileType {
         final Set<XcosFileType> values = EnumSet.noneOf(XcosFileType.class);
         values.add(XcosFileType.XCOS);
         values.add(XcosFileType.ZCOS);
+        values.add(XcosFileType.COSF);
         return values;
     }
 
