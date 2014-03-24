@@ -441,6 +441,8 @@ Scilab Bug Fixes
 
 * Bug #11814 fixed - Typo in CACSD help chapter fixed.
 
+* Bug #11853 fixed - xs2emf is update, modifications the path.
+
 * Bug #11953 fixed - Scilab crashed when global("") was typed.
 
 * Bug #11996 fixed - eye extended to hypermatrix.

@@ -49,10 +49,11 @@ function xs2emf(figureNumber, fileName, orientation)
         return;
     end
 
-    if fileinfo(SCI+"/tools/pstoedit/gsdll32.dll") == [] then
+    if fileinfo("C:/Program Files/scilab-5.4.1/tools/pstoedit/gsdll32.dll") == [] then
         msgErr1 = "Please install Ghostscript 32 bits to export an EMF file.";
-        msgErr2 = "http://www.ghostscript.com/awki";
-        msg = [gettext(msgErr1);gettext(msgErr2)];
+        msgErr2 = "http://www.ghostscript.com/download/gsdnld.html";
+        msgErr3 = "Then you must put the corresponding DLLs (gsdll32.dll) in the following directory: SCI/tools/pstoedit ";
+        msg = [gettext(msgErr1);gettext(msgErr2);"";gettext(msgErr3)];
         messagebox(msg, "Scilab error", "error");
         return;
     end
@@ -67,7 +68,7 @@ function xs2emf(figureNumber, fileName, orientation)
     end
 
     // pstoedit is embedded in Scilab
-    pstoeditPath = SCI + "\tools\pstoedit\pstoedit.exe";
+    pstoeditPath = SCI + filesep() + "tools" + filesep() + "pstoedit\pstoedit.exe";
     if fileinfo(pstoeditPath) == [] then
         error(msprintf(gettext("%s: Unable to find pstoedit.\n"), "xs2emf"));
     end
