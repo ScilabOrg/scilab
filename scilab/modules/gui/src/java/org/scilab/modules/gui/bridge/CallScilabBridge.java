@@ -83,6 +83,7 @@ import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.gui.widget.Widget;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 
 /**
  * This class is used to call Scilab GUIs objects from Scilab
@@ -1306,4 +1307,23 @@ public class CallScilabBridge {
         SwingScilabDockablePanel parentTab = (SwingScilabDockablePanel) SwingView.getFromId(figUID);
         ClosingOperationsManager.removeFromDunnoList(parentTab);
     }
+
+    /**
+     ** Figure Rotation enable/disable
+     ** dynamically called
+     ** @see SCI/modules/gui/etc/graphics_toolbar.xml
+     **/
+    public static void enableMouseRotation(String figureId) {
+        DrawerVisitor.getVisitor(Integer.decode(figureId)).getInteractionManager().changeInteactiveRotationState();
+    }
+
+    /**
+     ** Figure Zoom enable/disable
+     ** dynamically called
+     ** @see SCI/modules/gui/etc/graphics_toolbar.xml
+     **/
+    public static void enableMouseZoom(String figureId) {
+        DrawerVisitor.getVisitor(Integer.decode(figureId)).getInteractionManager().changeInteactiveZoomState();
+    }
+    
 }

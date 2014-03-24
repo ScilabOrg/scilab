@@ -26,6 +26,8 @@ public abstract class JavaCallBack extends CommonCallBack {
     private static final long serialVersionUID = -6513057558261299432L;
 
     private static final String DOT = ".";
+    private static final String LPAREN = "(";
+    private static final String RPAREN = ")";
 
     /**
      * @param command : the command to execute.
@@ -46,13 +48,21 @@ public abstract class JavaCallBack extends CommonCallBack {
 
             public void callBack() {
                 try {
-                    int lastPoint = getCommand().lastIndexOf(DOT);
-                    Class invokedClass;
-                    invokedClass = Class.forName(getCommand().substring(0, lastPoint));
+                    String command = getCommand();
+                    int lastPoint = command.lastIndexOf(DOT);
+                    int lastLParent = (command.contains(LPAREN) ? command.lastIndexOf(LPAREN) : command.length());
+                    int lastRParent = (command.contains(RPAREN) ? command.lastIndexOf(RPAREN) : command.length());
+                    Class invokedClass = Class.forName(command.substring(0, lastPoint));
                     Method runMe;
-                    runMe = invokedClass.getMethod(getCommand().substring(lastPoint + 1));
-                    // Only able to launch method Class.
-                    runMe.invoke(invokedClass.getClass(), (Object[]) null);
+                    if (lastLParent == command.length()) {
+                        // Only able to launch method Class.
+                        runMe = invokedClass.getMethod(command.substring(lastPoint + 1, lastLParent));
+                        runMe.invoke(invokedClass.getClass(), (Object[]) null);
+                    } else {
+                        runMe = invokedClass.getMethod(command.substring(lastPoint + 1, lastLParent), String.class);
+                        Object[] args = {command.substring(lastLParent + 1, lastRParent)};
+                        runMe.invoke(invokedClass.getClass(), args);
+                    }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (SecurityException e) {

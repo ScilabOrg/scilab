@@ -55,6 +55,8 @@ public class DragZoomRotateInteraction extends FigureInteraction {
     private MouseEvent previousEvent;
     private Axes currentAxes;
 
+    private boolean interactiveZoomEnable = true;
+    private boolean interactiveRotationEnable = true;
 
     /**
      * Default constructor.
@@ -71,6 +73,9 @@ public class DragZoomRotateInteraction extends FigureInteraction {
     protected void changeEnable(boolean isEnable) {
         Component component = getDrawerVisitor().getComponent();
         if (component != null) {
+            
+            interactiveZoomEnable = isEnable;
+            interactiveRotationEnable = isEnable;
             if (isEnable) {
                 component.addMouseListener(mouseListener);
                 component.addMouseWheelListener(mouseWheelListener);
@@ -81,6 +86,41 @@ public class DragZoomRotateInteraction extends FigureInteraction {
             }
         }
     }
+    
+    public boolean isZoomEnable() {
+        return interactiveZoomEnable;
+    }
+    
+    public void setZoomEnable(boolean isEnable) {
+        Component component = getDrawerVisitor().getComponent();
+        if (component != null) {
+            
+            interactiveZoomEnable = isEnable;
+            if (isEnable) {
+                component.addMouseWheelListener(mouseWheelListener);
+            } else {
+                component.removeMouseWheelListener(mouseWheelListener);
+            }
+        }
+    }
+    
+    public boolean isRotationEnable() {
+        return interactiveRotationEnable;
+    }
+    
+    public void setRotationEnable(boolean isEnable) {
+        Component component = getDrawerVisitor().getComponent();
+        if (component != null) {
+            interactiveRotationEnable = isEnable;
+            if (isEnable) {
+                component.addMouseListener(mouseListener);
+            } else {
+                component.removeMouseListener(mouseListener);
+                component.removeMouseMotionListener(mouseMotionListener);
+            }
+        }
+    }
+    
 
     public void setTranslationEnable(boolean status) {
         ((FigureMouseMotionListener)mouseMotionListener).setTranslateEnable(status);

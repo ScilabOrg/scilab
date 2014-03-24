@@ -108,7 +108,7 @@ public class SwingScilabCommonPanel {
                     //keep current delta between figure size and axes size
                     component.storeSizeDelta();
 
-                    ToolBar toolbar = ToolBarBuilder.buildToolBar(GRAPHICS_TOOLBAR_DESCRIPTOR, figureId);
+                    ToolBar toolbar = ToolBarBuilder.buildToolBar(GRAPHICS_TOOLBAR_DESCRIPTOR, figureId, component.getId());
                     toolbar.setVisible(localFigure.getToolbarVisible());
                     component.setToolBar(toolbar);
                     parentWindow.addToolBar(toolbar);

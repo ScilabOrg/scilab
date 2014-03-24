@@ -53,6 +53,7 @@ public final class ToolBarBuilder {
             + "Check if file *_toolbar.xml is available and valid.";
 
     private static int figureIndex;
+    private static int figureUID;
 
     /**
      * Default constructor
@@ -83,7 +84,7 @@ public final class ToolBarBuilder {
      * @return the toolbar created
      */
     public static ToolBar buildToolBar(String fileToLoad) {
-        return buildToolBar(fileToLoad, 0);
+        return buildToolBar(fileToLoad, 0, 0);
     }
 
     /**
@@ -92,9 +93,10 @@ public final class ToolBarBuilder {
      * @param figureIndex the index of the figure in Scilab (for graphics figures only)
      * @return the toolbar created
      */
-    public static ToolBar buildToolBar(String fileToLoad, int figureIndex) {
+    public static ToolBar buildToolBar(String fileToLoad, int figureIndex, int figureUID) {
 
         ToolBarBuilder.figureIndex = figureIndex;
+        ToolBarBuilder.figureUID = figureUID;
 
         ToolBar toolbar = ScilabToolBar.createToolBar();
 
@@ -132,6 +134,7 @@ public final class ToolBarBuilder {
         protected static final String INSTRUCTION = "instruction";
         protected static final String TRUE = "true";
         protected static final String TOOLTIPTEXT = "tooltiptext";
+        protected static final String SELECTED = "selected";
         protected static final String TOGGLE = "toggle";
 
         private final Document dom;
@@ -225,11 +228,14 @@ public final class ToolBarBuilder {
                                 // Icon file
                                 pushButton.setIcon(new ImageIcon(FindIconHelper.findIcon(buttonAttributes.item(i).getNodeValue())));
                             } else if (buttonAttributes.item(i).getNodeName().equals(ENABLED)) {
-                                // Enable are disable the button
+                                // Enable or disable the button
                                 pushButton.setEnabled(buttonAttributes.item(i).getNodeValue().equals(TRUE));
                             } else if (buttonAttributes.item(i).getNodeName().equals(TOOLTIPTEXT)) {
                                 // Add a ToolTip on the button
                                 pushButton.setToolTipText(Messages.gettext(buttonAttributes.item(i).getNodeValue()));
+                            } else if (buttonAttributes.item(i).getNodeName().equals(SELECTED)) {
+                                // Set if Toggle is raised or sunken
+                                pushButton.setSelected(buttonAttributes.item(i).getNodeValue().equals(TRUE));
                             }
                         }
                         // Add the button to the toolbar
@@ -277,7 +283,8 @@ public final class ToolBarBuilder {
          * @return callback string
          */
         private String replaceFigureID(String initialString) {
-            return initialString.replaceAll("\\[SCILAB_FIGURE_ID\\]", Integer.toString(ToolBarBuilder.figureIndex));
+            String newCommand = initialString.replaceAll("\\[SCILAB_FIGURE_ID\\]", Integer.toString(ToolBarBuilder.figureIndex));
+            return newCommand.replaceAll("\\[SCILAB_MVC_ID\\]", Integer.toString(ToolBarBuilder.figureUID));
         }
 
     }
