@@ -793,6 +793,8 @@ Scilab Bug Fixes
 
 * Bug #13271 fixed - plot2d with logarithmic scale and %nan value freezed Scilab.
 
+* Bug #13280 fixed - Axes not always displayed correctly after resize.
+
 
 Xcos Bug Fixes
 ==============
