@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -110,6 +111,7 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
                         }
                     }
                 }
+                getParentWindow().validate();
             }
 
             public void componentMoved(ComponentEvent arg0) {
@@ -258,4 +260,10 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
         Size figureSize = figure.getDims();
         deltaSize = new Dimension((int)(figureSize.getWidth() - axesSize.getWidth()), (int)(figureSize.getHeight() - axesSize.getHeight()));
     }
+    
+    public void paintChildren(Graphics g) {
+        super.paintChildren(g);
+        uiContentPane.paint(g);
+    }
+
 }
