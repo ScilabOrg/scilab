@@ -1005,4 +1005,11 @@ public class SwingScilabFrame extends JPanel implements SwingViewObject, SimpleF
             setForeground(color);
         }
     }
+
+    public void removeAxes() {
+        getComponent(0).setEnabled(false);
+        getComponent(0).removeNotify();
+        removeAll();
+        doLayout();
+    }
 }
