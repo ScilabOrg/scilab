@@ -234,4 +234,5 @@
     <PRIMITIVE gatewayId="71" primitiveId="203" primitiveName="invoke_lu" />
     <PRIMITIVE gatewayId="71" primitiveId="204" primitiveName="!!_invoke_" />
     <PRIMITIVE gatewayId="71" primitiveId="205" primitiveName="%_EObj_disp" />
+    <PRIMITIVE gatewayId="71" primitiveId="206" primitiveName="%_EObj_i__EObj" />
 </GATEWAY>

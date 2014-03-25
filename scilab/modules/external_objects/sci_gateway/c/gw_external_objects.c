@@ -223,7 +223,8 @@ static gw_generic_table Tab[] =
     {sci_percent_EObj_t, "%_EObj_t"},
     {sci_invoke_lu, "invoke_lu"},
     {sci_doubleExclam_invoke_, "!!_invoke_"},
-    {sci_percent_EObj_disp, "%_EObj_disp"}
+    {sci_percent_EObj_disp, "%_EObj_disp"},
+    {sci_percent_foo_i_EObj, "%_EObj_i__EObj"}
 };
 
 /*--------------------------------------------------------------------------*/
