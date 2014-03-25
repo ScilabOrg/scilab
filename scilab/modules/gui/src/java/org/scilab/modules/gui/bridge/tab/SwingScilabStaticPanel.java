@@ -84,6 +84,7 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
                 Size parentSize = SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
                 Integer[] newSize = new Integer[] { parentSize.getWidth(), parentSize.getHeight() };
 
+                System.out.println("componentResized : " + parentSize.getWidth() + "," + parentSize.getHeight());
                 GraphicController.getController().setProperty(id, __GO_SIZE__, newSize);
 
                 Boolean autoreSize = (Boolean) GraphicController.getController().getProperty(id, __GO_AUTORESIZE__);

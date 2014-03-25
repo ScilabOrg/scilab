@@ -106,8 +106,9 @@ public class XmlSaver {
 
         //figure_position
         setAttribute(elemFig, "figure_position", createAttribute(fig.getPosition()), createAttribute(defaultFig.getPosition()));
+        //do not save figure_size, only axes_size
         //figure_size
-        setAttribute(elemFig, "figure_size", createAttribute(fig.getSize()), createAttribute(defaultFig.getSize()));
+        //setAttribute(elemFig, "figure_size", createAttribute(fig.getSize()), createAttribute(defaultFig.getSize()));
         //axes_size
         setAttribute(elemFig, "axes_size", createAttribute(fig.getAxesSize()), createAttribute(defaultFig.getAxesSize()));
         //auto_resize
