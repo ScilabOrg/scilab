@@ -409,6 +409,12 @@ int ScilabJavaEnvironmentWrapper::wrapBool(int * x, int xSize, int xSizeCol, con
     return wrap<int, bool>(vm, x, xSize, xSizeCol);
 }
 
+int ScilabJavaEnvironmentWrapper::wrapList(int len, const int * const ids) const
+{
+    JavaVM * vm = getScilabJavaVM();
+    return ScilabJavaObject::wrapList(vm, ids, len);
+}
+
 int ScilabJavaEnvironmentWrapper::wrapFloat(double * x, const bool isRef) const
 {
     JavaVM * vm = getScilabJavaVM();

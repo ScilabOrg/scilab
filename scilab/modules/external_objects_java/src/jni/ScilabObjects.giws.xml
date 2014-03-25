@@ -220,6 +220,10 @@
             <param type="long[][]" name="x" />
         </method>
         
+        <method name="wrapList" returnType="int" modifier="static">
+            <param type="int[]" name="ids" />
+        </method>
+        
         <method name="getAccessibleFields" returnType="String[]" modifier="static">
             <param type="int" name="id" />
         </method>

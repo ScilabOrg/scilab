@@ -153,6 +153,7 @@ jintwrapjobjectArray__floatfloatID=NULL;
 jintwrapjlonglongID=NULL;
 jintwrapjlongArray_longlongID=NULL;
 jintwrapjobjectArray__longlongID=NULL;
+jintwrapListjintArray_intintID=NULL;
 jobjectArray_getAccessibleFieldsjintintID=NULL;
 jobjectArray_getAccessibleMethodsjintintID=NULL;
 jobjectArray_getCompletionjintintjobjectArray_java_lang_Stringjava_lang_StringID=NULL;
@@ -228,6 +229,7 @@ jintwrapjobjectArray__floatfloatID=NULL;
 jintwrapjlonglongID=NULL;
 jintwrapjlongArray_longlongID=NULL;
 jintwrapjobjectArray__longlongID=NULL;
+jintwrapListjintArray_intintID=NULL;
 jobjectArray_getAccessibleFieldsjintintID=NULL;
 jobjectArray_getAccessibleMethodsjintintID=NULL;
 jobjectArray_getCompletionjintintjobjectArray_java_lang_Stringjava_lang_StringID=NULL;
@@ -1832,6 +1834,40 @@ curEnv->DeleteLocalRef(xLocal);
 
                         jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintwrapjobjectArray__longlongID ,x_));
                         curEnv->DeleteLocalRef(x_);
+if (curEnv->ExceptionCheck()) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
+return res;
+
+}
+
+int ScilabJavaObject::wrapList (JavaVM * jvm_, int const* ids, int idsSize){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = initClass(curEnv);
+if ( cls == NULL) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
+
+static jmethodID jintwrapListjintArray_intintID = curEnv->GetStaticMethodID(cls, "wrapList", "([I)I" ) ;
+if (jintwrapListjintArray_intintID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "wrapList");
+}
+
+jintArray ids_ = curEnv->NewIntArray( idsSize ) ;
+
+if (ids_ == NULL)
+{
+// check that allocation succeed
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+curEnv->SetIntArrayRegion( ids_, 0, idsSize, (jint*)(ids) ) ;
+
+
+                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintwrapListjintArray_intintID ,ids_));
+                        curEnv->DeleteLocalRef(ids_);
 if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);
 }

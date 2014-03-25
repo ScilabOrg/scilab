@@ -34,6 +34,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -677,6 +678,10 @@ public class ScilabJavaObject {
                     throw new ScilabJavaException("Cannot read the field or property " + fieldName + " in object " + getClassName(id));
                 }
                 final Object retValue = method.invoke(arraySJO[id].object);
+                if (retValue == null) {
+                    return new ScilabJavaObject(retValue).id;
+                }
+
                 final Class cl = retValue.getClass();
                 if (cl == int.class) {
                     return new ScilabJavaObject(retValue, int.class).id;
@@ -989,14 +994,24 @@ public class ScilabJavaObject {
                         pos = ((Double) a).intValue() - 1;
                     } else if (a instanceof Integer) {
                         pos = ((Integer) a).intValue() - 1;
+                    } else if (a instanceof double[]) {
+                        /* this '$' polynomial coefs */
+                        final double len = l.size();
+                        final double[] coefs = (double[]) a;
+                        pos = 0;
+                        for (int j = 0; j < coefs.length; j++) {
+                            pos += (int) ((coefs[j] - 1) * Math.pow(len, j));
+                        }
                     } else {
                         pos = l.indexOf(a);
                     }
-                    if (pos >= 0 || pos < l.size()) {
+
+                    if (pos > 0 || pos < l.size()) {
                         l.set(pos, arraySJO[value].object);
                     } else if (pos < 0) {
                         l.add(0, arraySJO[value].object);
                     } else {
+                        // the first element should be add-ed instead of set-ed
                         l.add(arraySJO[value].object);
                     }
                 } else if (o.getClass().isArray()) {
@@ -1401,6 +1416,23 @@ public class ScilabJavaObject {
      */
     public static final int wrap(final float[][] x) {
         return new ScilabJavaObject(x, float[][].class).id;
+    }
+
+    /**
+     * Wrap the ids into a Java collection
+     *
+     * The implementation is a raw {@link java.util.ArrayList}.
+     *
+     * @param ids the java object to put into
+     * @return a collection id
+     */
+    public static final int wrapList(final int[] ids) {
+        final ArrayList<Object> list = new ArrayList<Object>(ids.length);
+        for (int i = 0; i < ids.length; i++) {
+            list.add(arraySJO[ids[i]]);
+        }
+
+        return new ScilabJavaObject(list, ArrayList.class).id;
     }
 
     /**
