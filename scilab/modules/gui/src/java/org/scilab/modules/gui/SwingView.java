@@ -1107,6 +1107,12 @@ public final class SwingView implements GraphicView {
                     updatedComponent.remove((Component) allObjects.get(childId).getValue());
                     needRevalidate = true;
                 }
+                
+                if (childType == __GO_AXES__) {
+                    updatedComponent.removeAxes();
+                    needRevalidate = true;
+                }
+                
             }
         }
         if (needRevalidate && updatedComponent != null) {
