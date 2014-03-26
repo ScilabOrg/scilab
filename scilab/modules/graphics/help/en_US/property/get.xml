@@ -22,6 +22,7 @@
         <title>Calling Sequence</title>
         <synopsis>h=get(prop)
             val=get(h,prop)
+            val=get(handlePath,prop)
             val=h.prop
         </synopsis>
     </refsynopsisdiv>
@@ -34,6 +35,17 @@
                     <para>handle, the handle of the entity to retrieve a property.
                         <literal>h</literal> can be a vector of handles, in which case get returns
                         the property value for all objects contained in h. <literal>h</literal> can also be <emphasis>0</emphasis> to get the root object properties.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>handlePath</term>
+                <listitem>
+                    <para>
+                        A character string containing a path pointing to the graphic entity. This path is made of the graphic entity <literal>"Tag"</literal> property and the <literal>"Tag"</literal> property of its parents in the graphics hierarchy under the format <literal>"figuretag/entitytag"</literal> (when the entity is the child of a figure).
+                    </para>
+                    <para>
+                        Deeper hierarchy levels can also be used such as <literal>"figuretag/entity1tag/entity2tag/entitntag/entitytag"</literal>. Wildcards can also be used for multi-paths search. The first entity matching the path will be used.
                     </para>
                 </listitem>
             </varlistentry>
@@ -155,6 +167,19 @@ h=uicontrol('string', 'Button'); // Opens a window with a  button.
 p=get(h,'position'); // get the geometric aspect of the button
 disp('Button width: ' + string(p(3))); // print the width of the button
 close(); // close figure
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[ 
+// Using path
+f = figure("dockable", "off", "menubar", "none", "toolbar", "none", "infobar_visible", "off", "tag", "mainfig");
+frameHandle = uicontrol("parent", f, "style", "frame", "position", [200 200 190 100], "tag", "myframe");
+btnHandle = uicontrol("parent", frameHandle, "position", [20 20 150 30], "string", "button", "tag", "example");
+
+set("mainfig/myframe/example", "string", "complete path");
+get("mainfig/myframe/example", "string")
+set("mainfig/*/example", "string", "wildcard path");
+get("mainfig/*/example", "string")
+set("myframe/example", "string", "partial path");
+get("myframe/example", "string")
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
