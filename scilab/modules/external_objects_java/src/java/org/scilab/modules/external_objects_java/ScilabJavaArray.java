@@ -15,8 +15,13 @@ package org.scilab.modules.external_objects_java;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -101,27 +106,78 @@ public final class ScilabJavaArray {
      * @return the element
      */
     public static Object get(Object array, int[] index) throws ScilabJavaException {
-        Object obj = array;
-        for (int i = 0; i < index.length; i++) {
-            if (obj != null && obj.getClass().isArray()) {
-                if (index[i] >= 0 && index[i] < Array.getLength(obj)) {
-                    obj = Array.get(obj, index[i]);
-                } else {
-                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (Array.getLength(obj) - 1));
-                }
-            } else if (obj instanceof List) {
-                List list = (List) obj;
-                if (index[i] >= 0 && index[i] < list.size()) {
-                    obj = list.get(index[i]);
-                } else {
-                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (list.size() - 1));
-                }
+        int[] recursiveIndex = new int[1];
+        Object obj = recursiveExtract(array, index, recursiveIndex);
+        final int i = recursiveIndex[0];
+
+        if (obj != null && obj.getClass().isArray()) {
+            if (index[i] >= 0 && index[i] < Array.getLength(obj)) {
+                obj = Array.get(obj, index[i]);
             } else {
-                throw new ScilabJavaException("Problem in retrieving " + i + "-th element: it is not an array");
+                throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (Array.getLength(obj) - 1));
             }
+        } else if (obj instanceof List) {
+            List list = (List) obj;
+            if (index[i] >= 0 && index[i] < list.size()) {
+                obj = list.get(index[i]);
+            } else {
+                throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (list.size() - 1));
+            }
+        } else {
+            throw new ScilabJavaException("Problem in retrieving " + i + "-th element: it is not an array");
         }
 
         return obj;
+    }
+
+    /**
+     * Multiple extract into an array o
+    *
+    * @param array the container to insert into
+    * @param a the array indexes
+    * @return the extracted object (possible multiples)
+    */
+    public static Object getMultiple(Object array, Object a) throws IllegalArgumentException, ScilabJavaException {
+        final int arrayLen = Array.getLength(array);
+
+        final ArrayList<int[]> indexes = new ArrayList<int[]>();
+        int cumulIndexesLen = 0;
+        final ArrayDeque<Object> stash = new ArrayDeque<Object>();
+        stash.add(a);
+        while (!stash.isEmpty()) {
+            final Object o = stash.pop();
+            if (o.getClass().getComponentType().isArray()) {
+                stash.addAll(Arrays.asList(o));
+                continue;
+            }
+
+            if (o instanceof int[]) {
+                indexes.add((int[]) o);
+                cumulIndexesLen += Array.getLength(o);
+            } else if (o instanceof double[]) {
+                indexes.add(toIntArray((double[]) o));
+                cumulIndexesLen += Array.getLength(o);
+            } else {
+                throw new ScilabJavaException("Invalid index: " + o);
+            }
+        }
+
+        final Object ret = Array.newInstance(array.getClass().getComponentType(), cumulIndexesLen);
+        cumulIndexesLen = 0;
+        for (int[] localIndexes : indexes) {
+            final int localIndexesLen = Array.getLength(a);
+            for (int i = 0; i < localIndexesLen; i++) {
+                final int arrayIndex = localIndexes[i];
+                if (0 < arrayIndex && arrayIndex <= arrayLen) {
+                    Array.set(ret, cumulIndexesLen + i, Array.get(array, arrayIndex - 1));
+                } else {
+                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: 0>" + arrayIndex + ">=" + arrayLen);
+                }
+            }
+            cumulIndexesLen += localIndexesLen;
+        }
+
+        return ret;
     }
 
     /**
@@ -131,26 +187,9 @@ public final class ScilabJavaArray {
      * @param x the element
      */
     public static void set(Object array, int[] index, Object x) throws ScilabJavaException {
-        Object obj = array;
-        int i = 0;
-        for (; i < index.length - 1; i++) {
-            if (obj != null && obj.getClass().isArray()) {
-                if (index[i] >= 0 && index[i] < Array.getLength(obj)) {
-                    obj = Array.get(obj, index[i]);
-                } else {
-                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (Array.getLength(obj) - 1));
-                }
-            } else if (obj instanceof List) {
-                List list = (List) obj;
-                if (index[i] >= 0 && index[i] < list.size()) {
-                    obj = list.get(index[i]);
-                } else {
-                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (list.size() - 1));
-                }
-            } else {
-                throw new ScilabJavaException("Problem in retrieving " + i + "-th element: it is not an array");
-            }
-        }
+        int[] recursiveIndex = new int[1];
+        final Object obj = recursiveExtract(array, index, recursiveIndex);
+        int i = recursiveIndex[0];
 
         if (obj != null && obj.getClass().isArray()) {
             if (index[i] >= 0 && index[i] < Array.getLength(obj)) {
@@ -174,6 +213,85 @@ public final class ScilabJavaArray {
         } else {
             throw new ScilabJavaException("Problem in retrieving " + i + "-th element: it is not an array");
         }
+    }
+
+    /**
+     * Multiple insert into an array o of objects x
+     *
+     * @param array the container to insert into
+     * @param a the indexes
+     * @param x the object (possible multiples) to insert
+     */
+    public static void setMultiple(Object array, Object a, Object x) throws IllegalArgumentException, ScilabJavaException {
+        final int arrayLen = Array.getLength(array);
+        final int indexLen = Array.getLength(a);
+
+        final Class arrayType = array.getClass().getComponentType();
+        final Class valuesType = x.getClass();
+
+        // first check is all indexes are valid, this avoid partial modification
+        if (valuesType.isArray()) {
+            if (Array.getLength(x) != indexLen) {
+                throw new ScilabJavaException("Problem in multi-set: expecting " + indexLen + "values");
+            }
+            if (!arrayType.isAssignableFrom(valuesType.getComponentType())) {
+                throw new ScilabJavaException("Array " + array + " cannot contain object which is an instance of " + valuesType);
+            }
+        }
+        for (int i = 0; i < indexLen; i++) {
+            final Integer indexObject = (Integer) FunctionArguments.convert(Array.get(a, i), Integer.class);
+            final int index = indexObject.intValue();
+            if (index < 0 || index >= arrayLen) {
+                throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index + ">" + (arrayLen - 1));
+            }
+        }
+
+        final boolean assignSingleValue = !valuesType.isArray();
+
+        // set the multiples values
+        for (int i = 0; i < indexLen; i++) {
+            if (assignSingleValue) {
+                Array.set(array, (int) Array.getDouble(a, i) - 1, FunctionArguments.convert(x, arrayType));
+            } else {
+                final Object v = Array.get(x, i);
+                Array.set(array, (int) Array.getDouble(a, i) - 1, FunctionArguments.convert(v, arrayType));
+            }
+        }
+
+    }
+
+    /**
+     * Method to support array(i,j,k) notation with a Java array of Java array of Java array as 'array'
+     *
+     * @param array multi-array (array composition)
+     * @param index multi-index
+     * @param recursiveIndex output argument the element to use is at index[recursiveIndex]
+     * @return the list to perform operation on
+     */
+    private static Object recursiveExtract(Object array, int[] index, int[] recursiveIndex) throws IllegalArgumentException, ScilabJavaException {
+        Object obj = array;
+        int i = 0;
+        for (; i < index.length - 1; i++) {
+            if (obj != null && obj.getClass().isArray()) {
+                if (index[i] >= 0 && index[i] < Array.getLength(obj)) {
+                    obj = Array.get(obj, index[i]);
+                } else {
+                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (Array.getLength(obj) - 1));
+                }
+            } else if (obj instanceof List) {
+                List list = (List) obj;
+                if (index[i] >= 0 && index[i] < list.size()) {
+                    obj = list.get(index[i]);
+                } else {
+                    throw new ScilabJavaException("Problem in retrieving " + i + "-th element: " + index[i] + ">" + (list.size() - 1));
+                }
+            } else {
+                throw new ScilabJavaException("Problem in retrieving " + i + "-th element: it is not an array");
+            }
+        }
+
+        recursiveIndex[0] = i;
+        return obj;
     }
 
     /**
@@ -552,7 +670,7 @@ public final class ScilabJavaArray {
             dims++;
         }
 
-        return new Object[] {base, new Integer(dims)};
+        return new Object[] {base, Integer.valueOf(dims)};
     }
 
     /**

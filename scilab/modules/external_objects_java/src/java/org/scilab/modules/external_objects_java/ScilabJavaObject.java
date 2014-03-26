@@ -905,14 +905,18 @@ public class ScilabJavaObject {
                             throw new ScilabJavaException("Cannot get object at position " + (i + 1));
                         }
                     } else if (o.getClass().isArray()) {
-                        int pos = -1;
-                        if (a instanceof Double) {
-                            pos = ((Double) a).intValue();
-                        } else if (a instanceof Integer) {
-                            pos = ((Integer) a).intValue();
-                        }
+                        if (a.getClass().isArray()) {
+                            o = ScilabJavaArray.getMultiple(o, a);
+                        } else {
+                            int pos = -1;
+                            if (a instanceof Double) {
+                                pos = ((Double) a).intValue();
+                            } else if (a instanceof Integer) {
+                                pos = ((Integer) a).intValue();
+                            }
 
-                        o = ScilabJavaArray.get(o, new int[] {pos - 1});
+                            o = ScilabJavaArray.get(o, new int[] {pos - 1});
+                        }
                     } else {
                         throw new ScilabJavaException("Invalid field " + (a == null ? "null" : a.toString()));
                     }
@@ -1020,14 +1024,18 @@ public class ScilabJavaObject {
                         l.add(pos, arraySJO[value].object);
                     }
                 } else if (o.getClass().isArray()) {
-                    int pos = -1;
-                    if (a instanceof Double) {
-                        pos = ((Double) a).intValue();
-                    } else if (a instanceof Integer) {
-                        pos = ((Integer) a).intValue();
-                    }
+                    if (a.getClass().isArray()) {
+                        ScilabJavaArray.setMultiple(o, a, arraySJO[value].object);
+                    } else {
+                        int pos = -1;
+                        if (a instanceof Double) {
+                            pos = ((Double) a).intValue();
+                        } else if (a instanceof Integer) {
+                            pos = ((Integer) a).intValue();
+                        }
 
-                    ScilabJavaArray.set(o, new int[] {pos - 1}, arraySJO[value].object);
+                        ScilabJavaArray.set(o, new int[] {pos - 1}, arraySJO[value].object);
+                    }
                 } else {
                     throw new ScilabJavaException("Invalid field " + (a == null ? "null" : a.toString()));
                 }
