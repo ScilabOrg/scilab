@@ -217,6 +217,7 @@ public class SwingScilabCommonPanel {
                     case BORDER: {
                         Integer[] padding = (Integer[]) GraphicController.getController().getProperty(component.getId(), __GO_BORDER_OPT_PADDING__);
                         component.getWidgetPane().setLayout(new BorderLayout(padding[0], padding[1]));
+                        component.getWidgetPane().setLayout(new BorderLayout());
                         component.setHasLayout(true);
                         break;
                     }
@@ -280,6 +281,7 @@ public class SwingScilabCommonPanel {
 
                 Integer[] padding = (Integer[]) GraphicController.getController().getProperty(component.getId(), __GO_BORDER_OPT_PADDING__);
                 component.getWidgetPane().setLayout(new BorderLayout(padding[0], padding[1]));
+                component.getWidgetPane().setLayout(new BorderLayout());
                 break;
             }
             case __GO_UI_ICON__: {
@@ -399,7 +401,7 @@ public class SwingScilabCommonPanel {
 
             // Anchor
             switch (uicontrol.getGridBagAnchorAsEnum()) {
-                case LEFT:
+                case RIGHT:
                     constraints.anchor = GridBagConstraints.EAST;
                     break;
                 case UPPER:
@@ -408,19 +410,19 @@ public class SwingScilabCommonPanel {
                 case LOWER:
                     constraints.anchor = GridBagConstraints.SOUTH;
                     break;
-                case LOWER_LEFT:
+                case LOWER_RIGHT:
                     constraints.anchor = GridBagConstraints.SOUTHEAST;
                     break;
-                case LOWER_RIGHT:
+                case LOWER_LEFT:
                     constraints.anchor = GridBagConstraints.SOUTHWEST;
                     break;
-                case RIGHT:
+                case LEFT:
                     constraints.anchor = GridBagConstraints.WEST;
                     break;
-                case UPPER_LEFT:
+                case UPPER_RIGHT:
                     constraints.anchor = GridBagConstraints.NORTHEAST;
                     break;
-                case UPPER_RIGHT:
+                case UPPER_LEFT:
                     constraints.anchor = GridBagConstraints.NORTHWEST;
                     break;
                 case CENTER:
