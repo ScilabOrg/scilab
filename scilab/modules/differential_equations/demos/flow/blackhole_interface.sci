@@ -158,6 +158,7 @@ function blackhole_create_gui()
     g_Vdir   = 0;
 
     my_figure_handle = scf(100001);
+    my_figure_handle.figure_size(1) = my_figure_handle.figure_size(1) + 50;
 
     axes_size_figure = my_figure_handle.axes_size;
     axes_figure_w    = axes_size_figure(1);
@@ -169,7 +170,7 @@ function blackhole_create_gui()
     slider_height   = 15;
     slider_width    = 140;
     value_width     = 30;
-    unit_width      = 30;
+    unit_width      = 50;
     text_width      = 50;
     y_margin        = 5;
     x_margin        = 10;

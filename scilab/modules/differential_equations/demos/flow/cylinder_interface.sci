@@ -81,7 +81,7 @@ function draw_cylinder(g_pente,orig)
     else
         my_figure_handle        = scf(100001);
         my_axe                  = gca()
-        Z                       = -sqrt(1-ones(yy)*(xx^2))+a*yy*ones(xx);
+        Z                       = -sqrt(1-ones(yy)*(xx.^2))+a*yy*ones(xx);
         e                       = my_axe.children(size(my_axe.children,"*"));
         e.data.z                = Z';
         my_axe.data_bounds(1,3) = min(Z);
@@ -153,6 +153,7 @@ function cylinder_create_gui()
     g_Vdir  = 0;
 
     my_figure_handle = scf(100001);
+    my_figure_handle.figure_size(1) = my_figure_handle.figure_size(1) + 150;
 
     axes_size_figure = my_figure_handle.axes_size;
     axes_figure_w    = axes_size_figure(1);
@@ -163,9 +164,9 @@ function cylinder_create_gui()
 
     slider_height   = 15;
     slider_width    = 140;
-    value_width     = 30;
-    unit_width      = 30;
-    text_width      = 50;
+    value_width     = 50;
+    unit_width      = 70;
+    text_width      = 70;
     y_margin        = 5;
     x_margin        = 10;
     title_width     =  (text_width + slider_width + value_width + unit_width +3*x_margin)
