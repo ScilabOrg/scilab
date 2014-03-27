@@ -72,11 +72,11 @@ public class JarOnlyConverter extends ContainerConverter {
             Helpers.deleteDirectory(outputJavaHelp);
             File directory = new File(outputJavaHelp);
             directory.mkdirs();
-
-            String[] args = new String[] {"-nostopwords", "."};
+            String[] args = new String[] {"-db", outputJavaHelp + File.separator + "JavaHelpSearch", "-nostopwords", "."};
 
             indexer.compile(args);
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("buildDoc: Error building search index: " + e.getLocalizedMessage());
             return;
         }
