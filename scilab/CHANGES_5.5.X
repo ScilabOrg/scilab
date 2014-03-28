@@ -847,6 +847,8 @@ Scilab Bug Fixes
 
 * Bug #13280 fixed - Axes were not always displayed properly after figure resize.
 
+* Bug #13289 fixed - Scilab crashed when inserting in a mlist.
+
 
 Xcos Bug Fixes
 ==============

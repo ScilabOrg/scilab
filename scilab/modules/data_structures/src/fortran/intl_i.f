@@ -140,7 +140,7 @@ c     .  current list index is not a single index (multiple insertion)
 c     .  syntax is arg3(...)(i,j,..)(...)=arg2
 c     .  matrix index (i,..) syntax
          if(istk(il3i).eq.17.or.istk(il3i).eq.16) then
-            if(icount.eq.1.and.abs(m1).eq.1) then
+            if(icount.eq.1) then
 c     .     syntax is arg3('xxx')=arg2 or  arg3(i)=arg2
                fin=-2
                top=top3
