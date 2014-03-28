@@ -357,7 +357,7 @@ static char *getNextLine(FILE *stream)
 
         while (fgets (tmp, LINE_MAX, stream) != NULL)
         {
-            size += LINE_MAX;
+			size += strlen(tmp);
             pCurrentLine = (char*)REALLOC (bufferLine, sizeof (char) * size);
             if (pCurrentLine != NULL)
             {
