@@ -63,6 +63,9 @@ fi
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_HEADERS([modules/core/includes/machine.h])
 
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
 # strip executable
 AM_PROG_INSTALL_STRIP
 AC_PROG_LN_S
@@ -82,8 +85,6 @@ AC_LIB_RPATH
 AM_MAINTAINER_MODE
 
 AM_INIT_AUTOMAKE([-Wall foreign serial-tests subdir-objects]) # Not using -Werror because we override {C,F}FLAGS in order to disable optimisation
-
-AC_CANONICAL_HOST
 
 #################################
 ## all the --with-* argument help
@@ -160,13 +161,13 @@ AC_PROG_GREP
 AC_ARG_WITH(fink_prefix,
 AC_HELP_STRING([--with-fink-prefix],[Provide a fink prefix. Default: /sw/ ]))
 # Need MacosX Version to specify some path.
-case "$host_os" in
+case "$target_os" in
      *Darwin* | *darwin*)
                AC_GET_MACOSX_VERSION
      ;;
 esac
 
-case "$host" in
+case "$target" in
     *darwin*)
         if test -n "$with_fink_prefix"; then
             # If with-fink-prefix is provided, use the provided path to make sure that we will
@@ -193,7 +194,7 @@ esac
 
 AC_ARG_WITH(min_macosx_version,
 AC_HELP_STRING([--with-min-macosx-version],[Force compilers to generate binaries compatible with MacOSX minimal version.]))
-case "$host" in
+case "$target" in
     *darwin*)
     if test -n "$with_min_macosx_version"; then
        MIN_MACOSX_VERSION=$with_min_macosx_version
@@ -431,7 +432,7 @@ if test -n "$F77"; then
    else
       DEBUG_FFLAGS="-DNDEBUG"
    fi
-      case "$host" in
+      case "$target" in
          x86_64-*-linux*)
             ARCH_FFLAGS="-m64 -fPIC"
                     ;;
@@ -477,7 +478,7 @@ fi
 # setting parameters according to system types
 #########################
 
-case "$host" in
+case "$target" in
     *-*-hpux9.*|*-*-hpux10.*|*-*-hpux11.*)
         HPUX=1
     ;;
@@ -539,7 +540,7 @@ esac
 
 #### 64 bits detection
 IS_64_BITS_CPU=false
-case "$host" in
+case "$target" in
          x86_64-*-linux-gnu | x86_64-linux-gnu | ia64-*-linux-gnu | alpha-*-linux-gnu | alpha-*-netbsd* | x86_64-*-netbsd* | sparc64-*-netbsd*)
                 IS_64_BITS_CPU=true
     ;;
@@ -583,7 +584,7 @@ case "$CC" in
    fi
 
 
-   case "$host" in
+   case "$target" in
      x86_64-*-linux-gnu | x86_64-linux-gnu)
         ARCH_CFLAGS="-m64"
     ;;
@@ -640,7 +641,7 @@ esac
              ARCH_CFLAGS="-DNDEBUG"
         fi
 
-case "$host" in
+case "$target" in
 # Dec Alpha OSF 4
   alpha*-dec-osf4.*)
       ARCH_CFLAGS="-std -ieee_with_inexact"
@@ -713,7 +714,7 @@ AM_CONDITIONAL(IS_64_BITS_CPU, test $IS_64_BITS_CPU = true)
 ## (these extensions are enabled by default by gcc)
 ################
 
-case "$host" in
+case "$target" in
      i*86-linux-gnu|i*86-*-linux-gnu)
         SSE_CFLAGS="-msse"
         SSE_FFLAGS="-msse"
@@ -820,7 +821,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
         AC_JAVA_JNI_INCLUDE
         JAVA_JNI_INCLUDE=$ac_java_jvm_jni_include_flags
 
-        case "$host_os" in
+        case "$target_os" in
              *Darwin* | *darwin*)
                # Mac OS X does not link against the lib but uses -framework
                JAVA_JNI_LIBS="-framework JavaVM"
@@ -837,7 +838,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
         AC_JAVA_TOOLS
         AC_JAVA_ANT
 
-        case "$host_os" in
+        case "$target_os" in
              *Darwin* | *darwin*)
                   JAVA_HOME=""
              ;;
@@ -2016,7 +2017,7 @@ AC_OUTPUT
 # http://directory.fsf.org/project/chrpath/
 # to remove it before the make install
 
-#case ${host} in
+#case ${target} in
 #  *-pc-linux-gnu)
 #    AC_MSG_RESULT([Fixing libtool for -rpath problems.])
 #    sed < libtool > libtool-2 \
@@ -2032,7 +2033,9 @@ echo ""
 echo "Scilab is configured as follows. Please verify that this configuration"
 echo "matches your expectations."
 echo ""
+echo "Build system type : $build"
 echo "Host system type : $host"
+echo "Target system type : $target"
 echo ""
 echo "                  Option                        Value"
 echo "-------------------------------------------------------------------------"
@@ -2312,6 +2315,10 @@ echo "  host_cpu ....... = $host_cpu"
 echo "  host_vendor .... = $host_vendor"
 echo "  host_os ... .... = $host_os"
 echo "  hostname ....... = $ac_hostname"
+echo "  target ......... = $target"
+echo "  target_cpu ..... = $target_cpu"
+echo "  target_vendor .. = $target_vendor"
+echo "  target_os ... .. = $target_os"
 echo "  CPU 64 bits .... = $IS_64_BITS_CPU"
 if test -n "$MAC_DETECTED_ARCH"; then
 echo "  Mac OS X arch .. = $MAC_DETECTED_ARCH"
