@@ -609,6 +609,8 @@ Scilab Bug Fixes
 
 * Bug #12910 fixed - Typos fixed in several help pages.
 
+* Bug #12918 fixed - OpenSuse x86_64 use /usr/lib64 for some JNI related jars.
+
 * Bug #12938 fixed - No Java compiler was available in Linux binary version.
 
 * Bug #12943 fixed - Datatips did not work properly when 2-D plots were rotated.
