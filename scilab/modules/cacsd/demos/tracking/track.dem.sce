@@ -33,7 +33,7 @@ my_handle             = scf(100001);
 clf(my_handle,"reset");
 plot2d(instants',totrack',axesflag=1);
 
-halt();
+halt(_("Press Return to continue ... \n"));
 
 clf(my_handle,"reset");
 
