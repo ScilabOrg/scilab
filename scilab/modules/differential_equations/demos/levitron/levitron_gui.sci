@@ -93,7 +93,7 @@ function levitron_gui()
     fig=gcf();
     w=fig.axes_size;
     m=20;
-    lslider=150;h=20;
+    lslider=195;h=20;
     lv=40;
     xs=w(1)-lslider-lv-m-10;
     xv=xs+lslider+10;
@@ -220,7 +220,7 @@ function levitron_gui()
     "BackgroundColor",[1 1 1]);
 
     ybtn= ypsi -(m+h);
-    wb=40;eb=13;
+    wb=70;eb=13;
     Start = uicontrol("parent",fig, ..
     "Position"  , [xs ybtn wb h],...
     "Style"     , "pushbutton",...
@@ -274,6 +274,7 @@ function update_theta(t)
     else
         t=Slider_Theta.Value
         t=t/100
+
     end
     Value_Theta.String=msprintf("%.3f",t)
     update_state(4,t)
