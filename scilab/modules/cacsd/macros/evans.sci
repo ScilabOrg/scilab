@@ -204,7 +204,7 @@ function evans(n,d,kmax)
     E=gce();
 
     for k=1:size(E.children,"*")
-        datatipInitStruct(E.children(k),"formatfunction","formatEvansTip","K",kk)
+        E.children(k).display_function_data = kk;
     end
     c=captions(lhandle,legs($:-1:1),"in_upper_right")
     c.background=a.background;
