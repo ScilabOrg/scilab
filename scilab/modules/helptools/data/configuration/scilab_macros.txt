@@ -1926,7 +1926,6 @@ datatipRemoveNearest
 datatipSetGUI
 datatipSetOrientation
 datatipSetSelected
-datatipSetStruct
 datatipSetStyle
 datatipSetTipPosition
 datatipSetTipStyle
