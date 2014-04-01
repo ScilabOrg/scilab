@@ -36,24 +36,60 @@ function exesphere()
     // Figure creation
     // =========================================================================
 
-    my_figure_handle = scf(100001);
-    clf(my_figure_handle,"reset");
+    my_figure_handle = createMainWindow([axes_figure_w axes_figure_h], _("Sphere"), "main_figure");
 
-    my_figure_handle.background      = -2;
-    my_figure_handle.figure_position = [0 0];
-    my_figure_handle.axes_size       = [axes_figure_w axes_figure_h];
-    my_figure_handle.figure_name     = gettext("Sphere");
+//    my_figure_handle.background      = -2;
+//    my_figure_handle.figure_position = [0 0];
+//    my_figure_handle.axes_size       = [axes_figure_w axes_figure_h];
+//    my_figure_handle.figure_name     = gettext("Sphere");
 
     //reserve The upper part of the graphic windows for the 3d view of the scene
-    curAxe=gca();
-    curAxe.axes_bounds = [0,0,1,3/4];
+//    curAxe=gca();
+//    curAxe.axes_bounds = [0,0,1,3/4];
+
+    //Simulation parameters
+    speed = tlist(["sim_param", "name","unit","range","default","tag"],...
+    "speed", ...
+    "m/s", ...
+    [0 100],...
+    1,...
+    "speed");
+
+    direction = tlist(["sim_param", "name","unit","range","default","tag"],...
+    "direction", ...
+    "deg", ...
+    [0 100],...
+    50,...
+    "dir");
+
+    r = tlist(["sim_param", "name","unit","range","default","tag"],...
+    "r", ...
+    "m", ...
+    [0 100],...
+    0,...
+    "r");
+
+    theta = tlist(["sim_param", "name","unit","range","default","tag"],...
+    "theta", ...
+    "deg", ...
+    [0 100],...
+    1,...
+    "theta");
+    
+    //Create the controls in the window bottom
+    // =========================================================================   
+    param_list = list(direction, theta, speed, r);
+    [plot_frame, param_frame, button_frame] = create_gui(my_figure_handle);
+    create_param_zone(param_frame, param_list);
+    create_buttons(button_frame);
+
+
     draw_sphere();
     draw_initial_point(g_r,g_t,g_V,g_Vdir,%T);
 
-    //Create the controls in the window bottom
-    // =========================================================================
 
-    sphere_create_gui()
+
+//    sphere_create_gui()
 
     //Set control and graphics initial values
     // =========================================================================
@@ -62,6 +98,7 @@ function exesphere()
     change_speed(g_V)
     change_dir(g_Vdir)
 
+my_figure_handle.visible = "on";
 endfunction
 
 // draw_sphere
@@ -96,7 +133,7 @@ function draw_initial_point(g_r,g_t,g_V,g_Vdir,create)
     z = -sqrt(1-x^2-y^2)+r;
     dx1 = 0.1*g_V*cos(g_Vdir*%pi/180);
     dy1 = 0.1*g_V*sin(g_Vdir*%pi/180);
-    my_figure_handle = scf(100001);
+    my_figure_handle = get("main_figure");
     my_figure_handle.immediate_drawing = "off";
 
     if create then
@@ -151,7 +188,12 @@ function sphere_create_gui()
     g_speed = 0;
     g_Vdir   = 0;
 
+<<<<<<< Updated upstream
     my_figure_handle = scf(100001);
+=======
+    my_figure_handle = get("main_figure");
+    my_figure_handle.figure_size(1) = my_figure_handle.figure_size(1) + 120;
+>>>>>>> Stashed changes
 
     axes_size_figure = my_figure_handle.axes_size;
     axes_figure_w    = axes_size_figure(1);
@@ -385,13 +427,13 @@ endfunction
 function change_r(r)
     //r slider callback
     // r is in [0 1]
-    slider_r     = findobj("tag", "slider_r");
-    slider_theta = findobj("tag", "slider_theta");
-    slider_speed = findobj("tag", "slider_speed");
-    slider_dir   = findobj("tag", "slider_dir");
-    slider_r     = findobj("tag", "slider_r");
+    slider_r     = get("slider_r");
+    slider_theta = get("slider_theta");
+    slider_speed = get("slider_speed");
+    slider_dir   = get("slider_dir");
+    slider_r     = get("slider_r");
 
-    value_r       = findobj("tag", "value_r");
+    value_r       = get("value_r");
     if argn(2)==1 then
         slider_r.Value=(r)*100;
     else
@@ -407,13 +449,13 @@ endfunction
 function change_theta(theta)
     //theta slider callback
     //theta is in [0 360]
-    slider_r     = findobj("tag", "slider_r");
-    slider_theta = findobj("tag", "slider_theta");
-    slider_speed = findobj("tag", "slider_speed");
-    slider_dir   = findobj("tag", "slider_dir");
-    slider_r     = findobj("tag", "slider_r");
+    slider_r     = get("slider_r");
+    slider_theta = get("slider_theta");
+    slider_speed = get("slider_speed");
+    slider_dir   = get("slider_dir");
+    slider_r     = get("slider_r");
 
-    value_theta   = findobj("tag", "value_theta");
+    value_theta   = get("value_theta");
     if argn(2)==1 then
         slider_theta.Value=(theta)*100/360;
     else
@@ -427,12 +469,12 @@ endfunction
 function change_speed(speed)
     //speed slider callback
     //speed is in [0 20]
-    slider_r     = findobj("tag", "slider_r");
-    slider_theta = findobj("tag", "slider_theta");
-    slider_speed = findobj("tag", "slider_speed");
-    slider_dir   = findobj("tag", "slider_dir");
+    slider_r     = get("slider_r");
+    slider_theta = get("slider_theta");
+    slider_speed = get("slider_speed");
+    slider_dir   = get("slider_dir");
 
-    value_speed  = findobj("tag", "value_speed");
+    value_speed  = get("value_speed");
     if argn(2)==1 then
         slider_speed.Value=(speed)*100/20;
     else
@@ -446,11 +488,11 @@ endfunction
 function change_dir(dir)
     //direction slider callback
     //dir is in [0 360]
-    slider_r      = findobj("tag", "slider_r");
-    slider_theta  = findobj("tag", "slider_theta");
-    slider_speed  = findobj("tag", "slider_speed");
-    slider_dir    = findobj("tag", "slider_dir");
-    value_dir     = findobj("tag", "value_dir");
+    slider_r      = get("slider_r");
+    slider_theta  = get("slider_theta");
+    slider_speed  = get("slider_speed");
+    slider_dir    = get("slider_dir");
+    value_dir     = get("value_dir");
     if argn(2)==1 then
         slider_dir.Value=(dir)*100/360;
     else
@@ -463,14 +505,14 @@ endfunction
 
 function start_simu()
     //start button callback
-    my_figure_handle           = scf(100001);
+    my_figure_handle           = get("main_figure");
     fin                        = my_figure_handle.user_data
     my_figure_handle.user_data = %f
 
-    slider_r     = findobj("tag", "slider_r");
-    slider_theta = findobj("tag", "slider_theta");
-    slider_speed = findobj("tag", "slider_speed");
-    slider_dir   = findobj("tag", "slider_dir");
+    slider_r     = get("slider_r");
+    slider_theta = get("slider_theta");
+    slider_speed = get("slider_speed");
+    slider_dir   = get("slider_dir");
     t =            0:0.01:15
     Y = calculate_traj(slider_r.Value/100,slider_theta.value*360/100, ...
     slider_speed.Value*20/100,slider_dir.value*360/100,t)
@@ -478,7 +520,7 @@ function start_simu()
     y = Y(3,:)
     r = 0.1; //bias to have the curve above the surface
     z = -sqrt(1-x.^2-y.^2)+r;
-    my_figure_handle = scf(100001);
+    my_figure_handle = get("main_figure");
     curAxe = gca();
     traj_handle=curAxe.children(1).children(5);
     traj_handle.data=[x(1),y(1),z(1)];
@@ -492,17 +534,17 @@ endfunction
 
 function stop_simu()
     //stop button callback
-    my_figure_handle = scf(100001);
+    my_figure_handle = get("main_figure");
     fin   = %T;
     my_figure_handle.user_data=fin
 endfunction
 
 function clear_simu()
     //clear button callback
-    my_figure_handle = scf(100001);
+    my_figure_handle = get("main_figure");
     fin=my_figure_handle.user_data
     if fin then
-        my_figure_handle = scf(100001);
+        my_figure_handle = get("main_figure");
         curAxe = gca();
         traj_handle=curAxe.children(1).children(5);
         traj_handle.data=[0,0,0];
