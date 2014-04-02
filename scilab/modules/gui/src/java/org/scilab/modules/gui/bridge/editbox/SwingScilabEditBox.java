@@ -158,9 +158,13 @@ public class SwingScilabEditBox extends JScrollPane implements SwingViewObject, 
      * Constructor
      */
     public SwingScilabEditBox() {
-        super(new JTextPane());
-        textPane = (JTextPane) getViewport().getView();
+        super(new JPanel(new BorderLayout()));
+        noWrapPanel = (JPanel) getViewport().getView();
+        textPane = new JTextPane();
+        noWrapPanel.add(textPane, BorderLayout.CENTER);
+        
         setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         textPane.setEditorKit(new EditBoxEditorKit());
         doc = (StyledDocument) textPane.getDocument();
