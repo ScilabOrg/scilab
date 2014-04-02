@@ -40,6 +40,7 @@ void initStyleMap()
     styleMap["listbox"] = __GO_UI_LISTBOX__;
     styleMap["image"] = __GO_UI_IMAGE__;
     styleMap["popupmenu"] = __GO_UI_POPUPMENU__;
+    styleMap["progressbar"] = __GO_UI_PROGRESSBAR__;
     styleMap["radiobutton"] = __GO_UI_RADIOBUTTON__;
     styleMap["slider"] = __GO_UI_SLIDER__;
     styleMap["table"] = __GO_UI_TABLE__;

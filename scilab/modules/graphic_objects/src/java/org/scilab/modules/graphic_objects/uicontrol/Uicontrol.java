@@ -54,6 +54,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_POPUPMENU__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PROGRESSBAR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PUSHBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RADIOBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RELIEF__;
@@ -543,6 +544,7 @@ public class Uicontrol extends GraphicObject {
         IMAGE,
         LISTBOX,
         POPUPMENU,
+        PROGRESSBAR,
         PUSHBUTTON,
         RADIOBUTTON,
         SLIDER,
@@ -597,6 +599,8 @@ public class Uicontrol extends GraphicObject {
                 return __GO_UI_LISTBOX__;
             case POPUPMENU:
                 return __GO_UI_POPUPMENU__;
+            case PROGRESSBAR:
+                return __GO_UI_PROGRESSBAR__;
             case PUSHBUTTON:
                 return __GO_UI_PUSHBUTTON__;
             case RADIOBUTTON:
@@ -641,6 +645,8 @@ public class Uicontrol extends GraphicObject {
                 return UicontrolStyle.PUSHBUTTON;
             case __GO_UI_RADIOBUTTON__ :
                 return UicontrolStyle.RADIOBUTTON;
+            case __GO_UI_PROGRESSBAR__ :
+                return UicontrolStyle.PROGRESSBAR;
             case __GO_UI_SLIDER__ :
                 return UicontrolStyle.SLIDER;
             case __GO_UI_TABLE__ :
