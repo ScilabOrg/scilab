@@ -26,4 +26,5 @@ function [] = %_plot3d()
     f.figure_name = my_plot_desc;
     xtitle(my_plot_desc," "," "," ");
     f.color_map = jetcolormap(32);
+    set("current_entity", e);
 endfunction
