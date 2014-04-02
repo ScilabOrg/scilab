@@ -769,6 +769,8 @@ Scilab Bug Fixes
 
 * Bug #13165 fixed - Preferences reset did not show a confirmation pop-up.
 
+* Bug #13166 fixed - Select little-endian for mget if he has got last void argument.
+
 * Bug #13168 fixed - Wrong interpretation of star followed by minus fixed.
 
 * Bug #13170 fixed - Legends for plzr plots fixed.

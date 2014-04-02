@@ -54,6 +54,7 @@ int swap = 0;
   {								               \
     switch (cf) {						         \
     case ' ':							         \
+	  swap = (islittleendian()==1) ? 0:1;			\
       MGET_NC(NumType);break;					\
     case 'b':						      	   \
       swap = (islittleendian()==1)? 1:0;  \
