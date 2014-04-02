@@ -47,6 +47,7 @@ import org.scilab.modules.graphic_objects.uicontrol.frame.border.FrameBorder;
 import org.scilab.modules.graphic_objects.uicontrol.layer.Layer;
 import org.scilab.modules.graphic_objects.uicontrol.listbox.ListBox;
 import org.scilab.modules.graphic_objects.uicontrol.popupmenu.PopupMenu;
+import org.scilab.modules.graphic_objects.uicontrol.progressbar.ProgressBar;
 import org.scilab.modules.graphic_objects.uicontrol.pushbutton.PushButton;
 import org.scilab.modules.graphic_objects.uicontrol.radiobutton.RadioButton;
 import org.scilab.modules.graphic_objects.uicontrol.slider.Slider;
@@ -279,6 +280,9 @@ public final class GraphicModel {
                 break;
             case RADIOBUTTON:
                 createdObject = new RadioButton();
+                break;
+            case UIPROGRESSBAR:
+                createdObject = new ProgressBar();
                 break;
             case SLIDER:
                 createdObject = new Slider();

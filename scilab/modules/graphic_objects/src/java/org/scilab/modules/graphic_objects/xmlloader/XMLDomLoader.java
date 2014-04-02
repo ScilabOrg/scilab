@@ -68,6 +68,7 @@ public class XMLDomLoader {
         nameToGO.put("picture", __GO_UI_IMAGE__);
         nameToGO.put("listbox", __GO_UI_LISTBOX__);
         nameToGO.put("popupmenu", __GO_UI_POPUPMENU__);
+        nameToGO.put("progressbar", __GO_UI_PROGRESSBAR__);
         nameToGO.put("radiobutton", __GO_UI_RADIOBUTTON__);
         nameToGO.put("slider", __GO_UI_SLIDER__);
         nameToGO.put("table", __GO_UI_TABLE__);
@@ -303,6 +304,7 @@ public class XMLDomLoader {
                     case __GO_UI_LAYER__:
                     case __GO_UI_LISTBOX__:
                     case __GO_UI_POPUPMENU__:
+                    case __GO_UI_PROGRESSBAR__:
                     case __GO_UI_PUSHBUTTON__:
                     case __GO_UI_RADIOBUTTON__:
                     case __GO_UI_SLIDER__:

@@ -36,6 +36,8 @@ char *IntToStyle(int _iStyle)
             return "listbox";
         case __GO_UI_POPUPMENU__ :
             return "popupmenu";
+        case __GO_UI_PROGRESSBAR__ :
+            return "progressbar";
         case __GO_UI_PUSHBUTTON__ :
             return "pushbutton";
         case __GO_UI_RADIOBUTTON__ :
