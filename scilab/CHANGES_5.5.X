@@ -29,6 +29,8 @@ Scilab Bug Fixes
 
 * Bug #12918 fixed - OpenSUSE 12.3 x64 did not have gluegen2-rt in librarypath.
 
+* Bug #12933 fixed - Add warning for fail memory allocation in sci_matfile_varreadnext.
+
 * Bug #13180 fixed - surf did not handle degenerate cases.
 
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
