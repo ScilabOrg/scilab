@@ -17,6 +17,7 @@
 int CreateMatlabVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * parent, int item_position)
 {
     SciErr sciErr;
+	BOOL resl;
 
     /* To be sure isComplex is 0 or 1 */
     matVariable->isComplex =  matVariable->isComplex != 0;
@@ -24,45 +25,45 @@ int CreateMatlabVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * 
     switch (matVariable->class_type)
     {
         case MAT_C_CELL: /* 1 */
-            CreateCellVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+            resl = CreateCellVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_STRUCT: /* 2 */
-            CreateStructVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+            resl = CreateStructVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_CHAR: /* 4 */
-            CreateCharVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+            resl = CreateCharVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_SPARSE: /* 5 */
-            CreateSparseVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+            resl = CreateSparseVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_DOUBLE: /* 6 */
         case MAT_C_SINGLE: /* 7 */
-            CreateDoubleVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+            resl = CreateDoubleVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_INT8: /* 8 */
-            CreateIntegerVariable(pvApiCtx, iVar, I_CHAR, matVariable, parent, item_position);
+            resl = CreateIntegerVariable(pvApiCtx, iVar, I_CHAR, matVariable, parent, item_position);
             break;
         case MAT_C_UINT8: /* 9 */
             if (matVariable->isLogical != 0)
             {
-                CreateBooleanVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+                resl = CreateBooleanVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             }
             else
             {
-                CreateIntegerVariable(pvApiCtx, iVar, I_UCHAR, matVariable, parent, item_position);
+                resl = CreateIntegerVariable(pvApiCtx, iVar, I_UCHAR, matVariable, parent, item_position);
             }
             break;
         case MAT_C_INT16: /* 10 */
-            CreateIntegerVariable(pvApiCtx, iVar, I_INT16, matVariable, parent, item_position);
+            resl = CreateIntegerVariable(pvApiCtx, iVar, I_INT16, matVariable, parent, item_position);
             break;
         case MAT_C_UINT16: /* 11 */
-            CreateIntegerVariable(pvApiCtx, iVar, I_UINT16, matVariable, parent, item_position);
+            resl = CreateIntegerVariable(pvApiCtx, iVar, I_UINT16, matVariable, parent, item_position);
             break;
         case MAT_C_INT32: /* 12 */
-            CreateIntegerVariable(pvApiCtx, iVar, I_INT32, matVariable, parent, item_position);
+            resl = CreateIntegerVariable(pvApiCtx, iVar, I_INT32, matVariable, parent, item_position);
             break;
         case MAT_C_UINT32: /* 13 */
-            CreateIntegerVariable(pvApiCtx, iVar, I_UINT32, matVariable, parent, item_position);
+            resl = CreateIntegerVariable(pvApiCtx, iVar, I_UINT32, matVariable, parent, item_position);
             break;
         case MAT_C_OBJECT: /* 3 to be written */
         case MAT_C_INT64: /* 14: no Scilab equivalent */
@@ -72,7 +73,7 @@ int CreateMatlabVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * 
             /* Empty matrix returned */
             if (parent == NULL)
             {
-                createEmptyMatrix(pvApiCtx, iVar);
+                resl = createEmptyMatrix(pvApiCtx, iVar);
             }
             else
             {
@@ -86,5 +87,5 @@ int CreateMatlabVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * 
             return FALSE;
     }
 
-    return TRUE;
+    return resl;
 }
