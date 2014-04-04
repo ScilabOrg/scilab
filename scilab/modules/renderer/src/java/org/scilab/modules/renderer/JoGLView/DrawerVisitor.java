@@ -965,7 +965,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 openGLChildren.put(id, updatedOpenGLChildren);
             }
         }
-        
+
         try {
             if (needUpdate(id, property)) {
                 if (GraphicObjectProperties.__GO_COLORMAP__ == property) {
@@ -1002,7 +1002,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                         } else {
                             canvas.redraw();
                         }
-                    } 
+                    }
                 }
             }
 
@@ -1110,7 +1110,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             return true;
         }
         // Special case if top level figure colormap/immediate_drawing has been updated, force redraw
-        if ((property == GraphicObjectProperties.__GO_COLORMAP__ ||  property == GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__) 
+        if ((property == GraphicObjectProperties.__GO_COLORMAP__ ||  property == GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__)
                 && id.intValue() == figure.getParentFigure().intValue()) {
             return true;
         }
