@@ -1,0 +1,30 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Sylvain GENIN
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 12933 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=12933
+//
+// first generate a large mat file for testing:
+
+stacksize("max");
+
+a = rand(8000000,1);
+cd TMPDIR;
+savematfile("tst.mat");
+
+clear
+// now load that with a smaller stacksize
+stacksize(180000);
+
+loadmatfile("tst.mat");
+//warning is printed
+
+deletefile("tst.mat");
