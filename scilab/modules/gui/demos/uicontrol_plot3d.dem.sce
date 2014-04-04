@@ -6,3 +6,4 @@
 my_path = SCI+"/modules/gui/demos";
 exec(my_path+"/cb_uicontrol_plot3d.dem.sci");
 uicontrol_plot3d();
+clear uicontrol_plot3d;
