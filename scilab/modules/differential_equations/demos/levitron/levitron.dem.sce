@@ -3,7 +3,11 @@
 //
 // This file is released under the 3-clause BSD license. See COPYING-BSD.
 
+fp_old = funcprot();
+m_old  = mode();
+
 mode(-1)
+funcprot(0);
 exec SCI/modules/differential_equations/demos/levitron/levitron_gui.sci;
 exec SCI/modules/differential_equations/demos/levitron/levitron.sci;
 
@@ -74,3 +78,6 @@ update_phi(0);
 update_psi(0);
 set_levitron(H,y);
 
+mode(m_old);
+funcprot(fp_old);
+clear m_old fp_old;
