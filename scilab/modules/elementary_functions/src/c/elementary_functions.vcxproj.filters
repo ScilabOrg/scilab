@@ -200,7 +200,7 @@
     <ClCompile Include="..\cpp\prod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci_tools.c">
+    <ClCompile Include="..\..\sci_gateway\c\sci_find.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

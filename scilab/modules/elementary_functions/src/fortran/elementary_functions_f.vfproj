@@ -104,6 +104,7 @@
 		<File RelativePath=".\dwrdiv.f"/>
 		<File RelativePath=".\entier.f"/>
 		<File RelativePath=".\exch.f"/>
+		<File RelativePath=".\find.f"/>
 		<File RelativePath=".\franck.f"/>
 		<File RelativePath=".\gdcp2i.f"/>
 		<File RelativePath=".\getdimfromvar.f"/>
@@ -130,6 +131,7 @@
 		<File RelativePath=".\orthes.f"/>
 		<File RelativePath=".\ortran.f"/>
 		<File RelativePath=".\psi.f"/>
+		<File RelativePath=".\pythag.f"/>
 		<File RelativePath=".\rat.f"/>
 		<File RelativePath=".\rcopy.f"/>
 		<File RelativePath=".\rcsort.f"/>

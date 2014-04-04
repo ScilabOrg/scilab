@@ -6,6 +6,11 @@ EXPORTS
 ; core
 ;--------------------------
 vstk_
+addColVectorToReturnedList
+addMatrixToReturnedList
+addStringColVectorToReturnedList
+addStringToReturnedList
+addRowVectorToReturnedList
 callFunctionFromGateway
 com_
 elementtype_
@@ -28,3 +33,5 @@ create_hashtable
 hashtable_destroy
 hashtable_search
 hashtable_insert
+returnanan_
+isanan_

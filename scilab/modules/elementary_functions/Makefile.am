@@ -4,7 +4,6 @@
 # This file is distributed under the same license as the Scilab package.
 
 ELEMENTARIES_FUNCTIONS_C_SOURCES = \
-src/c/sci_tools.c \
 src/c/finite.c \
 src/c/vfinite.c \
 src/c/cmp.c \
