@@ -851,6 +851,8 @@ Scilab Bug Fixes
 
 * Bug #9859 fixed - It was not possible to draw arrows in 3-D using xarrows.
 
+* Bug #9890 fixed - Added xarrows() demo in  Graphics Basic functions
+
 * Bug #10012 fixed - lmisolver and lmitool called with no input now produce errors.
 
 
