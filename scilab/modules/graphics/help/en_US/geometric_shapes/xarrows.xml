@@ -85,9 +85,9 @@ nz=[zi_1 z1_2 ...; zf_1 zf_2 ...]
 x = 2*%pi*(0:7)/8
 x1 = [sin(x); 9*sin(x)];
 y1 = [cos(x); 9*cos(x)];
-plot2d([-10,10], [-10,10], [-1,-1], "022")
+plot2d([-10, 10], [-10, 10], [-1, -1], "022")
 xset("clipgrf")
-xarrows(x1, y1, -1, [1:7,9]) //8-th color is white
+xarrows(x1, y1, -1, [1:7, 9]) //8-th color is white
 xset("clipoff")
  ]]></programlisting>
         <scilab:image>
@@ -101,23 +101,23 @@ xset("clipoff")
         </scilab:image>
         <programlisting role="example"><![CDATA[
 N = 100;
-zi = linspace(-1,2,N);
+zi = linspace(-1, 2, N);
 zf = zi;
-theta = (zi - min(zi))/(max(zi)-min(zi))*720;
-xi = zeros(1,N);  xf = cosd(theta);
-yi = zeros(1,N);  yf = sind(theta);
-clf, plot3d([-1 1 1 1],[-1 -1 -1 1],[-1 -1 2 2])
-xarrows([xi;xf],[yi;yf],[zi;zf],0.7, 32*rand(1,N))
+theta = (zi - min(zi)) / (max(zi) - min(zi)) * 720;
+xi = zeros(1, N);  xf = cosd(theta);
+yi = zeros(1, N);  yf = sind(theta);
+clf, plot3d([-1 1 1 1], [-1 -1 -1 1], [-1 -1 2 2])
+xarrows([xi; xf], [yi; yf], [zi; zf], 0.7, 32*rand(1, N))
  ]]></programlisting>
         <scilab:image>
 N = 100;
-zi = linspace(-1,2,N);
+zi = linspace(-1, 2, N);
 zf = zi;
 theta = (zi - min(zi))/(max(zi)-min(zi))*720;
-xi = zeros(1,N);  xf = cosd(theta);
-yi = zeros(1,N);  yf = sind(theta);
-clf, plot3d([-1 1 1 1],[-1 -1 -1 1],[-1 -1 2 2])
-xarrows([xi;xf],[yi;yf],[zi;zf],0.7, 32*rand(1,N))
+xi = zeros(1, N);  xf = cosd(theta);
+yi = zeros(1, N);  yf = sind(theta);
+clf, plot3d([-1 1 1 1], [-1 -1 -1 1], [-1 -1 2 2])
+xarrows([xi; xf], [yi; yf], [zi; zf], 0.7, 32*rand(1, N))
         </scilab:image>
     </refsection>
     <refsection>
