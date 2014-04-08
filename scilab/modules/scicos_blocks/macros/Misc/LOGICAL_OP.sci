@@ -29,6 +29,7 @@ function [x,y,typ]=LOGICAL_OP(job,arg1,arg2)
         graphics=arg1.graphics;
         exprs=graphics.exprs
         model=arg1.model;
+
         if size(exprs,1)==2 then
             exprs=[exprs;sci2exp(1);sci2exp(0)];
         end
@@ -54,6 +55,7 @@ function [x,y,typ]=LOGICAL_OP(job,arg1,arg2)
             elseif (rule==5)&(nin>1) then
                 message("Only one input allowed for NOT operation")
                 nin=1
+                label = "NOT";
             elseif ((Datatype==1)&(tp~=0))
                 message ("Bitwise Rule is only activated when Data type is integer");
                 ok=%f
@@ -97,7 +99,21 @@ function [x,y,typ]=LOGICAL_OP(job,arg1,arg2)
                     end
                 end
                 if ok then
+                    if rule == 0 then
+                        label = "AND";
+                    elseif rule == 1 then
+                        label = "OR";
+                    elseif rule == 2 then
+                        label = "NAND";
+                    elseif rule == 3 then
+                        label = "NOR";
+                    elseif rule == 4 then
+                        label = "XOR";
+                    elseif rule == 5 then
+                        label = "NOT";
+                    end
                     graphics.exprs=exprs;
+                    graphics.style = ["blockWithLabel;displayedLabel="+label];
                     x.graphics=graphics;
                     x.model=model
                     break
