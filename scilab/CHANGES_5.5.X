@@ -2702,6 +2702,8 @@ Xcos Bug Fixes
 
 * Bug #13250 fixed - CLSS wrongly handled scalar values.
 
+* Bug #13318 fixed - Multiplication matrix * vector using MATMUL matrix operations element does not work correct.
+
 
 
 
