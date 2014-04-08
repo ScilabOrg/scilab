@@ -131,6 +131,10 @@ function cb_m2sci_gui
         //
     elseif get(gcbo, "tag")=="convertbtn" then
         outputdir = get("outedit", "string");
+        if outputdir == [] | ~isdir(outputdir) then
+            updateTextArea(_("Please specify an existing output directory."))
+            return
+        end
 
         rec = get("recradioyes", "value") == 1;
 
@@ -150,14 +154,22 @@ function cb_m2sci_gui
 
         if get("fileradio", "value") == 1 then // Single file conversion
             inputfile = get("fileedit", "string");
-            //delete(findobj("tag", "m2scifig"));
-            delete(gcf());
-            mfile2sci(inputfile, outputdir, rec, doub, verb, pp);
+            if inputfile <> [] & isfile(inputfile) then
+                //delete(findobj("tag", "m2scifig"));
+                delete(gcf());
+                mfile2sci(inputfile, outputdir, rec, doub, verb, pp);
+            else
+                updateTextArea(_("Please specify an existing input file."))
+            end
         else // Directory conversion
             inputdir = get("diredit", "string");
-            //delete(findobj("tag", "m2scifig"));
-            delete(gcf());
-            translatepaths(inputdir, outputdir);
+            if inputdir <> [] & isdir(inputdir) then
+                //delete(findobj("tag", "m2scifig"));
+                delete(gcf());
+                translatepaths(inputdir, outputdir);
+            else
+                updateTextArea(_("Please specify an existing input directory."))
+            end
         end
 
         //
@@ -178,5 +190,20 @@ function cb_m2sci_gui
     elseif get(gcbo, "tag")=="about_m2sci_menu" then
         help(gettext("About_M2SCI_tools"))
     end
+
+endfunction
+
+// =============================================================================
+// updateTextArea
+// Updates the string in the text area
+// =============================================================================
+function updateTextArea(msg)
+
+    if argn(2) == 0 then
+        set("msgText", "String", "");
+        return
+    end
+
+    set("msgText", "Foregroundcolor", [0.75 0 0], "String", msg);
 
 endfunction
