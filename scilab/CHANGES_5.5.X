@@ -33,6 +33,13 @@ Compilation
 * Required version of Arpack-ng updated to 3.1.5 (See Bug #13058).
 
 
+Xcos
+====
+
+* Implicit fixed-size step ODE solver added: Crank-Nicolson 2(3).
+  Added to the CVode package, it also benefits from the CVode rootfinding feature.
+
+
 Scilab Bug Fixes
 ================
 
@@ -281,6 +288,8 @@ Xcos Bug Fixes
 
 * Bug #13285 fixed - There was no appropriate example of the syntax for scifunc_block_m GUI
                      on the help page.
+
+* Bug #13308 fixed - Added the Crank-Nicolson solver to Xcos.
 
 * Bug #13318 fixed - matrix * vector multiplication using MATMUL did not work properly.
 
