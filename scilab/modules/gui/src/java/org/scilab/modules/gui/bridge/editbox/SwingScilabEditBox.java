@@ -588,6 +588,9 @@ public class SwingScilabEditBox extends JScrollPane implements SwingViewObject, 
                 break;
             }
         }
+
+        System.out.printf("size : %d %d\n", textPane.getMinimumSize().width, textPane.getMinimumSize().height);
+        setMinimumSize(textPane.getMinimumSize());
     }
 
     public void setScrollable(Boolean scrollable) {
