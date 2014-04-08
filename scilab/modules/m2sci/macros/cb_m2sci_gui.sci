@@ -150,14 +150,22 @@ function cb_m2sci_gui
 
         if get("fileradio", "value") == 1 then // Single file conversion
             inputfile = get("fileedit", "string");
-            //delete(findobj("tag", "m2scifig"));
-            delete(gcf());
-            mfile2sci(inputfile, outputdir, rec, doub, verb, pp);
+            if inputfile <> [] & isfile(inputfile) then
+                //delete(findobj("tag", "m2scifig"));
+                delete(gcf());
+                mfile2sci(inputfile, outputdir, rec, doub, verb, pp);
+            else
+                disp(_("Please specify an existing file."))
+            end
         else // Directory conversion
             inputdir = get("diredit", "string");
-            //delete(findobj("tag", "m2scifig"));
-            delete(gcf());
-            translatepaths(inputdir, outputdir);
+            if inputdir <> [] & isdir(inputdir) then
+                //delete(findobj("tag", "m2scifig"));
+                delete(gcf());
+                translatepaths(inputdir, outputdir);
+            else
+                disp(_("Please specify an existing directory."))
+            end
         end
 
         //
