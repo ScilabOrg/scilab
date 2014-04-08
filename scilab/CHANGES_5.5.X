@@ -1082,6 +1082,8 @@ Scilab Bug Fixes
 
 * Bug #12415 fixed - PATH environment variable grew when using call_scilab in a loop.
 
+* Bug #12417 fixed - Set "All supported formats" as default selected on Xcos open.
+
 * Bug #12426 fixed - By using addErrorMessage, a random string error could be displayed.
 
 * Bug #12433 fixed - show_pixmap function was removed from Scilab but still used in some
