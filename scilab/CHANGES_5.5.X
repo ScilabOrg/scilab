@@ -2,6 +2,19 @@
                      =======================================
 
 
+Xcos
+====
+
+* Implicit fixed-size step ODE solver added: Crank-Nicolson 2(3).
+  Added to the CVode package, it also benefits from the CVode rootfinding feature.
+
+
+Scilab Bug Fixes
+================
+
+* Bug #13308 fixed - Added the Crank-Nicolson solver to Xcos.
+
+
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
