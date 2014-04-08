@@ -2633,6 +2633,8 @@ Xcos Bug Fixes
 
 * Bug #13250 fixed - CLSS wrongly handled scalar values.
 
+* Bug #13318 fixed - CONST block does not support the matrices.
+
 
 
 
