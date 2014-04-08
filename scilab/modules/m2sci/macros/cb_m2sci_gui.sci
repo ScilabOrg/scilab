@@ -12,6 +12,8 @@
 // Callback function for M2SCI GUI (See m2sci_gui.sci)
 
 function cb_m2sci_gui
+    //Error message color
+    err_msg_color = [1 0 0]
 
     //
     // --- Switch to file conversion mode ---
@@ -131,6 +133,10 @@ function cb_m2sci_gui
         //
     elseif get(gcbo, "tag")=="convertbtn" then
         outputdir = get("outedit", "string");
+        if outputdir == [] | ~isdir(outputdir) then
+            updateTextArea(_("Please specify an existing output directory."), err_msg_color)
+            return
+        end
 
         rec = get("recradioyes", "value") == 1;
 
@@ -150,14 +156,22 @@ function cb_m2sci_gui
 
         if get("fileradio", "value") == 1 then // Single file conversion
             inputfile = get("fileedit", "string");
-            //delete(findobj("tag", "m2scifig"));
-            delete(gcf());
-            mfile2sci(inputfile, outputdir, rec, doub, verb, pp);
+            if inputfile <> [] & isfile(inputfile) then
+                //delete(findobj("tag", "m2scifig"));
+                delete(gcf());
+                mfile2sci(inputfile, outputdir, rec, doub, verb, pp);
+            else
+                updateTextArea(_("Please specify an existing input file."), err_msg_color)
+            end
         else // Directory conversion
             inputdir = get("diredit", "string");
-            //delete(findobj("tag", "m2scifig"));
-            delete(gcf());
-            translatepaths(inputdir, outputdir);
+            if inputdir <> [] & isdir(inputdir) then
+                //delete(findobj("tag", "m2scifig"));
+                delete(gcf());
+                translatepaths(inputdir, outputdir);
+            else
+                updateTextArea(_("Please specify an existing input directory."), err_msg_color)
+            end
         end
 
         //
@@ -179,4 +193,22 @@ function cb_m2sci_gui
         help(gettext("About_M2SCI_tools"))
     end
 
+endfunction
+
+// =============================================================================
+// updateTextArea
+// Updates the string in the error message text area
+// =============================================================================
+function updateTextArea(msg, msg_color)
+    time_active = 2000; //Time the message is active in ms
+
+    if argn(2) == 0 then
+        set("msgText", "String", "");
+        return
+    end
+
+    set("msgText", "Foregroundcolor", msg_color, "String", msg);
+
+    sleep(time_active);
+    updateTextArea();
 endfunction
