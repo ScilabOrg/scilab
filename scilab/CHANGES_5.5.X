@@ -265,6 +265,9 @@ Xcos
   linear solvers, which includes rootfinding.
   It is available from dae function.
 
+* Implicit fixed-size step ODE solver added: Crank-Nicolson 2(3).
+  Added to the CVode package, it also benefits from the CVode rootfinding feature.
+
 * In Modelica initialization GUI, inputs (eg. sensor) were not handled.
 
 * Sundials updated to the "2.5.0" version, keeping our modifications.
