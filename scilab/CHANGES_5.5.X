@@ -7,6 +7,13 @@ Obsolete & Removed Functions
 * datatipContextMenu() and datatipEventhandler() removed (See bug #8646).
 
 
+Xcos
+====
+
+* Implicit fixed-size step ODE solver added: Crank-Nicolson 2(3).
+  Added to the CVode package, it also benefits from the CVode rootfinding feature.
+
+
 Scilab Bug Fixes
 ================
 
@@ -77,15 +84,18 @@ Xcos Bug Fixes
 * Bug #13285 fixed - There was no appropriate example of the syntax for scifunc_block_m GUI
                      on the help page.
 
+* Bug #13308 fixed - Added the Crank-Nicolson solver to Xcos.
+
 * Bug #13318 fixed - Multiplication matrix * vector using MATMUL did not work correctly.
 
 * Bug #13385 fixed - TOWS_c and FROMWSB Xcos blocs needed better examples on how
                      to get or write a Scilab variable.
-                     
+
 * Bug #13391 fixed - scifunc_block_m help page was not clear about the block using.
-                     Example has been added.  
+                     Example has been added.
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
+
 
 
                      Changes between version 5.4.1 and 5.5.0
