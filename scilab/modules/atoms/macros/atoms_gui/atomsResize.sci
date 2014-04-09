@@ -13,7 +13,9 @@ function atomsResize()
         load("SCI/modules/atoms/macros/atoms_internals/lib");
     end
 
-    HomeElements = atomsGetHomeListboxElts();
-    set("HomeListbox", "String", HomeElements("items_str"));
-    set("HomeListbox", "UserData", HomeElements("items_mat"));
+    if ~isempty(get("HomeListbox")) then
+        HomeElements = atomsGetHomeListboxElts();
+        set("HomeListbox", "String", HomeElements("items_str"));
+        set("HomeListbox", "UserData", HomeElements("items_mat"));
+    end
 endfunction
