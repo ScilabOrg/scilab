@@ -12,11 +12,12 @@
 package org.scilab.modules.gui.ged.actions;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import org.scilab.modules.commons.gui.ScilabLAF;
 import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.ged.MessagesGED;
 import org.scilab.modules.gui.ged.SwingInspector;
-import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
 
 /**
@@ -26,7 +27,7 @@ import org.scilab.modules.gui.pushbutton.ScilabPushButton;
  */
 public class ShowHide extends CommonCallBack {
     private static boolean click = true;
-    private static PushButton button;
+    private static JButton button;
 
     /**
      * Constructor.
@@ -51,9 +52,11 @@ public class ShowHide extends CommonCallBack {
      * @param title tooltip for the button.
      * @return the button.
      */
-    public static PushButton createButton(String title) {
-        button = ScilabPushButton.createPushButton();
-        ((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(new ShowHide(title));
+    public static JButton createButton(String title) {
+        System.out.println(title);
+        button = new JButton();
+        ScilabLAF.setDefaultProperties(button);
+        button.addActionListener(new ShowHide(title));
         button.setToolTipText(title);
         setIcon(1);
 
@@ -84,8 +87,25 @@ public class ShowHide extends CommonCallBack {
     }
 
     /**
+    * Change the icons on buttons.
+    * @param intValue Integer value.
+    */
+    public static void setIcon(int intValue) {
+        switch (intValue) {
+            case 0:
+                button.setIcon(new ImageIcon(SwingInspector.icon_expand_all));
+                break;
+            case 1:
+                button.setIcon(new ImageIcon(SwingInspector.icon_collapse_all));
+                break;
+            default:
+                button.setIcon(new ImageIcon(SwingInspector.icon_expand_all));
+                break;
+        }
+    }
+
+    /**
     * Set the Status of Button.
-    * @return true = clicked
     */
     public static void setStatus(boolean clicked) {
         click = clicked;
@@ -381,27 +401,5 @@ public class ShowHide extends CommonCallBack {
                 }
             }
         } catch (NoSuchMethodError e2) { }
-    }
-
-    /**
-    * Change the icons on buttons.
-    *
-    * @param intValue Integer value.
-    */
-    public static void setIcon(int intValue) {
-        switch (intValue) {
-            case 0:
-                ((SwingScilabPushButton) button.getAsSimplePushButton())
-                .setIcon(new ImageIcon(SwingInspector.icon_expand_all));
-                break;
-            case 1:
-                ((SwingScilabPushButton) button.getAsSimplePushButton())
-                .setIcon(new ImageIcon(SwingInspector.icon_collapse_all));
-                break;
-            default:
-                ((SwingScilabPushButton) button.getAsSimplePushButton())
-                .setIcon(new ImageIcon(SwingInspector.icon_expand_all));
-                break;
-        }
     }
 }
