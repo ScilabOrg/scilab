@@ -1,6 +1,14 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
+Improvements
+============
+
+* In Xcos, used fraction form for some coefficients instead of decimal,
+  to avoid numerical differences between machines,
+  and properly incremented solver calls.
+
+
 Obsolete & Removed Functions
 ============================
 
@@ -107,9 +115,9 @@ Xcos Bug Fixes
 
 * Bug #13385 fixed - TOWS_c and FROMWSB Xcos blocs needed better examples on how
                      to get or write a Scilab variable.
-                     
+
 * Bug #13391 fixed - scifunc_block_m help page was not clear about the block using.
-                     Example has been added.  
+                     Example has been added.
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
