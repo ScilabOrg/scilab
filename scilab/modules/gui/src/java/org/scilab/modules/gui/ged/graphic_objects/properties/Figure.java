@@ -748,11 +748,19 @@ public class Figure extends ContentLayout {
                 updateViewport(UID);
             }
         });
-        //Get the current status of the property: Viewport
+        // fill fields
+        getViewport(UID);
+    }
+
+    /**
+     * Gets current values of Viewport property.
+     */
+    private void getViewport(Integer UID) {
         Integer[] currentViewport = (Integer []) GraphicController.getController()
                                     .getProperty(UID, GraphicObjectProperties.__GO_VIEWPORT__);
-        cViewportX.setText(currentViewport[0].toString());
-        cViewportY.setText(currentViewport[1].toString());
+
+        cViewportX.setText(String.valueOf(currentViewport[0]==null ? 0:currentViewport[0]));
+        cViewportY.setText(String.valueOf(currentViewport[1]==null ? 0:currentViewport[1]));
         titleViewport();
     }
 
@@ -760,13 +768,17 @@ public class Figure extends ContentLayout {
     * Updates the property: Viewport.
     */
     private void updateViewport(Integer UID) {
-        Integer[] setPosition = new Integer[] {
-            Integer.parseInt(cViewportX.getText()),
-            Integer.parseInt(cViewportY.getText())
-        };
-        GraphicController.getController()
-        .setProperty(UID, GraphicObjectProperties.__GO_VIEWPORT__, setPosition);
-        titleViewport();
+        try {
+            Integer[] setPosition = new Integer[] {
+                Integer.parseInt(cViewportX.getText()),
+                Integer.parseInt(cViewportY.getText())
+            };
+            GraphicController.getController().setProperty(
+                    UID, GraphicObjectProperties.__GO_VIEWPORT__, setPosition);
+            titleViewport();
+        } catch (NumberFormatException e) {
+            getViewport(UID);
+        }
     }
 
     /**
