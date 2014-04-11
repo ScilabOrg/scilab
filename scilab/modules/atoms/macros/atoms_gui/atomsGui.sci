@@ -182,8 +182,8 @@ function atomsGui()
         delete(f);
     end //creation
 
-    if ~isempty(get("atomsFigure")) then
-        return;
+    if get("atomsFigure") <> [] then
+        delete(get("atomsFigure"));
     end
 
     if ~ exists("atomsinternalslib") then
