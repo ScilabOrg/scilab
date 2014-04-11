@@ -135,6 +135,9 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13369 fixed - Function samplef now works with 0 frequencies input values
+                     and normalized frequencies. sample and samplef now consistently return
+                     a row vector
 
 Xcos Bug Fixes
 ==============
