@@ -12,6 +12,9 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13369 fixed - Function samplef now works with 0 frequencies input values
+                     and normalized frequencies. sample and samplef now consistently return
+                     a row vector
 
 Xcos Bug Fixes
 ==============
