@@ -85,16 +85,10 @@
         <!-- Check the version of Java. If it changes after the configure
          or if there is a mistake in the build system
     -->
-        <fail message="JDK 1.6 or 1.7 required. Found ${ant.java.version}">
-            <condition>
-                <not>
-                    <or>
-                        <equals arg1="${ant.java.version}" arg2="1.6"/>
-                        <equals arg1="${ant.java.version}" arg2="1.7"/>
-                    </or>
-                </not>
-            </condition>
-        </fail>
+        <available property="jdk1.6+" classname="java.util.ServiceLoader"/>
+        <available property="jdk1.7+" classname="java.nio.file.Path"/>
+        <available property="jdk1.8+" classname="java.util.stream.DoubleStream"/>
+        <fail message="Require JDK 1.6 or higher. Found ${ant.java.version}" unless="jdk1.6+"/>
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${classes.test.dir}"/>
         <mkdir dir="${build.jar.dir}"/>
