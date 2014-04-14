@@ -673,6 +673,11 @@ int getAllocatedMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, 
             FREE(piLen);
             piLen = NULL;
         }
+        if (*_pwstData)
+        {
+            FREE(*_pwstData);
+            *_pwstData = NULL;
+        }
         printError(&sciErr, 0);
         return sciErr.iErr;
     }
