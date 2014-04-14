@@ -662,7 +662,8 @@ int getAllocatedMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, 
     }
 
     int* piLen = (int*)MALLOC(sizeof(int) **_piRows **_piCols);
-    *_pwstData = (wchar_t**)MALLOC(sizeof(wchar_t*) **_piRows **_piCols);
+    wchar_t** pwstData = *_pwstData;
+    pwstData = (wchar_t**)MALLOC(sizeof(wchar_t*) **_piRows **_piCols);
 
     sciErr = getMatrixOfWideString(_pvCtx, _piAddress, _piRows, _piCols, piLen, NULL);
     if (sciErr.iErr)
@@ -673,16 +674,21 @@ int getAllocatedMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, 
             FREE(piLen);
             piLen = NULL;
         }
+        if (pwstData)
+        {
+            FREE(pwstData);
+            pwstData = NULL;
+        }
         printError(&sciErr, 0);
         return sciErr.iErr;
     }
 
     for (int i = 0 ; i < *_piRows **_piCols ; i++)
     {
-        (*_pwstData)[i] = (wchar_t*)MALLOC(sizeof(wchar_t) * (piLen[i] + 1));//+1 for null termination
+        pwstData[i] = (wchar_t*)MALLOC(sizeof(wchar_t) * (piLen[i] + 1));//+1 for null termination
     }
 
-    sciErr = getMatrixOfWideString(_pvCtx, _piAddress, _piRows, _piCols, piLen, *_pwstData);
+    sciErr = getMatrixOfWideString(_pvCtx, _piAddress, _piRows, _piCols, piLen, pwstData);
 
     if (piLen)
     {

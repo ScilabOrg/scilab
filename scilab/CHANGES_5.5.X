@@ -1,7 +1,8 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
-
+* Bug #13291 fixed - xmltojar([],[],'ja_JP') might SIGSEGV when the locale
+                     is not available system-wide.
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
