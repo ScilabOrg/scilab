@@ -1978,6 +1978,7 @@ modules/preferences/Makefile
 modules/xml/Makefile
 modules/external_objects/Makefile
 modules/external_objects_java/Makefile
+modules/curl/Makefile
 modules/Makefile
 Makefile
 scilab.pc
