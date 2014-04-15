@@ -430,24 +430,6 @@ int gw_dynamic_preferences(void)
                               &hPreferencesLib,
                               &ptr_gw_preferences);
 }
-
-/*--------------------------------------------------------------------------*/
-/* MPI module */
-#define MPI_MODULE_NAME "mpi"
-static DynLibHandle hMpiLib = NULL;
-static PROC_GATEWAY ptr_gw_mpi = NULL;
-static char* dynlibname_mpi = NULL;
-static char* gatewayname_mpi = NULL;
-/*--------------------------------------------------------------------------*/
-int gw_dynamic_mpi(void)
-{
-    return gw_dynamic_generic(MPI_MODULE_NAME,
-                              &dynlibname_mpi,
-                              &gatewayname_mpi,
-                              &hMpiLib,
-                              &ptr_gw_mpi);
-}
-
 /*--------------------------------------------------------------------------*/
 /* xml module */
 #define XML_MODULE_NAME "xml"
@@ -550,6 +532,38 @@ int gw_dynamic_external_objects_java(void)
                               &gatewayname_external_objects_java,
                               &hExternal_Objects_JavaLib,
                               &ptr_gw_external_objects_java);
+}
+/*--------------------------------------------------------------------------*/
+/* MPI module */
+#define MPI_MODULE_NAME "mpi"
+static DynLibHandle hMpiLib = NULL;
+static PROC_GATEWAY ptr_gw_mpi = NULL;
+static char* dynlibname_mpi = NULL;
+static char* gatewayname_mpi = NULL;
+/*--------------------------------------------------------------------------*/
+int gw_dynamic_mpi(void)
+{
+    return gw_dynamic_generic(MPI_MODULE_NAME,
+                              &dynlibname_mpi,
+                              &gatewayname_mpi,
+                              &hMpiLib,
+                              &ptr_gw_mpi);
+}
+/*--------------------------------------------------------------------------*/
+/* curl module */
+#define CURL_MODULE_NAME "curl"
+static DynLibHandle hCurlLib = NULL;
+static PROC_GATEWAY ptr_gw_curl = NULL;
+static char* dynlibname_curl = NULL;
+static char* gatewayname_curl = NULL;
+/*--------------------------------------------------------------------------*/
+int gw_dynamic_curl(void)
+{
+    return gw_dynamic_generic(CURL_MODULE_NAME,
+                              &dynlibname_curl,
+                              &gatewayname_curl,
+                              &hCurlLib,
+                              &ptr_gw_curl);
 }
 /*--------------------------------------------------------------------------*/
 void freeAllDynamicGateways(void)
@@ -689,6 +703,11 @@ void freeAllDynamicGateways(void)
                        &gatewayname_mpi,
                        &hMpiLib,
                        &ptr_gw_mpi);
+
+    freeDynamicGateway(&dynlibname_curl,
+                       &gatewayname_curl,
+                       &hCurlLib,
+                       &ptr_gw_curl);
 
 }
 /*--------------------------------------------------------------------------*/
