@@ -1,6 +1,10 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
+Xcos Bug Fixes
+===============
+
+* Bug #9996 fixed - The RELATION_OP box drawn in the work space is not compliant to the programming.
 
 
                      Changes between version 5.4.1 and 5.5.0
