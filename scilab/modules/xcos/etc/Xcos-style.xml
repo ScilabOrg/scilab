@@ -759,8 +759,7 @@
         <add as="fillColor" value="white"/>
     </add>
     <add as="RELATIONALOP" extend="blockWithLabel">
-        <!-- FIXME : Show parameters over block  -->
-        <add as="displayedLabel" value="Relational&lt;BR&gt;         op : &amp;&lt;"/>
+        <add as="displayedLabel" value="=="/>
     </add>
     <add as="TEXT_f" extend="Label">
         <!-- <add as="displayedLabel" value="Text"/>  -->
