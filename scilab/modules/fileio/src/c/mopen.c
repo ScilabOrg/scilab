@@ -30,8 +30,9 @@ extern int swap;
 /*--------------------------------------------------------------------------*/
 void C2F(mopen)(int *fd, char *file, char *status, int *f_swap, double *res, int *error)
 {
-    int	littlendian = 1, type = 2, ierr, mode;
-    char	*endptr;
+    int littlendian = 1, type = 2, ierr, mode;
+    int lenChar = 0, testRep = 1;
+    char *endptr;
     FILE * fa;
 
     /* bug 4846 */
@@ -81,16 +82,27 @@ void C2F(mopen)(int *fd, char *file, char *status, int *f_swap, double *res, int
         return;
     }
 
-    if (strlen(status) == 0)
+    //#Bug 13331 //
+    lenChar = (int)strlen(status);
+    if (( lenChar == 0 ) || ( lenChar > 3 ))
     {
-        *error = (int)MOPEN_INVALID_STATUS;
+        *error = (int)MOPEN_INVALID_VALUE_MODE;
         return;
     }
 
     if ((status[0] != 'a') && (status[0] != 'r') && (status[0] != 'w'))
     {
-        *error = (int)MOPEN_INVALID_STATUS;
+        *error = (int)MOPEN_INVALID_VALUE_MODE;
         return;
+    }
+
+    for ( testRep = 1; testRep < lenChar ; testRep++ )
+    {
+        if (( status[testRep] != '+' ) && ( status[testRep] != 'b' ) && ( status[testRep] != 't' ))
+        {
+            *error = (int)MOPEN_INVALID_VALUE_MODE;
+            return;
+        }
     }
 
     if (isdir(file))

@@ -128,6 +128,13 @@ int sci_mopen(char *fname, unsigned long fname_len)
                     Scierror(999, _("%s: invalid filename.\n"), fname);
                     return 0;
                 }
+                case MOPEN_INVALID_VALUE_MODE :
+                {
+                    FREE(filename);
+                    Scierror(999, _("%s: Wrong value for input parameter #%d: invalid mode.\n"), fname, 2);
+                    return 0;
+                }
+                break;
                 case (int)MOPEN_INVALID_STATUS:
                 {
                     FREE(filename);

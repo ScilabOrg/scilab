@@ -33,7 +33,8 @@ typedef enum
     MOPEN_CAN_NOT_OPEN_FILE = 2,
     MOPEN_NO_MORE_MEMORY = 3,
     MOPEN_INVALID_FILENAME = 4,
-    MOPEN_INVALID_STATUS = 5
+    MOPEN_INVALID_STATUS = 5,
+    MOPEN_INVALID_VALUE_MODE = 6
 } mopenError;
 
 FILEIO_IMPEXP void C2F(mopen)(int *fd, char *file, char *status, int *f_swap, double *res, int *error);

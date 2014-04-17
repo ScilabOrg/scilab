@@ -148,6 +148,13 @@ int sci_mputl(char *fname, unsigned long fname_len)
                 return 0;
             }
             break;
+            case MOPEN_INVALID_VALUE_MODE :
+            {
+                FREE(expandedFileName);
+                Scierror(999, _("%s: Wrong value for input parameter #%d: invalid mode.\n"), fname, 2);
+                return 0;
+            }
+            break;
             case MOPEN_INVALID_STATUS:
             default:
             {
