@@ -1,0 +1,21 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Sylvain GENIN
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 13331 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=13331
+//
+// <-- Short Description -->
+// New conditional from mopen on the status.
+assert_checkerror("mopen(""texte.txt"", ""rw"")","mopen : Statut invalide.");
+assert_checkerror("mopen(""texte.txt"", ""r+w"")","mopen : Statut invalide.");
+assert_checkerror("mopen(""texte.txt"", ""r="")","mopen : Statut invalide.");
+assert_checkerror("mopen(""texte.txt"", ""L"")","mopen : Statut invalide.");
+assert_checkerror("mopen(""texte.txt"", ""w+lb"")","mopen : Statut invalide.");
