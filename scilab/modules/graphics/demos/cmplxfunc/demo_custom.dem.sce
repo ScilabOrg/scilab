@@ -7,25 +7,13 @@ funcprot(0);
 
 function demo_custom()
 
-    global margin_x;
-    global margin_y;
-
-    global padding_x;
-    global padding_y;
-
-    global frame_w;
-    global frame_h;
-
-    global plot_w;
-    global plot_h;
-
     // Parameters
     // =========================================================================
 
     frame_w      = 300;     // Frame width
     frame_h      = 765;     // Frame height
 
-    plot_w       = 600;     // Plot width
+    plot_w       = 500;     // Plot width
     plot_h       = frame_h; // Plot height
 
     margin_x     = 15;      // Horizontal margin between each elements
@@ -60,7 +48,7 @@ function demo_custom()
 
     my_frame = uicontrol( ...
     "parent"              , demo_fig,...
-    "relief"              , "groove",...
+    "relief"              , "solid",...
     "style"               , "frame",...
     "units"               , "pixels",...
     "position"            , [ margin_x margin_y frame_w frame_h],...
@@ -79,7 +67,7 @@ function demo_custom()
     "style"               , "text",...
     "string"              , "Control Panel",...
     "units"               , "pixels",...
-    "position"            , [ 30+margin_x margin_y+frame_h-10 frame_w-60 20 ],...
+    "position"            , [ 70+margin_x margin_y+frame_h-10 frame_w-140 20 ],...
     "fontname"            , defaultfont,...
     "fontunits"           , "points",...
     "fontsize"            , 14,...
@@ -102,7 +90,7 @@ function demo_custom()
 
     my_exptext_string = my_exptext_string + "<center>";
     my_exptext_string = my_exptext_string + "<img src=""file:///"+SCI+"/modules/graphics/demos/cmplxfunc/warning.png"+""">";
-    my_exptext_string = my_exptext_string + "BE CAREFUL NOTHING IS PROTECTED";
+    my_exptext_string = my_exptext_string + "BE CAREFUL, NOTHING IS PROTECTED";
     my_exptext_string = my_exptext_string + "</center>";
 
     my_exptext_string = my_exptext_string + "<hr><br />";
@@ -112,38 +100,37 @@ function demo_custom()
     my_exptext_string = my_exptext_string + "<div style=''text-align:justify; margin-top:5px; width:260;''>";
 
     my_exptext_string = my_exptext_string + "1. define the  function by a correct ";
-    my_exptext_string = my_exptext_string + "string where  the complex var must ";
-    my_exptext_string = my_exptext_string + "be z ; also  as  the function will ";
-    my_exptext_string = my_exptext_string + "be evaluated  on  a matrix  don''t ";
-    my_exptext_string = my_exptext_string + "forget the . to operate in element ";
-    my_exptext_string = my_exptext_string + "wize meaning ; examples :";
+    my_exptext_string = my_exptext_string + "string where the complex var must ";
+    my_exptext_string = my_exptext_string + "be z. Also, as the function will ";
+    my_exptext_string = my_exptext_string + "be evaluated on a matrix, don''t forget ";
+    my_exptext_string = my_exptext_string + "the . to operate elementwise. Examples: ";
 
     my_exptext_string = my_exptext_string + "</div>";
 
 
-    my_exptext_string = my_exptext_string + "<pre>z.^2     (z+1).*(z-1)   (1)./(z+2)</pre>";
-    my_exptext_string = my_exptext_string + "<pre>sqrt(z)  (z+%i).*(z-%i) 1+2*z+z.^2</pre>";
+    my_exptext_string = my_exptext_string + "<pre>    z.^2       (z+1).*(z-1)     (1)./(z+2)</pre>";
+    my_exptext_string = my_exptext_string + "<pre>    sqrt(z)    (z+%i).*(z-%i)   1+2*z+z.^2</pre>";
 
     my_exptext_string = my_exptext_string + "<div style=''text-align:justify; margin-top:5px; width:260;''>";
-    my_exptext_string = my_exptext_string + "2. define the type of the domain string Square or Disk";
+    my_exptext_string = my_exptext_string + "2. define the type of the domain: Square or Disk,";
     my_exptext_string = my_exptext_string + "</div>";
 
 
     my_exptext_string = my_exptext_string + "<div style=''text-align:justify; margin-top:5px; width:260;''>";
-    my_exptext_string = my_exptext_string + "3. define the ""radius"" R of the domain"+ "<br />";
+    my_exptext_string = my_exptext_string + "3. define the ""radius"" R of the domain,"+ "<br />";
     my_exptext_string = my_exptext_string + "</div>";
 
 
     my_exptext_string = my_exptext_string + "<div style=''text-align:justify; margin-top:5px; width:260;''>";
-    my_exptext_string = my_exptext_string + "4. may be your function has a kind of ";
-    my_exptext_string = my_exptext_string + "discontinuity on Ox  or  Oy => put ";
-    my_exptext_string = my_exptext_string + "the string Ox or Oy or No if not";
+    my_exptext_string = my_exptext_string + "4. should your function have some kind of ";
+    my_exptext_string = my_exptext_string + "discontinuity on Ox or Oy => check ";
+    my_exptext_string = my_exptext_string + "Ox or Oy. Otherwise check No.";
     my_exptext_string = my_exptext_string + "</div>";
 
     my_exptext_string = my_exptext_string + "</html>";
 
 
-    // Function definition : frame
+    // Explanatory text : frame
 
     my_exptext_box = uicontrol( ...
     "parent"              , demo_fig,...
@@ -300,7 +287,7 @@ function demo_custom()
     my_radius_frame_pos_x = padding_x+margin_x;
     my_radius_frame_pos_y = my_dt_frame_pos_y - 2*padding_y - my_radius_frame_h;
 
-    // Function definition : frame
+    // Radius of the domain : frame
 
     my_radius_frame = uicontrol( ...
     "parent"              , demo_fig,...
@@ -317,7 +304,7 @@ function demo_custom()
     "tag"                 , "my_radius_frame" ...
     );
 
-    // Function definition : Frame title
+    // Radius of the domain : Frame title
 
     my_radius_frame_title = uicontrol( ...
     "parent"              , demo_fig,...
@@ -333,7 +320,7 @@ function demo_custom()
     "tag"                 , "my_radius_frame_title" ...
     );
 
-    // Function definition : Edit box
+    // Radius of the domain : Edit box
 
     my_radius_editbox = uicontrol( ...
     "parent"             , demo_fig,...
@@ -639,7 +626,7 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
 
     // computes the facets
 
-    [xr,yr,zr,xi,yi,zi] = CmplxFacets(R,e,TypeDomain,TypeCut,n,StrFunc)
+    [xr,yr,zr,xi,yi,zi] = CmplxFacets(R,e,TypeDomain,TypeCut,n,StrFunc);
 
     // draw
     // ============================================
@@ -671,7 +658,7 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
 
     my_title_axes.title.text       = the_title;
     my_title_axes.title.font_size  = 3;
-    my_title_axes.margins     = [ 0.08 0.08 0.08 0.08 ]
+    my_title_axes.margins     = [ 0.15 0.08 0.08 0.08 ]
 
     // plot Im(z)
     // ============================================
@@ -680,7 +667,7 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
     plot3d(xi,yi,zi,theta,alpha,"Re(z)@Im(z)@",[2 6 4]);
 
     my_IM_axes = gca();
-    my_IM_axes.axes_bounds = [0.1, 0.05, 1, 0.5];
+    my_IM_axes.axes_bounds = [0.19, 0.05, 1, 0.5];
     my_IM_plot             = my_IM_axes.children;
     my_IM_plot.color_flag  = 1;
 
@@ -694,13 +681,12 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
     plot3d(xr,yr,zr,theta,alpha,"Re(z)@Im(z)@",[2 6 4]);
 
     my_RE_axes = gca();
-    my_RE_axes.axes_bounds = [0.1, 0.5, 1, 0.5];
-    my_RE_axes.margins      = [ 0.2 0.2 0.2 0.2 ];
+    my_RE_axes.axes_bounds = [0.19, 0.5, 1, 0.5];
     my_RE_plot             = my_RE_axes.children;
     my_RE_plot.color_flag  = 1;
 
     xtitle("Re("+StrFunc+"(z))");
-    my_RE_axes.margins     = [ 0.2 0.2 0.2 0.2 ];
+    my_RE_axes.margins     = [0.2, 0.2, 0.2, 0.2];
 
     // real function in yellow
     // ============================================
