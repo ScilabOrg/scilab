@@ -132,7 +132,8 @@ int sci_mopen(char *fname, unsigned long fname_len)
                 {
                     FREE(filename);
                     filename = NULL;
-                    Scierror(999, _("%s: invalid status.\n"), fname);
+                    //Scierror(999, _("%s: invalid status.\n"), fname);
+                    Scierror(999, _("%s: Wrong value for input argument #%d: ""%s"" expected .\n"), fname, 2, "one parameter controls and//or one option");
                     return 0;
                 }
             }
