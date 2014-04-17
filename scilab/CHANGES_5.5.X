@@ -9,6 +9,8 @@ Scilab Bug Fixes
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not available system-wide.
 
+* Bug #13331 fixed - New conditional from mopen on the status.
+
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
@@ -1637,7 +1639,6 @@ Scilab Bug Fixes
 * Bug #13272 fixed - Error occurring when reading CSV files with comment option on a CSV file without comment fixed.
 
 * Bug #13280 fixed - Axes were not always displayed properly after figure resize.
-
 
 Xcos Bug Fixes
 ===============
