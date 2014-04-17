@@ -207,6 +207,8 @@ int gw_dynamic_external_objects(void);
 
 int gw_dynamic_external_objects_java(void);
 
+int gw_dynamic_curl(void);
+
 #endif /* __DYNAMIC_GATEWAYS_H__ */
 /*--------------------------------------------------------------------------*/
 

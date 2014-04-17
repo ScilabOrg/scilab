@@ -1,0 +1,17 @@
+CURL_OK = 0;
+CURLOPT_URL = 10002;
+CURLOPT_FOLLOWLOCATION = 52;
+
+curl = curl_easy_init();
+
+curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
+
+// example.com is redirected, so we tell libcurl to follow redirection
+curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+
+res = curl_easy_perform(curl);
+
+// always cleanup
+curl_easy_cleanup(curl);
+
+assert_checkequal(res, CURL_OK);
