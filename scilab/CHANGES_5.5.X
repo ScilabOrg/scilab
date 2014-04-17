@@ -1638,6 +1638,7 @@ Scilab Bug Fixes
 
 * Bug #13280 fixed - Axes were not always displayed properly after figure resize.
 
+* Bug #13331 fixed - New conditional from mopen on the status.
 
 Xcos Bug Fixes
 ===============
