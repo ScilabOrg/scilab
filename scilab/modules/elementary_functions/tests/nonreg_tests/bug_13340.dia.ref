@@ -1,0 +1,28 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 13340 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=13340
+//
+// <-- Short Description -->
+// isreal failed with strings (and all other unsupported types).
+// OK
+isreal([1 2]);
+isreal(1+0*%i);
+isreal(1+0*%i,0);
+isreal(1+%s);
+isreal(sprand(3,3,0.1));
+// KO
+refMsg = msprintf(_("Wrong type for input argument #%d: Real or complex matrix expected.\n"), 1);
+assert_checkerror("isreal("""")", refMsg);
+assert_checkerror("isreal(%t)", refMsg);
+assert_checkerror("isreal(list())", refMsg);
+assert_checkerror("isreal(int8(17))", refMsg);

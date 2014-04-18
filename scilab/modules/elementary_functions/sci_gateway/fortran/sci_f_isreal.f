@@ -1,10 +1,10 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
-c 
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txtc     -------------------------------
 c
       subroutine intisreal(id)
@@ -12,7 +12,7 @@ c
       integer id(nsiz)
       double precision eps,mx
       integer iadr,sadr
-c     
+c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
 c
@@ -24,14 +24,14 @@ c
          call error(39)
          return
       endif
-      
+
       if(rhs.eq.1) then
-c     .  check for  real storage
+c     .  check for real storage
          il=iadr(lstk(top))
          ilr=il
          if(istk(il).lt.0) il=iadr(istk(il+1))
          it=istk(il+3)
-         
+
          if(istk(il).eq.1.or.istk(il).eq.2.or.istk(il).eq.5) then
             istk(ilr)=4
             istk(ilr+1)=1
@@ -39,9 +39,13 @@ c     .  check for  real storage
             istk(ilr+3)=abs(1-it)
             lstk(top+1)=sadr(ilr+4)
          else
-            call ref2val
-            call funnam(ids(1,pt+1),'isreal',iadr(lstk(top)))
-            fun=-1
+            err=1
+            call error(53)
+c           For the moment, error out on unsupported type,
+c           but the following lines provide overload for future supported types.
+c            call ref2val
+c            call funnam(ids(1,pt+1),'isreal',iadr(lstk(top)))
+c            fun=-1
             return
          endif
       else

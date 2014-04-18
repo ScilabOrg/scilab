@@ -114,6 +114,12 @@ Xcos Bug Fixes
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
 
+Scilab Bug Fixes
+================
+
+* Bug #13340 fixed - isreal failed with strings (and all other unsupported types).
+
+
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
