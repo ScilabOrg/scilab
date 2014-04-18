@@ -579,6 +579,8 @@ Scilab Bug Fixes
 
 * Bug #6859 fixed - xlabel and xtitle could overlapped.
 
+* Bug #6908 fixed - In the nw/nwni mode under Linux, space catched in the "more y or n".
+
 * Bug #6930 fixed - Matplot handle had no rect property.
 
 * Bug #6988 fixed - Error messages in modules/data_structures/src/c/hmops.c were not
@@ -996,6 +998,8 @@ Scilab Bug Fixes
                      margins had been modified.
 
 * Bug #11523 fixed - In SciNotes, 'whereami line numbering' was not clear enough.
+
+* Bug #11523 fixed - Lines settings taken into account.
 
 * Bug #11571 fixed - x_mdialog did not let the Look&Feel select the window size.
 
