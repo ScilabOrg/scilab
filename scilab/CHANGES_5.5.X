@@ -133,6 +133,8 @@ Scilab Bug Fixes
 
 * Bug #13339 fixed - Kronecker tensor product now works on hypermatrices.
 
+* Bug #13340 fixed - isreal failed with strings (and all other unsupported types).
+
 * Bug #13343 fixed - In console popup menu, "help about a selected text" moved
                      from bottom to top for better consistency with SciNotes.
 
