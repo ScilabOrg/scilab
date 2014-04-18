@@ -49,6 +49,8 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13340 fixed - isreal failed with strings (and all other unsupported types).
+
 * Bug #13344 fixed - User defined ticks were not drawn at the right position.
 
 * Bug #13349 fixed - Double-clicking on a MAT-file in file browser did not load it.
@@ -107,9 +109,9 @@ Xcos Bug Fixes
 
 * Bug #13385 fixed - TOWS_c and FROMWSB Xcos blocs needed better examples on how
                      to get or write a Scilab variable.
-                     
+
 * Bug #13391 fixed - scifunc_block_m help page was not clear about the block using.
-                     Example has been added.  
+                     Example has been added.
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
