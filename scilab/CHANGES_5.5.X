@@ -2,6 +2,12 @@
                      =======================================
 
 
+Scilab Bug Fixes
+================
+
+* Bug #13340 fixed - isreal failed with strings (and all other unsupported types).
+
+
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
