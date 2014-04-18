@@ -31,6 +31,8 @@ int linesmore(void)
     {
         int ch = 0;
         /* Scilab has not his own window */
+
+
         sciprint(MSG_MORE);
 
 #if _MSC_VER
@@ -39,14 +41,18 @@ int linesmore(void)
         {
             retval = 1;
         }
+
 #else
-        ch = getchar();
-        if ( (ch != ' ') && (ch != '\n') && (ch != 'y') )
+
+        ch = getwchar();
+
+       // if ( (ch != ' ') && (ch != '\n') && (ch != 'y') )
+        if ( ch == 110 )
         {
             retval = 1;
         }
-#endif
 
+#endif
         sciprint("\n");
     }
     else
