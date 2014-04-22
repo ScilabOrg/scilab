@@ -9,6 +9,8 @@ Scilab Bug Fixes
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not available system-wide.
 
+* Bug #13339 fixed - Kronecker tensor product now works on hypermatrices.
+                     Added hypermatrices creation from matrices and hypermatrices.
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================

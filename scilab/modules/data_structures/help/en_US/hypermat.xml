@@ -17,7 +17,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>M = hypermat(dims [,v])</synopsis>
+        <synopsis>M = hypermat(dims [,M_init])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -29,10 +29,10 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>v</term>
+                <term>M_init</term>
                 <listitem>
                     <para>
-                        a vector of hypermatrix entries (default value <code>zeros(prod(dims),1)</code>).
+                        a matrix, or hypermatrix, of values used to initialize the output hypermatrix entries (default value <code>zeros(prod(dims),1)</code>).
                     </para>
                 </listitem>
             </varlistentry>
@@ -41,7 +41,10 @@
     <refsection>
         <title>Description</title>
         <para>
-            The <function>hypermat</function> function initializes a hypermatrix whose dimensions are given in the vector <varname>dims</varname> and entries are given in optional argument <varname>v</varname>.
+            The <function>hypermat</function> function initializes a hypermatrix whose dimensions are given in the vector <varname>dims</varname>.
+        </para>
+        <para>
+            Entries are given in the optional argument <varname>M_init</varname> and padded with zeros to fit <varname>dims</varname>.
         </para>
         <para>
             <varname>M</varname> data structure contains the vector of matrix dimensions
@@ -67,6 +70,11 @@ M_own('dims')    = [2 3 2 2];
 M_own('entries') = [1:24]';
 disp(size(M_own('dims')))
 disp(size(M_own('entries')))
+
+// Initialize with a matrix
+M_init = [1 2; 3 4];
+M = hypermat([2 2 2], M_init) 
+// M is a hypermatrix containint M_init in the first page and zeros(2,2) in the second page
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
