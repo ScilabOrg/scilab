@@ -2,6 +2,8 @@
                      =======================================
 
 
+* Bug #13339 fixed - Kronecker tensor product now works on hypermatrices.
+                     Added hypermatrices creation from matrices and hypermatrices.
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================

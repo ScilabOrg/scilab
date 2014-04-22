@@ -2,6 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2014 - Samuel Gougeon : extension to hypermatrices
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,6 +11,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
+ гиперматрица
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="kron" xml:lang="ru">
     <refnamediv>
         <refname>kron</refname>
@@ -26,7 +28,7 @@
         <title>Описание</title>
         <para>
             <literal>kron(A,B)</literal> или <literal>A.*.B</literal> возвращает результат 
-            Кронекеровского тензорного произведения двух матриц <literal>A</literal> и 
+            Кронекеровского тензорного произведения двух матриц или гиперматрицам <literal>A</literal> и 
             <literal>B</literal>. Матрица результата имеет следующую блочную форму:
         </para>
         <informalequation>
@@ -48,12 +50,53 @@
     <refsection>
         <title>Примеры</title>
         <programlisting role="example"><![CDATA[ 
-A=[1,2;3,4];
+A = [1,2;3,4];
 kron(A,A)
 A.*.A
 sparse(A).*.sparse(A)
-A(1,1)=%i;
+A(1,1) = %i;
 kron(A,A)
+
+// with hypermatrices
+// ------------------
+b = hypermat([4 3 2], 1:24);
+
+// row .*. hypermat
+clc
+a = 1:2, b
+a.*.b
+
+// hypermat .*. row
+clc
+b,a
+b .*. a
+
+// column .*. hypermat
+clc
+a = [1;2], b
+a.*.b
+
+// matrix .*. hypermat
+clc
+a = [-1 -2; 2 1], b
+a.*.b
+
+// hypermat .*. hypermat
+clc
+a = hypermat([1 2 2],[-1,-2, 1 2]), b
+a.*.b
  ]]></programlisting>
     </refsection>
+    <refsection>
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>
+					<para>Распространение с целью гиперматрицам</para>
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+
 </refentry>
