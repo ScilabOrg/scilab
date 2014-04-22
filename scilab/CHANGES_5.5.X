@@ -135,6 +135,7 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13339 fixed - Kronecker tensor product now works on hypermatrices.
 
 Xcos Bug Fixes
 ==============
