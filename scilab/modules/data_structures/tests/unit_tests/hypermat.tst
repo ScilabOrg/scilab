@@ -106,4 +106,9 @@ for k=1:size(Data)
 end
 
 
+//Creation of a hypermatrix from a matrix
+M_init = [1 2; 3 4];
+M = hypermat([2 2 2], M_init);
 
+assert_checkalmostequal(M(:, :, 1), M_init);
+assert_checkalmostequal(M(:, :, 2), zeros(2,2));
