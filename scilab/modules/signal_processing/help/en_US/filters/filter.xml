@@ -72,7 +72,23 @@
         <para>
             This function filters a data sequence using a digital
             filter using a "direct form II transposed"
-            implementation
+            implementation.
+        </para>
+        <para>
+            The filter canonical form is :
+        </para>
+        <para>
+            <latex>
+                \[
+                    \frac{B(z)}{A(z)} = \frac{b_0 + b_1 z^{-1} + \dots + b_n z^{-n}}{a_0 + a_1 z^{-1} + \dots + a_n z^{-n}} 
+                \]
+            </latex> 
+        </para>
+        <para>
+            The algorithm uses the highest degree between <literal>degree(a)</literal> and <literal>degree(b)</literal> as value for <literal>n</literal>.
+        </para>
+        <para>
+            <literal>filter</literal> normalizes the coefficients by dividing by <literal>a_0</literal>.
         </para>
     </refsection>
     <refsection>
