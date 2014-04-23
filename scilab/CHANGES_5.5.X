@@ -1,6 +1,11 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
+Scilab Bug Fixes
+================
+
+* Bug #13346 fixed - Filter now works for simple delays. 
+                     Improved documentation on the function.
 
 
                      Changes between version 5.4.1 and 5.5.0

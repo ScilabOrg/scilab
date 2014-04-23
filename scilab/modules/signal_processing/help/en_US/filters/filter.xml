@@ -17,19 +17,19 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>[y,zf] = filter(num,den,x [,zi])</synopsis>
+        <synopsis>[y,zf] = filter(B, A, x [,zi])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>num</term>
+                <term>B</term>
                 <listitem>
                     <para>real vector : the coefficients of the filter numerator in decreasing power order, or a polynomial.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>den</term>
+                <term>A</term>
                 <listitem>
                     <para>real vector : the coefficients of the filter denominator in decreasing power order, or a polynomial.</para>
                 </listitem>
@@ -72,7 +72,23 @@
         <para>
             This function filters a data sequence using a digital
             filter using a "direct form II transposed"
-            implementation
+            implementation.
+        </para>
+        <para>
+            The filter canonical form is :
+        </para>
+        <para>
+            <latex>
+                \[
+                    H(z) = \frac{B(z)}{A(z)} = \frac{b_0 + b_1 z^{-1} + \dots + b_n z^{-n}}{a_0 + a_1 z^{-1} + \dots + a_n z^{-n}} 
+                \]
+            </latex> 
+        </para>
+        <para>
+            The algorithm uses the highest degree between <literal>degree(a)</literal> and <literal>degree(b)</literal> as value for <literal>n</literal>.
+        </para>
+        <para>
+            If the polynomial form is used for <varname>B</varname> (resp. for <varname>A</varname>) then a polynomial or a scalar must be used for <varname>A</varname> (resp. <varname>B</varname>).
         </para>
     </refsection>
     <refsection>
@@ -80,6 +96,27 @@
         <para>
             Oppenheim, A. V. and R.W. Schafer. Discrete-Time Signal Processing, Englewood Cliffs, NJ: Prentice-Hall, 1989, pp. 311-312. 
         </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[ 
+            x = [1 zeros(1,9)]
+            h = [0 0 1];
+            res = filter(h, 1, x) //This creates a delay of 2 elements
+
+            z = poly(0, "z");
+            B = 1;
+            A = z^2; 
+            // B/A is z^(-2)
+            // the resulting filter is also a delay of 2 elements
+            res = filter(B, A, x)
+
+            //Integrator filter
+            x = ones(1,10)
+            B = 1;
+            A = [1 -1];
+            res = filter(B, A, x)
+            ]]></programlisting>
     </refsection>
     <refsection role="see also">
         <title>See Also</title>
