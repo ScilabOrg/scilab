@@ -54,6 +54,8 @@ Scilab Bug Fixes
 
 * Bug #13180 fixed - surf did not handle degenerate cases.
 
+* Bug #11405 fixed - Added hypermatrix support for extraction.
+
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not available system-wide.
 
@@ -171,6 +173,7 @@ Known issues
 
 Besides these points, do not hesitate to report bugs on:
 http://bugzilla.scilab.org/
+
 
 
 
