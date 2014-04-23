@@ -27,7 +27,8 @@ extern "C"
 #include "scilabRead.h"
 #include "ConsoleRead.h"
 
-    extern char *getCmdLine(void);
+extern char *getCmdLine(void);
+extern void disp_scilab_version(void);
 }
 
 #include "configvariable.hxx"
@@ -121,7 +122,16 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
                 _pSEI->pstParseFile = argv[i];
             }
         }
-        else if (!strcmp("-f", argv[i]))
+        else if (!strcmp("-version", argv[i]))
+        {
+            i++;
+            if (argc >= i)
+            {
+				disp_scilab_version();
+				exit(0);
+			}
+        }
+		else if (!strcmp("-f", argv[i]))
         {
             i++;
             if (argc >= i)
