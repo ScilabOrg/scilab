@@ -48,6 +48,8 @@ Scilab Bug Fixes
 
 * Bug #11284 fixed - Some calling sequences added in file help page.
 
+* Bug #11405 fixed - Added hypermatrix support for extraction.
+
 * Bug #12700 fixed - edit_curv (used by CURV_f) was broken.
 
 * Bug #12918 fixed - OpenSUSE 12.3 x64 did not have gluegen2-rt in librarypath.
