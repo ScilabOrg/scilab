@@ -1,7 +1,11 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
+Improvements
+============
 
+* SEP #132: Hypermatrices creation function hypermat can now create a hypermatrix from a matrix
+  or a hypermatrix, padding with zeros to fit the required dimension 
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
