@@ -1,6 +1,8 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
+* Bug #13359 fixed - Nyquist datatip with symetry now displaying properly
+                     negative frequencies
 
 
                      Changes between version 5.4.1 and 5.5.0
