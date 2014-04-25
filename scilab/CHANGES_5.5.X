@@ -82,6 +82,9 @@ Scilab Bug Fixes
 
 * Bug #13358 fixed - Intersect and unique were slow due to an issue in quicksort implementation.
 
+* Bug #13359 fixed - Nyquist datatip with symetry now displaying properly
+                     negative frequencies
+
 * Bug #13365 fixed - Data bounds werenot correctly updated in 3-D.
 
 * Bug #13378 fixed - The "Console" handle display was not homogeneous with others.
@@ -171,7 +174,6 @@ Known issues
 
 Besides these points, do not hesitate to report bugs on:
 http://bugzilla.scilab.org/
-
 
 
                      Changes between version 5.4.1 and 5.5.0
