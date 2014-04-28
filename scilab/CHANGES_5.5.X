@@ -12,6 +12,8 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13351 fixed - xstringb failed with LaTeX code
+
 
 Xcos Bug Fixes
 ==============
