@@ -1,7 +1,8 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
 
-
+* Bug #13358 fixed - Intersect and unique were slow in scilab 5.5.0
+                     due to an issue in quicksort implementation
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
