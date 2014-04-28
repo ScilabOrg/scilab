@@ -50,6 +50,8 @@ Scilab Bug Fixes
 
 * Bug #12700 fixed - edit_curv (used by CURV_f) was broken.
 
+* Bug #12897 fixed - Renamed optim's "imp" argument to "iprint".
+
 * Bug #12918 fixed - OpenSUSE 12.3 x64 did not have gluegen2-rt in librarypath.
 
 * Bug #13180 fixed - surf did not handle degenerate cases.

@@ -15,7 +15,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=9690
 //
 // <-- Short Description -->
-// optim(): option "imp"=5 could crash Scilab
+// optim(): option "iprint"=5 could crash Scilab
 //
 function f = rosenbrock(x)
     f = 100.0 * (x(2)-x(1)^2)^2 + (1-x(1))^2;
@@ -31,7 +31,7 @@ endfunction
 x0 = [-1.2 1.0];
 lines(0);
 for impval = 1:5
-    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , imp=impval);
+    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , iprint=impval);
 end
 WARNING: Feature derivative is obsolete.
          Please use numderivative instead.
@@ -48,7 +48,7 @@ WARNING: Feature derivative is obsolete.
      relative precision on g (epsg): 0.95D-18
      maximal number of iterations (niter):   100
      maximal number of simulations (nsim):   100
-     printing level (impres):   1
+     printing level (iprint):   1
      allocated memory (nrz) :     58
      used memory :                58
      number of updates :          10
@@ -339,7 +339,7 @@ WARNING: Feature derivative is obsolete.
      relative precision on g (epsg): 0.95D-18
      maximal number of iterations (niter):   100
      maximal number of simulations (nsim):   100
-     printing level (impres):   2
+     printing level (iprint):   2
      allocated memory (nrz) :     58
      used memory :                58
      number of updates :          10
@@ -672,7 +672,7 @@ WARNING: Feature derivative is obsolete.
      relative precision on g (epsg): 0.95D-18
      maximal number of iterations (niter):   100
      maximal number of simulations (nsim):   100
-     printing level (impres):   3
+     printing level (iprint):   3
      allocated memory (nrz) :     58
      used memory :                58
      number of updates :          10
@@ -1155,7 +1155,7 @@ WARNING: Feature derivative is obsolete.
      relative precision on g (epsg): 0.95D-18
      maximal number of iterations (niter):   100
      maximal number of simulations (nsim):   100
-     printing level (impres):   4
+     printing level (iprint):   4
      allocated memory (nrz) :     58
      used memory :                58
      number of updates :          10
@@ -1966,7 +1966,7 @@ WARNING: Feature derivative is obsolete.
      relative precision on g (epsg): 0.95D-18
      maximal number of iterations (niter):   100
      maximal number of simulations (nsim):   100
-     printing level (impres):   5
+     printing level (iprint):   5
      allocated memory (nrz) :     58
      used memory :                58
      number of updates :          10

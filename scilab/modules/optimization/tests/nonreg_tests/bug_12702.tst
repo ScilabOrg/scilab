@@ -33,5 +33,5 @@ x0 = [-1.2 1.0];
 lines(0);
 
 for impval = 1:5
-    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , imp=impval);
+    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , iprint=impval);
 end
