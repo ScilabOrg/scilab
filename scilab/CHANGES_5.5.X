@@ -78,6 +78,8 @@ Scilab Bug Fixes
                      now permute treats extra dimensions as 1
 
 
+* Bug #13365 fixed - Data bounds not correctly updated in 3D
+
 
 Xcos Bug Fixes
 ==============
