@@ -12,6 +12,8 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13365 fixed - Data bounds not correctly updated in 3D
+
 
 Xcos Bug Fixes
 ==============
