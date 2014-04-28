@@ -15,9 +15,9 @@
 
 //only on windows 32 bits with Microsoft C/C++ compiler
 #if defined(_MSC_VER) && !defined(_WIN64) && !defined(__INTEL_COMPILER)
-    //since VS2012 /arch flag has change and Eigen failed to compile with SSE2 enabled
-    #define _mm_free(a)      _aligned_free(a)
-    #define _mm_malloc(a, b)    _aligned_malloc(a, b)
+//since VS2012 /arch flag has change and Eigen failed to compile with SSE2 enabled
+#define _mm_free(a)      _aligned_free(a)
+#define _mm_malloc(a, b)    _aligned_malloc(a, b)
 #endif
 
 #include <Eigen/Sparse>
@@ -435,21 +435,21 @@ struct TYPES_IMPEXP Sparse : GenericType
     void fill(Double& dest, int r = 0, int c = 0) SPARSE_CONST;
 
 
-    RealType getType(void) SPARSE_CONST;
+    ScilabType getType(void) SPARSE_CONST;
 
 
     SparseBool* newLesserThan(Sparse const&o);
 
-    typedef Eigen::SparseMatrix<double >   RealSparse_t;
+    typedef Eigen::SparseMatrix<double >   ScilabSparse_t;
     typedef Eigen::SparseMatrix<std::complex<double > >    CplxSparse_t;
     /**
        One and only one of the args should be 0.
        @param realSp ptr to an Eigen sparse matrix of double values
        @param cplxSp ptr to an Eigen sparse matrix of std::complex<double> elements
      */
-    Sparse(RealSparse_t* realSp, CplxSparse_t* cplxSp);
+    Sparse(ScilabSparse_t* realSp, CplxSparse_t* cplxSp);
 
-    RealSparse_t* matrixReal;
+    ScilabSparse_t* matrixReal;
     CplxSparse_t* matrixCplx;
 
 protected :
@@ -570,7 +570,7 @@ struct TYPES_IMPEXP SparseBool : GenericType
     /* return type as short string ( s, i, ce, l, ... )*/
     virtual std::wstring getShortTypeStr() SPARSE_CONST {return std::wstring(L"spb");}
 
-    RealType getType(void) SPARSE_CONST;
+    ScilabType getType(void) SPARSE_CONST;
 
     bool isScalar()
     {

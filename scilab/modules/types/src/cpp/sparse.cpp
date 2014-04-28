@@ -292,7 +292,7 @@ Sparse::~Sparse()
 }
 
 Sparse::Sparse( Sparse const& src) : GenericType(src)
-    , matrixReal(src.matrixReal ? new RealSparse_t(*src.matrixReal) : 0)
+    , matrixReal(src.matrixReal ? new ScilabSparse_t(*src.matrixReal) : 0)
     , matrixCplx(src.matrixCplx ? new CplxSparse_t(*src.matrixCplx) : 0)
 
 {
@@ -302,7 +302,7 @@ Sparse::Sparse( Sparse const& src) : GenericType(src)
 }
 
 Sparse::Sparse(int _iRows, int _iCols, bool cplx)
-    : matrixReal(cplx ? 0 : new RealSparse_t(_iRows, _iCols))
+    : matrixReal(cplx ? 0 : new ScilabSparse_t(_iRows, _iCols))
     , matrixCplx(cplx ? new CplxSparse_t(_iRows, _iCols) : 0)
 {
     m_iRows = _iRows;
@@ -333,7 +333,7 @@ Sparse::Sparse(Double SPARSE_CONST& src, Double SPARSE_CONST& idx, Double SPARSE
            , src, makeIteratorFromVar(idx), idx.getSize() / 2);
 }
 
-Sparse::Sparse(RealSparse_t* realSp, CplxSparse_t* cplxSp):  matrixReal(realSp), matrixCplx(cplxSp)
+Sparse::Sparse(ScilabSparse_t* realSp, CplxSparse_t* cplxSp):  matrixReal(realSp), matrixCplx(cplxSp)
 {
     if (realSp)
     {
@@ -376,7 +376,7 @@ void Sparse::create(int rows, int cols, Double SPARSE_CONST& src, DestIter o, st
     }
     else
     {
-        matrixReal = new RealSparse_t(rows, cols);
+        matrixReal = new ScilabSparse_t(rows, cols);
         matrixReal->reserve((int)n);
         matrixCplx =  0;
         mycopy_n(makeMatrixIterator<double >(src,  RowWiseFullIterator(src.getRows(), src.getCols())), n
@@ -512,9 +512,9 @@ Sparse* Sparse::clone(void) const
     return new Sparse(*this);
 }
 
-GenericType::RealType Sparse::getType(void) SPARSE_CONST
+GenericType::ScilabType Sparse::getType(void) SPARSE_CONST
 {
-    return RealSparse;
+    return ScilabSparse;
 }
 
 bool Sparse::zero_set()
@@ -565,7 +565,7 @@ bool Sparse::resize(int _iNewRows, int _iNewCols)
         {
             //item count
             size_t iNonZeros = nonZeros();
-            RealSparse_t *newReal = new RealSparse_t(_iNewRows, _iNewCols);
+            ScilabSparse_t *newReal = new ScilabSparse_t(_iNewRows, _iNewCols);
             newReal->reserve((int)iNonZeros);
 
 
@@ -1632,12 +1632,12 @@ bool Sparse::copyToSparse(Src SPARSE_CONST& src, SrcTraversal srcTrav, Sz n, Spa
 // GenericType because we might return a Double* for scalar operand
 Sparse* Sparse::add(Sparse const& o) const
 {
-    RealSparse_t* realSp(0);
+    ScilabSparse_t* realSp(0);
     CplxSparse_t* cplxSp(0);
     if (isComplex() == false && o.isComplex() == false)
     {
         //R + R -> R
-        realSp = new RealSparse_t(*matrixReal + * (o.matrixReal));
+        realSp = new ScilabSparse_t(*matrixReal + * (o.matrixReal));
     }
     else if (isComplex() == false && o.isComplex() == true)
     {
@@ -1658,12 +1658,12 @@ Sparse* Sparse::add(Sparse const& o) const
 // GenericType because we might return a Double* for scalar operand
 GenericType* Sparse::substract(Sparse const& o) const
 {
-    RealSparse_t* realSp(0);
+    ScilabSparse_t* realSp(0);
     CplxSparse_t* cplxSp(0);
     if (isComplex() == false && o.isComplex() == false)
     {
         //R - R -> R
-        realSp = new RealSparse_t(*matrixReal - * (o.matrixReal));
+        realSp = new ScilabSparse_t(*matrixReal - * (o.matrixReal));
     }
     else if (isComplex() == false && o.isComplex() == true)
     {
@@ -1686,7 +1686,7 @@ GenericType* Sparse::substract(Sparse const& o) const
 
 Sparse* Sparse::multiply(double s) const
 {
-    return new Sparse( isComplex() ? 0 : new RealSparse_t((*matrixReal)*s)
+    return new Sparse( isComplex() ? 0 : new ScilabSparse_t((*matrixReal)*s)
                        , isComplex() ? new CplxSparse_t((*matrixCplx)*s) : 0);
 }
 
@@ -1698,12 +1698,12 @@ Sparse* Sparse::multiply(std::complex<double> s) const
 
 Sparse* Sparse::multiply(Sparse const& o) const
 {
-    RealSparse_t* realSp(0);
+    ScilabSparse_t* realSp(0);
     CplxSparse_t* cplxSp(0);
 
     if (isComplex() == false && o.isComplex() == false)
     {
-        realSp = new RealSparse_t(*matrixReal * *(o.matrixReal));
+        realSp = new ScilabSparse_t(*matrixReal * *(o.matrixReal));
     }
     else if (isComplex() == false && o.isComplex() == true)
     {
@@ -1723,11 +1723,11 @@ Sparse* Sparse::multiply(Sparse const& o) const
 
 Sparse* Sparse::dotMultiply(Sparse SPARSE_CONST& o) const
 {
-    RealSparse_t* realSp(0);
+    ScilabSparse_t* realSp(0);
     CplxSparse_t* cplxSp(0);
     if (isComplex() == false && o.isComplex() == false)
     {
-        realSp = new RealSparse_t(matrixReal->cwiseProduct(*(o.matrixReal)));
+        realSp = new ScilabSparse_t(matrixReal->cwiseProduct(*(o.matrixReal)));
     }
     else if (isComplex() == false && o.isComplex() == true)
     {
@@ -1747,7 +1747,7 @@ Sparse* Sparse::dotMultiply(Sparse SPARSE_CONST& o) const
 
 Sparse* Sparse::newTransposed() const
 {
-    return new Sparse( matrixReal ? new RealSparse_t(matrixReal->adjoint()) : 0
+    return new Sparse( matrixReal ? new ScilabSparse_t(matrixReal->adjoint()) : 0
                        , matrixCplx ? new CplxSparse_t(matrixCplx->adjoint()) : 0);
 }
 
@@ -1768,8 +1768,8 @@ Sparse* Sparse::newOnes() const
 {
     // result is never cplx
     return new Sparse( matrixReal
-                       ? new RealSparse_t(matrixReal->cast<bool>().cast<double>())
-                       : new RealSparse_t(matrixCplx->cast<BoolCast>().cast<double>())
+                       ? new ScilabSparse_t(matrixReal->cast<bool>().cast<double>())
+                       : new ScilabSparse_t(matrixCplx->cast<BoolCast>().cast<double>())
                        , 0);
 }
 
@@ -1790,7 +1790,7 @@ Sparse* Sparse::newReal() const
 {
     return new Sparse( matrixReal
                        ? matrixReal
-                       : new RealSparse_t(matrixCplx->cast<RealCast>())
+                       : new ScilabSparse_t(matrixCplx->cast<RealCast>())
                        , 0);
 }
 
@@ -1914,7 +1914,7 @@ template<typename S, typename Out, typename F> Out sparseTransform(S& s, Out o, 
 std::pair<double*, double*> Sparse::outputValues(double* outReal, double* outImag)const
 {
     return matrixReal
-           ? std::make_pair(sparseTransform(*matrixReal, outReal, GetReal<RealSparse_t>()), outImag)
+           ? std::make_pair(sparseTransform(*matrixReal, outReal, GetReal<ScilabSparse_t>()), outImag)
            : std::make_pair(sparseTransform(*matrixCplx, outReal, GetReal<CplxSparse_t>())
                             , sparseTransform(*matrixCplx, outImag, GetImag<CplxSparse_t>()));
 }
@@ -1922,7 +1922,7 @@ std::pair<double*, double*> Sparse::outputValues(double* outReal, double* outIma
 int* Sparse::outputRowCol(int* out)const
 {
     return matrixReal
-           ? sparseTransform(*matrixReal, sparseTransform(*matrixReal, out, GetRow<RealSparse_t>()), GetCol<RealSparse_t>())
+           ? sparseTransform(*matrixReal, sparseTransform(*matrixReal, out, GetRow<ScilabSparse_t>()), GetCol<ScilabSparse_t>())
            : sparseTransform(*matrixCplx, sparseTransform(*matrixCplx, out, GetRow<CplxSparse_t>()), GetCol<CplxSparse_t>());
 }
 double* Sparse::outputCols(double* out) const
@@ -2016,7 +2016,7 @@ bool Sparse::reshape(int _iNewRows, int _iNewCols)
         {
             //item count
             size_t iNonZeros = nonZeros();
-            RealSparse_t *newReal = new RealSparse_t(_iNewRows, _iNewCols);
+            ScilabSparse_t *newReal = new ScilabSparse_t(_iNewRows, _iNewCols);
             newReal->reserve((int)iNonZeros);
 
             //coords
@@ -3075,9 +3075,9 @@ void SparseBool::finalize()
     matrixBool->finalize();
 }
 
-GenericType::RealType SparseBool::getType(void) SPARSE_CONST
+GenericType::ScilabType SparseBool::getType(void) SPARSE_CONST
 {
-    return InternalType::RealSparseBool;
+    return InternalType::ScilabSparseBool;
 }
 
 bool SparseBool::get(int r, int c) SPARSE_CONST
@@ -3104,7 +3104,7 @@ void SparseBool::fill(Bool& dest, int r, int c) SPARSE_CONST
 
 Sparse* SparseBool::newOnes() const
 {
-    return new Sparse(new types::Sparse::RealSparse_t(matrixBool->cast<double>()), 0);
+    return new Sparse(new types::Sparse::ScilabSparse_t(matrixBool->cast<double>()), 0);
 }
 
 SparseBool* SparseBool::newNotEqualTo(SparseBool const&o) const
