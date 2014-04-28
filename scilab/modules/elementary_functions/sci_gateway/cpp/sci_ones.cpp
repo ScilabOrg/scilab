@@ -39,11 +39,11 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
     {
         types::GenericType* pIn = in[0]->getAs<types::GenericType>();
 
-        if(pIn->isList())
+        if (pIn->isList())
         {
             std::wstring wstFuncName = L"%"  + in[0]->getTypeStr() + L"_ones";
             types::InternalType *pIT = symbol::Context::getInstance()->get(symbol::Symbol(wstFuncName));
-            if(pIT)
+            if (pIT)
             {
                 return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
             }
@@ -82,31 +82,31 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
 
             switch (in[i]->getType())
             {
-                case types::InternalType::RealDouble :
+                case types::InternalType::ScilabDouble :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Double>()->get()[0]);
                     break;
-                case types::InternalType::RealInt8 :
+                case types::InternalType::ScilabInt8 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Int8>()->get()[0]);
                     break;
-                case types::InternalType::RealUInt8 :
+                case types::InternalType::ScilabUInt8 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::UInt8>()->get()[0]);
                     break;
-                case types::InternalType::RealInt16 :
+                case types::InternalType::ScilabInt16 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Int16>()->get()[0]);
                     break;
-                case types::InternalType::RealUInt16 :
+                case types::InternalType::ScilabUInt16 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::UInt16>()->get()[0]);
                     break;
-                case types::InternalType::RealInt32 :
+                case types::InternalType::ScilabInt32 :
                     piDims[i] = in[i]->getAs<types::Int32>()->get()[0];
                     break;
-                case types::InternalType::RealUInt32 :
+                case types::InternalType::ScilabUInt32 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::UInt32>()->get()[0]);
                     break;
-                case types::InternalType::RealInt64 :
+                case types::InternalType::ScilabInt64 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Int64>()->get()[0]);
                     break;
-                case types::InternalType::RealUInt64 :
+                case types::InternalType::ScilabUInt64 :
                     piDims[i] = static_cast<int>(in[i]->getAs<types::UInt64>()->get()[0]);
                     break;
                 default :
@@ -114,7 +114,7 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
                     return Function::Error;
             }
 
-            if(piDims[i] < 1)
+            if (piDims[i] < 1)
             {
                 delete[] piDims;
                 out.push_back(types::Double::Empty());

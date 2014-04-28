@@ -1417,28 +1417,28 @@ public :
             InternalType* pIT = result_get();
             switch (result_get()->getType())
             {
-                case InternalType::RealInt8 :
+                case InternalType::ScilabInt8 :
                     pReturn = notInt< Int8, char >(pIT->getAs<Int8>());
                     break;
-                case InternalType::RealUInt8 :
+                case InternalType::ScilabUInt8 :
                     pReturn = notInt<UInt8, unsigned char>(pIT->getAs<UInt8>());
                     break;
-                case InternalType::RealInt16 :
+                case InternalType::ScilabInt16 :
                     pReturn = notInt< Int16, short >(pIT->getAs<Int16>());
                     break;
-                case InternalType::RealUInt16 :
+                case InternalType::ScilabUInt16 :
                     pReturn = notInt<UInt16, unsigned short>(pIT->getAs<UInt16>());
                     break;
-                case InternalType::RealInt32 :
+                case InternalType::ScilabInt32 :
                     pReturn = notInt<Int32, int>(pIT->getAs<Int32>());
                     break;
-                case InternalType::RealUInt32 :
+                case InternalType::ScilabUInt32 :
                     pReturn = notInt<UInt32, unsigned int>(pIT->getAs<UInt32>());
                     break;
-                case InternalType::RealInt64 :
+                case InternalType::ScilabInt64 :
                     pReturn = notInt<Int64, long long>(pIT->getAs<Int64>());
                     break;
-                case InternalType::RealUInt64 :
+                case InternalType::ScilabUInt64 :
                     pReturn = notInt<UInt64, unsigned long long>(pIT->getAs<UInt64>());
                     break;
                 default :
@@ -1632,7 +1632,7 @@ public :
 
             switch (pVar->getType())
             {
-                case types::InternalType::RealInt8 :
+                case types::InternalType::ScilabInt8 :
                 {
                     types::Int8* pIntIn  = pVar->getAs<types::Int8>();
                     types::Int8* pIntOut = new types::Int8(pIntIn->getCols(), pIntIn->getRows());
@@ -1642,7 +1642,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealUInt8 :
+                case types::InternalType::ScilabUInt8 :
                 {
                     types::UInt8* pIntIn  = pVar->getAs<types::UInt8>();
                     types::UInt8* pIntOut = new types::UInt8(pIntIn->getCols(), pIntIn->getRows());
@@ -1652,7 +1652,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealInt16 :
+                case types::InternalType::ScilabInt16 :
                 {
                     types::Int16* pIntIn  = pVar->getAs<types::Int16>();
                     types::Int16* pIntOut = new types::Int16(pIntIn->getCols(), pIntIn->getRows());
@@ -1662,7 +1662,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealUInt16 :
+                case types::InternalType::ScilabUInt16 :
                 {
                     types::UInt16* pIntIn  = pVar->getAs<types::UInt16>();
                     types::UInt16* pIntOut = new types::UInt16(pIntIn->getCols(), pIntIn->getRows());
@@ -1672,7 +1672,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealInt32 :
+                case types::InternalType::ScilabInt32 :
                 {
                     types::Int32* pIntIn  = pVar->getAs<types::Int32>();
                     types::Int32* pIntOut = new types::Int32(pIntIn->getCols(), pIntIn->getRows());
@@ -1682,7 +1682,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealUInt32 :
+                case types::InternalType::ScilabUInt32 :
                 {
                     types::UInt32* pIntIn  = pVar->getAs<types::UInt32>();
                     types::UInt32* pIntOut = new types::UInt32(pIntIn->getCols(), pIntIn->getRows());
@@ -1692,7 +1692,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealInt64 :
+                case types::InternalType::ScilabInt64 :
                 {
                     types::Int64* pIntIn  = pVar->getAs<types::Int64>();
                     types::Int64* pIntOut = new types::Int64(pIntIn->getCols(), pIntIn->getRows());
@@ -1702,7 +1702,7 @@ public :
                     pReturn = pIntOut;
                     break;
                 }
-                case types::InternalType::RealUInt64 :
+                case types::InternalType::ScilabUInt64 :
                 {
                     types::UInt64* pIntIn  = pVar->getAs<types::UInt64>();
                     types::UInt64* pIntOut = new types::UInt64(pIntIn->getCols(), pIntIn->getRows());

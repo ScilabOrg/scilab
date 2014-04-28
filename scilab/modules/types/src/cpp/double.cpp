@@ -237,9 +237,9 @@ void Double::whoAmI()
     std::cout << "types::Double";
 }
 
-GenericType::RealType Double::getType(void)
+GenericType::ScilabType Double::getType(void)
 {
-    return RealDouble;
+    return ScilabDouble;
 }
 
 bool Double::setZeros()
