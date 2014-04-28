@@ -34,7 +34,7 @@ stacksize("max");
 n = 50000;
 x0 = ones(n, 1);
 
-try optim(list(optimCost, n), x0, "qn", "ar",1000,1000, imp=2); catch msg = lasterror(); end
+try optim(list(optimCost, n), x0, "qn", "ar",1000,1000, iprint=2); catch msg = lasterror(); end
 refMsg = "stack size exceeded!";
 
 assert_checkequal(msg(1), refMsg);

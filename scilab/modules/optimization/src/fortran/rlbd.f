@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
       subroutine rlbd(indrl,n,simul,x,binf,bsup,f,hp,t,tmax,d,gn,
-     &  tproj,amd,amf,imp,io,zero,nap,napmax,xn,izs,rzs,dzs)
+     &  tproj,amd,amf,iprint,io,zero,nap,napmax,xn,izs,rzs,dzs)
 c
 c!but
 c       subroutine de recherche lineaire pour des problemes avec
@@ -23,7 +23,7 @@ c     de dichotomie, d interpolation lineaire sur les derivees ou
 c     d interpolation cubique.
 c
 c!impressions
-c      si imp > 2 , rlbd fournit les impressions suivantes :
+c      si iprint > 2 , rlbd fournit les impressions suivantes :
 c
 c      la premiere ligne indique :
 c      t      premiere valeur de t fournie en liste d' appel
@@ -46,7 +46,7 @@ c     proj et satur (bibl. modulopt)
 c!liste d appel
 c
 c      subroutine rlbd(indrl,n,simul,proj,x,binf,bsup,f,hp,t,tmax,d,gn,
-c     &  tproj,amd,amf,imp,io,zero,nap,napmax,xn,izs,rzs,dzs)
+c     &  tproj,amd,amf,iprint,io,zero,nap,napmax,xn,izs,rzs,dzs)
 c
 c      e;s;e,s:parametres initialises en entree,en sortie,en entree et
 c              en sortie
@@ -78,7 +78,7 @@ c      d:direction de descente                             (e)
 c      gn: gradient de f en xn                             (e,s)
 c      tproj:plus petit pas saturant une nouvelle contrainte(e,s)
 c      amf,amd:constantes du test de wolfe                 (e)
-c      imp<=2:pas d'impression                             (e)
+c      iprint<=2:pas d'impression                             (e)
 c         >=3:une impression par calcul de simul           (e)
 c      io:numero du fichier resultat                       (e)
 c      zero:proche du zero machine                         (e)
@@ -167,7 +167,7 @@ c     calcul de tproj:plus petit point de discontinuite de h'(t)
       icop=i
 7     continue
 c
-      if (imp.ge.3) then
+      if (iprint.ge.3) then
         write (bufstr,14050) tproj,tmax,hp
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         endif
@@ -195,7 +195,7 @@ c     calcul de xn,de fn et de gn
       call simul (indic,n,xn,fn,gn,izs,rzs,dzs)
       nap=nap+1
       if (indic.lt.0) then
-         if (imp.ge.3) then
+         if (iprint.ge.3) then
            write (bufstr,16000) indic,t
            call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
            endif
@@ -267,7 +267,7 @@ c      calcul du pas saturant toutes les bornes:tmaxp
       end if
 c
 c     toutes les variables sont saturees
-      if (imp.ge.3) then
+      if (iprint.ge.3) then
         write (bufstr,3330) tmaxp
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         endif
@@ -470,7 +470,7 @@ c        dans le cas quadratique prendre extrp plus grand
 785   t=text
       var2='e  '
 800   f11=fn-f
-      if (imp.ge.3.and.indic.gt.0) then
+      if (iprint.ge.3.and.indic.gt.0) then
         write (bufstr,15000)var2,ta1,f11,hpn,h1,t1
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         endif
@@ -522,7 +522,7 @@ c
       h1=(fn-fa1)/t1
       hp=hpd
       f0=f-f0
-      if (imp.ge.3) then
+      if (iprint.ge.3) then
         write (bufstr,15020)t,f0,hpd,h1,t1
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         endif

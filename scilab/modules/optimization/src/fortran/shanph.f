@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
 
-      subroutine shanph(diag,n,nt,np,y,s,ys,scal,index,io,imp)
+      subroutine shanph(diag,n,nt,np,y,s,ys,scal,index,io,iprint)
 c     mise a l echelle de diag par la methode de shanno-phua
 c     calcul du facteur d echelle scal
 c      diag=(y,(diag-1)y)/(y,s)*diag
@@ -22,7 +22,7 @@ c
       do 203 i=1,n
 203   cof=cof + y(inp,i)**2/diag(i)
       cof=cof/ys(inp)
-      if(imp.gt.3) then
+      if(iprint.gt.3) then
         write(bufstr,1203) cof
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         endif
