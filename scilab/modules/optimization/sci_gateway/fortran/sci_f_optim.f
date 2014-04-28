@@ -27,12 +27,12 @@ c
       character*(nlgh+1) namef,namej
       common/csolve/namef,namej
 c
-      integer impn(nsiz)
+      integer iprintn(nsiz)
       logical eqid, getscalar
       integer iadr, sadr
 c
-      parameter (nsiz1=nsiz-1)
-      data impn/672732690,nsiz1*673720360/
+      parameter (nsiz2=nsiz-2)
+      data iprintn/303765778,673717527,nsiz2*673720360/
 c
       data coin,coar,coti,cotd,cosi,cosd,nfac
      &     /   5906,6922,4637,3357,4636,3356, 0/
@@ -46,7 +46,7 @@ c
       epsf=0.0d+0
       iepsx=1
       indtes=0
-      imp=0
+      iprint=0
       io=wte
       tol=stk(leps)
       df0=1.0d+0
@@ -61,9 +61,10 @@ c
 c
       if(infstk(top).eq.1) then
          infstk(top)=0
-         if(eqid(idstk(1,top),impn)) then
+         y=idstk(1,top)
+         if(eqid(idstk(1,top),iprintn)) then
             if (.not.getscalar('optim',top,top,lr)) return
-            imp=stk(lr)
+            iprint=stk(lr)
             top=top-1
             rhs=rhs-1
          endif
@@ -611,11 +612,11 @@ c     mise en memoire de parametres d entree pour l affectation de indop
 c
          if(isim.eq.1) then
             call n1qn1(foptim,nx,stk(lx),stk(lf),stk(lg),
-     &           stk(lvar),epsg,mode,itmax,napm,imp,io,stk(ltv),
+     &           stk(lvar),epsg,mode,itmax,napm,iprint,io,stk(ltv),
      &           istk(lizs),sstk(lrzs),stk(ldzs))
          else
             call n1qn1(boptim,nx,stk(lx),stk(lf),stk(lg),
-     &           stk(lvar),epsg,mode,itmax,napm,imp,io,stk(ltv),
+     &           stk(lvar),epsg,mode,itmax,napm,iprint,io,stk(ltv),
      &           istk(lizs),sstk(lrzs),stk(ldzs))
          endif
          if(err.gt.0.or.err1.gt.0) return
@@ -664,14 +665,14 @@ c
             call foptim(indsim,nx,stk(lx),stk(lf),stk(lg),
      &           istk(lizs),sstk(lrzs),stk(ldzs))
             call n1qn3(foptim,fuclid,ctonb,ctcab,nx,stk(lx),stk(lf),
-     $           stk(lg),dxmin,df0,epsg,imp,io,mode,itmax,napm,
+     $           stk(lg),dxmin,df0,epsg,iprint,io,mode,itmax,napm,
      &           stk(Ltv),Ntv,istk(lizs),sstk(lrzs),stk(ldzs) )
          else
             indsim=4
             call boptim(indsim,nx,stk(lx),stk(lf),stk(lg),
      &           istk(lizs),sstk(lrzs),stk(ldzs))
             call n1qn3(boptim,fuclid,ctonb,ctcab,nx,stk(lx),stk(lf),
-     &           stk(lg),dxmin,df0,epsg,imp,io,mode,itmax,napm,
+     &           stk(lg),dxmin,df0,epsg,iprint,io,mode,itmax,napm,
      &           stk(ltv),ntv,istk(lizs),sstk(lrzs),stk(ldzs) )
          endif
          if (err.gt.0.or.err1.gt.0) return
@@ -713,12 +714,12 @@ c     optimiseur n1fc1 : non smooth without constraints
          lstk(top+1)=ldisp
          if (isim.eq.1) then
             call n1fc1(foptim,fuclid,nx,stk(lx),stk(lf),stk(lg),
-     &           stk(lepsx),df0,epsf,tol,imp,io,mode,itmax,napm,mmx,
+     &           stk(lepsx),df0,epsf,tol,iprint,io,mode,itmax,napm,mmx,
      &           istk(litv),stk(ltv1),stk(ltv2),istk(lizs),sstk(lrzs),
      $           stk(ldzs))
          else
             call n1fc1(boptim,fuclid,nx,stk(lx),stk(lf),stk(lg),
-     &           stk(lepsx),df0,epsf,tol,imp,io,mode,itmax,napm,mmx,
+     &           stk(lepsx),df0,epsf,tol,iprint,io,mode,itmax,napm,mmx,
      &           istk(litv),stk(ltv1),stk(ltv2),istk(lizs),sstk(lrzs),
      $           stk(ldzs))
          endif
@@ -776,13 +777,13 @@ c     optimiseur qnbd : quasi-newton with bound constraints
          indopt=1 +indtv
          if(isim.eq.1) then
             call qnbd(indopt,foptim,nx,stk(lx),stk(lf),
-     &           stk(lg),imp,io,tol,napm,itmax,epsf,epsg,
+     &           stk(lg),iprint,io,tol,napm,itmax,epsf,epsg,
      &           stk(lepsx),df0,stk(lbi),stk(lbs),nfac,
      &           stk(ltv),ntv,istk(litv),nitv,
      &           istk(lizs),sstk(lrzs),stk(ldzs))
          else
             call qnbd(indopt,boptim,nx,stk(lx),stk(lf),
-     &           stk(lg),imp,io,tol,napm,itmax,epsf,epsg,
+     &           stk(lg),iprint,io,tol,napm,itmax,epsf,epsg,
      &           stk(lepsx),df0,stk(lbi),stk(lbs),nfac,
      &           stk(ltv),ntv,istk(litv),nitv,
      &           istk(lizs),sstk(lrzs),stk(ldzs))
@@ -817,13 +818,13 @@ c     optimiseur gcbd : Gradient Conjugate with bound constraints
          if (indtes.ne.0) indopt=indtes
          if(isim.eq.1) then
             call gcbd(indopt,foptim,nomsub,nx,stk(lx),
-     &           stk(lf),stk(lg),imp,io,tol,napm,itmax,epsf,epsg,
+     &           stk(lf),stk(lg),iprint,io,tol,napm,itmax,epsf,epsg,
      &           stk(lepsx),df0,stk(lbi),stk(lbs),nfac,
      &           stk(ltv),ntv,istk(litv),nitv,
      &           istk(lizs),sstk(lrzs),stk(ldzs))
          else
             call gcbd(indopt,boptim,nomsub,nx,stk(lx),stk(lf),
-     &           stk(lg),imp,io,tol,napm,itmax,epsf,epsg,
+     &           stk(lg),iprint,io,tol,napm,itmax,epsf,epsg,
      &           stk(lepsx),df0,stk(lbi),stk(lbs),nfac,
      &           stk(ltv),ntv,istk(litv),nitv,
      &           istk(lizs),sstk(lrzs),stk(ldzs))
@@ -1031,7 +1032,7 @@ c     commentaires finaux
       endif
 
  360  continue
-      if(imp.ne.0) then
+      if(iprint.ne.0) then
          if(indopt.eq.1) then
             call writebufscioptim(buf,epsg)
             call msgs(12,0)

@@ -15,7 +15,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=9690
 //
 // <-- Short Description -->
-// optim(): option "imp"=5 could crash Scilab
+// optim(): option "iprint"=5 could crash Scilab
 //
 
 function f = rosenbrock(x)
@@ -35,5 +35,5 @@ x0 = [-1.2 1.0];
 lines(0);
 
 for impval = 1:5
-    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , imp=impval);
+    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , iprint=impval);
 end

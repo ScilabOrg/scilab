@@ -7,9 +7,9 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 //
-function [p,err]=datafit(imp,G,varargin)
+function [p,err]=datafit(iprint,G,varargin)
     //
-    //         [p,err]=datafit([imp,] G [,DG],Z [,W],...)
+    //         [p,err]=datafit([iprint,] G [,DG],Z [,W],...)
     //
     //         Function used for fitting data to a model.
     // For a given function G(p,z), this function finds the best vector
@@ -49,10 +49,10 @@ function [p,err]=datafit(imp,G,varargin)
 
     [lhs,rhs]=argn(0)
 
-    if type(imp)<>1 then
+    if type(iprint)<>1 then
         varargin(0)=G
-        G=imp
-        imp=0
+        G=iprint
+        iprint=0
     end
 
     if type(G)==15 then
@@ -180,7 +180,7 @@ function [p,err]=datafit(imp,G,varargin)
     " g=0*p;"
     "end"])
 
-    [err,p]=optim(costf,varargin(:),imp=imp)
+    [err,p]=optim(costf,varargin(:),iprint=iprint)
 
 
 endfunction
