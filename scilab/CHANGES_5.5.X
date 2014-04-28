@@ -68,6 +68,8 @@ Scilab Bug Fixes
                      now permute treats extra dimensions as 1
 
 
+* Bug #13351 fixed - xstringb failed with LaTeX code
+
 
 Xcos Bug Fixes
 ==============
