@@ -12,6 +12,8 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13344 fixed - User defined ticks were not drawn at the right position.
+
 
 Xcos Bug Fixes
 ==============
