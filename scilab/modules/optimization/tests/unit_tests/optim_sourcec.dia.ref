@@ -9,7 +9,7 @@
 // <-- ENGLISH IMPOSED -->
 // optim.tst --
 //   Test the optim command with the Rosenbrock test case
-//   in the case where the cost function is provided as a Fortran 
+//   in the case where the cost function is provided as a Fortran
 //   routine.
 //   The "genros" function is defined in optimization/sci_gateway/fortran/Ex-optim.f
 //
@@ -70,7 +70,7 @@ end
 verboselevels=[0];
 for verbose=verboselevels
   for solver=solverlist
-    [f,x,g]=optim('rosenc',x0,solver,'td',valtd,imp=verbose);
+    [f,x,g]=optim('rosenc',x0,solver,'td',valtd,iprint=verbose);
     if abs(f-1+norm(x-xopt) ) > Leps then bugmes();quit;end
   end
 end

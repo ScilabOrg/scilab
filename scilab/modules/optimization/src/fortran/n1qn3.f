@@ -8,7 +8,7 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 c
       subroutine n1qn3 (simul,prosca,ctonb,ctcab,n,x,f,g,dxmin,df1,
-     /                  epsg,impres,io,mode,niter,nsim,dz,ndz,
+     /                  epsg,iprint,io,mode,niter,nsim,dz,ndz,
      /                  izs,rzs,dzs)
 c
 c     n1qn3, version 1.0, septembre 1988.
@@ -60,7 +60,7 @@ c----
 c
 c         arguments
 c
-      integer n,impres,io,mode,niter,nsim,ndz,izs(1)
+      integer n,iprint,io,mode,niter,nsim,ndz,izs(1)
       real rzs(1)
       double precision x(1),f,g(1),dxmin,df1,epsg,dz(1),dzs(1)
       external simul,prosca,ctonb,ctcab
@@ -74,7 +74,7 @@ c
 c
 c---- impressions initiales et controle des arguments
 c
-      if (impres.ge.1) then
+      if (iprint.ge.1) then
          write (bufstr,900) 
          call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
          write (bufstr,901) n
@@ -89,7 +89,7 @@ c
          call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
          write (bufstr,906) nsim
          call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
-         write (bufstr,907) impres
+         write (bufstr,907) iprint
          call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
          endif
 900   format (" n1qn3: entry point")
@@ -99,11 +99,11 @@ c
 904   format (5x,"relative precision on g (epsg):",d9.2)
 905   format (5x,"maximal number of iterations (niter):",i6)
 906   format (5x,"maximal number of simulations (nsim):",i6)
-907   format (5x,"printing level (impres):",i4)
+907   format (5x,"printing level (iprint):",i4)
       if (n.le.0.or.niter.le.0.or.nsim.le.0.or.dxmin.le.0.d0
      /    .or.epsg.le.0.d0.or.epsg.gt.1.d0) then
           mode=2
-          if (impres.ge.1) then
+          if (iprint.ge.1) then
             write (bufstr,910)
             call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
             endif
@@ -112,7 +112,7 @@ c
       endif
       if (ndz.lt.6*n+1) then
           mode=2
-          if (impres.ge.1) then
+          if (iprint.ge.1) then
             write (bufstr,920)
             call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
             endif
@@ -126,7 +126,7 @@ c
       l1memo=2*n+1
       m=ntravu/l1memo
       ntravu=m*l1memo+4*n
-      if (impres.ge.1) then
+      if (iprint.ge.1) then
         write (bufstr,930) ndz
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         write (bufstr,931) ntravu
@@ -151,13 +151,13 @@ c
 c---- appel du code d"optimisation
 c
       call n1qn3a (simul,prosca,ctonb,ctcab,n,x,f,g,dxmin,df1,epsg,
-     /             impres,io,mode,niter,nsim,m,dz(id),dz(igg),dz(iprec),
+     /             iprint,io,mode,niter,nsim,m,dz(id),dz(igg),dz(iprec),
      /             dz(iaux),dz(ialpha),dz(iybar),dz(isbar),izs,rzs,dzs)
 c
 c---- impressions finales
 c
 940   continue
-      if (impres.ge.1) then
+      if (iprint.ge.1) then
         write (bufstr,950) 
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         
@@ -183,7 +183,7 @@ c
       r1=sqrt(ps)
       call prosca (n,g,g,ps,izs,rzs,dzs)
       r2=sqrt(ps)
-      if (impres.ge.1) then
+      if (iprint.ge.1) then
         write (bufstr,960) r1
         call basout(io_out ,io ,bufstr(1:lnblnk(bufstr)))
         

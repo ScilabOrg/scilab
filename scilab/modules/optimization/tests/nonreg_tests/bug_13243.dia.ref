@@ -14,7 +14,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=13243
 //
 // <-- Short Description -->
-// optim() with "gc" option failed when imp<0.
+// optim() with "gc" option failed when iprint<0.
 function f = problem1(x)
     f = sum((x-(1:length(x))').^2);
 endfunction
@@ -26,7 +26,7 @@ endfunction
 // Initial guess:
 x0 = 1*ones(5, 1);
 // Perform optimization:
-[fopt, xopt] = optim(myoptfunc, x0, "gc", imp=-1);
+[fopt, xopt] = optim(myoptfunc, x0, "gc", iprint=-1);
 WARNING: Feature derivative is obsolete.
          Please use numderivative instead.
          This feature will be permanently removed in Scilab 6.0

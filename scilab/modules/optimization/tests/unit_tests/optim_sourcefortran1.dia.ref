@@ -71,7 +71,7 @@ end
 verboselevels = [0];
 for verbose = verboselevels
   for solver = solverlist
-    [f,x,g] = optim('rosenf', x0, solver, 'td', valtd, imp = verbose);
+    [f,x,g] = optim('rosenf', x0, solver, 'td', valtd, iprint = verbose);
     if abs(f - 1 + norm(x - xopt) ) > Leps then bugmes();quit;end
   end
 end

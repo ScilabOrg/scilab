@@ -21,7 +21,7 @@
         <title>Calling Sequence</title>
         <synopsis>
             fopt = optim(costf, x0)
-            fopt = optim(costf [,&lt;contr&gt;],x0 [,algo] [,df0 [,mem]] [,work] [,&lt;stop&gt;] [,&lt;params&gt;] [,imp=iflag])
+            fopt = optim(costf [,&lt;contr&gt;],x0 [,algo] [,df0 [,mem]] [,work] [,&lt;stop&gt;] [,&lt;params&gt;] [,iprint=iflag])
             [fopt, xopt] = optim(...)
             [fopt, xopt, gopt] = optim(...)
             [fopt, xopt, gopt, work] = optim(...)
@@ -298,10 +298,10 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>"imp=iflag"</term>
+                <term>"iprint=iflag"</term>
                 <listitem>
                     <para>named argument used to set the trace mode (default
-                        <literal>imp=0</literal>, which prints no messages). If <varname>imp</varname>
+                        <literal>iprint=0</literal>, which prints no messages). If <varname>iprint</varname>
                         is greater or equal to 1, more information are printed, depending on the
                         algorithm chosen. More precisely:
                     </para>
@@ -441,7 +441,7 @@
                         </listitem>
                     </itemizedlist>
                     <para>
-                        If <varname>imp</varname> is lower than 0, then the cost function is evaluated every
+                        If <varname>iprint</varname> is lower than 0, then the cost function is evaluated every
                         <varname>-m</varname> iterations, with <literal>ind=1</literal>.
                     </para>
                 </listitem>
@@ -484,7 +484,7 @@
                 <term>iters</term>
                 <listitem>
                     <para>
-                        scalar, the number of iterations that is displayed when <literal>imp=2</literal>.
+                        scalar, the number of iterations that is displayed when <literal>iprint=2</literal>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -493,7 +493,7 @@
                 <listitem>
                     <para>
                         scalar, the number of <literal>cost</literal> function evaluations
-                        that is displayed when <literal>imp=2</literal>.
+                        that is displayed when <literal>iprint=2</literal>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -720,41 +720,41 @@
             f = 0.5 * norm(x - xref)^2;
             g = x - xref;
             endfunction
-
+            
             // Simplest call
             x0 = [1; -1; 1];
             [fopt, xopt] = optim(cost, x0)
-
+            
             // Use "gc" algorithm
             [fopt, xopt, gopt] = optim(cost, x0, "gc")
-
+            
             // Use "nd" algorithm
             [fopt, xopt, gopt] = optim(cost, x0, "nd")
-
+            
             // Upper and lower bounds on x
             [fopt, xopt, gopt] = optim(cost, "b", [-1;0;2], [0.5;1;4], x0)
-
+            
             // Upper and lower bounds on x and setting up the algorithm to "gc"
             [fopt, xopt, gopt] = optim(cost, "b", [-1; 0; 2], [0.5; 1; 4], x0, "gc")
-
+            
             // Bound on the number of calls to the objective function
             [fopt, xopt, gopt] = optim(cost, "b", [-1; 0; 2], [0.5; 1; 4], x0, "gc", "ar", 3)
-
+            
             // Set max number of calls to the objective function (3)
             // Set max number of iterations (100)
             // Set stopping threshold on the value of f (1e-6),
             // on the value of the norm of the gradient of the objective function (1e-6)
             // on the improvement on the parameters x_opt (1e-6;1e-6;1e-6)
             [fopt, xopt, gopt] = optim(cost, "b", [-1; 0; 2], [0.5; 1; 4], x0, "gc", "ar", 3, 100, 1e-6, 1e-6, [1e-3; 1e-3; 1e-3])
-
+            
             // Additional messages are printed in the console.
-            [fopt, xopt] = optim(cost, x0, imp = 3)
+            [fopt, xopt] = optim(cost, x0, iprint = 3)
         </programlisting>
     </refsection>
     <refsection>
         <title>Example: Print messages</title>
         <para>
-            The <literal>imp</literal> flag may take negative integer values,
+            The <literal>iprint</literal> flag may take negative integer values,
             say k. In that case, the cost function is called once every -k iterations.
             This allows to draw the function value or write a log file.
         </para>
@@ -773,12 +773,12 @@
             mprintf("f(x) = %s, |g(x)|=%s\n", string(f), string(norm(g)))
             end
             endfunction
-
+            
             x0 = [1; -1; 1];
-            [fopt, xopt] = optim(cost, x0, imp = -1)
+            [fopt, xopt] = optim(cost, x0, iprint = -1)
         </programlisting>
         <para>The previous script produces the following output.</para>
-        <screen>--&gt;[fopt, xopt] = optim(cost, x0, imp = -1)
+        <screen>--&gt;[fopt, xopt] = optim(cost, x0, iprint = -1)
             f(x) = 6.5, |g(x)|=3.6055513
             f(x) = 2.8888889, |g(x)|=2.4037009
             f(x) = 9.861D-31, |g(x)|=1.404D-15
@@ -803,14 +803,14 @@
             g(1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
             g(2) = 200. * ( x(2) - x(1)**2 )
             endfunction
-
+            
             // 2. Define rosenbrock for contouring
             function f = rosenbrockC ( x1 , x2 )
             x = [x1 x2]
             ind = 4
             [ f , g , ind ] = rosenbrock ( x , ind )
             endfunction
-
+            
             // 3. Define Rosenbrock for plotting
             function [ f , g , ind ] = rosenbrockPlot ( x , ind )
             [ f , g , ind ] = rosenbrock ( x , ind )
@@ -818,7 +818,7 @@
             plot ( x(1) , x(2) , "g." )
             end
             endfunction
-
+            
             // 4. Draw the contour of Rosenbrock's function
             x0 = [-1.2 1.0];
             xopt = [1.0 1.0];
@@ -827,9 +827,9 @@
             contour ( xdata , ydata , rosenbrockC , [1 10 100 500 1000])
             plot(x0(1) , x0(2) , "b.")
             plot(xopt(1) , xopt(2) , "r*")
-
+            
             // 5. Plot the optimization process, during optimization
-            [fopt, xopt] = optim ( rosenbrockPlot , x0 , imp = -1)
+            [fopt, xopt] = optim ( rosenbrockPlot , x0 , iprint = -1)
         </programlisting>
         <scilab:image>
             function [f, g, ind]=rosenbrock(x, ind)
@@ -837,20 +837,20 @@
             g(1) = - 400. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
             g(2) = 200. * ( x(2) - x(1)**2 )
             endfunction
-
+            
             function f=rosenbrockC(x1, x2)
             x = [x1 x2]
             ind = 4
             [ f , g , ind ] = rosenbrock ( x , ind )
             endfunction
-
+            
             function [f, g, ind]=rosenbrockPlot(x, ind)
             [ f , g , ind ] = rosenbrock ( x , ind )
             if (ind == 1) then
             plot ( x(1) , x(2) , "g." )
             end
             endfunction
-
+            
             x0 = [-1.2 1.0];
             xopt = [1.0 1.0];
             xdata = linspace(-2,2,100);
@@ -858,9 +858,9 @@
             contour ( xdata , ydata , rosenbrockC , [1 10 100 500 1000])
             plot(x0(1) , x0(2) , "b.")
             plot(xopt(1) , xopt(2) , "r*")
-            [fopt, xopt] = optim ( rosenbrockPlot , x0 , imp = -1)
+            [fopt, xopt] = optim ( rosenbrockPlot , x0 , iprint = -1)
         </scilab:image>
-
+        
     </refsection>
     <refsection>
         <title>Example: Optimizing with numerical derivatives</title>
@@ -869,20 +869,21 @@
             <literal>numderivative</literal> function to compute a numerical derivative of the
             cost function.
         </para>
-        <para>In the following example, we use the <literal>numderivative</literal> function to solve
+        <para>
+            In the following example, we use the <literal>numderivative</literal> function to solve
             Rosenbrock's problem.
         </para>
         <programlisting role="example">function f = rosenbrock ( x )
             f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
             endfunction
-
+            
             function [ f , g , ind ] = rosenbrockCost ( x , ind )
             f = rosenbrock ( x );
             g = numderivative ( rosenbrock , x );
             endfunction
-
+            
             x0 = [-1.2 1.0];
-
+            
             [ fopt , xopt ] = optim ( rosenbrockCost , x0 )
         </programlisting>
     </refsection>
@@ -891,8 +892,8 @@
             iterations
         </title>
         <para>
-            The <literal>imp</literal> option can take negative values. If the
-            <literal>imp</literal> is equal to <literal>m</literal> where
+            The <literal>iprint</literal> option can take negative values. If the
+            <literal>iprint</literal> is equal to <literal>m</literal> where
             <literal>m</literal> is a negative integer, then the cost function is
             evaluated every -<literal>m</literal> iterations, with the
             <literal>ind</literal> input argument equal to 1. The following example
@@ -926,7 +927,7 @@ _MYDATA_ = tlist ( ["MYDATA", "niter", "nfevals"]);
 _MYDATA_.niter = 0;
 _MYDATA_.nfevals = 0;
 
-[f, xopt] = optim(cost, x0, imp=-1);
+[f, xopt] = optim(cost, x0, iprint=-1);
 mprintf ( "Number of function evaluations: %d\n", _MYDATA_.nfevals );
 mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
         ]]></programlisting>
@@ -956,14 +957,14 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             g(1) = 2 * a * ( x(1) - c )
             g(2) = 2 * b * ( x(2) - d )
             endfunction
-
+            
             x0 = [1 1];
             a = 1.0;
             b = 2.0;
             c = 3.0;
             d = 4.0;
             costf = list ( costfunction , a , b , c, d );
-            [fopt , xopt] = optim ( costf , x0 , imp = 2)
+            [fopt , xopt] = optim ( costf , x0 , iprint = 2)
         </programlisting>
         <para>In complex cases, the cost function may have so many parameters,
             that having a function which takes all arguments as inputs is not
@@ -984,7 +985,7 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             g(1) = 2 * a * ( x(1) - c )
             g(2) = 2 * b * ( x(2) - d )
             endfunction
-
+            
             x0 = [1 1];
             a = 1.0;
             b = 2.0;
@@ -998,13 +999,13 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             "c"
             "d"
             ]);
-
+            
             parameters.a = a;
             parameters.b = b;
             parameters.c = c;
             parameters.d = d;
             costf = list ( costfunction , parameters );
-            [fopt , xopt] = optim ( costf , x0 , imp = 2)
+            [fopt , xopt] = optim ( costf , x0 , iprint = 2)
         </programlisting>
         <para>In the following example, the parameters are defined before the
             optimizer is called. They are directly used in the cost function.
@@ -1020,7 +1021,7 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             b = 2.0;
             c = 3.0;
             d = 4.0;
-            [ fopt , xopt ] = optim ( costfunction , x0 , imp = 2 )
+            [ fopt , xopt ] = optim ( costfunction , x0 , iprint = 2 )
         </programlisting>
         <para>While the previous example perfectly works, there is a risk that the
             same variables are used by some internal function used by
@@ -1047,7 +1048,7 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             b = 2.0;
             c = 3.0;
             d = 4.0;
-            [ fopt , xopt ] = optim ( costfunction , x0 , imp = 2 )
+            [ fopt , xopt ] = optim ( costfunction , x0 , iprint = 2 )
         </programlisting>
         <para>While the previous example perfectly works, there is a risk that the
             same variables are used by some internal function used by
@@ -1080,12 +1081,12 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             g(1) = - 1200. * ( x(2) - x(1)**2 ) * x(1) -2. * ( 1. - x(1) )
             g(2) = 200. * ( x(2) - x(1)**2 )
             endfunction
-
+            
             function f = simplified ( x )
             index = 1;
             [ f , g , index ] = rosenbrock ( x , index )
             endfunction
-
+            
             x0 = [-1.2 1];
             index = 1;
             [ f , g , index ] = rosenbrock ( x0 , index );
@@ -1139,13 +1140,13 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             '}'];
             cd TMPDIR;
             mputl(C, TMPDIR+'/rosenc.c')
-
+            
             // compile the C code
             l = ilib_for_link('rosenc', 'rosenc.c', [], 'c');
-
+            
             // incremental linking
             link(l, 'rosenc', 'c')
-
+            
             //solve the problem
             x0 = [40; 10; 50];
             p = 100;
@@ -1184,13 +1185,13 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             '      end'];
             cd TMPDIR;
             mputl(F, TMPDIR+'/rosenf.f')
-
+            
             // compile the Fortran code
             l = ilib_for_link('rosenf', 'rosenf.f', [], 'f');
-
+            
             // incremental linking
             link(l, 'rosenf', 'f')
-
+            
             //solve the problem
             x0 = [40; 10; 50];
             p = 100;
@@ -1271,13 +1272,13 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             '      end'];
             cd TMPDIR;
             mputl(fortransource, TMPDIR + '/rosenf.f')
-
+            
             // compile the C code
             libpath = ilib_for_link('rosenf', 'rosenf.f', [], 'f');
-
+            
             // incremental linking
             linkid = link(libpath, 'rosenf', 'f');
-
+            
             x0 = 1.2 * ones(1, 5);
             //
             // Solve the problem
@@ -1396,23 +1397,23 @@ mprintf ( "Number of iterations: %d\n", _MYDATA_.niter );
             x0 = 0.12 * bs;
             epsx = 1.e-15 * x0;
             xopt = .1*bs;
-
+            
             // 'ti' and 'td' always at the end of the output sequence
             [f, x, ti, td]                           = optim('rosenf', x0, 'in', 'si', 'sd')
             [f, x, g, ti, td]                        = optim('rosenf', x0, 'in', 'si', 'sd')
             [f, x, g, w, ti, td]                     = optim('rosenf', x0, 'in', 'si', 'sd')
             [f, x, g, w, niter, nevals, ti, td]      = optim('rosenf', x0, 'in', 'si', 'sd')
             [f, x, g, w, niter, nevals, err, ti, td] = optim('rosenf', x0, 'in', 'si', 'sd')
-
+            
             // With input argument 'in', ti and td will be initialized by rosenf function.
             [f, x, ti, td] = optim('rosenf', x0, 'in', 'si', 'sd')
             // Reuses the last ti and td for the next call and return it again.
             [f, x, ti, td] = optim('rosenf', x0, 'ti', ti, 'td', td, 'si', 'sd')
-
+            
             // Initializes ti and td but return only ti
             [f, x, ti] = optim('rosenf', x0, 'in', 'si')
             [f, x, ti] = optim('rosenf', x0, 'ti', ti, 'si')
-
+            
             // Initializes ti and td but return only td
             [f, x, td] = optim('rosenf', x0, 'in', 'sd')
             [f, x, td] = optim('rosenf', x0, 'td', td, 'sd')
