@@ -18,7 +18,7 @@
     <refsynopsisdiv>
         <title>Calling Sequence</title>
         <synopsis>drawaxis([options])
-            // options: x,y,dir,sub_int,fontsize,format_n,seg,textcolor,ticscolor,tics
+            // options: x,y,dir,sub_int,fontsize,format_n,seg,textcolor,tickscolor,ticks
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -28,28 +28,28 @@
                 <term>dir=string</term>
                 <listitem>
                     <para>
-                        used to specify the tics direction. <literal>string</literal> can be chosen among   'u','r','d','l' and 'l' is the default value. the values 'u','r','d','l' stands respectively for up, right, down, left
+                        used to specify the ticks direction. <literal>string</literal> can be chosen among   'u','r','d','l' and 'l' is the default value. the values 'u','r','d','l' stands respectively for up, right, down, left
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>tics=string</term>
+                <term>ticks=string</term>
                 <listitem>
                     <para>
-                        A flag which describes how the tics are given.   <literal>string</literal> can be chosen among 'v','r', and 'i', and, 'v' is the default value
+                        A flag which describes how the ticks are given.   <literal>string</literal> can be chosen among 'v','r', and 'i', and, 'v' is the default value
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>x,y</term>
                 <listitem>
-                    <para>two vectors which give tics positions.</para>
+                    <para>two vectors which give ticks positions.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>val= string matrix</term>
                 <listitem>
-                    <para>A string matrix, which, when given, gives the string to be drawn along the axis at tics positions.</para>
+                    <para>A string matrix, which, when given, gives the string to be drawn along the axis at ticks positions.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -78,7 +78,7 @@
             <varlistentry>
                 <term>sub_int=integer</term>
                 <listitem>
-                    <para>an integer which gives the number of sub-intervals to draw  between large tics.</para>
+                    <para>an integer which gives the number of sub-intervals to draw  between large ticks.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -90,10 +90,10 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>ticscolor=integer</term>
+                <term>tickscolor=integer</term>
                 <listitem>
                     <para>
-                        specify the color to use for tics drawing. Default value is <literal>-1</literal> which stands for current color.
+                        specify the color to use for ticks drawing. Default value is <literal>-1</literal> which stands for current color.
                     </para>
                 </listitem>
             </varlistentry>
@@ -105,26 +105,26 @@
             <literal>drawaxis</literal> is used to draw an axis in vertical or horizontal 
             direction. the direction of the axis is given by dir 
             <literal>dir = 'u'</literal> or <literal>'d'</literal> gives a horizontal axis 
-            with tics going up (<literal>'u'</literal>) or down (<literal>'d'</literal>). 
+            with ticks going up (<literal>'u'</literal>) or down (<literal>'d'</literal>). 
             <literal>dir = 'r'</literal> or <literal>'l'</literal> give a vertical axis 
-            with tics going right (<literal>'r'</literal>) or left (<literal>'l'</literal>).
+            with ticks going right (<literal>'r'</literal>) or left (<literal>'l'</literal>).
         </para>
         <para>
-            <literal>x</literal> and <literal>y</literal> give the axis tics positions. 
+            <literal>x</literal> and <literal>y</literal> give the axis ticks positions. 
             If the axis is horizontal then <literal>y</literal> 
             must be a scalar or can be omitted and <literal>x</literal> 
             is a Scilab vector. The meaning of <literal>x</literal> 
-            is controlled by <literal>tics</literal>.
+            is controlled by <literal>ticks</literal>.
         </para>
         <para>
-            If <literal>tics='v'</literal> then <literal>x</literal> gives the tics positions along the x-axis.
+            If <literal>ticks='v'</literal> then <literal>x</literal> gives the ticks positions along the x-axis.
         </para>
         <para>
-            If <literal>tics='r'</literal> then <literal>x</literal> must be of size 3. <literal>x=[xmin,xmax,n]</literal> and 
+            If <literal>ticks='r'</literal> then <literal>x</literal> must be of size 3. <literal>x=[xmin,xmax,n]</literal> and 
             <literal>n</literal> gives the number of intervals.
         </para>
         <para>
-            If <literal>tics='i'</literal> then <literal>x</literal> must be of size 4, <literal>x=[k1,k2,a,n]</literal>. 
+            If <literal>ticks='i'</literal> then <literal>x</literal> must be of size 4, <literal>x=[k1,k2,a,n]</literal>. 
             then <literal>xmin=k1*10^a</literal>, <literal>xmax=k2*10^a</literal> and <literal>n</literal> gives the number of intervals
         </para>
         <para>
@@ -136,7 +136,7 @@
             a default format which can be changed with <literal>format_n</literal>. 
             It is also possible to display given strings and not numbers, 
             this is done if <literal>val</literal> is provided. The size of <literal>val</literal> must 
-            match the number of tics.
+            match the number of ticks.
         </para>
     </refsection>
     <refsection>
@@ -144,53 +144,53 @@
         <programlisting role="example"><![CDATA[ 
 plot2d(1:10,1:10,1,"020")
 // horizontal axis 
-drawaxis(x=2:7,y=4,dir='u',tics='v')
+drawaxis(x=2:7,y=4,dir='u',ticks='v')
 // horizontal axis on top of the frame
-drawaxis(x=2:7,dir='u',tics='v') 
+drawaxis(x=2:7,dir='u',ticks='v') 
 // horizontal axis at the bottom of the frame
-drawaxis(x=2:7,dir='d',tics='v') 
+drawaxis(x=2:7,dir='d',ticks='v') 
 
 // horizontal axis given by a range 
-drawaxis(x=[2,7,3],y=4,dir='d',tics='r') 
+drawaxis(x=[2,7,3],y=4,dir='d',ticks='r') 
 
 // vertical axis 
-drawaxis(x=4,y=2:7,dir='r',tics='v')
-drawaxis(x=2,y=[2,7,3],dir='l',tics='r')
-drawaxis(y=2:7,dir='r',tics='v')
-drawaxis(y=2:7,dir='l',tics='v')
+drawaxis(x=4,y=2:7,dir='r',ticks='v')
+drawaxis(x=2,y=[2,7,3],dir='l',ticks='r')
+drawaxis(y=2:7,dir='r',ticks='v')
+drawaxis(y=2:7,dir='l',ticks='v')
 
-// horizontal axis with strings displayed at tics positions
-drawaxis(x=2:7,y=8,dir='u',tics='v',val='A'+string(1:6));
-// vertical axis with strings displayed at tics positions
-drawaxis(x=8,y=2:7,dir='r',tics='v',val='B'+string(1:6));
+// horizontal axis with strings displayed at ticks positions
+drawaxis(x=2:7,y=8,dir='u',ticks='v',val='A'+string(1:6));
+// vertical axis with strings displayed at ticks positions
+drawaxis(x=8,y=2:7,dir='r',ticks='v',val='B'+string(1:6));
 
 // horizontal axis given with a 'i' range. 
-drawaxis(x=[2,5,0,3],y=9,dir='u',tics='i');
-drawaxis(x=9,y=[2,5,0,3],dir='r',tics='i',sub_int=5);
+drawaxis(x=[2,5,0,3],y=9,dir='u',ticks='i');
+drawaxis(x=9,y=[2,5,0,3],dir='r',ticks='i',sub_int=5);
 
 // horizontal axis again 
-drawaxis(x=2:7,y=4,dir='u',tics='v',fontsize=10,textcolor=9,ticscolor=7,seg=0,sub_int=20) 
+drawaxis(x=2:7,y=4,dir='u',ticks='v',fontsize=10,textcolor=9,tickscolor=7,seg=0,sub_int=20) 
  ]]></programlisting>
         <scilab:image>
             plot2d(1:10,1:10,1,"020")
-            drawaxis(x=2:7,y=4,dir='u',tics='v')
-            drawaxis(x=2:7,dir='u',tics='v') 
-            drawaxis(x=2:7,dir='d',tics='v') 
+            drawaxis(x=2:7,y=4,dir='u',ticks='v')
+            drawaxis(x=2:7,dir='u',ticks='v') 
+            drawaxis(x=2:7,dir='d',ticks='v') 
             
-            drawaxis(x=[2,7,3],y=4,dir='d',tics='r') 
+            drawaxis(x=[2,7,3],y=4,dir='d',ticks='r') 
             
-            drawaxis(x=4,y=2:7,dir='r',tics='v')
-            drawaxis(x=2,y=[2,7,3],dir='l',tics='r')
-            drawaxis(y=2:7,dir='r',tics='v')
-            drawaxis(y=2:7,dir='l',tics='v')
+            drawaxis(x=4,y=2:7,dir='r',ticks='v')
+            drawaxis(x=2,y=[2,7,3],dir='l',ticks='r')
+            drawaxis(y=2:7,dir='r',ticks='v')
+            drawaxis(y=2:7,dir='l',ticks='v')
             
-            drawaxis(x=2:7,y=8,dir='u',tics='v',val='A'+string(1:6));
-            drawaxis(x=8,y=2:7,dir='r',tics='v',val='B'+string(1:6));
+            drawaxis(x=2:7,y=8,dir='u',ticks='v',val='A'+string(1:6));
+            drawaxis(x=8,y=2:7,dir='r',ticks='v',val='B'+string(1:6));
             
-            drawaxis(x=[2,5,0,3],y=9,dir='u',tics='i');
-            drawaxis(x=9,y=[2,5,0,3],dir='r',tics='i',sub_int=5);
+            drawaxis(x=[2,5,0,3],y=9,dir='u',ticks='i');
+            drawaxis(x=9,y=[2,5,0,3],dir='r',ticks='i',sub_int=5);
             
-            drawaxis(x=2:7,y=4,dir='u',tics='v',fontsize=10,textcolor=9,ticscolor=7,seg=0,sub_int=20)
+            drawaxis(x=2:7,y=4,dir='u',ticks='v',fontsize=10,textcolor=9,tickscolor=7,seg=0,sub_int=20)
         </scilab:image>
     </refsection>
     <refsection role="see also">

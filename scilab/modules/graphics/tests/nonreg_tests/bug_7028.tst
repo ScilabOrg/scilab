@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=7028
 //
 // <-- Short Description -->
-// When scilab printed an "axis" graphic handle, string array size for "tics_labels" were erroneous.
+// When scilab printed an "axis" graphic handle, string array size for "ticks_labels" were erroneous.
 
 // Execute this code :
 
@@ -22,17 +22,17 @@ plot2d(0:1,0:1,rect=[0 0 1 1],nax=[1 6 1 6]);
 a=gca();
 p=a.x_ticks.locations;
 v0=a.x_ticks.labels;
-drawaxis(x=p,y=0.5,dir="u",tics="v",val=v0);
+drawaxis(x=p,y=0.5,dir="u",ticks="v",val=v0);
 e=gce();
 
 
-e.xtics_coord=(0:20)/20
+e.xticks_coord=(0:20)/20
 
 // Here you should see someting like that:
 //
 //Handle of type "Axis" with properties:
 //======================================
 //[...]
-// tics_labels = string array 1x21
+// ticks_labels = string array 1x21
 //[...]
 

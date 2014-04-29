@@ -365,9 +365,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
             set(a, "box", toggle(mget(1,characterFormat,fd) ) ) // box
         end
 
-        set(a,"sub_tics"             , mget(mget(1,characterFormat,fd),characterFormat,fd)) // sub_tics
+        set(a,"sub_ticks"             , mget(mget(1,characterFormat,fd),characterFormat,fd)) // sub_ticks
         if ~(is_higher_than([3 1 0 1]) ) then
-            mget(1,"il",fd); // tics_color is removed F.Leray 15.03.05
+            mget(1,"il",fd); // ticks_color is removed F.Leray 15.03.05
         end
         set(a,"font_style"           , mget(1,characterFormat,fd));  // font_style
         set(a,"font_size"            , mget(1,characterFormat,fd));  // font_size
@@ -1389,29 +1389,29 @@ function [h,immediate_drawing] = load_graphichandle(fd)
         if is_higher_than([3 1 0 0]) then
 
             visible          = toggle(mget(1,characterFormat,fd)) // visible
-            n                = mget(1,"il",fd) // tics_direction
-            tics_direction   = ascii(mget(n,characterFormat,fd));
-            nx               = mget(1,"il",fd) // xtics_coord
-            xtics_coord      = mget(nx,"dl",fd)'
-            ny               = mget(1,"il",fd) // ytics_coord
-            ytics_coord      = mget(ny,"dl",fd)'
+            n                = mget(1,"il",fd) // ticks_direction
+            ticks_direction   = ascii(mget(n,characterFormat,fd));
+            nx               = mget(1,"il",fd) // xticks_coord
+            xticks_coord      = mget(nx,"dl",fd)'
+            ny               = mget(1,"il",fd) // yticks_coord
+            yticks_coord      = mget(ny,"dl",fd)'
 
-            if tics_direction == "bottom" then axisdir="d";
-            elseif tics_direction == "top" then axisdir="u";
-            elseif tics_direction == "left" then axisdir="l";
-            elseif tics_direction == "right" then axisdir="r";
+            if ticks_direction == "bottom" then axisdir="d";
+            elseif ticks_direction == "top" then axisdir="u";
+            elseif ticks_direction == "left" then axisdir="l";
+            elseif ticks_direction == "right" then axisdir="r";
             elseif nx>1 then axisdir="u";
             else axisdir="l";
             end
 
-            drawaxis(x=xtics_coord,y=ytics_coord,dir=axisdir);
+            drawaxis(x=xticks_coord,y=yticks_coord,dir=axisdir);
             h=gce()
 
-            h.tics_color       = mget(1,"il",fd) // tics_color
-            h.tics_segment     = toggle(mget(1,characterFormat,fd)) // tics_segment
-            h.tics_style       = ascii(mget(1,characterFormat,fd)) // tics_style
-            h.sub_tics         = mget(1,"il",fd) // sub_tics
-            h.tics_labels     = load_text_vector(fd)' // tics_label
+            h.ticks_color       = mget(1,"il",fd) // ticks_color
+            h.ticks_segment     = toggle(mget(1,characterFormat,fd)) // ticks_segment
+            h.ticks_style       = ascii(mget(1,characterFormat,fd)) // ticks_style
+            h.sub_ticks         = mget(1,"il",fd) // sub_ticks
+            h.ticks_labels     = load_text_vector(fd)' // ticks_label
             labelfontsize = mget(1,"il",fd);
             // Bug fix: there was a bug in Scilab <=4.1.2 which used -1 as default value for labels_font_size
             // Scilab 5 needs font size to be >= 0 so we change the value to avoid an error message due to a Scilab bug...
@@ -1426,7 +1426,7 @@ function [h,immediate_drawing] = load_graphichandle(fd)
             if is_higher_than( [4 1 2 0] ) then
                 set( h, "fractional_font", toggle( mget( 1, characterFormat, fd ) ) ) ; // fractional_font
             end
-            // h.tics_style=tics_style // jb Silvy apparently strange
+            // h.ticks_style=ticks_style // jb Silvy apparently strange
 
             clip_state       = ascii(mget(mget(1,characterFormat,fd),characterFormat,fd)) // clip_state
             if clip_state == "on" then

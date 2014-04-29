@@ -8,7 +8,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>plotframe(rect,tics,[arg_opt1,arg_opt2,arg_opt3])</synopsis>
+        <synopsis>plotframe(rect,ticks,[arg_opt1,arg_opt2,arg_opt3])</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -22,7 +22,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>tics</term>
+                <term>ticks</term>
                 <listitem>
                     <para>
                         vecteur du type <literal>[nx,mx,ny,my]</literal> où
@@ -47,8 +47,8 @@
                                     <literal>%t</literal>, les bornes données dans
                                     <literal>rect</literal> sont éventuellement modifiées (en fait
                                     légèrement augmentées) pour simplifier les graduations : dans
-                                    ce cas <literal>tics(2)</literal> et
-                                    <literal>tics(4)</literal> sont ignorés.
+                                    ce cas <literal>ticks(2)</literal> et
+                                    <literal>ticks(4)</literal> sont ignorés.
                                 </para>
                             </listitem>
                         </varlistentry>
@@ -85,7 +85,7 @@
                 <listitem>
                     <para>
                         Représente une séquence de la forme <emphasis role="bold">clé1=valeur1</emphasis>, <emphasis role="bold">clé2=valeur2</emphasis>,... where <emphasis role="bold">clé1</emphasis>, <emphasis role="bold">clé2</emphasis>,... peuvent être n'importe quel
-                        paramètres parmis: <emphasis role="bold">tics</emphasis>, <emphasis role="bold">flags</emphasis>, <emphasis role="bold">captions</emphasis> ou <emphasis role="bold">subwin</emphasis>. Ces arguments ont la même
+                        paramètres parmis: <emphasis role="bold">ticks</emphasis>, <emphasis role="bold">flags</emphasis>, <emphasis role="bold">captions</emphasis> ou <emphasis role="bold">subwin</emphasis>. Ces arguments ont la même
                         signification que ceux utilisés dans la première forme de la
                         routine.
                     </para>
@@ -111,15 +111,15 @@
 x=[-0.3:0.8:27.3]';
 y=rand(x);
 rect=[min(x),min(y),max(x),max(y)];
-tics=[4,10,2,5];    // 4 x-intervalles et 2 y-intervalles
-plotframe(rect,tics,[%f,%f],["Mon plot","x","y"],[0,0,0.5,0.5])
+ticks=[4,10,2,5];    // 4 x-intervalles et 2 y-intervalles
+plotframe(rect,ticks,[%f,%f],["Mon plot","x","y"],[0,0,0.5,0.5])
 plot2d(x,y,2,"000")
-plotframe(rect,tics,[%t,%f],["Mon plot avec grille","x","y"],[0.5,0,0.5,0.5])
+plotframe(rect,ticks,[%t,%f],["Mon plot avec grille","x","y"],[0.5,0,0.5,0.5])
 plot2d(x,y,3,"000")
-plotframe(rect,tics,[%t,%t],..
+plotframe(rect,ticks,[%t,%t],..
           ["plot avec grille et bornes automatiques","x","y"],[0,0.5,0.5,0.5])
 plot2d(x,y,4,"000")
-plotframe(rect,flags=[%f,%t],tics=tics,..
+plotframe(rect,flags=[%f,%t],ticks=ticks,..
           Captions=["plot sans grille mais avec bornes automatiques ","x","y"],..
           subwin=[0.5,0.5,0.5,0.5])
 plot2d(x,y,5,"000")

@@ -17,12 +17,12 @@
 
 
 plot2d(1:10,1:10,1,strf="020")
-drawaxis(x=2:7,y=4,dir='u',tics='v')
+drawaxis(x=2:7,y=4,dir="u",ticks="v")
 e=gce();
 assert_checkequal(e.format_n, "");
 // Check that the display does not crash
 e.format_n = "%0.0fcm"
 assert_checkequal(e.format_n, "%0.0fcm");
-assert_checkequal(e.tics_labels, string(2:7)+"cm");
+assert_checkequal(e.ticks_labels, string(2:7)+"cm");
 
 

@@ -49,34 +49,34 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_direction: </term>
+                            <term>ticks_direction: </term>
                             <listitem>
-                                <para>Specify the direction of the tics drawn under the horizontal
+                                <para>Specify the direction of the ticks drawn under the horizontal
                                     axis and the vertical axis. The possible values of this property
                                     are:
                                 </para>
                                 <itemizedlist>
                                     <listitem>
                                         <para>
-                                            <literal>"top"</literal>. In this case, tics are drawn at the top
+                                            <literal>"top"</literal>. In this case, ticks are drawn at the top
                                             of the horizontal axis.
                                         </para>
                                     </listitem>
                                     <listitem>
                                         <para>
-                                            <literal>"bottom"</literal>. In this case, tics are drawn at the
+                                            <literal>"bottom"</literal>. In this case, ticks are drawn at the
                                             bottom of the horizantal axis.
                                         </para>
                                     </listitem>
                                     <listitem>
                                         <para>
-                                            <literal>"left"</literal>. In this case, tics are going left on
+                                            <literal>"left"</literal>. In this case, ticks are going left on
                                             the vertical axis.
                                         </para>
                                     </listitem>
                                     <listitem>
                                         <para>
-                                            <literal>"right"</literal>. In this case, tics are going right on
+                                            <literal>"right"</literal>. In this case, ticks are going right on
                                             the vertical axis.
                                         </para>
                                     </listitem>
@@ -88,37 +88,37 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>xtics_coord: </term>
+                            <term>xticks_coord: </term>
                             <listitem>
                                 <para>This field represents the x-coordinate of the axis. It is a row
                                     vector containing values increasing from left to right which give
-                                    tics positions for a horizontal axis. Other case, the entity is a
+                                    ticks positions for a horizontal axis. Other case, the entity is a
                                     vertical axis, this property contain a scale which defines the
                                     x-origin of the axis.
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>ytics_coord: </term>
+                            <term>yticks_coord: </term>
                             <listitem>
                                 <para>This field represents the y-coordinate of the axis. It is a row
                                     vector containing values increasing from bottom to top which give
-                                    tics positions for a vertical axis. Other case, the entity is a
+                                    ticks positions for a vertical axis. Other case, the entity is a
                                     horizontal axis, this property contain a scale which defines the
                                     y-origin of the axis.
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_color: </term>
+                            <term>ticks_color: </term>
                             <listitem>
                                 <para>The value of this properties is index of the color used to
-                                    draw the axis'lines and tics.
+                                    draw the axis'lines and ticks.
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_segment: </term>
+                            <term>ticks_segment: </term>
                             <listitem>
                                 <para>This field contains a flag which controls the display of the
                                     base segment of the axis. The default is <literal>"on"</literal>, else
@@ -128,30 +128,30 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_style: </term>
+                            <term>ticks_style: </term>
                             <listitem>
-                                <para>This property describes how the tics are given. It is a string
+                                <para>This property describes how the ticks are given. It is a string
                                     flag which can have these possible values:
                                 </para>
                                 <itemizedlist>
                                     <listitem>
                                         <para>
                                             <literal>"v"</literal>. It's the default value, In this case,
-                                            tics positions are given by the row factor
-                                            <literal>xtics_coord</literal> for horizontal axis
-                                            (<literal>ytics_coord</literal> for the vertical one).
+                                            ticks positions are given by the row factor
+                                            <literal>xticks_coord</literal> for horizontal axis
+                                            (<literal>yticks_coord</literal> for the vertical one).
                                         </para>
                                     </listitem>
                                     <listitem>
                                         <para>
-                                            <literal>"r"</literal>. In this case, tics positions are given by
+                                            <literal>"r"</literal>. In this case, ticks positions are given by
                                             the vector <literal>[min,max,n] </literal> where n is the number of
                                             intervals.
                                         </para>
                                     </listitem>
                                     <listitem>
                                         <para>
-                                            <literal>"i"</literal>. In this case the vector given tics
+                                            <literal>"i"</literal>. In this case the vector given ticks
                                             positions is of size 4, <literal>[k1,k2,a,n]</literal> then values
                                             are increasing between <literal>k1*10^a</literal> and
                                             <literal>k2*10^a</literal>, n is the number of intervals.
@@ -161,25 +161,25 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>sub_tics: </term>
+                            <term>sub_ticks: </term>
                             <listitem>
-                                <para>This field sets the number of tics to draw between two main
-                                    tics.
+                                <para>This field sets the number of ticks to draw between two main
+                                    ticks.
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_labels: </term>
+                            <term>ticks_labels: </term>
                             <listitem>
                                 <para>This field is a string matrix, which contains the strings to
-                                    be drawn along the axis at tics positions.
+                                    be drawn along the axis at ticks positions.
                                 </para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>format_n: </term>
                             <listitem>
-                                <para>This property is a character string which specifies the floating-point display format of the tics labels numbers,
+                                <para>This property is a character string which specifies the floating-point display format of the ticks labels numbers,
                                     when relevant. It uses the format syntax of the C language printf function (for example <literal>"%.3f"</literal>).
                                     If equal to <literal>""</literal>, a default display format is used.
                                 </para>
@@ -188,13 +188,13 @@
                         <varlistentry>
                             <term>labels_font_color: </term>
                             <listitem>
-                                <para>This property determines the color of the tics labels.</para>
+                                <para>This property determines the color of the ticks labels.</para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
                             <term>labels_font_size: </term>
                             <listitem>
-                                <para>It is a scalar specifying the character size of tics labels.
+                                <para>It is a scalar specifying the character size of ticks labels.
                                     If <literal>fractional_font</literal> property is <literal>"off"</literal>
                                     only the integer part of the value is used.
                                     For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
@@ -287,22 +287,22 @@ a.data_bounds=[-1,-1;10,10];
 
 drawaxis(x=2:7,y=4,dir='u');
 a1=a.children(1)
-a1.xtics_coord=[1 4 5  8 10];
-a1.tics_color=2;
+a1.xticks_coord=[1 4 5  8 10];
+a1.ticks_color=2;
 a1.labels_font_size=3;
-a1.tics_direction="bottom";
-a1.tics_labels= [" February" "May"  "june" "August"  "October"];
+a1.ticks_direction="bottom";
+a1.ticks_labels= [" February" "May"  "june" "August"  "October"];
   
 drawaxis(x=1.2:1:10,y=5,dir='u',textcolor=13);
 a2=get("hdl")
-a2.sub_tics=0;
-a2.tics_segment="off";
-a2.ytics_coord=4;
+a2.sub_ticks=0;
+a2.ticks_segment="off";
+a2.yticks_coord=4;
   
-drawaxis(x=-1,y=0:1:7,dir='r',fontsize=10,textcolor=5,ticscolor=6,sub_int=10)
+drawaxis(x=-1,y=0:1:7,dir='r',fontsize=10,textcolor=5,tickscolor=6,sub_int=10)
 a3=get("hdl");
-a3.tics_labels= 'B'  +string(0:7);
-a3.tics_direction="left";
+a3.ticks_labels= 'B'  +string(0:7);
+a3.ticks_direction="left";
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

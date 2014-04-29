@@ -19,7 +19,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>plotframe(rect,tics,[arg_opt1,arg_opt2,arg_opt3])
+        <synopsis>plotframe(rect,ticks,[arg_opt1,arg_opt2,arg_opt3])
             plotframe(rect,&lt;opts_args&gt;)
         </synopsis>
     </refsynopsisdiv>
@@ -35,7 +35,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>tics</term>
+                <term>ticks</term>
                 <listitem>
                     <para>
                         vector <literal>[nx,mx,ny,my]</literal> where <literal>mx,
@@ -63,8 +63,8 @@
                                     <literal>%t</literal>, the bounds given in
                                     <literal>rect</literal> are allowed to be slightly modified
                                     (in fact always increased) in order to have simpler
-                                    graduations: then <literal>tics(2)</literal> and
-                                    <literal>tics(4)</literal> are ignored.
+                                    graduations: then <literal>ticks(2)</literal> and
+                                    <literal>ticks(4)</literal> are ignored.
                                 </para>
                             </listitem>
                         </varlistentry>
@@ -104,7 +104,7 @@
                             key2=value2
                         </emphasis>
                         ,... where <emphasis role="bold">key1</emphasis>, <emphasis role="bold">key2</emphasis>,... can be one of the following:
-                        <emphasis role="bold">tics</emphasis>, <emphasis role="bold">flags</emphasis>, <emphasis role="bold">captions</emphasis> ou <emphasis role="bold">subwin</emphasis>. These arguments have the same meaning
+                        <emphasis role="bold">ticks</emphasis>, <emphasis role="bold">flags</emphasis>, <emphasis role="bold">captions</emphasis> ou <emphasis role="bold">subwin</emphasis>. These arguments have the same meaning
                         as the ones used in the first form of the routine.
                     </para>
                 </listitem>
@@ -129,15 +129,15 @@
 x=[-0.3:0.8:27.3]';
 y=rand(x);
 rect=[min(x),min(y),max(x),max(y)];
-tics=[4,10,2,5];    //4 x-intervals and 2 y-intervals
-plotframe(rect,tics,[%f,%f],["My plot","x","y"],[0,0,0.5,0.5])
+ticks=[4,10,2,5];    //4 x-intervals and 2 y-intervals
+plotframe(rect,ticks,[%f,%f],["My plot","x","y"],[0,0,0.5,0.5])
 plot2d(x,y,2,"000")
-plotframe(rect,tics=tics,flags=[%t,%f],Captions=["My plot with grids","x","y"],subwin=[0.5,0,0.5,0.5])
+plotframe(rect,ticks=ticks,flags=[%t,%f],Captions=["My plot with grids","x","y"],subwin=[0.5,0,0.5,0.5])
 plot2d(x,y,3,"000")
-plotframe(rect,tics,[%t,%t],..
+plotframe(rect,ticks,[%t,%t],..
 ["My plot with grids and automatic bounds","x","y"],[0,0.5,0.5,0.5])
 plot2d(x,y,4,"000")
-plotframe(rect,flags=[%f,%t],tics=tics,..
+plotframe(rect,flags=[%f,%t],ticks=ticks,..
           Captions=["My plot without grids but with automatic bounds ","x","y"],..
           subwin=[0.5,0.5,0.5,0.5])
 plot2d(x,y,5,"000")

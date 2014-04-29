@@ -57,7 +57,7 @@ a.box="off";
 a.foreground=2;
 a.labels_font_size=3;
 a.labels_font_color=5;
-a.sub_tics=[5 5 3];
+a.sub_ticks=[5 5 3];
 a.x_location="top";
 
 //os eixos modelos são agora usados

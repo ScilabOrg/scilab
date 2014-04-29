@@ -13,15 +13,15 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=6959
 //
 // <-- Short Description -->
-// axis.tics_labels does not accept $..$ LaTeXed labels
+// axis.ticks_labels does not accept $..$ LaTeXed labels
 
 clf
 plot2d(0:1,0:1,rect=[0 0 1 1],nax=[1 6 1 6])
 a=gca();
 p=a.x_ticks.locations;
 v0=a.x_ticks.labels;
-drawaxis(x=a.x_ticks.locations,y=0.5,dir="u",tics="v",val=v0)
+drawaxis(x=a.x_ticks.locations,y=0.5,dir="u",ticks="v",val=v0)
 e=gce();
 v1="$"+v0+"$";
-e.tics_labels=v1'; 
+e.ticks_labels=v1';
 

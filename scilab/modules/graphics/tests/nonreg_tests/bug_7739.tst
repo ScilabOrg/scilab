@@ -21,7 +21,7 @@ clf();
 x=linspace(1,7,50);
 plot2d(x,100+(x-3).^3);
 a=gca();
-drawaxis(dir="u",tics="r",y=170,x=[1 7 6],sub_int=5);
+drawaxis(dir="u",ticks="r",y=170,x=[1 7 6],sub_int=5);
 
 // axis should stay at the "same" place
 a.log_flags="lnn";

@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=1732
 //
 // <-- Short Description -->
-//    The field Axes.sub_tics does not correctly works under Linux, but correctly
+//    The field Axes.sub_ticks does not correctly works under Linux, but correctly
 //    works un Windows.
 //
 //    Jacques-Deric

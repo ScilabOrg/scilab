@@ -206,8 +206,8 @@ function save_graphichandle(h,fd)
         mput(length(h.box), characterFormat, fd ) ; // box
         mput(ascii(h.box),  characterFormat, fd ) ;
         mput(bool2s(h.filled == "on"),characterFormat,fd); // filled
-        mput(size(h.sub_tics,"*"),characterFormat,fd);mput(h.sub_tics,characterFormat,fd); // sub_ticks
-        //mput(-1,'il',fd) // tics_color is removed F.Leray 15.03.05
+        mput(size(h.sub_ticks,"*"),characterFormat,fd);mput(h.sub_ticks,characterFormat,fd); // sub_ticks
+        //mput(-1,'il',fd) // ticks_color is removed F.Leray 15.03.05
         mput(h.font_style,characterFormat,fd) // font_style
         mput(h.font_size,characterFormat,fd) //font_size
         mput(h.font_color,"il",fd) // font_color
@@ -627,17 +627,17 @@ function save_graphichandle(h,fd)
     case "Axis"
         mput(length(h.type),characterFormat,fd);mput(ascii(h.type),characterFormat,fd); // type
         mput(bool2s(h.visible=="on"),characterFormat,fd) // visible
-        mput(length(h.tics_direction),"il",fd); // ticks_direction
-        mput(ascii(h.tics_direction),characterFormat,fd);
-        mput(size(h.xtics_coord,"*"),"il",fd); // xtics_coord
-        mput(h.xtics_coord,"dl",fd)
-        mput(size(h.ytics_coord,"*"),"il",fd); // ytics_coord
-        mput(h.ytics_coord,"dl",fd)
-        mput(h.tics_color,"il",fd) // tics_color
-        mput(bool2s(h.tics_segment=="on"),characterFormat,fd) // tics_segment
-        mput(ascii(h.tics_style),characterFormat,fd) // tics_style
-        mput(h.sub_tics,"il",fd) // sub_tics
-        save_text_vector(h.tics_labels,fd) // tics_labels
+        mput(length(h.ticks_direction),"il",fd); // ticks_direction
+        mput(ascii(h.ticks_direction),characterFormat,fd);
+        mput(size(h.xticks_coord,"*"),"il",fd); // xticks_coord
+        mput(h.xticks_coord,"dl",fd)
+        mput(size(h.yticks_coord,"*"),"il",fd); // yticks_coord
+        mput(h.yticks_coord,"dl",fd)
+        mput(h.ticks_color,"il",fd) // ticks_color
+        mput(bool2s(h.ticks_segment=="on"),characterFormat,fd) // ticks_segment
+        mput(ascii(h.ticks_style),characterFormat,fd) // ticks_style
+        mput(h.sub_ticks,"il",fd) // sub_ticks
+        save_text_vector(h.ticks_labels,fd) // ticks_labels
         mput(h.labels_font_size,"il",fd) // label_font_size
         mput(h.labels_font_color,"il",fd) // labels_font_color
         mput(h.labels_font_style,"il",fd) // labels_font_style

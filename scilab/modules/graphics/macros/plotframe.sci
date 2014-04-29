@@ -7,12 +7,12 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function plotframe(rect,axisdata,options,legs,subwindow)
-    // plotframe - fixes scales, tics and grid on a graphic,
+    // plotframe - fixes scales, ticks and grid on a graphic,
     //%Syntax
     //  plotframe(rect,axisdata [,flags or leg or subwindow, ...)
     //%Parameters
     //  rect    : [xmin,ymin,xmax,ymax] data boudaries
-    //  axisdata: [nx,mx,ny,my]  mx and my x and y tics, nx,ny : x and y subtics
+    //  axisdata: [nx,mx,ny,my]  mx and my x and y ticks, nx,ny : x and y subticks
     //  flags   : [quad,bounds] ou quad is a boolean if %t a grid is added
     //	      bounds a booleen also : if bounds is %t then rect can be modified
     //	      in order to have better scales on both axes which contains the
@@ -29,11 +29,11 @@ function plotframe(rect,axisdata,options,legs,subwindow)
     f_subwin   = %f ;
     f_flags    = %f ;
     f_captions = %f ;
-    f_tics     = %f ;
+    f_ticks     = %f ;
 
     // check if we found optional args
-    if exists("tics","local") == 1 then
-        f_tics = %t ;
+    if exists("ticks","local") == 1 then
+        f_ticks = %t ;
     end
 
     if exists("flags","local") == 1 then
@@ -54,12 +54,12 @@ function plotframe(rect,axisdata,options,legs,subwindow)
         f_subwin = %t ;
     end
 
-    if rhs >= 2 & ~f_subwin & ~f_captions & ~f_flags & ~f_tics then
+    if rhs >= 2 & ~f_subwin & ~f_captions & ~f_flags & ~f_ticks then
         // no optional argument specified we use the old syntax
         // with 2,3,4 or five parameters
 
-        f_tics = %t ;
-        tics = axisdata ;
+        f_ticks = %t ;
+        ticks = axisdata ;
         if rhs == 5 then
             select type(subwindow),
             case 1 , subwin   = subwindow, f_subwin   = %t ;
@@ -90,14 +90,14 @@ function plotframe(rect,axisdata,options,legs,subwindow)
     end
     // -- trace du cadre et des echelles
     if flags(2) then
-        if f_tics then
-            plot2d( [],[],0,"051"," ",rect,tics ) ;
+        if f_ticks then
+            plot2d( [],[],0,"051"," ",rect,ticks ) ;
         else
             plot2d( [],[],0,"051"," ",rect ) ;
         end
     else
-        if f_tics then
-            plot2d( [],[],0,"011"," ",rect, tics ) ;
+        if f_ticks then
+            plot2d( [],[],0,"011"," ",rect, ticks ) ;
         else
             plot2d( [],[],0,"011"," ",rect ) ;
         end

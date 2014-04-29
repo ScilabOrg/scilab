@@ -161,7 +161,7 @@
                             <term>z</term>
                             <listitem>
                                 <para>controls the display of information on the frame around
-                                    the plot. If axes are requested, the number of tics can be
+                                    the plot. If axes are requested, the number of ticks can be
                                     specified by the <literal>nax</literal> optional argument.
                                 </para>
                                 <variablelist>
@@ -182,7 +182,7 @@
                                     <varlistentry>
                                         <term>z=2</term>
                                         <listitem>
-                                            <para>the plot is surrounded by a box without tics.</para>
+                                            <para>the plot is surrounded by a box without ticks.</para>
                                         </listitem>
                                     </varlistentry>
                                     <varlistentry>

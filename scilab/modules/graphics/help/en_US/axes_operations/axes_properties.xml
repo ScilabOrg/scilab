@@ -367,9 +367,9 @@
                             <term>sub_ticks: </term>
                             <listitem>
                                 <para>
-                                    This field sets the number of tics to draw between two main
-                                    tics. The field value is the vector <literal>[nx,ny]</literal> where
-                                    <literal>nx</literal> is the number of sub tics for the x-axis and
+                                    This field sets the number of ticks to draw between two main
+                                    ticks. The field value is the vector <literal>[nx,ny]</literal> where
+                                    <literal>nx</literal> is the number of sub ticks for the x-axis and
                                     <literal>ny</literal> respecting to the y-axis.
                                 </para>
                             </listitem>
@@ -378,7 +378,7 @@
                             <term>font_style: </term>
                             <listitem>
                                 <para>
-                                    Specifies the font used for displaying tics labels. This is a positive integer referecing one of the loaded fonts.
+                                    Specifies the font used for displaying ticks labels. This is a positive integer referecing one of the loaded fonts.
                                     Its value must be between 0, referecing the first font,
                                     and the number of loaded fonts minus one, referencing the last font.
                                     For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
@@ -389,7 +389,7 @@
                             <term>font_size: </term>
                             <listitem>
                                 <para>
-                                    It is a scalar specifying the character size of tics labels.
+                                    It is a scalar specifying the character size of ticks labels.
                                     If <literal>fractional_font</literal> property is <literal>"off"</literal>
                                     only the integer part of the value is used.
                                     For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
@@ -399,7 +399,7 @@
                         <varlistentry>
                             <term>font_color: </term>
                             <listitem>
-                                <para>This property determines the color of the tics labels.</para>
+                                <para>This property determines the color of the ticks labels.</para>
                             </listitem>
                         </varlistentry>
                         <varlistentry>
@@ -483,7 +483,7 @@
                                 <para>
                                     If this property value is <literal>"on"</literal> axes adapt to fit exactly with the minima and
                                     maxima values of the data bounds. If this field value is <literal>"off"</literal>, axes may
-                                    enlarge boundaries such as to produce pretty tics labels.
+                                    enlarge boundaries such as to produce pretty ticks labels.
                                 </para>
                             </listitem>
                         </varlistentry>
@@ -867,10 +867,10 @@
 lines(0) // disables vertical paging
 a=get("current_axes")//get the handle of the newly created axes
 a.axes_visible="on"; // makes the axes visible
-a.font_size=3; //set the tics label font size
+a.font_size=3; //set the ticks label font size
 a.x_location="top"; //set the x axis position
 a.data_bounds=[-100,-2,-1;100,2,1]; //set the boundary values for the x, y and z coordinates.
-a.sub_tics=[5,0];
+a.sub_ticks=[5,0];
 a.labels_font_color=5;
 a.grid=[2,2];
 a.box="off";

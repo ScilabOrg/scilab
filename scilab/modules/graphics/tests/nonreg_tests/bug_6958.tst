@@ -13,11 +13,11 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=6958
 //
 // <-- Short Description -->
-// The "tics_labels" property from "axes" rejected column vector of labels.
+// The "ticks_labels" property from "axes" rejected column vector of labels.
 
 v0=string(0:10);
-drawaxis(x=0:10,y=0.5,dir="u",tics="v",val=v0);
+drawaxis(x=0:10,y=0.5,dir="u",ticks="v",val=v0);
 e=gce();
-if execstr("e.tics_labels=v0"  ,"errcatch") <> 0 then pause, end  // Should work now.
-if execstr("e.tics_labels=v0''","errcatch") <> 0 then pause, end
+if execstr("e.ticks_labels=v0"  ,"errcatch") <> 0 then pause, end  // Should work now.
+if execstr("e.ticks_labels=v0''","errcatch") <> 0 then pause, end
 

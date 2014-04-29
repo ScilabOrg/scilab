@@ -48,7 +48,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_direction: </term>
+                            <term>ticks_direction: </term>
                             <listitem>
                                 <para>水平軸および垂直軸の下に描画される目盛の方向を指定します.
                                     このプロパティには以下の値を指定可能です:
@@ -82,7 +82,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>xtics_coord: </term>
+                            <term>xticks_coord: </term>
                             <listitem>
                                 <para>このフィールドは軸のx座標を表します.
                                     これは左から右に値が増加する行ベクトルで,
@@ -94,7 +94,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>ytics_coord: </term>
+                            <term>yticks_coord: </term>
                             <listitem>
                                 <para>
                                     このフィールドは軸のy座標を表します.
@@ -107,7 +107,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_color: </term>
+                            <term>ticks_color: </term>
                             <listitem>
                                 <para>このプロパティの値は,
                                     軸の線および目盛を描画する際に使用される色のインデックスです.
@@ -115,7 +115,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_segment: </term>
+                            <term>ticks_segment: </term>
                             <listitem>
                                 <para>
                                     このフィールドには軸の基本部分の表示を制御するフラグが
@@ -127,7 +127,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_style: </term>
+                            <term>ticks_style: </term>
                             <listitem>
                                 <para>このプロパティは目盛の指定方法を規定します.
                                     この値は文字列で以下の値を指定可能です:
@@ -137,8 +137,8 @@
                                         <para>
                                             <literal>"v"</literal>. これはデフォルト値で,
                                             この場合,目盛の位置は,水平軸については
-                                            行係数<literal>xtics_coord</literal>
-                                            (垂直軸については<literal>ytics_coord</literal>)
+                                            行係数<literal>xticks_coord</literal>
+                                            (垂直軸については<literal>yticks_coord</literal>)
                                             で指定されます.
                                         </para>
                                     </listitem>
@@ -163,7 +163,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>sub_tics: </term>
+                            <term>sub_ticks: </term>
                             <listitem>
                                 <para>このフィールドは2つの主目盛の間に描画される目盛の数を
                                     設定します.
@@ -171,7 +171,7 @@
                             </listitem>
                         </varlistentry>
                         <varlistentry>
-                            <term>tics_labels: </term>
+                            <term>ticks_labels: </term>
                             <listitem>
                                 <para>このフィールドは文字列行列で,
                                     目盛の位置に軸に沿って描画される文字列を含みます.
@@ -283,22 +283,22 @@ a.data_bounds=[-1,-1;10,10];
 
 drawaxis(x=2:7,y=4,dir='u');
 a1=a.children(1)
-a1.xtics_coord=[1 4 5  8 10];
-a1.tics_color=2;
+a1.xticks_coord=[1 4 5  8 10];
+a1.ticks_color=2;
 a1.labels_font_size=3;
-a1.tics_direction="bottom";
-a1.tics_labels= [" February" "May"  "june" "August"  "October"];
+a1.ticks_direction="bottom";
+a1.ticks_labels= [" February" "May"  "june" "August"  "October"];
   
 drawaxis(x=1.2:1:10,y=5,dir='u',textcolor=13);
 a2=get("hdl")
-a2.sub_tics=0;
-a2.tics_segment="off";
-a2.ytics_coord=4;
+a2.sub_ticks=0;
+a2.ticks_segment="off";
+a2.yticks_coord=4;
   
-drawaxis(x=-1,y=0:1:7,dir='r',fontsize=10,textcolor=5,ticscolor=6,sub_int=10)
+drawaxis(x=-1,y=0:1:7,dir='r',fontsize=10,textcolor=5,tickscolor=6,sub_int=10)
 a3=get("hdl");
-a3.tics_labels= 'B'  +string(0:7);
-a3.tics_direction="left";
+a3.ticks_labels= 'B'  +string(0:7);
+a3.ticks_direction="left";
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

@@ -104,7 +104,7 @@
                         <varlistentry>
                             <term>nax</term>
                             <listitem>
-                                <para>sets the axes labels and tics definition. The associated
+                                <para>sets the axes labels and ticks definition. The associated
                                     value should be a real vector with four integer entries
                                     <literal>[nx,Nx,ny,Ny].</literal>
                                 </para>
@@ -329,7 +329,7 @@
                             <term>z</term>
                             <listitem>
                                 <para>controls the display of information on the frame around
-                                    the plot. If axes are requested, the number of tics can be
+                                    the plot. If axes are requested, the number of ticks can be
                                     specified by the <literal>nax</literal> optional
                                     argument.
                                 </para>
@@ -352,7 +352,7 @@
                                         <term>z=2</term>
                                         <listitem>
                                             <para>the plot is surrounded by a box without
-                                                tics.
+                                                ticks.
                                             </para>
                                         </listitem>
                                     </varlistentry>
@@ -429,14 +429,14 @@
             <varlistentry>
                 <term>nax</term>
                 <listitem>
-                    <para>This option may be used to specify the axes labels and tics
+                    <para>This option may be used to specify the axes labels and ticks
                         definition. The associated value should be a real vector with four integer entries
                         <literal>[nx,Nx,ny,Ny]</literal>.
                     </para>
                     <para>
-                        <literal>Nx</literal> gives the number of main tics to be used
+                        <literal>Nx</literal> gives the number of main ticks to be used
                         on the x-axis (to use autoticks set it to -1), <literal>nx</literal> gives the number of
-                        subtics to be drawn between two main x-axis tics.
+                        subticks to be drawn between two main x-axis ticks.
                     </para>
                     <para>
                         <literal>Ny</literal> and <literal>ny</literal> give similar
@@ -579,7 +579,7 @@
                         <varlistentry>
                             <term>axesflag=2</term>
                             <listitem>
-                                <para>the plot is surrounded by a box without tics
+                                <para>the plot is surrounded by a box without ticks
                                     (axes_visible=["off" "off"];box="on").
                                 </para>
                             </listitem>
@@ -704,7 +704,7 @@ plot2d(x,[sin(x) sin(2*x) sin(3*x)],rect=[0,0,6,0.5]);
             plot2d(x,[sin(x) sin(2*x) sin(3*x)],rect=[0,0,6,0.5]);
         </scilab:image>
         <programlisting role="example"><![CDATA[ 
-//multiple plot with captions and given tics + style
+//multiple plot with captions and given ticks + style
 clf();
 x=[0:0.1:2*%pi]';
 plot2d(x,[sin(x) sin(2*x) sin(3*x)],..

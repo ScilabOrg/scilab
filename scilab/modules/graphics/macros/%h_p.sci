@@ -888,19 +888,19 @@ function %h_p(h)
 
         case "Axis"
             u=h.user_data;
-            T=sci2exp(h.tics_labels,0)
-            if length(T)>70 then T="string array "+strcat(string(size(h.tics_labels)),"x"),end
+            T=sci2exp(h.ticks_labels,0)
+            if length(T)>70 then T="string array "+strcat(string(size(h.ticks_labels)),"x"),end
             t=[t;
             "parent: "+h.parent.type
             "visible = "+sci2exp(h.visible)
-            "tics_direction = "+sci2exp(h.tics_direction)
-            "xtics_coord = "+sci2exp(h.xtics_coord,0)
-            "ytics_coord = "+sci2exp(h.ytics_coord,0)
-            "tics_color = "+string(h.tics_color)
-            "tics_segment = "+sci2exp(h.tics_segment)
-            "tics_style = "+sci2exp(h.tics_style)
-            "sub_tics = "+string(h.sub_tics)
-            "tics_labels = "+T
+            "ticks_direction = "+sci2exp(h.ticks_direction)
+            "xticks_coord = "+sci2exp(h.xticks_coord,0)
+            "yticks_coord = "+sci2exp(h.yticks_coord,0)
+            "ticks_color = "+string(h.ticks_color)
+            "ticks_segment = "+sci2exp(h.ticks_segment)
+            "ticks_style = "+sci2exp(h.ticks_style)
+            "sub_ticks = "+string(h.sub_ticks)
+            "ticks_labels = "+T
             "format_n = "+sci2exp(h.format_n)
             "labels_font_size = "+string(h.labels_font_size)
             "labels_font_color = "+string(h.labels_font_color)

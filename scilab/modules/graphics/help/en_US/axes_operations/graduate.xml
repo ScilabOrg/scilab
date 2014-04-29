@@ -53,7 +53,7 @@
     <refsection>
         <title>Description</title>
         <para>
-            graduate looks for the minimum interval <literal>[xi,xa]</literal> and a number of tics 
+            graduate looks for the minimum interval <literal>[xi,xa]</literal> and a number of ticks 
             <literal>np</literal> such that:
         </para>
         <para>

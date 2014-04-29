@@ -80,9 +80,9 @@ function fields=ghdl_fields(h)
         fields =["visible";"text";"foreground";"font_style";"font_size"]';
 
     case "Axis"
-        fields =["visible";"tics_direction";"xtics_coord";"ytics_coord";
-        "tics_color";"tics_segment";"tics_style";"sub_tics";
-        "tics_labels";"labels_font_size";"labels_font_color";
+        fields =["visible";"ticks_direction";"xticks_coord";"yticks_coord";
+        "ticks_color";"ticks_segment";"ticks_style";"sub_ticks";
+        "ticks_labels";"labels_font_size";"labels_font_color";
         "clip_state";"clip_box";"user_data"]';
 
     else

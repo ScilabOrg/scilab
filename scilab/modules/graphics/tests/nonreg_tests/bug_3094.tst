@@ -13,7 +13,7 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=3094
 //
 // <-- Short Description -->
-// There is a white background behind each charater of tics.
+// There is a white background behind each charater of ticks.
 
 plot3d();
 

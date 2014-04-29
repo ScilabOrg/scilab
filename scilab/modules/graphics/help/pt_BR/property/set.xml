@@ -130,7 +130,7 @@ set(p2,"foreground",13);
 set(p2,"polyline_style",2);
 set(a,'tight_limits',"on");
 set(a,"box","off");
-set(a,"sub_tics",[ 7 0 ]);
+set(a,"sub_ticks",[ 7 0 ]);
 set(a,"y_location","middle")
 set(p2,'thickness',2);
 set(p1,'mark_mode',"on");

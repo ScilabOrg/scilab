@@ -18,7 +18,7 @@
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
         <synopsis>drawaxis([options])
-            // opções:  x,y,dir,sub_int,fontsize,format_n,seg,textcolor,ticscolor,tics
+            // opções:  x,y,dir,sub_int,fontsize,format_n,seg,textcolor,tickscolor,ticks
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -36,7 +36,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>tics=string</term>
+                <term>ticks=string</term>
                 <listitem>
                     <para>um flag definindo como os tiques são fornecidos.
                         <literal>string</literal> pode ser escolhido entre 'v','r' e 'i', e
@@ -102,7 +102,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>ticscolor=integer</term>
+                <term>tickscolor=integer</term>
                 <listitem>
                     <para>especifica a cor a ser utilizada para o desenho dos tiques. O
                         valor padrão é <literal>-1</literal>, que corresponde à cor
@@ -129,19 +129,19 @@
             tiques dos eixos. Se o eixo é horizontal, então <literal>y</literal> deve
             ser um escalar, ou pode ser omitido, e <literal>x</literal> é um vetor
             Scilab. O significado de <literal>x</literal> é controlado por
-            <literal>tics</literal>.
+            <literal>ticks</literal>.
         </para>
         <para>
-            Se <literal>tics='v'</literal> então <literal>x</literal> fornece as
+            Se <literal>ticks='v'</literal> então <literal>x</literal> fornece as
             posições dos tiques ao longo do eixo x.
         </para>
         <para>
-            Se <literal>tics='r'</literal> então <literal>x</literal> deve ter
+            Se <literal>ticks='r'</literal> então <literal>x</literal> deve ter
             tamanho 3. <literal>x=[xmin,xmax,n]</literal> e <literal>n</literal>
             fornece o número de intervalos.
         </para>
         <para>
-            Se <literal>tics='i'</literal> então <literal>x</literal> deve ser
+            Se <literal>ticks='i'</literal> então <literal>x</literal> deve ser
             de tamanho 4, <literal>x=[k1,k2,a,n]</literal>. Então
             <literal>xmin=k1*10^a</literal>, <literal>xmax=k2*10^a</literal> e
             <literal>n</literal> fornece o número de intervalos.
@@ -163,32 +163,32 @@
         <programlisting role="example"><![CDATA[ 
 plot2d(1:10,1:10,1,"020")
 // eixo horizontal
-drawaxis(x=2:7,y=4,dir='u',tics='v')
+drawaxis(x=2:7,y=4,dir='u',ticks='v')
 // eixo horizontal na parte superior da moldura
-drawaxis(x=2:7,dir='u',tics='v') 
+drawaxis(x=2:7,dir='u',ticks='v') 
 // eixo horizontal na parte inferior da moldura
-drawaxis(x=2:7,dir='d',tics='v') 
+drawaxis(x=2:7,dir='d',ticks='v') 
 
 // eixo horizontal dado por um intervalo 
-drawaxis(x=[2,7,3],y=4,dir='d',tics='r') 
+drawaxis(x=[2,7,3],y=4,dir='d',ticks='r') 
 
 // eixo vertical
-drawaxis(x=4,y=2:7,dir='r',tics='v')
-drawaxis(x=2,y=[2,7,3],dir='l',tics='r')
-drawaxis(y=2:7,dir='r',tics='v')
-drawaxis(y=2:7,dir='l',tics='v')
+drawaxis(x=4,y=2:7,dir='r',ticks='v')
+drawaxis(x=2,y=[2,7,3],dir='l',ticks='r')
+drawaxis(y=2:7,dir='r',ticks='v')
+drawaxis(y=2:7,dir='l',ticks='v')
 
 // eixo horizontal com strings exibidos nas posições dos tiques
-drawaxis(x=2:7,y=8,dir='u',tics='v',val='A'+string(1:6));
+drawaxis(x=2:7,y=8,dir='u',ticks='v',val='A'+string(1:6));
 // eixo vertical com strings exibidos nas posições dos tiques
-drawaxis(x=8,y=2:7,dir='r',tics='v',val='B'+string(1:6));
+drawaxis(x=8,y=2:7,dir='r',ticks='v',val='B'+string(1:6));
 
 // eixo horizontal dado com um intervalo 'i'.  
-drawaxis(x=[2,5,0,3],y=9,dir='u',tics='i');
-drawaxis(x=9,y=[2,5,0,3],dir='r',tics='i',sub_int=5);
+drawaxis(x=[2,5,0,3],y=9,dir='u',ticks='i');
+drawaxis(x=9,y=[2,5,0,3],dir='r',ticks='i',sub_int=5);
 
 // eixo horizontal de novo
-drawaxis(x=2:7,y=4,dir='u',tics='v',fontsize=10,textcolor=9,ticscolor=7,seg=0,sub_int=20) 
+drawaxis(x=2:7,y=4,dir='u',ticks='v',fontsize=10,textcolor=9,tickscolor=7,seg=0,sub_int=20) 
  ]]></programlisting>
     </refsection>
 </refentry>

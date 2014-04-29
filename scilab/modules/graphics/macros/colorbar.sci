@@ -90,8 +90,8 @@ function colorbar(varargin)
 
     //It is not possible to set no ticks for x (should be fixed)
     a_cb.x_ticks=tlist(["ticks","locations","labels"],-1,"");
-    ytics = linspace(umin, umax, nb_grad);
-    a_cb.y_ticks=tlist(["ticks","locations","labels"],ytics', " "+msprintf(fmt+"\n",ytics'));
+    yticks = linspace(umin, umax, nb_grad);
+    a_cb.y_ticks=tlist(["ticks","locations","labels"],yticks', " "+msprintf(fmt+"\n",yticks'));
     a_cb.auto_ticks = ["off","off","on"];
     a_cb.box = "on";
     a_cb.margins=[0 0.75 0 0];

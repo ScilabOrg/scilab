@@ -19,7 +19,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>plotframe(rect,tics,[arg_opt1,arg_opt2,arg_opt3])
+        <synopsis>plotframe(rect,ticks,[arg_opt1,arg_opt2,arg_opt3])
             plotframe(rect,&lt;opts_args&gt;)
         </synopsis>
     </refsynopsisdiv>
@@ -35,7 +35,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>tics</term>
+                <term>ticks</term>
                 <listitem>
                     <para>
                         vetor <literal>[nx,mx,ny,my]</literal> onde <literal>mx,
@@ -63,8 +63,8 @@
                                     <literal>%t</literal>, os limites dados em
                                     <literal>rect</literal> podem ser ligeiramente modificados (na
                                     verdade sempre aumentados) a fim de se obter graduações mais
-                                    simples: então <literal>tics(2)</literal> e
-                                    <literal>tics(4)</literal> são ignorados.
+                                    simples: então <literal>ticks(2)</literal> e
+                                    <literal>ticks(4)</literal> são ignorados.
                                 </para>
                             </listitem>
                         </varlistentry>
@@ -102,7 +102,7 @@
                             key2=value2
                         </emphasis>
                         ,... onde <emphasis role="bold">key1</emphasis>, <emphasis role="bold">key2</emphasis>,... podem ser um dos seguintes:
-                        <emphasis role="bold">tics</emphasis>, <emphasis role="bold">flags</emphasis>, <emphasis role="bold">captions</emphasis> ou <emphasis role="bold">subwin</emphasis>. Estes argumentos têm o mesmo
+                        <emphasis role="bold">ticks</emphasis>, <emphasis role="bold">flags</emphasis>, <emphasis role="bold">captions</emphasis> ou <emphasis role="bold">subwin</emphasis>. Estes argumentos têm o mesmo
                         significado que aqueles utilizados na primeira forma da
                         rotina.
                     </para>
@@ -128,15 +128,15 @@
 x=[-0.3:0.8:27.3]';
 y=rand(x);
 rect=[min(x),min(y),max(x),max(y)];
-tics=[4,10,2,5];    //4 x-intervalos e 2 y-intervalos
-plotframe(rect,tics,[%f,%f],["Meu esboço","x","y"],[0,0,0.5,0.5])
+ticks=[4,10,2,5];    //4 x-intervalos e 2 y-intervalos
+plotframe(rect,ticks,[%f,%f],["Meu esboço","x","y"],[0,0,0.5,0.5])
 plot2d(x,y,2,"000")
-plotframe(rect,tics=tics,flags=[%t,%f],Captions=["Meu esboço com grides","x","y"],subwin=[0.5,0,0.5,0.5])
+plotframe(rect,ticks=ticks,flags=[%t,%f],Captions=["Meu esboço com grides","x","y"],subwin=[0.5,0,0.5,0.5])
 plot2d(x,y,3,"000")
-plotframe(rect,tics,[%t,%t],..
+plotframe(rect,ticks,[%t,%t],..
 ["Meu esboço com grides e fronteiras automáticas","x","y"],[0,0.5,0.5,0.5])
 plot2d(x,y,4,"000")
-plotframe(rect,flags=[%f,%t],tics=tics,..
+plotframe(rect,flags=[%f,%t],ticks=ticks,..
           Captions=["Meu esboço sem grides mas com fronteiras automáticas ","x","y"],..
           subwin=[0.5,0.5,0.5,0.5])
 plot2d(x,y,5,"000")
