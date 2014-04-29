@@ -9,6 +9,8 @@ Scilab Bug Fixes
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not available system-wide.
 
+* Bug #13316 fixed - There were missing tooltips on filebrowser buttons.
+
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
