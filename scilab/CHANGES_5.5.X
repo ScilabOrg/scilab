@@ -2191,6 +2191,8 @@ Scilab Bug Fixes
 
 * Bug #10122 fixed - replot could not be used in 3-D.
 
+* Bug #10144 fixed - Can't build a module with a space in its path.
+
 * Bug #10175 fixed - Clearer example added for sp2adj to adj2sp conversion (and backwards conversion).
 
 * Bug #10214 fixed - evstr help page updated to mention that input argument must not be composed of
