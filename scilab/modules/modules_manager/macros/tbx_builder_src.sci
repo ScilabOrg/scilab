@@ -14,7 +14,6 @@
 function tbx_builder_src(module)
 
     // Number of input arguments
-
     if argn(2)<>1 then
         error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"),"tbx_builder_src",1));
     end
@@ -34,6 +33,11 @@ function tbx_builder_src(module)
         error(msprintf(gettext("%s: The directory ''%s'' doesn''t exist or is not read accessible.\n"),"tbx_builder_src",module));
     end
 
+    //tests if path contains a space
+    if regexp(module,"* *") <> [] then
+        error(msprintf(gettext("%s: Wrong path for %s: No spaces allowed in module path.\n"),"tbx_builder_src",module));
+    end
+
     // Check the compiler
 
     if ~haveacompiler() then
@@ -42,6 +46,6 @@ function tbx_builder_src(module)
 
 
     mprintf(gettext("Building sources...\n"));
-    tbx_builder(pathconvert(module+"/src/builder_src.sce",%F));
+    tbx_builder(pathconvert(module+"src/builder_src.sce",%F));
 
 endfunction
