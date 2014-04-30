@@ -137,11 +137,22 @@
             (<literal>x</literal> または <literal>y</literal> のみが)正方行列の場合,
             列が行よりも優先されます(以下の例参照).
         </para>
+	<para>
+          <warning>
+	    必要でかつ可能な場合, 
+	    <literal>plot</literal> は,
+	    互換性がある次元を取得するため,
+	    <literal>x</literal> および <literal>y</literal>を転置し,警告を出力します.
+	    例えば,
+            <literal>x</literal> が<literal>y</literal>の列と同じ行数を有する場合.
+            <literal>y</literal> が正方の場合, 転置は行われません.
+          </warning>
+        </para>
         <para>
-            <literal>y</literal> はマクロまたはプリミティブとして定義された関数と
-            することも可能です.この場合,
-            <literal>x</literal> データを(ベクトルまたは行列として)指定する必要があり,
-            対応する<literal>y(x)</literal>の計算が暗黙の内に行われます.
+          <literal>y</literal> はマクロまたはプリミティブとして定義された関数と
+          することも可能です.この場合,
+          <literal>x</literal> データを(ベクトルまたは行列として)指定する必要があり,
+          対応する<literal>y(x)</literal>の計算が暗黙の内に行われます.
         </para>
         <para>
             <literal>LineSpec</literal> と<literal>GlobalProperty</literal> 引数は

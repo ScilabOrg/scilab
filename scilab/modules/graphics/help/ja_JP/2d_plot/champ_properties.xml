@@ -89,6 +89,29 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>arrow_size: </term>
+                <listitem>
+                    <para>
+		      このプロパティは矢印の大きさを二重に指定します.
+		      値は正または負とします.
+                      <itemizedlist>
+                        <listitem>
+                          <para>
+                            <literal>arrow_size &lt; 0</literal>: arrow_size は
+			    ベクトルの平均ノルムに比例します.
+                          </para>
+                        </listitem>
+                        <listitem>
+                          <para>
+                            <literal>arrow_size &gt; 0</literal>: arrow_size は
+			    windowsの次元に比例します.
+                          </para>
+                        </listitem>
+                      </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>clip_state: </term>
                 <listitem>
                     <para>

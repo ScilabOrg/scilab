@@ -135,7 +135,7 @@
     <refsection>
         <title>例</title>
         <programlisting role="example"><![CDATA[ 
-// Example 1
+// 例 1
 t=0:0.1:2*%pi;
 plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);  
 legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3],opt="lr")
@@ -152,7 +152,7 @@ xset("line style",4);plot2d(t,sin(t),style=3);
 legends(["sin(t)";"cos(t)"],[[5;2],[3;4]], with_box=%f, opt="?")
  ]]></programlisting>
         <programlisting role="example"><![CDATA[ 
-// Example 2
+// 例 2
 scf() ;
 subplot(221)
 t=0:0.1:2*%pi;

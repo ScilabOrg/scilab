@@ -80,7 +80,25 @@ e.closed = 'off' // ポリラインはオープンされます
             e.closed = 'off'
             
         </scilab:image>
-        
+        <programlisting role="example"><![CDATA[
+    // 線ではなく記号を使用
+    plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+    t=[0:4]*2*%pi/5;
+    x=5+5*cos(t);
+    y=5+5*sin(t);
+    xpoly(x,y,"marks")
+    e=gce();
+    set(e,"mark_style",2);
+    ]]></programlisting>
+        <scilab:image>
+            plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+            t=[0:4]*2*%pi/5;
+            x=5+5*cos(t);
+            y=5+5*sin(t);
+            xpoly(x,y,"marks")
+            e=gce();
+            set(e,"mark_style",2);
+        </scilab:image>        
     </refsection>
     <refsection role="see also">
         <title>参照</title>
@@ -93,6 +111,9 @@ e.closed = 'off' // ポリラインはオープンされます
             </member>
             <member>
                 <link linkend="xpolys">xpolys</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">polyline_properties</link>
             </member>
         </simplelist>
     </refsection>

@@ -276,7 +276,7 @@ Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0
 
 // 面の色が赤,縁が青の同じ曲面
 scf(2); // 図2を新規作成
-surf(Z,'facecol','red','edgecol','blu")
+surf(Z,'facecol','red','edgecol','blu')
  ]]></programlisting>
         <scilab:image>
             
@@ -293,7 +293,7 @@ surf(Z,'facecol','red','edgecol','blu")
             
             //same surface with red face color and blue edges
             scf(2); // new figure number 2
-            surf(Z,'facecol','red','edgecol','blu")
+            surf(Z,'facecol','red','edgecol','blu')
         </scilab:image>
         <programlisting role="example"><![CDATA[
 // X および Y の初期化

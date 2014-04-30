@@ -267,7 +267,7 @@ position=[(x1-as(1)*bnds(1))/(as(1)*bnds(3)),...
                 <para>このフィールドは凡例の背景を塗りつぶすかどうかを指定します.
                     値には <literal>"on"</literal> または
                     <literal>"off"</literal>を指定します. <literal>"on"</literal>の場合,
-                    背景が<literal>background</literal>フィーづろで設定された色インデックスを
+                    背景が<literal>background</literal>フィールドで設定された色インデックスを
                     用いて描画されます.
                 </para>
             </listitem>

@@ -84,18 +84,6 @@
     </refsection>
     <refsection>
         <title>例</title>
-        <scilab:image>
-            axes = gca() ;
-            axes.axes_visible = 'on' ;
-            axes.data_bounds = [ 1, 1 ; 10, 10 ] ;
-            xtitle( 'stringbox', 'X', 'Y' )  ;
-            stringbox( axes.x_label )
-            str = [ "Scilab", "is" , "not", "Skylab" ] ;
-            xstring( 4, 9, str ) ;
-        </scilab:image>
-    </refsection>
-    <refsection>
-        <title>例</title>
         <programlisting role="example"><![CDATA[ 
 // 軸を表示
 axes = gca() ;
@@ -134,6 +122,15 @@ else
   disp('You missed it.')
 end;
  ]]></programlisting>
+        <scilab:image>
+            axes = gca() ;
+            axes.axes_visible = 'on' ;
+            axes.data_bounds = [ 1, 1 ; 10, 10 ] ;
+            xtitle( 'stringbox', 'X', 'Y' )  ;
+            stringbox( axes.x_label )
+            str = [ "Scilab", "is" , "not", "Skylab" ] ;
+            xstring( 4, 9, str ) ;
+        </scilab:image>
     </refsection>
     <refsection role="see also">
         <title>参照</title>

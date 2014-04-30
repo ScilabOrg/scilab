@@ -146,6 +146,17 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>auto_dimensionning: </term>
+                <listitem>
+                  <para>
+                    auto_dimensionning を "off" にすることは,
+		    text_box_mode を "filled" にすることと等価です. 
+		    text_box_mode が "off" または "centered" の場合,
+		    auto_dimensionning は "on" となります.
+                  </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>font_foreground: </term>
                 <listitem>
                     <para>このフィールドはテキストの文字を表示する際に使用される色を
@@ -268,22 +279,6 @@
     </refsection>
     <refsection>
         <title>例</title>
-        <scilab:image>
-            a=get("current_axes");
-            a.data_bounds=[0,0;1,1];
-            a.axes_visible = 'on' ;
-            
-            xstring(0,0,"Scilab is not esilaB",0,0)
-            
-            t=get("hdl") 
-            
-            t.font_foreground=6; 
-            t.font_size=5;
-            t.font_style=5;
-        </scilab:image>
-    </refsection>
-    <refsection>
-        <title>例</title>
         <programlisting role="example"><![CDATA[ 
 a=get("current_axes");
 a.data_bounds=[0,0;1,1];
@@ -311,6 +306,19 @@ t.text=["SCILAB","can write LaTeX :","$\frac{abc}{xyz}$";"or","MathML :",mathml]
 
 
  ]]></programlisting>
+        <scilab:image>
+            a=get("current_axes");
+            a.data_bounds=[0,0;1,1];
+            a.axes_visible = 'on' ;
+            
+            xstring(0,0,"Scilab is not esilaB",0,0)
+            
+            t=get("hdl") 
+            
+            t.font_foreground=6; 
+            t.font_size=5;
+            t.font_style=5;
+        </scilab:image>
     </refsection>
     <refsection role="see also">
         <title>参照</title>

@@ -17,27 +17,34 @@
     </refnamediv>
     <refsection>
         <title>説明</title>
-        <para>The GlobalProperty は,
-            <link linkend="plot">plot</link> または <link linkend="surf">surf</link>コマンドの内部で
-            使用可能なオプション引数です.
-            これにより,新規にプロットされる全ての線(または平面)のグローバルなカスタマイズが
-            可能となります.
-            値は, {PropertyName, PropertyValue}の対で指定する必要があります.
-            plot または surf をコールする際に一度に複数の対を設定できます.
+        <para>
+	  <literal>GlobalProperty</literal> は,
+          <link linkend="plot">plot</link> または <link linkend="surf">surf</link>コマンドの内部で
+          使用可能なオプション引数です.
+          これにより,新規にプロットされる全ての線(または平面)のグローバルなカスタマイズが
+          可能となります.
+          値は, {<literal>PropertyName</literal>, <literal>PropertyValue</literal>}の
+	  対で指定する必要があります.
+          <function>plot</function> または <function>surf</function> を
+	  コールする際に一度に複数の対を設定できます.
         </para>
-        <para>PropertyName は設定するプロパティを定義する文字列とする必要があります.
-            PropertyValue は,使用するプロパティの型により
+        <para>
+	  <literal>PropertyName</literal> は,設定するプロパティを定義する文字列と
+	  する必要があります.
+          <literal>PropertyValue</literal>  は,使用するプロパティの型により
             実数, 整数または文字列 (スカラーまたは行列)とすることができます. 
-            例えば,菱形のマーカ(マーカ)が付いた赤(色)の長い破線+ドット(線の形式)
-            を指定する場合,このシーケンスは以下のようになります :
-            'Colo','red','LineSt','-.','Marker','diam'.
+          例えば,菱形のマーカ(マーカ)が付いた赤(色)の長い破線+ドット(線の形式)
+          を指定する場合,このシーケンスは以下のようになります :
+	  <literal>'Colo'</literal>, <literal>'red'</literal>, 
+	  <literal>'LineSt'</literal>, <literal>'-.'</literal>, 
+	  <literal>'Marker'</literal>, <literal>'diam'</literal>.
         </para>
         <para>
             見てわかるように,各プロパティ名および値の綴り全体を指定する
             必要はなく,順序も任意ですが,一義的である必要があります.
             更に,文字列の指定は大文字と小文字を区別しません.
-            GlobalProperty は過去に記述された全ての LineSpacに
-            優先します.
+            <literal>GlobalProperty</literal> は過去に記述された全ての 
+	    <literal>LineSpec</literal>に優先します.
         </para>
         <para>
             以下に全ての(<link linkend="plot">plot</link>または
@@ -51,10 +58,11 @@
             新規に作成されるオブジェクト(線または曲面)に適用されます.
         </para>
         <para>
-            時々,1つのプロパティに2つのPropertyNameが対応する場合があります :
+            時々,1つのプロパティに2つの <literal>PropertyName</literal>が
+	    対応する場合があります :
             最初の1つはデフォルトMatlabの名前に等価なもので,
             2番目のものはScilabにより使用されるデフォルトの名前です.
-            (線の場合 <literal> Color</literal> またはs <literal>Foreground</literal>
+            (線の場合 <literal>Color</literal> または <literal>Foreground</literal>
             ,下記参照).
         </para>
         <variablelist>
@@ -66,7 +74,9 @@
                         このプロパティはオブジェクトの<literal>data.color</literal>プロパティに
                         リンクされています(
                         <link linkend="surface_properties">surface_properties</link>参照). 
-                        このプロパティは曲面(surface)でのみ使用可能であることに注意してください.
+			<note>
+                          このプロパティは曲面(surface)でのみ使用可能であることに注意してください.
+			</note>
                     </para>
                 </listitem>
             </varlistentry>
@@ -85,10 +95,12 @@
                         かのどちらとなるかを定義します.
                         このプロパティは,<literal>color_flag</literal>が
                         <literal>2</literal>,<literal>3</literal> または <literal>4</literal>の時に有用です.
-                        このプロパティは,<literal>Fac3d</literal>エンティティのみに存在することに注意してください.
-                        また,<literal>plot3d</literal> では <literal>'direct'</literal>モードがデフォルトで,
-                        <literal>surf</literal> では<literal> 'scaled'</literal> モードがデフォルトであることに
-                        も注意してください.
+			<note>
+                          このプロパティは,<literal>Fac3d</literal>エンティティのみに存在することに注意してください.
+                          また,<literal>plot3d</literal> では <literal>'direct'</literal>モードがデフォルトで,
+                          <literal>surf</literal> では<literal> 'scaled'</literal> モードがデフォルトであることに
+                          も注意してください.
+			</note>
                     </para>
                 </listitem>
             </varlistentry>
@@ -101,7 +113,9 @@
                         これは, <literal>clip_state</literal>プロパティと等価です.
                         このフィールドは,<literal>visible</literal>プロパティを有します
                         (<link linkend="polyline_properties">polyline_properties</link>参照).
-                        このプロパティは surface エンティティではまだ利用できないことに注意してください.
+			<note>
+                          このプロパティは surface エンティティではまだ利用できないことに注意してください.
+			</note>
                     </para>
                 </listitem>
             </varlistentry>
@@ -118,13 +132,12 @@
                         このプロパティはオブジェクトの<literal>foreground</literal>プロパティに
                         リンクされています
                         (<link linkend="polyline_properties">polyline_properties</link>参照). 
-                        <literal>警告</literal><literal>
-                            :
-                        </literal>
-                        Color は surface オブジェクトでは使用できません.surfaceオブジェクトにおいても
-                        <literal>Foreground</literal> プロパティは存在しますが,
-                        Matlab <literal>EdgeColor</literal>プロパティにリンクされています(
-                        <link linkend="surface_properties">surface_properties</link>参照).
+			<warning>
+                          Color は surface オブジェクトでは使用できません.surfaceオブジェクトにおいても
+                          <literal>Foreground</literal> プロパティは存在しますが,
+                          Matlab <literal>EdgeColor</literal>プロパティにリンクされています(
+                          <link linkend="surface_properties">surface_properties</link>参照).
+			</warning>
                     </para>
                 </listitem>
             </varlistentry>
@@ -139,12 +152,11 @@
                         このプロパティはオブジェクトの<literal>foreground</literal>プロパティに
                         リンクされています
                         (<link linkend="surface_properties">surface_properties</link>参照). 
-                        <literal>警告</literal><literal>
-                            :
-                        </literal>
-                        polylineオブジェクトの場合,
-                        <literal>Foreground</literal> プロパティは存在しますが,意味が異なります(上記参照).
-                        また,<literal>EdgeColor</literal>は存在しません.
+			<warning>
+                          polylineオブジェクトの場合,
+                          <literal>Foreground</literal> プロパティは存在しますが,意味が異なります(上記参照).
+                          また,<literal>EdgeColor</literal>は存在しません.
+			</warning>
                     </para>
                 </listitem>
             </varlistentry>
