@@ -15,7 +15,7 @@
         </synopsis>
     </refsynopsisdiv>
     <refsection>
-        <title>パラメータ</title>
+        <title>引数</title>
         <variablelist>
             <varlistentry>
                 <term>a</term>
@@ -159,6 +159,9 @@ p/poly(1,'s','c')==0
         <simplelist type="inline">
             <member>
                 <link linkend="less">less</link>
+            </member>
+            <member>
+                <link linkend="greater">greater</link>
             </member>
             <member>
                 <link linkend="boolean">boolean</link>
