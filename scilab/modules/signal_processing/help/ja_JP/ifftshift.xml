@@ -120,7 +120,6 @@ x = 3*sin(t')*cos(2*t)+8*sin(3*t')*sin(5*t)+..
   0.5*sin(5*t')*sin(5*t)+3*rand(t')*rand(t);
 // fftを計算
 y = fft(x,-1);
-
 // 結果を反転
 shift = fftshift(y);
 // 反転結果を反転
