@@ -186,7 +186,7 @@ eye(zeros(4,4,4,4))
                 
                 <revdescription>
                     
-                    <para>N-D ハイパー行列に一般化</para>
+                    <para>N次元ハイパー行列に一般化</para>
                     
                 </revdescription>
                 

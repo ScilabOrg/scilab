@@ -34,15 +34,11 @@
             
             resMat = resize_matrix(mat, nbRows, nbCols)
             
-            
-            
             resMat = resize_matrix(mat, nbRows, nbCols, resType)
             
             resMat = resize_matrix(mat, nbRows, nbCols, resType, padding)
             
             resMat = resize_matrix(mat, nbRows, nbCols,    ""  , padding)
-            
-            
             
             resMat = resize_matrix(mat, newSizes)
             
@@ -267,7 +263,6 @@
             結果の型は,上記の制限のもとに<literal>resType</literal>引数の指定により変更できます.
             
         </para>
-        	
         
     </refsection>
     
@@ -278,27 +273,23 @@
         <programlisting role="example"><![CDATA[
 // 組込の例, 多項式を含む
 resize_matrix
-
 // 数値行列:
 M = grand(4, 3, "uin", -9, 9)
 resize_matrix(M, 3, 4)
 resize_matrix(M, [3 4 2])
 resize_matrix(M, [3 4 2], "", %i)
 resize_matrix(M, [3 4 2], "string", %i)
-
 // テキストの行列:
 myMatString = ["Scilab", "the"; "Open Source", "Scientific"; "Software", "Package"]
 resize_matrix( myMatString, 5, 3 )
 // new sizesに等価な構文:
 resize_matrix( myMatString, [5 3], "", "$" )    // カスタムパディング
-
 // トリム, パディングとハイパー行列へのキャスト:
 h = rand(2, 3, 2)*200
 resize_matrix(h, [3 2 3], "int8")
 resize_matrix(h, [3 2 3], "int8", -1)    // カスタムパディング
 r = resize_matrix(h, [3 2 ] , "" , -1)   // 型変換せずにカスタムパディング
 size(r)  // 最後の次元は縮小されました
-
 // 多項式:
 x = poly(0, "x");
 P = (1-x)^grand(4, 2, "uin", 0, 3)

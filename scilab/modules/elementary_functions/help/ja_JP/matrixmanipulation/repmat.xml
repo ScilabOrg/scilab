@@ -170,7 +170,6 @@
     repmat("Scilab",3,2)
     t="Scilab";t(ones(3,2))
     repmat([1/%s;2/(%s+1)],1,3)
-
  ]]></programlisting>
         
     </refsection>

@@ -250,8 +250,6 @@
         
     </refsection>
     
-    
-    
     <refsection>
         
         <title>例</title>
@@ -266,7 +264,6 @@ T(T=="a") = "AA";
 T
 bins = [ strsplit(ascii(97+(7:-1:0)),1:7)' "AA"]
 [i_bin, counts, outside] = dsearch(T, bins, "d")
-
 // BINNING TEXTS in LEXICOGRAPHIC INTERVALS
 // ----------------------------------------
 // generating a random matrix of text
@@ -280,8 +277,6 @@ bins = unique(matrix(strsplit(s, L:L:nC*L-1), 1, nC))
 T
 [i_bin, counts, outside] = dsearch(T, bins)
     ]]></programlisting>
-        
-        
         
         <para>
             
@@ -629,7 +624,6 @@ legend(["Experiment","Expectation"]);
         </para>
         
         <programlisting role="example"><![CDATA[
-
       // define Hermite base functions
       function y=Ll(t,k,x)
         // Lagrange left on Ik
@@ -651,13 +645,11 @@ legend(["Experiment","Expectation"]);
       function y=Kr(t,k,x)
         y=(t-x(k+1)).*Lr(t,k,x).^2
       endfunction
-
       x = [0 ; 0.2 ; 0.35 ; 0.5 ; 0.65 ; 0.8 ;  1];
       y = [0 ; 0.1 ;-0.1  ; 0   ; 0.4  ;-0.1 ;  0];
       d = [1 ; 0   ; 0    ; 1   ; 0    ; 0   ; -1];
       X = linspace(0, 1, 200)';
       i_bin = dsearch(X, x);
-
       // plot the curve
       Y = y(i_bin).*Hl(X,i_bin) + y(i_bin+1).*Hr(X,i_bin) + d(i_bin).*Kl(X,i_bin) + d(i_bin+1).*Kr(X,i_bin);
       scf();
@@ -670,8 +662,6 @@ legend(["Experiment","Expectation"]);
       ]]></programlisting>
         
         <scilab:image>
-            
-            
             
             function y=Ll(t,k,x)
             
@@ -709,8 +699,6 @@ legend(["Experiment","Expectation"]);
             
             endfunction
             
-            
-            
             x = [0 ; 0.2 ; 0.35 ; 0.5 ; 0.65 ; 0.8 ;  1];
             
             y = [0 ; 0.1 ;-0.1  ; 0   ; 0.4  ;-0.1 ;  0];
@@ -720,8 +708,6 @@ legend(["Experiment","Expectation"]);
             X = linspace(0, 1, 200)';
             
             i_bin = dsearch(X, x);
-            
-            
             
             Y = y(i_bin).*Hl(X,i_bin) + y(i_bin+1).*Hr(X,i_bin) + d(i_bin).*Kl(X,i_bin) + d(i_bin+1).*Kr(X,i_bin);
             
@@ -738,8 +724,6 @@ legend(["Experiment","Expectation"]);
         </scilab:image>
         
     </refsection>
-    
-    
     
     <refsection role="see also">
         
@@ -768,8 +752,6 @@ legend(["Experiment","Expectation"]);
         </simplelist>
         
     </refsection>
-    
-    
     
     <refsection>
         

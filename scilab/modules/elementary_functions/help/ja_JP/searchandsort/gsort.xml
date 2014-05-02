@@ -360,19 +360,13 @@
             
             [alr1,k]=gsort(alr,'lc','i')
             
-            
-            
             v=int32(alr)
-            
-            
             
             gsort(v)
             
             gsort(v,'lr','i')
             
             gsort(v,'lc','i')
-            
-            
             
             v=['Scilab' '2.6'
             
@@ -387,8 +381,6 @@
             'xcos' '4.0'
             
             'Scilab' '4.0']
-            
-            
             
             gsort(v,'lr','i')
             

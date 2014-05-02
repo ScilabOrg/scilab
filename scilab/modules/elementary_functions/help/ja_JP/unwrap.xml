@@ -400,7 +400,6 @@ f.figure_name = "unwrap() & ""unfold""" + _(": 1-D examples ");
 ax = gda();
 ax.y_label.font_size=2;
 drawlater()
-
 // 元の1次元の外形
 t = linspace(-4,4.2,800);
 alpha = t.^2 + t -1;
@@ -416,7 +415,6 @@ xstring(0,yT,t2)
 e = gce();
 e.text_box_mode = "centered";
 e.font_size = 2;
-
 // 複数の例をループ
 for i=1:4
     subplot(5,2,2*i+1)
@@ -487,7 +485,6 @@ f.figure_size = [475 1050];
 f.figure_position(2) = 0;
 f.figure_name = "unwrap()" + _(": 2-D examples");
 drawlater()
-
 nx = 300;
 ny = 400;
 rmax = 8.8;
@@ -509,7 +506,6 @@ for ex=0:1   // 例
     e = gce();
     e.thickness = 0; // メッシュを削除
     e.parent.tight_limits = "on";
-
     // ラップされた面 (平面)
     m = 2.8;
     zw = pmodulo(z, m); // ラップする
@@ -518,7 +514,6 @@ for ex=0:1   // 例
     title(msprintf("Zw = pmodulo(Z, %g)  (flat)",m))
     ax0 = gca();
     ax0.tight_limits = "on";
-
     // アンラップされた面 (平面):
     // in both directions:
     u = unwrap(zw, 0);
@@ -527,7 +522,6 @@ for ex=0:1   // 例
     title(msprintf("unwrap(Zw, %g)  (flat)", 0))
     ax3 = gca();
     ax3.tight_limits = "on";
-
     if ex==0 then
         direc = "r";
     else

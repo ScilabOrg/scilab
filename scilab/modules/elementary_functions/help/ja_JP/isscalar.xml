@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2013 - Scilab Enterprises
@@ -81,7 +79,8 @@
                 isscalar(<varname>x</varname>)
                 
             </literal>
-             は, <varname>x</varname>
+            
+            は, <varname>x</varname>
             
             がスカラー (size(<varname>x</varname>) が 1)の場合にtrueを返します. 
             

@@ -171,14 +171,11 @@
 n = [1,2,10,15];
 m = [2,2,3,5];
 modulo(n,m)
-
 modulo(-3, 9)
 modulo(10, -4)
-
 pmodulo(-3, 9)
 pmodulo(10, -6)
 pmodulo(-10, -6)
-
 // エンコードされた整数
 modulo( int8(-13), int16(-7))
 pmodulo(int8(-13), int16(-7))
@@ -188,7 +185,6 @@ modulo( int8([-13 8]), int16(-7))
 pmodulo(int8([-13 8]), int16(-7))
 modulo( int8([-13 8]), int16([-7 5]))
 pmodulo(int8([-13 8]), int16([-7 5]))
-
 // ハイパー行列
 m = grand(2,2,2,"uin",-100,100)
 n = grand(2,2,2,"uin",-10 ,10);
@@ -199,12 +195,9 @@ modulo(51, n)
 pmodulo(51,n)
 modulo(m, n)
 pmodulo(m,n)
-
 // 多項式
 modulo( %z^2+1, %z)
 pmodulo(%z^2+1, %z)
-
-
  ]]></programlisting>
         
     </refsection>
