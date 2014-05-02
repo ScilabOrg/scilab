@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2013 - Scilab Enterprises
@@ -1163,13 +1161,10 @@ y(t0) = y0  and   ydot(t0) = ydot0
 // g2 = log(y) - 2.2491
 y0 = 1; t = 2:6; t0 = 1; y0d = 3;
 atol = 1.d-6; rtol = 0; ng = 2;
-
 deff('[delta,ires] = res1(t,y,ydot)','ires = 0; delta = ydot-((2*log(y)+8)/t-5)*y')
 deff('[rts] = gr1(t,y)','rts = [((2*log(y)+8)/t-5)*y; log(y)-2.2491]')
-
 [yy,nn] = daskr([y0,y0d],t0,t,atol,rtol,res1,ng,gr1);
 nn
-
 // nn = [2.4698972 2] を返します
  ]]></programlisting>
         
@@ -1186,7 +1181,6 @@ nn
                 <link linkend="ode">ode</link>
                 
             </member>
-             
             
             <member>
                 
@@ -1247,6 +1241,4 @@ nn
     </refsection>
     
 </refentry>
-
-
 

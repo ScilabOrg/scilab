@@ -128,9 +128,7 @@
 function y = f(z)
   y = z^(3 + %pi * %i);
 endfunction
-
 intc(1+%i, 4-%i, f)
-
 [r, err] = intc(1+%i, 4-%i, f, 1d-10, 1d-6)
  ]]></programlisting>
         
@@ -171,6 +169,7 @@ intc(1+%i, 4-%i, f)
                 <revremark>絶対および相対(入力)および絶対 (出力) 
                     
                     誤差管理が追加されました.
+                    
                 </revremark>
                 
             </revision>

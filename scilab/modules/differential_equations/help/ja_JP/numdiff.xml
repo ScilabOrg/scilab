@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -204,30 +202,22 @@
          function f = myfun(x)
          f = x(1)*x(1) + x(1)*x(2)
          endfunction
-
          x = [5 8];
          g = numdiff(myfun, x)
-
          // 正確な傾き (すなわち,最初の要素x(1)に関する微分および二番目の要素x(2)に関する
          // 微分はexact=[2*x(1)+x(2)  x(1)]となります.
          exact = [2*x(1)+x(2)  x(1)]
-
-
          // 例2 (パラメータあり)
          // myfun はRからRへの関数:  x(1) |--> myfun(x) 
          // myfun は3個のパラメータ a, b, cを有します
          function  f = myfun(x, a, b, c)
          f = (x+a)^c + b
          endfunction
-
          a = 3; b = 4; c = 2;
          x = 1;
          g2 = numdiff(list(myfun, a, b, c), x)
-
          // 正しい傾き, すなわち,x(1)に関する微分は以下のようになります:
          exact2 = c*(x+a)^(c-1)
-
-
          // 例3 (f: R^3 --> R^3)
          // myfunはR^2からR^2への関数: (x(1), x(2), x(3)) |--> (myfun(x)(1), myfun(x)(2), mfun(x)(3))
          function f = myfun(x)
@@ -235,16 +225,13 @@
          f(2) = x(1) * x(2) * x(3);
          f(3) = 2*x(1) + 2*x(2) + 2*x(3);
          endfunction
-
          x = [5 8 10];
          g = numdiff(myfun, x)
-
          // 正確な傾斜は以下となります:
          // [  df_1/dx_1  df_1/dx_2  df_1/dx_3 ;
          //    df_2/dx_1  df_2/dx_2  df_2/dx_3 ;
          //    df_3/dx_1  df_3/dx_2  df_3/dx_3 ; ]
          exact3 = [2*x(1) 0 0  ;  x(2)*x(3) x(1)*x(3) x(1)*x(2)  ;  2 2 2]
-
          ]]>
             
         </programlisting>
@@ -328,6 +315,7 @@
                 <revremark>廃止予定となりました. 
                     
                     Scilab 6.0.0で削除されます.
+                    
                 </revremark>
                 
             </revision>
@@ -429,8 +417,6 @@
         </programlisting>
         
     </refsection>
-    
-    
     
 </refentry>
 
