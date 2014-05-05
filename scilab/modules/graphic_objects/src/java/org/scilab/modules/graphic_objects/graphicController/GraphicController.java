@@ -362,6 +362,10 @@ public class GraphicController {
         /* Object updates can now be performed. */
         if (oldParent != null && oldParent instanceof Integer && ((Integer)oldParent) != 0) {
             objectUpdate((Integer)oldParent, GraphicObjectProperties.__GO_CHILDREN__);
+            if (parentId != null && parentId == 0) {
+                // the object has just been cut
+                objectUpdate((Integer)oldParent, GraphicObjectProperties.__GO_REFRESH__);
+            }
         }
 
         if (parentId != null && parentId != 0) {
