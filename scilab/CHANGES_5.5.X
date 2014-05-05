@@ -12,6 +12,9 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13349 fixed - Double-clicking on a mat file did not load it.
+
+
 
 Xcos Bug Fixes
 ==============
