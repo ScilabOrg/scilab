@@ -4,16 +4,27 @@
 //
 // This file is distributed under the same license as the Scilab package.
 //
+
+
 mode(7)
 //To quit this demo, enter CTRL+C, then type "abort"
 
 //                  OPERATIONS
+
 v=1:5;W=v'*v                 //constant matrix multiplication
 W(1,:)                       //extracting first row
 W(:,$)                       //extracting last column
+z=poly(0,"z");
+p=1+3*z+4.5*z^2   //polynomial
+Mp=[p,1-z;1,z*p]
 Mp'*Mp+eye()                   //polynomial matrix
 Mp1=Mp(1,1)+4.5*%i           //complex
+
+A=diag([2,3,4]);B=[1 0;0 1;0 0];C=[1 -1 0];D=0*C*B;x0=[0;0;0];
+Sl=syslin("c",A,B,C,D,x0)    //Standard state-space linear system
 Fi=C*(z*eye()-A)^(-1)*B;       //transfer function evaluation
+
+F=Mp/poly([1+%i 1-%i 1],"z")   //rational matrix
 F(:,1)*Fi                    //operations with rationals
 M=[Mp -Mp; Mp' Mp+eye()]       //concatenation of polynomial matrices
 [Fi, Fi(:,1)]                // ... or rationals
