@@ -12,6 +12,7 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13378 fixed - Console handle display formatted to Scilab convention
 
 Xcos Bug Fixes
 ==============
