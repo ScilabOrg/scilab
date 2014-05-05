@@ -12,6 +12,7 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13381 fixed - eigs no longer fails due to typo in varargin.
 
 Xcos Bug Fixes
 ==============
