@@ -4,13 +4,17 @@
 //
 // This file is distributed under the same license as the Scilab package.
 //
+
+
 mode(7)
 //To quit this demo, enter CTRL+C, then type "abort"
 
 //                  OPERATIONS
+
 v=1:5;W=v'*v                 //constant matrix multiplication
 W(1,:)                       //extracting first row
 W(:,$)                       //extracting last column
+Mp=[p,1-z;1,z*p]
 Mp'*Mp+eye()                   //polynomial matrix
 Mp1=Mp(1,1)+4.5*%i           //complex
 Fi=C*(z*eye()-A)^(-1)*B;       //transfer function evaluation

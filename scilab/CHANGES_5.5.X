@@ -1649,6 +1649,8 @@ Scilab Bug Fixes
 
 * Bug #13280 fixed - Axes were not always displayed properly after figure resize.
 
+* Bug #13332 fixed - Demos in "getting started" weren't independant from each other.
+
 
 Xcos Bug Fixes
 ===============
