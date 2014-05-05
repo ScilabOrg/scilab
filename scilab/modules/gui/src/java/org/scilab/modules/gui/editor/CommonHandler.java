@@ -169,7 +169,6 @@ public class CommonHandler {
         Integer typeName = (Integer)GraphicController.getController().getProperty(uid, GraphicObjectProperties.__GO_TYPE__);
         if (typeName == GraphicObjectProperties.__GO_POLYLINE__) {
             Integer newCompound = GraphicController.getController().askObject(GraphicObject.getTypeFromName(GraphicObjectProperties.__GO_COMPOUND__));
-            GraphicController.getController().setGraphicObjectRelationship(axes, newCompound);
             GraphicController.getController().setGraphicObjectRelationship(newCompound, uid);
         } else if (typeName == GraphicObjectProperties.__GO_PLOT3D__ ||
                    typeName == GraphicObjectProperties.__GO_FAC3D__  ||
@@ -243,7 +242,6 @@ public class CommonHandler {
      * @return the parent UID
      */
     public static Integer getParent(Integer object) {
-
         return (Integer)GraphicController.getController().getProperty(object, GraphicObjectProperties.__GO_PARENT__);
     }
 
@@ -266,7 +264,6 @@ public class CommonHandler {
      * @return True if equal false otherwise.
      */
     public static boolean cmpColorMap(Integer figure1, Integer figure2) {
-
         Double[] cm1 = getColorMap(figure1);
         Double[] cm2 = getColorMap(figure2);
 
@@ -300,23 +297,19 @@ public class CommonHandler {
      * @param objectTo The object to set the background color
      */
     public static void cloneBackgroundColor(Integer objectFrom, Integer objectTo) {
-
         Integer color = getBackground(objectFrom);
         GraphicController.getController().setProperty(objectTo, GraphicObjectProperties.__GO_BACKGROUND__, color);
     }
 
     public static Double[] getColorMap(Integer figure) {
-
         return (Double[])GraphicController.getController().getProperty(figure, GraphicObjectProperties.__GO_COLORMAP__);
     }
 
     public static Integer getBackground(Integer object) {
-
         return (Integer)GraphicController.getController().getProperty(object, GraphicObjectProperties.__GO_BACKGROUND__);
     }
 
     public  static double logScale(Double value, boolean logScale) {
-
         if (logScale) {
             return Math.log10(value);
         }
@@ -324,7 +317,6 @@ public class CommonHandler {
     }
 
     public static double InverseLogScale(Double value, boolean logScale) {
-
         if (logScale) {
             return Math.pow(10., value);
         }
@@ -332,7 +324,6 @@ public class CommonHandler {
     }
 
     public static double[] toLogScale(double[] data, boolean logScale) {
-
         if (logScale) {
             double[] temp = new double[data.length];
             for (int i = 0; i < data.length; i++) {
@@ -344,7 +335,6 @@ public class CommonHandler {
     }
 
     public static double[] toInverseLogScale(double[] data, boolean logScale) {
-
         if (logScale) {
             double[] temp = new double[data.length];
             for (int i = 0; i < data.length; i++) {
