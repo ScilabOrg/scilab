@@ -12,6 +12,8 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
+* Bug #13383 fixed - The help on newaxes did not mention the call with
+                     a graphic handle
 
 Xcos Bug Fixes
 ==============
