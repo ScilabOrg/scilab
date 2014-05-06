@@ -12,7 +12,6 @@ Scilab Bug Fixes
 * Bug #13333 fixed - Selecting "Offline mode" in Scilab installer installed
                      Scilab in "Command line mode" (without GUI modules).
 
-
 Xcos Bug Fixes
 ==============
 
@@ -20,6 +19,8 @@ Xcos Bug Fixes
 
 * Bug #12751 fixed - cdummy_ entry point was not found when using Code Generation.
 
+* Bug #13385 fixed - TOWS_c and FROMWSB Xcos blocs needed better examples
+                     on how to get or write a Scilab variable
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================
