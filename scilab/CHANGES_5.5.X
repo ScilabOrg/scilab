@@ -27,6 +27,9 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13388 fixed - Display of Waitbar and Progressionbar handles did not show
+                     tag and userdata properties
+
 
 Xcos Bug Fixes
 ==============
