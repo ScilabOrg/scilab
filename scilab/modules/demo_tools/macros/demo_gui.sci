@@ -126,8 +126,13 @@ function script_path = demo_gui_update()
 
         listbox = get("listbox_" + string(my_selframe_num+1));
         listbox.string = demo_fig.userdata.subdemolist(:, 1);
+
         listbox.userdata = demo_fig.userdata.subdemolist;
 
+        //Prints an arrow if its a submenu
+        a = grep(listbox.userdata(:,2),"dem.gateway.sce")
+        listbox.string(a) = listbox.string(a)+" ->"
+      
         ud = demo_fig.userdata;
         ud.subdemolist = previous_demolist;
         demo_fig.userdata = ud;
