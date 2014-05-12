@@ -1,0 +1,52 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Vladislav TRUBKIN
+//
+// This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- XCOS TEST -->
+//
+// <-- Non-regression test for bug 13396 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=13396
+//
+// <-- Short Description -->
+// MBLOCK: using an external file containing the modelica class doesn't work
+//
+
+assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_13396.zcos"));
+
+prot = funcprot();
+funcprot(0);
+
+// create external file
+fd = mopen(TMPDIR+"/bug_13396.mo", "wt");
+txt = ["class generic"; ..
+"    parameter Real R = 1.000000e-01;"; ..
+"    Pin p,n;"; ..
+"    Real i,v;"; ..
+"equation"; ..
+"    i = p.i;"; ..
+"    n.i = -i;"; ..
+"    v = p.v - n.v;"; ..
+"    R * i = v;"; ..
+"end generic;"];
+mputl(txt, fd);
+mclose(fd);
+
+// overload of msg box
+function messagebox(msg, msg_title)
+endfunction
+
+funcprot(prot);
+
+// compile the diagram
+[cpr, ok] = xcos_compile(scs_m);
+assert_checktrue(ok);
+// simulate the diagram
+xcos_simulate(scs_m, 4);
+
+mdelete(TMPDIR+"/bug_13396.mo");
+
