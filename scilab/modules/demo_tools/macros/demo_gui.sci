@@ -2,6 +2,7 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - INRIA - Pierre MARECHAL
 // Copyright (C) 2012 - DIGITEO - Vincent COUVERT
+// Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -126,7 +127,12 @@ function script_path = demo_gui_update()
 
         listbox = get("listbox_" + string(my_selframe_num+1));
         listbox.string = demo_fig.userdata.subdemolist(:, 1);
+
         listbox.userdata = demo_fig.userdata.subdemolist;
+
+        //Prints an arrow if its a submenu
+        a = grep(listbox.userdata(:,2),"dem.gateway.sce")
+        listbox.string(a) = listbox.string(a)+" >";
 
         ud = demo_fig.userdata;
         ud.subdemolist = previous_demolist;
