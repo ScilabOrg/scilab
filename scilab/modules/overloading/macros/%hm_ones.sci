@@ -17,7 +17,7 @@ function M=%hm_ones(varargin)
         else
             dims=M("dims")
         end
-        M=hypermat(dims,ones(prod(double(dims)),1))
+        M=matrix(ones(prod(double(dims)),1), dims)
     else
         dims=ones(1,nv)
         for k=1:nv,dims(k)=int(varargin(k)),end
@@ -28,7 +28,7 @@ function M=%hm_ones(varargin)
         if nv==2 then
             M=ones(varargin(1:nv))
         else
-            M=hypermat(dims(1:nv),ones(prod(dims(1:nv)),1))
+            M=matrix(ones(prod(dims(1:nv)),1), dims(1:nv))
         end
     end
 endfunction

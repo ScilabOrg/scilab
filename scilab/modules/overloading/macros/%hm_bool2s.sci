@@ -8,5 +8,5 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function Ms=%hm_bool2s(Mb)
-    Ms=hypermat(Mb.dims,bool2s(Mb.entries))
+    Ms=matrix(bool2s(Mb.entries), Mb.dims)
 endfunction

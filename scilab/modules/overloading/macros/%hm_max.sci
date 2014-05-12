@@ -47,8 +47,8 @@ function [x,k] = %hm_max(varargin)
             // max between hypermatrix and hypermatrix
             [x,k]=max(x,varargin(kk)(:))
         end
-        x=hypermat(dims,x)
-        k=hypermat(dims,k)
+        x=matrix(x, dims)
+        k=matrix(k, dims)
     end
 endfunction
 

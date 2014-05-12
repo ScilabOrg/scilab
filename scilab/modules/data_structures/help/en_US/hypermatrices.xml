@@ -22,7 +22,7 @@
         </para>
         <para>
             They can be defined by extension of 2D matrices as follows
-            <code>a=[1 2;3 4];a(:,:,2)=rand(2,2)</code> or directly using <function>hypermat</function> function.
+            <code>a=[1 2;3 4];a(:,:,2)=rand(2,2)</code> or directly using <function>matrix</function> function.
         </para>
         <para>
             Entries can be real or complex numbers, polynomials,

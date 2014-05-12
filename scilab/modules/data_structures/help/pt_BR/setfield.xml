@@ -58,7 +58,7 @@ l(1)='Modificado'
 l(0)='Adicionado'
 l(6)=['mais um';'adicionado']
 
-a=hypermat([2,2,2],rand(1:2^3));// hipermatrizes são codificadas usando-se mlists
+a=matrix(rand(1:2^3), [2,2,2]);// hipermatrizes são codificadas usando-se mlists
 setfield(3,1:8,a);a // ajusta o valor de campo para 1:8
  ]]></programlisting>
     </refsection>
