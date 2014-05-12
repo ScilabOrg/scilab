@@ -54,6 +54,9 @@ Scilab Bug Fixes
 
 * Bug #13180 fixed - surf did not handle degenerate cases.
 
+* Bug #12580 fixed - Demonstration GUI now displays an arrow if selected item
+                     has sub-categories.
+
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
                      locale was not available system-wide.
 
