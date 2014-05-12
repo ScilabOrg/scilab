@@ -1,0 +1,278 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Pierre-Aime Agnel
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 5574 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/5574
+//
+// <-- Short Description -->
+// Some overloading functions with strings matrices were missing 
+//
+// <-- CLI SHELL MODE -->
+// =====================================
+// Error handling
+// =====================================
+text_ref = ["abcde", "ABCDE"; "1234", "zyxw"];
+text_tst = repmat("abcde", [2, 2]);
+hm_text1(:, :, 1) = text_ref;
+hm_text1(:, :, 2) = ["a", "b"; "c", "d"];
+// Cannot add hypermatrix of strings with a n by m matrix of strings
+// %hm_a_c
+fun_exec = "hm_text1 + [""a"", ""b""]";
+err_msg =  msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "%hm_a_c", 2, 1, 1);
+assert_checkerror(fun_exec, err_msg);
+// %c_a_hm
+fun_exec = "[""a"", ""b""] + hm_text1";
+err_msg =  msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "%c_a_hm", 1, 1, 1);
+assert_checkerror(fun_exec, err_msg);
+// %hm_1_c
+fun_exec= "hm_text1 < [""a"", ""b""]";
+err_msg =  msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "%hm_1_c", 2, 1, 1);
+assert_checkerror(fun_exec, err_msg);
+fun_exec= "[""a"", ""b""] > hm_text1"
+ fun_exec  =
+ 
+ ["a", "b"] > hm_text1   
+assert_checkerror(fun_exec, err_msg);
+// %hm_2_c
+fun_exec= "hm_text1 > [""a"", ""b""]";
+err_msg =  msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "%hm_2_c", 2, 1, 1);
+assert_checkerror(fun_exec, err_msg);
+fun_exec= "[""a"", ""b""] < hm_text1"
+ fun_exec  =
+ 
+ ["a", "b"] < hm_text1   
+assert_checkerror(fun_exec, err_msg);
+// %hm_3_c
+fun_exec= "hm_text1 <= [""a"", ""b""]";
+err_msg =  msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "%hm_3_c", 2, 1, 1);
+assert_checkerror(fun_exec, err_msg);
+fun_exec= "[""a"", ""b""] >= hm_text1"
+ fun_exec  =
+ 
+ ["a", "b"] >= hm_text1   
+assert_checkerror(fun_exec, err_msg);
+// %hm_4_c
+fun_exec= "hm_text1 >= [""a"", ""b""]";
+err_msg =  msprintf(_("%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"), "%hm_4_c", 2, 1, 1);
+assert_checkerror(fun_exec, err_msg);
+fun_exec= "[""a"", ""b""] <= hm_text1"
+ fun_exec  =
+ 
+ ["a", "b"] <= hm_text1   
+assert_checkerror(fun_exec, err_msg);
+// =====================================
+// Comparing matrices of strings
+// =====================================
+// Same size matrices
+// %c_1_c
+fun_exec = text_ref < text_tst;
+// The element-wise comparison gives
+res_ref = [%f, %t; %t, %f];
+assert_checkequal(fun_exec, res_ref);
+// %c_2_c
+fun_exec = text_ref > text_tst;
+// The element-wise comparison gives
+res_ref = [%f, %f; %f, %t];
+assert_checkequal(fun_exec, res_ref);
+// %c_3_c
+fun_exec = text_ref <= text_tst;
+// The element-wise comparison gives
+res_ref = [%t, %t; %t, %f];
+assert_checkequal(fun_exec, res_ref);
+// %c_4_c
+fun_exec = text_ref >= text_tst;
+// The element-wise comparison gives
+res_ref = [%t, %f; %f, %t];
+assert_checkequal(fun_exec, res_ref);
+// Comparison with size one matrix
+fun_exec = text_ref < "a";
+fun_exec2 = "a" > text_ref;
+res_ref = [%f, %t; %t, %f];
+assert_checkequal(fun_exec, res_ref);
+assert_checkequal(fun_exec, fun_exec2);
+// Comparison with size one matrix
+fun_exec = text_ref <= "a";
+fun_exec2 = "a" >= text_ref;
+res_ref = [%f, %t; %t, %f];
+assert_checkequal(fun_exec, res_ref);
+assert_checkequal(fun_exec, fun_exec2);
+// =====================================
+// Comparing hypermatrices of strings
+// =====================================
+fun_exec1 = hm_text1 < "b"
+ fun_exec1  =
+ 
+(:,:,1)
+ 
+  T T  
+  T F  
+(:,:,2)
+ 
+  T F  
+  F F  
+res1 = [%t, %t; %t, %f]
+ res1  =
+ 
+  T T  
+  T F  
+res1(:, :, 2) = [%t, %f; %f, %f]
+ res1  =
+ 
+(:,:,1)
+ 
+  T T  
+  T F  
+(:,:,2)
+ 
+  T F  
+  F F  
+assert_checkequal(res1, fun_exec1);
+func_exec1 = "b" > hm_text1
+ func_exec1  =
+ 
+(:,:,1)
+ 
+  T T  
+  T F  
+(:,:,2)
+ 
+  T F  
+  F F  
+assert_checkequal(res1, fun_exec1);
+fun_exec2 = hm_text1 > "b"
+ fun_exec2  =
+ 
+(:,:,1)
+ 
+  F F  
+  F T  
+(:,:,2)
+ 
+  F F  
+  T T  
+res2 = [%f, %f; %f, %t]
+ res2  =
+ 
+  F F  
+  F T  
+res2(:, :, 2) = [%f, %f; %t, %t]
+ res2  =
+ 
+(:,:,1)
+ 
+  F F  
+  F T  
+(:,:,2)
+ 
+  F F  
+  T T  
+assert_checkequal(res2, fun_exec2);
+func_exec2 = "b" < hm_text1
+ func_exec2  =
+ 
+(:,:,1)
+ 
+  F F  
+  F T  
+(:,:,2)
+ 
+  F F  
+  T T  
+assert_checkequal(res2, fun_exec2);
+fun_exec3 = hm_text1 <= "b"
+ fun_exec3  =
+ 
+(:,:,1)
+ 
+  T T  
+  T F  
+(:,:,2)
+ 
+  T T  
+  F F  
+res3 = [%t, %t; %t, %f]
+ res3  =
+ 
+  T T  
+  T F  
+res3(:, :, 2) = [%t, %t; %f, %f]
+ res3  =
+ 
+(:,:,1)
+ 
+  T T  
+  T F  
+(:,:,2)
+ 
+  T T  
+  F F  
+assert_checkequal(res3, fun_exec3);
+func_exec3 = "b" >= hm_text1
+ func_exec3  =
+ 
+(:,:,1)
+ 
+  T T  
+  T F  
+(:,:,2)
+ 
+  T T  
+  F F  
+assert_checkequal(res3, fun_exec3);
+fun_exec4 = hm_text1 >= "b"
+ fun_exec4  =
+ 
+(:,:,1)
+ 
+  F F  
+  F T  
+(:,:,2)
+ 
+  F T  
+  T T  
+res4 = [%f, %f; %f, %t]
+ res4  =
+ 
+  F F  
+  F T  
+res4(:, :, 2) = [%f, %t; %t, %t]
+ res4  =
+ 
+(:,:,1)
+ 
+  F F  
+  F T  
+(:,:,2)
+ 
+  F T  
+  T T  
+assert_checkequal(res4, fun_exec4);
+func_exec4 = "b" <= hm_text1
+ func_exec4  =
+ 
+(:,:,1)
+ 
+  F F  
+  F T  
+(:,:,2)
+ 
+  F T  
+  T T  
+assert_checkequal(res4, fun_exec4);
+// ============================================
+// Adding hypermatrices of strings with strings
+// ============================================
+res = hm_text1 + "a";
+res2 = "a" + hm_text1;
+assert_checkequal(res(1), "abcdea");
+assert_checkequal(res(2), "1234a");
+assert_checkequal(res(8), "da");
+assert_checkequal(res2(3), "aABCDE");
+assert_checkequal(res2(4), "azyxw");
+assert_checkequal(res2(6), "ac");

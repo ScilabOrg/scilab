@@ -27,6 +27,9 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #5574 fixed - Overloading on some string operations was missing.
+                    Added comparison between matrices of strings, hypermatrices and
+                    strings, concatenation of strings with hypermatrices
 
 Xcos Bug Fixes
 ==============
