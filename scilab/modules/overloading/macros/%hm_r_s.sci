@@ -10,7 +10,7 @@
 function M1=%hm_r_s(M1,M2)
 
     if size(M2,"*")<>1 then
-        M1=M1/hypermat(size(M2),M2)
+        M1=M1/matrix(M2, size(M2))
     else
         M1.entries=M1.entries/M2
     end

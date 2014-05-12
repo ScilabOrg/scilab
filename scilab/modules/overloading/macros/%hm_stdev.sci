@@ -60,7 +60,7 @@ function x = %hm_stdev(m, d, ms)
     if size(dims, "*") == 2 then
         x = matrix(x, dims(1), dims(2))
     else
-        x = hypermat(dims, x)
+        x = matrix(x, dims)
     end
 
 endfunction

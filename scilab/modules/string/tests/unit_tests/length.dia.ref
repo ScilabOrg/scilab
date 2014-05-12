@@ -73,7 +73,7 @@ if length(txt(S(1))) <> 0  then bugmes();quit;end
 // = an hypermatrix (double) ===================================================
 A = rand(2,5,2,3,2);
 assert_checkequal(length(A), double(prod(A.dims)));
-A = hypermat([2,3,4], 1:24);
+A = matrix(1:24, [2,3,4]);
 assert_checkequal(length(A), double(prod(A.dims)));
 // = an hypermatrix (string) ===================================================
 clear S;

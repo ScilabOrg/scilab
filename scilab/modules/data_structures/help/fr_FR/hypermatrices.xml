@@ -14,7 +14,7 @@
             a=[1 2;3 4];a(:,:,2)=rand(2,2)
         </para>
         <para>
-            ou directement en utilisant la fonction <literal>hypermat</literal>.
+            ou directement en utilisant la fonction <literal>matrix</literal>.
         </para>
         <para>
             Les termes peuvent être réels, complexes, polynômiaux, rationnels, booléens

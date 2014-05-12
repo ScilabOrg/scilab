@@ -93,18 +93,5 @@ function a = %hm_cumsum(varargin)
         a=cumsum(a,1,typ);
         //permute back
         a=permute(matrix(a,dims(p)),p)
-//        N=size(dims,"*");
-//        p1=prod(dims(1:d-1));//summation step
-//        p2=p1*dims(d);//step for next to sum
-//        ind=(0:p1:p2-1);// selection for summation
-//        deb=(1:p1)';
-//        I=deb*ones(ind)+ones(deb)*ind
-//
-//
-//        ind=(0:p2:prod(dims)-1)';
-//        I=ones(ind).*.I+ind.*.ones(I)
-//        a=cumsum(matrix(a.entries(I),-1,dims(d)),2,typ)
-//        a(I)=matrix(a,-1,1)
-//        a=hypermat(dims,a)
     end
 endfunction
