@@ -1192,6 +1192,8 @@ Scilab Bug Fixes
 
 * Bug #12567 fixed - Error messages fixed in ricc.
 
+* Bug #12580 fixed - Demo gui displays an arrow if a menu will pop.
+
 * Bug #12581 fixed - isfield could not support mlist or tlist.
 
 * Bug #12589 fixed - Call sequence for spzeros & spones were missing in French
