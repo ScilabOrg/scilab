@@ -6,6 +6,8 @@ Obsolete & Removed Functions
 
 * datatipContextMenu() and datatipEventhandler() removed (See bug #8646).
 
+* Bug #13405 fixed - hypermat was redundant, now tagged as obsolete.
+
 
 Scilab Bug Fixes
 ================

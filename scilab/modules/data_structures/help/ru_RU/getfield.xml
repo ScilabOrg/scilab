@@ -58,7 +58,7 @@
 l=list(1,'qwerw',%s)
 [a,b]=getfield([3 2],l)
  
-a=hypermat([2,2,2],rand(1:2^3));// гиперматрицы кодируются используя mlist-ы
+a=matrix(rand(1:2^3), [2,2,2]);// гиперматрицы кодируются используя mlist-ы
 a(1) // элемент a(1,1,1) 
 getfield(1,a) // первое поле mlist-а
  ]]></programlisting>

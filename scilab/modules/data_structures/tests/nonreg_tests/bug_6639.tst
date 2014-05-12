@@ -14,5 +14,5 @@
 //
 // <-- Short Description -->
 // "hypermat"  did not  remove higher dimensions equal to 1
-a=hypermat([3,2,1]);
+a=matrix([3,2,1]);
 if type(a)<>1 then pause,end

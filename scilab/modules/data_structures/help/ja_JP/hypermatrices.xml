@@ -25,7 +25,7 @@
             a=[1 2;3 4];a(:,:,2)=rand(2,2)
         </para>
         <para>
-            または直接 <literal>hypermat</literal> 関数により定義できます.
+            または直接 <literal>matrix</literal> 関数により定義できます.
         </para>
         <para>
             エントリは,実数または複素数, 多項式, 有理数, 文字列, 論理値とすることができます.

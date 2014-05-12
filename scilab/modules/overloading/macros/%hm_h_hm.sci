@@ -17,11 +17,11 @@ function r=%hm_h_hm(a,b)
         error(msprintf(_("%s: Wrong type for input argument(s): hypermatrix expected.\n"),"%hm_h_hm"));
     end
     if and(a.dims==b.dims) then
-        r=hypermat(a.dims,a.entries & b.entries)
+        r=matrix(a.entries & b.entries, a.dims)
     elseif prod(a.dims) == 1 then
-        r=hypermat(b.dims,a.entries & b.entries)
+        r=matrix(a.entries & b.entries, b.dims)
     elseif prod(b.dims) == 1 then
-        r=hypermat(a.dims,a.entries & b.entries)
+        r=matrix(a.entries & b.entries, a.dims)
     else
         error(msprintf(_("%s: Incompatible operand dimensions.\n"),"%hm_h_hm"));
     end

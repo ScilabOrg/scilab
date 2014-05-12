@@ -24,11 +24,11 @@ c
          call error(41)
          return
       endif
-      if(rhs.lt.2) then
+      if(rhs.lt.1) then
          call error(39)
          return
       endif
-      if(rhs.gt.3) then
+      if(rhs.gt.3 .or. rhs.eq.1) then
          top=tops
          call ref2val
          call setfunnam(ids(1,pt+1),'%hm_matrix',10)
@@ -67,13 +67,15 @@ c$$$      endif
 
       il=iadr(lstk(top))
       if(istk(il).lt.0) il=iadr(istk(il+1))
-      if(istk(il).ne.1) then
+c size can be constant or integer matrix
+      if(istk(il).ne.1 .and. istk(il).ne.8) then
          err=3
          call error(53)
          return
       endif
       if(rhs.eq.2) then
-         if(istk(il+3).ne.0) then
+c size must be real if constant matrix
+         if(istk(il).eq.1 .and. istk(il+3).ne.0) then
             err=3
             call error(52)
             return
@@ -97,7 +99,8 @@ c$$$      endif
             call error(89)
             return
          endif
-         if(istk(il+3).ne.0) then
+c size must be real if constant matrix
+         if(istk(il).eq.1 .and. istk(il+3).ne.0) then
             err=3
             call error(52)
             return
@@ -113,7 +116,8 @@ c
          top=top-1
          il=iadr(lstk(top))
          if(istk(il).lt.0) il=iadr(istk(il+1))
-         if(istk(il).ne.1) then
+c size can be constant or integer matrix
+         if(istk(il).ne.1 .and. istk(il).ne.8) then
             err=2
             call error(53)
             return
@@ -124,7 +128,8 @@ c
             call error(89)
             return
          endif
-         if(istk(il+3).ne.0) then
+c size must be real if constant matrix
+         if(istk(il).eq.1 .and. istk(il+3).ne.0) then
             err=2
             call error(52)
             return
