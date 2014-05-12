@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13397 fixed - saveGui() returns an undocumented boolean parameter (success/failure flag).
+
 
 Xcos Bug Fixes
 ==============

@@ -6,7 +6,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
-        <synopsis>saveGui(fig, filename)</synopsis>
+        <synopsis>status = saveGui(fig, filename)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -23,6 +23,12 @@
                     <para>character string containing the path of the file</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>status</term>
+                <listitem>
+                    <para>boolean, the status of the operation.</para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -35,8 +41,9 @@
             function.
         </para>
         <para>
-            <literal>saveGui(f, filename)</literal> save a current graphic handle f in file
-            defined by <literal>filename</literal>.
+            <literal>status = saveGui(f, filename)</literal> save a current graphic handle f in file
+            defined by <literal>filename</literal>. The <literal>status</literal> is <literal>T</literal> if the operation succeeded, 
+            otherwise an error message in the Scilab console will be printed.     
         </para>
     </refsection>
     <refsection>
