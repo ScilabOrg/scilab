@@ -4,6 +4,10 @@
 Scilab Bug Fixes
 ================
 
+* Bug #5574 fixed - Overloading on some string operations was missing.
+                    Added comparison between matrices of strings, hypermatrices and
+                    strings, concatenation of strings with hypermatrices
+
 * Bug #10555 fixed - Scilab failed to build with some configure options.
 
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
