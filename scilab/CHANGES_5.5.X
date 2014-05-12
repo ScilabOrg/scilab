@@ -135,6 +135,7 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13405 fixed - hypermat was redundant, now tagged as obsolete.
 
 Xcos Bug Fixes
 ==============

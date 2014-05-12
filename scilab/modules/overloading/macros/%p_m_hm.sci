@@ -10,7 +10,7 @@
 function M2=%p_m_hm(M1,M2)
     //author Serge Steer INRIA
     if size(M1,"*")<>1 then
-        M2=hypermat(size(M1),M1)*M2
+        M2=matrix(M1, size(M1))*M2
     else
         M2.entries=M1*M2.entries
     end

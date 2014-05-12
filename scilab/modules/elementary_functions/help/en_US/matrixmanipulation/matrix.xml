@@ -8,6 +8,7 @@
         <title>Calling Sequence</title>
         <synopsis>y=matrix(v,n,m)
             y=matrix(v,[sizes])
+            y=matrix([sizes])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -28,7 +29,7 @@
             <varlistentry>
                 <term>sizes</term>
                 <listitem>
-                    <para>vector of integers</para>
+                    <para>vector of non-negative integers</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -59,6 +60,11 @@
             stacking "columnwise" (first dimension is varying first) the entries of <literal>v</literal>. <literal>y=matrix(v,sizes)</literal>
             results in a regular matrix if sizes is a scalar or a 2-vector.
         </para>
+        <para>
+            <literal>matrix([sizes])</literal> initializes a matrix or hypermatrix
+            of dimensions <literal>sizes</literal>.
+        </para>
+
     </refsection>
     <refsection>
         <title>Examples</title>
@@ -67,6 +73,9 @@ a=[1 2 3;4 5 6]
 matrix(a,1,6)
 matrix(a,1,-1)
 matrix(a,3,2)
+
+// initializing a hypermatrix
+A = matrix([2 3 2])
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

@@ -47,7 +47,7 @@
 l=list(1,'qwerw',%s)
 [a,b]=getfield([3 2],l)
 
-a=hypermat([2,2,2],rand(1:2^3));// les hypermatrices sont stockées dans des mlist
+a=matrix(rand(1:2^3), [2,2,2]);// les hypermatrices sont stockées dans des mlist
 a(1) // le terme a(1,1,1)
 getfield(1,a) // le premier champ de la mlist
  ]]></programlisting>

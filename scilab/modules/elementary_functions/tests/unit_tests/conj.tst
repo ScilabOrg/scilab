@@ -15,7 +15,7 @@ c_d=1+2*%i;
 A=[1+2*%i, 3+2*%i; 0, 0];
 spA=sparse(A);
 s=poly(0,"s");
-M = hypermat([1 2 2],1:4);
+M = matrix(1:4, [1 2 2]);
 M(:,1,1)=%i;
 
 assert_checkequal(conj(%nan), %nan);
@@ -30,7 +30,7 @@ assert_checkequal(conj(spA), sparse(conj(A)));
 assert_checkequal(conj(diag(A)), [1-2*%i; 0]);
 assert_checkequal(conj(speye(4,4)), speye(4,4));
 assert_checkequal(conj(1+s+%i), 1+s-%i);
-assert_checkequal(conj(M),hypermat([1,2,2],[-%i;2;3;4]));
+assert_checkequal(conj(M),matrix([-%i;2;3;4], [1,2,2]));
 
 // Error messages
 errmsg1=msprintf(_("Incorrect number of input arguments.\n"));

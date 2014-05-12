@@ -24,7 +24,7 @@
             como segue: a=[1 2;3 4];a(:,:,2)=rand(2,2)
         </para>
         <para>
-            ou usando a função <literal>hypermat</literal> diretamente.
+            ou usando a função <literal>matrix</literal> diretamente.
         </para>
         <para>As entradas podem ser números reais ou complexos, polinômios, razões
             de polinômios, strings ou valores booleanos.

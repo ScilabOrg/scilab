@@ -53,6 +53,6 @@ function x=%hm_or(m,d)
         if flag==1 then
             dims=int32(dims);
         end;
-        x=hypermat(dims,x);
+        x=matrix(x, dims);
     end
 endfunction

@@ -8,6 +8,7 @@
         <title>Séquence d'appel</title>
         <synopsis>y=matrix(v,n,m)
             y=matrix(v,[sizes])
+            y=matrix([sizes])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -30,7 +31,7 @@
             <varlistentry>
                 <term>sizes  </term>
                 <listitem>
-                    <para>vecteur d'entiers
+                    <para>vecteur d'entiers positifs
                     </para>
                 </listitem>
             </varlistentry>
@@ -59,6 +60,10 @@
             Pour une hypermatrice telle que <literal>prod(size(v))==prod(sizes)</literal>, la commande <literal>y=matrix(v,sizes)</literal> (ou de façon équivalente, <literal>y=matrix(v,n1,n2,...nm)</literal>) transforme <literal>v</literal> en une matrice ou une hypermatrice
             en parcourant les éléments de <literal>v</literal> (parcourus tel que le premier indice varie en premier). <literal>y=matrix(v,sizes)</literal> renvoie une matrice ou un vecteur si <literal>sizes</literal> est un scalaire ou un vecteur à deux composantes.
         </para>
+        <para>
+            <literal>matrix([sizes])</literal> initialise une matrice ou une hypermatrice
+            de dimensions <literal>sizes</literal>.
+        </para>
     </refsection>
     <refsection>
         <title>Exemples</title>
@@ -67,6 +72,9 @@ a=[1 2 3;4 5 6]
 matrix(a,1,6)
 matrix(a,1,-1)
 matrix(a,3,2)
+
+// initialisation d'une hypermatrice
+A = matrix([2 3 2])
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

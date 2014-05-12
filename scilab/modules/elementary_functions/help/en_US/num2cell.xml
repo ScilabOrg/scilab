@@ -70,7 +70,7 @@
         <programlisting role="example"> 
             A=[1 2; 3 4]
             num2cell(A)
-            M = hypermat([2 3 2 2],1:24)
+            M = matrix(1:24, [2 3 2 2])
             c=num2cell(M,[1 2])
             size(c)
             size(c(1).entries)
