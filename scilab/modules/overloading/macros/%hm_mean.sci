@@ -34,6 +34,6 @@ function x=%hm_mean(m,d)
         x=matrix(x,dims(1),dims(2))
     else
         if flag==1 then dims=int32(dims);end
-        x=hypermat(dims,x(:))
+        x=matrix(x(:), dims)
     end
 endfunction

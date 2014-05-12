@@ -17,7 +17,7 @@
 //    On Scilab CVS with " %hm_find " function
 //    The Error Messages are:
 //      wrong result
-//    Commands:  -->a=hypermat([3,3,1],int8(1:9));
+//    Commands:  -->a=matrix(int8(1:9), [3,3,1]);
 //
 //    -->[i,j]=find(a==5)   
 //     j  =
@@ -34,7 +34,7 @@
 // ...
 
 //correct=%F
-a       = hypermat([3,3,1],int8(1:9));
+a       = matrix(int8(1:9), [3,3,1]);
 [i,j]   = find(a==5);
 [k,l,m] = find(a==5);
 

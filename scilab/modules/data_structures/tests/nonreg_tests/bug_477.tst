@@ -16,7 +16,7 @@
 //
 //    On Scilab CVS with " %hm_maxi, %hm_mini " function
 //    The Error Messages are:
-//     -->a=hypermat([3,3,1],1:9);
+//     -->a=matrix(1:9, [1,3,3]);
 //
 //    -->[m]=max(a)
 //     i  =
@@ -33,7 +33,7 @@
 //                     !--error    78
 // ...
 
-a   = hypermat([1,3,3],1:9);
+a   = matrix(1:9, [1,3,3]);
 assert_checkequal(max(a), 9);
 
 result = execstr("[n,i]=max(a)","errcatch","n");

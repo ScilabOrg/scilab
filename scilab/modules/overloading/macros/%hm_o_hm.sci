@@ -10,7 +10,7 @@
 function r=%hm_o_hm(a,b)
     r=and(a.dims==b.dims)
     if r then
-        r=hypermat(a.dims,a.entries==b.entries)
+        r=matrix(a.entries==b.entries, a.dims)
     else
         r=%f
     end
