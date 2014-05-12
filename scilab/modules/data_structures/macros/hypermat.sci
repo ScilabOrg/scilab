@@ -15,6 +15,7 @@ function M=hypermat(dims,v)
     // M data structure contains the vector of matrix dimensions M('dims')
     // and the vector of entries M('entries') such as the leftmost subcripts vary first
     // [M(1,1,..);..;M(n1,1,..);...;M(1,n2,..);..;M(n1,n2,..);...]
+    warnobsolete("matrix", "6.0.0");
     [lhs,rhs]=argn(0)
     dims=double(dims)
     if or(floor(dims)<>dims)|or(dims<0) then

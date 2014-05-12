@@ -8,5 +8,5 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function b=%hm_isnan(M)
-    b=hypermat(M.dims,isnan(M.entries))
+    b=matrix(isnan(M.entries), M.dims)
 endfunction

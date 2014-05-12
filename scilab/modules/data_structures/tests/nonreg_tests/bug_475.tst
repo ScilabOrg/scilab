@@ -31,7 +31,7 @@
 //    Enrico Segre on Linux version RH9 distribution  with  gnome as window manager
 //    Israel  July 24, 2003 at 17:51:50
 
-a = hypermat([3,3,1],uint16(1:9));
+a = matrix(uint16(1:9), [3,3,1]);
 
 result = execstr("[m,k]=max(a)","errcatch","n");
 

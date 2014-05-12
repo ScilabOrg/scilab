@@ -121,7 +121,7 @@ function [J,H] = derivative(F, x, h, order, H_form, Q , verbose )
         if m>1 then
             // H is a hypermatrix if m>1
             H=H';
-            H=hypermat([n n m],H(:));
+            H=matrix(H(:), [n n m]);
         end
     end
     if (H_form ~= "blockmat")&(H_form ~= "default")&(H_form ~= "hypermat") then

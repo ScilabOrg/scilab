@@ -47,7 +47,7 @@ function x=fft2(varargin)
             dims = double(dims);
             dims(1) = m;
             dims(2) = n;
-            x=hypermat(dims)
+            x=matrix(dims)
             for i=1:prod(dims(3:$))
                 x(1:min(m,asize1),1:min(n,asize2),i)=a(1:min(m,asize1),1:min(n,asize2),i);
             end
