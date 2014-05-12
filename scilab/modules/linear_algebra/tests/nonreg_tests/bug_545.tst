@@ -34,8 +34,8 @@
 
 // <-- INTERACTIVE TEST -->
 
-a        = int8(hypermat({3 2 2}));
-b        = hypermat({1 2 2});
+a        = int8(matrix([3 2 2]));
+b        = matrix([1 2 2]);
 a(1,:,:) = b
 
 // Just check if there is no "Warning :redefining function: ndims" displayed

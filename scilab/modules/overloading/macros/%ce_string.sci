@@ -52,7 +52,7 @@ function str=%ce_string(c)
     end
 
     if size(dims,"*")>2 then
-        str=hypermat(dims,str)
+        str=matrix(str, dims)
     else
         str=matrix(str,dims(1),-1)
     end

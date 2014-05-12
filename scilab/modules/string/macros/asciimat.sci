@@ -53,7 +53,7 @@ function y=asciimat(x)
                 for l=1:DD
                     V((l-1)*size(x,1)+1:l*size(x,1))=asciimat(x(:,:,l))
                 end
-                y=hypermat(dims,V)
+                y=matrix(V, dims)
             end
         end
     end
