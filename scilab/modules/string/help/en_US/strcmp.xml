@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA - 
- * 
+ * Copyright (C) INRIA -
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
@@ -78,10 +78,18 @@
             <varname>string_two</varname> (case independently) and
             <literal>1</literal> indicates the opposite.
         </para>
+        <para>
+            If <varname>string_one</varname> (resp. <varname>string_two</varname>)
+            is a character string (a matrix of size 1), <code>strcmp</code> returns
+            a matrix of the size of <varname>string_two</varname> (resp. <varname>string_one</varname>)
+            containing the comparison between <varname>string_one</varname> and each value of
+            <varname>string_two</varname> (resp. between each value of <varname>string_one</varname>
+            and <varname>string_two</varname>).
+        </para>
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 TXT1 = ['scilab','SciLab';'Strcmp','STRcmp'];
 TXT2 = ['ScIlAb','sciLab';'sTrCmP','StrCMP'];
 strcmp(TXT1,TXT2)
@@ -89,6 +97,10 @@ strcmp(TXT1,'scilab')
 strcmp(TXT1,'SciLab')
 strcmp(TXT1,TXT2,'i')
 strcmp(TXT1,TXT2,'s')
+
+TXT = "Scilab";
+strcmp(TXT, TXT1, 's')
+strcmp(TXT2, TXT, 'i')
     ]]></programlisting>
     </refsection>
     <refsection role="see also">

@@ -78,6 +78,10 @@ int sci_strcmp(char *fname, unsigned long fname_len)
         int m2 = 0, n2 = 0;
         int m2n2 = 0;
 
+        int m_max = 0;
+        int n_max = 0;
+        int mn_max = 0;
+
         /* To input the string matrix */
         GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &Input_Strings_One);
         m1n1 = m1 * n1;
@@ -85,9 +89,21 @@ int sci_strcmp(char *fname, unsigned long fname_len)
         GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &m2, &n2, &Input_Strings_Two);
         m2n2 = m2 * n2;
 
-        if ( ( (m2 == m1) && (n2 == n1) ) || (m2n2 == 1) )
+        if ( ( (m2 == m1) && (n2 == n1) ) || (m2n2 == 1) || (m1n1 == 1))
         {
             int *values = stringsCompare(Input_Strings_One, m1n1, Input_Strings_Two, m2n2, do_stricmp);
+            if(m2n2 == 1)
+            {
+                m_max = m1;
+                n_max = n1;
+                mn_max = m1n1;
+            }
+            else
+            {
+                m_max = m2;
+                n_max = n2;
+                mn_max = m2n2;
+            }
 
             if (values == NULL)
             {
@@ -100,8 +116,8 @@ int sci_strcmp(char *fname, unsigned long fname_len)
                 int outIndex = 0 ;
                 int x = 0;
 
-                CreateVar( Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &outIndex );
-                for  ( x = 0; x < m1n1; x++ )
+                CreateVar( Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m_max, &n_max, &outIndex );
+                for  ( x = 0; x < mn_max; x++ )
                 {
                     stk(outIndex)[x] = values[x];
                 }

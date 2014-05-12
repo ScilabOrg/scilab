@@ -33,30 +33,26 @@ static int sign(int x)
 int * stringsCompare(char **Input_String_One, int dim_One, char **Input_String_Two, int dim_Two, BOOL dostricmp)
 {
     int *returnedValues = NULL;
-    int j = 0;
+    int i_One = 0;
+    int i_Two = 0;
+    int dim_Max = (dim_One >= dim_Two) ? dim_One : dim_Two;
 
-    returnedValues = (int*)MALLOC(sizeof(int) * dim_One);
+    returnedValues = (int*)MALLOC(sizeof(int) * dim_Max);
     if (returnedValues)
     {
         int i = 0;
-        for (i = 0; i < dim_One; i++)
+        for (i = 0; i < dim_Max; i++)
         {
-            if (dim_Two == 1)
-            {
-                j = 0;
-            }
-            else
-            {
-                j = i;
-            }
+            i_One = (dim_One == 1) ? 0 : i;
+            i_Two = (dim_Two == 1) ? 0 : i;
 
             if (dostricmp)
             {
-                returnedValues[i] = sign(stricmp(Input_String_One[i], Input_String_Two[j]));
+                returnedValues[i] = sign(stricmp(Input_String_One[i_One], Input_String_Two[i_Two]));
             }
             else
             {
-                returnedValues[i] = sign(strcmp(Input_String_One[i], Input_String_Two[j]));
+                returnedValues[i] = sign(strcmp(Input_String_One[i_One], Input_String_Two[i_Two]));
             }
         }
     }

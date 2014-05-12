@@ -26,10 +26,12 @@ if strcmp(TXT1,TXT2,'i') <> [ 0 , 0 ; 0 , 0 ] then pause,end
  //===============================
  if strcmp(TXT1,TXT,'s') <> [ 1 , -1 ; 1 , -1 ] then pause,end
  //===============================
- if strcmp(TXT1,TXT,'i') <> [ 0 , 0 ; 0 , 0 ] then pause,end
+ if strcmp(TXT1,TXT,'i') <> [ 0 , 0 ; 1 , 1 ] then pause,end
  //===============================
  if strcmp('','','i') <> 0 then pause,end
  //===============================
  if strcmp('','','s') <> 0 then pause,end
  //===============================
- 
+ if strcmp(TXT,TXT1,'s') <> [ -1 , 1 ; -1 , 1 ] then pause,end
+ //===============================
+ if strcmp(TXT,TXT1,'i') <> [ 0 , 0 ; 1 , 1 ] then pause,end
