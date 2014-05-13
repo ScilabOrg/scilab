@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13403 fixed - Regression on axes labelling.
+
 
 Xcos Bug Fixes
 ==============
