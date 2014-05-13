@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13402 fixed - Bounding boxes of xarcs were not correct.
+
 
 Xcos Bug Fixes
 ==============
