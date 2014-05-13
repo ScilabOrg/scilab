@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13404 fixed - Rect property was not taken into account in polarplot.
+
 
 Xcos Bug Fixes
 ==============
