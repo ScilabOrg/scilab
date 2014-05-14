@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13409 fixed - permute(x, dims) failed when dims was greater than the dimensions of size(x)
+                     now permute treats extra dimensions as 1
 
 Xcos Bug Fixes
 ==============
