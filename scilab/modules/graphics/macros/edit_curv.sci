@@ -361,31 +361,107 @@ endfunction
 
 
 function [x,y] = readxy()
-    fn=uigetfile("*.xy")
+
+    function h = findPolyline(children)
+        h = [];
+        for i = 1:length(children)
+            select children(i).type,
+            case "Polyline" then
+                h = children(i);
+                return
+            case "Axes" then
+                h = findPolyline(children(i).children);
+                return
+            case "Compound" then
+                h = findPolyline(children(i).children);
+                return
+            end
+        end
+    endfunction
+
+    fn=uigetfile(["*.scg";"*.sod";"*.xy"], "", _("Select a file to load"));
     if fn<>emptystr() then
-        if execstr("load(fn)","errcatch")<>0 then
-            xy=read(fn,-1,2)
-            x=xy(:,1);y=xy(:,2)
+        [pth, fnm, ext] = fileparts(fn);
+        if ext == ".scg" then
+            if execstr("load(fn)","errcatch") == 0 then
+                f=gcf();
+                f.visible = "off";
+
+                h = findPolyline(f.children);
+                if h <> [] then
+                    xy = h.data;
+                else
+                    messagebox(msprintf(_("%s: The %d th handle is not " +..
+                    "a polyline handle.\n"), "edit_curve", 1));
+                    return
+                end
+                x=xy(:,1);y=xy(:,2);
+            else
+                messagebox(msprintf(_("%s: Cannot open file "'%s"' " +..
+                "for reading.\n"), "edit_curv", fnm + ext), "modal");
+                return
+            end
+            close(f);
+        elseif ext == ".xy" then
+            if execstr("xy = read(fn,-1,2)","errcatch") == 0 then
+                x=xy(:,1);y=xy(:,2);
+            else
+                messagebox(msprintf(_("%s: Cannot open file "'%s"' " +..
+                "for reading.\n"), "edit_curv", fnm + ext), "modal");
+                return
+            end
+        elseif ext == ".sod" then
+            if execstr("load(fn)","errcatch") == 0 then
+                x=xy(:,1);y=xy(:,2);
+            else
+                messagebox(msprintf(_("%s: Cannot open file "'%s"' " +..
+                "for reading.\n"), "edit_curv", fnm + ext), "modal");
+                return
+            end
         else
-            x=xy(:,1);y=xy(:,2)
+            messagebox("Error in file format.", "modal");
+            return
         end
     else
         x=x
         y=y
     end
-
 endfunction
 
 
 function savexy(x,y)
-    fn = uigetfile("*.xy")
-    if fn<>emptystr()  then
+    fn=uiputfile(["*.sod";"*.xy"], "", _("Select a file to write"));
+    if fn<>emptystr() then
+        [pth, fnm, ext] = fileparts(fn);
         xy = [x y];
-        fil=fn+".xy"
-        if execstr("save(fil,""xy"")","errcatch")<>0 then
-            messagebox(["Impossible to save in the selected file";
-            "Check file and directory access"],"modal");
-            return
+        isSave = %f;
+        fil = fn;
+        if ext == emptystr() then
+            fil = fil + ".xy";
+        elseif ext == ".sod" then
+            isSave = %t;
+        else
+            fil = pth + fnm + ".xy";
+        end
+        if isSave then
+            if execstr("save(fil,""xy"")","errcatch")<>0 then
+                messagebox(msprintf(_("%s: The file "'%s"' " +..
+                "cannot be written.\n"), "edit_curv", fnm + ext), "modal");
+                return
+            end
+        else
+            isErr = execstr("write(fil,xy)","errcatch")
+            if isErr == 240 | isErr <> 0 then
+                if isErr == 240 then
+                    mdelete(fil); // write cannot overwrite an existing file
+                    isErr = execstr("write(fil,xy)","errcatch")
+                end
+                if isErr <> 0 then
+                    messagebox(msprintf(_("%s: The file "'%s"' " +..
+                    "cannot be written.\n"), "edit_curv", fnm + ext), "modal");
+                    return
+                end
+            end
         end
     end
 endfunction
