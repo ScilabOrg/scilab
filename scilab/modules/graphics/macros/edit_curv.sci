@@ -361,24 +361,62 @@ endfunction
 
 
 function [x,y] = readxy()
-    fn=uigetfile("*.xy")
+
+    function h = findPolyline(children)
+        for i = 1:length(children)
+            select children(i).type,
+            case "Polyline" then
+                return children(i);
+            case "Axes" then
+                return findPolyline(children(i).children);
+            case "Compound" then
+                return findPolyline(children(i).children);
+            end
+        end
+
+        return [];
+    endfunction
+
+    fn=uigetfile(["*.scg";"*.xy"], "", _("Select a file to open"));
     if fn<>emptystr() then
-        if execstr("load(fn)","errcatch")<>0 then
-            xy=read(fn,-1,2)
-            x=xy(:,1);y=xy(:,2)
+        [pth, fnm, ext] = fileparts(fn);
+        if ext == ".scg" then
+            if execstr("load(fn)","errcatch") == 0 then
+                f=gcf();
+                f.visible = "off";
+
+                h = findPolyline(f.children);
+                if h <> [] then
+                    xy = h.data;
+                else
+                    messagebox(_("Error"))
+                end
+                x=xy(:,1);y=xy(:,2);
+            else
+                messagebox(["Impossible to load the selected file";
+                "Check file and directory access"],"modal");
+            end
+            close(f);
+        elseif ext == ".xy" then
+            if execstr("load(fn)","errcatch")<>0 then
+                xy = read(fn,-1,2);
+                x=xy(:,1);y=xy(:,2);
+            else
+                x=xy(:,1);y=xy(:,2);
+            end
         else
-            x=xy(:,1);y=xy(:,2)
+            messagebox(["Wrong file format"],"modal");
+            return
         end
     else
         x=x
         y=y
     end
-
 endfunction
 
 
 function savexy(x,y)
-    fn = uigetfile("*.xy")
+    fn=uiputfile(["*.xy"], "", _("Select a file to write"));
     if fn<>emptystr()  then
         xy = [x y];
         fil=fn+".xy"
