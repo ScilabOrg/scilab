@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #6979 fixed - Help page of rlist() was unclear.
+
 * Bug #7549 fixed - edit_curv did not disable standard plot menus.
 
 * Bug #10555 fixed - Scilab failed to build with some configure options.

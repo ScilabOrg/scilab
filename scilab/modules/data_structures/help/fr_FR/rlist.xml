@@ -6,20 +6,46 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>rlist()
-            rlist(a1,....an)
+        <synopsis>[r] = rlist()
+            [r] = rlist(N, D [,dom])
         </synopsis>
     </refsynopsisdiv>
     <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>N,D</term>
+                <listitem>
+                    <para>martices polynomiales.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dom</term>
+                <listitem>
+                    <para>
+                        chaîne de caractères ou [], ou un scalaire.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>r</term>
+                <listitem>
+                    <para>
+                        tlist (liste de type "r") représentant la fraction rationnelle.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
         <title>Description</title>
         <para>
-            <literal>rlist(a1,....an)</literal> est équivalent à
-            <literal>tlist(['r','num';'den','dt'], a1,....an)</literal> 
+            <literal>[r] = rlist(N, D, dom)</literal> est équivalent à
+            <literal>tlist(['r','num','den','dt'], N, D, dom)</literal> 
         </para>
         <para>
-            Crée une <literal>tlist</literal> avec <literal>['r','num';'den','dt']</literal> comme premier argument et les <literal>ai</literal> comme termes suivants s'ils sont présents dans les arguments. Aucune vérification de type ou de taille n'est faite sur les <literal>ai</literal>.
-        </para>
-        <para>
+            <varname>dom</varname> correspond au domaine temporel d'un système linéaire. Donc, il est
+            recommandé que <varname>dom</varname> soit égale à 'c','d', [] ou à un scalaire.
         </para>
     </refsection>
     <refsection>
