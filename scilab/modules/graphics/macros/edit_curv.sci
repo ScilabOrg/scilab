@@ -361,24 +361,46 @@ endfunction
 
 
 function [x,y] = readxy()
-    fn=uigetfile("*.xy")
+    fn=uigetfile(["*.scg";"*.xy"], pwd(), _("Select a file to open"));
     if fn<>emptystr() then
-        if execstr("load(fn)","errcatch")<>0 then
-            xy=read(fn,-1,2)
-            x=xy(:,1);y=xy(:,2)
+        [pth, fnm, ext] = fileparts(fn);
+        if ext == ".scg" then
+            f = figure("visible", "off");
+            scf(f.figure_id);
+            if execstr("load(fn)","errcatch") == 0 then
+                fig = gce();
+                for i = 1:size(fig.children, 1)
+                    if fig.children(i).type == "Polyline" then
+                        xy = fig.children(i).data;
+                        break
+                    end
+                end
+                close(f);
+                x=xy(:,1);y=xy(:,2);
+            else
+                messagebox(["Impossible to load the selected file";
+                "Check file and directory access"],"modal");
+            end
+        elseif ext == ".xy" then
+            if execstr("load(fn)","errcatch")<>0 then
+                xy = read(fn,-1,2);
+                x=xy(:,1);y=xy(:,2);
+            else
+                x=xy(:,1);y=xy(:,2);
+            end
         else
-            x=xy(:,1);y=xy(:,2)
+            messagebox(["Wrong file format"],"modal");
+            return
         end
     else
         x=x
         y=y
     end
-
 endfunction
 
 
 function savexy(x,y)
-    fn = uigetfile("*.xy")
+    fn=uiputfile(["*.xy"], pwd(), _("Select a file to write"));
     if fn<>emptystr()  then
         xy = [x y];
         fil=fn+".xy"
