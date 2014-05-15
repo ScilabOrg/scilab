@@ -361,24 +361,38 @@ endfunction
 
 
 function [x,y] = readxy()
-    fn=uigetfile("*.xy")
+    fn=uigetfile(["*.scg";"*.xy"], pwd(), "Select file to open");
     if fn<>emptystr() then
-        if execstr("load(fn)","errcatch")<>0 then
-            xy=read(fn,-1,2)
-            x=xy(:,1);y=xy(:,2)
+        [pth, fnm, ext] = fileparts(fn);
+        if ext == ".scg" then
+            id = double(uint32(rand()*10e8));
+            f = figure("visible", "off", "figure_id", id);
+            scf(id);
+            load(fn);
+            fig = gce();
+            xy = fig.children(1).data;
+            close(f);
+            x=xy(:,1);y=xy(:,2);
+        elseif ext == ".xy" then
+            if execstr("load(fn)","errcatch")<>0 then
+                xy = read(fn,-1,2);
+                x=xy(:,1);y=xy(:,2);
+            else
+                x=xy(:,1);y=xy(:,2);
+            end
         else
-            x=xy(:,1);y=xy(:,2)
+            messagebox(["Wrong file format"],"modal");
+            return
         end
     else
         x=x
         y=y
     end
-
 endfunction
 
 
 function savexy(x,y)
-    fn = uigetfile("*.xy")
+    fn=uigetfile(["*.scg";"*.xy"], pwd(), "Select file to write");
     if fn<>emptystr()  then
         xy = [x y];
         fil=fn+".xy"
