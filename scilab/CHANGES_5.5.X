@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #6286 fixed - function lines needed an option to cancel the display of blanks and empty lines
+
 * Bug #7549 fixed - edit_curv did not disable standard plot menus.
 
 * Bug #10555 fixed - Scilab failed to build with some configure options.
