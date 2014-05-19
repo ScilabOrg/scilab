@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Allan CORNET
  * Copyright (C) 2011-2012 - DIGITEO - Allan CORNET
+ * Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -84,6 +85,7 @@ static int sci_lines_one_rhs(char *fname)
     int *piAddressVarOne = NULL;
 
     int isScalarInput = 0;
+    int isStringInput = 0;
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
     if (sciErr.iErr)
@@ -94,19 +96,42 @@ static int sci_lines_one_rhs(char *fname)
     }
 
     /* compatibility with previous version manages int32 and double */
-    if (!(isDoubleType(pvApiCtx, piAddressVarOne) || isIntegerType(pvApiCtx, piAddressVarOne)))
+   /* if (!(isDoubleType(pvApiCtx, piAddressVarOne) || isIntegerType(pvApiCtx, piAddressVarOne)))
     {
         Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), fname, 1);
         return 0;
     }
-
+*/
     isScalarInput = isScalar(pvApiCtx, piAddressVarOne);
-
+    isStringInput = isStringType(pvApiCtx, piAddressVarOne);
+/*
     if (!isScalarInput && !checkVarDimension(pvApiCtx, piAddressVarOne, 1, 2))
     {
         Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
         return 0;
     }
+    */
+
+	if(isStringInput){
+		char *dParam1 ;
+        if (getAllocatedSingleString(pvApiCtx, piAddressVarOne, &dParam1) == 0)
+        {
+			if((*dParam1!='n')&&(*dParam1!='r')){
+				Scierror(999, _("%s: Wrong value for input argument #%d: A single char 'n' or 'r' expected.\n"), fname, 1);
+                return 0;
+			}
+			scilinesNoSpace(dParam1);
+            if (getScilabMode() == SCILAB_STD)
+            {
+                ScilabLinesUpdate();
+            }
+             
+		}
+
+		return 0;
+		
+	}
+	
 
     if (isScalarInput)
     {

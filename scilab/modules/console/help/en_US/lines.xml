@@ -21,6 +21,7 @@
         <synopsis>lines(nl)
             lines(nl, nc)
             lines(ncl)
+            lines(ba)
             ncl = lines()
         </synopsis>
     </refsynopsisdiv>
@@ -53,6 +54,20 @@
                 <term>ncl</term>
                 <listitem>
                     <para>A 1x2 vector [nc, nl]</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ba</term>
+                <listitem>
+                    <para>An single character.</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>If 'n': blanks and empty lines are not displayed.</para>
+                        </listitem>
+                        <listitem>
+                            <para>If 'r': blanks and empty lines are displayed.</para>
+                        </listitem>
+                    </itemizedlist>
                 </listitem>
             </varlistentry>
         </variablelist>

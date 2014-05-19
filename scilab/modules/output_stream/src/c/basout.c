@@ -2,6 +2,7 @@
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) INRIA - Allan CORNET
 * Copyright (C) DIGITEO - 2009 - Allan CORNET
+ * Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
 *
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -92,7 +93,19 @@ int C2F(basout)(int *io, int *lunit, char *string, long int nbcharacters)
                 {
                     strncpy(buffer, string, nbcharacters);
                     buffer[nbcharacters] = '\0';
-                    sciprint("%s\n", buffer);
+
+					int i = 0;
+					int space = 1;
+					//don't print buffer if it's an empty line
+					while (i < strlen(buffer)){
+						if((buffer[i]!=' ')&&(buffer[i]!='!')){
+							space = 0;
+						}
+						i++;
+					}		
+                    if((space!= 1) || (getScilabSpaces()==0)){
+						sciprint("%s\n", buffer);
+					}
                     FREE(buffer);
                     buffer = NULL;
                 }
@@ -103,7 +116,10 @@ int C2F(basout)(int *io, int *lunit, char *string, long int nbcharacters)
             }
             else if (nbcharacters == 1)
             {
-                sciprint("%c\n", string[0]);
+				//lignes supplementaires
+				if(getScilabSpaces()==0){
+					sciprint("%c\n", string[0]);
+				}
             }
             else
             {
