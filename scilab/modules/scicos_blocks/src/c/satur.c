@@ -26,6 +26,21 @@
 SCICOS_BLOCKS_IMPEXP void  satur(scicos_block *block, int flag)
 {
     /* rpar[0]:upper limit,  rpar[1]:lower limit */
+    if (flag == 4 || flag == 6)
+    {
+        if (*block->inptr[0] >= block->rpar[0])
+        {
+            block->outptr[0][0] = block->rpar[0];
+        }
+        else if (*block->inptr[0] <= block->rpar[1])
+        {
+            block->outptr[0][0] = block->rpar[1];
+        }
+        else
+        {
+            block->outptr[0][0] = block->inptr[0][0];
+        }
+    }
     if (flag == 1)
     {
         if (get_phase_simulation() == 1 || block->ng == 0)

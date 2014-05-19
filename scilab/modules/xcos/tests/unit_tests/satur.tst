@@ -1,0 +1,20 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Bruno JOFRET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- XCOS TEST -->
+// <-- TEST WITH GRAPHIC -->
+
+// test satur values
+
+assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/unit_tests/satur.zcos"));
+xcos_simulate(scs_m, 4);
+
+
+assert_checkequal(no_sat.values, [zeros(10,1) ; 10 * ones(10, 1)]);
+assert_checkequal(sat_low.values, [ones(10,1) ; 10 * ones(10, 1)]);
+assert_checkequal(sat_up.values, [zeros(10,1) ; 5 * ones(10, 1)]);
+assert_checkequal(sat_all.values, [2 * ones(10,1) ; 4 * ones(10, 1)]);
