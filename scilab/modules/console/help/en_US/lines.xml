@@ -21,6 +21,7 @@
         <synopsis>lines(nl)
             lines(nl, nc)
             lines(ncl)
+            lines(ba)
             ncl = lines()
         </synopsis>
     </refsynopsisdiv>
@@ -55,6 +56,20 @@
                     <para>A 1x2 vector [nc, nl]</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>ba</term>
+                <listitem>
+                    <para>An single character.</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>If 'n': blanks and empty lines are not displayed.</para>
+                        </listitem>
+                        <listitem>
+                            <para>If 'r': reset default behaviour : blanks and empty lines are displayed. </para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -85,6 +100,16 @@
             output window size, these parameters are also automatically modified when
             the window is resized.
         </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            s=['hello' ; 'world']
+            lines('n');
+            s=['hello' ; 'world']
+            lines('r');
+            s=['hello' ; 'world']
+        </programlisting>
     </refsection>
     <refsection role="see also">
         <title>See Also</title>
