@@ -50,6 +50,8 @@ Compilation
 Scilab Bug Fixes
 ================
 
+* Bug #6286 fixed - function lines needed an option to cancel the display of blanks and empty lines
+
 * Bug #6979 fixed - rlist help page was not clear.
 
 * Bug #7203 fixed - titlepage help page was not clear.
