@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Allan CORNET
+ * Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -17,6 +18,8 @@
 #include "BOOL.h"
 #include "dynlib_console.h"
 
+int displayLines;
+
 /**
 * set number of lines and columns to display data
 * @param[in] number of lines
@@ -30,6 +33,20 @@ CONSOLE_IMPEXP int scilines(int nl, int nc);
 * @return 0
 */
 CONSOLE_IMPEXP int scilinesdefault(void);
+
+
+/**
+* get spaces activated
+* @return 1 if blank lines off, 0 if on
+*/
+CONSOLE_IMPEXP int getScilabSpaces(void);
+
+
+/**
+* set blank lines
+* @return 0
+*/
+CONSOLE_IMPEXP int scilinesNoSpace(char *disp);
 
 /**
 * set number of lines and columns to display data (C2F version)
