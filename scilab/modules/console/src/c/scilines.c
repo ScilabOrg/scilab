@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Allan CORNET
  * Copyright (C) 2008 - INRIA - Sylvestre LEDRU (Detection of the term size)
+ * Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -59,6 +60,21 @@ int scilines(int nblines, int nbcolumns)
     setColumnsSize(nbcolumns);
     return 0;
 }
+/*--------------------------------------------------------------------------*/
+ int scilinesNoSpace(char *disp){
+	if(*disp =='n'){
+		d = 1;
+	}
+	else{
+		d = 0;
+	}
+	return 0;
+}
+/*--------------------------------------------------------------------------*/
+int getScilabSpaces(){
+	return d;
+}
+
 /*--------------------------------------------------------------------------*/
 int scilinesdefault(void)
 {
