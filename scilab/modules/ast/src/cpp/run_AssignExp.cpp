@@ -28,7 +28,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
     try
     {
         /*get king of left hand*/
-        const SimpleVar *pVar = dynamic_cast<const SimpleVar*>(&e.left_exp_get());
+        SimpleVar *pVar = dynamic_cast<SimpleVar*>(&e.left_exp_get());
         if (pVar)
         {
             // x = ?
@@ -44,7 +44,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                     std::wostringstream os;
                     os << _W("Can not assign multiple value in a single variable") << std::endl;
                     //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
-                    throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                    throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
                 }
 
                 pIT = result_get();
@@ -72,12 +72,12 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             if (pReturn)
             {
                 //ReturnExp so, put the value in the previous scope
-                symbol::Context::getInstance()->putInPreviousScope(pVar->name_get(), *pIT);
+                symbol::Context::getInstance()->putInPreviousScope(pVar->stack_get(), pIT);
                 ((AssignExp*)&e)->return_set();
             }
             else
             {
-                symbol::Context::getInstance()->put(pVar->name_get(), *pIT);
+                symbol::Context::getInstance()->put(pVar->stack_get(), pIT);
             }
 
             if (e.is_verbose() && ConfigVariable::isPromptShow())
@@ -90,7 +90,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             return;
         }
 
-        const CellCallExp *pCell = dynamic_cast<const CellCallExp*>(&e.left_exp_get());
+        CellCallExp *pCell = dynamic_cast<CellCallExp*>(&e.left_exp_get());
         if (pCell)
         {
             InternalType *pOut	= NULL;
@@ -110,7 +110,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 // if the right hand is NULL.
                 std::wostringstream os;
                 os << _W("Unable to extract right part expression.\n");
-                throw ScilabError(os.str(), 999, e.left_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.left_exp_get().location_get());
             }
 
             std::list<ExpHistory*> fields;
@@ -118,7 +118,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             {
                 std::wostringstream os;
                 os << _W("Get fields from expression failed.");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             pOut = evaluateFields(pCell, fields, pITR);
@@ -127,7 +127,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             {
                 std::wostringstream os;
                 os << _W("Fields evaluation failed.");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             if (pOut != NULL)
@@ -156,13 +156,13 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 //manage error
                 std::wostringstream os;
                 os << _W("Invalid Index.\n");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             return;
         }
 
-        const CallExp *pCall = dynamic_cast<const CallExp*>(&e.left_exp_get());
+        CallExp *pCall = dynamic_cast<CallExp*>(&e.left_exp_get());
         if (pCall)
         {
             //x(?) = ?
@@ -183,7 +183,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 // if the right hand is NULL.
                 std::wostringstream os;
                 os << _W("Unable to extract right part expression.\n");
-                throw ScilabError(os.str(), 999, e.left_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.left_exp_get().location_get());
             }
 
             std::list<ExpHistory*> fields;
@@ -191,7 +191,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             {
                 std::wostringstream os;
                 os << _W("Get fields from expression failed.");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             pOut = evaluateFields(pCall, fields, pITR);
@@ -200,7 +200,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             {
                 std::wostringstream os;
                 os << _W("Fields evaluation failed.");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             if (e.is_verbose() && ConfigVariable::isPromptShow())
@@ -225,7 +225,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             return;
         }
 
-        const AssignListExp *pList = dynamic_cast<const AssignListExp*>(&e.left_exp_get());
+        AssignListExp *pList = dynamic_cast<AssignListExp*>(&e.left_exp_get());
         if (pList)
         {
             //[x,y] = ?
@@ -241,7 +241,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 std::wostringstream os;
                 os << _W("Incompatible assignation: trying to assign ") << exec.result_getSize();
                 os << _W(" values in ") << iLhsCount << _W(" variables.") << std::endl;
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             std::list<Exp *>::const_reverse_iterator it;
@@ -262,7 +262,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             return;
         }
 
-        const FieldExp *pField = dynamic_cast<const FieldExp*>(&e.left_exp_get());
+        FieldExp *pField = dynamic_cast<FieldExp*>(&e.left_exp_get());
         if (pField)
         {
             //a.b = x
@@ -287,14 +287,14 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             {
                 std::wostringstream os;
                 os << _W("Get fields from expression failed.");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             if (evaluateFields(pField, fields, pIT) == NULL)
             {
                 std::wostringstream os;
                 os << _W("Fields evaluation failed.");
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
 
             if (e.is_verbose() && ConfigVariable::isPromptShow())
@@ -315,9 +315,9 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
         std::wostringstream os;
         os << _W("unknow script form");
         //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
-        throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+        throw ast::ScilabError(os.str(), 999, e.right_exp_get().location_get());
     }
-    catch (ScilabError error)
+    catch (ast::ScilabError error)
     {
         throw error;
     }
