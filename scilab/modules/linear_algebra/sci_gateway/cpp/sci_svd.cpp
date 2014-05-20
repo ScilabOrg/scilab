@@ -71,7 +71,7 @@ types::Function::ReturnValue sci_svd(types::typed_list &in, int _iRetCount, type
     if (in[0]->isDouble() == false)
     {
         std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_svd";
-        return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
     }
     pDbl = in[0]->getAs<types::Double>()->clone()->getAs<types::Double>();
 
