@@ -11,12 +11,12 @@
 */
 
 #include <string.h>
+#include "functions_gw.hxx"
+
 #include "parser.hxx"
 #include "funcmanager.hxx"
 #include "context.hxx"
-#include "functions_gw.hxx"
 #include "execvisitor.hxx"
-#include "mutevisitor.hxx"
 #include "scilabWrite.hxx"
 #include "scilabexception.hxx"
 #include "configvariable.hxx"
@@ -151,7 +151,12 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             return Function::Error;
         }
 
+#ifdef ENABLE_EXTERNAL_TYPER
+        ast::Exp* temp = parser.getTree();
+        pExp = callTyper(temp/*, L"exec : "*/);
+#else
         pExp = parser.getTree();
+#endif
     }
     else if (in[0]->isMacro())
     {

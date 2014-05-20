@@ -19,7 +19,7 @@
 #include "timedvisitor.hxx"
 #include "debugvisitor.hxx"
 #include "stepvisitor.hxx"
-#include "configvariable.hxx"
+#include "visitor_common.hxx"
 
 #include "scilabWrite.hxx"
 #include "runner.hxx"
@@ -161,8 +161,15 @@ void execAstTask(ast::Exp* tree, bool timed, bool ASTtimed, bool execVerbose)
         exec = new ast::ExecVisitor();
     }
 
-    Runner::execAndWait(tree, exec);
-    //delete exec;
+#ifdef ENABLE_EXTERNAL_TYPER
+    ast::Exp* newTree = callTyper(tree/*, L"tasks : "*/);
+    delete tree;
+#else
+    newTree = tree;
+#endif
+
+    Runner::execAndWait(newTree, exec);
+    //DO NOT DELETE tree or newTree, they was deleted by Runner or previously;
 
     if (timed)
     {

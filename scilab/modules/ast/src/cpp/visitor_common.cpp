@@ -20,6 +20,8 @@
 #include "struct.hxx"
 #include "context.hxx"
 #include "execvisitor.hxx"
+#include "serializervisitor.hxx"
+#include "deserializervisitor.hxx"
 
 #include "alltypes.hxx"
 
@@ -2094,4 +2096,52 @@ List* getPropertyTree(ast::Exp* e, List* pList)
     }
 
     return pList;
+}
+
+ast::Exp* callTyper(ast::Exp* _tree, wchar_t* _msg)
+{
+    ast::Exp* newTree = NULL;
+    unsigned char *newast = NULL;
+    ast::SerializeVisitor* s = new ast::SerializeVisitor(_tree);
+    ast::DeserializeVisitor* d = NULL;
+
+    if (_msg == NULL)
+    {
+        unsigned char* astbin = s->serialize();
+        //call ocamlpro typer
+        //char *newast = ocamlpro_typer(astbin);
+        //free(astbin);
+
+        //for debug
+        newast = astbin;
+
+        d = new ast::DeserializeVisitor(newast);
+        newTree = d->deserialize();
+    }
+    else
+    {
+        Timer timer;
+        timer.start();
+        unsigned char* astbin = s->serialize();
+        double elapsedSerialize = timer.elapsed_time();
+
+        //call ocamlpro typer
+        //char *newast = ocamlpro_typer(astbin);
+        //free(astbin);
+
+        //for debug
+        newast = astbin;
+
+        timer.start();
+        d = new ast::DeserializeVisitor(newast);
+        newTree = d->deserialize();
+        double elapsedDeserialize = timer.elapsed_time();
+        wcout << _msg << L"serialize : " << elapsedSerialize << L" ms" << endl;
+        wcout << _msg << L"deserialize : " << elapsedDeserialize << L" ms" << endl;
+    }
+
+    free(newast);
+    delete s;
+    delete d;
+    return newTree;
 }

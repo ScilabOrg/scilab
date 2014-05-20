@@ -154,7 +154,12 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
         }
     }
 
+#ifdef ENABLE_EXTERNAL_TYPER
+    Exp* temp = pExp = parser.getTree();
+    pExp = callTyper(temp/*, L"execstr : "*/);
+#else
     pExp = parser.getTree();
+#endif
 
     if (pExp == NULL)
     {
@@ -382,27 +387,3 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
     return Function::OK;
 }
 /*--------------------------------------------------------------------------*/
-
-/*
-		catch(ScilabError se)
-		{
-            if(bErrCatch && bMute == true)
-            {
-                //set mode silent for errors
-                ConfigVariable::setPromptMode(-1);
-            }
-
-            //store message
-            Scierror(ConfigVariable::getLastErrorNumber(), "%s", ConfigVariable::getLastErrorMessage().c_str());
-            iErr = ConfigVariable::getLastErrorNumber();
-            if(bErrCatch == false)
-            {
-            	delete parser.getTree();
-			    return Function::Error;
-            }
-            break;
-		}
-*/
-
-/*
-*/
