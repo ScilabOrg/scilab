@@ -25,191 +25,154 @@
 namespace ast
 {
 
-    /** \brief Abstract an Expression node. */
-    class Exp : public Ast
+/** \brief Abstract an Expression node. */
+class Exp : public Ast
+{
+
+    /** \name Ctor & dtor.
+    ** \{ */
+public:
+    /** \brief Construct an Expression node.
+    ** \param location scanner position informations */
+    Exp (const Location& location)
+        : Ast (location),
+          _verbose(false),
+          _bBreak(false),
+          _bBreakable(false),
+          _bReturn(false),
+          _bReturnable(false),
+          _bContinue(false),
+          _bContinuable(false)
     {
+    }
+    /** \brief Destroys an Expression node. */
+    virtual ~Exp ()
+    {
+    }
+    /** \} */
 
-        /** \name Ctor & dtor.
-        ** \{ */
-    public:
-        /** \brief Construct an Expression node.
-        ** \param location scanner position informations */
-        Exp (const Location& location) 
-            : Ast (location),
-            _verbose(false),
-            _bBreak(false),
-            _bBreakable(false),
-            _bReturn(false),
-            _bReturnable(false),
-            _bContinue(false),
-            _bContinuable(false)
-        {
-        }
-        /** \brief Destroys an Expression node. */
-        virtual ~Exp ()
-        {
-        }
-        /** \} */
+    virtual Exp* clone() = 0;
 
-        virtual Exp* clone() = 0;
-        //{
-        //    Location* newloc = const_cast<Location*>(&location_get())->clone();
-        //    Exp* exp = new Exp(location_get());
-        //    exp->set_verbose(is_verbose());
+public:
+    /** \brief Return if an expression should be displayed or not. */
+    void mute(void)
+    {
+        _verbose = false;
+    }
 
-        //    if(is_break())
-        //    {
-        //        exp->break_set();
-        //    }
+    /** \brief Return if an expression should be displayed or not. */
+    void set_verbose(bool verbose)
+    {
+        _verbose = verbose;
+    }
 
-        //    if(is_breakable())
-        //    {
-        //        exp->breakable_set();
-        //    }
+    /** \brief Return if an expression should be displayed or not. */
+    bool is_verbose(void) const
+    {
+        return _verbose;
+    }
 
-        //    if(is_return())
-        //    {
-        //        exp->return_set();
-        //    }
+    void break_set(void)
+    {
+        _bBreak = true;
+    }
 
-        //    if(is_returnable())
-        //    {
-        //        exp->returnable_set();
-        //    }
+    void break_reset(void)
+    {
+        _bBreak = false;
+    }
 
-        //    if(is_continue())
-        //    {
-        //        exp->continue_set();
-        //    }
+    bool is_break(void) const
+    {
+        return _bBreak;
+    }
 
-        //    if(is_continuable())
-        //    {
-        //        exp->continuable_set();
-        //    }
+    void breakable_set(void)
+    {
+        _bBreakable = true;
+    }
 
-        //    return exp;
-        //}
+    void breakable_reset(void)
+    {
+        _bBreakable = false;
+    }
 
-    public:
-        /** \brief Return if an expression should be displayed or not. */
-        void mute(void)
-        {
-            _verbose = false;
-        }
+    bool is_breakable(void) const
+    {
+        return _bBreakable;
+    }
 
-        /** \brief Return if an expression should be displayed or not. */
-        void set_verbose(bool verbose)
-        {
-            _verbose = verbose;
-        }
+    void return_set(void)
+    {
+        _bReturn = true;
+    }
 
-        /** \brief Return if an expression should be displayed or not. */
-        bool is_verbose(void) const
-        {
-            return _verbose;
-        }
+    void return_reset(void)
+    {
+        _bReturn = false;
+    }
 
-        void break_set(void)
-        {
-            _bBreak = true;
-        }
+    bool is_return(void) const
+    {
+        return _bReturn;
+    }
 
-        void break_reset(void)
-        {
-            _bBreak = false;
-        }
+    void returnable_set(void)
+    {
+        _bReturnable = true;
+    }
 
-        bool is_break(void) const
-        {
-            return _bBreak;
-        }
+    void returnable_reset(void)
+    {
+        _bReturnable = false;
+    }
 
-        void breakable_set(void)
-        {
-            _bBreakable = true;
-        }
+    bool is_returnable(void) const
+    {
+        return _bReturnable;
+    }
 
-        void breakable_reset(void)
-        {
-            _bBreakable = false;
-        }
+    void continue_set(void)
+    {
+        _bContinue = true;
+    }
 
-        bool is_breakable(void) const
-        {
-            return _bBreakable;
-        }
+    void continue_reset(void)
+    {
+        _bContinue = false;
+    }
 
-        void return_set(void)
-        {
-            _bReturn = true;
-        }
+    bool is_continue(void) const
+    {
+        return _bContinue;
+    }
 
-        void return_reset(void)
-        {
-            _bReturn = false;
-        }
+    void continuable_set(void)
+    {
+        _bContinuable = true;
+    }
 
-        bool is_return(void) const
-        {
-            return _bReturn;
-        }
+    void continuable_reset(void)
+    {
+        _bContinuable = false;
+    }
 
-        void returnable_set(void)
-        {
-            _bReturnable = true;
-        }
+    bool is_continuable(void) const
+    {
+        return _bContinuable;
+    }
+private:
+    bool _verbose;
+    bool _bBreak;
+    bool _bBreakable;
+    bool _bReturn;
+    bool _bReturnable;
+    bool _bContinue;
+    bool _bContinuable;
+};
 
-        void returnable_reset(void)
-        {
-            _bReturnable = false;
-        }
-
-        bool is_returnable(void) const
-        {
-            return _bReturnable;
-        }
-
-        void continue_set(void)
-        {
-            _bContinue = true;
-        }
-
-        void continue_reset(void)
-        {
-            _bContinue = false;
-        }
-
-        bool is_continue(void) const
-        {
-            return _bContinue;
-        }
-
-        void continuable_set(void)
-        {
-            _bContinuable = true;
-        }
-
-        void continuable_reset(void)
-        {
-            _bContinuable = false;
-        }
-
-        bool is_continuable(void) const
-        {
-            return _bContinuable;
-        }
-    private:
-        bool _verbose;
-        bool _bBreak;
-        bool _bBreakable;
-        bool _bReturn;
-        bool _bReturnable;
-        bool _bContinue;
-        bool _bContinuable;
-    };
-
-    /** \brief Define a shorthand for list of Exp* manipulation. */
-    typedef std::list<Exp *> exps_t;
+/** \brief Define a shorthand for list of Exp* manipulation. */
+typedef std::list<Exp *> exps_t;
 
 } // namespace ast
 

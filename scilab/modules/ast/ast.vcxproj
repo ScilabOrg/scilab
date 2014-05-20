@@ -182,7 +182,6 @@
   <ItemGroup>
     <ClCompile Include="src\cpp\debugvisitor.cpp" />
     <ClCompile Include="src\cpp\expHistory.cpp" />
-    <ClCompile Include="src\cpp\libAst.cpp" />
     <ClCompile Include="src\cpp\macrovarvisitor.cpp" />
     <ClCompile Include="src\cpp\mutevisitor.cpp" />
     <ClCompile Include="src\cpp\printvisitor.cpp" />
@@ -215,6 +214,7 @@
     <ClInclude Include="includes\dec.hxx" />
     <ClInclude Include="includes\decls.hxx" />
     <ClInclude Include="includes\decs.hxx" />
+    <ClInclude Include="includes\deserializervisitor.hxx" />
     <ClInclude Include="includes\dollarvar.hxx" />
     <ClInclude Include="includes\doubleexp.hxx" />
     <ClInclude Include="includes\dummyvisitor.hxx" />
@@ -228,8 +228,8 @@
     <ClInclude Include="includes\ifexp.hxx" />
     <ClInclude Include="includes\intexp.hxx" />
     <ClInclude Include="includes\macrovarvisitor.hxx" />
+    <ClInclude Include="includes\serializervisitor.hxx" />
     <ClInclude Include="includes\stepvisitor.hxx" />
-    <ClInclude Include="src\cpp\libAst.hxx" />
     <ClInclude Include="includes\listexp.hxx" />
     <ClInclude Include="includes\logicalopexp.hxx" />
     <ClInclude Include="includes\mathexp.hxx" />
