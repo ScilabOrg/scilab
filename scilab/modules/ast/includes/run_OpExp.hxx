@@ -29,7 +29,7 @@ void visitprivate(const OpExp &e)
             std::wostringstream os;
             os << _W("Incompatible output argument.\n");
             //os << ((Location)e.right_get().location_get()).location_getString() << std::endl;
-            throw ScilabError(os.str(), 999, e.right_get().location_get());
+            throw ast::ScilabError(os.str(), 999, e.right_get().location_get());
         }
 
         /*getting what to assign*/
@@ -40,7 +40,7 @@ void visitprivate(const OpExp &e)
             std::wostringstream os;
             os << _W("Incompatible output argument.\n");
             //os << ((Location)e.right_get().location_get()).location_getString() << std::endl;
-            throw ScilabError(os.str(), 999, e.right_get().location_get());
+            throw ast::ScilabError(os.str(), 999, e.right_get().location_get());
         }
 
         if (pITL->getType() == GenericType::ScilabImplicitList)
@@ -206,7 +206,7 @@ void visitprivate(const OpExp &e)
             delete pITR;
         }
     }
-    catch (ScilabError error)
+    catch (ast::ScilabError error)
     {
         result_clear();
         error.SetErrorLocation(e.location_get());
@@ -229,7 +229,7 @@ void visitprivate(const LogicalOpExp &e)
             std::wostringstream os;
             os << _W("Incompatible output argument.\n");
             //os << ((Location)e.right_get().location_get()).location_getString() << std::endl;
-            throw ScilabError(os.str(), 999, e.right_get().location_get());
+            throw ast::ScilabError(os.str(), 999, e.right_get().location_get());
         }
 
         result_set(NULL);
@@ -267,7 +267,7 @@ void visitprivate(const LogicalOpExp &e)
                     std::wostringstream os;
                     os << _W("Incompatible output argument.\n");
                     //os << ((Location)e.right_get().location_get()).location_getString() << std::endl;
-                    throw ScilabError(os.str(), 999, e.right_get().location_get());
+                    throw ast::ScilabError(os.str(), 999, e.right_get().location_get());
                 }
 
                 if (pITR->getType() == GenericType::ScilabImplicitList)
@@ -301,7 +301,7 @@ void visitprivate(const LogicalOpExp &e)
                     std::wostringstream os;
                     os << _W("Incompatible output argument.\n");
                     //os << ((Location)e.right_get().location_get()).location_getString() << std::endl;
-                    throw ScilabError(os.str(), 999, e.right_get().location_get());
+                    throw ast::ScilabError(os.str(), 999, e.right_get().location_get());
                 }
 
                 if (pITR->getType() == GenericType::ScilabImplicitList)
@@ -339,7 +339,7 @@ void visitprivate(const LogicalOpExp &e)
             delete pITR;
         }
     }
-    catch (ScilabError error)
+    catch (ast::ScilabError error)
     {
         result_clear();
         error.SetErrorLocation(e.location_get());

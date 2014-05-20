@@ -45,7 +45,7 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
             types::InternalType *pIT = symbol::Context::getInstance()->get(symbol::Symbol(wstFuncName));
             if (pIT)
             {
-                return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+                return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
             }
         }
 

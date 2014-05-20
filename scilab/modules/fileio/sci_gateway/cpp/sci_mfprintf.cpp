@@ -35,6 +35,9 @@ extern "C"
 #ifdef _MSC_VER
 static BOOL forceSTDERRredirect = TRUE;
 #endif
+
+using namespace types;
+using namespace ast;
 /*--------------------------------------------------------------------------*/
 
 Function::ReturnValue sci_mfprintf(types::typed_list &in, int _iRetCount, types::typed_list &out)
@@ -87,7 +90,7 @@ Function::ReturnValue sci_mfprintf(types::typed_list &in, int _iRetCount, types:
         if (in[i]->isDouble() == false && in[i]->isString() == false)
         {
             std::wstring wstFuncName = L"%"  + in[i]->getShortTypeStr() + L"_mfprintf";
-            return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+            return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
         }
     }
 
