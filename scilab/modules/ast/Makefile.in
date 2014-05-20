@@ -158,8 +158,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libsciast_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_libsciast_la_OBJECTS = src/cpp/libsciast_la-libAst.lo \
-	src/cpp/libsciast_la-visitor_common.lo \
+am_libsciast_la_OBJECTS = src/cpp/libsciast_la-visitor_common.lo \
 	src/cpp/libsciast_la-printvisitor.lo \
 	src/cpp/libsciast_la-debugvisitor.lo \
 	src/cpp/libsciast_la-mutevisitor.lo \
@@ -520,7 +519,6 @@ top_srcdir = @top_srcdir@
 yacc_present = @yacc_present@
 pkglib_LTLIBRARIES = libsciast.la
 libsciast_la_SOURCES = \
-	src/cpp/libAst.cpp \
 	src/cpp/visitor_common.cpp \
 	src/cpp/printvisitor.cpp \
 	src/cpp/debugvisitor.cpp \
@@ -707,8 +705,6 @@ src/cpp/$(am__dirstamp):
 src/cpp/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/cpp/$(DEPDIR)
 	@: > src/cpp/$(DEPDIR)/$(am__dirstamp)
-src/cpp/libsciast_la-libAst.lo: src/cpp/$(am__dirstamp) \
-	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libsciast_la-visitor_common.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libsciast_la-printvisitor.lo: src/cpp/$(am__dirstamp) \
@@ -739,7 +735,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciast_la-debugvisitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciast_la-expHistory.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciast_la-libAst.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciast_la-macrovarvisitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciast_la-mutevisitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciast_la-printvisitor.Plo@am__quote@
@@ -770,13 +765,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
-
-src/cpp/libsciast_la-libAst.lo: src/cpp/libAst.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libsciast_la-libAst.lo -MD -MP -MF src/cpp/$(DEPDIR)/libsciast_la-libAst.Tpo -c -o src/cpp/libsciast_la-libAst.lo `test -f 'src/cpp/libAst.cpp' || echo '$(srcdir)/'`src/cpp/libAst.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/$(DEPDIR)/libsciast_la-libAst.Tpo src/cpp/$(DEPDIR)/libsciast_la-libAst.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/libAst.cpp' object='src/cpp/libsciast_la-libAst.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libsciast_la-libAst.lo `test -f 'src/cpp/libAst.cpp' || echo '$(srcdir)/'`src/cpp/libAst.cpp
 
 src/cpp/libsciast_la-visitor_common.lo: src/cpp/visitor_common.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libsciast_la-visitor_common.lo -MD -MP -MF src/cpp/$(DEPDIR)/libsciast_la-visitor_common.Tpo -c -o src/cpp/libsciast_la-visitor_common.lo `test -f 'src/cpp/visitor_common.cpp' || echo '$(srcdir)/'`src/cpp/visitor_common.cpp

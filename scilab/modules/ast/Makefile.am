@@ -14,7 +14,6 @@
 pkglib_LTLIBRARIES 	= libsciast.la
 
 libsciast_la_SOURCES = \
-	src/cpp/libAst.cpp \
 	src/cpp/visitor_common.cpp \
 	src/cpp/printvisitor.cpp \
 	src/cpp/debugvisitor.cpp \
