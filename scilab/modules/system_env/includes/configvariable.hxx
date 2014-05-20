@@ -288,9 +288,12 @@ public :
     // Command Line Arguments
 private :
     static std::vector<std::wstring> m_Args;
+    static bool m_bTimed;
 public :
     static void setCommandLineArgs(int _iArgs, char** _pstArgs);
     static wchar_t** getCommandLineArgs(int* _piCount);
+    static bool getTimed();
+    static void setTimed(bool _bTimed);
 
     //schur function
 private :

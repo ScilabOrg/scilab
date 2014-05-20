@@ -19,7 +19,7 @@
 #include "timedvisitor.hxx"
 #include "debugvisitor.hxx"
 #include "stepvisitor.hxx"
-#include "configvariable.hxx"
+#include "visitor_common.hxx"
 
 #include "scilabWrite.hxx"
 #include "runner.hxx"
@@ -51,7 +51,7 @@ void parseFileTask(Parser *parser, bool timed, const wchar_t* file_name, const w
 
     if (timed)
     {
-        _timer.check("Parsing");
+        _timer.check(L"Parsing");
     }
 }
 
@@ -75,7 +75,7 @@ void parseCommandTask(Parser *parser, bool timed, wchar_t *command)
 
     if (timed && parser->getControlStatus() == Parser::AllControlClosed)
     {
-        _timer.check("Parsing");
+        _timer.check(L"Parsing");
     }
 }
 
@@ -99,7 +99,7 @@ void dumpAstTask(ast::Exp *tree, bool timed)
 
     if (timed)
     {
-        _timer.check("AST Dump");
+        _timer.check(L"AST Dump");
     }
 }
 
@@ -123,7 +123,7 @@ void printAstTask(ast::Exp *tree, bool timed)
 
     if (timed)
     {
-        _timer.check("Pretty Print");
+        _timer.check(L"Pretty Print");
     }
 }
 
@@ -161,12 +161,29 @@ void execAstTask(ast::Exp* tree, bool timed, bool ASTtimed, bool execVerbose)
         exec = new ast::ExecVisitor();
     }
 
-    Runner::execAndWait(tree, exec);
-    //delete exec;
+#ifdef ENABLE_EXTERNAL_TYPER
+    ast::Exp* newTree = NULL;
 
     if (timed)
     {
-        _timer.check("Execute AST");
+        newTree = callTyper(tree, L"tasks");
+    }
+    else
+    {
+        newTree = callTyper(tree);
+    }
+
+    delete tree;
+#else
+    newTree = tree;
+#endif
+
+    Runner::execAndWait(newTree, exec);
+    //DO NOT DELETE tree or newTree, they was deleted by Runner or previously;
+
+    if (timed)
+    {
+        _timer.check(L"Execute AST");
     }
 }
 
@@ -186,7 +203,7 @@ void dumpStackTask(bool timed)
 
     if (timed)
     {
-        _timer.check("Dumping Stack");
+        _timer.check(L"Dumping Stack");
     }
 }
 
