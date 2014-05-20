@@ -278,7 +278,6 @@ nextline:
 
 char **getDynamicDebugInfo(int *sizeArray, int* pvApiCtx)
 {
-    SciErr sciErr;
     int i = 0;
     char *value = NULL;
     char **outputDynamicList = NULL;

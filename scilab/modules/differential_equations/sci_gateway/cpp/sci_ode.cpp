@@ -1072,7 +1072,7 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
                     Scierror(999, _("%s: %s exit with state %d.\n"), "ode", strMeth.c_str(), istate);
                 }
             }
-            catch (ScilabError &e)
+            catch (ast::ScilabError &e)
             {
                 char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
                 sciprint(_("%s: exception caught in '%s' subroutine.\n"), "ode", strMeth.c_str());
@@ -1282,7 +1282,7 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
                     Scierror(999, _("%s: %s exit with state %d.\n"), "ode", strMeth.c_str(), istate);
                 }
             }
-            catch (ScilabError &e)
+            catch (ast::ScilabError &e)
             {
                 char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
                 sciprint(_("%s: exception caught in '%s' subroutine.\n"), "ode", strMeth.c_str());

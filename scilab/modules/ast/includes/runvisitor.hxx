@@ -51,6 +51,7 @@ extern "C" {
 #include "localization.h"
 
 #include "scilabWrite.hxx"
+#include "variables.hxx"
 #include "context.hxx"
 
 #include "all.hxx"
@@ -71,7 +72,7 @@ public:
         _resultVect.push_back(NULL);
         _result = NULL;
         m_bSingleResult = true;
-        m_pAns = new symbol::Symbol(L"ans");
+        m_pAns = symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"ans"));
     }
 
     ~RunVisitor()
@@ -215,7 +216,7 @@ protected:
     types::InternalType*	_result;
     bool m_bSingleResult;
     int _excepted_result;
-    symbol::Symbol* m_pAns;
+    symbol::Variable* m_pAns;
 };
 
 template <class T>
@@ -258,7 +259,6 @@ public :
         */
     }
 
-
     void visitprivate(const CellExp &e)
     {
         std::list<MatrixLineExp *>::const_iterator row;
@@ -278,7 +278,7 @@ public :
                 std::wostringstream os;
                 os << _W("inconsistent row/column dimensions\n");
                 //os << ((Location)(*row)->location_get()).location_getString() << std::endl;
-                throw ScilabError(os.str(), 999, (*row)->location_get());
+                throw ast::ScilabError(os.str(), 999, (*row)->location_get());
             }
         }
 
@@ -309,9 +309,6 @@ public :
         result_set(pC);
     }
 
-    /** \name Visit Constant Expressions nodes.
-    ** \{ */
-
     void visitprivate(const StringExp &e)
     {
         if (e.getBigString() == NULL)
@@ -323,14 +320,12 @@ public :
         result_set(e.getBigString());
     }
 
-
     void visitprivate(const CommentExp &e)
     {
         /*
         Nothing to do
         */
     }
-
 
     void visitprivate(const IntExp  &e)
     {
@@ -339,14 +334,12 @@ public :
         */
     }
 
-
     void visitprivate(const FloatExp  &e)
     {
         /*
         Float does not exist, float function
         */
     }
-
 
     void visitprivate(const DoubleExp  &e)
     {
@@ -358,7 +351,6 @@ public :
         }
         result_set(e.getBigDouble());
     }
-
 
     void visitprivate(const BoolExp  &e)
     {
@@ -377,10 +369,9 @@ public :
         result_set(new types::Void());
     }
 
-
     void visitprivate(const SimpleVar &e)
     {
-        InternalType *pI = symbol::Context::getInstance()->get(e.name_get());
+        InternalType *pI = symbol::Context::getInstance()->get(((SimpleVar&)e).stack_get());
         result_set(pI);
         if (pI != NULL)
         {
@@ -405,59 +396,29 @@ public :
             FREE(strErr);
             std::wstring wstError(pwstError);
             FREE(pwstError);
-            throw ScilabError(wstError, 999, e.location_get());
+            throw ast::ScilabError(wstError, 999, e.location_get());
             //Err, SimpleVar doesn't exist in Scilab scopes.
         }
     }
 
-
     void visitprivate(const ColonVar &e)
     {
-        //int pRank[1] = {2};
-        //Double dblCoef(1,2);
-        //dblCoef.set(0, 0, 0);
-        //dblCoef.set(0, 1, 1);
-
-        //Polynom *pVar = new Polynom(L"$", 1, 1, pRank);
-        //SinglePoly *poPoly = pVar->get(0,0);
-        //poPoly->setCoef(&dblCoef);
-
-        //ImplicitList *pIL = new ImplicitList();
-        //pIL->setStart(new Double(1));
-        //pIL->setStep(new Double(1));
-        //pIL->setEnd(pVar);
-
-        Colon *pC = new Colon();
-        result_set(pC);
         /*
         : = 1:$
         */
+        Colon *pC = new Colon();
+        result_set(pC);
     }
-
 
     void visitprivate(const DollarVar &e)
     {
-        //int pRank[1] = {2};
-        //Double dblCoef(1,2);
-        //dblCoef.set(0, 0, 0);
-        //dblCoef.set(0, 1, 1);
-
-        //Polynom *pVar = new Polynom(L"$", 1, 1, pRank);
-        //SinglePoly *poPoly = pVar->get(0,0);
-        //poPoly->setCoef(&dblCoef);
-
         Dollar* pVar = new Dollar();
         result_set(pVar);
     }
 
-
     void visitprivate(const ArrayListVar &e)
     {
-        /*
-
-        */
     }
-
 
     void visitprivate(const FieldExp &e)
     {
@@ -468,7 +429,7 @@ public :
         {
             e.head_get()->accept(*this);
         }
-        catch (ScilabError error)
+        catch (ast::ScilabError error)
         {
             throw error;
         }
@@ -483,14 +444,14 @@ public :
         {
             wchar_t szError[bsiz];
             os_swprintf(szError, bsiz, _W("/!\\ Unmanaged FieldExp.\n"));
-            throw ScilabError(szError, 999, e.location_get());
+            throw ast::ScilabError(szError, 999, e.location_get());
         }
 
         if (result_get() == NULL)
         {
             wchar_t szError[bsiz];
             os_swprintf(szError, bsiz, _W("Attempt to reference field of non-structure array.\n"));
-            throw ScilabError(szError, 999, e.location_get());
+            throw ast::ScilabError(szError, 999, e.location_get());
         }
 
         if (result_get()->isStruct())
@@ -518,7 +479,7 @@ public :
             {
                 wchar_t szError[bsiz];
                 os_swprintf(szError, bsiz, _W("Unknown field : %ls.\n"), wstField.c_str());
-                throw ScilabError(szError, 999, e.tail_get()->location_get());
+                throw ast::ScilabError(szError, 999, e.tail_get()->location_get());
             }
         }
         else if (result_get()->isMList() || result_get()->isTList())
@@ -551,7 +512,7 @@ public :
 
                 if (Ret != Callable::OK)
                 {
-                    throw ScilabError();
+                    throw ast::ScilabError();
                 }
 
                 if (out.size() == 0)
@@ -602,7 +563,7 @@ public :
             {
                 wchar_t szError[bsiz];
                 os_swprintf(szError, bsiz, _W("Unknown macro %ls in library.\n"), wstField.c_str());
-                throw ScilabError(szError, 999, e.tail_get()->location_get());
+                throw ast::ScilabError(szError, 999, e.tail_get()->location_get());
             }
 
             result_set(pIT);
@@ -611,7 +572,7 @@ public :
         {
             wchar_t szError[bsiz];
             os_swprintf(szError, bsiz, _W("Attempt to reference field of non-structure array.\n"));
-            throw ScilabError(szError, 999, e.location_get());
+            throw ast::ScilabError(szError, 999, e.location_get());
         }
     }
 
@@ -704,7 +665,6 @@ public :
         }
     }
 
-
     void visitprivate(const TryCatchExp  &e)
     {
         //save current prompt mode
@@ -726,7 +686,6 @@ public :
             e.catch_get().accept(*this);
         }
     }
-
 
     void visitprivate(const WhileExp  &e)
     {
@@ -781,7 +740,6 @@ public :
         result_clear();
     }
 
-
     void visitprivate(const ForExp  &e)
     {
         e.vardec_get().accept(*this);
@@ -802,12 +760,11 @@ public :
 
             InternalType *pIL = NULL;
             pIL = pVar->extractValue(0);
-            symbol::Symbol varName = e.vardec_get().name_get();
 
             for (int i = 0 ; i < pVar->getSize() ; i++)
             {
                 pIL = pVar->extractValue(i);
-                symbol::Context::getInstance()->put(varName, *pIL);
+                symbol::Context::getInstance()->put(e.vardec_get().stack_get(), pIL);
 
                 e.body_get().accept(*this);
                 if (e.body_get().is_break())
@@ -835,7 +792,7 @@ public :
             for (int i = 0 ; i < pL->getSize() ; i++)
             {
                 InternalType* pNew = pL->get(i);
-                symbol::Context::getInstance()->put(e.vardec_get().name_get(), *pNew);
+                symbol::Context::getInstance()->put(e.vardec_get().stack_get(), pNew);
                 e.body_get().accept(*this);
                 if (e.body_get().is_break())
                 {
@@ -862,13 +819,13 @@ public :
             GenericType* pVar = pIT->getAs<GenericType>();
             if (pVar->getDims() > 2)
             {
-                throw ScilabError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.vardec_get().location_get());
+                throw ast::ScilabError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.vardec_get().location_get());
             }
 
             for (int i = 0 ; i < pVar->getCols() ; i++)
             {
                 GenericType* pNew = pVar->getColumnValues(i);
-                symbol::Context::getInstance()->put(e.vardec_get().name_get(), *pNew);
+                symbol::Context::getInstance()->put(e.vardec_get().stack_get(), pNew);
                 e.body_get().accept(*this);
                 if (e.body_get().is_break())
                 {
@@ -898,7 +855,6 @@ public :
 
         result_set(NULL);
     }
-
 
     void visitprivate(const BreakExp &e)
     {
@@ -981,7 +937,6 @@ public :
         }
 
     }
-
 
     void visitprivate(const SelectExp &e)
     {
@@ -1174,18 +1129,18 @@ public :
                                 {
                                     ConfigVariable::setLastErrorFunction(pCall->getName());
                                     ConfigVariable::setLastErrorLine(e.location_get().first_line);
-                                    throw ScilabError();
+                                    throw ast::ScilabError();
                                 }
 
                                 if (pCall->isMacro() || pCall->isMacroFile())
                                 {
                                     wchar_t szError[bsiz];
                                     os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), (*itExp)->location_get().first_line, pCall->getName().c_str());
-                                    throw ScilabMessage(szError);
+                                    throw ast::ScilabMessage(szError);
                                 }
                                 else
                                 {
-                                    throw ScilabMessage();
+                                    throw ast::ScilabMessage();
                                 }
                             }
                         }
@@ -1204,7 +1159,7 @@ public :
                             {
                                 wchar_t szError[bsiz];
                                 os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), sm.GetErrorLocation().first_line, pCall->getName().c_str());
-                                throw ScilabMessage(szError + os.str());
+                                throw ast::ScilabMessage(szError + os.str());
                             }
                             else
                             {
@@ -1220,7 +1175,7 @@ public :
                     {
                         //symbol::Context::getInstance()->put(symbol::Symbol(L"ans"), *execMe.result_get());
                         InternalType* pITAns = result_get();
-                        symbol::Context::getInstance()->put(*m_pAns, *pITAns);
+                        symbol::Context::getInstance()->put(m_pAns, pITAns);
                         if ((*itExp)->is_verbose() && ConfigVariable::isPromptShow())
                         {
                             //TODO manage multiple returns
@@ -1269,13 +1224,13 @@ public :
                         {
                             ConfigVariable::setLastErrorFunction(((InternalType*)result_get())->getAs<Callable>()->getName());
                         }
-                        throw ScilabMessage(os.str(), 0, (*itExp)->location_get());
+                        throw ast::ScilabMessage(os.str(), 0, (*itExp)->location_get());
                     }
                 }
 
-                throw ScilabMessage((*itExp)->location_get());
+                throw ast::ScilabMessage((*itExp)->location_get());
             }
-            catch (ScilabError se)
+            catch (ast::ScilabError se)
             {
                 // check on error number because error message can be empty.
                 if (ConfigVariable::getLastErrorNumber() == 0)
@@ -1301,10 +1256,10 @@ public :
                             //os << std::endl << std::endl;
                             ConfigVariable::setLastErrorFunction(((InternalType*)result_get())->getAs<Callable>()->getName());
                             scilabErrorW(se.GetErrorMessage().c_str());
-                            throw ScilabMessage(os.str(), 999, (*itExp)->location_get());
+                            throw ast::ScilabMessage(os.str(), 999, (*itExp)->location_get());
                         }
                     }
-                    catch (ScilabError se2)
+                    catch (ast::ScilabError se2)
                     {
                         //just to catch exception, do nothing
                     }
@@ -1312,7 +1267,7 @@ public :
 
                 scilabErrorW(se.GetErrorMessage().c_str());
                 scilabErrorW(L"\n");
-                throw ScilabMessage((*itExp)->location_get());
+                throw ast::ScilabMessage((*itExp)->location_get());
             }
             result_set(NULL);
         }
@@ -1343,10 +1298,6 @@ public :
     {
 
     }
-    /** \} */
-
-    /** \name Visit Single Operation nodes.
-    ** \{ */
 
     void visitprivate(const NotExp &e)
     {
@@ -1724,11 +1675,6 @@ public :
             result_set(pReturn);
         }
     }
-    /** \} */
-
-    /** \name Visit Declaration nodes.
-    ** \{ */
-    /** \brief Visit Var declarations. */
 
     void visitprivate(const VarDec  &e)
     {
@@ -1738,7 +1684,7 @@ public :
             e.init_get().accept(*this);
             result_get()->IncreaseRef();
         }
-        catch (ScilabError error)
+        catch (ast::ScilabError error)
         {
             throw error;
         }
@@ -1757,7 +1703,8 @@ public :
         // funcprot(2) : error
         if (ConfigVariable::getFuncprot() == 1 && ConfigVariable::getWarningMode())
         {
-            types::InternalType* pITFunc = symbol::Context::getInstance()->get(symbol::Symbol(e.name_get().name_get()));
+            std::wstring name = e.name_get().name_get();
+            types::InternalType* pITFunc = symbol::Context::getInstance()->get(((FunctionDec&)e).stack_get());
 
             if (pITFunc && pITFunc->isCallable())
             {
@@ -1772,7 +1719,7 @@ public :
         }
         else if (ConfigVariable::getFuncprot() == 2)
         {
-            types::InternalType* pITFunc = symbol::Context::getInstance()->get(symbol::Symbol(e.name_get().name_get()));
+            types::InternalType* pITFunc = symbol::Context::getInstance()->get(((FunctionDec&)e).stack_get());
 
             if (pITFunc && pITFunc->isCallable())
             {
@@ -1783,44 +1730,35 @@ public :
                 std::wstring wstError(pwstError);
                 FREE(pstFuncName);
                 FREE(pwstError);
-                throw ScilabError(wstError, 999, e.location_get());
+                throw ast::ScilabError(wstError, 999, e.location_get());
             }
         }
 
         std::list<ast::Var *>::const_iterator	i;
 
         //get input parameters list
-        std::list<symbol::Symbol> *pVarList = new std::list<symbol::Symbol>();
+        std::list<symbol::Variable*> *pVarList = new std::list<symbol::Variable*>();
         const ArrayListVar *pListVar = &e.args_get();
         for (i = pListVar->vars_get().begin() ; i != pListVar->vars_get().end() ; i++)
         {
-            pVarList->push_back(static_cast<SimpleVar*>(*i)->name_get());
+            pVarList->push_back(static_cast<SimpleVar*>(*i)->stack_get());
         }
 
         //get output parameters list
-        std::list<symbol::Symbol> *pRetList = new std::list<symbol::Symbol>();
+        std::list<symbol::Variable*> *pRetList = new std::list<symbol::Variable*>();
         const ArrayListVar *pListRet = &e.returns_get();
         for (i = pListRet->vars_get().begin() ; i != pListRet->vars_get().end() ; i++)
         {
-            pRetList->push_back(static_cast<SimpleVar*>(*i)->name_get());
+            pRetList->push_back(static_cast<SimpleVar*>(*i)->stack_get());
         }
 
-        //            Location* newloc = const_cast<Location*>(&location_get())->clone();
         Exp* exp = const_cast<Exp*>(&e.body_get())->clone();
 
-        //MuteVisitor mute;
-        //exp->accept(mute);
-
-        //types::Macro macro(VarList, RetList, (SeqExp&)e.body_get());
         types::Macro *pMacro = new types::Macro(e.name_get().name_get(), *pVarList, *pRetList,
                                                 static_cast<SeqExp&>(*exp), L"script");
         pMacro->setFirstLine(e.location_get().first_line);
-        symbol::Context::getInstance()->AddMacro(pMacro);
+        symbol::Context::getInstance()->addMacro(pMacro);
     }
-    /** \} */
-
-    /** \name Visit Type dedicated Expressions related node.
-    ** \{ */
 
     void visitprivate(const ListExp &e)
     {
@@ -1859,12 +1797,12 @@ public :
                 {
                     if (piStep->getType() != piStart->getType())
                     {
-                        throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
+                        throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
                     }
                 }
                 else if (piStep->isPoly())
                 {
-                    throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
+                    throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
                 }
 
 
@@ -1872,24 +1810,24 @@ public :
                 {
                     if (piEnd->getType() != piStart->getType())
                     {
-                        throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
+                        throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
                     }
                 }
                 else if (piEnd->isPoly())
                 {
-                    throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
+                    throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
                 }
             }
             else if (piStart->isPoly())
             {
                 if (piStep->isInt())
                 {
-                    throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
+                    throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
                 }
 
                 if (piEnd->isInt())
                 {
-                    throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
+                    throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
                 }
             }
             else if (piStep->isInt())
@@ -1899,7 +1837,7 @@ public :
                 {
                     if (piEnd->getType() != piStep->getType())
                     {
-                        throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
+                        throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.end_get().location_get());
                     }
                 }
             }
@@ -1907,7 +1845,7 @@ public :
             {
                 if (piEnd->isInt())
                 {
-                    throw ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
+                    throw ast::ScilabError(_W("Undefined operation for the given operands.\n"), 999, e.step_get().location_get());
                 }
             }
 
@@ -1949,9 +1887,9 @@ public :
         {
             wchar_t szError[bsiz];
             os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n"), L"':'", iPos);
-            throw ScilabError(szError, 999, e.location_get());
+            throw ast::ScilabError(szError, 999, e.location_get());
         }
-        catch (ScilabError error)
+        catch (ast::ScilabError error)
         {
             //TODO YaSp : Overloading
             throw error;
@@ -1975,10 +1913,10 @@ public :
             {
                 if (Overload::call(L"%" + pIT->getAs<TList>()->getShortTypeStr() + L"_p", in, 1, out, this) != Function::OK)
                 {
-                    throw ScilabError();
+                    throw ast::ScilabError();
                 }
             }
-            catch (ScilabError /*&e*/)
+            catch (ast::ScilabError /*&e*/)
             {
                 ostr << wcsVarName;
                 pIT->toString(ostr);

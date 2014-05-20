@@ -39,13 +39,13 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
     {
         types::GenericType* pIn = in[0]->getAs<types::GenericType>();
 
-        if(pIn->isList())
+        if (pIn->isList())
         {
             std::wstring wstFuncName = L"%"  + in[0]->getTypeStr() + L"_ones";
             types::InternalType *pIT = symbol::Context::getInstance()->get(symbol::Symbol(wstFuncName));
-            if(pIT)
+            if (pIT)
             {
-                return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+                return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
             }
         }
 
@@ -114,7 +114,7 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
                     return Function::Error;
             }
 
-            if(piDims[i] < 1)
+            if (piDims[i] < 1)
             {
                 delete[] piDims;
                 out.push_back(types::Double::Empty());
