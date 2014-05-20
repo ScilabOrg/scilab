@@ -32,6 +32,8 @@
 #include "expandPathVariable.h"
 #include "configvariable.hxx"
 #include "string.hxx"
+#include "library.hxx"
+#include "macrofile.hxx"
 
 extern "C"
 {
@@ -183,14 +185,14 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
                         scilabWriteW(pstVerbose);
                     }
 
-                    pLib->add(pFD->name_get().name_get(), new MacroFile(pFD->name_get().name_get(), stFullPath, pstLibName));
+                    pLib->add(pFD->name_get().name_get(), new types::MacroFile(pFD->name_get().name_get(), stFullPath, pstLibName));
                 }
             }
 
             delete parser.getTree();
         }
 
-        symbol::Context::getInstance()->put(symbol::Symbol(pstLibName), *pLib);
+        symbol::Context::getInstance()->put(symbol::Symbol(pstLibName), pLib);
     }
 
 

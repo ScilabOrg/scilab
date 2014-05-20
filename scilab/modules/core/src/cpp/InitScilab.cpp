@@ -97,6 +97,8 @@ static int interactiveMain(ScilabEngineInfo* _pSEI);
 static Parser::ControlStatus processCommand(ScilabEngineInfo* _pSEI);
 static void stateShow(Parser::ControlStatus status);
 
+using namespace ast;
+
 ScilabEngineInfo* InitScilabEngineInfo()
 {
     ScilabEngineInfo* pSEI = (ScilabEngineInfo*)MALLOC(sizeof(ScilabEngineInfo));
@@ -763,7 +765,7 @@ static void Add_Poly_Constant(wstring _szName, wstring _szPolyVar, int _iRank, D
     SinglePoly *poPoly = pVar->get(0, 0);
 
     poPoly->setCoef(_pdbl);
-    symbol::Context::getInstance()->put(symbol::Symbol(_szName), *pVar);
+    symbol::Context::getInstance()->put(symbol::Symbol(_szName), pVar);
 }
 
 static void Add_Double_Constant(wstring _szName, double _dblReal, double _dblImg, bool _bComplex)
@@ -771,17 +773,17 @@ static void Add_Double_Constant(wstring _szName, double _dblReal, double _dblImg
     types::Double * pVal = new types::Double(1, 1, _bComplex);
     pVal->set(0, 0, _dblReal);
     pVal->setImg(0, 0, _dblImg);
-    symbol::Context::getInstance()->put(symbol::Symbol(_szName), *pVal);
+    symbol::Context::getInstance()->put(symbol::Symbol(_szName), pVal);
 }
 
 static void Add_Boolean_Constant(wstring _szName, bool _bBool)
 {
     types::Bool * pVal = new types::Bool(_bBool);
-    symbol::Context::getInstance()->put(symbol::Symbol(_szName), *pVal);
+    symbol::Context::getInstance()->put(symbol::Symbol(_szName), pVal);
 }
 
 static void Add_String_Constant(wstring _szName, const char *_pstString)
 {
     types::String * ps = new types::String(_pstString);
-    symbol::Context::getInstance()->put(symbol::Symbol(_szName), *ps);
+    symbol::Context::getInstance()->put(symbol::Symbol(_szName), ps);
 }
