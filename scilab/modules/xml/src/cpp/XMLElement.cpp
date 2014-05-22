@@ -62,12 +62,13 @@ void XMLElement::remove() const
         obj = scope->getXMLNodeListFromLibXMLPtr(node->parent->children);
     }
 
-    xmlUnlinkNode(node);
-    xmlFreeNode(node);
 
     if (obj)
     {
         obj->revalidateSize();
+
+        xmlUnlinkNode(node);
+        xmlFreeNode(node);
     }
 }
 
