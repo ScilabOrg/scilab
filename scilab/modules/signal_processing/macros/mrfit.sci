@@ -7,7 +7,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-function [num,den]=mrfit(w,mod,r)
+function [num,den]=mrfit(w,mod,r,weight)
     //Calling sequence:
     //[num,den]=mrfit(w,mod,r)
     //sys = mrfit(w,mod,r)
@@ -22,6 +22,10 @@ function [num,den]=mrfit(w,mod,r)
     //
     //  abs(freq(num,den,%i*w)) should be close to mod
     //
+
+    if and(argn(2)~=[3,4]) then
+        error(msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"), "mrfit", 3, 4));
+    end
 
     function ww=mrfitdiff(ww)
         //Utility fct
@@ -44,7 +48,9 @@ function [num,den]=mrfit(w,mod,r)
     if slinf~=0 then mod($)=mod($-1)*10^slinf;end
     logw=log10(w);logmod=log10(mod);delw=mrfitdiff(logw);delmod=mrfitdiff(logmod);
 
-    weight=ones(length(w),1);
+    if argn(2) == 3 then
+        weight=ones(length(w),1);
+    end
 
     junk=find(abs(mrfitdiff(delmod./delw)) > .6);
     ind=1+junk;

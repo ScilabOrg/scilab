@@ -12,6 +12,8 @@ Scilab Bug Fixes
 
 * Bug #7549 fixed - edit_curv did not disable standard plot menus.
 
+* Bug #7958 fixed - mrfit failed when calling it with four input arguments.
+
 * Bug #8646 fixed - The datatips contextual menu opened a selection list which
                     was not ergonomic.
 

@@ -41,7 +41,7 @@
                 <term>weight</term>
                 <listitem>
                     <para>
-                        positive real vector (default value <literal>ones(w)</literal>).
+                        positive real vector (default value <literal>ones(w)'</literal>).
                     </para>
                 </listitem>
             </varlistentry>
@@ -57,9 +57,9 @@
         <title>Description</title>
         <para>
             <literal>sys=mrfit(w,mag,order,weight)</literal> returns a bi-stable transfer function
-            <literal>G(s)=sys=num/den</literal>, of of given <literal>order</literal> such that 
+            <literal>G(s)=sys=num/den</literal>, of given <literal>order</literal> such that 
             its frequency response magnitude <literal>abs(G(w(i)))</literal> 
-            matches <literal>mag(i)</literal> i.e. <literal>abs(freq(num,den,%i*w))</literal> should be 
+            matches <literal>mag(i)</literal> i.e. <literal>abs(repfreq(Gid,w))</literal> should be 
             close to <literal>mag</literal>.
             <literal>weight(i)</literal> is the weigth given to <literal>w(i)</literal>.
         </para>
