@@ -63,12 +63,13 @@ void XMLElement::remove() const
     }
 
     xmlUnlinkNode(node);
-    xmlFreeNode(node);
 
     if (obj)
     {
         obj->revalidateSize();
     }
+
+    xmlFreeNode(node);
 }
 
 const XMLObject *XMLElement::getXMLObjectParent() const
