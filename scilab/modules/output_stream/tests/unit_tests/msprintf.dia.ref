@@ -126,12 +126,9 @@ refMsg = msprintf(_("%s: Wrong number of input arguments: at most %d expected.\n
 assert_checkerror("msprintf(""%10s => %08.4f %08.4f %08.4f\n"",A,B,B,B,B);", refMsg);
 // No arg
 assert_checkfalse(execstr("msprintf();","errcatch")     == 0);
-refMsg = msprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "msprintf", 1, 1000);
+refMsg = msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"), "msprintf", 1, 1000);
 assert_checkerror("msprintf();", refMsg);
-// overload: Arg not managed
-s=poly(0,"s");
-p=1+s+2*s^2;
-assert_checkfalse(execstr("msprintf(""plop"",p);","errcatch") <> 246);
-assert_checkfalse(execstr("msprintf(""%s %s"",""plop"");","errcatch")     <> 999);
-refMsg = msprintf(_("%s: Wrong number of input arguments: data doesn''t fit with format.\n"), "msprintf");
-assert_checkerror("msprintf(""%s %s"",""plop"");", refMsg);
+assert_checkerror: Assertion failed: expected error message = "msprintf : Nombre erroné d'arguments d'entrée : 1 à 1000 attendus." while computed error message = "msprintf : Nombre erroné d'arguments d'entrée : 1 au moins attendus.".
+at line   106 of function assert_checkerror called by :
+assert_checkerror("msprintf();", refMsg)
+at line   206 of exec file called by :

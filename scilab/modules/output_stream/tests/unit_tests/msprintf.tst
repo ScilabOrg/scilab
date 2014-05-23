@@ -189,7 +189,7 @@ assert_checkerror("msprintf(""%10s => %08.4f %08.4f %08.4f\n"",A,B,B,B,B);", ref
 
 // No arg
 assert_checkfalse(execstr("msprintf();","errcatch")     == 0);
-refMsg = msprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "msprintf", 1, 1000);
+refMsg = msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"), "msprintf", 1, 1000);
 assert_checkerror("msprintf();", refMsg);
 
 // overload: Arg not managed
