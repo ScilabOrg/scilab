@@ -77,7 +77,7 @@ function [x,y,typ]=STEP(job,arg1,arg2)
         model.firing=1
         model.rpar=rpar
         model.blocktype="c"
-        model.dep_ut=[%f %f]
+        model.dep_ut=[%f %t]
 
         exprs=[string(1);string(rpar)]
         gr_i=[]
