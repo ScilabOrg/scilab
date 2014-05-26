@@ -99,6 +99,8 @@ Xcos Bug Fixes
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
+* Bug #13436 fixed - STEP function was not delayed with the Continuous Fix Delay.  
+
 
                      Changes between version 5.4.1 and 5.5.0
                      =======================================

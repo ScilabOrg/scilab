@@ -72,7 +72,7 @@ function [x,y,typ]=TIME_DELAY(job,arg1,arg2)
         model.rpar=[T,init];
         model.ipar=N
         model.blocktype="x"
-        model.dep_ut=[%f %f]
+        model.dep_ut=[%f %t]
 
         exprs=[string(T);string(init);string(N)];
         gr_i=[]
