@@ -17,8 +17,18 @@
 
 extern "C"
 {
-#include "dynlib_differential_equations_gw.h"
+#include "differential_equations_gw.h"
 }
+
+class DifferentialEquationsModule
+{
+private :
+    DifferentialEquationsModule() {};
+    ~DifferentialEquationsModule() {};
+
+public :
+    DIFFERENTIAL_EQUATIONS_GW_IMPEXP static int Load();
+};
 
 // equation 1
 CPP_GATEWAY_PROTOTYPE_EXPORT(sci_ode, DIFFERENTIAL_EQUATIONS_GW_IMPEXP);
