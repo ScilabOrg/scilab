@@ -16,6 +16,8 @@ Scilab Bug Fixes
 
 * Bug #7804 fixed - Small improvements made in struct help page.
 
+* Bug #8259 fixed - isfield extended to support lists of struct, mlist and tlist.
+
 * Bug #8646 fixed - The datatips contextual menu opened a selection list which
                     was not ergonomic.
 

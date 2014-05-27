@@ -14,38 +14,58 @@
 
 function r = isfield(s,field)
 
-    r = [];
+    function res = isfield1617(s,field)
+        res = [];
 
+        [nr,nc]     = size(field);
+        fields      = getfield(1,s);
+        if  isstruct(s) then
+            cancel = 1:2
+        else
+            cancel = 1
+        end
+        fields(cancel) = [];
+
+        for row=1:nr
+            for line=1:nc
+                res(row,line) = or(fields==field(row,line));
+            end
+        end
+    endfunction
+
+    r = [];
     rhs = argn(2);
 
     if rhs <> 2 then
-        msg = _("%s: Wrong number of input argument(s): %d expected.\n")
+        msg = _("%s: Wrong number of input argument(s): %d expected.\n");
         error(msprintf(msg,"isfield",2));
     end
 
-    if ~or(type(s)==[16 17]) then
-        msg = _("%s: Wrong type for input argument #%d: struct array or tlist or mlist expected.\n")
+    if ~or(type(s)==[15 16 17]) then
+        msg = _("%s: Wrong type for input argument #%d: struct array, tlist, mlist or list of struct array or tlist or mlist expected.\n");
         error(msprintf(msg,"isfield",1));
     end
 
     if type(field) <> 10 then
-        msg = _("%s: Wrong type for input argument #%d: A string expected.\n")
+        msg = _("%s: Wrong type for input argument #%d: A string expected.\n");
         error(msprintf(msg,"isfield",2));
     end
 
-    [nr,nc]     = size(field);
-    fields      = getfield(1,s);
-    if  isstruct(s) then
-        cancel = 1:2
-    else
-        cancel = 1
-    end
-    fields(cancel) = [];
-
-    for row=1:nr
-        for line=1:nc
-            r(row,line) = or(fields==field(row,line));
+    if type(s) == 15 then
+        if size(field, "*") <> 1 then
+            msg = _("%s: Wrong size for input argument #%d: Single string expected.\n");
+            error(msprintf(msg,"isfield",2));
         end
+        for i_s = 1:size(s)
+            if ~or(type(s(i_s))==[16 17]) then
+                msg = _("%s: Wrong type for input argument #%d: struct array, tlist, mlist or list of struct array or tlist or mlist expected.\n");
+                error(msprintf(msg,"isfield",1));
+            else
+                r = [r; isfield1617(s(i_s),field)];
+            end
+        end
+    else
+        r = isfield1617(s,field);
     end
 
 endfunction

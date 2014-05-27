@@ -14,7 +14,7 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="fr" xml:id="isfield">
     <refnamediv>
         <refname>isfield</refname>
-        <refpurpose>teste l'existence d'un ou plusieurs champs pour une structure, une tlist ou une mlist</refpurpose>
+        <refpurpose>teste l'existence d'un ou plusieurs champs pour une structure, une tlist, une mlist ou pour une liste de ceux-ci</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
@@ -26,20 +26,21 @@
             <varlistentry>
                 <term>s</term>
                 <listitem>
-                    <para>un tableau de structures, ou une liste typée tlist ou mlist</para>
+                    <para>un tableau de structures, une liste typée (tlist ou mlist) ou une liste de structures ou de listes typées</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>fieldname</term>
                 <listitem>
-                    <para>matrice de textes : noms des champs à détecter</para>
+                    <para>matrice de textes (si <varname>s</varname> est un tableau de structures ou une liste typée): noms des champs à détecter</para>
+                    <para>une chaîne de caractères (si <varname>s</varname> est une liste de structures ou de listes typées): nom du champ à détecter</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>bool</term>
                 <listitem>
                     <para>
-                        matrice booléenne (même format que <varname>fieldname</varname>)
+                        matrice booléenne (même format que <varname>fieldname</varname> si <varname>s</varname> est un tableau de structures ou une liste typée, même taille que <varname>s</varname> sinon)
                     </para>
                 </listitem>
             </varlistentry>
@@ -48,13 +49,17 @@
     <refsection>
         <title>Description</title>
         <para>
-            bool(i,j) vaut <constant>%t</constant> si le champ nommé <varname>fieldname(i,j)</varname> existe pour le tableau de structure ou tlist ou mlist <varname>s</varname>(indépendamment de la valeur éventuellement affectée à ce champ). Si <varname>s</varname> est une structure, son champ caché <code class="literal">dims</code> est ignoré.
+            bool(i,j) vaut <constant>%t</constant> si le champ nommé <varname>fieldname(i,j)</varname> existe pour le tableau de structure ou tlist ou mlist <varname>s</varname> (indépendamment de la valeur éventuellement affectée à ce champ). Si <varname>s</varname> est une structure, son champ caché <code class="literal">dims</code> est ignoré.
+        </para>
+        <para>
+            Si <varname>s</varname> est une liste, bool(i) vaut <constant>%t</constant> si le champ <varname>fieldname</varname> existe pour la structure ou tlist ou mlist <varname>s(i)</varname>.
         </para>
     </refsection>
     <refsection>
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[ 
 s = struct("field_1",123,"field_2",456,"field_4",789)
+s1 = struct("field_1",123,"field_2",456,"field_3",789)
  
 // Test pour un nom de champ unique :
 isfield( s , "field_1"  )
@@ -63,10 +68,16 @@ isfield( s , "field_1"  )
 isfield( s , [ "field_1" "field_2" ; "field_3" "field_4" ] )
 
 // Test sur une liste typée tlist:
-s = tlist(["test" "t" "n","","p"], "Hello", %pi, "anonymous", (1-%z)^3)
-isfield( s, ["b" "t" ""])  
-   // =>  F  T  T  (la présence de champs anonymes peut être détectée)
+t = tlist(["test" "t" "n","","p"], "Hello", %pi, "anonymous", (1-%z)^3)
+isfield( t, ["b" "t" ""])  // =>  F  T  T  (la présence de champs anonymes peut être détectée)
 
+// Test sur une liste de structures
+isfield(list(s,s1), "field_4")
+isfield(list(s,s1), "field_3")
+
+// Test sur une list composée d'une structure et d'une tlist
+isfield(list(s,t), "field_1")
+isfield(list(s,t), "n")
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
@@ -96,6 +107,12 @@ isfield( s, ["b" "t" ""])
                 <revnumber>5.5</revnumber>
                 <revremark>
                     Extension aux mlist et tlist
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>5.5.1</revnumber>
+                <revremark>
+                    Extension aux listes de structures, mlist et tlist. 
                 </revremark>
             </revision>
         </revhistory>

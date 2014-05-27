@@ -1,0 +1,41 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for bug 8259 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=8259
+//
+// <-- Short Description -->
+// Extend isfield to support list of structs in first argument with single string in second one.
+
+// List of struct
+p=struct();
+p.f1=%z;
+p2=p;
+p2.a=%pi;
+assert_checkequal(isfield(list(p,p2),"a"), [%f;%t]);
+
+// List of tlist
+s = tlist(["test" "t" "n","","p"], "Hello", %pi, "anonymous", (1-%z)^3);
+s1 = tlist(["test" "a" "n","","p"], "Hello", %pi, "anonymous", (1-%z)^3);
+assert_checkequal(isfield(list(s,s1),"a"), [%f;%t]);
+
+// List of mlist
+M = mlist(['V','name','value'],['a','b';'c' 'd'],[1 2; 3 4]);
+M1 = mlist(['V','name1','value1'],['a','b';'c' 'd'],[1 2; 3 4]);
+assert_checkequal(isfield(list(M,M1),"name"), [%t;%f]);
+
+// Mix
+assert_checkequal(isfield(list(s,M),"name"), [%f;%t]); //tlist and mlist
+assert_checkequal(isfield(list(s,M),"t"), [%t;%f]); //tlist and mlist
+assert_checkequal(isfield(list(p,M),"f1"), [%t;%f]); //struct and mlist
+assert_checkequal(isfield(list(p,M),"name"), [%f;%t]); //struct and mlist
+assert_checkequal(isfield(list(p,s),"t"), [%f;%t]); //struct and tlist
+assert_checkequal(isfield(list(p,s),"f1"), [%t;%f]); //struct and tlist

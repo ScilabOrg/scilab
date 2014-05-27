@@ -14,7 +14,7 @@
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="isfield">
     <refnamediv>
         <refname>isfield</refname>
-        <refpurpose>checks if the given fieldname exists in a structure or mlist or tlist</refpurpose>
+        <refpurpose>checks if the given fieldname exists in a structure, a mlist, a tlist or in a list of these ones</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>
@@ -26,20 +26,22 @@
             <varlistentry>
                 <term>s</term>
                 <listitem>
-                    <para>a struct array, a tlist or a mlist.</para>
+                    <para>a struct array, a tlist, a mlist or a list of struct arrays, tlist or mlist.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>fieldname</term>
                 <listitem>
-                    <para>a matrix of strings: names of fields to be detected</para>
+                    <para>a matrix of strings (if <varname>s</varname> is a struct array, a tlist or a mlist): names of fields to be detected</para>
+                    <para>a single string (if <varname>s</varname> is a list of struct arrays, tlist or mlist): name of the field to be detected.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>bool</term>
                 <listitem>
                     <para>
-                        a matrix of boolean (same format as <varname>fieldname></varname>)
+                        a matrix of boolean (same format as <varname>fieldname</varname> if <varname>s</varname> is a struct array, a tlist or a mlist, 
+                        or same size as <varname>s</varname> (the list) in the other case).
                     </para>
                 </listitem>
             </varlistentry>
@@ -55,7 +57,8 @@
         <title>Examples</title>
         <programlisting role="example"><![CDATA[ 
 s = struct("field_1",123,"field_2",456,"field_4",789)
- 
+s1 = struct("field_1",123,"field_2",456,"field_3",789)
+
 // Single Fieldname Syntax
 isfield( s , "field_1"  )
  
@@ -63,8 +66,16 @@ isfield( s , "field_1"  )
 isfield( s , [ "field_1" "field_2" ; "field_3" "field_4" ] )
 
 // with a tlist:
-s = tlist(["test" "t" "n","","p"], "Hello", %pi, "anonymous", (1-%z)^3)
-isfield(s, ["b" "t" ""])  // =>  F  T  T  (anonymous fields can be detected)
+t = tlist(["test" "t" "n","","p"], "Hello", %pi, "anonymous", (1-%z)^3)
+isfield(t, ["b" "t" ""])  // =>  F  T  T  (anonymous fields can be detected)
+
+// With a list of struct
+isfield(list(s,s1), "field_4")
+isfield(list(s,s1), "field_3")
+
+// With a list of struct and tlist
+isfield(list(s,t), "field_1")
+isfield(list(s,t), "n")
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
@@ -91,9 +102,15 @@ isfield(s, ["b" "t" ""])  // =>  F  T  T  (anonymous fields can be detected)
         <title>History</title>
         <revhistory>
             <revision>
-                <revnumber>5.5</revnumber>
+                <revnumber>5.5.0</revnumber>
                 <revremark>
                     Extension to any mlist and tlist. 
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>5.5.1</revnumber>
+                <revremark>
+                    Extension to list of struct array, mlist and tlist. 
                 </revremark>
             </revision>
         </revhistory>
