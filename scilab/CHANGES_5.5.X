@@ -96,6 +96,8 @@ Scilab Bug Fixes
 
 * Bug #13409 fixed - permute(x, dims) failed when dims was greater than the dimensions of size(x)
                      now permute treats extra dimensions as 1
+                     
+* Bug #13438 fixed - drawaxis() did not return the handle of the current entity.
 
 * Bug #13435 fixed - Windows version crashes when calling xmlRemove on the first child.
 
