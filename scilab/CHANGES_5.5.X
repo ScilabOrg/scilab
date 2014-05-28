@@ -88,6 +88,8 @@ Scilab Bug Fixes
                      now permute treats extra dimensions as 1
 
 
+* Bug #13425 fixed - optim_ga and optim moga needed optimization.
+
 
 Xcos Bug Fixes
 ==============
