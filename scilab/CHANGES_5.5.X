@@ -114,6 +114,8 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13425 fixed - optim_ga and optim moga needed optimization.
+
 
 Xcos Bug Fixes
 ==============
