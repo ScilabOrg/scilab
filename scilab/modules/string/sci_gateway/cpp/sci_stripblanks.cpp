@@ -59,7 +59,7 @@ types::Function::ReturnValue sci_stripblanks(types::typed_list &in, int _iRetCou
 
     switch (in[0]->getType())
     {
-        case InternalType::ScilabString:
+        case types::InternalType::ScilabString:
         {
             types::String *pS = stripblanks(in[0]->getAs<types::String>(), bRemoveTab);
             if (pS == NULL)
@@ -71,7 +71,7 @@ types::Function::ReturnValue sci_stripblanks(types::typed_list &in, int _iRetCou
             out.push_back(pS);
         }
         break;
-        case InternalType::ScilabDouble://manage []
+        case types::InternalType::ScilabDouble://manage []
         {
             if (in[0]->getAs<types::Double>()->getSize() != 0)
             {
