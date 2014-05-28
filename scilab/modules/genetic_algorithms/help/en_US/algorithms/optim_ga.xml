@@ -67,8 +67,9 @@
                 <term>Log</term>
                 <listitem>
                     <para>
-                        if %T, we will display to information message during the run
-                        of the genetic algorithm.
+                        if %T, will call the output function at the end of each
+                        iteration, see <literal>"output_func"</literal> under 
+                        <varname>param</varname> variable below.
                     </para>
                 </listitem>
             </varlistentry>
@@ -81,14 +82,14 @@
                             <para>
                                 "codage_func": the function which will perform the coding
                                 and decoding of individuals (default function:
-                                coding_ga_identity).
+                                <link linkend="coding_ga_identity">coding_ga_identity</link>).
                             </para>
                         </listitem>
                         <listitem>
                             <para>
                                 "init_func": the function which will perform the
                                 initialization of the population (default function:
-                                init_ga_default).
+                                <link linkend="init_ga_default">init_ga_default</link>).
                             </para>
                         </listitem>
                         <listitem>
@@ -101,21 +102,21 @@
                             <para>
                                 "crossover_func": the function which will perform the
                                 crossover between two individuals (default function:
-                                crossover_ga_default).
+                                <link linkend="crossover_ga_default">crossover_ga_default</link>).
                             </para>
                         </listitem>
                         <listitem>
                             <para>
                                 "mutation_func": the function which will perform the
                                 mutation of one individual (default function:
-                                mutation_ga_default).
+                                <link linkend="mutation_ga_default">mutation_ga_default</link>).
                             </para>
                         </listitem>
                         <listitem>
                             <para>
                                 "selection_func": the function whcih will perform the
                                 selection of individuals at the end of a generation (default
-                                function: selection_ga_elitist).
+                                function: <link linkend="selection_ga_elitist">selection_ga_elitist</link>).
                             </para>
                         </listitem>
                         <listitem>
@@ -127,8 +128,15 @@
                         </listitem>
                         <listitem>
                             <para>
-                                "pressure": the value the efficiency of the worst
+                                "pressure": the value of the efficiency of the worst
                                 individual (default value: 0.05).
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                "output_func": a callback function called after each
+                                generation if <varname>Log</varname> is %T (default
+                                function <link linkend="output_ga_default">output_ga_default</link>).
                             </para>
                         </listitem>
                     </itemizedlist>
@@ -176,14 +184,14 @@
             <literal>optim_ga</literal> function.
             This flexibility is provided by the various functions which
             can be set in the <literal>param</literal> variable.
-            In order to analyze the header of these functions (i.e.
-            the input and output arguments), we may read the help page
+            The header of these functions (i.e.
+            the input and output arguments), can be checked through the help page
             corresponding to the default function.
             For example, in order to understand what are the input and output arguments of the
-            "codage_func" function, we may read the page of the <literal>coding_identity</literal> function.
+            <literal>"codage_func"</literal> function, please refer to the help page of the <link linkend="coding_ga_identity">coding_identity</link> function.
         </para>
         <para>
-            See in the Demonstrations for more examples for this function.
+            See the Demonstrations for more examples for this function.
         </para>
     </refsection>
     <refsection>

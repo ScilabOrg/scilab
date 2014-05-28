@@ -27,6 +27,9 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13421 fixed - Callback functions for genetic algorithms were missing.
+                     Now user can set functions to stop iterations and access the population.
+
 * Bug #13425 fixed - optim_ga and optim moga needed optimization.
 
 
