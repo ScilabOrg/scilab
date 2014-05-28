@@ -182,10 +182,10 @@ int CdfBase(char const * const fname, void* pvApiCtx, int inarg, int oarg, int s
     int rows[MAXARG], cols[MAXARG];
 #undef MAXARG
 
-    double bound;
-    int errlevel;
-    int i;
-    int *p;
+    double bound = 0;
+    int errlevel = 0;
+    int i = 0;
+    int *p = NULL;
 
     if ( Rhs != inarg + 1 )
     {
@@ -198,19 +198,7 @@ int CdfBase(char const * const fname, void* pvApiCtx, int inarg, int oarg, int s
         int j = 0;
         getVarAddressFromPosition(pvApiCtx, i + 2, &p);
         getMatrixOfDouble(pvApiCtx, p, &rows[i], &cols[i], &data[i]);
-        /*check data are integers, by pass Inf and NaN*/
-
-        for(j = 0 ; j < rows[i] * cols[i] ; j++)
-        {
-            if (data[i][j] == data[i][j] && data[i][j] + 1 != data[i][j]) // NaN and Inf will be handled in the program
-            {
-                if ((int)data[i][j] - data[i][j] != 0)
-                {
-                    Scierror(999, _("%s: Wrong value for input argument #%d: A matrix of integer value expected.\n"), fname, i + 1);
-                    return 1;
-                }
-            }
-        }
+        
     }
 
     for (i = 1; i < inarg ; ++i)
@@ -241,7 +229,6 @@ int CdfBase(char const * const fname, void* pvApiCtx, int inarg, int oarg, int s
                 (*fun)(&which, &(data[callpos(0)][i]), &(data[callpos(1)][i]), &(data[callpos(2)][i]), &(data[callpos(3)][i]), &(data[callpos(4)][i]), &(data[callpos(5)][i]), &errlevel, &bound);
                 break;
         }
-
         if (errlevel != 0)
         {
             cdf_error(fname, errlevel, bound);
