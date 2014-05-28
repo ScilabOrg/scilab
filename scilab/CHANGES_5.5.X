@@ -27,6 +27,12 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13418 fixed - Help page for crossover_ga_binary was unclear.
+                     Also added mix to check the crossover positions.
+
+* Bug #13424 fixed - crossover_ga_binary algorithm was not the classical one-point crossover.
+                     Also fixed the usage of binary length.
+
 
 Xcos Bug Fixes
 ==============
