@@ -1,0 +1,90 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2014 - Scilab Enterprises - Pierre-Aime Agnel
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug  -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/13421
+//
+// <-- Short Description -->
+// Callback functions for genetic algorithms were missing
+//
+// <-- CLI SHELL MODE -->
+// Objective function
+function y=f(x)
+  y = sum(x.^2)
+endfunction
+// Output function with a stop criterion
+function stop=output_ga_custom(gen_index, nb_generation, Pop, FObj_Pop, param)
+    [threshold, err] = get_param(param, "threshold", 1E-10); // default value for the threshold
+    printf(_("%s: iteration %d / %d \n"), "optim_ga", gen_index, nb_generation);
+    printf(_("    min / max value found = %.4E / %.4E\n"), min(FObj_Pop), max(FObj_Pop));
+    stop = %f
+    if abs(max(FObj_Pop) - min(FObj_Pop)) < threshold then
+        printf(_("    Stop criterion reached: Delta Max to Min under threshold"));
+        stop = %t
+    end
+endfunction
+PopSize     = 100;
+Proba_cross = 0.7;
+Proba_mut   = 0.1;
+NbGen       = 20;
+NbCouples   = 110;
+Log         = %T;
+pressure    = 0.05;
+ga_params = init_param();
+// Parameters to adapt to the shape of the optimization problem
+ga_params = add_param(ga_params,"minbound",[-2; -2]);
+ga_params = add_param(ga_params,"maxbound",[2; 2]);
+ga_params = add_param(ga_params,"dimension",2);
+ga_params = add_param(ga_params,"beta",0);
+ga_params = add_param(ga_params,"delta",0.1);
+// Parameters to fine tune the Genetic algorithm.
+// All these parameters are optional for continuous optimization
+// If you need to adapt the GA to a special problem, you
+ga_params = add_param(ga_params,"init_func",init_ga_default);
+ga_params = add_param(ga_params,"crossover_func",crossover_ga_default);
+ga_params = add_param(ga_params,"mutation_func",mutation_ga_default);
+ga_params = add_param(ga_params,"codage_func",coding_ga_identity);
+ga_params = add_param(ga_params,"selection_func",selection_ga_elitist);
+//ga_params = add_param(ga_params,"selection_func",selection_ga_random);
+ga_params = add_param(ga_params,"nb_couples",NbCouples);
+ga_params = add_param(ga_params,"pressure",pressure);
+// Customized output function with a stop criterion added
+ga_params = add_param(ga_params, "threshold", 1E-6); // User defined parameter for the output function
+ga_params = add_param(ga_params, "output_func", output_ga_custom);
+[pop_opt, fobj_pop_opt, pop_init, fobj_pop_init] = ..
+  optim_ga(f, PopSize, NbGen, Proba_mut, Proba_cross, Log, ga_params);
+optim_ga: iteration 1 / 20 
+    min / max value found = 3.7831E-03 / 1.1837E+00
+optim_ga: iteration 2 / 20 
+    min / max value found = 3.2185E-04 / 2.8297E-01
+optim_ga: iteration 3 / 20 
+    min / max value found = 3.2185E-04 / 9.4615E-02
+optim_ga: iteration 4 / 20 
+    min / max value found = 3.2185E-04 / 2.9915E-02
+optim_ga: iteration 5 / 20 
+    min / max value found = 3.2185E-04 / 1.2036E-02
+optim_ga: iteration 6 / 20 
+    min / max value found = 4.0101E-05 / 3.9309E-03
+optim_ga: iteration 7 / 20 
+    min / max value found = 1.8841E-05 / 1.3864E-03
+optim_ga: iteration 8 / 20 
+    min / max value found = 8.3652E-06 / 4.6424E-04
+optim_ga: iteration 9 / 20 
+    min / max value found = 1.0839E-07 / 1.7044E-04
+optim_ga: iteration 10 / 20 
+    min / max value found = 1.0839E-07 / 4.9062E-05
+optim_ga: iteration 11 / 20 
+    min / max value found = 7.0632E-08 / 1.6916E-05
+optim_ga: iteration 12 / 20 
+    min / max value found = 7.0632E-08 / 6.6677E-06
+optim_ga: iteration 13 / 20 
+    min / max value found = 2.5323E-08 / 2.1731E-06
+optim_ga: iteration 14 / 20 
+    min / max value found = 1.8660E-08 / 6.9339E-07
+    Stop criterion reached: Delta Max to Min under thresholdassert_checktrue(max(fobj_pop_opt) - min(fobj_pop_opt) <= 1E-6);
