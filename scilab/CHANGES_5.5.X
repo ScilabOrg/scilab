@@ -116,6 +116,12 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13418 fixed - Help page for crossover_ga_binary was unclear.
+                     Also added mix to check the crossover positions.
+
+* Bug #13424 fixed - crossover_ga_binary algorithm was not the classical one-point crossover.
+                     Also fixed the usage of binary length.
+
 
 Xcos Bug Fixes
 ==============
