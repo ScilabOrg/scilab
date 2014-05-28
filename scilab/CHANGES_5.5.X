@@ -122,6 +122,9 @@ Scilab Bug Fixes
 * Bug #13424 fixed - crossover_ga_binary algorithm was not the classical point crossover one.
                      Also fixed the usage of binary length.
 
+* Bug #13421 fixed - Callback functions for genetic algorithms were missing.
+                     Now user can set functions to stop iterations and access the population.
+
 * Bug #13425 fixed - optim_ga and optim_moga needed optimization.
 
 * Bug #13426 fixed - optim help page was written with bad indentation.
