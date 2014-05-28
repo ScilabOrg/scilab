@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13386 fixed - An exception occured when using entity picker on legends.
 
+* Bug #13425 fixed - optim_ga and optim moga needed optimization.
+
 
 Xcos Bug Fixes
 ==============
