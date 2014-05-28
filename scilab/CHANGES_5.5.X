@@ -19,6 +19,8 @@ Scilab Bug Fixes
 * Bug #8646 fixed - The datatips contextual menu opened a selection list which
                     was not ergonomic.
 
+* Bug #9052 fixed - Some Demos in graphics were automatically closed at the end of each one (non regression test). 
+
 * Bug #10555 fixed - Scilab failed to build with some configure options.
 
 * Bug #10777 fixed - Home and End keys were not trapped in CLI mode.
