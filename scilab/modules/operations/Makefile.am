@@ -63,4 +63,9 @@ modulename=operations
 libsciboolean_la_etcdir = $(mydatadir)/etc
 libsciboolean_la_etc_DATA = etc/operations.quit etc/operations.start
 
+#### api_scilab : include files ####
+libscioperations_la_includedir=$(pkgincludedir)
+libscioperations_la_include_HEADERS = includes/doublecomplex.h
+
+
 include $(top_srcdir)/Makefile.incl.am

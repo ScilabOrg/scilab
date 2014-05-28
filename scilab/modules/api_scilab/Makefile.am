@@ -92,6 +92,7 @@ includes/api_sparse.h \
 includes/api_string.h \
 includes/api_handle.h \
 includes/api_optional.h \
-includes/api_scilab.h
+includes/api_scilab.h \
+includes/dynlib_api_scilab.h
 
 include $(top_srcdir)/Makefile.incl.am

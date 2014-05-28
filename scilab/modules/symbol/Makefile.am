@@ -16,7 +16,7 @@ src/cpp/context.cpp \
 src/cpp/scope.cpp \
 src/cpp/variables.cpp \
 src/cpp/libraries.cpp
-    
+
 
 pkglib_LTLIBRARIES 		= libscisymbol.la
 
@@ -37,9 +37,15 @@ libscisymbol_la_CPPFLAGS = \
 
 libscisymbol_la_LIBADD =
 
+#### symbol : include files ####
 libscisymbol_la_includedir=$(pkgincludedir)/Symbol
-
-libscisymbol_la_include_HEADERS = includes/symbol.hxx
+libscisymbol_la_include_HEADERS = \
+includes/context.hxx \
+includes/export_symbol.h \
+includes/libraries.hxx \
+includes/scope.hxx \
+includes/symbol.hxx \
+includes/variables.hxx
 
 # For the code check (splint)
 INCLUDE_FLAGS = $(libscisymbol_la_CPPFLAGS)
