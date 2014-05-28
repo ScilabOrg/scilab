@@ -88,6 +88,9 @@ Scilab Bug Fixes
                      now permute treats extra dimensions as 1
 
 
+* Bug #13421 fixed - Callback functions for genetic algorithms were missing.
+                     Now user can set functions to stop iterations and access the population.
+
 * Bug #13425 fixed - optim_ga and optim moga needed optimization.
 
 
