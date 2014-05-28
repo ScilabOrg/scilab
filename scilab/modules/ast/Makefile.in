@@ -98,7 +98,8 @@ build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(top_srcdir)/Makefile.incl.am $(srcdir)/Makefile.in \
 	$(srcdir)/Makefile.am $(top_srcdir)/config/mkinstalldirs \
-	$(top_srcdir)/config/depcomp $(libsciast_la_include_HEADERS)
+	$(top_srcdir)/config/depcomp $(libsciast_la_include_HEADERS) \
+	$(libsciast_scilab_la_include_HEADERS)
 @NEED_JAVA_TRUE@am__append_1 = java
 subdir = modules/ast
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -154,7 +155,8 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libsciast_la_etcdir)" \
-	"$(DESTDIR)$(libsciast_la_includedir)"
+	"$(DESTDIR)$(libsciast_la_includedir)" \
+	"$(DESTDIR)$(libsciast_scilab_la_includedir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libsciast_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -214,7 +216,8 @@ am__can_run_installinfo = \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 DATA = $(libsciast_la_etc_DATA)
-HEADERS = $(libsciast_la_include_HEADERS)
+HEADERS = $(libsciast_la_include_HEADERS) \
+	$(libsciast_scilab_la_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -560,6 +563,83 @@ modulename = ast
 libsciast_la_etcdir = $(mydatadir)/etc
 libsciast_la_etc_DATA = etc/ast.quit etc/ast.start
 
+#### ast : include files ####
+libsciast_scilab_la_includedir = $(pkgincludedir)
+libsciast_scilab_la_include_HEADERS = \
+includes/alldec.hxx \
+includes/allexp.hxx \
+includes/all.hxx \
+includes/allvar.hxx \
+includes/anydecs.hxx \
+includes/arraylistexp.hxx \
+includes/arraylistvar.hxx \
+includes/assignexp.hxx \
+includes/assignlistexp.hxx \
+includes/ast.hxx \
+includes/boolexp.hxx \
+includes/breakexp.hxx \
+includes/callexp.hxx \
+includes/caseexp.hxx \
+includes/cellcallexp.hxx \
+includes/cellexp.hxx \
+includes/colonvar.hxx \
+includes/commentexp.hxx \
+includes/constexp.hxx \
+includes/continueexp.hxx \
+includes/controlexp.hxx \
+includes/debugvisitor.hxx \
+includes/dec.hxx \
+includes/decls.hxx \
+includes/decs.hxx \
+includes/dollarvar.hxx \
+includes/doubleexp.hxx \
+includes/dummyvisitor.hxx \
+includes/dynlib_ast_tools.hxx \
+includes/execvisitor.hxx \
+includes/expHistory.hxx \
+includes/exp.hxx \
+includes/fieldexp.hxx \
+includes/floatexp.hxx \
+includes/forexp.hxx \
+includes/functiondec.hxx \
+includes/ifexp.hxx \
+includes/intexp.hxx \
+includes/listexp.hxx \
+includes/location.hxx \
+includes/logicalopexp.hxx \
+includes/macrovarvisitor.hxx \
+includes/mathexp.hxx \
+includes/matrixexp.hxx \
+includes/matrixlineexp.hxx \
+includes/mutevisitor.hxx \
+includes/nilexp.hxx \
+includes/notexp.hxx \
+includes/opexp.hxx \
+includes/printvisitor.hxx \
+includes/returnexp.hxx \
+includes/run_AssignExp.hxx \
+includes/run_CallExp.hxx \
+includes/run_MatrixExp.hxx \
+includes/run_OpExp.hxx \
+includes/runvisitor.hxx \
+includes/scilabexception.hxx \
+includes/selectexp.hxx \
+includes/seqexp.hxx \
+includes/shortcutvisitor.hxx \
+includes/simplevar.hxx \
+includes/stepvisitor.hxx \
+includes/stringexp.hxx \
+includes/timedvisitor.hxx \
+includes/token.hxx \
+includes/transposeexp.hxx \
+includes/trycatchexp.hxx \
+includes/vardec.hxx \
+includes/var.hxx \
+includes/visitor_common.hxx \
+includes/visitor.hxx \
+includes/whileexp.hxx
+
+
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
 
@@ -883,6 +963,27 @@ uninstall-libsciast_la_includeHEADERS:
 	@list='$(libsciast_la_include_HEADERS)'; test -n "$(libsciast_la_includedir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libsciast_la_includedir)'; $(am__uninstall_files_from_dir)
+install-libsciast_scilab_la_includeHEADERS: $(libsciast_scilab_la_include_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libsciast_scilab_la_include_HEADERS)'; test -n "$(libsciast_scilab_la_includedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libsciast_scilab_la_includedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libsciast_scilab_la_includedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libsciast_scilab_la_includedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libsciast_scilab_la_includedir)" || exit $$?; \
+	done
+
+uninstall-libsciast_scilab_la_includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libsciast_scilab_la_include_HEADERS)'; test -n "$(libsciast_scilab_la_includedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libsciast_scilab_la_includedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -971,7 +1072,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 installdirs:
-	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libsciast_la_etcdir)" "$(DESTDIR)$(libsciast_la_includedir)"; do \
+	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libsciast_la_etcdir)" "$(DESTDIR)$(libsciast_la_includedir)" "$(DESTDIR)$(libsciast_scilab_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -1030,7 +1131,8 @@ info: info-am
 info-am:
 
 install-data-am: install-data-local install-libsciast_la_etcDATA \
-	install-libsciast_la_includeHEADERS
+	install-libsciast_la_includeHEADERS \
+	install-libsciast_scilab_la_includeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -1078,6 +1180,7 @@ ps-am:
 
 uninstall-am: uninstall-libsciast_la_etcDATA \
 	uninstall-libsciast_la_includeHEADERS \
+	uninstall-libsciast_scilab_la_includeHEADERS \
 	uninstall-pkglibLTLIBRARIES
 
 .MAKE: check-am install-am install-strip
@@ -1092,14 +1195,17 @@ uninstall-am: uninstall-libsciast_la_etcDATA \
 	install-exec-am install-html install-html-am \
 	install-html-local install-info install-info-am \
 	install-libsciast_la_etcDATA \
-	install-libsciast_la_includeHEADERS install-man install-pdf \
-	install-pdf-am install-pkglibLTLIBRARIES install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-libsciast_la_etcDATA \
+	install-libsciast_la_includeHEADERS \
+	install-libsciast_scilab_la_includeHEADERS install-man \
+	install-pdf install-pdf-am install-pkglibLTLIBRARIES \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am \
+	uninstall-libsciast_la_etcDATA \
 	uninstall-libsciast_la_includeHEADERS \
+	uninstall-libsciast_scilab_la_includeHEADERS \
 	uninstall-pkglibLTLIBRARIES
 
 
