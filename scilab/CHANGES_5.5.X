@@ -125,6 +125,8 @@ Scilab Bug Fixes
 * Bug #13421 fixed - Callback functions for genetic algorithms were missing.
                      Now user can set functions to stop iterations and access the population.
 
+* Bug #13422 fixed - Genetic algorithms were not logging the min and max properly
+
 * Bug #13425 fixed - optim_ga and optim_moga needed optimization.
 
 * Bug #13435 fixed - Windows version crashes when calling xmlRemove on the first child.
