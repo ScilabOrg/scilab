@@ -20,7 +20,7 @@ function [pop_opt, fobj_pop_opt, pop_init, fobj_pop_init] = optim_nsga2(ga_f, po
     [crossover_func, err] = get_param(param, "crossover_func", crossover_ga_default);
     [mutation_func, err] = get_param(param, "mutation_func", mutation_ga_default);
     [nb_couples, err] = get_param(param, "nb_couples", 100);
-    [output_func, err] = get_param(param, 'output_func', output_nsga_default);
+    [output_func, err] = get_param(param, 'output_func', output_nsga2_default);
 
     if ~isdef("ga_f", "local") then
         error(gettext("optim_nsga2: ga_f is mandatory"));
