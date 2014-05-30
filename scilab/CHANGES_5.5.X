@@ -87,6 +87,8 @@ Scilab Bug Fixes
 * Bug #13409 fixed - permute(x, dims) failed when dims was greater than the dimensions of size(x)
                      now permute treats extra dimensions as 1
 
+* Bug #13419 fixed - Help page for mutation_ga_binary function was not clear and lacked examples.
+
 * Bug #13420 fixed - mutation_ga_binary did not calculate properly multiple mutations.
 
 
