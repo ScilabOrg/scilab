@@ -1,4 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) Scilab Enterprises - 2014 - Pierre-Aime Agnel
+// Copyright (C) 2014 - Michael Baudin <michael.baudin@contrib.scilab.org>
 // Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
 //
 // This file must be used under the terms of the CeCILL.
@@ -7,35 +9,24 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
-function Mut_Indiv = mutation_ga_binary(Indiv,param)
-    if ~isdef("param","local") then
+function [Mut_Indiv, pos] = mutation_ga_binary(Indiv, param)
+    if ~isdef("param", "local") then
         param = [];
     end
     // We deal with some parameters to take into account the boundary of the domain and the neighborhood size
-    [BinLen,err]     = get_param(param,"binary_length",8);
-    [MultiMut,err]   = get_param(param,"multi_mut",%F);
-    [MultiMutNb,err] = get_param(param,"multi_mut_nb",2);
-
-    if ~MultiMut then
-        pos = ceil((length(Indiv)-1)*grand(1,1,"def"))+1;
-        Mut_Indiv = Indiv;
-        if part(Indiv,pos)=="0" then
-            Mut_Indiv = strcat([part(Indiv,1:pos-1) "1" part(Indiv,pos+1:length(Indiv))]);
-        end
-        if part(Indiv,pos)=="1" then
-            Mut_Indiv = strcat([part(Indiv,1:pos-1) "0" part(Indiv,pos+1:length(Indiv))]);
-        end
+    [BinLen, err]     = get_param(param, "binary_length", 8);
+    [MultiMut, err]   = get_param(param, "multi_mut", %F);
+    if MultiMut
+        [MultiMutNb, err] = get_param(param, "multi_mut_nb", 2);
     else
-        pos = ceil((length(Indiv)-1)*grand(MultiMutNb,1,"def"))+1;
-        pos = -unique(gsort(-pos));
-        Mut_Indiv = Indiv;
-        for i=1:length(pos)
-            if part(Mut_Indiv,pos(i))=="0" then
-                Mut_Indiv = strcat([part(Mut_Indiv,1:pos(i)-1) "1" part(Mut_Indiv,pos(i)+1:length(Mut_Indiv))]);
-            end
-            if part(Mut_Indiv,pos(i))=="1" then
-                Mut_Indiv = strcat([part(Mut_Indiv,1:pos(i)-1) "0" part(Mut_Indiv,pos(i)+1:length(Mut_Indiv))]);
-            end
-        end
+        MultiMutNb = 1;
     end
+
+    dim = length(Indiv);
+    pos = grand(1, MultiMutNb, "uin", 1, dim);
+    pos = unique(pos);
+    Mut_Indiv = Indiv;
+    Mut_Indiv = strsplit(Indiv);
+    Mut_Indiv(pos) = string(-1 * (eval(Mut_Indiv(pos)) - 1)); // Inverts 0s and 1s on mutation locations
+    Mut_Indiv = strcat(Mut_Indiv);
 endfunction
