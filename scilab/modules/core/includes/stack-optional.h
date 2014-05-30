@@ -29,7 +29,7 @@ typedef struct rhs_opts__
 {
     int iPos ; /** stack position : -1 if not present */
     char* pstName;
-    int iType;// -1 not yet defined
+    char iType;// -1 not yet defined
     int iRows;
     int iCols;
     int* piAddr;
