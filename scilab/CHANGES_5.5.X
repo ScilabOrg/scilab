@@ -87,6 +87,7 @@ Scilab Bug Fixes
 * Bug #13409 fixed - permute(x, dims) failed when dims was greater than the dimensions of size(x)
                      now permute treats extra dimensions as 1
 
+* Bug #13426 fixed - Help page "optim" was written with bad indentation.
 
 
 Xcos Bug Fixes
