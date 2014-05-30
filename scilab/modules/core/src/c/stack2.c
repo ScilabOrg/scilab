@@ -396,7 +396,7 @@ int get_optionals(char *fname, rhs_opts opts[])
                 ro->iPos = k;
                 if (ro->iType != '?')
                 {
-                    GetRhsVar(ro->iPos, ro->iType, &ro->iRows, &ro->iCols, &ro->piAddr);
+                    GetRhsVar(ro->iPos, &ro->iType, &ro->iRows, &ro->iCols, &ro->piAddr);
                 }
             }
             else
