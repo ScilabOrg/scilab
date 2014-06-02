@@ -19,6 +19,8 @@ Scilab Bug Fixes
 * Bug #8646 fixed - The datatips contextual menu opened a selection list which
                     was not ergonomic.
 
+* Bug #9252 fixed - Some error prototypes produced screwed display (non regression test).
+
 * Bug #10555 fixed - Scilab failed to build with some configure options.
 
 * Bug #10777 fixed - Home and End keys were not trapped in CLI mode.
