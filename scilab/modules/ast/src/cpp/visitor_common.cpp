@@ -776,9 +776,10 @@ bool getFieldsFromExp(const ast::Exp* _pExp, std::list<ExpHistory*>& fields)
         }
         else
         {
-            ExpHistory* pEHParent = fields.back();
-            fields.push_back(new ExpHistory(pEHParent, pVar));
-            fields.back()->setLevel(pEHParent->getLevel() + 1);
+            ExpHistory * pEHParent = fields.back();
+            ExpHistory * pEH = new ExpHistory(pEHParent, pVar);
+            pEH->setLevel(pEHParent->getLevel() + 1);
+            fields.push_back(pEH);
         }
 
         return true;
@@ -792,9 +793,11 @@ bool getFieldsFromExp(const ast::Exp* _pExp, std::list<ExpHistory*>& fields)
         if (fields.back()->getArgs())
         {
             // a(x)(y)(z)
-            ExpHistory* pEHParent = fields.back();
-            fields.push_back(new ExpHistory(pEHParent, pCurrentArgs));
-            fields.back()->setLevel(pEHParent->getLevel() + 1);
+            ExpHistory * pEHParent = fields.back();
+            ExpHistory * pEH = new ExpHistory(pEHParent, pCurrentArgs);
+            pEH->setLevel(pEHParent->getLevel() + 1);
+            pEH->setArgsOwner(true);
+            fields.push_back(pEH);
         }
         else
         {
@@ -1167,6 +1170,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     typed_list* args = new typed_list();
                     args->push_back(new String(pwcsFieldname.c_str()));
                     pEH->setArgs(args);
+                    pEH->setArgsOwner(true);
 
                     InternalType* pExtract = callOverload(*pEH->getExp(), L"6", args, pL, NULL);
 
@@ -1208,6 +1212,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 typed_list* args = new typed_list();
                 args->push_back(new String(pwcsFieldname.c_str()));
                 pEH->setArgs(args);
+                pEH->setArgsOwner(true);
 
                 // call overload
                 InternalType* pExtract = callOverload(*pEH->getExp(), L"e", args, pITCurrent, NULL);
@@ -1434,6 +1439,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     Struct* pStruct = pParent->getAs<Struct>();
                     pStruct->get(pEH->getWhereReinsert())->set(pEH->getExpAsString(), pEH->getCurrent());
                     evalFields.pop_back();
+                    delete pEH;
                     continue;
                 }
                 else if (pParent->isTList() || pParent->isMList())
@@ -1443,6 +1449,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     {
                         pTL->set(pEH->getWhereReinsert(), pEH->getCurrent());
                         evalFields.pop_back();
+                        delete pEH;
                         continue;
                     }
                     else
@@ -1451,6 +1458,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                         {
                             pTL->set(pEH->getExpAsString(), pEH->getCurrent());
                             evalFields.pop_back();
+                            delete pEH;
                             continue;
                         }
 
@@ -1467,6 +1475,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                         pCell->set(pEH->getWhereReinsert(), pEH->getCurrent());
                         pEHParent->setReinsertion();
                         evalFields.pop_back();
+                        delete pEH;
                         continue;
                     }
                 }
@@ -1492,6 +1501,15 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
         }
 
         evalFields.pop_back();
+        delete pEH;
+    }
+
+    if (!evalFields.empty())
+    {
+        for (std::list<ExpHistory*>::const_iterator i = evalFields.begin(), end = evalFields.end(); i != end; i++)
+        {
+            delete *i;
+        }
     }
 
     return symbol::Context::getInstance()->getCurrentLevel(pFirstField->getExp()->name_get());

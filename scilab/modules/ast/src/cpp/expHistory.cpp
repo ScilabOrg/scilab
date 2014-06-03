@@ -18,59 +18,32 @@
 ** Constructor & Destructor (public)
 */
 
-void ExpHistory::initHistory()
+ExpHistory::ExpHistory() : m_pArgs(NULL), m_piArgsDimsArray(NULL), m_pExp(NULL), m_pParent(NULL), m_pITCurrent(NULL), m_bReinsertMe(false), m_bCellExp(false), m_iArgsDims(0), m_iWhere(-1), m_iLevel(0), m_pArgsOwner(false)
 {
-    m_pArgs             = NULL;
-    m_piArgsDimsArray   = NULL;
-    m_pExp              = NULL;
-    m_pParent           = NULL;
-    m_pITCurrent        = NULL;
-    m_bReinsertMe       = false;
-    m_bCellExp          = false;
-    m_iArgsDims         = 0;
-    m_iWhere            = -1;
-    m_iLevel            = 0;
-}
-
-ExpHistory::ExpHistory()
-{
-    initHistory();
 }
 
 
-ExpHistory::ExpHistory(ExpHistory* _pEH, const ast::SimpleVar* _pExp)
+ExpHistory::ExpHistory(ExpHistory* _pEH, const ast::SimpleVar* _pExp) : m_pArgs(NULL), m_piArgsDimsArray(NULL), m_pExp(_pExp), m_pParent(_pEH), m_pITCurrent(NULL), m_bReinsertMe(false), m_bCellExp(false), m_iArgsDims(0), m_iWhere(-1), m_iLevel(0), m_pArgsOwner(false)
 {
-    initHistory();
-
-    m_pExp      = _pExp;
-    m_pParent   = _pEH;
 }
 
-ExpHistory::ExpHistory(ExpHistory* _pParent, types::typed_list* _pArgs)
+ExpHistory::ExpHistory(ExpHistory* _pParent, types::typed_list* _pArgs) : m_pArgs(_pArgs), m_piArgsDimsArray(NULL), m_pExp(NULL), m_pParent(_pParent), m_pITCurrent(NULL), m_bReinsertMe(false), m_bCellExp(false), m_iArgsDims(0), m_iWhere(-1), m_iLevel(0), m_pArgsOwner(false)
 {
-    initHistory();
-
-    m_pArgs     = _pArgs;
-    m_pParent   = _pParent;
 }
 
-ExpHistory::ExpHistory(ExpHistory* _pParent, const ast::SimpleVar* _pExp, types::typed_list* _pArgs, int _iLevel,  bool _bCellExp, types::InternalType* _pITCurrent)
+ExpHistory::ExpHistory(ExpHistory* _pParent, const ast::SimpleVar* _pExp, types::typed_list* _pArgs, int _iLevel,  bool _bCellExp, types::InternalType* _pITCurrent) : m_pArgs(_pArgs), m_piArgsDimsArray(NULL), m_pExp(_pExp), m_pParent(_pParent), m_pITCurrent(_pITCurrent), m_bReinsertMe(false), m_bCellExp(_bCellExp), m_iArgsDims(0), m_iWhere(-1), m_iLevel(_iLevel), m_pArgsOwner(false)
 {
-    initHistory();
-
-    m_pArgs         = _pArgs;
-    m_pExp          = _pExp;
-    m_pParent       = _pParent;
-    m_pITCurrent    = _pITCurrent;
-    m_iLevel        = _iLevel;
-    m_bCellExp      = _bCellExp;
 }
 
 ExpHistory::~ExpHistory()
 {
     if (m_piArgsDimsArray)
     {
-        delete m_piArgsDimsArray;
+        delete[] m_piArgsDimsArray;
+    }
+    if (m_pArgs && m_pArgsOwner)
+    {
+        delete m_pArgs;
     }
 }
 
@@ -101,7 +74,17 @@ std::wstring ExpHistory::getExpAsString()
 
 void ExpHistory::setArgs(types::typed_list* _pArgs)
 {
+    if (m_pArgs && m_pArgsOwner)
+    {
+        delete m_pArgs;
+    }
     m_pArgs = _pArgs;
+    m_pArgsOwner = false;
+}
+
+void ExpHistory::setArgsOwner(bool owner)
+{
+    m_pArgsOwner = owner;
 }
 
 void ExpHistory::computeArgs()
@@ -113,13 +96,15 @@ void ExpHistory::computeArgs()
         // compute indexes
         m_piArgsDimsArray  = new int[m_iArgsDims];
 
-        int* piCountDim = new int[m_pArgs->size()];
         types::typed_list* pNewArgs = new types::typed_list();
+        int iCount = types::checkIndexesArguments(m_pITCurrent, m_pArgs, pNewArgs, m_piArgsDimsArray, NULL);
 
-        int iCount = types::checkIndexesArguments(m_pITCurrent, m_pArgs, pNewArgs, m_piArgsDimsArray, piCountDim);
-
+        if (m_pArgsOwner)
+        {
+            delete m_pArgs;
+        }
         m_pArgs = pNewArgs;
-        delete[] piCountDim;
+        m_pArgsOwner = true;
 
         int* piDimsArray = m_pITCurrent->getAs<types::GenericType>()->getDimsArray();
         if (m_iArgsDims == 1)
@@ -149,9 +134,13 @@ void ExpHistory::computeArgs()
         }
         else
         {
-            for (int i = 0; i < std::min(m_iArgsDims, m_pITCurrent->getAs<types::GenericType>()->getDims()); i++)
+            const int size = std::min(m_iArgsDims, m_pITCurrent->getAs<types::GenericType>()->getDims());
+            for (int i = 0; i < size; i++)
             {
-                m_piArgsDimsArray[i] = std::max(m_piArgsDimsArray[i], piDimsArray[i]);
+                if (piDimsArray[i] > m_piArgsDimsArray[i])
+                {
+                    m_piArgsDimsArray[i] = piDimsArray[i];
+                }
             }
         }
     }
@@ -168,13 +157,15 @@ int ExpHistory::getSizeFromArgs()
 
     if (m_pArgs)
     {
+        int size;
         iSizeFromArgs = 1;
         if (m_piArgsDimsArray == NULL)
         {
             computeArgs();
         }
 
-        for (int i = 0; i < m_pArgs->size(); i++)
+        size = m_pArgs->size();
+        for (int i = 0; i < size; i++)
         {
             iSizeFromArgs *= m_piArgsDimsArray[i];
         }
