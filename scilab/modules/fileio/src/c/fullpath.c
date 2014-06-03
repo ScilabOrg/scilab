@@ -125,7 +125,7 @@ char *get_full_path(char *_FullPath, const char *_Path, size_t _SizeInBytes)
 /*--------------------------------------------------------------------------*/
 wchar_t *get_full_pathW(wchar_t * _wcFullPath, const wchar_t * _wcPath, size_t _SizeInBytes)
 {
-    char* pstPath = (char*)MALLOC(sizeof(char) * _SizeInBytes);
+    char* pstPath = NULL;
     char* pstFullPath = (char*)MALLOC(sizeof(char) * _SizeInBytes);
     wchar_t* pwstFullPath = NULL;
 
@@ -134,6 +134,7 @@ wchar_t *get_full_pathW(wchar_t * _wcFullPath, const wchar_t * _wcPath, size_t _
     pwstFullPath = to_wide_string(pstFullPath);
     wcscpy(_wcFullPath, pwstFullPath);
 
+    FREE(pstFullPath);
     FREE(pstPath);
     FREE(pwstFullPath);
     return _wcFullPath;
