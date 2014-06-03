@@ -408,8 +408,8 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
         ImplicitList* pVar = pIT->getAs<ImplicitList>();
 
         InternalType *pIL = NULL;
-        pIL = pVar->extractValue(0);
-        symbol::Symbol varName = e.vardec_get().name_get();
+        //pIL = pVar->extractValue(0);
+        //symbol::Symbol varName = e.vardec_get().name_get();
 
         for (int i = 0 ; i < pVar->getSize() ; i++)
         {
