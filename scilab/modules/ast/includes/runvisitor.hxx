@@ -235,7 +235,8 @@ public :
             (*it)->accept(*this);
             if (result_getSize() > 1)
             {
-                for (int i = 0 ; i < result_getSize() ; i++)
+		const int size = result_getSize();
+                for (int i = 0 ; i < size; i++)
                 {
                     pArgs->push_back(result_get(i));
                 }
@@ -801,7 +802,7 @@ public :
             ImplicitList* pVar = pIT->getAs<ImplicitList>();
 
             InternalType *pIL = NULL;
-            pIL = pVar->extractValue(0);
+            //pIL = pVar->extractValue(0);
             symbol::Symbol varName = e.vardec_get().name_get();
 
             for (int i = 0 ; i < pVar->getSize() ; i++)

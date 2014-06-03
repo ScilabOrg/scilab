@@ -411,6 +411,7 @@ void visitprivate(const CallExp &e)
                         {
                             case 0 :
                             {
+				delete pArgs;
                                 std::wostringstream os;
                                 os << _W("Invalid index.\n");
                                 throw ScilabError(os.str(), 999, (*e.args_get().begin())->location_get());
@@ -429,6 +430,7 @@ void visitprivate(const CallExp &e)
                     }
                     else
                     {
+			delete pArgs;
                         throw ScilabError();
                     }
                     break;
@@ -507,6 +509,7 @@ void visitprivate(const CallExp &e)
                         {
                             case 0 :
                             {
+				delete pArgs;
                                 std::wostringstream os;
                                 os << _W("Invalid index.\n");
                                 throw ScilabError(os.str(), 999, (*e.args_get().begin())->location_get());
@@ -525,6 +528,7 @@ void visitprivate(const CallExp &e)
                     }
                     else
                     {
+			delete pArgs;
                         throw ScilabError();
                     }
                     break;
@@ -555,6 +559,7 @@ void visitprivate(const CallExp &e)
                             }
                             else
                             {
+				delete pArgs;
                                 wchar_t szError[bsiz];
                                 os_swprintf(szError, bsiz, _W("Field \"%ls\" does not exists\n"), wstField.c_str());
                                 throw ScilabError(szError, 999, (*e.args_get().begin())->location_get());
@@ -577,6 +582,7 @@ void visitprivate(const CallExp &e)
                                 result_set(i, ResultList[i]);
                             }
                         }
+			delete pArgs;
                         return;
                     }
                     else
@@ -701,6 +707,7 @@ void visitprivate(const CellCallExp &e)
 
             if (pList == NULL)
             {
+		delete pArgs;
                 std::wostringstream os;
                 os << _W("inconsistent row/column dimensions\n");
                 //os << ((*e.args_get().begin())->location_get()).location_getString() << std::endl;
