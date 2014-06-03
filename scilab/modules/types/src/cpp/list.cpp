@@ -72,8 +72,7 @@ List::List(List *_oListCopyMe)
 
     for (int i = 0 ; i < _oListCopyMe->getData()->size() ; i++)
     {
-        InternalType* pIT = (*_oListCopyMe->getData())[i];
-        append(pIT->clone());
+        append((*_oListCopyMe->getData())[i]);
     }
 
     m_iSize = static_cast<int>(m_plData->size());

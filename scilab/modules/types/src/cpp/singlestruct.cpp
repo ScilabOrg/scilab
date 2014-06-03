@@ -245,7 +245,9 @@ bool SingleStruct::addField(const std::wstring& _sKey)
 
     //not found so add field with []
     m_wstFields.push_back(_sKey);
-    m_Data.push_back(Double::Empty());
+    InternalType* pIT = Double::Empty();
+    pIT->IncreaseRef();
+    m_Data.push_back(pIT);
     return true;
 }
 
