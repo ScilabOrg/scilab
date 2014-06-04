@@ -25,6 +25,8 @@ Scilab Bug Fixes
 
 * Bug #10784 fixed - clc function was not available in CLI & ADV-CLI modes.
 
+* Bug #11035 fixed - Scilab crashes when loading a file created with Matlab 7.12 (non regression test).
+
 * Bug #12700 fixed - edit_curv (used by CURV_f) was broken.
 
 * Bug #12918 fixed - OpenSUSE 12.3 x64 did not have gluegen2-rt in librarypath.
