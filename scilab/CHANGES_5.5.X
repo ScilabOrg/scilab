@@ -89,6 +89,7 @@ Scilab Bug Fixes
 * Bug #13409 fixed - permute(x, dims) failed when dims was greater than the dimensions of size(x)
                      now permute treats extra dimensions as 1
 
+* Bug #13435 fixed - Crash under Windows when xmlRemove on the first child. 
 
 
 Xcos Bug Fixes
