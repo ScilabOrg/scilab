@@ -247,9 +247,16 @@ function description_out = atomsDESCRIPTIONread(file_in,additional)
 
         // Second case : Current field continuation
         if regexp(lines_in(i),"/^\s/","o") == 1 then
+            cf = current_toolbox(current_field)
             current_value = part(lines_in(i),2:length(lines_in(i)));
-            current_toolbox(current_field)($+1) =  current_value;
-
+            
+            u = size(cf)
+            u(1) = u(1)+1
+            cf= resize_matrix(cf,u)
+            cf(u) = ""
+            cf(u) =  current_value;
+            current_toolbox(current_field) = cf
+            
             // Category management
             if current_field == "Category" then
                 if ~ isfield(categories_flat,current_value) then
@@ -279,7 +286,7 @@ function description_out = atomsDESCRIPTIONread(file_in,additional)
         // Else Error
         atomsCloseProgressBar(winId);
         error(msprintf(gettext("%s: The file ''%s'' is not well formated at line %d\n"),"atomsDESCRIPTIONread",file_in,i));
-
+disp(i)
     end
 
     description_out("packages")        = packages;
