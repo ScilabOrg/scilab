@@ -36,10 +36,12 @@ function varargout = ind2sub(dims, I)
     end
 
     varargout(0) = k1 + 1;
+
     if argn(1) == 1 then //return a matrix whose columns are the subindices
         K = []
         for k = varargout
-            K = [K matrix(k, -1, 1)];
+            e = matrix(k, -1, 1)
+            K = [K e];
         end
         varargout = list(K);
     end
