@@ -32,7 +32,7 @@ CACSD_IMPEXP int sci_hinf(char* fname, void* pvApiCtx);
 CACSD_IMPEXP int sci_linmeq(char* fname, void* pvApiCtx);
 CACSD_IMPEXP int sci_mucomp(char* fname, void* pvApiCtx);
 CACSD_IMPEXP int sci_rankqr(char* fname, void* pvApiCtx);
-CACSD_IMPEXP int sci_ricc(char* fname, void* pvApiCtx);
+CACSD_IMPEXP int sci_contr(char* fname, void* pvApiCtx);
 CACSD_IMPEXP int sci_ricc(char* fname, void* pvApiCtx);
 CACSD_IMPEXP int sci_sident(char* fname, void* pvApiCtx);
 CACSD_IMPEXP int sci_sorder(char* fname, void* pvApiCtx);
