@@ -71,23 +71,27 @@ Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, types::ty
         }
         else
         {
-            if (in[0]->getAs<Double>()->getSize() != 1)
+           /* types::Double *code  = in[0]->getAs<Double>();
+            if (code->getSize() != 1)
             {
                 Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), "error", 1);
                 return Function::Error;
             }
 
-            if (in[0]->getAs<Double>()->getReal(0, 0) <= 0 || in[0]->getAs<Double>()->isComplex())
+            if (code->getReal(0, 0) <= 0 || code->isComplex())
             {
                 Scierror(999, _("%s: Wrong value for input argument #%d: Value greater than 0 expected.\n"), "error", 1);
                 return Function::Error;
             }
 
-
-            // FIXME : Find a way to retrieve error message from given ID.
+           /* // FIXME : Find a way to retrieve error message from given ID.
             Scierror((int)in[0]->getAs<Double>()->getReal(0, 0),
                      "[Error %d]: message given by ID... Should avoid this !!",
-                     (int) in[0]->getAs<Double>()->getReal(0, 0));
+                     (int) in[0]->getAs<Double>()->getReal(0, 0));*/
+
+                     
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "error", 1);
+            return Function::Error;
         }
     }
     else
