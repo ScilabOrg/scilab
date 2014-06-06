@@ -72,6 +72,12 @@ types::Function::ReturnValue sci_linear_interpn(types::typed_list &in, int _iRet
             Scierror(999, _("%s: Wrong size for input arguments #%d and #%d: Same sizes expected.\n"), "linear_interpn", i, i + 1);
             return types::Function::Error;
         }
+
+        if (lpDblXp[i]->isComplex())
+        {
+            Scierror(999, _("%s: Wrong type for argument #%d: Real matrix expected.\n"), "linear_interpn", i + 1);
+            return types::Function::Error;
+        }
     }
 
     // x1 ... xn
