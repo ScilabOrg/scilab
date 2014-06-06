@@ -70,6 +70,12 @@ types::Function::ReturnValue sci_splin(types::typed_list &in, int _iRetCount, ty
     pDblX = in[0]->getAs<types::Double>();
     iSize = pDblX->getSize();
 
+    if (pDblX->isComplex() == true)
+    {
+        Scierror(999, _("%s: Wrong type for argument #%d: Real matrix expected.\n"), "splin", 1);
+        return types::Function::Error;
+    }
+
     if (iSize < 2)
     {
         Scierror(999, _("%s: Wrong size for input argument #%d : At least a size of 2 expected.\n"), "splin", 1);
@@ -89,7 +95,14 @@ types::Function::ReturnValue sci_splin(types::typed_list &in, int _iRetCount, ty
         return types::Function::Error;
     }
 
+
     pDblY = in[1]->getAs<types::Double>();
+
+    if (pDblY->isComplex() == true)
+    {
+        Scierror(999, _("%s: Wrong type for argument #%d: Real matrix expected.\n"), "splin", 2);
+        return types::Function::Error;
+    }
 
     if ( pDblX->getCols() != pDblY->getCols() ||
             pDblX->getRows() != pDblY->getRows() ||
