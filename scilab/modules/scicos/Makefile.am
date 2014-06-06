@@ -104,9 +104,9 @@ pkglib_LTLIBRARIES += libsciscicos.la
 endif
 endif
 
-libsciscicos_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_cli_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_la_LDFLAGS = $(AM_LDFLAGS)
+libsciscicos_algo_la_LDFLAGS = $(RT_LIB) $(AM_LDFLAGS)
+libsciscicos_cli_la_LDFLAGS = $(RT_LIB) $(AM_LDFLAGS)
+libsciscicos_la_LDFLAGS = $(RT_LIB) $(AM_LDFLAGS)
 
 if XCOS
 libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \
@@ -143,7 +143,6 @@ libsciscicos_cli_la_SOURCES =
 libsciscicos_la_SOURCES =
 endif
 
-libsciscicos_algo_la_LIBADD =
 libsciscicos_cli_la_LIBADD = libsciscicos-algo.la
 libsciscicos_la_LIBADD = libsciscicos-algo.la
 if XCOS
@@ -155,14 +154,10 @@ libsciscicos_la_LIBADD += libscisundials.la \
 endif
 endif
 
-libsciscicos_algo_la_LIBADD += $(RT_LIB)
-libsciscicos_cli_la_LIBADD += $(RT_LIB)
-libsciscicos_la_LIBADD += $(RT_LIB)
-
 
 # For the code check (splint)
 CHECK_SRC= $(SCICOS_C_SOURCES) $(GATEWAY_C_SOURCES)
-INCLUDE_FLAGS = $(libsciscicos_la_CFLAGS)
+INCLUDE_FLAGS = $(libsciscicos_la_CPPFLAGS)
 
 #### scicos : Conf files ####
 libsciscicos_la_rootdir = $(mydatadir)
@@ -172,12 +167,6 @@ libsciscicos_la_root_DATA =  license.txt
 #### scicos : init scripts ####
 libsciscicos_la_etcdir = $(mydatadir)/etc
 libsciscicos_la_etc_DATA = etc/scicos.quit etc/scicos.start
-
-#### scicos : tcl scripts ####
-libsciscicos_la_tcldir = $(mydatadir)/tcl
-libsciscicos_la_tcl_DATA = tcl/MIHM.tcl \
-tcl/scicos.gif \
-tcl/scicos2.gif
 
 #### scicos : gateway declaration ####
 libsciscicos_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -204,7 +193,9 @@ palettes/DemoBlocks.cosf \
 palettes/Events.cosf \
 palettes/Integer.cosf \
 palettes/Linear.cosf \
+palettes/Lookup_Tables.cosf \
 palettes/Matrix.cosf \
+palettes/Modelica.cosf \
 palettes/Non_linear.cosf \
 palettes/OldBlocks.cosf \
 palettes/Others.cosf \
@@ -239,7 +230,7 @@ src/scicos_sundials/src/sundials/sundials_math.c \
 src/scicos_sundials/src/sundials/sundials_nvector.c \
 src/scicos_sundials/src/sundials/sundials_extension.c
 
-libscisundials_la_CFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include \
+libscisundials_la_CPPFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/cvode \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/ida \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/kinsol \
@@ -249,7 +240,8 @@ libscisundials_la_CFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/in
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/ida \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/kinsol \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/nvec_ser \
--I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/sundials
+-I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/sundials \
+$(AM_CPPFLAGS)
 
 
 libscisundials_la_SOURCES = $(SUNDIALS_SOURCES)

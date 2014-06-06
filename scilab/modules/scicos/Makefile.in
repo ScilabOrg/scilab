@@ -195,12 +195,10 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(libsciscicos_la_etcdir)" \
 	"$(DESTDIR)$(libsciscicos_la_rootdir)" \
 	"$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)" \
-	"$(DESTDIR)$(libsciscicos_la_tcldir)" \
 	"$(DESTDIR)$(libsciscicos_la_cosfdir)" \
 	"$(DESTDIR)$(libsciscicos_la_includedir)"
 LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
-am__DEPENDENCIES_1 =
-libsciscicos_algo_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
+libsciscicos_algo_la_LIBADD =
 am__libsciscicos_algo_la_SOURCES_DIST = src/c/noscicos/noscicos.c \
 	src/c/tree.c src/c/scicos_malloc.c src/c/scicos_print.c \
 	src/c/import.c src/c/scicos.c src/c/scicos_free.c \
@@ -254,7 +252,7 @@ libsciscicos_algo_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=F77 \
 	$(AM_FFLAGS) $(FFLAGS) $(libsciscicos_algo_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 libsciscicos_cli_la_DEPENDENCIES = libsciscicos-algo.la \
-	$(am__append_2) $(am__DEPENDENCIES_1)
+	$(am__append_2)
 am__libsciscicos_cli_la_SOURCES_DIST = sci_gateway/c/gw_scicos.c \
 	sci_gateway/c/sci_buildouttb.c sci_gateway/c/sci_callblk.c \
 	sci_gateway/c/sci_coserror.c sci_gateway/c/sci_ctree2.c \
@@ -336,8 +334,7 @@ libsciscicos_cli_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=F77 \
 	$(AM_FFLAGS) $(FFLAGS) $(libsciscicos_cli_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 @XCOS_TRUE@am_libsciscicos_cli_la_rpath = -rpath $(pkglibdir)
-libsciscicos_la_DEPENDENCIES = libsciscicos-algo.la $(am__append_3) \
-	$(am__DEPENDENCIES_1)
+libsciscicos_la_DEPENDENCIES = libsciscicos-algo.la $(am__append_3)
 am__libsciscicos_la_SOURCES_DIST = sci_gateway/c/gw_scicos.c \
 	sci_gateway/c/sci_buildouttb.c sci_gateway/c/sci_callblk.c \
 	sci_gateway/c/sci_coserror.c sci_gateway/c/sci_ctree2.c \
@@ -432,10 +429,6 @@ am__objects_7 =  \
 	src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo
 am_libscisundials_la_OBJECTS = $(am__objects_7)
 libscisundials_la_OBJECTS = $(am_libscisundials_la_OBJECTS)
-libscisundials_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libscisundials_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	-o $@
 @XCOS_TRUE@am_libscisundials_la_rpath = -rpath $(pkglibdir)
 @OCAML_TRUE@@XCOS_TRUE@am__EXEEXT_1 = modelicac$(EXEEXT) \
 @OCAML_TRUE@@XCOS_TRUE@	XML2Modelica$(EXEEXT) \
@@ -558,7 +551,6 @@ am__can_run_installinfo = \
   esac
 DATA = $(libsciscicos_la_etc_DATA) $(libsciscicos_la_root_DATA) \
 	$(libsciscicos_la_sci_gateway_DATA) \
-	$(libsciscicos_la_tcl_DATA) \
 	$(nobase_libsciscicos_la_cosf_DATA)
 HEADERS = $(libsciscicos_la_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
@@ -954,9 +946,9 @@ sci_gateway/fortran/sci_f_vec2var.f
 noinst_LTLIBRARIES = libsciscicos-algo.la
 @XCOS_TRUE@pkglib_LTLIBRARIES = libscisundials.la libsciscicos-cli.la \
 @XCOS_TRUE@	$(am__append_1)
-libsciscicos_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_cli_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_la_LDFLAGS = $(AM_LDFLAGS)
+libsciscicos_algo_la_LDFLAGS = $(RT_LIB) $(AM_LDFLAGS)
+libsciscicos_cli_la_LDFLAGS = $(RT_LIB) $(AM_LDFLAGS)
+libsciscicos_la_LDFLAGS = $(RT_LIB) $(AM_LDFLAGS)
 @XCOS_FALSE@libsciscicos_algo_la_CPPFLAGS = -I$(top_srcdir)/modules/output_stream/includes/ \
 @XCOS_FALSE@			-I$(top_srcdir)/modules/api_scilab/includes/ \
 @XCOS_FALSE@			-I$(top_srcdir)/modules/scicos/includes/ \
@@ -986,15 +978,12 @@ libsciscicos_la_CPPFLAGS = $(libsciscicos_algo_la_CPPFLAGS)
 @XCOS_TRUE@libsciscicos_cli_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 @XCOS_FALSE@libsciscicos_la_SOURCES = 
 @XCOS_TRUE@libsciscicos_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
-libsciscicos_algo_la_LIBADD = $(RT_LIB)
-libsciscicos_cli_la_LIBADD = libsciscicos-algo.la $(am__append_2) \
-	$(RT_LIB)
-libsciscicos_la_LIBADD = libsciscicos-algo.la $(am__append_3) \
-	$(RT_LIB)
+libsciscicos_cli_la_LIBADD = libsciscicos-algo.la $(am__append_2)
+libsciscicos_la_LIBADD = libsciscicos-algo.la $(am__append_3)
 
 # For the code check (splint)
 CHECK_SRC = $(SCICOS_C_SOURCES) $(GATEWAY_C_SOURCES)
-INCLUDE_FLAGS = $(libsciscicos_la_CFLAGS)
+INCLUDE_FLAGS = $(libsciscicos_la_CPPFLAGS)
 
 #### scicos : Conf files ####
 libsciscicos_la_rootdir = $(mydatadir)
@@ -1003,13 +992,6 @@ libsciscicos_la_root_DATA = license.txt
 #### scicos : init scripts ####
 libsciscicos_la_etcdir = $(mydatadir)/etc
 libsciscicos_la_etc_DATA = etc/scicos.quit etc/scicos.start
-
-#### scicos : tcl scripts ####
-libsciscicos_la_tcldir = $(mydatadir)/tcl
-libsciscicos_la_tcl_DATA = tcl/MIHM.tcl \
-tcl/scicos.gif \
-tcl/scicos2.gif
-
 
 #### scicos : gateway declaration ####
 libsciscicos_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -1034,7 +1016,9 @@ palettes/DemoBlocks.cosf \
 palettes/Events.cosf \
 palettes/Integer.cosf \
 palettes/Linear.cosf \
+palettes/Lookup_Tables.cosf \
 palettes/Matrix.cosf \
+palettes/Modelica.cosf \
 palettes/Non_linear.cosf \
 palettes/OldBlocks.cosf \
 palettes/Others.cosf \
@@ -1070,7 +1054,7 @@ src/scicos_sundials/src/sundials/sundials_math.c \
 src/scicos_sundials/src/sundials/sundials_nvector.c \
 src/scicos_sundials/src/sundials/sundials_extension.c
 
-libscisundials_la_CFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include \
+libscisundials_la_CPPFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/cvode \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/ida \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/kinsol \
@@ -1080,7 +1064,8 @@ libscisundials_la_CFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/in
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/ida \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/kinsol \
 -I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/nvec_ser \
--I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/sundials
+-I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/sundials \
+$(AM_CPPFLAGS)
 
 libscisundials_la_SOURCES = $(SUNDIALS_SOURCES)
 
@@ -1162,15 +1147,8 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 
 ### XML2Modelica
 @OCAML_TRUE@@XCOS_TRUE@XML2Modelica_SOURCES = $(MLS_XML2Modelica)
-@OCAML_TRUE@@XCOS_TRUE@MLS_XML2Modelica = \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/xMLTree.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/linenum.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/stringParser.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/stringLexer.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/xMLParser.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/xMLLexer.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/modelicaCodeGenerator.ml \
-@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/xML2Modelica.ml
+@OCAML_TRUE@@XCOS_TRUE@MLS_XML2Modelica = $(srcdir)/src/xml2modelica/xMLTree.ml $(srcdir)/src/xml2modelica/linenum.ml $(srcdir)/src/xml2modelica/stringParser.ml $(srcdir)/src/xml2modelica/stringLexer.ml $(srcdir)/src/xml2modelica/xMLParser.ml $(srcdir)/src/xml2modelica/xMLLexer.ml\
+@OCAML_TRUE@@XCOS_TRUE@	$(srcdir)/src/xml2modelica/modelicaCodeGenerator.ml $(srcdir)/src/xml2modelica/xML2Modelica.ml
 
 @OCAML_TRUE@@XCOS_TRUE@BASE_PATH_XML2Modelica = $(srcdir)/src/xml2modelica
 
@@ -1764,7 +1742,7 @@ src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo:  \
 	src/scicos_sundials/src/sundials/$(DEPDIR)/$(am__dirstamp)
 
 libscisundials.la: $(libscisundials_la_OBJECTS) $(libscisundials_la_DEPENDENCIES) $(EXTRA_libscisundials_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libscisundials_la_LINK) $(am_libscisundials_la_rpath) $(libscisundials_la_OBJECTS) $(libscisundials_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(am_libscisundials_la_rpath) $(libscisundials_la_OBJECTS) $(libscisundials_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
@@ -2590,137 +2568,137 @@ sci_gateway/c/libsciscicos_la-sci_vec2var.lo: sci_gateway/c/sci_vec2var.c
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sci_gateway/c/libsciscicos_la-sci_vec2var.lo `test -f 'sci_gateway/c/sci_vec2var.c' || echo '$(srcdir)/'`sci_gateway/c/sci_vec2var.c
 
 src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo: src/scicos_sundials/src/cvode/cvode.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo `test -f 'src/scicos_sundials/src/cvode/cvode.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo `test -f 'src/scicos_sundials/src/cvode/cvode.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode.Tpo src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/cvode/cvode.c' object='src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo `test -f 'src/scicos_sundials/src/cvode/cvode.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode.lo `test -f 'src/scicos_sundials/src/cvode/cvode.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode.c
 
 src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo: src/scicos_sundials/src/cvode/cvode_dense.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_dense.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo `test -f 'src/scicos_sundials/src/cvode/cvode_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_dense.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_dense.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo `test -f 'src/scicos_sundials/src/cvode/cvode_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_dense.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_dense.Tpo src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_dense.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/cvode/cvode_dense.c' object='src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo `test -f 'src/scicos_sundials/src/cvode/cvode_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_dense.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_dense.lo `test -f 'src/scicos_sundials/src/cvode/cvode_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_dense.c
 
 src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo: src/scicos_sundials/src/cvode/cvode_direct.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_direct.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo `test -f 'src/scicos_sundials/src/cvode/cvode_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_direct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_direct.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo `test -f 'src/scicos_sundials/src/cvode/cvode_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_direct.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_direct.Tpo src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_direct.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/cvode/cvode_direct.c' object='src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo `test -f 'src/scicos_sundials/src/cvode/cvode_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_direct.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_direct.lo `test -f 'src/scicos_sundials/src/cvode/cvode_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_direct.c
 
 src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo: src/scicos_sundials/src/cvode/cvode_io.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_io.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo `test -f 'src/scicos_sundials/src/cvode/cvode_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_io.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo -MD -MP -MF src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_io.Tpo -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo `test -f 'src/scicos_sundials/src/cvode/cvode_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_io.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_io.Tpo src/scicos_sundials/src/cvode/$(DEPDIR)/libscisundials_la-cvode_io.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/cvode/cvode_io.c' object='src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo `test -f 'src/scicos_sundials/src/cvode/cvode_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_io.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/cvode/libscisundials_la-cvode_io.lo `test -f 'src/scicos_sundials/src/cvode/cvode_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/cvode/cvode_io.c
 
 src/scicos_sundials/src/ida/libscisundials_la-ida.lo: src/scicos_sundials/src/ida/ida.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida.lo `test -f 'src/scicos_sundials/src/ida/ida.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida.lo `test -f 'src/scicos_sundials/src/ida/ida.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida.Tpo src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/ida/ida.c' object='src/scicos_sundials/src/ida/libscisundials_la-ida.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida.lo `test -f 'src/scicos_sundials/src/ida/ida.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida.lo `test -f 'src/scicos_sundials/src/ida/ida.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida.c
 
 src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo: src/scicos_sundials/src/ida/ida_dense.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_dense.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo `test -f 'src/scicos_sundials/src/ida/ida_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_dense.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_dense.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo `test -f 'src/scicos_sundials/src/ida/ida_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_dense.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_dense.Tpo src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_dense.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/ida/ida_dense.c' object='src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo `test -f 'src/scicos_sundials/src/ida/ida_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_dense.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_dense.lo `test -f 'src/scicos_sundials/src/ida/ida_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_dense.c
 
 src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo: src/scicos_sundials/src/ida/ida_direct.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_direct.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo `test -f 'src/scicos_sundials/src/ida/ida_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_direct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_direct.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo `test -f 'src/scicos_sundials/src/ida/ida_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_direct.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_direct.Tpo src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_direct.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/ida/ida_direct.c' object='src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo `test -f 'src/scicos_sundials/src/ida/ida_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_direct.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_direct.lo `test -f 'src/scicos_sundials/src/ida/ida_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_direct.c
 
 src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo: src/scicos_sundials/src/ida/ida_ic.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_ic.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo `test -f 'src/scicos_sundials/src/ida/ida_ic.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_ic.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_ic.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo `test -f 'src/scicos_sundials/src/ida/ida_ic.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_ic.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_ic.Tpo src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_ic.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/ida/ida_ic.c' object='src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo `test -f 'src/scicos_sundials/src/ida/ida_ic.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_ic.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_ic.lo `test -f 'src/scicos_sundials/src/ida/ida_ic.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_ic.c
 
 src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo: src/scicos_sundials/src/ida/ida_io.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_io.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo `test -f 'src/scicos_sundials/src/ida/ida_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_io.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo -MD -MP -MF src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_io.Tpo -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo `test -f 'src/scicos_sundials/src/ida/ida_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_io.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_io.Tpo src/scicos_sundials/src/ida/$(DEPDIR)/libscisundials_la-ida_io.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/ida/ida_io.c' object='src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo `test -f 'src/scicos_sundials/src/ida/ida_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_io.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/ida/libscisundials_la-ida_io.lo `test -f 'src/scicos_sundials/src/ida/ida_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/ida/ida_io.c
 
 src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo: src/scicos_sundials/src/kinsol/kinsol.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol.Tpo src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/kinsol/kinsol.c' object='src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol.c
 
 src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo: src/scicos_sundials/src/kinsol/kinsol_dense.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_dense.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_dense.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_dense.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_dense.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_dense.Tpo src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_dense.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/kinsol/kinsol_dense.c' object='src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_dense.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_dense.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_dense.c
 
 src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo: src/scicos_sundials/src/kinsol/kinsol_direct.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_direct.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_direct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_direct.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_direct.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_direct.Tpo src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_direct.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/kinsol/kinsol_direct.c' object='src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_direct.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_direct.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_direct.c
 
 src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo: src/scicos_sundials/src/kinsol/kinsol_io.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_io.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_io.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo -MD -MP -MF src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_io.Tpo -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_io.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_io.Tpo src/scicos_sundials/src/kinsol/$(DEPDIR)/libscisundials_la-kinsol_io.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/kinsol/kinsol_io.c' object='src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_io.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/kinsol/libscisundials_la-kinsol_io.lo `test -f 'src/scicos_sundials/src/kinsol/kinsol_io.c' || echo '$(srcdir)/'`src/scicos_sundials/src/kinsol/kinsol_io.c
 
 src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo: src/scicos_sundials/src/nvec_ser/nvector_serial.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo -MD -MP -MF src/scicos_sundials/src/nvec_ser/$(DEPDIR)/libscisundials_la-nvector_serial.Tpo -c -o src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo `test -f 'src/scicos_sundials/src/nvec_ser/nvector_serial.c' || echo '$(srcdir)/'`src/scicos_sundials/src/nvec_ser/nvector_serial.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo -MD -MP -MF src/scicos_sundials/src/nvec_ser/$(DEPDIR)/libscisundials_la-nvector_serial.Tpo -c -o src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo `test -f 'src/scicos_sundials/src/nvec_ser/nvector_serial.c' || echo '$(srcdir)/'`src/scicos_sundials/src/nvec_ser/nvector_serial.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/nvec_ser/$(DEPDIR)/libscisundials_la-nvector_serial.Tpo src/scicos_sundials/src/nvec_ser/$(DEPDIR)/libscisundials_la-nvector_serial.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/nvec_ser/nvector_serial.c' object='src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo `test -f 'src/scicos_sundials/src/nvec_ser/nvector_serial.c' || echo '$(srcdir)/'`src/scicos_sundials/src/nvec_ser/nvector_serial.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/nvec_ser/libscisundials_la-nvector_serial.lo `test -f 'src/scicos_sundials/src/nvec_ser/nvector_serial.c' || echo '$(srcdir)/'`src/scicos_sundials/src/nvec_ser/nvector_serial.c
 
 src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo: src/scicos_sundials/src/sundials/sundials_dense.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_dense.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo `test -f 'src/scicos_sundials/src/sundials/sundials_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_dense.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_dense.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo `test -f 'src/scicos_sundials/src/sundials/sundials_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_dense.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_dense.Tpo src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_dense.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/sundials/sundials_dense.c' object='src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo `test -f 'src/scicos_sundials/src/sundials/sundials_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_dense.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_dense.lo `test -f 'src/scicos_sundials/src/sundials/sundials_dense.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_dense.c
 
 src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo: src/scicos_sundials/src/sundials/sundials_direct.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_direct.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo `test -f 'src/scicos_sundials/src/sundials/sundials_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_direct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_direct.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo `test -f 'src/scicos_sundials/src/sundials/sundials_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_direct.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_direct.Tpo src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_direct.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/sundials/sundials_direct.c' object='src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo `test -f 'src/scicos_sundials/src/sundials/sundials_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_direct.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_direct.lo `test -f 'src/scicos_sundials/src/sundials/sundials_direct.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_direct.c
 
 src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo: src/scicos_sundials/src/sundials/sundials_math.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_math.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo `test -f 'src/scicos_sundials/src/sundials/sundials_math.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_math.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_math.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo `test -f 'src/scicos_sundials/src/sundials/sundials_math.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_math.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_math.Tpo src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_math.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/sundials/sundials_math.c' object='src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo `test -f 'src/scicos_sundials/src/sundials/sundials_math.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_math.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_math.lo `test -f 'src/scicos_sundials/src/sundials/sundials_math.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_math.c
 
 src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo: src/scicos_sundials/src/sundials/sundials_nvector.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_nvector.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo `test -f 'src/scicos_sundials/src/sundials/sundials_nvector.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_nvector.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_nvector.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo `test -f 'src/scicos_sundials/src/sundials/sundials_nvector.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_nvector.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_nvector.Tpo src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_nvector.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/sundials/sundials_nvector.c' object='src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo `test -f 'src/scicos_sundials/src/sundials/sundials_nvector.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_nvector.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_nvector.lo `test -f 'src/scicos_sundials/src/sundials/sundials_nvector.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_nvector.c
 
 src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo: src/scicos_sundials/src/sundials/sundials_extension.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_extension.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo `test -f 'src/scicos_sundials/src/sundials/sundials_extension.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_extension.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo -MD -MP -MF src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_extension.Tpo -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo `test -f 'src/scicos_sundials/src/sundials/sundials_extension.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_extension.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_extension.Tpo src/scicos_sundials/src/sundials/$(DEPDIR)/libscisundials_la-sundials_extension.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/scicos_sundials/src/sundials/sundials_extension.c' object='src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscisundials_la_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo `test -f 'src/scicos_sundials/src/sundials/sundials_extension.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_extension.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/scicos_sundials/src/sundials/libscisundials_la-sundials_extension.lo `test -f 'src/scicos_sundials/src/sundials/sundials_extension.c' || echo '$(srcdir)/'`src/scicos_sundials/src/sundials/sundials_extension.c
 
 .f.o:
 	$(AM_V_F77)$(F77COMPILE) -c -o $@ $<
@@ -2809,27 +2787,6 @@ uninstall-libsciscicos_la_sci_gatewayDATA:
 	@list='$(libsciscicos_la_sci_gateway_DATA)'; test -n "$(libsciscicos_la_sci_gatewaydir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)'; $(am__uninstall_files_from_dir)
-install-libsciscicos_la_tclDATA: $(libsciscicos_la_tcl_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(libsciscicos_la_tcl_DATA)'; test -n "$(libsciscicos_la_tcldir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(libsciscicos_la_tcldir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(libsciscicos_la_tcldir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(libsciscicos_la_tcldir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(libsciscicos_la_tcldir)" || exit $$?; \
-	done
-
-uninstall-libsciscicos_la_tclDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(libsciscicos_la_tcl_DATA)'; test -n "$(libsciscicos_la_tcldir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(libsciscicos_la_tcldir)'; $(am__uninstall_files_from_dir)
 install-nobase_libsciscicos_la_cosfDATA: $(nobase_libsciscicos_la_cosf_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_libsciscicos_la_cosf_DATA)'; test -n "$(libsciscicos_la_cosfdir)" || list=; \
@@ -2964,7 +2921,7 @@ check: check-am
 all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(DATA) $(HEADERS) \
 		all-local
 installdirs:
-	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libsciscicos_la_etcdir)" "$(DESTDIR)$(libsciscicos_la_rootdir)" "$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)" "$(DESTDIR)$(libsciscicos_la_tcldir)" "$(DESTDIR)$(libsciscicos_la_cosfdir)" "$(DESTDIR)$(libsciscicos_la_includedir)"; do \
+	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libsciscicos_la_etcdir)" "$(DESTDIR)$(libsciscicos_la_rootdir)" "$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)" "$(DESTDIR)$(libsciscicos_la_cosfdir)" "$(DESTDIR)$(libsciscicos_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -3045,7 +3002,6 @@ install-data-am: install-data-local install-libsciscicos_la_etcDATA \
 	install-libsciscicos_la_includeHEADERS \
 	install-libsciscicos_la_rootDATA \
 	install-libsciscicos_la_sci_gatewayDATA \
-	install-libsciscicos_la_tclDATA \
 	install-nobase_libsciscicos_la_cosfDATA
 
 install-dvi: install-dvi-am
@@ -3096,7 +3052,6 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
 	uninstall-libsciscicos_la_includeHEADERS \
 	uninstall-libsciscicos_la_rootDATA \
 	uninstall-libsciscicos_la_sci_gatewayDATA \
-	uninstall-libsciscicos_la_tclDATA \
 	uninstall-nobase_libsciscicos_la_cosfDATA \
 	uninstall-pkglibLTLIBRARIES
 
@@ -3115,8 +3070,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
 	install-info-am install-libsciscicos_la_etcDATA \
 	install-libsciscicos_la_includeHEADERS \
 	install-libsciscicos_la_rootDATA \
-	install-libsciscicos_la_sci_gatewayDATA \
-	install-libsciscicos_la_tclDATA install-man \
+	install-libsciscicos_la_sci_gatewayDATA install-man \
 	install-nobase_libsciscicos_la_cosfDATA install-pdf \
 	install-pdf-am install-pkglibLTLIBRARIES install-ps \
 	install-ps-am install-strip installcheck installcheck-am \
@@ -3128,7 +3082,6 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
 	uninstall-libsciscicos_la_includeHEADERS \
 	uninstall-libsciscicos_la_rootDATA \
 	uninstall-libsciscicos_la_sci_gatewayDATA \
-	uninstall-libsciscicos_la_tclDATA \
 	uninstall-nobase_libsciscicos_la_cosfDATA \
 	uninstall-pkglibLTLIBRARIES
 
@@ -3359,38 +3312,38 @@ distclean-local:
 
 @OCAML_TRUE@@XCOS_TRUE@%.cmo: %.ml %.cmi
 @OCAML_TRUE@@XCOS_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) $(OCAMLCFLAGS) -c $<; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) $(OCAMLCFLAGS) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat)  -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat)  -c $<; \
 @OCAML_TRUE@@XCOS_TRUE@	else \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE) $(OCAMLCFLAGS) -c $<; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE) $(OCAMLCFLAGS) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE)  -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE)  -c $<; \
 @OCAML_TRUE@@XCOS_TRUE@	fi
 
 @OCAML_TRUE@@XCOS_TRUE@.ml.cmx:
 @OCAML_TRUE@@XCOS_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLOPT) $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) -c $<; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLOPT) $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLOPT) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLOPT) $(INCLUDE_modelicat) -c $<; \
 @OCAML_TRUE@@XCOS_TRUE@	else \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLOPT) $(INCLUDE) $(OCAMLOPTFLAGS) -c $<; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLOPT) $(INCLUDE) $(OCAMLOPTFLAGS) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLOPT) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLOPT) $(INCLUDE) -c $<; \
 @OCAML_TRUE@@XCOS_TRUE@	fi
 
 @OCAML_TRUE@@XCOS_TRUE@.mli.cmi:
 @OCAML_TRUE@@XCOS_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) $(OCAMLCFLAGS) -c $<; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) $(OCAMLCFLAGS) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) -c $<; \
 @OCAML_TRUE@@XCOS_TRUE@	else \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE) $(OCAMLCFLAGS) -c $<; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE) $(OCAMLCFLAGS) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE) -c $<; \
 @OCAML_TRUE@@XCOS_TRUE@	fi
 
 @OCAML_TRUE@@XCOS_TRUE@.ml.mli:
 @OCAML_TRUE@@XCOS_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) $(OCAMLCFLAGS) -i $< > $@; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) $(OCAMLCFLAGS) -i $< > $@; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) -i $< > $@; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) -i $< > $@; \
 @OCAML_TRUE@@XCOS_TRUE@	else \
-@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE) $(OCAMLCFLAGS) -i $< > $@; \
-@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE) $(OCAMLCFLAGS) -i $< > $@; \
+@OCAML_TRUE@@XCOS_TRUE@		echo $(OCAMLC) $(INCLUDE) -i $< > $@; \
+@OCAML_TRUE@@XCOS_TRUE@		$(OCAMLC) $(INCLUDE) -i $< > $@; \
 @OCAML_TRUE@@XCOS_TRUE@	fi
 
 @OCAML_TRUE@@XCOS_TRUE@.mll.ml:
@@ -3401,23 +3354,14 @@ distclean-local:
 
 # Build the binaries
 
-@OCAML_TRUE@@XCOS_TRUE@modelicac: $(MLS:.ml=.cmx)
-@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLOPT) -o $@ $(INCLUDE) $(OCAMLOPTFLAGS) $(OCAMLLIBS:.cma=.cmxa) $^
+@OCAML_TRUE@@XCOS_TRUE@modelicac:$(MLIS:.mli=.cmi) $(MLS:.ml=.cmo) $(MLS:.ml=.cmx)
+@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLOPT) -o modelicac $(INCLUDE) $(OCAMLLIBS:.cma=.cmxa) $(MLS:.ml=.cmx)
 
-@OCAML_TRUE@@XCOS_TRUE@modelicac.ocamlc: $(MLS:.ml=.cmo)
-@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLC) -o $@ $(INCLUDE) $(OCAMLOPTFLAGS) $(OCAMLLIBS) $^
+@OCAML_TRUE@@XCOS_TRUE@XML2Modelica: $(MLS_XML2Modelica:.ml=.cmo) $(MLS_XML2Modelica:.ml=.cmx) 
+@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLOPT) -o XML2Modelica $(INCLUDE) $(OCAMLLIBS:.cma=.cmxa) $(MLS_XML2Modelica:.ml=.cmx) 
 
-@OCAML_TRUE@@XCOS_TRUE@XML2Modelica: $(MLS_XML2Modelica:.ml=.cmx) 
-@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLOPT) -o $@ $(INCLUDE) $(OCAMLCFLAGS) $(OCAMLLIBS:.cma=.cmxa) $^
-
-@OCAML_TRUE@@XCOS_TRUE@XML2Modelica.ocamlc: $(MLS_XML2Modelica:.ml=.cmo)
-@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLC) -o $@ $(INCLUDE) $(OCAMLCFLAGS) $(OCAMLLIBS) $^
-
-@OCAML_TRUE@@XCOS_TRUE@modelicat: $(MLS_SPECIFIC_PRE_modelicat:.ml=.cmx) $(MLS_modelicat:.ml=.cmx)
-@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLOPT) -o $@ $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) $(OCAMLLIBS:.cma=.cmxa) $^
-
-@OCAML_TRUE@@XCOS_TRUE@modelicat.ocamlc: $(MLS_SPECIFIC_PRE_modelicat:.ml=.cmo) $(MLS_modelicat:.ml=.cmo)
-@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLC) -o $@ $(INCLUDE_modelicat) $(OCAMLOPTFLAGS) $(OCAMLLIBS) $^
+@OCAML_TRUE@@XCOS_TRUE@modelicat: $(MLIS_modelicat:.mli=.cmi) $(MLS_modelicat:.ml=.cmo) $(MLS_modelicat:.ml=.cmx)
+@OCAML_TRUE@@XCOS_TRUE@	$(OCAMLOPT) -o modelicat $(INCLUDE_modelicat) $(OCAMLLIBS:.cma=.cmxa) $(MLS_SPECIFIC_PRE_modelicat:.ml=.cmx) $(MLS_modelicat:.ml=.cmx) 
 
 #BUILT_SOURCES = depend
 
