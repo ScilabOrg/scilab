@@ -48,15 +48,16 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
     int iRows       = -1;
     int iCols       = -1;
     int iNumIter    = -1;
+  
 
     int current_base_gen = ConfigVariable::getCurrentBaseGen();
 
     // *** check the maximal number of input args. ***
-    if (in.size() > 6)
+   /* if (in.size() > 6)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "grand", 1, 6);
         return types::Function::Error;
-    }
+    }*/
 
     // *** check number of output args. ***
     if (_iRetCount > 1)
@@ -72,10 +73,11 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         {
             pStrMethod = in[i]->getAs<types::String>();
             iStrPos = i;
+            
             break;
         }
     }
-
+   int itab[iStrPos];
     if (pStrMethod == NULL)
     {
         Scierror(78, _("%s: Wrong number of output argument(s): At least %d string expected.\n"), "grand", 1);
@@ -291,11 +293,12 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
     }
     else if (meth < 21) // grand(m, n, "...", ... || grand(matrix, "...", ...
     {
-        if (iStrPos != 1 && iStrPos != 2)
+
+        /*if (iStrPos != 1 && iStrPos != 2)
         {
             Scierror(999, _("%s: Wrong position for input argument #%d : Must be in position %d or %d.\n"), "grand", iStrPos + 1, 2, 3);
             return types::Function::Error;
-        }
+        }*/ 
 
         std::vector<types::Double*> vectpDblTemp;
         for (int i = 0; i < iStrPos; i++)
@@ -316,16 +319,10 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
             iPos++;
         }
 
-        if (iStrPos == 2)
+        //get number of dimensions to output
+        for(int i = 0; i < iStrPos; i++)
         {
-            iRows = static_cast<int>(vectpDblTemp[0]->get(0));
-            iCols = static_cast<int>(vectpDblTemp[1]->get(0));;
-        }
-        else // iStrPos == 2
-        {
-            iRows = vectpDblTemp[0]->getRows();
-            iCols = vectpDblTemp[0]->getCols();
-            iNumInputArg--;
+            itab[i] = static_cast<int>(vectpDblTemp[i]->get(0));
         }
     }
 
@@ -335,15 +332,6 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         return types::Function::Error;
     }
     iPos++; // method string has been already got.
-
-    // *** check the number of input args according the methode. ***
-    if (in.size() != iNumInputArg)
-    {
-        char* pstMeth = wide_string_to_UTF8(wcsMeth);
-        Scierror(77, _("%s: Wrong number of input argument(s) for method %s: %d expected.\n"), "grand", pstMeth, iNumInputArg);
-        FREE(pstMeth);
-        return types::Function::Error;
-    }
 
     // *** get arguments after methode string. ***
     if (meth == 22 || meth == 25) // setgen || phr2sd
@@ -378,7 +366,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
 
     // *** perform operation in according method string and return result. ***
 
-    if (iCols * iRows == 0)
+    if (itab[1] * itab[0] == 0)
     {
         out.push_back(types::Double::Empty());
     }
@@ -387,7 +375,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
     {
         case 1: // beta
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
             double minlog   = 1.e-37;
 
             for (int i = 0; i < 2; i++)
@@ -416,7 +404,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         case 2: // binomial
         case 3: // negative binomial
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 2; i++)
             {
@@ -460,7 +448,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 4: // chisquare
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             if (vectpDblInput[0]->isScalar() == false)
             {
@@ -484,7 +472,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 5: // non central chisquare
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 2; i++)
             {
@@ -517,7 +505,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 6: // exponential
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             if (vectpDblInput[0]->isScalar() == false)
             {
@@ -541,7 +529,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 7: // F variance ratio
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 2; i++)
             {
@@ -568,7 +556,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 8: // non F variance ratio
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 3; i++)
             {
@@ -607,7 +595,8 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 9: // gamma
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
+
 
             for (int i = 0; i < 2; i++)
             {
@@ -637,7 +626,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 10: // Gauss Laplace (normal)
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 2; i++)
             {
@@ -719,7 +708,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 12: // geometric
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
             double pmin = 1.3e-307;
 
             if (vectpDblInput[0]->isScalar() == false)
@@ -768,7 +757,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
                 }
             }
 
-            types::Double* pDblOut = new types::Double(sizeOfX0, iNumIter);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
             int size = vectpDblInput[0]->getSize() + vectpDblInput[0]->getCols();
             double* work = (double*)malloc(size * sizeof(double));
 
@@ -858,7 +847,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
 
             double ptot = 0.0;
             int ncat = vectpDblInput[1]->getRows() + 1;
-            types::Double* pDblOut = new types::Double(ncat, iNumIter);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < vectpDblInput[1]->getCols(); i++)
             {
@@ -902,7 +891,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 15: // Poisson
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             if (vectpDblInput[0]->isScalar() == false)
             {
@@ -933,7 +922,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
             }
 
             int iVectRows = vectpDblInput[0]->getRows();
-            types::Double* pDblOut = new types::Double(iVectRows, iNumIter);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < iNumIter; i++)
             {
@@ -949,7 +938,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 17: // uniform (def)
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < pDblOut->getSize(); i++)
             {
@@ -961,7 +950,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 18: // uniform (unf)
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 2; i++)
             {
@@ -991,7 +980,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 19: // uniform (uin)
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < 2; i++)
             {
@@ -1029,7 +1018,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 20: // uniform (lgi)
         {
-            types::Double* pDblOut = new types::Double(iRows, iCols);
+            types::Double* pDblOut = new types::Double(iStrPos, itab);
 
             for (int i = 0; i < pDblOut->getSize(); i++)
             {
