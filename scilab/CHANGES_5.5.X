@@ -135,6 +135,8 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13471 fixed - Infinite loop in ilib_build_jar used on an empty dir
+
 
 Xcos Bug Fixes
 ==============
