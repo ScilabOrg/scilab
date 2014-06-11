@@ -16,13 +16,14 @@
 #include "sciprint.h"
 #include "MALLOC.h"
 
-int sparseExample(char *fname, unsigned long fname_len)
+int sparseExample(char *fname, void *pvApiCtx )
 {
     SciErr sciErr;
     int* piAddr = NULL;
     int iType   = 0;
     int iRet    = 0;
 
+printf("QQQQQQQ");
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 0, 1);
 
@@ -45,6 +46,7 @@ int sparseExample(char *fname, unsigned long fname_len)
 
         if (isVarComplex(pvApiCtx, piAddr))
         {
+            printf("RRRRRR");
             iRet = getAllocatedComplexSparseMatrix(pvApiCtx, piAddr, &iRows, &iCols, &iNbItem, &piNbItemRow, &piColPos, &pdblReal, &pdblImg);
             if (iRet)
             {
@@ -64,14 +66,16 @@ int sparseExample(char *fname, unsigned long fname_len)
         }
         else
         {
+            printf("EEEEE");
             iRet = getAllocatedSparseMatrix(pvApiCtx, piAddr, &iRows, &iCols, &iNbItem, &piNbItemRow, &piColPos, &pdblReal);
             if (iRet)
             {
                 freeAllocatedSparseMatrix(piNbItemRow, piColPos, pdblReal);
                 return iRet;
             }
-
+            printf("FFFFF");
             sciErr = createSparseMatrix(pvApiCtx, nbInputArgument(pvApiCtx) + 1, iRows, iCols, iNbItem, piNbItemRow, piColPos, pdblReal);
+            printf("DDDDDD");
             if (sciErr.iErr)
             {
                 freeAllocatedSparseMatrix(piNbItemRow, piColPos, pdblReal);
