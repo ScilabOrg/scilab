@@ -83,6 +83,66 @@ SciErr getBooleanSparseMatrix(void* _pvCtx, int* _piAddress, int* _piRows, int* 
 SciErr allocBooleanSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, int** _piNbItemRow, int** _piColPos)
 {
     SciErr sciErr = sciErrInit();
+
+    //return empty matrix
+    if (_iRows == 0 && _iCols == 0)
+    {
+        double dblReal = 0;
+        sciErr = createMatrixOfDouble(_pvCtx, _iVar, 0, 0, &dblReal);
+        if (sciErr.iErr)
+        {
+            addErrorMessage(&sciErr, API_ERROR_CREATE_EMPTY_MATRIX, _("%s: Unable to create variable in Scilab memory"), "createEmptyMatrix");
+        }
+        return sciErr;
+    }
+
+    if (_pvCtx == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "allocBooleanSparseMatrix");
+        return sciErr;
+    }
+
+    GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
+    typed_list in = *pStr->m_pIn;
+    InternalType** out = pStr->m_pOut;
+
+    SparseBool* pSpBool = NULL;
+    try
+    {
+        pSpBool = new SparseBool(_iRows, _iCols);
+    }
+    catch (ast::ScilabError se)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: %ls"), "allocBooleanSparseMatrix", se.GetErrorMessage().c_str());
+        return sciErr;
+    }
+
+
+    if (pSpBool == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), "allocBooleanSparseMatrix" );
+        return sciErr;
+    }
+
+    int rhs = _iVar - *getNbInputArgument(_pvCtx);
+    out[rhs - 1] = pSpBool;
+
+    int* piNbItemRows = (int*)MALLOC(sizeof(int) * _iRows);
+    *_piNbItemRow = pSpBool->getNbItemByRow(piNbItemRows);
+    if (*_piNbItemRow == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), "allocBooleanSparseMatrix");
+        return sciErr;
+    }
+
+    int* piColPos = (int*)MALLOC(sizeof(int) * _iNbItem);
+    *_piColPos = pSpBool->getColPos(piColPos);
+    if (*_piColPos == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), "allocBooleanSparseMatrix");
+        return sciErr;
+    }
+
 #if 0
     int iNewPos = Top - Rhs + _iVar;
     int iAddr   = *Lstk(iNewPos);
