@@ -16,7 +16,7 @@
 #include "sciprint.h"
 #include "MALLOC.h"
 
-int sparseExample(char *fname, unsigned long fname_len)
+int sparseExample(char *fname, void *pvApiCtx )
 {
     SciErr sciErr;
     int* piAddr = NULL;
@@ -70,7 +70,6 @@ int sparseExample(char *fname, unsigned long fname_len)
                 freeAllocatedSparseMatrix(piNbItemRow, piColPos, pdblReal);
                 return iRet;
             }
-
             sciErr = createSparseMatrix(pvApiCtx, nbInputArgument(pvApiCtx) + 1, iRows, iCols, iNbItem, piNbItemRow, piColPos, pdblReal);
             if (sciErr.iErr)
             {
