@@ -60,6 +60,7 @@ public :
     {
         return false;
     }
+
     /*commun functions*/
     int                         getCols();
     int                         getRows();
