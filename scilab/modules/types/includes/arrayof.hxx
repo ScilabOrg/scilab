@@ -19,6 +19,7 @@
 #include "types_tools.hxx"
 #include "scilabexception.hxx"
 #include "inspector.hxx"
+#include "is_true.hxx"
 
 extern "C"
 {
@@ -111,7 +112,7 @@ protected :
                 {
                     char message[bsiz];
                     sprintf(message, _("Can not allocate %.2f MB memory.\n"),  (double) ((double) m_iSize * (double) m_piDims[i] * sizeof(T)) / 1.e6);
-                    throw(ast::ScilabError(message));
+                    throw (ast::ScilabError(message));
                 }
 
                 m_iSize = iTmpSize;
@@ -155,6 +156,11 @@ public :
     bool isArrayOf()
     {
         return true;
+    }
+
+    bool isTrue()
+    {
+        return is_true::isTrue<T>(m_iSize, m_pRealData);
     }
 
     virtual bool isVector() //only one dim must be != 1
@@ -711,7 +717,7 @@ public :
 
     virtual bool append(int _iRows, int _iCols, InternalType* _poSource)
     {
-        ArrayOf* pGT = _poSource->getAs<ArrayOf>();
+        ArrayOf * pGT = _poSource->getAs<ArrayOf>();
         int iRows = pGT->getRows();
         int iCols = pGT->getCols();
 
