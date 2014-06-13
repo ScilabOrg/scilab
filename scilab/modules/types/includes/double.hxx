@@ -106,7 +106,7 @@ public :
     {
         return L"s";
     }
-protected :
+
     inline ScilabType           getType(void)
     {
         return ScilabDouble;
