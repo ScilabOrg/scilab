@@ -1590,6 +1590,30 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
 
             pOut = _pVar->getAs<Struct>()->insert(_pArgs, _pInsert);
         }
+        else if (_pVar->isHandle())
+        {
+            InternalType* pRet = NULL;
+
+            types::GraphicHandle* pH = _pVar->getAs<GraphicHandle>();
+            types::String *pS = (*_pArgs)[0]->getAs<types::String>();
+
+            typed_list in;
+            typed_list out;
+            optional_list opt;
+            ast::ExecVisitor exec;
+
+            in.push_back(pH);
+            in.push_back(pS);
+            in.push_back(_pInsert);
+
+            Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
+            Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, &exec);
+            if (ret == Callable::OK)
+            {
+                pRet = _pVar;
+            }
+            pOut = pRet;
+        }
     }
     else if (_pVar == NULL || (_pVar->isDouble() && _pVar->getAs<Double>()->getSize() == 0))
     {
