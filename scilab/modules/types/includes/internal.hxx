@@ -143,7 +143,8 @@ public :
         IdHandle,
         IdScalarHandle,
         IdVoid,
-        IdLibrary
+        IdLibrary,
+        IdLast //msut always be the last value
     };
 
 protected :

@@ -12,13 +12,14 @@
  */
 
 #include "types_addition.hxx"
-#include "core_math.h"
+#include "operations.hxx"
 
 #include "scilabexception.hxx"
 
 extern "C"
 {
 #include <stdio.h>
+#include "core_math.h"
 #include "matrix_addition.h"
 #include "localization.h"
 #include "charEncoding.h"
@@ -28,48 +29,67 @@ extern "C"
 
 using namespace types;
 
+//define arrays on operation functions
+typedef types::InternalType*(*add_functions)(types::InternalType*, types::InternalType*);
+static add_functions pAddfunction[types::InternalType::IdLast][types::InternalType::IdLast];
+
+void fillAddFunction()
+{
+    add_functions* pD = pAddfunction[types::InternalType::IdDouble];
+    pD[types::InternalType::IdDouble] = (add_functions)&add_D_D;
+    pD[types::InternalType::IdDoubleComplex] = (add_functions)&add_D_DC;
+    pD[types::InternalType::IdScalarDouble] = (add_functions)&add_D_D1;
+    pD[types::InternalType::IdScalarDoubleComplex] = (add_functions)&add_D_D1C;
+    pD[types::InternalType::IdEmpty] = (add_functions)&add_D_E;
+
+    add_functions* pDC = pAddfunction[types::InternalType::IdDoubleComplex];
+    pDC[types::InternalType::IdDouble] = (add_functions)&add_DC_D;
+    pDC[types::InternalType::IdDoubleComplex] = (add_functions)&add_DC_DC;
+    pDC[types::InternalType::IdScalarDouble] = (add_functions)&add_DC_D1;
+    pDC[types::InternalType::IdScalarDoubleComplex] = (add_functions)&add_DC_D1C;
+    pDC[types::InternalType::IdEmpty] = (add_functions)&add_DC_E;
+
+    add_functions* pD1 = pAddfunction[types::InternalType::IdScalarDouble];
+    pD1[types::InternalType::IdDouble] = (add_functions)&add_D1_D;
+    pD1[types::InternalType::IdDoubleComplex] = (add_functions)&add_D1_DC;
+    pD1[types::InternalType::IdScalarDouble] = (add_functions)&add_D1_D1;
+    pD1[types::InternalType::IdScalarDoubleComplex] = (add_functions)&add_D1_D1C;
+    pD1[types::InternalType::IdEmpty] = (add_functions)&add_D1_E;
+
+    add_functions* pD1C = pAddfunction[types::InternalType::IdScalarDoubleComplex];
+    pD1C[types::InternalType::IdDouble] = (add_functions)&add_D1C_D;
+    pD1C[types::InternalType::IdDoubleComplex] = (add_functions)&add_D1C_DC;
+    pD1C[types::InternalType::IdScalarDouble] = (add_functions)&add_D1C_D1;
+    pD1C[types::InternalType::IdScalarDoubleComplex] = (add_functions)&add_D1C_D1C;
+    pD1C[types::InternalType::IdEmpty] = (add_functions)&add_D1C_E;
+
+    add_functions* pE = pAddfunction[types::InternalType::IdEmpty];
+    pE[types::InternalType::IdDouble] = (add_functions)&add_E_D;
+    pE[types::InternalType::IdDoubleComplex] = (add_functions)&add_E_DC;
+    pE[types::InternalType::IdScalarDouble] = (add_functions)&add_E_D1;
+    pE[types::InternalType::IdScalarDoubleComplex] = (add_functions)&add_E_D1C;
+    pE[types::InternalType::IdEmpty] = (add_functions)&add_E_E;
+}
+
+
 InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOperand)
 {
     InternalType *pResult = NULL;
 
-    if (_pLeftOperand->isDouble() && _pLeftOperand->getAs<Double>()->isEmpty())
+    add_functions add = pAddfunction[_pLeftOperand->getId()][_pRightOperand->getId()];
+    if (add)
     {
-        return _pRightOperand->clone();
-    }
-
-    if (_pRightOperand->isDouble() && _pRightOperand->getAs<Double>()->isEmpty())
-    {
-        return _pLeftOperand->clone();
-    }
-
-    /*
-    ** DOUBLE + DOUBLE
-    */
-    if (_pLeftOperand->isDouble() && _pRightOperand->isDouble())
-    {
-        Double *pL = (Double*)_pLeftOperand;
-        Double *pR = (Double*)_pRightOperand;
-
-        int iResult = AddDoubleToDouble(pL, pR, (Double**)&pResult);
-        if (iResult != 0)
+        pResult = add(_pLeftOperand, _pRightOperand);
+        if (pResult)
         {
-            wchar_t pMsg[bsiz];
-            os_swprintf(pMsg, bsiz, _W("Error: operator %ls: Matrix dimensions must agree (op1 is %ls, op2 is %ls).\n"), L"+", pL->DimToString().c_str(), pR->DimToString().c_str());
-            throw ast::ScilabError(pMsg);
+            return pResult;
         }
-        return pResult;
     }
-
-    // FIXME: Overload or dedicated function.
-    //    else if(TypeL == GenericType::ScilabBool && TypeR == GenericType::ScilabBool)
-    //    {
-    //        //nothing to do, all in macro : %b_+_b
-    //    }
 
     /*
     ** STRING + STRING
     */
-    else if (_pLeftOperand->isString() && _pRightOperand->isString())
+    if (_pLeftOperand->isString() && _pRightOperand->isString())
     {
         String *pL = _pLeftOperand->getAs<String>();
         String *pR = _pRightOperand->getAs<String>();
@@ -1228,3 +1248,224 @@ int AddDoubleToSparse(Double* d, Sparse* sp, GenericType** pDRes)
     /* uses commutativity */
     return AddSparseToDouble(sp, d, pDRes);
 }
+
+
+types::Double* add_D_D(types::Double *_pL, types::Double *_pR)
+{
+    int iDimsL = _pL->getDims();
+    int iDimsR = _pR->getDims();
+
+    if (iDimsL != iDimsR)
+    {
+        return NULL;
+    }
+
+    int* piDimsL = _pL->getDimsArray();
+    int* piDimsR = _pR->getDimsArray();
+
+    for (int i = 0 ; i < iDimsL ; ++i)
+    {
+        if (piDimsL[i] != piDimsR[i])
+        {
+            return NULL;
+        }
+    }
+
+    Double* pOut = new Double(iDimsL, piDimsL);
+
+    add_ll_D_D(_pL->get(), _pR->get(), _pL->getSize(), pOut->get());
+    return pOut;
+}
+
+types::Double* add_D_DC(types::Double *_pL, types::Double *_pR)
+{
+    int iDimsL = _pL->getDims();
+    int iDimsR = _pR->getDims();
+
+    if (iDimsL != iDimsR)
+    {
+        return NULL;
+    }
+
+    int* piDimsL = _pL->getDimsArray();
+    int* piDimsR = _pR->getDimsArray();
+
+    for (int i = 0 ; i < iDimsL ; ++i)
+    {
+        if (piDimsL[i] != piDimsR[i])
+        {
+            return NULL;
+        }
+    }
+
+    Double* pOut = new Double(iDimsL, piDimsL, true);
+
+    add_ll_D_DC(_pL->get(), _pR->get(), _pR->getImg(), _pL->getSize(), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_D_D1(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(_pL->getDims(), _pL->getDimsArray());
+    add_ll_D_D1(_pL->get(), _pR->get(0), _pL->getSize(), pOut->get());
+    return pOut;
+}
+
+types::Double* add_D_D1C(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(_pL->getDims(), _pL->getDimsArray(), true);
+    add_ll_D_D1C(_pL->get(), _pR->get(0), _pR->getImg(0), _pL->getSize(), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_D_E(types::Double *_pL)
+{
+    Double* pOut = new Double(_pL->getDims(), _pL->getDimsArray());
+    add_ll_D_E(_pL->get(), _pL->getSize(), pOut->get());
+    return pOut;
+}
+
+
+types::Double* add_DC_D(types::Double *_pL, types::Double *_pR)
+{
+    return add_D_DC(_pR, _pL);
+}
+
+types::Double* add_DC_DC(types::Double *_pL, types::Double *_pR)
+{
+    int iDimsL = _pL->getDims();
+    int iDimsR = _pR->getDims();
+
+    if (iDimsL != iDimsR)
+    {
+        return NULL;
+    }
+
+    int* piDimsL = _pL->getDimsArray();
+    int* piDimsR = _pR->getDimsArray();
+
+    for (int i = 0 ; i < iDimsL ; ++i)
+    {
+        if (piDimsL[i] != piDimsR[i])
+        {
+            return NULL;
+        }
+    }
+
+    Double* pOut = new Double(iDimsL, piDimsL, true);
+
+    add_ll_DC_DC(_pL->get(), _pL->getImg(), _pR->get(), _pR->getImg(), _pL->getSize(), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_DC_D1(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(_pL->getDims(), _pL->getDimsArray(), true);
+    add_ll_DC_D1(_pL->get(), _pL->getImg(), _pR->get(0), _pL->getSize(), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_DC_D1C(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(_pL->getDims(), _pL->getDimsArray(), true);
+    add_ll_DC_D1C(_pL->get(), _pL->getImg(), _pR->get(0), _pR->getImg(0), _pL->getSize(), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_DC_E(types::Double *_pL)
+{
+    Double* pOut = new Double(_pL->getDims(), _pL->getDimsArray(), true);
+    add_ll_DC_E(_pL->get(), _pL->getImg(), _pL->getSize(), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+
+types::Double* add_D1_D(types::Double *_pL, types::Double *_pR)
+{
+    return add_D_D1(_pR, _pL);
+}
+
+types::Double* add_D1_DC(types::Double *_pL, types::Double *_pR)
+{
+    return add_DC_D1(_pR, _pL);
+}
+
+types::Double* add_D1_D1(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(0);
+    add_ll_D1_D1(_pL->get(0), _pR->get(0), pOut->get());
+    return pOut;
+}
+
+types::Double* add_D1_D1C(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(0.0, 0.0);
+    add_ll_D1_D1C(_pL->get(0), _pR->get(0), _pR->getImg(0), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_D1_E(types::Double *_pL)
+{
+    Double* pOut = new Double(0);
+    add_ll_D1_E(_pL->get(0), pOut->get());
+    return pOut;
+}
+
+
+types::Double* add_D1C_D(types::Double *_pL, types::Double *_pR)
+{
+    return add_D_D1C(_pR, _pL);
+}
+
+types::Double* add_D1C_DC(types::Double *_pL, types::Double *_pR)
+{
+    return add_DC_D1C(_pR, _pL);
+}
+
+types::Double* add_D1C_D1(types::Double *_pL, types::Double *_pR)
+{
+    return add_D1_D1C(_pR, _pL);
+}
+
+types::Double* add_D1C_D1C(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(0.0, 0.0);
+    add_ll_D1C_D1C(_pL->get(0), _pL->getImg(0), _pR->get(0), _pR->getImg(0), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+types::Double* add_D1C_E(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = new Double(0.0, 0.0);
+    add_ll_D1C_E(_pL->get(0), _pL->getImg(0), pOut->get(), pOut->getImg());
+    return pOut;
+}
+
+
+types::Double* add_E_D(types::Double *_pL, types::Double *_pR)
+{
+    return add_D_E(_pR);
+}
+
+types::Double* add_E_DC(types::Double *_pL, types::Double *_pR)
+{
+    return add_DC_E(_pR);
+}
+
+types::Double* add_E_D1(types::Double *_pL, types::Double *_pR)
+{
+    return add_D1_E(_pR);
+}
+
+types::Double* add_E_D1C(types::Double *_pL, types::Double *_pR)
+{
+    return add_D1C_E(_pR, _pL);
+}
+
+types::Double* add_E_E(types::Double *_pL, types::Double *_pR)
+{
+    Double* pOut = Double::Empty();
+    add();
+    return pOut;
+}
+

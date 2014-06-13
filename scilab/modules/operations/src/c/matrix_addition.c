@@ -202,3 +202,4 @@ int iAddComplexPolyToComplexPoly(double* _pCoef1R, double* _pCoef1I, int _iRank1
     }
     return 0;
 }
+
