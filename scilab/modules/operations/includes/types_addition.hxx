@@ -20,6 +20,7 @@
 #include "string.hxx"
 #include "polynom.hxx"
 #include "sparse.hxx"
+#include "string.hxx"
 
 void fillAddFunction();
 
@@ -58,6 +59,18 @@ template<class T, class U, class O> inline types::InternalType* add_E_MC(T *_pL,
 template<class T, class U, class O> inline types::InternalType* add_E_S(T *_pL, U *_pR);
 template<class T, class U, class O> inline types::InternalType* add_E_SC(T *_pL, U *_pR);
 template<class T, class U, class O> inline types::InternalType* add_E_E(T *_pL, U *_pR);
+
+
+//String specilization
+template<> types::InternalType* add_M_M<types::String, types::String, types::String>(types::String* _pL, types::String* _pR);
+template<> types::InternalType* add_S_M<types::String, types::String, types::String>(types::String* _pL, types::String* _pR);
+template<> types::InternalType* add_M_S<types::String, types::String, types::String>(types::String* _pL, types::String* _pR);
+template<> types::InternalType* add_S_S<types::String, types::String, types::String>(types::String* _pL, types::String* _pR);
+template<> types::InternalType* add_M_E<types::String, types::Double, types::String>(types::String* _pL, types::Double* _pR);
+template<> types::InternalType* add_S_E<types::String, types::Double, types::String>(types::String* _pL, types::Double* _pR);
+template<> types::InternalType* add_E_M<types::Double, types::String, types::String>(types::Double* _pL, types::String* _pR);
+template<> types::InternalType* add_E_S<types::Double, types::String, types::String>(types::Double* _pL, types::String* _pR);
+
 
 //add matrix + matrix ( double, int, bool )
 //same type
@@ -250,9 +263,6 @@ inline static void add()
 //Poly
 int AddDoubleToPoly(types::Polynom *_pPoly, types::Double *_pDouble, types::Polynom ** _pPolyOut);
 int AddPolyToPoly(types::Polynom* pPoly1, types::Polynom* _pPoly2, types::Polynom ** _pPolyOut);
-
-//String
-int AddStringToString(types::String *_pString1, types::String *_pString2, types::String** _pStringOut);
 
 //Sparse
 int AddSparseToSparse(types::Sparse *_pSparse1, types::Sparse *_pSparse2, types::Sparse** _pSparseOut);

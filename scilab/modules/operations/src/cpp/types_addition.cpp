@@ -137,6 +137,8 @@ void fillAddFunction()
     pE[types::InternalType::IdInt64] = (add_function)&add_E_M<Double, Int64, Int64>;
     pE[types::InternalType::IdUInt64] = (add_function)&add_E_M<Double, UInt64, UInt64>;
     //pE[types::InternalType::IdBool] = (add_function)&add_E_M<Double, Bool, Double>;
+    pE[types::InternalType::IdString] = (add_function)&add_E_M<Double, String, String>;
+
     //Empty + Matrix Complex
     pE[types::InternalType::IdDoubleComplex] = (add_function)&add_E_MC<Double, Double, Double>;
     //Empty + Scalar
@@ -150,6 +152,7 @@ void fillAddFunction()
     pE[types::InternalType::IdScalarInt64] = (add_function)&add_E_S<Double, Int64, Int64>;
     pE[types::InternalType::IdScalarUInt64] = (add_function)&add_E_S<Double, UInt64, UInt64>;
     pE[types::InternalType::IdScalarBool] = (add_function)&add_E_S<Double, Bool, Double>;
+    pE[types::InternalType::IdScalarString] = (add_function)&add_E_S<Double, String, String>;
 
     //Empty + Scalar Complex
     pE[types::InternalType::IdScalarDoubleComplex] = (add_function)&add_E_SC<Double, Double, Double>;
@@ -632,6 +635,17 @@ void fillAddFunction()
     pB1[types::InternalType::IdScalarInt64] = (add_function)&add_S_S<Bool, Int64, Int64>;
     pB1[types::InternalType::IdScalarUInt64] = (add_function)&add_S_S<Bool, UInt64, UInt64>;
     pB1[types::InternalType::IdScalarBool] = (add_function)&add_S_S<Bool, Bool, Bool>;
+
+    //String
+    add_function* pS = pAddfunction[types::InternalType::IdString];
+    pS[types::InternalType::IdString] = (add_function)&add_M_M<String, String, String>;
+    pS[types::InternalType::IdScalarString] = (add_function)&add_M_S<String, String, String>;
+    pS[types::InternalType::IdEmpty] = (add_function)&add_M_E<String, Double, String>;
+
+    add_function* pS1 = pAddfunction[types::InternalType::IdScalarString];
+    pS1[types::InternalType::IdString] = (add_function)&add_S_M<String, String, String>;
+    pS1[types::InternalType::IdScalarString] = (add_function)&add_S_S<String, String, String>;
+    pS1[types::InternalType::IdEmpty] = (add_function)&add_S_E<String, Double, String>;
 }
 
 InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOperand)
@@ -647,30 +661,6 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
             return pResult;
         }
     }
-
-    /*
-    ** STRING + STRING
-    */
-    if (_pLeftOperand->isString() && _pRightOperand->isString())
-    {
-        String *pL = _pLeftOperand->getAs<String>();
-        String *pR = _pRightOperand->getAs<String>();
-
-        int iResult = AddStringToString(pL, pR, (String**)&pResult);
-
-        if (iResult != 0)
-        {
-            wchar_t pMsg[bsiz];
-            os_swprintf(pMsg, bsiz, _W("Error: operator %ls: Matrix dimensions must agree (op1 is %ls, op2 is %ls).\n"), L"+", pL->DimToString().c_str(), pR->DimToString().c_str());
-            throw ast::ScilabError(pMsg);
-        }
-        return pResult;
-    }
-
-    // FIXME: Overload or dedicated function.
-    //    else if(TypeL == GenericType::ScilabInt && TypeR == GenericType::ScilabInt)
-    //    {
-    //    }
 
     /*
     ** DOUBLE + POLY
@@ -786,40 +776,6 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         }
 
         return pResult;
-    }
-
-    /*
-    ** DOUBLE + STRING
-    */
-    else if (_pLeftOperand->isDouble() && _pRightOperand->isString())
-    {
-        if (_pLeftOperand->getAs<Double>()->getSize() == 0)
-        {
-            //[] + "" -> ""
-            return _pRightOperand->clone();
-        }
-        else
-        {
-            // Don't know how to manage this Addition : Return NULL will Call Overloading.
-            return NULL;
-        }
-    }
-
-    /*
-    ** STRING + DOUBLE
-    */
-    else if (_pLeftOperand->isString() && _pRightOperand->isDouble())
-    {
-        if (_pRightOperand->getAs<Double>()->getSize() == 0)
-        {
-            //"text" + [] -> ""
-            return _pLeftOperand->clone();
-        }
-        else
-        {
-            // Don't know how to manage this Addition :  Return NULL will Call Overloading.
-            return NULL;
-        }
     }
 
     /*
@@ -1227,87 +1183,6 @@ int AddPolyToPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom ** _pPolyOut)
     return 0;
 }
 
-int AddStringToString(String *_pString1, String *_pString2, String **_pStringOut)
-{
-    if (_pString1->isScalar())
-    {
-        //concat pL with each element of pR
-        (*_pStringOut)  = new String(_pString2->getDims(), _pString2->getDimsArray());
-
-        int iCommonLen = (int)wcslen(_pString1->get(0));
-
-        for (int i = 0 ; i < _pString2->getSize() ; i++)
-        {
-            int iLen = (int)wcslen(_pString2->get(i));
-            wchar_t* psz = new wchar_t[iLen + iCommonLen + 1];
-            memset(psz, 0x00, (iLen + iCommonLen + 1) * sizeof(wchar_t));
-            memcpy(psz, _pString1->get(0), iCommonLen * sizeof(wchar_t));
-            memcpy(psz + iCommonLen, _pString2->get(i), iLen * sizeof(wchar_t));
-            (*_pStringOut)->set(i, psz);
-            delete[] psz;
-        }
-        return 0;
-    }
-
-    if (_pString2->isScalar())
-    {
-        //concat each element of pL with pR
-        (*_pStringOut)  = new String(_pString1->getDims(), _pString1->getDimsArray());
-        int iCommonLen = (int)wcslen(_pString2->get(0));
-
-        for (int i = 0 ; i < _pString1->getSize() ; i++)
-        {
-            int iLen = (int)wcslen(_pString1->get(i));
-            wchar_t* psz = new wchar_t[iLen + iCommonLen + 1];
-            memset(psz, 0x00, (iLen + iCommonLen + 1) * sizeof(wchar_t));
-
-            memcpy(psz, _pString1->get(i), iLen * sizeof(wchar_t));
-            memcpy(psz + iLen, _pString2->get(0), iCommonLen * sizeof(wchar_t));
-
-            (*_pStringOut)->set(i, psz);
-            delete[] psz;
-        }
-
-        return 0;
-    }
-
-    int iDims1 = _pString1->getDims();
-    int iDims2 = _pString2->getDims();
-
-    if (iDims1 != iDims2)
-    {
-        return 1;
-    }
-
-    int* piDims1 = _pString1->getDimsArray();
-    int* piDims2 = _pString2->getDimsArray();
-
-    for (int i = 0 ; i < iDims1 ; i++)
-    {
-        if (piDims1[i] != piDims2[i])
-        {
-            return 1;
-        }
-    }
-
-    (*_pStringOut) = new String(_pString1->getDims(), _pString1->getDimsArray());
-    for (int i = 0 ; i < _pString1->getSize() ; i++)
-    {
-        int iLenL = (int)wcslen(_pString1->get(i));
-        int iLenR = (int)wcslen(_pString2->get(i));
-        wchar_t* psz = new wchar_t[iLenL + iLenR + 1];
-        memset(psz, 0x00, (iLenL + iLenR + 1) * sizeof(wchar_t));
-
-        memcpy(psz          , _pString1->get(i), iLenL * sizeof(wchar_t));
-        memcpy(psz + iLenL  , _pString2->get(i), iLenR * sizeof(wchar_t));
-
-        (*_pStringOut)->set(i, psz);
-        delete[] psz;
-    }
-
-    return 0;
-}
-
 int AddSparseToSparse(Sparse* sp1, Sparse* sp2, Sparse** pSpRes)
 {
     //check scalar hidden in a sparse ;)
@@ -1553,7 +1428,6 @@ int AddDoubleToSparse(Double* d, Sparse* sp, GenericType** pDRes)
     return AddSparseToDouble(sp, d, pDRes);
 }
 
-
 template<class T, class U, class O>
 types::InternalType* add_M_M(T *_pL, U *_pR)
 {
@@ -1796,5 +1670,138 @@ types::InternalType* add_E_E(T *_pL, U *_pR)
     Double* pOut = Double::Empty();
     add();
     return pOut;
+}
+
+//specifiaction for String Matrix + String Matrix
+template<>
+types::InternalType* add_M_M<String, String, String>(String* _pL, String* _pR)
+{
+    int iDimsL = _pL->getDims();
+    int iDimsR = _pR->getDims();
+
+    if (iDimsL != iDimsR)
+    {
+        return NULL;
+    }
+
+    int* piDimsL = _pL->getDimsArray();
+    int* piDimsR = _pR->getDimsArray();
+
+    for (int i = 0 ; i < iDimsL ; ++i)
+    {
+        if (piDimsL[i] != piDimsR[i])
+        {
+            return NULL;
+        }
+    }
+
+    String* pOut = new String(iDimsL, piDimsL);
+    int size = _pL->getSize();
+    for (int i = 0 ; i < size ; ++i)
+    {
+        wchar_t* pwstL = _pL->get(i);
+        wchar_t* pwstR = _pR->get(i);
+        int sizeL = (int)wcslen(pwstL);
+        int sizeR = (int)wcslen(pwstR);
+
+        int sizeOut = sizeL + sizeR + 1;
+        wchar_t* pwstOut = new wchar_t[sizeOut];
+        os_swprintf(pwstOut, sizeOut, L"%ls%ls", pwstL, pwstR);
+        pOut->set(i, pwstOut);
+        delete[] pwstOut;
+    }
+
+    return pOut;
+}
+
+//specifiaction for String Matrix + String Scalar
+template<>
+types::InternalType* add_S_M<String, String, String>(String* _pL, String* _pR)
+{
+    String* pOut = new String(_pR->getDims(), _pR->getDimsArray());
+    int size = _pR->getSize();
+    wchar_t* pwstL = _pL->get(0);
+    int sizeL = (int)wcslen(pwstL);
+
+    for (int i = 0 ; i < size ; ++i)
+    {
+        wchar_t* pwstR = _pR->get(i);
+        int sizeR = (int)wcslen(pwstR);
+
+        int sizeOut = sizeL + sizeR + 1;
+        wchar_t* pwstOut = new wchar_t[sizeOut];
+        os_swprintf(pwstOut, sizeOut, L"%ls%ls", pwstL, pwstR);
+        pOut->set(i, pwstOut);
+        delete[] pwstOut;
+    }
+
+    return pOut;
+}
+
+//specifiaction for String Scalar + String MAtrix
+template<>
+types::InternalType* add_M_S<String, String, String>(String* _pL, String* _pR)
+{
+    String* pOut = new String(_pL->getDims(), _pL->getDimsArray());
+    int size = _pL->getSize();
+    wchar_t* pwstR = _pR->get(0);
+    int sizeR = (int)wcslen(pwstR);
+
+    for (int i = 0 ; i < size ; ++i)
+    {
+        wchar_t* pwstL = _pL->get(i);
+        int sizeL = (int)wcslen(pwstL);
+
+        int sizeOut = sizeL + sizeR + 1;
+        wchar_t* pwstOut = new wchar_t[sizeOut];
+        os_swprintf(pwstOut, sizeOut, L"%ls%ls", pwstL, pwstR);
+        pOut->set(i, pwstOut);
+        delete[] pwstOut;
+    }
+
+    return pOut;
+}
+
+//specifiaction for String Scalar + String Scalar
+template<>
+types::InternalType* add_S_S<String, String, String>(String* _pL, String* _pR)
+{
+    String* pOut = new String(1, 1);
+    wchar_t* pwstL = _pL->get(0);
+    wchar_t* pwstR = _pR->get(0);
+    int sizeL = (int)wcslen(pwstL);
+    int sizeR = (int)wcslen(pwstR);
+
+    int sizeOut = sizeL + sizeR + 1;
+    wchar_t* pwstOut = new wchar_t[sizeOut];
+    os_swprintf(pwstOut, sizeOut, L"%ls%ls", pwstL, pwstR);
+    pOut->set(0, pwstOut);
+    delete[] pwstOut;
+    return pOut;
+}
+
+template<>
+types::InternalType* add_M_E<String, Double, String>(String* _pL, Double* _pR)
+{
+    return _pL->clone();
+}
+
+template<>
+types::InternalType* add_S_E<String, Double, String>(String* _pL, Double* _pR)
+{
+    return _pL->clone();
+}
+
+template<>
+types::InternalType* add_E_M<Double, String, String>(Double* _pL, String* _pR)
+
+{
+    return _pR->clone();
+}
+
+template<>
+types::InternalType* add_E_S<Double, String, String>(Double* _pL, String* _pR)
+{
+    return _pR->clone();
 }
 
