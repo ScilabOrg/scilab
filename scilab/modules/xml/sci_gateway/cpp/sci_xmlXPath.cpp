@@ -12,6 +12,13 @@
 
 #include "xml.h"
 
+
+#include "XMLObject.hxx"
+#include "XMLDocument.hxx"
+#include "XMLElement.hxx"
+#include "XMLXPath.hxx"
+#include "XMLNodeSet.hxx"
+
 extern "C"
 {
 #include "gw_xml.h"
@@ -20,13 +27,6 @@ extern "C"
 #include "xml_mlist.h"
 #include "localization.h"
 }
-
-#include "XMLObject.hxx"
-#include "XMLDocument.hxx"
-#include "XMLElement.hxx"
-#include "XMLXPath.hxx"
-#include "XMLNodeSet.hxx"
-
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/

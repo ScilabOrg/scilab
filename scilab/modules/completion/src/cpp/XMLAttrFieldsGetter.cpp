@@ -10,14 +10,14 @@
  *
  */
 
-extern "C"
-{
-#include "api_scilab.h"
-}
 
 #include "FieldsManager.hxx"
 #include "XMLAttrFieldsGetter.hxx"
 
+extern "C"
+{
+#include "api_scilab.h"
+}
 
 using namespace org_modules_xml;
 

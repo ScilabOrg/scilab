@@ -10,6 +10,8 @@
  *
  */
 
+#include "HDF5Scilab.hxx"
+
 extern "C"
 {
 #include "gw_hdf5.h"
@@ -17,8 +19,6 @@ extern "C"
 #include "api_scilab.h"
 #include "localization.h"
 }
-
-#include "HDF5Scilab.hxx"
 
 using namespace org_modules_hdf5;
 

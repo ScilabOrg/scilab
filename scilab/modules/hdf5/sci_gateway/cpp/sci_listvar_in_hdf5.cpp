@@ -11,6 +11,9 @@
 */
 
 #include <hdf5.h>
+#include "listvar_in_hdf5_v1.hxx"
+#include <vector>
+
 extern "C"
 {
 #include <string.h>
@@ -27,9 +30,6 @@ extern "C"
 #include "expandPathVariable.h"
 #include "freeArrayOfString.h"
 }
-
-#include "listvar_in_hdf5_v1.hxx"
-#include <vector>
 
 typedef struct __VAR_INFO__
 {

@@ -11,6 +11,8 @@
 */
 
 #include <hdf5.h>
+#include <vector>
+
 extern "C"
 {
 #include <string.h>
@@ -26,8 +28,6 @@ extern "C"
 #include "expandPathVariable.h"
 #include "freeArrayOfString.h"
 }
-
-#include <vector>
 
 typedef struct __VAR_INFO_V1__
 {

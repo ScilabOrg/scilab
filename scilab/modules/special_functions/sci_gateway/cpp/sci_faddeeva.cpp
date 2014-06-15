@@ -10,6 +10,8 @@
  *
  */
 
+#include "faddeeva.h"
+
 extern "C" {
 #include "gw_special_functions.h"
 #include "Scierror.h"
@@ -17,7 +19,6 @@ extern "C" {
 #include "localization.h"
 }
 
-#include "faddeeva.h"
 
 #define SCI_FADDEEVA sci_Faddeeva_erf
 #define FADDEEVA_FUNC Faddeeva::erf
@@ -48,3 +49,4 @@ extern "C" {
 #include "sci_faddeeva.hxx"
 #undef SCI_FADDEEVA
 #undef FADDEEVA_FUNC
+

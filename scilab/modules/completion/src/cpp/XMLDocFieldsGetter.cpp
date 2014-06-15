@@ -12,15 +12,15 @@
 
 #include <cstring>
 
-extern "C"
-{
-#include "api_scilab.h"
-}
 
 #include "FieldsManager.hxx"
 #include "XMLDocFieldsGetter.hxx"
 #include "XMLElemFieldsGetter.hxx"
 
+extern "C"
+{
+#include "api_scilab.h"
+}
 
 namespace org_modules_completion
 {

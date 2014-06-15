@@ -10,6 +10,8 @@
  *
  */
 
+#include "H5File.hxx"
+
 extern "C"
 {
 #include "gw_hdf5.h"
@@ -19,8 +21,6 @@ extern "C"
 #include "sciprint.h"
 #include "expandPathVariable.h"
 }
-
-#include "H5File.hxx"
 
 using namespace org_modules_hdf5;
 
