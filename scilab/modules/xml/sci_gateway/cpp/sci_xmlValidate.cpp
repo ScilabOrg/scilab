@@ -12,6 +12,12 @@
 
 #include "xml.h"
 
+#include "XMLObject.hxx"
+#include "XMLDocument.hxx"
+#include "XMLValidation.hxx"
+#include "XMLValidationDTD.hxx"
+#include "SplitString.hxx"
+
 extern "C"
 {
 #include "gw_xml.h"
@@ -20,12 +26,6 @@ extern "C"
 #include "xml_mlist.h"
 #include "localization.h"
 }
-
-#include "XMLObject.hxx"
-#include "XMLDocument.hxx"
-#include "XMLValidation.hxx"
-#include "XMLValidationDTD.hxx"
-#include "SplitString.hxx"
 
 using namespace org_modules_xml;
 

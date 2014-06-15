@@ -13,14 +13,15 @@
 #ifndef __SCILABABSTRACTMEMORYALLOCATOR_H__
 #define __SCILABABSTRACTMEMORYALLOCATOR_H__
 
-extern "C"
-{
-#include "api_scilab.h"
-}
 #include "ScilabAbstractEnvironmentWrapper.hxx"
 #include "ScilabAbstractEnvironmentException.hxx"
 
 #include <iostream>
+
+extern "C"
+{
+#include "api_scilab.h"
+}
 
 namespace org_modules_external_objects
 {
