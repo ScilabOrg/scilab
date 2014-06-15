@@ -12,6 +12,8 @@
 
 #include "xml.h"
 
+#include "XMLObject.hxx"
+
 extern "C"
 {
 #include "gw_xml.h"
@@ -20,8 +22,6 @@ extern "C"
 #include "xml_mlist.h"
 #include "localization.h"
 }
-
-#include "XMLObject.hxx"
 
 using namespace org_modules_xml;
 

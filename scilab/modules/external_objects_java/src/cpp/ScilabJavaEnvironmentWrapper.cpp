@@ -11,14 +11,14 @@
  *
  */
 
-#ifdef _MSC_VER
-#include "windows.h"
-#endif
 
 #include "ScilabJavaEnvironmentWrapper.hxx"
 
 extern "C" {
 #include "getScilabJavaVM.h"
+#ifdef _MSC_VER
+#include "windows.h"
+#endif
 }
 
 namespace org_scilab_modules_external_objects_java

@@ -12,6 +12,8 @@
  */
 /*--------------------------------------------------------------------------*/
 
+#include "displaytree.hxx"
+
 extern "C"
 {
 #include <string.h>
@@ -20,8 +22,6 @@ extern "C"
 #include "localization.h"
 #include "Scierror.h"
 }
-
-#include "displaytree.hxx"
 
 bool bParseListItem(void* _pvCtx, int *_piAddrTree, int _iItemCount, std::vector<std::string> *_pvStructList, std::string _szLevel)
 {
