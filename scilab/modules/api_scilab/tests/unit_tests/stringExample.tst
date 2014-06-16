@@ -11,7 +11,7 @@ mkdir(pathconvert(TMPDIR+"/stringExample"));
 cd(pathconvert(TMPDIR+"/stringExample"));
 copyfile(SCI+"/modules/api_scilab/tests/unit_tests/stringExample.c",pathconvert(TMPDIR+"/stringExample/stringExample.c",%F));
 cflags = "-I"+SCI+"/modules/localization/includes";
-ilib_build("gw_stringExample",["stringExample","stringExample"],"stringExample.c",[],"","",cflags);
+ilib_build("stringExample",["stringExample","stringExample"],"stringExample.c",[],"","",cflags);
 exec("loader.sce");
 
 a = "Scilab";

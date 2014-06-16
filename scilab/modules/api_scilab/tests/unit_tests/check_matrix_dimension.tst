@@ -10,7 +10,7 @@ ilib_verbose(0);
 mkdir(pathconvert(TMPDIR+"/check_matrix_dimension"));
 cd(pathconvert(TMPDIR+"/check_matrix_dimension"));
 copyfile(SCI+"/modules/api_scilab/tests/unit_tests/check_matrix_dimension.c",pathconvert(TMPDIR+"/check_matrix_dimension/check_matrix_dimension.c",%F));
-ilib_build("gw_check_matrix_dimension",["check_matrix_dimension","check_matrix_dimension"],"check_matrix_dimension.c",[]);
+ilib_build("check_matrix_dimension",["check_matrix_dimension","check_matrix_dimension"],"check_matrix_dimension.c",[]);
 exec("loader.sce");
 
              

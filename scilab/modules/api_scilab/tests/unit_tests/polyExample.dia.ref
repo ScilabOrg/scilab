@@ -10,7 +10,7 @@ mkdir(pathconvert(TMPDIR+"/polyExample"));
 cd(pathconvert(TMPDIR+"/polyExample"));
 copyfile(SCI+"/modules/api_scilab/tests/unit_tests/polyExample.c",pathconvert(TMPDIR+"/polyExample/polyExample.c",%F));
 cflags = "-I"+SCI+"/modules/localization/includes";
-ilib_build("gw_polyExample",["polyExample","polyExample"],"polyExample.c",[],"","",cflags);
+ilib_build("polyExample",["polyExample","polyExample"],"polyExample.c",[],"","",cflags);
 exec("loader.sce");
 a = %s;
 b = (2 + 3*%i) * %s;
