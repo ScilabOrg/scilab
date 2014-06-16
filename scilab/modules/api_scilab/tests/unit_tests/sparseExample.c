@@ -14,7 +14,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "sciprint.h"
-#include "MALLOC.h"
+#include "sci_malloc.h"
 
 int sparseExample(char *fname, unsigned long fname_len)
 {

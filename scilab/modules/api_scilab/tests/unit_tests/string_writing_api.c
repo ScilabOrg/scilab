@@ -14,7 +14,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "sciprint.h"
-#include "MALLOC.h"
+#include "sci_malloc.h"
 
 int write_string(char *fname, void* pvApiCtx)
 {

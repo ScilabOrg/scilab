@@ -14,7 +14,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "sciprint.h"
-#include "MALLOC.h"
+#include "sci_malloc.h"
 
 void* create_output(int _iCoeff, int _iSize, int _iRows, int _iCols, void* _pvDataIn);
 

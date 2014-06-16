@@ -14,7 +14,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "sciprint.h"
-#include "MALLOC.h"
+#include "sci_malloc.h"
 
 int get_list_info(void* _pvCtx, int* _piAddress);
 void insert_indent(void);
