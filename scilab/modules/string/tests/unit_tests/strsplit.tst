@@ -10,6 +10,7 @@
 //===============================
 // unit tests strsplit
 //===============================
+funcprot(0);
 STR_SPLITED = ['strsplit splits';'a string';'into';'a vector of strings'];
 STR = 'strsplit splits a string into a vector of strings';
 INDICES = [15 25 30];
