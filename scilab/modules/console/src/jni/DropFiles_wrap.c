@@ -189,7 +189,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 #include "../c/dropFiles.h"
 #include "machine.h"
-#include "MALLOC.h"
+#include "sci_malloc.h"
 
 
 #ifdef __cplusplus
