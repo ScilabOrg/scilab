@@ -166,4 +166,12 @@ public :
     static int Load();
 };
 
+class XcosModule : public GenericModule
+{
+    static bool loadedDep;
+    static void LoadDeps(void);
+public :
+    static int Load();
+};
+
 #endif /* !__DYNAMIC_MODULES_HXX_ */

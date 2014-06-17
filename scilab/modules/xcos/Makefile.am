@@ -51,7 +51,7 @@ BUILT_SOURCES=giws
 endif
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_xcos.c
+GATEWAY_C_SOURCES = 
 
 GATEWAY_CXX_SOURCES = \
 	sci_gateway/cpp/sci_Xcos.cpp \

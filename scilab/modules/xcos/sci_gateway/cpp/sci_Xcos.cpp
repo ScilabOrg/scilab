@@ -43,10 +43,10 @@ int sci_Xcos(char *fname, void *pvApiCtx)
      */
     if (Rhs == 0)
     {
+        int ret = callXcos(fname, NULL, NULL);
         LhsVar(1) = 0;
         PutLhsVar();
-
-        return callXcos(fname, NULL, NULL);
+        return ret;
     }
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVar);
