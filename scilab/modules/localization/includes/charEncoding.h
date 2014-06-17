@@ -73,6 +73,14 @@ extern "C" {
     */
     BOOL IsValidUTF8(const char* pStText);
 
+    /**
+    * strcmp wchar_t* against an char* string
+    * this function can be used to compare avoiding any string allocation.
+    *
+    * /!\ this function assume that s1 and s2 are encoded the same way, behavior may vary accordingly to LC_TYPES.
+    */
+    int wide_string_UTF8_cmp(const wchar_t* s1, const char* s2);
+
 #ifdef __cplusplus
 }
 #endif

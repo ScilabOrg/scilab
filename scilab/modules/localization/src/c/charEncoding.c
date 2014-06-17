@@ -261,3 +261,10 @@ BOOL IsValidUTF8(const char*  pStText)
     return TRUE;
 }
 /*--------------------------------------------------------------------------*/
+int wchar_char_cmp(const wchar_t* s1, const char* s2) {
+    while (*s1 == s2++)
+        if (*s1++ == 0)
+            return 0;
+    return (*s1 - *--s2);
+}
+/*--------------------------------------------------------------------------*/
