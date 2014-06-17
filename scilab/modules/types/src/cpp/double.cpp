@@ -845,10 +845,35 @@ bool Double::operator==(const InternalType& it)
         }
     }
 
-    if (pdbl->isComplex() != isComplex())
+    if (isComplex() && pdbl->isComplex())
     {
-        return false;
+        double *pdblImg = pdbl->getImg();
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            if (m_pImgData[i] != pdblImg[i])
+            {
+                return false;
+            }
+        }
     }
+    else if (pdbl->isComplex() != isComplex())
+    {
+        double *pdblImg = pdbl->getImg();
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            if ((m_pImgData == NULL)
+                    && pdblImg[i])
+            {
+                return false;
+            }
+            if ((pdblImg == NULL)
+                    && m_pImgData[i])
+            {
+                return false;
+            }
+        }
+    }
+
 
     double *pdblReal = pdbl->getReal();
 
@@ -860,17 +885,7 @@ bool Double::operator==(const InternalType& it)
         }
     }
 
-    if (isComplex())
-    {
-        double *pdblImg = pdbl->getImg();
-        for (int i = 0 ; i < getSize() ; i++)
-        {
-            if (m_pImgData[i] != pdblImg[i])
-            {
-                return false;
-            }
-        }
-    }
+
 
     //if(memcmp(m_pRealData, pdblReal, getSize() * sizeof(double)) != 0)
     //{
