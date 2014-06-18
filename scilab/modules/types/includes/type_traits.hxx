@@ -54,8 +54,6 @@ struct type_traits
                 out->coeffRef(i, j) = !in->coeff(i, j);
             }
         }
-
-        out->finalize();
     }
 
     template<typename T, typename U>
