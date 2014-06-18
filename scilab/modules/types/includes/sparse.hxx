@@ -605,8 +605,8 @@ struct TYPES_IMPEXP SparseBool : GenericType
     {
         SparseBool * _out = new SparseBool(getRows(), getCols());
         type_traits::neg(getRows(), getCols(), matrixBool, _out->matrixBool);
+        _out->finalize();
         out = _out;
-
         return true;
     }
 
