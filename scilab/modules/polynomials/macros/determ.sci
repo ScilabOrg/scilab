@@ -45,12 +45,36 @@ function res=determ(W,k)
 
     //upper bound of the determinant degree
 
-    maj = n1*max(degree(W))+1;
+    //maj = n1*max(degree(W))+1;
+    ValeurMaj = 0;
+    maj = 0;
+    eyeSum = eye(n1,n1);
+    eyeSumInve = zeros(n1,n1);
+    
+    for scourHor=1:n1
+    eyeSumInve(scourHor,$-scourHor+1) = 1;
+    end
+    
+    for scourHor=1:n1,
+        
+        temp = eyeSum(:,1);
+        tempInv = eyeSumInve(:,1);
+        for scourVer=1:(n1-1),
+            eyeSum(:,scourVer) = eyeSum(:,(scourVer+1));
+            eyeSumInve(:,scourVer) = eyeSumInve(:,(scourVer+1));
+        end
+        eyeSum(:,$) = temp;
+        eyeSumInve(:,$) = tempInv;
+        
+        ValeurMaj(scourHor*2) = sum(eyeSum.*degree(W));
+        ValeurMaj((scourHor*2)+1) = sum(eyeSumInve.*degree(W));
+        end
+    maj = max(ValeurMaj);
 
     if argn(2)==1 then
         k=1;
-        while k < maj,
-            k=2*k;
+        while k <= maj,
+            k=k+1;
         end
     end
 
@@ -91,7 +115,7 @@ function res=determ(W,k)
         // dont le degré est supérieur à maj
 
         Temp2 = coeff(Temp1);
-        for i=1:maj,
+        for i=1:(maj+1),
             Temp2(i) = 0;
         end
         res = Temp1 - poly(Temp2,varn(W),"coeff");
