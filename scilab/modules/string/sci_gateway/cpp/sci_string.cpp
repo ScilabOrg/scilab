@@ -1,6 +1,7 @@
 /*
 *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
+*  Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
 *
 *  This file must be used under the terms of the CeCILL.
 *  This source file is licensed as described in the file COPYING, which
@@ -12,6 +13,7 @@
 
 #include <math.h>
 #include <sstream>
+#include <string>
 #include "string.hxx"
 #include "double.hxx"
 #include "function.hxx"
@@ -203,6 +205,75 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
 
     switch (in[0]->getType())
     {
+        case GenericType::ScilabSparse :
+        {
+            types::Sparse* pS = in[0]->getAs<Sparse>();
+            int iRows = pS-> getRows();
+            int cols = pS-> getCols();
+            std::wostringstream ostr;
+            int ss, st;
+            string *stemp = new string();
+
+
+            ostr<<"!("<<iRows<<","<<cols<<") sparse matrix\t!\n!";
+            ss = ostr.str().length();
+            for(int i = 0; i < ss - 1; i++)
+            {
+                ostr<<" ";
+            }
+            ostr<<"!\n";
+
+            for (int i = 0 ; i < iRows ; i++)
+            {
+                for (int j = 0 ; j < cols ; j++)
+                {
+                    std::wostringstream temp;
+
+                    if(pS->getReal(i,j) != 0 || (imag(pS->getImg(i,j)) != 0 ))
+                    {
+                        temp<<"!("<<i + 1<<","<< j + 1<<")\t";
+
+                        if(pS->getReal(i,j) != 0)
+                        {
+                            temp<<pS->getReal(i,j);
+                        }
+                        if (imag(pS->getImg(i,j)) != 0)
+                        {
+                            if(pS->getReal(i,j) != 0)
+                            {
+                                temp<<" + ";
+                            }
+                            temp <<imag(pS->getImg(i,j))<<".i";
+                        }
+
+                        while(temp.str().length() < ss - 1){
+                            temp<<" ";
+                        }
+
+                        temp<<"!\n";
+
+                        ostr<<temp.str();
+                    }
+                }
+            }
+            out.push_back(new types::String(ostr.str().c_str()));
+
+            break;
+        }
+
+        case GenericType::ScilabUInt8 :
+        case GenericType::ScilabUInt16 :
+        case GenericType::ScilabUInt32 :
+        case GenericType::ScilabUInt64 :
+        {
+
+            out.push_back(new types::String("not yet implemented"));
+
+        }
+        case GenericType::ScilabInt8 :
+        case GenericType::ScilabInt16 :
+        case GenericType::ScilabInt32 :
+        case GenericType::ScilabInt64 :
         case GenericType::ScilabDouble :
         {
             types::Double* pDbl = in[0]->getAs<Double>();
