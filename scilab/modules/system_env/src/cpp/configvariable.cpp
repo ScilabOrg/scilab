@@ -1005,6 +1005,11 @@ std::list< std::pair<int, std::wstring> >& ConfigVariable::getWhere()
     return m_Where;
 }
 
+int ConfigVariable::getWhereDeep()
+{
+    return (int)m_Where.size();
+}
+
 void ConfigVariable::macroFirstLine_begin(int _iLine)
 {
     m_FirstMacroLine.push_back(_iLine);

@@ -358,6 +358,7 @@ public :
     static void where_begin(int _iLineNum, std::wstring _wstName);
     static void where_end();
     static std::list< std::pair<int, std::wstring> >& getWhere();
+    static int getWhereDeep();
 
     static void macroFirstLine_begin(int _iLine);
     static void macroFirstLine_end();
