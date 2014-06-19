@@ -6,7 +6,7 @@
 // =============================================================================
 
   a = wavread('SCI/modules/sound/demos/chimes.wav','size');
-	if size(a) <> [ 1 2] then pause,end
+    if size(a) <> [ 1 2] then pause,end
   if a <> [ 2 13921] then pause,end
   
   [y,Fs,bits]=wavread('SCI/modules/sound/demos/chimes.wav');
@@ -19,5 +19,7 @@
   //plot2d(y(:,2))
   //xdel(winsid());
   
-  y=wavread('SCI/modules/sound/demos/chimes.wav',[1 5]) //the first five samples
+  y=wavread('SCI/modules/sound/demos/chimes.wav',[1 5]); //the first five samples
+  valeur = [ 0.00006103515625, 0.000274658203125, 0.000213623046875, 0.000152587890625, 0.000091552734375; 0.000091552734375, 0.00018310546875, 0.00006103515625, 0, 0.000091552734375];
+  assert_checkequal( y, valeur);
   if size(y) <> [2 5] then pause,end
