@@ -348,6 +348,10 @@ public :
     {
         return false;
     }
+    virtual bool                    isSingleStruct(void)
+    {
+        return false;
+    }
     virtual bool                    isCell(void)
     {
         return false;

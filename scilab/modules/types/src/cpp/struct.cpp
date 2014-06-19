@@ -218,7 +218,7 @@ bool Struct::exists(const std::wstring& _sKey)
 
 bool Struct::operator==(const InternalType& it)
 {
-    if (const_cast<InternalType &>(it).isStruct())
+    if (const_cast<InternalType &>(it).isStruct() == false)
     {
         return false;
     }
@@ -235,7 +235,7 @@ bool Struct::operator==(const InternalType& it)
 
     for (int i = 0 ; i < getSize() ; i++)
     {
-        if (get(i) != pStr->get(i))
+        if (*get(i) != *pStr->get(i))
         {
             return false;
         }
