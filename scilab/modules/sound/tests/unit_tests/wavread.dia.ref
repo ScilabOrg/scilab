@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
   a = wavread('SCI/modules/sound/demos/chimes.wav','size');
-	if size(a) <> [ 1 2] then bugmes();quit;end
+    if size(a) <> [ 1 2] then bugmes();quit;end
   if a <> [ 2 13921] then bugmes();quit;end
   [y,Fs,bits]=wavread('SCI/modules/sound/demos/chimes.wav');
   if Fs <> 22050 then bugmes();quit;end
@@ -16,9 +16,7 @@
   //subplot(2,1,2)
   //plot2d(y(:,2))
   //xdel(winsid());
-  y=wavread('SCI/modules/sound/demos/chimes.wav',[1 5]) //the first five samples
- y  =
- 
-    0.0000610    0.0002747    0.0002136    0.0001526    0.0000916  
-    0.0000916    0.0001831    0.0000610    0.           0.0000916  
+  y=wavread('SCI/modules/sound/demos/chimes.wav',[1 5]); //the first five samples
+�  assert_checkequal(y, [ 0.00006103515625 , 0.000274658203125, 0.000213623046875, 0.000152587890625, 0.000091552734375;
+                         0.000091552734375, 0.00018310546875 , 0.00006103515625 , 0.               , 0.000091552734375]);
   if size(y) <> [2 5] then bugmes();quit;end
