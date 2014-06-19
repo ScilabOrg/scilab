@@ -881,7 +881,7 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                 try
                 {
                     pCall->name_get().accept(*this);
-                    if (result_get() != NULL && (result_get()->isMacro() || result_get()->isMacroFile()))
+                    if (ConfigVariable::getWhereDeep() > 0 &&  result_get() != NULL && (result_get()->isMacro() || result_get()->isMacroFile()))
                     {
                         wostringstream os;
                         PrintVisitor printMe(os);
@@ -977,10 +977,10 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         {
             delete pValue;
         }
-	
+
         result_set(pReturn);
-	
-	return;
+
+        return;
     }
     else
     {
@@ -992,14 +992,14 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         in.push_back(pValue);
 
         Callable::ReturnValue Ret;
-	if (bConjug)
-	{
-	    Ret = Overload::call(L"%" + result_get()->getShortTypeStr() + L"_t", in, 1, out, this);
-	}
-	else
-	{
-	    Ret = Overload::call(L"%" + result_get()->getShortTypeStr() + L"_0", in, 1, out, this);
-	}
+        if (bConjug)
+        {
+            Ret = Overload::call(L"%" + result_get()->getShortTypeStr() + L"_t", in, 1, out, this);
+        }
+        else
+        {
+            Ret = Overload::call(L"%" + result_get()->getShortTypeStr() + L"_0", in, 1, out, this);
+        }
 
         if (Ret != Callable::OK)
         {
