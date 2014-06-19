@@ -871,10 +871,11 @@ bool Double::operator==(const InternalType& it)
     {
         for (int i = 0 ; i < m_iSize ; i++)
         {
-            if (m_pImgData[i])
-            {
-                return false;
-            }
+            if (m_pImgData != NULL)
+                if (m_pImgData[i])
+                {
+                    return false;
+                }
         }
     }
     //complex check all img values == 0
@@ -883,10 +884,11 @@ bool Double::operator==(const InternalType& it)
         double *pdblImg = pdbl->getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
-            if (pdblImg[i])
-            {
-                return false;
-            }
+            if (pdblImg != NULL)
+                if (pdblImg[i])
+                {
+                    return false;
+                }
         }
     }
 
