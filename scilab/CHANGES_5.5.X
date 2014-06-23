@@ -137,6 +137,8 @@ Scilab Bug Fixes
 
 * Bug #13481 fixed - varn did not work on rational fractions
 
+* Bug #13482 fixed - pfss changed the variable of the rational fractions
+
 
 Xcos Bug Fixes
 ==============
