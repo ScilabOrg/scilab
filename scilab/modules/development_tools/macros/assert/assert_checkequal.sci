@@ -107,13 +107,24 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
             end
         end
     else
-        if ( and ( computed == expected ) ) then
-            flag = %t
-        else
-            flag = %f
+
+        if ( (type(computed) == (5) & type(expected) == (5)) | (type(computed) == (6) & type(expected) == (6))) then
+            if ( and(full(t)==full(s)) ) then
+                flag = %t
+            else
+                flag = %f
+            end
+        else        
+            if ( and ( computed == expected ) ) then
+                flag = %t
+            else
+                flag = %f
+            end
         end
     end
+
     if ( flag == %t ) then
+
         errmsg = ""
     else
         // Change the message if the matrix contains more than one value
