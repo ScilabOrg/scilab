@@ -108,15 +108,20 @@ static Double* lengthStrings(String* _pS)
     {
         return Double::Empty();
     }
-
-    Double* pD = new Double(_pS->getDims(), _pS->getDimsArray());
-    double* pdblData = pD->getReal();
-
-    for (int i = 0 ; i < _pS->getSize() ; i++)
-    {
-        pdblData[i] = static_cast<double>(wcslen(_pS->get()[i]));
+    if(_pS->getDims() > 2){
+        Double* p = new Double(_pS->getDims());
+        return p;
     }
-    return pD;
+    else{
+        Double* pD = new Double(_pS->getDims(), _pS->getDimsArray());
+        double* pdblData = pD->getReal();
+        for (int i = 0 ; i < _pS->getSize() ; i++)
+        {
+           
+            pdblData[i] = static_cast<double>(wcslen(_pS->get()[i]));
+        }
+        return pD;
+   }
 }
 /*--------------------------------------------------------------------------*/
 static Double* lengthMatrix(GenericType* _pG)
