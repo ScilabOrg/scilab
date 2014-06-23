@@ -57,6 +57,7 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
         {
             out.push_back(in[i]);
         }
+        return types::Function::OK;
     }
 
     if (in.size() == 1)
