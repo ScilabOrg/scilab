@@ -106,26 +106,34 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
                 flag = %f
             end
         end
-    else
+    elseif ( or(type(computed) == [5,6]) & or(type(expected) == [5,6])) then
+        if ( and(full(computed)==full(expected)) ) then
+            flag = %t
+        else
+            flag = %f
+        end
+    else        
         if ( and ( computed == expected ) ) then
             flag = %t
         else
             flag = %f
         end
     end
+
     if ( flag == %t ) then
+
         errmsg = ""
     else
         // Change the message if the matrix contains more than one value
         if ( size(expected,"*") == 1 ) then
-            if ( typeof(expected) == "sparse") then
+            if ( or(typeof(expected) == ["sparse", "boolean sparse"])) then
                 val = full(expected)
             else
                 val = expected
             end
             estr = string(val)
         else
-            if ( typeof(expected) == "sparse") then
+            if ( or(typeof(expected) == ["sparse", "boolean sparse"])) then
                 val = full(expected(1))
             else
                 val = expected(1)
@@ -133,14 +141,14 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
             estr = "[" + string(val) + " ...]"
         end
         if ( size(computed,"*") == 1 ) then
-            if ( typeof(computed) == "sparse") then
+            if ( or(typeof(computed) == ["sparse", "boolean sparse"])) then
                 val = full(computed)
             else
                 val = computed
             end
             cstr = string(val)
         else
-            if ( typeof(computed) == "sparse") then
+            if ( or(typeof(computed) == ["sparse", "boolean sparse"])) then
                 val = full(computed(1))
             else
                 val = computed(1)
