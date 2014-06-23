@@ -107,25 +107,36 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
             end
         end
     else
-        if ( and ( computed == expected ) ) then
-            flag = %t
-        else
-            flag = %f
+
+        if ( (type(computed) == (5) & type(expected) == (5)) | (type(computed) == (6) & type(expected) == (6))) then
+            if ( and(full(t)==full(s)) ) then
+                flag = %t
+            else
+                flag = %f
+            end
+        else        
+            if ( and ( computed == expected ) ) then
+                flag = %t
+            else
+                flag = %f
+            end
         end
     end
+
     if ( flag == %t ) then
+
         errmsg = ""
     else
         // Change the message if the matrix contains more than one value
         if ( size(expected,"*") == 1 ) then
-            if ( typeof(expected) == "sparse") then
+            if ( typeof(expected) == ["sparse", "boolean sparse"]) then
                 val = full(expected)
             else
                 val = expected
             end
             estr = string(val)
         else
-            if ( typeof(expected) == "sparse") then
+            if ( typeof(expected) == ["sparse", "boolean sparse"]) then
                 val = full(expected(1))
             else
                 val = expected(1)
@@ -133,14 +144,14 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
             estr = "[" + string(val) + " ...]"
         end
         if ( size(computed,"*") == 1 ) then
-            if ( typeof(computed) == "sparse") then
+            if ( typeof(computed) == ["sparse", "boolean sparse"]) then
                 val = full(computed)
             else
                 val = computed
             end
             cstr = string(val)
         else
-            if ( typeof(computed) == "sparse") then
+            if ( typeof(computed) == ["sparse", "boolean sparse"]) then
                 val = full(computed(1))
             else
                 val = computed(1)
