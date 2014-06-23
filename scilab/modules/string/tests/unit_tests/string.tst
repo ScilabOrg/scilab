@@ -1,6 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2007-2008 - INRIA
+// Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -10,6 +11,8 @@
 //===============================
 // unit tests string
 //===============================
+funcprot(0);
+
 assert_checkequal(string(1), '1');
 //===============================
 assert_checkequal(string(1.5), '1.5');
@@ -69,3 +72,4 @@ assert_checkequal(string(D), string(int8(D)));
 assert_checkequal(string(E), string(int16(E)));
 assert_checkequal(string(F), string(int32(F)));
 
+funcprot(1);

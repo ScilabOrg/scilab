@@ -195,6 +195,48 @@ static void DoubleComplexMatrix2String(std::wostringstream *_postr,  double _dbl
     }
 }
 
+Function::ReturnValue doubleString(types::Double* pDbl, typed_list &out){
+        int iDims = pDbl->getDims();
+            int* piDimsArray = pDbl->getDimsArray();
+            double* pdblReal = pDbl->get();
+
+            // Special case string([]) == []
+            if (pDbl->isEmpty())
+            {
+                out.push_back(Double::Empty());
+                return Function::OK;
+            }
+            else if (piDimsArray[0] == -1 && piDimsArray[1] == -1)
+            {
+                out.push_back(new String(L""));
+                return Function::OK;
+            }
+
+            String *pstOutput = new String(iDims, piDimsArray);
+            if (pDbl->isComplex())
+            {
+                double* pdblImg = pDbl->getImg();
+                for (int i = 0; i < pDbl->getSize(); ++i)
+                {
+                    std::wostringstream ostr;
+                    DoubleComplexMatrix2String(&ostr, pdblReal[i], pdblImg[i]);
+                    pstOutput->set(i, ostr.str().c_str());
+                }
+            }
+            else
+            {
+                double dblImg  = 0.0;
+                for (int i = 0; i < pDbl->getSize(); ++i)
+                {
+                    std::wostringstream ostr;
+                    DoubleComplexMatrix2String(&ostr, pdblReal[i], dblImg);
+                    pstOutput->set(i, ostr.str().c_str());
+                }
+            }
+    out.push_back(pstOutput);
+
+}
+
 Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out)
 {
     if (in.size() != 1)
@@ -278,13 +320,102 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
         }
 
         case GenericType::ScilabInt8 :
+        {
+            types::Int8* pIIn = in[0]->getAs<types::Int8>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabUInt8 :
+        {
+            types::UInt8* pIIn = in[0]->getAs<types::UInt8>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabInt16 :
+        {
+            types::Int16* pIIn = in[0]->getAs<types::Int16>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabUInt16 :
+        {
+            types::UInt16* pIIn = in[0]->getAs<types::UInt16>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabInt32 :
+        {
+            types::Int32* pIIn = in[0]->getAs<types::Int32>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabUInt32 :
+        {
+            types::UInt32* pIIn = in[0]->getAs<types::UInt32>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabInt64 :
+        {
+            types::Int64* pIIn = in[0]->getAs<types::Int64>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+             break;
+
+        }
         case GenericType::ScilabUInt64 :
+        {
+            types::UInt64* pIIn = in[0]->getAs<types::UInt64>();
+            types::Double* pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
+            for (int i = 0; i < pIIn->getSize(); i++)
+            {
+                pDbl->set(i, static_cast<double>(pIIn->get(i)));
+            }
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
+
+            break;
+        }
+        
         {
             out.push_back(new types::String("not yet implemented"));
             break;
@@ -292,45 +423,8 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
         case GenericType::ScilabDouble :
         {
             types::Double* pDbl = in[0]->getAs<Double>();
-            int iDims = pDbl->getDims();
-            int* piDimsArray = pDbl->getDimsArray();
-            double* pdblReal = pDbl->get();
+            Function::ReturnValue pstOutput = doubleString(pDbl, out);
 
-            // Special case string([]) == []
-            if (pDbl->isEmpty())
-            {
-                out.push_back(Double::Empty());
-                return Function::OK;
-            }
-            else if (piDimsArray[0] == -1 && piDimsArray[1] == -1)
-            {
-                out.push_back(new String(L""));
-                return Function::OK;
-            }
-
-            String *pstOutput = new String(iDims, piDimsArray);
-            if (pDbl->isComplex())
-            {
-                double* pdblImg = pDbl->getImg();
-                for (int i = 0; i < pDbl->getSize(); ++i)
-                {
-                    std::wostringstream ostr;
-                    DoubleComplexMatrix2String(&ostr, pdblReal[i], pdblImg[i]);
-                    pstOutput->set(i, ostr.str().c_str());
-                }
-            }
-            else
-            {
-                double dblImg  = 0.0;
-                for (int i = 0; i < pDbl->getSize(); ++i)
-                {
-                    std::wostringstream ostr;
-                    DoubleComplexMatrix2String(&ostr, pdblReal[i], dblImg);
-                    pstOutput->set(i, ostr.str().c_str());
-                }
-            }
-
-            out.push_back(pstOutput);
             break;
         }
         case GenericType::ScilabString :
