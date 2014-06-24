@@ -20,10 +20,11 @@ function [flag,errmsg] = assert_checkalmostequal ( varargin )
     // Get arguments
     computed = varargin(1)
     expected = varargin(2)
+    
     reltol = argindefault ( rhs , varargin , 3 , sqrt(%eps) )
     abstol = argindefault ( rhs , varargin , 4 , 0 )
     comptype = argindefault ( rhs , varargin , 5 , "element" )
-    //
+   //
     // Check types of variables
     if ( and(typeof(computed) <> ["constant" "sparse" "hypermat"]) ) then
         errmsg = sprintf ( gettext ( "%s: Wrong type for input argument #%d: Matrix expected.\n") , "assert_checkalmostequal" , 1 )
@@ -74,7 +75,16 @@ function [flag,errmsg] = assert_checkalmostequal ( varargin )
         error(errmsg)
     end
     //
-    // Proceed...
+    // Proceed..
+
+
+    if(or(type(computed) == [5 6]) & or(type(expected) <> [5 6])) then
+        expected = sparse(expected)
+    end
+    if(or(type(expected) == [5 6])& or(type(computed) <> [5 6])) then
+        computed = sparse(computed)
+    end
+    
     ncom = size(computed)
     nexp = size(expected)
     if ( or(ncom <> nexp) ) then
@@ -82,6 +92,7 @@ function [flag,errmsg] = assert_checkalmostequal ( varargin )
         error(errmsg)
     end
     //
+   
     areequal_re = assert_arealmostequal ( real(computed) , real(expected) , reltol , abstol , comptype )
     if ( areequal_re ) then
         areequal = assert_arealmostequal ( imag(computed) , imag(expected) , reltol , abstol , comptype )
@@ -89,6 +100,11 @@ function [flag,errmsg] = assert_checkalmostequal ( varargin )
         areequal = %f
     end
     //
+
+    if(or(type(areequal) == [5 6])) then
+        areequal = and(full(areequal))
+    end
+
     if ( areequal ) then
         flag = %t
         errmsg = ""
@@ -141,6 +157,7 @@ endfunction
 
 
 function areequal = assert_arealmostequal ( computed , expected , reltol , abstol , comptype )
+
     //
     // Decompose the expected value into nan indices, inf indices and regular indices
     // This allows to solve the following issue:
@@ -153,10 +170,18 @@ function areequal = assert_arealmostequal ( computed , expected , reltol , absto
     [kcpinf , kcninf , kcnan , kcreg , creg] = infnanindices ( computed )
     [kepinf , keninf , kenan , kereg , ereg] = infnanindices ( expected )
     //
-    if ( comptype == "matrix" ) then
+    
+    if(or(type(creg) == [5 6])) then
+        creg = full(creg)
+        ereg = full(ereg)
+    end
+    if (comptype == "matrix") then
+    
         areclose = ( norm ( creg - ereg ) <= reltol * max(norm(ereg),norm(creg) ) + abstol )
     else
+    
         if (creg==[]&ereg==[]) then
+            
             areclose=%t
         elseif (creg<>[]&ereg==[]) then
             areclose=%f
@@ -165,15 +190,18 @@ function areequal = assert_arealmostequal ( computed , expected , reltol , absto
         else
             entries = ( abs(creg-ereg) <= reltol * max(abs(ereg),abs(creg)) + abstol )
             // Compute the global condition from the entries conditions
-            areclose = and(entries)
+            areclose = and(full(entries))
         end
     end
     // The regular values must be almost equal and
     // * the +%inf must be at the same place,
     // * the -%inf must be at the same place,
     // * the %nan must be at the same place.
+
     areequal = ( areclose & and(kcpinf == kepinf) & and(kcninf == keninf) & and(kcnan == kenan) )
+
 endfunction
+
 function argin = argindefault ( rhs , vararglist , ivar , default )
     // Returns the value of the input argument #ivar.
     // If this argument was not provided, or was equal to the
