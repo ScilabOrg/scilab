@@ -131,14 +131,33 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
             else
                 val = expected
             end
-            estr = string(val)
+            if( strindex(typeof(expected),"bool") == []) then
+                estr = string(val)
+            else
+                if (expected == %t) then
+                    estr = "T"
+                else
+                    estr = "F"
+                end
+            end
         else
             if ( or(typeof(expected) == ["sparse", "boolean sparse"])) then
                 val = full(expected(1))
             else
                 val = expected(1)
             end
-            estr = "[" + string(val) + " ...]"
+            
+            if( strindex(typeof(expected),"bool") == []) then
+                estr = string(val)
+            else
+                if (expected(1) == %t) then
+                    estr = "T"
+                else
+                    estr = "F"
+                end
+            end
+            
+            estr = "[" + estr + " ...]"
         end
         if ( size(computed,"*") == 1 ) then
             if ( or(typeof(computed) == ["sparse", "boolean sparse"])) then
@@ -146,14 +165,34 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
             else
                 val = computed
             end
-            cstr = string(val)
+            if( strindex(typeof(computed),"bool") == []) then
+                cstr = string(val)
+            else
+                if (computed == %t) then
+                    cstr = "T"
+                else
+                    cstr = "F"
+                end
+            end
         else
             if ( or(typeof(computed) == ["sparse", "boolean sparse"])) then
                 val = full(computed(1))
             else
                 val = computed(1)
             end
-            cstr = "[" + string(val) + " ...]"
+            
+            if( strindex(typeof(computed),"bool") == []) then
+                cstr = string(val)
+            else
+                if (computed(1) == %t) then
+                    cstr = "T"
+                else
+                    cstr = "F"
+                end
+            end
+            
+            cstr = "[" + cstr + " ...]"
+            
         end
         ierr = execstr("mdiff = string(mean(computed - expected))", "errcatch");
         if ( ierr == 0 ) then
