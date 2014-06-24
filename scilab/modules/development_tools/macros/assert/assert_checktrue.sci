@@ -28,9 +28,18 @@ function [flag,errmsg] = assert_checktrue ( condition )
     else
         flag = %f
         if ( size(condition,"*") == 1 ) then
-            cstr = string(condition)
+            if (condition == %t) then
+                cstr = "T"
+            else
+                cstr = "F"
+            end
         else
-            cstr = "[" + string(condition(1)) + " ...]"
+            if (condition == %t) then
+                cstr = "T"
+            else
+                cstr = "F"
+            end
+            cstr = "[" + cstr + " ...]"
         end
         errmsg = msprintf(gettext("%s: Assertion failed: found false entry in condition = %s"), ..
         "assert_checktrue",cstr)
