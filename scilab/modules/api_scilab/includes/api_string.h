@@ -59,7 +59,7 @@ extern "C" {
      * @param[in] _pstStrings array of strings ( null terminated )
      * @return if the operation succeeded (0) or not ( !0 )
      */
-    SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, const char* const* _pstStrings);
+    SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, const char* const* const _pstStrings);
 
     /**
     * Create wide strings variable data

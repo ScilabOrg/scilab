@@ -258,7 +258,7 @@ static int getDepthNamedList(std::string _stNamedList)
     return (int)it->second->size();
 }
 
-char* getListTypeName(int _iType)
+const char* getListTypeName(int _iType)
 {
     switch (_iType)
     {
@@ -464,7 +464,7 @@ static SciErr createCommonList(void* _pvCtx, int _iVar, int _iListType, int _iNb
             pL = new TList();
         }
     }
-    catch (ast::ScilabError se)
+    catch (const ast::ScilabError& se)
     {
         addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: %ls"), "createCommonList", se.GetErrorMessage().c_str());
         return sciErr;
