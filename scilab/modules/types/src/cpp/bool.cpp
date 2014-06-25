@@ -319,9 +319,8 @@ int Bool::copyValue(int _iData)
 
 void Bool::deleteAll()
 {
-    delete[] m_pRealData;
-    m_pRealData = NULL;
     deleteImg();
+    
 }
 
 void Bool::deleteImg()
