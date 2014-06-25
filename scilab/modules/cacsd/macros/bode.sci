@@ -44,7 +44,7 @@ function [] = bode(varargin)
     if or(typeof(varargin(1)) == ["state-space" "rational"]) then
 // sys, fmin, fmax [,pas] or sys, frq
         refdim = 1; // for error message
-        discr = varargin(1).dt<>"c";
+        discr = typeof(varargin(1).dt)<>"constant";
         if rhs == 1 then // sys
             [frq, repf] = repfreq(varargin(1), 1d-3, 1d3);
         elseif rhs == 2 then // sys, frq
