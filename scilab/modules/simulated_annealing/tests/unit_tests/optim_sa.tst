@@ -12,6 +12,7 @@
 // <-- ENGLISH IMPOSED -->
 
 // Test that we can run with default values for parameters
+funcprot(0);
 function y=test_func(x)
     y=x^2
 endfunction
@@ -120,5 +121,5 @@ T0 = compute_initial_temp(x0, quad , 0.7, 100, saparams);
 assert_checkalmostequal ( x_best , [4 3] ,  1.e-1 );
 assert_checkalmostequal ( f_best , 0 ,  [] , 1.e-1 );
 assert_checkequal ( iter > 0 , %t );
-
+funcprot(1);
 
