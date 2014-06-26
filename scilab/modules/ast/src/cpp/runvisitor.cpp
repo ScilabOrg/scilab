@@ -19,7 +19,7 @@
 #include "shortcutvisitor.hxx"
 #include "printvisitor.hxx"
 #include "mutevisitor.hxx"
-
+#include "serializervisitor.hxx"
 #include "visitor_common.hxx"
 
 #include "context.hxx"
@@ -989,22 +989,7 @@ void RunVisitorT<T>::visitprivate(const FunctionDec  &e)
     // funcprot(0) : do nothing
     // funcprot(1) && warning(on) : warning
     // funcprot(2) : error
-    if (ConfigVariable::getFuncprot() == 1 && ConfigVariable::getWarningMode())
-    {
-        types::InternalType* pITFunc = symbol::Context::getInstance()->get(((FunctionDec&)e).stack_get());
-
-        if (pITFunc && pITFunc->isCallable())
-        {
-            wchar_t pwstFuncName[1024];
-            os_swprintf(pwstFuncName, 1024, L"%-24ls", e.name_get().name_get().c_str());
-            char* pstFuncName = wide_string_to_UTF8(pwstFuncName);
-
-            sciprint(_("Warning : redefining function: %s. Use funcprot(0) to avoid this message"), pstFuncName);
-            sciprint("\n");
-            FREE(pstFuncName);
-        }
-    }
-    else if (ConfigVariable::getFuncprot() == 2)
+    if (ConfigVariable::getFuncprot() == 2)
     {
         types::InternalType* pITFunc = symbol::Context::getInstance()->get(((FunctionDec&)e).stack_get());
 
@@ -1049,6 +1034,112 @@ void RunVisitorT<T>::visitprivate(const FunctionDec  &e)
     types::Macro *pMacro = new types::Macro(e.name_get().name_get(), *pVarList, *pRetList,
                                             static_cast<SeqExp&>(*exp), L"script");
     pMacro->setFirstLine(e.location_get().first_line);
+
+    if (ConfigVariable::getFuncprot() == 1 && ConfigVariable::getWarningMode())
+    {
+        types::InternalType* pITFunc = symbol::Context::getInstance()->get(((FunctionDec&)e).stack_get());
+
+        if (pITFunc && pITFunc->isCallable())
+        {
+            bool bWarning = true;
+            if (pITFunc->isMacro() || pITFunc->isMacroFile())
+            {
+                bWarning = false;
+                Exp* pExp = NULL;
+                std::list<symbol::Variable*>* pInput = NULL;
+                std::list<symbol::Variable*>* pOutput = NULL;
+                types::Macro* pOld = NULL;
+                if (pITFunc->isMacro())
+                {
+                    pOld = pITFunc->getAs<types::Macro>();
+                }
+                else
+                {
+                    types::MacroFile* pOldFile = pITFunc->getAs<types::MacroFile>();
+                    pOld = pITFunc->getAs<types::Macro>();
+                }
+
+                //check inputs
+                pInput = pOld->inputs_get();
+                if (pInput->size() != pVarList->size())
+                {
+                    bWarning = true;
+                }
+
+                if (bWarning == false)
+                {
+                    std::list<symbol::Variable*>::iterator itOld = pInput->begin();
+                    std::list<symbol::Variable*>::iterator itEndOld = pInput->end();
+                    std::list<symbol::Variable*>::iterator itMacro = pVarList->begin();
+
+                    for (; itOld != itEndOld ; ++itOld, ++itMacro)
+                    {
+                        if ((*itOld)->name_get() != (*itMacro)->name_get())
+                        {
+                            bWarning = true;
+                            break;
+                        }
+                    }
+                }
+
+                //check outputs
+                pOutput = pOld->outputs_get();
+                if (bWarning == false)
+                {
+                    std::list<symbol::Variable*>::iterator itOld = pOutput->begin();
+                    std::list<symbol::Variable*>::iterator itEndOld = pOutput->end();
+                    std::list<symbol::Variable*>::iterator itMacro = pRetList->begin();
+
+                    for (; itOld != itEndOld ; ++itOld, ++itMacro)
+                    {
+                        if ((*itOld)->name_get() != (*itMacro)->name_get())
+                        {
+                            bWarning = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (bWarning == false)
+                {
+                    pExp = pOld->getBody();
+                    ast::SerializeVisitor serialOld(pExp);
+                    unsigned char* oldSerial = serialOld.serialize(false);
+                    ast::SerializeVisitor serialMacro(exp);
+                    unsigned char* macroSerial = serialMacro.serialize(false);
+
+                    //check buffer length
+                    unsigned int oldSize = ((unsigned int*)oldSerial)[0] + sizeof(unsigned int);
+                    unsigned int macroSize = ((unsigned int*)macroSerial)[0] + sizeof(unsigned int);
+                    if (oldSize != macroSize)
+                    {
+                        bWarning = true;
+                    }
+
+                    if (bWarning == false)
+                    {
+                        bWarning = (memcmp(oldSerial, macroSerial, oldSize + sizeof(unsigned int)) != 0);
+                    }
+
+                    free(oldSerial);
+                    free(macroSerial);
+                }
+
+            }
+
+            if (bWarning)
+            {
+                wchar_t pwstFuncName[1024];
+                os_swprintf(pwstFuncName, 1024, L"%-24ls", e.name_get().name_get().c_str());
+                char* pstFuncName = wide_string_to_UTF8(pwstFuncName);
+
+                sciprint(_("Warning : redefining function: %s. Use funcprot(0) to avoid this message"), pstFuncName);
+                sciprint("\n");
+                FREE(pstFuncName);
+            }
+        }
+    }
+
     symbol::Context::getInstance()->addMacro(pMacro);
 }
 
