@@ -550,7 +550,8 @@ int BoolLogicalOrBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     // M | scalar
     if (_pR->getSize() == 1)
     {
-        *_pOut = new Bool(_pL->getRows(), _pL->getCols(), &piB);
+        piB = _pL->getDimsArray();
+        *_pOut = new Bool(_pL->getDims(), piB);
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
             piB[i] = (piR[0] == 1) || (piL[i] == 1);
@@ -562,7 +563,8 @@ int BoolLogicalOrBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     if (_pL->getSize() == 1)
     {
         // scalar | M
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        piB = _pR->getDimsArray();
+       *_pOut = new Bool(_pR->getDims(), piB);
         for (int i = 0 ; i < _pR->getSize(); i++)
         {
             piB[i] = (piR[i] == 1) || (piL[0] == 1);
@@ -574,7 +576,10 @@ int BoolLogicalOrBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     if (_pR->getRows() == _pL->getRows() && _pR->getCols() == _pL->getCols())
     {
         // M | N (generic case)
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        piB = _pR->getDimsArray();
+       *_pOut = new Bool(_pR->getDims(), piB);
+        for (int i = 0 ; i < _pR->getSize(); i++)
+       
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
             piB[i] = (piR[i] == 1) || (piL[i] == 1);
@@ -592,10 +597,11 @@ int BoolLogicalAndBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     int* piL = _pL->get();
     int* piB = NULL;
 
+        piB = _pL->getDimsArray();
     // M & scalar
     if (_pR->getSize() == 1)
     {
-        *_pOut = new Bool(_pL->getRows(), _pL->getCols(), &piB);
+        *_pOut = new Bool(_pL->getDims(), piB);
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
             piB[i] = (piR[0] == 1) && (piL[i] == 1);
@@ -607,7 +613,8 @@ int BoolLogicalAndBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     if (_pL->getSize() == 1)
     {
         // scalar & M
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        piB = _pR->getDimsArray();
+        *_pOut = new Bool(_pR->getDims(), piB);
         for (int i = 0 ; i < _pR->getSize(); i++)
         {
             piB[i] = (piR[i] == 1) && (piL[0] == 1);
@@ -616,10 +623,11 @@ int BoolLogicalAndBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
         return 0;
     }
 
-    if (_pR->getRows() == _pL->getRows() && _pR->getCols() == _pL->getCols())
+    if (_pR->getDims()  == _pL->getDims())
     {
         // M & N (generic case)
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        piB = _pR->getDimsArray();
+        *_pOut = new Bool(_pR->getDims(), piB);
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
             piB[i] = (piR[i] == 1) && (piL[i] == 1);
