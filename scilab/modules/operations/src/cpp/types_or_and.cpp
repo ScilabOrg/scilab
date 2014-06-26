@@ -548,12 +548,18 @@ int BoolLogicalOrBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     int* piB = NULL;
 
     // M | scalar
-    if (_pR->getSize() == 1)
+   if (_pR->getSize() == 1)
     {
-        *_pOut = new Bool(_pL->getRows(), _pL->getCols(), &piB);
+        *_pOut = new Bool(_pL->getDims(), _pL->getDimsArray());
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
-            piB[i] = (piR[0] == 1) || (piL[i] == 1);
+            if((piR[0] == 1) || (piL[i] == 1))
+            {
+                _pOut[i] = new Bool(1);
+            }
+            else{
+                _pOut[i] = new Bool(0);
+            }
         }
 
         return 0;
@@ -561,23 +567,37 @@ int BoolLogicalOrBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
 
     if (_pL->getSize() == 1)
     {
-        // scalar | M
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        // scalar & M
+       
+        *_pOut = new Bool(_pR->getDims(), _pR->getDimsArray());
         for (int i = 0 ; i < _pR->getSize(); i++)
         {
-            piB[i] = (piR[i] == 1) || (piL[0] == 1);
+            if((piR[i] == 1) || (piL[0] == 1))
+            {
+                _pOut[i] = new Bool(1);
+            }
+            else{
+                _pOut[i] = new Bool(0);
+            }
         }
 
         return 0;
     }
 
-    if (_pR->getRows() == _pL->getRows() && _pR->getCols() == _pL->getCols())
+    if (_pR->getDims()  == _pL->getDims())
     {
-        // M | N (generic case)
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        // M & N (generic case)
+        *_pOut = new Bool(_pR->getDims(), _pR->getDimsArray());
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
-            piB[i] = (piR[i] == 1) || (piL[i] == 1);
+            if((piR[i] == 1)|| (piL[i] == 1))
+            {
+                _pOut[i] = new Bool(1);
+            }
+            else{
+                _pOut[i] = new Bool(0);
+            }
+              
         }
 
         return 0;
@@ -595,10 +615,16 @@ int BoolLogicalAndBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     // M & scalar
     if (_pR->getSize() == 1)
     {
-        *_pOut = new Bool(_pL->getRows(), _pL->getCols(), &piB);
+        *_pOut = new Bool(_pL->getDims(), _pL->getDimsArray());
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
-            piB[i] = (piR[0] == 1) && (piL[i] == 1);
+            if((piR[0] == 1) && (piL[i] == 1))
+            {
+                _pOut[i] = new Bool(1);
+            }
+            else{
+                _pOut[i] = new Bool(0);
+            }
         }
 
         return 0;
@@ -607,22 +633,36 @@ int BoolLogicalAndBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
     if (_pL->getSize() == 1)
     {
         // scalar & M
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+       
+        *_pOut = new Bool(_pR->getDims(), _pR->getDimsArray());
         for (int i = 0 ; i < _pR->getSize(); i++)
         {
-            piB[i] = (piR[i] == 1) && (piL[0] == 1);
+            if((piR[i] == 1) && (piL[0] == 1))
+            {
+                _pOut[i] = new Bool(1);
+            }
+            else{
+                _pOut[i] = new Bool(0);
+            }
         }
 
         return 0;
     }
 
-    if (_pR->getRows() == _pL->getRows() && _pR->getCols() == _pL->getCols())
+    if (_pR->getDims()  == _pL->getDims())
     {
         // M & N (generic case)
-        *_pOut = new Bool(_pR->getRows(), _pR->getCols(), &piB);
+        *_pOut = new Bool(_pR->getDims(), _pR->getDimsArray());
         for (int i = 0 ; i < _pL->getSize(); i++)
         {
-            piB[i] = (piR[i] == 1) && (piL[i] == 1);
+            if((piR[i] == 1) && (piL[i] == 1))
+            {
+                _pOut[i] = new Bool(1);
+            }
+            else{
+                _pOut[i] = new Bool(0);
+            }
+              
         }
 
         return 0;
@@ -630,7 +670,6 @@ int BoolLogicalAndBool(Bool* _pL, Bool*  _pR, Bool** _pOut)
 
     return 1;
 }
-
 int SparseBoolAndSparseBool(InternalType* _pL, Bool** _pOut)
 {
     SparseBool* pL = _pL->getAs<SparseBool>();
