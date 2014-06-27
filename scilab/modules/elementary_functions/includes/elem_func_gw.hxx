@@ -66,5 +66,6 @@ CPP_GATEWAY_PROTOTYPE(sci_min); // Old name sci_mini
 CPP_GATEWAY_PROTOTYPE(sci_rat);
 CPP_GATEWAY_PROTOTYPE(sci_triu);
 CPP_GATEWAY_PROTOTYPE(sci_tril);
+CPP_GATEWAY_PROTOTYPE(sci_sqrt);
 
 #endif /* __ELEM_FUNC_GW_HXX__ */
