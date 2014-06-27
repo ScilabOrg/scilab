@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - DIGITEO - Cedric DELAMARRE
+ * Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -46,6 +47,12 @@ types::Function::ReturnValue sci_diag(types::typed_list &in, int _iRetCount, typ
     {
         Scierror(78, _("%s: Wrong number of output argument(s): %d expected.\n"), "diag", 1);
         return types::Function::Error;
+    }
+
+    if (in[0]->getAs<types::GenericType>()->getDims() > 2)
+    {
+        std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_diag";
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
     }
 
     /***** get data *****/
@@ -310,6 +317,11 @@ types::Function::ReturnValue sci_diag(types::typed_list &in, int _iRetCount, typ
         }
         out.push_back(pIOut);
         delete pDblOut;
+    }
+    else
+    {
+        std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_diag";
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
     }
 
     return types::Function::OK;
