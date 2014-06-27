@@ -128,12 +128,12 @@ int sci_getenv(char *fname, void* pvApiCtx)
     }
 
     //variable exists in env, we don't need default any more
+    freeAllocatedSingleString(pStVarOne);
     freeAllocatedSingleString(pStVarTwo);
 
     env_value = (char*)MALLOC(sizeof(char) * (length_env + 1));
     if (env_value == NULL)
     {
-        freeAllocatedSingleString(pStVarOne);
         Scierror(999, _("%s: No more memory.\n"), fname);
         return 0;
     }
