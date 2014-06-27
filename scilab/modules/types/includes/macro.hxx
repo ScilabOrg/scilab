@@ -78,6 +78,8 @@ public :
     virtual int getNbInputArgument(void);
     virtual int getNbOutputArgument(void);
 
+    bool operator==(const InternalType& it);
+
 private :
     std::list<symbol::Variable*>*   m_inputArgs;
     std::list<symbol::Variable*>*   m_outputArgs;

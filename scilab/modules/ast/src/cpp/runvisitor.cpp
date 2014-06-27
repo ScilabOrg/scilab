@@ -26,6 +26,9 @@
 #include "generic_operations.hxx"
 #include "types_or_and.hxx"
 
+#include "macrofile.hxx"
+#include "macro.hxx"
+
 extern "C"
 {
 #include "sciprint.h"
@@ -1049,6 +1052,38 @@ void RunVisitorT<T>::visitprivate(const FunctionDec  &e)
     types::Macro *pMacro = new types::Macro(e.name_get().name_get(), *pVarList, *pRetList,
                                             static_cast<SeqExp&>(*exp), L"script");
     pMacro->setFirstLine(e.location_get().first_line);
+
+    if (ConfigVariable::getFuncprot() == 1 && ConfigVariable::getWarningMode())
+    {
+        types::InternalType* pITFunc = symbol::Context::getInstance()->get(((FunctionDec&)e).stack_get());
+
+        if (pITFunc && pITFunc->isCallable())
+        {
+            bool bWarning = true;
+            if (pITFunc->isMacroFile())
+            {
+                types::MacroFile* pMF = pITFunc->getAs<types::MacroFile>();
+                bWarning = !(*pMF->getMacro() == *pMacro);
+            }
+            else if (pITFunc->isMacro())
+            {
+                types::Macro* pM = pITFunc->getAs<types::Macro>();
+                bWarning = !(*pM == *pMacro);
+            }
+
+            if (bWarning)
+            {
+                wchar_t pwstFuncName[1024];
+                os_swprintf(pwstFuncName, 1024, L"%-24ls", e.name_get().name_get().c_str());
+                char* pstFuncName = wide_string_to_UTF8(pwstFuncName);
+
+                sciprint(_("Warning : redefining function: %s. Use funcprot(0) to avoid this message"), pstFuncName);
+                sciprint("\n");
+                FREE(pstFuncName);
+            }
+        }
+    }
+
     symbol::Context::getInstance()->addMacro(pMacro);
 }
 
