@@ -40,6 +40,12 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
         return types::Function::Error;
     }
 
+    if (in[0]->getAs<types::GenericType>()->getDims() > 2)
+    {
+        Scierror(999, _("%s: Wrong number of dimensions for input argument #%d: %d expected.\n"), "tril", 1, 2);
+        return types::Function::Error;
+    }
+
     // get offset
     if (in.size() == 2)
     {
