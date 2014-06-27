@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
+ * Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -40,6 +41,11 @@ types::Function::ReturnValue sci_triu(types::typed_list &in, int _iRetCount, typ
         return types::Function::Error;
     }
 
+    if (in[0]->getAs<types::GenericType>()->getDims() > 2)
+    {
+        Scierror(999, _("%s: Wrong number of dimensions for input argument #%d: %d expected.\n"), "triu", 1, 2);
+        return types::Function::Error;
+    }
     if (in.size() == 2)
     {
         if (in[1]->isDouble() == false)
