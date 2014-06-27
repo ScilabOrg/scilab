@@ -243,6 +243,7 @@ lib /DEF:"$(ProjectDir)operations_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
     <ClInclude Include="includes\inspector.hxx" />
     <ClInclude Include="includes\int.hxx" />
     <ClInclude Include="includes\internal.hxx" />
+    <ClInclude Include="includes\keepForSparse.hxx" />
     <ClInclude Include="includes\library.hxx" />
     <ClInclude Include="includes\list.hxx" />
     <ClInclude Include="includes\listdelete.hxx" />

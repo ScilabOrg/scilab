@@ -26,6 +26,7 @@
 #include "formatmode.h"
 
 #include "sparseOp.hxx"
+
 extern "C"
 {
 #include "elem_common.h"
@@ -462,14 +463,14 @@ void Sparse::finalize()
 
 }
 
-    bool Sparse::neg(InternalType *& out)
-    {
-        SparseBool * _out = new SparseBool(getRows(), getCols());
-        type_traits::neg(getRows(), getCols(), matrixReal, _out->matrixBool);
-        out = _out;
+bool Sparse::neg(InternalType *& out)
+{
+    SparseBool * _out = new SparseBool(getRows(), getCols());
+    type_traits::neg(getRows(), getCols(), matrixReal, _out->matrixBool);
+    out = _out;
 
-        return true;
-    }
+    return true;
+}
 
 
 bool Sparse::isComplex() const

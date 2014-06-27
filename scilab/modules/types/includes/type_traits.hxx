@@ -16,6 +16,7 @@
 #include <cmath>
 #include <Eigen/Sparse>
 #include "types_transposition.hxx"
+#include "keepForSparse.hxx"
 
 namespace types
 {
@@ -39,21 +40,21 @@ struct type_traits
 
     inline static bool isTrue(const double start, const double step, const double end)
     {
-	if (start == 0 || end == 0 || step == 0)
-	{
-	    return false;
-	}
+        if (start == 0 || end == 0 || step == 0)
+        {
+            return false;
+        }
 
-	if ((start < 0 && end > 0) || (start > 0 && end < 0))
-	{
-	    double q = start / step;
-	    if (std::floor(q) == q)
-	    {
-		return false;
-	    }
-	}
+        if ((start < 0 && end > 0) || (start > 0 && end < 0))
+        {
+            double q = start / step;
+            if (std::floor(q) == q)
+            {
+                return false;
+            }
+        }
 
-	return true;
+        return true;
     }
 
     template<typename T, typename U>
@@ -68,11 +69,11 @@ struct type_traits
     template<typename T>
     inline static void neg(const T start, const T step, const T end, int * const out)
     {
-	int j = 0;
-	for (T i = start; i < end; i += step, j++)
-	{
-	    out[j] = i == 0;
-	}
+        int j = 0;
+        for (T i = start; i < end; i += step, j++)
+        {
+            out[j] = i == 0;
+        }
     }
 
     template<typename T>
@@ -86,6 +87,7 @@ struct type_traits
             }
         }
 
+        out->prune(&keepForSparse<bool>);
         out->finalize();
     }
 
@@ -100,24 +102,24 @@ struct type_traits
 
     template<typename T>
     inline static bool transpose(T & in, InternalType *& out)
-	{
-	    if (in.isScalar())
-	    {
-		out = in.clone();
-		return true;
-	    }
-	    
-	    if (in.getDims() == 2)
-	    {
-		T * pReturn = new T(in.getCols(), in.getRows());
-		out = pReturn;
-		Transposition::transpose(in.getRows(), in.getCols(), in.get(), pReturn->get());
-		
-		return true;
-	    }
-	    
-	    return false;
-	}
+    {
+        if (in.isScalar())
+        {
+            out = in.clone();
+            return true;
+        }
+
+        if (in.getDims() == 2)
+        {
+            T * pReturn = new T(in.getCols(), in.getRows());
+            out = pReturn;
+            Transposition::transpose(in.getRows(), in.getCols(), in.get(), pReturn->get());
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 } // namespace types

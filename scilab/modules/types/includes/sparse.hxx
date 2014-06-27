@@ -296,13 +296,13 @@ struct TYPES_IMPEXP Sparse : GenericType
 
     bool transpose(InternalType *& out)
     {
-	out = new Sparse(matrixReal ? new RealSparse_t(matrixReal->transpose()) : 0, matrixCplx ? new CplxSparse_t(matrixCplx->transpose()) : 0);
+        out = new Sparse(matrixReal ? new RealSparse_t(matrixReal->transpose()) : 0, matrixCplx ? new CplxSparse_t(matrixCplx->transpose()) : 0);
         return true;
     }
 
     bool adjoint(InternalType *& out)
     {
-	out = new Sparse(matrixReal ? new RealSparse_t(matrixReal->adjoint()) : 0, matrixCplx ? new CplxSparse_t(matrixCplx->adjoint()) : 0);
+        out = new Sparse(matrixReal ? new RealSparse_t(matrixReal->adjoint()) : 0, matrixCplx ? new CplxSparse_t(matrixCplx->adjoint()) : 0);
         return true;
     }
 
@@ -556,7 +556,7 @@ struct TYPES_IMPEXP SparseBool : GenericType
 
     bool transpose(InternalType *& out)
     {
-	out = new SparseBool(new BoolSparse_t(matrixBool->transpose()));
+        out = new SparseBool(new BoolSparse_t(matrixBool->transpose()));
         return true;
     }
 
