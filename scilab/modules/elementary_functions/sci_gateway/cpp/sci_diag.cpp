@@ -48,6 +48,12 @@ types::Function::ReturnValue sci_diag(types::typed_list &in, int _iRetCount, typ
         return types::Function::Error;
     }
 
+     if(in[0]->getAs<types::Double>()->getDims()>2)
+    {
+        Scierror(999, _("%s: Wrong number of dimensions for input argument #%d: %d expected.\n"), "diag", 1, 2);
+        return types::Function::Error;
+    } 
+
     /***** get data *****/
     if (in[0]->isDouble())
     {
