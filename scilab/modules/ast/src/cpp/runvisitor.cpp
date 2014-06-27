@@ -26,6 +26,9 @@
 #include "generic_operations.hxx"
 #include "types_or_and.hxx"
 
+#include "macrofile.hxx"
+#include "macro.hxx"
+
 extern "C"
 {
 #include "sciprint.h"
@@ -1042,89 +1045,15 @@ void RunVisitorT<T>::visitprivate(const FunctionDec  &e)
         if (pITFunc && pITFunc->isCallable())
         {
             bool bWarning = true;
-            if (pITFunc->isMacro() || pITFunc->isMacroFile())
+            if (pITFunc->isMacroFile())
             {
-                bWarning = false;
-                Exp* pExp = NULL;
-                std::list<symbol::Variable*>* pInput = NULL;
-                std::list<symbol::Variable*>* pOutput = NULL;
-                types::Macro* pOld = NULL;
-                if (pITFunc->isMacro())
-                {
-                    pOld = pITFunc->getAs<types::Macro>();
-                }
-                else
-                {
-                    types::MacroFile* pOldFile = pITFunc->getAs<types::MacroFile>();
-                    pOld = pITFunc->getAs<types::Macro>();
-                }
-
-                //check inputs
-                pInput = pOld->inputs_get();
-                if (pInput->size() != pVarList->size())
-                {
-                    bWarning = true;
-                }
-
-                if (bWarning == false)
-                {
-                    std::list<symbol::Variable*>::iterator itOld = pInput->begin();
-                    std::list<symbol::Variable*>::iterator itEndOld = pInput->end();
-                    std::list<symbol::Variable*>::iterator itMacro = pVarList->begin();
-
-                    for (; itOld != itEndOld ; ++itOld, ++itMacro)
-                    {
-                        if ((*itOld)->name_get() != (*itMacro)->name_get())
-                        {
-                            bWarning = true;
-                            break;
-                        }
-                    }
-                }
-
-                //check outputs
-                pOutput = pOld->outputs_get();
-                if (bWarning == false)
-                {
-                    std::list<symbol::Variable*>::iterator itOld = pOutput->begin();
-                    std::list<symbol::Variable*>::iterator itEndOld = pOutput->end();
-                    std::list<symbol::Variable*>::iterator itMacro = pRetList->begin();
-
-                    for (; itOld != itEndOld ; ++itOld, ++itMacro)
-                    {
-                        if ((*itOld)->name_get() != (*itMacro)->name_get())
-                        {
-                            bWarning = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (bWarning == false)
-                {
-                    pExp = pOld->getBody();
-                    ast::SerializeVisitor serialOld(pExp);
-                    unsigned char* oldSerial = serialOld.serialize(false);
-                    ast::SerializeVisitor serialMacro(exp);
-                    unsigned char* macroSerial = serialMacro.serialize(false);
-
-                    //check buffer length
-                    unsigned int oldSize = ((unsigned int*)oldSerial)[0] + sizeof(unsigned int);
-                    unsigned int macroSize = ((unsigned int*)macroSerial)[0] + sizeof(unsigned int);
-                    if (oldSize != macroSize)
-                    {
-                        bWarning = true;
-                    }
-
-                    if (bWarning == false)
-                    {
-                        bWarning = (memcmp(oldSerial, macroSerial, oldSize + sizeof(unsigned int)) != 0);
-                    }
-
-                    free(oldSerial);
-                    free(macroSerial);
-                }
-
+                types::MacroFile* pMF = pITFunc->getAs<types::MacroFile>();
+                bWarning = !(*pMF->getMacro() == *pMacro);
+            }
+            else if (pITFunc->isMacro())
+            {
+                types::Macro* pM = pITFunc->getAs<types::Macro>();
+                bWarning = !(*pM == *pMacro);
             }
 
             if (bWarning)
