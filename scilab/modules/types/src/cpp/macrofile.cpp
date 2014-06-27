@@ -78,16 +78,19 @@ bool MacroFile::parse(void)
     if (m_pMacro == NULL)
     {
         //load file, only for the first call
-        std::ifstream f(wide_string_to_UTF8(m_stPath.c_str()), ios::in | ios::binary | ios::ate);
-
+        char* pstPath = wide_string_to_UTF8(m_stPath.c_str());
+        std::ifstream f(pstPath, ios::in | ios::binary | ios::ate);
+        FREE(pstPath);
+        
         int size = (int)f.tellg();
         unsigned char* binAst = new unsigned char[size];
         f.seekg(0);
         f.read((char*)binAst, size);
         f.close();
-        ast::DeserializeVisitor* d = new ast::DeserializeVisitor(binAst);
-        ast::Exp* tree = d->deserialize();
-
+        ast::DeserializeVisitor d(binAst);
+        ast::Exp* tree = d.deserialize();
+        delete[] binAst;
+        
         //find FunctionDec
         ast::FunctionDec* pFD = NULL;
 

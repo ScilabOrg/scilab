@@ -54,6 +54,8 @@ Macro::Macro(const std::wstring& _stName, std::list<symbol::Variable*>& _inputAr
 Macro::~Macro()
 {
     delete m_body;
+    delete m_pDblArgIn;
+    delete m_pDblArgOut;
 }
 
 InternalType* Macro::clone()
