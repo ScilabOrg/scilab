@@ -57,11 +57,7 @@ struct EXTERN_SYMBOL Variable
             if (pIT != _pIT)
             {
                 pIT->DecreaseRef();
-                if (pIT->isDeletable())
-                {
-                    delete pIT;
-                }
-
+                pIT->killMe();
                 top()->m_pIT = _pIT;
                 _pIT->IncreaseRef();
             }
@@ -148,10 +144,7 @@ struct EXTERN_SYMBOL Variable
             if (m_GlobalValue)
             {
                 m_GlobalValue->DecreaseRef();
-                if (m_GlobalValue->isDeletable())
-                {
-                    delete m_GlobalValue;
-                }
+                m_GlobalValue->killMe();
             }
 
             m_GlobalValue = _pIT;
@@ -257,11 +250,7 @@ struct Variables
             {
                 types::InternalType* pIT = _var->top()->m_pIT;
                 pIT->DecreaseRef();
-                if (pIT->isDeletable())
-                {
-                    delete pIT;
-                }
-
+                pIT->killMe();
                 _var->pop();
             }
         }
@@ -390,6 +379,24 @@ struct Variables
         remove(pVar, _iLevel);
     }
 
+    void clearAll()
+    {
+        for (MapVars::iterator it = vars.begin(); it != vars.end() ; ++it)
+        {
+            while (!it->second->empty())
+            {
+                ScopedVariable * pSV = it->second->top();
+                types::InternalType * pIT = pSV->m_pIT;
+                pIT->DecreaseRef();
+                pIT->killMe();
+                it->second->pop();
+                delete pSV;
+            }
+
+            delete it->second;
+        }
+    }
+
 private:
     typedef std::map<Symbol, Variable*> MapVars;
     MapVars vars;
@@ -397,3 +404,11 @@ private:
 }
 
 #endif // !__VARIABLES_HXX__
+/*
+==18141== LEAK SUMMARY:
+==18141==    definitely lost: 111,947 bytes in 6,018 blocks
+==18141==    indirectly lost: 484,860 bytes in 3,311 blocks
+==18141==      possibly lost: 154,592 bytes in 801 blocks
+==18141==    still reachable: 799,540 bytes in 6,388 blocks
+==18141==         suppressed: 7,072 bytes in 15 blocks
+*/
