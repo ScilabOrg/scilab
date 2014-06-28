@@ -231,6 +231,7 @@ lib /DEF:"$(ProjectDir)System_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
     <None Include="..\Makefile.am" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cpp\localization.cpp" />
     <ClCompile Include="c\charEncoding.c" />
     <ClCompile Include="c\DllmainLocalization.c" />
     <ClCompile Include="c\getLcidString.c" />
@@ -281,6 +282,7 @@ lib /DEF:"$(ProjectDir)System_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
     <ClInclude Include="..\includes\InitializeLocalization.h" />
     <ClInclude Include="..\includes\LanguagePreferences_Windows.h" />
     <ClInclude Include="..\includes\localization.h" />
+    <ClInclude Include="..\includes\localization.hxx" />
     <ClInclude Include="..\includes\localizationJava.h" />
     <ClInclude Include="..\includes\localization_gw.hxx" />
     <ClInclude Include="..\includes\setgetlanguage.h" />

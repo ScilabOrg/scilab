@@ -11,7 +11,6 @@
  *
  */
 
-#include <vld.h>
 #include <string>
 #include <libxml/parser.h>
 
@@ -425,7 +424,7 @@ static Parser::ControlStatus processCommand(ScilabEngineInfo* _pSEI)
             callOnPrompt();
         }
     }
-    
+
     Parser::ControlStatus ret = parser->getControlStatus();
     delete parser;
     return ret;
