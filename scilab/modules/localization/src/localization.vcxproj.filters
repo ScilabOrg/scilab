@@ -44,6 +44,9 @@
     <None Include="..\locales\localization.pot">
       <Filter>localization</Filter>
     </None>
+    <None Include="fileio_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="c\charEncoding.c">
@@ -80,6 +83,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="jni\setdefaultlanguage_wrap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\localization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -139,6 +145,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="c\tableslanguages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\includes\localization.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
