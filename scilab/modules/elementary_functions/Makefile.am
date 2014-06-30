@@ -35,7 +35,6 @@ ELEMENTARIES_FUNCTIONS_C_SOURCES = \
     src/c/log.c \
     src/c/sqrt.c \
     src/c/cupro.c \
-    src/c/sign.c \
     src/c/ceil.c \
     src/c/eye.c \
     src/c/dmsum.c \
@@ -283,7 +282,6 @@ ELEMENTARIES_FUNCTIONS_FORTRAN_SOURCES = \
 
 GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_sqrt.c \
-    sci_gateway/c/sci_sign.c \
     sci_gateway/c/gw_elementary_functions.c \
     sci_gateway/c/sci_number_properties.c \
     sci_gateway/c/sci_testmatrix.c \
@@ -334,7 +332,8 @@ GATEWAY_CXX_SOURCES =  \
     sci_gateway/cpp/sci_triu.cpp \
     sci_gateway/cpp/sci_tril.cpp \
     sci_gateway/cpp/sci_real.cpp \
-    sci_gateway/cpp/sci_round.cpp
+    sci_gateway/cpp/sci_round.cpp\
+    sci_gateway/cpp/sci_sign.cpp 
 
 EISPACK_SOURCES = src/fortran/eispack/balbak.f
 
