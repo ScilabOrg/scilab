@@ -455,10 +455,11 @@ Callable::ReturnValue DynamicFunction::Init()
             int iPathToLibLen = (wcslen(pwstScilabPath) + wcslen(pwstModulesPath) + wcslen(m_wstModule.c_str()) + wcslen(L"/") + wcslen(pwstLTDir) + wcslen(m_wstLibName.c_str()) + 1);
             wchar_t* pwstPathToLib = (wchar_t*)MALLOC(iPathToLibLen * sizeof(wchar_t));
             os_swprintf(pwstPathToLib, iPathToLibLen, L"%ls%ls%ls/%ls%ls", pwstScilabPath, pwstModulesPath, m_wstModule.c_str(), pwstLTDir, m_wstLibName.c_str());
+            FREE(pwstScilabPath);
             char* pstPathToLib = wide_string_to_UTF8(pwstPathToLib);
-            hLib = LoadDynLibrary(pstPathToLib);
-
             FREE(pwstPathToLib);
+
+            hLib = LoadDynLibrary(pstPathToLib);
 
             if (hLib == 0)
             {
