@@ -60,7 +60,7 @@ function sim=scicos_sim(v1,v2,v3,v4,v5,..
     if exists("labels","local")==0 then labels=[],end
     if exists("modptr","local")==0 then modptr=[],end
     if exists("uids","local")==0 then uids=[],end
-    sim=tlist(["scs","funs","xptr","zptr","ozptr",..
+    sim=scicos_new(["scs","funs","xptr","zptr","ozptr",..
     "zcptr","inpptr","outptr","inplnk","outlnk","rpar",..
     "rpptr","ipar","ipptr","opar","opptr",..
     "clkptr","ordptr","execlk","ordclk","cord","oord","zord",..
