@@ -21,7 +21,7 @@
 
 function options = default_options()
 
-    options=scsoptlist()
+    options=scsopscicos_new()
     col3d=[0.8 0.8 0.8]
     //if xget('use color')==1 then   //suppose always color screen
     options("3D")=list(%t,33)   // we add gray to color map
@@ -36,8 +36,8 @@ function options = default_options()
 
 endfunction
 
-function options = scsoptlist(varargin)
+function options = scsopscicos_new(varargin)
     lt = ["scsopt","3D","Background","Link","ID","Cmap"]
-    options = tlist(lt,varargin(:))
+    options = scicos_new(lt,varargin(:))
 endfunction
 
