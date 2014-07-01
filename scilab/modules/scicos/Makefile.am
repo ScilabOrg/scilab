@@ -13,6 +13,11 @@ DISABLE_HELP_CLEAN=yes
 
 #### Source listing ######
 
+SCICOS_CXX_SOURCES = \
+src/cpp/model/Block.cpp \
+src/cpp/model/Link.cpp \
+src/cpp/model/Diagram.cpp
+
 SCICOS_C_SOURCES = \
 src/c/scilab5_needed_stubs.c \
 src/c/tree.c \
@@ -49,6 +54,13 @@ src/fortran/scitoi.f \
 src/fortran/scifunc.f
 
 NO_SCICOS_C_SOURCES = src/c/noscicos/noscicos.c
+
+GATEWAY_CXX_SOURCES = \
+sci_gateway/cpp/sci_scicos_new.cpp \
+sci_gateway/cpp/view_scilab/Adapters.cpp \
+sci_gateway/cpp/view_scilab/BlockAdapter.cpp \
+sci_gateway/cpp/view_scilab/GraphicsAdapter.cpp \
+sci_gateway/cpp/view_scilab/ModelAdapter.cpp
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_scicos.c \
 sci_gateway/c/sci_buildouttb.c \
@@ -113,6 +125,7 @@ libsciscicos_la_LDFLAGS = $(AM_LDFLAGS)
 if XCOS
 libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c/ \
+			-I$(srcdir)/src/cpp/ \
 			-I$(top_srcdir)/modules/output_stream/includes/ \
 			-I$(top_srcdir)/modules/dynamic_link/includes/ \
 			-I$(top_srcdir)/modules/string/includes/ \
@@ -122,6 +135,10 @@ libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/action_binding/includes/ \
 			-I$(top_srcdir)/modules/time/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
+			-I$(top_srcdir)/modules/types/includes/ \
+			-I$(top_srcdir)/modules/ast/includes/ \
+			-I$(top_srcdir)/modules/ast/includes/exps \
+			-I$(top_srcdir)/modules/operations/includes/ \
 			-I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/ \
 			-I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/sundials/ \
 			-I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/ida/ \
@@ -136,9 +153,9 @@ libsciscicos_cli_la_CPPFLAGS = $(libsciscicos_algo_la_CPPFLAGS)
 libsciscicos_la_CPPFLAGS = $(libsciscicos_algo_la_CPPFLAGS)
 
 if XCOS
-libsciscicos_algo_la_SOURCES = $(SCICOS_C_SOURCES) $(SCICOS_FORTRAN_SOURCES)
-libsciscicos_cli_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
-libsciscicos_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
+libsciscicos_algo_la_SOURCES = $(SCICOS_CXX_SOURCES) $(SCICOS_C_SOURCES) $(SCICOS_FORTRAN_SOURCES)
+libsciscicos_cli_la_SOURCES = $(GATEWAY_CXX_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
+libsciscicos_la_SOURCES = $(GATEWAY_CXX_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 else
 libsciscicos_algo_la_SOURCES = $(NO_SCICOS_C_SOURCES)
 libsciscicos_cli_la_SOURCES =
