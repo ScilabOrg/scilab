@@ -210,7 +210,9 @@ BOOL setlanguage(const wchar_t *lang)
 #endif
 #endif
                 FREE(ret);
+#ifndef _MSC_VER
                 FREE(pstLang);
+#endif
                 return TRUE;
             }
 #ifndef _MSC_VER
@@ -329,7 +331,7 @@ const wchar_t *getlanguagealias(void)
 /*--------------------------------------------------------------------------*/
 BOOL needtochangelanguage(const wchar_t *language)
 {
-	const wchar_t *currentlanguage = getlanguage();
+    const wchar_t *currentlanguage = getlanguage();
 
     if (wcscmp(language, currentlanguage))
     {
@@ -341,7 +343,7 @@ BOOL needtochangelanguage(const wchar_t *language)
 /*--------------------------------------------------------------------------*/
 const wchar_t *convertlanguagealias(const wchar_t *strlanguage)
 {
-	const wchar_t *correctlanguage = NULL;
+    const wchar_t *correctlanguage = NULL;
 
     if ( (wcslen(strlanguage) == 2) || (wcscmp(strlanguage, L"en_US") == 0) ) /* If the user wants to change to en_US ... use the default locale */
     {
