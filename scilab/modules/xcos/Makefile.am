@@ -2,6 +2,7 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) DIGITEO - 2009-2010 - Allan CORNET <allan.cornet@scilab.org>
 # Copyright (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
+# Copyright (C) Scilab Enterprises - 2012-2014 - Clément DAVID <clement.david@scilab-enterprises.com>
 #
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
@@ -34,7 +35,7 @@ libscixcos_la_etc_DATA = \
 	etc/XConfiguration-xcos.xsl \
 	etc/XConfiguration-xcos.xml
 
-XCOS_CXX_SOURCES =	\
+XCOS_CXX_SOURCES = 	\
             src/jni/Xcos.cpp \
 			src/jni/Xcos.hxx \
 			src/jni/Palette.cpp \
@@ -42,8 +43,10 @@ XCOS_CXX_SOURCES =	\
 			src/jni/Modelica.cpp \
 			src/jni/Modelica.hxx \
 			src/cpp/xcosUtilities.cpp \
-            src/cpp/loadStatus.cpp
-
+            src/cpp/loadStatus.cpp \
+			src/cpp/model/Block.cpp \
+			src/cpp/model/Diagram.cpp \
+			src/cpp/model/Link.cpp
 
 GIWS_WRAPPERS = src/jni/Xcos.giws.xml \
 			src/jni/Palette.giws.xml \
@@ -73,7 +76,12 @@ GATEWAY_CXX_SOURCES = \
 	sci_gateway/cpp/sci_xcosAddToolsMenu.cpp \
 	sci_gateway/cpp/sci_xcosUpdateBlock.cpp \
 	sci_gateway/cpp/sci_loadXcos.cpp \
-	sci_gateway/cpp/sci_xcosSimulationStarted.cpp
+	sci_gateway/cpp/sci_xcosSimulationStarted.cpp \
+	sci_gateway/cpp/sci_xcosObjectCreate.cpp \
+	sci_gateway/cpp/view_scilab/Adapters.cpp \
+	sci_gateway/cpp/view_scilab/GraphicsAdapter.cpp \
+	sci_gateway/cpp/view_scilab/BlockAdapter.cpp \
+	sci_gateway/cpp/view_scilab/ModelAdapter.cpp
 
 libscixcos_la_CPPFLAGS = \
 			-I$(srcdir)/includes/ \
@@ -89,7 +97,13 @@ libscixcos_la_CPPFLAGS = \
 			-I$(top_srcdir)/modules/operations/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
 			-I$(top_srcdir)/modules/system_env/includes/ \
+			-I$(top_srcdir)/modules/types/includes \
+			-I$(top_srcdir)/modules/ast/includes \
+			-I$(top_srcdir)/modules/ast/includes/exps \
+			-I$(top_srcdir)/modules/string/includes \
+			-I$(top_srcdir)/modules/dynamic_link/includes \
 			$(JAVA_JNI_INCLUDE) \
+			$(EIGEN_CPPFLAGS) \
 			$(AM_CPPFLAGS)
 
 # Without the xcos module
