@@ -435,12 +435,12 @@ Callable::ReturnValue DynamicFunction::Init()
 
     char* pstLibName = wide_string_to_UTF8(m_wstLibName.c_str());
     m_hLib = LoadDynLibrary(pstLibName);
-    FREE(pstLibName);
+
     if (m_hLib == NULL)
     {
         //2nd chance for linux !
 #ifndef _MSC_VER
-        char* pstError = GetLastDynLibError();
+        char* pstError = strdup(GetLastDynLibError());
 
         /* Haven't been able to find the lib with dlopen...
          * This can happen for two reasons:
@@ -459,18 +459,30 @@ Callable::ReturnValue DynamicFunction::Init()
         wchar_t* pwstPathToLib = (wchar_t*)MALLOC(iPathToLibLen * sizeof(wchar_t));
         os_swprintf(pwstPathToLib, iPathToLibLen, L"%ls%ls%ls/%ls%ls", pwstScilabPath, pwstModulesPath, m_wstModule.c_str(), pwstLTDir, m_wstLibName.c_str());
         char* pstPathToLib = wide_string_to_UTF8(pwstPathToLib);
-        m_hLib = LoadDynLibrary(pstPathToLib);
-
         FREE(pwstPathToLib);
 
+        m_hLib = LoadDynLibrary(pstPathToLib);
         if (m_hLib == NULL)
         {
             if (pstError != NULL)
             {
                 Scierror(999, _("A error has been detected while loading %s: %s\n"), pstLibName, pstError);
             }
+            FREE(pstError);
+
+            pstError = GetLastDynLibError();
+            if (pstError != NULL)
+            {
+                Scierror(999, _("A error has been detected while loading %s: %s\n"), pstPathToLib, pstError);
+            }
+            FREE(pstLibName);
             return Error;
         }
+        else
+        {
+            FREE(pstError);
+        }
+        FREE(pstPathToLib);
 #else
         char* pstError = wide_string_to_UTF8(m_wstLibName.c_str());
         Scierror(999, _("Impossible to load %s library\n"), pstError);
@@ -478,6 +490,7 @@ Callable::ReturnValue DynamicFunction::Init()
         return Error;
 #endif
     }
+    FREE(pstLibName);
 
     /*Load deps*/
     if (m_wstLoadDepsName.empty() == false && m_pLoadDeps == NULL)
