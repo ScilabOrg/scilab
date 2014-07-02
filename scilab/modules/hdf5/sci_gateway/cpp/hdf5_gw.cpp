@@ -11,13 +11,26 @@
  *
  */
 /*--------------------------------------------------------------------------*/
+
+#include "h5Type.hxx"
+
+extern "C"
+{
 #include "gw_hdf5.h"
 #include "callFunctionFromGateway.h"
 #include "api_scilab.h"
 #include "sci_malloc.h"
+}
 /*--------------------------------------------------------------------------*/
-int gw_hdf5(void)
+int Initialize(void)
 {
+    org_modules_hdf5::H5Type::initMap();
+    return 0;
+}
+/*--------------------------------------------------------------------------*/
+int Finalize(void)
+{
+    org_modules_hdf5::H5Type::cleanMap();
     return 0;
 }
 /*--------------------------------------------------------------------------*/
