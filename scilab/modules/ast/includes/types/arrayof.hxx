@@ -556,7 +556,7 @@ public :
             else
             {
                 set(iPos, pRealData[i]);
-                if (bComplex)
+                if (bComplex && pImgData != NULL)
                 {
                     setImg(iPos, pImgData[i]);
                 }
@@ -1312,7 +1312,10 @@ public :
                     getIndexes(i, piIndexes);
                     int iNewIdx = getIndexWithDims(piIndexes, _piDims, _iDims);
                     pRealData[iNewIdx] = copyValue(m_pRealData[i]);
-                    pImgData[iNewIdx] = copyValue(m_pImgData[i]);
+                    if ( m_pImgData != NULL)
+                    {
+                        pImgData[iNewIdx] = copyValue(m_pImgData[i]);
+                    }
                 }
 
                 delete[] piIndexes;

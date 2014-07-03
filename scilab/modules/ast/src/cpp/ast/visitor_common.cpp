@@ -1708,7 +1708,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
             {
                 double* pR = NULL;
                 double* pI = NULL;
-                if (pP->isComplex())
+                if (pP->isComplex() && pIns->isComplex())
                 {
                     SinglePoly* pS = new SinglePoly(&pR, &pI, 1);
                     double dblR = pIns->get(idx);
