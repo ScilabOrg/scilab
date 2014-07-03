@@ -49,7 +49,7 @@ public :
 class ScinotesModule : public GenericModule
 {
     static bool loadedDep;
-    static void LoadDeps(void);
+    static void LoadDeps(std::wstring _functionName);
 public :
     static int Load();
 };
@@ -75,7 +75,7 @@ public :
 class HelptoolsModule : public GenericModule
 {
     static bool loadedDep;
-    static void LoadDeps(void);
+    static void LoadDeps(std::wstring _functionName);
 public :
     static int Load();
 };
@@ -179,7 +179,7 @@ public :
 class XcosModule : public GenericModule
 {
     static bool loadedDep;
-    static void LoadDeps(void);
+    static void LoadDeps(std::wstring _functionName);
 public :
     static int Load();
 };
