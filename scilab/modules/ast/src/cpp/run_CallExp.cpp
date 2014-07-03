@@ -174,7 +174,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 throw ast::ScilabError();
             }
         }
-        catch (ScilabException & se)
+        catch (ScilabMessage sm)
         {
             // remove the last call from where
             ConfigVariable::where_end();
@@ -201,12 +201,12 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
             if (pCall->isMacro() || pCall->isMacroFile())
             {
                 wchar_t szError[bsiz];
-                os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n").c_str(), se.GetErrorLocation().first_line, pCall->getName().c_str());
+                os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n").c_str(), sm.GetErrorLocation().first_line, pCall->getName().c_str());
                 throw ast::ScilabMessage(szError);
             }
             else
             {
-                throw se;
+                throw sm;
             }
         }
 
