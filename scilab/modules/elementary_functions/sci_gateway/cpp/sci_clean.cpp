@@ -41,7 +41,6 @@ types::Function::ReturnValue sci_clean(types::typed_list &in, int _iRetCount, ty
 
     bool bComplex   = false;
     int iSize       = 0;
-
     //Only for types::Sparse case
     int* pRows = NULL;
     int* pCols = NULL;
