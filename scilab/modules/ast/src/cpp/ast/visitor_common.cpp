@@ -1808,20 +1808,24 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
             delete[] piRanks;
             pP->setComplex(pIns->isComplex());
 
-            if (pP->isComplex())
+            if (pP->isComplex() && pIns->isComplex())
             {
+                double* pR = pIns->get();
+                double* pI = pIns->getImg();
+                SinglePoly** pSP = pP->get();
                 for (int idx = 0 ; idx < pP->getSize() ; idx++)
                 {
-                    double dblR = pIns->get(idx);
-                    double dblI = pIns->getImg(idx);
-                    pP->get(idx)->setCoef(&dblR, &dblI);
+                    double dblR = pR[idx];
+                    double dblI = pI[idx];
+                    pSP[idx]->setCoef(&dblR, &dblI);
                 }
             }
             else
             {
+                double* pdblR = pIns->get();
                 for (int idx = 0 ; idx < pP->getSize() ; idx++)
                 {
-                    double dblR = pIns->get(idx);
+                    double dblR = pdblR[idx];
                     pP->get(idx)->setCoef(&dblR, NULL);
                 }
             }
