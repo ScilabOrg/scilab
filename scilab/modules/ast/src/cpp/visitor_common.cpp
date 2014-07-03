@@ -1710,10 +1710,22 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                 double* pI = NULL;
                 if (pP->isComplex())
                 {
-                    SinglePoly* pS = new SinglePoly(&pR, &pI, 1);
-                    double dblR = pIns->get(idx);
-                    double dblI = pIns->getImg(idx);
-                    pS->setCoef(&dblR, &dblI);
+                    SinglePoly* pS = NULL;
+                    double dblR = 0;
+                    double dblI = 0;
+                    if (pIns->getImg() != NULL)
+                    {
+                        pS = new SinglePoly(&pR, &pI, 1);
+                        dblR = pIns->get(idx);
+                        dblI = pIns->getImg(idx);
+                        pS->setCoef(&dblR, &dblI);
+                    }
+                    else
+                    {
+                        pS = new SinglePoly(&pR, 1);
+                        dblR = pIns->get(idx);
+                        pS->setCoef(&dblR, NULL);
+                    }
                     pP->set(idx, pS);
                     delete pS;
                 }
