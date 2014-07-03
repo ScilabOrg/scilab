@@ -41,7 +41,7 @@ types::Function::ReturnValue sci_clean(types::typed_list &in, int _iRetCount, ty
 
     bool bComplex   = false;
     int iSize       = 0;
-
+    int iRank       = 0;
     //Only for types::Sparse case
     int* pRows = NULL;
     int* pCols = NULL;
@@ -170,7 +170,7 @@ types::Function::ReturnValue sci_clean(types::typed_list &in, int _iRetCount, ty
     else
     {
         int iOne = 1;
-        dNorm = C2F(dasum)(&iSize, pdReal, &iOne);
+        dNorm = C2F(dasum)(&iRank, pdReal, &iOne);
         dEps = Max(dEpsA, dEpsR * dNorm);
     }
 
