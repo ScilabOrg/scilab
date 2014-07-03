@@ -22,6 +22,8 @@
 #include "configvariable.hxx"
 #include "mutevisitor.hxx"
 
+#include <typeinfo>
+
 extern "C"
 {
 #include "localization.h"
@@ -239,11 +241,17 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
             m_body->returnable_set();
         }
     }
-    catch (ast::ScilabException & se)
+    catch (ast::ScilabMessage & sm)
     {
         cleanCall(pContext, oldVal);
-        throw se;
+        throw sm;
     }
+    catch (ast::InternalAbort & ia)
+    {
+        cleanCall(pContext, oldVal);
+        throw ia;
+    }
+    // Normally, seqexp throws only SM so no need to catch SErr
 
     //varargout management
     if (bVarargout)

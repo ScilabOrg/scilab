@@ -189,6 +189,82 @@ public:
         return m_bSingleResult;
     }
 
+    void clean_in(const types::typed_list & in, const types::typed_list & out)
+    {
+        // Check if in contains entries which are in out too.
+        // When an entry is in in and not in out, then in is killed.
+        if (!in.empty())
+        {
+            if (out.empty())
+            {
+                for (types::typed_list::const_iterator i = in.begin(); i != in.end(); ++i)
+                {
+                    (*i)->DecreaseRef();
+                    (*i)->killMe();
+                }
+            }
+            else
+            {
+                std::set<InternalType *> common;
+
+                for (types::typed_list::const_iterator i = in.begin(); i != in.end(); ++i)
+                {
+                    types::typed_list::const_iterator o = out.begin();
+                    for (; o != out.end(); ++o)
+                    {
+                        if (*i == *o)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (o == out.end())
+                    {
+                        (*i)->DecreaseRef();
+                        (*i)->killMe();
+                    }
+                    else
+                    {
+                        std::set<InternalType *>::const_iterator nc = common.find(*i);
+                        if (nc == common.end())
+                        {
+                            common.insert(*i);
+                            (*i)->DecreaseRef();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    inline void clean_in_out(const types::typed_list & in, const types::typed_list & out)
+    {
+        clean_in(in, out);
+        clean_out(out);
+    }
+
+    void clean_out(const types::typed_list & out)
+    {
+        if (!out.empty())
+        {
+            for (types::typed_list::const_iterator o = out.begin(); o != out.end(); ++o)
+            {
+                (*o)->killMe();
+            }
+        }
+    }
+
+    void clean_opt(const types::optional_list & opt)
+    {
+        if (!opt.empty())
+        {
+            for (types::optional_list::const_iterator o = opt.begin(); o != opt.end(); ++o)
+            {
+                o->second->killMe();
+            }
+        }
+    }
+
     /*-------------.
     | Attributes.  |
     `-------------*/
