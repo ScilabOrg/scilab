@@ -217,7 +217,7 @@ c
                      fl=n1
                   elseif(ifmt.lt.0) then
 c     Inf/Nan
-                     fl=3
+                     fl=4
                      n2=1
                   endif
 c
