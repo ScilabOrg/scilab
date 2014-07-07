@@ -34,12 +34,6 @@ WARNING: Feature derivative is obsolete.
 expectedH = 6;
 assert_checkalmostequal(J, expectedJ, [], 1.d-8);
 assert_checkequal(H, expectedH);
-[J,H] = numderivative(myfunction, x)
- H  =
- 
-    6.  
- J  =
- 
-    3.  
+[J, H] = numderivative(myfunction, x);
 assert_checkalmostequal(J, expectedJ, [], 1.d-8);
 assert_checkequal(H, expectedH);

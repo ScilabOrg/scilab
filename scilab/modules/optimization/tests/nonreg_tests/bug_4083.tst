@@ -32,6 +32,6 @@ expectedH = 6;
 assert_checkalmostequal(J, expectedJ, [], 1.d-8);
 assert_checkequal(H, expectedH);
 
-[J,H] = numderivative(myfunction, x)
+[J, H] = numderivative(myfunction, x);
 assert_checkalmostequal(J, expectedJ, [], 1.d-8);
 assert_checkequal(H, expectedH);
