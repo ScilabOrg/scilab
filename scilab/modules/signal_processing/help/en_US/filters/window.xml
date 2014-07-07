@@ -144,7 +144,7 @@
     [Wch,fr]=frmag(wch,n);
     subplot(122);plot(fr',20*log10([Whm;Wkr;Wch]'))
     set(gca(),'grid',[1 1]*color('gray'))
-    xlabel(gettext("Pulsation (rd/s)"))
+    xlabel(gettext("Pulsation (rad/s)"))
     ylabel(gettext("Magnitude (dB)"))
     legend(["Hamming N=24";"Kaiser N=24, Beta=6";"Chebychev N=24, dp=0.005"]);
     title(gettext("Magnitude plot"))
@@ -169,7 +169,7 @@
                 [Wch,fr]=frmag(wch,n);
                 subplot(122);plot(fr',20*log10([Whm;Wkr;Wch]'))
                 set(gca(),'grid',[1 1]*color('gray'))
-                xlabel(gettext("Pulsation (rd/s)"))
+                xlabel(gettext("Pulsation (rad/s)"))
                 ylabel(gettext("Magnitude (dB)"))
                 legend(["Hamming N=24";"Kaiser N=24, Beta=6";"Chebychev N=24, dp=0.005"]);
                 title(gettext("Magnitude plot"))
@@ -232,7 +232,7 @@
     [W3,fr]=frmag(w3,n);
     subplot(122);plot(fr',20*log10([W1;W2;W3]'))
     set(gca(),'grid',[1 1]*color('gray'))
-    xlabel(gettext("Pulsation (rd/s)"))
+    xlabel(gettext("Pulsation (rad/s)"))
     ylabel(gettext("Magnitude (dB)"))
     legend(["Chebychef dp=0.001";"Chebychef dp=0.05";"Chebychef df=0.4"]);
     title(gettext("Chebychev window Magnitude plot"))
@@ -258,7 +258,7 @@
                 [W3,fr]=frmag(w3,n);
                 subplot(122);plot(fr',20*log10([W1;W2;W3]'))
                 set(gca(),'grid',[1 1]*color('gray'))
-                xlabel(gettext("Pulsation (rd/s)"))
+                xlabel(gettext("Pulsation (rad/s)"))
                 ylabel(gettext("Magnitude (dB)"))
                 legend(["Chebychef dp=0.001";"Chebychef dp=0.05";"Chebychef df=0.4"]);
                 title(gettext("Chebychev window Magnitude plot"))

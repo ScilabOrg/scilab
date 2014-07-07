@@ -33,7 +33,7 @@
     <refsection>
         <title>Description</title>
         <para>
-            <literal>[thegcd,U]=bezout(p1,p2)</literal> computes GCD <literal>thegcd</literal> of <literal>p1</literal> and <literal>p2</literal> and in addition a (2x2)
+            <literal>[thegcd,U]=bezout(p1,p2)</literal> computes the GCD <literal>thegcd</literal> of <literal>p1</literal> and <literal>p2</literal>, and in addition a (2x2)
             unimodular matrix <literal>U</literal> such that:
         </para>
         <para>
@@ -48,7 +48,7 @@
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 // polynomial case
 x=poly(0,'x');
 p1=(x+1)*(x-3)^5;p2=(x-2)*(x-3)^3;
