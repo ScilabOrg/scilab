@@ -308,6 +308,7 @@ public:
             {
                 if (o->second)
                 {
+                    o->second->DecreaseRef();
                     o->second->killMe();
                 }
             }
