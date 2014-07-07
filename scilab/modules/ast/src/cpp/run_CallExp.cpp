@@ -62,6 +62,9 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 Exp* pR = &pAssign->right_exp_get();
                 pR->accept(*this);
                 InternalType* pITR = result_get();
+                // IncreaseRef to protect opt argument of scope_end delete
+                // It will be deleted by clear_opt
+                pITR->IncreaseRef();
 
                 opt.push_back(std::pair<std::wstring, InternalType*>(pVar->name_get().name_get(), pITR));
                 //in case of macro/macrofile, we have to shift input param
@@ -70,6 +73,8 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 {
                     in.push_back(NULL);
                 }
+
+                result_clear();
                 continue;
             }
 
@@ -583,10 +588,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
             //clean pArgs return by GetArgumentList
             for (int iArg = 0 ; iArg < (int)pArgs->size() ; iArg++)
             {
-                if ((*pArgs)[iArg]->isDeletable())
-                {
-                    delete (*pArgs)[iArg];
-                }
+                (*pArgs)[iArg]->killMe();
             }
             delete pArgs;
         }
@@ -692,10 +694,7 @@ void RunVisitorT<T>::visitprivate(const CellCallExp &e)
             //clean pArgs return by GetArgumentList
             for (int iArg = 0 ; iArg < (int)pArgs->size() ; iArg++)
             {
-                if ((*pArgs)[iArg]->isDeletable())
-                {
-                    delete (*pArgs)[iArg];
-                }
+                (*pArgs)[iArg]->killMe();
             }
             delete pArgs;
         }
