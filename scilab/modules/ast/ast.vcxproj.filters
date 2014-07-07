@@ -876,5 +876,8 @@
     <ClCompile Include="src\cpp\types\overload.cpp">
       <Filter>Source Files\types</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\types\callable.cpp">
+      <Filter>Source Files\types</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
