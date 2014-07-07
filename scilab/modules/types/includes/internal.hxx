@@ -21,18 +21,24 @@
 #include <string.h>
 //#include "anytype.hxx"
 #include "dynlib_types.h"
+#include "visitor.hxx" // for invoke
+#include "callexp.hxx"
+#include "localization.hxx"
+#include "scilabexception.hxx"
+
 
 #define bsiz 4096
 
-//#define _SCILAB_DEBUGREF_ 1
-#ifdef _SCILAB_DEBUGREF_
-#define DecreaseRef() _decreaseref(__FILE__, __LINE__)
-#define IncreaseRef() _increaseref(__FILE__, __LINE__)
-#define killMe() _killme(__FILE__, __LINE__)
-#endif
-
 namespace types
 {
+
+/*
+** List of types
+*/
+class InternalType;
+typedef std::vector<InternalType *> typed_list;
+typedef std::vector<std::pair<std::wstring, InternalType *> > optional_list;
+
 class TYPES_IMPEXP InternalType
 {
 public :
@@ -164,18 +170,10 @@ public :
     };
 
 protected :
-    InternalType() : m_iRef(0), m_bAllowDelete(true), m_bPrintFromStart(true), m_iSavePrintState(0), m_iRows1PrintState(0), m_iCols1PrintState(0), m_iRows2PrintState(0), m_iCols2PrintState(0)
-    {
-
-#ifdef _SCILAB_DEBUGREF_
-        std::cout << "new IT =" << (void*)this << std::endl;
-#endif
-
-    }
+    InternalType() : m_iRef(0), m_bAllowDelete(true), m_bPrintFromStart(true), m_iSavePrintState(0), m_iRows1PrintState(0), m_iCols1PrintState(0), m_iRows2PrintState(0), m_iCols2PrintState(0) {}
 
 public :
-    virtual                         ~InternalType() { }
-
+    virtual                         ~InternalType() {};
     virtual void                    whoAmI(void)
     {
         std::cout << "types::Inernal";
@@ -201,31 +199,6 @@ public :
     virtual InternalType*           clone(void) = 0;
 
 
-#ifdef _SCILAB_DEBUGREF_
-    inline void _killme(const char * f, int l)
-    {
-        std::cout << "killme (" << m_iRef << ")=" << (void*)this << " in " << f << " at line " << l << std::endl;
-        if (isDeletable())
-        {
-            delete this;
-        }
-    }
-
-    inline void _increaseref(const char * f, int l)
-    {
-        m_iRef++;
-        std::cout << "incref (" << m_iRef << ")=" << (void*)this << " in " << f << " at line " << l << std::endl;
-    }
-
-    inline void _decreaseref(const char * f, int l)
-    {
-        if (m_iRef > 0)
-        {
-            m_iRef--;
-        }
-        std::cout << "decref (" << m_iRef << ")=" << (void*)this << " in " << f << " at line " << l << std::endl;
-    }
-#else
     inline void killMe()
     {
         if (isDeletable())
@@ -246,7 +219,6 @@ public :
             m_iRef--;
         }
     }
-#endif
 
     inline bool isDeletable()
     {
@@ -291,6 +263,31 @@ public :
     virtual bool isFieldExtractionOverloadable() const
     {
         return false;
+    }
+
+    virtual bool invoke(typed_list & in, optional_list & opt, int _iRetCount, typed_list & out, ast::ConstVisitor & execFunc, const ast::CallExp & e)
+    {
+        return false;
+    }
+
+    virtual bool isInvokable() const
+    {
+        return false;
+    }
+
+    virtual bool hasInvokeOption() const
+    {
+        return false;
+    }
+
+    virtual int getInvokeNbIn()
+    {
+        return -1;
+    }
+
+    virtual int getInvokeNbOut()
+    {
+        return -1;
     }
 
     /* return type as string ( double, int, cell, list, ... )*/
@@ -514,16 +511,6 @@ protected :
 
 };
 
-/*
-** List of types
-*/
-typedef std::vector<InternalType *> typed_list;
-typedef std::vector<std::pair<std::wstring, InternalType *> > optional_list;
-
 }
-
-#ifdef _SCILAB_DEBUGREF_
-#undef _SCILAB_DEBUGREF_
-#endif
 
 #endif /* !__INTERNAL_HXX__ */

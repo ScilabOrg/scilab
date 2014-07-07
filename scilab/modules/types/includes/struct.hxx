@@ -18,6 +18,11 @@
 #include "singlestruct.hxx"
 #include "dynlib_types.h"
 
+extern "C"
+{
+#include "localization.h"
+}
+
 namespace types
 {
 class TYPES_IMPEXP Struct : public ArrayOf<SingleStruct*>
@@ -118,6 +123,13 @@ public :
 
     using ArrayOf<SingleStruct *>::extract;
     bool extract(const std::wstring & name, InternalType *& out);
+
+    virtual bool invoke(typed_list & in, optional_list & opt, int _iRetCount, typed_list & out, ast::ConstVisitor & execFunc, const ast::CallExp & e);
+
+    virtual int getInvokeNbOut()
+    {
+        return -1;
+    }
 
 private :
     virtual SingleStruct*       getNullValue();

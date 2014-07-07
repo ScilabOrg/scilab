@@ -112,7 +112,8 @@ src/cpp/sparse.cpp \
 src/cpp/graphichandle.cpp \
 src/cpp/types_tools.cpp \
 src/cpp/void.cpp \
-src/cpp/library.cpp
+src/cpp/library.cpp \
+src/cpp/callable.cpp
 
 TYPES_JAVA_CPP_SOURCES = src/cpp/ScilabToJava.cpp \
 	            src/jni/ScilabVariables.cpp \
