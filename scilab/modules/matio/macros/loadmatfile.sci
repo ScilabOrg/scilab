@@ -91,6 +91,7 @@ function loadmatfile(varargin)
             error(msprintf(gettext("%s: Cannot open file %s.\n"),"loadmatfile",fil));
         end
 
+        mode(0)
         //-- Read first variable
         [Name, Matrix, Class] = matfile_varreadnext(fd);
 
@@ -99,13 +100,13 @@ function loadmatfile(varargin)
 
             // Old version compatibility | Name has been given
             if isempty(varnames) | or(Name==varnames) then
-                Names=[Names,Name];Matrices($+1)=Matrix
+                Names=[Names,Name];Matrices($+1)=Matrix;
             end
 
             [Name, Matrix, Class] = matfile_varreadnext(fd);
 
         end
-
+        mode(-1)
         //-- Close the file
         matfile_close(fd)
 
