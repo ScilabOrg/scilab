@@ -166,6 +166,8 @@ Scilab Bug Fixes
 
 * Bug #13471 fixed - ilib_build_jar infinite loop when used on an empty directory fixed.
 
+* Bug #13473 fixed - loadmatfile could miss stack exceedings.
+
 * Bug #13481 fixed - varn did not work on rational fractions
 
 * Bug #13491 fixed - intg now properly returns when the user function produces an error.
