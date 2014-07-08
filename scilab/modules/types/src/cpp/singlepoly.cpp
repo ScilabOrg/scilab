@@ -415,7 +415,9 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
 
             bool bFirst = ostemp.str().size() == 2;
 
-            df.bPrintPoint = false;
+            // In scientific notation case bExp == true, qo print point (2.000D+10s)
+            // In other case don't print point (2s)
+            df.bPrintPoint = df.bExp;
             df.bPrintPlusSign = ostemp.str().size() != 2;
             df.bPrintOne = i == 0;
             addDoubleValue(&ostemp, _pdblVal[i], &df);
@@ -505,17 +507,17 @@ SinglePoly* SinglePoly::conjugate()
     SinglePoly* pPoly = NULL;
     if (isComplex())
     {
-	double *pR = NULL;
+        double *pR = NULL;
         double *pI = NULL;
         SinglePoly * pPoly = new SinglePoly(&pR, &pI, getRank());
 
-	Transposition::conjugate(getRank(), getCoefReal(), pR, getCoefImg(), pI);
+        Transposition::conjugate(getRank(), getCoefReal(), pR, getCoefImg(), pI);
 
-	return pPoly;
+        return pPoly;
     }
     else
     {
-	return clone();
+        return clone();
     }
 }
 }
