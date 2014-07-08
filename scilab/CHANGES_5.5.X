@@ -138,6 +138,9 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+* Bug #13490 fixed - histc help page fixed to match the macro (by default, normalize the result),
+                     normalization is now done properly (in total area).
+
 
 Xcos Bug Fixes
 ==============
