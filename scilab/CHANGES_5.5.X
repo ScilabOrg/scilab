@@ -137,6 +137,8 @@ Scilab Bug Fixes
 
 * Bug #13503 fixed - Segfault with xarrows.
 
+* Bug #13509 fixed - It was not possible to have an empty prefix with xmlNs.
+
 
 Xcos Bug Fixes
 ==============
