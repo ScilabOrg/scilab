@@ -260,6 +260,7 @@ void addDoubleValue(std::wostringstream * _postr, double _dblVal, DoubleFormat *
             dblDec = dblAbs / pow(10., (double)(int)dblTemp);
             dblDec = modf(dblDec, &dblEnt) * pow(10., _pDF->iPrec);
 
+
             if (_pDF->bPrintPoint)
             {
                 os_swprintf(pwstFormat, 32, L"%ls%%#.0f%%0%d.0fD%%+d", pwstSign, _pDF->iPrec);
