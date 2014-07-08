@@ -156,6 +156,8 @@ Scilab Bug Fixes
 
 * Bug #13471 fixed - ilib_build_jar infinite loop when used on an empty directory fixed.
 
+* Bug #13473 fixed - loadmatfile could miss stack exceedings.
+
 * Bug #13481 fixed - varn did not work on rational fractions
 
 * Bug #13491 fixed - intg now properly returns when the user function produces an error.
@@ -197,7 +199,7 @@ Xcos Bug Fixes
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
-* Bug #13513 fixed - EXPRESSION block with "u1" as expression failed with a 
+* Bug #13513 fixed - EXPRESSION block with "u1" as expression failed with a
                      singularity error.
 
 * Bug #13514 fixed - External modules' loader_pal.sce file contained absolute path.
