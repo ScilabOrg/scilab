@@ -32,6 +32,7 @@
 #include "api_internal_boolean_sparse.h"
 #include "api_internal_pointer.h"
 #include "localization.h"
+#include "Scierror.h"
 
 //internal functions
 static SciErr createCommonList(void* _pvCtx, int _iVar, int _iListType, int _iNbItem, int** _piAddress);
@@ -42,7 +43,7 @@ static SciErr getCommonListInList(void* _pvCtx, int* _piParent, int _iItemPos, i
 static SciErr getCommomListInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iListType, int** _piAddress);
 static SciErr readCommonNamedList(void* _pvCtx, const char* _pstName, int _iListType, int* _piNbItem, int** _piAddress);
 static SciErr fillCommonList(void* _pvCtx, int* _piAddress, int _iListType, int _iNbItem);
-static void closeList(int _iVar, int *_piEnd);
+static SciErr closeList(int _iVar, int *_piEnd);
 static void updateListOffset(void* _pvCtx, int _iVar, int *_piCurrentNode, int _iItemPos, int *_piEnd);
 static void updateNamedListOffset(void* _pvCtx, int _iVar, const char* _pstName, int *_piCurrentNode, int _iItemPos, int *_piEnd);
 static void updateCommunListOffset(void* _pvCtx, int _iVar, const char* _pstName, int *_piCurrentNode, int _iItemPos, int *_piEnd);
@@ -396,7 +397,11 @@ static SciErr createCommonNamedList(void* _pvCtx, const char* _pstName, int _iLi
     }
 
     piEnd = piAddr + 3 + _iNbItem + !(_iNbItem % 2);
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     Rhs = 0;
 
@@ -434,7 +439,11 @@ static SciErr createCommonList(void* _pvCtx, int _iVar, int _iListType, int _iNb
 
     *_piAddress = piAddr;
     updateInterSCI(_iVar, '$', iAddr, sadr(iadr(iAddr) + 2 + _iNbItem + 1 + !(_iNbItem % 2)));
-    closeList(iNewPos, piAddr + 2 + _iNbItem + 1 + !(_iNbItem % 2));
+    sciErr = closeList(iNewPos, piAddr + 2 + _iNbItem + 1 + !(_iNbItem % 2));
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iNbItem != 0)
     {
@@ -634,11 +643,19 @@ static SciErr createCommonListInList(void* _pvCtx, int _iVar, const char* _pstNa
     *_piAddress = piChildAddr;
     if (iNamed)
     {
-        closeList(_iVar, piChildAddr + 2 + _iNbItem + 1 + !(_iNbItem % 2));
+        sciErr = closeList(_iVar, piChildAddr + 2 + _iNbItem + 1 + !(_iNbItem % 2));
+        if (sciErr.iErr)
+        {
+            return sciErr;
+        }
     }
     else
     {
-        closeList(iNewPos, piChildAddr + 2 + _iNbItem + 1 + !(_iNbItem % 2));
+        sciErr = closeList(iNewPos, piChildAddr + 2 + _iNbItem + 1 + !(_iNbItem % 2));
+        if (sciErr.iErr)
+        {
+            return sciErr;
+        }
     }
 
     if (_iNbItem == 0)
@@ -806,7 +823,11 @@ SciErr createVoidInNamedList(void* _pvCtx, const char* _pstName, int* /*_piParen
     piOffset[_iItemPos] = piOffset[_iItemPos - 1] + 2;
 
     piEnd = piChildAddr + 4;
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -867,7 +888,11 @@ SciErr createUndefinedInNamedList(void* _pvCtx, const char* _pstName, int* /*_pi
     piOffset[_iItemPos] = piOffset[_iItemPos - 1];
 
     piEnd = piChildAddr;
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -939,7 +964,11 @@ static SciErr allocCommonMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* /*_p
     }
 
     piEnd = (int*) (*_pdblReal + _iRows * _iCols * (_iComplex + 1));
-    closeList(iNewPos, piEnd);
+    sciErr = closeList(iNewPos, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1093,7 +1122,11 @@ SciErr createComplexZMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstNam
     }
 
     piEnd = piChildAddr + 4 + (_iRows * _iCols * 4);//4 -> 2*2 real + img * double
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1152,7 +1185,11 @@ SciErr createCommomMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstName,
     }
 
     piEnd = piChildAddr + 4 + (_iRows * _iCols * 2 * (_iComplex + 1));
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1292,7 +1329,11 @@ SciErr createMatrixOfStringInList(void* _pvCtx, int _iVar, int* /*_piParent*/, i
     }
 
     piEnd = piItemAddr + iTotalLen + 5 + _iRows * _iCols + !((iTotalLen + _iRows * _iCols) % 2);
-    closeList(iNewPos, piEnd);
+    sciErr = closeList(iNewPos, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == iNbItem)
     {
@@ -1373,7 +1414,11 @@ SciErr createMatrixOfStringInNamedList(void* _pvCtx, const char* _pstName, int* 
     }
 
     piEnd = piItemAddr + iTotalLen + 5 + _iRows * _iCols + !((iTotalLen + _iRows * _iCols) % 2);
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1484,7 +1529,11 @@ SciErr allocMatrixOfBooleanInList(void* _pvCtx, int _iVar, int* /*_piParent*/, i
     }
 
     piEnd = *_piBool + _iRows * _iCols + !((_iRows * _iCols) % 2);
-    closeList(iNewPos, piEnd);
+    sciErr = closeList(iNewPos, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1575,7 +1624,11 @@ SciErr createMatrixOfBooleanInNamedList(void* _pvCtx, const char* _pstName, int*
     }
 
     piEnd = piChildAddr + 4 + (_iRows * _iCols) + ((_iRows * _iCols) % 2);
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1713,7 +1766,7 @@ SciErr createCommonMatrixOfPolyInList(void* _pvCtx, int _iVar, int* /*_piParent*
         popListAddress(_iVar);
     }
 
-    closeList(_iVar, piEnd);
+    sciErr = closeList(_iVar, piEnd);
 
     return sciErr;
 }
@@ -1818,7 +1871,11 @@ SciErr createCommonMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, i
     }
 
     piEnd        = piChildAddr + iItemLen;
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -1960,7 +2017,11 @@ static SciErr allocCommonMatrixOfIntegerInList(void* _pvCtx, int _iVar, const ch
     }
 
     piEnd = (int*) * _pvData + _iRows * _iCols / (sizeof(int) / (_iPrecision % 10)) + (int)(!!(_iRows * _iCols)) % (sizeof(int) / (_iPrecision % 10));
-    closeList(iNewPos, piEnd);
+    sciErr = closeList(iNewPos, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -2141,7 +2202,11 @@ static SciErr createCommonMatrixOfIntegerInNamedList(void* _pvCtx, const char* _
     //2nd case, 5 * 1 int16 -> 10 5 1 2   (1,2)     (3,4)   (5,x)   -> 7 : 4 + 5/2 + !!(5%2) -> 4 + 2 + 1 -> 7
     //3th case, 5 * 1 int32 -> 10 5 1 4     1         2       3   4 5 -> 9 : 4 + 5/1 + !!(5%1) -> 4 + 5 + 0 -> 9
     piEnd = piChildAddr + 4 + _iRows * _iCols / (sizeof(int) / (_iPrecision % 10)) + (int)(!!(_iRows * _iCols)) % ((sizeof(int) / (_iPrecision % 10)));
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -2364,7 +2429,7 @@ static SciErr createCommonSparseMatrixInList(void* _pvCtx, int _iVar, const char
         popListAddress(_iVar);
     }
 
-    closeList(_iVar, piEnd);
+    sciErr = closeList(_iVar, piEnd);
 
     return sciErr;
 }
@@ -2419,7 +2484,11 @@ SciErr createCommonSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, i
     iItemLen      = 5 + _iRows + _iNbItem + !((_iRows + _iNbItem) % 2);
     iItemLen      += _iNbItem * (_iComplex + 1) * 2;
     piEnd        = piChildAddr + iItemLen;
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -2642,7 +2711,7 @@ SciErr createBooleanSparseMatrixInList(void* _pvCtx, int _iVar, int* /*_piParent
         popListAddress(_iVar);
     }
 
-    closeList(_iVar, piEnd);
+    sciErr = closeList(_iVar, piEnd);
 
     return sciErr;
 }
@@ -2686,7 +2755,11 @@ SciErr createBooleanSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, 
 
     iItemLen      = 5 + _iRows + _iNbItem + !((_iRows + _iNbItem) % 2);
     piEnd        = piChildAddr + iItemLen;
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -2843,7 +2916,11 @@ SciErr createPointerInList(void* _pvCtx, int _iVar, int* /*_piParent*/, int _iIt
     piOffset[_iItemPos] = piOffset[_iItemPos - 1] + 3;//2 for header and 1 for data ( n * 64 bits )
 
     piEnd = piChildAddr + 6;//4 for header and 2 for data ( n * 32 bits )
-    closeList(iNewPos, piEnd);
+    sciErr = closeList(iNewPos, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -2929,7 +3006,11 @@ SciErr createPointerInNamedList(void* _pvCtx, const char* _pstName, int* /*_piPa
     }
 
     piEnd = piChildAddr + 6;//4 for header + 2 for data
-    closeList(Top, piEnd);
+    sciErr = closeList(Top, piEnd);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
 
     if (_iItemPos == piParent[1])
     {
@@ -3029,7 +3110,7 @@ static void updateCommunListOffset(void* _pvCtx, int _iVar, const char* _pstName
     FREE(piParent);
 }
 
-static void closeList(int _iVar, int *_piEnd)
+static SciErr closeList(int _iVar, int *_piEnd)
 {
     //Get Root address;
     int *piRoot         = istk(iadr(*Lstk(_iVar)));
@@ -3037,9 +3118,21 @@ static void closeList(int _iVar, int *_piEnd)
 
     int iOffsetData     = 2 + piRoot[1] + 1 + !(piRoot[1] % 2);
     int iScale          = (int)(_piEnd - (piRoot + iOffsetData));
-    int iDoubleSclale   = (iScale + 1) / 2;
+    int iDoubleScale   = (iScale + 1) / 2;
+    int iFreeSpace      = iadr(*Lstk(Bot)) - (iadr(iAddr));
 
-    updateLstk(_iVar, sadr(iadr(iAddr) + iOffsetData), iDoubleSclale);
+    SciErr sciErr = sciErrInit();
+
+    if (iDoubleScale > iFreeSpace)
+    {
+        Scierror(17, _("Stack size exceeded.\nMemory needed: %d, available : %d.\n"), iDoubleScale, iFreeSpace);
+        sciErr.iErr = 17;
+        return sciErr;
+    }
+
+    updateLstk(_iVar, sadr(iadr(iAddr) + iOffsetData), iDoubleScale);
+
+    return sciErr;
 }
 /*--------------------------------------------------------------------------*/
 

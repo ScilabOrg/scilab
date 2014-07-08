@@ -225,6 +225,8 @@ Scilab Bug Fixes
 
 * Bug #13471 fixed - ilib_build_jar entered an infinite loop when used on an empty directory.
 
+* Bug #13473 fixed - loadmatfile could miss stack exceedings.
+
 * Bug #13481 fixed - varn did not work on rational fractions.
 
 * Bug #13482 fixed - pfss changed the variable of the rational fractions.
