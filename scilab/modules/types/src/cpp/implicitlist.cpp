@@ -13,6 +13,7 @@
 #include <math.h>
 #include "double.hxx"
 #include "polynom.hxx"
+#include "string.hxx"
 #include "implicitlist.hxx"
 #include "int.hxx"
 #include "formatmode.h"
@@ -290,7 +291,38 @@ bool ImplicitList::compute()
             //}
             //                m_iSize = static_cast<long long>(floor(fabs(dblEnd - dblStart) / fabs(dblStep))) + 1;
         }
-        else //m_eOutType == ScilabInt
+        else if (m_eOutType == ScilabString)
+        {
+            String* m_pStrStart = m_poStart->getAs<String>();
+            wchar_t* pChStart = m_pStrStart->get(0);
+
+            m_pDblStep = m_poStep->getAs<Double>();
+            double dblStep	= m_pDblStep->get(0);
+
+            String* m_pStrlEnd = m_poEnd->getAs<String>();
+            wchar_t* pChEnd = m_pStrlEnd->get(0);
+
+            if (pChStart[0] <= pChEnd[0] && dblStep > 0 )
+            {
+#ifdef _MSC_VER
+                m_iSize = static_cast<int>(floor(static_cast<double>(_abs64(pChEnd[0] - pChStart[0]) / _abs64(dblStep)) )) + 1;
+#else
+                m_iSize = static_cast<int>(floor(static_cast<double>(llabs(pChEnd[0] - pChStart[0]) / llabs(dblStep)) )) + 1;
+#endif
+            }
+            else if (pChStart[0] >= pChEnd[0] && dblStep < 0 )
+            {
+#ifdef _MSC_VER
+                m_iSize = static_cast<int>(floor(static_cast<double>(_abs64(pChStart[0] - pChEnd[0]) / _abs64(-dblStep)) )) + 1;
+#else
+                m_iSize = static_cast<int>(floor(static_cast<double>(llabs(pChStart[0] - pChEnd[0]) / llabs(-dblStep)) )) + 1;
+#endif
+            }
+
+            m_bComputed = true;
+            return true;
+        }
+        else//m_eOutType == ScilabInt
         {
             if (m_eOutType == ScilabInt8 ||
                     m_eOutType == ScilabInt16 ||
@@ -333,17 +365,17 @@ bool ImplicitList::compute()
 
 bool ImplicitList::isComputable()
 {
-    if (m_eStartType != ScilabDouble && m_poStart->isInt() == false)
+    if ((m_eStartType != ScilabDouble && m_eStartType != ScilabString) && m_poStart->isInt() == false)
     {
         return false;
     }
 
-    if (m_eStepType != ScilabDouble && m_poStep->isInt() == false)
+    if ((m_eStepType != ScilabDouble && m_eStepType != ScilabString) && m_poStep->isInt() == false)
     {
         return false;
     }
 
-    if (m_eEndType != ScilabDouble && m_poEnd->isInt() == false)
+    if ((m_eEndType != ScilabDouble && m_eEndType != ScilabString) && m_poEnd->isInt() == false)
     {
         return false;
     }
@@ -362,9 +394,24 @@ bool ImplicitList::isComputable()
     {
         m_eOutType  = m_poEnd->getType();
     }
-    else
+    else if (m_poStart->isString() &&  m_poStep->isDouble() && m_poEnd->isString())
+    {
+        if (wcslen(m_poStart->getAs<String>()->get(0)) == 1 && wcslen(m_poEnd->getAs<String>()->get(0)) == 1)
+        {
+            m_eOutType  = m_poStart->getType();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else if (m_poStart->isDouble())
     {
         m_eOutType  = ScilabDouble;
+    }
+    else
+    {
+        return false;
     }
 
     return true;
@@ -384,6 +431,11 @@ bool ImplicitList::toString(std::wostringstream& ostr)
             Double *pD = m_poStart->getAs<Double>();
             ostr << printDouble(pD);
         }
+        else if (m_eStartType == ScilabString)
+        {
+            String *pSt = m_poStart->getAs<String>();
+            ostr << pSt->get();
+        }
         else //Polynom
         {
             Polynom* pMP = m_poStart->getAs<types::Polynom>();
@@ -397,6 +449,11 @@ bool ImplicitList::toString(std::wostringstream& ostr)
             Double *pD = m_poStep->getAs<Double>();
             ostr << printDouble(pD);
         }
+        else if (m_eStartType == ScilabString)
+        {
+            String *pSt = m_poStep->getAs<String>();
+            ostr << pSt->get();
+        }
         else //Polynom
         {
             Polynom* pMP = m_poStep->getAs<types::Polynom>();
@@ -409,6 +466,11 @@ bool ImplicitList::toString(std::wostringstream& ostr)
         {
             Double *pD = m_poEnd->getAs<Double>();
             ostr << printDouble(pD);
+        }
+        else if (m_eStartType == ScilabString)
+        {
+            String *pSt = m_poStep->getAs<String>();
+            ostr << pSt->getShortTypeStr();
         }
         else //Polynom
         {
@@ -554,6 +616,12 @@ InternalType* ImplicitList::extractFullMatrix()
             pIT	= new UInt64(1, m_iSize);
             extractFullMatrix(pIT->getAs<UInt64>()->get());
         }
+        else if (m_eOutType == ScilabString)
+        {
+            wchar_t* pWCht = new wchar_t[m_iSize + 1];
+            extractFullMatrix(pWCht);
+            pIT	= new String(pWCht);
+        }
     }
     return pIT;
 }
@@ -569,6 +637,17 @@ void ImplicitList::extractFullMatrix(double *_pdbl)
     }
 }
 
+void ImplicitList::extractFullMatrix(wchar_t *_ppdCht)
+{
+    wchar_t* dblStart = m_poStart->getAs<String>()->get(0);
+    double dblStep  = m_poStep->getAs<Double>()->get(0);
+    for (int i = 0 ; i < m_iSize ; i++)
+    {
+        _ppdCht[i] = dblStart[0] + i * dblStep;
+        _ppdCht[i + 1] = L'\0';
+    }
+}
+
 template<typename T>
 void ImplicitList::extractFullMatrix(T *_pT)
 {
@@ -580,6 +659,8 @@ void ImplicitList::extractFullMatrix(T *_pT)
         _pT[i] = tStart + i * tStep;
     }
 }
+
+
 
 bool ImplicitList::transpose(InternalType *& out)
 {
