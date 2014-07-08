@@ -68,8 +68,9 @@ function [cf, ind] = histc(n, data, normalization)
 
     // Normalization
     if normalization == %t then
-        cw = cb(2:$)-cb(1:$-1); // Bin width
-        cf = cf./(nd*cw);
+        //cw = cb(2:$)-cb(1:$-1); // Bin width
+        //cf = cf./(nd*cw); // Normalization in bin heights
+        cf = cf./nd; // Normalization in total area
     end
 
 endfunction

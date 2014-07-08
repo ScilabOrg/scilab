@@ -138,9 +138,14 @@ Scilab Bug Fixes
 
 * Bug #13438 fixed - drawaxis did not return the handle of the created axis.
 
+<<<<<<< HEAD
 * Bug #13491 fixed - intg now properly returns when the user function produces an error.
 
 * Bug #13501 fixed - Typos fixed in English help pages.
+=======
+* Bug #13490 fixed - histc help page fixed to match the macro (by default, normalize the result),
+                     normalization is now done properly (in total area).
+>>>>>>> 98a5fc1... * Bug #13490 fixed - histc help page fixed to match the macro (by default, normalize the result).
 
 
 Xcos Bug Fixes
