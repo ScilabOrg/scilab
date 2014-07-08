@@ -76,7 +76,7 @@ hText = gce();
 scf();
 plot2d(1:10,1:10,1,"020")
 // horizontal axis 
-drawaxis(x=2:7,y=4,dir='u',tics='v')
+drawaxis(x=2:7,y=4,dir='u',tics='v');
 hAxis = gce();
 //uimenu
 hMenu = uimenu(hF,'label', 'windows');
