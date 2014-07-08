@@ -136,6 +136,7 @@ public :
     template<typename T>
     void					extractFullMatrix(T *_pT);
     void                    extractFullMatrix(double *_pdbl);
+    void                    extractFullMatrix(wchar_t *_ppdCht);
 
     virtual bool isTrue()
     {
