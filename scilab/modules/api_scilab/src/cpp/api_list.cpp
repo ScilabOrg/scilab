@@ -1030,6 +1030,16 @@ SciErr createCommonMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* /*_piParen
         return sciErr;
     }
 
+    int iNewPos = Top - Rhs + _iVar;
+    int iAddr = *Lstk(iNewPos);
+    int iMemSize = _iRows * _iCols * (_iComplex + 1) + 2;
+    int iFreeSpace = iadr(*Lstk(Bot)) - (iadr(iAddr));
+    if (iMemSize > iFreeSpace)
+    {
+        addErrorMessage(&sciErr, API_ERROR_CREATE_DOUBLE_IN_LIST, _("%s: Unable to create list item #%d in Scilab memory"), "createCommonMatrixOfDoubleInList", _iItemPos + 1);
+        return sciErr;
+    }
+
     if (_pdblReal != NULL)
     {
         memcpy(pdblReal, _pdblReal, _iRows * _iCols * sizeof(double));
