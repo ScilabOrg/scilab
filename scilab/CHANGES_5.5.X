@@ -166,6 +166,8 @@ Scilab Bug Fixes
 
 * Bug #13509 fixed - It was not possible to have an empty prefix with xmlNs.
 
+* Bug #13511 fixed - lcm yield incorrect results when used with doubles.
+
 
 Xcos Bug Fixes
 ==============
