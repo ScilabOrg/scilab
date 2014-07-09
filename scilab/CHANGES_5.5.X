@@ -160,6 +160,8 @@ Scilab Bug Fixes
 
 * Bug #13491 fixed - intg now properly returns when the user function produces an error.
 
+* Bug #13497 fixed - newaxes did not create axes in the current window if its default_axes property was off.
+
 * Bug #13501 fixed - Typos fixed in English help pages.
 
 * Bug #13503 fixed - xarrows made Scilab crash in some cases.

@@ -75,7 +75,6 @@ GRAPHICS_IMPEXP int getOrCreateDefaultSubwin(void)
     {
         int iNewId = getValidDefaultFigureId();
         int iFig = createNewFigureWithAxes();
-        //set new figure id
         setGraphicObjectProperty(iFig, __GO_ID__, &iNewId, jni_int, 1);
         // the current figure,
         iSubWinUID = getCurrentSubWin();
