@@ -23,6 +23,7 @@
 #include "api_scilab.h"
 #include "BuildObjects.h"
 #include "Scierror.h"
+#include "FigureList.h"
 #include "SetProperty.h"
 #include "localization.h"
 #include "HandleManagement.h"
@@ -33,6 +34,7 @@
 #include "createGraphicObject.h"
 #include "graphicObjectProperties.h"
 #include "getGraphicObjectProperty.h"
+#include "setGraphicObjectProperty.h"
 
 /*--------------------------------------------------------------------------*/
 int sci_newaxes(char * fname, unsigned long fname_len)
@@ -41,6 +43,7 @@ int sci_newaxes(char * fname, unsigned long fname_len)
 
     long long* outindex = NULL;
 
+    int iCurFig = 0;
     int iSubwinUID = 0;
     long long hParent = 0;
     int iParentUID = -1;
@@ -56,24 +59,31 @@ int sci_newaxes(char * fname, unsigned long fname_len)
 
     if (iRhs == 0)
     {
-        getOrCreateDefaultSubwin();
-
-        if ((iSubwinUID = createSubWin (getCurrentFigure())) != 0)
+        // If no current figure exists, create a new one with JoGLView.
+        if ((iCurFig = getCurrentFigure()) == 0)
         {
-            if (createScalarHandle(pvApiCtx, iRhs + 1, getHandle(iSubwinUID)))
-            {
-                printError(&sciErr, 0);
-                Scierror(999, _("%s: Memory allocation error.\n"), fname);
-                return 1;
-            }
-
-            AssignOutputVariable(pvApiCtx, 1) = 1;
-            ReturnArguments(pvApiCtx);
+            int iNewId = getValidDefaultFigureId();
+            iCurFig = createNewFigureWithAxes();
+            // set new figure id
+            setGraphicObjectProperty(iCurFig, __GO_ID__, &iNewId, jni_int, 1);
         }
         else
         {
-            Scierror(999, _("%s: No more memory.\n"), fname);
+            if (createSubWin(iCurFig) == 0)
+            {
+                Scierror(999, _("%s: No more memory.\n"), fname);
+            }
         }
+
+        if (createScalarHandle(pvApiCtx, iRhs + 1, getHandle(iCurFig)))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+
+        AssignOutputVariable(pvApiCtx, 1) = 1;
+        ReturnArguments(pvApiCtx);
         return 0;
     }
     else
