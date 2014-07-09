@@ -1725,7 +1725,6 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                         pS = new SinglePoly(&pR, 1);
                         dblR = pIns->get(idx);
                         pS->setCoef(&dblR, NULL);
-                        pP->set(idx, pS);
                     }
                     pP->set(idx, pS);
                     delete pS;
