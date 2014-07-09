@@ -74,8 +74,12 @@ GRAPHICS_IMPEXP int getOrCreateDefaultSubwin(void)
     if (iSubWinUID == 0)
     {
         int iNewId = getValidDefaultFigureId();
-        int iFig = createNewFigureWithAxes();
-        //set new figure id
+        int iFig = getCurrentFigure(); // In case there exists a window but with default_axes "off"
+        if (iFig == 0)
+        {
+            // set new figure id
+            iFig = createNewFigureWithAxes();
+        }
         setGraphicObjectProperty(iFig, __GO_ID__, &iNewId, jni_int, 1);
         // the current figure,
         iSubWinUID = getCurrentSubWin();
