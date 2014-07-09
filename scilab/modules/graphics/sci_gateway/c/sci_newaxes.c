@@ -18,11 +18,13 @@
 /*------------------------------------------------------------------------*/
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "gw_graphics.h"
 #include "api_scilab.h"
 #include "BuildObjects.h"
 #include "Scierror.h"
+#include "FigureList.h"
 #include "SetProperty.h"
 #include "localization.h"
 #include "HandleManagement.h"
@@ -33,6 +35,7 @@
 #include "createGraphicObject.h"
 #include "graphicObjectProperties.h"
 #include "getGraphicObjectProperty.h"
+#include "setGraphicObjectProperty.h"
 
 /*--------------------------------------------------------------------------*/
 int sci_newaxes(char * fname, unsigned long fname_len)
@@ -56,7 +59,20 @@ int sci_newaxes(char * fname, unsigned long fname_len)
 
     if (iRhs == 0)
     {
-        getOrCreateDefaultSubwin();
+        // If no current subwin exists, create a new figure with JoGLView.
+        iSubwinUID = getCurrentSubWin();
+
+        if (iSubwinUID == 0)
+        {
+            // Check if there is a figure with default_axes "off"
+            if ((iSubwinUID = getCurrentFigure()) == 0)
+            {
+                int iNewId = getValidDefaultFigureId();
+                iSubwinUID = createNewFigureWithAxes();
+                // set new figure id
+                setGraphicObjectProperty(iSubwinUID, __GO_ID__, &iNewId, jni_int, 1);
+            }
+        }
 
         if ((iSubwinUID = createSubWin (getCurrentFigure())) != 0)
         {
