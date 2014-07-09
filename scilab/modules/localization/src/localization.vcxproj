@@ -250,6 +250,9 @@ lib /DEF:"$(ProjectDir)fileio_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClCompile Include="jni\setdefaultlanguage_wrap.c" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\libs\GetWindowsVersion\GetWindowsVersion.vcxproj">
+      <Project>{982bf37f-42c4-4d37-8d14-60521b141503}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\tools\Dumpexts\Dumpexts.vcxproj">
       <Project>{3170e4c2-1173-4264-a222-7ee8ccb3ddf7}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
