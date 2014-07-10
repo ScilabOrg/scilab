@@ -67,6 +67,16 @@ public :
                : IdPolynom;
     }
 
+    bool isComplex()
+    {
+        if (m_iSize == 0)
+        {
+            return false;
+        }
+
+        return m_pRealData[0]->isComplex();
+    }
+
     inline bool             isPoly()
     {
         return true;
@@ -85,6 +95,7 @@ public :
     void                    setCoef(Double *_pCoef);
     Double*                 extractCoef(int _iRank);
     bool                    insertCoef(int _iRank, Double* _pCoef);
+
     bool                    set(int _iPos, SinglePoly* _pS);
     bool                    set(int _iRows, int _iCols, SinglePoly* _pS);
     bool                    set(SinglePoly** _pS);
@@ -96,6 +107,27 @@ public :
 
     bool                    operator==(const InternalType& it);
     bool                    operator!=(const InternalType& it);
+
+    /*internal function to manage img part*/
+    bool setImg(int _iPos, SinglePoly _data)
+    {
+        return true;
+    }
+
+    bool setImg(int _iRows, int _iCols, SinglePoly _data)
+    {
+        return true;
+    }
+
+    bool setImg(SinglePoly* _pdata)
+    {
+        return true;
+    }
+
+    bool setImg(const SinglePoly* _pdata)
+    {
+        return true;
+    }
 
     /* return type as string ( double, int, cell, list, ... )*/
     virtual std::wstring    getTypeStr()

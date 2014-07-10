@@ -27,7 +27,6 @@ public :
     {
         int piDims[2]   = {1, 1};
         m_szVarName	    = L"$";
-        m_bComplex	    = false;
         SinglePoly** pPoly    = NULL;
         create(piDims, 2, &pPoly, NULL);
 

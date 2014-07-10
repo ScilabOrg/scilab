@@ -92,7 +92,6 @@ private :
 
 
 private :
-    bool                    m_bComplex;
     Double*                 m_pdblCoef;
     int                     m_iRank;
 };

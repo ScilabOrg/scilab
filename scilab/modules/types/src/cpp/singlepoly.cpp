@@ -56,10 +56,8 @@ SinglePoly::SinglePoly(Double** _poCoefR, int _iRank)
 
 SinglePoly::~SinglePoly()
 {
-    if (m_pdblCoef)
-    {
-        delete m_pdblCoef;
-    }
+    m_pdblCoef->DecreaseRef();
+    m_pdblCoef->killMe();
 }
 
 /*Real constructor, private only*/
@@ -67,7 +65,6 @@ void SinglePoly::createPoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank
 {
     double *pR	= NULL;
     double *pI	= NULL;
-    m_bComplex	= false;
     m_iRank     = _iRank;
 
     if (m_iRank == 0)
@@ -94,7 +91,6 @@ void SinglePoly::createPoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank
 
     if (_pdblCoefI != NULL)
     {
-        m_bComplex = true;
         *_pdblCoefI = pI;
     }
 }
@@ -113,13 +109,15 @@ bool SinglePoly::setRank(int _iRank, bool bSave)
 {
     double *pR	= NULL;
     double *pI	= NULL;
+    bool bComplex = isComplex();
     if (bSave == false)
     {
         if (m_iRank != _iRank)
         {
-            delete m_pdblCoef;
+            m_pdblCoef->DecreaseRef();
+            m_pdblCoef->killMe();
 
-            if (m_bComplex == false)
+            if (bComplex == false)
             {
                 createPoly(&pR, NULL, _iRank);
             }
@@ -154,11 +152,7 @@ bool SinglePoly::setRank(int _iRank, bool bSave)
         }
 
         m_pdblCoef->DecreaseRef();
-        if (m_pdblCoef->isDeletable())
-        {
-            delete m_pdblCoef;
-        }
-
+        m_pdblCoef->killMe();
         m_pdblCoef = pCoef;
         m_pdblCoef->IncreaseRef();
         return true;
@@ -197,7 +191,6 @@ bool SinglePoly::setCoef(Double* _pdblCoefR)
 void SinglePoly::setComplex(bool _bComplex)
 {
     m_pdblCoef->setComplex(_bComplex);
-    m_bComplex = _bComplex;
 }
 
 bool SinglePoly::setCoef(double* _pdblCoefR, double* _pdblCoefI)
@@ -210,7 +203,6 @@ bool SinglePoly::setCoef(double* _pdblCoefR, double* _pdblCoefI)
     if (_pdblCoefI != NULL && isComplex() == false)
     {
         m_pdblCoef->setComplex(true);
-        m_bComplex = true;
     }
 
     double *pR = m_pdblCoef->getReal();
@@ -236,7 +228,7 @@ void SinglePoly::whoAmI()
 
 bool SinglePoly::isComplex()
 {
-    return m_bComplex;
+    return m_pdblCoef->isComplex();
 }
 
 GenericType* SinglePoly::getColumnValues(int _iPos)
@@ -505,17 +497,17 @@ SinglePoly* SinglePoly::conjugate()
     SinglePoly* pPoly = NULL;
     if (isComplex())
     {
-	double *pR = NULL;
+        double *pR = NULL;
         double *pI = NULL;
         SinglePoly * pPoly = new SinglePoly(&pR, &pI, getRank());
 
-	Transposition::conjugate(getRank(), getCoefReal(), pR, getCoefImg(), pI);
+        Transposition::conjugate(getRank(), getCoefReal(), pR, getCoefImg(), pI);
 
-	return pPoly;
+        return pPoly;
     }
     else
     {
-	return clone();
+        return clone();
     }
 }
 }

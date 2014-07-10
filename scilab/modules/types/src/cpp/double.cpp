@@ -114,8 +114,6 @@ Double::Double(int _iRows, int _iCols, bool _bComplex, bool _bZComplex)
         create(piDims, 2, &pReal, &pImg);
     }
 
-    m_bComplex = _bComplex || _bZComplex;
-
     setViewAsInteger(false);
 #ifndef NDEBUG
     Inspector::addItem(this);
@@ -134,7 +132,6 @@ Double::Double(double _dblReal)
     m_pRealData = new double[1];
     setViewAsInteger(false);
     setViewAsZComplex(false);
-
     m_pRealData[0] = _dblReal;
 
     //      int piDims[2] = {1, 1};
@@ -202,8 +199,6 @@ Double::Double(int _iDims, int* _piDims, bool _bComplex, bool _bZComplex)
         create(_piDims, _iDims, &pReal, &pImg);
     }
 
-    m_bComplex = _bComplex || _bZComplex;
-
 #ifndef NDEBUG
     Inspector::addItem(this);
 #endif
@@ -249,7 +244,7 @@ bool Double::setZeros()
         return false;
     }
 
-    if (m_bComplex == true)
+    if (isComplex() == true)
     {
         if (m_pImgData != NULL)
         {
@@ -278,7 +273,7 @@ bool Double::setOnes()
         return false;
     }
 
-    if (m_bComplex == true)
+    if (isComplex() == true)
     {
         if (m_pImgData != NULL)
         {
@@ -769,11 +764,11 @@ bool Double::subMatrixToString(wostringstream& ostr, int* _piDims, int _iDims)
 InternalType* Double::clone()
 {
     int iOne = 1;
-    Double *pReturn = new Double(m_iDims, m_piDims, m_bComplex);
+    Double *pReturn = new Double(m_iDims, m_piDims, isComplex());
     //memcpy(pReturn->getReal(), m_pRealData, m_iSize * sizeof(double));
     dcopy_(&m_iSize, m_pRealData, &iOne, pReturn->getReal(), &iOne);
 
-    if (m_bComplex)
+    if (isComplex())
     {
         pReturn->setComplex(true);
         //memcpy(pReturn->getImg(), m_pImgData, m_iSize * sizeof(double));
@@ -791,7 +786,7 @@ bool Double::fillFromCol(int _iCols, Double *_poSource)
     int iOne            = 1;
     dcopy_(&iSize, _poSource->getReal(), &iOne, pdblDest, &iOne);
 
-    if (m_bComplex)
+    if (isComplex())
     {
         pdblDest    = m_pImgData + iDestOffset;
         dcopy_(&iSize, _poSource->getImg(), &iOne, pdblDest, &iOne);
@@ -803,7 +798,7 @@ bool Double::fillFromRow(int _iRows, Double *_poSource)
 {
     int iCols = _poSource->getCols();
 
-    if (m_bComplex)
+    if (isComplex())
     {
     }
     else
@@ -1220,7 +1215,6 @@ void Double::convertToZComplex()
     else
     {
         pdblZ = oGetDoubleComplexFromPointer(getReal(), NULL, getSize());
-        m_bComplex = true;
     }
 
     delete[] m_pRealData;
