@@ -94,6 +94,7 @@ function res=determ(W,k)
         for i=1:maj,
             Temp2(i) = 0;
         end
+
         res = Temp1 - poly(Temp2,varn(W),"coeff");
         return;
 

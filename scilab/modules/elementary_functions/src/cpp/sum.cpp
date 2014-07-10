@@ -121,13 +121,13 @@ types::Polynom* sum(types::Polynom* pIn, int iOrientation)
         pOut->setComplex(pIn->isComplex());
 
         // do sum
-        double* dblRealOut = pOut->get(0)->getCoef()->getReal();
+        double* dblRealOut = pOut->get(0)->get();
         if (pIn->isComplex())
         {
-            double* dblImgOut = pOut->get(0)->getCoef()->getImg();
+            double* dblImgOut = pOut->get(0)->get();
 
             // init output
-            for (int iRankN = 0; iRankN < iRankMax; iRankN++)
+            for (int iRankN = 0; iRankN < iRankMax + 1; iRankN++)
             {
                 dblRealOut[iRankN] = 0;
                 dblImgOut[iRankN]  = 0;
@@ -136,9 +136,9 @@ types::Polynom* sum(types::Polynom* pIn, int iOrientation)
             // perform operations
             for (int i = 0; i < pIn->getSize(); i++)
             {
-                double* dblRealIn = pIn->get(i)->getCoef()->getReal();
-                double* dblImgIn = pIn->get(i)->getCoef()->getImg();
-                for (int iRankN = 0; iRankN < piRanks[i]; iRankN++)
+                double* dblRealIn = pIn->get(i)->get();
+                double* dblImgIn = pIn->get(i)->getImg();
+                for (int iRankN = 0; iRankN < piRanks[i] + 1; iRankN++)
                 {
                     dblRealOut[iRankN] += dblRealIn[iRankN];
                     dblImgOut[iRankN]  += dblImgIn[iRankN];
@@ -148,7 +148,7 @@ types::Polynom* sum(types::Polynom* pIn, int iOrientation)
         else
         {
             // init output
-            for (int iRankN = 0; iRankN < iRankMax; iRankN++)
+            for (int iRankN = 0; iRankN < iRankMax + 1; iRankN++)
             {
                 dblRealOut[iRankN] = 0;
             }
@@ -156,8 +156,8 @@ types::Polynom* sum(types::Polynom* pIn, int iOrientation)
             // perform operations
             for (int i = 0; i < pIn->getSize(); i++)
             {
-                double* dblRealIn = pIn->get(i)->getCoef()->getReal();
-                for (int iRankN = 0; iRankN < piRanks[i]; iRankN++)
+                double* dblRealIn = pIn->get(i)->get();
+                for (int iRankN = 0; iRankN < piRanks[i] + 1; iRankN++)
                 {
                     dblRealOut[iRankN] += dblRealIn[iRankN];
                 }
@@ -230,11 +230,11 @@ types::Polynom* sum(types::Polynom* pIn, int iOrientation)
                 int iIndex = pOut->getIndex(piIndex);
 
                 // make the sum for each ranks
-                double* dblRealIn = pIn->get(i)->getCoef()->getReal();
-                double* dblRealOut = pOut->get(iIndex)->getCoef()->getReal();
-                double* dblImgIn = pIn->get(i)->getCoef()->getImg();
-                double* dblImgOut = pOut->get(iIndex)->getCoef()->getImg();
-                for (int iRankN = 0; iRankN < piRanks[i]; iRankN++)
+                double* dblRealIn = pIn->get(i)->get();
+                double* dblRealOut = pOut->get(iIndex)->get();
+                double* dblImgIn = pIn->get(i)->getImg();
+                double* dblImgOut = pOut->get(iIndex)->getImg();
+                for (int iRankN = 0; iRankN < piRanks[i] + 1; iRankN++)
                 {
                     dblRealOut[iRankN] += dblRealIn[iRankN];
                     dblImgOut[iRankN]  += dblImgIn[iRankN];
@@ -253,9 +253,9 @@ types::Polynom* sum(types::Polynom* pIn, int iOrientation)
                 int iIndex = pOut->getIndex(piIndex);
 
                 // make sum on each ranks
-                double* dblRealIn = pIn->get(i)->getCoef()->getReal();
-                double* dblRealOut = pOut->get(iIndex)->getCoef()->getReal();
-                for (int iRankN = 0; iRankN < piRanks[i]; iRankN++)
+                double* dblRealIn = pIn->get(i)->get();
+                double* dblRealOut = pOut->get(iIndex)->get();
+                for (int iRankN = 0; iRankN < piRanks[i] + 1; iRankN++)
                 {
                     dblRealOut[iRankN] += dblRealIn[iRankN];
                 }

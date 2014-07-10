@@ -144,10 +144,10 @@ types::Polynom* diag(types::Polynom* pIn,  int iStartPos)
                 pSP = new types::SinglePoly(&pdRData, &pdIData, iRank);
                 iPos = (i + iStartCol) * iRows + (i + iStartRow);
 
-                for (int j = 0; j < iRank; j++)
+                for (int j = 0; j < iRank + 1; j++)
                 {
-                    pdRData[j] = pIn->get(iPos)->getCoefReal()[j];
-                    pdIData[j] = pIn->get(iPos)->getCoefImg()[j];
+                    pdRData[j] = pIn->get(iPos)->get()[j];
+                    pdIData[j] = pIn->get(iPos)->getImg()[j];
                 }
 
                 pPolyOut->set(i, pSP);
@@ -163,9 +163,9 @@ types::Polynom* diag(types::Polynom* pIn,  int iStartPos)
                 pSP = new types::SinglePoly(&pdRData, iRank);
                 iPos = (i + iStartCol) * iRows + (i + iStartRow);
 
-                for (int j = 0; j < iRank; j++)
+                for (int j = 0; j < iRank + 1; j++)
                 {
-                    pdRData[j] = pIn->get(iPos)->getCoefReal()[j];
+                    pdRData[j] = pIn->get(iPos)->get()[j];
                 }
 
                 pPolyOut->set(i, pSP);
@@ -199,10 +199,10 @@ types::Polynom* diag(types::Polynom* pIn,  int iStartPos)
                 pSP = new types::SinglePoly(&pdRData, &pdIData, iRank);
                 iPos = (i + iStartCol) * iSize + (i + iStartRow);
 
-                for (int j = 0; j < iRank; j++)
+                for (int j = 0; j < iRank + 1; j++)
                 {
-                    pdRData[j] = pIn->get(i)->getCoefReal()[j];
-                    pdIData[j] = pIn->get(i)->getCoefImg()[j];
+                    pdRData[j] = pIn->get(i)->get()[j];
+                    pdIData[j] = pIn->get(i)->getImg()[j];
                 }
 
                 pPolyOut->set(iPos, pSP);
@@ -218,9 +218,9 @@ types::Polynom* diag(types::Polynom* pIn,  int iStartPos)
                 pSP = new types::SinglePoly(&pdRData, iRank);
                 iPos = (i + iStartCol) * iSize + (i + iStartRow);
 
-                for (int j = 0; j < iRank; j++)
+                for (int j = 0; j < iRank + 1; j++)
                 {
-                    pdRData[j] = pIn->get(i)->getCoefReal()[j];
+                    pdRData[j] = pIn->get(i)->get()[j];
                 }
 
                 pPolyOut->set(iPos, pSP);
