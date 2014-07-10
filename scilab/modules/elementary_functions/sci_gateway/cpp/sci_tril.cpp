@@ -116,7 +116,7 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
                 {
                     double* dblReal = NULL;
                     double* dblImg  = NULL;
-                    types::SinglePoly* pSP = new types::SinglePoly(&dblReal, &dblImg, 1);
+                    types::SinglePoly* pSP = new types::SinglePoly(&dblReal, &dblImg, 0);
                     dblReal[0] = 0;
                     dblImg[0]  = 0;
                     pPolyOut->set(i * iRows + j, pSP);
@@ -131,9 +131,7 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
                 int iSize = min(max(i - iOffset, 0), iRows);
                 for (int j = 0; j < iSize; j++)
                 {
-                    double* dbl = NULL;
-                    types::SinglePoly* pSP = new types::SinglePoly(&dbl, 1);
-                    dbl[0] = 0;
+                    types::SinglePoly* pSP = new types::SinglePoly();
                     pPolyOut->set(i * iRows + j, pSP);
                     delete pSP;
                 }

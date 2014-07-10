@@ -347,7 +347,7 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
                 return 0;
             }
 
-            piRank[i] = ((iRank - 1) * iInputRank) + 1;
+            piRank[i] = iRank * iInputRank;
         }
 
         Polynom* pOut = new Polynom(_pPoly->getVariableName(), _pDouble->getRows(), _pDouble->getCols(), piRank);
@@ -355,7 +355,7 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
 
         for (int i = 0 ; i < _pDouble->getSize() ; i++)
         {
-            Double* pCoeffOut = pOut->get(i)->getCoef();
+            SinglePoly* pCoeffOut = pOut->get(i);
 
             int iCurrentRank    = 0;
             int iLoop           = (int)_pDouble->get(i);
@@ -370,7 +370,7 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
             {
                 if (iLoop % 2)
                 {
-                    int iRank = pP->getMaxRank() - 1;
+                    int iRank = pP->getMaxRank() + 1;
                     if (bComplex1)
                     {
                         C2F(wpmul1)(pCoeffOut->get(), pCoeffOut->getImg(), &iCurrentRank, pP->getCoef()->get(), pP->getCoef()->getImg(), &iRank, pCoeffOut->get(), pCoeffOut->getImg());

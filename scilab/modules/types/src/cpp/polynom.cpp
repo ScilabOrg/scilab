@@ -63,8 +63,7 @@ Polynom::~Polynom()
 
 void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, const int *_piRank)
 {
-    m_szVarName	= _szVarName;
-    m_bComplex	= false;
+    m_szVarName = _szVarName;
     SinglePoly** pPoly = NULL;
     create(_piDims, _iDims, &pPoly, NULL);
 
@@ -74,14 +73,6 @@ void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, cons
         {
             double* pReal = NULL;
             m_pRealData[i] = new SinglePoly(&pReal, _piRank[i]);
-        }
-    }
-    else
-    {
-        for (int i = 0 ; i < getSize() ; i++)
-        {
-            double* pReal = NULL;
-            m_pRealData[i] = new SinglePoly(&pReal, 1);
         }
     }
 #ifndef NDEBUG
@@ -137,7 +128,7 @@ bool Polynom::setCoef(int _iIdx, Double *_pdblCoef)
     {
         /*Get old SinglePoly*/
         SinglePoly *poPoly = get(_iIdx);
-        poPoly->setRank(_pdblCoef->getSize());
+        poPoly->setRank(_pdblCoef->getSize() - 1);
         poPoly->setCoef(_pdblCoef);
     }
     else
@@ -146,6 +137,14 @@ bool Polynom::setCoef(int _iIdx, Double *_pdblCoef)
     }
 
     return true;
+}
+
+void Polynom::setZeros()
+{
+    for (int i = 0; i < m_iSize; i++)
+    {
+        m_pRealData[i]->setZeros();
+    }
 }
 
 bool Polynom::getRank(int *_piRank)
@@ -159,20 +158,7 @@ bool Polynom::getRank(int *_piRank)
     {
         _piRank[i] = m_pRealData[i]->getRank();
     }
-    return true;
-}
 
-bool Polynom::getRealRank(int *_piRank)
-{
-    if (_piRank == NULL || m_pRealData == NULL)
-    {
-        return false;
-    }
-
-    for (int i = 0 ; i < getSize() ; i++)
-    {
-        _piRank[i] = m_pRealData[i]->getRank() - 1;
-    }
     return true;
 }
 
@@ -193,13 +179,12 @@ void Polynom::setVariableName(wstring _szVarName)
 
 void Polynom::setComplex(bool _bComplex)
 {
-    if (_bComplex != m_bComplex)
+    if (_bComplex != isComplex())
     {
         for (int i = 0 ; i < getSize() ; i++)
         {
             get(i)->setComplex(_bComplex);
         }
-        m_bComplex = _bComplex;
     }
 }
 
@@ -212,7 +197,7 @@ InternalType* Polynom::clone()
     pMP->setComplex(isComplex());
     for (int i = 0 ; i < getSize() ; i++)
     {
-        pMP->set(i, get(i));
+        pMP->set(i, m_pRealData[i]);
     }
 
     delete piRank;
@@ -223,68 +208,68 @@ bool Polynom::transpose(InternalType *& out)
 {
     if (isScalar())
     {
-	out = clone();
-	return true;
+        out = clone();
+        return true;
     }
 
     if (m_iDims == 2)
     {
-	Polynom * pMP = new Polynom();
-	out = pMP;
-	pMP->m_szVarName = this-> m_szVarName;
-	SinglePoly** pPoly = NULL;
-	int piDims[2] = {getCols(), getRows()};
-	pMP->create(piDims, 2, &pPoly, NULL);
-	pMP->setComplex(isComplex());
-	    
-	Transposition::transpose_clone(getRows(), getCols(), m_pRealData, pMP->m_pRealData);
-	
-	return true;
+        Polynom * pMP = new Polynom();
+        out = pMP;
+        pMP->m_szVarName = this-> m_szVarName;
+        SinglePoly** pPoly = NULL;
+        int piDims[2] = {getCols(), getRows()};
+        pMP->create(piDims, 2, &pPoly, NULL);
+        pMP->setComplex(isComplex());
+
+        Transposition::transpose_clone(getRows(), getCols(), m_pRealData, pMP->m_pRealData);
+
+        return true;
     }
-    
+
     return false;
-	
+
 }
 
 bool Polynom::adjoint(InternalType *& out)
 {
     if (isComplex())
     {
-	if (m_iDims == 2)
-	{
-	    Polynom * pMP = new Polynom();
-	    out = pMP;
-	    pMP->m_szVarName = this-> m_szVarName;
-	    SinglePoly** pPoly = NULL;
-	    int piDims[2] = {getCols(), getRows()};
-	    pMP->create(piDims, 2, &pPoly, NULL);
-	    pMP->setComplex(true);
-	    
-	    Transposition::adjoint_clone(getRows(), getCols(), m_pRealData, pMP->m_pRealData);
-	    
-	    return true;
-	}
-	else
-	{
-	    return false;
-	}
+        if (m_iDims == 2)
+        {
+            Polynom * pMP = new Polynom();
+            out = pMP;
+            pMP->m_szVarName = this-> m_szVarName;
+            SinglePoly** pPoly = NULL;
+            int piDims[2] = {getCols(), getRows()};
+            pMP->create(piDims, 2, &pPoly, NULL);
+            pMP->setComplex(true);
+
+            Transposition::adjoint_clone(getRows(), getCols(), m_pRealData, pMP->m_pRealData);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
-	return transpose(out);
+        return transpose(out);
     }
 }
 
 Double* Polynom::evaluate(Double* _pdblValue)
 {
-    double *pR	= _pdblValue->getReal();
-    double *pI	= _pdblValue->getImg();
-    int iRows		= _pdblValue->getRows();
-    int iCols		= _pdblValue->getCols();
+    double *pR = _pdblValue->getReal();
+    double *pI = _pdblValue->getImg();
+    int iRows  = _pdblValue->getRows();
+    int iCols  = _pdblValue->getCols();
 
-    double *pReturnR	= NULL;
-    double *pReturnI	= NULL;
-    Double *pReturn		= new Double(getRows() * iRows, getCols() * iCols, &pReturnR, &pReturnI);
+    double *pReturnR    = NULL;
+    double *pReturnI    = NULL;
+    Double *pReturn        = new Double(getRows() * iRows, getCols() * iCols, &pReturnR, &pReturnI);
     if (pI != NULL)
     {
         pReturn->setComplex(true);
@@ -304,20 +289,20 @@ Double* Polynom::evaluate(Double* _pdblValue)
             {
                 for (int iPolyRow = 0 ; iPolyRow < getRows() ; iPolyRow++)
                 {
-                    double OutR	= 0;
-                    double OutI	= 0;
+                    double OutR    = 0;
+                    double OutI    = 0;
 
                     SinglePoly *pPoly = get(iPolyRow, iPolyCol);
                     if (pReturn->isComplex())
                     {
                         pPoly->evaluate(pR[iCol * iRows + iRow], pI[iCol * iRows + iRow], &OutR, &OutI);
-                        pReturnR[i]	= OutR;
-                        pReturnI[i]	= OutI;
+                        pReturnR[i]    = OutR;
+                        pReturnI[i]    = OutI;
                     }
                     else
                     {
                         pPoly->evaluate(pR[iCol * iRows + iRow], 0, &OutR, &OutI);
-                        pReturnR[i]	= OutR;
+                        pReturnR[i]    = OutR;
                     }
                     i++;
                 }
@@ -348,49 +333,46 @@ int Polynom::getMaxRank(void)
     delete[] piRank;
     return iMaxRank;
 }
-int Polynom::getRealMaxRank(void)
-{
-    return getMaxRank() - 1;
-}
 
 Double* Polynom::getCoef(void)
 {
     int iMaxRank = getMaxRank();
-    Double *pCoef = new Double(getRows(), getCols() * iMaxRank, false);
+    Double *pCoef = new Double(getRows(), getCols() * (iMaxRank + 1), false);
     if (isComplex())
     {
         pCoef->setComplex(true);
     }
 
-    double *pCoefR	= pCoef->getReal();
-    double *pCoefI	= pCoef->getImg();
+    double *pCoefR = pCoef->getReal();
+    double *pCoefI = pCoef->getImg();
 
-    for (int iRank = 0 ; iRank < iMaxRank ; iRank++)
+    for (int iRank = 0 ; iRank < iMaxRank + 1 ; iRank++)
     {
-        for (int i = 0 ; i < getSize() ; i++)
+        for (int i = 0 ; i < m_iSize ; i++)
         {
-            SinglePoly *pPoly	= get(i);
-            if (iRank > pPoly->getRealRank())
+            SinglePoly *pPoly = m_pRealData[i];
+            if (iRank > pPoly->getRank())
             {
-                pCoefR[iRank * getSize() + i] = 0;
+                pCoefR[iRank * m_iSize + i] = 0;
                 if (isComplex())
                 {
-                    pCoefI[iRank * getSize() + i] = 0;
+                    pCoefI[iRank * m_iSize + i] = 0;
                 }
             }
             else
             {
-                double *pR	= pPoly->getCoef()->getReal();
-                double *pI	= pPoly->getCoef()->getImg();
+                double *pR = pPoly->get();
+                double *pI = pPoly->getImg();
 
-                pCoefR[iRank * getSize() + i] = pR[iRank];
+                pCoefR[iRank * m_iSize + i] = pR[iRank];
                 if (isComplex())
                 {
-                    pCoefI[iRank * getSize() + i] = pI[iRank];
+                    pCoefI[iRank * m_iSize + i] = pI[iRank];
                 }
             }
         }
     }
+
     return pCoef;
 }
 
@@ -401,24 +383,32 @@ void Polynom::setCoef(Double *_pCoef)
     setComplex(_pCoef->isComplex());
     double *pR = _pCoef->getReal();
     double *pI = _pCoef->getImg();
-    for (int i = 0 ; i < getSize() ; i++)
+    for (int i = 0 ; i < m_iSize ; i++)
     {
-        Double *pTemp = new Double(1, iMaxRank, _pCoef->isComplex());
-        SinglePoly *pPoly = get(i);
-        for (int iRank = 0 ; iRank < iMaxRank ; iRank++)
-        {
-            pTemp->getReal()[iRank] = pR[iRank * getSize() + i];
-        }
+        double* pTempR = new double[iMaxRank + 1];
+        double* pTempI = NULL;
+        SinglePoly *pPoly = m_pRealData[i];
+
         if (isComplex())
         {
-            for (int iRank = 0 ; iRank < iMaxRank ; iRank++)
+            pTempI = new double[iMaxRank + 1];
+            for (int iRank = 0 ; iRank < iMaxRank + 1 ; iRank++)
             {
-                pTemp->getImg()[iRank] = pI[iRank * getSize() + i];
+                pTempR[iRank] = pR[iRank * m_iSize + i];
+                pTempI[iRank] = pI[iRank * m_iSize + i];
+            }
+        }
+        else
+        {
+            for (int iRank = 0 ; iRank < iMaxRank + 1 ; iRank++)
+            {
+                pTempR[iRank] = pR[iRank * m_iSize + i];
             }
         }
 
-        pPoly->setCoef(pTemp);
-        delete pTemp;
+        pPoly->setCoef(pTempR, pTempI);
+        delete pTempR;
+        delete pTempI;
     }
 }
 
@@ -633,7 +623,7 @@ wstring Polynom::getMatrixString(int* _piDims, int _iDims, bool _bComplex)
                 osCoef.str(L"");
 
             }
-            iLen	= piMaxLen[iCols1];
+            iLen    = piMaxLen[iCols1];
 
             //write "column x to y"
             if (iLastCol + 1 == iCols1)
@@ -770,8 +760,8 @@ wstring Polynom::getRowString(int* _piDims, int _iDims, bool _bComplex)
                 ostr << endl << L"         Column " << iLastFlush + 1 /* 2 is better than 1, no ? */ << L" to " << i << endl << endl;
             }
 
-            iLastFlush	= i;
-            iLen				= 0;
+            iLastFlush    = i;
+            iLen                = 0;
             ostr << osExp.str() << endl;
             ostr << osCoef.str() << endl;
             osExp.str(L"");
@@ -860,28 +850,28 @@ wstring Polynom::getColString(int* _piDims, int _iDims, bool _bComplex)
 
 Double* Polynom::extractCoef(int _iRank)
 {
-    Double *pdbl	= new Double(getRows(), getCols(), m_bComplex);
-    double *pReal	= pdbl->getReal();
-    double *pImg	= pdbl->getImg();
+    Double *pdbl    = new Double(getRows(), getCols(), isComplex());
+    double *pReal   = pdbl->getReal();
+    double *pImg    = pdbl->getImg();
 
     for (int i = 0 ; i < getSize() ; i++)
     {
-        SinglePoly *pPoly = get(i);
+        SinglePoly *pPoly = m_pRealData[i];
 
         if (pPoly->getRank() <= _iRank)
         {
             pReal[i] = 0;
-            if (m_bComplex)
+            if (isComplex())
             {
-                pImg[i]		= 0;
+                pImg[i] = 0;
             }
         }
         else
         {
-            pReal[i]		= pPoly->getCoef()->getReal()[_iRank];
-            if (m_bComplex)
+            pReal[i] = pPoly->get()[_iRank];
+            if (isComplex())
             {
-                pImg[i]		= pPoly->getCoef()->getImg()[_iRank];
+                pImg[i] = pPoly->getImg()[_iRank];
             }
         }
     }
@@ -890,21 +880,21 @@ Double* Polynom::extractCoef(int _iRank)
 }
 bool Polynom::insertCoef(int _iRank, Double* _pCoef)
 {
-    double *pReal	= _pCoef->getReal();
-    double *pImg	= _pCoef->getImg();
+    double *pReal    = _pCoef->getReal();
+    double *pImg    = _pCoef->getImg();
 
     for (int i = 0 ; i < getSize() ; i++)
     {
-        SinglePoly *pPoly = get(i);
+        SinglePoly *pPoly = m_pRealData[i];
         if (pPoly->getRank() <= _iRank)
         {
             return false;
         }
 
-        pPoly->getCoef()->getReal()[_iRank] = pReal[i];
-        if (m_bComplex)
+        pPoly->get()[_iRank] = pReal[i];
+        if (isComplex())
         {
-            pPoly->getCoef()->getImg()[_iRank] = pImg[i];
+            pPoly->getImg()[_iRank] = pImg[i];
         }
     }
     return true;
@@ -949,10 +939,7 @@ bool Polynom::operator!=(const InternalType& it)
 
 SinglePoly* Polynom::getNullValue()
 {
-    double* pR = NULL;
-    SinglePoly* pData = new SinglePoly(&pR, 1);
-    pR[0] = 0;
-    return pData;
+    return new SinglePoly();;
 }
 
 Polynom* Polynom::createEmpty(int _iDims, int* _piDims, bool _bComplex)
@@ -982,17 +969,12 @@ void Polynom::deleteAll()
 
 void Polynom::deleteImg()
 {
+
 }
 
 SinglePoly** Polynom::allocData(int _iSize)
 {
     SinglePoly** pData = new SinglePoly*[_iSize];
-    for (int i = 0 ; i < _iSize ; i++)
-    {
-        double* pReal;
-        pData[i] = new SinglePoly(&pReal, 1);
-        pReal[0] = 0;
-    }
     return pData;
 }
 }
