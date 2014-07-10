@@ -69,7 +69,7 @@ InternalType* GenericUnaryMinus(InternalType* _pRightOperand)
         double* pReal = NULL;
         double* pImg  = NULL;
 
-        Double* pDblCoef = NULL;
+        SinglePoly* pSPCoef = NULL;
 
         Polynom *pR = dynamic_cast<Polynom*>(_pRightOperand->clone());
         bool bComplex = pR->isComplex();
@@ -78,11 +78,11 @@ InternalType* GenericUnaryMinus(InternalType* _pRightOperand)
         {
             for (int i = 0; i < pR->getSize(); i++)
             {
-                pDblCoef = pR->get(i)->getCoef();
-                pReal = pDblCoef->getReal();
-                pImg = pDblCoef->getImg();
+                pSPCoef = pR->get(i);
+                pReal = pSPCoef->get();
+                pImg = pSPCoef->getImg();
 
-                for (int j = 0; j < pDblCoef->getSize(); j++)
+                for (int j = 0; j < pSPCoef->getSize(); j++)
                 {
                     pReal[j] *= -1;
                     pImg[j] *= -1;
@@ -93,10 +93,10 @@ InternalType* GenericUnaryMinus(InternalType* _pRightOperand)
         {
             for (int i = 0; i < pR->getSize(); i++)
             {
-                pDblCoef = pR->get(i)->getCoef();
-                pReal = pDblCoef->getReal();
+                pSPCoef = pR->get(i);
+                pReal = pSPCoef->get();
 
-                for (int j = 0; j < pDblCoef->getSize(); j++)
+                for (int j = 0; j < pSPCoef->getSize(); j++)
                 {
                     pReal[j] *= -1;
                 }
@@ -615,11 +615,11 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
         for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
         {
             SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-            double *pOutPolyR       = pOutPoly->getCoef()->get();
+            double *pOutPolyR       = pOutPoly->get();
 
             pOutPolyR[0] = pInDblR[0] - pOutPolyR[0];
 
-            for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+            for (int j = 1 ; j < pOutPoly->getSize() ; j++)
             {
                 pOutPolyR[j] = - pOutPolyR[j];
             }
@@ -630,11 +630,11 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
             for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
             {
                 SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-                double *pOutPolyI       = pOutPoly->getCoef()->getImg();
+                double *pOutPolyI       = pOutPoly->getImg();
 
                 pOutPolyI[0]            = (pInDblI == NULL ? 0 : pInDblI[0]) - (pOutPolyI == NULL ? 0 : pOutPolyI[0]);
 
-                for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+                for (int j = 1 ; j < pOutPoly->getSize() ; j++)
                 {
                     pOutPolyI[j] = - pOutPolyI[j];
                 }
@@ -660,12 +660,12 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
             SinglePoly *pInPoly   = _pPoly->get(0);
             SinglePoly *pOutPoly  = (*_pPolyOut)->get(i);
 
-            double *pInPolyR = pInPoly->getCoef()->get();
-            double *pOutPolyR = pOutPoly->getCoef()->get();
+            double *pInPolyR = pInPoly->get();
+            double *pOutPolyR = pOutPoly->get();
 
             pOutPolyR[0] = pInDblR[i] - pInPolyR[0];
 
-            for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+            for (int j = 1 ; j < pOutPoly->getSize() ; j++)
             {
                 pOutPolyR[j] = - pInPolyR[j];
             }
@@ -679,12 +679,12 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
                 SinglePoly *pInPoly   = _pPoly->get(0);
                 SinglePoly *pOutPoly  = (*_pPolyOut)->get(i);
 
-                double *pInPolyI = pInPoly->getCoef()->getImg();
-                double *pOutPolyI = pOutPoly->getCoef()->getImg();
+                double *pInPolyI = pInPoly->getImg();
+                double *pOutPolyI = pOutPoly->getImg();
 
                 pOutPolyI[0] = (pInDblI != NULL ? pInDblI[i] : 0) - (pInPolyI != NULL ? pInPolyI[0] : 0);
 
-                for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+                for (int j = 1 ; j < pOutPoly->getSize() ; j++)
                 {
                     pOutPolyI[j] = -pInPolyI[j];
                 }
@@ -721,11 +721,11 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
     for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
     {
         SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-        double *pOutPolyR       = pOutPoly->getCoef()->get();
+        double *pOutPolyR       = pOutPoly->get();
 
         pOutPolyR[0] = pInDblR[i] - pOutPolyR[0];
 
-        for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+        for (int j = 1 ; j < pOutPoly->getSize() ; j++)
         {
             pOutPolyR[j] = - pOutPolyR[j];
         }
@@ -737,11 +737,11 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
         for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
         {
             SinglePoly *pOutPoly  = (*_pPolyOut)->get(i);
-            double *pOutPolyI = pOutPoly->getCoef()->getImg();
+            double *pOutPolyI = pOutPoly->getImg();
 
             pOutPolyI[0] = (pInDblI != NULL ? pInDblI[i] : 0) - (pOutPolyI != NULL ? pOutPolyI[0] : 0);
 
-            for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+            for (int j = 1 ; j < pOutPoly->getSize() ; j++)
             {
                 pOutPolyI[j] = - pOutPolyI[j];
             }
@@ -764,7 +764,7 @@ int SubstractDoubleToPoly(Polynom *_pPoly, Double *_pDouble, Polynom **_pPolyOut
         for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
         {
             SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-            double *pOutPolyR       = pOutPoly->getCoef()->get();
+            double *pOutPolyR       = pOutPoly->get();
             pOutPolyR[0]   -= pInDblR[0];
         }
 
@@ -774,7 +774,7 @@ int SubstractDoubleToPoly(Polynom *_pPoly, Double *_pDouble, Polynom **_pPolyOut
             for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
             {
                 SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-                double *pOutPolyI       = pOutPoly->getCoef()->getImg();
+                double *pOutPolyI       = pOutPoly->getImg();
 
                 pOutPolyI[0]            -=  (pInDblI == NULL ? 0 : pInDblI[0]);
             }
@@ -794,12 +794,12 @@ int SubstractDoubleToPoly(Polynom *_pPoly, Double *_pDouble, Polynom **_pPolyOut
         {
             SinglePoly *pInPoly     = _pPoly->get(0);
             SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-            double *pInPolyR        = pInPoly->getCoef()->get();
-            double *pOutPolyR       = pOutPoly->getCoef()->get();
+            double *pInPolyR        = pInPoly->get();
+            double *pOutPolyR       = pOutPoly->get();
 
             pOutPolyR[0]            = pInPolyR[0] - pInDblR[i];
 
-            for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+            for (int j = 1 ; j < pOutPoly->getSize() ; j++)
             {
                 pOutPolyR[j]        = pInPolyR[j];
             }
@@ -812,12 +812,12 @@ int SubstractDoubleToPoly(Polynom *_pPoly, Double *_pDouble, Polynom **_pPolyOut
             {
                 SinglePoly *pInPoly     = _pPoly->get(0);
                 SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-                double *pInPolyI        = pInPoly->getCoef()->getImg();
-                double *pOutPolyI       = pOutPoly->getCoef()->getImg();
+                double *pInPolyI        = pInPoly->getImg();
+                double *pOutPolyI       = pOutPoly->getImg();
 
                 pOutPolyI[0] = (pInPolyI != NULL ? pInPolyI[0] : 0) - (pInDblI != NULL ? pInDblI[i] : 0);
 
-                for (int j = 1 ; j < pOutPoly->getRank() ; j++)
+                for (int j = 1 ; j < pOutPoly->getSize() ; j++)
                 {
                     pOutPolyI[j] = pInPolyI[j];
                 }
@@ -851,7 +851,7 @@ int SubstractDoubleToPoly(Polynom *_pPoly, Double *_pDouble, Polynom **_pPolyOut
         for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
         {
             SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-            double *pOutPolyR       = pOutPoly->getCoef()->get();
+            double *pOutPolyR       = pOutPoly->get();
             pOutPolyR[0]            -= pInDblR[i];
         }
 
@@ -861,7 +861,7 @@ int SubstractDoubleToPoly(Polynom *_pPoly, Double *_pDouble, Polynom **_pPolyOut
             for (int i = 0 ; i < (*_pPolyOut)->getSize() ; i++)
             {
                 SinglePoly *pOutPoly    = (*_pPolyOut)->get(i);
-                double *pOutPolyI       = pOutPoly->getCoef()->getImg();
+                double *pOutPolyI       = pOutPoly->getImg();
 
                 pOutPolyI[0]            -= (pInDblI != NULL ? pInDblI[i] : 0);
             }
@@ -893,18 +893,18 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
         }
 
         //Result P1(0) + P2(i)
-        Double* p1Coef          = _pPoly1->get(0)->getCoef();
-        double* p1R             = p1Coef->get();
+        SinglePoly* p1Coef = _pPoly1->get(0);
+        double* p1R        = p1Coef->get();
 
         for (int i = 0 ; i < _pPoly2->getSize() ; i++)
         {
-            Double* p2Coef      = _pPoly2->get(i)->getCoef();
-            double* p2R         = p2Coef->get();
+            SinglePoly* p2Coef   = _pPoly2->get(i);
+            double* p2R          = p2Coef->get();
 
-            Double* pOutCoef    = (*_pPolyOut)->get(i)->getCoef();
-            double* pOutR       = pOutCoef->get();
+            SinglePoly* pOutCoef = (*_pPolyOut)->get(i);
+            double* pOutR        = pOutCoef->get();
 
-            for (int j = 0 ; j < pRankOut[i] ; j++)
+            for (int j = 0 ; j < pRankOut[i] + 1 ; j++)
             {
                 if (j >= pRank1[0])
                 {
@@ -926,7 +926,7 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
                 double *p2I     = p2Coef->getImg();
                 double *pOutI   = pOutCoef->getImg();
 
-                for (int j = 0 ; j < pRankOut[i] ; j++)
+                for (int j = 0 ; j < pRankOut[i] + 1 ; j++)
                 {
                     pOutI[j]    = (p1I == NULL ? 0 : p1I[j]) - (p2I == NULL ? 0 : p2I[j]);
                 }
@@ -961,24 +961,24 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
         }
 
         //Result P1(i) + P2(0)
-        Double *p2Coef          = _pPoly2->get(0)->getCoef();
-        double *p2R             = p2Coef->get();
+        SinglePoly *p2Coef          = _pPoly2->get(0);
+        double *p2R                 = p2Coef->get();
 
         for (int i = 0 ; i < _pPoly1->getSize() ; i++)
         {
-            Double *p1Coef      = _pPoly1->get(i)->getCoef();
-            double *p1R   = p1Coef->get();
+            SinglePoly *p1Coef      = _pPoly1->get(i);
+            double *p1R             = p1Coef->get();
 
-            Double *pOutCoef    = (*_pPolyOut)->get(i)->getCoef();
-            double *pOutR       = pOutCoef->get();
+            SinglePoly *pOutCoef    = (*_pPolyOut)->get(i);
+            double *pOutR           = pOutCoef->get();
 
-            for (int j = 0 ; j < pRankOut[i] ; j++)
+            for (int j = 0 ; j < pRankOut[i] + 1 ; j++)
             {
-                if (j >= pRank1[j])
+                if (j >= pRank1[j] + 1)
                 {
                     pOutR[j] = - p2R[j];
                 }
-                else if (j >= pRank2[0])
+                else if (j >= pRank2[0] + 1)
                 {
                     pOutR[j] = p1R[j];
                 }
@@ -990,10 +990,10 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
 
             if ((*_pPolyOut)->isComplex())
             {
-                double *p2I  = p2Coef->getImg();
-                double *p1I     = p1Coef->getImg();
-                double *pOutI   = pOutCoef->getImg();
-                for (int j = 0 ; j < pRankOut[i] ; j++)
+                double *p2I   = p2Coef->getImg();
+                double *p1I   = p1Coef->getImg();
+                double *pOutI = pOutCoef->getImg();
+                for (int j = 0 ; j < pRankOut[i] + 1 ; j++)
                 {
                     pOutI[j]    = (p1I == NULL ? 0 : p1I[j]) - (p2I == NULL ? 0 : p2I[j]);
                 }
@@ -1046,11 +1046,13 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
     //Result P1(i) + P2(i)
     for (int i = 0 ; i < _pPoly1->getSize() ; i++)
     {
-        double *p1R     = _pPoly1->get(i)->getCoef()->get();
-        double *p2R     = _pPoly2->get(i)->getCoef()->get();
-        double *pOutR   = (*_pPolyOut)->get(i)->getCoef()->get();
+        double *p1R     = _pPoly1->get(i)->get();
+        double *p2R     = _pPoly2->get(i)->get();
+        double *pOutR   = (*_pPolyOut)->get(i)->get();
+        int iMin        = Min(pRank1[i], pRank2[i]);
+        int iMax        = Max(pRank1[i], pRank2[i]);
 
-        for (int j = 0 ; j < Min(pRank1[i], pRank2[i]) ; j++)
+        for (int j = 0 ; j < iMin + 1 ; j++)
         {
             pOutR[j]    = p1R[j] - p2R[j];
         }
@@ -1068,23 +1070,23 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
             iCoef       = -1;
         }
 
-        for (int j = Min(pRank1[i], pRank2[i]) ; j < Max(pRank1[i], pRank2[i]) ; j++)
+        for (int j = iMin + 1 ; j < iMax + 1 ; j++)
         {
             pOutR[j]    = pTemp[j] * iCoef;
         }
 
         if ((*_pPolyOut)->isComplex())
         {
-            double *p1I     = _pPoly1->get(i)->getCoef()->getImg();
-            double *p2I     = _pPoly2->get(i)->getCoef()->getImg();
-            double *pOutI   = (*_pPolyOut)->get(i)->getCoef()->getImg();
+            double *p1I     = _pPoly1->get(i)->getImg();
+            double *p2I     = _pPoly2->get(i)->getImg();
+            double *pOutI   = (*_pPolyOut)->get(i)->getImg();
 
-            for (int j = 0 ; j < Min(pRank1[i], pRank2[i]) ; j++)
+            for (int j = 0 ; j < iMin + 1 ; j++)
             {
                 pOutI[j]    = (p1I == NULL ? 0 : p1I[j]) - (p2I == NULL ? 0 : p2I[j]);
             }
 
-            for (int j = Min(pRank1[i], pRank2[i]) ; j < Max(pRank1[i], pRank2[i]) ; j++)
+            for (int j = iMin + 1 ; j < iMax + 1 ; j++)
             {
                 pOutI[j]  = pTemp[j] * iCoef;
             }
