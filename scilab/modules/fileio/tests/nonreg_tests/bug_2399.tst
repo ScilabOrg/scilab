@@ -13,10 +13,11 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=2399
 //
 // <-- Short Description -->
-//    msscanf crashes scilab when scanning a vector of strings for float 
+//    msscanf crashed scilab when scanning a vector of strings for float
 //    values on Linux.
+// An error is now returned.
 
-toks = ['noddy';'holden'];
-vals = msscanf(-1,toks,'%f');
+toks = ["noddy";"holden"];
 
-if vals <> [] then pause,end
+refMsg = msprintf(_("%s: An error occurred: Requested type does not match data type.\n"), "sscanf");
+assert_checkerror("msscanf(-1,toks,""%f"");", refMsg);

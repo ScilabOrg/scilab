@@ -387,6 +387,12 @@ int do_xxscanf(char *fname, FILE * fp, char *format, int *nargs, char *strv, int
                           ptrtab[90], ptrtab[91], ptrtab[92], ptrtab[93], ptrtab[94], ptrtab[95], ptrtab[96], ptrtab[97], ptrtab[98],
                           ptrtab[MAXSCAN - 1]);
 
+    if (*retval == 0)
+    {
+        Scierror(998, _("%s: An error occurred: Requested type does not match data type.\n"), fname);
+        return RET_BUG;
+    }
+
     *nargs = Min(num_conversion + 1, Max(*retval + n_directive_count, 0));
 
     for (i = 1; i <= *nargs; i++)
