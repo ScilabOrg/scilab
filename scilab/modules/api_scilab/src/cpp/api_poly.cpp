@@ -137,18 +137,22 @@ SciErr getCommonMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* 
         return sciErr;
     }
 
-    for (int i = 0 ; i < iSize ; i++)
-    {
-        memcpy(_pdblReal[i], pMP->get(i)->getCoefReal(), sizeof(double) * pMP->get(i)->getRank());
-    }
-
     if (_iComplex == 1)
     {
         for (int i = 0 ; i < iSize ; i++)
         {
-            memcpy(_pdblImg[i], pMP->get(i)->getCoefImg(), sizeof(double) * _piNbCoef[i]);
+            memcpy(_pdblReal[i], pMP->get(i)->get(),    sizeof(double) * pMP->get(i)->getSize());
+            memcpy(_pdblImg[i],  pMP->get(i)->getImg(), sizeof(double) * (_piNbCoef[i] + 1));
         }
     }
+    else
+    {
+        for (int i = 0 ; i < iSize ; i++)
+        {
+            memcpy(_pdblReal[i], pMP->get(i)->get(), sizeof(double) * pMP->get(i)->getSize());
+        }
+    }
+
     return sciErr;
 }
 
