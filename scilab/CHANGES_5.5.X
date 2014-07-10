@@ -152,6 +152,8 @@ Scilab Bug Fixes
 
 * Bug #13459 fixed - A warning message about libcurl.so version was displayed at Scilab startup.
 
+* Bug #13468 fixed - Scilab hanged when incorrect format was used for file reading using mfscanf.
+
 * Bug #13471 fixed - ilib_build_jar infinite loop when used on an empty directory fixed.
 
 * Bug #13481 fixed - varn did not work on rational fractions
