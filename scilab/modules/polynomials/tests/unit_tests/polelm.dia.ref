@@ -135,18 +135,12 @@ if or(coeff(p,sel)<>c) then bugmes();quit;end
 if or(coeff(p+0,sel)<>c) then bugmes();quit;end
 if or(coeff(p,[])<>c) then bugmes();quit;end
 if or(coeff(p+0,[])<>c) then bugmes();quit;end
-p=[],sel=0,c=[];
- p  =
- 
-     []
- sel  =
- 
-    0.  
+p=[];sel=0;c=[];
 if or(coeff(p)<>c) then bugmes();quit;end
 if or(coeff([])<>c) then bugmes();quit;end
 if or(coeff(p,sel)<>c) then bugmes();quit;end
 if or(coeff([],sel)<>c) then bugmes();quit;end
-//sum 
+//sum
 a=[1+%s 2;-3 4;5 -6];
 if sum(a)<>3+%s then bugmes();quit;end
 if sum(a+0)<>3+%s then bugmes();quit;end
@@ -298,19 +292,13 @@ if or(tril(a,4)<>a) then bugmes();quit;end
 if or(tril(a+0,4)<>a) then bugmes();quit;end
 if or(tril(a,-3)<>0*a) then bugmes();quit;end
 //simp_mode
-a=%t
- a  =
- 
-  T  
+a=%t;
 simp_mode(%t);
 if simp_mode()<>%t then bugmes();quit;end
 simp_mode(a);
 if simp_mode()<>%t then bugmes();quit;end
 [n,d]=simp(%s,%s);if n<>poly(1,'s','c')|d<>poly(1,'s','c') then bugmes();quit;end
-a=%f
- a  =
- 
-  F  
+a=%f;
 simp_mode(%f);
 if simp_mode()<>%f then bugmes();quit;end
 simp_mode(a);
@@ -329,10 +317,8 @@ a=[];
 if varn(a,nam)<>[] then bugmes();quit;end
 if varn([],nam)<>[] then bugmes();quit;end
 //clean
-a=[1 1.d-12 1.d-5 2d8+%s];un=poly(1,'s','c')
- un  =
- 
-    1   
+a=[1 1.d-12 1.d-5 2d8+%s];
+un=poly(1,'s','c');
 b=[1 0 1.d-5 2d8+%s];
 if or(clean(a)<>b) then bugmes();quit;end
 if or(clean(a+0)<>b) then bugmes();quit;end
@@ -359,7 +345,7 @@ if or(clean(a,epsa)<>b) then bugmes();quit;end
 if or(clean(a+0,epsa)<>b) then bugmes();quit;end
 if or(clean(a,epsa+0)<>b) then bugmes();quit;end
 if or(clean(a+0,epsa+0)<>b) then bugmes();quit;end
-epsr=1.d-5;b=[1+%i 0 1.d-5 poly([2d8,0],'s','c')];
+epsr=1.d-5;b=[1+%i 0 1.d-5 2d8*un];
 if or(clean(a,epsa,epsr)<>b) then bugmes();quit;end
 if or(clean(a+0,epsa,epsr)<>b) then bugmes();quit;end
 if or(clean(a,epsa+0,epsr)<>b) then bugmes();quit;end
@@ -387,10 +373,7 @@ un=1;
 [n,d]=simp(1,p);if n<>un|d<>p then bugmes();quit;end
 [n,d]=simp(un,p+0);if n<>un|d<>p then bugmes();quit;end
 [n,d]=simp(1,p+0);if n<>un|d<>p then bugmes();quit;end
-p=1+%s^10;un=poly(1,'s','c')
- un  =
- 
-    1   
+p=1+%s^10;un=poly(1,'s','c');
 [n,d]=simp(p,p);if n<>un|d<>un then bugmes();quit;end
 [n,d]=simp(p+0,p);if n<>un|d<>un then bugmes();quit;end
 [n,d]=simp(p,p+0);if n<>un|d<>un then bugmes();quit;end
