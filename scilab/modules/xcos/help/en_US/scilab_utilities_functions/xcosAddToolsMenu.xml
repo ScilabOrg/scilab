@@ -47,13 +47,13 @@
         <para>This function has been introduced in Scilab 5.4.0.</para>
         <para>
             <programlisting role="example"><![CDATA[
-xcosAddToolsMenu("print plop", "disp(''plop'')");
+xcosAddToolsMenu("print plop", "disp(""plop"")");
 xcosAddToolsMenu("print selected block", "disp(blk)");
 xcosAddToolsMenu("print diagram", "disp(scs_m)");
 
 // define a custom update function
 function myUpdateFunction(blk, scs_m)
-    execstr(''[ok, blk] = '' + blk.gui + ''(''''set'''', blk)'') ;
+    execstr("[ok, blk] = " + blk.gui + "(""set"", blk)") ;
     xcosUpdateBlock(blk) ;
 endfunction
 xcosAddToolsMenu("update block", "myUpdateFunction(blk, scs_m)");
