@@ -196,6 +196,38 @@ types::Function::ReturnValue sci_int(types::typed_list &in, int _iRetCount, type
         }
         out.push_back(pPolyOut);
     }
+    else if (in[0]->isInt8())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isUInt8())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isInt16())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isUInt16())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isInt32())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isUInt32())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isInt64())
+    {
+        out.push_back(in[0]);
+    }
+    else if (in[0]->isUInt64())
+    {
+        out.push_back(in[0]);
+    }
     else
     {
         std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_int";
