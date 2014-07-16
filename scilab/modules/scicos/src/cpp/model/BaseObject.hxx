@@ -99,6 +99,57 @@ struct Geometry
     }
 };
 
+/*
+ * Flip and theta
+ */
+struct Angle
+{
+    double flip;
+    double theta;
+
+    Angle() : flip(0), theta(0) {};
+    Angle(const Angle& a) : flip(a.flip), theta(a.theta) {};
+    Angle(double *a) : flip(a[0]), theta(a[1]) {};
+    double* copy() const
+    {
+        double* d = new double[2];
+        d[0] = flip;
+        d[1] = theta;
+        return d;
+    }
+    bool operator==(const Angle& a) const
+    {
+        return flip == a.flip && theta == a.theta;
+    }
+};
+
+/*
+ * Exprs
+ */
+struct Exprs
+{
+	int length;
+    std::string* exprs;
+
+    Exprs() : length(0), exprs(NULL) {};
+    Exprs(const Exprs& e) : length(e.length), exprs(e.exprs) {};
+    Exprs(int len, std::string* e) : length(len), exprs(e) {};
+    std::string* copy() const
+    {
+        std::string* e = new std::string[length];
+        for (int i=0;i<length; ++i)
+			e[i] = exprs[i];
+        return e;
+    }
+    bool operator==(const Exprs& e) const
+    {
+		bool ret = true;
+        for (int i=0;i<length; ++i)
+			if (exprs[i] != e.exprs[i]) {ret = false; break;}
+        return ret && length == e.length;
+    }
+};
+
 /**
  * Per port type descriptor
  *

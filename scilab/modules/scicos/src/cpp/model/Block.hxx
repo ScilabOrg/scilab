@@ -113,6 +113,48 @@ private:
         return SUCCESS;
     }
 
+    void getAngle(size_t* len, double** data) const
+    {
+        *len = 2;
+        *data = angle.copy();
+    }
+
+    update_status_t setAngle(size_t len, double* data)
+    {
+        if (len != 2)
+        {
+            return FAIL;
+        }
+
+        Angle a = Angle(data);
+        if (a == angle)
+        {
+            return NO_CHANGES;
+        }
+
+        angle = a;
+        return SUCCESS;
+    }
+
+    void getExprs(size_t* len, std::string** data) const
+    {
+        *len = exprs.length;
+        for (int i=0; i<*len;++i)
+        *data[i] = exprs.exprs[i];
+    }
+
+    update_status_t setExprs(size_t len, std::string* data)
+    {
+        Exprs e = Exprs(len, data);
+        if (e == exprs)
+        {
+            return NO_CHANGES;
+        }
+
+        exprs = e;
+        return SUCCESS;
+    }
+
     const std::vector<ScicosID>& getIn() const
     {
         return in;
@@ -206,6 +248,8 @@ private:
     ScicosID parentDiagram;
     std::string interfaceFunction;
     Geometry geometry;
+    Angle angle;
+    Exprs exprs;
     std::string style;
 
     Descriptor sim;
