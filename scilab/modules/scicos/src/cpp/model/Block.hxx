@@ -50,6 +50,30 @@ struct Descriptor
     int schedulingProperties;
 };
 
+/*
+ * Flip and theta
+ */
+struct Angle
+{
+    bool flip;
+    double theta;
+
+    Angle() : flip(0), theta(0) {};
+    Angle(const Angle& a) : flip(a.flip), theta(a.theta) {};
+    Angle(double *a) : flip((a[0] == 0) ? false : true), theta(a[1]) {};
+    double* copy() const
+    {
+        double* d = new double[2];
+        d[0] = (flip == false) ? 0 : 1;
+        d[1] = theta;
+        return d;
+    }
+    bool operator==(const Angle& a) const
+    {
+        return flip == a.flip && theta == a.theta;
+    }
+};
+
 class Block: public BaseObject
 {
 private:
@@ -110,6 +134,52 @@ private:
         }
 
         geometry = g;
+        return SUCCESS;
+    }
+
+    void getAngle(size_t* len, double** data) const
+    {
+        *len = 2;
+        *data = new double[2];
+        *data[0] = (angle.flip == false) ? 0 : 1;
+        *data[1] = angle.theta;
+    }
+
+    update_status_t setAngle(size_t len, double* data)
+    {
+        if (len != 2)
+        {
+            return FAIL;
+        }
+
+        Angle a = Angle(data);
+        if (a == angle)
+        {
+            return NO_CHANGES;
+        }
+
+        angle = a;
+        return SUCCESS;
+    }
+
+    void getExprs(size_t* len, std::string** data) const
+    {
+        *len = exprs.size();
+        *data = new std::string[*len];
+        std::copy(exprs.begin(), exprs.end(), *data);
+    }
+
+    update_status_t setExprs(size_t len, std::string* data)
+    {
+        bool ret = true;
+
+        std::vector<std::string> e(data, data + len);
+        if (e == exprs)
+        {
+            return NO_CHANGES;
+        }
+
+        exprs = e;
         return SUCCESS;
     }
 
@@ -206,6 +276,8 @@ private:
     ScicosID parentDiagram;
     std::string interfaceFunction;
     Geometry geometry;
+    Angle angle;
+    std::vector<std::string> exprs;
     std::string style;
 
     Descriptor sim;
