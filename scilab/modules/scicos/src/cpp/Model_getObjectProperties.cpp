@@ -10,6 +10,8 @@
  *
  */
 
+#include <stdlib.h>
+
 #include "Model.hxx"
 #include "utilities.hxx"
 
@@ -308,6 +310,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, siz
             case GEOMETRY:
                 o->getGeometry(len, v);
                 return true;
+            case ANGLE:
+                o->getAngle(len, v);
+                return true;
             default:
                 break;
         }
@@ -399,6 +404,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, siz
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case EXPRS:
+                o->getExprs(len, v);
+                return true;
             default:
                 break;
         }
@@ -449,8 +457,27 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, siz
     else if (k == BLOCK)
     {
         model::Block* o = static_cast<model::Block*>(getObject(uid));
+        std::vector<ScicosID> w;
         switch (p)
         {
+            case INPUTS:
+                w = o->getIn();
+                *len = w.size();
+                v = (ScicosID **) malloc (*len * sizeof(ScicosID));
+                for (size_t i = 0; i < *len; ++i)
+                {
+                    *v[i] = w[i];
+                }
+                return true;
+            case OUTPUTS:
+                w = o->getOut();
+                *len = w.size();
+                *v = (ScicosID *) malloc (*len * sizeof(ScicosID));
+                for (size_t i = 0; i < *len; ++i)
+                {
+                    *v[i] = w[i];
+                }
+                return true;
             default:
                 break;
         }
