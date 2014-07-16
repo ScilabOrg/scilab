@@ -302,6 +302,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         {
             case GEOMETRY:
                 return o->setGeometry(len, v);
+            case ANGLE:
+                return o->setAngle(len, v);
             default:
                 break;
         }
@@ -406,6 +408,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case EXPRS:
+                return o->setExprs(len, v);
             default:
                 break;
         }
@@ -456,8 +460,23 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     else if (k == BLOCK)
     {
         model::Block* o = static_cast<model::Block*>(getObject(uid));
+        std::vector<ScicosID> w(v, v + len);
         switch (p)
         {
+            case INPUTS:
+                if (len > o->in.size()); // FIXME: Input port creation
+                if (len < o->in.size()); // FIXME: Input port deletion
+                {
+                    o->setIn(w);
+                }
+                return SUCCESS;
+            case OUTPUTS:
+                if (len > o->out.size()); // FIXME: Output port creation
+                if (len < o->out.size()); // FIXME: Output port deletion
+                {
+                    o->setOut(w);
+                }
+                return SUCCESS;
             default:
                 break;
         }
