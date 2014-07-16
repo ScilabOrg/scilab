@@ -302,6 +302,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         {
             case GEOMETRY:
                 return o->setGeometry(len, v);
+            case ANGLE:
+                return o->setAngle(len, v);
             default:
                 break;
         }
@@ -406,6 +408,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case EXPRS:
+                return o->setExprs(len, v);
             default:
                 break;
         }

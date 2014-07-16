@@ -99,6 +99,30 @@ struct Geometry
     }
 };
 
+/*
+ * Flip and theta
+ */
+struct Angle
+{
+    bool flip;
+    double theta;
+
+    Angle() : flip(0), theta(0) {};
+    Angle(const Angle& a) : flip(a.flip), theta(a.theta) {};
+    Angle(double *a) : flip((bool) a[0]), theta(a[1]) {};
+    double* copy() const
+    {
+        double* d = new double[2];
+        d[0] = (double) flip;
+        d[1] = theta;
+        return d;
+    }
+    bool operator==(const Angle& a) const
+    {
+        return flip == a.flip && theta == a.theta;
+    }
+};
+
 /**
  * Per port type descriptor
  *
