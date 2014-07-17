@@ -407,6 +407,12 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         {
             case EXPRS:
                 return o->setExprs(v);
+            case IMEX_INPUTS:
+                o->setImex_in(v);
+                return SUCCESS;
+            case IMEX_OUTPUTS:
+                o->setImex_out(v);
+                return SUCCESS;
             default:
                 break;
         }
@@ -461,16 +467,22 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
             case INPUTS:
                 if (v.size() > o->in.size()); // FIXME: Input port creation
                 if (v.size() < o->in.size()); // FIXME: Input port deletion
-                {
-                    o->setIn(v);
-                }
+                o->setIn(v);
                 return SUCCESS;
             case OUTPUTS:
                 if (v.size() > o->out.size()); // FIXME: Output port creation
                 if (v.size() < o->out.size()); // FIXME: Output port deletion
-                {
-                    o->setOut(v);
-                }
+                o->setOut(v);
+                return SUCCESS;
+            case EVENT_INPUTS:
+                if (v.size() > o->ein.size()); // FIXME: Input event port creation
+                if (v.size() < o->ein.size()); // FIXME: Input event port deletion
+                o->setEin(v);
+                return SUCCESS;
+            case EVENT_OUTPUTS:
+                if (v.size() > o->eout.size()); // FIXME: Output event port creation
+                if (v.size() < o->eout.size()); // FIXME: Output event port deletion
+                o->setEout(v);
                 return SUCCESS;
             default:
                 break;

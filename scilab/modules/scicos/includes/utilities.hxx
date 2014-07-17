@@ -89,6 +89,8 @@ enum object_properties_t
     OUTPUTS,            //!< model::Block::out value
     EVENT_INPUTS,       //!< model::Block::ein value
     EVENT_OUTPUTS,      //!< model::Block::eout value
+    IMEX_INPUTS,        //!< model::Block::imex value
+    IMEX_OUTPUTS,       //!< model::Block::imex value
     PARENT_BLOCK,       //!< model::Block::parentBlock value
     CHILDREN,           //!< model::Block::children value
     PORT_REFERENCE,     //!< model::Block::portReference value

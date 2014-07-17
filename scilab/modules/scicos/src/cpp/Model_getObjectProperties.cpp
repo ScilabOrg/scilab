@@ -406,6 +406,12 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
             case EXPRS:
                 o->getExprs(v);
                 return true;
+            case IMEX_INPUTS:
+                o->getImex_in(v);
+                return true;
+            case IMEX_OUTPUTS:
+                o->getImex_out(v);
+                return true;
             default:
                 break;
         }
@@ -462,6 +468,12 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
                 return true;
             case OUTPUTS:
                 v = o->getOut();
+                return true;
+            case EVENT_INPUTS:
+                v = o->getEin();
+                return true;
+            case EVENT_OUTPUTS:
+                v = o->getEout();
                 return true;
             default:
                 break;

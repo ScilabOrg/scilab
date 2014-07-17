@@ -244,6 +244,38 @@ private:
         this->out = out;
     }
 
+    void getImex_in(std::vector<std::string>& data) const
+    {
+        data = imex_in;
+    }
+
+    update_status_t setImex_in(const std::vector<std::string>& data)
+    {
+        if (data == imex_in)
+        {
+            return NO_CHANGES;
+        }
+
+        imex_in = data;
+        return SUCCESS;
+    }
+
+    void getImex_out(std::vector<std::string>& data) const
+    {
+        data = imex_out;
+    }
+
+    update_status_t setImex_out(const std::vector<std::string>& data)
+    {
+        if (data == imex_out)
+        {
+            return NO_CHANGES;
+        }
+
+        imex_out = data;
+        return SUCCESS;
+    }
+
     const Parameter& getParameter() const
     {
         return parameter;
@@ -317,6 +349,8 @@ private:
     std::vector<ScicosID> out;
     std::vector<ScicosID> ein;
     std::vector<ScicosID> eout;
+    std::vector<std::string> imex_in;
+    std::vector<std::string> imex_out;
 
     Parameter parameter;
     State state;
