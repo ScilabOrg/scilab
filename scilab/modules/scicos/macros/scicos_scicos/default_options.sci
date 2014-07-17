@@ -38,6 +38,5 @@ endfunction
 
 function options = scsoptlist(varargin)
     lt = ["scsopt","3D","Background","Link","ID","Cmap"]
-    options = tlist(lt,varargin(:))
+    options = tlist(lt)
 endfunction
-
