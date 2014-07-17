@@ -291,9 +291,11 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
                     }
 
                     poResult = new types::Polynom(_poSource->getAs<types::Polynom>()->getVariableName(), poDest->getRows(), poDest->getCols(),  piRank);
+                    poResult->getAs<types::Polynom>()->setComplex(poDest->isComplex());
 
                     double *pR = poDest->getReal();
                     double *pI = poDest->getImg();
+
                     for (int i = 0 ; i < poDest->getSize() ; i++)
                     {
                         types::Double *pdbl = NULL;
