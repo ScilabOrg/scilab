@@ -49,9 +49,6 @@ function newobj = optimbase_new ()
     "logfilehandle"
     "logstartup"
     "withderivatives"
-    //
-    // Obsolete options.
-    //
     "costfargument"
     "outputcommandarg"
     ]);

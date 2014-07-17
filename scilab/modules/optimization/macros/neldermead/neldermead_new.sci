@@ -66,9 +66,6 @@ function newobj = neldermead_new ()
     "variancesimplex0"
     "mymethod"
     "greedy"
-    //
-    // Obsolete options
-    //
     "myterminate"
     "myterminateflag"
     ]);
