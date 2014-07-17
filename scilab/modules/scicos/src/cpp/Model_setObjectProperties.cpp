@@ -477,6 +477,20 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
                     o->setOut(w);
                 }
                 return SUCCESS;
+            case EVENT_INPUTS:
+                if (len > o->ein.size()); // FIXME: Input event port creation
+                if (len < o->ein.size()); // FIXME: Input event port deletion
+                {
+                    o->setEin(w);
+                }
+                return SUCCESS;
+            case EVENT_OUTPUTS:
+                if (len > o->eout.size()); // FIXME: Output event port creation
+                if (len < o->eout.size()); // FIXME: Output event port deletion
+                {
+                    o->setEout(w);
+                }
+                return SUCCESS;
             default:
                 break;
         }
