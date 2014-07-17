@@ -463,6 +463,24 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
             case OUTPUTS:
                 v = o->getOut();
                 return true;
+            case EVENT_INPUTS:
+                w = o->getEin();
+                *len = w.size();
+                v = (ScicosID **) malloc (*len * sizeof(ScicosID));
+                for (size_t i = 0; i < *len; ++i)
+                {
+                    *v[i] = w[i];
+                }
+                return true;
+            case EVENT_OUTPUTS:
+                w = o->getEout();
+                *len = w.size();
+                *v = (ScicosID *) malloc (*len * sizeof(ScicosID));
+                for (size_t i = 0; i < *len; ++i)
+                {
+                    *v[i] = w[i];
+                }
+                return true;
             default:
                 break;
         }

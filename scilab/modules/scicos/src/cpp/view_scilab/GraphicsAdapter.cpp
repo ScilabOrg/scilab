@@ -347,14 +347,44 @@ struct pein
 
     static types::InternalType* get(const GraphicsAdapter& adaptor)
     {
-        //FIXME: implement
-        return 0;
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        ScicosID* eids;
+        size_t len;
+        Controller::get_instance()->getObjectProperty(adaptee->id(), adaptee->kind(), EVENT_INPUTS, &len, &eids);
+
+        types::UInt64* o = new types::UInt64(len, 1);
+
+        for (size_t i = 0; i < len; ++i)
+        {
+            o->set(i, eids[i]);
+        }
+        delete[] eids;
+        return o;
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v)
     {
-        //FIXME: implement
-        return false;
+        if (v->getType() != types::InternalType::ScilabUInt64)
+        {
+            return false;
+        }
+
+        types::UInt64* current = v->getAs<types::UInt64>();
+
+        model::Block* adaptee = adaptor.getAdaptee();
+        ScicosID* eids;
+        size_t len;
+        Controller::get_instance()->getObjectProperty(adaptee->id(), adaptee->kind(), EVENT_INPUTS, &len, &eids);
+
+        for (size_t i = 0; i < len; ++i)
+        {
+            eids[i] = current->get(i);
+        }
+
+        Controller::get_instance()->setObjectProperty(adaptee->id(), adaptee->kind(), EVENT_INPUTS, len, eids);
+        delete[] eids;
+        return true;
     }
 };
 
@@ -363,14 +393,44 @@ struct peout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor)
     {
-        //FIXME: implement
-        return 0;
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        ScicosID* eids;
+        size_t len;
+        Controller::get_instance()->getObjectProperty(adaptee->id(), adaptee->kind(), EVENT_OUTPUTS, &len, &eids);
+
+        types::UInt64* o = new types::UInt64(len, 1);
+
+        for (size_t i = 0; i < len; ++i)
+        {
+            o->set(i, eids[i]);
+        }
+        delete[] eids;
+        return o;
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v)
     {
-        //FIXME: implement
-        return false;
+        if (v->getType() != types::InternalType::ScilabUInt64)
+        {
+            return false;
+        }
+
+        types::UInt64* current = v->getAs<types::UInt64>();
+
+        model::Block* adaptee = adaptor.getAdaptee();
+        ScicosID* eids;
+        size_t len;
+        Controller::get_instance()->getObjectProperty(adaptee->id(), adaptee->kind(), EVENT_OUTPUTS, &len, &eids);
+
+        for (size_t i = 0; i < len; ++i)
+        {
+            eids[i] = current->get(i);
+        }
+
+        Controller::get_instance()->setObjectProperty(adaptee->id(), adaptee->kind(), EVENT_OUTPUTS, len, eids);
+        delete[] eids;
+        return true;
     }
 };
 
