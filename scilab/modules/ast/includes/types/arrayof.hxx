@@ -1295,24 +1295,51 @@ public :
                 //alloc 10% bigger than asked to prevent future resize
                 m_iSizeMax = static_cast<int>(iNewSize * 1.1);
                 pRealData = allocData(m_iSizeMax);
-                pImgData = allocData(m_iSizeMax);
+                if (m_pImgData != NULL)
+                {
+                    pImgData = allocData(m_iSizeMax);
+                }
 
                 //set value to (null) value
-                for (int i = 0 ; i < m_iSizeMax ; i++)
+                if (m_pImgData != NULL)
                 {
-                    pRealData[i]    = getNullValue();
-                    pImgData[i]     = getNullValue();
+                    for (int i = 0 ; i < m_iSizeMax ; i++)
+                    {
+                        pRealData[i]    = getNullValue();
+                        pImgData[i]     = getNullValue();
+                    }
                 }
+                else
+                {
+                    for (int i = 0 ; i < m_iSizeMax ; i++)
+                    {
+                        pRealData[i]    = getNullValue();
+                    }
+                }
+
 
                 //copy values into new one
                 int* piIndexes = new int[Max(m_iDims, _iDims)];
                 memset(piIndexes, 0x00, Max(m_iDims, _iDims) * sizeof(int));
-                for (int i = 0 ; i < m_iSize ; i++)
+
+                if (m_pImgData != NULL)
                 {
-                    getIndexes(i, piIndexes);
-                    int iNewIdx = getIndexWithDims(piIndexes, _piDims, _iDims);
-                    pRealData[iNewIdx] = copyValue(m_pRealData[i]);
-                    pImgData[iNewIdx] = copyValue(m_pImgData[i]);
+                    for (int i = 0 ; i < m_iSize ; i++)
+                    {
+                        getIndexes(i, piIndexes);
+                        int iNewIdx = getIndexWithDims(piIndexes, _piDims, _iDims);
+                        pRealData[iNewIdx] = copyValue(m_pRealData[i]);
+                        pImgData[iNewIdx] = copyValue(m_pImgData[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0 ; i < m_iSize ; i++)
+                    {
+                        getIndexes(i, piIndexes);
+                        int iNewIdx = getIndexWithDims(piIndexes, _piDims, _iDims);
+                        pRealData[iNewIdx] = copyValue(m_pRealData[i]);
+                    }
                 }
 
                 delete[] piIndexes;
@@ -1320,7 +1347,10 @@ public :
                 deleteAll();
                 //replace old array by new one
                 m_pRealData	= pRealData;
-                m_pImgData	= pImgData;
+                if (m_pImgData != NULL)
+                {
+                    m_pImgData	= pImgData;
+                }
             }
             else
             {

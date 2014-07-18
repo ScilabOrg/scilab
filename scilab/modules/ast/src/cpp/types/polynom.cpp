@@ -982,6 +982,15 @@ void Polynom::deleteAll()
 
 void Polynom::deleteImg()
 {
+    if (m_pImgData !=  NULL)
+    {
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            delete m_pImgData[i];
+        }
+        delete[] m_pImgData;
+        m_pImgData = NULL;
+    }
 }
 
 SinglePoly** Polynom::allocData(int _iSize)
