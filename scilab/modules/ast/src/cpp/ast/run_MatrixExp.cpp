@@ -243,8 +243,6 @@ types::InternalType* RunVisitorT<T>::callOverloadMatrixExp(std::wstring strType,
         throw ScilabError();
     }
 
-    result_set(out);
     clean_in(in, out);
-
-    return NULL;
+    return out[0];
 }
