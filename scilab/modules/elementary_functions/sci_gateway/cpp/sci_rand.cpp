@@ -36,6 +36,7 @@ const wchar_t g_pwstTypeNormal[] = {L"normal"};
 int setRandType(wchar_t _wcType);
 double getNextRandValue(int _iRandType, int* _piRandSave, int _iForceInit);
 
+
 types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     static int siRandType = 0;
@@ -112,7 +113,7 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
             siRandType = setRandType(pwstKey[0]);
         }
     }
-    else if (in[0]->isDouble())
+    else if (in[0]->isGenericType())
     {
         int iRandSave = siRandType;
         if (in[iSizeIn - 1]->isString())
@@ -134,7 +135,7 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
         if (iSizeIn == 1)
         {
             //rand(X) or rand(X, "")
-            types::Double* pD = in[0]->getAs<types::Double>();
+            types::Double* pD = new types::Double(in[0]->getAs<types::GenericType>()->getDims(), in[0]->getAs<types::GenericType>()->getDimsArray(), in[0]->getAs<types::GenericType>()->isComplex());;
 
             // rand(:)
             if (pD->getRows() == -1 && pD->getCols() == -1)
