@@ -1,5 +1,6 @@
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
 // Copyright (C) 2010 - 2011 - DIGITEO - Michael Baudin
+// Copyright (C) 2014 - Scilab Enterprises - Anais Aubert
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -49,21 +50,22 @@ function [flag,errmsg] = assert_checkequal ( computed , expected )
         error(errmsg)
     end
 
-    // Check types of variables
-    if ( typeof(computed) <> typeof(expected) ) then
-        errmsg = sprintf ( gettext ( "%s: Incompatible input arguments #%d and #%d: Same types expected.\n" ) , "assert_checkequal" , 1 , 2 )
-        error(errmsg)
-   end
+
 
     // Check hypermat type
-    if (typeof(computed) == "hypermat") then
+    if (length(size(computed)) > 2) then
         // Check on first element type
         if (typeof(computed(1)) <> typeof(expected(1))) then
-            errmsg = sprintf ( gettext ( "%s: Incompatible input arguments #%d and #%d: Same types expected.\n" ) , "assert_checkequal" , 1 , 2 )
+            errmsg = sprintf(gettext("%s: Incompatible input arguments #%d and #%d: Same types expected.\n" ), "assert_checkequal", 1 , 2)
+            error(errmsg)
+        end
+    else
+        // Check types of variables
+        if ( typeof(computed) <> typeof(expected) ) then
+            errmsg = sprintf(gettext("%s: Incompatible input arguments #%d and #%d: Same types expected.\n" ), "assert_checkequal" , 1 , 2 )
             error(errmsg)
         end
     end
-
 
     //
     // Check sizes of variables
