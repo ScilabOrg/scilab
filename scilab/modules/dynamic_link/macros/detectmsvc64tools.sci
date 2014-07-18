@@ -44,7 +44,9 @@ function bOK = detectmsvc64tools()
 
   if win64() then
     compiler = findmsvccompiler();
-    supported_compiler = ['msvc110pro', ..
+    supported_compiler = ['msvc120pro', ..
+                          'msvc1210express', ..
+                          'msvc110pro', ..
                           'msvc110express', ..
                           'msvc100pro', ..
                           'msvc100express', ..
