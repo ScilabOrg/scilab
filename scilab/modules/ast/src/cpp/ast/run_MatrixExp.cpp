@@ -246,5 +246,5 @@ types::InternalType* RunVisitorT<T>::callOverloadMatrixExp(std::wstring strType,
     result_set(out);
     clean_in(in, out);
 
-    return NULL;
+    return result_get();
 }
