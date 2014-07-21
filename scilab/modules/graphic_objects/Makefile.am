@@ -131,7 +131,7 @@ SWIG_WRAPPERS = src/jni/DataLoader.i \
 				src/jni/SurfaceData.i \
 				src/jni/graphic_objects.i \
 				src/jni/ObjectData.i
-
+SWIG_OPTIONS="-small"
 if SWIG
 BUILT_SOURCES+=swig
 endif

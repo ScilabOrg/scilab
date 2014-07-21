@@ -976,10 +976,10 @@ maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
-@JAVASCI_FALSE@install-html-local:
-@JAVASCI_FALSE@clean-local:
 @JAVASCI_FALSE@distclean-local:
 @JAVASCI_FALSE@install-data-local:
+@JAVASCI_FALSE@install-html-local:
+@JAVASCI_FALSE@clean-local:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
@@ -1112,7 +1112,7 @@ uninstall-am: uninstall-libjavasci2_la_etcDATA \
 @JAVASCI_TRUE@@SWIG_TRUE@	if test -n "$(SWIG_WRAPPERS)"; then \
 @JAVASCI_TRUE@@SWIG_TRUE@		for file in $(SWIG_WRAPPERS) ; do \
 @JAVASCI_TRUE@@SWIG_TRUE@			echo "Swig process of $$file (Java) ..."; \
-@JAVASCI_TRUE@@SWIG_TRUE@			$(SWIG_BIN) $(SWIG_JAVA) -package $$SWIG_PACKAGENAME  -outdir $$SWIG_OUTDIR $$file; \
+@JAVASCI_TRUE@@SWIG_TRUE@			$(SWIG_BIN) $(SWIG_JAVA) $(SWIG_OPTIONS) -package $$SWIG_PACKAGENAME  -outdir $$SWIG_OUTDIR $$file; \
 @JAVASCI_TRUE@@SWIG_TRUE@		done; \
 @JAVASCI_TRUE@@SWIG_TRUE@	fi
 
@@ -1121,7 +1121,7 @@ uninstall-am: uninstall-libjavasci2_la_etcDATA \
 @JAVASCI_TRUE@@SWIG_TRUE@	if test -n "$(SWIG_SCILAB_WRAPPERS)"; then \
 @JAVASCI_TRUE@@SWIG_TRUE@		for file in $(SWIG_SCILAB_WRAPPERS) ; do \
 @JAVASCI_TRUE@@SWIG_TRUE@			echo "Swig process of $$file (Scilab) ..."; \
-@JAVASCI_TRUE@@SWIG_TRUE@			$(SWIG_BIN) $(SWIG_SCILAB)  -outdir $$SWIG_OUTDIR $$file; \
+@JAVASCI_TRUE@@SWIG_TRUE@			$(SWIG_BIN) $(SWIG_SCILAB) $(SWIG_OPTIONS) -outdir $$SWIG_OUTDIR $$file; \
 @JAVASCI_TRUE@@SWIG_TRUE@		done; \
 @JAVASCI_TRUE@@SWIG_TRUE@	fi
 
