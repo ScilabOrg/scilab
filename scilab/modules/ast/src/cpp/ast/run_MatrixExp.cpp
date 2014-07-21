@@ -234,7 +234,8 @@ types::InternalType* RunVisitorT<T>::callOverloadMatrixExp(std::wstring strType,
     }
     else
     {
-        Ret = Overload::call(L"%" + _paramL->getAs<List>()->getShortTypeStr() + L"_" + strType + L"_" + _paramR->getAs<List>()->getShortTypeStr(), in, 1, out, this);
+        std::wstring a = L"%" + _paramL->getAs<List>()->getShortTypeStr() + L"_" + strType + L"_" + _paramR->getAs<List>()->getShortTypeStr();
+        Ret = Overload::call(a, in, 1, out, this);
     }
 
     if (Ret != Callable::OK)
@@ -246,5 +247,5 @@ types::InternalType* RunVisitorT<T>::callOverloadMatrixExp(std::wstring strType,
     result_set(out);
     clean_in(in, out);
 
-    return NULL;
+    return result_get();
 }

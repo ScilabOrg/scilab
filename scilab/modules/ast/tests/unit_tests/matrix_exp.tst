@@ -26,3 +26,16 @@ function y=%l_c_s(l, x);y=[l(1) l(1) x];end
 assert_checkerror("a=[1 2;list(3) 4]", "inconsistent row/column dimensions");
 a=[1 2 3; 7 sprand(1,2,0.5)];
 
+//rational
+a=0.5;b=1;c=2;
+sl=syslin('c',a,b,c);
+h1=ss2tf(sl);
+
+b=[b b];
+sl=syslin('c',a,b,c);
+h2=ss2tf(sl);
+assert_checkequal(h2,[h1 h1]);
+
+assert_checkerror("a=[h1 h1;h1 h1 h1]", "%r_f_r: Inconsistent dimensions.");
+assert_checkerror("a=[h1 ; h2]", "%r_f_r: Inconsistent dimensions.");
+assert_checkerror("a=[h1 ,[h1;h1]]", "%r_c_r: Inconsistent dimensions.");
