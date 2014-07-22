@@ -47,7 +47,7 @@ function x=%s_pow(a,p)
         flag=or(a<>a')
         if ~flag then
             //Hermitian matrix
-            r=and(imag(a)==0)
+            r=and(imag(a)==0)&imag(p)==0
             [u,s]=schur(a);
             x=u*diag(diag(s).^p)*u';
             if r then
@@ -57,14 +57,16 @@ function x=%s_pow(a,p)
             end
         else
             //General matrix
-            r=and(imag(a)==0)
+            r=and(imag(a)==0)&imag(p)==0
             [s,u,bs]=bdiag(a+0*%i);
             if max(bs)>1 then
                 error(msprintf(_("%s: unable to diagonalize!"),"%s_pow"));
             end
             x=u*diag(diag(s).^p)*inv(u);
         end
-        if int(p)==p&r then x=real(x),end
+        if int(p)==p & real(p)==p & r then
+            x=real(x);
+        end
     else
         error(43)
     end
