@@ -69,11 +69,13 @@ types::Double* sum(types::Double* pIn, int iOrientation)
         double* pdblOut = pOut->get();
         double* pdblOutImg = NULL;
         int* piIndex = new int[iDims];
+
         if (pIn->isComplex())
         {
-            pdblOutImg = pOut->get();
+            pdblOutImg = pOut->getImg();
             for (int i = 0 ; i < pIn->getSize() ; i++)
             {
+                printf("+%d+", i);
                 //get array of dim
                 pIn->getIndexes(i, piIndex);
 
