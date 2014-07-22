@@ -8,6 +8,8 @@
 
 // <-- CLI SHELL MODE -->
 
+funcprot(0);
+
 Ntest = 1;
 // test max(A) : A matrix
 // maxi is compared with sort
@@ -384,3 +386,5 @@ for i = 1:nc
     Am1 = [Am1; am];
 end
 assert_checkequal(Am, sparse(Am1));
+
+funcprot(1);
