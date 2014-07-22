@@ -53,11 +53,11 @@ types::Function::ReturnValue sci_abs(types::typed_list &in, int _iRetCount, type
         {
             for (int i = 0 ; i < pDblIn->getSize() ; i++)
             {
-                if (ISNAN(pdblInR[i]))
+                if (std::isnan(pdblInR[i]))
                 {
                     pdblOut[i] = pdblInR[i];
                 }
-                else if (ISNAN(pdblInI[i]))
+                else if (std::isnan(pdblInI[i]))
                 {
                     pdblOut[i] = pdblInI[i];
                 }
@@ -71,7 +71,7 @@ types::Function::ReturnValue sci_abs(types::typed_list &in, int _iRetCount, type
         {
             for (int i = 0 ; i < pDblIn->getSize() ; i++)
             {
-                if (ISNAN(pdblInR[i]))
+                if (std::isnan(pdblInR[i]))
                 {
                     pdblOut[i] = pdblInR[i];
                 }
