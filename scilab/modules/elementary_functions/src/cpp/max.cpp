@@ -15,6 +15,7 @@
 
 #include "types_tools.hxx"
 #include "max.hxx"
+
 /*--------------------------- Double ---------------------------------------*/
 void max(std::vector<types::Double*> vectIn, int iOrientation, types::Double* pDblIndex, types::Double* pOut)
 {
