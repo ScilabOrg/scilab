@@ -411,7 +411,7 @@ public :
                 piNewDims = new int[iNewDims];
                 for (int i = 0 ; i < m_iDims ; i++)
                 {
-                    piNewDims[i] = Max(piMaxDim[i], m_piDims[i]);
+                    piNewDims[i] = std::max(piMaxDim[i], m_piDims[i]);
                 }
 
                 for (int i = m_iDims ; i < iNewDims ; i++)
@@ -1305,8 +1305,8 @@ public :
                 }
 
                 //copy values into new one
-                int* piIndexes = new int[Max(m_iDims, _iDims)];
-                memset(piIndexes, 0x00, Max(m_iDims, _iDims) * sizeof(int));
+                int* piIndexes = new int[std::max(m_iDims, _iDims)];
+                memset(piIndexes, 0x00, std::max(m_iDims, _iDims) * sizeof(int));
                 for (int i = 0 ; i < m_iSize ; i++)
                 {
                     getIndexes(i, piIndexes);
@@ -1339,8 +1339,8 @@ public :
                 if (m_iDims != _iDims || (!isVector() && bNonLastDimChange))
                 {
                     //copy values into new one
-                    int* piIndexes = new int[Max(m_iDims, _iDims)];
-                    memset(piIndexes, 0x00, sizeof(int) * Max(m_iDims, _iDims));
+                    int* piIndexes = new int[std::max(m_iDims, _iDims)];
+                    memset(piIndexes, 0x00, sizeof(int) * std::max(m_iDims, _iDims));
                     for (int i = m_iSize - 1 ; i >= 0  ; i--)
                     {
                         getIndexes(i, piIndexes);
@@ -1373,8 +1373,8 @@ public :
                 }
 
                 //copy values into new one
-                int* piIndexes = new int[Max(m_iDims, _iDims)];
-                memset(piIndexes, 0x00, sizeof(int) * Max(m_iDims, _iDims));
+                int* piIndexes = new int[std::max(m_iDims, _iDims)];
+                memset(piIndexes, 0x00, sizeof(int) * std::max(m_iDims, _iDims));
                 for (int i = 0 ; i < _iDims ; i++)
                 {
                     piIndexes[i] = 0;
@@ -1410,8 +1410,8 @@ public :
                 if (m_iDims != _iDims || (!isVector() && bNonLastDimChange))
                 {
                     //copy values into new one
-                    int* piIndexes = new int[Max(m_iDims, _iDims)];
-                    memset(piIndexes, 0x00, sizeof(int) * Max(m_iDims, _iDims));
+                    int* piIndexes = new int[std::max(m_iDims, _iDims)];
+                    memset(piIndexes, 0x00, sizeof(int) * std::max(m_iDims, _iDims));
                     for (int i = m_iSize - 1 ; i >= 0  ; i--)
                     {
                         getIndexes(i, piIndexes);
