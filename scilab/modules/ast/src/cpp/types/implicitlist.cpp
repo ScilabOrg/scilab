@@ -227,7 +227,7 @@ bool ImplicitList::compute()
             // othe way to compute
 
             // nan value
-            if (ISNAN(dblStart) || ISNAN(dblStep) || ISNAN(dblEnd))
+            if (std::isnan(dblStart) || std::isnan(dblStep) || std::isnan(dblEnd))
             {
                 m_iSize = -1;
                 m_bComputed = true;

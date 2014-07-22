@@ -87,7 +87,7 @@ void getDoubleFormat(double _dblVal, DoubleFormat * _pDF)
     int iTotalLen = 0;
     int iPrecNeeded = ConfigVariable::getFormatSize();
 
-    if (ISNAN(_dblVal) || !finite(_dblVal))
+    if (std::isnan(_dblVal) || !std::isfinite(_dblVal))
     {
         _pDF->iWidth = 5;      //" nan" or " inf"
         _pDF->iPrec = 0;
@@ -231,12 +231,12 @@ void addDoubleValue(std::wostringstream * _postr, double _dblVal, DoubleFormat *
     if ((_pDF->bPrintOne == true) || (isEqual(fabs(_dblVal), 1)) == false)
     {
         //do not print if _bPrintOne == false && _dblVal == 1
-        if (ISNAN(_dblVal))
+        if (std::isnan(_dblVal))
         {
             //NaN
             os_swprintf(pwstOutput, 32, L"%ls%*ls", pwstSign, _pDF->iPrec, L"Nan");
         }
-        else if (!finite(_dblVal))
+        else if (!std::isfinite(_dblVal))
         {
             //Inf
             os_swprintf(pwstOutput, 32, L"%ls%*ls", pwstSign, _pDF->iPrec, L"Inf");
