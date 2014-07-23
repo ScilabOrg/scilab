@@ -214,14 +214,19 @@ private:
         return SUCCESS;
     }
 
-    const std::vector<ScicosID>& getIn() const
+    void getIn(std::vector<ScicosID>& v) const
     {
-        return in;
+        v = in;
     }
 
-    void setIn(const std::vector<ScicosID>& in)
+    update_status_t setIn(const std::vector<ScicosID>& in)
     {
+        if (in == this->in)
+        {
+            return NO_CHANGES;
+        }
         this->in = in;
+        return SUCCESS;
     }
 
     const std::string& getInterfaceFunction() const
@@ -234,14 +239,19 @@ private:
         this->interfaceFunction = interfaceFunction;
     }
 
-    const std::vector<ScicosID>& getOut() const
+    void getOut(std::vector<ScicosID>& v) const
     {
-        return out;
+        v = out;
     }
 
-    void setOut(const std::vector<ScicosID>& out)
+    update_status_t setOut(const std::vector<ScicosID>& out)
     {
+        if (out == this->out)
+        {
+            return NO_CHANGES;
+        }
         this->out = out;
+        return SUCCESS;
     }
 
     const Parameter& getParameter() const
