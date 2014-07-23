@@ -273,6 +273,12 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, Sci
             case PARENT_DIAGRAM:
                 v = o->getParentDiagram();
                 return true;
+            case SOURCE_PORT:
+                v = o->getSourcePort();
+                return true;
+            case DESTINATION_PORT:
+                v = o->getDestinationPort();
+                return true;
             default:
                 break;
         }
@@ -280,6 +286,14 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, Sci
     else if (k == PORT)
     {
         model::Port* o = static_cast<model::Port*>(getObject(uid));
+        switch (p)
+        {
+            case CONNECTED_SIGNALS:
+                v = o->getConnectedSignals().front();
+                return true;
+            default:
+                break;
+        }
     }
     else
     {
@@ -458,10 +472,10 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
         switch (p)
         {
             case INPUTS:
-                v = o->getIn();
+                o->getIn(v);
                 return true;
             case OUTPUTS:
-                v = o->getOut();
+                o->getOut(v);
                 return true;
             default:
                 break;
@@ -472,6 +486,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
         model::Diagram* o = static_cast<model::Diagram*>(getObject(uid));
         switch (p)
         {
+            case CHILDREN:
+                v = o->getChildren();
+                return true;
             default:
                 break;
         }
@@ -490,6 +507,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case CONNECTED_SIGNALS:
+                v = o->getConnectedSignals();
+                return true;
             default:
                 break;
         }
