@@ -146,6 +146,9 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case PORT_KIND:
             os << "PORT_KIND";
             break;
+        case IMPLICIT:
+            os << "IMPLICIT";
+            break;
         case PORT_NUMBER:
             os << "PORT_NUMBER";
             break;
