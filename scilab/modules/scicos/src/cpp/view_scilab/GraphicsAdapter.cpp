@@ -219,7 +219,6 @@ struct exprs
     {
         if (v->getType() == types::InternalType::ScilabString)
         {
-
             types::String* current = v->getAs<types::String>();
             if (current->getCols() != 0 && current->getCols() != 1)
             {
@@ -255,7 +254,7 @@ struct exprs
     }
 };
 
-static types::Double* get_port(const GraphicsAdapter& adaptor, object_properties_t p, const Controller& controller)
+static types::Double* get_port(const GraphicsAdapter& adaptor, object_properties_t p, const Controller& controller, int job)
 {
     model::Block* adaptee = adaptor.getAdaptee();
 
@@ -270,39 +269,48 @@ static types::Double* get_port(const GraphicsAdapter& adaptor, object_properties
     // translate identifiers to return values
     for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++ports)
     {
-        std::vector<ScicosID> connectedSignals;
 
-        controller.getObjectProperty(*it, PORT, CONNECTED_SIGNALS, connectedSignals);
-
-        // always return the first connected signals, at scilab level a port can only be connected to one signal at a time.
-        if (connectedSignals.empty())
+        if (job == 0)
         {
-            // if the port is not connected returns 0
-            *ports = 0;
-        }
-        else
-        {
-            // if the port is connected, return the index of the link in the parent diagram
-            ScicosID link = connectedSignals[0];
+            std::vector<ScicosID> connectedSignals;
 
-            ScicosID parentDiagram = 0;
-            controller.getObjectProperty(link, LINK, PARENT_DIAGRAM, parentDiagram);
+            controller.getObjectProperty(*it, PORT, CONNECTED_SIGNALS, connectedSignals);
 
-            std::vector<ScicosID> children;
-            controller.getObjectProperty(parentDiagram, DIAGRAM, CHILDREN, children);
-
-            std::vector<ScicosID>::iterator it = std::find(children.begin(), children.end(), link);
-            if (it != children.end())
+            // always return the first connected signals, at scilab level a port can only be connected to one signal at a time.
+            if (connectedSignals.empty())
             {
-                int index = std::distance(children.begin(), it);
-                *ports = index;
+                // if the port is not connected returns 0
+                *ports = 0;
             }
             else
             {
-                *ports = 0;
+                // if the port is connected, return the index of the link in the parent diagram
+                ScicosID link = connectedSignals[0];
+
+                ScicosID parentDiagram = 0;
+                controller.getObjectProperty(link, LINK, PARENT_DIAGRAM, parentDiagram);
+
+                std::vector<ScicosID> children;
+                controller.getObjectProperty(parentDiagram, DIAGRAM, CHILDREN, children);
+
+                std::vector<ScicosID>::iterator it = std::find(children.begin(), children.end(), link);
+                if (it != children.end())
+                {
+                    int index = std::distance(children.begin(), it);
+                    *ports = index;
+                }
+                else
+                {
+                    *ports = 0;
+                }
             }
         }
-
+        else if (job == IMPLICIT)
+        {
+            bool v;
+            controller.getObjectProperty(*it, PORT, IMPLICIT, v);
+            *ports = (v == false) ? 0 : 1;
+        }
         ports++;
     }
 
@@ -467,7 +475,7 @@ struct pin
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, INPUTS, controller);
+        return get_port(adaptor, INPUTS, controller, 0);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -481,7 +489,7 @@ struct pout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, OUTPUTS, controller);
+        return get_port(adaptor, OUTPUTS, controller, 0);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -495,7 +503,7 @@ struct pein
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, EVENT_INPUTS, controller);
+        return get_port(adaptor, EVENT_INPUTS, controller, 0);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -509,7 +517,7 @@ struct peout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, EVENT_OUTPUTS, controller);
+        return get_port(adaptor, EVENT_OUTPUTS, controller, 0);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -518,18 +526,110 @@ struct peout
     }
 };
 
+struct gr_i
+{
+
+    static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
+    {
+        return adaptor.getGr_iContent();
+    }
+
+    static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        adaptor.setGr_iContent(v->clone());
+        return true;
+    }
+};
+
+struct id
+{
+
+    static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
+    {
+        return adaptor.getIdContent();
+    }
+
+    static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        adaptor.setIdContent(v->clone());
+        return true;
+    }
+};
+
 struct in_implicit
 {
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        types::Double* oDouble = get_port(adaptor, INPUTS, controller, IMPLICIT);
+
+        wchar_t* E = L"E";
+        wchar_t* I = L"I";
+        wchar_t** data = new wchar_t*[oDouble->getSize()];
+        for (int i = 0; i < oDouble->getSize(); ++i)
+        {
+            data[i] = (oDouble->getReal()[i] == 0) ? E : I;
+        }
+        types::String* oString = new types::String(oDouble->getSize(), 1, data);
+
+        return oString;
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
+        if (v->getType() == types::InternalType::ScilabString)
+        {
+            model::Block* adaptee = adaptor.getAdaptee();
+
+            types::String* current = v->getAs<types::String>();
+            if (current->getCols() != 0 && current->getCols() != 1)
+            {
+                return false;
+            }
+
+            // Retrieve the ports i dentifiers
+            std::vector<ScicosID> ids;
+            controller.getObjectProperty(adaptee->id(), adaptee->kind(), INPUTS, ids);
+            if (current->getRows() != ids.size())
+            {
+                return false;
+            }
+
+            int i = 0;
+            wchar_t* E = L"E";
+            wchar_t* I = L"I";
+            for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
+            {
+                if (current->get(i) == I)
+                {
+                    controller.setObjectProperty(*it, PORT, IMPLICIT, true);
+                }
+                else if (current->get(i) == E)
+                {
+                    controller.setObjectProperty(*it, PORT, IMPLICIT, false);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else if (v->getType() == types::InternalType::ScilabDouble)
+        {
+            types::Double* current = v->getAs<types::Double>();
+            if (current->getRows() != 0 || current->getCols() != 0)
+            {
+                return false;
+            }
+            types::Double* oDouble = get_port(adaptor, INPUTS, controller, IMPLICIT);
+            if (oDouble->getSize() != 0)
+            {
+                return false;
+            }
+            // Do nothing, because if the sizes match, then there are already zero input ports, so no input ports to update
+            return true;
+        }
         return false;
     }
 };
@@ -539,13 +639,75 @@ struct out_implicit
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        types::Double* oDouble = get_port(adaptor, OUTPUTS, controller, IMPLICIT);
+
+        wchar_t* E = L"E";
+        wchar_t* I = L"I";
+        wchar_t** data = new wchar_t*[oDouble->getSize()];
+        for (int i = 0; i < oDouble->getSize(); ++i)
+        {
+            data[i] = (oDouble->getReal()[i] == 0) ? E : I;
+        }
+        types::String* oString = new types::String(oDouble->getSize(), 1, data);
+
+        return oString;
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
+        if (v->getType() == types::InternalType::ScilabString)
+        {
+            model::Block* adaptee = adaptor.getAdaptee();
+
+            types::String* current = v->getAs<types::String>();
+            if (current->getCols() != 0 && current->getCols() != 1)
+            {
+                return false;
+            }
+
+            // Retrieve the ports i dentifiers
+            std::vector<ScicosID> ids;
+            controller.getObjectProperty(adaptee->id(), adaptee->kind(), OUTPUTS, ids);
+            if (current->getRows() != ids.size())
+            {
+                return false;
+            }
+
+            int i = 0;
+            wchar_t* E = L"E";
+            wchar_t* I = L"I";
+            for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
+            {
+                if (current->get(i) == I)
+                {
+                    controller.setObjectProperty(*it, PORT, IMPLICIT, true);
+                }
+                else if (current->get(i) == E)
+                {
+                    controller.setObjectProperty(*it, PORT, IMPLICIT, false);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else if (v->getType() == types::InternalType::ScilabDouble)
+        {
+            types::Double* current = v->getAs<types::Double>();
+            if (current->getRows() != 0 || current->getCols() != 0)
+            {
+                return false;
+            }
+            types::Double* oDouble = get_port(adaptor, OUTPUTS, controller, IMPLICIT);
+            if (oDouble->getSize() != 0)
+            {
+                return false;
+            }
+            // Do nothing, because if the sizes match, then there are already zero output ports, so no output ports to update
+            return true;
+        }
         return false;
     }
 };
@@ -633,7 +795,10 @@ struct style
 template<> property<GraphicsAdapter>::props_t property<GraphicsAdapter>::fields = property<GraphicsAdapter>::props_t();
 
 GraphicsAdapter::GraphicsAdapter(const GraphicsAdapter& o) :
-    BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(o) { }
+    BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(o),
+    gr_i_content(o.gr_i_content->clone()),
+    id_content(o.id_content->clone())
+{}
 
 GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
     BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(o)
@@ -650,6 +815,8 @@ GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<GraphicsAdapter>::add_property(L"pout", &pout::get, &pout::set);
         property<GraphicsAdapter>::add_property(L"pein", &pein::get, &pein::set);
         property<GraphicsAdapter>::add_property(L"peout", &peout::get, &peout::set);
+        property<GraphicsAdapter>::add_property(L"gr_i", &gr_i::get, &gr_i::set);
+        property<GraphicsAdapter>::add_property(L"id", &id::get, &id::set);
         property<GraphicsAdapter>::add_property(L"in_implicit", &in_implicit::get, &in_implicit::set);
         property<GraphicsAdapter>::add_property(L"out_implicit", &out_implicit::get, &out_implicit::set);
         property<GraphicsAdapter>::add_property(L"in_style", &in_style::get, &in_style::set);
@@ -657,10 +824,15 @@ GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<GraphicsAdapter>::add_property(L"out_label", &out_label::get, &out_label::set);
         property<GraphicsAdapter>::add_property(L"style", &style::get, &style::set);
     }
+
+    gr_i_content = new types::List();
+    id_content = new types::List();
 }
 
 GraphicsAdapter::~GraphicsAdapter()
 {
+    delete gr_i_content;
+    delete id_content;
 }
 
 bool GraphicsAdapter::toString(std::wostringstream& ostr)
@@ -677,6 +849,28 @@ std::wstring GraphicsAdapter::getTypeStr()
 std::wstring GraphicsAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+types::InternalType* GraphicsAdapter::getGr_iContent() const
+{
+    return gr_i_content;
+}
+
+void GraphicsAdapter::setGr_iContent(types::InternalType* v)
+{
+    delete gr_i_content;
+    gr_i_content = v->clone();
+}
+
+types::InternalType* GraphicsAdapter::getIdContent() const
+{
+    return id_content;
+}
+
+void GraphicsAdapter::setIdContent(types::InternalType* v)
+{
+    delete id_content;
+    id_content = v->clone();
 }
 
 } /* view_scilab */
