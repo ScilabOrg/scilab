@@ -172,6 +172,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, boo
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case IMPLICIT:
+                o->getImplicit(v);
+                return true;
             default:
                 break;
         }
