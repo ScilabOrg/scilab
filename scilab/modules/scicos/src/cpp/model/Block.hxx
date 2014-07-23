@@ -194,6 +194,22 @@ private:
         return SUCCESS;
     }
 
+    void getId(std::string& data) const
+    {
+        data = id_content;
+    }
+
+    update_status_t setId(const std::string data)
+    {
+        if (data == id_content)
+        {
+            return NO_CHANGES;
+        }
+
+        id_content = data;
+        return SUCCESS;
+    }
+
     void getIn(std::vector<ScicosID>& v) const
     {
         v = in;
@@ -329,6 +345,7 @@ private:
     Geometry geometry;
     Angle angle;
     std::vector<std::string> exprs;
+    std::string id_content;
     std::string style;
 
     Descriptor sim;
