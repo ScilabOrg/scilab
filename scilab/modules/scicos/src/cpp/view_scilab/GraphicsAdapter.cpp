@@ -219,7 +219,6 @@ struct exprs
     {
         if (v->getType() == types::InternalType::ScilabString)
         {
-
             types::String* current = v->getAs<types::String>();
             if (current->getCols() != 0 && current->getCols() != 1)
             {
@@ -518,6 +517,36 @@ struct peout
     }
 };
 
+struct gr_i
+{
+
+    static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
+    {
+        return adaptor.getGr_iContent();
+    }
+
+    static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        adaptor.setGr_iContent(v->clone());
+        return true;
+    }
+};
+
+struct id
+{
+
+    static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
+    {
+        return adaptor.getIdContent();
+    }
+
+    static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        adaptor.setIdContent(v->clone());
+        return true;
+    }
+};
+
 struct in_implicit
 {
 
@@ -529,8 +558,7 @@ struct in_implicit
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
-        return false;
+        return set_port(adaptor, v, IMPLICIT, controller);
     }
 };
 
@@ -633,7 +661,10 @@ struct style
 template<> property<GraphicsAdapter>::props_t property<GraphicsAdapter>::fields = property<GraphicsAdapter>::props_t();
 
 GraphicsAdapter::GraphicsAdapter(const GraphicsAdapter& o) :
-    BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(o) { }
+    BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(o),
+    gr_i_content(o.gr_i_content->clone()),
+    id_content(o.id_content->clone())
+{}
 
 GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
     BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(o)
@@ -650,6 +681,8 @@ GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<GraphicsAdapter>::add_property(L"pout", &pout::get, &pout::set);
         property<GraphicsAdapter>::add_property(L"pein", &pein::get, &pein::set);
         property<GraphicsAdapter>::add_property(L"peout", &peout::get, &peout::set);
+        property<GraphicsAdapter>::add_property(L"gr_i", &gr_i::get, &gr_i::set);
+        property<GraphicsAdapter>::add_property(L"id", &id::get, &id::set);
         property<GraphicsAdapter>::add_property(L"in_implicit", &in_implicit::get, &in_implicit::set);
         property<GraphicsAdapter>::add_property(L"out_implicit", &out_implicit::get, &out_implicit::set);
         property<GraphicsAdapter>::add_property(L"in_style", &in_style::get, &in_style::set);
@@ -657,10 +690,15 @@ GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<GraphicsAdapter>::add_property(L"out_label", &out_label::get, &out_label::set);
         property<GraphicsAdapter>::add_property(L"style", &style::get, &style::set);
     }
+
+    gr_i_content = new types::List();
+    id_content = new types::List();
 }
 
 GraphicsAdapter::~GraphicsAdapter()
 {
+    delete gr_i_content;
+    delete id_content;
 }
 
 bool GraphicsAdapter::toString(std::wostringstream& ostr)
@@ -677,6 +715,28 @@ std::wstring GraphicsAdapter::getTypeStr()
 std::wstring GraphicsAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+types::InternalType* GraphicsAdapter::getGr_iContent() const
+{
+    return gr_i_content;
+}
+
+void GraphicsAdapter::setGr_iContent(types::InternalType* v)
+{
+    delete gr_i_content;
+    gr_i_content = v->clone();
+}
+
+types::InternalType* GraphicsAdapter::getIdContent() const
+{
+    return id_content;
+}
+
+void GraphicsAdapter::setIdContent(types::InternalType* v)
+{
+    delete id_content;
+    id_content = v->clone();
 }
 
 } /* view_scilab */
