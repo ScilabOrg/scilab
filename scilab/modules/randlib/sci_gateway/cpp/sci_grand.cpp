@@ -374,12 +374,18 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
 
     // *** perform operation in according method string and return result. ***
 
-    if (itab[1] * itab[0] == 0)
+    types::Double* pDblOut =  NULL;
+
+    if ((itab[1] * itab[0] == 0))
     {
-        out.push_back(types::Double::Empty());
+        pDblOut = new types::Double(in[0]->getAs<types::Double>()->getDims(), in[0]->getAs<types::Double>()->getDimsArray());
+    }
+    else
+    {
+        pDblOut = new types::Double(iDims, itab);
     }
 
-    types::Double* pDblOut = new types::Double(iDims, itab);
+
     delete[] itab;
 
     switch (meth)
