@@ -81,11 +81,13 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
 
                 GenericType* pGTResult = poRow->getAs<GenericType>();
 
-                if (pGT->isList() || pGTResult->isList() ||
-                        pGT->isBool() || pGTResult->isBool() ||
-                        pGT->isInt()  || pGTResult->isInt())
+                if (pGT->isList() || pGTResult->isList())
                 {
-                    poRow = callOverloadMatrixExp(L"c", pGTResult, pGT);
+                    if (pGT->isBool() || pGTResult->isBool() ||
+                            pGT->isInt()  || pGTResult->isInt())
+                    {
+                        poRow = callOverloadMatrixExp(L"c", pGTResult, pGT);
+                    }
                     continue;
                 }
 
@@ -148,11 +150,13 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
             //check dimension
             GenericType* pGTResult = poResult->getAs<GenericType>();
 
-            if (pGT->isList() || pGTResult->isList() ||
-                    pGT->isBool() || pGTResult->isBool() ||
-                    pGT->isInt()  || pGTResult->isInt())
+            if (pGT->isList() || pGTResult->isList())
             {
-                poResult = callOverloadMatrixExp(L"f", pGTResult, pGT);
+                if (pGT->isBool() || pGTResult->isBool() ||
+                        pGT->isInt()  || pGTResult->isInt())
+                {
+                    poResult = callOverloadMatrixExp(L"f", pGTResult, pGT);
+                }
                 continue;
             }
 
