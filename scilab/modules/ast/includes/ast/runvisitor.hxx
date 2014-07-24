@@ -493,6 +493,8 @@ public :
     {
         exps_t::const_iterator it;
         int i = 0;
+        int iNbExpSize = this->getExpectedSize();
+        this->setExpectedSize(1);
 
         std::list<InternalType*> lstIT;
         for (it = e.getExps().begin() ; it != e.getExps().end() ; it++)
@@ -506,6 +508,8 @@ public :
         {
             setResult(i++, *itIT);
         }
+
+        this->setExpectedSize(iNbExpSize);
     }
 
     void visitprivate(const VarDec  &e)
