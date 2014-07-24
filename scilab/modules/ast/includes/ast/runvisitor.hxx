@@ -492,20 +492,24 @@ public :
     void visitprivate(const ArrayListExp  &e)
     {
         exps_t::const_iterator it;
-        int i = 0;
+        int iNbExpSize = this->getExpectedSize();
+        this->setExpectedSize(1);
 
-        std::list<InternalType*> lstIT;
+        typed_list lstIT;
         for (it = e.getExps().begin() ; it != e.getExps().end() ; it++)
         {
             (*it)->accept(*this);
-            lstIT.push_back(getResult()->clone());
+            for (int j = 0; j < getResultSize(); j++)
+            {
+                lstIT.push_back(getResult(j));
+                setResult(j, NULL);
+            }
         }
 
-        std::list<InternalType*>::iterator itIT = lstIT.begin();
-        for (; itIT != lstIT.end(); itIT++)
-        {
-            setResult(i++, *itIT);
-        }
+        clearResult();
+        setResult(lstIT);
+
+        this->setExpectedSize(iNbExpSize);
     }
 
     void visitprivate(const VarDec  &e)
