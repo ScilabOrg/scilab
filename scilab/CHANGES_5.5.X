@@ -170,6 +170,8 @@ Scilab Bug Fixes
 
 * Bug #13510 fixed - Datatip callback cleared 'd'.
 
+* Bug #13531 fixed - Fixed sylv help page to include the real Sylester equation.
+
 
 Xcos Bug Fixes
 ==============
@@ -197,7 +199,7 @@ Xcos Bug Fixes
 
 * Bug #13396 fixed - MBLOCK did not work with an external file containing the modelica class.
 
-* Bug #13513 fixed - EXPRESSION block with "u1" as expression failed with a 
+* Bug #13513 fixed - EXPRESSION block with "u1" as expression failed with a
                      singularity error.
 
 * Bug #13514 fixed - External modules' loader_pal.sce file contained absolute path.
