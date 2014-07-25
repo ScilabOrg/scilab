@@ -98,7 +98,36 @@ ast::SeqExp* Macro::getBody(void)
 
 bool Macro::toString(std::wostringstream& ostr)
 {
-    ostr << L"FIXME : Implement Macro::toString" << std::endl;
+    ostr << L"[";
+
+    std::list<symbol::Variable*>::iterator OutArg = m_outputArgs->begin();
+    std::list<symbol::Variable*>::iterator OutArgfter = OutArg;
+    OutArgfter++;
+
+    for (; OutArgfter != m_outputArgs->end(); OutArgfter++)
+    {
+        ostr << OutArg._Ptr->_Myval->name_get();
+        ostr << ",";
+        OutArg++;
+    }
+    ostr << OutArg._Ptr->_Myval->name_get() << L"]";
+
+    ostr << L"=" << getName() << L"(";
+
+    std::list<symbol::Variable*>::iterator inArg = m_inputArgs->begin();
+    std::list<symbol::Variable*>::iterator inRagAfter = inArg;
+    inRagAfter++;
+
+    for (; inRagAfter != m_inputArgs->end(); inRagAfter++)
+    {
+        ostr << inArg._Ptr->_Myval->name_get();
+        ostr << ",";
+        inArg++;
+    }
+
+    ostr << inArg._Ptr->_Myval->name_get();
+
+    ostr << L")" << std::endl;
     return true;
 }
 
