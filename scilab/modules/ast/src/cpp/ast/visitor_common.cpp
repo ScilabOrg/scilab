@@ -1500,6 +1500,14 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
         {
             pOut = _pVar->getAs<UInt64>()->remove(_pArgs);
         }
+        else if (_pVar->isSparse())
+        {
+            pOut = _pVar->getAs<Sparse>()->remove(_pArgs);
+        }
+        else if (_pVar->isSparseBool())
+        {
+            pOut = _pVar->getAs<SparseBool>()->remove(_pArgs);
+        }
         else if (_pVar->isStruct())
         {
             // a("b") = [] is not a deletion !!
