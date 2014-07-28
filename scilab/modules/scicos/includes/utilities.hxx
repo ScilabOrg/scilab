@@ -90,6 +90,7 @@ enum object_properties_t
     OUTPUTS,            //!< model::Block::out value
     EVENT_INPUTS,       //!< model::Block::ein value
     EVENT_OUTPUTS,      //!< model::Block::eout value
+    BSTYLE,             //!< model::Block::bstyle value
     PARENT_BLOCK,       //!< model::Block::parentBlock value
     CHILDREN,           //!< model::Block::children for superblocks or model::Diagram::children value
     PORT_REFERENCE,     //!< model::Block::portReference value
@@ -100,6 +101,8 @@ enum object_properties_t
     SOURCE_BLOCK,       //!< model::Port::sourceBlock value
     PORT_KIND,          //!< model::Port::kind value
     IMPLICIT,           //!< model::Port::implicit value
+    PSTYLE,             //!< model::Port::pstyle value
+    LABEL,              //!< model::Port::label value
     PORT_NUMBER,        //!< model::Port::portNumber value
     CONNECTED_SIGNALS,  //!< model::Port::connectedSignals value
 };
