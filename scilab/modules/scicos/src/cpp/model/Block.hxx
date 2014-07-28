@@ -334,15 +334,22 @@ private:
         this->sim = sim;
     }
 
-    const std::string& getStyle() const
+    void getStyle(std::string& data) const
     {
-        return style;
+        data = style;
     }
 
-    void setStyle(const std::string& style)
+    update_status_t setStyle(const std::string& data)
     {
-        this->style = style;
+        if (data == style)
+        {
+            return NO_CHANGES;
+        }
+
+        style = data;
+        return SUCCESS;
     }
+
 private:
     ScicosID parentDiagram;
     std::string interfaceFunction;

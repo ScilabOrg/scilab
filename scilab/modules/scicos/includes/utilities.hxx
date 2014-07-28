@@ -93,6 +93,7 @@ enum object_properties_t
     PARENT_BLOCK,       //!< model::Block::parentBlock value
     CHILDREN,           //!< model::Block::children for superblocks or model::Diagram::children value
     PORT_REFERENCE,     //!< model::Block::portReference value
+    STYLE,              //!< model::Block & Port::style value
     DESTINATION_PORT,   //!< model::Link::destinationPort value
     SOURCE_PORT,        //!< model::Link::sourcePort value
     CONTROL_POINTS,     //!< model::Link::controlPoints value
@@ -100,6 +101,7 @@ enum object_properties_t
     SOURCE_BLOCK,       //!< model::Port::sourceBlock value
     PORT_KIND,          //!< model::Port::kind value
     IMPLICIT,           //!< model::Port::implicit value
+    LABEL,              //!< model::Port::label value
     PORT_NUMBER,        //!< model::Port::portNumber value
     CONNECTED_SIGNALS,  //!< model::Port::connectedSignals value
 };

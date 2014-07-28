@@ -131,6 +131,9 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case PORT_REFERENCE:
             os << "PORT_REFERENCE";
             break;
+        case STYLE:
+            os << "STYLE";
+            break;
         case DESTINATION_PORT:
             os << "DESTINATION_PORT";
             break;
@@ -151,6 +154,9 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
             break;
         case IMPLICIT:
             os << "IMPLICIT";
+            break;
+        case LABEL:
+            os << "LABEL";
             break;
         case PORT_NUMBER:
             os << "PORT_NUMBER";
