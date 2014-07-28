@@ -254,7 +254,7 @@ struct exprs
     }
 };
 
-static types::Double* get_port(const GraphicsAdapter& adaptor, object_properties_t p, const Controller& controller)
+static types::Double* create_port(const GraphicsAdapter& adaptor, object_properties_t p, const Controller& controller)
 {
     model::Block* adaptee = adaptor.getAdaptee();
 
@@ -321,19 +321,21 @@ static types::String* get_port(const GraphicsAdapter& adaptor, object_properties
 
     // Translate identifiers to return values
     int i = 0;
-    static const wchar_t E[] = L"E";
-    static const wchar_t I[] = L"I";
     for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
     {
         if (p2 == IMPLICIT)
         {
+            static const wchar_t E[] = L"E";
+            static const wchar_t I[] = L"I";
             bool v;
-            controller.getObjectProperty(*it, PORT, IMPLICIT, v);
+            controller.getObjectProperty(*it, PORT, p2, v);
             o->set(i, (v == false) ? E : I);
         }
-        else
+        else // p2 == STYLE or LABEL
         {
-            // STYLE, LABEL
+            std::string s;
+            controller.getObjectProperty(*it, PORT, p2, s);
+            o->set(i, s.data());
         }
     }
 
@@ -493,12 +495,86 @@ static bool set_port(const GraphicsAdapter& adaptor, types::InternalType* v, obj
     return true;
 }
 
+static bool set_port(const GraphicsAdapter& adaptor, types::InternalType* v, object_properties_t p, Controller& controller, object_properties_t p2)
+{
+    if (v->getType() == types::InternalType::ScilabString)
+    {
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        types::String* current = v->getAs<types::String>();
+        if (current->getCols() != 0 && current->getCols() != 1)
+        {
+            return false;
+        }
+
+        // Retrieve the ports i dentifiers
+        std::vector<ScicosID> ids;
+        size_t rows = current->getRows();
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), p, ids);
+        if (rows != ids.size())
+        {
+            return false;
+        }
+
+        int i = 0;
+        if (p2 == IMPLICIT)
+        {
+            static const wchar_t E[] = L"E";
+            static const wchar_t I[] = L"I";
+            for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
+            {
+                if (current->get(i) == I)
+                {
+                    controller.setObjectProperty(*it, PORT, p2, true);
+                }
+                else if (current->get(i) == E)
+                {
+                    controller.setObjectProperty(*it, PORT, p2, false);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else // p2 == STYLE or LABEL
+        {
+            std::vector<std::string> style = std::vector<std::string>(current->getSize());
+            for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
+            {
+                char* c_str = wide_string_to_UTF8(current->get(i));
+                style[i] = std::string(c_str);
+                FREE(c_str);
+                controller.setObjectProperty(*it, PORT, p2, style[i]);
+            }
+        }
+        return true;
+    }
+    else if (v->getType() == types::InternalType::ScilabDouble)
+    {
+        types::Double* current = v->getAs<types::Double>();
+        if (current->getRows() != 0 || current->getCols() != 0)
+        {
+            return false;
+        }
+        types::String* o = get_port(adaptor, p, controller, p2);
+        if (o->getSize() != 0)
+        {
+            return false;
+        }
+        // Do nothing, because if the sizes match, then there are already zero concerned ports, so no ports to update
+        delete o;
+        return true;
+    }
+    return false;
+}
+
 struct pin
 {
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, INPUTS, controller);
+        return create_port(adaptor, INPUTS, controller);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -512,7 +588,7 @@ struct pout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, OUTPUTS, controller);
+        return create_port(adaptor, OUTPUTS, controller);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -526,7 +602,7 @@ struct pein
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, EVENT_INPUTS, controller);
+        return create_port(adaptor, EVENT_INPUTS, controller);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -540,7 +616,7 @@ struct peout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_port(adaptor, EVENT_OUTPUTS, controller);
+        return create_port(adaptor, EVENT_OUTPUTS, controller);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -572,7 +648,7 @@ struct id
         model::Block* adaptee = adaptor.getAdaptee();
 
         std::string id;
-        controller.getObjectProperty(adaptee->id(), adaptee->kind(), ID, id);
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), LABEL, id);
 
         types::String* o = new types::String(1, 1);
         o->set(0, id.data());
@@ -599,7 +675,7 @@ struct id
         id = std::string(c_str);
         FREE(c_str);
 
-        controller.setObjectProperty(adaptee->id(), adaptee->kind(), ID, id);
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), LABEL, id);
         return true;
     }
 };
@@ -614,62 +690,7 @@ struct in_implicit
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() == types::InternalType::ScilabString)
-        {
-            model::Block* adaptee = adaptor.getAdaptee();
-
-            types::String* current = v->getAs<types::String>();
-            if (current->getCols() != 0 && current->getCols() != 1)
-            {
-                return false;
-            }
-
-            // Retrieve the ports i dentifiers
-            std::vector<ScicosID> ids;
-            size_t rows = current->getRows();
-            controller.getObjectProperty(adaptee->id(), adaptee->kind(), INPUTS, ids);
-            if (rows != ids.size())
-            {
-                return false;
-            }
-
-            int i = 0;
-            static const wchar_t E[] = L"E";
-            static const wchar_t I[] = L"I";
-            for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
-            {
-                if (current->get(i) == I)
-                {
-                    controller.setObjectProperty(*it, PORT, IMPLICIT, true);
-                }
-                else if (current->get(i) == E)
-                {
-                    controller.setObjectProperty(*it, PORT, IMPLICIT, false);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        else if (v->getType() == types::InternalType::ScilabDouble)
-        {
-            types::Double* current = v->getAs<types::Double>();
-            if (current->getRows() != 0 || current->getCols() != 0)
-            {
-                return false;
-            }
-            types::String* o = get_port(adaptor, INPUTS, controller, IMPLICIT);
-            if (o->getSize() != 0)
-            {
-                return false;
-            }
-            // Do nothing, because if the sizes match, then there are already zero input ports, so no input ports to update
-            delete o;
-            return true;
-        }
-        return false;
+        return set_port(adaptor, v, INPUTS, controller, IMPLICIT);
     }
 };
 
@@ -683,62 +704,7 @@ struct out_implicit
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() == types::InternalType::ScilabString)
-        {
-            model::Block* adaptee = adaptor.getAdaptee();
-
-            types::String* current = v->getAs<types::String>();
-            if (current->getCols() != 0 && current->getCols() != 1)
-            {
-                return false;
-            }
-
-            // Retrieve the ports i dentifiers
-            std::vector<ScicosID> ids;
-            size_t rows = current->getRows();
-            controller.getObjectProperty(adaptee->id(), adaptee->kind(), OUTPUTS, ids);
-            if (rows != ids.size())
-            {
-                return false;
-            }
-
-            int i = 0;
-            static const wchar_t E[] = L"E";
-            static const wchar_t I[] = L"I";
-            for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
-            {
-                if (current->get(i) == I)
-                {
-                    controller.setObjectProperty(*it, PORT, IMPLICIT, true);
-                }
-                else if (current->get(i) == E)
-                {
-                    controller.setObjectProperty(*it, PORT, IMPLICIT, false);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        else if (v->getType() == types::InternalType::ScilabDouble)
-        {
-            types::Double* current = v->getAs<types::Double>();
-            if (current->getRows() != 0 || current->getCols() != 0)
-            {
-                return false;
-            }
-            types::String* o = get_port(adaptor, OUTPUTS, controller, IMPLICIT);
-            if (o->getSize() != 0)
-            {
-                return false;
-            }
-            // Do nothing, because if the sizes match, then there are already zero output ports, so no output ports to update
-            delete o;
-            return true;
-        }
-        return false;
+        return set_port(adaptor, v, OUTPUTS, controller, IMPLICIT);
     }
 };
 
@@ -747,14 +713,12 @@ struct in_style
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        return get_port(adaptor, INPUTS, controller, STYLE);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
-        return false;
+        return set_port(adaptor, v, INPUTS, controller, STYLE);
     }
 };
 
@@ -763,14 +727,12 @@ struct out_style
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        return get_port(adaptor, OUTPUTS, controller, STYLE);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
-        return false;
+        return set_port(adaptor, v, OUTPUTS, controller, STYLE);
     }
 };
 
@@ -779,14 +741,12 @@ struct in_label
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        return get_port(adaptor, INPUTS, controller, LABEL);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
-        return false;
+        return set_port(adaptor, v, INPUTS, controller, LABEL);
     }
 };
 
@@ -795,14 +755,12 @@ struct out_label
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        return get_port(adaptor, OUTPUTS, controller, LABEL);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
-        return false;
+        return set_port(adaptor, v, OUTPUTS, controller, LABEL);
     }
 };
 
@@ -811,13 +769,55 @@ struct style
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        //FIXME: implement
-        return 0;
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        std::string style;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), STYLE, style);
+
+        types::String* o;
+        if (style.empty())
+        {
+            o = new types::String(0, 0);
+        }
+        else
+        {
+            o = new types::String(1, 1);
+            o->set(0, style.data());
+        }
+        return o;
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        //FIXME: implement
+        model::Block* adaptee = adaptor.getAdaptee();
+        if (v->getType() == types::InternalType::ScilabString)
+        {
+            types::String* current = v->getAs<types::String>();
+            if (current->getSize() != 1)
+            {
+                return false;
+            }
+
+            std::string style;
+            char* c_str = wide_string_to_UTF8(current->get(0));
+            style = std::string(c_str);
+            FREE(c_str);
+
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), STYLE, style);
+            return true;
+        }
+        else if (v->getType() == types::InternalType::ScilabDouble)
+        {
+            types::Double* current = v->getAs<types::Double>();
+            if (current->getSize() != 0)
+            {
+                return false;
+            }
+
+            std::string style;
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), STYLE, style);
+            return true;
+        }
         return false;
     }
 };
