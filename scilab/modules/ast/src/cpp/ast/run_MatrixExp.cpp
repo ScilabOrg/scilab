@@ -31,6 +31,8 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
             return;
         }
 
+        // to manage case [1:$ GenericType]
+        bool bForceOverload = false;
         //do all [x,x]
         for (row = e.lines_get().begin() ; row != e.lines_get().end() ; row++)
         {
@@ -48,6 +50,32 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 //reset result but whitout delete the value
                 result_clear_except_first();
 
+                if (pIT->isImplicitList())
+                {
+                    ImplicitList *pIL = pIT->getAs<ImplicitList>();
+                    if (pIL->isComputable())
+                    {
+                        InternalType* pIT2 = pIL->extractFullMatrix();
+                        pIT->killMe();
+                        pIT = pIT2;
+                    }
+                    else
+                    {
+                        if (poRow == NULL)
+                        {
+                            //first loop
+                            poRow = pIT;
+                            bForceOverload = true;
+                        }
+                        else
+                        {
+                            poRow = callOverloadMatrixExp(L"c", poRow, pIT);
+                        }
+
+                        continue;
+                    }
+                }
+
                 if (pIT->isGenericType() == false)
                 {
                     pIT->killMe();
@@ -57,15 +85,6 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 }
 
                 GenericType* pGT = pIT->getAs<GenericType>();
-
-                if (pGT->isImplicitList() && pGT->getAs<ImplicitList>()->isComputable())
-                {
-                    ImplicitList *pIL = pGT->getAs<ImplicitList>();
-                    InternalType* pIT2 = pIL->extractFullMatrix();
-                    pGT->killMe();
-                    pGT = pIT2->getAs<GenericType>();
-                }
-
                 if (pGT->isDouble() && pGT->getAs<Double>()->isEmpty())
                 {
                     pGT->killMe();
@@ -82,9 +101,10 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 GenericType* pGTResult = poRow->getAs<GenericType>();
 
                 if (pGT->isList() || pGTResult->isList() ||
-                        pGT->isBool() || pGTResult->isBool() ||
-                        pGT->isInt()  || pGTResult->isInt())
+                        pGT->isStruct() || pGTResult->isStruct() ||
+                        bForceOverload)
                 {
+                    bForceOverload = false;
                     poRow = callOverloadMatrixExp(L"c", pGTResult, pGT);
                     continue;
                 }
@@ -120,12 +140,22 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                     poRow = new types::SparseBool(*pGTResult->getAs<types::Bool>());
                 }
 
-                InternalType *p = AddElementToVariable(NULL, poRow, pGTResult->getRows(), pGTResult->getCols() + pGT->getCols());
-                p = AddElementToVariable(p, pGT, 0, pGTResult->getCols());
+                InternalType *pNewSize = AddElementToVariable(NULL, poRow, pGTResult->getRows(), pGTResult->getCols() + pGT->getCols());
+                InternalType* p = AddElementToVariable(pNewSize, pGT, 0, pGTResult->getCols());
+
+                // call overload
+                if (p == NULL)
+                {
+                    pNewSize->killMe();
+                    poRow = callOverloadMatrixExp(L"c", pGTResult, pGT);
+                    continue;
+                }
+
                 if (poRow != pGT)
                 {
                     pGT->killMe();
                 }
+
                 if (p != poRow)
                 {
                     poRow->killMe();
@@ -149,8 +179,7 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
             GenericType* pGTResult = poResult->getAs<GenericType>();
 
             if (pGT->isList() || pGTResult->isList() ||
-                    pGT->isBool() || pGTResult->isBool() ||
-                    pGT->isInt()  || pGTResult->isInt())
+                    pGT->isStruct() || pGTResult->isStruct())
             {
                 poResult = callOverloadMatrixExp(L"f", pGTResult, pGT);
                 continue;
@@ -187,12 +216,22 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 poResult = new types::SparseBool(*pGTResult->getAs<types::Bool>());
             }
 
-            InternalType *p = AddElementToVariable(NULL, poResult, pGTResult->getRows() + pGT->getRows(), pGT->getCols());
-            p = AddElementToVariable(p, pGT, pGTResult->getRows(), 0);
+            InternalType* pNewSize = AddElementToVariable(NULL, poResult, pGTResult->getRows() + pGT->getRows(), pGT->getCols());
+            InternalType* p = AddElementToVariable(pNewSize, pGT, pGTResult->getRows(), 0);
+
+            // call overload
+            if (p == NULL)
+            {
+                pNewSize->killMe();
+                poResult = callOverloadMatrixExp(L"f", pGTResult, pGT);
+                continue;
+            }
+
             if (poResult != poRow)
             {
                 poRow->killMe();
             }
+
             if (p != poResult)
             {
                 poResult->killMe();
@@ -230,11 +269,11 @@ types::InternalType* RunVisitorT<T>::callOverloadMatrixExp(std::wstring strType,
 
     if (_paramR->isGenericType() && _paramR->getAs<types::GenericType>()->getDims() > 2)
     {
-        Ret = Overload::call(L"%hm_" + strType + L"_hm", in, 1, out, this);
+        Ret = Overload::call(L"%hm_" + strType + L"_hm", in, 1, out, this, true);
     }
     else
     {
-        Ret = Overload::call(L"%" + _paramL->getAs<List>()->getShortTypeStr() + L"_" + strType + L"_" + _paramR->getAs<List>()->getShortTypeStr(), in, 1, out, this);
+        Ret = Overload::call(L"%" + _paramL->getAs<List>()->getShortTypeStr() + L"_" + strType + L"_" + _paramR->getAs<List>()->getShortTypeStr(), in, 1, out, this, true);
     }
 
     if (Ret != Callable::OK)
