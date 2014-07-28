@@ -122,6 +122,9 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case EVENT_OUTPUTS:
             os << "EVENT_OUTPUTS";
             break;
+        case BSTYLE:
+            os << "BSTYLE";
+            break;
         case PARENT_BLOCK:
             os << "PARENT_BLOCK";
             break;
@@ -151,6 +154,12 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
             break;
         case IMPLICIT:
             os << "IMPLICIT";
+            break;
+        case PSTYLE:
+            os << "PSTYLE";
+            break;
+        case LABEL:
+            os << "LABEL";
             break;
         case PORT_NUMBER:
             os << "PORT_NUMBER";

@@ -248,6 +248,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case BSTYLE:
+                return o->setBStyle(v);
             case ID:
                 return o->setIdentifier(v);
             default:
@@ -277,6 +279,10 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case PSTYLE:
+                return o->setPStyle(v);
+            case LABEL:
+                return o->setLabel(v);
             default:
                 break;
         }
@@ -392,7 +398,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     return FAIL;
 }
 
-update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector< std::string >& v)
+update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector<std::string>& v)
 {
 
     if (k == ANNOTATION)
