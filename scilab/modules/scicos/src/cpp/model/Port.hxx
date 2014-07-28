@@ -33,8 +33,9 @@ class Port: public BaseObject
     friend class ::org_scilab_modules_scicos::Model;
 
 private:
-    Port() : BaseObject(PORT), dataType(0), sourceBlock(0), kind(UNDEF), implicit(false) {};
-    Port(const Port& o) : BaseObject(PORT), dataType(o.dataType), sourceBlock(o.sourceBlock), kind(o.kind), implicit(o.implicit) {};
+    Port() : BaseObject(PORT), dataType(0), sourceBlock(0), kind(UNDEF), implicit(false), style(), connectedSignals(), label() {};
+    Port(const Port& o) : BaseObject(PORT), dataType(o.dataType), sourceBlock(o.sourceBlock),
+        kind(o.kind), implicit(o.implicit), style(o.style), connectedSignals(o.connectedSignals), label(o.label) {};
     ~Port() {};
 
     const std::vector<ScicosID>& getConnectedSignals() const
@@ -92,11 +93,43 @@ private:
         return SUCCESS;
     }
 
+    void getPStyle(std::string& s) const
+    {
+        s = style;
+    }
+
+    update_status_t setPStyle(std::string style)
+    {
+        if (style == this->style)
+        {
+            return NO_CHANGES;
+        }
+        this->style = style;
+        return SUCCESS;
+    }
+
+    void getLabel(std::string& l) const
+    {
+        l = style;
+    }
+
+    update_status_t setLabel(std::string label)
+    {
+        if (label == this->label)
+        {
+            return NO_CHANGES;
+        }
+        this->label = label;
+        return SUCCESS;
+    }
+
 private:
     Datatype* dataType;
     ScicosID sourceBlock;
     portKind kind;
     bool implicit;
+    std::string style;
+    std::string label;
 
     std::vector<ScicosID> connectedSignals;
 };
