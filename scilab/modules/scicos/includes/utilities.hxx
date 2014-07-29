@@ -102,6 +102,9 @@ enum object_properties_t
     PORT_KIND,          //!< model::Port::kind value
     IMPLICIT,           //!< model::Port::implicit value
     PORT_NUMBER,        //!< model::Port::portNumber value
+    INPUTS_SIZE1,       //!< model::Port::inSize1 value
+    INPUTS_SIZE2,       //!< model::Port::inSize2 value
+    INPUTS_TYPE,        //!< model::Port::inType value
     CONNECTED_SIGNALS,  //!< model::Port::connectedSignals value
 };
 
