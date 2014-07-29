@@ -263,12 +263,12 @@ struct pin
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, INPUTS, controller, CONNECTED_SIGNALS);
+        return get_ports_property<GraphicsAdapter>(adaptor, INPUTS, controller, CONNECTED_SIGNALS);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        return update_ports_with_property(adaptor, INPUTS, controller, CONNECTED_SIGNALS, v);
+        return update_ports_with_property<GraphicsAdapter>(adaptor, INPUTS, controller, CONNECTED_SIGNALS, v);
     }
 };
 
@@ -277,12 +277,12 @@ struct pout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, OUTPUTS, controller, CONNECTED_SIGNALS);
+        return get_ports_property<GraphicsAdapter>(adaptor, OUTPUTS, controller, CONNECTED_SIGNALS);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        return update_ports_with_property(adaptor, OUTPUTS, controller, CONNECTED_SIGNALS, v);
+        return update_ports_with_property<GraphicsAdapter>(adaptor, OUTPUTS, controller, CONNECTED_SIGNALS, v);
     }
 };
 
@@ -291,12 +291,12 @@ struct pein
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, EVENT_INPUTS, controller, CONNECTED_SIGNALS);
+        return get_ports_property<GraphicsAdapter>(adaptor, EVENT_INPUTS, controller, CONNECTED_SIGNALS);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        return update_ports_with_property(adaptor, EVENT_INPUTS, controller, CONNECTED_SIGNALS, v);
+        return update_ports_with_property<GraphicsAdapter>(adaptor, EVENT_INPUTS, controller, CONNECTED_SIGNALS, v);
     }
 };
 
@@ -305,12 +305,12 @@ struct peout
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, EVENT_OUTPUTS, controller, CONNECTED_SIGNALS);
+        return get_ports_property<GraphicsAdapter>(adaptor, EVENT_OUTPUTS, controller, CONNECTED_SIGNALS);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        return update_ports_with_property(adaptor, EVENT_OUTPUTS, controller, CONNECTED_SIGNALS, v);
+        return update_ports_with_property<GraphicsAdapter>(adaptor, EVENT_OUTPUTS, controller, CONNECTED_SIGNALS, v);
     }
 };
 
@@ -374,7 +374,7 @@ struct in_implicit
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, INPUTS, controller, IMPLICIT);
+        return get_ports_property<GraphicsAdapter>(adaptor, INPUTS, controller, IMPLICIT);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -388,7 +388,7 @@ struct out_implicit
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, OUTPUTS, controller, IMPLICIT);
+        return get_ports_property<GraphicsAdapter>(adaptor, OUTPUTS, controller, IMPLICIT);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -402,7 +402,7 @@ struct in_style
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, INPUTS, controller, STYLE);
+        return get_ports_property<GraphicsAdapter>(adaptor, INPUTS, controller, STYLE);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -416,7 +416,7 @@ struct out_style
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, OUTPUTS, controller, STYLE);
+        return get_ports_property<GraphicsAdapter>(adaptor, OUTPUTS, controller, STYLE);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -430,7 +430,7 @@ struct in_label
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, INPUTS, controller, LABEL);
+        return get_ports_property<GraphicsAdapter>(adaptor, INPUTS, controller, LABEL);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -444,7 +444,7 @@ struct out_label
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property(adaptor, OUTPUTS, controller, LABEL);
+        return get_ports_property<GraphicsAdapter>(adaptor, OUTPUTS, controller, LABEL);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)

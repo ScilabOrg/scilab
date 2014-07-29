@@ -67,6 +67,12 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case INPUTS_SIZE1:
+                return o->setInSize1(v);
+            case INPUTS_SIZE2:
+                return o->setInSize2(v);
+            case INPUTS_TYPE:
+                return o->setInType(v);
             default:
                 break;
         }
@@ -91,6 +97,10 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case SIM_FUNCTION_API:
+            {
+                return o->setSimFunctionApi(v);
+            }
             default:
                 break;
         }
@@ -248,6 +258,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case SIM_FUNCTION_NAME:
+                return o->setSimFunctionName(v);
             case STYLE:
                 return o->setStyle(v);
             case LABEL:
