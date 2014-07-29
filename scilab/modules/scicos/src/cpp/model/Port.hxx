@@ -33,9 +33,10 @@ class Port: public BaseObject
     friend class ::org_scilab_modules_scicos::Model;
 
 private:
-    Port() : BaseObject(PORT), dataType(0), sourceBlock(0), kind(UNDEF), implicit(false), style(), label(), connectedSignals() {};
-    Port(const Port& o) : BaseObject(PORT), dataType(o.dataType), sourceBlock(o.sourceBlock),
-        kind(o.kind), implicit(o.implicit), style(o.style), label(o.label), connectedSignals(o.connectedSignals) {};
+    Port() : BaseObject(PORT), dataType(0), sourceBlock(0), kind(UNDEF), implicit(false),
+        style(), label(), inSize1(), inSize2(), inType(), connectedSignals() {};
+    Port(const Port& o) : BaseObject(PORT), dataType(o.dataType), sourceBlock(o.sourceBlock), kind(o.kind), implicit(o.implicit),
+        style(o.style), label(o.label), inSize1(o.inSize1), inSize2(o.inSize2), inType(o.inType), connectedSignals(o.connectedSignals) {};
     ~Port() {};
 
     const std::vector<ScicosID>& getConnectedSignals() const
@@ -123,6 +124,51 @@ private:
         return SUCCESS;
     }
 
+    void getInSize1(double& s) const
+    {
+        s = inSize1;
+    }
+
+    update_status_t setInSize1(const double inSize1)
+    {
+        if (inSize1 == this->inSize1)
+        {
+            return NO_CHANGES;
+        }
+        this->inSize1 = inSize1;
+        return SUCCESS;
+    }
+
+    void getInSize2(double& s) const
+    {
+        s = inSize2;
+    }
+
+    update_status_t setInSize2(const double& inSize2)
+    {
+        if (inSize2 == this->inSize2)
+        {
+            return NO_CHANGES;
+        }
+        this->inSize2 = inSize2;
+        return SUCCESS;
+    }
+
+    void getInType(double& s) const
+    {
+        s = inSize1;
+    }
+
+    update_status_t setInType(const double& inType)
+    {
+        if (inType == this->inType)
+        {
+            return NO_CHANGES;
+        }
+        this->inType = inType;
+        return SUCCESS;
+    }
+
 private:
     Datatype* dataType;
     ScicosID sourceBlock;
@@ -130,6 +176,10 @@ private:
     bool implicit;
     std::string style;
     std::string label;
+
+    double inSize1;
+    double inSize2;
+    double inType;
 
     std::vector<ScicosID> connectedSignals;
 };
