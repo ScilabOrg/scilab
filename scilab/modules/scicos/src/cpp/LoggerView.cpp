@@ -158,6 +158,15 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case PORT_NUMBER:
             os << "PORT_NUMBER";
             break;
+        case INPUTS_SIZE1:
+            os << "INPUTS_SIZE1";
+            break;
+        case INPUTS_SIZE2:
+            os << "INPUTS_SIZE2";
+            break;
+        case INPUTS_TYPE:
+            os << "INPUTS_TYPE";
+            break;
         case CONNECTED_SIGNALS:
             os << "CONNECTED_SIGNALS";
             break;
