@@ -13,19 +13,20 @@
 //
 // Check behaviour with default settings.
 //
+funcprot(0);
 
 function y = rosenbrock (x)
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
 
 coords = [...
-    0.    0.  
-    3.    0.  
-    0.    6.  
+0.    0.
+3.    0.
+0.    6.
 ];
 s1 = optimsimplex_new ( coords );
 sicenter = optimsimplex_center ( s1 );
 assert_checkalmostequal ( sicenter , [1.0 2.0], %eps );
 s1 = optimsimplex_destroy(s1);
 
-
+funcprot(1);
