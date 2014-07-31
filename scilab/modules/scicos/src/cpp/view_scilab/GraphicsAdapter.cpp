@@ -31,9 +31,6 @@ namespace org_scilab_modules_scicos
 namespace view_scilab
 {
 
-static const wchar_t E[] = L"E";
-static const wchar_t I[] = L"I";
-
 struct orig
 {
 

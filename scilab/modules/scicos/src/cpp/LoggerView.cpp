@@ -101,6 +101,9 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case SIM_SCHEDULE:
             os << "SIM_SCHEDULE";
             break;
+        case SIM_BLOCKTYPE:
+            os << "SIM_BLOCKTYPE";
+            break;
         case ANGLE:
             os << "ANGLE";
             break;
@@ -118,6 +121,12 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
             break;
         case EVENT_OUTPUTS:
             os << "EVENT_OUTPUTS";
+            break;
+        case STATE:
+            os << "STATE";
+            break;
+        case DSTATE:
+            os << "DSTATE";
             break;
         case PARENT_BLOCK:
             os << "PARENT_BLOCK";
@@ -166,6 +175,12 @@ static std::ostream& operator<<(std::ostream& os, object_properties_t p)
             break;
         case DATATYPE_TYPE:
             os << "DATATYPE_TYPE";
+            break;
+        case EVTIN_SIZES:
+            os << "EVTIN_SIZES";
+            break;
+        case EVTOUT_SIZES:
+            os << "EVTOUT_SIZES";
             break;
         case CONNECTED_SIGNALS:
             os << "CONNECTED_SIGNALS";

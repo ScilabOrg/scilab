@@ -109,18 +109,18 @@ struct Geometry
 struct Datatype
 {
 public:
-    Datatype(unsigned int datatype, unsigned int r, unsigned c) :
-        datatype_id(datatype), rows(r), columns(c)
-    {
-    }
+    Datatype(int datatype, int r, int c, int ein, int eout) :
+        datatype_id(datatype), rows(r), columns(c), evtin_size(ein), evtout_size(eout) {};
 
     const int datatype_id;
     const int rows;
     const int columns;
+    const int evtin_size;
+    const int evtout_size;
 
     bool operator==(const Datatype& d) const
     {
-        return datatype_id == d.datatype_id && rows == d.rows && columns == d.columns;
+        return datatype_id == d.datatype_id && rows == d.rows && columns == d.columns && evtin_size == d.evtin_size && evtout_size == d.evtout_size;
     }
 };
 

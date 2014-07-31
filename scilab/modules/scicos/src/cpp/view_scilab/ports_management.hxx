@@ -245,7 +245,7 @@ bool update_ports_with_property(const Adaptor& adaptor, object_properties_t port
                 return false;
             }
 
-            *it = (int) * d;
+            *it = static_cast<int>(*d);
         }
     }
     else
