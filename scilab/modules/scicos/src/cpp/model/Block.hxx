@@ -51,7 +51,7 @@ struct Parameter
 struct State
 {
     std::vector<double> state;
-    std::vector<int> dstate;
+    std::vector<double> dstate;
     list_t odstate;
 };
 
@@ -379,6 +379,54 @@ private:
         }
 
         sim.functionApi = data;
+        return SUCCESS;
+    }
+
+    void getSimBlocktype(int& data) const
+    {
+        data = sim.blocktype;
+    }
+
+    update_status_t setSimBlocktype(const int data)
+    {
+        if (data == sim.blocktype)
+        {
+            return NO_CHANGES;
+        }
+
+        sim.blocktype = data;
+        return SUCCESS;
+    }
+
+    void getState(std::vector<double>& data) const
+    {
+        data = state.state;
+    }
+
+    update_status_t setState(const std::vector<double>& data)
+    {
+        if (data == state.state)
+        {
+            return NO_CHANGES;
+        }
+
+        state.state = data;
+        return SUCCESS;
+    }
+
+    void getDState(std::vector<double>& data) const
+    {
+        data = state.dstate;
+    }
+
+    update_status_t setDState(const std::vector<double>& data)
+    {
+        if (data == state.dstate)
+        {
+            return NO_CHANGES;
+        }
+
+        state.dstate = data;
         return SUCCESS;
     }
 
