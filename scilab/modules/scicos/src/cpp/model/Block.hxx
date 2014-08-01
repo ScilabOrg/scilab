@@ -61,7 +61,7 @@ struct State
  *  * CONST_m == 0
  *  * SUMMATION == DEP_U
  *  * CLR == DEP_T
- *  * SWITCH_f == DEP_U & DEP_T
+ *  * SWITCH_f == DEP_U | DEP_T
  */
 enum dep_ut_t
 {
@@ -403,10 +403,61 @@ private:
             case BLOCKTYPE_X:
             case BLOCKTYPE_Z:
                 sim.blocktype = data;
-                break;
+                return SUCCESS;
             default:
                 return FAIL;
         }
+    }
+
+    void getSimDepUT(std::vector<int>& data) const
+    {
+        switch (sim.dep_ut)
+        {
+            case DEP_U & DEP_T:
+                data[0] = 0;
+                data[1] = 0;
+                break;
+            case DEP_U:
+                data[0] = 1;
+                data[1] = 0;
+                break;
+            case DEP_T:
+                data[0] = 0;
+                data[1] = 1;
+                break;
+            case DEP_U | DEP_T:
+                data[0] = 1;
+                data[1] = 1;
+            default:
+                break;
+        }
+    }
+
+    update_status_t setSimDepUT(const std::vector<int>& data)
+    {
+        int dep = DEP_U & DEP_T;
+        if (data[0])
+        {
+            if (data[1])
+            {
+                dep = DEP_U | DEP_T;
+            }
+            else
+            {
+                dep = DEP_U;
+            }
+        }
+        else if (data[1])
+        {
+            dep = DEP_T;
+        }
+
+        if (dep == sim.dep_ut)
+        {
+            return NO_CHANGES;
+        }
+
+        sim.dep_ut = dep;
         return SUCCESS;
     }
 

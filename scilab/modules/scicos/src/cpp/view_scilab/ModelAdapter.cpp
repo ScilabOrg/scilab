@@ -384,6 +384,63 @@ struct blocktype
     }
 };
 
+struct firing
+{
+
+    static types::InternalType* get(const ModelAdapter& adaptor, const Controller& controller)
+    {
+        return get_ports_property<ModelAdapter, FIRING>(adaptor, OUTPUTS, controller);
+    }
+
+    static bool set(ModelAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        return set_ports_property<ModelAdapter, FIRING>(adaptor, OUTPUTS, controller, v);
+    }
+};
+
+struct dep_ut
+{
+
+    static types::InternalType* get(const ModelAdapter& adaptor, const Controller& controller)
+    {
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        std::vector<int> dep_ut (2, 0);
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), SIM_DEP_UT, dep_ut);
+
+        int* dep;
+        types::Bool* o = new types::Bool(1, 2, &dep);
+
+        dep[0] = dep_ut[0];
+        dep[1] = dep_ut[1];
+
+        return o;
+    }
+
+    static bool set(ModelAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        if (v->getType() != types::InternalType::ScilabBool)
+        {
+            return false;
+        }
+
+        types::Bool* current = v->getAs<types::Bool>();
+        if (current->getRows() != 1 || current->getCols() != 2)
+        {
+            return false;
+        }
+
+        std::vector<int> dep_ut (2);
+        dep_ut[0] = current->get(0);
+        dep_ut[1] = current->get(1);
+
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), SIM_DEP_UT, dep_ut);
+        return true;
+    }
+};
+
 template<> property<ModelAdapter>::props_t property<ModelAdapter>::fields = property<ModelAdapter>::props_t();
 
 ModelAdapter::ModelAdapter(const ModelAdapter& o) :
@@ -394,7 +451,7 @@ ModelAdapter::ModelAdapter(org_scilab_modules_scicos::model::Block* o) :
 {
     if (property<ModelAdapter>::properties_has_not_been_set())
     {
-        property<ModelAdapter>::fields.reserve(13);
+        property<ModelAdapter>::fields.reserve(15);
         property<ModelAdapter>::add_property(L"sim", &sim::get, &sim::set);
         property<ModelAdapter>::add_property(L"in", &in::get, &in::set);
         property<ModelAdapter>::add_property(L"in2", &in2::get, &in2::set);
@@ -408,6 +465,8 @@ ModelAdapter::ModelAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<ModelAdapter>::add_property(L"dstate", &dstate::get, &dstate::set);
         property<ModelAdapter>::add_property(L"odstate", &odstate::get, &odstate::set);
         property<ModelAdapter>::add_property(L"blocktype", &blocktype::get, &blocktype::set);
+        property<ModelAdapter>::add_property(L"firing", &firing::get, &firing::set);
+        property<ModelAdapter>::add_property(L"dep_ut", &dep_ut::get, &dep_ut::set);
     }
 }
 

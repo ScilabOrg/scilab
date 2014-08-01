@@ -62,6 +62,7 @@ enum object_properties_t
     SIM_FUNCTION_API,   //!< model::Descriptor::functionApi value (stored into model::Block::sim)
     SIM_SCHEDULE,       //!< model::Descriptor::schedulingProperties value (stored into model::Block::sim)
     SIM_BLOCKTYPE,      //!< model::Descriptor::blocktype value (stored into model::Block::sim)
+    SIM_DEP_UT,         //!< model::Descriptor::dep_ut value (stored into model::Block::sim)
     ANGLE,              //!< model::Block::flip and theta values
     EXPRS,              //!< model::Block::exprs value
     INPUTS,             //!< model::Block::in value
@@ -83,6 +84,7 @@ enum object_properties_t
     DATATYPE_ROWS,      //!< model::Port::dataType adapter helper
     DATATYPE_COLS,      //!< model::Port::dataType adapter helper
     DATATYPE_TYPE,      //!< model::Port::dataType adapter helper
+    FIRING,             //!< model::Port::firing value
     SOURCE_BLOCK,       //!< model::Port::sourceBlock value
     PORT_KIND,          //!< model::Port::kind value
     IMPLICIT,           //!< model::Port::implicit value
