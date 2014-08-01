@@ -67,6 +67,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case FIRING:
+                return o->setFiring(v);
             default:
                 break;
         }
@@ -374,6 +376,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case SIM_DEP_UT:
+                return o->setSimDepUT(v);
             default:
                 break;
         }
