@@ -22,10 +22,8 @@ SPECIAL_FUNCTIONS_FORTRAN_SOURCES = \
     src/fortran/zbesyg.f
 
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/sci_dlgamma.c \
     sci_gateway/c/sci_bessely.c \
     sci_gateway/c/sci_beta.c \
-    sci_gateway/c/sci_gamma.c \
     sci_gateway/c/sci_legendre.c \
     sci_gateway/c/sci_besselh.c \
     sci_gateway/c/sci_besseli.c \
@@ -35,7 +33,10 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_lgamma.c
 
 GATEWAY_CXX_SOURCES = \
-    sci_gateway/cpp/sci_faddeeva.cpp
+    sci_gateway/cpp/sci_faddeeva.cpp \
+    sci_gateway/cpp/sci_gamma.cpp \
+    sci_gateway/cpp/sci_lgamma.cpp \
+    sci_gateway/cpp/sci_dlgamma.cpp
 
 # Includes need for the compilation
 libscispecial_functions_la_CPPFLAGS = \
@@ -55,6 +56,11 @@ libscispecial_functions_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     -I$(top_srcdir)/modules/output_stream/includes/ \
     -I$(top_srcdir)/modules/localization/includes/ \
+    -I$(top_srcdir)/modules/dynamic_link/includes/ \
+    -I$(top_srcdir)/modules/string/includes/ \
+    -I$(top_srcdir)/modules/threads/includes/ \
+    -I$(top_srcdir)/modules/console/includes/ \
+    $(EIGEN_CPPFLAGS) \
     $(AM_CPPFLAGS)
 
 
