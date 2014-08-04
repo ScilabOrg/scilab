@@ -20,6 +20,7 @@
 #include "double.hxx"
 #include "function.hxx"
 #include "string_gw.hxx"
+#include <string>
 
 extern "C"
 {
@@ -36,6 +37,7 @@ types::Function::ReturnValue sci_isnum(types::typed_list &in, int _iRetCount, ty
     types::Bool* pOutBool   = NULL;
     types::String* pString  = NULL;
     BOOL *values            = NULL;
+    wchar_t **strVal = NULL;
 
     if (in.size() != 1)
     {
@@ -56,12 +58,16 @@ types::Function::ReturnValue sci_isnum(types::typed_list &in, int _iRetCount, ty
     }
 
     pString = in[0]->getAs<types::String>();
-
-    values = isNumMatrixW(const_cast<const wchar_t**>(pString->get()), pString->getRows(), pString->getCols());
-
-    pOutBool = new types::Bool(pString->getRows(), pString->getCols());
+    values = (BOOL*)MALLOC(sizeof(BOOL) * (pString->getSize()));
+    strVal = pString->get();
+    for (int i = 0; i < pString->getSize(); i++)
+    {
+        values[i] = isNumW(strVal[i]);
+    }
+    pOutBool = new types::Bool(pString->getDims(), pString->getDimsArray());
     pOutBool->set((int*)values);
     out.push_back(pOutBool);
+    delete(values);
     return types::Function::OK;
 }
 // =============================================================================
