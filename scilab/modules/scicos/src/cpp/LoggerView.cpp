@@ -139,6 +139,12 @@ std::ostream& operator<<(std::ostream& os, object_properties_t p)
             break;
         case NMODE:
             os << "NMODE";
+            break;;
+        case RPAR:
+            os << "RPAR";
+            break;
+        case IPAR:
+            os << "IPAR";
             break;
         case PARENT_BLOCK:
             os << "PARENT_BLOCK";

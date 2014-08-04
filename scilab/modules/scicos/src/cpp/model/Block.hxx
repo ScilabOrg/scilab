@@ -127,9 +127,9 @@ private:
         parameter(o.parameter), state(o.state), parentBlock(o.parentBlock), children(o.children), portReference(o.portReference) {};
     ~Block() {}
 
-    const std::vector<ScicosID>& getChildren() const
+    void getChildren(std::vector<ScicosID>& c) const
     {
-        return children;
+        c = children;
     }
 
     void setChildren(const std::vector<ScicosID>& children)
@@ -378,6 +378,38 @@ private:
         }
 
         nmode = data;
+        return SUCCESS;
+    }
+
+    void getRpar(std::vector<double>& data) const
+    {
+        data = parameter.rpar;
+    }
+
+    update_status_t setRpar(const std::vector<double>& data)
+    {
+        if (data == parameter.rpar)
+        {
+            return NO_CHANGES;
+        }
+
+        parameter.rpar = data;
+        return SUCCESS;
+    }
+
+    void getIpar(std::vector<int>& data) const
+    {
+        data = parameter.ipar;
+    }
+
+    update_status_t setIpar(const std::vector<int>& data)
+    {
+        if (data == parameter.ipar)
+        {
+            return NO_CHANGES;
+        }
+
+        parameter.ipar = data;
         return SUCCESS;
     }
 

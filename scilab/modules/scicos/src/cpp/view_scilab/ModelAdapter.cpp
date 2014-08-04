@@ -15,6 +15,7 @@
 #include <algorithm>
 
 #include "list.hxx"
+#include "mlist.hxx"
 #include "double.hxx"
 #include "string.hxx"
 
@@ -26,6 +27,8 @@ namespace org_scilab_modules_scicos
 {
 namespace view_scilab
 {
+
+static const wchar_t* diagram = L"diagram";
 
 struct sim
 {
@@ -337,6 +340,122 @@ struct odstate
     }
 };
 
+struct rpar
+{
+
+    static types::InternalType* get(const ModelAdapter& adaptor, const Controller& controller)
+    {
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        std::vector<ScicosID> children;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), CHILDREN, children);
+
+        if (children.empty())
+        {
+            std::vector<double> rpar;
+            controller.getObjectProperty(adaptee->id(), adaptee->kind(), RPAR, rpar);
+
+            double *data;
+            types::Double* o = new types::Double(rpar.size(), 1, &data);
+            std::copy(rpar.begin(), rpar.end(), data);
+
+            return o;
+        }
+        else
+        {
+            types::MList* o = new types::MList();
+            types::String* Diagram = new types::String(1, 1);
+            Diagram->set(0, diagram);
+            o->set(0, Diagram);
+
+            // FIXME: return the full diagram contained in children
+            return o;
+        }
+    }
+
+    static bool set(ModelAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        if (v->getType() == types::InternalType::ScilabDouble)
+        {
+            types::Double* current = v->getAs<types::Double>();
+            if (current->getCols() != 0 && current->getCols() != 1)
+            {
+                return false;
+            }
+
+            std::vector<double> rpar (current->getSize());
+            for (int i = 0; i < current->getSize(); ++i)
+            {
+                rpar[i] = current->get(i);
+            }
+
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), RPAR, rpar);
+            return true;
+        }
+        else
+        {
+            // FIXME: set rpar when input is a diagram (MList)
+            return false;
+        }
+    }
+};
+
+static double toDouble(const int a)
+{
+    return static_cast<double>(a);
+}
+
+struct ipar
+{
+
+    static types::InternalType* get(const ModelAdapter& adaptor, const Controller& controller)
+    {
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        std::vector<int> ipar;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), IPAR, ipar);
+
+        double *data;
+        types::Double* o = new types::Double(ipar.size(), 1, &data);
+
+        std::transform(ipar.begin(), ipar.end(), data, toDouble);
+
+        return o;
+    }
+
+    static bool set(ModelAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+
+        if (v->getType() != types::InternalType::ScilabDouble)
+        {
+            return false;
+        }
+
+        types::Double* current = v->getAs<types::Double>();
+        if (current->getCols() != 0 && current->getCols() != 1)
+        {
+            return false;
+        }
+
+        model::Block* adaptee = adaptor.getAdaptee();
+
+        std::vector<int> ipar (current->getSize());
+        for (int i = 0; i < current->getSize(); ++i)
+        {
+            if (floor(current->get(i)) != current->get(i))
+            {
+                return false;
+            }
+            ipar[i] = static_cast<int>(current->get(i));
+        }
+
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), IPAR, ipar);
+        return true;
+    }
+};
+
 struct blocktype
 {
 
@@ -576,7 +695,7 @@ ModelAdapter::ModelAdapter(org_scilab_modules_scicos::model::Block* o) :
 {
     if (property<ModelAdapter>::properties_has_not_been_set())
     {
-        property<ModelAdapter>::fields.reserve(18);
+        property<ModelAdapter>::fields.reserve(20);
         property<ModelAdapter>::add_property(L"sim", &sim::get, &sim::set);
         property<ModelAdapter>::add_property(L"in", &in::get, &in::set);
         property<ModelAdapter>::add_property(L"in2", &in2::get, &in2::set);
@@ -589,6 +708,8 @@ ModelAdapter::ModelAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<ModelAdapter>::add_property(L"state", &state::get, &state::set);
         property<ModelAdapter>::add_property(L"dstate", &dstate::get, &dstate::set);
         property<ModelAdapter>::add_property(L"odstate", &odstate::get, &odstate::set);
+        property<ModelAdapter>::add_property(L"rpar", &rpar::get, &rpar::set);
+        property<ModelAdapter>::add_property(L"ipar", &ipar::get, &ipar::set);
         property<ModelAdapter>::add_property(L"blocktype", &blocktype::get, &blocktype::set);
         property<ModelAdapter>::add_property(L"firing", &firing::get, &firing::set);
         property<ModelAdapter>::add_property(L"dep_ut", &dep_ut::get, &dep_ut::set);
