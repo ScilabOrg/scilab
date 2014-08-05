@@ -34,7 +34,7 @@ types::Function::ReturnValue sci_prod(types::typed_list &in, int _iRetCount, typ
     types::Polynom* pPolyOut    = NULL;
 
     int iOrientation    = 0;
-    int iOuttype        = 1; // 1 = native | 2 = double (type of output value)
+    int iOuttype        = 2; // 1 = native | 2 = double (type of output value)
 
     int* piDimsArray = NULL;
 
@@ -147,8 +147,14 @@ types::Function::ReturnValue sci_prod(types::typed_list &in, int _iRetCount, typ
         return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
     }
 
+    if (in.size() == 1 && in[0]->isInt())
+    {
+        iOuttype = 1;
+    }
+
     if (in.size() >= 2)
     {
+        bool bTestOutType = false;
         if (in[1]->isDouble())
         {
             types::Double* pDbl = in[1]->getAs<types::Double>();
@@ -220,10 +226,12 @@ types::Function::ReturnValue sci_prod(types::typed_list &in, int _iRetCount, typ
             else if ((wcscmp(wcsString, L"native") == 0) && (in.size() == 2))
             {
                 iOuttype = 1;
+                bTestOutType = true;
             }
             else if ((wcscmp(wcsString, L"double") == 0) && (in.size() == 2))
             {
                 iOuttype = 2;
+                bTestOutType = true;
             }
             else
             {
@@ -245,6 +253,11 @@ types::Function::ReturnValue sci_prod(types::typed_list &in, int _iRetCount, typ
         {
             Scierror(999, _("%s: Wrong type for input argument #%d: A real matrix or a string expected.\n"), "prod", 2);
             return types::Function::Error;
+        }
+
+        if (bTestOutType == false && in[0]->isInt())
+        {
+            iOuttype = 1;
         }
     }
 
@@ -315,14 +328,10 @@ types::Function::ReturnValue sci_prod(types::typed_list &in, int _iRetCount, typ
             {
                 pDblOut = pDblIn;
             }
-
-            if (in[0]->isBool() == false)
-            {
-                iOuttype = 2;
-            }
         }
         else
         {
+
             pDblOut = prod(pDblIn, iOrientation);
             if (in[0]->isDouble() == false)
             {
