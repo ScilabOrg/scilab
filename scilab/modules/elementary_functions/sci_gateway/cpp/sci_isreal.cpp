@@ -69,11 +69,11 @@ types::Function::ReturnValue sci_isreal(types::typed_list &in, int _iRetCount, t
             out.push_back(new types::Bool(true));
             return types::Function::OK;
         }
-        else if (pDblIn->isComplex() && in.size() == 1)
+        /*else if (pDblIn->isComplex() && in.size() == 1)
         {
             out.push_back(new types::Bool(false));
             return types::Function::OK;
-        }
+        }*/
 
         for (int i = 0; i < pDblIn->getSize(); i++)
         {
@@ -96,11 +96,11 @@ types::Function::ReturnValue sci_isreal(types::typed_list &in, int _iRetCount, t
             out.push_back(new types::Bool(true));
             return types::Function::OK;
         }
-        else if (pSparseIn->isComplex() && in.size() == 1)
+        /*else if (pSparseIn->isComplex() && in.size() == 1)
         {
             out.push_back(new types::Bool(false));
             return types::Function::OK;
-        }
+        }*/
 
         int const nonZeros = static_cast<int>(pSparseIn->nonZeros());
         int* pRows = new int[nonZeros * 2];
