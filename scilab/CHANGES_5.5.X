@@ -170,6 +170,8 @@ Scilab Bug Fixes
 
 * Bug #13510 fixed - Datatip callback cleared 'd'.
 
+* Bug #13515 fixed - There were wrong results for matrix/hypermatrix with bitset function.
+
 
 Xcos Bug Fixes
 ==============
