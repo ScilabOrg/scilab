@@ -7,8 +7,7 @@
 
 // <-- CLI SHELL MODE -->
 
-
-
+funcprot(0);
 
 // With slack variables:
 //
@@ -617,4 +616,5 @@ xopt=karmarkar([],[],c,[],[],[],[],list(myoutputfunction4,A,b),A,b);
 xstar = [0.5005127;0.7494803];
 assert_checkalmostequal ( xopt , xstar , 1.e-4 );
 
+funcprot(1);
 
