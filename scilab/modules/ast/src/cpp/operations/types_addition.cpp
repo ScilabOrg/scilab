@@ -826,6 +826,7 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
 
 int AddSparseToSparse(Sparse* sp1, Sparse* sp2, Sparse** pSpRes)
 {
+    pSpRes = (Sparse**)MALLOC(sizeof(Sparse));
     //check scalar hidden in a sparse ;)
     if (sp1->getRows() == 1 && sp1->getCols() == 1)
     {
@@ -2350,6 +2351,7 @@ template<> InternalType* add_M_M<Sparse, Double, Sparse>(Sparse* _pL, Double* _p
             for (int i = 0 ; i < size ; i++)
             {
                 pS->set(i, i, std::complex<double>(_pR->get(0), _pR->getImg(0)));
+
             }
         }
         else
