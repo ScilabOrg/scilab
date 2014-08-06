@@ -11,6 +11,7 @@
  */
 
 #include <algorithm>
+#include <cassert>
 
 #include "Model.hxx"
 #include "utilities.hxx"
@@ -106,7 +107,8 @@ void Model::deleteObject(ScicosID uid)
     objects_map_t::iterator iter = allObjects.lower_bound(uid);
     if (iter == allObjects.end() || uid < iter->first)
     {
-        throw "key has not been found";
+        assert(!"key has not been found");
+        return;
     }
 
     allObjects.erase(iter);
@@ -118,7 +120,8 @@ model::BaseObject* Model::getObject(ScicosID uid) const
     objects_map_t::const_iterator iter = allObjects.lower_bound(uid);
     if (iter == allObjects.end() || uid < iter->first)
     {
-        throw "key has not been found";
+        assert(!"key has not been found");
+        return 0;
     }
 
     return iter->second;
@@ -129,7 +132,8 @@ update_status_t Model::setObject(model::BaseObject* o)
     objects_map_t::iterator iter = allObjects.lower_bound(o->id());
     if (iter == allObjects.end() || o->id() < iter->first)
     {
-        throw "key has not been found";
+        assert(!"key has not been found");
+        return FAIL;
     }
 
     if (*iter->second == *o)
