@@ -71,9 +71,7 @@ public:
         {
             if (_result != NULL)
             {
-                //					std::cout << "before single delete : " << _result << std::endl;
                 _result->killMe();
-                //					std::cout << "after single delete" << std::endl;
             }
         }
         else
