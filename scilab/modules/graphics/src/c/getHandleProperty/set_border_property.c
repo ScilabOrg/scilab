@@ -45,10 +45,11 @@ int createMatteBorder(void* _pvCtx, int* _piAddrList, int _iObjUID);
 /*------------------------------------------------------------------------*/
 int set_border_property(void* _pvCtx, int iObjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
-    //[] or tlist
-    if (valueType == sci_matrix)
+
+    if (valueType != sci_tlist)
     {
-        return clearBorder(iObjUID);
+        Scierror(999, _("Wrong type for '%s' property: A '%s' expected.\n"), "border", "tlist");
+        return 1;
     }
     else
     {
