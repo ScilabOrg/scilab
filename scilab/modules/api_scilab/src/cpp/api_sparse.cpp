@@ -249,12 +249,17 @@ SciErr createCommonSparseMatrix(void* _pvCtx, int _iVar, int _iComplex, int _iRo
         addErrorMessage(&sciErr, API_ERROR_CREATE_SPARSE, _("%s: Unable to create variable in Scilab memory"), _iComplex ? "createComplexSparseMatrix" : "createSparseMatrix");
         return sciErr;
     }
+    piNbItemRow = (int*)MALLOC(sizeof(int) * _iRows);
+    piColPos = (int*)MALLOC(sizeof(int) * _iNbItem);
+    pdblReal = (double*)MALLOC(sizeof(double) * _iNbItem);
 
     memcpy(piNbItemRow, _piNbItemRow, _iRows * sizeof(int));
     memcpy(piColPos, _piColPos, _iNbItem * sizeof(int));
+
     C2F(dcopy)(&_iNbItem, const_cast<double*>(_pdblReal), &iOne, pdblReal, &iOne);
     if (_iComplex)
     {
+        pdblImg = (double*)MALLOC(sizeof(double) * _iNbItem);
         C2F(dcopy)(&_iNbItem, const_cast<double*>(_pdblImg), &iOne, pdblImg, &iOne);
     }
     return sciErr;
