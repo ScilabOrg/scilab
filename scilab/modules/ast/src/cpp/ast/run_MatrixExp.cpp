@@ -55,7 +55,9 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                     if (pIL->isComputable())
                     {
                         InternalType* pIT2 = pIL->extractFullMatrix();
-                        pIT->killMe();
+                        std::cout << pIT << std::endl;
+                        // will be deleted by result_clear()
+                        // pIT->killMe();
                         pIT = pIT2;
                     }
                     else
