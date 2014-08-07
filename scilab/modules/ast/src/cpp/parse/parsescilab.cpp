@@ -3934,7 +3934,7 @@ yyreduce:
 
   case 149:
 
-    { (yyval.t_exp) = new ast::OpExp((yyloc), *new ast::DoubleExp((yyloc), 0.0), ast::OpExp::unaryMinus, *(yyvsp[0].t_exp)); }
+    { if ((yyvsp[0].t_exp)->is_double_exp()) { (yyval.t_exp) = static_cast<ast::DoubleExp *>((yyvsp[0].t_exp))->neg(); } else { (yyval.t_exp) = new ast::OpExp((yyloc), *new ast::DoubleExp((yyloc), 0.0), ast::OpExp::unaryMinus, *(yyvsp[0].t_exp)); } }
 
     break;
 

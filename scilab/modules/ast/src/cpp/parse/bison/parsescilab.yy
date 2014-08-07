@@ -1008,7 +1008,7 @@ variable rightOperand			{
 					  $2->location_set(@$);
 					  $$ = $2;
 					}
-| MINUS variable			{ $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); }
+| MINUS variable			{ if ($2->is_double_exp()) { $$ = static_cast<ast::DoubleExp *>($2)->neg(); } else { $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); } }
 | MINUS functionCall			{ $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); }
 | PLUS variable				{ $$ = $2; }
 | PLUS functionCall			{ $$ = $2; }
