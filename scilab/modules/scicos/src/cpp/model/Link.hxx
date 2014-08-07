@@ -15,7 +15,6 @@
 
 #include <string>
 #include <vector>
-#include <utility>
 
 #include "Model.hxx"
 #include "model/BaseObject.hxx"
@@ -30,8 +29,10 @@ class Link: public BaseObject
     friend class ::org_scilab_modules_scicos::Model;
 
 private:
-    Link() : BaseObject(LINK), parentDiagram(0), sourcePort(0), destinationPort(0), controlPoints() {};
-    Link(const Link& o) : BaseObject(LINK), parentDiagram(o.parentDiagram), sourcePort(o.sourcePort), destinationPort(o.destinationPort), controlPoints(o.controlPoints) {};
+    Link() : BaseObject(LINK), parentDiagram(0), sourcePort(0), destinationPort(0), controlPoints(),
+        label(), thick() {};
+    Link(const Link& o) : BaseObject(LINK), parentDiagram(o.parentDiagram), sourcePort(o.sourcePort), destinationPort(o.destinationPort),
+        controlPoints(o.controlPoints), label(o.label), thick(o.thick) {};
     ~Link() {}
 
     ScicosID getParentDiagram() const
@@ -44,14 +45,78 @@ private:
         this->parentDiagram = parentDiagram;
     }
 
-    const std::vector<std::pair<double, double> >& getControlPoints() const
+    void getControlPoints(std::vector<double>& v) const
     {
-        return controlPoints;
+        v = controlPoints;
     }
 
-    void setControlPoints(const std::vector<std::pair<double, double> >& controlPoints)
+    update_status_t setControlPoints(const std::vector<double>& v)
     {
-        this->controlPoints = controlPoints;
+        if (v == controlPoints)
+        {
+            return NO_CHANGES;
+        }
+
+        controlPoints = v;
+        return SUCCESS;
+    }
+
+    void getLabel(std::string& data) const
+    {
+        data = label;
+    }
+
+    update_status_t setLabel(const std::string& data)
+    {
+        if (data == label)
+        {
+            return NO_CHANGES;
+        }
+
+        label = data;
+        return SUCCESS;
+    }
+
+    void getThick(std::vector<double>& v) const
+    {
+        v = thick;
+    }
+
+    update_status_t setThick(const std::vector<double>& v)
+    {
+        if (v.size() != 2)
+        {
+            return FAIL;
+        }
+
+        if (v == thick)
+        {
+            return NO_CHANGES;
+        }
+
+        thick = v;
+        return SUCCESS;
+    }
+
+    void getCT(std::vector<int>& v) const
+    {
+        v = ct;
+    }
+
+    update_status_t setCT(const std::vector<int>& v)
+    {
+        if (v.size() != 2)
+        {
+            return FAIL;
+        }
+
+        if (v == ct)
+        {
+            return NO_CHANGES;
+        }
+
+        ct = v;
+        return SUCCESS;
     }
 
     ScicosID getDestinationPort() const
@@ -81,7 +146,11 @@ private:
     ScicosID destinationPort;
 
     // used to store, user-defined control points
-    std::vector<std::pair<double, double> > controlPoints;
+    std::vector<double> controlPoints;
+
+    std::string label;
+    std::vector<double> thick;
+    std::vector<int> ct;
 };
 
 } /* namespace model */

@@ -88,9 +88,19 @@ private:
         return SUCCESS;
     }
 
-    portKind getKind() const
+    void getKind(int& p) const
     {
-        return kind;
+        switch (kind)
+        {
+            case IN:
+                p = 0;
+                return;
+            case OUT:
+                p = 1;
+                return;
+            default:
+                return;
+        }
     }
 
     void setKind(portKind kind)
@@ -98,9 +108,9 @@ private:
         this->kind = kind;
     }
 
-    ScicosID getSourceBlock() const
+    void getSourceBlock(ScicosID& s) const
     {
-        return sourceBlock;
+        s = sourceBlock;
     }
 
     void setSourceBlock(ScicosID sourceBlock)
