@@ -989,6 +989,9 @@ variable rightOperand			{
 					  $2->location_set(@$);
 					  $$ = $2;
 					}
+| MINUS VARINT			        { $$ = new ast::DoubleExp(@$, -$2); }
+| MINUS NUM			        { $$ = new ast::DoubleExp(@$, -$2); }
+| MINUS VARFLOAT			{ $$ = new ast::DoubleExp(@$, -$2); }
 | MINUS variable			{ $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); }
 | MINUS functionCall			{ $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); }
 | PLUS variable				{ $$ = $2; }
