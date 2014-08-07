@@ -170,6 +170,8 @@ Scilab Bug Fixes
 
 * Bug #13510 fixed - Datatip callback cleared 'd'.
 
+* Bug #13527 fixed - hilb did not check correctly the type of first input argument.
+
 
 Xcos Bug Fixes
 ==============
