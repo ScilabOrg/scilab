@@ -47,7 +47,7 @@ c     .     orientation flag
          endif
          top=top-1
       else
-         type=native
+         type=1
          orient=0
       endif
       return
@@ -118,7 +118,7 @@ c
       il=iadr(lstk(k))
       if (istk(il).lt.0) il=iadr(istk(il+1))
       if (istk(il).ne.10) then
-         type=-2
+         type=1
       elseif (istk(il+1).ne.1.or.istk(il+2).ne.1) then
          type=-3
       else
