@@ -14,6 +14,13 @@
 #include "JITVisitor.hxx"
 #include "jit_operations.hxx"
 
+#ifdef _MSC_VER
+double trunc(double d)
+{
+    return (d > 0) ? floor(d) : ceil(d);
+}
+#endif
+
 namespace jit
 {
 const bool JITVisitor::__init__ = InitializeLLVM();
@@ -31,7 +38,10 @@ JITVisitor::JITVisitor(const analysis::AnalysisVisitor & _analysis) : ast::Const
     function(llvm::cast<llvm::Function>(module.getOrInsertFunction("jit_main", getLLVMTy<void>(context), nullptr))),
     builder(context),
     uintptrType(getPtrAsIntTy(module, context)),
-    _result(nullptr)
+    _result(nullptr),
+    start(0),
+    step(0),
+    end(0)
 {
     module.setDataLayout(engine->getDataLayout()->getStringRepresentation());
     llvm::BasicBlock * BB = llvm::BasicBlock::Create(context, "EntryBlock", function);
@@ -378,9 +388,15 @@ void JITVisitor::visit(const ast::ForExp &e)
         }
         else
         {
+#ifdef _MSC_VER
+            const double tstart = trunc(list_values[0]);
+            const double tstep = trunc(list_values[1]);
+            const double tend = trunc(list_values[2]);
+#else
             const double tstart = std::trunc(list_values[0]);
             const double tstep = std::trunc(list_values[1]);
             const double tend = std::trunc(list_values[2]);
+#endif
 
             if ((tstart == list_values[0]) && (tstep == list_values[1]))
             {
