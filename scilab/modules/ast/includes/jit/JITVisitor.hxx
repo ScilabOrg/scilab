@@ -67,10 +67,9 @@ class JITVisitor : public ast::ConstVisitor
 
     JITSymbolMap symMap3;
 
-    llvm::Value * start = 0;
-    llvm::Value * step = 0;
-    llvm::Value * end = 0;
-
+    llvm::Value * start;
+    llvm::Value * step;
+    llvm::Value * end;
 public:
 
     static llvm::Value * const ONE;
