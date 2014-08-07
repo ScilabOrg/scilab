@@ -287,6 +287,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Link* o = static_cast<model::Link*>(getObject(uid));
         switch (p)
         {
+            case LABEL:
+                return o->setLabel(v);
             default:
                 break;
         }
@@ -354,6 +356,10 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Link* o = static_cast<model::Link*>(getObject(uid));
         switch (p)
         {
+            case CONTROL_POINTS:
+                return o->setControlPoints(v);
+            case THICK:
+                return o->setThick(v);
             default:
                 break;
         }
@@ -409,6 +415,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Link* o = static_cast<model::Link*>(getObject(uid));
         switch (p)
         {
+            case CT:
+                return o->setCT(v);
             default:
                 break;
         }

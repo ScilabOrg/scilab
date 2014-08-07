@@ -179,6 +179,12 @@ std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case CONTROL_POINTS:
             os << "CONTROL_POINTS";
             break;
+        case THICK:
+            os << "THICK";
+            break;
+        case CT:
+            os << "CT";
+            break;
         case DATATYPE:
             os << "DATATYPE";
             break;
