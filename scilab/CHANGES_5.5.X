@@ -170,6 +170,8 @@ Scilab Bug Fixes
 
 * Bug #13510 fixed - Datatip callback cleared 'd'.
 
+* Bug #13524 fixed - strtod did not ignore the tabs and CR.
+
 
 Xcos Bug Fixes
 ==============
