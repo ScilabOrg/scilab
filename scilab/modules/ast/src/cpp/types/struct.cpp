@@ -15,6 +15,8 @@
 #include "list.hxx"
 #include "int.hxx"
 #include "localization.hxx"
+//#include "overload.hxx"
+//#include "execvisitor.hxx"
 
 namespace types
 {
@@ -164,6 +166,30 @@ bool Struct::invoke(typed_list & in, optional_list & opt, int _iRetCount, typed_
     {
         InternalType * arg = in[0];
         std::vector<InternalType *> _out;
+
+        if (arg->isColon())
+        {
+            out.push_back(this);
+            return true;
+        }
+
+        /*if(arg->isDouble())
+        {
+            types::Double * pdInValeur = arg->getAs<types::Double>();
+
+            if(pdInValeur->getSize() == 1)
+            {
+                double* pdInReal = pdInValeur->getReal();
+                if(pdInReal[0] == 1)
+                {
+                    out.push_back(this);
+                    return true;
+                }
+            }
+            std::wstring wstFuncName = L"%st_e";
+            return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
+        }*/
+
         if (arg->isString())
         {
             std::vector<std::wstring> wstFields;
