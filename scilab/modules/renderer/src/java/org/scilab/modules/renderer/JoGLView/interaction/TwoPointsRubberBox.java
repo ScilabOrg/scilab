@@ -28,14 +28,15 @@ public class TwoPointsRubberBox extends RubberBox implements PointRubberBox {
     }
 
     public double[] getResults() {
+        double[][] factors = axes.getScaleTranslateFactors();
         double result[] = {
             mouseButton - 1,
-            Math.min(firstPoint.getX(), secondPoint.getX()),
-            Math.max(firstPoint.getY(), secondPoint.getY()),
-            Math.max(firstPoint.getZ(), secondPoint.getZ()),
-            Math.abs(firstPoint.getX() - secondPoint.getX()),
-            Math.abs(firstPoint.getY() - secondPoint.getY()),
-            Math.abs(firstPoint.getZ() - secondPoint.getZ())
+            (Math.min(firstPoint.getX(), secondPoint.getX()) - factors[1][0]) / factors[0][0],
+            (Math.max(firstPoint.getY(), secondPoint.getY()) - factors[1][1]) / factors[0][1],
+            (Math.max(firstPoint.getZ(), secondPoint.getZ()) - factors[1][2]) / factors[0][2],
+            (Math.abs(firstPoint.getX() - secondPoint.getX())) / factors[0][0],
+            (Math.abs(firstPoint.getY() - secondPoint.getY())) / factors[0][1],
+            (Math.abs(firstPoint.getZ() - secondPoint.getZ())) / factors[0][2]
         };
 
         return result;
