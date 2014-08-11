@@ -40,7 +40,7 @@ class Link: public BaseObject
 
 private:
     Link() : BaseObject(LINK), parentDiagram(0), sourcePort(0), destinationPort(0), controlPoints(),
-        label(), thick(), color(1), linkKind(regular) {};
+        label(), thick(std::vector<double>(2)), color(1), linkKind(regular) {};
     Link(const Link& o) : BaseObject(LINK), parentDiagram(o.parentDiagram), sourcePort(o.sourcePort), destinationPort(o.destinationPort),
         controlPoints(o.controlPoints), label(o.label), thick(o.thick), color(o.color), linkKind(o.linkKind) {};
     ~Link() {}
