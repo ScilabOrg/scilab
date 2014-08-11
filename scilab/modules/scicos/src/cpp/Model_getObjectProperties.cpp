@@ -142,6 +142,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, int
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case PORT_KIND:
+                o->getKind(v);
+                return true;
             default:
                 break;
         }
@@ -319,10 +322,10 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, Sci
                 v = o->getParentDiagram();
                 return true;
             case SOURCE_PORT:
-                v = o->getSourcePort();
+                o->getSourcePort(v);
                 return true;
             case DESTINATION_PORT:
-                v = o->getDestinationPort();
+                o->getDestinationPort(v);
                 return true;
             default:
                 break;

@@ -154,24 +154,36 @@ private:
         return SUCCESS;
     }
 
-    ScicosID getDestinationPort() const
+    void getSourcePort(ScicosID& sp) const
     {
-        return destinationPort;
+        sp = sourcePort;
     }
 
-    void setDestinationPort(ScicosID destinationPort)
+    update_status_t setSourcePort(const ScicosID sp)
     {
-        this->destinationPort = destinationPort;
+        if (sp == sourcePort)
+        {
+            return NO_CHANGES;
+        }
+
+        sourcePort = sp;
+        return SUCCESS;
     }
 
-    ScicosID getSourcePort() const
+    void getDestinationPort(ScicosID& dp) const
     {
-        return sourcePort;
+        dp = destinationPort;
     }
 
-    void setSourcePort(ScicosID sourcePort)
+    update_status_t setDestinationPort(const ScicosID dp)
     {
-        this->sourcePort = sourcePort;
+        if (dp == destinationPort)
+        {
+            return NO_CHANGES;
+        }
+
+        destinationPort = dp;
+        return SUCCESS;
     }
 
 private:
