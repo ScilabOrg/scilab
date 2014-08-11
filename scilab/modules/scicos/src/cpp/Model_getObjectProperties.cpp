@@ -223,6 +223,9 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case INTERFACE_FUNCTION:
+                o->getInterfaceFunction(v);
+                return true;
             case SIM_FUNCTION_NAME:
                 o->getSimFunctionName(v);
                 return true;

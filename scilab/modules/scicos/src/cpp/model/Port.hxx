@@ -56,7 +56,7 @@ private:
         return SUCCESS;
     }
 
-    void getDataType(std::vector<int> v) const
+    void getDataType(std::vector<int>& v) const
     {
         if (dataType == 0)
         {
@@ -67,7 +67,7 @@ private:
             v.resize(3);
             v[0] = dataType->rows;
             v[1] = dataType->columns;
-            v[3] = dataType->datatype_id;
+            v[2] = dataType->datatype_id;
         }
     }
 

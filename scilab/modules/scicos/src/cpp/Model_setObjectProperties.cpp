@@ -273,6 +273,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Block* o = static_cast<model::Block*>(getObject(uid));
         switch (p)
         {
+            case INTERFACE_FUNCTION:
+                return o->setInterfaceFunction(v);
             case SIM_FUNCTION_NAME:
                 return o->setSimFunctionName(v);
             case STYLE:
