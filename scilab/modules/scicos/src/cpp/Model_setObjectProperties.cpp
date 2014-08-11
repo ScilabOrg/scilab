@@ -135,6 +135,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Port* o = static_cast<model::Port*>(getObject(uid));
         switch (p)
         {
+            case PORT_KIND:
+                return o->setKind(v);
             default:
                 break;
         }
@@ -231,6 +233,10 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Link* o = static_cast<model::Link*>(getObject(uid));
         switch (p)
         {
+            case SOURCE_PORT:
+                return o->setSourcePort(v);
+            case DESTINATION_PORT:
+                return o->setDestinationPort(v);
             default:
                 break;
         }

@@ -88,14 +88,25 @@ private:
         return SUCCESS;
     }
 
-    portKind getKind() const
+    void getKind(int& k) const
     {
-        return kind;
+        k = kind;
     }
 
-    void setKind(portKind kind)
+    update_status_t setKind(int k)
     {
-        this->kind = kind;
+        if (k < UNDEF || k > EOUT)
+        {
+            return FAIL;
+        }
+
+        if (k == kind)
+        {
+            return NO_CHANGES;
+        }
+
+        kind = static_cast<portKind>(k);
+        return SUCCESS;
     }
 
     ScicosID getSourceBlock() const

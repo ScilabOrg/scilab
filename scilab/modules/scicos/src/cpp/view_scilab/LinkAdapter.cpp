@@ -247,6 +247,256 @@ struct ct
     }
 };
 
+struct from
+{
+
+    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& controller)
+    {
+        model::Link* adaptee = adaptor.getAdaptee();
+
+        double* data;
+        types::Double* o = new types::Double(1, 3, &data);
+        data[0] = 0;
+        data[1] = 0;
+        data[2] = 0;
+
+        ScicosID from;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, from);
+        if (from != 0)
+        {
+            ScicosID sourceBlock;
+            controller.getObjectProperty(from, PORT, SOURCE_BLOCK, sourceBlock);
+            int kind;
+            controller.getObjectProperty(from, PORT, PORT_KIND, kind);
+
+            data[0] = static_cast<double>(sourceBlock);
+            data[1] = static_cast<double>(from);
+            data[2] = static_cast<double>(kind);
+        }
+        // Default case, 'from' was initialized at [].
+        return o;
+    }
+
+    static bool set(LinkAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        model::Link* adaptee = adaptor.getAdaptee();
+
+        if (v->getType() != types::InternalType::ScilabDouble)
+        {
+            return false;
+        }
+
+        types::Double* current = v->getAs<types::Double>();
+
+        if ((current->getRows() != 1 || current->getCols() != 3) && current->getSize() != 0)
+        {
+            return false; // Must be [] or [x y z]
+        }
+
+        ScicosID from;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, from);
+        ScicosID to;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), DESTINATION_PORT, to);
+
+        if (current->getSize() == 0 || (current->get(0) == 0 || current->get(1) == 0))
+        {
+            // We want to set an empty link
+            if (from == 0)
+            {
+                // In this case, the link was already empty, so do nothing.
+            }
+            else
+            {
+                // Untie the old link on both ends and set the 2 concerned ports as unconnected
+                ScicosID unconnected = 0;
+                controller.setObjectProperty(from, PORT, CONNECTED_SIGNALS, unconnected);
+                controller.setObjectProperty(to, PORT, CONNECTED_SIGNALS, unconnected);
+
+                from = 0;
+                to = 0;
+                controller.setObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, from);
+                controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESTINATION_PORT, to);
+            }
+            return true;
+        }
+
+        if (current->get(2) != 0 && current->get(2) != 1)
+        {
+            return false; // "From" port must be output type or implicit.
+        }
+
+        if (floor(current->get(0)) != current->get(0) || floor(current->get(1)) != current->get(1))
+        {
+            return false; // Must be an integer value
+        }
+
+        // and check if the new one is output or implicit (add it if necessary)
+        // Delete the old link if the new port is not free.
+
+        // Disconnect the old port
+        ScicosID unconnected = 0;
+        controller.setObjectProperty(from, PORT, CONNECTED_SIGNALS, unconnected);
+
+        // Connect the new one
+        ScicosID blk = static_cast<ScicosID>(current->get(0));
+        int port = static_cast<int>(current->get(1));
+        int kind = static_cast<int>(current->get(2));
+        std::vector<ScicosID> sourceBlockPorts;
+        controller.getObjectProperty(blk, BLOCK, OUTPUTS, sourceBlockPorts);
+        int nBlockPorts = sourceBlockPorts.size();
+        // Create as many input ports as necessary
+        while (nBlockPorts < port)
+        {
+            ScicosID createdPort = controller.createObject(PORT);
+            controller.setObjectProperty(createdPort, PORT, SOURCE_BLOCK, blk);
+            controller.setObjectProperty(createdPort, PORT, CONNECTED_SIGNALS, unconnected);
+            nBlockPorts++;
+        }
+        controller.getObjectProperty(blk, BLOCK, OUTPUTS, sourceBlockPorts);
+        ScicosID newPort = sourceBlockPorts[port - 1];
+        ScicosID oldSignal;
+        controller.getObjectProperty(newPort, PORT, CONNECTED_SIGNALS, oldSignal);
+        if (oldSignal != 0)
+        {
+            // Delete the old link
+        }
+        controller.setObjectProperty(newPort, PORT, PORT_KIND, kind);
+        controller.setObjectProperty(newPort, PORT, CONNECTED_SIGNALS, to);
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, newPort);
+
+        // Connect the destination port to the new port
+        std::vector<ScicosID> destBlockPorts;
+        controller.setObjectProperty(to, PORT, CONNECTED_SIGNALS, newPort);
+
+        return true;
+    }
+};
+
+struct to
+{
+
+    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& controller)
+    {
+        model::Link* adaptee = adaptor.getAdaptee();
+
+        double* data;
+        types::Double* o = new types::Double(1, 3, &data);
+        data[0] = 0;
+        data[1] = 0;
+        data[2] = 0;
+
+        ScicosID to;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, to);
+        if (to != 0)
+        {
+            ScicosID sourceBlock;
+            controller.getObjectProperty(to, PORT, SOURCE_BLOCK, sourceBlock);
+            int kind;
+            controller.getObjectProperty(to, PORT, PORT_KIND, kind);
+
+            double* data;
+            types::Double* o = new types::Double(1, 3, &data);
+
+            data[0] = static_cast<double>(sourceBlock);
+            data[1] = static_cast<double>(to);
+            data[2] = static_cast<double>(kind);
+        }
+        // Default case, 'to' was initialized at [].
+        return 0;
+    }
+
+    static bool set(LinkAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        model::Link* adaptee = adaptor.getAdaptee();
+
+        if (v->getType() != types::InternalType::ScilabDouble)
+        {
+            return false;
+        }
+
+        types::Double* current = v->getAs<types::Double>();
+
+        if ((current->getRows() != 1 || current->getCols() != 3) && current->getSize() != 0)
+        {
+            return false; // Must be [] or [x y z]
+        }
+
+        ScicosID to;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), DESTINATION_PORT, to);
+        ScicosID from;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, from);
+
+        if (current->getSize() == 0 || (current->get(0) == 0 || current->get(1) == 0))
+        {
+            // We want to set an empty link
+            if (from == 0)
+            {
+                // In this case, the link was already empty, so do nothing.
+            }
+            else
+            {
+                // Untie the old link on both ends and set the 2 concerned ports as unconnected
+                ScicosID unconnected = 0;
+                controller.setObjectProperty(to, PORT, CONNECTED_SIGNALS, unconnected);
+                controller.setObjectProperty(from, PORT, CONNECTED_SIGNALS, unconnected);
+
+                to = 0;
+                from = 0;
+                controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESTINATION_PORT, to);
+                controller.setObjectProperty(adaptee->id(), adaptee->kind(), SOURCE_PORT, from);
+            }
+            return true;
+        }
+
+        if (current->get(2) != 0 && current->get(2) != 1)
+        {
+            return false; // "From" port must be output type or implicit.
+        }
+
+        if (floor(current->get(0)) != current->get(0) || floor(current->get(1)) != current->get(1))
+        {
+            return false; // Must be an integer value
+        }
+
+        // Disconnect the old port
+        ScicosID unconnected = 0;
+        controller.setObjectProperty(to, PORT, CONNECTED_SIGNALS, unconnected);
+
+        // Connect the new one
+        ScicosID blk = static_cast<ScicosID>(current->get(0));
+        int port = static_cast<int>(current->get(1));
+        int kind = static_cast<int>(current->get(2));
+        std::vector<ScicosID> sourceBlockPorts;
+        controller.getObjectProperty(blk, BLOCK, INPUTS, sourceBlockPorts);
+        int nBlockPorts = sourceBlockPorts.size();
+        // Create as many input ports as necessary
+        while (nBlockPorts < port)
+        {
+            ScicosID createdPort = controller.createObject(PORT);
+            controller.setObjectProperty(createdPort, PORT, SOURCE_BLOCK, blk);
+            controller.setObjectProperty(createdPort, PORT, CONNECTED_SIGNALS, unconnected);
+            nBlockPorts++;
+        }
+        controller.getObjectProperty(blk, BLOCK, INPUTS, sourceBlockPorts);
+        ScicosID newPort = sourceBlockPorts[port - 1];
+        ScicosID oldSignal;
+        controller.getObjectProperty(newPort, PORT, CONNECTED_SIGNALS, oldSignal);
+        if (oldSignal != 0)
+        {
+            // Delete the old link
+        }
+        controller.setObjectProperty(newPort, PORT, PORT_KIND, kind);
+        controller.setObjectProperty(newPort, PORT, CONNECTED_SIGNALS, from);
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESTINATION_PORT, newPort);
+
+        // Connect the destination port to the new port
+        std::vector<ScicosID> destBlockPorts;
+        controller.setObjectProperty(from, PORT, CONNECTED_SIGNALS, newPort);
+
+        return true;
+    }
+};
+
 } /* namespace */
 
 template<> property<LinkAdapter>::props_t property<LinkAdapter>::fields = property<LinkAdapter>::props_t();
@@ -259,12 +509,14 @@ LinkAdapter::LinkAdapter(org_scilab_modules_scicos::model::Link* o) :
 {
     if (property<LinkAdapter>::properties_has_not_been_set())
     {
-        property<LinkAdapter>::fields.reserve(5);
+        property<LinkAdapter>::fields.reserve(7);
         property<LinkAdapter>::add_property(L"xx", &xx::get, &xx::set);
         property<LinkAdapter>::add_property(L"yy", &yy::get, &yy::set);
         property<LinkAdapter>::add_property(L"id", &id::get, &id::set);
         property<LinkAdapter>::add_property(L"thick", &thick::get, &thick::set);
         property<LinkAdapter>::add_property(L"ct", &ct::get, &ct::set);
+        property<LinkAdapter>::add_property(L"from", &from::get, &from::set);
+        property<LinkAdapter>::add_property(L"to", &to::get, &to::set);
     }
 }
 
