@@ -16,6 +16,7 @@
 /*        handle                                                          */
 /*------------------------------------------------------------------------*/
 
+#include <stdio.h>
 #include <string.h>
 #include "returnProperty.h"
 #include "Scierror.h"
@@ -51,6 +52,7 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
         return NULL;
     }
 
+    // printf("--%s--\n", iLayout);
     switch (iLayout)
     {
         default:
@@ -90,18 +92,23 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
             {
                 default:
                 case BORDER_CENTER :
+                    printf("JJJJJ");
                     addStringToReturnedList(tList, "center");
                     break;
                 case BORDER_BOTTOM :
+                    printf("DDDDD");
                     addStringToReturnedList(tList, "bottom");
                     break;
                 case BORDER_TOP :
+                    printf("SSSSS");
                     addStringToReturnedList(tList, "top");
                     break;
                 case BORDER_LEFT :
+                    printf("WWWWW");
                     addStringToReturnedList(tList, "left");
                     break;
                 case BORDER_RIGHT :
+                    printf("ZZZZ");
                     addStringToReturnedList(tList, "right");
                     break;
             }
@@ -120,6 +127,7 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
             addRowVectorToReturnedList(tList, pdblPreferredSize, 2);
 
             destroyReturnedList(tList);
+            return tList;
         }
         break;
         case LAYOUT_GRIDBAG :
@@ -140,6 +148,7 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
 
             double pdblPreferredSize[2];
             int* piPreferredSize = NULL;
+
 
             getGraphicObjectProperty(iObjUID, __GO_UI_GRIDBAG_GRID__, jni_int_vector, (void **)&piGrid);
             if (piGrid == NULL)
