@@ -70,7 +70,7 @@ int destroyReturnedList(void* list)
     //FREE(list) ;
     //return 0 ;
 
-//    delete (types::TList*)list;
+    //    delete (types::TList*)list;
     return 0;
 }
 /*------------------------------------------------------------------------*/
@@ -90,7 +90,7 @@ int addRowVectorToReturnedList(void* list, const double vector[], int nbValues)
     //return 0 ;
 
     types::TList* pL = (types::TList*)list;
-    pL->append((types::InternalType*)sciReturnMatrix((double*)vector, nbValues, 1));
+    pL->append((types::InternalType*)sciReturnMatrix((double*)vector, 1, nbValues));
     return 0;
 }
 /*------------------------------------------------------------------------*/
@@ -158,18 +158,18 @@ int addStringColVectorToReturnedList(void* list, char * vector[], int nbValues)
 /*------------------------------------------------------------------------*/
 int addStringToReturnedList( returnedList * list, char * str)
 {
-//    int nbValues = 1;
-//    int nbCol = 1 ;
-//    /* check we are not using all the allocated space for the list */
-//    if ( list->curElement >= list->nbElements )
-//    {
-//        sciprint(_("List full.\n")) ;
-//        return 1 ;
-//    }
-//
-//    /* add a new element */
-//    list->curElement++ ;
-//    CreateListVarFromPtr( Rhs + 1, list->curElement, MATRIX_OF_STRING_DATATYPE, &nbValues, &nbCol, &str);
+    //    int nbValues = 1;
+    //    int nbCol = 1 ;
+    //    /* check we are not using all the allocated space for the list */
+    //    if ( list->curElement >= list->nbElements )
+    //    {
+    //        sciprint(_("List full.\n")) ;
+    //        return 1 ;
+    //    }
+    //
+    //    /* add a new element */
+    //    list->curElement++ ;
+    //    CreateListVarFromPtr( Rhs + 1, list->curElement, MATRIX_OF_STRING_DATATYPE, &nbValues, &nbCol, &str);
     types::TList* pL = (types::TList*)list;
     pL->append((types::InternalType*)sciReturnString(str));
 

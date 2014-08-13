@@ -32,6 +32,7 @@
 /*------------------------------------------------------------------------*/
 void* get_constraints_property(void* _pvCtx, int iObjUID)
 {
+    returnedList* tList = NULL;
     int iParent = 0;
     int* piParent = &iParent;
     int iLayout = 0;
@@ -57,27 +58,28 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
         case LAYOUT_NONE :
         {
             char * variable_tlist[] = {"NoLayoutConstraint"};
-            returnedList * tList = createReturnedList(0, variable_tlist);
+            tList = (returnedList*)createReturnedList(0, variable_tlist);
             destroyReturnedList(tList);
         }
         break;
         case LAYOUT_GRID :
         {
             char * variable_tlist[] = {"GridConstraints"};
-            returnedList * tList = createReturnedList(0, variable_tlist);
+            tList = (returnedList*)createReturnedList(0, variable_tlist);
             destroyReturnedList(tList);
         }
         break;
         case LAYOUT_BORDER :
         {
             char * variable_tlist[] = {"BorderConstraint", "position", "preferredsize"};
-            returnedList * tList = createReturnedList(2, variable_tlist);
 
             int iBorder = 0;
             int* piBorder = &iBorder;
 
             double pdblPreferredSize[2];
             int* piPreferredSize = NULL;
+
+            tList = (returnedList*)createReturnedList(2, variable_tlist);
 
             getGraphicObjectProperty(iObjUID, __GO_UI_BORDER_POSITION__, jni_int, (void **)&piBorder);
             if (piBorder == NULL)
@@ -125,7 +127,6 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
         case LAYOUT_GRIDBAG :
         {
             char * variable_tlist[] = {"GridBagConstraints", "grid", "weight", "fill", "anchor", "padding", "preferredsize"};
-            returnedList * tList = createReturnedList(6, variable_tlist);
             int* piGrid = NULL;
             double pdblGrid[4];
             double* pdblWeight = NULL;
@@ -140,6 +141,8 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
 
             double pdblPreferredSize[2];
             int* piPreferredSize = NULL;
+
+            tList = (returnedList*)createReturnedList(6, variable_tlist);
 
             getGraphicObjectProperty(iObjUID, __GO_UI_GRIDBAG_GRID__, jni_int_vector, (void **)&piGrid);
             if (piGrid == NULL)
@@ -254,5 +257,5 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
         break;
     }
 
-    return 0;
+    return tList;
 }
