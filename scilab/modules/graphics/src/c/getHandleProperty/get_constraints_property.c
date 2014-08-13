@@ -120,6 +120,7 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
             addRowVectorToReturnedList(tList, pdblPreferredSize, 2);
 
             destroyReturnedList(tList);
+            return tList;
         }
         break;
         case LAYOUT_GRIDBAG :
@@ -140,6 +141,7 @@ void* get_constraints_property(void* _pvCtx, int iObjUID)
 
             double pdblPreferredSize[2];
             int* piPreferredSize = NULL;
+
 
             getGraphicObjectProperty(iObjUID, __GO_UI_GRIDBAG_GRID__, jni_int_vector, (void **)&piGrid);
             if (piGrid == NULL)
