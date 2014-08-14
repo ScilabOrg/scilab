@@ -7,45 +7,9 @@
 // <-- TEST WITH TREE -->
 // test to check the created node(Tree)
 // node creation
-myNode = uiCreateNode('My Node')
- myNode  =
- 
- 
-       myNode(1)
- 
- uitree   
- 
-       myNode(2)
- 
-   label: "My Node"
-   icon: ""
-   callback: ""
-myNode = uiCreateNode('My Node', 'icon of My Node')
- myNode  =
- 
- 
-       myNode(1)
- 
- uitree   
- 
-       myNode(2)
- 
-   label: "My Node"
-   icon: "icon of My Node"
-   callback: ""
-myNode = uiCreateNode('My Node', 'icon of My Node', 'callback of My Node')
- myNode  =
- 
- 
-       myNode(1)
- 
- uitree   
- 
-       myNode(2)
- 
-   label: "My Node"
-   icon: "icon of My Node"
-   callback: "callback of My Node"
+myNode = uiCreateNode('My Node');
+myNode = uiCreateNode('My Node', 'icon of My Node');
+myNode = uiCreateNode('My Node', 'icon of My Node', 'callback of My Node');
 // wrong inputs
 if( execstr("myNode = uiCreateNode()","errcatch") == 0 ) then bugmes();quit;end
 if( execstr("myNode = uiCreateNode(123)","errcatch") == 0 ) then bugmes();quit;end
