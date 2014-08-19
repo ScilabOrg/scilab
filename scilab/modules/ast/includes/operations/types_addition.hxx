@@ -110,6 +110,8 @@ template<> inline types::InternalType* add_E_S<types::Double, types::String, typ
 template<> inline types::InternalType* add_M_M<types::Polynom, types::Polynom, types::Polynom>(types::Polynom* _pL, types::Polynom* _pR);
 template<> inline types::InternalType* add_M_M<types::Polynom, types::Double, types::Polynom>(types::Polynom* _pL, types::Double* _pR);
 template<> inline types::InternalType* add_M_M<types::Double, types::Polynom, types::Polynom>(types::Double* _pL, types::Polynom* _pR);
+template<> inline types::InternalType* add_M_I<types::Polynom, types::Double, types::Polynom>(types::Polynom* _pL, types::Double* _pR);
+template<> inline types::InternalType* add_I_M<types::Double, types::Polynom, types::Polynom>(types::Double* _pL, types::Polynom* _pR);
 
 template<> inline types::InternalType* add_M_M<types::Sparse, types::Sparse, types::Sparse>(types::Sparse* _pL, types::Sparse* _pR);
 template<> inline types::InternalType* add_M_M<types::Double, types::Sparse, types::Double>(types::Double* _pL, types::Sparse* _pR);
