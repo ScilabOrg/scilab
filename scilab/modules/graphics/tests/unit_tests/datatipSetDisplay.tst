@@ -35,6 +35,7 @@ function str=mydisplayD2(pt)
    str='D2';
 endfunction
 
+// function name
 datatipSetDisplay(p1, "mydisplayP1")
 datatipSetDisplay(d1_2, "mydisplayD1")
 datatipSetDisplay(p2, "mydisplayP2")
@@ -48,3 +49,22 @@ assert_checkequal(d2_1.text, "P2");
 assert_checkequal(d2_2.text, "P2");
 assert_checkequal(d2_3.text, "D2");
 
+// reset values
+datatipSetDisplay(p1, "mydisplayD1")
+datatipSetDisplay(d1_2, "mydisplayP1")
+datatipSetDisplay(p2, "mydisplayD2")
+datatipSetDisplay(d2_3, "mydisplayP2")
+
+// function
+datatipSetDisplay(p1, mydisplayP1)
+datatipSetDisplay(d1_2, mydisplayD1)
+datatipSetDisplay(p2, mydisplayP2)
+datatipSetDisplay(d2_3, mydisplayD2)
+
+//check values
+assert_checkequal(d1_1.text, "P1");
+assert_checkequal(d1_2.text, "D1");
+assert_checkequal(d1_3.text, "P1");
+assert_checkequal(d2_1.text, "P2");
+assert_checkequal(d2_2.text, "P2");
+assert_checkequal(d2_3.text, "D2");
