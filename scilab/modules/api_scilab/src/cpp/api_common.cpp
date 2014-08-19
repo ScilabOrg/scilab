@@ -419,19 +419,35 @@ static SciErr getinternalVarAddress(void *_pvCtx, int _iVar, int **_piAddress)
 SciErr getVarNameFromPosition(void *_pvCtx, int _iVar, char *_pstName)
 {
     SciErr sciErr = sciErrInit();
-#if 0
-    int iNameLen = 0;
-    int iJob1 = 1;
 
-    CvNameL(&vstk_.idstk[(Top - Rhs + _iVar - 1) * 6], _pstName, &iJob1, &iNameLen);
-    if (iNameLen == 0)
+    if (_pvCtx == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POSITION, _("%s: bad call to %s! (1rst argument).\n"), "",
+                        "getVarNameFromPosition");
+        return sciErr;
+    }
+    
+    GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
+    types::typed_list in = *pStr->m_pIn;
+    
+    if (_iVar > in.size())
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POSITION, _("%s: bad call to %s! (1rst argument).\n"), pStr->m_pstName, "getVarNameFromPosition");
+        return sciErr;
+    }
+    
+    if (in[_iVar - 1]->isCallable())
+    {
+        std::wstring pwstInName = in[_iVar - 1]->getAs<types::Callable>()->getName();
+        memcpy(_pstName, wide_string_to_UTF8(pwstInName.c_str()), pwstInName.size());
+    }
+    
+    if (strlen(_pstName) == 0)
     {
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Unable to get name of argument #%d"), "getVarNameFromPosition", _iVar);
         return sciErr;
     }
 
-    _pstName[iNameLen] = '\0';
-#endif
     return sciErr;
 }
 /*--------------------------------------------------------------------------*/
