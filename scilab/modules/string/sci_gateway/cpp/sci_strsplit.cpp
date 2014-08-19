@@ -113,11 +113,11 @@ types::Function::ReturnValue sci_strsplit(types::typed_list &in, int _iRetCount,
                 return types::Function::Error;
             }
 
-            if (pDbl->getRows() != 1 && pDbl->getCols() != 1)
-            {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A Scalar or vector expected.\n"), "strsplit", 2);
-                return types::Function::Error;
-            }
+            /*  if (pDbl->getRows() != 1 && pDbl->getCols() != 1)
+              {
+                  Scierror(999, _("%s: Wrong size for input argument #%d: A Scalar or vector expected.\n"), "strsplit", 2);
+                  return types::Function::Error;
+              }*/
 
             strsplit_error ierr = STRSPLIT_NO_ERROR;
             wchar_t **results = strsplit(pStrIn->get(0), pDbl->get(), pDbl->getSize(), &ierr);
