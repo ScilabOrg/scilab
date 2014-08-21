@@ -13,6 +13,9 @@
 //
 // <-- Short Description -->
 // strsplit did not work with some particular inputs.
+
+funcprot(0);
+
 //===============================
 if strsplit("0") <> "0" then pause,end
 //===============================
@@ -109,3 +112,5 @@ if r_2 <> [] then pause,end
 if r_1 <> "," then pause,end
 if r_2 <> [] then pause,end
 //===============================
+
+funcprot(1);
