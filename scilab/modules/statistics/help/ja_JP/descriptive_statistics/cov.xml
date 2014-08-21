@@ -157,8 +157,7 @@ C = cov(A)
         <revhistory>
             <revision>
                 <revnumber>5.5.0</revnumber>
-                <revdescription>mvvacov(廃止予定)を改善するために,
-                    cov 関数が追加されました
+                <revdescription>cov 関数が追加されました
                 </revdescription>
             </revision>
         </revhistory>
