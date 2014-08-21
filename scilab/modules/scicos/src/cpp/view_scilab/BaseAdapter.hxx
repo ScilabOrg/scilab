@@ -17,14 +17,19 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 #include "user.hxx"
 #include "internal.hxx"
+#include "mlist.hxx"
 #include "string.hxx"
 
 #include "Controller.hxx"
 #include "Adapters.hxx"
 #include "model/BaseObject.hxx"
+
+#define GRAPHICS  0
+#define MODEL     1
 
 namespace org_scilab_modules_scicos
 {
@@ -127,6 +132,74 @@ public:
         if (found != property<Adaptor>::fields.end() && !(_sKey < found->name))
         {
             return found->set(*static_cast<Adaptor*>(this), v, controller);
+        }
+        return false;
+    }
+
+    /**
+     * get and set sub-adapter properties
+     */
+    template<typename SubAdaptor>
+    types::MList* getSubProperties(const Adaptor& adaptor, Controller controller, int subProperty)
+    {
+        int i = 1;
+        SubAdaptor adaptee = SubAdaptor(adaptor.getAdaptee());
+
+        types::MList* o = new types::MList();
+
+        typename property<Adaptor>::props_t AdaptorProperties = property<Adaptor>::fields;
+        typename property<SubAdaptor>::props_t SubAdaptorProperties = property<SubAdaptor>::fields;
+        std::sort(AdaptorProperties.begin(), AdaptorProperties.end(), property<Adaptor>::original_index_cmp);
+        std::sort(SubAdaptorProperties.begin(), SubAdaptorProperties.end(), property<SubAdaptor>::original_index_cmp);
+
+        types::String* MListFields = new types::String(1, SubAdaptorProperties.size() + 1);
+        MListFields->set(0, AdaptorProperties[subProperty].name.data());
+        o->set(0, MListFields);
+
+        types::InternalType* currentField;
+        for (typename property<SubAdaptor>::props_t_it it = SubAdaptorProperties.begin(); it != SubAdaptorProperties.end(); ++it, ++i)
+        {
+            //currentField = adaptee.getProperty(it->name.data(), controller);
+            MListFields->set(i, it->name.data());
+            o->set(i, currentField);
+        }
+
+        o->set(0, MListFields);
+        return o;
+    }
+
+    template<typename SubAdaptor>
+    bool setSubProperties(Adaptor& adaptor, Controller controller, types::InternalType* v)
+    {
+        if (v->getType() == types::InternalType::ScilabMList
+                && v->getShortTypeStr() == SubAdaptor::getSharedTypeStr())
+        {
+            SubAdaptor* subAdaptor = new SubAdaptor(adaptor.getAdaptee());
+
+            types::MList* current = v->getAs<types::MList>();
+
+            typename property<SubAdaptor>::props_t SubAdaptorProperties = property<SubAdaptor>::fields;
+            if (current->getSize() != SubAdaptorProperties.size() + 1)
+            {
+                return false;
+            }
+            std::sort(SubAdaptorProperties.begin(), SubAdaptorProperties.end(), property<SubAdaptor>::original_index_cmp);
+            types::InternalType* currentField;
+
+            for (typename property<SubAdaptor>::props_t_it it = SubAdaptorProperties.begin(); it != SubAdaptorProperties.end(); ++it)
+            {
+                if ((currentField = current->getField(it->name.data())) == NULL)
+                {
+                    return false;
+                }
+                if (!subAdaptor->setProperty(it->name.data(), currentField, controller))
+                {
+                    return false;
+                }
+            }
+
+            adaptor.setAdaptee(subAdaptor->getAdaptee());
+            return true;
         }
         return false;
     }
