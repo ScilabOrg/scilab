@@ -11,9 +11,11 @@
  */
 
 #include <string>
+#include <algorithm>
 
 #include "internal.hxx"
 #include "list.hxx"
+#include "mlist.hxx"
 #include "string.hxx"
 #include "types.hxx"
 #include "user.hxx"
@@ -40,15 +42,61 @@ struct graphics
 {
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
-        return new GraphicsAdapter(adaptor.getAdaptee());
+        int i = 1;
+        GraphicsAdapter adaptee = GraphicsAdapter(adaptor.getAdaptee());
+
+        types::MList* o = new types::MList();
+        types::String* MListFields = new types::String(1, 19);
+        types::InternalType* currentField;
+
+        typename property<BlockAdapter>::props_t BlockProperties = property<BlockAdapter>::fields;
+        typename property<GraphicsAdapter>::props_t GraphicsProperties = property<GraphicsAdapter>::fields;
+        std::sort(BlockProperties.begin(), BlockProperties.end(), property<BlockAdapter>::original_index_cmp);
+        std::sort(GraphicsProperties.begin(), GraphicsProperties.end(), property<GraphicsAdapter>::original_index_cmp);
+
+        MListFields->set(0, BlockProperties[0].name.data());
+        o->set(0, MListFields);
+
+        for (typename property<GraphicsAdapter>::props_t_it it = GraphicsProperties.begin(); it != GraphicsProperties.end(); ++it, ++i)
+        {
+            //currentField = adaptee.getProperty(it->name.data(), controller);
+            MListFields->set(i, it->name.data());
+            o->set(i, currentField);
+        }
+
+        o->set(0, MListFields);
+        return o;
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() == types::InternalType::ScilabUserType
+        if (v->getType() == types::InternalType::ScilabMList
                 && v->getShortTypeStr() == GraphicsAdapter::getSharedTypeStr())
         {
-            GraphicsAdapter* graphics = v->getAs<GraphicsAdapter>();
+            GraphicsAdapter* graphics = new GraphicsAdapter(adaptor.getAdaptee());
+
+            types::MList* current = v->getAs<types::MList>();
+            if (current->getSize() != 19)
+            {
+                return false;
+            }
+
+            typename property<GraphicsAdapter>::props_t GraphicsProperties = property<GraphicsAdapter>::fields;
+            std::sort(GraphicsProperties.begin(), GraphicsProperties.end(), property<GraphicsAdapter>::original_index_cmp);
+            types::InternalType* currentField;
+
+            for (typename property<GraphicsAdapter>::props_t_it it = GraphicsProperties.begin(); it != GraphicsProperties.end(); ++it)
+            {
+                if ((currentField = current->getField(it->name.data())) == NULL)
+                {
+                    return false;
+                }
+                if (!graphics->setProperty(it->name.data(), currentField, controller))
+                {
+                    return false;
+                }
+            }
+
             adaptor.setAdaptee(graphics->getAdaptee());
             return true;
         }
@@ -60,15 +108,61 @@ struct model
 {
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
-        return new ModelAdapter(adaptor.getAdaptee());
+        int i = 1;
+        ModelAdapter adaptee = ModelAdapter(adaptor.getAdaptee());
+
+        types::MList* o = new types::MList();
+        types::String* MListFields = new types::String(1, 24);
+        types::InternalType* currentField;
+
+        typename property<BlockAdapter>::props_t BlockProperties = property<BlockAdapter>::fields;
+        typename property<ModelAdapter>::props_t ModelProperties = property<ModelAdapter>::fields;
+        std::sort(BlockProperties.begin(), BlockProperties.end(), property<BlockAdapter>::original_index_cmp);
+        std::sort(ModelProperties.begin(), ModelProperties.end(), property<ModelAdapter>::original_index_cmp);
+
+        MListFields->set(0, BlockProperties[1].name.data());
+        o->set(0, MListFields);
+
+        for (typename property<ModelAdapter>::props_t_it it = ModelProperties.begin(); it != ModelProperties.end(); ++it, ++i)
+        {
+            //currentField = adaptee.getProperty(it->name.data(), controller);
+            MListFields->set(i, it->name.data());
+            o->set(i, currentField);
+        }
+
+        o->set(0, MListFields);
+        return o;
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() == types::InternalType::ScilabUserType
+        if (v->getType() == types::InternalType::ScilabMList
                 && v->getShortTypeStr() == ModelAdapter::getSharedTypeStr())
         {
-            ModelAdapter* model = v->getAs<ModelAdapter>();
+            ModelAdapter* model = new ModelAdapter(adaptor.getAdaptee());
+
+            types::MList* current = v->getAs<types::MList>();
+            if (current->getSize() != 24)
+            {
+                return false;
+            }
+
+            typename property<ModelAdapter>::props_t ModelProperties = property<ModelAdapter>::fields;
+            std::sort(ModelProperties.begin(), ModelProperties.end(), property<ModelAdapter>::original_index_cmp);
+            types::InternalType* currentField;
+
+            for (typename property<ModelAdapter>::props_t_it it = ModelProperties.begin(); it != ModelProperties.end(); ++it)
+            {
+                if ((currentField = current->getField(it->name.data())) == NULL)
+                {
+                    return false;
+                }
+                if (!model->setProperty(it->name.data(), currentField, controller))
+                {
+                    return false;
+                }
+            }
+
             adaptor.setAdaptee(model->getAdaptee());
             return true;
         }
