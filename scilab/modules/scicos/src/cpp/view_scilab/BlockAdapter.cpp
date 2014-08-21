@@ -40,19 +40,14 @@ struct graphics
 {
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
-        return new GraphicsAdapter(adaptor.getAdaptee());
+        BlockAdapter adaptee = BlockAdapter(adaptor.getAdaptee());
+        return adaptee.getSubProperties<GraphicsAdapter>(adaptor, controller, GRAPHICS);
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() == types::InternalType::ScilabUserType
-                && v->getShortTypeStr() == GraphicsAdapter::getSharedTypeStr())
-        {
-            GraphicsAdapter* graphics = v->getAs<GraphicsAdapter>();
-            adaptor.setAdaptee(graphics->getAdaptee());
-            return true;
-        }
-        return false;
+        BlockAdapter adaptee = BlockAdapter(adaptor.getAdaptee());
+        return adaptee.setSubProperties<GraphicsAdapter>(adaptor, controller, v);
     }
 };
 
@@ -60,19 +55,14 @@ struct model
 {
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
-        return new ModelAdapter(adaptor.getAdaptee());
+        BlockAdapter adaptee = BlockAdapter(adaptor.getAdaptee());
+        return adaptee.getSubProperties<ModelAdapter>(adaptor, controller, MODEL);
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() == types::InternalType::ScilabUserType
-                && v->getShortTypeStr() == ModelAdapter::getSharedTypeStr())
-        {
-            ModelAdapter* model = v->getAs<ModelAdapter>();
-            adaptor.setAdaptee(model->getAdaptee());
-            return true;
-        }
-        return false;
+        BlockAdapter adaptee = BlockAdapter(adaptor.getAdaptee());
+        return adaptee.setSubProperties<ModelAdapter>(adaptor, controller, v);
     }
 };
 
