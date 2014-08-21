@@ -22,6 +22,7 @@
 #include "string.hxx"
 #include "double.hxx"
 #include "int.hxx"
+#include "getfastcode.h"
 
 extern "C"
 {
@@ -116,10 +117,12 @@ template <typename Y, class T>
 String* TypeToString(T* _pI)
 {
     String* pOut = NULL;
-    char* pst = NULL;
+    wchar_t* pst = NULL;
+    wchar_t* pstOut = NULL;
     Y* p = _pI->get();
-    pst = (char*)MALLOC(sizeof(char) * _pI->getSize() + 1);
-    memset(pst, 0x00, sizeof(char) * _pI->getSize() + 1);
+    pst = (wchar_t*)MALLOC(sizeof(wchar_t) * _pI->getSize() + 1);
+    memset(pst, 0x00, sizeof(wchar_t) * _pI->getSize() + 1);
+
 
     bool bWarning = getWarningMode() == 0;
     for (int i = 0 ; i < _pI->getSize() ; i++)
@@ -133,15 +136,19 @@ String* TypeToString(T* _pI)
 
         if (p[i] == 0)
         {
-            pst[i] = ' ';
+            pst[i] = L' ';
         }
         else
         {
-            pst[i] = (char)p[i];
-        }
-    }
+            pst[i] = (wchar_t)p[i];
 
-    pOut = new String(pst);
+        }
+
+    }
+    pst[wcslen(pst)] = L'\0';
+
+    pOut = new String( pst);
+
     FREE(pst);
     return pOut;
 }
@@ -152,12 +159,14 @@ Double* StringToDouble(String* _pst)
     /*compute total length*/
     int iTotalLen = 0;
     int iSize = _pst->getSize();
-    char** pst = new char*[iSize];
+
+    wchar_t** pst = new wchar_t*[iSize];
     int* pstLen = new int[iSize];
+
     for (int i = 0 ; i < iSize ; i++)
     {
-        pst[i] = wide_string_to_UTF8(_pst->get(i));
-        pstLen[i] = (int)strlen(pst[i]);
+        pst[i] = _pst->get(i);
+        pstLen[i] = (int)wcslen(pst[i]);
         iTotalLen += pstLen[i];
     }
 
