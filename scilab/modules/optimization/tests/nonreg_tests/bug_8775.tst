@@ -15,11 +15,11 @@
 // The karmarkar function might diverge toward a non-optimal point.
 //
 
-
+funcprot(0);
 
 // An unbounded problem.
 Aeq = [
- 2 -2 -1 1 0
+2 -2 -1 1 0
 -1 -4  1 0 1
 ];
 beq = [-1;-1];
@@ -28,3 +28,4 @@ x0 = [0.2;0.7;1;1;1];
 [xopt,fopt,exitflag]=karmarkar(Aeq,beq,c,x0,0,0.999);
 assert_checkequal ( exitflag , -2 );
 
+funcprot(1);
