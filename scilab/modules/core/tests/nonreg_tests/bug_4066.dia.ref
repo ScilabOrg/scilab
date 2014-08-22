@@ -12,13 +12,10 @@
 //
 // <-- Short Description -->
 //    clear may erase protected variables
-mputl('clear',TMPDIR+'/foo')
- ans  =
- 
-  T  
-execstr("exec(TMPDIR+''/foo'')")
+mputl("clear",TMPDIR+"/foo");
+execstr("exec(TMPDIR+''/foo'')");
  
 clear
  
-mdelete(TMPDIR+'/foo')
-if exists('home')==0 then bugmes();quit;end
+mdelete(TMPDIR+"/foo");
+if exists("home")==0 then bugmes();quit;end
