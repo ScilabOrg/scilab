@@ -14,7 +14,7 @@
 // <-- Short Description -->
 // The karmarkar function may stop too early in the iterations.
 //
-
+funcprot(0);
 
 c = 1.e-20 * [-20 -24 0 0]';
 a = [
@@ -27,3 +27,4 @@ expected = [4 8 0 0]';
 xopt = karmarkar(a,b,c,x0);
 assert_checkalmostequal ( xopt , expected , 1.e-4, 1.e-3);
 
+funcprot(1);
