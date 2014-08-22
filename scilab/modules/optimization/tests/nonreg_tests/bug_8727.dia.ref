@@ -14,6 +14,7 @@
 // <-- Short Description -->
 // The karmarkar function requires the initial guess x0.
 //
+funcprot(0);
 n=11;
 Aeq = zeros(n,n+2);
 Aeq(:,1) = 2*linspace(0,1,n)';
@@ -38,3 +39,4 @@ xstar  = [
     0.2458183  
 ];
 assert_checkalmostequal ( xopt , xstar , 1.e-6, 1.e-6 );
+funcprot(1);
