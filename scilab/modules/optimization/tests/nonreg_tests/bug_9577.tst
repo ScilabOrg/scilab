@@ -19,9 +19,12 @@
 // It was redundant to call neldermead_configure(nm, "-numberofvariables", X) if
 // neldermead_configure(nm, "-x0", x0) had been set beforehand.
 //
+funcprot(0);
 
 x0 = [1.2 1.9,1.5]';
 nm = neldermead_new ();
 nm = neldermead_configure(nm, "-x0", x0);
 numberOfVar = neldermead_cget(nm, "-numberofvariables");
 assert_checkequal(numberOfVar, 3);
+
+funcprot(1);
