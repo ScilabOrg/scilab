@@ -17,6 +17,8 @@
 // <-- Short Description -->
 // Wrong error message when user function returned a complex number
 
+funcprot(0);
+
 function d = myf(x)
     mu = 1e6
     eVal_min = 0.4
@@ -32,3 +34,5 @@ xStart = [1 1];
 
 refMsg = msprintf(_("%s: Wrong type for user function output argument #%d: A real matrix expected."), "optimbase_function", 1);
 assert_checkerror("[x, fval] = fminsearch(myf, xStart);", refMsg);
+
+funcprot(1);
