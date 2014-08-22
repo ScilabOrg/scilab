@@ -15,7 +15,7 @@
 // The karmarkar function may produce a division-by-zero error.
 //
 
-
+funcprot(0);
 
 Aeq = [
 1 -1 0
@@ -29,3 +29,4 @@ xexpected = [1;1;0];
 assert_checkequal ( xopt , xexpected );
 
 
+funcprot(1);

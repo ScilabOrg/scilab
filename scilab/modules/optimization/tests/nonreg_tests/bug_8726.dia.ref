@@ -14,6 +14,7 @@
 // <-- Short Description -->
 // The karmarkar function may produce a division-by-zero error.
 //
+funcprot(0);
 Aeq = [
 1 -1 0
 1  1 1
@@ -25,3 +26,4 @@ xopt=karmarkar(Aeq,beq,c,x0);
 WARNING: karmarkar: The algorithm did not converge (exitflag= -3).
 xexpected = [1;1;0];
 assert_checkequal ( xopt , xexpected );
+funcprot(1);
