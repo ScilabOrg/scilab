@@ -7,6 +7,8 @@
 //
 // <-- CLI SHELL MODE -->
 //
+// <-- ENGLISH IMPOSED -->
+//
 // unit tests for iscolumn function
 // =============================================================================
 
