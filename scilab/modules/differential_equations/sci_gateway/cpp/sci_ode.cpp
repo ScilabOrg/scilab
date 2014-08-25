@@ -1213,7 +1213,7 @@ types::Function::ReturnValue sci_ode(types::typed_list &in, int _iRetCount, type
                 else
                 {
         */
-        pDblYOut = new types::Double(pDblY0->getRows(), pDblT->getSize());
+        pDblYOut = new types::Double(pDblY0->getRows(), pDblY0->getCols() * pDblT->getSize());
         //        }
         bool bBreak = false;
         for (int i = 0; i < pDblT->getSize(); i++)
