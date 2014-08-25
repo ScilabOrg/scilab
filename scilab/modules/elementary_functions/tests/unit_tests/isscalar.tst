@@ -112,5 +112,5 @@ errmsg1 = msprintf(_("%s: Wrong number of input argument(s): %d expected.\n"),"i
 assert_checkerror("isscalar()", errmsg1);
 errmsg2 = msprintf(_("Wrong number of input arguments."));
 assert_checkerror("isscalar(1,2)", errmsg2);
-errmsg3 = msprintf(_("Wrong number of output arguments.\n"));
+errmsg3 = msprintf(_("Wrong number of output arguments."));
 assert_checkerror("[r,b]=isscalar([1 2 3]);", errmsg3);
