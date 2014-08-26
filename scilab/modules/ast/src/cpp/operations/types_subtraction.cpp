@@ -2331,7 +2331,30 @@ template<> InternalType* sub_M_M<Sparse, Sparse, Sparse>(Sparse* _pL, Sparse* _p
     if (_pL->nonZeros() == 0)
     {
         //sp([]) - sp
-        return _pR;
+        pOut = _pR->getAs<Sparse>()->clone();
+        std::complex<double> dValeurtempo;
+
+        if (_pR->isComplex())
+        {
+            for ( int i = 0; i < pOut->getSize() ; i++)
+            {
+                dValeurtempo = pOut->getImg(i);
+                dValeurtempo.real(-dValeurtempo.real());
+                dValeurtempo.imag(-dValeurtempo.imag());
+                pOut->set(i, dValeurtempo);
+            }
+        }
+        else
+        {
+            for ( int i = 0; i < pOut->getSize() ; i++)
+            {
+                dValeurtempo = pOut->get(i);
+                dValeurtempo.real(-dValeurtempo.real());
+                pOut->set(i, dValeurtempo);
+            }
+        }
+
+        return pOut;
     }
 
     if (_pR->nonZeros() == 0)
@@ -2465,7 +2488,7 @@ template<> InternalType* sub_M_M<Double, Sparse, Double>(Double* _pL, Sparse* _p
         _pR->outputRowCol(pRows);
         int* pCols = pRows + nonZeros;
 
-        if (bComplex1)
+        if (bComplex1 | bComplex2)
         {
             for (int i = 0 ; i < nonZeros ; i++)
             {
@@ -2613,29 +2636,20 @@ template<> InternalType* sub_M_M<Sparse, Double, Double>(Sparse* _pL, Double* _p
         pOut = (Double*)_pR->clone();
         pOut->setComplex(bComplex1 | bComplex2);
 
-        int nonZeros = static_cast<int>(_pL->nonZeros());
-        int* pRows = new int[nonZeros * 2];
-        _pL->outputRowCol(pRows);
-        int* pCols = pRows + nonZeros;
-
         if (bComplex1)
         {
-            for (int i = 0 ; i < nonZeros ; i++)
+            for (int i = 0 ; i < _pL->getSize() ; i++)
             {
-                int iRow = static_cast<int>(pRows[i]) - 1;
-                int iCol = static_cast<int>(pCols[i]) - 1;
-                std::complex<double> dbl = _pL->getImg(iRow, iCol);
-                pOut->set(iRow, iCol, dbl.real() - pOut->get(iRow, iCol));
-                pOut->setImg(iRow, iCol, dbl.imag() - pOut->getImg(iRow, iCol));
+                std::complex<double> dbl = _pL->getImg(i);
+                pOut->set(i, dbl.real() - pOut->get(i));
+                pOut->setImg(i, dbl.imag() - pOut->getImg(i));
             }
         }
         else
         {
-            for (int i = 0 ; i < nonZeros ; i++)
+            for (int i = 0 ; i < _pL->getSize() ; i++)
             {
-                int iRow = static_cast<int>(pRows[i]) - 1;
-                int iCol = static_cast<int>(pCols[i]) - 1;
-                pOut->set(iRow, iCol, _pL->get(iRow, iCol) - pOut->get(iRow, iCol));
+                pOut->set(i, _pL->get(i) - pOut->get(i));
             }
         }
 
