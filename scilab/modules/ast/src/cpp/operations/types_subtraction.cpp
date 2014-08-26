@@ -2331,7 +2331,30 @@ template<> InternalType* sub_M_M<Sparse, Sparse, Sparse>(Sparse* _pL, Sparse* _p
     if (_pL->nonZeros() == 0)
     {
         //sp([]) - sp
-        return _pR;
+        pOut = _pR->getAs<Sparse>()->clone();
+        std::complex<double> dValeurtempo;
+
+        if (_pR->isComplex())
+        {
+            for ( int i = 0; i < pOut->getSize() ; i++)
+            {
+                dValeurtempo = pOut->getImg(i);
+                dValeurtempo.real(-dValeurtempo.real());
+                dValeurtempo.imag(-dValeurtempo.imag());
+                pOut->set(i, dValeurtempo);
+            }
+        }
+        else
+        {
+            for ( int i = 0; i < pOut->getSize() ; i++)
+            {
+                dValeurtempo = pOut->get(i);
+                dValeurtempo.real(-dValeurtempo.real());
+                pOut->set(i, dValeurtempo);
+            }
+        }
+
+        return pOut;
     }
 
     if (_pR->nonZeros() == 0)
