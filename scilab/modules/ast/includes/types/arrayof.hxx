@@ -625,21 +625,22 @@ public :
 
             for (int i = 0 ; i < iDims ; i++)
             {
+
+                //undefine value
+                if (pSource->isScalar())
+                {
+                    piMaxDim[i]     = 1;
+                    piCountDim[i]   = 1;
+                }
+                else
+                {
+                    piMaxDim[i]     = piSourceDims[iSource];
+                    piCountDim[i]   = piSourceDims[iSource];
+                }
+                iSource++;
+                //replace pArg value by the new one
                 if (pArg[i] == NULL)
                 {
-                    //undefine value
-                    if (pSource->isScalar())
-                    {
-                        piMaxDim[i]     = 1;
-                        piCountDim[i]   = 1;
-                    }
-                    else
-                    {
-                        piMaxDim[i]     = piSourceDims[iSource];
-                        piCountDim[i]   = piSourceDims[iSource];
-                    }
-                    iSource++;
-                    //replace pArg value by the new one
                     pArg[i] = createDoubleVector(piMaxDim[i]);
                 }
                 //else
