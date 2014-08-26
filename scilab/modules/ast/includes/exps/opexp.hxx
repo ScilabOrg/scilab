@@ -94,12 +94,23 @@ public:
     {
     }
 
+    OpExp (const Location& location, Oper oper, Exp& right)
+        : MathExp (location),
+          _left (NULL),
+          _oper (oper),
+          _right (&right)
+    {
+    }
+
     /** \brief Destroy a Operation Expression node.
     **
     ** Delete left and right, see constructor. */
     virtual ~OpExp ()
     {
-        delete _left;
+        if (_left)
+        {
+            delete _left;
+        }
         delete _right;
     }
     /** \} */
@@ -130,8 +141,12 @@ public:
     /** \name Setters.
     ** \{ */
 public :
-    virtual void left_set(Exp& left)
+    void left_set(Exp& left)
     {
+        if (_left)
+        {
+            delete _left;
+        }
         _left = &left;
     }
     /** \} */

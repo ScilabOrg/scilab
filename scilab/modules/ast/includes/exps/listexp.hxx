@@ -39,9 +39,19 @@ public:
     ** \li "stop" is the end of the list (the max value)
     */
     ListExp (const Location& location,
-             Exp& start, Exp& step, Exp& end, bool explicitStep=false)
+             Exp& start, Exp& step, Exp& end, bool explicitStep = false)
         : Exp (location),
           _start (&start),
+          _step (&step),
+          _end (&end),
+          _explicitStep(explicitStep)
+    {
+    }
+
+    ListExp (const Location& location,
+             Exp& step, Exp& end, bool explicitStep = false)
+        : Exp (location),
+          _start (NULL),
           _step (&step),
           _end (&end),
           _explicitStep(explicitStep)
@@ -53,7 +63,10 @@ public:
     ** Delete left and right, see constructor. */
     virtual ~ListExp ()
     {
-        delete _start;
+        if (_start)
+        {
+            delete _start;
+        }
         delete _step;
         delete _end;
     }
@@ -85,6 +98,15 @@ public:
     /** \name Accessors.
     ** \{ */
 public:
+    void start_set(Exp& start)
+    {
+        if (_start)
+        {
+            delete _start;
+        }
+        _start = &start;
+    }
+
     /** \brief Return the expression (read only) */
     const Exp& start_get () const
     {

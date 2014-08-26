@@ -45,6 +45,11 @@ public:
     {
     }
 
+    LogicalOpExp (const Location& location, Oper oper, Exp& right):
+        OpExp (location, oper, right)
+    {
+    }
+
     /** \brief Destroy a Operation Expression node.
     **
     ** Delete left and right, see constructor. */
