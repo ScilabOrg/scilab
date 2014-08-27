@@ -782,7 +782,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
         evalFields.push_back(pEH);
         workFields.pop_front();
 
-        types::InternalType* pITCurrent = pEH->getCurrent();
+        InternalType* pITCurrent = pEH->getCurrent();
 
         if (pEH->isCellExp() && pITCurrent->isCell() == false)
         {
@@ -794,7 +794,21 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
         if (pITCurrent->isStruct())
         {
             Struct* pStruct = pITCurrent->getAs<Struct>();
-            std::wstring pwcsFieldname = (*iterFields)->getExpAsString();
+            typed_list* pArgs = pEH->getArgs();
+
+            // get field name
+            std::wstring pwcsFieldname;
+            if (pArgs && (*pArgs)[0]->isString())
+            {
+                //a("x")
+                pwcsFieldname = (*pArgs)[0]->getAs<String>()->get(0);
+            }
+            else
+            {
+                // a.x
+                pwcsFieldname = (*iterFields)->getExpAsString();
+            }
+
             int iSizeStuct = pStruct->getSize();
 
             if (pEH->needResize())
@@ -816,9 +830,9 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 pStruct->addField(pwcsFieldname);
             }
 
-            if (pEH->getArgs())
+            if (pArgs && (*pArgs)[0]->isString() == false)
             {
-                InternalType* pIT = pStruct->extractWithoutClone(pEH->getArgs());
+                InternalType* pIT = pStruct->extractWithoutClone(pArgs);
                 workFields.push_front(new ExpHistory(pEH, pEH->getExp(), NULL, pEH->getLevel(), pEH->isCellExp(), pIT));
             }
             else
@@ -1386,7 +1400,20 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 if (pParent->isStruct())
                 {
                     Struct* pStruct = pParent->getAs<Struct>();
-                    pStruct->get(pEH->getWhereReinsert())->set(pEH->getExpAsString(), pEH->getCurrent());
+                    typed_list* pArgs = pEHParent->getArgs();
+                    std::wstring pwcsFieldname;
+                    if (pArgs && (*pArgs)[0]->isString())
+                    {
+                        //a('x')
+                        pwcsFieldname = (*pArgs)[0]->getAs<String>()->get(0);
+                    }
+                    else
+                    {
+                        // a.x
+                        pwcsFieldname = pEH->getExpAsString();
+                    }
+
+                    pStruct->get(pEH->getWhereReinsert())->set(pwcsFieldname, pEH->getCurrent());
                     evalFields.pop_back();
                     delete pEH;
                     continue;

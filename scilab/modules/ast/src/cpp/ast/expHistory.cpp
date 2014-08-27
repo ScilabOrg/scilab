@@ -229,7 +229,7 @@ int ExpHistory::getArgsDims()
 
 bool ExpHistory::needResize()
 {
-    if (m_pArgs)
+    if (m_pArgs && (*m_pArgs)[0]->isString() == false)
     {
         int iDims = m_pITCurrent->getAs<types::GenericType>()->getDims();
 
