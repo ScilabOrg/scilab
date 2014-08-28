@@ -55,7 +55,9 @@ enum object_properties_t
 {
     PARENT_DIAGRAM,     //!< model::Annotation::parentDiagram or model::Block::parentDiagram or model::Link::parentDiagram value
     GEOMETRY,           //!< model::Annotation::geometry or model::Block::geometry value
-    DESCRIPTION,        //!< model::Annotation::description
+    DESCRIPTION,        //!< model::Annotation::description text
+    FONT,               //!< model::Annotation::description font
+    SIZE,               //!< model::Annotation::description size
     RELATED_TO,         //!< model::Annotation::relatedTo
     INTERFACE_FUNCTION, //!< model::Block::interfaceFunction value
     SIM_FUNCTION_NAME,  //!< model::Descriptor::functionName value (stored into model::Block::sim)
