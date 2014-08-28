@@ -3,7 +3,7 @@
 // Copyright (C) 2014 - Scilab Enterprises - Clement David
 //
 //  This file is distributed under the same license as the Scilab package.
-// =============================================================================+
+// =============================================================================
 
 loadXcosLibs();
 
@@ -15,7 +15,11 @@ o = scicos_model()
 // model objects
 
 // allocate an Annotation
-o = TEXT_f("define");
+o = TEXT_f("define")
+o.graphics
+o.model
+o.void
+o.gui
 
 // allocate a Block
 o = scicos_block()
