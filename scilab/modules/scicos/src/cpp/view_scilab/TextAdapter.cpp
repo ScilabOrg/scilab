@@ -11,10 +11,15 @@
  */
 
 #include <string>
+#include <vector>
 
+#include "double.hxx"
+#include "string.hxx"
+#include "mlist.hxx"
 #include "internal.hxx"
 
 #include "Controller.hxx"
+#include "GraphicsAdapter.hxx"
 #include "TextAdapter.hxx"
 
 namespace org_scilab_modules_scicos
@@ -23,6 +28,175 @@ namespace view_scilab
 {
 namespace
 {
+
+static const wchar_t* Graphics = L"graphics";
+static const wchar_t* orig = L"orig";
+static const wchar_t* sz = L"sz";
+static const wchar_t* exprs = L"exprs";
+
+struct graphics
+{
+
+    static types::InternalType* get(const TextAdapter& adaptor, const Controller& controller)
+    {
+        model::Annotation* adaptee = adaptor.getAdaptee();
+
+        types::MList* o = new types::MList();
+        types::String* MListFields = new types::String(1, 4);
+        MListFields->set(0, Graphics);
+        MListFields->set(1, orig);
+        MListFields->set(2, sz);
+        MListFields->set(3, exprs);
+        o->set(0, MListFields);
+
+        // orig and sz
+        std::vector<double> geom;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, geom);
+
+        double* dataOrig;
+        double* dataSz;
+        types::Double* origField = new types::Double(1, 2, &dataOrig);
+        types::Double* szField   = new types::Double(1, 2, &dataSz);
+        dataOrig[0] = geom[0];
+        dataOrig[1] = geom[1];
+        dataSz[0]   = geom[2];
+        dataSz[1]   = geom[3];
+        o->set(1, origField);
+        o->set(2, szField);
+
+        // exprs
+        std::vector<std::string> Exprs (3);
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), DESCRIPTION, Exprs[0]);
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), FONT, Exprs[1]);
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), FONT_SIZE, Exprs[2]);
+
+        types::String* exprsField = new types::String(3, 1);
+        for (size_t i = 0; i < Exprs.size(); ++i)
+        {
+            exprsField->set(i, Exprs[i].data());
+        }
+        o->set(3, exprsField);
+
+        return o;
+    }
+
+    static bool set(TextAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        if (v->getType() != types::InternalType::ScilabMList)
+        {
+            return false;
+        }
+
+        types::MList* current = v->getAs<types::MList>();
+        if (current->getSize() < 4)
+        {
+            return false;
+        }
+
+        types::InternalType* currentField;
+        types::Double* currentFieldDouble;
+        types::String* currentFieldString;
+
+        model::Annotation* adaptee = adaptor.getAdaptee();
+
+        // orig
+        if ((currentField = current->getField(orig)) == NULL)
+        {
+            return false;
+        }
+        if (currentField->getType() != types::InternalType::ScilabDouble)
+        {
+            return false;
+        }
+        currentFieldDouble = currentField->getAs<types::Double>();
+        if (currentFieldDouble->getRows() != 1 || currentFieldDouble->getCols() != 2)
+        {
+            return false;
+        }
+        std::vector<double> origField;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, origField);
+        origField[0] = currentFieldDouble->get(0);
+        origField[1] = currentFieldDouble->get(1);
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, origField);
+
+        // sz
+        if ((currentField = current->getField(sz)) == NULL)
+        {
+            return false;
+        }
+        if (currentField->getType() != types::InternalType::ScilabDouble)
+        {
+            return false;
+        }
+        currentFieldDouble = currentField->getAs<types::Double>();
+        if (currentFieldDouble->getRows() != 1 || currentFieldDouble->getCols() != 2)
+        {
+            return false;
+        }
+        std::vector<double> szField;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, szField);
+        szField[2] = currentFieldDouble->get(0);
+        szField[3] = currentFieldDouble->get(1);
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, szField);
+
+        // exprs
+        if ((currentField = current->getField(exprs)) == NULL)
+        {
+            return false;
+        }
+        if (currentField->getType() == types::InternalType::ScilabString)
+        {
+            currentFieldString = currentField->getAs<types::String>();
+            if (currentFieldString->getCols() != 1 || currentFieldString->getSize() != 3)
+            {
+                return false;
+            }
+
+            std::vector<std::string> exprsField (3);
+            for (size_t i = 0; i < exprsField.size(); ++i)
+            {
+                char* c_str = wide_string_to_UTF8(currentFieldString->get(i));
+                exprsField[i] = std::string(c_str);
+                FREE(c_str);
+            }
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESCRIPTION, exprsField[0]);
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT, exprsField[1]);
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT_SIZE, exprsField[2]);
+            return true;
+        }
+        else if (currentField->getType() == types::InternalType::ScilabDouble)
+        {
+            currentFieldDouble = currentField->getAs<types::Double>();
+            if (currentFieldDouble->getSize() != 0)
+            {
+                return false;
+            }
+
+            std::vector<std::string> exprsField (3);
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESCRIPTION, exprsField);
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT, exprsField);
+            controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT_SIZE, exprsField);
+            return true;
+        }
+
+        return false;
+    }
+};
+
+struct model
+{
+
+    static types::InternalType* get(const TextAdapter& adaptor, const Controller& controller)
+    {
+        return 0;
+    }
+
+    static bool set(TextAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        // An Annotation only stores fields of graphics
+        return true;
+    }
+};
 
 } /* namespace */
 
@@ -36,7 +210,11 @@ TextAdapter::TextAdapter(org_scilab_modules_scicos::model::Annotation* o) :
 {
     if (property<TextAdapter>::properties_have_not_been_set())
     {
-        // FIXME: add some properties
+        property<TextAdapter>::fields.reserve(4);
+        property<TextAdapter>::add_property(Graphics, &graphics::get, &graphics::set);
+        property<TextAdapter>::add_property(L"model", &model::get, &model::set);
+        property<TextAdapter>::add_property(L"void", &model::get, &model::set);
+        property<TextAdapter>::add_property(L"gui", &model::get, &model::set);
     }
 }
 
