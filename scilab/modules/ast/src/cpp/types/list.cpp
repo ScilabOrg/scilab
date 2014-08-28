@@ -146,9 +146,9 @@ bool List::toString(std::wostringstream& ostr)
     return true;
 }
 
-std::vector<InternalType*>	List::extract(typed_list* _pArgs)
+InternalType* List::extract(typed_list* _pArgs)
 {
-    std::vector<InternalType*> outList;
+    List* outList = new List();
     //check input param
     if (_pArgs->size() != 1)
     {
@@ -173,11 +173,12 @@ std::vector<InternalType*>	List::extract(typed_list* _pArgs)
         int idx = (int)pArg[0]->getAs<Double>()->get(i);
         if (idx > getSize() || idx < 1)
         {
-            outList.clear();
+            delete outList;
+            outList = new List();
             break;
         }
         InternalType* pIT = (*m_plData)[idx - 1];
-        outList.push_back(pIT);
+        outList->append(pIT);
     }
 
     //free pArg content
