@@ -209,7 +209,16 @@ bool set_ports_property(const Adaptor& adaptor, object_properties_t port_kind, C
         size_t rows = current->getRows();
         if (rows != ids.size())
         {
-            return false;
+            if (rows == 0 && (p == DATATYPE_COLS || p == DATATYPE_TYPE))
+            {
+                // Empty matrices for 'in2', 'intyp', 'out2' or 'outtyp'  properties: set them to ones to match 'in' (resp 'out').
+                current = new types::Double(1, ids.size(), false);
+                current->setOnes();
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Translate identifiers: shared variables
@@ -257,6 +266,10 @@ bool set_ports_property(const Adaptor& adaptor, object_properties_t port_kind, C
                     controller.setObjectProperty(*it, PORT, DATATYPE, v);
                 }
                 return true;
+                if (rows == 0)
+                {
+                    delete current;
+                }
             }
 
             case IMPLICIT:
