@@ -94,7 +94,7 @@ public:
  * Note that sub-classes are responsible to fill the fields accordingly to theirs interfaces.
  */
 template<typename Adaptor, typename Adaptee>
-class BaseAdapter : public types::User<Adaptor>
+class BaseAdapter : public types::UserType
 {
 
 public:
@@ -234,17 +234,24 @@ public:
      * All following methods should be implemented by each template instance
      */
 
-    virtual std::wstring getTypeStr() = 0;
-    virtual std::wstring getShortTypeStr() = 0;
+    virtual std::wstring getTypeStr()
+    {
+        return L"ba";
+    }
 
-    /*
-     * Implement a specific types::User
-     */
-private:
+    virtual std::wstring getShortTypeStr()
+    {
+        return L"BaseAdapter";
+    }
+
     types::InternalType* clone()
     {
         return new Adaptor(*static_cast<Adaptor*>(this));
     }
+
+    /*
+     * Implement a specific types::User
+     */
 
     bool isAssignable()
     {
@@ -267,6 +274,32 @@ private:
             return true;
         }
         return false;
+    }
+
+    types::InternalType* insert(types::typed_list* _pArgs, InternalType* _pSource)
+    {
+
+        for (int i = 0; i < _pArgs->size(); i++)
+        {
+            if ((*_pArgs)[i]->isString())
+            {
+                types::String* pStr = (*_pArgs)[i]->getAs<types::String>();
+                std::wstring name = pStr->get(0);
+                Controller controller = Controller();
+                //types::InternalType* value = found->set(this, _pSource, controller);
+            }
+            //else if(_pArgs[i]->isDouble())
+            //{
+            //
+            //}
+            else
+            {
+                return NULL;
+            }
+        }
+
+        // call overload
+        return NULL;
     }
 
     void whoAmI(void)
