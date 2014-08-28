@@ -868,7 +868,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
         {
             TList* pTL = pITCurrent->getAs<TList>();
             typed_list* pArgs = pEH->getArgs();
-            if (pArgs && (*pArgs)[0]->isString() == false)
+            if (pArgs)
             {
                 if (pArgs->size() > 1 || pITCurrent->isMList())
                 {
@@ -876,15 +876,15 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     InternalType* pExtract = callOverload(*pEH->getExp(), L"6", pArgs, pTL, NULL);
                     if ((*iterFields)->getExp() == NULL)
                     {
-                        // a(x)(y) => a.b(y)
-                        // extract a(x) and push_BACK to extract next level
+                        // a(x)(y)
+                        // extract a(x) and push_BACK to extract y
                         workFields.push_back(new ExpHistory(pEH, NULL, (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), pExtract));
                         workFields.back()->setReinsertion();
                     }
                     else
                     {
                         // a(x).b
-                        // extract a(x) and push_FRONT to extract b from a(x)
+                        // extract a(x) and push_FRONT to extract b
                         workFields.push_front(new ExpHistory(pEH, pEH->getExp(), NULL, pEH->getLevel(), pEH->isCellExp(), pExtract));
                         workFields.front()->setReinsertion();
                     }
@@ -905,8 +905,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
 
                     if ((*iterFields)->getExp() == NULL)
                     {
-                        // a(x)(y) => a.b(y)
-                        // extract a(x) and push_BACK to extract next level
+                        // a(x)(y)
+                        // extract a(x) and push_BACK to extract y
                         for (iterVect = vectpIT.begin(); iterVect != vectpIT.end(); iterVect++, iLoop++)
                         {
                             ExpHistory* pEHExtract = new ExpHistory(pEH, NULL, (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), *iterVect);
@@ -917,7 +917,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     else
                     {
                         // a(x).b
-                        // extract a(x) and push_FRONT to extract b from a(x)
+                        // extract a(x) and push_FRONT to extract b
                         for (iterVect = vectpIT.begin(); iterVect != vectpIT.end(); iterVect++, iLoop++)
                         {
                             ExpHistory* pEHExtract = new ExpHistory(pEH, pEH->getExp(), NULL, pEH->getLevel(), pEH->isCellExp(), *iterVect);
@@ -929,22 +929,13 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
             }
             else
             {
-                // get string "x"
+                // get string "x" of a.x
                 InternalType* pExtract = NULL;
                 std::wstring pwcsFieldname = L"";
                 bool bReinsert = false;
                 ExpHistory* pEHChield = NULL;
 
-                if (pArgs)
-                {
-                    // a('x')
-                    pwcsFieldname = (*pArgs)[0]->getAs<String>()->get(0);
-                }
-                else
-                {
-                    // a.x
-                    pwcsFieldname = (*iterFields)->getExpAsString();
-                }
+                pwcsFieldname = (*iterFields)->getExpAsString();
 
                 // check if field exists
                 if (pTL->exists(pwcsFieldname) == false)
@@ -956,20 +947,14 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     {
                         // M=mlist(['MType','x','y'], ...
                         // M.rows1 = "somthing"
-                        if (pArgs == NULL)
-                        {
-                            pArgs = new typed_list();
-                            pArgs->push_back(new String(pwcsFieldname.c_str()));
-                        }
+                        pArgs = new typed_list();
+                        pArgs->push_back(new String(pwcsFieldname.c_str()));
 
                         // call overload
                         pExtract = callOverload(*pEH->getExp(), L"6", pArgs, pTL, NULL);
                         bReinsert = true;
 
-                        if (pEH->getArgs() == NULL)
-                        {
-                            delete pArgs;
-                        }
+                        delete pArgs;
                     }
                 }
                 else
@@ -978,30 +963,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     pExtract = pTL->getField(pwcsFieldname);
                 }
 
-                // History management
-                if (pEH->getArgs())
-                {
-                    if ((*iterFields)->getExp() == NULL)
-                    {
-                        // a('x')(y) => a.b(y)
-                        // extract a(x) and push_BACK to extract next level
-                        pEHChield = new ExpHistory(pEH, NULL, (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), pExtract);
-                        workFields.push_back(pEHChield);
-                    }
-                    else
-                    {
-                        // a('x').b -> a('x')('b')
-                        // extract a(x) and push_FRONT to extract b from a(x)
-                        pEHChield = new ExpHistory(pEH, pEH->getExp(), NULL, pEH->getLevel(), pEH->isCellExp(), pExtract);
-                        workFields.push_front(pEHChield);
-                    }
-                }
-                else
-                {
-                    // a.x
-                    pEHChield = new ExpHistory(pEH, (*iterFields)->getExp(), (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), pExtract);
-                    workFields.push_back(pEHChield);
-                }
+                pEHChield = new ExpHistory(pEH, (*iterFields)->getExp(), (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), pExtract);
+                workFields.push_back(pEHChield);
 
                 if (bReinsert)
                 {
@@ -1230,7 +1193,14 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 throw ast::ScilabError(os.str(), 999, _pExp->location_get());
             }
         }
-        else if (pITCurrent == 0) // implicit struct creation
+        else if (pITCurrent->getType() == InternalType::ScilabUserType) // not a Scilab defined datatype, access field after field
+        {
+            // call userType extract method
+            std::wostringstream os;
+            os << _W("TO DO : Extraction of scilab User Type.");
+            throw ast::ScilabError(os.str(), 999, _pExp->location_get());
+        }
+        else
         {
             InternalType* pIT = new Struct(1, 1);
             pEH->setCurrent(pIT);
@@ -1238,50 +1208,6 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
 
             workFields.push_front(pEH);
             evalFields.pop_back();
-        }
-        else // not a Scilab defined datatype, access field after field
-        {
-            typed_list* pArgs = pEH->getArgs();
-
-            // get string "x"
-            std::wstring pwcsFieldname = L"";
-            ExpHistory* pEHChield = 0;
-
-            if (pArgs)
-            {
-                // a('x')
-                pwcsFieldname = (*pArgs)[0]->getAs<String>()->get(0);
-            }
-            else
-            {
-                // a.x
-                pwcsFieldname = (*iterFields)->getExpAsString();
-            }
-
-            // History management
-            if (pArgs)
-            {
-                if ((*iterFields)->getExp() == NULL)
-                {
-                    // a('x')(y) => a.b(y)
-                    // extract a(x) and push_BACK to extract next level
-                    pEHChield = new ExpHistory(pEH, NULL, (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), 0);
-                    workFields.push_back(pEHChield);
-                }
-                else
-                {
-                    // a('x').b -> a('x')('b')
-                    // extract a(x) and push_FRONT to extract b from a(x)
-                    pEHChield = new ExpHistory(pEH, pEH->getExp(), NULL, pEH->getLevel(), pEH->isCellExp(), 0);
-                    workFields.push_front(pEHChield);
-                }
-            }
-            else
-            {
-                // a.x
-                pEHChield = new ExpHistory(pEH, (*iterFields)->getExp(), (*iterFields)->getArgs(), (*iterFields)->getLevel(), (*iterFields)->isCellExp(), 0);
-                workFields.push_back(pEHChield);
-            }
         }
 
         if (workFields.front()->getLevel() == (*iterFields)->getLevel())
@@ -1372,6 +1298,12 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     pTL->set(pEH->getExpAsString(), _pAssignValue);
                 }
             }
+            else if (pParent->getType() == InternalType::ScilabUserType)
+            {
+                std::wostringstream os;
+                os << _W("TO DO : Insert elem in scilab User Type.");
+                throw ast::ScilabError(os.str(), 999, _pExp->location_get());
+            }
             else
             {
                 pEH->setCurrent(_pAssignValue);
@@ -1443,10 +1375,11 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                         continue;
                     }
                 }
-                else
+                else if (pParent->getType() == InternalType::ScilabUserType)
                 {
-                    pParentArgs = new typed_list();
-                    pParentArgs->push_back(new String(pEH->getExpAsString().c_str()));
+                    std::wostringstream os;
+                    os << _W("TO DO : Insert children in scilab User Type.");
+                    throw ast::ScilabError(os.str(), 999, _pExp->location_get());
                 }
             }
 
