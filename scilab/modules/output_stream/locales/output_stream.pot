@@ -1167,7 +1167,7 @@ msgstr ""
 #
 # File: src/c/errorTable.c, line: 1012
 #, c-format
-msgid "check or define function %s for overloading.\n"
+msgid "  check or define function %s for overloading.\n"
 msgstr ""
 
 #
