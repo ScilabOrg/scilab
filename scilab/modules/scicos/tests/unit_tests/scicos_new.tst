@@ -22,7 +22,11 @@ o = scicos_model()
 // model objects
 
 // allocate an Annotation
-o = TEXT_f("define");
+o = TEXT_f("define")
+o.graphics
+o.model
+o.void
+o.gui
 
 // allocate a Block
 o = scicos_block()
