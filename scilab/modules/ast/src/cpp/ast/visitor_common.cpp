@@ -1230,16 +1230,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 throw ast::ScilabError(os.str(), 999, _pExp->location_get());
             }
         }
-        else if (pITCurrent == 0) // implicit struct creation
-        {
-            InternalType* pIT = new Struct(1, 1);
-            pEH->setCurrent(pIT);
-            pEH->setReinsertion();
-
-            workFields.push_front(pEH);
-            evalFields.pop_back();
-        }
-        else // not a Scilab defined datatype, access field after field
+        else if (pITCurrent->getType() == InternalType::ScilabUserType) // not a Scilab defined datatype, access field after field
         {
             typed_list* pArgs = pEH->getArgs();
 
@@ -1283,6 +1274,16 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 workFields.push_back(pEHChield);
             }
         }
+        else
+        {
+            InternalType* pIT = new Struct(1, 1);
+            pEH->setCurrent(pIT);
+            pEH->setReinsertion();
+
+            workFields.push_front(pEH);
+            evalFields.pop_back();
+        }
+
 
         if (workFields.front()->getLevel() == (*iterFields)->getLevel())
         {
@@ -1443,7 +1444,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                         continue;
                     }
                 }
-                else
+                else if (pParent->getType() == InternalType::ScilabUserType)
                 {
                     pParentArgs = new typed_list();
                     pParentArgs->push_back(new String(pEH->getExpAsString().c_str()));
