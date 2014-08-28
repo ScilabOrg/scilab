@@ -296,6 +296,11 @@ public :
         return transpose(out);
     }
 
+    virtual InternalType* insert(typed_list* _pArgs, InternalType* _pSource)
+    {
+        return NULL;
+    }
+
     virtual bool extract(const std::wstring & name, InternalType *& out)
     {
         return false;
@@ -525,6 +530,10 @@ public :
         return false;
     }
     virtual bool                    isLibrary(void)
+    {
+        return false;
+    }
+    virtual bool                    isUserType(void)
     {
         return false;
     }
