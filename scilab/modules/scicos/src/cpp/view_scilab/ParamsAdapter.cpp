@@ -16,9 +16,13 @@
 
 #include "double.hxx"
 #include "string.hxx"
-#include "types.hxx"
 
+#include "Controller.hxx"
 #include "ParamsAdapter.hxx"
+
+extern "C" {
+#include "sci_malloc.h"
+}
 
 namespace org_scilab_modules_scicos
 {
@@ -241,6 +245,20 @@ struct context
     }
 };
 
+struct doc
+{
+    static types::InternalType* get(const ParamsAdapter& adaptor, const Controller& controller)
+    {
+        return adaptor.getDocContent();
+    }
+
+    static bool set(ParamsAdapter& adaptor, types::InternalType* v, Controller& controller)
+    {
+        adaptor.setDocContent(v->clone());
+        return true;
+    }
+};
+
 } /* namespace */
 
 template<> property<ParamsAdapter>::props_t property<ParamsAdapter>::fields = property<ParamsAdapter>::props_t();
@@ -263,12 +281,15 @@ ParamsAdapter::ParamsAdapter(org_scilab_modules_scicos::model::Diagram* o) :
         property<ParamsAdapter>::add_property(L"options", &wpar::get, &wpar::set);
         property<ParamsAdapter>::add_property(L"void2", &wpar::get, &wpar::set);
         property<ParamsAdapter>::add_property(L"void3", &wpar::get, &wpar::set);
-        property<ParamsAdapter>::add_property(L"doc", &wpar::get, &wpar::set);
+        property<ParamsAdapter>::add_property(L"doc", &doc::get, &doc::set);
     }
+
+    doc_content = new types::List();
 }
 
 ParamsAdapter::~ParamsAdapter()
 {
+    delete doc_content;
 }
 
 std::wstring ParamsAdapter::getTypeStr()
@@ -278,6 +299,17 @@ std::wstring ParamsAdapter::getTypeStr()
 std::wstring ParamsAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+types::InternalType* ParamsAdapter::getDocContent() const
+{
+    return doc_content;
+}
+
+void ParamsAdapter::setDocContent(types::InternalType* v)
+{
+    delete doc_content;
+    doc_content = v->clone();
 }
 
 } /* namespace view_scilab */
