@@ -240,13 +240,14 @@ bool set_ports_property(const Adaptor& adaptor, object_properties_t port_kind, C
             case DATATYPE_ROWS:
             {
                 datatypeIndex++;
+                double data;
+                std::vector<int> v;
 
                 for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
                 {
-                    std::vector<int> v;
                     controller.getObjectProperty(*it, PORT, DATATYPE, v);
 
-                    double data = current->get(i);
+                    data = current->get(i);
                     if (std::floor(data) != data)
                     {
                         return false;
@@ -409,7 +410,7 @@ bool update_ports_property(const Adaptor& adaptor, object_properties_t port_kind
         controller.getObjectProperty(parentDiagram, DIAGRAM, CHILDREN, children);
     }
 
-    std::vector<int> newPorts = std::vector<int>(value->getSize());
+    std::vector<int> newPorts (value->getSize());
 
     // retrieve old data
     std::vector<ScicosID> oldPorts;
