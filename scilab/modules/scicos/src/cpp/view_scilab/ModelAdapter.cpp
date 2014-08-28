@@ -32,6 +32,7 @@ namespace
 {
 
 static const wchar_t* diagram = L"diagram";
+static const std::wstring Text = L"Text";
 
 struct sim
 {
@@ -409,6 +410,11 @@ struct rpar
             }
 
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), RPAR, rpar);
+            return true;
+        }
+        else if (v->getType() == types::InternalType::ScilabString)
+        {
+            // Allow Text blocs to define strings in rpar
             return true;
         }
         else
