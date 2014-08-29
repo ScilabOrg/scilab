@@ -298,6 +298,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
                 return o->setTitle(v);
             case PATH:
                 return o->setPath(v);
+            case VERSION_NUMBER:
+                return o->setVersionNumber(v);
             default:
                 break;
         }
@@ -544,6 +546,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Diagram* o = static_cast<model::Diagram*>(getObject(uid));
         switch (p)
         {
+            case CHILDREN:
+                return o->setChildren(v);
             default:
                 break;
         }
