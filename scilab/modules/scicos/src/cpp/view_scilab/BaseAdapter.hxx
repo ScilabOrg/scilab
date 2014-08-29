@@ -22,7 +22,6 @@
 #include "internal.hxx"
 #include "tlist.hxx"
 #include "mlist.hxx"
-#include "tlist.hxx"
 #include "string.hxx"
 
 #include "Controller.hxx"

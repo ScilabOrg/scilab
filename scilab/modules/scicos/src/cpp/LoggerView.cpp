@@ -235,6 +235,9 @@ std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case CONTEXT:
             os << "CONTEXT";
             break;
+        case VERSION_NUMBER:
+            os << "VERSION_NUMBER";
+            break;
     }
     return os;
 }
