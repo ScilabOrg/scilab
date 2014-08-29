@@ -593,7 +593,8 @@ bool Model::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std
         switch (p)
         {
             case CHILDREN:
-                v = o->getChildren();
+                o->getChildren(v);
+                return true;
                 return true;
             default:
                 break;

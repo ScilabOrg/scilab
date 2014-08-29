@@ -70,18 +70,24 @@ class Diagram: public BaseObject
 private:
     friend class ::org_scilab_modules_scicos::Model;
 
-    Diagram() : BaseObject(DIAGRAM), title("Untitled"), path(), properties(), context() {};
-    Diagram(const Diagram& o)  : BaseObject(DIAGRAM), title(o.title), path(o.path), properties(o.properties), context(o.context) {};
+    Diagram() : BaseObject(DIAGRAM), title("Untitled"), path(), properties(), context(), children() {};
+    Diagram(const Diagram& o)  : BaseObject(DIAGRAM), title(o.title), path(o.path), properties(o.properties), context(o.context), children(o.children) {};
     ~Diagram() {}
 
-    const std::vector<ScicosID>& getChildren() const
+    void getChildren(std::vector<ScicosID>& c) const
     {
-        return children;
+        c = children;
     }
 
-    void setChildren(const std::vector<ScicosID>& children)
+    update_status_t setChildren(const std::vector<ScicosID>& c)
     {
-        this->children = children;
+        if (c == children)
+        {
+            return NO_CHANGES;
+        }
+
+        children = c;
+        return SUCCESS;
     }
 
     void getContext(std::vector<std::string>& data) const
