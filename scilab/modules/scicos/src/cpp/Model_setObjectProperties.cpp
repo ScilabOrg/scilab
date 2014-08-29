@@ -544,6 +544,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
         model::Diagram* o = static_cast<model::Diagram*>(getObject(uid));
         switch (p)
         {
+            case CHILDREN:
+                return o->setChildren(v);
             default:
                 break;
         }
