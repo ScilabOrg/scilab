@@ -16,6 +16,7 @@
 
 #include "double.hxx"
 #include "string.hxx"
+#include "list.hxx"
 #include "tlist.hxx"
 
 #include "Controller.hxx"
@@ -39,7 +40,10 @@ struct wpar
 
     static types::InternalType* get(const ParamsAdapter& adaptor, const Controller& controller)
     {
-        return 0;
+        model::Diagram* adaptee = adaptor.getAdaptee();
+
+        // Return a default empty matrix.
+        return new types::Double(0, 0);
     }
 
     static bool set(ParamsAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -289,7 +293,9 @@ struct doc
 template<> property<ParamsAdapter>::props_t property<ParamsAdapter>::fields = property<ParamsAdapter>::props_t();
 
 ParamsAdapter::ParamsAdapter(const ParamsAdapter& o) :
-    BaseAdapter<ParamsAdapter, org_scilab_modules_scicos::model::Diagram>(o) {}
+    BaseAdapter<ParamsAdapter, org_scilab_modules_scicos::model::Diagram>(o),
+    doc_content(o.doc_content->clone())
+{}
 
 ParamsAdapter::ParamsAdapter(org_scilab_modules_scicos::model::Diagram* o) :
     BaseAdapter<ParamsAdapter, org_scilab_modules_scicos::model::Diagram>(o)
