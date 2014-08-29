@@ -22,7 +22,6 @@
 #include "internal.hxx"
 #include "tlist.hxx"
 #include "mlist.hxx"
-#include "tlist.hxx"
 #include "string.hxx"
 
 #include "Controller.hxx"
@@ -149,6 +148,7 @@ public:
         int index = 1;
         for (typename property<Adaptor>::props_t_it it = properties.begin(); it != properties.end(); ++it, ++index)
         {
+            std::cout << "1 " << index << std::endl;
             header->set(index, it->name.c_str());
         }
         tlist->set(0, header);
@@ -157,6 +157,7 @@ public:
         index = 1;
         for (typename property<Adaptor>::props_t_it it = properties.begin(); it != properties.end(); ++it, ++index)
         {
+            std::cout << "2 " << index << std::endl;
             tlist->set(index, it->get(*static_cast<Adaptor*>(this), controller));
         }
 
@@ -168,7 +169,7 @@ public:
         typename property<Adaptor>::props_t properties = property<Adaptor>::fields;
         std::sort(properties.begin(), properties.end(), property<Adaptor>::original_index_cmp);
 
-        if (v->getType() != types::InternalType::ScilabTList)
+        if (v->getType() != types::InternalType::ScilabTList && v->getType() != types::InternalType::ScilabMList)
         {
             return false;
         }
