@@ -344,6 +344,7 @@ lib /DEF:"$(ProjectDir)fileio_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClInclude Include="includes\operations\types_power.hxx" />
     <ClInclude Include="includes\operations\types_subtraction.hxx" />
     <ClInclude Include="includes\operations\types_transposition.hxx" />
+    <ClInclude Include="includes\operations\types_and.hxx" />
     <ClInclude Include="includes\parse\isatty.hxx" />
     <ClInclude Include="includes\parse\parse.hxx" />
     <ClInclude Include="includes\parse\parser.hxx" />
@@ -429,6 +430,7 @@ lib /DEF:"$(ProjectDir)fileio_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClCompile Include="src\cpp\operations\interface_addition.cpp" />
     <ClCompile Include="src\cpp\operations\operations.cpp" />
     <ClCompile Include="src\cpp\operations\types_addition.cpp" />
+    <ClCompile Include="src\cpp\operations\types_and.cpp" />
     <ClCompile Include="src\cpp\operations\types_comparison_eq.cpp" />
     <ClCompile Include="src\cpp\operations\types_comparison_lt_le_gt_ge.cpp" />
     <ClCompile Include="src\cpp\operations\types_comparison_ne.cpp" />
