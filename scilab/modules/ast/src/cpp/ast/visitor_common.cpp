@@ -1603,6 +1603,11 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
             }
             pOut = pRet;
         }
+
+        if (pOut == NULL)
+        {
+            return Double::Empty();
+        }
     }
     else if (_pVar == NULL || (_pVar->isDouble() && _pVar->getAs<Double>()->getSize() == 0))
     {
