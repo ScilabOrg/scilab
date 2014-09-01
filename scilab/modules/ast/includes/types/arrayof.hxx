@@ -937,6 +937,12 @@ public :
         else
         {
             pOut = createEmpty(iDims, piNewDims, m_pImgData != NULL);
+
+            if (pOut->getSize() == 0)
+            {
+                delete pOut;
+                return NULL;
+            }
         }
 
         delete[] piNewDims;
