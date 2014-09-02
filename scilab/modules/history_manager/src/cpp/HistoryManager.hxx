@@ -212,6 +212,12 @@ public:
     */
     int getNumberOfLinesMax(void);
 
+    /**
+    * search if line is a beginning of a session
+    * @return TRUE or FALSE
+    */
+    BOOL isBeginningSessionLine(char* _pstLine);
+
 protected:
 
 private:
@@ -236,11 +242,7 @@ private:
     int m_iSaveLimit;
     int m_iSavedLines;
 
-    /**
-    * search if line is a beginning of a session
-    * @return TRUE or FALSE
-    */
-    BOOL isBeginningSessionLine(char* _pstLine);
+
 
     /**
     * add as first line  beginning session info
