@@ -1632,6 +1632,11 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                 break;
             }
         }
+        else
+        {
+            //overload !
+            pOut = callOverload(e, L"i", _pArgs, _pInsert, _pVar);
+        }
     }
     else if (_pVar == NULL || (_pVar->isDouble() && _pVar->getAs<Double>()->getSize() == 0))
     {
