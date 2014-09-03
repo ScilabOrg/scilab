@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2014 - Scilab Enterprises - Pierre-Aimé Agnel
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="implicitplot3d">
+    <refnamediv>
+        <refname>implicitplot3d</refname>
+        <refpurpose>Plots 3D implicit function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            implicitplot3d(fun, [x_range, [y_range, [z_range]]])
+            implicitplot3d(fun, x_range, y_range, z_range, [options])
+            implicitplot3d(f_eval, x_range, y_range, z_range, [options])
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>fun</term>
+                <listitem>
+                    <para>
+                        a string or a function of variables x, y and z. The function to plot.
+                        
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f_eval</term>
+                <listitem>
+                    <para>
+                        a real hypermatrix of size <literal>[length(x_range), length(y_range), length(z_range)]</literal>. The evaluation of the function to plot on all points in <literal>x_range</literal>, <literal>y_range</literal> and <literal>z_range</literal>.
+                        
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>x_range</term>
+                <listitem>
+                    <para>
+                        a real vector. The x values over which the function is sampled.
+                        
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y_range</term>
+                <listitem>
+                    <para>
+                        a real vector. The y values over which the function is sampled.
+                        
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>z_range</term>
+                <listitem>
+                    <para>
+                        a real vector. The z values over which the function is sampled.
+                        
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>options</term>
+                <listitem>
+                    <para>
+                        a list of options. The <literal>plot3d</literal> optional parameters.
+                        
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>implicitplot3d(fun, x_range, y_range, z_range)</literal> draws the implicit function defined by
+            <literal>fun(x, y, z) = 0</literal> by evaluating <literal>fun</literal> over
+            <varname>x_range</varname>, <varname>y_range</varname> and <varname>z_range</varname> to detect zero crossings.
+        </para>
+        <para>
+            If <varname>x_range</varname>, <varname>y_range</varname> or <varname>z_range</varname> is omitted, the range chosen is 25 points taken in <latex>$[-1, 1]$</latex>.
+        </para>
+        <para>
+            The function <varname>fun</varname> may be defined as a compiled scilab function, an uncompiled function or a string. The function must
+            take <literal>x</literal>, <literal>y</literal> and <literal>z</literal> as input parameters.
+        </para>
+        <para>
+            The options defined by the <varname>options</varname> parameter can be any options of the <link linkend="plot3d">plot3d</link> function.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+            // Draw a circle of radius 1
+            implicitplot3d("x^2 + y^2 + z^2 - 1")
+ ]]></programlisting>
+        <scilab:image>
+            implicitplot3d("x^2 + y^2 + z^2 - 1")
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+            function t = F(x, y, z)
+                t = 1/2*x^2 + y^2 - z^2 - 1;
+            endfunction
+
+            x_range = linspace(-5, 5, 10);
+            y_range = linspace(-5, 5, 10);
+            z_range = linspace(-6, 6, 15);
+
+            // Draw the curve in the [-5 5] x [-5 5] x [-6 6] range
+            implicitplot3d(F, x_range, y_range)
+ ]]></programlisting>
+        <scilab:image>
+            function t = F(x, y, z)
+            t = 1/2*x^2 + y^2 - z^2 - 1;
+            endfunction
+            
+            x_range = linspace(-5, 5, 10);
+            y_range = linspace(-5, 5, 10);
+            z_range = linspace(-6, 6, 15);
+            
+            // Draw the curve in the [-5 5] x [-5 5] x [-6 6] range
+            implicitplot3d(F, x_range, y_range)
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="plot3d">plot3d</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
