@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006 - Anthony Roberts <anthony.roberts@adelaide.edu.au>
+ * Copyright (C) 2014 - Scilab Enterprises - Pierre-Aimé Agnel
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="en" xml:id="contour3d">
+    <refnamediv>
+        <refname>contour3d</refname>
+        <refpurpose>3D contour plot of a function</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>
+            fvals = contour3d(x, y, z, f, nf, [options]);
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>
+                        a vector of real values. The x-axis values.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>y</term>
+                <listitem>
+                    <para>
+                        a vector of real values. The y-axis values.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>z</term>
+                <listitem>
+                    <para>
+                        a vector of real values. The z-axis values.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>nf</term>
+                <listitem>
+                    <para>
+                        an integer or a vector of real values. The number of level surfaces to draw, or the level values to draw.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>f</term>
+                <listitem>
+                    <para>
+                        a real hypermatrix of size <literal>[length(x), length(y), length(z)]</literal>. The evaluation of the function to plot on all points in <literal>x</literal>, <literal>y</literal> and <literal>z</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>fvals</term>
+                <listitem>
+                    <para>
+                        a vector of real values. The level surface values.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            The function <literal>contour3d</literal> draws 3D contours,
+            iso-surfaces, of function f on 3D lattice <literal>x</literal>,
+            <literal>y</literal>, <literal>z</literal>.
+        </para>
+        <para>
+            If no input arguments are supplied,
+            <literal>contour3d()</literal> draws a demonstration of nested spheres.
+        </para>
+        <para>
+            If <varname>nf</varname> is an integer value, <literal>contour3d(x, y, z, f, nf)</literal>
+            draws <literal>nf</literal> iso-surfaces of level values regularly spaced 
+            between <literal>min(f)</literal> and <literal>max(f)</literal>.
+            A colorbar is also drawn.
+        </para>
+        <para>
+            If <varname>nf</varname> is a vector of real values, 
+            <literal>contour3d(x, y, z, f, nf)</literal> draws 
+            iso-surfaces of level values in <varname>nf</varname>.
+            Any value set to <literal>%nan</literal> is skipped.
+            This can be useful to skip colors in the colormap.
+        </para>
+        <para>
+            <literal>f</literal> must be a 3D hypermatrix containing the function evaluation on
+            all points of coordinates <literal>(x, y, z)</literal>. Unknown or missing values
+            can be set to <literal>%nan</literal>.
+        </para>
+        <para>
+            The options defined by the <varname>options</varname> parameter can be any options of the <link linkend="plot3d">plot3d</link> function.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+nx = 10;
+ny = nx; nz = nx;
+x = linspace(-2, 2, nx);
+y = linspace(-2, 2, ny);
+z = linspace(-2, 2, nz);
+
+// Calculate x^2 + y^2 + z^2 on all points x, y, z
+x2 = repmat(x'.^2, 1, ny, nz);
+y2 = repmat(y.^2, nx, 1, nz);
+z2 = matrix(z.^2, [1, 1, nz]);
+z2 = repmat(z2, nx, ny, 1);
+
+f = x2 + y2 + z2;
+// draws the contour of x^2 + y^2 + z^2 = 4
+// and x^2 + y^2 + z^2 = 6 
+// in the [-2 2] * [-2 2] * [-2 2] domain
+fvals = contour3d(x, y, z, f, [4 6]);
+]]></programlisting>
+        <scilab:image>
+            nx = 10;
+            ny = nx; nz = nx;
+            x = linspace(-2, 2, nx);
+            y = linspace(-2, 2, ny);
+            z = linspace(-2, 2, nz);
+            
+            // Calculate x^2 + y^2 + z^2 on all points x, y, z
+            x2 = repmat(x'.^2, 1, ny, nz);
+            y2 = repmat(y.^2, nx, 1, nz);
+            z2 = matrix(z.^2, [1, 1, nz]);
+            z2 = repmat(z2, nx, ny, 1);
+            
+            f = x2 + y2 + z2;
+            // draws the contour of x^2 + y^2 + z^2 = 4
+            // and x^2 + y^2 + z^2 = 6 
+            // in the [-2 2] * [-2 2] * [-2 2] domain
+            fvals = contour3d(x, y, z, f, [4 6]);
+        </scilab:image>
+        <para>
+            The same example but only drawing the sphere <literal>x^2 + y^2 + z^2 = 4</literal>.
+        </para>
+        
+        <programlisting role="example"><![CDATA[
+nx = 10;
+ny = nx; nz = nx;
+x = linspace(-2, 2, nx);
+y = linspace(-2, 2, ny);
+z = linspace(-2, 2, nz);
+
+x2 = repmat(x'.^2, 1, ny, nz);
+y2 = repmat(y.^2, nx, 1, nz);
+z2 = matrix(z.^2, [1, 1, nz]);
+z2 = repmat(z2, nx, ny, 1);
+
+f = x2 + y2 + z2;
+// draws the contour of x^2 + y^2 + z^2 = 4
+// in the [-2 2] * [-2 2] * [-2 2] domain
+fvals = contour3d(x, y, z, f, [4 %nan]);
+]]></programlisting>
+        <scilab:image>
+            nx = 10;
+            ny = nx; nz = nx;
+            x = linspace(-2, 2, nx);
+            y = linspace(-2, 2, ny);
+            z = linspace(-2, 2, nz);
+            
+            x2 = repmat(x'.^2, 1, ny, nz);
+            y2 = repmat(y.^2, nx, 1, nz);
+            z2 = matrix(z.^2, [1, 1, nz]);
+            z2 = repmat(z2, nx, ny, 1);
+            
+            f = x2 + y2 + z2;
+            // draws the contour of x^2 + y^2 + z^2 = 4
+            // in the [-2 2] * [-2 2] * [-2 2] domain
+            fvals = contour3d(x, y, z, f, [4 %nan]);
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+nx = 15;
+ny = nx; nz = nx;
+
+x = linspace(-1, 1, nx);
+y = linspace(-1, 1, ny);
+z = linspace(-1.5, 1.5, nz);
+
+f = zeros(nx, ny, nz);
+for k = 1:nz
+    for j = 1:ny
+        for i = 1:nx
+            f(i, j, k) = x(i)^3 * z(k) - y(j)^3*x(i)^2 + z(k)*y(j)^2 - z(k)^2;
+        end
+    end
+end
+
+// Draws 6 isosurfaces of function f
+// You can check the different surface level values is fvals
+xset("colormap", autumncolormap(6));
+fvals = contour3d(x, y, z, f, 6)
+ ]]></programlisting>
+        <scilab:image>
+            nx = 15;
+            ny = nx; nz = nx;
+            
+            x = linspace(-1, 1, nx);
+            y = linspace(-1, 1, ny);
+            z = linspace(-1.5, 1.5, nz);
+            
+            f = zeros(nx, ny, nz);
+            for k = 1:nz
+            for j = 1:ny
+            for i = 1:nx
+            f(i, j, k) = x(i)^3 * z(k) - y(j)^3*x(i)^2 + z(k)*y(j)^2 - z(k)^2;
+            end
+            end
+            end
+            
+            // Draws 6 isosurfaces of function f
+            // You can check the different surface level values is fvals
+            xset("colormap", autumncolormap(6));
+            fvals = contour3d(x, y, z, f, 6)
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="plot3d">plot3d</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
