@@ -165,20 +165,27 @@ public:
 
     void result_set(int _iPos, const types::InternalType *gtVal)
     {
-        m_bSingleResult = false;
-        if (_iPos < static_cast<int>(_resultVect.size()))
+        if (is_single_result() && _iPos == 0)
         {
-            if (_resultVect[_iPos])
-            {
-                _resultVect[_iPos]->killMe();
-            }
+            result_set(gtVal);
         }
         else
         {
-            _resultVect.resize(_iPos + 1, NULL);
-        }
+            m_bSingleResult = false;
+            if (_iPos < static_cast<int>(_resultVect.size()))
+            {
+                if (_resultVect[_iPos])
+                {
+                    _resultVect[_iPos]->killMe();
+                }
+            }
+            else
+            {
+                _resultVect.resize(_iPos + 1, NULL);
+            }
 
-        _resultVect[_iPos] = const_cast<types::InternalType *>(gtVal);
+            _resultVect[_iPos] = const_cast<types::InternalType *>(gtVal);
+        }
     }
 
     inline void result_set(const types::InternalType *gtVal)

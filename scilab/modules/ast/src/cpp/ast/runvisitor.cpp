@@ -903,7 +903,9 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
 {
     e.exp_get().accept(*this);
 
-    InternalType * pValue = result_get();
+    // if we have multiple returned elements, do the transpose on the last one
+    int iLastPos = result_getSize() - 1;
+    InternalType * pValue = result_get(iLastPos);
     InternalType * pReturn = NULL;
     const bool bConjug = e.conjugate_get() == TransposeExp::_Conjugate_;
 
@@ -914,7 +916,7 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
             pValue->killMe();
         }
 
-        result_set(pReturn);
+        result_set(iLastPos, pReturn);
 
         return;
     }
@@ -930,11 +932,11 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         Callable::ReturnValue Ret;
         if (bConjug)
         {
-            Ret = Overload::call(L"%" + result_get()->getShortTypeStr() + L"_t", in, 1, out, this);
+            Ret = Overload::call(L"%" + result_get(iLastPos)->getShortTypeStr() + L"_t", in, 1, out, this);
         }
         else
         {
-            Ret = Overload::call(L"%" + result_get()->getShortTypeStr() + L"_0", in, 1, out, this);
+            Ret = Overload::call(L"%" + result_get(iLastPos)->getShortTypeStr() + L"_0", in, 1, out, this);
         }
 
         if (Ret != Callable::OK)
@@ -943,7 +945,7 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
             throw ScilabError();
         }
 
-        result_set(out);
+        result_set(iLastPos, out[0]);
         clean_in(in, out);
     }
 }
