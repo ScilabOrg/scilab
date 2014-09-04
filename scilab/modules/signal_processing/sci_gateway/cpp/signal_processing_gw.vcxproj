@@ -178,11 +178,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\includes\conv2.h" />
     <ClInclude Include="..\..\includes\dynlib_signal_processing_gw.h" />
     <ClInclude Include="..\..\includes\signal_gw.hxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\c\conv2.c" />
     <ClCompile Include="..\c\sci_amell.c" />
+    <ClCompile Include="..\c\sci_conv2.c" />
     <ClCompile Include="..\c\sci_remez.c" />
     <ClCompile Include="sci_delip.cpp" />
     <ClCompile Include="sci_fft.cpp" />
