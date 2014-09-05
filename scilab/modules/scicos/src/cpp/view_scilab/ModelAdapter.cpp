@@ -36,7 +36,7 @@ namespace view_scilab
 namespace
 {
 
-static const wchar_t* diagram = L"diagram";
+const std::wstring diagram (L"diagram");
 
 struct sim
 {
