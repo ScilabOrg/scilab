@@ -49,7 +49,7 @@ function y=convol2d(h,x)
     x(m1,n1)=0;
     h(m1,n1)=0;
     y=fft2d(fft2d(x,-1).*fft2d(h,-1),1);
-    if isreal(h,0)&isreal(x,0) then
+    if (isreal(h,0)&&isreal(x,0))||isreal(y,0) then
         y=real(y);
     end
     y=y(1:(mx+mh-1),1:(nx+nh-1));
