@@ -553,7 +553,7 @@ GraphicsAdapter::GraphicsAdapter(org_scilab_modules_scicos::model::Block* o) :
         property<GraphicsAdapter>::add_property(L"style", &style::get, &style::set);
     }
 
-    gr_i_content = new types::List();
+    gr_i_content = types::Double::Empty();
 }
 
 GraphicsAdapter::~GraphicsAdapter()
@@ -573,7 +573,7 @@ std::wstring GraphicsAdapter::getShortTypeStr()
 
 types::InternalType* GraphicsAdapter::getGrIContent() const
 {
-    return gr_i_content;
+    return gr_i_content->clone();
 }
 
 void GraphicsAdapter::setGrIContent(types::InternalType* v)
