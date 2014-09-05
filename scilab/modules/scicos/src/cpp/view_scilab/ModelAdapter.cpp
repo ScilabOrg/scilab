@@ -36,7 +36,7 @@ namespace view_scilab
 namespace
 {
 
-static const wchar_t* diagram = L"diagram";
+const std::wstring diagram (L"diagram");
 
 struct sim
 {
@@ -398,7 +398,7 @@ struct rpar
         {
             types::MList* o = new types::MList();
             types::String* Diagram = new types::String(1, 1);
-            Diagram->set(0, diagram);
+            Diagram->set(0, diagram.c_str());
             o->set(0, Diagram);
 
             // FIXME: return the full diagram contained in children

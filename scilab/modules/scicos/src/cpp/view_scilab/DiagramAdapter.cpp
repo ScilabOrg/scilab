@@ -42,9 +42,9 @@ namespace view_scilab
 namespace
 {
 
-static const std::wstring AnnotationStr = L"Text";
-static const std::wstring BlockStr = L"Block";
-static const std::wstring LinkStr = L"Link";
+const std::wstring AnnotationStr (L"Text");
+const std::wstring BlockStr (L"Block");
+const std::wstring LinkStr (L"Link");
 
 struct props
 {
