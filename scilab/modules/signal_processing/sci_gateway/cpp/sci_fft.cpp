@@ -267,11 +267,14 @@ int maxfactor(int n)
         if (k % 4 == 0)
         {
             m++;
-            nfac[m - 1] = 2;
+            nfac[m - 1] = 4;
             k /= 4;
         }
+        else
+        {
+            kt = m;
+        }
 
-        kt = m;
         for (j = 2 ; j <= k ; j = ((j + 1) / 2) * 2 + 1)
         {
             if (k % j != 0)
