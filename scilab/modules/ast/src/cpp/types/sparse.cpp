@@ -134,35 +134,22 @@ template<typename T> std::wstring toString(T const& m, int precision)
     }
     ostr << L" sparse matrix\n\n";
 
-    const typename Eigen::internal::traits<T>::Index* pInner = m.innerIndexPtr();
-    const typename Eigen::internal::traits<T>::Index* pOuter = m.outerIndexPtr();
+    const typename Eigen::internal::traits<T>::Index* pIColPos      = m.innerIndexPtr();
+    const typename Eigen::internal::traits<T>::Index* pINbItemByRow = m.outerIndexPtr();
 
-    int iRow = 0;
-    int iCol = 0;
+    int iPos = 0;
 
-    for (size_t j = 0 ; j < m.rows() ; j++)
+    for (size_t j = 1 ; j < m.rows() + 1 ; j++)
     {
-        iRow = (int)j;
-        for (size_t i = 0 ; i < m.nonZeros() ; i++)
+        for (size_t i = pINbItemByRow[j - 1] ; i < pINbItemByRow[j] ; i++)
         {
-            if (pInner[i] == j)
-            {
-                //good row
-                for (size_t k = 0 ; k < m.outerSize() + 1; k++)
-                {
-                    if (pOuter[k] > i)
-                    {
-                        iCol = (int)k;
-                        break;
-                    }
-                }
+            ostr << L"(";
+            addUnsignedIntValue<unsigned long long>(&ostr, (int)j, iWidthRows);
+            ostr << L",";
+            addUnsignedIntValue<unsigned long long>(&ostr, pIColPos[iPos] + 1, iWidthCols);
+            ostr << L")\t" << p(m.valuePtr()[iPos]) << std::endl;
 
-                ostr << L"(";
-                addUnsignedIntValue<unsigned long long>(&ostr, iRow + 1, iWidthRows);
-                ostr << L",";
-                addUnsignedIntValue<unsigned long long>(&ostr, iCol, iWidthCols);
-                ostr << L")\t" << p(m.valuePtr()[i]) << std::endl;
-            }
+            iPos++;
         }
     }
 
@@ -1843,7 +1830,12 @@ int* Sparse::getColPos(int* _piColPos)
         mycopy_n(matrixReal->innerIndexPtr(), nonZeros(), _piColPos);
     }
 
-    std::transform(_piColPos, _piColPos + nonZeros(), _piColPos, std::bind2nd(std::plus<double>(), 1));
+    //std::transform(_piColPos, _piColPos + nonZeros(), _piColPos, std::bind2nd(std::plus<double>(), 1));
+    for (int i = 0; i < getSize(); i++)
+    {
+        _piColPos[i]++;
+    }
+
     return _piColPos;
 }
 
@@ -3024,7 +3016,12 @@ int* SparseBool::getNbItemByRow(int* _piNbItemByRows)
 
 int* SparseBool::getColPos(int* _piColPos)
 {
-    mycopy_n(matrixBool->innerIndexPtr(), getRows(), _piColPos);
+    mycopy_n(matrixBool->innerIndexPtr(), getSize(), _piColPos);
+    for (int i = 0; i < getSize(); i++)
+    {
+        _piColPos[i]++;
+    }
+
     return _piColPos;
 }
 
