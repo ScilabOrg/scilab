@@ -13,6 +13,7 @@
  * still available and supported in Scilab 6.
  */
 #include "sparse.hxx"
+#include "context.hxx"
 
 extern "C"
 {
@@ -27,6 +28,7 @@ extern "C"
 }
 
 using namespace types;
+using namespace std;
 
 static int getCommonAllocatedSparseMatrix(void* _pvCtx, int* _piAddress, int _iComplex, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
 static int getCommonNamedAllocatedSparseMatrix(void* _pvCtx, const char* _pstName, int _iComplex, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
@@ -274,6 +276,64 @@ SciErr createCommonNamedSparseMatrix(void* _pvCtx, const char* _pstName, int _iC
 {
     SciErr sciErr = sciErrInit();
 
+    wchar_t* pwstName = to_wide_string(_pstName);
+
+    //return named empty matrix
+    if (_iRows == 0 && _iCols == 0)
+    {
+        double dblReal = 0;
+        sciErr = createNamedMatrixOfDouble(_pvCtx, _pstName, 0, 0, &dblReal);
+        if (sciErr.iErr)
+        {
+            addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_EMPTY_MATRIX, _("%s: Unable to create variable in Scilab memory"), "createNamedEmptyMatrix");
+        }
+        return sciErr;
+    }
+
+    if (!checkNamedVarFormat(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name: %s."), "createCommonNamedSparseMatrix", _pstName);
+        return sciErr;
+    }
+    
+    //sciErr = fillCommonSparseMatrix(_pvCtx, piAddr, _iComplex, _iRows, _iCols, _iNbItem, &piNbItemRow, &piColPos, &pdblReal, &pdblImg, &iTotalSize);
+
+    types::Sparse* pSparse = new Sparse(_iRows, _iCols,  _iComplex ? true : false);
+    if (pSparse == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_SPARSE, _("%s: Unable to create %s named \"%s\""), _iComplex ? "createNamedComplexSparseMatrix" : "createNamedSparseMatrix", _("sparse matrix"), _pstName);
+        return sciErr;
+    }
+    
+    int *piTmp = (int*)_piColPos;
+    if (_iComplex)
+    {
+        for (int i = 0; i < _iRows; i++)
+        {
+            for (int j = 0; j < _piNbItemRow[i]; j++)
+            {
+                int ind = (*piTmp - 1) * _iRows + i;  
+                piTmp++; 
+                pSparse->set(ind, std::complex<double>(*_pdblReal++, *_pdblImg++));
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < _iRows; i++)
+        {
+            for (int j = 0; j < _piNbItemRow[i]; j++)
+            {
+                int ind = (*piTmp - 1) * _iRows + i;  
+                piTmp++; 
+                pSparse->set(ind, *_pdblReal++);
+            }
+        }
+    }
+    
+    symbol::Context::getInstance()->put(symbol::Symbol(pwstName), pSparse);
+    FREE(pwstName);
+   
 #if 0
     int iVarID[nsiz];
     int iSaveRhs        = Rhs;
