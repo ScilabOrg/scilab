@@ -242,6 +242,8 @@ Scilab Bug Fixes
 
 * Bug #13579 fixed - bar displayed useless warnings.
 
+* Bug #13585 fixed - suitesparse 4.3.1 was not supported.
+
 
 Xcos Bug Fixes
 ==============
