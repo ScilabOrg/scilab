@@ -84,23 +84,23 @@ struct objs
                 case ANNOTATION:
                 {
                     model::Annotation* annotation = static_cast<model::Annotation*>(item);
-                    TextAdapter localAdaptor = TextAdapter(annotation);
-                    o->set(i, localAdaptor.getAsTList(new types::MList(), controller));
-                    break;
+                    TextAdapter* localAdaptor = new TextAdapter(annotation);
+                    o->set(i, localAdaptor);
+                    continue;
                 }
                 case BLOCK:
                 {
                     model::Block* block = static_cast<model::Block*>(item);
-                    BlockAdapter localAdaptor = BlockAdapter(block);
-                    o->set(i, localAdaptor.getAsTList(new types::MList(), controller));
-                    break;
+                    BlockAdapter* localAdaptor = new BlockAdapter(block);
+                    o->set(i, localAdaptor);
+                    continue;
                 }
                 case LINK:
                 {
                     model::Link* link = static_cast<model::Link*>(item);
-                    LinkAdapter localAdaptor = LinkAdapter(link);
-                    o->set(i, localAdaptor.getAsTList(new types::MList(), controller));
-                    break;
+                    LinkAdapter* localAdaptor = new LinkAdapter(link);
+                    o->set(i, localAdaptor);
+                    continue;
                 }
                 default:
                     return 0;
@@ -123,44 +123,39 @@ struct objs
         std::vector<ScicosID> diagramChildren (list->getSize());
         for (int i = 0; i < list->getSize(); ++i)
         {
-            if (list->get(i)->getType() != types::InternalType::ScilabMList)
+            if (list->get(i)->getType() != types::InternalType::ScilabUserType)
             {
                 return false;
             }
-            types::MList* modelElement = list->get(i)->getAs<types::MList>();
 
-            std::wstring modelElementType = modelElement->getTypeStr();
             ScicosID id;
+            std::wstring modelElementType (list->get(i)->getShortTypeStr());
 
+            // Each adapter gets linked to the diagram through its adaptee (PARENT_DIAGRAM)
+            // and the diagram's adaptee lists its adaptees (CHILDREN).
             if (modelElementType == AnnotationStr)
             {
-                id = controller.createObject(ANNOTATION);
+                TextAdapter* modelElement = list->get(i)->getAs<TextAdapter>();
+                model::Annotation* subAdaptee = modelElement->getAdaptee();
 
-                TextAdapter localAdaptor = TextAdapter(static_cast<model::Annotation*>(controller.getObject(id)));
-                if (!localAdaptor.setAsTList(modelElement, controller))
-                {
-                    return false;
-                }
+                controller.setObjectProperty(subAdaptee->id(), subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
+                id = subAdaptee->id();
             }
             else if (modelElementType == BlockStr)
             {
-                id = controller.createObject(BLOCK);
+                BlockAdapter* modelElement = list->get(i)->getAs<BlockAdapter>();
+                model::Block* subAdaptee = modelElement->getAdaptee();
 
-                BlockAdapter localAdaptor = BlockAdapter(static_cast<model::Block*>(controller.getObject(id)));
-                if (!localAdaptor.setAsTList(modelElement, controller))
-                {
-                    return false;
-                }
+                controller.setObjectProperty(subAdaptee->id(), subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
+                id = subAdaptee->id();
             }
             else if (modelElementType == LinkStr)
             {
-                id = controller.createObject(LINK);
+                LinkAdapter* modelElement = list->get(i)->getAs<LinkAdapter>();
+                model::Link* subAdaptee = modelElement->getAdaptee();
 
-                LinkAdapter localAdaptor = LinkAdapter(static_cast<model::Link*>(controller.getObject(id)));
-                if (!localAdaptor.setAsTList(modelElement, controller))
-                {
-                    return false;
-                }
+                controller.setObjectProperty(subAdaptee->id(), subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
+                id = subAdaptee->id();
             }
             else
             {
