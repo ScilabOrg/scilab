@@ -43,3 +43,69 @@ scs_m.version
 scs_m.contrib
  ans  =
 ()
+// Create a diagram containing a summation block
+blk = BIGSOM_f("define");
+objectCreated( 2 , BLOCK )
+propertyUpdated( 2 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , GEOMETRY ) : SUCCESS
+propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , EXPRS ) : SUCCESS
+objectCreated( 3 , PORT )
+propertyUpdated( 3 , PORT , SOURCE_BLOCK ) : SUCCESS
+objectCreated( 4 , PORT )
+propertyUpdated( 4 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 2 , BLOCK , INPUTS ) : SUCCESS
+objectCreated( 5 , PORT )
+propertyUpdated( 5 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 2 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 3 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 4 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 5 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 3 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 4 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 5 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 3 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 4 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 5 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
+propertyUpdated( 2 , BLOCK , SIM_FUNCTION_API ) : SUCCESS
+propertyUpdated( 4 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 3 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 5 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 2 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , RPAR ) : SUCCESS
+propertyUpdated( 2 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
+propertyUpdated( 2 , BLOCK , SIM_DEP_UT ) : SUCCESS
+propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
+scs_m = scicos_diagram(objs=list(blk))
+objectCreated( 6 , DIAGRAM )
+propertyUpdated( 6 , DIAGRAM , TITLE ) : NO_CHANGES
+propertyUpdated( 6 , DIAGRAM , PATH ) : NO_CHANGES
+propertyUpdated( 6 , DIAGRAM , PROPERTIES ) : NO_CHANGES
+propertyUpdated( 6 , DIAGRAM , PROPERTIES ) : NO_CHANGES
+propertyUpdated( 6 , DIAGRAM , CONTEXT ) : NO_CHANGES
+propertyUpdated( 6 , DIAGRAM , CHILDREN ) : SUCCESS
+propertyUpdated( 6 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
+scs_m  = 
+scicos_diagram type :
+  props
+  objs
+  version
+  contrib
+scs_m.objs
+ ans  =
+     (1)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc

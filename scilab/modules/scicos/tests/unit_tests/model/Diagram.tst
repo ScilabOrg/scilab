@@ -13,3 +13,8 @@ scs_m.props
 scs_m.objs
 scs_m.version
 scs_m.contrib
+
+// Create a diagram containing a summation block
+blk = BIGSOM_f("define");
+scs_m = scicos_diagram(objs=list(blk))
+scs_m.objs
