@@ -59,10 +59,10 @@ SciErr getPolyVariableName(void* _pvCtx, int* _piAddress, char* _pstVarName, int
         return sciErr;
     }
 
-    if (_pstVarName == NULL || *_piVarNameLen == 0)
+    if (*_piVarNameLen == 0)
     {
         *_piVarNameLen = (int)((InternalType*)_piAddress)->getAs<types::Polynom>()->getVariableName().size();
-        return sciErr; //No error
+        //No error
     }
 
     char* pstTemp = wide_string_to_UTF8(((InternalType*)_piAddress)->getAs<types::Polynom>()->getVariableName().c_str());
@@ -142,14 +142,16 @@ SciErr getCommonMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* 
     {
         for (int i = 0 ; i < iSize ; i++)
         {
+            _piNbCoef[i] += 1;
             memcpy(_pdblReal[i], pSP[i]->get(),    sizeof(double) * pSP[i]->getSize());
-            memcpy(_pdblImg[i],  pSP[i]->getImg(), sizeof(double) * (_piNbCoef[i] + 1));
+            memcpy(_pdblImg[i],  pSP[i]->getImg(), sizeof(double) * _piNbCoef[i]);
         }
     }
     else
     {
         for (int i = 0 ; i < iSize ; i++)
         {
+            _piNbCoef[i] += 1;
             memcpy(_pdblReal[i], pSP[i]->get(), sizeof(double) * pSP[i]->getSize());
         }
     }
@@ -467,7 +469,7 @@ static int getCommonAllocatedMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iC
     *_pdblReal = (double**)MALLOC(sizeof(double*) **_piRows **_piCols);
     for (int i = 0 ; i < *_piRows **_piCols ; i++)
     {
-        (*_pdblReal)[i] = (double*)MALLOC(sizeof(double) * (*_piNbCoef)[i]);
+        (*_pdblReal)[i] = (double*)MALLOC(sizeof(double) * ((*_piNbCoef)[i] + 1));
     }
 
     if (_iComplex)
@@ -475,7 +477,7 @@ static int getCommonAllocatedMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iC
         *_pdblImg	= (double**)MALLOC(sizeof(double*) **_piRows **_piCols);
         for (int i = 0 ; i < *_piRows **_piCols ; i++)
         {
-            (*_pdblImg)[i] = (double*)MALLOC(sizeof(double) * (*_piNbCoef)[i]);
+            (*_pdblImg)[i] = (double*)MALLOC(sizeof(double) * ((*_piNbCoef)[i] + 1));
         }
     }
 
