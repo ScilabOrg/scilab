@@ -15,7 +15,7 @@
 /*   Coded by Takuji Nishimura, considering the suggestions by    */
 /* Topher Cooper and Marc Rieffel in July-Aug. 1997.              */
 
-/* This library is free software under the Artistic license:       */
+/* This library is free software under the Artistic 2.0 license:   */
 /* see the file COPYING distributed together with this code.       */
 /* For the verification of the code, its output sequence file      */
 /* mt19937int.out is attached (2001/4/2)                           */
