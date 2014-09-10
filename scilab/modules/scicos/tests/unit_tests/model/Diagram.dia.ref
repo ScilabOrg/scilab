@@ -179,3 +179,44 @@ scicos_Link type :
   ct
   from
   to
+// Link output port #1 of block #1 (ID #5 in this example) with input port #1 of block #2 (ID #7)
+// The link ID is #10
+l = scs_m.objs;
+l(3).from = [1 1 0];
+propertyUpdated( 5 , PORT , PORT_KIND ) : NO_CHANGES
+propertyUpdated( 5 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 10 , LINK , SOURCE_PORT ) : SUCCESS
+l(3).to = [2 1 1];
+propertyUpdated( 7 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 10 , LINK , DESTINATION_PORT ) : SUCCESS
+l(3).from
+ ans  =
+    1.    1.    0.
+l(3).to
+ ans  =
+    2.    1.    1.
+// Change the end of the link to input port #2 of block #2 (ID #8)
+l(3).to = [2 2 1];
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 8 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 8 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 10 , LINK , DESTINATION_PORT ) : SUCCESS
+l(3).from
+ ans  =
+    1.    1.    0.
+l(3).to
+ ans  =
+    2.    2.    1.
+// Disconnect the source, the destination is also disconnected
+l(3).from = [0 0 0];
+propertyUpdated( 5 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 8 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 10 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 10 , LINK , DESTINATION_PORT ) : SUCCESS
+l(3).from
+ ans  =
+    0.    0.    0.
+l(3).to
+ ans  =
+    0.    0.    0.

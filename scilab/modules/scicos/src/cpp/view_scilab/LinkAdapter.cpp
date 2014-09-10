@@ -268,11 +268,34 @@ static types::Double* getLinkEnd(const LinkAdapter& adaptor, const Controller& c
     {
         ScicosID sourceBlock;
         controller.getObjectProperty(endID, PORT, SOURCE_BLOCK, sourceBlock);
+
+        // Looking for the block number among the block IDs
+        ScicosID parentDiagram;
+        controller.getObjectProperty(adaptee->id(), BLOCK, PARENT_DIAGRAM, parentDiagram);
+        std::vector<ScicosID> children;
+        if (parentDiagram == 0)
+        {
+            return o;
+        }
+        controller.getObjectProperty(parentDiagram, DIAGRAM, CHILDREN, children);
+        data[0] = static_cast<double>(std::find(children.begin(), children.end(), sourceBlock) - children.begin() + 1);
+
+        std::vector<ScicosID> sourceBlockPorts;
+        switch (end)
+        {
+            case SOURCE_PORT:
+                controller.getObjectProperty(sourceBlock, BLOCK, OUTPUTS, sourceBlockPorts);
+                break;
+            case DESTINATION_PORT:
+                controller.getObjectProperty(sourceBlock, BLOCK, INPUTS, sourceBlockPorts);
+                break;
+            default:
+                return 0;
+        }
+        data[1] = static_cast<double>(std::find(sourceBlockPorts.begin(), sourceBlockPorts.end(), endID) - sourceBlockPorts.begin() + 1);
+
         int kind;
         controller.getObjectProperty(endID, PORT, PORT_KIND, kind);
-
-        data[0] = static_cast<double>(sourceBlock);
-        data[1] = static_cast<double>(endID);
         data[2] = static_cast<double>(kind);
     }
     // Default case, the property was initialized at [].
@@ -341,7 +364,7 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
 
     if (current->get(2) != 0 && current->get(2) != 1)
     {
-        return false; // "From" port must be output type or implicit.
+        return false;
     }
 
     if (floor(current->get(0)) != current->get(0) || floor(current->get(1)) != current->get(1))
@@ -350,27 +373,42 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
     }
 
     // Disconnect the old port if it was connected
-    if (from != 0)
+    if (concernedPort != 0)
     {
         controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
+    }
+
+    ScicosID parentDiagram;
+    controller.getObjectProperty(adaptee->id(), BLOCK, PARENT_DIAGRAM, parentDiagram);
+    std::vector<ScicosID> children;
+    if (parentDiagram != 0)
+    {
+        controller.getObjectProperty(parentDiagram, DIAGRAM, CHILDREN, children);
     }
 
     // Connect the new one
     int blk  = static_cast<int>(current->get(0));
     int port = static_cast<int>(current->get(1));
     int kind = static_cast<int>(current->get(2));
+
+    if (blk < 0 || blk > static_cast<int>(children.size()))
+    {
+        return false; // Trying to link to a non-existing block
+    }
+    ScicosID blkID = children[blk - 1];
+
     std::vector<ScicosID> sourceBlockPorts;
-    controller.getObjectProperty(blk, BLOCK, portType, sourceBlockPorts);
+    controller.getObjectProperty(blkID, BLOCK, portType, sourceBlockPorts);
     int nBlockPorts = (int)sourceBlockPorts.size();
     // Create as many ports as necessary
     while (nBlockPorts < port)
     {
         ScicosID createdPort = controller.createObject(PORT);
-        controller.setObjectProperty(createdPort, PORT, SOURCE_BLOCK, blk);
+        controller.setObjectProperty(createdPort, PORT, SOURCE_BLOCK, blkID);
         controller.setObjectProperty(createdPort, PORT, CONNECTED_SIGNALS, unconnected);
         nBlockPorts++;
     }
-    controller.getObjectProperty(blk, BLOCK, portType, sourceBlockPorts);
+    controller.getObjectProperty(blkID, BLOCK, portType, sourceBlockPorts);
     ScicosID newPort = sourceBlockPorts[port - 1];
     ScicosID oldLink;
     controller.getObjectProperty(newPort, PORT, CONNECTED_SIGNALS, oldLink);
@@ -386,7 +424,6 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
     // Connect the new source and destination ports together
     controller.setObjectProperty(newPort, PORT, PORT_KIND, kind);
     controller.setObjectProperty(newPort, PORT, CONNECTED_SIGNALS, adaptee->id());
-    controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, adaptee->id());
     controller.setObjectProperty(adaptee->id(), adaptee->kind(), end, newPort);
     return true;
 }
