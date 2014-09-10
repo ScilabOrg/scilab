@@ -1753,6 +1753,56 @@ Sparse* Sparse::dotMultiply(Sparse SPARSE_CONST& o) const
     return new Sparse(realSp, cplxSp);
 }
 
+Sparse* Sparse::divideR(double s) const
+{
+    return new Sparse( isComplex() ? 0 : new RealSparse_t((*matrixReal) / s)
+                       , isComplex() ? new CplxSparse_t((*matrixCplx) / s) : 0);
+}
+
+Sparse* Sparse::divideR(std::complex<double> s) const
+{
+    return new Sparse( 0
+                       , isComplex() ? new CplxSparse_t((*matrixCplx) / s) : new CplxSparse_t(matrixReal->cast<std::complex<double> >() / s));
+}
+
+Sparse* Sparse::divideL(double s) const
+{
+    //error model
+    return new Sparse( isComplex() ? 0 : new RealSparse_t(  s / matrixReal->cast<double>())
+                       , isComplex() ? new CplxSparse_t((*matrixCplx) / s) : 0);
+}
+
+Sparse* Sparse::divideL(std::complex<double> s) const
+{
+    //faux
+    return new Sparse( 0
+                       , isComplex() ? new CplxSparse_t((*matrixCplx) / s) : new CplxSparse_t((*matrixReal) * s));
+}
+
+Sparse* Sparse::dotDivide(Sparse SPARSE_CONST& o) const
+{
+    RealSparse_t* realSp(0);
+    CplxSparse_t* cplxSp(0);
+    if (isComplex() == false && o.isComplex() == false)
+    {
+        realSp = new RealSparse_t(matrixReal->cwiseQuotient(*(o.matrixReal)));
+    }
+    else if (isComplex() == false && o.isComplex() == true)
+    {
+        cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >().cwiseQuotient( *(o.matrixCplx)));
+    }
+    else if (isComplex() == true && o.isComplex() == false)
+    {
+        cplxSp = new CplxSparse_t(matrixCplx->cwiseQuotient(o.matrixReal->cast<std::complex<double> >()));
+    }
+    else if (isComplex() == true && o.isComplex() == true)
+    {
+        cplxSp = new CplxSparse_t(matrixCplx->cwiseQuotient(*(o.matrixCplx)));
+    }
+
+    return new Sparse(realSp, cplxSp);
+}
+
 struct BoolCast
 {
     BoolCast(std::complex<double> const& c): b(c.real() || c.imag()) {}

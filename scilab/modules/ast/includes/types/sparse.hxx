@@ -331,6 +331,36 @@ struct EXTERN_AST Sparse : GenericType
      */
     Sparse* dotMultiply(Sparse SPARSE_CONST& o) const;
 
+    /* create a new sparse matrix containing the result of an divide
+      @param s scalar to multiply by
+      @return ptr to the new matrix, 0 in case of failure
+    */
+    Sparse* divideL(double s) const;
+
+    /* create a new sparse matrix containing the result of an divide
+       @param c scalar to subtract
+       @return ptr to the new matrix, 0 in case of failure
+     */
+    Sparse* divideL(std::complex<double> c) const;
+
+    /* create a new sparse matrix containing the result of an divide
+      @param s scalar to multiply by
+      @return ptr to the new matrix, 0 in case of failure
+    */
+    Sparse* divideR(double s) const;
+
+    /* create a new sparse matrix containing the result of an divide
+       @param c scalar to subtract
+       @return ptr to the new matrix, 0 in case of failure
+     */
+    Sparse* divideR(std::complex<double> c) const;
+
+    /* create a new matrix containing the result of an ./
+      @param o sparse matrix to ./
+      @return ptr to the new matrix, 0 in case of failure
+    */
+    Sparse* dotDivide(Sparse SPARSE_CONST& o) const;
+
     bool neg(InternalType *& out);
 
     bool transpose(InternalType *& out)
