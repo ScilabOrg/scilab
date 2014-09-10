@@ -389,50 +389,10 @@ SciErr createNamedMList(void* _pvCtx, const char* _pstName, int _iNbItem, int** 
 static SciErr createCommonNamedList(void* _pvCtx, const char* _pstName, int _iListType, int _iNbItem, int** _piAddress)
 {
     SciErr sciErr = sciErrInit();
-#if 0
-    int iVarID[nsiz];
-    int iSaveRhs   = Rhs;
-    int iSaveTop   = Top;
-    int *piAddr    = NULL;
-    int* piEnd    = NULL;
-
-    if (!checkNamedVarFormat(_pvCtx, _pstName))
-    {
-        addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name: %s."), "createCommonNamedList", _pstName);
-        return sciErr;
-    }
-
-    C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
-    Top = Top + Nbvars + 1;
-
-    getNewVarAddressFromPosition(_pvCtx, Top, &piAddr);
-
-    sciErr = fillCommonList(_pvCtx, piAddr, _iListType, _iNbItem);
-    if (sciErr.iErr)
-    {
-        addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_LIST, _("%s: Unable to create %s named \"%s\""), "createNamedList", getListTypeName(_iListType), _pstName);
-        return sciErr;
-    }
-
-    piEnd = piAddr + 3 + _iNbItem + !(_iNbItem % 2);
-    closeList(Top, piEnd);
-
-    Rhs = 0;
-
-    if (_iNbItem != 0)
-    {
-        pushNamedListAddress(_pstName, piAddr);
-    }
-    else
-    {
-        //Add name in stack reference list
-        createNamedVariable(iVarID);
-    }
-
-    Top      = iSaveTop;
-    Rhs      = iSaveRhs;
-#endif
-
+    wchar_t* pwstName = to_wide_string(_pstName);
+    sciErr = createCommonList(_pvCtx, _iVar, _iListType, _iNbItem, _piAddress);
+    symbol::Context::getInstance()->put(symbol::Symbol(pwstName), (InternalType)*_piAddress);
+    FREE(pwstName);
     return sciErr;
 }
 
@@ -446,7 +406,6 @@ static SciErr createCommonList(void* _pvCtx, int _iVar, int _iListType, int _iNb
     }
 
     GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
-    typed_list in = *pStr->m_pIn;
     InternalType** out = pStr->m_pOut;
 
     List* pL = NULL;
