@@ -616,6 +616,9 @@
     <ClInclude Include="includes\operations\types_or.hxx">
       <Filter>Header Files\operations</Filter>
     </ClInclude>
+    <ClInclude Include="includes\operations\types_dotdivide.hxx">
+      <Filter>Header Files\operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\ast\debugvisitor.cpp">
@@ -886,6 +889,9 @@
       <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\operations\types_or.cpp">
+      <Filter>Source Files\operations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\operations\types_dotdivide.cpp">
       <Filter>Source Files\operations</Filter>
     </ClCompile>
   </ItemGroup>
