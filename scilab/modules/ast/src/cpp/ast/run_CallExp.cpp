@@ -130,6 +130,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
         {
             expected_setSize(iSaveExpectedSize);
             iRetCount = std::max(1, iRetCount);
+            pIT->IncreaseRef();
             if (pIT->invoke(in, opt, iRetCount, out, *this, e))
             {
                 if (iSaveExpectedSize != -1 && iSaveExpectedSize > out.size())
@@ -146,6 +147,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
 
                 // In case a.b(), result_get contain pIT ("b").
                 // If out == pIT, do not delete it.
+                pIT->DecreaseRef();
                 if (result_get() != pIT)
                 {
                     pIT->killMe();
@@ -153,6 +155,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
             }
             else
             {
+                pIT->DecreaseRef();
                 std::wostringstream os;
                 os << _W("Invalid index.\n");
                 throw ast::ScilabError(os.str(), 999, (*e.args_get().begin())->location_get());
