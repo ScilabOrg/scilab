@@ -34,26 +34,74 @@ Function::ReturnValue sci_consolebox(typed_list &in, int _iRetCount, typed_list 
         return Function::Error;
     }
 
+    if (getScilabMode() != SCILAB_STD)
+    {
+        sciprint(_("Only on Windows Mode, not in Console Mode.\n"));
+        out.push_back(new String(L"off"));
+        return Function::OK;
+    }
+
+
     //request mode
     if (in.size() == 0)
     {
-        if (getScilabMode() == SCILAB_STD)
+        if (GetConsoleState())
         {
-            if (GetConsoleState())
-            {
-                out.push_back(new String(L"on"));
-            }
-            else
-            {
-                out.push_back(new String(L"off"));
-            }
+            out.push_back(new String(L"on"));
         }
         else
         {
-            sciprint(_("Only on Windows Mode, not in Console Mode.\n"));
             out.push_back(new String(L"off"));
         }
+        return Function::OK;
     }
+
+    InternalType* pIT1 = in[0];
+
+    if (pIT1->isString() == false)
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), "consolebox", 1);
+        return Function::Error;
+    }
+
+    String* pS1 = pIT1->getAs<String>();
+    if (pS1->isScalar() == false)
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "consolebox", 1);
+        return Function::Error;
+    }
+
+    std::wstring wcsAction(pS1->get(0));
+
+    if (wcsAction == L"on")
+    {
+        SetConsoleState(1);
+        ShowScilex();
+    }
+    else if (wcsAction == L"off")
+    {
+        SetConsoleState(0);
+        HideScilex();
+    }
+    else if (wcsAction == L"toggle")
+    {
+        SwitchConsole();
+    }
+    else
+    {
+        Scierror(999, ("%s: Wrong input argument: '%s', '%s' or '%s' expected.\n"), "consolebox", "on", "off", "toggle");
+        return Function::Error;
+    }
+
+    if (GetConsoleState())
+    {
+        out.push_back(new String(L"on"));
+    }
+    else
+    {
+        out.push_back(new String(L"off"));
+    }
+
     return Function::OK;
 }
 /*--------------------------------------------------------------------------*/
