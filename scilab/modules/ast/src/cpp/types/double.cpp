@@ -287,7 +287,7 @@ bool Double::setOnes()
     return true;
 }
 
-bool Double::subMatrixToString(wostringstream& ostr, int* _piDims, int _iDims)
+bool Double::subMatrixToString(wostringstream& ostr, int* _piDims, int /*_iDims*/)
 {
     int iCurrentLine = 0;
     int iLineLen = ConfigVariable::getConsoleWidth();

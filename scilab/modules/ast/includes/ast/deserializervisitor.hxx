@@ -589,13 +589,12 @@ public :
 
     Exp* deserialize()
     {
-        unsigned int size = get_uint32();
-        unsigned char scilabVersion[4];
-
-        scilabVersion[0] = get_uint8();
-        scilabVersion[1] = get_uint8();
-        scilabVersion[2] = get_uint8();
-        scilabVersion[3] = get_uint8();
+        // serialization version
+        //        unsigned char scilabVersion[4];
+        //        scilabVersion[0] = get_uint8();
+        //        scilabVersion[1] = get_uint8();
+        //        scilabVersion[2] = get_uint8();
+        //        scilabVersion[3] = get_uint8();
 
         return get_exp();
     }

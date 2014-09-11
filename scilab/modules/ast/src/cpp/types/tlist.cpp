@@ -76,7 +76,7 @@ bool TList::exists(const std::wstring& _sKey)
     return false;
 }
 
-bool TList::invoke(typed_list & in, optional_list & opt, int _iRetCount, typed_list & out, ast::ConstVisitor & execFunc, const ast::CallExp & e)
+bool TList::invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetCount*/, typed_list & out, ast::ConstVisitor & execFunc, const ast::CallExp & /*e*/)
 {
     if (in.size() == 0)
     {
@@ -245,7 +245,7 @@ bool TList::toString(std::wostringstream& ostr)
         {
             ostr << "     " << wcsVarName << L"(" << iPosition << L") " << wcsDesc[iPosition - 1] << std::endl;
             //maange lines
-            bool bFinish = (*itValues)->toString(ostr);
+            (*itValues)->toString(ostr);
             ostr << std::endl;
         }
     }
@@ -257,7 +257,7 @@ bool TList::toString(std::wostringstream& ostr)
         {
             ostr << "     " << wcsVarName << L"(" << iPosition << L")" << std::endl;
             //maange lines
-            bool bFinish = (*itValues)->toString(ostr);
+            (*itValues)->toString(ostr);
             ostr << std::endl;
         }
     }
