@@ -137,7 +137,7 @@ void String::deleteImg()
     return;
 }
 
-bool String::subMatrixToString(wostringstream& ostr, int* _piDims, int _iDims)
+bool String::subMatrixToString(wostringstream& ostr, int* _piDims, int /*_iDims*/)
 {
     int iPrecision = ConfigVariable::getFormatSize();
     int iLineLen = ConfigVariable::getConsoleWidth();
@@ -394,7 +394,7 @@ wchar_t* String::getNullValue()
     return os_wcsdup(L"");
 }
 
-String* String::createEmpty(int _iDims, int* _piDims, bool _bComplex)
+String* String::createEmpty(int _iDims, int* _piDims, bool /*_bComplex*/)
 {
     return new String(_iDims, _piDims);
 }
