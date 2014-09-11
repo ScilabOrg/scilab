@@ -42,6 +42,8 @@ EXTERN_AST int getIntValueFromDouble(InternalType* _pIT, int _iPos);
 EXTERN_AST double* getDoubleArrayFromDouble(InternalType* _pIT);
 EXTERN_AST bool checkArgValidity(typed_list& _pArg);
 
+static int get_max_size(int* _piDims, int _iDims);
+
 /*    template<typename T>
     inline bool _neg_(InternalType * in, InternalType *& out);
 */
@@ -990,7 +992,7 @@ public :
         return pOut;
     }
 
-    virtual bool invoke(typed_list & in, optional_list & opt, int _iRetCount, typed_list & out, ast::ConstVisitor & execFunc, const ast::CallExp & e)
+    virtual bool invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetCount*/, typed_list & out, ast::ConstVisitor & /*execFunc*/, const ast::CallExp & e)
     {
         if (in.size() == 0)
         {
@@ -998,11 +1000,6 @@ public :
         }
         else
         {
-            // silent unused parameters warnings, only a single value extract is supported at a time.
-            (void) _iRetCount;
-            (void) execFunc;
-            (void) opt;
-
             InternalType * _out = extract(&in);
             if (!_out)
             {
@@ -1239,9 +1236,7 @@ public :
     {
         int piDims[2] = {_iNewRows, _iNewCols};
         return reshape(piDims, 2);
-    }
-
-    bool reshape(int* _piDims, int _iDims)
+    } bool reshape(int* _piDims, int _iDims)
     {
         int iNewSize = get_max_size(_piDims, _iDims);
         if (iNewSize != m_iSize)
@@ -1592,7 +1587,20 @@ public :
     }
 };
 
+static int get_max_size(int* _piDims, int _iDims)
+{
+    if (_iDims == 0)
+    {
+        return 0;
+    }
 
+    int iMax = 1;
+    for (int i = 0 ; i < _iDims ; i++)
+    {
+        iMax *= _piDims[i];
+    }
+    return iMax;
+}
 }
 
 #endif /* !__ARRAYOF_HXX__ */

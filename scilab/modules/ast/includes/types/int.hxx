@@ -162,7 +162,7 @@ protected :
     inline InternalType::ScilabId   getId(void);
 
 private :
-    virtual bool subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iDims)
+    virtual bool subMatrixToString(std::wostringstream& ostr, int* _piDims, int /*_iDims*/)
     {
         int iCurrentLine = 0;
         int iLineLen = ConfigVariable::getConsoleWidth();
@@ -346,7 +346,6 @@ private :
 
                         for (int iCols2 = iLastCol ; iCols2 < iCols1 ; iCols2++)
                         {
-                            int iWidth  = 0;
                             _piDims[0]  = iRows2;
                             _piDims[1]  = iCols2;
                             int iPos    = ArrayOf<T>::getIndex(_piDims);
@@ -400,7 +399,6 @@ private :
 
                 for (int iCols2 = iLastCol ; iCols2 < GenericType::getCols() ; iCols2++)
                 {
-                    int iWidth  = 0;
                     _piDims[0]  = iRows2;
                     _piDims[1]  = iCols2;
                     int iPos    = ArrayOf<T>::getIndex(_piDims);
