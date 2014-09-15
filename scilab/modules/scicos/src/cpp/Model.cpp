@@ -148,7 +148,7 @@ update_status_t Model::setObject(model::BaseObject* o)
 model::Datatype* Model::flyweight(const model::Datatype& d)
 {
     datatypes_set_t::iterator iter = std::lower_bound(datatypes.begin(), datatypes.end(), &d);
-    if (iter != datatypes.end() && !(d < **iter)) // if d is found
+    if (iter != datatypes.end() && d == **iter) // if d is found
     {
         (*iter)->refCount++;
         return *iter;
