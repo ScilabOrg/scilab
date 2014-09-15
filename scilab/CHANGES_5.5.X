@@ -67,6 +67,8 @@ Scilab Bug Fixes
 
 * Bug #12987 fixed - Scilab did not start on Ubuntu 10.04 (GLIBC issue).
 
+* Bug #13058 fixed - Arpack-ng library has been updated and fix this bug.
+
 * Bug #13180 fixed - surf did not handle degenerate cases.
 
 * Bug #13291 fixed - xmltojar([],[],'ja_JP') might lead to a crash when the
