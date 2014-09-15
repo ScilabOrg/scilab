@@ -60,7 +60,8 @@ private:
     {
         if (dataType == 0)
         {
-            v.resize(3, 1);
+            // By default, size is set to [-1,1] and type to real (1)
+            v = { -1, 1, 1};
         }
         else
         {
