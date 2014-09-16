@@ -10,6 +10,7 @@
 *
 */
 #include <sstream>
+#include <iostream>
 #include <math.h>
 #include "double.hxx"
 #include "polynom.hxx"
@@ -406,6 +407,7 @@ bool ImplicitList::toString(std::wostringstream& ostr)
         }
         else //Polynom
         {
+
             Polynom* pMP = m_poEnd->getAs<types::Polynom>();
             ostr << printInLinePoly(pMP->get(0), pMP->getVariableName());
         }
@@ -714,10 +716,19 @@ std::wstring printInLinePoly(types::SinglePoly* _pPoly, std::wstring _stVar)
 
         if (pdblIn[i] != 0)
         {
+
             DoubleFormat df;
             getDoubleFormat(pdblIn[i], &df);
             df.bPrintPoint = ostr.str().size() != 0;
-            df.bPrintPlusSign = true;
+            df.bPrintBlank = ostr.str().size() != 0;
+            if (i == 1)
+            {
+                df.bPrintPlusSign = false;
+            }
+            else
+            {
+                df.bPrintPlusSign = true;
+            }
             df.bPrintOne = i == 0;
             df.bPaddSign = false;
             addDoubleValue(&ostr, pdblIn[i], &df);
@@ -740,6 +751,8 @@ std::wstring printDouble(types::Double* _pD)
     DoubleFormat df;
     getDoubleFormat(_pD->get(0), &df);
     df.bPaddSign = true;
+    df.bPrintPoint = ostr.str().size() != 0;
+    df.bPrintBlank = ostr.str().size() != 0;
     addDoubleValue(&ostr, _pD->get(0), &df);
     return ostr.str();
 }
