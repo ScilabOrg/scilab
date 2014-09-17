@@ -1857,10 +1857,10 @@ template<typename S> struct GetReal: std::unary_function<typename S::InnerIterat
         return it.value();
     }
 };
-template<> struct GetReal< Eigen::SparseMatrix<std::complex<double > > >
-        : std::unary_function<Eigen::SparseMatrix<std::complex<double > > ::InnerIterator, double>
+template<> struct GetReal< Eigen::SparseMatrix<std::complex<double >, Eigen::RowMajor > >
+        : std::unary_function<Sparse::CplxSparse_t::InnerIterator, double>
 {
-    double operator()( Eigen::SparseMatrix<std::complex<double > > ::InnerIterator it) const
+    double operator()( Sparse::CplxSparse_t::InnerIterator it) const
     {
         return it.value().real();
     }
