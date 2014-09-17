@@ -32,18 +32,30 @@ function [x,y,typ]=SUPER_f(job,arg1,arg2)
 
     case "define" then
         // nested diagram settings (2 ports)
-        scs=scicos_diagram();
-        scs.props.title="Super Block";
+        pause
+        //scs.props.title="Super Block";
 
         in = IN_f("define");
-        in.graphics.orig = [40, 40];
-        in.graphics.sz = [20, 20];
+        graphics = in.graphics;
+        graphics.orig = [40, 40];
+        graphics.sz = [20, 20];
+        in.graphics = graphics;
+        //in.graphics.orig = [40, 40];
+        //in.graphics.sz = [20, 20];
         out = OUT_f("define");
-        out.graphics.orig = [240, 40];
-        out.graphics.sz = [20, 20];
+        graphics = out.graphics;
+        graphics.orig = [240, 40];
+        graphics.sz = [20, 20];
+        out.graphics = graphics;
+        //out.graphics.orig = [240, 40];
+        //out.graphics.sz = [20, 20];
 
-        scs.objs(1) = in;
-        scs.objs(2) = out;
+        scs=scicos_diagram(objs = list(in,out));
+        props = scs.props;
+        props.title = "Super Block";
+        scs.props = props;
+        //scs.objs(1) = in;
+        //scs.objs(2) = out;
 
         // block settings
         model=scicos_model();
