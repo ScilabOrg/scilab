@@ -45,7 +45,6 @@ function [ok,sgn,exprs] = scicos_getvalue(title, field, Type, exprs)
     sgn = [-1;1;1];
     exprs = sci2exp(sgn);
 endfunction
-funcprot(p);
 
 o = BIGSOM_f("set", o)
 o.graphics
@@ -60,8 +59,6 @@ o.doc
 
 // Set the block to itself without making any modification
 // (scicos_getvalue returns CSCOPE_f default parameters)
-p = funcprot();
-funcprot(0);
 function [ok,clrs,win,wpos,wdim,ymin,ymax,per,N,heritance,nom,exprs] = scicos_getvalue(title, fields, Type, exprs)
     ok = %t;
     clrs = model.ipar(4:11)
@@ -76,4 +73,5 @@ function [ok,clrs,win,wpos,wdim,ymin,ymax,per,N,heritance,nom,exprs] = scicos_ge
     nom = model.label
     exprs = graphics.exprs;
 endfunction
+funcprot(p);
 o = CSCOPE("set", o)
