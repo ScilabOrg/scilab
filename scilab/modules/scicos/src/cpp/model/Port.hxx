@@ -65,10 +65,7 @@ private:
         }
         else
         {
-            v.resize(3);
-            v[0] = dataType->rows;
-            v[1] = dataType->columns;
-            v[2] = dataType->datatype_id;
+            v = {dataType->rows, dataType->columns, dataType->datatype_id};
         }
     }
 
