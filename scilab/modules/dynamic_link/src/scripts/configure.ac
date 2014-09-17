@@ -2,16 +2,16 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) INRIA - 2006-2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009-2010 - Sylvestre Ledru
-# 
+#
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
-# are also available at    
+# are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 #
 
 ##########
-### Configure.ac is used to create the configure file which will be 
+### Configure.ac is used to create the configure file which will be
 ### used by the incremental link to detect compilers, flags, linker...
 ### Should be multiplateform
 ##########
@@ -21,7 +21,7 @@ AC_INIT([scilab],[0],[http://bugzilla.scilab.org/])
 AC_CONFIG_MACRO_DIR([m4])
 
 # Initialise automake (foreign is low strictness)
-AM_INIT_AUTOMAKE([foreign]) 
+AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
@@ -47,6 +47,9 @@ AC_CONFIG_FILES([Makefile])
 AC_PROG_CPP
 AC_PROG_GREP
 AC_EIGEN()
+
+# check if the compiler supports c++11
+AX_CXX_COMPILE_STDCXX_11(noext,mandatory)
 
 # x86_64 needs -fPIC
 case "$host" in
