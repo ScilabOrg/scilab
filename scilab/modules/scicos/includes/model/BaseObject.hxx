@@ -128,7 +128,7 @@ public:
 
     bool operator<(const Datatype& d) const
     {
-        return datatype_id < d.datatype_id && rows < d.rows && columns < d.columns;
+        return datatype_id < d.datatype_id || rows < d.rows || columns < d.columns;
     }
 };
 
