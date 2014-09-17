@@ -240,7 +240,7 @@ private:
     {
         Controller controller = Controller();
         ScicosID clone = controller.cloneObject(getAdaptee()->id());
-        return new Adaptor(true, static_cast<Adaptee*>(controller.getObject(clone)));
+        return new Adaptor(false, static_cast<Adaptee*>(controller.getObject(clone)));
     }
 
     /*
