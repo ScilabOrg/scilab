@@ -1208,6 +1208,8 @@ static bool import_hypermat(int* pvCtx, int _iDatasetId, int _iVarType, int _iIt
         return false;
     }
 
+    freeStringMatrix(iItemDataset, pstData);
+
     delete[] pstData;
     pstData = NULL;
 
