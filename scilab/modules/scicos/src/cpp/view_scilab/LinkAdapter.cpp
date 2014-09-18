@@ -38,6 +38,10 @@ namespace view_scilab
 namespace
 {
 
+const std::string split ("split");
+const std::string lsplit ("lsplit");
+const std::string limpsplit ("limpsplit");
+
 struct xx
 {
 
@@ -74,14 +78,32 @@ struct xx
         std::vector<double> controlPoints;
         controller.getObjectProperty(adaptee->id(), adaptee->kind(), CONTROL_POINTS, controlPoints);
 
-        if (current->getSize() != static_cast<int>(controlPoints.size() / 2))
+        int newXSize = current->getSize();
+        int oldXSize = static_cast<int>(controlPoints.size() / 2);
+        std::vector<double> newControlPoints (controlPoints);
+
+        if (newXSize == oldXSize)
         {
-            return false;
+#ifdef _MSC_VER
+            std::copy(current->getReal(), current->getReal() + newXSize, stdext::checked_array_iterator<double*>( newControlPoints.begin(), newXSize ));
+#else
+            std::copy(current->getReal(), current->getReal() + newXSize, newControlPoints.begin());
+#endif
+        }
+        else
+        {
+            newControlPoints.resize(2 * current->getSize(), 0);
+
+#ifdef _MSC_VER
+            std::copy(current->getReal(), current->getReal() + newXSize, stdext::checked_array_iterator<double*>( newControlPoints.begin(), newXSize ));
+            std::copy(controlPoints.begin() + oldXSize, controlPoints.begin() + oldXSize + std::min(newXSize, oldXSize), stdext::checked_array_iterator<double*>( newControlPoints.begin() + newXSize, std::min(newXSize, oldXSize) ));
+#else
+            std::copy(current->getReal(), current->getReal() + newXSize, newControlPoints.begin());
+            std::copy(controlPoints.begin() + oldXSize, controlPoints.begin() + oldXSize + std::min(newXSize, oldXSize), newControlPoints.begin() + newXSize);
+#endif
         }
 
-        std::copy(current->getReal(), current->getReal() + current->getSize(), controlPoints.begin());
-        controller.setObjectProperty(adaptee->id(), adaptee->kind(), CONTROL_POINTS, controlPoints);
-
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), CONTROL_POINTS, newControlPoints);
         return true;
     }
 };
@@ -122,14 +144,34 @@ struct yy
         std::vector<double> controlPoints;
         controller.getObjectProperty(adaptee->id(), adaptee->kind(), CONTROL_POINTS, controlPoints);
 
-        if (current->getSize() != static_cast<int>(controlPoints.size() / 2))
+        int newYSize = current->getSize();
+        int oldYSize = static_cast<int>(controlPoints.size() / 2);
+        std::vector<double> newControlPoints (controlPoints);
+
+        if (newYSize == oldYSize)
         {
-            return false;
+#ifdef _MSC_VER
+            std::copy(current->getReal(), current->getReal() + newYSize, stdext::checked_array_iterator<double*>( newControlPoints.begin() + newYSize, newYSize ));
+#else
+            std::copy(current->getReal(), current->getReal() + newYSize, newControlPoints.begin() + newYSize);
+#endif
+        }
+        else
+        {
+            newControlPoints.resize(2 * current->getSize());
+
+#ifdef _MSC_VER
+            std::copy(current->getReal(), current->getReal() + newYSize, stdext::checked_array_iterator<double*>( newControlPoints.begin() + newYSize, newYSize ));
+#else
+            std::copy(current->getReal(), current->getReal() + newYSize, newControlPoints.begin() + newYSize);
+#endif
+            if (newYSize > oldYSize)
+            {
+                std::fill(newControlPoints.begin() + oldYSize, newControlPoints.begin() + oldYSize + newYSize, 0);
+            }
         }
 
-        std::copy(current->getReal(), current->getReal() + current->getSize(), controlPoints.begin() + controlPoints.size() / 2);
-        controller.setObjectProperty(adaptee->id(), adaptee->kind(), CONTROL_POINTS, controlPoints);
-
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), CONTROL_POINTS, newControlPoints);
         return true;
     }
 };
@@ -330,6 +372,33 @@ enum startOrEnd
     End = 1
 };
 
+// Connectivity is ensured if 'port' is of the desired type or if either of the concerned blocks is a split block,
+// because they are connectable to anything
+static bool checkConnectivity(const int neededType, const ScicosID port, const ScicosID blk1, Controller& controller)
+{
+    int portKind;
+    controller.getObjectProperty(port, PORT, PORT_KIND, portKind);
+
+    if (portKind != neededType)
+    {
+        // Last chance if one of the connecting blocks is just a split block
+        std::string name1;
+        controller.getObjectProperty(blk1, BLOCK, SIM_FUNCTION_NAME, name1);
+        if (name1 != split && name1 != lsplit && name1 != limpsplit)
+        {
+            ScicosID blk2;
+            controller.getObjectProperty(port, PORT, SOURCE_BLOCK, blk2);
+            std::string name2;
+            controller.getObjectProperty(blk2, BLOCK, SIM_FUNCTION_NAME, name2);
+            if (name2 != split && name2 != lsplit && name2 != limpsplit)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_properties_t end, types::InternalType* v)
 {
     model::Link* adaptee = adaptor.getAdaptee();
@@ -401,7 +470,7 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
     }
 
     ScicosID parentDiagram;
-    controller.getObjectProperty(adaptee->id(), BLOCK, PARENT_DIAGRAM, parentDiagram);
+    controller.getObjectProperty(adaptee->id(), LINK, PARENT_DIAGRAM, parentDiagram);
     std::vector<ScicosID> children;
     if (parentDiagram != 0)
     {
@@ -442,10 +511,7 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
         {
             if (otherPort != 0)
             {
-                // The other end must be an input
-                int otherPortKind;
-                controller.getObjectProperty(otherPort, PORT, PORT_KIND, otherPortKind);
-                if (otherPortKind != model::EIN)
+                if (!checkConnectivity(model::EIN, otherPort, blkID, controller))
                 {
                     return false;
                 }
@@ -457,10 +523,7 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
         {
             if (otherPort != 0)
             {
-                // The other end must be an output
-                int otherPortKind;
-                controller.getObjectProperty(otherPort, PORT, PORT_KIND, otherPortKind);
-                if (otherPortKind != model::EOUT)
+                if (!checkConnectivity(model::EOUT, otherPort, blkID, controller))
                 {
                     return false;
                 }
@@ -483,10 +546,7 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
             {
                 if (otherPort != 0)
                 {
-                    // The other end must be an input
-                    int otherPortKind;
-                    controller.getObjectProperty(otherPort, PORT, PORT_KIND, otherPortKind);
-                    if (otherPortKind != model::IN)
+                    if (!checkConnectivity(model::IN, otherPort, blkID, controller))
                     {
                         return false;
                     }
@@ -498,10 +558,7 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
             {
                 if (otherPort != 0)
                 {
-                    // The other end must be an output
-                    int otherPortKind = 1;
-                    controller.getObjectProperty(otherPort, PORT, PORT_KIND, otherPortKind);
-                    if (otherPortKind != model::OUT)
+                    if (!checkConnectivity(model::OUT, otherPort, blkID, controller))
                     {
                         return false;
                     }

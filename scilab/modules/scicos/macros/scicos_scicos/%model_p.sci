@@ -34,7 +34,16 @@ function %model_p(model)
     mprintf("%s\n", txt)
 
     fn=getfield(1,model)
+    if size(fn, "r") > 4 then // Rule out the Annotations
+        if or(fn == "rpar") && typeof(model("rpar")) == "diagram" then
+            model("rpar") = diagram2mlist(model("rpar"));
+        end
+    end
     for k=3:size(fn,"*")
         mprintf("%s\n", sci2exp(model(fn(k)),fn(k)))
     end
+endfunction
+
+function ml = diagram2mlist(d)
+    ml = mlist(["diagram", "props", "objs", "version", "contrib"], d.props, d.objs, d.version, d.contrib);
 endfunction
