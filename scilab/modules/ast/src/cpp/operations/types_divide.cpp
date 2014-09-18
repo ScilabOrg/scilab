@@ -188,12 +188,21 @@ int RDivideDoubleByDouble(Double *_pDouble1, Double *_pDouble2, Double **_pDoubl
             return 0;
         }
 
+        // x / eye() = x
+        if (_pDouble2->getRows() < 1 && _pDouble2->getCols() < 1 )
+        {
+            *_pDoubleOut    = new Double(*_pDouble1);
+            return 0;
+        }
         double dblSavedR = 0;
         double dblSavedI = 0;
         Double *pdblTemp = NULL;
 
         int iRowResult = _pDouble2->getCols();
         int iColResult = _pDouble2->getRows();
+
+
+
 
         //in this case, we have to create a temporary square matrix
         pdblTemp = new Double(iRowResult, iRowResult, _pDouble1->isComplex());
