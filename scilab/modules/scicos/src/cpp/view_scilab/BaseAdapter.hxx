@@ -345,6 +345,10 @@ private:
         return true;
     }
 
+    bool getOwn()
+    {
+        return ownAdaptee;
+    };
 
 private:
     const bool ownAdaptee;

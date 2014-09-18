@@ -37,6 +37,14 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    types::InternalType* getFrom() const;
+    void setFrom(types::InternalType* v);
+    types::InternalType* getTo() const;
+    void setTo(types::InternalType* v);
+private:
+    types::InternalType* From;
+    types::InternalType* To;
 };
 
 } /* namespace view_scilab */
