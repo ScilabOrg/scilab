@@ -44,6 +44,9 @@ namespace view_scilab
 namespace
 {
 
+const std::wstring from (L"from");
+const std::wstring to (L"to");
+
 struct props
 {
 
@@ -96,6 +99,9 @@ struct objs
                 {
                     model::Link* link = static_cast<model::Link*>(item);
                     LinkAdapter* localAdaptor = new LinkAdapter(false, link);
+
+                    //localAdaptor->setFrom(getLinkEnd(*localAdaptor, controller, SOURCE_PORT));
+                    //localAdaptor->setTo(getLinkEnd(*localAdaptor, controller, DESTINATION_PORT));
                     o->set(i, localAdaptor);
                     continue;
                 }
@@ -138,8 +144,9 @@ struct objs
                     BlockAdapter* modelElement = list->get(i)->getAs<BlockAdapter>();
                     model::Block* subAdaptee = modelElement->getAdaptee();
 
-                    controller.setObjectProperty(id, subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
                     id = subAdaptee->id();
+
+                    controller.setObjectProperty(id, subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
                     break;
                 }
                 case Adapters::LINK_ADAPTER:
@@ -147,8 +154,23 @@ struct objs
                     LinkAdapter* modelElement = list->get(i)->getAs<LinkAdapter>();
                     model::Link* subAdaptee = modelElement->getAdaptee();
 
-                    controller.setObjectProperty(subAdaptee->id(), subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
                     id = subAdaptee->id();
+
+                    controller.setObjectProperty(id, subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
+
+                    // Do the linking at model-level thanks to the information that was saved in LinkAdapter at the Link's creation
+                    std::vector<double> from_content;
+                    from_content = modelElement->getFrom();
+                    double *data;
+                    types::Double fromData = types::Double(1, 3, &data);
+                    data[0] = from_content[0];
+                    data[1] = from_content[1];
+                    data[2] = from_content[2];
+                    //if (!modelElement->setProperty(from, fromData, controller))
+                    {
+                        //    return false;
+                    }
+
                     break;
                 }
                 case Adapters::TEXT_ADAPTER:
@@ -156,8 +178,9 @@ struct objs
                     TextAdapter* modelElement = list->get(i)->getAs<TextAdapter>();
                     model::Annotation* subAdaptee = modelElement->getAdaptee();
 
-                    controller.setObjectProperty(subAdaptee->id(), subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
                     id = subAdaptee->id();
+
+                    controller.setObjectProperty(id, subAdaptee->kind(), PARENT_DIAGRAM, adaptee->id());
                     break;
                 }
                 default:

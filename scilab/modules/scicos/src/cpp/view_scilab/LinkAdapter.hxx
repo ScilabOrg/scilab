@@ -37,6 +37,14 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    std::vector<double> getFrom() const;
+    void setFrom(std::vector<double> v);
+    std::vector<double> getTo() const;
+    void setTo(std::vector<double> v);
+private:
+    std::vector<double> from_content;
+    std::vector<double> to_content;
 };
 
 } /* namespace view_scilab */
