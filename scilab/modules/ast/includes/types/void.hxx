@@ -18,7 +18,7 @@
 
 namespace types
 {
-class Void : public InternalType
+class EXTERN_AST Void : public InternalType
 {
 public :
     Void() {};
