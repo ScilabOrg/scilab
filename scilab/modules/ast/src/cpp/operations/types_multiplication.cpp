@@ -380,7 +380,7 @@ int MultiplyDoubleByPoly(Double* _pDouble, Polynom* _pPoly, Polynom** _pPolyOut)
         int* piRank = new int[_pPoly->getSize()];
         for (int i = 0 ; i < _pPoly->getSize() ; i++)
         {
-            piRank[i] = _pPoly->get(i)->getRank();
+            piRank[i] = _pPoly->get(i).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly->getVariableName(), _pPoly->getDims(), _pPoly->getDimsArray(), piRank);
@@ -392,29 +392,27 @@ int MultiplyDoubleByPoly(Double* _pDouble, Polynom* _pPoly, Polynom** _pPolyOut)
 
         for (int i = 0 ; i < _pPoly->getSize() ; i++)
         {
-            SinglePoly *pPolyIn     = _pPoly->get(i);
-            double* pRealIn         = pPolyIn->get();
-            double* pImgIn          = pPolyIn->getImg();
+            double* pRealIn         = _pPoly->get(i).get();
+            double* pImgIn          = _pPoly->get(i).getImg();
 
-            SinglePoly *pPolyOut    = (*_pPolyOut)->get(i);
-            double* pRealOut        = pPolyOut->get();
-            double* pImgOut         = pPolyOut->getImg();
+            double* pRealOut        = (*_pPolyOut)->get(i).get();
+            double* pImgOut         = (*_pPolyOut)->get(i).getImg();
 
             if (bComplex1 == false && bComplex2 == false)
             {
-                iMultiRealScalarByRealMatrix(_pDouble->get(0), pRealIn, 1, pPolyIn->getSize(), pRealOut);
+                iMultiRealScalarByRealMatrix(_pDouble->get(0), pRealIn, 1, _pPoly->get(i).getSize(), pRealOut);
             }
             else if (bComplex1 == false && bComplex2 == true)
             {
-                iMultiRealScalarByComplexMatrix(_pDouble->get(0), pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiRealScalarByComplexMatrix(_pDouble->get(0), pRealIn, pImgIn, 1, _pPoly->get(i).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == false)
             {
-                iMultiComplexScalarByRealMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByRealMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, 1, _pPoly->get(i).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == true)
             {
-                iMultiComplexScalarByComplexMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByComplexMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, pImgIn, 1, _pPoly->get(i).getSize(), pRealOut, pImgOut);
             }
         }
         (*_pPolyOut)->updateRank();
@@ -426,7 +424,7 @@ int MultiplyDoubleByPoly(Double* _pDouble, Polynom* _pPoly, Polynom** _pPolyOut)
         int* piRank = new int[_pDouble->getSize()];
         for (int i = 0 ; i < _pDouble->getSize() ; i++)
         {
-            piRank[i] = _pPoly->get(0)->getRank();
+            piRank[i] = _pPoly->get(0).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly->getVariableName(), _pDouble->getDims(), _pDouble->getDimsArray(), piRank);
@@ -439,31 +437,29 @@ int MultiplyDoubleByPoly(Double* _pDouble, Polynom* _pPoly, Polynom** _pPolyOut)
         double *pDoubleR    = _pDouble->get();
         double *pDoubleI    = _pDouble->getImg();
 
-        SinglePoly *pPolyIn = _pPoly->get(0);
-        double* pRealIn     = pPolyIn->get();
-        double* pImgIn      = pPolyIn->getImg();
+        double* pRealIn     = _pPoly->get(0).get();
+        double* pImgIn      = _pPoly->get(0).getImg();
 
         for (int i = 0 ; i < _pDouble->getSize() ; i++)
         {
-            SinglePoly *pPolyOut    = (*_pPolyOut)->get(i);
-            double* pRealOut        = pPolyOut->get();
-            double* pImgOut         = pPolyOut->getImg();
+            double* pRealOut        = (*_pPolyOut)->get(i).get();
+            double* pImgOut         = (*_pPolyOut)->get(i).getImg();
 
             if (bComplex1 == false && bComplex2 == false)
             {
-                iMultiRealScalarByRealMatrix(pDoubleR[i], pRealIn, 1, pPolyIn->getSize(), pRealOut);
+                iMultiRealScalarByRealMatrix(pDoubleR[i], pRealIn, 1, _pPoly->get(0).getSize(), pRealOut);
             }
             else if (bComplex1 == false && bComplex2 == true)
             {
-                iMultiRealScalarByComplexMatrix(pDoubleR[i], pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiRealScalarByComplexMatrix(pDoubleR[i], pRealIn, pImgIn, 1, _pPoly->get(0).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == false)
             {
-                iMultiComplexScalarByRealMatrix(pDoubleR[i], pDoubleI[i], pRealIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByRealMatrix(pDoubleR[i], pDoubleI[i], pRealIn, 1, _pPoly->get(0).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == true)
             {
-                iMultiComplexScalarByComplexMatrix(pDoubleR[i], pDoubleI[i], pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByComplexMatrix(pDoubleR[i], pDoubleI[i], pRealIn, pImgIn, 1, _pPoly->get(0).getSize(), pRealOut, pImgOut);
             }
         }
 
@@ -537,7 +533,7 @@ int MultiplyPolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom **_pPolyOut)
         int* piRank = new int[_pDouble->getSize()];
         for (int i = 0 ; i < _pDouble->getSize() ; i++)
         {
-            piRank[i] = _pPoly->get(0)->getRank();
+            piRank[i] = _pPoly->get(0).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly->getVariableName(), _pDouble->getDims(), _pDouble->getDimsArray(), piRank);
@@ -550,31 +546,29 @@ int MultiplyPolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom **_pPolyOut)
         double *pDoubleR    = _pDouble->get();
         double *pDoubleI    = _pDouble->getImg();
 
-        SinglePoly *pPolyIn = _pPoly->get(0);
-        double* pRealIn     = pPolyIn->get();
-        double* pImgIn      = pPolyIn->getImg();
+        double* pRealIn     = _pPoly->get(0).get();
+        double* pImgIn      = _pPoly->get(0).getImg();
 
         for (int i = 0 ; i < _pDouble->getSize() ; i++)
         {
-            SinglePoly *pPolyOut    = (*_pPolyOut)->get(i);
-            double* pRealOut        = pPolyOut->get();
-            double* pImgOut         = pPolyOut->getImg();
+            double* pRealOut        = (*_pPolyOut)->get(i).get();
+            double* pImgOut         = (*_pPolyOut)->get(i).getImg();
 
             if (bComplex1 == false && bComplex2 == false)
             {
-                iMultiRealScalarByRealMatrix(pDoubleR[i], pRealIn, 1, pPolyIn->getSize(), pRealOut);
+                iMultiRealScalarByRealMatrix(pDoubleR[i], pRealIn, 1, _pPoly->get(0).getSize(), pRealOut);
             }
             else if (bComplex1 == false && bComplex2 == true)
             {
-                iMultiComplexScalarByRealMatrix(pDoubleR[i], pDoubleI[i], pRealIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByRealMatrix(pDoubleR[i], pDoubleI[i], pRealIn, 1, _pPoly->get(0).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == false)
             {
-                iMultiRealScalarByComplexMatrix(pDoubleR[i], pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiRealScalarByComplexMatrix(pDoubleR[i], pRealIn, pImgIn, 1, _pPoly->get(0).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == true)
             {
-                iMultiComplexScalarByComplexMatrix(pDoubleR[i], pDoubleI[i], pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByComplexMatrix(pDoubleR[i], pDoubleI[i], pRealIn, pImgIn, 1, _pPoly->get(0).getSize(), pRealOut, pImgOut);
             }
         }
 
@@ -586,7 +580,7 @@ int MultiplyPolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom **_pPolyOut)
         int* piRank = new int[_pPoly->getSize()];
         for (int i = 0 ; i < _pPoly->getSize() ; i++)
         {
-            piRank[i] = _pPoly->get(i)->getRank();
+            piRank[i] = _pPoly->get(i).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly->getVariableName(), _pPoly->getDims(), _pPoly->getDimsArray(), piRank);
@@ -598,29 +592,27 @@ int MultiplyPolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom **_pPolyOut)
 
         for (int i = 0 ; i < _pPoly->getSize() ; i++)
         {
-            SinglePoly *pPolyIn = _pPoly->get(i);
-            double* pRealIn     = pPolyIn->get();
-            double* pImgIn      = pPolyIn->getImg();
+            double* pRealIn = _pPoly->get(i).get();
+            double* pImgIn  = _pPoly->get(i).getImg();
 
-            SinglePoly *pPolyOut    = (*_pPolyOut)->get(i);
-            double* pRealOut        = pPolyOut->get();
-            double* pImgOut         = pPolyOut->getImg();
+            double* pRealOut = (*_pPolyOut)->get(i).get();
+            double* pImgOut  = (*_pPolyOut)->get(i).getImg();
 
             if (bComplex1 == false && bComplex2 == false)
             {
-                iMultiRealScalarByRealMatrix(_pDouble->get(0), pRealIn, 1, pPolyIn->getSize(), pRealOut);
+                iMultiRealScalarByRealMatrix(_pDouble->get(0), pRealIn, 1, _pPoly->get(i).getSize(), pRealOut);
             }
             else if (bComplex1 == false && bComplex2 == true)
             {
-                iMultiComplexScalarByRealMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByRealMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, 1, _pPoly->get(i).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == false)
             {
-                iMultiRealScalarByComplexMatrix(_pDouble->get(0), pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiRealScalarByComplexMatrix(_pDouble->get(0), pRealIn, pImgIn, 1, _pPoly->get(i).getSize(), pRealOut, pImgOut);
             }
             else if (bComplex1 == true && bComplex2 == true)
             {
-                iMultiComplexScalarByComplexMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, pImgIn, 1, pPolyIn->getSize(), pRealOut, pImgOut);
+                iMultiComplexScalarByComplexMatrix(_pDouble->get(0), _pDouble->getImg(0), pRealIn, pImgIn, 1, _pPoly->get(i).getSize(), pRealOut, pImgOut);
             }
         }
 
@@ -655,43 +647,41 @@ int MultiplyPolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom **_pPolyOut)
         //for each col of _pDouble
         for (int iCol2 = 0 ; iCol2 < _pDouble->getCols() ; iCol2++)
         {
-            SinglePoly* pSPOut = (*_pPolyOut)->get(iRow1, iCol2);
-            pSPOut->setZeros();
+            (*_pPolyOut)->get(iRow1, iCol2).setZeros();
 
             //for each rows of _pDouble / cols of _pPoly
             for (int iRow2 = 0 ; iRow2 < _pDouble->getRows() ; iRow2++)
             {
                 // SinglePoly(iRow1, iRow2) * Double(iRow2, iCol2)
-                SinglePoly* pSPIn = _pPoly->get(iRow1, iRow2);
-                int iSize = pSPIn->getSize();
+                int iSize = _pPoly->get(iRow1, iRow2).getSize();
                 double* pdblMult = new double[iSize];
 
                 if (bComplex1 == false && bComplex2 == false)
                 {
                     //Real Matrix by Real Scalar
-                    iMultiRealScalarByRealMatrix(_pDouble->get(iRow2, iCol2), pSPIn->get(), iSize, 1, pdblMult);
-                    add(pSPOut->get(), (long long)iSize, pdblMult, pSPOut->get());
+                    iMultiRealScalarByRealMatrix(_pDouble->get(iRow2, iCol2), _pPoly->get(iRow1, iRow2).get(), iSize, 1, pdblMult);
+                    add((*_pPolyOut)->get(iRow1, iCol2).get(), (long long)iSize, pdblMult, (*_pPolyOut)->get(iRow1, iCol2).get());
                 }
                 else if (bComplex1 == false && bComplex2 == true)
                 {
                     //Real Matrix by Scalar Complex
                     double* pdblMultImg = new double[iSize];
-                    iMultiComplexScalarByRealMatrix(_pDouble->get(iRow2, iCol2), _pDouble->getImg(iRow2, iCol2), pSPIn->get(), pSPIn->getSize(), 1, pdblMult, pdblMultImg);
-                    add(pSPOut->get(), pSPOut->getImg(), (long long)iSize, pdblMult, pdblMultImg, pSPOut->get(), pSPOut->getImg());
+                    iMultiComplexScalarByRealMatrix(_pDouble->get(iRow2, iCol2), _pDouble->getImg(iRow2, iCol2), _pPoly->get(iRow1, iRow2).get(), _pPoly->get(iRow1, iRow2).getSize(), 1, pdblMult, pdblMultImg);
+                    add((*_pPolyOut)->get(iRow1, iCol2).get(), (*_pPolyOut)->get(iRow1, iCol2).getImg(), (long long)iSize, pdblMult, pdblMultImg, (*_pPolyOut)->get(iRow1, iCol2).get(), (*_pPolyOut)->get(iRow1, iCol2).getImg());
                     delete[] pdblMultImg;
                 }
                 else if (bComplex1 == true && bComplex2 == false)
                 {
                     double* pdblMultImg = new double[iSize];
-                    iMultiRealScalarByComplexMatrix(_pDouble->get(iRow2, iCol2), pSPIn->get(), pSPIn->getImg(), pSPIn->getSize(), 1, pdblMult, pdblMultImg);
-                    add(pSPOut->get(), pSPOut->getImg(), (long long)iSize, pdblMult, pdblMultImg, pSPOut->get(), pSPOut->getImg());
+                    iMultiRealScalarByComplexMatrix(_pDouble->get(iRow2, iCol2), _pPoly->get(iRow1, iRow2).get(), _pPoly->get(iRow1, iRow2).getImg(), _pPoly->get(iRow1, iRow2).getSize(), 1, pdblMult, pdblMultImg);
+                    add((*_pPolyOut)->get(iRow1, iCol2).get(), (*_pPolyOut)->get(iRow1, iCol2).getImg(), (long long)iSize, pdblMult, pdblMultImg, (*_pPolyOut)->get(iRow1, iCol2).get(), (*_pPolyOut)->get(iRow1, iCol2).getImg());
                     delete[] pdblMultImg;
                 }
                 else //if(bComplex1 == true && bComplex2 == true)
                 {
                     double* pdblMultImg = new double[iSize];
-                    iMultiComplexScalarByComplexMatrix(_pDouble->get(iRow2, iCol2), _pDouble->getImg(iRow2, iCol2), pSPIn->get(), pSPIn->getImg(), pSPIn->getSize(), 1, pdblMult, pdblMultImg);
-                    add(pSPOut->get(), pSPOut->getImg(), (long long)iSize, pdblMult, pdblMultImg, pSPOut->get(), pSPOut->getImg());
+                    iMultiComplexScalarByComplexMatrix(_pDouble->get(iRow2, iCol2), _pDouble->getImg(iRow2, iCol2), _pPoly->get(iRow1, iRow2).get(), _pPoly->get(iRow1, iRow2).getImg(), _pPoly->get(iRow1, iRow2).getSize(), 1, pdblMult, pdblMultImg);
+                    add((*_pPolyOut)->get(iRow1, iCol2).get(), (*_pPolyOut)->get(iRow1, iCol2).getImg(), (long long)iSize, pdblMult, pdblMultImg, (*_pPolyOut)->get(iRow1, iCol2).get(), (*_pPolyOut)->get(iRow1, iCol2).getImg());
                     delete[] pdblMultImg;
                 }
 
@@ -712,7 +702,7 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     if (_pPoly1->isScalar() && _pPoly2->isScalar())
     {
         //poly1(0) * poly2(0)
-        int iRank = _pPoly1->get(0)->getRank() + _pPoly2->get(0)->getRank();
+        int iRank = _pPoly1->get(0).getRank() + _pPoly2->get(0).getRank();
         (*_pPolyOut) = new Polynom(_pPoly1->getVariableName(), 1, 1, &iRank);
         if (bComplex1 || bComplex2)
         {
@@ -721,55 +711,39 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
 
         if (bComplex1 == false && bComplex2 == false)
         {
-            SinglePoly *pPoly1  = _pPoly1->get(0);
-            SinglePoly *pPoly2  = _pPoly2->get(0);
-            SinglePoly *pPolyOut = (*_pPolyOut)->get(0);
-
-            pPolyOut->setZeros();
+            (*_pPolyOut)->get(0).setZeros();
 
             iMultiScilabPolynomByScilabPolynom(
-                pPoly1->get(), pPoly1->getSize(),
-                pPoly2->get(), pPoly2->getSize(),
-                pPolyOut->get(), pPolyOut->getSize());
+                _pPoly1->get(0).get(), _pPoly1->get(0).getSize(),
+                _pPoly2->get(0).get(), _pPoly2->get(0).getSize(),
+                (*_pPolyOut)->get(0).get(), (*_pPolyOut)->get(0).getSize());
         }
         else if (bComplex1 == false && bComplex2 == true)
         {
-            SinglePoly *pPoly1  = _pPoly1->get(0);
-            SinglePoly *pPoly2  = _pPoly2->get(0);
-            SinglePoly *pPolyOut = (*_pPolyOut)->get(0);
-
-            pPolyOut->setZeros();
+            (*_pPolyOut)->get(0).setZeros();
 
             iMultiScilabPolynomByComplexPoly(
-                pPoly1->get(), pPoly1->getSize(),
-                pPoly2->get(), pPoly2->getImg(), pPoly2->getSize(),
-                pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                _pPoly1->get(0).get(), _pPoly1->get(0).getSize(),
+                _pPoly2->get(0).get(), _pPoly2->get(0).getImg(), _pPoly2->get(0).getSize(),
+                (*_pPolyOut)->get(0).get(), (*_pPolyOut)->get(0).getImg(), (*_pPolyOut)->get(0).getSize());
         }
         else if (bComplex1 == true && bComplex2 == false)
         {
-            SinglePoly *pPoly1  = _pPoly1->get(0);
-            SinglePoly *pPoly2  = _pPoly2->get(0);
-            SinglePoly *pPolyOut = (*_pPolyOut)->get(0);
-
-            pPolyOut->setZeros();
+            (*_pPolyOut)->get(0).setZeros();
 
             iMultiComplexPolyByScilabPolynom(
-                pPoly1->get(), pPoly1->getImg(), pPoly1->getSize(),
-                pPoly2->get(), pPoly2->getSize(),
-                pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                _pPoly1->get(0).get(), _pPoly1->get(0).getImg(), _pPoly1->get(0).getSize(),
+                _pPoly2->get(0).get(), _pPoly2->get(0).getSize(),
+                (*_pPolyOut)->get(0).get(), (*_pPolyOut)->get(0).getImg(), (*_pPolyOut)->get(0).getSize());
         }
         else if (bComplex1 == true && bComplex2 == true)
         {
-            SinglePoly *pPoly1   = _pPoly1->get(0);
-            SinglePoly *pPoly2   = _pPoly2->get(0);
-            SinglePoly *pPolyOut  = (*_pPolyOut)->get(0);
-
-            pPolyOut->setZeros();
+            (*_pPolyOut)->get(0).setZeros();
 
             iMultiComplexPolyByComplexPoly(
-                pPoly1->get(), pPoly1->getImg(), pPoly1->getSize(),
-                pPoly2->get(), pPoly2->getImg(), pPoly2->getSize(),
-                pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                _pPoly1->get(0).get(), _pPoly1->get(0).getImg(), _pPoly1->get(0).getSize(),
+                _pPoly2->get(0).get(), _pPoly2->get(0).getImg(), _pPoly2->get(0).getSize(),
+                (*_pPolyOut)->get(0).get(), (*_pPolyOut)->get(0).getImg(), (*_pPolyOut)->get(0).getSize());
         }
 
         (*_pPolyOut)->updateRank();
@@ -782,7 +756,7 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
         int* piRank = new int[_pPoly2->getSize()];
         for (int i = 0 ; i < _pPoly2->getSize() ; i++)
         {
-            piRank[i] = _pPoly1->get(0)->getRank() + _pPoly2->get(i)->getRank();
+            piRank[i] = _pPoly1->get(0).getRank() + _pPoly2->get(i).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly1->getVariableName(), _pPoly2->getDims(), _pPoly2->getDimsArray(), piRank);
@@ -793,65 +767,52 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
         delete[] piRank;
 
 
-        SinglePoly *pPoly1  = _pPoly1->get(0);
         if (bComplex1 == false && bComplex2 == false)
         {
             for (int iPoly = 0 ; iPoly < _pPoly2->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly2  = _pPoly2->get(iPoly);
-                SinglePoly *pPolyOut = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiScilabPolynomByScilabPolynom(
-                    pPoly1->get(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getSize());
+                    _pPoly1->get(0).get(), _pPoly1->get(0).getSize(),
+                    _pPoly2->get(iPoly).get(), _pPoly2->get(iPoly).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
         else if (bComplex1 == false && bComplex2 == true)
         {
             for (int iPoly = 0 ; iPoly < _pPoly2->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly2  = _pPoly2->get(iPoly);
-                SinglePoly *pPolyOut = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiScilabPolynomByComplexPoly(
-                    pPoly1->get(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getImg(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                    _pPoly1->get(0).get(), _pPoly1->get(0).getSize(),
+                    _pPoly2->get(iPoly).get(), _pPoly2->get(iPoly).getImg(), _pPoly2->get(iPoly).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getImg(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
         else if (bComplex1 == true && bComplex2 == false)
         {
             for (int iPoly = 0 ; iPoly < _pPoly2->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly2  = _pPoly2->get(iPoly);
-                SinglePoly *pPolyOut = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiComplexPolyByScilabPolynom(
-                    pPoly1->get(), pPoly1->getImg(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                    _pPoly1->get(0).get(), _pPoly1->get(0).getImg(), _pPoly1->get(0).getSize(),
+                    _pPoly2->get(iPoly).get(), _pPoly2->get(iPoly).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getImg(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
         else if (bComplex1 == true && bComplex2 == true)
         {
             for (int iPoly = 0 ; iPoly < _pPoly2->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly2   = _pPoly2->get(iPoly);
-                SinglePoly *pPolyOut  = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiComplexPolyByComplexPoly(
-                    pPoly1->get(), pPoly1->getImg(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getImg(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                    _pPoly1->get(0).get(), _pPoly1->get(0).getImg(), _pPoly1->get(0).getSize(),
+                    _pPoly2->get(iPoly).get(), _pPoly2->get(iPoly).getImg(), _pPoly2->get(iPoly).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getImg(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
 
@@ -865,7 +826,7 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
         int* piRank = new int[_pPoly1->getSize()];
         for (int i = 0 ; i < _pPoly1->getSize() ; i++)
         {
-            piRank[i] = _pPoly2->get(0)->getRank() + _pPoly1->get(i)->getRank();
+            piRank[i] = _pPoly2->get(0).getRank() + _pPoly1->get(i).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly1->getVariableName(), _pPoly1->getDims(), _pPoly1->getDimsArray(), piRank);
@@ -875,65 +836,52 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
         }
         delete[] piRank;
 
-        SinglePoly *pPoly2  = _pPoly2->get(0);
         if (bComplex1 == false && bComplex2 == false)
         {
             for (int iPoly = 0 ; iPoly < _pPoly1->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly1  = _pPoly1->get(iPoly);
-                SinglePoly *pPolyOut = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiScilabPolynomByScilabPolynom(
-                    pPoly1->get(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getSize());
+                    _pPoly1->get(iPoly).get(), _pPoly1->get(iPoly).getSize(),
+                    _pPoly2->get(0).get(), _pPoly2->get(0).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
         else if (bComplex1 == false && bComplex2 == true)
         {
             for (int iPoly = 0 ; iPoly < _pPoly1->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly1  = _pPoly1->get(iPoly);
-                SinglePoly *pPolyOut = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiScilabPolynomByComplexPoly(
-                    pPoly1->get(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getImg(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                    _pPoly1->get(iPoly).get(), _pPoly1->get(iPoly).getSize(),
+                    _pPoly2->get(0).get(), _pPoly2->get(0).getImg(), _pPoly2->get(0).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getImg(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
         else if (bComplex1 == true && bComplex2 == false)
         {
             for (int iPoly = 0 ; iPoly < _pPoly1->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly1  = _pPoly1->get(iPoly);
-                SinglePoly *pPolyOut = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiComplexPolyByScilabPolynom(
-                    pPoly1->get(), pPoly1->getImg(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                    _pPoly1->get(iPoly).get(), _pPoly1->get(iPoly).getImg(), _pPoly1->get(iPoly).getSize(),
+                    _pPoly2->get(0).get(), _pPoly2->get(0).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getImg(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
         else if (bComplex1 == true && bComplex2 == true)
         {
             for (int iPoly = 0 ; iPoly < _pPoly1->getSize() ; iPoly++)
             {
-                SinglePoly *pPoly1   = _pPoly1->get(iPoly);
-                SinglePoly *pPolyOut  = (*_pPolyOut)->get(iPoly);
-
-                pPolyOut->setZeros();
+                (*_pPolyOut)->get(iPoly).setZeros();
 
                 iMultiComplexPolyByComplexPoly(
-                    pPoly1->get(), pPoly1->getImg(), pPoly1->getSize(),
-                    pPoly2->get(), pPoly2->getImg(), pPoly2->getSize(),
-                    pPolyOut->get(), pPolyOut->getImg(), pPolyOut->getSize());
+                    _pPoly1->get(iPoly).get(), _pPoly1->get(iPoly).getImg(), _pPoly1->get(iPoly).getSize(),
+                    _pPoly2->get(0).get(), _pPoly2->get(0).getImg(), _pPoly2->get(0).getSize(),
+                    (*_pPolyOut)->get(iPoly).get(), (*_pPolyOut)->get(iPoly).getImg(), (*_pPolyOut)->get(iPoly).getSize());
             }
         }
 
@@ -966,31 +914,27 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     if (bComplex1 == false && bComplex2 == false)
     {
         double *pReal = NULL;
-        SinglePoly *pTemp  = new SinglePoly(&pReal, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTemp(&pReal, (*_pPolyOut)->getMaxRank());
 
         for (int iRow = 0 ; iRow < _pPoly1->getRows() ; iRow++)
         {
             for (int iCol = 0 ; iCol < _pPoly2->getCols() ; iCol++)
             {
-                SinglePoly *pResult = (*_pPolyOut)->get(iRow, iCol);
-                pResult->setZeros();
+                (*_pPolyOut)->get(iRow, iCol).setZeros();
 
                 for (int iCommon = 0 ; iCommon < _pPoly1->getCols() ; iCommon++)
                 {
-                    SinglePoly *pL   = _pPoly1->get(iRow, iCommon);
-                    SinglePoly *pR   = _pPoly2->get(iCommon, iCol);
-
-                    pTemp->setZeros();
+                    pTemp.setZeros();
 
                     iMultiScilabPolynomByScilabPolynom(
-                        pL->get(), pL->getSize(),
-                        pR->get(), pR->getSize(),
-                        pTemp->get(), pL->getRank() + pR->getRank() + 1);
+                        _pPoly1->get(iRow, iCommon).get(), _pPoly1->get(iRow, iCommon).getSize(),
+                        _pPoly2->get(iCommon, iCol).get(), _pPoly2->get(iCommon, iCol).getSize(),
+                        pTemp.get(), _pPoly1->get(iRow, iCommon).getRank() + _pPoly2->get(iCommon, iCol).getRank() + 1);
 
                     iAddScilabPolynomToScilabPolynom(
-                        pResult->get(), pResult->getSize(),
-                        pTemp->get(), pResult->getSize(),
-                        pResult->get(), pResult->getSize());
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        pTemp.get(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getSize());
                 }
             }
         }
@@ -999,31 +943,27 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     {
         double *pReal = NULL;
         double *pImg = NULL;
-        SinglePoly *pTemp  = new SinglePoly(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTemp(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
 
         for (int iRow = 0 ; iRow < _pPoly1->getRows() ; iRow++)
         {
             for (int iCol = 0 ; iCol < _pPoly2->getCols() ; iCol++)
             {
-                SinglePoly *pResult = (*_pPolyOut)->get(iRow, iCol);
-                pResult->setZeros();
+                (*_pPolyOut)->get(iRow, iCol).setZeros();
 
                 for (int iCommon = 0 ; iCommon < _pPoly1->getCols() ; iCommon++)
                 {
-                    SinglePoly *pL   = _pPoly1->get(iRow, iCommon);
-                    SinglePoly *pR   = _pPoly2->get(iCommon, iCol);
-
-                    pTemp->setZeros();
+                    pTemp.setZeros();
 
                     iMultiScilabPolynomByComplexPoly(
-                        pL->get(), pL->getSize(),
-                        pR->get(), pR->getImg(), pR->getSize(),
-                        pTemp->get(), pTemp->getImg(), pL->getRank() + pR->getRank() + 1);
+                        _pPoly1->get(iRow, iCommon).get(), _pPoly1->get(iRow, iCommon).getSize(),
+                        _pPoly2->get(iCommon, iCol).get(), _pPoly2->get(iCommon, iCol).getImg(), _pPoly2->get(iCommon, iCol).getSize(),
+                        pTemp.get(), pTemp.getImg(), _pPoly1->get(iRow, iCommon).getRank() + _pPoly2->get(iCommon, iCol).getRank() + 1);
 
                     iAddComplexPolyToComplexPoly(
-                        pResult->get(), pResult->getImg(), pResult->getSize(),
-                        pTemp->get(), pTemp->getImg(), pResult->getSize(),
-                        pResult->get(), pResult->getImg(), pResult->getSize());
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getImg(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        pTemp.get(), pTemp.getImg(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getImg(), (*_pPolyOut)->get(iRow, iCol).getSize());
                 }
             }
         }
@@ -1032,31 +972,27 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     {
         double *pReal = NULL;
         double *pImg = NULL;
-        SinglePoly *pTemp  = new SinglePoly(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTemp(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
 
         for (int iRow = 0 ; iRow < _pPoly1->getRows() ; iRow++)
         {
             for (int iCol = 0 ; iCol < _pPoly2->getCols() ; iCol++)
             {
-                SinglePoly *pResult = (*_pPolyOut)->get(iRow, iCol);
-                pResult->setZeros();
+                (*_pPolyOut)->get(iRow, iCol).setZeros();
 
                 for (int iCommon = 0 ; iCommon < _pPoly1->getCols() ; iCommon++)
                 {
-                    SinglePoly *pL   = _pPoly1->get(iRow, iCommon);
-                    SinglePoly *pR   = _pPoly2->get(iCommon, iCol);
-
-                    pTemp->setZeros();
+                    pTemp.setZeros();
 
                     iMultiScilabPolynomByComplexPoly(
-                        pR->get(), pR->getSize(),
-                        pL->get(), pL->getImg(), pL->getSize(),
-                        pTemp->get(), pTemp->getImg(), pL->getRank() + pR->getRank() + 1);
+                        _pPoly2->get(iCommon, iCol).get(), _pPoly2->get(iCommon, iCol).getSize(),
+                        _pPoly1->get(iRow, iCommon).get(), _pPoly1->get(iRow, iCommon).getImg(), _pPoly1->get(iRow, iCommon).getSize(),
+                        pTemp.get(), pTemp.getImg(), _pPoly1->get(iRow, iCommon).getRank() + _pPoly2->get(iCommon, iCol).getRank() + 1);
 
                     iAddComplexPolyToComplexPoly(
-                        pResult->get(), pResult->getImg(), pResult->getSize(),
-                        pTemp->get(), pTemp->getImg(), pResult->getSize(),
-                        pResult->get(), pResult->getImg(), pResult->getSize());
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getImg(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        pTemp.get(), pTemp.getImg(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getImg(), (*_pPolyOut)->get(iRow, iCol).getSize());
                 }
             }
         }
@@ -1065,31 +1001,27 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     {
         double *pReal = NULL;
         double *pImg = NULL;
-        SinglePoly *pTemp  = new SinglePoly(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTemp(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
 
         for (int iRow = 0 ; iRow < _pPoly1->getRows() ; iRow++)
         {
             for (int iCol = 0 ; iCol < _pPoly2->getCols() ; iCol++)
             {
-                SinglePoly *pResult = (*_pPolyOut)->get(iRow, iCol);
-                pResult->setZeros();
+                (*_pPolyOut)->get(iRow, iCol).setZeros();
 
                 for (int iCommon = 0 ; iCommon < _pPoly1->getCols() ; iCommon++)
                 {
-                    SinglePoly *pL   = _pPoly1->get(iRow, iCommon);
-                    SinglePoly *pR   = _pPoly2->get(iCommon, iCol);
-
-                    pTemp->setZeros();
+                    pTemp.setZeros();
 
                     iMultiComplexPolyByComplexPoly(
-                        pL->get(), pL->getImg(), pL->getSize(),
-                        pR->get(), pR->getImg(), pR->getSize(),
-                        pTemp->get(), pTemp->getImg(), pL->getRank() + pR->getRank() + 1);
+                        _pPoly1->get(iRow, iCommon).get(), _pPoly1->get(iRow, iCommon).getImg(), _pPoly1->get(iRow, iCommon).getSize(),
+                        _pPoly2->get(iCommon, iCol).get(), _pPoly2->get(iCommon, iCol).getImg(), _pPoly2->get(iCommon, iCol).getSize(),
+                        pTemp.get(), pTemp.getImg(), _pPoly1->get(iRow, iCommon).getRank() + _pPoly2->get(iCommon, iCol).getRank() + 1);
 
                     iAddComplexPolyToComplexPoly(
-                        pResult->get(), pResult->getImg(), pResult->getSize(),
-                        pTemp->get(), pTemp->getImg(), pResult->getSize(),
-                        pResult->get(), pResult->getImg(), pResult->getSize());
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getImg(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        pTemp.get(), pTemp.getImg(), (*_pPolyOut)->get(iRow, iCol).getSize(),
+                        (*_pPolyOut)->get(iRow, iCol).get(), (*_pPolyOut)->get(iRow, iCol).getImg(), (*_pPolyOut)->get(iRow, iCol).getSize());
                 }
             }
         }
@@ -1565,7 +1497,7 @@ int DotMultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOu
         int* piRank = new int[_pPoly1->getSize()];
         for (int i = 0 ; i < _pPoly1->getSize() ; i++)
         {
-            piRank[i] = _pPoly1->get(i)->getRank() + _pPoly2->get(i)->getRank();
+            piRank[i] = _pPoly1->get(i).getRank() + _pPoly2->get(i).getRank();
         }
 
         (*_pPolyOut) = new Polynom(_pPoly1->getVariableName(), _pPoly1->getDims(), _pPoly1->getDimsArray(), piRank);
@@ -1575,16 +1507,12 @@ int DotMultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOu
             (*_pPolyOut)->setComplex(true);
             for (int i = 0; i < _pPoly1->getSize(); i++)
             {
-                SinglePoly *pSP1    = _pPoly1->get(i);
-                SinglePoly *pSP2    = _pPoly2->get(i);
-                SinglePoly *pSPOut  = (*_pPolyOut)->get(i);
-
-                pSPOut->setZeros();
+                (*_pPolyOut)->get(i).setZeros();
 
                 iMultiComplexPolyByComplexPoly(
-                    pSP1->get(), pSP1->getImg(), pSP1->getSize(),
-                    pSP2->get(), pSP2->getImg(), pSP2->getSize(),
-                    pSPOut->get(), pSPOut->getImg(), pSPOut->getSize());
+                    _pPoly1->get(i).get(), _pPoly1->get(i).getImg(), _pPoly1->get(i).getSize(),
+                    _pPoly2->get(i).get(), _pPoly2->get(i).getImg(), _pPoly2->get(i).getSize(),
+                    (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), (*_pPolyOut)->get(i).getSize());
 
             }
         }
@@ -1593,16 +1521,12 @@ int DotMultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOu
             (*_pPolyOut)->setComplex(true);
             for (int i = 0; i < _pPoly1->getSize(); i++)
             {
-                SinglePoly *pSP1   = _pPoly1->get(i);
-                SinglePoly *pSP2   = _pPoly2->get(i);
-                SinglePoly *pSPOut = (*_pPolyOut)->get(i);
-
-                pSPOut->setZeros();
+                (*_pPolyOut)->get(i).setZeros();
 
                 iMultiComplexPolyByScilabPolynom(
-                    pSP1->get(), pSP1->getImg(), pSP1->getSize(),
-                    pSP2->get(), pSP2->getSize(),
-                    pSPOut->get(), pSPOut->getImg(), pSPOut->getSize());
+                    _pPoly1->get(i).get(), _pPoly1->get(i).getImg(), _pPoly1->get(i).getSize(),
+                    _pPoly2->get(i).get(), _pPoly2->get(i).getSize(),
+                    (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), (*_pPolyOut)->get(i).getSize());
             }
         }
         else if (_pPoly2->isComplex())
@@ -1610,32 +1534,24 @@ int DotMultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOu
             (*_pPolyOut)->setComplex(true);
             for (int i = 0; i < _pPoly1->getSize(); i++)
             {
-                SinglePoly *pSP1   = _pPoly1->get(i);
-                SinglePoly *pSP2   = _pPoly2->get(i);
-                SinglePoly *pSPOut = (*_pPolyOut)->get(i);
-
-                pSPOut->setZeros();
+                (*_pPolyOut)->get(i).setZeros();
 
                 iMultiScilabPolynomByComplexPoly(
-                    pSP1->get(), pSP1->getSize(),
-                    pSP2->get(), pSP2->getImg(), pSP2->getSize(),
-                    pSPOut->get(), pSPOut->getImg(), pSPOut->getSize());
+                    _pPoly1->get(i).get(), _pPoly1->get(i).getSize(),
+                    _pPoly2->get(i).get(), _pPoly2->get(i).getImg(), _pPoly2->get(i).getSize(),
+                    (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), (*_pPolyOut)->get(i).getSize());
             }
         }
         else
         {
             for (int i = 0; i < _pPoly1->getSize(); i++)
             {
-                SinglePoly *pSP1   = _pPoly1->get(i);
-                SinglePoly *pSP2   = _pPoly2->get(i);
-                SinglePoly *pSPOut = (*_pPolyOut)->get(i);
-
-                pSPOut->setZeros();
+                (*_pPolyOut)->get(i).setZeros();
 
                 iMultiScilabPolynomByScilabPolynom(
-                    pSP1->get(), pSP1->getSize(),
-                    pSP2->get(), pSP2->getSize(),
-                    pSPOut->get(), pSPOut->getSize());
+                    _pPoly1->get(i).get(), _pPoly1->get(i).getSize(),
+                    _pPoly2->get(i).get(), _pPoly2->get(i).getSize(),
+                    (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getSize());
             }
         }
     }

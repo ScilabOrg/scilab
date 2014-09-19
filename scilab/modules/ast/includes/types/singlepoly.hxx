@@ -25,14 +25,14 @@ public :
     SinglePoly();
     SinglePoly(double** _pdblCoefR, int _iRank);
     SinglePoly(double** _pdblCoefR, double** _pdblcoefI, int _iRank);
+    SinglePoly(const SinglePoly& rightSide);
 
     virtual                 ~SinglePoly();
     virtual void            deleteAll();
     virtual void            deleteImg();
 
-    // FIXME : Should not return NULL;
-    SinglePoly*             clone();
-    SinglePoly*             conjugate();
+    SinglePoly*            clone();
+    SinglePoly             conjugate();
 
     bool                    isSinglePoly()
     {
@@ -60,8 +60,9 @@ public :
 
     bool                    toString(std::wostringstream& ostr);
 
-    bool                    operator==(const InternalType& it);
     bool                    operator!=(const InternalType& it);
+    SinglePoly&             operator=(const SinglePoly& rightSide); // copy data
+    SinglePoly&             operator=(SinglePoly && rightSide); // move data
 
     /* return type as string ( double, int, cell, list, ... )*/
     virtual std::wstring    getTypeStr()
@@ -88,7 +89,14 @@ private :
 
 };
 
-SinglePoly* operator*(const SinglePoly& lhs, const SinglePoly& rhs);
+SinglePoly&     operator*(const SinglePoly& lhs, const SinglePoly& rhs);
+bool            operator==(const SinglePoly& lhs, const InternalType& rhs);
+bool            operator==(const SinglePoly& lhs, const double rhs);
+bool            operator==(const double lhs, const SinglePoly& rhs);
+bool            operator!=(const SinglePoly& lhs, const double rhs);
+bool            operator!=(const double lhs, const SinglePoly& rhs);
+bool            operator!(const SinglePoly& _lhs);
+
 
 }
 

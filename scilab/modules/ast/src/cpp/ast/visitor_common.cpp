@@ -283,22 +283,22 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
                     pPResult->setComplex(poDest->isComplex());
 
                     double *pR = poDest->getReal();
-                    SinglePoly** pSP = pPResult->get();
+                    SinglePoly* pSP = pPResult->get();
 
                     if (poDest->isComplex())
                     {
                         double *pI = poDest->getImg();
                         for (int i = 0 ; i < iSize; i++)
                         {
-                            pSP[i]->set(0, pR[i]);
-                            pSP[i]->setImg(0, pI[i]);
+                            pSP[i].set(0, pR[i]);
+                            pSP[i].setImg(0, pI[i]);
                         }
                     }
                     else
                     {
                         for (int i = 0 ; i < iSize; i++)
                         {
-                            pSP[i]->set(0, pR[i]);
+                            pSP[i].set(0, pR[i]);
                         }
                     }
 
@@ -327,12 +327,10 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
                         {
                             for (int j = 0 ; j < pD->getCols() ; j++)
                             {
-                                types::SinglePoly* pSPOut = pPolyOut->get(iCurRow + i, iCurCol + j);
-
-                                pSPOut->setRank(0);
+                                pPolyOut->get(iCurRow + i, iCurCol + j).setRank(0);
                                 double pDblR = pD->get(i, j);
                                 double pDblI = pD->getImg(i, j);
-                                pSPOut->setCoef(&pDblR, &pDblI);
+                                pPolyOut->get(iCurRow + i, iCurCol + j).setCoef(&pDblR, &pDblI);
                             }
                         }
                     }
@@ -342,11 +340,9 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
                         {
                             for (int j = 0 ; j < pD->getCols() ; j++)
                             {
-                                types::SinglePoly* pSPOut = pPolyOut->get(iCurRow + i, iCurCol + j);
-
-                                pSPOut->setRank(0);
+                                pPolyOut->get(iCurRow + i, iCurCol + j).setRank(0);
                                 double pDbl = pD->get(i, j);
-                                pSPOut->setCoef(&pDbl, NULL);
+                                pPolyOut->get(iCurRow + i, iCurCol + j).setCoef(&pDbl, NULL);
                             }
                         }
                     }
@@ -1772,7 +1768,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                 {
                     double dblR = pDest->get(idx);
                     double dblI = pDest->getImg(idx);
-                    pP->get(idx)->setCoef(&dblR, &dblI);
+                    pP->get(idx).setCoef(&dblR, &dblI);
                 }
             }
             else
@@ -1780,7 +1776,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                 for (int idx = 0 ; idx < pP->getSize() ; idx++)
                 {
                     double dblR = pDest->get(idx);
-                    pP->get(idx)->setCoef(&dblR, NULL);
+                    pP->get(idx).setCoef(&dblR, NULL);
                 }
             }
 
@@ -1804,23 +1800,23 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
             {
                 double* pR = pIns->get();
                 double* pI = pIns->getImg();
-                SinglePoly** pSP = pP->get();
+                SinglePoly* pSP = pP->get();
                 for (int idx = 0 ; idx < pP->getSize() ; idx++)
                 {
                     double dblR = pR[idx];
                     double dblI = pI[idx];
-                    pSP[idx]->setComplex(true);
-                    pSP[idx]->setCoef(&dblR, &dblI);
+                    pSP[idx].setComplex(true);
+                    pSP[idx].setCoef(&dblR, &dblI);
                 }
             }
             else
             {
                 double* pdblR = pIns->get();
-                SinglePoly** pSP = pP->get();
+                SinglePoly* pSP = pP->get();
                 for (int idx = 0 ; idx < pP->getSize() ; idx++)
                 {
                     double dblR = pdblR[idx];
-                    pSP[idx]->setCoef(&dblR, NULL);
+                    pSP[idx].setCoef(&dblR, NULL);
                 }
             }
 
