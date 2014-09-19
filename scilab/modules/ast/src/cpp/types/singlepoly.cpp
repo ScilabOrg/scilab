@@ -47,6 +47,28 @@ SinglePoly::SinglePoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank)
     create(piDims, 2, _pdblCoefR, _pdblCoefI);
 }
 
+SinglePoly::SinglePoly(const SinglePoly& rightSide)
+{
+    m_iSize = rightSide.m_iSize;
+    m_iRows = rightSide.m_iRows;
+    m_iCols = rightSide.m_iCols;
+    m_iDims = rightSide.m_iDims;
+
+    memcpy(m_piDims, rightSide.m_piDims, m_iDims * sizeof(int));
+
+    if (rightSide.m_pRealData)
+    {
+        m_pRealData = new double[m_iSize];
+        memcpy(m_pRealData, rightSide.m_pRealData, m_iDims * sizeof(double));
+    }
+
+    if (rightSide.m_pImgData)
+    {
+        m_pImgData = new double[m_iSize];
+        memcpy(m_pImgData, rightSide.m_pImgData, m_iDims * sizeof(double));
+    }
+}
+
 SinglePoly::~SinglePoly()
 {
     deleteAll();
@@ -54,14 +76,18 @@ SinglePoly::~SinglePoly()
 
 void SinglePoly::deleteAll()
 {
-    delete[] m_pRealData;
-    m_pRealData = NULL;
+    if (m_pRealData)
+    {
+        delete[] m_pRealData;
+        m_pRealData = NULL;
+    }
+
     deleteImg();
 }
 
 void SinglePoly::deleteImg()
 {
-    if (m_pImgData != NULL)
+    if (m_pImgData)
     {
         delete[] m_pImgData;
         m_pImgData = NULL;
@@ -431,14 +457,14 @@ bool SinglePoly::operator==(const InternalType& it)
         return false;
     }
 
-    SinglePoly* pP = const_cast<InternalType &>(it).getAs<SinglePoly>();
+    SinglePoly pP = const_cast<InternalType &>(it).getAs<SinglePoly>();
 
-    if (getRank() != pP->getRank())
+    if (getRank() != pP.getRank())
     {
         return false;
     }
 
-    double *pdblReal = pP->get();
+    double *pdblReal = pP.get();
     for (int i = 0 ; i < getSize() ; i++)
     {
         if (m_pRealData[i] != pdblReal[i])
@@ -448,9 +474,9 @@ bool SinglePoly::operator==(const InternalType& it)
     }
 
     //both complex
-    if (isComplex() && pP->isComplex())
+    if (isComplex() && pP.isComplex())
     {
-        double *pdblImg = pP->getImg();
+        double *pdblImg = pP.getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
             if (m_pImgData[i] != pdblImg[i])
@@ -460,9 +486,9 @@ bool SinglePoly::operator==(const InternalType& it)
         }
     }
     //pdbl complex check all img values == 0
-    else if (pP->isComplex())
+    else if (pP.isComplex())
     {
-        double *pdblImg = pP->getImg();
+        double *pdblImg = pP.getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
             if (pdblImg[i])
@@ -509,13 +535,13 @@ SinglePoly* SinglePoly::clone()
     return pPoly;
 }
 
-SinglePoly* SinglePoly::conjugate()
+SinglePoly SinglePoly::conjugate()
 {
     if (isComplex())
     {
         double *pR = NULL;
         double *pI = NULL;
-        SinglePoly * pPoly = new SinglePoly(&pR, &pI, getRank());
+        SinglePoly pPoly(&pR, &pI, getRank());
 
         Transposition::conjugate(m_iSize, m_pRealData, pR, m_pImgData, pI);
 
@@ -523,7 +549,7 @@ SinglePoly* SinglePoly::conjugate()
     }
     else
     {
-        return clone();
+        return *this;
     }
 }
 
@@ -612,7 +638,58 @@ SinglePoly* operator*(const SinglePoly& _lhs, const SinglePoly& _rhs)
 
     return pOut;
 }
+
+SinglePoly& SinglePoly::operator=(const SinglePoly& rightSide)
+{
+    if (this != &rightSide)
+    {
+        deleteAll();
+
+        m_iSize = rightSide.m_iSize;
+        m_iRows = rightSide.m_iRows;
+        m_iCols = rightSide.m_iCols;
+        m_iDims = rightSide.m_iDims;
+        memcpy(m_piDims, rightSide.m_piDims, m_iDims * sizeof(int));
+
+        if (rightSide.m_pRealData)
+        {
+            m_pRealData = new double[m_iSize];
+            memcpy(m_pRealData, rightSide.m_pRealData, m_iDims * sizeof(double));
+        }
+
+        if (rightSide.m_pImgData)
+        {
+            m_pImgData = new double[m_iSize];
+            memcpy(m_pImgData, rightSide.m_pImgData, m_iDims * sizeof(double));
+        }
+    }
+
+    return *this;
 }
 
+SinglePoly& SinglePoly::operator=(SinglePoly && rightSide)
+{
+    if (this != &rightSide)
+    {
+        m_iSize = rightSide.m_iSize;
+        m_iRows = rightSide.m_iRows;
+        m_iCols = rightSide.m_iCols;
+        m_iDims = rightSide.m_iDims;
 
+        // m_piDims is a static allocation
+        // swap this two array to avoid copy data
+        // rightSide will be delete after assignation
+        std::swap(m_piDims, rightSide.m_piDims);
 
+        // move data from right to left side without copy
+        m_pRealData = std::move(rightSide.m_pRealData);
+        rightSide.m_pRealData = NULL;
+
+        m_pImgData = std::move(rightSide.m_pImgData);
+        rightSide.m_pImgData = NULL;
+    }
+
+    return *this;
+}
+
+}

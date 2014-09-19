@@ -157,6 +157,10 @@ protected :
 
     virtual T               getNullValue() = 0;
     virtual ArrayOf<T>*     createEmpty(int _iDims, int* _piDims, bool _bComplex = false) = 0;
+    // copyValue should be used only with pointed type like ArrayOf<MyClass*>
+    // with non pointer type, a call of copyValue can perform a copy of _data and
+    // a copy of output. (another copy will perform by operator= when assignation)
+    // this method is virtal because of used by ArrayOf
     virtual T               copyValue(T _data) = 0;
     virtual T*              allocData(int _iSize) = 0;
     virtual void            deleteAll() = 0;
@@ -564,7 +568,7 @@ public :
             // reset imaginary part
             if (m_pImgData != NULL && bComplex == false)
             {
-                setImg(iPos, 0);
+                setImg(iPos, getNullValue());
             }
 
             //update index
@@ -1432,7 +1436,7 @@ public :
                         m_pRealData[iNewIdx] = m_pRealData[i];
                         if (iNewIdx != i)
                         {
-                            m_pRealData[i] = 0;
+                            m_pRealData[i] = getNullValue();
                         }
                     }
                     delete[] piIndexes;

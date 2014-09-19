@@ -270,11 +270,9 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
         if (pL->isScalar())
         {
             pResult = new Bool(pR->getDims(), pR->getDimsArray());
-
-            SinglePoly* pSL = pL->get(0);
             for (int i = 0 ; i < pR->getSize() ; i++)
             {
-                pResult->getAs<Bool>()->set(i, *pSL == *pR->get(i));
+                pResult->getAs<Bool>()->set(i, pL->get(0) == pR->get(i));
             }
 
             clearAlloc(bAllocL, pIL, bAllocR, pIR);
@@ -284,11 +282,9 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
         if (pR->isScalar())
         {
             pResult = new Bool(pL->getDims(), pL->getDimsArray());
-
-            SinglePoly* pSR = pR->get(0);
             for (int i = 0 ; i < pL->getSize() ; i++)
             {
-                pResult->getAs<Bool>()->set(i, *pSR == *pL->get(i));
+                pResult->getAs<Bool>()->set(i, pR->get(0) == pL->get(i));
             }
 
             clearAlloc(bAllocL, pIL, bAllocR, pIR);
@@ -317,7 +313,7 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
 
         for (int i = 0 ; i < pL->getSize() ; i++)
         {
-            pResult->getAs<Bool>()->set(i, *pL->get(i) == *pR->get(i));
+            pResult->getAs<Bool>()->set(i, pL->get(i) == pR->get(i));
         }
 
         clearAlloc(bAllocL, pIL, bAllocR, pIR);
@@ -347,11 +343,11 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
             else
             {
                 // check values
-                double dR       = pR->get(0)->get(0);
+                double dR       = pR->get(0).get(0);
                 double* pdblL   = pL->get();
                 if (pL->isComplex() && pR->isComplex())
                 {
-                    double dRImg    = pR->get(0)->getImg(0);
+                    double dRImg    = pR->get(0).getImg(0);
                     double* pdblLImg = pL->getImg();
                     for (int i = 0 ; i < iSize; i++)
                     {
@@ -368,7 +364,7 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
                 }
                 else if (pR->isComplex())
                 {
-                    double dRImg    = pR->get(0)->getImg(0);
+                    double dRImg    = pR->get(0).getImg(0);
                     for (int i = 0 ; i < iSize; i++)
                     {
                         piResult[i] = (int)((dR == pdblL[i]) && (dRImg == 0));
@@ -404,8 +400,8 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
                 {
                     if (piRank[i] == 0)
                     {
-                        piResult[i] = (int)(dL == pR->get(i)->get(0) &&
-                                            dLImg == pR->get(i)->getImg(0));
+                        piResult[i] = (int)(dL == pR->get(i).get(0) &&
+                                            dLImg == pR->get(i).getImg(0));
                     }
                     else
                     {
@@ -420,7 +416,7 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
                 {
                     if (piRank[i] == 0)
                     {
-                        piResult[i] = (int)(dL == pR->get(i)->get(0) &&
+                        piResult[i] = (int)(dL == pR->get(i).get(0) &&
                                             dLImg == 0);
                     }
                     else
@@ -435,8 +431,8 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
                 {
                     if (piRank[i] == 0)
                     {
-                        piResult[i] = (int)(dL == pR->get(i)->get(0) &&
-                                            pR->get(i)->getImg(0) == 0);
+                        piResult[i] = (int)(dL == pR->get(i).get(0) &&
+                                            pR->get(i).getImg(0) == 0);
                     }
                     else
                     {
@@ -448,7 +444,7 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
             {
                 for (int i = 0 ; i < iSize; i++)
                 {
-                    piResult[i] = piRank[i] ? 0 : (int)(dL == pR->get(i)->get(0));
+                    piResult[i] = piRank[i] ? 0 : (int)(dL == pR->get(i).get(0));
                 }
             }
 
@@ -490,8 +486,8 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
             {
                 if (piRank[i] == 0)
                 {
-                    piResult[i] = (int)(pdblL[i] == pR->get(i)->get(0) &&
-                                        pdblLImg[i] == pR->get(i)->getImg(0));
+                    piResult[i] = (int)(pdblL[i] == pR->get(i).get(0) &&
+                                        pdblLImg[i] == pR->get(i).getImg(0));
                 }
                 else
                 {
@@ -506,7 +502,7 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
             {
                 if (piRank[i] == 0)
                 {
-                    piResult[i] = (int)(pdblL[i] == pR->get(i)->get(0) &&
+                    piResult[i] = (int)(pdblL[i] == pR->get(i).get(0) &&
                                         pdblLImg[i] == 0);
                 }
                 else
@@ -521,8 +517,8 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
             {
                 if (piRank[i] == 0)
                 {
-                    piResult[i] = (int)(pdblL[i] == pR->get(i)->get(0) &&
-                                        pR->get(i)->getImg(0) == 0);
+                    piResult[i] = (int)(pdblL[i] == pR->get(i).get(0) &&
+                                        pR->get(i).getImg(0) == 0);
                 }
                 else
                 {
@@ -534,7 +530,7 @@ InternalType *GenericComparisonEqual(InternalType *_pLeftOperand, InternalType *
         {
             for (int i = 0 ; i < iSize; i++)
             {
-                piResult[i] = piRank[i] ? 0 : (int)(pdblL[i] == pR->get(i)->get(0));
+                piResult[i] = piRank[i] ? 0 : (int)(pdblL[i] == pR->get(i).get(0));
             }
         }
 

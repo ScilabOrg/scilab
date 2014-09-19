@@ -33,7 +33,7 @@
 
 namespace types
 {
-class EXTERN_AST Polynom : public ArrayOf<SinglePoly*>
+class EXTERN_AST Polynom : public ArrayOf<SinglePoly>
 {
 public :
     Polynom();
@@ -44,7 +44,6 @@ public :
 
     virtual                 ~Polynom();
 
-    // FIXME : Should not return NULL
     InternalType*           clone();
 
     bool                    setCoef(int _iRows, int _iCols, Double *_pdblCoef);
@@ -85,9 +84,9 @@ public :
     bool                    insertCoef(int _iRank, Double* _pCoef);
     void                    setZeros();
 
-    bool                    set(int _iPos, SinglePoly* _pS);
-    bool                    set(int _iRows, int _iCols, SinglePoly* _pS);
-    bool                    set(SinglePoly** _pS);
+    bool                    set(int _iPos, SinglePoly& _pS);
+    bool                    set(int _iRows, int _iCols, SinglePoly& _pS);
+    bool                    set(SinglePoly* _pS);
 
     std::wstring            getRowString(int* _piDims, int _iDims, bool _bComplex);
     std::wstring            getColString(int* _piDims, int _iDims, bool _bComplex);
@@ -115,6 +114,7 @@ public :
 
     bool transpose(InternalType *& out);
     bool adjoint(InternalType *& out);
+    bool neg(InternalType *& out);
 
 protected :
     std::wstring            m_szVarName;
@@ -123,17 +123,17 @@ protected :
 private :
     virtual bool            subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iDims);
 
-    virtual SinglePoly*     getNullValue();
+    virtual SinglePoly      getNullValue();
     virtual Polynom*        createEmpty(int _iDims, int* _piDims, bool _bComplex = false);
-    virtual SinglePoly*     copyValue(SinglePoly* _pData);
+    virtual SinglePoly      copyValue(SinglePoly _pData);
     virtual void            deleteAll();
     virtual void            deleteImg();
-    virtual SinglePoly**    allocData(int _iSize);
+    virtual SinglePoly*     allocData(int _iSize);
 
 };
 }
 
 #ifdef _MSC_VER
-template class types::ArrayOf<types::SinglePoly*>; //Polynom
+template class types::ArrayOf<types::SinglePoly>; //Polynom
 #endif
 #endif /* !__POLYNOM_HXX__ */
