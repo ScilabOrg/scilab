@@ -83,8 +83,8 @@ types::Function::ReturnValue sci_bezout(types::typed_list &in, int _iRetCount, t
             }
 
             wstrName    = pPolyIn->getVariableName();
-            pdblIn[i]   = pPolyIn->get(0)->get();
-            piDegree[i] = pPolyIn->get(0)->getRank();
+            pdblIn[i]   = pPolyIn->get(0).get();
+            piDegree[i] = pPolyIn->get(0).getRank();
         }
     }
 
@@ -101,7 +101,7 @@ types::Function::ReturnValue sci_bezout(types::typed_list &in, int _iRetCount, t
     // create result
     int np = ipb[1] - ipb[0];
     double* pdblSP = NULL;
-    types::SinglePoly* pSP = new types::SinglePoly(&pdblSP, np - 1);
+    types::SinglePoly pSP(&pdblSP, np - 1);
     memcpy(pdblSP, pdblOut + ipb[0] - 1, np * sizeof(double));
 
     if (wstrName == L"")
@@ -111,18 +111,16 @@ types::Function::ReturnValue sci_bezout(types::typed_list &in, int _iRetCount, t
 
     types::Polynom* pPolyGCD = new types::Polynom(wstrName, 1, 1);
     pPolyGCD->set(0, pSP);
-    delete pSP;
 
     types::Polynom* pPolyU = new types::Polynom(wstrName, 2, 2);
     for (int i = 0; i < 4; i++)
     {
-        int ii     = i + 1;
+        int ii = i + 1;
         int iRankU = ipb[ii + 1] - ipb[ii];
         double* pdblU = NULL;
-        types::SinglePoly* pSPU = new types::SinglePoly(&pdblU, iRankU - 1);
+        types::SinglePoly pSPU(&pdblU, iRankU - 1);
         memcpy(pdblU, pdblOut + ipb[ii] - 1, iRankU * sizeof(double));
         pPolyU->set(i, pSPU);
-        delete pSPU;
     }
 
     delete pdblOut;

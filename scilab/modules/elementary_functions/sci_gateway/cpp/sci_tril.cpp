@@ -75,7 +75,7 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
     // perform operation
     if (in[0]->isDouble()) // double
     {
-        types::Double* pDblOut = in[0]->getAs<types::Double>()->clone()->getAs<types::Double>();
+        types::Double* pDblOut = in[0]->clone()->getAs<types::Double>();
         int iRows = pDblOut->getRows();
         int iCols = pDblOut->getCols();
         double* pdblOutReal = pDblOut->get();
@@ -103,35 +103,19 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
     }
     else if (in[0]->isPoly()) // polynom
     {
-        types::Polynom* pPolyOut = in[0]->getAs<types::Polynom>()->clone()->getAs<types::Polynom>();
+        types::Polynom* pPolyIn = in[0]->getAs<types::Polynom>();
+        types::Polynom* pPolyOut = new types::Polynom(pPolyIn->getVariableName(), pPolyIn->getDims(), pPolyIn->getDimsArray());
+        pPolyOut->setComplex(pPolyIn->isComplex());
         int iRows = pPolyOut->getRows();
         int iCols = pPolyOut->getCols();
 
-        if (pPolyOut->isComplex())
+        for (int i = 0; i < iCols; i++)
         {
-            for (int i = 0; i < iCols; i++)
+            int iSize = min(max(i - iOffset, 0), iRows);
+            for (int j = iSize; j < iRows; j++)
             {
-                int iSize = min(max(i - iOffset, 0), iRows);
-                for (int j = 0; j < iSize; j++)
-                {
-                    types::SinglePoly* pSP = new types::SinglePoly();
-                    pSP->setComplex(true);
-                    pPolyOut->set(i * iRows + j, pSP);
-                    delete pSP;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < iCols; i++)
-            {
-                int iSize = min(max(i - iOffset, 0), iRows);
-                for (int j = 0; j < iSize; j++)
-                {
-                    types::SinglePoly* pSP = new types::SinglePoly();
-                    pPolyOut->set(i * iRows + j, pSP);
-                    delete pSP;
-                }
+                int iPos = i * iRows + j;
+                pPolyOut->set(iPos, pPolyIn->get(iPos));
             }
         }
 

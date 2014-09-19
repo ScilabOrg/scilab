@@ -138,9 +138,9 @@ types::Function::ReturnValue sci_coeff(types::typed_list &in, int _iRetCount, ty
                 memset(pdblOutI, 0x00, pDblOut->getSize() * sizeof(double));
                 for (int i = 0; i < iPolySize; i++)
                 {
-                    double* pdblcoeffR = pPolyIn->get(i)->get();
-                    double* pdblcoeffI = pPolyIn->get(i)->getImg();
-                    for (int j = 0; j < pPolyIn->get(i)->getSize(); j++)
+                    double* pdblcoeffR = pPolyIn->get(i).get();
+                    double* pdblcoeffI = pPolyIn->get(i).getImg();
+                    for (int j = 0; j < pPolyIn->get(i).getSize(); j++)
                     {
                         pdblOut[j * iPolySize + i] = pdblcoeffR[j];
                         pdblOutI[j * iPolySize + i] = pdblcoeffI[j];
@@ -151,8 +151,8 @@ types::Function::ReturnValue sci_coeff(types::typed_list &in, int _iRetCount, ty
             {
                 for (int i = 0; i < iPolySize; i++)
                 {
-                    double* pdblcoeff = pPolyIn->get(i)->get();
-                    for (int j = 0; j < pPolyIn->get(i)->getSize(); j++)
+                    double* pdblcoeff = pPolyIn->get(i).get();
+                    for (int j = 0; j < pPolyIn->get(i).getSize(); j++)
                     {
                         pdblOut[j * iPolySize + i] = pdblcoeff[j];
                     }
@@ -170,12 +170,12 @@ types::Function::ReturnValue sci_coeff(types::typed_list &in, int _iRetCount, ty
                 memset(pdblOutI, 0x00, pDblOut->getSize() * sizeof(double));
                 for (int i = 0; i < iPolySize; i++)
                 {
-                    double* pdblcoeffR = pPolyIn->get(i)->get();
-                    double* pdblcoeffI = pPolyIn->get(i)->getImg();
+                    double* pdblcoeffR = pPolyIn->get(i).get();
+                    double* pdblcoeffI = pPolyIn->get(i).getImg();
                     for (int j = 0; j < iVSize; j++)
                     {
                         int iCoeffPos = (int)pdblV[j];
-                        if (iCoeffPos > pPolyIn->get(i)->getRank())
+                        if (iCoeffPos > pPolyIn->get(i).getRank())
                         {
                             pdblOut[j * iPolySize + i] = 0;
                             pdblOutI[j * iPolySize + i] = 0;
@@ -192,11 +192,11 @@ types::Function::ReturnValue sci_coeff(types::typed_list &in, int _iRetCount, ty
             {
                 for (int i = 0; i < iPolySize; i++)
                 {
-                    double* pdblcoeff = pPolyIn->get(i)->get();
+                    double* pdblcoeff = pPolyIn->get(i).get();
                     for (int j = 0; j < iVSize; j++)
                     {
                         int iCoeffPos = (int)pdblV[j];
-                        if (iCoeffPos > pPolyIn->get(i)->getRank())
+                        if (iCoeffPos > pPolyIn->get(i).getRank())
                         {
                             pdblOut[j * iPolySize + i] = 0;
                         }

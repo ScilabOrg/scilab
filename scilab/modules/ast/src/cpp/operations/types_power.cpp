@@ -350,13 +350,11 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
 
         for (int i = 0 ; i < _pDouble->getSize() ; i++)
         {
-            SinglePoly* pCoeffOut = pOut->get(i);
-
             int iCurrentRank    = 0;
             int iLoop           = (int)_pDouble->get(i);
 
             //initialize Out to 1
-            pCoeffOut->set(0, 1);
+            pOut->get(i).set(0, 1);
             //get a copy of p
             Polynom* pP = _pPoly->clone()->getAs<Polynom>();
             pP->setComplex(_pPoly->isComplex());
@@ -368,11 +366,11 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
                     int iRank = pP->getMaxRank();
                     if (bComplex1)
                     {
-                        C2F(wpmul1)(pCoeffOut->get(), pCoeffOut->getImg(), &iCurrentRank, pP->getCoef()->get(), pP->getCoef()->getImg(), &iRank, pCoeffOut->get(), pCoeffOut->getImg());
+                        C2F(wpmul1)(pOut->get(i).get(), pOut->get(i).getImg(), &iCurrentRank, pP->getCoef()->get(), pP->getCoef()->getImg(), &iRank, pOut->get(i).get(), pOut->get(i).getImg());
                     }
                     else
                     {
-                        C2F(dpmul1)(pCoeffOut->get(), &iCurrentRank, pP->getCoef()->get(), &iRank, pCoeffOut->get());
+                        C2F(dpmul1)(pOut->get(i).get(), &iCurrentRank, pP->getCoef()->get(), &iRank, pOut->get(i).get());
                     }
                     iCurrentRank += iRank;
                 }
@@ -445,25 +443,25 @@ int DotPowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut
     InternalType* pITTempOut    = NULL;
     Polynom* pPolyTemp          = new Polynom(_pPoly->getVariableName(), 1, 1);
     Polynom* pPolyOut           = new Polynom(_pPoly->getVariableName(), _pPoly->getDims(), _pPoly->getDimsArray());
-    SinglePoly** pSPOut         = pPolyOut->get();
-    SinglePoly** pSPTemp        = pPolyTemp->get();
-    SinglePoly** pSP            = _pPoly->get();
+    SinglePoly* pSPOut          = pPolyOut->get();
+    SinglePoly* pSPTemp         = pPolyTemp->get();
+    SinglePoly* pSP             = _pPoly->get();
 
     int iResult = 0;
     for (int i = 0; i < iSize; i++)
     {
         // set singlePoly of _pPoly in pPolyTemp without copy
-        pSPTemp[0] = pSP[i];
+        std::swap(pSPTemp[0], pSP[i]);
         iResult = PowerPolyByDouble(pPolyTemp, pDblPower[i], &pITTempOut);
+        std::swap(pSPTemp[0], pSP[i]);
         if (iResult)
         {
             break;
         }
 
         // get singlePoly of pITTempOut and set it in pPolyOut without copy
-        SinglePoly** pSPTempOut = pITTempOut->getAs<Polynom>()->get();
-        pSPOut[i] = pSPTempOut[0];
-        pSPTempOut[0] = NULL;
+        SinglePoly* pSPTempOut = pITTempOut->getAs<Polynom>()->get();
+        std::swap(pSPOut[i], pSPTempOut[0]);
         delete pITTempOut;
     }
 
@@ -476,8 +474,6 @@ int DotPowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut
     delete pDblPower;
 
     // delete temporary polynom
-    // do not delete the last SinglePoly of _pPoly setted without copy in pPolyTemp
-    pSPTemp[0] = NULL;
     delete pPolyTemp;
 
     switch (iResult)

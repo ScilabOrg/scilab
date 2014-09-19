@@ -147,7 +147,7 @@ types::Function::ReturnValue freqRational(types::typed_list &in, int _iRetCount,
             pdblDen = new double*[pPolyDen->getSize()];
             for (int i = 0; i < pPolyDen->getSize(); i++)
             {
-                pdblDen[i] = pPolyDen->get(i)->get();
+                pdblDen[i] = pPolyDen->get(i).get();
             }
         }
         else
@@ -197,7 +197,7 @@ types::Function::ReturnValue freqRational(types::typed_list &in, int _iRetCount,
             pdblNum = new double*[pPolyNum->getSize()];
             for (int i = 0; i < pPolyNum->getSize(); i++)
             {
-                pdblNum[i] = pPolyNum->get(i)->get();
+                pdblNum[i] = pPolyNum->get(i).get();
             }
         }
         else

@@ -101,7 +101,7 @@ types::Function::ReturnValue sci_poly(types::typed_list &in, int _iRetCount, typ
         {
             int iRank = 0;
             types::Polynom* pPolyOut = new types::Polynom(wstrName, 1, 1, &iRank);
-            double* pdblCoef = pPolyOut->get(0)->get();
+            double* pdblCoef = pPolyOut->get(0).get();
             *pdblCoef = 1;
             out.push_back(pPolyOut);
             return types::Function::OK;
@@ -127,12 +127,12 @@ types::Function::ReturnValue sci_poly(types::typed_list &in, int _iRetCount, typ
         int iSize = pDblIn->getSize();
         int iRanks = iSize;
         pPolyOut = new types::Polynom(wstrName, 2, piDimsArray, &iRanks);
-        double* pdblCoefReal = pPolyOut->get(0)->get();
+        double* pdblCoefReal = pPolyOut->get(0).get();
         if (pDblIn->isComplex())
         {
             pPolyOut->setComplex(true);
             double* pdblInImg   = pDblIn->getImg();
-            double* pdblCoefImg = pPolyOut->get(0)->getImg();
+            double* pdblCoefImg = pPolyOut->get(0).getImg();
             C2F(wprxc)(&iRanks, pdblInReal, pdblInImg, pdblCoefReal, pdblCoefImg);
 
             // if imaginary part is null, set polynom real

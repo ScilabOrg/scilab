@@ -98,13 +98,13 @@ types::Function::ReturnValue sci_imag(types::typed_list &in, int _iRetCount, typ
             pPolyOut = new types::Polynom(pPolyIn->getVariableName(), pPolyIn->getDims(), pPolyIn->getDimsArray());
             for (int i = 0; i < pPolyIn->getSize(); i++)
             {
-                int rank = pPolyIn->get(i)->getRank();
+                int rank = pPolyIn->get(i).getRank();
                 int iNewRank = rank;
 
                 // Reduce the rank of output polynom if the last ranks are null
                 for (int j = rank ; j > 0 ; j--)
                 {
-                    if (pPolyIn->get(i)->getImg()[j] == 0.0)
+                    if (pPolyIn->get(i).getImg()[j] == 0.0)
                     {
                         iNewRank--;
                     }
@@ -115,16 +115,14 @@ types::Function::ReturnValue sci_imag(types::typed_list &in, int _iRetCount, typ
                 }
 
                 double* dataReal = NULL;
-                types::SinglePoly* pSP = new types::SinglePoly(&dataReal, iNewRank);
+                types::SinglePoly pSP(&dataReal, iNewRank);
 
                 for (int j = 0; j < iNewRank + 1; j++)
                 {
-                    dataReal[j] = pPolyIn->get(i)->getImg()[j];
+                    dataReal[j] = pPolyIn->get(i).getImg()[j];
                 }
 
                 pPolyOut->set(i, pSP);
-                delete pSP;
-                pSP = NULL;
             }
         }
         else

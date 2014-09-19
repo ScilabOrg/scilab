@@ -1375,13 +1375,13 @@ InternalType* dotmul_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polynom* _pR)
     {
         Polynom* pOut = new Polynom(_pL->getVariableName(), iDimsR, piDimsR);
         int iSize = pOut->getSize();
-        SinglePoly** pSPOut = pOut->get();
-        SinglePoly* pSPL = _pL->get(0);
-        SinglePoly** pSPR = _pR->get();
+        SinglePoly* pSPOut = pOut->get();
+        SinglePoly* pSPL = _pL->get();
+        SinglePoly* pSPR = _pR->get();
 
         for (int i = 0 ; i < iSize ; ++i)
         {
-            pSPOut[i] = *pSPL **pSPR[i];
+            pSPOut[i] = pSPL[0] * pSPR[i];
         }
 
         return pOut;
@@ -1391,13 +1391,13 @@ InternalType* dotmul_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polynom* _pR)
     {
         Polynom* pOut = new Polynom(_pL->getVariableName(), iDimsL, piDimsL);
         int iSize = pOut->getSize();
-        SinglePoly** pSPOut = pOut->get();
-        SinglePoly** pSPL = _pL->get();
-        SinglePoly* pSPR = _pR->get(0);
+        SinglePoly* pSPOut = pOut->get();
+        SinglePoly* pSPL = _pL->get();
+        SinglePoly* pSPR = _pR->get();
 
         for (int i = 0 ; i < iSize ; ++i)
         {
-            pSPOut[i] = *pSPL[i] **pSPR;
+            pSPOut[i] = pSPL[i] * pSPR[0];
         }
 
         return pOut;
@@ -1419,13 +1419,13 @@ InternalType* dotmul_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polynom* _pR)
 
     Polynom* pOut = new Polynom(_pL->getVariableName(), iDimsL, piDimsR);
     int iSize = pOut->getSize();
-    SinglePoly** pSPOut = pOut->get();
-    SinglePoly** pSPL = _pL->get();
-    SinglePoly** pSPR = _pR->get();
+    SinglePoly* pSPOut = pOut->get();
+    SinglePoly* pSPL = _pL->get();
+    SinglePoly* pSPR = _pR->get();
 
     for (int i = 0 ; i < iSize ; ++i)
     {
-        pSPOut[i] = *pSPL[i] **pSPR[i];
+        pSPOut[i] = pSPL[i] * pSPR[i];
     }
 
     return pOut;
@@ -1448,28 +1448,31 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
 
     if (_pL->isScalar())
     {
-        pOut = (Polynom*)_pR->clone();
-        SinglePoly** pSPR = _pR->get();
-        SinglePoly** pSP = pOut->get();
-        int iSize = pOut->getSize();
+        int iSize = _pR->getSize();
+        int* piRanks = new int[iSize];
+        _pR->getRank(piRanks);
+        pOut = new Polynom(_pR->getVariableName(), _pR->getDims(), _pR->getDimsArray(), piRanks);
+        delete[] piRanks;
+        pOut->setComplex(isComplexOut);
+        SinglePoly* pSPR = _pR->get();
+        SinglePoly* pSP  = pOut->get();
 
         double dblR = _pL->get(0);
         if (isComplexL)
         {
             double dblI = _pL->getImg(0);
-            pOut->setComplex(true);
             if (isComplexR)
             {
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotmul(pSPR[i]->get(), pSPR[i]->getImg(), (size_t)pSPR[i]->getSize(), dblR, dblI, pSP[i]->get(), pSP[i]->getImg());
+                    dotmul(pSPR[i].get(), pSPR[i].getImg(), (size_t)pSPR[i].getSize(), dblR, dblI, pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
             {
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotmul(pSP[i]->get(), (size_t)pSP[i]->getSize(), dblR, dblI, pSP[i]->get(), pSP[i]->getImg());
+                    dotmul(pSPR[i].get(), (size_t)pSPR[i].getSize(), dblR, dblI, pSP[i].get(), pSP[i].getImg());
                 }
             }
         }
@@ -1479,7 +1482,7 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
             {
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotmul(pSP[i]->get(), pSP[i]->getImg(), (size_t)pSP[i]->getSize(), dblR, pSP[i]->get(), pSP[i]->getImg());
+                    dotmul(pSPR[i].get(), pSPR[i].getImg(), (size_t)pSPR[i].getSize(), dblR, pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
@@ -1487,7 +1490,7 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
                 //r .* P
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotmul(pSP[i]->get(), (size_t)pSP[i]->getSize(), dblR, pSP[i]->get());
+                    dotmul(pSPR[i].get(), (size_t)pSPR[i].getSize(), dblR, pSP[i].get());
                 }
             }
         }
@@ -1497,53 +1500,37 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
 
     if (_pR->isScalar())
     {
-        pOut = new Polynom(_pR->getVariableName(), _pL->getDims(), _pL->getDimsArray());
-        SinglePoly* pSPL = _pR->get(0);
-        SinglePoly** pSP = pOut->get();
-        int iSize = pOut->getSize();
+        int iSize = _pL->getSize();
+        int* piRanks = new int[iSize];
+        int iRank = _pR->get(0).getRank();
+        for (int i = 0; i < iSize; i++)
+        {
+            piRanks[i] = iRank;
+        }
+
+        pOut = new Polynom(_pR->getVariableName(), _pL->getDims(), _pL->getDimsArray(), piRanks);
+        delete[] piRanks;
+        pOut->setComplex(isComplexOut);
+        SinglePoly* pSP = pOut->get();
+
         double* pdblLR = _pL->get();
-        double* pdblLI = NULL;
+        double* pdblRR = _pR->get(0).get();
         if (isComplexL)
         {
-            pdblLI  = _pL->getImg();
-        }
-
-        double* pdblRR = pSPL->get();
-        double* pdblRI = NULL;
-        if (isComplexR)
-        {
-            pdblRI = pSPL->getImg();
-        }
-
-        if (isComplexL)
-        {
+            double* pdblLI  = _pL->getImg();
             if (isComplexR)
             {
+                double* pdblRI = _pR->get(0).getImg();
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    double* pdblOutI = pSPOut->getImg();
-
-                    dotmul(pdblRR, pdblRI, (size_t)iSPSize, pdblLR[i], pdblLI[i], pdblOutR, pdblOutI);
-                    pSP[i] = pSPOut;
+                    dotmul(pdblRR, pdblRI, (size_t)(iRank + 1), pdblLR[i], pdblLI[i], pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
             {
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    double* pdblOutI = pSPOut->getImg();
-                    dotmul(pdblRR, (size_t)iSPSize, pdblLR[i], pdblLI[i], pdblOutR, pdblOutI);
-                    pSP[i] = pSPOut;
+                    dotmul(pdblRR, (size_t)(iRank + 1), pdblLR[i], pdblLI[i], pSP[i].get(), pSP[i].getImg());
                 }
             }
         }
@@ -1551,35 +1538,22 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
         {
             if (isComplexR)
             {
+                double* pdblRI = _pR->get(0).getImg();
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    double* pdblOutI = pSPOut->getImg();
-                    dotmul(pdblRR, pdblRI, (size_t)iSPSize, pdblLR[i], pdblOutR, pdblOutI);
-                    pSP[i] = pSPOut;
+                    dotmul(pdblRR, pdblRI, (size_t)(iRank + 1), pdblLR[i], pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
             {
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    dotmul(pdblRR, (size_t)iSPSize, pdblLR[i], pdblOutR);
-                    pSP[i] = pSPOut;
+                    dotmul(pdblRR, (size_t)(iRank + 1), pdblLR[i], pSP[i].get());
                 }
             }
         }
 
         return pOut;
-
     }
 
     //check dims
@@ -1602,34 +1576,31 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
         }
     }
 
-
-    pOut = (Polynom*)_pR->clone();
+    int iSize = _pR->getSize();
+    int* piRanks = new int[iSize];
+    _pR->getRank(piRanks);
+    pOut = new Polynom(_pR->getVariableName(), _pR->getDims(), _pR->getDimsArray(), piRanks);
+    delete[] piRanks;
     pOut->setComplex(isComplexOut);
-    SinglePoly** pSPR = _pR->get();
-    SinglePoly** pSP = pOut->get();
-    int iSize = pOut->getSize();
+    SinglePoly* pSPR = _pR->get();
+    SinglePoly* pSP  = pOut->get();
 
     double* pdblR = _pL->get();
-    double* pdblI = NULL;
     if (isComplexL)
     {
-        pdblI = _pL->getImg();
-    }
-
-    if (isComplexL)
-    {
+        double* pdblI = _pL->getImg();
         if (isComplexR)
         {
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotmul(pSPR[i]->get(), pSPR[i]->getImg(), (size_t)pSPR[i]->getSize(), pdblR[i], pdblI[i], pSP[i]->get(), pSP[i]->getImg());
+                dotmul(pSPR[i].get(), pSPR[i].getImg(), (size_t)pSPR[i].getSize(), pdblR[i], pdblI[i], pSP[i].get(), pSP[i].getImg());
             }
         }
         else
         {
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotmul(pSPR[i]->get(), (size_t)pSPR[i]->getSize(), pdblR[i], pdblI[i], pSP[i]->get(), pSP[i]->getImg());
+                dotmul(pSPR[i].get(), (size_t)pSPR[i].getSize(), pdblR[i], pdblI[i], pSP[i].get(), pSP[i].getImg());
             }
         }
     }
@@ -1639,7 +1610,7 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
         {
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotmul(pSPR[i]->get(), pSPR[i]->getImg(), (size_t)pSPR[i]->getSize(), pdblR[i], pSP[i]->get(), pSP[i]->getImg());
+                dotmul(pSPR[i].get(), pSPR[i].getImg(), (size_t)pSPR[i].getSize(), pdblR[i], pSP[i].get(), pSP[i].getImg());
             }
         }
         else
@@ -1647,7 +1618,7 @@ InternalType* dotmul_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
             //r .* P
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotmul(pSPR[i]->get(), (size_t)pSPR[i]->getSize(), pdblR[i], pSP[i]->get());
+                dotmul(pSPR[i].get(), (size_t)pSPR[i].getSize(), pdblR[i], pSP[i].get());
             }
         }
     }

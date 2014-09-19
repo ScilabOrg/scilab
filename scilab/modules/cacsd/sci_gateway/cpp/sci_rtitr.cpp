@@ -146,7 +146,7 @@ types::Function::ReturnValue sci_rtitr(types::typed_list &in, int _iRetCount, ty
         pdblNum     = new double*[iSizeNum];
         for (int i = 0; i < iSizeNum; i++)
         {
-            pdblNum[i] = pPolyNum->get(i)->get();
+            pdblNum[i] = pPolyNum->get(i).get();
         }
     }
     else
@@ -206,7 +206,7 @@ types::Function::ReturnValue sci_rtitr(types::typed_list &in, int _iRetCount, ty
         pdblDen     = new double*[iSizeDen];
         for (int i = 0; i < iSizeDen; i++)
         {
-            pdblDen[i] = pPolyDen->get(i)->get();
+            pdblDen[i] = pPolyDen->get(i).get();
         }
     }
     else

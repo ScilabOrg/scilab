@@ -47,6 +47,28 @@ SinglePoly::SinglePoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank)
     create(piDims, 2, _pdblCoefR, _pdblCoefI);
 }
 
+SinglePoly::SinglePoly(const SinglePoly& rightSide)
+{
+    m_iSize = rightSide.m_iSize;
+    m_iRows = rightSide.m_iRows;
+    m_iCols = rightSide.m_iCols;
+    m_iDims = rightSide.m_iDims;
+
+    memcpy(m_piDims, rightSide.m_piDims, m_iDims * sizeof(int));
+
+    if (rightSide.m_pRealData)
+    {
+        m_pRealData = new double[m_iSize];
+        memcpy(m_pRealData, rightSide.m_pRealData, m_iDims * sizeof(double));
+    }
+
+    if (rightSide.m_pImgData)
+    {
+        m_pImgData = new double[m_iSize];
+        memcpy(m_pImgData, rightSide.m_pImgData, m_iDims * sizeof(double));
+    }
+}
+
 SinglePoly::~SinglePoly()
 {
     deleteAll();
@@ -54,14 +76,18 @@ SinglePoly::~SinglePoly()
 
 void SinglePoly::deleteAll()
 {
-    delete[] m_pRealData;
-    m_pRealData = NULL;
+    if (m_pRealData)
+    {
+        delete[] m_pRealData;
+        m_pRealData = NULL;
+    }
+
     deleteImg();
 }
 
 void SinglePoly::deleteImg()
 {
-    if (m_pImgData != NULL)
+    if (m_pImgData)
     {
         delete[] m_pImgData;
         m_pImgData = NULL;
@@ -424,68 +450,6 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
     return;
 }
 
-bool SinglePoly::operator==(const InternalType& it)
-{
-    if (const_cast<InternalType &>(it).isSinglePoly() == false)
-    {
-        return false;
-    }
-
-    SinglePoly* pP = const_cast<InternalType &>(it).getAs<SinglePoly>();
-
-    if (getRank() != pP->getRank())
-    {
-        return false;
-    }
-
-    double *pdblReal = pP->get();
-    for (int i = 0 ; i < getSize() ; i++)
-    {
-        if (m_pRealData[i] != pdblReal[i])
-        {
-            return false;
-        }
-    }
-
-    //both complex
-    if (isComplex() && pP->isComplex())
-    {
-        double *pdblImg = pP->getImg();
-        for (int i = 0 ; i < m_iSize ; i++)
-        {
-            if (m_pImgData[i] != pdblImg[i])
-            {
-                return false;
-            }
-        }
-    }
-    //pdbl complex check all img values == 0
-    else if (pP->isComplex())
-    {
-        double *pdblImg = pP->getImg();
-        for (int i = 0 ; i < m_iSize ; i++)
-        {
-            if (pdblImg[i])
-            {
-                return false;
-            }
-        }
-    }
-    //complex check all img values == 0
-    else if (isComplex())
-    {
-        for (int i = 0 ; i < m_iSize ; i++)
-        {
-            if (m_pImgData[i])
-            {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
 bool SinglePoly::operator!=(const InternalType& it)
 {
     return !(*this == it);
@@ -509,13 +473,13 @@ SinglePoly* SinglePoly::clone()
     return pPoly;
 }
 
-SinglePoly* SinglePoly::conjugate()
+SinglePoly SinglePoly::conjugate()
 {
     if (isComplex())
     {
         double *pR = NULL;
         double *pI = NULL;
-        SinglePoly * pPoly = new SinglePoly(&pR, &pI, getRank());
+        SinglePoly pPoly(&pR, &pI, getRank());
 
         Transposition::conjugate(m_iSize, m_pRealData, pR, m_pImgData, pI);
 
@@ -523,15 +487,14 @@ SinglePoly* SinglePoly::conjugate()
     }
     else
     {
-        return clone();
+        return *this;
     }
 }
 
-SinglePoly* operator*(const SinglePoly& _lhs, const SinglePoly& _rhs)
+SinglePoly& operator*(const SinglePoly& _lhs, const SinglePoly& _rhs)
 {
     SinglePoly& lhs = const_cast<SinglePoly &>(_lhs);
     SinglePoly& rhs = const_cast<SinglePoly &>(_rhs);
-    SinglePoly* pOut = NULL;
 
     bool isComplexL = lhs.isComplex();
     bool isComplexR = rhs.isComplex();
@@ -548,17 +511,12 @@ SinglePoly* operator*(const SinglePoly& _lhs, const SinglePoly& _rhs)
     double* pdblRR = rhs.get();
     double* pdblRI = rhs.getImg();
 
-    if (isComplexOut)
-    {
-        pOut = new SinglePoly(&pdblOutR, &pdblOutI, iRankOut);
-        memset(pdblOutR, 0x00, sizeof(double) * (iRankOut + 1));
-        memset(pdblOutI, 0x00, sizeof(double) * (iRankOut + 1));
-    }
-    else
-    {
-        pOut = new SinglePoly(&pdblOutR, iRankOut);
-        memset(pdblOutR, 0x00, sizeof(double) * (iRankOut + 1));
-    }
+    SinglePoly pOut(&pdblOutR, iRankOut);
+    memset(pdblOutR, 0x00, sizeof(double) * (iRankOut + 1));
+
+    // setComplex will initialize pdblOutI to zero
+    pOut.setComplex(isComplexOut);
+    pdblOutI = pOut.getImg();
 
     if (isComplexL)
     {
@@ -612,7 +570,163 @@ SinglePoly* operator*(const SinglePoly& _lhs, const SinglePoly& _rhs)
 
     return pOut;
 }
+
+SinglePoly& SinglePoly::operator=(const SinglePoly& rightSide)
+{
+    if (this != &rightSide)
+    {
+        deleteAll();
+
+        m_iSize = rightSide.m_iSize;
+        m_iRows = rightSide.m_iRows;
+        m_iCols = rightSide.m_iCols;
+        m_iDims = rightSide.m_iDims;
+        memcpy(m_piDims, rightSide.m_piDims, m_iDims * sizeof(int));
+
+        if (rightSide.m_pRealData)
+        {
+            m_pRealData = new double[m_iSize];
+            memcpy(m_pRealData, rightSide.m_pRealData, m_iDims * sizeof(double));
+        }
+
+        if (rightSide.m_pImgData)
+        {
+            m_pImgData = new double[m_iSize];
+            memcpy(m_pImgData, rightSide.m_pImgData, m_iDims * sizeof(double));
+        }
+    }
+
+    return *this;
+}
+
+SinglePoly& SinglePoly::operator=(SinglePoly && rightSide)
+{
+    if (this != &rightSide)
+    {
+        deleteAll();
+
+        m_iSize = rightSide.m_iSize;
+        m_iRows = rightSide.m_iRows;
+        m_iCols = rightSide.m_iCols;
+        m_iDims = rightSide.m_iDims;
+
+        // m_piDims is a static allocation
+        // swap this two array to avoid copy data
+        // rightSide will be delete after assignation
+        std::swap(m_piDims, rightSide.m_piDims);
+
+        // move data from right to left side without copy
+        m_pRealData = std::move(rightSide.m_pRealData);
+        rightSide.m_pRealData = NULL;
+
+        m_pImgData = std::move(rightSide.m_pImgData);
+        rightSide.m_pImgData = NULL;
+    }
+
+    return *this;
 }
 
 
+bool operator==(const SinglePoly& _lhs, const InternalType& it)
+{
+    if (const_cast<InternalType &>(it).isSinglePoly() == false)
+    {
+        return false;
+    }
 
+    SinglePoly& lhs = const_cast<SinglePoly &>(_lhs);
+    SinglePoly& rhs = const_cast<SinglePoly &>((SinglePoly&)it);
+
+    if (lhs.getRank() != rhs.getRank())
+    {
+        return false;
+    }
+
+    double *pdblRealRhs = rhs.get();
+    double *pdblRealLhs = lhs.get();
+    for (int i = 0 ; i < lhs.getSize() ; i++)
+    {
+        if (pdblRealLhs[i] != pdblRealRhs[i])
+        {
+            return false;
+        }
+    }
+
+    //both complex
+    if (lhs.isComplex() && rhs.isComplex())
+    {
+        double *pdblImgRhs = rhs.getImg();
+        double *pdblImgLhs = lhs.getImg();
+        for (int i = 0 ; i < lhs.getSize(); i++)
+        {
+            if (pdblImgLhs[i] != pdblImgRhs[i])
+            {
+                return false;
+            }
+        }
+    }
+    //pdbl complex check all img values == 0
+    else if (rhs.isComplex())
+    {
+        double *pdblImg = rhs.getImg();
+        for (int i = 0 ; i < lhs.getSize(); i++)
+        {
+            if (pdblImg[i])
+            {
+                return false;
+            }
+        }
+    }
+    //complex check all img values == 0
+    else if (rhs.isComplex())
+    {
+        double *pdblImg = lhs.getImg();
+        for (int i = 0 ; i < lhs.getSize(); i++)
+        {
+            if (pdblImg[i])
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool operator==(const SinglePoly& _lhs, const double _rhs)
+{
+    SinglePoly& lhs = const_cast<SinglePoly &>(_lhs);
+    if (lhs.getRank() > 0)
+    {
+        return false;
+    }
+
+    if (lhs.get(0) == _rhs)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool operator==(const double _lhs, const SinglePoly& _rhs)
+{
+    return _rhs == _lhs;
+}
+
+bool operator!=(const SinglePoly& _lhs, const double _rhs)
+{
+    return !(_lhs == _rhs);
+}
+
+bool operator!=(const double _lhs, const SinglePoly& _rhs)
+{
+    return !(_rhs == _lhs);
+}
+
+bool operator!(const SinglePoly& _lhs)
+{
+    return _lhs == 0;
+}
+
+}

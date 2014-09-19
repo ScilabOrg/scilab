@@ -45,12 +45,12 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(Double, Int64, M_M, Double, Int64, Int64);
     scilab_fill_dotdiv(Double, UInt64, M_M, Double, UInt64, UInt64);
     scilab_fill_dotdiv(Double, Bool, M_M, Double, Bool, Double);
-    scilab_fill_dotdiv(Double, Polynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Double, Polynom, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(Double, Sparse, M_M, Double, Sparse, Sparse);
 
     //Matrix ./ Matrix Complex
     scilab_fill_dotdiv(Double, DoubleComplex, M_MC, Double, Double, Double);
-    scilab_fill_dotdiv(Double, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Double, PolynomComplex, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(Double, SparseComplex, M_M, Double, Sparse, Sparse);
 
     //Matrix ./ Scalar
@@ -64,11 +64,11 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(Double, ScalarInt64, M_S, Double, Int64, Int64);
     scilab_fill_dotdiv(Double, ScalarUInt64, M_S, Double, UInt64, UInt64);
     scilab_fill_dotdiv(Double, ScalarBool, M_S, Double, Bool, Double);
-    scilab_fill_dotdiv(Double, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Double, ScalarPolynom, M_M, Double, Polynom, Polynom);
 
     //Matrix ./ Scalar Complex
     scilab_fill_dotdiv(Double, ScalarDoubleComplex, M_SC, Double, Double, Double);
-    scilab_fill_dotdiv(Double, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Double, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
     //Matrix ./ Empty
     scilab_fill_dotdiv(Double, Empty, M_E, Double, Double, Double);
 
@@ -79,10 +79,10 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(DoubleComplex, ScalarDouble, MC_S, Double, Double, Double);
     scilab_fill_dotdiv(DoubleComplex, ScalarDoubleComplex, MC_SC, Double, Double, Double);
     scilab_fill_dotdiv(DoubleComplex, Empty, M_E, Double, Double, Double);
-    scilab_fill_dotdiv(DoubleComplex, Polynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(DoubleComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(DoubleComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(DoubleComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(DoubleComplex, Polynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(DoubleComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(DoubleComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(DoubleComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(DoubleComplex, Sparse, M_M, Double, Sparse, Sparse);
     scilab_fill_dotdiv(DoubleComplex, SparseComplex, M_M, Double, Sparse, Sparse);
 
@@ -97,12 +97,12 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(ScalarDouble, Int64, S_M, Double, Int64, Int64);
     scilab_fill_dotdiv(ScalarDouble, UInt64, S_M, Double, UInt64, UInt64);
     scilab_fill_dotdiv(ScalarDouble, Bool, S_M, Double, Bool, Double);
-    scilab_fill_dotdiv(ScalarDouble, Polynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDouble, Polynom, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(ScalarDouble, Sparse, M_M, Double, Sparse, Sparse);
 
     //Scalar ./ Matrix Complex
     scilab_fill_dotdiv(ScalarDouble, DoubleComplex, S_MC, Double, Double, Double);
-    scilab_fill_dotdiv(ScalarDouble, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDouble, PolynomComplex, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(ScalarDouble, SparseComplex, M_M, Double, Sparse, Sparse);
 
     //Scalar ./ Scalar
@@ -116,30 +116,30 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(ScalarDouble, ScalarInt64, S_S, Double, Int64, Int64);
     scilab_fill_dotdiv(ScalarDouble, ScalarUInt64, S_S, Double, UInt64, UInt64);
     scilab_fill_dotdiv(ScalarDouble, ScalarBool, S_S, Double, Bool, Double);
-    scilab_fill_dotdiv(ScalarDouble, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDouble, ScalarPolynom, M_M, Double, Polynom, Polynom);
 
     //Scalar ./ Scalar Complex
     scilab_fill_dotdiv(ScalarDouble, ScalarDoubleComplex, S_SC, Double, Double, Double);
-    scilab_fill_dotdiv(ScalarDouble, PolynomComplex, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarDouble, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDouble, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDouble, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
 
     //Scalar ./ Empty
     scilab_fill_dotdiv(ScalarDouble, Empty, M_E, Double, Double, Double);
 
     //Scalar Complex ./ Matrix
     scilab_fill_dotdiv(ScalarDoubleComplex, Double, SC_M, Double, Double, Double);
-    scilab_fill_dotdiv(ScalarDoubleComplex, Polynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDoubleComplex, Polynom, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(ScalarDoubleComplex, Sparse, M_M, Double, Sparse, Sparse);
     //Scalar Complex ./ Matrix Complex
     scilab_fill_dotdiv(ScalarDoubleComplex, DoubleComplex, SC_MC, Double, Double, Double);
-    scilab_fill_dotdiv(ScalarDoubleComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDoubleComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
     scilab_fill_dotdiv(ScalarDoubleComplex, SparseComplex, M_M, Double, Sparse, Sparse);
     //Scalar Complex ./ Scalar
     scilab_fill_dotdiv(ScalarDoubleComplex, ScalarDouble, SC_S, Double, Double, Double);
-    scilab_fill_dotdiv(ScalarDoubleComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDoubleComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
     //Scalar Complex ./ Scalar Complex
     scilab_fill_dotdiv(ScalarDoubleComplex, ScalarDoubleComplex, SC_SC, Double, Double, Double);
-    scilab_fill_dotdiv(ScalarDoubleComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarDoubleComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
     //Scalar Complex ./ Empty
     scilab_fill_dotdiv(ScalarDoubleComplex, Empty, M_E, Double, Double, Double);
 
@@ -660,10 +660,10 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(Identity, IdentityComplex, I_IC, Double, Double, Double);
     scilab_fill_dotdiv(Identity, Empty, M_E, Double, Double, Double);
 
-    scilab_fill_dotdiv(Identity, Polynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(Identity, PolynomComplex, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(Identity, ScalarPolynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(Identity, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Identity, Polynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Identity, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Identity, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(Identity, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
     //scilab_fill_dotdiv(Identity, Sparse, M_M, Double, Sparse, Sparse);
     //scilab_fill_dotdiv(Identity, SparseComplex, M_M, Double, Sparse, Sparse);
 
@@ -675,26 +675,26 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(IdentityComplex, IdentityComplex, IC_IC, Double, Double, Double);
     scilab_fill_dotdiv(IdentityComplex, Empty, M_E, Double, Double, Double);
 
-    scilab_fill_dotdiv(IdentityComplex, Polynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(IdentityComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(IdentityComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_dotdiv(IdentityComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(IdentityComplex, Polynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(IdentityComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(IdentityComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    //scilab_fill_dotdiv(IdentityComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
     //scilab_fill_dotdiv(IdentityComplex, Sparse, M_M, Double, Sparse, Sparse);
     //scilab_fill_dotdiv(IdentityComplex, SparseComplex, M_M, Double, Sparse, Sparse);
 
     //Polynom
 
     //poly ./ poly
-    scilab_fill_dotdiv(Polynom, Polynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(Polynom, PolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(PolynomComplex, Polynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(PolynomComplex, PolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(Polynom, Polynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(Polynom, PolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(PolynomComplex, Polynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(PolynomComplex, PolynomComplex, M_M, Polynom, Polynom, Polynom);
 
     //poly ./ scalar poly
-    scilab_fill_dotdiv(Polynom, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(Polynom, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(PolynomComplex, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(PolynomComplex, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(Polynom, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(Polynom, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(PolynomComplex, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(PolynomComplex, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
 
     //poly ./ double
     scilab_fill_dotdiv(Polynom, Double, M_M, Polynom, Double, Polynom);
@@ -719,16 +719,16 @@ void fillDotDivFunction()
     scilab_fill_dotdiv(PolynomComplex, IdentityComplex, M_M, Polynom, Double, Polynom);
 
     //scalar poly ./ poly
-    scilab_fill_dotdiv(ScalarPolynom, Polynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarPolynom, PolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarPolynomComplex, Polynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarPolynomComplex, PolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynom, Polynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynom, PolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynomComplex, Polynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynomComplex, PolynomComplex, M_M, Polynom, Polynom, Polynom);
 
     //scalar poly ./ scalar poly
-    scilab_fill_dotdiv(ScalarPolynom, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarPolynom, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarPolynomComplex, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_dotdiv(ScalarPolynomComplex, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynom, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynom, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynomComplex, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
+    //scilab_fill_dotdiv(ScalarPolynomComplex, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
 
     //scalar poly ./ double
     scilab_fill_dotdiv(ScalarPolynom, Double, M_M, Polynom, Double, Polynom);
@@ -1557,44 +1557,41 @@ InternalType* dotdiv_M_M<Sparse, Double, Sparse>(Sparse* _pL, Double* _pR)
 
 //Polynom
 template<>
-InternalType* dotdiv_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polynom* _pR)
-{
-    return NULL;
-}
-
-template<>
 InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
 {
     Polynom* pOut = NULL;
 
-    bool isComplexL = _pR->isComplex();
-    bool isComplexR = _pL->isComplex();
+    bool isComplexR = _pR->isComplex();
+    bool isComplexL = _pL->isComplex();
     bool isComplexOut = isComplexL || isComplexR;
 
     if (_pR->isScalar())
     {
-        pOut = (Polynom*)_pL->clone();
-        SinglePoly** pSPR = _pL->get();
-        SinglePoly** pSP = pOut->get();
-        int iSize = pOut->getSize();
+        int iSize = _pL->getSize();
+        int* piRanks = new int[iSize];
+        _pL->getRank(piRanks);
+        pOut = new Polynom(_pL->getVariableName(), _pL->getDims(), _pL->getDimsArray(), piRanks);
+        delete[] piRanks;
+        pOut->setComplex(isComplexOut);
+        SinglePoly* pSPL = _pL->get();
+        SinglePoly* pSP  = pOut->get();
 
         double dblR = _pR->get(0);
         if (isComplexL)
         {
-            double dblI = _pR->getImg(0);
-            pOut->setComplex(true);
             if (isComplexR)
             {
+                double dblI = _pR->getImg(0);
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotdiv(pSPR[i]->get(), pSPR[i]->getImg(), (size_t)pSPR[i]->getSize(), dblR, dblI, pSP[i]->get(), pSP[i]->getImg());
+                    dotdiv(pSPL[i].get(), pSPL[i].getImg(), (size_t)pSPL[i].getSize(), dblR, dblI, pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
             {
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotdiv(pSP[i]->get(), (size_t)pSP[i]->getSize(), dblR, dblI, pSP[i]->get(), pSP[i]->getImg());
+                    dotdiv(pSPL[i].get(), pSPL[i].getImg(), (size_t)pSPL[i].getSize(), dblR, pSP[i].get(), pSP[i].getImg());
                 }
             }
         }
@@ -1602,9 +1599,10 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
         {
             if (isComplexR)
             {
+                double dblI = _pR->getImg(0);
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotdiv(pSP[i]->get(), pSP[i]->getImg(), (size_t)pSP[i]->getSize(), dblR, pSP[i]->get(), pSP[i]->getImg());
+                    dotdiv(pSPL[i].get(), (size_t)pSPL[i].getSize(), dblR, dblI, pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
@@ -1612,7 +1610,7 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
                 //r ./ P
                 for (int i = 0 ; i < iSize ; i++)
                 {
-                    dotdiv(pSP[i]->get(), (size_t)pSP[i]->getSize(), dblR, pSP[i]->get());
+                    dotdiv(pSPL[i].get(), (size_t)pSPL[i].getSize(), dblR, pSP[i].get());
                 }
             }
         }
@@ -1622,53 +1620,37 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
 
     if (_pL->isScalar())
     {
-        pOut = new Polynom(_pL->getVariableName(), _pR->getDims(), _pR->getDimsArray());
-        SinglePoly* pSPL = _pL->get(0);
-        SinglePoly** pSP = pOut->get();
-        int iSize = pOut->getSize();
-        double* pdblLR = _pR->get();
-        double* pdblLI = NULL;
-        if (isComplexL)
+        int iSize = _pR->getSize();
+        int* piRanks = new int[iSize];
+        int iRank = _pL->get(0).getRank();
+        for (int i = 0; i < iSize; i++)
         {
-            pdblLI  = _pR->getImg();
+            piRanks[i] = iRank;
         }
 
-        double* pdblRR = pSPL->get();
-        double* pdblRI = NULL;
-        if (isComplexR)
-        {
-            pdblRI = pSPL->getImg();
-        }
+        pOut = new Polynom(_pL->getVariableName(), _pR->getDims(), _pR->getDimsArray(), piRanks);
+        delete[] piRanks;
+        pOut->setComplex(isComplexOut);
+        SinglePoly* pSP = pOut->get();
 
+        double* pdblRR = _pR->get();
+        double* pdblLR = _pL->get(0).get();
         if (isComplexL)
         {
+            double* pdblLI = _pL->get(0).getImg();
             if (isComplexR)
             {
+                double* pdblRI  = _pR->getImg();
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    double* pdblOutI = pSPOut->getImg();
-
-                    dotdiv(pdblRR, pdblRI, (size_t)iSPSize, pdblLR[i], pdblLI[i], pdblOutR, pdblOutI);
-                    pSP[i] = pSPOut;
+                    dotdiv(pdblLR, pdblLI, (size_t)(iRank + 1), pdblRR[i], pdblRI[i], pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
             {
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    double* pdblOutI = pSPOut->getImg();
-                    dotdiv(pdblRR, (size_t)iSPSize, pdblLR[i], pdblLI[i], pdblOutR, pdblOutI);
-                    pSP[i] = pSPOut;
+                    dotdiv(pdblLR, pdblLI, (size_t)(iRank + 1), pdblRR[i], pSP[i].get(), pSP[i].getImg());
                 }
             }
         }
@@ -1676,48 +1658,35 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
         {
             if (isComplexR)
             {
+                double* pdblRI  = _pR->getImg();
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    double* pdblOutI = pSPOut->getImg();
-                    dotdiv(pdblRR, pdblRI, (size_t)iSPSize, pdblLR[i], pdblOutR, pdblOutI);
-                    pSP[i] = pSPOut;
+                    dotdiv(pdblLR, (size_t)(iRank + 1), pdblRR[i], pdblRI[i], pSP[i].get(), pSP[i].getImg());
                 }
             }
             else
             {
                 for (int i = 0 ; i < iSize ; ++i)
                 {
-                    SinglePoly* pSPOut = (SinglePoly*)pSPL->clone();
-                    int iSPSize = pSPOut->getSize();
-                    pSPOut->setComplex(isComplexOut);
-
-                    double* pdblOutR = pSPOut->get();
-                    dotdiv(pdblRR, (size_t)iSPSize, pdblLR[i], pdblOutR);
-                    pSP[i] = pSPOut;
+                    dotdiv(pdblLR, (size_t)(iRank + 1), pdblRR[i], pSP[i].get());
                 }
             }
         }
 
         return pOut;
-
     }
 
     //check dims
-    int iDimsL = _pR->getDims();
-    int iDimsR = _pL->getDims();
+    int iDimsR = _pR->getDims();
+    int iDimsL = _pL->getDims();
 
     if (iDimsL != iDimsR)
     {
         throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
     }
 
-    int* piDimsL = _pR->getDimsArray();
-    int* piDimsR = _pL->getDimsArray();
+    int* piDimsR = _pR->getDimsArray();
+    int* piDimsL = _pL->getDimsArray();
 
     for (int i = 0 ; i < iDimsL ; ++i)
     {
@@ -1727,34 +1696,31 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
         }
     }
 
-
-    pOut = (Polynom*)_pL->clone();
+    int iSize = _pL->getSize();
+    int* piRanks = new int[iSize];
+    _pL->getRank(piRanks);
+    pOut = new Polynom(_pL->getVariableName(), _pL->getDims(), _pL->getDimsArray(), piRanks);
+    delete[] piRanks;
     pOut->setComplex(isComplexOut);
-    SinglePoly** pSPR = _pL->get();
-    SinglePoly** pSP = pOut->get();
-    int iSize = pOut->getSize();
+    SinglePoly* pSPL = _pL->get();
+    SinglePoly* pSP  = pOut->get();
 
     double* pdblR = _pR->get();
-    double* pdblI = NULL;
-    if (isComplexL)
-    {
-        pdblI = _pR->getImg();
-    }
-
     if (isComplexL)
     {
         if (isComplexR)
         {
+            double* pdblI = _pR->getImg();
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotdiv(pSPR[i]->get(), pSPR[i]->getImg(), (size_t)pSPR[i]->getSize(), pdblR[i], pdblI[i], pSP[i]->get(), pSP[i]->getImg());
+                dotdiv(pSPL[i].get(), pSPL[i].getImg(), (size_t)pSPL[i].getSize(), pdblR[i], pdblI[i], pSP[i].get(), pSP[i].getImg());
             }
         }
         else
         {
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotdiv(pSPR[i]->get(), (size_t)pSPR[i]->getSize(), pdblR[i], pdblI[i], pSP[i]->get(), pSP[i]->getImg());
+                dotdiv(pSPL[i].get(), pSPL[i].getImg(), (size_t)pSPL[i].getSize(), pdblR[i], pSP[i].get(), pSP[i].getImg());
             }
         }
     }
@@ -1762,9 +1728,10 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
     {
         if (isComplexR)
         {
+            double* pdblI = _pR->getImg();
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotdiv(pSPR[i]->get(), pSPR[i]->getImg(), (size_t)pSPR[i]->getSize(), pdblR[i], pSP[i]->get(), pSP[i]->getImg());
+                dotdiv(pSPL[i].get(), (size_t)pSPL[i].getSize(), pdblR[i], pdblI[i], pSP[i].get(), pSP[i].getImg());
             }
         }
         else
@@ -1772,16 +1739,10 @@ InternalType* dotdiv_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
             //r ./ P
             for (int i = 0 ; i < iSize ; i++)
             {
-                dotdiv(pSPR[i]->get(), (size_t)pSPR[i]->getSize(), pdblR[i], pSP[i]->get());
+                dotdiv(pSPL[i].get(), (size_t)pSPL[i].getSize(), pdblR[i], pSP[i].get());
             }
         }
     }
 
     return pOut;
-}
-
-template<>
-InternalType* dotdiv_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
-{
-    return NULL;
 }

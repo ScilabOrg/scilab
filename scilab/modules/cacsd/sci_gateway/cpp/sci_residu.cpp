@@ -107,15 +107,15 @@ types::Function::ReturnValue sci_residu(types::typed_list &in, int _iRetCount, t
                     pdblInI[i] = new double*[iSize];
                     for (int j = 0; j < iSize; j++)
                     {
-                        pdblInR[i][j] = pPoly[i]->get(j)->get();
-                        pdblInI[i][j] = pPoly[i]->get(j)->getImg();
+                        pdblInR[i][j] = pPoly[i]->get(j).get();
+                        pdblInI[i][j] = pPoly[i]->get(j).getImg();
                     }
                 }
                 else
                 {
                     for (int j = 0; j < iSize; j++)
                     {
-                        pdblInR[i][j] = pPoly[i]->get(j)->get();
+                        pdblInR[i][j] = pPoly[i]->get(j).get();
                     }
                 }
             }

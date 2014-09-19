@@ -133,10 +133,10 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
 
                 for (int i = 0; i < iSize; i++)
                 {
-                    double* pdblNum = pNum->get(i)->get();
-                    double* pdblDen = pDen->get(i)->get();
-                    int iDegreeNum  = pNum->get(i)->getRank();
-                    int iDegreeDen  = pDen->get(i)->getRank();
+                    double* pdblNum = pNum->get(i).get();
+                    double* pdblDen = pDen->get(i).get();
+                    int iDegreeNum  = pNum->get(i).getRank();
+                    int iDegreeDen  = pDen->get(i).getRank();
 
                     double* pdblNumOut = NULL;
                     double* pdblDenOut = NULL;
@@ -160,8 +160,8 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
                         break;
                     }
 
-                    types::SinglePoly* pSPNum = new types::SinglePoly(&pdblNumOut, iRankNumOut - 1);
-                    types::SinglePoly* pSPDen = new types::SinglePoly(&pdblDenOut, iRankDenOut - 1);
+                    types::SinglePoly pSPNum(&pdblNumOut, iRankNumOut - 1);
+                    types::SinglePoly pSPDen(&pdblDenOut, iRankDenOut - 1);
 
                     memcpy(pdblNumOut, pdblNumTmp, iRankNumOut * sizeof(double));
                     memcpy(pdblDenOut, pdblDenTmp, iRankDenOut * sizeof(double));
@@ -171,8 +171,6 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
 
                     delete pdblNumTmp;
                     delete pdblDenTmp;
-                    delete pSPNum;
-                    delete pSPDen;
                 }
 
                 delete pdblWork;
@@ -200,9 +198,9 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
                 for (int i = 0; i < iSize; i++)
                 {
                     double dblNum   = pNum->get(i);
-                    double* pdblDen = pDen->get(i)->get();
+                    double* pdblDen = pDen->get(i).get();
                     int iDegreeNum  = 0;
-                    int iDegreeDen  = pDen->get(i)->getRank();
+                    int iDegreeDen  = pDen->get(i).getRank();
 
                     double* pdblNumOut = NULL;
                     double* pdblDenOut = NULL;
@@ -226,8 +224,8 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
                         break;
                     }
 
-                    types::SinglePoly* pSPNum = new types::SinglePoly(&pdblNumOut, iRankNumOut - 1);
-                    types::SinglePoly* pSPDen = new types::SinglePoly(&pdblDenOut, iRankDenOut - 1);
+                    types::SinglePoly pSPNum(&pdblNumOut, iRankNumOut - 1);
+                    types::SinglePoly pSPDen(&pdblDenOut, iRankDenOut - 1);
 
                     memcpy(pdblNumOut, pdblNumTmp, iRankNumOut * sizeof(double));
                     memcpy(pdblDenOut, pdblDenTmp, iRankDenOut * sizeof(double));
@@ -237,8 +235,6 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
 
                     delete pdblNumTmp;
                     delete pdblDenTmp;
-                    delete pSPNum;
-                    delete pSPDen;
                 }
 
                 delete pdblWork;
@@ -265,9 +261,9 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
 
                 for (int i = 0; i < iSize; i++)
                 {
-                    double* pdblNum = pNum->get(i)->get();
+                    double* pdblNum = pNum->get(i).get();
                     double dblDen   = pDen->get(i);
-                    int iDegreeNum  = pNum->get(i)->getRank();
+                    int iDegreeNum  = pNum->get(i).getRank();
                     int iDegreeDen  = 0;
 
                     double* pdblNumOut = NULL;
@@ -292,8 +288,8 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
                         break;
                     }
 
-                    types::SinglePoly* pSPNum = new types::SinglePoly(&pdblNumOut, iRankNumOut - 1);
-                    types::SinglePoly* pSPDen = new types::SinglePoly(&pdblDenOut, iRankDenOut - 1);
+                    types::SinglePoly pSPNum(&pdblNumOut, iRankNumOut - 1);
+                    types::SinglePoly pSPDen(&pdblDenOut, iRankDenOut - 1);
 
                     memcpy(pdblNumOut, pdblNumTmp, iRankNumOut * sizeof(double));
                     memcpy(pdblDenOut, pdblDenTmp, iRankDenOut * sizeof(double));
@@ -303,8 +299,6 @@ types::Function::ReturnValue sci_simp(types::typed_list &in, int _iRetCount, typ
 
                     delete pdblNumTmp;
                     delete pdblDenTmp;
-                    delete pSPNum;
-                    delete pSPDen;
                 }
 
                 delete pdblWork;

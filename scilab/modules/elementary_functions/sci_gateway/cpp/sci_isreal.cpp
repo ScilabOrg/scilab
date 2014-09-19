@@ -139,10 +139,10 @@ types::Function::ReturnValue sci_isreal(types::typed_list &in, int _iRetCount, t
 
         for (int i = 0; i < pPolyIn->getSize(); i++)
         {
-            int rank = pPolyIn->get(i)->getRank();
+            int rank = pPolyIn->get(i).getRank();
             for (int j = 0; j < rank + 1; j++)
             {
-                if (fabs(pPolyIn->get(i)->getImg()[j]) > dEps)
+                if (fabs(pPolyIn->get(i).getImg()[j]) > dEps)
                 {
                     out.push_back(new types::Bool(false));
                     return types::Function::OK;

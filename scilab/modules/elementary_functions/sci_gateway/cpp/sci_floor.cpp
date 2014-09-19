@@ -110,35 +110,31 @@ types::Function::ReturnValue sci_floor(types::typed_list &in, int _iRetCount, ty
         {
             for (int i = 0; i < pPolyIn->getSize(); i++)
             {
-                int rank = pPolyIn->get(i)->getRank();
-                types::SinglePoly* pSP = new types::SinglePoly(&dataReal, &dataImg, rank);
+                int rank = pPolyIn->get(i).getRank();
+                types::SinglePoly pSP(&dataReal, &dataImg, rank);
 
                 for (int j = 0; j < rank + 1; j++)
                 {
-                    dataReal[j] = dfloors(pPolyIn->get(i)->get()[j]);
-                    dataImg[j]  = dfloors(pPolyIn->get(i)->getImg()[j]);
+                    dataReal[j] = dfloors(pPolyIn->get(i).get()[j]);
+                    dataImg[j]  = dfloors(pPolyIn->get(i).getImg()[j]);
                 }
 
                 pPolyOut->set(i, pSP);
-                delete pSP;
-                pSP = NULL;
             }
         }
         else
         {
             for (int i = 0; i < pPolyIn->getSize(); i++)
             {
-                int rank = pPolyIn->get(i)->getRank();
-                types::SinglePoly* pSP = new types::SinglePoly(&dataReal, rank);
+                int rank = pPolyIn->get(i).getRank();
+                types::SinglePoly pSP(&dataReal, rank);
 
                 for (int j = 0; j < rank + 1; j++)
                 {
-                    dataReal[j] = dfloors(pPolyIn->get(i)->get()[j]);
+                    dataReal[j] = dfloors(pPolyIn->get(i).get()[j]);
                 }
 
                 pPolyOut->set(i, pSP);
-                delete pSP;
-                pSP = NULL;
             }
         }
 

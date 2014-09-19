@@ -114,34 +114,34 @@ int cumprod(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
     double* pdblLastReal    = NULL;
     double* pdblLastImg     = NULL;
 
-    bool bComplex   = pIn->isComplex();
-    types::SinglePoly* pSP = NULL;
+    bool bComplex = pIn->isComplex();
 
     if (iOrientation == 0) // all
     {
         // set first element
-        iSize = pIn->get(0)->getSize();
-        pdblReal = pIn->get(0)->get();
+        iSize = pIn->get(0).getSize();
+        pdblReal = pIn->get(0).get();
         if (bComplex)
         {
-            pSP = new types::SinglePoly(&pdRData, &pdIData, iSize - 1);
-            pdblImg = pIn->get(0)->getImg();
+            types::SinglePoly pSP(&pdRData, &pdIData, iSize - 1);
+            pdblImg = pIn->get(0).getImg();
             for (int j = 0; j < iSize; j++)
             {
                 pdRData[j] = pdblReal[j];
                 pdIData[j] = pdblImg[j];
             }
+            pOut->set(0, pSP);
         }
         else
         {
-            pSP = new types::SinglePoly(&pdRData, iSize - 1);
+            types::SinglePoly pSP(&pdRData, iSize - 1);
             for (int j = 0; j < iSize; j++)
             {
                 pdRData[j] = pdblReal[j];
             }
+            pOut->set(0, pSP);
         }
 
-        pOut->set(0, pSP);
         iLastSize = iSize;
         pdblLastReal = pdblReal;
         pdblLastImg = pdblImg;
@@ -151,14 +151,14 @@ int cumprod(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
         {
             for (int i = 1; i < pIn->getSize(); i++)
             {
-                pdblReal = pIn->get(i)->get();
-                pdblImg = pIn->get(i)->getImg();
-                iSize = pIn->get(i)->getSize();
+                pdblReal = pIn->get(i).get();
+                pdblImg = pIn->get(i).getImg();
+                iSize = pIn->get(i).getSize();
 
                 iOutRank = iLastSize - 1 + iSize - 1;
 
-                pSP = new types::SinglePoly(&pdRData, &pdIData, iOutRank);
-                pSP->setZeros();
+                types::SinglePoly pSP(&pdRData, &pdIData, iOutRank);
+                pSP.setZeros();
 
                 iMultiComplexPolyByComplexPoly( pdblReal, pdblImg, iSize,
                                                 pdblLastReal, pdblLastImg, iLastSize,
@@ -168,26 +168,24 @@ int cumprod(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
                 pdblLastReal = pdRData;
                 pdblLastImg = pdIData;
                 iLastSize = iOutRank + 1;
-                delete pSP;
             }
         }
         else
         {
             for (int i = 1; i < pIn->getSize(); i++)
             {
-                pdblReal = pIn->get(i)->get();
-                iSize = pIn->get(i)->getSize();
+                pdblReal = pIn->get(i).get();
+                iSize = pIn->get(i).getSize();
 
                 iOutRank = iLastSize - 1 + iSize - 1;
 
-                pSP = new types::SinglePoly(&pdRData, iOutRank);
-                pSP->setZeros();
+                types::SinglePoly pSP(&pdRData, iOutRank);
+                pSP.setZeros();
                 iMultiScilabPolynomByScilabPolynom(pdblReal, iSize, pdblLastReal, iLastSize, pdRData, iOutRank + 1);
 
                 pOut->set(i, pSP);
                 pdblLastReal = pdRData;
                 iLastSize = iOutRank + 1;
-                delete pSP;
             }
         }
     }
@@ -207,10 +205,10 @@ int cumprod(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
             {
                 for (int i = j; i < iIncrement + j; i++) // set the first values in out
                 {
-                    pdblReal = pIn->get(i)->get();
-                    pdblImg = pIn->get(i)->getImg();
-                    iSize = pIn->get(i)->getSize();
-                    pSP = new types::SinglePoly(&pdRData, &pdIData, iSize - 1);
+                    pdblReal = pIn->get(i).get();
+                    pdblImg = pIn->get(i).getImg();
+                    iSize = pIn->get(i).getSize();
+                    types::SinglePoly pSP(&pdRData, &pdIData, iSize - 1);
 
                     for (int j = 0; j < iSize; j++)
                     {
@@ -218,29 +216,27 @@ int cumprod(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
                         pdIData[j] = pdblImg[j];
                     }
                     pOut->set(i, pSP);
-                    delete pSP;
                 }
 
                 for (int k = 1; k < iSizeOfDimN; k++) // make the cumprod for the next values
                 {
                     for (int i = (iIncrement * k) + j; i < (iIncrement * (k + 1)) + j; i++)
                     {
-                        iLastSize = pOut->get(i - iIncrement)->getSize();
-                        pdblLastReal = pOut->get(i - iIncrement)->get();
-                        pdblLastImg = pOut->get(i - iIncrement)->getImg();
-                        iSize = pIn->get(i)->getSize();
-                        pdblReal = pIn->get(i)->get();
-                        pdblImg = pIn->get(i)->getImg();
+                        iLastSize = pOut->get(i - iIncrement).getSize();
+                        pdblLastReal = pOut->get(i - iIncrement).get();
+                        pdblLastImg = pOut->get(i - iIncrement).getImg();
+                        iSize = pIn->get(i).getSize();
+                        pdblReal = pIn->get(i).get();
+                        pdblImg = pIn->get(i).getImg();
 
                         iOutRank = iLastSize - 1 + iSize - 1;
-                        pSP = new types::SinglePoly(&pdRData, &pdIData, iOutRank);
+                        types::SinglePoly pSP(&pdRData, &pdIData, iOutRank);
 
                         iMultiComplexPolyByComplexPoly(pdblReal, pdblImg, iSize,
                                                        pdblLastReal, pdblLastImg, iLastSize,
                                                        pdRData, pdIData, iOutRank + 1);
 
                         pOut->set(i, pSP);
-                        delete pSP;
                     }
                 }
             }
@@ -251,34 +247,32 @@ int cumprod(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
             {
                 for (int i = j; i < iIncrement + j; i++) // set the first values in out
                 {
-                    pdblReal = pIn->get(i)->get();
-                    iSize = pIn->get(i)->getSize();
-                    pSP = new types::SinglePoly(&pdRData, iSize - 1);
+                    pdblReal = pIn->get(i).get();
+                    iSize = pIn->get(i).getSize();
+                    types::SinglePoly pSP(&pdRData, iSize - 1);
 
                     for (int j = 0; j < iSize; j++)
                     {
                         pdRData[j] = pdblReal[j];
                     }
                     pOut->set(i, pSP);
-                    delete pSP;
                 }
 
                 for (int k = 1; k < iSizeOfDimN; k++) // make the cumprod for the next values
                 {
                     for (int i = (iIncrement * k) + j; i < (iIncrement * (k + 1)) + j; i++)
                     {
-                        iLastSize = pOut->get(i - iIncrement)->getSize();
-                        pdblLastReal = pOut->get(i - iIncrement)->get();
-                        iSize = pIn->get(i)->getSize();
-                        pdblReal = pIn->get(i)->get();
+                        iLastSize = pOut->get(i - iIncrement).getSize();
+                        pdblLastReal = pOut->get(i - iIncrement).get();
+                        iSize = pIn->get(i).getSize();
+                        pdblReal = pIn->get(i).get();
 
                         iOutRank = iLastSize - 1 + iSize - 1;
-                        pSP = new types::SinglePoly(&pdRData, iOutRank);
+                        types::SinglePoly pSP(&pdRData, iOutRank);
 
                         iMultiScilabPolynomByScilabPolynom(pdblReal, iSize, pdblLastReal, iLastSize, pdRData, iOutRank + 1);
 
                         pOut->set(i, pSP);
-                        delete pSP;
                     }
                 }
             }

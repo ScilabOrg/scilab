@@ -115,12 +115,12 @@ types::Function::ReturnValue sci_roots(types::typed_list &in, int _iRetCount, ty
         }
 
         iSize      = pPolyIn->getMaxRank() + 1;
-        pdblInReal = pPolyIn->get(0)->get();
+        pdblInReal = pPolyIn->get(0).get();
 
         if (pPolyIn->isComplex())
         {
             bComplex = true;
-            pdblInImg = pPolyIn->get(0)->getImg();
+            pdblInImg = pPolyIn->get(0).getImg();
         }
     }
     else

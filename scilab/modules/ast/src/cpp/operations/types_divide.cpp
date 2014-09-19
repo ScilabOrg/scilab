@@ -267,16 +267,6 @@ int RDividePolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom** _pPolyOut)
     int iColResult = 0;
     int *piRank   = NULL;
 
-    /* if(bScalar1 && bScalar2)
-    {
-    iRowResult = 1;
-    iColResult = 1;
-
-    piRank = new int[1];
-    piRank[0] = _pPoly->get(0)->getRank();
-    }
-    else */
-
     if (bScalar2)
     {
         double dblDivR = _pDouble->get(0);
@@ -293,23 +283,21 @@ int RDividePolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom** _pPolyOut)
             bool bComplex1 = _pPoly->isComplex();
             bool bComplex2 = _pDouble->isComplex();
 
-            SinglePoly* pC = (*_pPolyOut)->get(i);
-
             if (bComplex1 == false && bComplex2 == false)
             {
-                iRightDivisionRealMatrixByRealMatrix(pC->get(), 1, &dblDivR, 0, pC->get(), 1, pC->getSize());
+                iRightDivisionRealMatrixByRealMatrix((*_pPolyOut)->get(i).get(), 1, &dblDivR, 0, (*_pPolyOut)->get(i).get(), 1, (*_pPolyOut)->get(i).getSize());
             }
             else if (bComplex1 == true && bComplex2 == false)
             {
-                iRightDivisionComplexMatrixByRealMatrix(pC->get(), pC->getImg(), 1, &dblDivR, 0, pC->get(), pC->getImg(), 1, pC->getSize());
+                iRightDivisionComplexMatrixByRealMatrix((*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), 1, &dblDivR, 0, (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), 1, (*_pPolyOut)->get(i).getSize());
             }
             else if (bComplex1 == false && bComplex2 == true)
             {
-                iRightDivisionRealMatrixByComplexMatrix(pC->get(), 1, &dblDivR, &dblDivI, 0, pC->get(), pC->getImg(), 1, pC->getSize());
+                iRightDivisionRealMatrixByComplexMatrix((*_pPolyOut)->get(i).get(), 1, &dblDivR, &dblDivI, 0, (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), 1, (*_pPolyOut)->get(i).getSize());
             }
             else if (bComplex1 == true && bComplex2 == true)
             {
-                iRightDivisionComplexMatrixByComplexMatrix(pC->get(), pC->getImg(), 1, &dblDivR, &dblDivI, 0, pC->get(), pC->getImg(), 1, pC->getSize());
+                iRightDivisionComplexMatrixByComplexMatrix((*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), 1, &dblDivR, &dblDivI, 0, (*_pPolyOut)->get(i).get(), (*_pPolyOut)->get(i).getImg(), 1, (*_pPolyOut)->get(i).getSize());
             }
         }
 
@@ -335,10 +323,9 @@ int RDividePolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom** _pPolyOut)
             pTemp->setComplex(true);
         }
 
-        SinglePoly *pdblData = _pPoly->get(0);
         for (int i = 0 ; i < iRowResult ; i++)
         {
-            pTemp->set(i, i, pdblData);
+            pTemp->set(i, i, _pPoly->get(0));
         }
     }
 
@@ -354,47 +341,45 @@ int RDividePolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom** _pPolyOut)
         //[p] * cst
         for (int i = 0 ; i < _pPoly->getSize() ; i++)
         {
-            SinglePoly *pPolyIn   = _pPoly->get(i);
-            double* pRealIn  = pPolyIn->get();
-            double* pImgIn  = pPolyIn->getImg();
+            double* pRealIn  = _pPoly->get(i).get();
+            double* pImgIn  = _pPoly->get(i).getImg();
 
-            SinglePoly *pPolyOut  = (*_pPolyOut)->get(i);
-            double* pRealOut = pPolyOut->get();
-            double* pImgOut  = pPolyOut->getImg();
+            double* pRealOut = (*_pPolyOut)->get(i).get();
+            double* pImgOut  = (*_pPolyOut)->get(i).getImg();
 
             if (bComplex1 == false && bComplex2 == false)
             {
                 iRightDivisionRealMatrixByRealMatrix(
                     pRealIn, 1,
                     _pDouble->getReal(), 0,
-                    pRealOut, 1, pPolyOut->getSize());
+                    pRealOut, 1, (*_pPolyOut)->get(i).getSize());
             }
             else if (bComplex1 == false && bComplex2 == true)
             {
                 iRightDivisionRealMatrixByComplexMatrix(
                     pRealIn, 1,
                     _pDouble->getReal(), _pDouble->getImg(), 0,
-                    pRealOut, pImgOut, 1, pPolyOut->getSize());
+                    pRealOut, pImgOut, 1, (*_pPolyOut)->get(i).getSize());
             }
             else if (bComplex1 == true && bComplex2 == false)
             {
                 iRightDivisionComplexMatrixByRealMatrix(
                     pRealIn, pImgIn, 1,
                     _pDouble->getReal(), 0,
-                    pRealOut, pImgOut, 1, pPolyOut->getSize());
+                    pRealOut, pImgOut, 1, (*_pPolyOut)->get(i).getSize());
             }
             else if (bComplex1 == true && bComplex2 == true)
             {
                 iRightDivisionComplexMatrixByComplexMatrix(
                     pRealIn, pImgIn, 1,
                     _pDouble->getReal(), _pDouble->getImg(), 0,
-                    pRealOut, pImgOut, 1, pPolyOut->getSize());
+                    pRealOut, pImgOut, 1, (*_pPolyOut)->get(i).getSize());
             }
         }
     }
     else if (bScalar1)
     {
-        for (int i = 0 ; i < pTemp->get(0)->getSize() ; i++)
+        for (int i = 0 ; i < pTemp->get(0).getSize() ; i++)
         {
             Double *pCoef    = pTemp->extractCoef(i);
             Double *pResultCoef = new Double(iRowResult, iColResult, pCoef->isComplex());

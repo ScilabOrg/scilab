@@ -30,7 +30,7 @@ extern "C"
 #include "finite.h"
 }
 
-std::wstring printInLinePoly(types::SinglePoly* _pPoly, std::wstring _stVar);
+std::wstring printInLinePoly(types::SinglePoly& _pPoly, std::wstring _stVar);
 std::wstring printDouble(types::Double* _pD);
 long long convert_input(types::InternalType* _poIT);
 unsigned long long convert_unsigned_input(types::InternalType* _poIT);
@@ -381,7 +381,7 @@ bool ImplicitList::toString(std::wostringstream& ostr)
         else //Polynom
         {
             Polynom* pMP = m_poStart->getAs<types::Polynom>();
-            ostr << printInLinePoly(pMP->get(0), pMP->getVariableName());
+            ostr << printInLinePoly(pMP->get()[0], pMP->getVariableName());
         }
 
         ostr << L":";
@@ -394,7 +394,7 @@ bool ImplicitList::toString(std::wostringstream& ostr)
         else //Polynom
         {
             Polynom* pMP = m_poStep->getAs<types::Polynom>();
-            ostr << printInLinePoly(pMP->get(0), pMP->getVariableName());
+            ostr << printInLinePoly(pMP->get()[0], pMP->getVariableName());
         }
 
         ostr << L":";
@@ -407,7 +407,7 @@ bool ImplicitList::toString(std::wostringstream& ostr)
         else //Polynom
         {
             Polynom* pMP = m_poEnd->getAs<types::Polynom>();
-            ostr << printInLinePoly(pMP->get(0), pMP->getVariableName());
+            ostr << printInLinePoly(pMP->get()[0], pMP->getVariableName());
         }
         ostr << std::endl;
         return true;
@@ -705,11 +705,11 @@ InternalType* ImplicitList::extract(typed_list* _pArgs)
 }
 }
 
-std::wstring printInLinePoly(types::SinglePoly* _pPoly, std::wstring _stVar)
+std::wstring printInLinePoly(types::SinglePoly& _pPoly, std::wstring _stVar)
 {
     std::wostringstream ostr;
-    double* pdblIn = _pPoly->get();
-    for (int i = 0 ; i < _pPoly->getSize() ; i++)
+    double* pdblIn = _pPoly.get();
+    for (int i = 0 ; i < _pPoly.getSize() ; i++)
     {
 
         if (pdblIn[i] != 0)

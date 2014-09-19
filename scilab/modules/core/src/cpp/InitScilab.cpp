@@ -791,9 +791,8 @@ static void Add_z(void)
 static void Add_Poly_Constant(wstring _szName, wstring _szPolyVar, int _iRank, Double * _pdbl)
 {
     types::Polynom * pVar = new types::Polynom(_szPolyVar, 1, 1, &_iRank);
-    SinglePoly *poPoly = pVar->get(0);
 
-    poPoly->setCoef(_pdbl);
+    pVar->get(0).setCoef(_pdbl);
     symbol::Context::getInstance()->put(symbol::Symbol(_szName), pVar);
 }
 

@@ -95,11 +95,11 @@ types::Function::ReturnValue sci_pppdiv(types::typed_list &in, int _iRetCount, t
 
             wstrName = pPolyIn->getVariableName();
             piSize[i] = pPolyIn->getMaxRank() + 1;
-            pdblInR[i] = pPolyIn->get(0)->get();
+            pdblInR[i] = pPolyIn->get(0).get();
             if (pPolyIn->isComplex())
             {
                 pbComplex[i] = true;
-                pdblInI[i] = pPolyIn->get(0)->getImg();
+                pdblInI[i] = pPolyIn->get(0).getImg();
             }
         }
         else
@@ -230,22 +230,18 @@ types::Function::ReturnValue sci_pppdiv(types::typed_list &in, int _iRetCount, t
         {
             double* pdblReal = NULL;
             types::Polynom* pPolyOut = new types::Polynom(wstrName, 1, 1);
-            types::SinglePoly* pSP = NULL;
             int iSize = iSizeRest + 1;
+            memcpy(pdblReal, pdblRestR, iSize * sizeof(double));
+            types::SinglePoly pSP(&pdblReal, iSizeRest);
+
             if (bComplex && C2F(dasum)(&iSize, pdblRestI, &iOne) != 0)
             {
-                double* pdblImg = NULL;
-                pSP = new types::SinglePoly(&pdblReal, &pdblImg, iSizeRest);
+                pSP.setComplex(true);
+                double* pdblImg = pSP.getImg();
                 memcpy(pdblImg, pdblRestI, iSize * sizeof(double));
             }
-            else
-            {
-                pSP = new types::SinglePoly(&pdblReal, iSizeRest);
-            }
 
-            memcpy(pdblReal, pdblRestR, iSize * sizeof(double));
             pPolyOut->set(0, pSP);
-            delete pSP;
             out.push_back(pPolyOut);
         }
     }
@@ -266,22 +262,18 @@ types::Function::ReturnValue sci_pppdiv(types::typed_list &in, int _iRetCount, t
     {
         double* pdblReal = NULL;
         types::Polynom* pPolyOut = new types::Polynom(wstrName, 1, 1);
-        types::SinglePoly* pSP = NULL;
+        types::SinglePoly pSP(&pdblReal, iSizeCoeff);
         int iSize = iSizeCoeff + 1;
+        memcpy(pdblReal, pdblCoeffR, iSize * sizeof(double));
+
         if (bComplex && C2F(dasum)(&iSize, pdblCoeffI, &iOne) != 0)
         {
-            double* pdblImg = NULL;
-            pSP = new types::SinglePoly(&pdblReal, &pdblImg, iSizeCoeff);
+            pSP.setComplex(true);
+            double* pdblImg = pSP.getImg();
             memcpy(pdblImg, pdblCoeffI, iSize * sizeof(double));
         }
-        else
-        {
-            pSP = new types::SinglePoly(&pdblReal, iSizeCoeff);
-        }
 
-        memcpy(pdblReal, pdblCoeffR, iSize * sizeof(double));
         pPolyOut->set(0, pSP);
-        delete pSP;
         out.push_back(pPolyOut);
     }
 

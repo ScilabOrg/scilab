@@ -137,20 +137,20 @@ SciErr getCommonMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* 
         return sciErr;
     }
 
-    SinglePoly** pSP = pMP->get();
+    SinglePoly* pSP = pMP->get();
     if (_iComplex == 1)
     {
         for (int i = 0 ; i < iSize ; i++)
         {
-            memcpy(_pdblReal[i], pSP[i]->get(),    sizeof(double) * pSP[i]->getSize());
-            memcpy(_pdblImg[i],  pSP[i]->getImg(), sizeof(double) * (_piNbCoef[i] + 1));
+            memcpy(_pdblReal[i], pSP[i].get(),    sizeof(double) * pSP[i].getSize());
+            memcpy(_pdblImg[i],  pSP[i].getImg(), sizeof(double) * (_piNbCoef[i] + 1));
         }
     }
     else
     {
         for (int i = 0 ; i < iSize ; i++)
         {
-            memcpy(_pdblReal[i], pSP[i]->get(), sizeof(double) * pSP[i]->getSize());
+            memcpy(_pdblReal[i], pSP[i].get(), sizeof(double) * pSP[i].getSize());
         }
     }
 

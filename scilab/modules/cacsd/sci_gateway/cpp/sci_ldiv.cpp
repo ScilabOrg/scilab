@@ -71,7 +71,7 @@ types::Function::ReturnValue sci_ldiv(types::typed_list &in, int _iRetCount, typ
         pdblCoef1 = new double*[iSize];
         for (int i = 0; i < iSize; i++)
         {
-            pdblCoef1[i] = pPoly1->get(i)->get();
+            pdblCoef1[i] = pPoly1->get(i).get();
         }
     }
     else if (in[0]->isDouble())
@@ -125,7 +125,7 @@ types::Function::ReturnValue sci_ldiv(types::typed_list &in, int _iRetCount, typ
         pdblCoef2 = new double*[iSize];
         for (int i = 0; i < iSize; i++)
         {
-            pdblCoef2[i] = pPoly2->get(i)->get();
+            pdblCoef2[i] = pPoly2->get(i).get();
         }
     }
     else if (in[1]->isDouble())

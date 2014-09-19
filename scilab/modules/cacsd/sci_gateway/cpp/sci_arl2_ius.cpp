@@ -93,9 +93,8 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
             return types::Function::Error;
         }
 
-        types::SinglePoly* pSPCoefY = pPolyY->get(0);
-        iVol1 = pSPCoefY->getSize();
-        pdblY = pSPCoefY->get();
+        iVol1 = pPolyY->get(0).getSize();
+        pdblY = pPolyY->get(0).get();
     }
     else
     {
@@ -125,7 +124,7 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
     }
 
     pPolyDen->getRank(&iRankDen);
-    pdblDen = pPolyDen->get(0)->get();
+    pdblDen = pPolyDen->get(0).get();
     C2F(idegre)(pdblDen, &iRankDen, &iRankDen);
     int iSize = iRankDen + 1;
     double dblScal = 1.0 / pdblDen[iRankDen];
@@ -284,7 +283,7 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
         types::Polynom* pPolyDenOut = new types::Polynom(pPolyDen->getVariableName(), iNsol, 1, piRank);
         for (int i = 0; i < iNsol; i++)
         {
-            double* pdblDenOut = pPolyDenOut->get(i)->get();
+            double* pdblDenOut = pPolyDenOut->get(i).get();
             C2F(dcopy)(&iN, pdblDenTemp + i, &iMxsol, pdblDenOut, &iOne);
             pdblDenOut[iN] = 1;
             pdblAllCoeff[i] = pdblDenOut;
@@ -307,7 +306,7 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
             types::Polynom* pPolyNumOut = new types::Polynom(pPolyDen->getVariableName(), iNsol, 1, piRank);
             for (int i = 0; i < iNsol; i++)
             {
-                double* pdblNumOut = pPolyNumOut->get(i)->get();
+                double* pdblNumOut = pPolyNumOut->get(i).get();
                 double* pdblWork = new double[iN + iNg + 1];
                 C2F(lq)(&iN, pdblAllCoeff[i], pdblWork, pdblY, &iNg);
                 C2F(dscal)(&iN, &(C2F(no2f).gnrm), pdblWork, &iOne);
@@ -386,7 +385,7 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
         // retrun denominator
         int iRank = iN + 1;
         types::Polynom* pPolyDenOut = new types::Polynom(pPolyDen->getVariableName(), 1, 1, &iRank);
-        double* pdblDenOut = pPolyDenOut->get(0)->get();
+        double* pdblDenOut = pPolyDenOut->get(0).get();
         C2F(dcopy)(&iRank, pDblDenTemp, &iOne, pdblDenOut, &iOne);
         out.push_back(pPolyDenOut);
 
@@ -394,7 +393,7 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
         if (_iRetCount > 1)
         {
             types::Polynom* pPolyNumOut = new types::Polynom(pPolyDen->getVariableName(), 1, 1, &iN);
-            double* pdblNumOut = pPolyNumOut->get(0)->get();
+            double* pdblNumOut = pPolyNumOut->get(0).get();
             C2F(dcopy)(&iN, pdblNum, &iOne, pdblNumOut, &iOne);
             out.push_back(pPolyNumOut);
         }
