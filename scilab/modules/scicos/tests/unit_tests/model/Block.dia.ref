@@ -44,7 +44,7 @@ propertyUpdated( 1 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , RPAR ) : SUCCESS
 propertyUpdated( 1 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 1 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
+propertyUpdated( 1 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , SIM_DEP_UT ) : SUCCESS
 propertyUpdated( 1 , BLOCK , LABEL ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , NZCROSS ) : NO_CHANGES
@@ -430,7 +430,7 @@ propertyUpdated( 6 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , RPAR ) : SUCCESS
 propertyUpdated( 6 , BLOCK , IPAR ) : SUCCESS
-propertyUpdated( 6 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
+propertyUpdated( 6 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , SIM_DEP_UT ) : SUCCESS
 propertyUpdated( 6 , BLOCK , LABEL ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , NZCROSS ) : NO_CHANGES
