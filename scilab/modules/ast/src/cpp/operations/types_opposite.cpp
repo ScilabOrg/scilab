@@ -200,9 +200,7 @@ template<>
 types::InternalType* opposite_S<types::Polynom, types::Polynom>(types::Polynom *_pL)
 {
     types::Polynom* pOut = (types::Polynom*)_pL->clone();
-    types::SinglePoly* pSPL = _pL->get(0);
-    types::SinglePoly* pSPO = pOut->get(0);
-    opposite(pSPL->get(), pSPL->getSize(), pSPO->get());
+    opposite(_pL->get(0).get(), _pL->get(0).getSize(), pOut->get(0).get());
     return pOut;
 }
 
@@ -210,9 +208,7 @@ template<>
 types::InternalType* opposite_SC<types::Polynom, types::Polynom>(types::Polynom *_pL)
 {
     types::Polynom* pOut = (types::Polynom*)_pL->clone();
-    types::SinglePoly* pSPL = _pL->get(0);
-    types::SinglePoly* pSPO = pOut->get(0);
-    opposite(pSPL->get(), pSPL->getImg(), pSPL->getSize(), pSPO->get(), pSPO->getImg());
+    opposite(_pL->get(0).get(), _pL->get(0).getImg(), _pL->get(0).getSize(), pOut->get(0).get(), pOut->get(0).getImg());
     return pOut;
 }
 
@@ -225,9 +221,7 @@ types::InternalType* opposite_M<types::Polynom, types::Polynom>(types::Polynom *
 
     for (int i = 0 ; i < iSize ; ++i)
     {
-        types::SinglePoly* pSPL = _pL->get(i);
-        types::SinglePoly* pSPO = pOut->get(i);
-        opposite(pSPL->get(), pSPL->getSize(), pSPO->get());
+        opposite(_pL->get(i).get(), _pL->get(i).getSize(), pOut->get(i).get());
     }
     return pOut;
 }
@@ -241,9 +235,7 @@ types::InternalType* opposite_MC<types::Polynom, types::Polynom>(types::Polynom 
 
     for (int i = 0 ; i < iSize ; ++i)
     {
-        types::SinglePoly* pSPL = _pL->get(i);
-        types::SinglePoly* pSPO = pOut->get(i);
-        opposite(pSPL->get(), pSPL->getImg(), pSPL->getSize(), pSPO->get(), pSPO->getImg());
+        opposite(_pL->get(i).get(), _pL->get(i).getImg(), _pL->get(i).getSize(), pOut->get(i).get(), pOut->get(i).getImg());
     }
     return pOut;
 }

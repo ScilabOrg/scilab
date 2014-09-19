@@ -705,11 +705,11 @@ InternalType* ImplicitList::extract(typed_list* _pArgs)
 }
 }
 
-std::wstring printInLinePoly(types::SinglePoly* _pPoly, std::wstring _stVar)
+std::wstring printInLinePoly(types::SinglePoly& _pPoly, std::wstring _stVar)
 {
     std::wostringstream ostr;
-    double* pdblIn = _pPoly->get();
-    for (int i = 0 ; i < _pPoly->getSize() ; i++)
+    double* pdblIn = _pPoly.get();
+    for (int i = 0 ; i < _pPoly.getSize() ; i++)
     {
 
         if (pdblIn[i] != 0)

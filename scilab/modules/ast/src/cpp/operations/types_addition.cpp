@@ -1717,18 +1717,15 @@ template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polyno
         }
 
         //Result P1(0) + P2(i)
-        SinglePoly *pCoef1 = _pL->get(0);
-        double *p1R = pCoef1->get();
-        double *p1I = pCoef1->getImg();
+        double *p1R = _pL->get(0).get();
+        double *p1I = _pL->get(0).getImg();
         for (int i = 0 ; i < _pR->getSize() ; i++)
         {
-            SinglePoly *pCoef2 = _pR->get(i);
-            double *p2R = pCoef2->get();
-            double *p2I = pCoef2->getImg();
+            double *p2R = _pR->get(i).get();
+            double *p2I = _pR->get(i).getImg();
 
-            SinglePoly *pCoefR = pOut->get(i);
-            double *pRR = pCoefR->get();
-            double *pRI = pCoefR->getImg();
+            double *pRR = pOut->get(i).get();
+            double *pRI = pOut->get(i).getImg();
 
             for (int j = 0 ; j < std::min(pRank1[0], pRank2[i]) + 1; j++)
             {
@@ -1786,19 +1783,16 @@ template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polyno
         }
 
         //Result P1(i) + P2(0)
-        SinglePoly *pCoef2 = _pR->get(0);
-        double *p2R = pCoef2->get();
-        double *p2I = pCoef2->getImg();
+        double *p2R = _pR->get(0).get();
+        double *p2I = _pR->get(0).getImg();
 
         for (int i = 0 ; i < _pL->getSize() ; i++)
         {
-            SinglePoly *pCoef1 = _pL->get(i);
-            double *p1R = pCoef1->get();
-            double *p1I = pCoef1->getImg();
+            double *p1R = _pL->get(i).get();
+            double *p1I = _pL->get(i).getImg();
 
-            SinglePoly *pCoefR = pOut->get(i);
-            double *pRR = pCoefR->get();
-            double *pRI = pCoefR->getImg();
+            double *pRR = pOut->get(i).get();
+            double *pRI = pOut->get(i).getImg();
 
             for (int j = 0 ; j < std::min(pRank1[i], pRank2[0]) + 1 ; j++)
             {
@@ -1879,9 +1873,9 @@ template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polyno
         for (int i = 0 ; i < _pL->getSize() ; i++)
         {
             iAddScilabPolynomToScilabPolynom(
-                _pL->get(i)->get(), pRank1[i] + 1,
-                _pR->get(i)->get(), pRank2[i] + 1,
-                pOut->get(i)->get(), pRank[i] + 1);
+                _pL->get(i).get(), pRank1[i] + 1,
+                _pR->get(i).get(), pRank2[i] + 1,
+                pOut->get(i).get(), pRank[i] + 1);
         }
     }
     else if (bComplex1 == false && bComplex2 == true)
@@ -1889,9 +1883,9 @@ template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polyno
         for (int i = 0 ; i < _pL->getSize() ; i++)
         {
             iAddScilabPolynomToComplexPoly(
-                _pL->get(i)->get(), pRank1[i] + 1,
-                _pR->get(i)->get(), _pR->get(i)->getImg(), pRank2[i] + 1,
-                pOut->get(i)->get(), pOut->get(i)->getImg(), pRank[i] + 1);
+                _pL->get(i).get(), pRank1[i] + 1,
+                _pR->get(i).get(), _pR->get(i).getImg(), pRank2[i] + 1,
+                pOut->get(i).get(), pOut->get(i).getImg(), pRank[i] + 1);
         }
     }
     else if (bComplex1 == true && bComplex2 == false)
@@ -1899,9 +1893,9 @@ template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polyno
         for (int i = 0 ; i < _pL->getSize() ; i++)
         {
             iAddScilabPolynomToComplexPoly(
-                _pR->get(i)->get(), pRank2[i] + 1,
-                _pL->get(i)->get(), _pL->get(i)->getImg(), pRank1[i] + 1,
-                pOut->get(i)->get(), pOut->get(i)->getImg(), pRank[i] + 1);
+                _pR->get(i).get(), pRank2[i] + 1,
+                _pL->get(i).get(), _pL->get(i).getImg(), pRank1[i] + 1,
+                pOut->get(i).get(), pOut->get(i).getImg(), pRank[i] + 1);
         }
     }
     else if (bComplex1 == true && bComplex2 == true)
@@ -1909,9 +1903,9 @@ template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polyno
         for (int i = 0 ; i < _pL->getSize() ; i++)
         {
             iAddComplexPolyToComplexPoly(
-                _pL->get(i)->get(), _pL->get(i)->getImg(), pRank1[i] + 1,
-                _pR->get(i)->get(), _pR->get(i)->getImg(), pRank2[i] + 1,
-                pOut->get(i)->get(), pOut->get(i)->getImg(), pRank[i] + 1);
+                _pL->get(i).get(), _pL->get(i).getImg(), pRank1[i] + 1,
+                _pR->get(i).get(), _pR->get(i).getImg(), pRank2[i] + 1,
+                pOut->get(i).get(), pOut->get(i).getImg(), pRank[i] + 1);
         }
     }
 
@@ -1951,7 +1945,7 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
         int *piRank = new int[_pL->getSize()];
         for (int i = 0 ; i < _pL->getSize() ; i++)
         {
-            piRank[i] = _pR->get(0)->getRank();
+            piRank[i] = _pR->get(0).getRank();
         }
 
         pOut = new Polynom(_pR->getVariableName(), _pL->getDims(), _pL->getDimsArray(), piRank);
@@ -1962,14 +1956,12 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
 
         for (int i = 0 ; i < pOut->getSize() ; i++)
         {
-            SinglePoly *pInPoly  = _pR->get(0);
-            SinglePoly *pOutPoly = pOut->get(i);
-            double *pInPolyR     = pInPoly->get();
-            double *pOutPolyR    = pOutPoly->get();
+            double *pInPolyR     = _pR->get(0).get();
+            double *pOutPolyR    = pOut->get(i).get();
 
             pOutPolyR[0] = pInDblR[i] + pInPolyR[0];
 
-            for (int j = 1 ; j < pInPoly->getSize() ; j++)
+            for (int j = 1 ; j < _pR->get(0).getSize() ; j++)
             {
                 pOutPolyR[j] = pInPolyR[j];
             }
@@ -1979,14 +1971,12 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
         {
             for (int i = 0 ; i < pOut->getSize() ; i++)
             {
-                SinglePoly *pInPoly  = _pR->get(0);
-                SinglePoly *pOutPoly = pOut->get(i);
-                double *pInPolyI     = pInPoly->getImg();
-                double *pOutPolyI    = pOutPoly->getImg();
+                double *pInPolyI     = _pR->get(0).getImg();
+                double *pOutPolyI    = pOut->get(i).getImg();
 
                 pOutPolyI[0] = (pInDblI != NULL ? pInDblI[i] : 0) + (pInPolyI != NULL ? pInPolyI[0] : 0);
 
-                for (int j = 1 ; j < pInPoly->getSize() ; j++)
+                for (int j = 1 ; j < _pR->get(0).getSize() ; j++)
                 {
                     pOutPolyI[j] = (pInPolyI != NULL ? pInPolyI[j] : 0);
                 }
@@ -2004,9 +1994,8 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
         {
             for (int i = 0 ; i < pOut->getSize() ; i++)
             {
-                SinglePoly *pSPOut   = pOut->get(i);
-                double *pOutPolyR    = pSPOut->get();
-                double *pOutPolyI    = pSPOut->getImg();
+                double *pOutPolyR    = pOut->get(i).get();
+                double *pOutPolyI    = pOut->get(i).getImg();
 
                 pOutPolyR[0] += pInDblR[0];
                 pOutPolyI[0] += pInDblI[0];
@@ -2017,9 +2006,8 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
             pOut->setComplex(true);
             for (int i = 0 ; i < pOut->getSize() ; i++)
             {
-                SinglePoly *pSPOut   = pOut->get(i);
-                double *pOutPolyR    = pSPOut->get();
-                double *pOutPolyI    = pSPOut->getImg();
+                double *pOutPolyR    = pOut->get(i).get();
+                double *pOutPolyI    = pOut->get(i).getImg();
 
                 pOutPolyR[0] += pInDblR[0];
                 pOutPolyI[0] = pInDblI[0];
@@ -2029,9 +2017,7 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
         {
             for (int i = 0 ; i < pOut->getSize() ; i++)
             {
-                SinglePoly *pSPOut = pOut->get(i);
-                double *pOutPolyR  = pSPOut->get();
-
+                double *pOutPolyR  = pOut->get(i).get();
                 pOutPolyR[0] += pInDblR[0];
             }
         }
@@ -2067,9 +2053,8 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
     {
         for (int i = 0 ; i < pOut->getSize() ; i++)
         {
-            SinglePoly *pSPOut   = pOut->get(i);
-            double *pOutPolyR    = pSPOut->get();
-            double *pOutPolyI    = pSPOut->getImg();
+            double *pOutPolyR    = pOut->get(i).get();
+            double *pOutPolyI    = pOut->get(i).getImg();
 
             pOutPolyR[0] += pInDblR[i];
             pOutPolyI[0] += pInDblI[i];
@@ -2080,9 +2065,8 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
         pOut->setComplex(true);
         for (int i = 0 ; i < pOut->getSize() ; i++)
         {
-            SinglePoly *pSPOut   = pOut->get(i);
-            double *pOutPolyR    = pSPOut->get();
-            double *pOutPolyI    = pSPOut->getImg();
+            double *pOutPolyR    = pOut->get(i).get();
+            double *pOutPolyI    = pOut->get(i).getImg();
 
             pOutPolyR[0] += pInDblR[i];
             pOutPolyI[0] = pInDblI[i];
@@ -2092,9 +2076,7 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
     {
         for (int i = 0 ; i < pOut->getSize() ; i++)
         {
-            SinglePoly *pSPOut = pOut->get(i);
-            double *pOutPolyR  = pSPOut->get();
-
+            double *pOutPolyR  = pOut->get(i).get();
             pOutPolyR[0] += pInDblR[i];
         }
     }
