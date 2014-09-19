@@ -61,12 +61,12 @@ public :
         return false;
     }
 
-    virtual InternalType* insert(typed_list* _pArgs, InternalType* _pSource)
+    virtual InternalType* insert(typed_list* /*_pArgs*/, InternalType* /*_pSource*/)
     {
         return NULL;
     }
 
-    virtual InternalType* extract(typed_list* _pArgs)
+    virtual InternalType* extract(typed_list* /*_pArgs*/)
     {
         return NULL;
     }

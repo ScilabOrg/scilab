@@ -296,7 +296,7 @@ public :
         return transpose(out);
     }
 
-    virtual InternalType* insert(typed_list* _pArgs, InternalType* _pSource)
+    virtual InternalType* insert(typed_list* /*_pArgs*/, InternalType* /*_pSource*/)
     {
         return NULL;
     }
