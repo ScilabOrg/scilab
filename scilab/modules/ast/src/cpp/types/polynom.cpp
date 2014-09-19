@@ -64,7 +64,7 @@ Polynom::~Polynom()
 void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, const int *_piRank)
 {
     m_szVarName = _szVarName;
-    SinglePoly** pPoly = NULL;
+    SinglePoly* pPoly = NULL;
     create(_piDims, _iDims, &pPoly, NULL);
 
     if (_piRank)
@@ -72,7 +72,7 @@ void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, cons
         for (int i = 0 ; i < getSize() ; i++)
         {
             double* pReal = NULL;
-            m_pRealData[i] = new SinglePoly(&pReal, _piRank[i]);
+            m_pRealData[i] = SinglePoly(&pReal, _piRank[i]);
         }
     }
 #ifndef NDEBUG
@@ -80,7 +80,7 @@ void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, cons
 #endif
 }
 
-bool Polynom::set(int _iPos, SinglePoly* _pS)
+bool Polynom::set(int _iPos, const SinglePoly& _pS)
 {
     bool bComplex = isComplex();
     if (m_pRealData == NULL || _iPos >= m_iSize)
@@ -95,11 +95,11 @@ bool Polynom::set(int _iPos, SinglePoly* _pS)
 
     m_pRealData[_iPos] = copyValue(_pS);
 
-    if (_pS->isComplex() && bComplex == false)
+    if (_pS.isComplex() && bComplex == false)
     {
         setComplex(true);
     }
-    else if (_pS->isComplex() == false && bComplex)
+    else if (_pS.isComplex() == false && bComplex)
     {
         m_pRealData[_iPos]->setComplex(true);
     }
@@ -107,12 +107,12 @@ bool Polynom::set(int _iPos, SinglePoly* _pS)
     return true;
 }
 
-bool Polynom::set(int _iRows, int _iCols, SinglePoly* _pS)
+bool Polynom::set(int _iRows, int _iCols, const SinglePoly& _pS)
 {
     return set(_iCols * getRows() + _iRows, _pS);
 }
 
-bool Polynom::set(SinglePoly** _pS)
+bool Polynom::set(SinglePoly* _pS)
 {
     for (int i = 0 ; i < m_iSize ; i++)
     {
@@ -133,8 +133,8 @@ bool Polynom::setCoef(int _iIdx, Double *_pdblCoef)
     if (_iIdx < getSize())
     {
         /*Get old SinglePoly*/
-        m_pRealData[_iIdx]->setRank(_pdblCoef->getSize() - 1);
-        m_pRealData[_iIdx]->setCoef(_pdblCoef);
+        m_pRealData[_iIdx].setRank(_pdblCoef->getSize() - 1);
+        m_pRealData[_iIdx].setCoef(_pdblCoef);
     }
     else
     {
@@ -198,7 +198,7 @@ void Polynom::setComplex(bool _bComplex)
     {
         for (int i = 0 ; i < getSize() ; i++)
         {
-            get(i)->setComplex(_bComplex);
+            m_pRealData[i]->setComplex(_bComplex);
         }
     }
 }
@@ -338,10 +338,9 @@ Double* Polynom::getCoef(void)
         double *pCoefI = pCoef->getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            int iSize = pPoly->getSize();
-            double *pR = pPoly->get();
-            double *pI = pPoly->getImg();
+            int iSize = m_pRealData[i].getSize();
+            double *pR = m_pRealData[i].get();
+            double *pI = m_pRealData[i].getImg();
 
             for (int iRank = 0 ; iRank < iSize ; iRank++)
             {
@@ -354,9 +353,8 @@ Double* Polynom::getCoef(void)
     {
         for (int i = 0 ; i < m_iSize ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            int iSize = pPoly->getSize();
-            double *pR = pPoly->get();
+            int iSize = m_pRealData[i].getSize();
+            double *pR = m_pRealData[i].get();
             for (int iRank = 0 ; iRank < iSize ; iRank++)
             {
                 pCoefR[iRank * m_iSize + i] = pR[iRank];
@@ -377,10 +375,9 @@ void Polynom::setCoef(Double *_pCoef)
         double *pI = _pCoef->getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            int iSize = pPoly->getSize();
-            double* pTempR = pPoly->get();
-            double* pTempI = pPoly->getImg();
+            int iSize = m_pRealData[i].getSize();
+            double* pTempR = m_pRealData[i].get();
+            double* pTempI = m_pRealData[i].getImg();
 
             for (int iRank = 0 ; iRank < iSize ; iRank++)
             {
@@ -393,9 +390,8 @@ void Polynom::setCoef(Double *_pCoef)
     {
         for (int i = 0 ; i < m_iSize ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            int iSize = pPoly->getSize();
-            double* pTempR = pPoly->get();
+            int iSize = m_pRealData[i].getSize();
+            double* pTempR = m_pRealData[i].get();
 
             for (int iRank = 0 ; iRank < iSize ; iRank++)
             {
@@ -849,11 +845,10 @@ Double* Polynom::extractCoef(int _iRank)
         double *pImg = pdbl->getImg();
         for (int i = 0 ; i < getSize() ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            if (pPoly->getRank() >= _iRank)
+            if (m_pRealData[i].getRank() >= _iRank)
             {
-                pReal[i] = pPoly->get()[_iRank];
-                pImg[i]  = pPoly->getImg()[_iRank];
+                pReal[i] = m_pRealData[i].get()[_iRank];
+                pImg[i]  = m_pRealData[i].getImg()[_iRank];
             }
         }
     }
@@ -861,10 +856,9 @@ Double* Polynom::extractCoef(int _iRank)
     {
         for (int i = 0 ; i < getSize() ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            if (pPoly->getRank() >= _iRank)
+            if (m_pRealData[i].getRank() >= _iRank)
             {
-                pReal[i] = pPoly->get()[_iRank];
+                pReal[i] = m_pRealData[i].get()[_iRank];
             }
         }
     }
@@ -879,27 +873,25 @@ bool Polynom::insertCoef(int _iRank, Double* _pCoef)
         double *pImg  = _pCoef->getImg();
         for (int i = 0 ; i < getSize() ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            if (pPoly->getRank() <= _iRank)
+            if (m_pRealData[i].getRank() <= _iRank)
             {
                 return false;
             }
 
-            pPoly->get()[_iRank] = pReal[i];
-            pPoly->getImg()[_iRank] = pImg[i];
+            m_pRealData[i].get()[_iRank] = pReal[i];
+            m_pRealData[i].getImg()[_iRank] = pImg[i];
         }
     }
     else
     {
         for (int i = 0 ; i < getSize() ; i++)
         {
-            SinglePoly *pPoly = m_pRealData[i];
-            if (pPoly->getRank() <= _iRank)
+            if (m_pRealData[i].getRank() <= _iRank)
             {
                 return false;
             }
 
-            pPoly->get()[_iRank] = pReal[i];
+            m_pRealData[i].get()[_iRank] = pReal[i];
         }
     }
 
@@ -927,10 +919,7 @@ bool Polynom::operator==(const InternalType& it)
 
     for (int i = 0 ; i < getSize() ; i++)
     {
-        SinglePoly* p1 = get(i);
-        SinglePoly* p2 = pM->get(i);
-
-        if (*p1 != *p2)
+        if (m_pRealData[i] != pM->get(i))
         {
             return false;
         }
@@ -938,14 +927,19 @@ bool Polynom::operator==(const InternalType& it)
     return true;
 }
 
+bool Polynom::neg(InternalType *& /*out*/)
+{
+    return false;
+}
+
 bool Polynom::operator!=(const InternalType& it)
 {
     return !(*this == it);
 }
 
-SinglePoly* Polynom::getNullValue()
+SinglePoly& Polynom::getNullValue()
 {
-    return new SinglePoly();
+    return SinglePoly();
 }
 
 Polynom* Polynom::createEmpty(int _iDims, int* _piDims, bool /*_bComplex*/)
@@ -953,21 +947,13 @@ Polynom* Polynom::createEmpty(int _iDims, int* _piDims, bool /*_bComplex*/)
     return new Polynom(getVariableName(), _iDims, _piDims, NULL);
 }
 
-SinglePoly* Polynom::copyValue(SinglePoly* _pData)
+SinglePoly Polynom::copyValue(SinglePoly _pData)
 {
-    if (_pData == NULL)
-    {
-        return NULL;
-    }
-    return _pData->clone();
+    return _pData;
 }
 
 void Polynom::deleteAll()
 {
-    for (int i = 0 ; i < getSize() ; i++)
-    {
-        delete m_pRealData[i];
-    }
     delete[] m_pRealData;
     m_pRealData = NULL;
     deleteImg();
@@ -978,11 +964,9 @@ void Polynom::deleteImg()
 
 }
 
-SinglePoly** Polynom::allocData(int _iSize)
+SinglePoly* Polynom::allocData(int _iSize)
 {
-    SinglePoly** pData = new SinglePoly*[_iSize];
-    memset(pData, 0x00, _iSize * sizeof(SinglePoly*));
-    return pData;
+    return new SinglePoly[_iSize];
 }
 }
 

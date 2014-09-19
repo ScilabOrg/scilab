@@ -47,6 +47,27 @@ SinglePoly::SinglePoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank)
     create(piDims, 2, _pdblCoefR, _pdblCoefI);
 }
 
+SinglePoly::SinglePoly(const SinglePoly& rightSide) :
+    m_iSize(rightSide.m_iSize)
+    m_iRows(rightSide.m_iRows)
+    m_iCols(rightSide.m_iCols)
+    m_iDims(rightSide.m_iDims)
+{
+    memcpy(m_piDimsArray, rightSize.m_piDimsArray, m_iDims * sizeof(int));
+
+    if (rightSide.m_pRealData)
+    {
+        m_pRealData = new double[iSize];
+        memcpy(m_pRealData, rightSize.m_pRealData, m_iDims * sizeof(double));
+    }
+
+    if (rightSide.m_pImgData)
+    {
+        m_pImgData = new double[iSize];
+        memcpy(m_pImgData, rightSize.m_pImgData, m_iDims * sizeof(double));
+    }
+}
+
 SinglePoly::~SinglePoly()
 {
     deleteAll();
@@ -431,14 +452,14 @@ bool SinglePoly::operator==(const InternalType& it)
         return false;
     }
 
-    SinglePoly* pP = const_cast<InternalType &>(it).getAs<SinglePoly>();
+    SinglePoly pP = const_cast<InternalType &>(it).getAs<SinglePoly>();
 
-    if (getRank() != pP->getRank())
+    if (getRank() != pP.getRank())
     {
         return false;
     }
 
-    double *pdblReal = pP->get();
+    double *pdblReal = pP.get();
     for (int i = 0 ; i < getSize() ; i++)
     {
         if (m_pRealData[i] != pdblReal[i])
@@ -448,9 +469,9 @@ bool SinglePoly::operator==(const InternalType& it)
     }
 
     //both complex
-    if (isComplex() && pP->isComplex())
+    if (isComplex() && pP.isComplex())
     {
-        double *pdblImg = pP->getImg();
+        double *pdblImg = pP.getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
             if (m_pImgData[i] != pdblImg[i])
@@ -460,9 +481,9 @@ bool SinglePoly::operator==(const InternalType& it)
         }
     }
     //pdbl complex check all img values == 0
-    else if (pP->isComplex())
+    else if (pP.isComplex())
     {
-        double *pdblImg = pP->getImg();
+        double *pdblImg = pP.getImg();
         for (int i = 0 ; i < m_iSize ; i++)
         {
             if (pdblImg[i])
@@ -509,13 +530,13 @@ SinglePoly* SinglePoly::clone()
     return pPoly;
 }
 
-SinglePoly* SinglePoly::conjugate()
+SinglePoly SinglePoly::conjugate()
 {
     if (isComplex())
     {
         double *pR = NULL;
         double *pI = NULL;
-        SinglePoly * pPoly = new SinglePoly(&pR, &pI, getRank());
+        SinglePoly pPoly(&pR, &pI, getRank());
 
         Transposition::conjugate(m_iSize, m_pRealData, pR, m_pImgData, pI);
 
@@ -523,7 +544,7 @@ SinglePoly* SinglePoly::conjugate()
     }
     else
     {
-        return clone();
+        return *this;
     }
 }
 
@@ -612,7 +633,33 @@ SinglePoly* operator*(const SinglePoly& _lhs, const SinglePoly& _rhs)
 
     return pOut;
 }
+
+SinglePoly& operator=(const SinglePoly& rightSide)
+{
+    if (this != &rightSide)
+    {
+        deleteAll();
+
+        m_iSize = rightSide.m_iSize;
+        m_iRows = rightSide.m_iRows;
+        m_iCols = rightSide.m_iCols;
+        m_iDims = rightSide.m_iDims;
+        memcpy(m_piDimsArray, rightSize.m_piDimsArray, m_iDims * sizeof(int));
+
+        if (rightSide.m_pRealData)
+        {
+            m_pRealData = new double[iSize];
+            memcpy(m_pRealData, rightSize.m_pRealData, m_iDims * sizeof(double));
+        }
+
+        if (rightSide.m_pImgData)
+        {
+            m_pImgData = new double[iSize];
+            memcpy(m_pImgData, rightSize.m_pImgData, m_iDims * sizeof(double));
+        }
+    }
+
+    return *this;
 }
 
-
-
+}

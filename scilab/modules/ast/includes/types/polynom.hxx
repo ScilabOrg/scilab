@@ -33,7 +33,7 @@
 
 namespace types
 {
-class EXTERN_AST Polynom : public ArrayOf<SinglePoly*>
+class EXTERN_AST Polynom : public ArrayOf<SinglePoly>
 {
 public :
     Polynom();
@@ -115,6 +115,7 @@ public :
 
     bool transpose(InternalType *& out);
     bool adjoint(InternalType *& out);
+    bool neg(InternalType *& out);
 
 protected :
     std::wstring            m_szVarName;
@@ -123,12 +124,12 @@ protected :
 private :
     virtual bool            subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iDims);
 
-    virtual SinglePoly*     getNullValue();
+    virtual SinglePoly      getNullValue();
     virtual Polynom*        createEmpty(int _iDims, int* _piDims, bool _bComplex = false);
-    virtual SinglePoly*     copyValue(SinglePoly* _pData);
+    virtual SinglePoly      copyValue(SinglePoly* _pData);
     virtual void            deleteAll();
     virtual void            deleteImg();
-    virtual SinglePoly**    allocData(int _iSize);
+    virtual SinglePoly*     allocData(int _iSize);
 
 };
 }

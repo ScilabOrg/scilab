@@ -30,9 +30,8 @@ public :
     virtual void            deleteAll();
     virtual void            deleteImg();
 
-    // FIXME : Should not return NULL;
-    SinglePoly*             clone();
-    SinglePoly*             conjugate();
+    SinglePoly*            clone();
+    SinglePoly             conjugate();
 
     bool                    isSinglePoly()
     {
@@ -88,7 +87,7 @@ private :
 
 };
 
-SinglePoly* operator*(const SinglePoly& lhs, const SinglePoly& rhs);
+SinglePoly operator*(const SinglePoly& lhs, const SinglePoly& rhs);
 
 }
 

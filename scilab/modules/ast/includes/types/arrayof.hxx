@@ -1432,7 +1432,7 @@ public :
                         m_pRealData[iNewIdx] = m_pRealData[i];
                         if (iNewIdx != i)
                         {
-                            m_pRealData[i] = 0;
+                            m_pRealData[i] = getNullValue();
                         }
                     }
                     delete[] piIndexes;
