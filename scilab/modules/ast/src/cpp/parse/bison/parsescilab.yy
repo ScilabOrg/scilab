@@ -61,7 +61,7 @@
 
     LineBreakStr*               mute;
 
-    ast::vars_t*                t_list_var;
+    ast::exps_t*                t_list_var;
     ast::exps_t*                t_list_exp;
     ast::Exp*                   t_exp;
 
@@ -92,8 +92,7 @@
 
     ast::MatrixExp*             t_matrix_exp;
     ast::MatrixLineExp*         t_matrixline_exp;
-    std::list<ast::MatrixLineExp *>*            \
-                                t_list_mline;
+    exps_t*                     t_list_mline;
 
     ast::CellExp*               t_cell_exp;
 
@@ -646,12 +645,12 @@ variable			{
 /* How to declare a function */
 functionDeclaration :
 FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
-				  ast::vars_t *tmp = new ast::vars_t;
-				  tmp->push_front(new ast::SimpleVar(@2, *new symbol::Symbol(*$2)));
+				  ast::exps_t tmp;
+				  tmp[0] = new ast::SimpleVar(@2, *new symbol::Symbol(*$2));
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$4),
 							    *new ast::ArrayListVar(@5, *$5),
-							    *new ast::ArrayListVar(@2, *tmp),
+							    *new ast::ArrayListVar(@2, tmp),
 							    *$7);
 				  delete $2;
 				  delete $4;
@@ -681,12 +680,12 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $2;
 				}
 | FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END {
-				  ast::vars_t *tmp = new ast::vars_t;
-				  tmp->push_front(new ast::SimpleVar(@2, *new symbol::Symbol(*$2)));
+				  ast::exps_t tmp;
+				  tmp[0] = new ast::SimpleVar(@2, *new symbol::Symbol(*$2));
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$4),
 							    *new ast::ArrayListVar(@5, *$5),
-							    *new ast::ArrayListVar(@2, *tmp),
+							    *new ast::ArrayListVar(@2, tmp),
 							    *$7);
 				  delete $2;
 				  delete $4;
@@ -703,7 +702,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$5),
 							    *new ast::ArrayListVar(@6, *$6),
-							    *new ast::ArrayListVar(@2, *new ast::vars_t),
+							    *new ast::ArrayListVar(@2, ast::exps_t()),
 							    *$8);
 				  delete $5;
 				}
@@ -711,17 +710,17 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$2),
 							    *new ast::ArrayListVar(@3, *$3),
-							    *new ast::ArrayListVar(@$, *new ast::vars_t),
+							    *new ast::ArrayListVar(@$, ast::exps_t()),
 							    *$5);
 				  delete $2;
 				}
 | HIDDENFUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
-				  ast::vars_t *tmp = new ast::vars_t;
-				  tmp->push_front(new ast::SimpleVar(@2, *new symbol::Symbol(*$2)));
+				  ast::exps_t tmp;
+				  tmp[0] = new ast::SimpleVar(@2, *new symbol::Symbol(*$2));
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$4),
 							    *new ast::ArrayListVar(@5, *$5),
-							    *new ast::ArrayListVar(@2, *tmp),
+							    *new ast::ArrayListVar(@2, tmp),
 							    *$7);
 				  delete $2;
 				  delete $4;
@@ -738,7 +737,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$5),
 							    *new ast::ArrayListVar(@6, *$6),
-							    *new ast::ArrayListVar(@2, *new ast::vars_t),
+							    *new ast::ArrayListVar(@2, ast::exps_t()),
 							    *$8);
 				  delete $5;
 				}
@@ -746,17 +745,17 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$2),
 							    *new ast::ArrayListVar(@3, *$3),
-							    *new ast::ArrayListVar(@$, *new ast::vars_t),
+							    *new ast::ArrayListVar(@$, ast::exps_t()),
 							    *$5);
 				  delete $2;
 				}
 | HIDDENFUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END {
-				  ast::vars_t *tmp = new ast::vars_t;
-				  tmp->push_front(new ast::SimpleVar(@2, *new symbol::Symbol(*$2)));
+				  ast::exps_t tmp;
+				  tmp[0] = new ast::SimpleVar(@2, *new symbol::Symbol(*$2));
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$4),
 							    *new ast::ArrayListVar(@5, *$5),
-							    *new ast::ArrayListVar(@2, *tmp),
+							    *new ast::ArrayListVar(@2, tmp),
 							    *$7);
 				  delete $2;
 				  delete $4;
@@ -773,7 +772,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$5),
 							    *new ast::ArrayListVar(@6, *$6),
-							    *new ast::ArrayListVar(@2, *new ast::vars_t),
+							    *new ast::ArrayListVar(@2, ast::exps_t()),
 							    *$8);
 				  delete $5;
 				}
@@ -781,17 +780,17 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$2),
 							    *new ast::ArrayListVar(@3, *$3),
-							    *new ast::ArrayListVar(@$, *new ast::vars_t),
+							    *new ast::ArrayListVar(@$, ast::exps_t()),
 							    *$5);
 				  delete $2;
 				}
 | HIDDEN FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
-				  ast::vars_t *tmp = new ast::vars_t;
-				  tmp->push_front(new ast::SimpleVar(@2, *new symbol::Symbol(*$3)));
+				  ast::exps_t tmp;
+				  tmp[0] = new ast::SimpleVar(@2, *new symbol::Symbol(*$3));
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$5),
 							    *new ast::ArrayListVar(@6, *$6),
-							    *new ast::ArrayListVar(@3, *tmp),
+							    *new ast::ArrayListVar(@3, tmp),
 							    *$8);
 				  delete $3;
 				  delete $5;
@@ -808,7 +807,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$6),
 							    *new ast::ArrayListVar(@7, *$7),
-							    *new ast::ArrayListVar(@3, *new ast::vars_t),
+							    *new ast::ArrayListVar(@3, ast::exps_t()),
 							    *$9);
 				  delete $6;
 				}
@@ -816,17 +815,17 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$3),
 							    *new ast::ArrayListVar(@4, *$4),
-							    *new ast::ArrayListVar(@$, *new ast::vars_t),
+							    *new ast::ArrayListVar(@$, ast::exps_t()),
 							    *$6);
 				  delete $3;
 				}
 | HIDDEN FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END {
-				  ast::vars_t *tmp = new ast::vars_t;
-				  tmp->push_front(new ast::SimpleVar(@3, *new symbol::Symbol(*$3)));
+				  ast::exps_t tmp;
+				  tmp[0] = new ast::SimpleVar(@3, *new symbol::Symbol(*$3));
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$5),
 							    *new ast::ArrayListVar(@6, *$6),
-							    *new ast::ArrayListVar(@2, *tmp),
+							    *new ast::ArrayListVar(@2, tmp),
 							    *$8);
 				  delete $3;
 				  delete $5;
@@ -843,7 +842,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$6),
 							    *new ast::ArrayListVar(@7, *$7),
-							    *new ast::ArrayListVar(@3, *new ast::vars_t),
+							    *new ast::ArrayListVar(@3, ast::exps_t()),
 							    *$9);
 				  delete $6;
 				}
@@ -851,7 +850,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  $$ = new ast::FunctionDec(@$,
 							    *new symbol::Symbol(*$3),
 							    *new ast::ArrayListVar(@4, *$4),
-							    *new ast::ArrayListVar(@$, *new ast::vars_t),
+							    *new ast::ArrayListVar(@$, ast::exps_t()),
 							    *$6);
 				  delete $3;
 				}
