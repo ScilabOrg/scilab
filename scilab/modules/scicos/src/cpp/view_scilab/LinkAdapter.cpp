@@ -495,6 +495,12 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
     }
     ScicosID blkID = children[blk - 1];
 
+    // Check that the ID designates a BLOCK (and not an ANNOTATION)
+    if (controller.getObject(blkID)->kind() != BLOCK)
+    {
+        return false;
+    }
+
     std::vector<ScicosID> sourceBlockPorts;
     int nBlockPorts;
     bool newPortIsImplicit = false;
