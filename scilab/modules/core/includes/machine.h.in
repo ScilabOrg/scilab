@@ -524,6 +524,9 @@
 /* With llvm-config */
 #undef WITH_LLVM_CONFIG
 
+/* with JGraphX */
+#undef WITH_JGRAPHX
+
 /* With the MATIO library */
 #undef WITH_MATIO
 
@@ -535,9 +538,6 @@
 
 /* With the UMFPACK library */
 #undef WITH_UMFPACK
-
-/* With XCOS */
-#undef WITH_XCOS
 
 /* If leading underscores */
 #undef WLU
