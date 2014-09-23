@@ -388,9 +388,9 @@ static bool setLinkEnd(LinkAdapter& adaptor, Controller& controller, object_prop
             controller.setObjectProperty(concernedPort, PORT, PORT_KIND, newPortKind);
             controller.setObjectProperty(concernedPort, PORT, SOURCE_BLOCK, blkID);
             controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
+            // Set the default dataType so it is saved in the model
             std::vector<int> dataType;
             controller.getObjectProperty(concernedPort, PORT, DATATYPE, dataType);
-            dataType[0] = -1; // Default number of rows for new ports
             controller.setObjectProperty(concernedPort, PORT, DATATYPE, dataType);
 
             std::vector<ScicosID> concernedPorts;
