@@ -272,7 +272,6 @@ propertyUpdated( 15 , PORT , IMPLICIT ) : NO_CHANGES
 propertyUpdated( 15 , PORT , PORT_KIND ) : SUCCESS
 propertyUpdated( 15 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
-propertyUpdated( 15 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 6 , BLOCK , INPUTS ) : SUCCESS
 propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 12 , LINK , DESTINATION_PORT ) : SUCCESS
@@ -319,7 +318,6 @@ propertyUpdated( 16 , PORT , IMPLICIT ) : NO_CHANGES
 propertyUpdated( 16 , PORT , PORT_KIND ) : SUCCESS
 propertyUpdated( 16 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 16 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
-propertyUpdated( 16 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 9 , BLOCK , EVENT_OUTPUTS ) : SUCCESS
 propertyUpdated( 16 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 13 , LINK , DESTINATION_PORT ) : SUCCESS
