@@ -465,21 +465,21 @@ struct objs
             {
                 case ANNOTATION:
                 {
-                    model::Annotation* annotation = static_cast<model::Annotation*>(item);
+                    model::Annotation* annotation = dynamic_cast<model::Annotation*>(item);
                     TextAdapter* localAdaptor = new TextAdapter(false, annotation);
                     o->set(i, localAdaptor);
                     continue;
                 }
                 case BLOCK:
                 {
-                    model::Block* block = static_cast<model::Block*>(item);
+                    model::Block* block = dynamic_cast<model::Block*>(item);
                     BlockAdapter* localAdaptor = new BlockAdapter(false, block);
                     o->set(i, localAdaptor);
                     continue;
                 }
                 case LINK:
                 {
-                    model::Link* link = static_cast<model::Link*>(item);
+                    model::Link* link = dynamic_cast<model::Link*>(item);
                     LinkAdapter* localAdaptor = new LinkAdapter(false, link);
 
                     localAdaptor->setFrom(getLinkEnd(*localAdaptor, controller, SOURCE_PORT));

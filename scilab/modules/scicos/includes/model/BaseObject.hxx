@@ -33,6 +33,7 @@ public:
         _id(0), _kind(b._kind)
     {
     }
+    virtual ~BaseObject() {};
 
     inline bool operator<(BaseObject o) const
     {
