@@ -522,7 +522,7 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram, whose ID is stored in children[0]
         {
-            model::Diagram* diagram = static_cast<model::Diagram*>(Controller().getObject(children[0]));
+            model::Diagram* diagram = dynamic_cast<model::Diagram*>(Controller().getObject(children[0]));
             DiagramAdapter* o = new DiagramAdapter(diagram);
             return o;
         }
