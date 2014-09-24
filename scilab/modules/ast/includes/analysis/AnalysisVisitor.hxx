@@ -26,6 +26,7 @@
 #include "ForList.hxx"
 #include "Result.hxx"
 #include "SymInfo.hxx"
+#include "execvisitor.hxx"
 
 namespace analysis
 {
@@ -307,19 +308,19 @@ private:
 
     void visit(ast::DoubleExp & e)
     {
-        e.getDecorator().res = Result(TIType(TIType::DOUBLE, 1, 1), false);
+        e.getDecorator().res = Result(TIType(TIType::DOUBLE, 1, 1), false, true);
         setResult(e.getDecorator().res);
     }
 
     void visit(ast::BoolExp & e)
     {
-        e.getDecorator().res = Result(TIType(TIType::BOOLEAN, 1, 1), false);
+        e.getDecorator().res = Result(TIType(TIType::BOOLEAN, 1, 1), false, true);
         setResult(e.getDecorator().res);
     }
 
     void visit(ast::StringExp & e)
     {
-        e.getDecorator().res = Result(TIType(TIType::STRING, 1, 1), false);
+        e.getDecorator().res = Result(TIType(TIType::STRING, 1, 1), false, true);
         setResult(e.getDecorator().res);
     }
 
@@ -395,12 +396,17 @@ private:
             allocTmp = true;
         }
 
-        if (e.getLeft().isConstExp() && e.getRight().isConstExp())
+        //if left and right are constant, result is constant too
+        if (e.getLeft().getDecorator().res.isConstant() && e.getRight().getDecorator().res.isConstant())
         {
             constant = true;
+            if (execAndReplace(e))
+            {
+                return;
+            }
         }
 
-        e.getDecorator().res = Result(resT, allocTmp, true);
+        e.getDecorator().res = Result(resT, allocTmp, false);
         setResult(e.getDecorator().res);
     }
 
@@ -516,19 +522,37 @@ private:
     void visit(ast::MatrixExp & e)
     {
         const ast::exps_t lines = e.getLines();
+        bool constant = true;
         for (ast::exps_t::const_iterator i = lines.begin(), itEnd = lines.end(); i != itEnd; ++i)
         {
             (*i)->accept(*this);
+            if ((*i)->getDecorator().res.isConstant() == false)
+            {
+                constant = false;
+            }
+        }
+
+        if (constant)
+        {
+            execAndReplace(e);
         }
     }
 
     void visit(ast::MatrixLineExp & e)
     {
         const ast::exps_t columns = e.getColumns();
+        bool constant = true;
         for (ast::exps_t::const_iterator i = columns.begin(), itEnd = columns.end(); i != itEnd; ++i)
         {
             (*i)->accept(*this);
+            if ((*i)->getDecorator().res.isConstant() == false)
+            {
+                constant = false;
+            }
         }
+
+        e.getDecorator().res = Result(e.getDecorator().res.getType(), e.getDecorator().res.isTemp(), constant);
+
     }
 
     void visit(ast::CellExp & e)
@@ -613,6 +637,25 @@ private:
         }
 
         const_cast<ast::ListExp &>(e).setValues(start, step, end);
+    }
+
+    bool execAndReplace(ast::Exp& e)
+    {
+        //exec operation and substitute exp by result
+        ast::ExecVisitor exec;
+        e.accept(exec);
+        InternalType* result = exec.getResult();
+        ast::Exp* exp = result->getExp(e.getLocation());
+        if (exp)
+        {
+            exp->setVerbose(e.isVerbose());
+            e.replace(exp);
+            exp->getDecorator().res = Result(e.getDecorator().res.getType(), e.getDecorator().res.isTemp(), true);
+            setResult(exp->getDecorator().res);
+            return true;
+        }
+
+        return false;
     }
 };
 

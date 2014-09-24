@@ -46,7 +46,9 @@ public:
           _bReturn(false),
           _bReturnable(false),
           _bContinue(false),
-          _bContinuable(false)
+          _bContinuable(false),
+          parent(NULL),
+          original(NULL)
     {
     }
     /** \brief Destroys an Expression node. */
@@ -54,7 +56,15 @@ public:
     {
         for (exps_t::const_iterator it = _exps.begin(), itEnd = _exps.end(); it != itEnd; ++it)
         {
-            delete *it;
+            if (*it != NULL)
+            {
+                delete *it;
+            }
+        }
+
+        if (original)
+        {
+            delete original;
         }
     }
     /** \} */
@@ -406,6 +416,60 @@ public:
         return false;
     }
 
+    Exp* getParent() const
+    {
+        return parent;
+    }
+
+    Exp* getParent()
+    {
+        return parent;
+    }
+
+    void setParent(Exp* _ast)
+    {
+        parent = _ast;
+    }
+
+    Exp* getOriginal() const
+    {
+        return original;
+    }
+
+    Exp* getOriginal()
+    {
+        return original;
+    }
+
+    void setOriginal(Exp* _ast)
+    {
+        original = _ast;
+    }
+
+    void replace(Exp* _new)
+    {
+        if (parent && _new)
+        {
+            parent->replace(this, _new);
+        }
+    }
+
+    void replace(Exp* _old, Exp* _new)
+    {
+        if (_old && _new)
+        {
+            for (exps_t::iterator it = _exps.begin(), itEnd = _exps.end(); it != itEnd ; ++it)
+            {
+                if (*it == _old)
+                {
+                    _new->setOriginal(*it);
+                    *it = _new;
+                    _new->setParent(this);
+                }
+            }
+        }
+    }
+
 private:
     bool _verbose;
     bool _bBreak;
@@ -416,7 +480,8 @@ private:
     bool _bContinuable;
 protected:
     exps_t _exps;
-    Exp* _original;
+    Exp* parent;
+    Exp* original;
 };
 } // namespace ast
 
