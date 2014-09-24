@@ -25,6 +25,7 @@
 #include "ModelAdapter.hxx"
 #include "DiagramAdapter.hxx"
 #include "ports_management.hxx"
+#include "utilities.hxx"
 
 extern "C" {
 #include "sci_malloc.h"
@@ -407,8 +408,10 @@ struct odstate
     }
 };
 
-// When setting a diagram in 'rpar', the Superblock's ports must be consistent with the "port blocks" inside it.
-// By "port blocks", we mean IN_f, OUT_f, CLKIN_f, CLKOUT_f, CLKINV_f, CLKOUTV_f, INIMPL_f and OUTIMPL_f.
+/*
+ * When setting a diagram in 'rpar', the Superblock's ports must be consistent with the "port blocks" inside it.
+ * By "port blocks", we mean IN_f, OUT_f, CLKIN_f, CLKOUT_f, CLKINV_f, CLKOUTV_f, INIMPL_f and OUTIMPL_f.
+ */
 static bool setInnerBlocksRefs(ModelAdapter& adaptor, std::vector<ScicosID>& children, Controller& controller)
 {
     model::Block* adaptee = adaptor.getAdaptee();
@@ -431,7 +434,7 @@ static bool setInnerBlocksRefs(ModelAdapter& adaptor, std::vector<ScicosID>& chi
                 }
                 int portIndex = ipar[0];
 
-                // "input" and "output" are not enough to tell the event and data ports apart, so check the block's port.
+                // "name" is not enough to tell the event and data ports apart, so check the block's port.
                 object_properties_t kind;
                 std::vector<ScicosID> innerPort;
                 if (name == input || name == inimpl)
