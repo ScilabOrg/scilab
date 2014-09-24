@@ -80,21 +80,21 @@ struct objs
             {
                 case ANNOTATION:
                 {
-                    model::Annotation* annotation = static_cast<model::Annotation*>(item);
+                    model::Annotation* annotation = dynamic_cast<model::Annotation*>(item);
                     TextAdapter* localAdaptor = new TextAdapter(annotation);
                     o->set(i, localAdaptor);
                     continue;
                 }
                 case BLOCK:
                 {
-                    model::Block* block = static_cast<model::Block*>(item);
+                    model::Block* block = dynamic_cast<model::Block*>(item);
                     BlockAdapter* localAdaptor = new BlockAdapter(block);
                     o->set(i, localAdaptor);
                     continue;
                 }
                 case LINK:
                 {
-                    model::Link* link = static_cast<model::Link*>(item);
+                    model::Link* link = dynamic_cast<model::Link*>(item);
                     LinkAdapter* localAdaptor = new LinkAdapter(link);
                     o->set(i, localAdaptor);
                     continue;
