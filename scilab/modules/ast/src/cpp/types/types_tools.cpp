@@ -40,6 +40,7 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
 
             if (pCurrentArg->isIdentity())
             {
+
                 //extract with eye() <=> :
                 pIT = new Colon();
                 bDeleteNeeded = true;
@@ -192,6 +193,14 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
             _piMaxDim[i] = 0;
             for (int j = 0 ; j < iCountDim ; j++)
             {
+                //checks if size < size(int)
+                if (pCurrentArg->get(j) >= pow(2, 31))
+                {
+                    std::wostringstream os;
+                    os << _W("variable size exceeded : less than 2^31 expected.\n");
+                    throw ast::ScilabError(os.str());
+
+                }
                 const int d = static_cast<int>(pCurrentArg->get(j));
                 if (d > _piMaxDim[i])
                 {

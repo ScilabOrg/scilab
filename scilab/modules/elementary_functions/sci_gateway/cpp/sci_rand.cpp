@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2011 - DIGITEO - Antoine ELIAS
+ * Copyright (C) 2014 - Scilab Enterprises - Anais Aubert
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -115,6 +116,11 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
     }
     else if (in[0]->isArrayOf())
     {
+        if (*in[0]->getAs<types::Double>()->get() >= pow(2, 31))
+        {
+            Scierror(999, _("%s: variable size exceeded : less than 2^32 expected.\n"), "rand");
+            return types::Function::Error;
+        }
         int iRandSave = siRandType;
         if (in[iSizeIn - 1]->isString())
         {
