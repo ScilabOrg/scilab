@@ -49,7 +49,14 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
                 return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
             }
         }
-
+        else if (pIn->isDouble())
+        {
+            if (*in[0]->getAs<types::Double>()->get() > pow(2, 30))
+            {
+                Scierror(999, _("%s: stack size exceeded (Use stacksize function to increase it).\n"), "ones");
+                return types::Function::Error;
+            }
+        }
         int iDims = pIn->getDims();
         int* piDims = pIn->getDimsArray();
 
@@ -84,6 +91,11 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
             switch (in[i]->getType())
             {
                 case types::InternalType::ScilabDouble :
+                    if (*in[i]->getAs<types::Double>()->get() > pow(2, 30))
+                    {
+                        Scierror(999, _("%s: stack size exceeded (Use stacksize function to increase it).\n"), "ones");
+                        return types::Function::Error;
+                    }
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Double>()->get()[0]);
                     break;
                 case types::InternalType::ScilabInt8 :

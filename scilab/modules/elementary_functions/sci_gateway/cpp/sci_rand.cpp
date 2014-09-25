@@ -114,6 +114,11 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
     }
     else if (in[0]->isDouble())
     {
+        if (*in[0]->getAs<types::Double>()->get() > pow(2, 30))
+        {
+            Scierror(999, _("%s: stack size exceeded (Use stacksize function to increase it).\n"), "rand");
+            return types::Function::Error;
+        }
         int iRandSave = siRandType;
         if (in[iSizeIn - 1]->isString())
         {

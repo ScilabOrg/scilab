@@ -61,6 +61,15 @@ Function::ReturnValue sci_eye(types::typed_list &in, int _iRetCount, types::type
             return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
         }
 
+        else if (in[0]->isDouble())
+        {
+            if (*in[0]->getAs<types::Double>()->get() > pow(2, 30))
+            {
+                Scierror(999, _("%s: stack size exceeded (Use stacksize function to increase it).\n"), "eye");
+                return types::Function::Error;
+            }
+        }
+
         dimsArray[0] = in[0]->getAs<types::GenericType>()->getRows();
         dimsArray[1] = in[0]->getAs<types::GenericType>()->getCols();
         // eye(:)
@@ -79,6 +88,11 @@ Function::ReturnValue sci_eye(types::typed_list &in, int _iRetCount, types::type
             {
                 Scierror(999, _("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "eye", i + 1);
                 return Function::Error;
+            }
+            if (*in[i]->getAs<types::Double>()->get() > pow(2, 30))
+            {
+                Scierror(999, _("%s: stack size exceeded (Use stacksize function to increase it).\n"), "eye");
+                return types::Function::Error;
             }
             dimsArray[i] = (int)in[i]->getAs<types::Double>()->get()[0];
         }
