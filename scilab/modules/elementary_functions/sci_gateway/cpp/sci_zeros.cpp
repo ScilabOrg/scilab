@@ -38,7 +38,12 @@ types::Function::ReturnValue sci_zeros(types::typed_list &in, int _iRetCount, ty
             Scierror(999, _("%s: Wrong type for input argument #%d: Matrix expected.\n"), "zeros", 1);
             return types::Function::Error;
         }
-
+        api_scilab::Double* pIn = api_scilab::getAsDouble(in[0]);
+        if (*pIn->get() >= pow(2, 31))
+        {
+            Scierror(999, _("%s: variable size exceeded : less than 2^31 expected.\n"), "zeros");
+            return types::Function::Error;
+        }
         int iDims = 0;
         int* piDims = NULL;
 
@@ -78,6 +83,15 @@ types::Function::ReturnValue sci_zeros(types::typed_list &in, int _iRetCount, ty
                 Scierror(999, _("%s: Wrong type for input argument #%d: Matrix expected.\n"), "zeros", i + 1);
                 return types::Function::Error;
             }
+            else
+            {
+                api_scilab::Double* pIn = api_scilab::getAsDouble(in[i]);
+                if (*pIn->get() > pow(2, 30))
+                {
+                    Scierror(999, _("%s: stack size exceeded (Use stacksize function to increase it).\n"), "zeros");
+                    return types::Function::Error;
+                }
+            }
         }
 
         int iDims = static_cast<int>(in.size());
@@ -91,6 +105,8 @@ types::Function::ReturnValue sci_zeros(types::typed_list &in, int _iRetCount, ty
                 Scierror(999, _("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "zeros", i + 1);
                 return types::Function::Error;
             }
+
+
             piDims[i] = static_cast<int>(pIn->getReal()[0]);
             delete pIn;
         }

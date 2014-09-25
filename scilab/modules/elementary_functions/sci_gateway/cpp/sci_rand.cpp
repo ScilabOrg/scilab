@@ -115,6 +115,11 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
     }
     else if (in[0]->isArrayOf())
     {
+        if (*in[0]->getAs<types::Double>()->get() >= pow(2, 31))
+        {
+            Scierror(999, _("%s: variable size exceeded : less than 2^31 expected.\n"), "rand");
+            return types::Function::Error;
+        }
         int iRandSave = siRandType;
         if (in[iSizeIn - 1]->isString())
         {
