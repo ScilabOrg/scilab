@@ -3,6 +3,7 @@
  * Copyright (C) 2006 - INRIA - Allan CORNET
  * Copyright (C) 2011 - DIGITEO - Antoine ELIAS
  * Copyright (C) 2013 - Scilab Enterprises - Cedric Delamarre
+ * Copyright (C) 2014 - Scilab Enterprises - Anais Aubert
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -49,7 +50,14 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
                 return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
             }
         }
-
+        else if (pIn->isDouble())
+        {
+            if (*in[0]->getAs<types::Double>()->get() >= pow(2, 31))
+            {
+                Scierror(999, _("%s: variable size exceeded : less than 2^31 expected.\n"), "ones");
+                return types::Function::Error;
+            }
+        }
         int iDims = pIn->getDims();
         int* piDims = pIn->getDimsArray();
 
@@ -84,6 +92,11 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
             switch (in[i]->getType())
             {
                 case types::InternalType::ScilabDouble :
+                    if (*in[i]->getAs<types::Double>()->get() >= pow(2, 31))
+                    {
+                        Scierror(999, _("%s: variable size exceeded : less than 2^31 expected.\n"), "ones");
+                        return types::Function::Error;
+                    }
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Double>()->get()[0]);
                     break;
                 case types::InternalType::ScilabInt8 :
@@ -105,9 +118,19 @@ types::Function::ReturnValue sci_ones(types::typed_list &in, int _iRetCount, typ
                     piDims[i] = static_cast<int>(in[i]->getAs<types::UInt32>()->get()[0]);
                     break;
                 case types::InternalType::ScilabInt64 :
+                    if (*in[i]->getAs<types::Int64>()->get() >= pow(2, 31))
+                    {
+                        Scierror(999, _("%s: variable size exceeded : less than 2^31 expected.\n"), "ones");
+                        return types::Function::Error;
+                    }
                     piDims[i] = static_cast<int>(in[i]->getAs<types::Int64>()->get()[0]);
                     break;
                 case types::InternalType::ScilabUInt64 :
+                    if (*in[i]->getAs<types::Int64>()->get() >= pow(2, 31))
+                    {
+                        Scierror(999, _("%s: variable size exceeded : less than 2^31 expected.\n"), "ones");
+                        return types::Function::Error;
+                    }
                     piDims[i] = static_cast<int>(in[i]->getAs<types::UInt64>()->get()[0]);
                     break;
                 default :
