@@ -231,6 +231,8 @@ Scilab Bug Fixes
 
 * Bug #13527 fixed - hilb did not check correctly the type of first input argument.
 
+* Bug #13543 fixed - "slider" uicontrols did not work with the mouse wheel.
+
 * Bug #13554 fixed - rubberbox returned wrong values.
 
 * Bug #13579 fixed - bar displayed useless warnings.
