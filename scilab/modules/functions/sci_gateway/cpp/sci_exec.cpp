@@ -19,6 +19,7 @@
 #include "execvisitor.hxx"
 #include "mutevisitor.hxx"
 #include "printvisitor.hxx"
+#include "macrovarvisitor.hxx"
 #include "visitor_common.hxx"
 #include "scilabWrite.hxx"
 #include "scilabexception.hxx"
@@ -176,6 +177,11 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     {
         //1st argument is a macro name, execute it in the current environnement
         pExp = in[0]->getAs<Macro>()->getBody();
+        ExecVisitor execMe;
+        (pExp)->accept(execMe);
+
+        return Function::OK;
+
     }
     else if (in[0]->isMacroFile())
     {
@@ -189,6 +195,10 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             return Function::Error;
         }
         pExp = in[0]->getAs<MacroFile>()->getMacro()->getBody();
+
+        MacrovarVisitor execMe;
+        (pExp)->accept(execMe);
+        return Function::OK;
     }
     else
     {
@@ -205,7 +215,8 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     std::string stPrompt(pstPrompt);
     //    MessageBoxA(NULL, stPrompt, "", 0);
 
-    wchar_t* pwstFile =  expandPathVariableW(in[0]->getAs<types::String>()->get(0));
+    wchar_t *pst = in[0]->getAs<types::String>()->get(0);
+    wchar_t* pwstFile =  expandPathVariableW(pst);
     char* pstFile = wide_string_to_UTF8(pwstFile);
     std::string stFile(pstFile);
     std::ifstream file(pstFile);
