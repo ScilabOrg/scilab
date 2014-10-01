@@ -84,7 +84,7 @@ extern "C" {
      *                -1 if an other error occurred
      */
     int addStringColVectorToReturnedList(void* list, char* vector[], int nbValues);
-    int addStringToReturnedList( returnedList * list, char * str);
+    int addStringToReturnedList(void* list, char * str);
 #ifdef __cplusplus
 }
 #endif

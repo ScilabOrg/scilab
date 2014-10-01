@@ -160,7 +160,7 @@ int addStringColVectorToReturnedList(void* list, char * vector[], int nbValues)
     return 0;
 }
 /*------------------------------------------------------------------------*/
-int addStringToReturnedList( returnedList * list, char * str)
+int addStringToReturnedList(void* list, char * str)
 {
     //    int nbValues = 1;
     //    int nbCol = 1 ;
