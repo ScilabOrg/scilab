@@ -61,9 +61,14 @@ Function::ReturnValue sci_eye(types::typed_list &in, int _iRetCount, types::type
             return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
         }
 
-        dimsArray[0] = in[0]->getAs<types::GenericType>()->getRows();
-        dimsArray[1] = in[0]->getAs<types::GenericType>()->getCols();
         // eye(:)
+        dims = (int)in[0]->getAs<types::GenericType>()->getDims();
+        //   GenericType gT = in[0]->getAs<types::GenericType>();
+        for (int i = 0; i < dims; i++)
+        {
+
+            dimsArray[i] =  (int)in[0]->getAs<types::GenericType>()->getDimsArray()[i];
+        }
         if (dimsArray[1] == -1 && dimsArray[0] == -1)
         {
             Scierror(21, _("Invalid index.\n"));
