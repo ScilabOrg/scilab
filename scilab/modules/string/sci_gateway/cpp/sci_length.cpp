@@ -51,7 +51,7 @@ static Double* lengthStrings(String* _pS);
 static Double* lengthMatrix(GenericType* _pG);
 static Double* lengthList(List* _pL);
 /* !!! WARNING !!! : Read comments about length on sparse matrix */
-//static Double lengthSparse(Sparse* _pS);
+static Double* lengthSparse(Sparse* _pS);
 /*----------------------------------------------------------------------------*/
 Function::ReturnValue sci_length(typed_list &in, int _iRetCount, typed_list &out)
 {
@@ -90,7 +90,14 @@ Function::ReturnValue sci_length(typed_list &in, int _iRetCount, typed_list &out
     }
     else if (in[0]->isGenericType())
     {
-        pOut = lengthMatrix(in[0]->getAs<GenericType>());
+        if (in[0]->isSparse())
+        {
+            pOut = lengthSparse(in[0]->getAs<Sparse>());
+        }
+        else
+        {
+            pOut = lengthMatrix(in[0]->getAs<GenericType>());
+        }
     }
     else
     {
@@ -130,6 +137,18 @@ static Double* lengthMatrix(GenericType* _pG)
     return new Double(static_cast<double>(_pG->getSize()));
 }
 /*--------------------------------------------------------------------------*/
+static Double* lengthSparse(Sparse* _pG)
+{
+    if (_pG == NULL)
+    {
+        return Double::Empty();
+    }
+
+    int iRows = _pG->getRows();
+    int iCols = _pG->getCols();
+    return new Double(static_cast<double>(max(iRows, iCols)));
+}
+/*--------------------------------------------------------------------------*/
 static Double* lengthList(List* _pL)
 {
     if (_pL == NULL)
@@ -139,8 +158,4 @@ static Double* lengthList(List* _pL)
 
     return new Double(static_cast<double>(_pL->getSize()));
 }
-/*--------------------------------------------------------------------------*/
-//static Double lengthSparse(Sparse* _pS)
-//{
-//}
 /*--------------------------------------------------------------------------*/
