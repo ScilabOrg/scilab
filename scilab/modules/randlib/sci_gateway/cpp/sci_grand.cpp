@@ -68,7 +68,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         return types::Function::Error;
     }
 
-    // *** find the mothod string. ***
+    // *** find the method string. ***
     for (int i = 0; i < in.size(); i++)
     {
         if (in[i]->isString())
@@ -296,6 +296,17 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
             Scierror(999, _("%s: Wrong type for input argument #%d : A scalar expected.\n"), "grand", iPos + 1);
             return types::Function::Error;
         }
+        if ( pDblTemp->get(0) < 0)
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: Positive scalar expected.\n"), "grand", iPos + 1);
+            return types::Function::Error;
+        }
+        if (pDblTemp->get(0) == 0)
+        {
+            out.push_back(types::Double::Empty());
+            return types::Function::OK;
+
+        }
 
         iNumIter = (int)pDblTemp->get(0);
         iPos++;
@@ -308,6 +319,11 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         Scierror(999, _("%s: Wrong position for input argument #%d : Must be in position %d or %d.\n"), "grand", iStrPos + 1, 2, 3);
         return types::Function::Error;
         }*/
+
+
+        int val[2] = {1, 1};
+
+
 
         std::vector<types::Double*> vectpDblTemp;
         for (int i = 0; i < iStrPos; i++)
@@ -325,7 +341,38 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
                 Scierror(999, _("%s: Wrong type for input argument #%d : A scalar expected.\n"), "grand", iPos + 1);
                 return types::Function::Error;
             }
+            if ( (vectpDblTemp[i]->get(0) < 0) && ((iStrPos > 2) || (iStrPos == 1)))
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: Positive scalar expected.\n"), "grand", iPos + 1);
+                return types::Function::Error;
+            }
+            if ( vectpDblTemp[i]->get(0) == 0)
+            {
+                out.push_back(types::Double::Empty());
+                return types::Function::OK;
+
+            }
+            if (vectpDblTemp[i]->get(0) < 0)
+            {
+                val[i] = -1;
+            }
+
             iPos++;
+        }
+
+        if (iStrPos == 2)
+        {
+            if (val[0] * val[1] < 0)
+            {
+                for (int i = 0; i < iStrPos; i++)
+                {
+                    if (val[i] < 0)
+                    {
+                        Scierror(999, _("%s: Wrong value for input argument #%d: Positive scalar expected.\n"), "grand", i + 1);
+                        return types::Function::Error;
+                    }
+                }
+            }
         }
 
         //get number of dimensions to output
