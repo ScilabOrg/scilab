@@ -2,6 +2,7 @@
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2011 - DIGITEO - Cedric DELAMARRE
 * Copyright (C) 2014 - Scilab Enterprises - Sylvain GENIN
+* Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
 *
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -51,15 +52,8 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
     int iCols       = -1;
     int iNumIter    = -1;
 
-
     int current_base_gen = ConfigVariable::getCurrentBaseGen();
 
-    // *** check the maximal number of input args. ***
-    /* if (in.size() > 6)
-    {
-    Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "grand", 1, 6);
-    return types::Function::Error;
-    }*/
 
     // *** check number of output args. ***
     if (_iRetCount > 1)
@@ -68,7 +62,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         return types::Function::Error;
     }
 
-    // *** find the mothod string. ***
+    // *** find the method string. ***
     for (int i = 0; i < in.size(); i++)
     {
         if (in[i]->isString())
@@ -296,18 +290,24 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
             Scierror(999, _("%s: Wrong type for input argument #%d : A scalar expected.\n"), "grand", iPos + 1);
             return types::Function::Error;
         }
+        if ( pDblTemp->get(0) < 0)
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: Positive scalar expected.\n"), "grand", iPos + 1);
+            return types::Function::Error;
+        }
+        if (pDblTemp->get(0) == 0)
+        {
+            out.push_back(types::Double::Empty());
+            return types::Function::OK;
+
+        }
 
         iNumIter = (int)pDblTemp->get(0);
         iPos++;
     }
     else if (meth < 21) // grand(m, n, "...", ... || grand(matrix, "...", ...
     {
-
-        /*if (iStrPos != 1 && iStrPos != 2)
-        {
-        Scierror(999, _("%s: Wrong position for input argument #%d : Must be in position %d or %d.\n"), "grand", iStrPos + 1, 2, 3);
-        return types::Function::Error;
-        }*/
+        int val[2] = {1, 1};
 
         std::vector<types::Double*> vectpDblTemp;
         for (int i = 0; i < iStrPos; i++)
@@ -325,7 +325,39 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
                 Scierror(999, _("%s: Wrong type for input argument #%d : A scalar expected.\n"), "grand", iPos + 1);
                 return types::Function::Error;
             }
+            if ( (vectpDblTemp[i]->get(0) < 0) && ((iStrPos > 2) || (iStrPos == 1)))
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: Positive scalar expected.\n"), "grand", iPos + 1);
+                return types::Function::Error;
+            }
+            if ( vectpDblTemp[i]->get(0) == 0)
+            {
+                out.push_back(types::Double::Empty());
+                return types::Function::OK;
+
+            }
+            if (vectpDblTemp[i]->get(0) < 0)
+            {
+                val[i] = -1;
+            }
+
             iPos++;
+        }
+
+        //checks if it's eye. if not, no arg should be = 0
+        if (iStrPos == 2)
+        {
+            if (val[0] * val[1] < 0)
+            {
+                for (int i = 0; i < iStrPos; i++)
+                {
+                    if (val[i] < 0)
+                    {
+                        Scierror(999, _("%s: Wrong value for input argument #%d: Positive scalar expected.\n"), "grand", i + 1);
+                        return types::Function::Error;
+                    }
+                }
+            }
         }
 
         //get number of dimensions to output
