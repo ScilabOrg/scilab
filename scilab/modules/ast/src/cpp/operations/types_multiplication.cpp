@@ -393,10 +393,10 @@ int MultiplyDoubleByPoly(Double* _pDouble, Polynom* _pPoly, Polynom** _pPolyOut)
         for (int i = 0 ; i < _pPoly->getSize() ; i++)
         {
             double* pRealIn         = _pPoly->get(i).get();
-            double* pImgIn          = _pPoly->get(i).getImg();
+            double* pImgIn          = _pPoly->getImg(i).get();
 
             double* pRealOut        = (*_pPolyOut)->get(i).get();
-            double* pImgOut         = (*_pPolyOut)->get(i).getImg();
+            double* pImgOut         = (*_pPolyOut)->getImg(i).get();
 
             if (bComplex1 == false && bComplex2 == false)
             {
@@ -914,7 +914,7 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     if (bComplex1 == false && bComplex2 == false)
     {
         double *pReal = NULL;
-        SinglePoly pTemp(&pReal, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTemp((*_pPolyOut)->getVariableName(), &pReal, (*_pPolyOut)->getMaxRank());
 
         for (int iRow = 0 ; iRow < _pPoly1->getRows() ; iRow++)
         {
@@ -943,7 +943,8 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
     {
         double *pReal = NULL;
         double *pImg = NULL;
-        SinglePoly pTemp(&pReal, &pImg, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTemp((*_pPolyOut)->getVariableName(), &pReal, (*_pPolyOut)->getMaxRank());
+        SinglePoly pTempImg((*_pPolyOut)->getVariableName(), &pImg, (*_pPolyOut)->getMaxRank());
 
         for (int iRow = 0 ; iRow < _pPoly1->getRows() ; iRow++)
         {

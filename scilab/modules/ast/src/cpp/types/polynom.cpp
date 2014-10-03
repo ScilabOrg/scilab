@@ -63,7 +63,6 @@ Polynom::~Polynom()
 
 void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, const int *_piRank)
 {
-    m_szVarName = _szVarName;
     SinglePoly* pPoly = NULL;
     create(_piDims, _iDims, &pPoly, NULL);
 
@@ -73,85 +72,32 @@ void Polynom::createPoly(std::wstring _szVarName, int _iDims, int* _piDims, cons
         {
             double* pReal = NULL;
             // will fill m_pRealData[i] without use operator= in case m_pRealData[i] = new ...
-            new (m_pRealData + i) SinglePoly(&pReal, _piRank[i]);
+            new (m_pRealData + i) SinglePoly(_szVarName, &pReal, _piRank[i]);
         }
     }
+
 #ifndef NDEBUG
     //Inspector::addItem(this);
 #endif
 }
 
-bool Polynom::set(int _iPos, SinglePoly& _pS)
+void Polynom::setZeros()
 {
-    bool bComplex = isComplex();
-    if (m_pRealData == NULL || _iPos >= m_iSize)
+    if (isComplex())
     {
-        return false;
-    }
-
-    m_pRealData[_iPos] = _pS;
-
-    if (_pS.isComplex() && bComplex == false)
-    {
-        setComplex(true);
-    }
-    else if (_pS.isComplex() == false && bComplex)
-    {
-        m_pRealData[_iPos].setComplex(true);
-    }
-
-    return true;
-}
-
-bool Polynom::set(int _iRows, int _iCols, SinglePoly& _pS)
-{
-    return set(_iCols * getRows() + _iRows, _pS);
-}
-
-bool Polynom::set(SinglePoly* _pS)
-{
-    for (int i = 0 ; i < m_iSize ; i++)
-    {
-        m_pRealData[i] = _pS[i];
-    }
-
-    return true;
-}
-
-bool Polynom::setCoef(int _iRows, int _iCols, Double *_pdblCoef)
-{
-    int piDims[] = {_iRows, _iCols};
-    int iPos = getIndex(piDims);
-    return setCoef(iPos, _pdblCoef);
-}
-
-bool Polynom::setCoef(int _iIdx, Double *_pdblCoef)
-{
-    if (_iIdx < getSize())
-    {
-        /*Get old SinglePoly*/
-        m_pRealData[_iIdx].setRank(_pdblCoef->getSize() - 1);
-        m_pRealData[_iIdx].setCoef(_pdblCoef);
+        for (int i = 0; i < m_iSize; i++)
+        {
+            m_pRealData[i].setZeros();
+            m_pImgData[i].setZeros();
+        }
     }
     else
     {
-        return false;
+        for (int i = 0; i < m_iSize; i++)
+        {
+            m_pRealData[i].setZeros();
+        }
     }
-
-    return true;
-}
-
-void Polynom::setZeros()
-{
-    for (int i = 0; i < m_iSize; i++)
-    {
-        m_pRealData[i].setZeros();
-    }
-}
-
-SinglePoly* Polynom::get() const
-{
-    return m_pRealData;
 }
 
 SinglePoly& Polynom::get(int _iPos)
@@ -160,13 +106,28 @@ SinglePoly& Polynom::get(int _iPos)
     {
         return m_pRealData[_iPos];
     }
-    return SinglePoly();
+    return SinglePoly(getVariableName());
 }
 
 SinglePoly& Polynom::get(int _iRows, int _iCols)
 {
     int piIndexes[2] = {_iRows, _iCols};
     return get(getIndex(piIndexes));
+}
+
+SinglePoly& Polynom::getImg(int _iPos)
+{
+    if (m_pImgData)
+    {
+        return m_pImgData[_iPos];
+    }
+    return SinglePoly(getVariableName());
+}
+
+SinglePoly& Polynom::getImg(int _iRows, int _iCols)
+{
+    int piIndexes[2] = {_iRows, _iCols};
+    return getImg(getIndex(piIndexes));
 }
 
 bool Polynom::getRank(int *_piRank)
@@ -176,9 +137,19 @@ bool Polynom::getRank(int *_piRank)
         return false;
     }
 
-    for (int i = 0 ; i < getSize() ; i++)
+    if (isComplex())
     {
-        _piRank[i] = m_pRealData[i].getRank();
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            _piRank[i] = std::max(m_pRealData[i].getRank(), m_pImgData[i].getRank());
+        }
+    }
+    else
+    {
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            _piRank[i] = m_pRealData[i].getRank();
+        }
     }
 
     return true;
@@ -186,22 +157,39 @@ bool Polynom::getRank(int *_piRank)
 
 void Polynom::whoAmI(void)
 {
-    std::cout << "types::SinglePoly";
+    std::cout << "types::Polynom";
 }
 
 wstring Polynom::getVariableName()
 {
-    return m_szVarName;
+    return m_pRealData[0].getVariableName();
 }
 
 void Polynom::setVariableName(wstring _szVarName)
 {
-    m_szVarName = _szVarName;
+    if (_szVarName != m_pRealData[0].getVariableName())
+    {
+        if (isComplex())
+        {
+            for (int i = 0; i < m_iSize; i++)
+            {
+                m_pRealData[i].setVariableName(_szVarName);
+                m_pImgData[i].setVariableName(_szVarName);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < m_iSize; i++)
+            {
+                m_pRealData[i].setVariableName(_szVarName);
+            }
+        }
+    }
 }
 
 bool Polynom::isComplex()
 {
-    return m_pRealData[0].isComplex();
+    return m_pImgData != NULL;
 }
 
 void Polynom::setComplex(bool _bComplex)
@@ -237,7 +225,7 @@ bool Polynom::transpose(InternalType *& out)
     if (m_iDims == 2)
     {
         int piNewDims[2] = {m_piDims[1], m_piDims[0]};
-        Polynom* pPoly = new Polynom(m_szVarName, m_iDims, piNewDims);
+        Polynom* pPoly = new Polynom(getVariableName(), m_iDims, piNewDims);
         Transposition::transpose(getRows(), getCols(), m_pRealData, pPoly->get());
         out = pPoly;
         return true;
@@ -254,7 +242,7 @@ bool Polynom::adjoint(InternalType *& out)
         if (m_iDims == 2)
         {
             int piNewDims[2] = {m_piDims[1], m_piDims[0]};
-            Polynom* pPoly = new Polynom(m_szVarName, m_iDims, piNewDims);
+            Polynom* pPoly = new Polynom(getVariableName(), m_iDims, piNewDims);
             Transposition::adjoint(getRows(), getCols(), m_pRealData, pPoly->get());
             out = pPoly;
             return true;
@@ -296,9 +284,23 @@ Double* Polynom::evaluate(Double* _pdblValue)
                     double OutI = 0;
 
                     SinglePoly pPoly = get(iPolyRow, iPolyCol);
-                    if (pReturn->isComplex())
+                    if (pReturn->isComplex() && isComplex())
                     {
-                        pPoly.evaluate(pR[iCol * iRows + iRow], pI[iCol * iRows + iRow], &OutR, &OutI);
+                        SinglePoly pPolyImg = getImg(iPolyRow, iPolyCol);
+                        pPoly.evaluate(pR[iCol * iRows + iRow], pI[iCol * iRows + iRow], &pPolyImg, &OutR, &OutI);
+                        pReturnR[i] = OutR;
+                        pReturnI[i] = OutI;
+                    }
+                    else if (pReturn->isComplex())
+                    {
+                        pPoly.evaluate(pR[iCol * iRows + iRow], pI[iCol * iRows + iRow], NULL, &OutR, &OutI);
+                        pReturnR[i] = OutR;
+                        pReturnI[i] = OutI;
+                    }
+                    else if (isComplex())
+                    {
+                        SinglePoly pPolyImg = getImg(iPolyRow, iPolyCol);
+                        pPoly.evaluate(pR[iCol * iRows + iRow], 0, &pPolyImg, &OutR, &OutI);
                         pReturnR[i] = OutR;
                         pReturnI[i] = OutI;
                     }
@@ -317,9 +319,20 @@ Double* Polynom::evaluate(Double* _pdblValue)
 
 void Polynom::updateRank(void)
 {
-    for (int i = 0 ; i < getSize() ; i++)
+    if (isComplex())
     {
-        m_pRealData[i].updateRank();
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            m_pRealData[i].updateRank();
+            m_pImgData[i].updateRank();
+        }
+    }
+    else
+    {
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            m_pRealData[i].updateRank();
+        }
     }
 }
 
@@ -434,7 +447,7 @@ bool Polynom::subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iD
             }
 
             ostr << L"Imaginary part" << endl << endl << endl ;
-            get(0).toStringImg(getVariableName(), &listExpI, &listCoefI);
+            getImg(0).toStringReal(getVariableName(), &listExpI, &listCoefI);
             for (it_Coef = listCoefI.begin(), it_Exp = listExpI.begin() ; it_Coef != listCoefI.end() ; it_Coef++, it_Exp++)
             {
                 ostr << *it_Exp << endl << *it_Coef << endl;
@@ -529,7 +542,7 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
             int iPos = getIndex(_piDims);
             if (_bComplex)
             {
-                get(iPos).toStringImg(getVariableName(), &listExpR, &listCoefR);
+                getImg(iPos).toStringReal(getVariableName(), &listExpR, &listCoefR);
             }
             else
             {
@@ -577,7 +590,7 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
                     int iPos = getIndex(_piDims);
                     if (_bComplex)
                     {
-                        get(iPos).toStringImg(getVariableName(), &listExpR, &listCoefR);
+                        getImg(iPos).toStringReal(getVariableName(), &listExpR, &listCoefR);
                     }
                     else
                     {
@@ -666,7 +679,7 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
             int iPos = getIndex(_piDims);
             if (_bComplex)
             {
-                get(iPos).toStringImg( getVariableName(), &listExpR, &listCoefR);
+                getImg(iPos).toStringReal( getVariableName(), &listExpR, &listCoefR);
             }
             else
             {
@@ -739,7 +752,7 @@ wstring Polynom::getRowString(int* _piDims, int /*_iDims*/, bool _bComplex)
         int iPos = getIndex(_piDims);
         if (_bComplex)
         {
-            get(iPos).toStringImg(getVariableName(), &listExpR, &listCoefR);
+            getImg(iPos).toStringReal(getVariableName(), &listExpR, &listCoefR);
         }
         else
         {
@@ -828,7 +841,7 @@ wstring Polynom::getColString(int* _piDims, int /*_iDims*/, bool _bComplex)
         int iPos = getIndex(_piDims);
         if (_bComplex)
         {
-            get(iPos).toStringImg(getVariableName(), &listExpR, &listCoefR);
+            getImg(iPos).toStringReal(getVariableName(), &listExpR, &listCoefR);
         }
         else
         {
@@ -951,7 +964,7 @@ bool Polynom::operator!=(const InternalType& it)
 
 SinglePoly Polynom::getNullValue()
 {
-    return SinglePoly();
+    return SinglePoly(getVariableName());
 }
 
 Polynom* Polynom::createEmpty(int _iDims, int* _piDims, bool /*_bComplex*/)

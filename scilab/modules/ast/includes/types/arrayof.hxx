@@ -230,7 +230,10 @@ public :
             if (m_pImgData == NULL)
             {
                 m_pImgData = allocData(m_iSize);
-                memset(m_pImgData, 0x00, sizeof(T) * m_iSize);
+                for (int i = 0; i < m_iSize; i++)
+                {
+                    m_pImgData[i] = getNullValue();
+                }
             }
         }
     }

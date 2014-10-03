@@ -24,12 +24,11 @@ public :
     Dollar()
     {
         int piDims[2] = {1, 1};
-        m_szVarName   = L"$";
         SinglePoly* pPoly = NULL;
         create(piDims, 2, &pPoly, NULL);
 
         double* pdblCoef = NULL;
-        SinglePoly SPCoef(&pdblCoef, 1);
+        SinglePoly SPCoef(L"$", &pdblCoef, 1);
         pdblCoef[0] = 0;
         pdblCoef[1] = 1.0;
 

@@ -23,8 +23,8 @@ class EXTERN_AST SinglePoly : public ArrayOf<double>
 {
 public :
     SinglePoly();
-    SinglePoly(double** _pdblCoefR, int _iRank);
-    SinglePoly(double** _pdblCoefR, double** _pdblcoefI, int _iRank);
+    SinglePoly(std::wstring _szVarName);
+    SinglePoly(std::wstring _szVarName, double** _pdblCoefR, int _iRank);
     SinglePoly(const SinglePoly& rightSide);
 
     virtual                 ~SinglePoly();
@@ -32,7 +32,7 @@ public :
     virtual void            deleteImg();
 
     SinglePoly*            clone();
-    SinglePoly             conjugate();
+    //SinglePoly             conjugate();
 
     bool                    isSinglePoly()
     {
@@ -49,15 +49,14 @@ public :
 
     bool                    setZeros();
     int                     getRank();
+    std::wstring            getVariableName();
+    void                    setVariableName(std::wstring);
     bool                    setRank(int _iRank, bool bSave = false);
-    bool                    setCoef(Double *_poPow);
-    bool                    setCoef(double *_pdblCoefR, double *_pdblCoefI);
-    bool                    evaluate(double _dblInR, double _dblInI, double *_pdblOutR, double *_pdblOutI);
+    bool                    setCoef(double *_pdblCoefR);
+    bool                    evaluate(double _dblInR, double _dblInI, SinglePoly* spImg , double *_pdblOutR, double *_pdblOutI);
     void                    updateRank(void);
 
     void                    toStringReal(std::wstring _szVar, std::list<std::wstring>* _pListExp , std::list<std::wstring>* _pListCoef);
-    void                    toStringImg(std::wstring _szVar, std::list<std::wstring>* _pListExp , std::list<std::wstring>* _pListCoef);
-
     bool                    toString(std::wostringstream& ostr);
 
     bool                    operator!=(const InternalType& it);
@@ -85,11 +84,14 @@ protected :
     }
 
 private :
+    std::wstring            m_szVarName;
     void                    toStringInternal(double *_pdblVal, std::wstring _szVar, std::list<std::wstring>* _pListExp , std::list<std::wstring>* _pListCoef);
 
 };
 
+SinglePoly&     operator+(const SinglePoly& _lhs, const SinglePoly& _rhs);
 SinglePoly&     operator*(const SinglePoly& lhs, const SinglePoly& rhs);
+
 bool            operator==(const SinglePoly& lhs, const InternalType& rhs);
 bool            operator==(const SinglePoly& lhs, const double rhs);
 bool            operator==(const double lhs, const SinglePoly& rhs);

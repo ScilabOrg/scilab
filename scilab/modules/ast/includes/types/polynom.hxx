@@ -84,17 +84,14 @@ public :
     bool                    insertCoef(int _iRank, Double* _pCoef);
     void                    setZeros();
 
-    bool                    set(int _iPos, SinglePoly& _pS);
-    bool                    set(int _iRows, int _iCols, SinglePoly& _pS);
-    bool                    set(SinglePoly* _pS);
-    SinglePoly*             get() const;
     SinglePoly&             get(int _iPos);
     SinglePoly&             get(int _iRows, int _iCols);
+    SinglePoly&             getImg(int _iPos);
+    SinglePoly&             getImg(int _iRows, int _iCols);
 
     std::wstring            getRowString(int* _piDims, int _iDims, bool _bComplex);
     std::wstring            getColString(int* _piDims, int _iDims, bool _bComplex);
     std::wstring            getMatrixString(int* _piDims, int _iDims, bool _bComplex);
-
 
     bool                    operator==(const InternalType& it);
     bool                    operator!=(const InternalType& it);
@@ -120,10 +117,12 @@ public :
     bool neg(InternalType *& out);
 
 protected :
-    std::wstring            m_szVarName;
     void                    createPoly(std::wstring _szVarName, int _iDims, int* _piDims, const int *_piRank);
 
 private :
+    SinglePoly*             get() const {};
+    SinglePoly*             getImg() const {};
+
     virtual bool            subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iDims);
 
     virtual SinglePoly      getNullValue();

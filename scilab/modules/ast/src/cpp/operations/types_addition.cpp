@@ -22,7 +22,6 @@ extern "C"
 {
 #include <stdio.h>
 #include "core_math.h"
-#include "matrix_addition.h"
 #include "localization.h"
 #include "charEncoding.h"
 #include "os_swprintf.h"
@@ -71,11 +70,11 @@ void fillAddFunction()
     scilab_fill_add(Double, ScalarInt64, M_S, Double, Int64, Int64);
     scilab_fill_add(Double, ScalarUInt64, M_S, Double, UInt64, UInt64);
     scilab_fill_add(Double, ScalarBool, M_S, Double, Bool, Double);
-    scilab_fill_add(Double, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(Double, ScalarPolynom, M_S, Double, Polynom, Polynom);
 
     //Matrix + Scalar Complex
     scilab_fill_add(Double, ScalarDoubleComplex, M_SC, Double, Double, Double);
-    scilab_fill_add(Double, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(Double, ScalarPolynomComplex, M_S, Double, Polynom, Polynom);
     //Matrix + Empty
     scilab_fill_add(Double, Empty, M_E, Double, Double, Double);
 
@@ -87,9 +86,9 @@ void fillAddFunction()
     scilab_fill_add(DoubleComplex, ScalarDoubleComplex, MC_SC, Double, Double, Double);
     scilab_fill_add(DoubleComplex, Empty, MC_E, Double, Double, Double);
     scilab_fill_add(DoubleComplex, Polynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_add(DoubleComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
-    scilab_fill_add(DoubleComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_add(DoubleComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(DoubleComplex, PolynomComplex, MC_M, Double, Polynom, Polynom);
+    scilab_fill_add(DoubleComplex, ScalarPolynom, M_S, Double, Polynom, Polynom);
+    scilab_fill_add(DoubleComplex, ScalarPolynomComplex, MC_S, Double, Polynom, Polynom);
     scilab_fill_add(DoubleComplex, Sparse, M_M, Double, Sparse, Double);
     scilab_fill_add(DoubleComplex, SparseComplex, M_M, Double, Sparse, Double);
 
@@ -109,7 +108,7 @@ void fillAddFunction()
 
     //Scalar + Matrix Complex
     scilab_fill_add(ScalarDouble, DoubleComplex, S_MC, Double, Double, Double);
-    scilab_fill_add(ScalarDouble, PolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDouble, PolynomComplex, S_M, Double, Polynom, Polynom);
     scilab_fill_add(ScalarDouble, SparseComplex, M_M, Double, Sparse, Double);
 
     //Scalar + Scalar
@@ -123,12 +122,12 @@ void fillAddFunction()
     scilab_fill_add(ScalarDouble, ScalarInt64, S_S, Double, Int64, Int64);
     scilab_fill_add(ScalarDouble, ScalarUInt64, S_S, Double, UInt64, UInt64);
     scilab_fill_add(ScalarDouble, ScalarBool, S_S, Double, Bool, Double);
-    scilab_fill_add(ScalarDouble, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDouble, ScalarPolynom, S_S, Double, Polynom, Polynom);
 
     //Scalar + Scalar Complex
     scilab_fill_add(ScalarDouble, ScalarDoubleComplex, S_SC, Double, Double, Double);
-    scilab_fill_add(ScalarDouble, PolynomComplex, M_M, Double, Polynom, Polynom);
-    scilab_fill_add(ScalarDouble, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDouble, PolynomComplex, S_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDouble, ScalarPolynomComplex, S_S, Double, Polynom, Polynom);
 
     //Scalar + Empty
     scilab_fill_add(ScalarDouble, Empty, S_E, Double, Double, Double);
@@ -139,14 +138,14 @@ void fillAddFunction()
     scilab_fill_add(ScalarDoubleComplex, Sparse, M_M, Double, Sparse, Double);
     //Scalar Complex + Matrix Complex
     scilab_fill_add(ScalarDoubleComplex, DoubleComplex, SC_MC, Double, Double, Double);
-    scilab_fill_add(ScalarDoubleComplex, PolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDoubleComplex, PolynomComplex, SC_M, Double, Polynom, Polynom);
     scilab_fill_add(ScalarDoubleComplex, SparseComplex, M_M, Double, Sparse, Double);
     //Scalar Complex + Scalar
     scilab_fill_add(ScalarDoubleComplex, ScalarDouble, SC_S, Double, Double, Double);
-    scilab_fill_add(ScalarDoubleComplex, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDoubleComplex, ScalarPolynom, S_S, Double, Polynom, Polynom);
     //Scalar Complex + Scalar Complex
     scilab_fill_add(ScalarDoubleComplex, ScalarDoubleComplex, SC_SC, Double, Double, Double);
-    scilab_fill_add(ScalarDoubleComplex, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(ScalarDoubleComplex, ScalarPolynomComplex, SC_S, Double, Polynom, Polynom);
     //Scalar Complex + Empty
     scilab_fill_add(ScalarDoubleComplex, Empty, SC_E, Double, Double, Double);
 
@@ -163,7 +162,7 @@ void fillAddFunction()
     scilab_fill_add(Empty, Bool, E_M, Double, Bool, Double);
     scilab_fill_add(Empty, String, E_M, Double, String, String);
     scilab_fill_add(Empty, Polynom, M_M, Double, Polynom, Polynom);
-    scilab_fill_add(Empty, PolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(Empty, PolynomComplex, E_M, Double, Polynom, Polynom);
     scilab_fill_add(Empty, Sparse, M_M, Double, Sparse, Sparse);
     scilab_fill_add(Empty, SparseComplex, M_M, Double, Sparse, Sparse);
 
@@ -181,11 +180,11 @@ void fillAddFunction()
     scilab_fill_add(Empty, ScalarUInt64, E_S, Double, UInt64, UInt64);
     scilab_fill_add(Empty, ScalarBool, E_S, Double, Bool, Double);
     scilab_fill_add(Empty, ScalarString, E_S, Double, String, String);
-    scilab_fill_add(Empty, ScalarPolynom, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(Empty, ScalarPolynom, E_S, Double, Polynom, Polynom);
 
     //Empty + Scalar Complex
     scilab_fill_add(Empty, ScalarDoubleComplex, E_SC, Double, Double, Double);
-    scilab_fill_add(Empty, ScalarPolynomComplex, M_M, Double, Polynom, Polynom);
+    scilab_fill_add(Empty, ScalarPolynomComplex, E_S, Double, Polynom, Polynom);
     //Empty + Empty
     scilab_fill_add(Empty, Empty, E_E, Double, Double, Double);
     //Empty + eye
@@ -682,8 +681,8 @@ void fillAddFunction()
 
     scilab_fill_add(Identity, Polynom, I_M, Double, Polynom, Polynom);
     scilab_fill_add(Identity, PolynomComplex, I_M, Double, Polynom, Polynom);
-    scilab_fill_add(Identity, ScalarPolynom, I_M, Double, Polynom, Polynom);
-    scilab_fill_add(Identity, ScalarPolynomComplex, I_M, Double, Polynom, Polynom);
+    scilab_fill_add(Identity, ScalarPolynom, I_S, Double, Polynom, Polynom);
+    scilab_fill_add(Identity, ScalarPolynomComplex, I_S, Double, Polynom, Polynom);
     scilab_fill_add(Identity, Sparse, M_M, Double, Sparse, Sparse);
     scilab_fill_add(Identity, SparseComplex, M_M, Double, Sparse, Sparse);
 
@@ -697,8 +696,8 @@ void fillAddFunction()
 
     scilab_fill_add(IdentityComplex, Polynom, I_M, Double, Polynom, Polynom);
     scilab_fill_add(IdentityComplex, PolynomComplex, I_M, Double, Polynom, Polynom);
-    scilab_fill_add(IdentityComplex, ScalarPolynom, I_M, Double, Polynom, Polynom);
-    scilab_fill_add(IdentityComplex, ScalarPolynomComplex, I_M, Double, Polynom, Polynom);
+    scilab_fill_add(IdentityComplex, ScalarPolynom, I_S, Double, Polynom, Polynom);
+    scilab_fill_add(IdentityComplex, ScalarPolynomComplex, I_S, Double, Polynom, Polynom);
     scilab_fill_add(IdentityComplex, Sparse, M_M, Double, Sparse, Sparse);
     scilab_fill_add(IdentityComplex, SparseComplex, M_M, Double, Sparse, Sparse);
 
@@ -711,26 +710,26 @@ void fillAddFunction()
     scilab_fill_add(PolynomComplex, PolynomComplex, M_M, Polynom, Polynom, Polynom);
 
     //poly + scalar poly
-    scilab_fill_add(Polynom, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(Polynom, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(PolynomComplex, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(PolynomComplex, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
+    scilab_fill_add(Polynom, ScalarPolynom, M_S, Polynom, Polynom, Polynom);
+    scilab_fill_add(Polynom, ScalarPolynomComplex, M_S, Polynom, Polynom, Polynom);
+    scilab_fill_add(PolynomComplex, ScalarPolynom, M_S, Polynom, Polynom, Polynom);
+    scilab_fill_add(PolynomComplex, ScalarPolynomComplex, M_S, Polynom, Polynom, Polynom);
 
     //poly + double
     scilab_fill_add(Polynom, Double, M_M, Polynom, Double, Polynom);
     scilab_fill_add(Polynom, DoubleComplex, M_M, Polynom, Double, Polynom);
     scilab_fill_add(PolynomComplex, Double, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(PolynomComplex, DoubleComplex, M_M, Polynom, Double, Polynom);
+    scilab_fill_add(PolynomComplex, DoubleComplex, M_MC, Polynom, Double, Polynom);
 
     //poly + scalar double
     scilab_fill_add(Polynom, ScalarDouble, M_M, Polynom, Double, Polynom);
     scilab_fill_add(Polynom, ScalarDoubleComplex, M_M, Polynom, Double, Polynom);
     scilab_fill_add(PolynomComplex, ScalarDouble, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(PolynomComplex, ScalarDoubleComplex, M_M, Polynom, Double, Polynom);
+    scilab_fill_add(PolynomComplex, ScalarDoubleComplex, M_SC, Polynom, Double, Polynom);
 
     //poly + []
     scilab_fill_add(Polynom, Empty, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(PolynomComplex, Empty, M_M, Polynom, Double, Polynom);
+    scilab_fill_add(PolynomComplex, Empty, M_E, Polynom, Double, Polynom);
 
     //poly + eye
     scilab_fill_add(Polynom, Identity, M_I, Polynom, Double, Polynom);
@@ -739,38 +738,38 @@ void fillAddFunction()
     scilab_fill_add(PolynomComplex, IdentityComplex, M_I, Polynom, Double, Polynom);
 
     //scalar poly + poly
-    scilab_fill_add(ScalarPolynom, Polynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(ScalarPolynom, PolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, Polynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, PolynomComplex, M_M, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynom, Polynom, S_M, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynom, PolynomComplex, S_M, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, Polynom, S_M, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, PolynomComplex, S_M, Polynom, Polynom, Polynom);
 
     //scalar poly + scalar poly
-    scilab_fill_add(ScalarPolynom, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(ScalarPolynom, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, ScalarPolynom, M_M, Polynom, Polynom, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, ScalarPolynomComplex, M_M, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynom, ScalarPolynom, S_S, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynom, ScalarPolynomComplex, S_S, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, ScalarPolynom, S_S, Polynom, Polynom, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, ScalarPolynomComplex, S_S, Polynom, Polynom, Polynom);
 
     //scalar poly + double
-    scilab_fill_add(ScalarPolynom, Double, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynom, DoubleComplex, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, Double, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, DoubleComplex, M_M, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, Double, S_M, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, DoubleComplex, S_MC, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, Double, S_M, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, DoubleComplex, S_MC, Polynom, Double, Polynom);
 
     //scalar poly + scalar double
-    scilab_fill_add(ScalarPolynom, ScalarDouble, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynom, ScalarDoubleComplex, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, ScalarDouble, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, ScalarDoubleComplex, M_M, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, ScalarDouble, S_S, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, ScalarDoubleComplex, S_SC, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, ScalarDouble, S_S, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, ScalarDoubleComplex, S_SC, Polynom, Double, Polynom);
 
     //scalar poly + []
-    scilab_fill_add(ScalarPolynom, Empty, M_M, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, Empty, M_M, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, Empty, S_E, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, Empty, S_E, Polynom, Double, Polynom);
 
     //scalar poly + eye
-    scilab_fill_add(ScalarPolynom, Identity, M_I, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynom, IdentityComplex, M_I, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, Identity, M_I, Polynom, Double, Polynom);
-    scilab_fill_add(ScalarPolynomComplex, IdentityComplex, M_I, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, Identity, S_I, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynom, IdentityComplex, S_IC, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, Identity, S_I, Polynom, Double, Polynom);
+    scilab_fill_add(ScalarPolynomComplex, IdentityComplex, S_IC, Polynom, Double, Polynom);
 
     //Sparse
     scilab_fill_add(Sparse, Sparse, M_M, Sparse, Sparse, Sparse);
@@ -1680,235 +1679,6 @@ template<>
 InternalType* add_E_S<Double, String, String>(Double* /*_pL*/, String* _pR)
 {
     return _pR;
-}
-
-template<> InternalType* add_M_M<Polynom, Polynom, Polynom>(Polynom* _pL, Polynom* _pR)
-{
-    Polynom* pOut = NULL;
-    if (_pL->getVariableName() != _pR->getVariableName())
-    {
-        std::wostringstream os;
-        os << _W("variables don't have the same formal variable");
-        //os << ((Location)e.right_get().getLocation()).getLocationString() << std::endl;
-        throw ast::ScilabError(os.str());
-    }
-
-    if (_pL->isScalar())
-    {
-        int *pRank  = new int[_pR->getSize()];
-        int iRankL  = _pL->get(0).getRank();
-        int *pRankR = new int[_pR->getSize()];
-        bool bComplexL = _pL->isComplex();
-        bool bComplexR = _pR->isComplex();
-
-        _pR->getRank(pRankR);
-        for (int i = 0 ; i < _pR->getSize() ; i++)
-        {
-            pRank[i] = std::max(iRankL, pRankR[i]);
-        }
-
-        pOut = new Polynom(_pR->getVariableName(), _pR->getDims(), _pR->getDimsArray(), pRank);
-        pOut->setComplex(bComplexL || bComplexR);
-
-        //Result P1(0) + P2(i)
-        double *p1R = _pL->get(0).get();
-        double *p1I = _pL->get(0).getImg();
-        for (int i = 0 ; i < _pR->getSize() ; i++)
-        {
-            double *p2R = _pR->get(i).get();
-            double *p2I = _pR->get(i).getImg();
-
-            double *pRR = pOut->get(i).get();
-            double *pRI = pOut->get(i).getImg();
-
-            int iMinRank = std::min(iRankL, pRankR[i]);
-            for (int j = 0 ; j < iMinRank + 1; j++)
-            {
-                pRR[j] = p1R[j] + p2R[j];
-            }
-
-            double *pTemp = (iRankL > pRankR[i] ? p1R : p2R);
-            for (int j = iMinRank + 1; j < std::max(iRankL, pRankR[i]) + 1; j++)
-            {
-                pRR[j] = pTemp[j];
-            }
-
-            if (pOut->isComplex())
-            {
-                for (int j = 0 ; j < iMinRank + 1; j++)
-                {
-                    pRI[j] = (p1I == NULL ? 0 : p1I[j]) + (p2I == NULL ? 0 : p2I[j]);
-                }
-
-                double *pTemp = (iRankL > pRankR[i] ? p1I : p2I);
-                for (int j = iMinRank + 1; j < std::max(iRankL, pRankR[i]) + 1; j++)
-                {
-                    pRI[j] = pTemp == NULL ? 0 : pTemp[j];
-                }
-            }
-        }
-
-        delete[] pRank;
-        delete[] pRankR;
-        return pOut;
-    }
-
-    if (_pR->isScalar())
-    {
-        int *pRank = new int[_pL->getSize()];
-        int *pRankL = new int[_pL->getSize()];
-        int iRankR = _pR->get(0).getRank();
-        bool bComplexL = _pL->isComplex();
-        bool bComplexR = _pR->isComplex();
-
-        _pL->getRank(pRankL);
-        for (int i = 0 ; i < _pL->getSize() ; i++)
-        {
-            pRank[i] = std::max(pRankL[i], iRankR);
-        }
-
-        pOut = new Polynom(_pL->getVariableName(), _pL->getDims(), _pL->getDimsArray(), pRank);
-        pOut->setComplex(bComplexL || bComplexR);
-
-        //Result P1(i) + P2(0)
-        double *p2R = _pR->get(0).get();
-        double *p2I = _pR->get(0).getImg();
-
-        for (int i = 0 ; i < _pL->getSize() ; i++)
-        {
-            double *p1R = _pL->get(i).get();
-            double *p1I = _pL->get(i).getImg();
-
-            double *pRR = pOut->get(i).get();
-            double *pRI = pOut->get(i).getImg();
-
-            int iMinRank = std::min(pRankL[i], iRankR);
-            for (int j = 0 ; j < iMinRank + 1 ; j++)
-            {
-                pRR[j] = p1R[j] + p2R[j];
-            }
-
-            double *pTemp = (pRankL[i] > iRankR ? p1R : p2R);
-            for (int j = iMinRank + 1; j < std::max(pRankL[i], iRankR) + 1; j++)
-            {
-                pRR[j] = pTemp[j];
-            }
-
-            if (pOut->isComplex())
-            {
-                for (int j = 0 ; j < iMinRank + 1; j++)
-                {
-                    pRI[j] = (p1I == NULL ? 0 : p1I[j]) + (p2I == NULL ? 0 : p2I[j]);
-                }
-
-                double *pTemp = (pRankL[i] > iRankR ? p1I : p2I);
-                for (int j = iMinRank + 1; j < std::max(pRankL[i], iRankR) + 1; j++)
-                {
-                    pRI[j] = pTemp == NULL ? 0 : pTemp[j];
-                }
-            }
-        }
-
-        delete[] pRank;
-        delete[] pRankL;
-        return pOut;
-    }
-
-    int iDims1 = _pL->getDims();
-    int iDims2 = _pR->getDims();
-
-    if (iDims1 != iDims2)
-    {
-        wchar_t pMsg[bsiz];
-        os_swprintf(pMsg, bsiz, _W("Error: operator %ls: Matrix dimensions must agree (op1 is %ls, op2 is %ls).\n").c_str(),  L"+", _pL->DimToString().c_str(), _pR->DimToString().c_str());
-        throw ast::ScilabError(pMsg);
-    }
-
-    int* piDimsL = _pL->getDimsArray();
-    int* piDimsR = _pR->getDimsArray();
-
-    for (int i = 0 ; i < iDims1 ; i++)
-    {
-        if (piDimsL[i] != piDimsR[i])
-        {
-            wchar_t pMsg[bsiz];
-            os_swprintf(pMsg, bsiz, _W("Error: operator %ls: Matrix dimensions must agree (op1 is %ls, op2 is %ls).\n").c_str(),  L"+", _pL->DimToString().c_str(), _pR->DimToString().c_str());
-            throw ast::ScilabError(pMsg);
-        }
-    }
-
-    int *pRank  = new int[_pL->getSize()];
-    int *pRankL = new int[_pL->getSize()];
-    int *pRankR = new int[_pR->getSize()];
-    bool bComplexL = _pL->isComplex();
-    bool bComplexR = _pR->isComplex();
-
-    _pL->getRank(pRankL);
-    _pR->getRank(pRankR);
-    for (int i = 0 ; i < _pL->getSize() ; i++)
-    {
-        pRank[i] = std::max(pRankL[i], pRankR[i]);
-    }
-
-    pOut = new Polynom(_pR->getVariableName(), _pL->getDims(), _pL->getDimsArray(), pRank);
-    pOut->setComplex(_pL->isComplex() || _pR->isComplex());
-
-    if (bComplexL == false && bComplexR == false)
-    {
-        for (int i = 0 ; i < _pL->getSize() ; i++)
-        {
-            iAddScilabPolynomToScilabPolynom(
-                _pL->get(i).get(), pRankL[i] + 1,
-                _pR->get(i).get(), pRankR[i] + 1,
-                pOut->get(i).get(), pRank[i] + 1);
-        }
-    }
-    else if (bComplexL == false && bComplexR == true)
-    {
-        for (int i = 0 ; i < _pL->getSize() ; i++)
-        {
-            iAddScilabPolynomToComplexPoly(
-                _pL->get(i).get(), pRankL[i] + 1,
-                _pR->get(i).get(), _pR->get(i).getImg(), pRankR[i] + 1,
-                pOut->get(i).get(), pOut->get(i).getImg(), pRank[i] + 1);
-        }
-    }
-    else if (bComplexL == true && bComplexR == false)
-    {
-        for (int i = 0 ; i < _pL->getSize() ; i++)
-        {
-            iAddScilabPolynomToComplexPoly(
-                _pR->get(i).get(), pRankR[i] + 1,
-                _pL->get(i).get(), _pL->get(i).getImg(), pRankL[i] + 1,
-                pOut->get(i).get(), pOut->get(i).getImg(), pRank[i] + 1);
-        }
-    }
-    else if (bComplexL == true && bComplexR == true)
-    {
-        for (int i = 0 ; i < _pL->getSize() ; i++)
-        {
-            iAddComplexPolyToComplexPoly(
-                _pL->get(i).get(), _pL->get(i).getImg(), pRankL[i] + 1,
-                _pR->get(i).get(), _pR->get(i).getImg(), pRankR[i] + 1,
-                pOut->get(i).get(), pOut->get(i).getImg(), pRank[i] + 1);
-        }
-    }
-
-    delete[] pRank;
-    delete[] pRankL;
-    delete[] pRankR;
-
-    if (pOut != NULL)
-    {
-        pOut->updateRank();
-    }
-
-    return pOut;
-}
-
-template<> InternalType* add_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double* _pR)
-{
-    return add_M_M<Double, Polynom, Polynom>(_pR, _pL);
 }
 
 template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom* _pR)
