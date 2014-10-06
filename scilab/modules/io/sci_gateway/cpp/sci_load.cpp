@@ -11,7 +11,10 @@
 */
 
 #include <string.h>
+#include "api_scilab.hxx"
 #include "function.hxx"
+#include "overload.hxx"
+#include "execvisitor.hxx"
 #include "io_gw.hxx"
 #include "string.hxx"
 #include "library.hxx"
@@ -21,6 +24,7 @@ extern "C"
 {
 #include "sci_malloc.h"
 #include "expandPathVariable.h"
+#include "h5_fileManagement.h"
 }
 
 using namespace types;
@@ -28,12 +32,6 @@ using namespace types;
 /*--------------------------------------------------------------------------*/
 Function::ReturnValue sci_load(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    int iXMLFileLen = 0;
-    if (in.size() != 1)
-    {
-        return Function::Error;
-    }
-
     InternalType* pIT = in[0];
 
     if (pIT->isString() == false)
@@ -48,13 +46,37 @@ Function::ReturnValue sci_load(types::typed_list &in, int _iRetCount, types::typ
         return Function::Error;
     }
 
-    wchar_t* pstPath = pS->get(0);
-    wchar_t* pwstPath = expandPathVariableW(pstPath);
-    Library* lib = loadlib(pwstPath);
-    FREE(pwstPath);
+    char* pstPath = wide_string_to_UTF8(pS->get(0));
+    // get file extension
+    std::string fileExt(pstPath);
+    int lastPos = fileExt.find_last_of("/\\") + 1;
+    fileExt = fileExt.substr(lastPos);
+    lastPos = fileExt.find_last_of(".") + 1;
+    fileExt = fileExt.substr(lastPos);
 
-    if (lib == NULL)
+    if (!fileExt.compare("lib") || !fileExt.compare("xml"))
     {
+        wchar_t* pwstPathLib = expandPathVariableW(to_wide_string(pstPath));
+        Library* lib = loadlib(pwstPathLib);
+        FREE(pstPath);
+        FREE(pwstPathLib);
+
+        if (lib == NULL)
+        {
+            return Function::Error;
+        }
+    }
+    else if (isHDF5File(pstPath))
+    {
+        FREE(pstPath);
+        //call overload
+        std::wstring wstFuncName = L"%_sodload";
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
+    }
+    else
+    {
+        FREE(pstPath);
+        Scierror(999, _("%s: Wrong file extension.\n"), "load");
         return Function::Error;
     }
 
