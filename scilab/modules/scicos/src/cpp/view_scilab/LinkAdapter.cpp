@@ -416,7 +416,7 @@ static bool checkConnectivity(const int neededType, const ScicosID port, const S
     return true;
 }
 
-static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t end, std::vector<double> v)
+static void setLinkEnd(ScicosID id, Controller& controller, object_properties_t end, const std::vector<double>& v)
 {
 
     ScicosID from;
@@ -439,7 +439,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
             otherEnd = SOURCE_PORT;
             break;
         default:
-            return false;
+            return;
     }
     ScicosID unconnected = 0;
 
@@ -457,17 +457,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
             controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
             controller.setObjectProperty(id, LINK, end, unconnected);
         }
-        return true;
-    }
-
-    if (v[2] != 0 && v[2] != 1)
-    {
-        return false;
-    }
-
-    if (floor(v[0]) != v[0] || floor(v[1]) != v[1])
-    {
-        return false; // Must be an integer value
+        return;
     }
 
     ScicosID parentDiagram;
@@ -496,14 +486,14 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
     int kind = static_cast<int>(v[2]);
     if (kind != Start && kind != End)
     {
-        return false;
+        return;
     }
     // kind == 0: trying to set the start of the link (output port)
     // kind == 1: trying to set the end of the link (input port)
 
-    if (blk < 0 || blk > static_cast<int>(children.size()))
+    if (blk > static_cast<int>(children.size()))
     {
-        return false; // Trying to link to a non-existing block
+        return; // Trying to link to a non-existing block
     }
     ScicosID blkID = children[blk - 1];
 
@@ -526,7 +516,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
             {
                 if (!checkConnectivity(model::EIN, otherPort, blkID, controller))
                 {
-                    return false;
+                    return;
                 }
             }
             newPortKind = static_cast<int>(model::EOUT);
@@ -538,7 +528,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
             {
                 if (!checkConnectivity(model::EOUT, otherPort, blkID, controller))
                 {
-                    return false;
+                    return;
                 }
             }
             newPortKind = static_cast<int>(model::EIN);
@@ -561,7 +551,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
                 {
                     if (!checkConnectivity(model::IN, otherPort, blkID, controller))
                     {
-                        return false;
+                        return;
                     }
                 }
                 newPortKind = static_cast<int>(model::OUT);
@@ -573,7 +563,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
                 {
                     if (!checkConnectivity(model::OUT, otherPort, blkID, controller))
                     {
-                        return false;
+                        return;
                     }
                 }
                 newPortKind = static_cast<int>(model::IN);
@@ -684,7 +674,7 @@ static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t 
     // Connect the new source and destination ports together
     controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, id);
     controller.setObjectProperty(id, LINK, end, concernedPort);
-    return true;
+    return;
 }
 
 struct from
@@ -827,6 +817,29 @@ std::vector<double> LinkAdapter::getFrom() const
 
 bool LinkAdapter::setFrom(ScicosID id, const std::vector<double>& v, Controller& controller)
 {
+    if (v.size() >= 2)
+    {
+        if (floor(v[0]) != v[0] || floor(v[1]) != v[1])
+        {
+            return false; // Must be an integer value
+        }
+        if (v[0] < 0 || v[1] < 0)
+        {
+            return false; // Must be positive
+        }
+    }
+    if (v.size() == 3)
+    {
+        if (floor(v[2]) != v[2])
+        {
+            return false; // Must be an integer value
+        }
+        if (v[2] < 0)
+        {
+            return false; // Must be positive
+        }
+    }
+
     from_content = v;
 
     ScicosID parentDiagram;
@@ -835,8 +848,10 @@ bool LinkAdapter::setFrom(ScicosID id, const std::vector<double>& v, Controller&
     if (parentDiagram != 0)
     {
         // If the Link has been added to a diagram, do the linking at model-level
-        return setLinkEnd(id, controller, SOURCE_PORT, from_content);
+        // If the provided values are wrong, the model is not updated but the info is stored in the Adapter for future attempts
+        setLinkEnd(id, controller, SOURCE_PORT, v);
     }
+
     return true;
 }
 
@@ -847,6 +862,29 @@ std::vector<double> LinkAdapter::getTo() const
 
 bool LinkAdapter::setTo(ScicosID id, const std::vector<double>& v, Controller& controller)
 {
+    if (v.size() >= 2)
+    {
+        if (floor(v[0]) != v[0] || floor(v[1]) != v[1])
+        {
+            return false; // Must be an integer value
+        }
+        if (v[0] < 0 || v[1] < 0)
+        {
+            return false; // Must be positive
+        }
+    }
+    if (v.size() == 3)
+    {
+        if (floor(v[2]) != v[2])
+        {
+            return false; // Must be an integer value
+        }
+        if (v[2] < 0)
+        {
+            return false; // Must be positive
+        }
+    }
+
     to_content = v;
 
     ScicosID parentDiagram;
@@ -855,8 +893,10 @@ bool LinkAdapter::setTo(ScicosID id, const std::vector<double>& v, Controller& c
     if (parentDiagram != 0)
     {
         // If the Link has been added to a diagram, do the linking at model-level
-        return setLinkEnd(id, controller, DESTINATION_PORT, to_content);
+        // If the provided values are wrong, the model is not updated but the info is stored in the Adapter for future attempts
+        setLinkEnd(id, controller, DESTINATION_PORT, v);
     }
+
     return true;
 }
 
