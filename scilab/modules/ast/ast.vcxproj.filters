@@ -634,6 +634,9 @@
     <ClInclude Include="includes\exps\daxpyexp.hxx">
       <Filter>Header Files\exps</Filter>
     </ClInclude>
+    <ClInclude Include="includes\operations\types_optimized.hxx">
+      <Filter>Header Files\operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\ast\debugvisitor.cpp">
@@ -907,6 +910,9 @@
       <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\operations\types_dotdivide.cpp">
+      <Filter>Source Files\operations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\operations\types_daxpy.cpp">
       <Filter>Source Files\operations</Filter>
     </ClCompile>
   </ItemGroup>
