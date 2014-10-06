@@ -314,9 +314,9 @@ propertyUpdated( 10 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-objectDeleted( 1 )
 objectDeleted( 2 )
 objectDeleted( 4 )
+objectDeleted( 1 )
 sb  = 
 scicos_Block type :
   graphics

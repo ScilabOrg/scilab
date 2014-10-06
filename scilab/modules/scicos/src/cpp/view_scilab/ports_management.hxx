@@ -292,6 +292,17 @@ bool set_ports_property(const Adaptor& adaptor, object_properties_t port_kind, C
         }
 
     }
+    else if (v->getType() == types::InternalType::ScilabBool)
+    {
+        switch (p)
+        {
+            case FIRING:
+                // Ignore the 'firing' field if it is made of booleans
+                return true;
+            default:
+                return false;
+        }
+    }
     return false;
 }
 
