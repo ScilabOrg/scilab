@@ -1159,174 +1159,214 @@ void RunVisitorT<T>::visitprivate(const OptimizedExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
 {
-    InternalType* pIT = NULL;
-    Double* ad = NULL;
-    int ar = 0;
-    int ac = 0;
-
-    Double* xd = NULL;
-    int xr = 0;
-    int xc = 0;
-
-    Double* yd = NULL;
-    int yr = 0;
-    int yc = 0;
-
-    //check types and dimensions
-
-    //y must be double
-    const Exp &ye = e.getY();
-    ye.accept(*this);
-    pIT = getResult();
-    if (pIT->isDouble())
-    {
-        yd = pIT->getAs<Double>();
-        if (yd->getDims() == 2 && yd->isComplex() == false)
-        {
-            yr = yd->getRows();
-            yc = yd->getCols();
-        }
-        else
-        {
-            yd->killMe();
-            e.getOriginal()->accept(*this);
-            return;
-        }
-    }
-    else
-    {
-        pIT->killMe();
-        e.getOriginal()->accept(*this);
-        return;
-    }
-
-    //x
-    const Exp &xe = e.getX();
-    xe.accept(*this);
-    pIT = getResult();
-
-    if (pIT->isDouble())
-    {
-        xd = pIT->getAs<Double>();
-        if (xd->isScalar() && xd->isComplex() == false)
-        {
-            // x become a
-            ad = xd;
-            ar = 1;
-            ac = 1;
-        }
-        else if (xd->getDims() == 2 && xd->isComplex() == false)
-        {
-            xr = xd->getRows();
-            xc = xd->getCols();
-        }
-        else
-        {
-            yd->killMe();
-            xd->killMe();
-            e.getOriginal()->accept(*this);
-            return;
-        }
-    }
-    else
-    {
-        pIT->killMe();
-        yd->killMe();
-        e.getOriginal()->accept(*this);
-        return;
-    }
-
     const Exp &ae = e.getA();
     ae.accept(*this);
-    pIT = getResult();
+    InternalType* pA = getResult();
 
-    if (pIT->isDouble())
+    const Exp &xe = e.getX();
+    xe.accept(*this);
+    InternalType* pX = getResult();
+
+    const Exp &ye = e.getY();
+    ye.accept(*this);
+    InternalType* pY = getResult();
+
+    InternalType* pIT = GenericDAXPY(pA, pX, pY);
+
+    pA->killMe();
+    pX->killMe();
+    pY->killMe();
+
+    if (pIT == NULL)
     {
-        if (ad)
-        {
-            xd = pIT->getAs<Double>();
-            //X is scalar it become A
-            //now use A as X
-            if (xd->getDims() == 2 && xd->isComplex() == false)
-            {
-                xr = xd->getRows();
-                xc = xd->getCols();
-            }
-            else
-            {
-                yd->killMe();
-                xd->killMe();
-                ad->killMe();
-                e.getOriginal()->accept(*this);
-                return;
-            }
-        }
-        else
-        {
-            //a is a and it must be scalar
-            ad = pIT->getAs<Double>();
-            if (ad->isScalar() && ad->isComplex() == false)
-            {
-                ar = 1;
-                ac = 1;
-            }
-            else
-            {
-                yd->killMe();
-                xd->killMe();
-                ad->killMe();
-                e.getOriginal()->accept(*this);
-                return;
-            }
-        }
+        e.getOriginal()->accept(*this);
     }
     else
     {
-        pIT->killMe();
-        yd->killMe();
-        xd->killMe();
-        e.getOriginal()->accept(*this);
-        return;
+        setResult(pIT);
     }
-
-    if (ad && xd && yd)
-    {
-        if ( ac == 1 &&
-                ar == 1 &&
-                xr == yr &&
-                xc == yc)
-        {
-            //go !
-            int one = 1;
-            int size = xc * xr;
-            Double* od = (Double*)yd->clone();
-            C2F(daxpy)(&size, ad->get(), xd->get(), &one, od->get(), &one);
-            setResult(od);
-            yd->killMe();
-            xd->killMe();
-            ad->killMe();
-            return;
-        }
-    }
-
-    if (yd)
-    {
-        yd->killMe();
-    }
-
-    if (xd)
-    {
-        xd->killMe();
-    }
-
-    if (ad)
-    {
-        ad->killMe();
-    }
-
-    e.getOriginal()->accept(*this);
-    return;
 }
+
+//InternalType* pIT = NULL;
+//Double* ad = NULL;
+//int ar = 0;
+//int ac = 0;
+
+//Double* xd = NULL;
+//int xr = 0;
+//int xc = 0;
+
+//Double* yd = NULL;
+//int yr = 0;
+//int yc = 0;
+
+////check types and dimensions
+
+////y must be double
+//const Exp &ye = e.getY();
+//ye.accept(*this);
+//pIT = getResult();
+
+
+//    if (pIT->isDouble())
+//    {
+//        yd = pIT->getAs<Double>();
+//        if (yd->getDims() == 2 && yd->isComplex() == false)
+//        {
+//            yr = yd->getRows();
+//            yc = yd->getCols();
+//        }
+//        else
+//        {
+//            yd->killMe();
+//            e.getOriginal()->accept(*this);
+//            return;
+//        }
+//    }
+//    else
+//    {
+//        pIT->killMe();
+//        e.getOriginal()->accept(*this);
+//        return;
+//    }
+//
+//    //x
+//    const Exp &xe = e.getX();
+//    xe.accept(*this);
+//    pIT = getResult();
+//
+//    if (pIT->isDouble())
+//    {
+//        xd = pIT->getAs<Double>();
+//        if (xd->isScalar() && xd->isComplex() == false)
+//        {
+//            // x become a
+//            ad = xd;
+//            ar = 1;
+//            ac = 1;
+//        }
+//        else if (xd->getDims() == 2 && xd->isComplex() == false)
+//        {
+//            xr = xd->getRows();
+//            xc = xd->getCols();
+//        }
+//        else
+//        {
+//            yd->killMe();
+//            xd->killMe();
+//            e.getOriginal()->accept(*this);
+//            return;
+//        }
+//    }
+//    else
+//    {
+//        pIT->killMe();
+//        yd->killMe();
+//        e.getOriginal()->accept(*this);
+//        return;
+//    }
+//
+//    const Exp &ae = e.getA();
+//    ae.accept(*this);
+//    pIT = getResult();
+//
+//    if (pIT->isDouble())
+//    {
+//        if (ad)
+//        {
+//            xd = pIT->getAs<Double>();
+//            //X is scalar it become A
+//            //now use A as X
+//            if (xd->getDims() == 2 && xd->isComplex() == false)
+//            {
+//                xr = xd->getRows();
+//                xc = xd->getCols();
+//            }
+//            else
+//            {
+//                yd->killMe();
+//                xd->killMe();
+//                ad->killMe();
+//                e.getOriginal()->accept(*this);
+//                return;
+//            }
+//        }
+//        else
+//        {
+//            //a is a and it must be scalar
+//            ad = pIT->getAs<Double>();
+//            if (ad->isScalar() && ad->isComplex() == false)
+//            {
+//                ar = 1;
+//                ac = 1;
+//            }
+//            else
+//            {
+//                yd->killMe();
+//                xd->killMe();
+//                ad->killMe();
+//                e.getOriginal()->accept(*this);
+//                return;
+//            }
+//        }
+//    }
+//    else
+//    {
+//        pIT->killMe();
+//        yd->killMe();
+//        xd->killMe();
+//        e.getOriginal()->accept(*this);
+//        return;
+//    }
+//
+//    if (ad && xd && yd)
+//    {
+//        if ( ac == 1 &&
+//                ar == 1 &&
+//                xr == yr &&
+//                xc == yc)
+//        {
+//            //go !
+//            int one = 1;
+//            int size = xc * xr;
+//
+//            Double* od = NULL;
+//            if(yd->isDeletable())
+//            {
+//                od = yd;
+//            }
+//            else
+//            {
+//                od = (Double*)yd->clone();
+//            }
+//
+//            C2F(daxpy)(&size, ad->get(), xd->get(), &one, od->get(), &one);
+//            setResult(od);
+//            yd->killMe();
+//            xd->killMe();
+//            ad->killMe();
+//            return;
+//        }
+//    }
+//
+//    if (yd)
+//    {
+//        yd->killMe();
+//    }
+//
+//    if (xd)
+//    {
+//        xd->killMe();
+//    }
+//
+//    if (ad)
+//    {
+//        ad->killMe();
+//    }
+//
+//    e.getOriginal()->accept(*this);
+//    return;
+//}
 
 #include "run_CallExp.cpp"
 #include "run_MatrixExp.cpp"
