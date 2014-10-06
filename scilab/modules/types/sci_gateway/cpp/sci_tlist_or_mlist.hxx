@@ -59,8 +59,8 @@ Function::ReturnValue sci_tlist_or_mlist(typed_list &in, int _piRetCount, typed_
     list<wstring> fieldNames;
     for (int i = 1 ; i < pS->getSize() ; i++)
     {
-        list<wstring>::iterator it;
-        for (it = fieldNames.begin() ; it != fieldNames.end() ; it++)
+        //list<wstring>::iterator it;
+        /*for (it = fieldNames.begin() ; it != fieldNames.end() ; it++)
         {
             if (*it == wstring(pS->get(i)))
             {
@@ -69,7 +69,7 @@ Function::ReturnValue sci_tlist_or_mlist(typed_list &in, int _piRetCount, typed_
                 FREE(pstFunName);
                 return Function::Error;
             }
-        }
+        }*/
         fieldNames.push_back(pS->get(i));
     }
 
