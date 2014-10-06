@@ -416,7 +416,7 @@ static bool checkConnectivity(const int neededType, const ScicosID port, const S
     return true;
 }
 
-static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t end, std::vector<double> v)
+static bool setLinkEnd(ScicosID id, Controller& controller, object_properties_t end, const std::vector<double>& v)
 {
 
     ScicosID from;
@@ -827,16 +827,19 @@ std::vector<double> LinkAdapter::getFrom() const
 
 bool LinkAdapter::setFrom(ScicosID id, const std::vector<double>& v, Controller& controller)
 {
-    from_content = v;
-
     ScicosID parentDiagram;
     controller.getObjectProperty(id, LINK, PARENT_DIAGRAM, parentDiagram);
 
     if (parentDiagram != 0)
     {
         // If the Link has been added to a diagram, do the linking at model-level
-        return setLinkEnd(id, controller, SOURCE_PORT, from_content);
+        if (!setLinkEnd(id, controller, SOURCE_PORT, v))
+        {
+            return false;
+        }
     }
+
+    from_content = v;
     return true;
 }
 
@@ -847,16 +850,19 @@ std::vector<double> LinkAdapter::getTo() const
 
 bool LinkAdapter::setTo(ScicosID id, const std::vector<double>& v, Controller& controller)
 {
-    to_content = v;
-
     ScicosID parentDiagram;
     controller.getObjectProperty(id, LINK, PARENT_DIAGRAM, parentDiagram);
 
     if (parentDiagram != 0)
     {
         // If the Link has been added to a diagram, do the linking at model-level
-        return setLinkEnd(id, controller, DESTINATION_PORT, to_content);
+        if (!setLinkEnd(id, controller, DESTINATION_PORT, v))
+        {
+            return false;
+        }
     }
+
+    to_content = v;
     return true;
 }
 
