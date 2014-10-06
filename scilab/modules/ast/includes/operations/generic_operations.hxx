@@ -96,6 +96,13 @@ types::InternalType* GenericShortcutOr(types::InternalType *_pLeftOperand);
 // |
 types::InternalType* GenericLogicalOr(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand);
 
+
+//optimized
+
+
+//DAXPY constant times a vector plus a vector.
+types::InternalType* GenericDAXPY(types::InternalType *_pA, types::InternalType *_pX, types::InternalType *_pY);
+
 #endif /* !__GENERIC_OPERATIONS_HXX__ */
 
 
