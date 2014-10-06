@@ -9,6 +9,7 @@
 #include "types_dotdivide.hxx"
 #include "types_and.hxx"
 #include "types_or.hxx"
+#include "types_optimized.hxx"
 
 void initOperationArray()
 {
@@ -19,4 +20,7 @@ void initOperationArray()
     fillDotDivFunction();
     fillAndFunction();
     fillOrFunction();
+
+
+    fillDAXPYFunction();
 }

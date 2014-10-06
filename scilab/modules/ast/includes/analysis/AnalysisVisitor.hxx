@@ -668,18 +668,22 @@ private:
             ast::Exp* y = NULL;
 
             // a * x(i,j) + y(i,j) or y(i,j) + a * x(i,j)
-
-            if (le.isOpExp() && le.getAs<ast::OpExp>()->getOper() == ast::OpExp::dottimes)
+            // a .* x(i,j) + y(i,j) or y(i,j) + a .* x(i,j)
+            if (le.isOpExp() &&
+                    (le.getAs<ast::OpExp>()->getOper() == ast::OpExp::dottimes ||
+                     le.getAs<ast::OpExp>()->getOper() == ast::OpExp::times))
             {
                 ast::OpExp* dt = le.getAs<ast::OpExp>();
-                y = &le;
+                y = &re;
                 a = &dt->getLeft();
                 x = &dt->getRight();
             }
-            else if (re.isOpExp() && re.getAs<ast::OpExp>()->getOper() == ast::OpExp::dottimes)
+            else if (re.isOpExp() &&
+                     (re.getAs<ast::OpExp>()->getOper() == ast::OpExp::dottimes ||
+                      re.getAs<ast::OpExp>()->getOper() == ast::OpExp::times))
             {
                 ast::OpExp* rt = re.getAs<ast::OpExp>();
-                y = &re;
+                y = &le;
                 a = &rt->getLeft();
                 x = &rt->getRight();
             }
