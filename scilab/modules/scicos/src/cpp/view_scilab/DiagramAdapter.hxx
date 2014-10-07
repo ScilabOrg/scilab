@@ -37,12 +37,21 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+    types::InternalType* clone();
 
     types::InternalType* getContribContent() const;
     void setContribContent(types::InternalType* v);
 
+    std::vector<double> getFrom(int link_number) const;
+    void setFrom(const std::vector<double>& v);
+    void clearFrom();
+    std::vector<double> getTo(int link_number) const;
+    void setTo(const std::vector<double>& v);
+    void clearTo();
 private:
     types::InternalType* contrib_content;
+    std::vector< std::vector<double> > from_vec;
+    std::vector< std::vector<double> > to_vec;
 };
 
 } /* namespace view_scilab */
