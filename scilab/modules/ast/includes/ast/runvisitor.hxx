@@ -541,12 +541,18 @@ public :
             }
             catch (ScilabError /*&e*/)
             {
-                ostr << wcsVarName;
+                ostr << L"      " << wcsVarName;
                 pIT->toString(ostr);
                 scilabWriteW(ostr.str().c_str());
             }
 
             pIT->DecreaseRef();
+        }
+        else if (pIT->isList())
+        {
+            ostr << L"      " << wcsVarName;
+            pIT->toString(ostr);
+            scilabWriteW(ostr.str().c_str());
         }
         else
         {

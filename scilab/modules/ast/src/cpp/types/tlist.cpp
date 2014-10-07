@@ -240,21 +240,17 @@ String* TList::getFieldNames()
 
 /**
 ** toString to display TLists
-** FIXME : Find a better indentation process
 */
 bool TList::toString(std::wostringstream& ostr)
 {
-    wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
-    ostr.str(L"");
+    if (getSize() != 0 &&
+            (*m_plData)[0]->isString() &&
+            (*m_plData)[0]->getAs<types::String>()->getSize() > 0 &&
+            wcscmp((*m_plData)[0]->getAs<types::String>()->get(0), L"lss") == 0)
+    {
+        wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
+        ostr.str(L"");
 
-    if (getSize() == 0)
-    {
-        ostr << wcsVarName << L"()" << std::endl;
-    }
-    else if ((*m_plData)[0]->isString() &&
-             (*m_plData)[0]->getAs<types::String>()->getSize() > 0 &&
-             wcscmp((*m_plData)[0]->getAs<types::String>()->get(0), L"lss") == 0)
-    {
         int iPosition = 1;
         const wchar_t * wcsDesc[7] = {L"  (state-space system:)", L"= A matrix =", L"= B matrix =", L"= C matrix =", L"= D matrix =", L"= X0 (initial state) =", L"= Time domain ="};
         std::vector<InternalType *>::iterator itValues;
@@ -265,21 +261,11 @@ bool TList::toString(std::wostringstream& ostr)
             (*itValues)->toString(ostr);
             ostr << std::endl;
         }
-    }
-    else
-    {
-        int iPosition = 1;
-        std::vector<InternalType *>::iterator itValues;
-        for (itValues = m_plData->begin() ; itValues != m_plData->end() ; ++itValues, ++iPosition)
-        {
-            ostr << "     " << wcsVarName << L"(" << iPosition << L")" << std::endl;
-            //maange lines
-            (*itValues)->toString(ostr);
-            ostr << std::endl;
-        }
+
+        free(wcsVarName);
+        return true;
     }
 
-    free(wcsVarName);
-    return true;
+    return List::toString(ostr);
 }
 } // end namespace types
