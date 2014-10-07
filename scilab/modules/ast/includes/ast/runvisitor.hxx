@@ -541,7 +541,7 @@ public :
             }
             catch (ScilabError /*&e*/)
             {
-                ostr << wcsVarName;
+                ostr << L"      " << wcsVarName;
                 pIT->toString(ostr);
                 scilabWriteW(ostr.str().c_str());
             }
@@ -557,6 +557,7 @@ public :
             do
             {
                 //block by block
+                ostr << L"      " << wcsVarName;
                 bFinish = pIT->toString(ostr);
                 scilabWriteW(ostr.str().c_str());
                 if (bFinish == false && iLines != 0)

@@ -113,31 +113,43 @@ InternalType *List::clone()
 
 /**
 ** toString to display Lists
-** FIXME : Find a better indentation process
 */
 bool List::toString(std::wostringstream& ostr)
 {
-    wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
-    ostr.str(L"");
-
     if (getSize() == 0)
     {
-        ostr << wcsVarName << L"()" << std::endl;
+        ostr.str(L"");
+        ostr << L"     ()" << std::endl;
     }
     else
     {
+        wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
+        ostr.str(L"");
+
         int iPosition = 1;
         std::vector<InternalType *>::iterator itValues;
         for (itValues = m_plData->begin() ; itValues != m_plData->end() ; ++itValues, ++iPosition)
         {
-            ostr << "     " << wcsVarName << L"(" << iPosition << L")" << std::endl;
-            //maange lines
-            (*itValues)->toString(ostr);
-            ostr << std::endl;
+            std::wostringstream ostr2(L"");
+            ostr2 << " " << wcsVarName << L"(" << iPosition << L")";
+            if ((*itValues)->isList())
+            {
+                ostr << std::endl << ostr2.str() << std::endl << std::endl;
+            }
+            else
+            {
+                ostr << std::endl;
+                ostr2 << std::endl << std::endl;
+            }
+
+            //manage lines
+            (*itValues)->toString(ostr2);
+            ostr << ostr2.str();
         }
+
+        free(wcsVarName);
     }
 
-    free(wcsVarName);
     return true;
 }
 
