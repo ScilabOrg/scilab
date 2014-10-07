@@ -748,7 +748,7 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                     {
                         //TODO manage multiple returns
                         scilabWriteW(L" ans  =\n\n");
-                        VariableToString(pITAns, L"ans");
+                        VariableToString(pITAns, L"      ans");
                     }
                 }
 
