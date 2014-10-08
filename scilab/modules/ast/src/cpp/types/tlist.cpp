@@ -90,6 +90,11 @@ bool TList::invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetCount*/,
         if (arg->isDouble() || arg->isInt() || arg->isBool() || arg->isImplicitList() || arg->isColon() || arg->isDollar())
         {
             _out = List::extract(&in);
+            if (_out == NULL)
+            {
+                // invalid index
+                return false;
+            }
 
             List* pList = _out->getAs<types::List>();
             for (int i = 0; i < pList->getSize(); i++)

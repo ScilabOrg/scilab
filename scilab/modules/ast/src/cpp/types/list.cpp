@@ -169,7 +169,7 @@ InternalType* List::extract(typed_list* _pArgs)
         if (idx > getSize() || idx < 1)
         {
             delete outList;
-            outList = new List();
+            outList = NULL;
             break;
         }
         InternalType* pIT = (*m_plData)[idx - 1];
