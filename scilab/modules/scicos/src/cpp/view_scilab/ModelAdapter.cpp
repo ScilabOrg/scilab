@@ -28,6 +28,8 @@
 #include "utilities.hxx"
 
 extern "C" {
+#include "wchar.h"
+#include "string.h"
 #include "sci_malloc.h"
 #include "charEncoding.h"
 }
@@ -646,39 +648,137 @@ struct opar
 
     static types::InternalType* get(const ModelAdapter& adaptor, const Controller& controller)
     {
-        // silent unused parameter warnings
-        (void) adaptor;
-        (void) controller;
+        model::Block* adaptee = adaptor.getAdaptee();
 
-        // FIXME: implement as a scicos encoded list of values
+        std::vector<int> opar;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), OPAR, opar);
 
-        // Return a default empty list.
-        return new types::List();
+        types::List* o = new types::List();
+
+        if (opar.size() == 0)
+        {
+            return o;
+        }
+
+        int oparIndex = 1;
+
+        for (int i = 0; i < opar[0]; ++i) // 'o' must have exactly 'opar[0]' elements
+        {
+            int m, n, numberOfIntNeeded = 0;
+            switch (opar[oparIndex])
+            {
+                case types::InternalType::ScilabDouble:
+                {
+                    m = opar[oparIndex + 1];
+                    n = opar[oparIndex + 2];
+                    numberOfIntNeeded = 2 * m * n;
+
+                    double* data;
+                    types::Double* pDouble = new types::Double(m, n, &data);
+
+                    memcpy(data, &opar[oparIndex + 3], m * n * sizeof(double));
+                    o->set(i, pDouble);
+                    break;
+                }
+                case types::InternalType::ScilabString:
+                {
+                    m = opar[oparIndex + 1];
+                    n = opar[oparIndex + 2];
+
+                    types::String* pString = new types::String(m, n);
+
+                    for (int j = 0; j < m * n; ++j)
+                    {
+                        int strLen = opar[oparIndex + 3 + numberOfIntNeeded];
+                        wchar_t* str = new wchar_t[strLen + 1];
+                        memcpy(str, &opar[oparIndex + 3 + numberOfIntNeeded + 1], strLen * sizeof(wchar_t));
+                        str[strLen] = '\0';
+                        pString->set(j, str);
+                        delete str;
+
+                        numberOfIntNeeded += 1 + strLen;
+                    }
+                    o->set(i, pString);
+                    break;
+                }
+                default:
+                    return 0;
+            }
+            oparIndex += 3 + numberOfIntNeeded;
+        }
+
+        return o;
     }
 
     static bool set(ModelAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
+        model::Block* adaptee = adaptor.getAdaptee();
+
         if (v->getType() != types::InternalType::ScilabList)
         {
             return false;
         }
 
-        types::List* current = v->getAs<types::List>();
+        types::List* list = v->getAs<types::List>();
 
-        if (current->getSize() == 0)
+        std::vector<int> opar (1, list->getSize()); // Save the number of list elements in the first element
+        int oparIndex = 1; // Index to point at every new list element
+        for (int i = 0; i < list->getSize(); ++i)
         {
-            return true;
-        }
-        else
-        {
-            // silent unused parameter warnings
-            (void) adaptor;
-            (void) v;
-            (void) controller;
+            // Save the variable type
+            opar.resize(opar.size() + 1);
+            opar[oparIndex] = list->get(i)->getType();
 
-            // FIXME: implement as a scicos encoded list of values
-            return false;
+            int m, n, numberOfIntNeeded = 0;
+            switch (list->get(i)->getType())
+            {
+                case types::InternalType::ScilabDouble:
+                {
+                    types::Double* pDouble = list->get(i)->getAs<types::Double>();
+                    m = pDouble->getRows();
+                    n = pDouble->getCols();
+
+                    // It takes tow int (4 bytes) to save one double (8 bytes)
+                    // So reserve 2*m*n and two integers for the matrix dimensions
+                    numberOfIntNeeded = 2 * m * n;
+                    opar.resize(opar.size() + 2 + numberOfIntNeeded);
+
+                    // Using contiguity of the memory, we save the input into opar
+                    memcpy(&opar[oparIndex + 3], pDouble->getReal(), m * n * sizeof(double));
+                    break;
+                }
+                case types::InternalType::ScilabString:
+                {
+                    types::String* pString = list->get(i)->getAs<types::String>();
+                    m = pString->getRows();
+                    n = pString->getCols();
+
+                    // For the moment, we don't know how many characters each string is long, so only reserve the matrix size
+                    opar.resize(opar.size() + 2);
+
+                    for (int j = 0; j < m * n; ++j)
+                    {
+                        // Extract the input string length and reserve as many characters in opar
+                        int strLen = static_cast<int>(wcslen(pString->get(j)));
+                        opar.resize(opar.size() + 1 + strLen);
+                        opar[oparIndex + 3 + numberOfIntNeeded] = strLen;
+
+                        memcpy(&opar[oparIndex + 3 + numberOfIntNeeded + 1], pString->get(j), strLen * sizeof(wchar_t));
+                        numberOfIntNeeded += 1 + strLen;
+                    }
+                    break;
+                }
+                default:
+                    return false;
+            }
+            // Save the matrix dimensions in opar and increment the opar to match the next list element
+            opar[oparIndex + 1] = m;
+            opar[oparIndex + 2] = n;
+            oparIndex += 3 + numberOfIntNeeded;
         }
+
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), OPAR, opar);
+        return true;
     }
 };
 
