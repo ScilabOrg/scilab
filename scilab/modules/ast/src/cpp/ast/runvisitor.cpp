@@ -156,6 +156,13 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
 
     if (ok)
     {
+        if (pReturn == NULL)
+        {
+            std::wostringstream os;
+            os << _W("Invalid index.\n");
+            throw ScilabError(os.str(), 999, e.getLocation());
+        }
+
         setResult(pReturn);
     }
     else if (pValue->isFieldExtractionOverloadable())
