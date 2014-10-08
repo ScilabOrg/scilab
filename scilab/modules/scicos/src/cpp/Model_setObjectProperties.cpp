@@ -422,6 +422,8 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
                 return o->setSimDepUT(v);
             case IPAR:
                 return o->setIpar(v);
+            case OPAR:
+                return o->setOpar(v);
             default:
                 break;
         }

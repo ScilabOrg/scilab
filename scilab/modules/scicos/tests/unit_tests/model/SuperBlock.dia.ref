@@ -44,6 +44,7 @@ propertyUpdated( 2 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 2 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
@@ -95,6 +96,7 @@ propertyUpdated( 4 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 4 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , LABEL ) : NO_CHANGES
@@ -139,6 +141,7 @@ propertyUpdated( 6 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 6 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 6 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , INPUTS ) : NO_CHANGES
@@ -176,6 +179,7 @@ propertyUpdated( 8 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 8 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 9 , PORT )
@@ -249,6 +253,7 @@ propertyUpdated( 14 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 14 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 14 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 14 , BLOCK , INPUTS ) : NO_CHANGES
@@ -283,6 +288,7 @@ propertyUpdated( 16 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 16 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 16 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 objectCreated( 17 , PORT )
@@ -307,6 +313,7 @@ propertyUpdated( 14 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 16 , BLOCK , PORT_REFERENCE ) : SUCCESS
 propertyUpdated( 16 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 10 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 10 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
 propertyUpdated( 10 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , LABEL ) : NO_CHANGES
@@ -314,8 +321,8 @@ propertyUpdated( 10 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-objectDeleted( 1 )
 objectDeleted( 2 )
+objectDeleted( 1 )
 objectDeleted( 4 )
 sb  = 
 scicos_Block type :
@@ -529,6 +536,7 @@ propertyUpdated( 18 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , RPAR ) : SUCCESS
 propertyUpdated( 18 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 18 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
 propertyUpdated( 20 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -587,6 +595,7 @@ propertyUpdated( 18 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , RPAR ) : SUCCESS
 propertyUpdated( 18 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 18 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 20 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -602,6 +611,7 @@ propertyUpdated( 18 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 18 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 20 , PORT , FIRING ) : SUCCESS
 propertyUpdated( 18 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -628,6 +638,7 @@ propertyUpdated( 21 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 21 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
 propertyUpdated( 21 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
@@ -677,6 +688,7 @@ propertyUpdated( 21 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 21 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
@@ -711,6 +723,7 @@ propertyUpdated( 23 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 23 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
 propertyUpdated( 25 , PORT , FIRING ) : FAIL
 propertyUpdated( 26 , PORT , FIRING ) : FAIL
@@ -759,6 +772,7 @@ propertyUpdated( 28 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 28 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 28 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , INPUTS ) : NO_CHANGES
@@ -796,6 +810,7 @@ propertyUpdated( 30 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , RPAR ) : SUCCESS
 propertyUpdated( 30 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 30 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , INPUTS ) : NO_CHANGES
@@ -870,6 +885,7 @@ propertyUpdated( 35 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 35 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , EXPRS ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , INPUTS ) : NO_CHANGES
@@ -1017,6 +1033,7 @@ propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
@@ -1057,6 +1074,7 @@ propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -1071,6 +1089,7 @@ propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -1085,6 +1104,7 @@ propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
 propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -1099,6 +1119,7 @@ propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 44 , PORT , FIRING ) : FAIL
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -1113,6 +1134,7 @@ propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
@@ -1148,6 +1170,7 @@ propertyUpdated( 46 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , IPAR ) : SUCCESS
+propertyUpdated( 46 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 46 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 46 , BLOCK , INPUTS ) : NO_CHANGES
@@ -1191,6 +1214,7 @@ propertyUpdated( 50 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 50 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , EXPRS ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 50 , BLOCK , INPUTS ) : NO_CHANGES
@@ -1234,6 +1258,7 @@ propertyUpdated( 54 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , RPAR ) : SUCCESS
 propertyUpdated( 54 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 54 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , EXPRS ) : SUCCESS
 propertyUpdated( 54 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 54 , BLOCK , INPUTS ) : NO_CHANGES
@@ -1294,6 +1319,7 @@ propertyUpdated( 46 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 54 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 50 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES

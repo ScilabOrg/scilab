@@ -24,32 +24,18 @@ namespace org_scilab_modules_scicos
 namespace model
 {
 
-/**
- * Scilab data that can be passed to the simulator and simulation functions.
- *
- * This used the raw scicos-sim encoding to avoid any conversion out of the model.
- */
-struct list_t
-{
-    // re-use the scicos sim encoding
-    int n;
-    int* sz;
-    int* typ;
-    void** data;
-};
-
 struct Parameter
 {
     std::vector<double> rpar;
     std::vector<int> ipar;
-    list_t opar;
+    std::vector<int> opar;
 };
 
 struct State
 {
     std::vector<double> state;
     std::vector<double> dstate;
-    list_t odstate;
+    std::vector<int> odstate;
 };
 
 /**
@@ -122,6 +108,7 @@ private:
         parameter(), state(), parentBlock(0), children(), portReference(0)
     {
         sim.blocktype = BLOCKTYPE_C;
+        parameter.opar = std::vector<int> (1, 0);
     };
     Block(const Block& o) : BaseObject(BLOCK), parentDiagram(o.parentDiagram), interfaceFunction(o.interfaceFunction), geometry(o.geometry),
         angle(o.angle), exprs(o.exprs), label(o.label), style(o.style), nzcross(o.nzcross), nmode(o.nmode), equations(o.equations), uid(o.uid),
@@ -462,6 +449,22 @@ private:
         }
 
         parameter.ipar = data;
+        return SUCCESS;
+    }
+
+    void getOpar(std::vector<int>& data) const
+    {
+        data = parameter.opar;
+    }
+
+    update_status_t setOpar(const std::vector<int>& data)
+    {
+        if (data == parameter.opar)
+        {
+            return NO_CHANGES;
+        }
+
+        parameter.opar = data;
         return SUCCESS;
     }
 
