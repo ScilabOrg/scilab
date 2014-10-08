@@ -11,6 +11,8 @@
 */
 /*--------------------------------------------------------------------------*/
 
+#include <vector>
+
 #include "boolean_gw.hxx"
 #include "function.hxx"
 #include "double.hxx"
@@ -48,13 +50,13 @@ types::Function::ReturnValue sci_find(types::typed_list &in, int _iRetCount, typ
         iMax = (int)in[1]->getAs<types::Double>()->get(0);
     }
 
-    int* piIndex = 0;
+    std::vector<int> piIndex;
     int iValues = 0;
 
     types::GenericType* pGT = in[0]->getAs<types::GenericType>();
     if (in[0]->isGenericType())
     {
-        piIndex = new int[pGT->getSize()];
+        piIndex = std::vector<int>(pGT->getSize());
     }
 
     if (in[0]->isBool())
