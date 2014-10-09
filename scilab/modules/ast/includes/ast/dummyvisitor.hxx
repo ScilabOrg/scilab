@@ -294,6 +294,11 @@ protected:
     {
         e.getOriginal()->accept(*this);
     }
+
+    virtual void visit (const DGEMMExp &e)
+    {
+        e.getOriginal()->accept(*this);
+    }
 };
 }
 

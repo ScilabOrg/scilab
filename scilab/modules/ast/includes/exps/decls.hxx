@@ -83,6 +83,7 @@ class ListExp;
 
 class OptimizedExp;
 class DAXPYExp;
+class DGEMMExp;
 
 } // namespace ast
 

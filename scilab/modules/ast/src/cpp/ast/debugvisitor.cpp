@@ -425,4 +425,8 @@ void DebugVisitor::visit(const DAXPYExp &e)
     e.getOriginal()->accept(*this);
 }
 
+void DebugVisitor::visit(const DGEMMExp &e)
+{
+    e.getOriginal()->accept(*this);
+}
 }

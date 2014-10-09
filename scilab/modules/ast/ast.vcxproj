@@ -289,6 +289,7 @@ lib /DEF:"$(ProjectDir)fileio_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClInclude Include="includes\exps\daxpyexp.hxx" />
     <ClInclude Include="includes\exps\dec.hxx" />
     <ClInclude Include="includes\exps\decls.hxx" />
+    <ClInclude Include="includes\exps\dgemmexp.hxx" />
     <ClInclude Include="includes\exps\dollarvar.hxx" />
     <ClInclude Include="includes\exps\doubleexp.hxx" />
     <ClInclude Include="includes\exps\exp.hxx" />

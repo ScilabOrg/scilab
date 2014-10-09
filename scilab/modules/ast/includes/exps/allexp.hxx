@@ -75,5 +75,6 @@
 #include "listexp.hxx"
 #include "optimizedexp.hxx"
 #include "daxpyexp.hxx"
+#include "dgemmexp.hxx"
 
 #endif /* !AST_ALLEXP_HXX */

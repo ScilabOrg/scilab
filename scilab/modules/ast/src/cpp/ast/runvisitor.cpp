@@ -1199,186 +1199,142 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
     }
 }
 
-//InternalType* pIT = NULL;
-//Double* ad = NULL;
-//int ar = 0;
-//int ac = 0;
+template <class T>
+void RunVisitorT<T>::visitprivate(const DGEMMExp &e)
+{
+    analysis::TIType te = e.getDecorator().res.getType();
 
-//Double* xd = NULL;
-//int xr = 0;
-//int xc = 0;
+    const Exp &a = e.getA();
+    a.accept(*this);
+    InternalType* ia = getResult();
+    char transa = e.isTransA() ? 'T' : 'N';
+    Double* da = NULL;
 
-//Double* yd = NULL;
-//int yr = 0;
-//int yc = 0;
+    const Exp &b = e.getB();
+    b.accept(*this);
+    InternalType* ib = getResult();
+    char transb = e.isTransB() ? 'T' : 'N';
+    Double* db = NULL;
 
-////check types and dimensions
+    bool callDGEMM = true;
 
-////y must be double
-//const Exp &ye = e.getY();
-//ye.accept(*this);
-//pIT = getResult();
+    int ra = 0;
+    int ca = 0;
+    int lda = 0;
 
+    int rb = 0;
+    int cb = 0;
+    int ldb = 0;
 
-//    if (pIT->isDouble())
-//    {
-//        yd = pIT->getAs<Double>();
-//        if (yd->getDims() == 2 && yd->isComplex() == false)
-//        {
-//            yr = yd->getRows();
-//            yc = yd->getCols();
-//        }
-//        else
-//        {
-//            yd->killMe();
-//            e.getOriginal()->accept(*this);
-//            return;
-//        }
-//    }
-//    else
-//    {
-//        pIT->killMe();
-//        e.getOriginal()->accept(*this);
-//        return;
-//    }
-//
-//    //x
-//    const Exp &xe = e.getX();
-//    xe.accept(*this);
-//    pIT = getResult();
-//
-//    if (pIT->isDouble())
-//    {
-//        xd = pIT->getAs<Double>();
-//        if (xd->isScalar() && xd->isComplex() == false)
-//        {
-//            // x become a
-//            ad = xd;
-//            ar = 1;
-//            ac = 1;
-//        }
-//        else if (xd->getDims() == 2 && xd->isComplex() == false)
-//        {
-//            xr = xd->getRows();
-//            xc = xd->getCols();
-//        }
-//        else
-//        {
-//            yd->killMe();
-//            xd->killMe();
-//            e.getOriginal()->accept(*this);
-//            return;
-//        }
-//    }
-//    else
-//    {
-//        pIT->killMe();
-//        yd->killMe();
-//        e.getOriginal()->accept(*this);
-//        return;
-//    }
-//
-//    const Exp &ae = e.getA();
-//    ae.accept(*this);
-//    pIT = getResult();
-//
-//    if (pIT->isDouble())
-//    {
-//        if (ad)
-//        {
-//            xd = pIT->getAs<Double>();
-//            //X is scalar it become A
-//            //now use A as X
-//            if (xd->getDims() == 2 && xd->isComplex() == false)
-//            {
-//                xr = xd->getRows();
-//                xc = xd->getCols();
-//            }
-//            else
-//            {
-//                yd->killMe();
-//                xd->killMe();
-//                ad->killMe();
-//                e.getOriginal()->accept(*this);
-//                return;
-//            }
-//        }
-//        else
-//        {
-//            //a is a and it must be scalar
-//            ad = pIT->getAs<Double>();
-//            if (ad->isScalar() && ad->isComplex() == false)
-//            {
-//                ar = 1;
-//                ac = 1;
-//            }
-//            else
-//            {
-//                yd->killMe();
-//                xd->killMe();
-//                ad->killMe();
-//                e.getOriginal()->accept(*this);
-//                return;
-//            }
-//        }
-//    }
-//    else
-//    {
-//        pIT->killMe();
-//        yd->killMe();
-//        xd->killMe();
-//        e.getOriginal()->accept(*this);
-//        return;
-//    }
-//
-//    if (ad && xd && yd)
-//    {
-//        if ( ac == 1 &&
-//                ar == 1 &&
-//                xr == yr &&
-//                xc == yc)
-//        {
-//            //go !
-//            int one = 1;
-//            int size = xc * xr;
-//
-//            Double* od = NULL;
-//            if(yd->isDeletable())
-//            {
-//                od = yd;
-//            }
-//            else
-//            {
-//                od = (Double*)yd->clone();
-//            }
-//
-//            C2F(daxpy)(&size, ad->get(), xd->get(), &one, od->get(), &one);
-//            setResult(od);
-//            yd->killMe();
-//            xd->killMe();
-//            ad->killMe();
-//            return;
-//        }
-//    }
-//
-//    if (yd)
-//    {
-//        yd->killMe();
-//    }
-//
-//    if (xd)
-//    {
-//        xd->killMe();
-//    }
-//
-//    if (ad)
-//    {
-//        ad->killMe();
-//    }
-//
-//    e.getOriginal()->accept(*this);
-//    return;
-//}
+    //if(te.type == analysis::TIType::DOUBLE)
+    //{
+    //    da = ia->getAs<Double>();
+    //    db = ib->getAs<Double>();
+
+    //    analysis::TIType ta = a.getDecorator().res.getType();
+    //    analysis::TIType tb = b.getDecorator().res.getType();
+
+    //    ra = e.isTransA() ? ta.cols : ta.rows;
+    //    ca = e.isTransA() ? ta.rows : ta.cols;
+    //    lda = ta.rows;
+
+    //    rb = e.isTransB() ? tb.cols : tb.rows;
+    //    cb = e.isTransB() ? tb.rows : tb.cols;
+    //    ldb = tb.rows;
+    //}
+    //else
+    //{
+    //unknow output type
+    if (ia->isDouble() && ib->isDouble()) //a and b must be Double
+    {
+        da = ia->getAs<Double>();
+        db = ib->getAs<Double>();
+
+        ra = e.isTransA() ? da->getCols() : da->getRows();
+        ca = e.isTransA() ? da->getRows() : da->getCols();
+        lda = da->getRows();
+
+        rb = db->getRows();
+        cb = db->getCols();
+
+        rb = e.isTransB() ? db->getCols() : db->getRows();
+        cb = e.isTransB() ? db->getRows() : db->getCols();
+        ldb = db->getRows();
+
+        //check dimensions
+        if (ca != rb)
+        {
+            callDGEMM = false;
+        }
+    }
+    else
+    {
+        callDGEMM = false;
+    }
+    //}
+
+    if (callDGEMM)
+    {
+        double one = 1;
+        double zero = 0;
+
+        double* out = NULL;
+        Double* pOut = new Double(ra, cb, &out);
+        C2F(dgemm)(&transa, &transb, &ra, &cb, &ca, &one, da->get(), &lda, db->get(), &ldb, &zero, out, &ra);
+        da->killMe();
+        db->killMe();
+        setResult(pOut);
+    }
+    else
+    {
+        std::cout << "DGEMMExp via inference failed" << std::endl;
+        InternalType* pResult = NULL;
+        try
+        {
+            //call original expression
+            pResult = GenericTimes(ia, ib);
+            //overloading
+            if (pResult == NULL)
+            {
+                // We did not have any algorithm matching, so we try to call OverLoad
+                pResult = callOverloadOpExp(e.getOriginal()->getAs<OpExp>()->getOper(), ia, ib);
+                setResult(pResult);
+
+                //clear left and/or right operands
+                if (pResult != ia)
+                {
+                    ia->killMe();
+                }
+
+                if (pResult != ib)
+                {
+                    ib->killMe();
+                }
+            }
+        }
+        catch (ast::ScilabError & error)
+        {
+            setResult(NULL);
+            if (pResult)
+            {
+                pResult->killMe();
+            }
+
+            if (ia && (ia != pResult))
+            {
+                ia->killMe();
+            }
+            if (ib && (ib != pResult))
+            {
+                ib->killMe();
+            }
+
+            error.SetErrorLocation(e.getOriginal()->getLocation());
+            throw error;
+        }
+    }
+    return;
+}
 
 #include "run_CallExp.cpp"
 #include "run_MatrixExp.cpp"

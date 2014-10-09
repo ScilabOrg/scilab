@@ -203,6 +203,11 @@ class EXTERN_AST ExecVisitor : public RunVisitorT<ExecVisitor>
     {
         visitprivate(e);
     }
+
+    void visit(const DGEMMExp &e)
+    {
+        visitprivate(e);
+    }
 };
 }
 #endif // !AST_EXECVISITOR_HXX

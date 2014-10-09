@@ -214,6 +214,11 @@ class EXTERN_AST StepVisitor : public RunVisitorT<StepVisitor>
     {
         visitprivate(e);
     }
+
+    void visit(const DGEMMExp &e)
+    {
+        visitprivate(e);
+    }
 };
 }
 

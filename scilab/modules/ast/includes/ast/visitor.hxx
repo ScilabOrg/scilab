@@ -170,6 +170,7 @@ public:
 
     /*optimized*/
     virtual void visit (typename select_const<K, DAXPYExp>::t & e) = 0;
+    virtual void visit (typename select_const<K, DGEMMExp>::t & e) = 0;
 };
 
 /** \brief Define shortand type for a const visitor */
