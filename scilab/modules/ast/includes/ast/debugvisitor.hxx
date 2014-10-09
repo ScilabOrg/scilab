@@ -102,6 +102,7 @@ public:
     /* optimized */
     virtual void visit(const OptimizedExp &e);
     virtual void visit(const DAXPYExp &e);
+    virtual void visit(const DGEMMExp &e);
     /** \} */
 };
 }

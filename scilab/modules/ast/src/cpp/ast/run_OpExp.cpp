@@ -207,11 +207,6 @@ void RunVisitorT<T>::visitprivate(const OpExp &e)
         error.SetErrorLocation(e.getLocation());
         throw error;
     }
-
-    if (e.getDecorator().res.isConstant())
-    {
-        std::cout << "OMG !" << std::endl;
-    }
 }
 
 template<class T>

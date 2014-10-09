@@ -366,6 +366,7 @@ public :
     void visitprivate(const CellCallExp &e);
     void visitprivate(const OptimizedExp &e);
     void visitprivate(const DAXPYExp &e);
+    void visitprivate(const DGEMMExp &e);
 
     void visitprivate(const StringExp &e)
     {

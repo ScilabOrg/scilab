@@ -217,6 +217,11 @@ public :
     {
         visitprivate(e);
     }
+
+    void visit(const DGEMMExp &e)
+    {
+        visitprivate(e);
+    }
 };
 }
 #endif // !AST_TIMEDVISITOR_HXX

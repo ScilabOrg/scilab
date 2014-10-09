@@ -655,6 +655,11 @@ void PrintVisitor::visit(const DAXPYExp &e)
     e.getOriginal()->accept(*this);
 }
 
+void PrintVisitor::visit(const DGEMMExp &e)
+{
+    e.getOriginal()->accept(*this);
+}
+
 void PrintVisitor::apply_indent()
 {
     int i;

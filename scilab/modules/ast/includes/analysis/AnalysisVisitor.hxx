@@ -398,6 +398,10 @@ private:
             }
             case ast::OpExp::times :
             {
+                if (replaceDGEMM(e))
+                {
+                    return;
+                }
                 // multiplication is not commutative for matrice pxq
                 resT = check_times(LType, RType);
                 break;
@@ -655,6 +659,11 @@ private:
         //gné ??? Oo
     }
 
+    void visit(ast::DGEMMExp & e)
+    {
+        //gné ??? Oo
+    }
+
     bool replaceDAXPY(ast::OpExp& e)
     {
         bool ret = false;
@@ -690,7 +699,6 @@ private:
 
             if (a && x && y)
             {
-                //checks dimensions of x and y
                 ast::Exp* exp = new ast::DAXPYExp(e.getLocation(), *a, *x, *y);
                 exp->setVerbose(e.isVerbose());
                 exp->getDecorator().res = e.getDecorator().res;
@@ -699,6 +707,97 @@ private:
             }
         }
         return ret;
+    }
+
+    bool replaceDGEMM(ast::OpExp& e)
+    {
+        if (e.getOper() == ast::OpExp::times)
+        {
+            ast::Exp* a = &e.getLeft();
+            ast::Exp* b = &e.getRight();
+            bool transa = false;
+            bool transb = false;
+
+            if (a->isTransposeExp())
+            {
+                transa = true;
+                a = &a->getAs<ast::TransposeExp>()->getExp();
+            }
+
+            if (b->isTransposeExp())
+            {
+                transb = true;
+                b = &b->getAs<ast::TransposeExp>()->getExp();
+            }
+
+            ast::Exp* exp = new ast::DGEMMExp(e.getLocation(), *a, transa, *b, transb);
+            exp->setVerbose(e.isVerbose());
+            exp->getDecorator().res = analysis::Result(TIType(TIType::UNKNOWN, -1, -1), true, false);
+            e.replace(exp);
+            return true;
+
+            //analysis::TIType ta = a->getDecorator().res.getType();
+            //analysis::TIType tb = b->getDecorator().res.getType();
+
+            //int ra = 0, ca = 0, rb = 0, cb = 0;
+            //if(ta.type == analysis::TIType::DOUBLE && tb.type == analysis::TIType::DOUBLE)
+            //{
+            //    if(transa)
+            //    {
+            //        ra = ta.cols;
+            //        ca = ta.rows;
+            //        if(transb)
+            //        {
+            //            rb = tb.cols;
+            //            cb = tb.rows;
+            //        }
+            //        else
+            //        {
+            //            rb = tb.rows;
+            //            cb = tb.cols;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        ra = ta.rows;
+            //        ca = ta.cols;
+            //        if(transb)
+            //        {
+            //            rb = tb.cols;
+            //            cb = tb.rows;
+            //        }
+            //        else
+            //        {
+            //            rb = tb.rows;
+            //            cb = tb.cols;
+            //        }
+            //    }
+
+            //    if(ca == rb && ca != -1)
+            //    {
+            //        ast::Exp* exp = new ast::DGEMMExp(e.getLocation(), *a, transa, *b, transb);
+            //        exp->setVerbose(e.isVerbose());
+            //        exp->getDecorator().res = analysis::Result(TIType(TIType::DOUBLE, ra, cb), true, false);
+            //        e.replace(exp);
+            //        std::cout << "DGEMMExp via inference" << std::endl;
+            //        return true;
+            //    }
+            //}
+
+            ////optimization via inference failed :x
+            ////check exp type
+            //if(a->isSimpleVar() && b->isSimpleVar())
+            //{
+            //    ast::Exp* exp = new ast::DGEMMExp(e.getLocation(), *a, transa, *b, transb);
+            //    exp->setVerbose(e.isVerbose());
+            //    exp->getDecorator().res = analysis::Result(TIType(TIType::UNKNOWN, -1, -1), true, false);
+            //    e.replace(exp);
+            //    std::cout << "DGEMMExp on simplevar" << std::endl;
+            //    return true;
+            //}
+        }
+
+        return false;
     }
 
     bool execAndReplace(ast::Exp& e)
