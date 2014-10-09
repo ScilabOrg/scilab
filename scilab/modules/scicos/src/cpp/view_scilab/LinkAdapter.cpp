@@ -307,7 +307,7 @@ struct ct
     }
 };
 
-static types::Double* getLinkEnd(const LinkAdapter& adaptor, const Controller& controller, object_properties_t end)
+types::Double* getLinkEnd(const LinkAdapter& adaptor, const Controller& controller, const object_properties_t end)
 {
     model::Link* adaptee = adaptor.getAdaptee();
 
@@ -391,7 +391,7 @@ enum startOrEnd
  * Connectivity is ensured if 'port' is of the desired type or if either of the concerned blocks is a split block,
  * because they are connectable to anything
  */
-static bool checkConnectivity(const int neededType, const ScicosID port, const ScicosID blk1, Controller& controller)
+bool checkConnectivity(const int neededType, const ScicosID port, const ScicosID blk1, Controller& controller)
 {
     int portKind;
     controller.getObjectProperty(port, PORT, PORT_KIND, portKind);
@@ -416,7 +416,7 @@ static bool checkConnectivity(const int neededType, const ScicosID port, const S
     return true;
 }
 
-static void setLinkEnd(ScicosID id, Controller& controller, object_properties_t end, const std::vector<double>& v)
+void setLinkEnd(const ScicosID id, Controller& controller, const object_properties_t end, const std::vector<double>& v)
 {
 
     ScicosID from;
