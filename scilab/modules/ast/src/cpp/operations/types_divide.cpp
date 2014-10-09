@@ -12,6 +12,7 @@
 
 #include "types_divide.hxx"
 #include "types_finite.hxx"
+#include "sparse.hxx"
 
 #include "scilabexception.hxx"
 
@@ -45,15 +46,33 @@ InternalType *GenericRDivide(InternalType *_pLeftOperand, InternalType *_pRightO
         return Double::Empty();
     }
 
+    if (_pLeftOperand->isSparse())
+    {
+        Sparse *sp = _pLeftOperand->getAs<Sparse>();
+        Double *pL  = new Double(sp->getRows(), sp->getCols(), sp->isComplex());
+        sp->fill(*pL);
+        Double *pR  = _pRightOperand->getAs<Double>();
+        Double *pRes = NULL;
+
+        if (pR->isScalar())
+        {
+            iResult = RDivideDoubleByDouble(pL, pR, (Double**)&pRes);
+            pResult = new Sparse(*pRes);
+        }
+
+    }
+
+
     /*
     ** DOUBLE / DOUBLE
     */
-    if (TypeL == GenericType::ScilabDouble && TypeR == GenericType::ScilabDouble)
+    else if (TypeL == GenericType::ScilabDouble && TypeR == GenericType::ScilabDouble)
     {
         Double *pL  = _pLeftOperand->getAs<Double>();
         Double *pR  = _pRightOperand->getAs<Double>();
 
         iResult = RDivideDoubleByDouble(pL, pR, (Double**)&pResult);
+
     }
 
     /*
