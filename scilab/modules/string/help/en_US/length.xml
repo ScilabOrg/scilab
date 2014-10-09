@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA - 
- * 
+ * Copyright (C) INRIA -
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  -->
@@ -75,6 +75,8 @@
                 <code>length(sparse(eye(12,2)))</code>
                 returns <code>max(12,2)</code> and not <literal>24</literal>).
                 Please use <literal>size(...,'*')</literal> with sparse matrix.
+                This feature is obsolete and will perform the same operation than
+                <function>length</function> of a matrix in Scilab 6.
             </warning>
         </para>
     </refsection>

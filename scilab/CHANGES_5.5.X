@@ -16,6 +16,13 @@ Removed Functions
 
 * milk_drop removed.
 
+
+Improvements
+=============
+
+* length of a sparse will perform the same operation than length of a matrix in Scilab 6.
+
+
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
 
