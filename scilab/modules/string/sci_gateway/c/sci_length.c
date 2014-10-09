@@ -36,6 +36,9 @@ length('123')  is  3 .  length([1,2;3,4])  is  4 .                     */
 #include "freeArrayOfString.h"
 #include "charEncoding.h"
 #include "isScilabFunction.h"
+#include "sciprint.h"
+#include "warningmode.h"
+
 /*----------------------------------------------------------------------------*/
 /* get length */
 static int lengthStrings(int *piAddressVar);
@@ -78,6 +81,13 @@ int sci_length(char *fname, unsigned long fname_len)
         }
         case sci_sparse :
         {
+            if (getWarningMode())
+            {
+                sciprint(_("WARNING: %s\n"), _("This usage of length with a sparse of input argument is obsolete."));
+                sciprint(_("WARNING: %s\n"), _("Length of sparse will perform the same operation than length of matrix in Scilab 6."));
+                sciprint(_("WARNING: %s\n"), _("Please use size(..., \"*\") instead."));
+            }
+
             return lengthSparse(piAddressVarOne);
         }
         case sci_list :
