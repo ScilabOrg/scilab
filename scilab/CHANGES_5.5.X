@@ -44,6 +44,13 @@ Scilab Bug Fixes
 * Bug #13712 fixed - Details added in strcat help page for strcat(strings, "", "r") case.
 
 
+
+Scilab Bug Fixes
+================
+
+* Bug #13605 fixed - There was an inverted result value with parameters "r" or "c" with harmean.
+
+
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
 
