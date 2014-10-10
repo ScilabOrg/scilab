@@ -98,6 +98,7 @@ Known incompatibilities
   exec(path, mode, 'errcatch') must be replaced by exec(path, 'errcatch', mode)
 
 
+* Bug #13608 fixed - logm produced an error with complex values.
 
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
