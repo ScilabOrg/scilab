@@ -94,3 +94,9 @@ o.model.opar
 
 o.model.odstate = list([1 2 3; 4 5 6], ["Hello" "world!"; "Test" "123"], [%i 2 3*%i; 4 5*%i 6], uint32([32 32; 32 32]));
 o.model.odstate
+
+// Test 'equations'
+o = VsourceAC("define")
+o.model.equations
+o.model.equations = modelica();
+o.model.equations
