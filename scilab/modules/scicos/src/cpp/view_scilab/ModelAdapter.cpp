@@ -11,6 +11,7 @@
  */
 
 #include <string>
+#include <sstream>
 #include <vector>
 #include <algorithm>
 #include <sstream>
@@ -19,6 +20,7 @@
 #include "double.hxx"
 #include "string.hxx"
 #include "list.hxx"
+#include "tlist.hxx"
 #include "user.hxx"
 
 #include "Controller.hxx"
@@ -46,6 +48,12 @@ const std::string input ("input");
 const std::string output ("output");
 const std::string inimpl ("inimpl");
 const std::string outimpl ("outimpl");
+
+const std::wstring modelica (L"modelica");
+const std::wstring model (L"model");
+const std::wstring inputs (L"inputs");
+const std::wstring outputs (L"outputs");
+const std::wstring parameters (L"parameters");
 
 struct sim
 {
@@ -831,6 +839,7 @@ struct rpar
         else // SuperBlock, return the contained diagram, whose ID is stored in children[0]
         {
             model::Diagram* diagram = static_cast<model::Diagram*>(Controller().getObject(children[0]));
+
             DiagramAdapter* o = new DiagramAdapter(false, diagram);
             return o;
         }
@@ -1193,40 +1202,250 @@ struct equations
 
     static types::InternalType* get(const ModelAdapter& adaptor, const Controller& controller)
     {
-        // silent unused parameter warnings
-        (void) adaptor;
-        (void) controller;
+        model::Block* adaptee = adaptor.getAdaptee();
 
-        // FIXME: implement as a stored modelica equations
+        std::vector<std::string> equations;
+        controller.getObjectProperty(adaptee->id(), adaptee->kind(), EQUATIONS, equations);
 
-        // Return a default empty list.
-        return new types::List();
+        if (equations.size() == 0)
+        {
+            return new types::List();
+        }
+
+        types::TList* o = new types::TList();
+
+        // Header, starting with "modelica"
+        types::String* header = new types::String(1, 5);
+        header->set(0, modelica.c_str());
+        header->set(1, model.c_str());
+        header->set(2, inputs.c_str());
+        header->set(3, outputs.c_str());
+        header->set(4, parameters.c_str());
+        o->set(0, header);
+
+        // 'model'
+        types::String* modelField = new types::String(1, 1);
+        modelField->set(0, equations[0].c_str());
+        o->set(1, modelField);
+
+        // 'inputs'
+        std::istringstream inputsSizeStr (equations[1]);
+        int inputsSize;
+        inputsSizeStr >> inputsSize;
+        types::String* inputsField = new types::String(inputsSize, 1);
+        for (int i = 0; i < inputsSize; ++i)
+        {
+            inputsField->set(i, equations[i + 2].c_str());
+        }
+        o->set(2, inputsField);
+
+        // 'outputs'
+        std::istringstream outputsSizeStr (equations[2 + inputsSize]);
+        int outputsSize;
+        outputsSizeStr >> outputsSize;
+        types::String* outputsField = new types::String(outputsSize, 1);
+        for (int i = 0; i < outputsSize; ++i)
+        {
+            outputsField->set(i, equations[i + 3 + inputsSize].c_str());
+        }
+        o->set(3, outputsField);
+
+        // 'parameters'
+        types::List* parametersField = new types::List();
+
+        // 'parameters' names
+        std::istringstream parametersSizeStr (equations[3 + inputsSize + outputsSize]);
+        int parametersSize;
+        parametersSizeStr >> parametersSize;
+        types::String* parametersNames = new types::String(parametersSize, 1);
+        for (int i = 0; i < parametersSize; ++i)
+        {
+            parametersNames->set(i, equations[i + 4 + inputsSize + outputsSize].c_str());
+        }
+        parametersField->set(0, parametersNames);
+
+        // 'parameters' values
+        types::List* parametersValues = new types::List();
+        for (int i = 0; i < parametersSize; ++i)
+        {
+            std::istringstream parametersValueStr (equations[i + 4 + inputsSize + outputsSize + parametersSize]);
+            double parametersVal;
+            parametersValueStr >> parametersVal;
+            types::Double* parametersValue = new types::Double(parametersVal);
+            parametersValues->set(i, parametersValue);
+        }
+        parametersField->set(1, parametersValues);
+
+        o->set(4, parametersField);
+
+        return o;
     }
 
     static bool set(ModelAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        if (v->getType() != types::InternalType::ScilabList)
-        {
-            return false;
-        }
+        model::Block* adaptee = adaptor.getAdaptee();
 
-        types::List* current = v->getAs<types::List>();
-
-        if (current->getSize() == 0)
+        if (v->getType() == types::InternalType::ScilabList)
         {
+            types::List* current = v->getAs<types::List>();
+            if (current->getSize() != 0)
+            {
+                return false;
+            }
             return true;
         }
-        else
-        {
-            // silent unused parameter warnings
-            (void) adaptor;
-            (void) v;
-            (void) controller;
 
-            // FIXME: implement as a stored modelica equations
-            // FIXME: get the input list and store it in the equations field
+        if (v->getType() != types::InternalType::ScilabTList)
+        {
             return false;
         }
+
+        types::TList* current = v->getAs<types::TList>();
+
+        // Check the header
+        types::String* header = current->getFieldNames();
+        if (header->getSize() != 5)
+        {
+            return false;
+        }
+        if (header->get(0) != modelica)
+        {
+            return false;
+        }
+        if (header->get(1) != model)
+        {
+            return false;
+        }
+        if (header->get(2) != inputs)
+        {
+            return false;
+        }
+        if (header->get(3) != outputs)
+        {
+            return false;
+        }
+        if (header->get(4) != parameters)
+        {
+            return false;
+        }
+
+        // 'model'
+        std::vector<std::string> equations (1);
+        if (current->get(1)->getType() != types::InternalType::ScilabString)
+        {
+            return false;
+        }
+        types::String* modelField = current->get(1)->getAs<types::String>();
+        if (modelField->getSize() != 1)
+        {
+            return false;
+        }
+        std::string modelFieldStored;
+        char* c_str = wide_string_to_UTF8(modelField->get(0));
+        modelFieldStored = std::string(c_str);
+        FREE(c_str);
+        equations[0] = modelFieldStored;
+
+        // 'inputs'
+        if (current->get(2)->getType() != types::InternalType::ScilabString)
+        {
+            return false;
+        }
+        types::String* inputsField = current->get(2)->getAs<types::String>();
+        size_t inputsSize = inputsField->getSize();
+        equations.resize(equations.size() + 1 + inputsSize);
+        std::ostringstream strInputs;
+        strInputs << inputsSize;
+        std::string inputsSizeStr = strInputs.str();
+        equations[1] = inputsSizeStr; // Saving the size of the 'inputs' field'
+        for (size_t i = 0; i < inputsSize; ++i)
+        {
+            std::string inputsFieldStored;
+            char* c_str = wide_string_to_UTF8(inputsField->get(i));
+            inputsFieldStored = std::string(c_str);
+            FREE(c_str);
+            equations[i + 2] = inputsFieldStored;
+        }
+
+        // 'outputs'
+        if (current->get(3)->getType() != types::InternalType::ScilabString)
+        {
+            return false;
+        }
+        types::String* outputsField = current->get(3)->getAs<types::String>();
+        size_t outputsSize = outputsField->getSize();
+        equations.resize(equations.size() + 1 + outputsSize);
+        std::ostringstream strOutputs;
+        strOutputs << outputsSize;
+        std::string outputsSizeStr = strOutputs.str();
+        equations[2 + inputsSize] = outputsSizeStr; // Saving the size of the 'outputs' field'
+        for (size_t i = 0; i < outputsSize; ++i)
+        {
+            std::string outputsFieldStored;
+            char* c_str = wide_string_to_UTF8(outputsField->get(i));
+            outputsFieldStored = std::string(c_str);
+            FREE(c_str);
+            equations[i + 3 + inputsSize] = outputsFieldStored;
+        }
+
+        // 'parameters'
+        if (current->get(4)->getType() != types::InternalType::ScilabList)
+        {
+            return false;
+        }
+        types::List* list = current->get(4)->getAs<types::List>();
+
+        // 'parameters' names
+        if (list->get(0)->getType() != types::InternalType::ScilabString)
+        {
+            return false;
+        }
+        types::String* parametersNames = list->get(0)->getAs<types::String>();
+        size_t parametersSize = parametersNames->getSize();
+        equations.resize(equations.size() + 1 + parametersSize);
+        std::ostringstream strParameters;
+        strParameters << parametersSize;
+        std::string parametersSizeStr = strParameters.str();
+        equations[3 + inputsSize + outputsSize] = parametersSizeStr; // Saving the size of the 'parameters' field'
+        for (size_t i = 0; i < parametersSize; ++i)
+        {
+            std::string parametersName;
+            char* c_str = wide_string_to_UTF8(parametersNames->get(i));
+            parametersName = std::string(c_str);
+            FREE(c_str);
+            equations[i + 4 + inputsSize + outputsSize] = parametersName;
+        }
+
+        // 'parameters' values
+        if (list->get(1)->getType() != types::InternalType::ScilabList)
+        {
+            return false;
+        }
+        types::List* list2 = list->get(1)->getAs<types::List>();
+        if (list2->getSize() != parametersSize)
+        {
+            return false;
+        }
+        equations.resize(equations.size() + parametersSize);
+        for (size_t i = 0; i < parametersSize; ++i)
+        {
+            if (list2->get(i)->getType() != types::InternalType::ScilabDouble)
+            {
+                return false;
+            }
+            types::Double* parametersVal = list2->get(i)->getAs<types::Double>();
+            if (parametersVal->getSize() != 1)
+            {
+                return false;
+            }
+            std::ostringstream strParametersVal;
+            strParametersVal << parametersVal->get(0);
+            std::string parametersValStr = strParametersVal.str();
+            equations[i + 4 + inputsSize + outputsSize + parametersSize] = parametersValStr;
+        }
+
+        controller.setObjectProperty(adaptee->id(), adaptee->kind(), EQUATIONS, equations);
+        return true;
     }
 };
 
