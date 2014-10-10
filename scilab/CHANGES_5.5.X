@@ -22,6 +22,7 @@ Scilab Bug Fixes
 
 * Bug #13605 fixed - There was an inverted result value with parameters "r" or "c" with harmean.
 
+* Bug #13608 fixed - logm produced an error with complex values.
 
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
