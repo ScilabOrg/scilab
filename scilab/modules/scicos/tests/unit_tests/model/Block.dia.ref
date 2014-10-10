@@ -53,9 +53,9 @@ propertyUpdated( 1 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-o  = 
+o  =
 GUI     : BIGSOM_f
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,3]
           flip = %t
@@ -74,7 +74,7 @@ Graphics:
           in_label = ["";""]
           out_label = ""
           style = ""
-Model   : 
+Model   :
           sum type: 2
           in = [-1;-1]
           in2 = [1;1]
@@ -188,6 +188,7 @@ propertyUpdated( 5 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 5 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 6 , PORT )
 propertyUpdated( 6 , PORT , FIRING ) : NO_CHANGES
@@ -223,9 +224,9 @@ propertyUpdated( 5 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , CHILDREN ) : NO_CHANGES
 objectDeleted( 1 )
-o  = 
+o  =
 GUI     : BIGSOM_f
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,3]
           flip = %t
@@ -244,7 +245,7 @@ Graphics:
           in_label = ["";""]
           out_label = ""
           style = ""
-Model   : 
+Model   :
           sum type: 2
           in = [-1;-1]
           in2 = [1;1]
@@ -351,6 +352,7 @@ propertyUpdated( 9 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 9 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 10 , PORT )
 propertyUpdated( 10 , PORT , FIRING ) : NO_CHANGES
@@ -385,9 +387,9 @@ propertyUpdated( 9 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , CHILDREN ) : NO_CHANGES
-o  = 
+o  =
 GUI     : BIGSOM_f
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,3]
           flip = %t
@@ -406,7 +408,7 @@ Graphics:
           in_label = ["";""]
           out_label = ""
           style = ""
-Model   : 
+Model   :
           sum type: 2
           in = [-1;-1]
           in2 = [1;1]
@@ -562,9 +564,9 @@ propertyUpdated( 14 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , CHILDREN ) : NO_CHANGES
-o  = 
+o  =
 GUI     : BIGSOM_f
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,3]
           flip = %t
@@ -583,7 +585,7 @@ Graphics:
           in_label = ["";"";""]
           out_label = ""
           style = ""
-Model   : 
+Model   :
           sum type: 2
           in = [-1;-1;-1]
           in2 = [1;1;1]
@@ -691,9 +693,9 @@ propertyUpdated( 19 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 19 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 19 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 19 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-o  = 
+o  =
 GUI     : CSCOPE
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,2]
           flip = %t
@@ -708,11 +710,11 @@ Graphics:
           in_implicit = "E"
           out_implicit = []
           in_style = ""
-          out_style = 
+          out_style =
           in_label = ""
-          out_label = 
+          out_label =
           style = ""
-Model   : 
+Model   :
           cscope type: 4
           in = -1
           in2 = 1
@@ -752,9 +754,9 @@ id = ""
 in_implicit = "E"
 out_implicit = []
 in_style = ""
-out_style = 
+out_style =
 in_label = ""
-out_label = 
+out_label =
 style = ""
 o.model
  ans  =
@@ -864,9 +866,9 @@ propertyUpdated( 22 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 22 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
 propertyUpdated( 22 , BLOCK , CHILDREN ) : NO_CHANGES
 objectDeleted( 19 )
-o  = 
+o  =
 GUI     : CSCOPE
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,2]
           flip = %t
@@ -881,11 +883,11 @@ Graphics:
           in_implicit = "E"
           out_implicit = []
           in_style = ""
-          out_style = 
+          out_style =
           in_label = ""
-          out_label = 
+          out_label =
           style = ""
-Model   : 
+Model   :
           cscope type: 4
           in = -1
           in2 = 1
@@ -968,9 +970,9 @@ propertyUpdated( 25 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 25 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 25 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 25 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-o  = 
+o  =
 GUI     : LOGIC
-Graphics: 
+Graphics:
           orig = [0,0]
           sz = [2,2]
           flip = %t
@@ -989,7 +991,7 @@ Graphics:
           in_label = ["";""]
           out_label = ""
           style = ""
-Model   : 
+Model   :
           logic type: 4
           in = [1;1]
           in2 = [1;1]
@@ -1057,3 +1059,130 @@ o.model.odstate
        ans(4)
   32  32
   32  32
+// Test 'equations'
+o = VsourceAC("define")
+objectCreated( 29 , BLOCK )
+propertyUpdated( 29 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , GEOMETRY ) : SUCCESS
+propertyUpdated( 29 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , EXPRS ) : SUCCESS
+objectCreated( 30 , PORT )
+propertyUpdated( 30 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 30 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 29 , BLOCK , INPUTS ) : SUCCESS
+objectCreated( 31 , PORT )
+propertyUpdated( 31 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 31 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 29 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 29 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 30 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 31 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 30 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 31 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 30 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 31 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
+propertyUpdated( 29 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 30 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 31 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 29 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , RPAR ) : SUCCESS
+propertyUpdated( 29 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , SIM_DEP_UT ) : SUCCESS
+propertyUpdated( 29 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , EQUATIONS ) : SUCCESS
+propertyUpdated( 29 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
+propertyUpdated( 29 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 30 , PORT , IMPLICIT ) : SUCCESS
+propertyUpdated( 31 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 30 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 31 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 30 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 31 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 30 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 31 , PORT , IMPLICIT ) : SUCCESS
+propertyUpdated( 30 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 31 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 30 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 31 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 29 , BLOCK , STYLE ) : NO_CHANGES
+objectDeleted( 24 )
+o  =
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
+o.model.equations
+ ans  =
+               ans(1)
+!modelica  model  inputs  outputs  parameters  !
+     ans(2)
+ VsourceAC
+     ans(3)
+ p
+     ans(4)
+ n
+     ans(5)
+(1)
+!VA  !
+!    !
+!f   !
+          ans(1)
+!modelica  model  inputs  outputs  parameters  !
+     ans(2)
+ VsourceAC
+     ans(3)
+ p
+     ans(4)
+ n
+     ans(5)
+(2)
+(1)
+    220.
+               ans(1)
+!modelica  model  inputs  outputs  parameters  !
+     ans(2)
+ VsourceAC
+     ans(3)
+ p
+     ans(4)
+ n
+     ans(5)
+(1)
+!VA  !
+!    !
+!f   !
+          ans(1)
+!modelica  model  inputs  outputs  parameters  !
+     ans(2)
+ VsourceAC
+     ans(3)
+ p
+     ans(4)
+ n
+     ans(5)
+(2)
+(2)
+    50.

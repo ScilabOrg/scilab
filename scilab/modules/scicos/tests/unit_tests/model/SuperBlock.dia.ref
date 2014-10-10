@@ -110,6 +110,7 @@ propertyUpdated( 6 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 6 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 6 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , INPUTS ) : NO_CHANGES
 objectCreated( 7 , PORT )
@@ -149,6 +150,7 @@ propertyUpdated( 8 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 8 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 8 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 9 , PORT )
 propertyUpdated( 9 , PORT , FIRING ) : NO_CHANGES
@@ -225,6 +227,7 @@ propertyUpdated( 14 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 14 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 14 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 14 , BLOCK , INPUTS ) : NO_CHANGES
 objectCreated( 15 , PORT )
@@ -261,6 +264,7 @@ propertyUpdated( 16 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 16 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 16 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 16 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 objectCreated( 17 , PORT )
 propertyUpdated( 17 , PORT , FIRING ) : NO_CHANGES
@@ -747,6 +751,7 @@ propertyUpdated( 28 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 28 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 28 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 28 , BLOCK , OUTPUTS ) : NO_CHANGES
@@ -786,6 +791,7 @@ propertyUpdated( 30 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 30 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 30 , BLOCK , OUTPUTS ) : NO_CHANGES
@@ -862,6 +868,7 @@ propertyUpdated( 35 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 35 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 35 , BLOCK , OUTPUTS ) : NO_CHANGES
@@ -1055,6 +1062,7 @@ propertyUpdated( 46 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 46 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 46 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 46 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 46 , BLOCK , OUTPUTS ) : NO_CHANGES
@@ -1100,6 +1108,7 @@ propertyUpdated( 50 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 50 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 50 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 50 , BLOCK , OUTPUTS ) : NO_CHANGES
@@ -1145,6 +1154,7 @@ propertyUpdated( 54 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 54 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 54 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 54 , BLOCK , OUTPUTS ) : NO_CHANGES
