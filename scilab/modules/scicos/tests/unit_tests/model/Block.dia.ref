@@ -188,6 +188,7 @@ propertyUpdated( 5 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 5 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 6 , PORT )
 propertyUpdated( 6 , PORT , FIRING ) : NO_CHANGES
@@ -351,6 +352,7 @@ propertyUpdated( 9 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 9 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 9 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 10 , PORT )
 propertyUpdated( 10 , PORT , FIRING ) : NO_CHANGES
@@ -519,6 +521,7 @@ propertyUpdated( 14 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 14 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 14 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 15 , PORT )
 propertyUpdated( 15 , PORT , FIRING ) : NO_CHANGES
@@ -838,6 +841,7 @@ propertyUpdated( 22 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 22 , BLOCK , IPAR ) : SUCCESS
 propertyUpdated( 22 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 22 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 22 , BLOCK , EQUATIONS ) : NO_CHANGES
 propertyUpdated( 22 , BLOCK , PARENT_DIAGRAM ) : NO_CHANGES
 objectCreated( 23 , PORT )
 propertyUpdated( 23 , PORT , FIRING ) : NO_CHANGES
@@ -1057,3 +1061,134 @@ o.model.odstate
        ans(4)
   32  32
   32  32
+// Test 'equations'
+o = VsourceAC("define")
+objectCreated( 30 , BLOCK )
+propertyUpdated( 30 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , GEOMETRY ) : SUCCESS
+propertyUpdated( 30 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , EXPRS ) : SUCCESS
+objectCreated( 31 , PORT )
+propertyUpdated( 31 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 31 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 30 , BLOCK , INPUTS ) : SUCCESS
+objectCreated( 32 , PORT )
+propertyUpdated( 32 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 32 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 30 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 30 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 31 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 32 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 31 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 32 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 31 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 32 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
+propertyUpdated( 30 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 31 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 32 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 30 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , RPAR ) : SUCCESS
+propertyUpdated( 30 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , SIM_DEP_UT ) : SUCCESS
+propertyUpdated( 30 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , EQUATIONS ) : SUCCESS
+propertyUpdated( 30 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 30 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
+propertyUpdated( 31 , PORT , IMPLICIT ) : SUCCESS
+propertyUpdated( 32 , PORT , IMPLICIT ) : SUCCESS
+objectDeleted( 25 )
+o  = 
+GUI     : VsourceAC
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = ["220";"50"]
+          pin = 0
+          pout = 0
+          pein = []
+          peout = []
+          gr_i = list([],[])
+          id = ""
+          in_implicit = "I"
+          out_implicit = "I"
+          in_style = ""
+          out_style = ""
+          in_label = ""
+          out_label = ""
+          style = ""
+Model   : 
+          VsourceAC type: 0
+          in = 1
+          in2 = 1
+          intyp = 1
+          out = 1
+          out2 = 1
+          outtyp = 1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [220;50]
+          ipar = []
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = tlist(["modelica","model","inputs","outputs","parameters"],"VsourceAC","p","n",list(["VA";"f"],list(220,50)))
+          uid = ""
+o.model.equations
+ ans  =
+       ans(1)
+!modelica  model  inputs  outputs  parameters  !
+       ans(2)
+ VsourceAC
+       ans(3)
+ p
+       ans(4)
+ n
+       ans(5)
+        ans(5)(1)
+!VA  !
+!    !
+!f   !
+        ans(5)(2)
+         ans(5)(2)(1)
+    220.
+         ans(5)(2)(2)
+    50.
+o.model.equations = modelica();
+o.model.equations
+ ans  =
+       ans(1)
+!modelica  model  inputs  outputs  parameters  !
+       ans(2)
+ VsourceAC
+       ans(3)
+ p
+       ans(4)
+ n
+       ans(5)
+        ans(5)(1)
+!VA  !
+!    !
+!f   !
+        ans(5)(2)
+         ans(5)(2)(1)
+    220.
+         ans(5)(2)(2)
+    50.
