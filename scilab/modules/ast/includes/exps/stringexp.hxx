@@ -13,6 +13,7 @@
 #ifndef AST_STRINGEXP_HXX
 #define AST_STRINGEXP_HXX
 
+#include <iostream>
 #include "constexp.hxx"
 
 namespace ast
@@ -62,6 +63,7 @@ public:
     virtual void accept (ConstVisitor& v) const
     {
         v.visit (*this);
+        std::wcerr << L" StringExp " << getLocation().getLocationString() << " " << _value << " " << getConstant()->toStringInLine() << std::endl;
     }
     /** \} */
 

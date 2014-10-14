@@ -13,6 +13,7 @@
 #ifndef AST_RUNVISITOR_HXX
 #define AST_RUNVISITOR_HXX
 
+#include <iostream>
 #include <set>
 
 #include "all.hxx"
@@ -242,6 +243,7 @@ public:
 
             for (types::typed_list::const_iterator i = in.begin(); i != in.end(); ++i)
             {
+                std::cerr << "cleanIn " << *i << std::endl;
                 if (*i)
                 {
                     (*i)->DecreaseRef();
@@ -469,7 +471,7 @@ public :
             //restore previous prompt mode
             ConfigVariable::setSilentError(oldVal);
         }
-        catch (ScilabMessage sm)
+        catch (const ScilabMessage& sm)
         {
             //restore previous prompt mode
             ConfigVariable::setSilentError(oldVal);
@@ -516,7 +518,7 @@ public :
             e.getInit().accept(*this);
             getResult()->IncreaseRef();
         }
-        catch (ScilabError error)
+        catch (const ScilabError& error)
         {
             throw error;
         }
