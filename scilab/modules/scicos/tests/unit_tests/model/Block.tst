@@ -100,3 +100,9 @@ o = VsourceAC("define")
 o.model.equations
 o.model.equations = modelica();
 o.model.equations
+
+// Test 'exprs' with Modelica Block
+o = MBLOCK("define")
+o.graphics
+o.graphics.exprs
+o.model.equations
