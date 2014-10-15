@@ -36,5 +36,7 @@ void SetScilabEnvironment(void)
     {
         fprintf(stderr, _("Error: Impossible to define %s environment variable.\n"), "SCIHOME");
     }
+
+    C2F(settmpdir)();
 }
 /*--------------------------------------------------------------------------*/
