@@ -41,6 +41,7 @@ public:
 
     types::InternalType* getGrIContent() const;
     void setGrIContent(types::InternalType* v);
+
 private:
     types::InternalType* gr_i_content;
 };

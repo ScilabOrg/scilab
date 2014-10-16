@@ -42,6 +42,7 @@ public:
 
     types::InternalType* getDocContent() const;
     void setDocContent(types::InternalType* v);
+
 private:
     types::InternalType* doc_content;
 };

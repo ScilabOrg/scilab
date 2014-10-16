@@ -235,8 +235,7 @@ public:
     virtual std::wstring getShortTypeStr() = 0;
     virtual void setAdapterContent(Adaptor*) = 0;
 
-private:
-
+public:
     types::InternalType* clone()
     {
         if (getAdaptee() == 0)
@@ -247,13 +246,14 @@ private:
 
         Controller controller = Controller();
         ScicosID clone = controller.cloneObject(getAdaptee()->id());
-        Adaptor* retAdaptor = new Adaptor(false, static_cast<Adaptee*>(controller.getObject(clone)));
+        Adaptor* newAdaptor = new Adaptor(false, static_cast<Adaptee*>(controller.getObject(clone)));
 
         // When cloning an Adapter, clone its inner information as well
-        retAdaptor->setAdapterContent(static_cast<Adaptor*>(this));
-        return retAdaptor;
+        newAdaptor->setAdapterContent(static_cast<Adaptor*>(this));
+        return newAdaptor;
     }
 
+private:
     /*
      * Implement a specific types::User
      */
@@ -339,12 +339,13 @@ private:
 
     bool hasToString()
     {
-        // allow scilab to call toString of this class
-        return true;
+        // Do not allow scilab to call toString of this class
+        return false;
     }
 
     bool toString(std::wostringstream& ostr)
     {
+        // Deprecated, use the overload instead
         typename property<Adaptor>::props_t properties = property<Adaptor>::fields;
         std::sort(properties.begin(), properties.end(), property<Adaptor>::original_index_cmp);
 

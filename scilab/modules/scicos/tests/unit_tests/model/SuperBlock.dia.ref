@@ -54,25 +54,7 @@ propertyUpdated( 2 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
 propertyUpdated( 2 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 2 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 3 , PORT , IMPLICIT ) : NO_CHANGES
-propertyUpdated( 3 , PORT , STYLE ) : NO_CHANGES
-propertyUpdated( 3 , PORT , LABEL ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 2 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 3 , PORT , IMPLICIT ) : NO_CHANGES
-propertyUpdated( 3 , PORT , STYLE ) : NO_CHANGES
-propertyUpdated( 3 , PORT , LABEL ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , STYLE ) : NO_CHANGES
 objectCreated( 4 , BLOCK )
 propertyUpdated( 4 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , GEOMETRY ) : SUCCESS
@@ -107,25 +89,7 @@ propertyUpdated( 4 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
 propertyUpdated( 4 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 4 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 5 , PORT , IMPLICIT ) : NO_CHANGES
-propertyUpdated( 5 , PORT , STYLE ) : NO_CHANGES
-propertyUpdated( 5 , PORT , LABEL ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 4 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 5 , PORT , IMPLICIT ) : NO_CHANGES
-propertyUpdated( 5 , PORT , STYLE ) : NO_CHANGES
-propertyUpdated( 5 , PORT , LABEL ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , STYLE ) : NO_CHANGES
 objectCreated( 6 , BLOCK )
 propertyUpdated( 6 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
 propertyUpdated( 6 , BLOCK , NZCROSS ) : NO_CHANGES
@@ -328,15 +292,54 @@ propertyUpdated( 10 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
+objectDeleted( 2 )
 objectDeleted( 1 )
 objectDeleted( 4 )
-objectDeleted( 2 )
 sb  = 
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
+GUI     : SUPER_f
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = 
+          pin = 0
+          pout = 0
+          pein = []
+          peout = []
+          gr_i = list([],8)
+          id = ""
+          in_implicit = "E"
+          out_implicit = "E"
+          in_style = ""
+          out_style = ""
+          in_label = ""
+          out_label = ""
+          style = ""
+Model   : 
+          super type: 0
+          in = 1
+          in2 = 1
+          intyp = 1
+          out = 1
+          out2 = 1
+          outtyp = 1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar : SuperBlock
+          ipar = []
+          opar = list()
+          blocktype = "h"
+          firing = []
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
 sb.graphics
  ans  =
 orig = [0,0]
@@ -348,7 +351,7 @@ pin = 0
 pout = 0
 pein = []
 peout = []
-gr_i = []
+gr_i = list([],8)
 id = ""
 in_implicit = "E"
 out_implicit = "E"
@@ -371,7 +374,7 @@ evtout = []
 state = []
 dstate = []
 odstate = list()
-rpar = mlist(["diagram","props","objs","version","contrib"],tlist(["params","wpar","title","tol","tf","context","void1","options","void2","void3","doc"],[],["Super Block";""],[0.000001,0.000001,1.0000D-10,100001,0,1,0],100000,..,[],tlist("scsopt"),[],[],list()),list(mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[40,40],[20,20],%t,0,"1",[],0,[],[],[],"",..,"E",..,"",..,"",""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"input",[],[],1,-1,-2,-1,[],[],[],[],list(),[],1,list(),"c",[],[%f,%f],"",0,0,list(),""),"IN_f",list()),mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[240,40],[20,20],%t,0,"1",0,[],[],[],[],"","E",..,"",..,"",..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"output",-1,-2,-1,[],[],1,[],[],[],[],list(),[],1,list(),"c",[],[%f,%f],"",0,0,list(),""),"OUT_f",list())),"",list())
+rpar = mlist(["diagram","props","objs","version","contrib"],tlist(["params","wpar","title","tol","tf","context","void1","options","void2","void3","doc"],[],["Super Block";""],[0.000001,0.000001,1.0000D-10,100001,0,1,0],100000,[],[],tlist("scsopt"),[],[],list()),list(mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[40,40],[20,20],%t,0,"1",[],0,[],[],[],"",[],"E",..,"",..,"",""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"input",[],[],1,-1,-2,-1,[],[],[],[],list(),[],1,list(),"c",[],[%f,%f],"",0,0,list(),""),"IN_f",list()),mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[240,40],[20,20],%t,0,"1",0,[],[],[],[],"","E",[],"",..,"",..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"output",-1,-2,-1,[],[],1,[],[],[],[],list(),[],1,list(),"c",[],[%f,%f],"",0,0,list(),""),"OUT_f",list())),"",list())
 ipar = []
 opar = list()
 blocktype = "h"
@@ -387,22 +390,29 @@ sb.gui
  SUPER_f
 sb.doc
  ans  =
-()
+     ()
 // Access the contained diagram's fields
 sb.model.rpar
  ans  =
-scicos_diagram type :
-  props
-  objs
-  version
-  contrib
+wpar = []
+title = ["Super Block";""]
+tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
+tf = 100000
+context = []
+void1 = []
+options = tlist("scsopt")
+void2 = []
+void3 = []
+doc = list()
+1     IN_f
+2     OUT_f
 sb.model.rpar.props
  ans  =
 wpar = []
 title = ["Super Block";""]
 tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
 tf = 100000
-context = 
+context = []
 void1 = []
 options = tlist("scsopt")
 void2 = []
@@ -410,18 +420,96 @@ void3 = []
 doc = list()
 sb.model.rpar.objs
  ans  =
-     (1)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (2)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
+       ans(1)
+GUI     : IN_f
+Graphics: 
+          orig = [40,40]
+          sz = [20,20]
+          flip = %t
+          theta = 0
+          exprs = "1"
+          pin = []
+          pout = 0
+          pein = []
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = []
+          out_implicit = "E"
+          in_style = 
+          out_style = ""
+          in_label = 
+          out_label = ""
+          style = ""
+Model   : 
+          input type: 0
+          in = []
+          in2 = []
+          intyp = 1
+          out = -1
+          out2 = -2
+          outtyp = -1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = []
+          ipar = 1
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(2)
+GUI     : OUT_f
+Graphics: 
+          orig = [240,40]
+          sz = [20,20]
+          flip = %t
+          theta = 0
+          exprs = "1"
+          pin = 0
+          pout = []
+          pein = []
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = "E"
+          out_implicit = []
+          in_style = ""
+          out_style = 
+          in_label = ""
+          out_label = 
+          style = ""
+Model   : 
+          output type: 0
+          in = -1
+          in2 = -2
+          intyp = -1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = []
+          ipar = 1
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
 sb.model.rpar.objs(1).graphics
  ans  =
 orig = [40,40]
@@ -435,7 +523,7 @@ pein = []
 peout = []
 gr_i = []
 id = ""
-in_implicit = 
+in_implicit = []
 out_implicit = "E"
 in_style = 
 out_style = ""
@@ -481,7 +569,7 @@ peout = []
 gr_i = []
 id = ""
 in_implicit = "E"
-out_implicit = 
+out_implicit = []
 in_style = ""
 out_style = 
 in_label = ""
@@ -517,7 +605,7 @@ sb.model.rpar.version
  
 sb.model.rpar.contrib
  ans  =
-()
+     ()
 clk = CLOCK_c("define")
 objectCreated( 18 , BLOCK )
 propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
@@ -554,81 +642,11 @@ propertyUpdated( 18 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
 propertyUpdated( 18 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , GEOMETRY ) : SUCCESS
 propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , EXPRS ) : SUCCESS
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 19 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 20 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 18 , BLOCK , RPAR ) : SUCCESS
-propertyUpdated( 18 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
-propertyUpdated( 20 , PORT , FIRING ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 19 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 20 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , RPAR ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 20 , PORT , FIRING ) : SUCCESS
-propertyUpdated( 18 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 18 , BLOCK , UID ) : NO_CHANGES
 objectCreated( 21 , BLOCK )
 propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , GEOMETRY ) : SUCCESS
@@ -658,55 +676,10 @@ propertyUpdated( 21 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
 propertyUpdated( 21 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , GEOMETRY ) : SUCCESS
 propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 22 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 21 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 21 , BLOCK , UID ) : NO_CHANGES
 objectCreated( 23 , BLOCK )
 propertyUpdated( 23 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , GEOMETRY ) : SUCCESS
@@ -746,20 +719,6 @@ propertyUpdated( 23 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-propertyUpdated( 23 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 23 , BLOCK , STYLE ) : NO_CHANGES
 objectCreated( 27 , DIAGRAM )
 propertyUpdated( 27 , DIAGRAM , TITLE ) : NO_CHANGES
 propertyUpdated( 27 , DIAGRAM , PATH ) : NO_CHANGES
@@ -1059,117 +1018,17 @@ propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , INTERFACE_FUNCTION ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , GEOMETRY ) : SUCCESS
-propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , EXPRS ) : NO_CHANGES
 objectCreated( 44 , PORT )
 propertyUpdated( 44 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 44 , PORT , PORT_KIND ) : SUCCESS
 propertyUpdated( 43 , BLOCK , EVENT_OUTPUTS ) : SUCCESS
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STYLE ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
 propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
 propertyUpdated( 44 , PORT , DATATYPE ) : SUCCESS
-propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
-propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 44 , PORT , DATATYPE ) : SUCCESS
-propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
-propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 44 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
-propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 44 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 44 , PORT , FIRING ) : FAIL
 propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 44 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
-propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 44 , PORT , DATATYPE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
 objectCreated( 45 , DIAGRAM )
 propertyUpdated( 45 , DIAGRAM , TITLE ) : NO_CHANGES
 propertyUpdated( 45 , DIAGRAM , PATH ) : NO_CHANGES
@@ -1344,24 +1203,55 @@ propertyUpdated( 46 , BLOCK , PORT_REFERENCE ) : SUCCESS
 propertyUpdated( 46 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 54 , BLOCK , PARENT_BLOCK ) : SUCCESS
 propertyUpdated( 50 , BLOCK , PARENT_BLOCK ) : SUCCESS
-propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
-propertyUpdated( 44 , PORT , FIRING ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
 objectDeleted( 18 )
 objectDeleted( 21 )
 objectDeleted( 23 )
+objectDeleted( 27 )
 clk  = 
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
+GUI     : CLOCK_c
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = 
+          pin = []
+          pout = []
+          pein = []
+          peout = 0
+          gr_i = []
+          id = ""
+          in_implicit = []
+          out_implicit = []
+          in_style = 
+          out_style = 
+          in_label = 
+          out_label = 
+          style = ""
+Model   : 
+          csuper type: 0
+          in = []
+          in2 = []
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = []
+          evtout = 1
+          state = []
+          dstate = []
+          odstate = list()
+          rpar : SuperBlock
+          ipar = []
+          opar = list()
+          blocktype = "h"
+          firing = 0
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
 clk.graphics
  ans  =
 orig = [0,0]
@@ -1375,8 +1265,8 @@ pein = []
 peout = 0
 gr_i = []
 id = ""
-in_implicit = 
-out_implicit = 
+in_implicit = []
+out_implicit = []
 in_style = 
 out_style = 
 in_label = 
@@ -1396,7 +1286,7 @@ evtout = 1
 state = []
 dstate = []
 odstate = list()
-rpar = mlist(["diagram","props","objs","version","contrib"],tlist(["params","wpar","title","tol","tf","context","void1","options","void2","void3","doc"],[],["Untitled";""],[0.000001,0.000001,1.0000D-10,100001,0,1,0],100000,..,[],tlist("scsopt"),[],[],list()),list(mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[399,162],[20,20],%t,0,"1",[],[],5,[],[],"",..,..,..,..,..,..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"output",[],[],1,[],[],1,1,[],[],[],list(),[],1,list(),"d",[],[%f,%f],"",0,0,list(),""),"CLKOUT_f",list()),mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[320,232],[40,40],%t,0,["0.1";"0.1"],[],[],6,3,[],"",..,..,..,..,..,..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],list("evtdly4",4),[],[],1,[],[],1,1,1,[],[],list(),[0.1;0.1],[],list(),"d",0.1,[%f,%f],"",0,0,list(),""),"EVTDLY_c",list()),mlist(["Link","xx","yy","id","thick","ct","from","to"],[340;340;380.71],[226.29;172;172],"",[0,0],[5,-1],[2,1,0],[4,1,1]),mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[0,0],[0.33333333,0.33333333],%t,0,..,[],[],3,[5;6],[],"",..,..,..,..,..,..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"split",[],[],1,[],[],1,1,[1;1],[],[],list(),[],[],list(),"d",[0;0],[%f,%f],"",0,0,list(),""),"CLKSPLIT_f",list()),mlist(["Link","xx","yy","id","thick","ct","from","to"],[380.71;399],[172;172],"",[0,0],[5,-1],[4,1,0],[1,1,1]),mlist(["Link","xx","yy","id","thick","ct","from","to"],[380.71;380.71;340;340],[172;302;302;277.71],"",[0,0],[5,-1],[4,2,0],[2,1,1])),"",list())
+rpar = mlist(["diagram","props","objs","version","contrib"],tlist(["params","wpar","title","tol","tf","context","void1","options","void2","void3","doc"],[],["Untitled";""],[0.000001,0.000001,1.0000D-10,100001,0,1,0],100000,[],[],tlist("scsopt"),[],[],list()),list(mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[399,162],[20,20],%t,0,"1",[],[],5,[],[],"",[],[],..,..,..,..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"output",[],[],1,[],[],1,1,[],[],[],list(),[],1,list(),"d",[],[%f,%f],"",0,0,list(),""),"CLKOUT_f",list()),mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[320,232],[40,40],%t,0,["0.1";"0.1"],[],[],6,3,[],"",[],[],..,..,..,..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],list("evtdly4",4),[],[],1,[],[],1,1,1,[],[],list(),[0.1;0.1],[],list(),"d",0.1,[%f,%f],"",0,0,list(),""),"EVTDLY_c",list()),mlist(["Link","xx","yy","id","thick","ct","from","to"],[340;340;380.71],[226.29;172;172],"",[0,0],[5,-1],[2,1,0],[4,1,1]),mlist(["Block","graphics","model","gui","doc"],mlist(["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id","in_implicit","out_implicit","in_style","out_style","in_label","out_label","style"],[0,0],[0.33333333,0.33333333],%t,0,..,[],[],3,[5;6],[],"",[],[],..,..,..,..,""),mlist(["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state","dstate","odstate","rpar","ipar","opar","blocktype","firing","dep_ut","label","nzcross","nmode","equations","uid"],"split",[],[],1,[],[],1,1,[1;1],[],[],list(),[],[],list(),"d",[0;0],[%f,%f],"",0,0,list(),""),"CLKSPLIT_f",list()),mlist(["Link","xx","yy","id","thick","ct","from","to"],[380.71;399],[172;172],"",[0,0],[5,-1],[4,1,0],[1,1,1]),mlist(["Link","xx","yy","id","thick","ct","from","to"],[380.71;380.71;340;340],[172;302;302;277.71],"",[0,0],[5,-1],[4,2,0],[2,1,1])),"",list())
 ipar = []
 opar = list()
 blocktype = "h"
@@ -1409,18 +1299,26 @@ equations = list()
 uid = ""
 clk.model.rpar
  ans  =
-scicos_diagram type :
-  props
-  objs
-  version
-  contrib
+wpar = []
+title = ["Untitled";""]
+tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
+tf = 100000
+context = []
+void1 = []
+options = tlist("scsopt")
+void2 = []
+void3 = []
+doc = list()
+1     CLKOUT_f
+2     EVTDLY_c
+4     CLKSPLIT_f
 clk.model.rpar.props
  ans  =
 wpar = []
 title = ["Untitled";""]
 tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
 tf = 100000
-context = 
+context = []
 void1 = []
 options = tlist("scsopt")
 void2 = []
@@ -1428,51 +1326,168 @@ void3 = []
 doc = list()
 clk.model.rpar.objs
  ans  =
-     (1)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (2)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (3)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
-     (4)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (5)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
-     (6)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
+       ans(1)
+GUI     : CLKOUT_f
+Graphics: 
+          orig = [399,162]
+          sz = [20,20]
+          flip = %t
+          theta = 0
+          exprs = "1"
+          pin = []
+          pout = []
+          pein = 5
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = []
+          out_implicit = []
+          in_style = 
+          out_style = 
+          in_label = 
+          out_label = 
+          style = ""
+Model   : 
+          output type: 0
+          in = []
+          in2 = []
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = []
+          ipar = 1
+          opar = list()
+          blocktype = "d"
+          firing = []
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(2)
+GUI     : EVTDLY_c
+Graphics: 
+          orig = [320,232]
+          sz = [40,40]
+          flip = %t
+          theta = 0
+          exprs = ["0.1";"0.1"]
+          pin = []
+          pout = []
+          pein = 6
+          peout = 3
+          gr_i = []
+          id = ""
+          in_implicit = []
+          out_implicit = []
+          in_style = 
+          out_style = 
+          in_label = 
+          out_label = 
+          style = ""
+Model   : 
+          evtdly4 type: 4
+          in = []
+          in2 = []
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = 1
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [0.1;0.1]
+          ipar = []
+          opar = list()
+          blocktype = "d"
+          firing = 0.1
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(3)
+Link    :
+          xx: 340 340 380.71
+          yy: 226.29 172 172
+          id: 
+          thick: 0 0
+          ct: 5 -1
+          from: 2 1 0
+          to: 4 1 1
+       ans(4)
+GUI     : CLKSPLIT_f
+Graphics: 
+          orig = [0,0]
+          sz = [0.33333333,0.33333333]
+          flip = %t
+          theta = 0
+          exprs = 
+          pin = []
+          pout = []
+          pein = 3
+          peout = [5;6]
+          gr_i = []
+          id = ""
+          in_implicit = []
+          out_implicit = []
+          in_style = 
+          out_style = 
+          in_label = 
+          out_label = 
+          style = ""
+Model   : 
+          split type: 0
+          in = []
+          in2 = []
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = [1;1]
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = []
+          ipar = []
+          opar = list()
+          blocktype = "d"
+          firing = [0;0]
+          dep_ut = [%f,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(5)
+Link    :
+          xx: 380.71 399
+          yy: 172 172
+          id: 
+          thick: 0 0
+          ct: 5 -1
+          from: 4 1 0
+          to: 1 1 1
+       ans(6)
+Link    :
+          xx: 380.71 380.71 340 340
+          yy: 172 302 302 277.71
+          id: 
+          thick: 0 0
+          ct: 5 -1
+          from: 4 2 0
+          to: 2 1 1
 clk.model.rpar.objs(1).graphics
  ans  =
 orig = [399,162]
@@ -1486,8 +1501,8 @@ pein = 5
 peout = []
 gr_i = []
 id = ""
-in_implicit = 
-out_implicit = 
+in_implicit = []
+out_implicit = []
 in_style = 
 out_style = 
 in_label = 
@@ -1531,8 +1546,8 @@ pein = 6
 peout = 3
 gr_i = []
 id = ""
-in_implicit = 
-out_implicit = 
+in_implicit = []
+out_implicit = []
 in_style = 
 out_style = 
 in_label = 
@@ -1582,8 +1597,8 @@ pein = 3
 peout = [5;6]
 gr_i = []
 id = ""
-in_implicit = 
-out_implicit = 
+in_implicit = []
+out_implicit = []
 in_style = 
 out_style = 
 in_label = 

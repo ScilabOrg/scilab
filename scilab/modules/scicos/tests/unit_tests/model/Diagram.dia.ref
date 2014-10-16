@@ -16,18 +16,23 @@ propertyUpdated( 1 , DIAGRAM , CONTEXT ) : NO_CHANGES
 propertyUpdated( 1 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 1 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
 scs_m  = 
-scicos_diagram type :
-  props
-  objs
-  version
-  contrib
+wpar = []
+title = ["Untitled";""]
+tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
+tf = 100000
+context = []
+void1 = []
+options = tlist("scsopt")
+void2 = []
+void3 = []
+doc = list()
 scs_m.props
  ans  =
 wpar = []
 title = ["Untitled";""]
 tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
 tf = 100000
-context = 
+context = []
 void1 = []
 options = tlist("scsopt")
 void2 = []
@@ -35,13 +40,13 @@ void3 = []
 doc = list()
 scs_m.objs
  ans  =
-()
+     ()
 scs_m.version
  ans  =
  
 scs_m.contrib
  ans  =
-()
+     ()
 // Create a diagram containing 2 summation blocks and two links
 Sum    = BIGSOM_f("define");
 objectCreated( 2 , BLOCK )
@@ -369,49 +374,174 @@ propertyUpdated( 25 , LINK , DESTINATION_PORT ) : NO_CHANGES
 propertyUpdated( 26 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
 objectDeleted( 1 )
 scs_m  = 
-scicos_diagram type :
-  props
-  objs
-  version
-  contrib
+wpar = []
+title = ["Untitled";""]
+tol = [0.000001,0.000001,1.0000D-10,100001,0,1,0]
+tf = 100000
+context = []
+void1 = []
+options = tlist("scsopt")
+void2 = []
+void3 = []
+doc = list()
+1     BIGSOM_f
+2     CSCOPE
+3     CSCOPE
 scs_m.objs
  ans  =
-     (1)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (2)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (3)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (4)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
-     (5)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
+       ans(1)
+GUI     : BIGSOM_f
+Graphics: 
+          orig = [0,0]
+          sz = [2,3]
+          flip = %t
+          theta = 0
+          exprs = "[1;1]"
+          pin = [0;0]
+          pout = 0
+          pein = []
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = ["E";"E"]
+          out_implicit = "E"
+          in_style = ["";""]
+          out_style = ""
+          in_label = ["";""]
+          out_label = ""
+          style = ""
+Model   : 
+          sum type: 2
+          in = [-1;-1]
+          in2 = [1;1]
+          intyp = [1;1]
+          out = -1
+          out2 = 1
+          outtyp = 1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [1;1]
+          ipar = []
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(2)
+GUI     : CSCOPE
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = ["1 3 5 7 9 11 13 15";"-1";"[]";"[600;400]";"-15";"15";"30";"20";"0";""]
+          pin = 0
+          pout = []
+          pein = 0
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = "E"
+          out_implicit = []
+          in_style = ""
+          out_style = 
+          in_label = ""
+          out_label = 
+          style = ""
+Model   : 
+          cscope type: 4
+          in = -1
+          in2 = 1
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [0;-15;15;30]
+          ipar = [-1;1;20;1;3;5;7;9;11;13;15;-1;-1;600;400]
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(3)
+GUI     : CSCOPE
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = ["1 3 5 7 9 11 13 15";"-1";"[]";"[600;400]";"-15";"15";"30";"20";"0";""]
+          pin = 0
+          pout = []
+          pein = 0
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = "E"
+          out_implicit = []
+          in_style = ""
+          out_style = 
+          in_label = ""
+          out_label = 
+          style = ""
+Model   : 
+          cscope type: 4
+          in = -1
+          in2 = 1
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [0;-15;15;30]
+          ipar = [-1;1;20;1;3;5;7;9;11;13;15;-1;-1;600;400]
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(4)
+Link    :
+          xx: []
+          yy: []
+          id: 
+          thick: 0 0
+          ct: 1 1
+          from: 0 0 0
+          to: 0 0 0
+       ans(5)
+Link    :
+          xx: []
+          yy: []
+          id: 
+          thick: 0 0
+          ct: 1 -1
+          from: 0 0 0
+          to: 0 0 0
 // Link output port #1 of block #1 with input port #1 of block #2 thanks to lnk1
 scs_m.objs(4).from = [1 1 0]; // Link block #1
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -992,27 +1122,105 @@ propertyUpdated( 45 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 48 , LINK , DESTINATION_PORT ) : SUCCESS
 scs_m.objs
  ans  =
-     (1)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (2)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (3)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
+       ans(1)
+GUI     : BIGSOM_f
+Graphics: 
+          orig = [0,0]
+          sz = [2,3]
+          flip = %t
+          theta = 0
+          exprs = "[1;1]"
+          pin = [0;0]
+          pout = 3
+          pein = []
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = ["E";"E"]
+          out_implicit = "E"
+          in_style = ["";""]
+          out_style = ""
+          in_label = ["";""]
+          out_label = ""
+          style = ""
+Model   : 
+          sum type: 2
+          in = [-1;-1]
+          in2 = [1;1]
+          intyp = [1;1]
+          out = -1
+          out2 = 1
+          outtyp = 1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [1;1]
+          ipar = []
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(2)
+GUI     : CSCOPE
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = ["1 3 5 7 9 11 13 15";"-1";"[]";"[600;400]";"-15";"15";"30";"20";"0";""]
+          pin = 3
+          pout = []
+          pein = 0
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = "E"
+          out_implicit = []
+          in_style = ""
+          out_style = 
+          in_label = ""
+          out_label = 
+          style = ""
+Model   : 
+          cscope type: 4
+          in = -1
+          in2 = 1
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [0;-15;15;30]
+          ipar = [-1;1;20;1;3;5;7;9;11;13;15;-1;-1;600;400]
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(3)
+Link    :
+          xx: []
+          yy: []
+          id: 
+          thick: 0 0
+          ct: 1 1
+          from: 1 1 0
+          to: 2 1 1
 scs_m.objs(3).from
  ans  =
     1.    1.    0.
@@ -1194,27 +1402,105 @@ propertyUpdated( 57 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 51 , LINK , DESTINATION_PORT ) : SUCCESS
 scs_m.objs
  ans  =
-     (1)
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
-     (2)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
-     (3)
-scicos_Block type :
-  graphics
-  model
-  gui
-  doc
+       ans(1)
+Link    :
+          xx: []
+          yy: []
+          id: 
+          thick: 0 0
+          ct: 1 1
+          from: 2 1 0
+          to: 3 1 1
+       ans(2)
+GUI     : BIGSOM_f
+Graphics: 
+          orig = [0,0]
+          sz = [2,3]
+          flip = %t
+          theta = 0
+          exprs = "[1;1]"
+          pin = [0;0]
+          pout = 1
+          pein = []
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = ["E";"E"]
+          out_implicit = "E"
+          in_style = ["";""]
+          out_style = ""
+          in_label = ["";""]
+          out_label = ""
+          style = ""
+Model   : 
+          sum type: 2
+          in = [-1;-1]
+          in2 = [1;1]
+          intyp = [1;1]
+          out = -1
+          out2 = 1
+          outtyp = 1
+          evtin = []
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [1;1]
+          ipar = []
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
+       ans(3)
+GUI     : CSCOPE
+Graphics: 
+          orig = [0,0]
+          sz = [2,2]
+          flip = %t
+          theta = 0
+          exprs = ["1 3 5 7 9 11 13 15";"-1";"[]";"[600;400]";"-15";"15";"30";"20";"0";""]
+          pin = 1
+          pout = []
+          pein = 0
+          peout = []
+          gr_i = []
+          id = ""
+          in_implicit = "E"
+          out_implicit = []
+          in_style = ""
+          out_style = 
+          in_label = ""
+          out_label = 
+          style = ""
+Model   : 
+          cscope type: 4
+          in = -1
+          in2 = 1
+          intyp = 1
+          out = []
+          out2 = []
+          outtyp = 1
+          evtin = 1
+          evtout = []
+          state = []
+          dstate = []
+          odstate = list()
+          rpar = [0;-15;15;30]
+          ipar = [-1;1;20;1;3;5;7;9;11;13;15;-1;-1;600;400]
+          opar = list()
+          blocktype = "c"
+          firing = []
+          dep_ut = [%t,%f]
+          label = ""
+          nmode = 0
+          nzcross = 0
+          equations = list()
+          uid = ""
 // Check that the linking has been done
 // Sum (#2 in diagram) is linked to Scope1 (#3) through lnk (#1)
 scs_m.objs(1).from

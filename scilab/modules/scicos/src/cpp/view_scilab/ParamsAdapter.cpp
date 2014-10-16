@@ -213,6 +213,12 @@ struct context
         std::vector<std::string> context;
         controller.getObjectProperty(adaptee->id(), adaptee->kind(), DIAGRAM_CONTEXT, context);
 
+        if (context.size() == 0)
+        {
+            // An empty context returns an empty matrix
+            return types::Double::Empty();
+        }
+
         types::String* o = new types::String((int)context.size(), 1);
         for (int i = 0; i < (int)context.size(); ++i)
         {
