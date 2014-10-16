@@ -15,14 +15,14 @@ propertyUpdated( 1 , LINK , THICK ) : NO_CHANGES
 propertyUpdated( 1 , LINK , COLOR ) : NO_CHANGES
 propertyUpdated( 1 , LINK , KIND ) : NO_CHANGES
 lnk  = 
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
+Link    :
+          xx: []
+          yy: []
+          id: 
+          thick: 0 0
+          ct: 1 1
+          from: 0 0 0
+          to: 0 0 0
 lnk.xx
  ans  =
     []

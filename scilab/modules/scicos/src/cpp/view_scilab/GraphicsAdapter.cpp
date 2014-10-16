@@ -573,5 +573,12 @@ void GraphicsAdapter::setGrIContent(types::InternalType* v)
     gr_i_content = v->clone();
 }
 
+types::InternalType* GraphicsAdapter::clone()
+{
+    GraphicsAdapter* ret = new GraphicsAdapter(false, this->getAdaptee());
+    ret->setGrIContent(this->getGrIContent());
+    return ret;
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

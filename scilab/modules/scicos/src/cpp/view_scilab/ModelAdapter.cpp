@@ -1367,5 +1367,10 @@ std::wstring ModelAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+types::InternalType* ModelAdapter::clone()
+{
+    return new ModelAdapter(false, this->getAdaptee());
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

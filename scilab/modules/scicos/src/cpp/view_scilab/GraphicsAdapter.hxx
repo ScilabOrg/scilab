@@ -37,6 +37,8 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
+    types::InternalType* clone();
+
     types::InternalType* getGrIContent() const;
     void setGrIContent(types::InternalType* v);
 private:
