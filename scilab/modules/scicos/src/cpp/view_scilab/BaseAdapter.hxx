@@ -329,11 +329,12 @@ private:
     bool hasToString()
     {
         // allow scilab to call toString of this class
-        return true;
+        return false;
     }
 
     bool toString(std::wostringstream& ostr)
     {
+        // Deprecated, use the overload instead
         typename property<Adaptor>::props_t properties = property<Adaptor>::fields;
         std::sort(properties.begin(), properties.end(), property<Adaptor>::original_index_cmp);
 
