@@ -15,8 +15,11 @@
 
 #include <string>
 
-#include "BaseAdapter.hxx"
+#include "mlist.hxx"
 
+#include "utilities.hxx"
+#include "BaseAdapter.hxx"
+#include "GraphicsAdapter.hxx"
 #include "model/Annotation.hxx"
 
 namespace org_scilab_modules_scicos
@@ -37,6 +40,12 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    types::InternalType* getGraphics() const;
+    void setGraphics(types::InternalType* newGraphics);
+
+private:
+    types::InternalType* graphicsAdapter;
 };
 
 } /* namespace view_scilab */

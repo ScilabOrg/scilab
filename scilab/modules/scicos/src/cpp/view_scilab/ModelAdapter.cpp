@@ -870,9 +870,7 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram, whose ID is stored in children[0]
         {
-            model::Diagram* diagram = static_cast<model::Diagram*>(Controller().getObject(children[0]));
-            DiagramAdapter* o = new DiagramAdapter(false, diagram);
-            return o;
+            return adaptor.getDiagram();
         }
     }
 
@@ -911,7 +909,8 @@ struct rpar
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
             ScicosID clone = controller.cloneObject(diagram->getAdaptee()->id());
             model::Diagram* newSubAdaptee = static_cast<model::Diagram*>(controller.getObject(clone));
-            DiagramAdapter* newDiagram = new DiagramAdapter(true, newSubAdaptee);
+
+            adaptor.setDiagram(new DiagramAdapter(true, newSubAdaptee));
 
             // Save the children list, adding the new diagram ID at the beginning
             std::vector<ScicosID> children;
@@ -1351,10 +1350,13 @@ ModelAdapter::ModelAdapter(bool ownAdaptee, org_scilab_modules_scicos::model::Bl
         property<ModelAdapter>::add_property(L"equations", &equations::get, &equations::set);
         property<ModelAdapter>::add_property(L"uid", &uid::get, &uid::set);
     }
+
+    diagramAdapter = new DiagramAdapter(false, 0);
 }
 
 ModelAdapter::~ModelAdapter()
 {
+    diagramAdapter->killMe();
 }
 
 std::wstring ModelAdapter::getTypeStr()
@@ -1365,6 +1367,24 @@ std::wstring ModelAdapter::getTypeStr()
 std::wstring ModelAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+DiagramAdapter* ModelAdapter::getDiagram() const
+{
+    return static_cast<DiagramAdapter*>(diagramAdapter->clone());
+}
+
+void ModelAdapter::setDiagram(DiagramAdapter* newDiagram)
+{
+    diagramAdapter->killMe();
+    diagramAdapter = static_cast<DiagramAdapter*>(newDiagram->clone());
+}
+
+types::InternalType* ModelAdapter::clone()
+{
+    ModelAdapter* ret = new ModelAdapter(false, this->getAdaptee());
+    ret->setDiagram(this->getDiagram());
+    return ret;
 }
 
 } /* namespace view_scilab */

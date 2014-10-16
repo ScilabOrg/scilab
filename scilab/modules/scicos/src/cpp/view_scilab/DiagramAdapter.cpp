@@ -379,8 +379,14 @@ void DiagramAdapter::clearTo()
 types::InternalType* DiagramAdapter::clone()
 {
     Controller controller = Controller();
-    ScicosID clone = controller.cloneObject(getAdaptee()->id());
-    DiagramAdapter* ret = new DiagramAdapter(false, static_cast<org_scilab_modules_scicos::model::Diagram*>(controller.getObject(clone)));
+
+    if (getAdaptee() == 0)
+    {
+        // Basic cloning, no adaptee involved yet
+        return new DiagramAdapter(false, 0);
+    }
+
+    DiagramAdapter* ret = new DiagramAdapter(false, getAdaptee());
 
     // When cloning a DiagramAdapter, clone its Links information as well
     for (int i = 0; i < static_cast<int>(from_vec.size()); ++i)

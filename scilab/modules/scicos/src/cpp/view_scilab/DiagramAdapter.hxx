@@ -37,6 +37,7 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
     types::InternalType* clone();
 
     types::InternalType* getContribContent() const;
