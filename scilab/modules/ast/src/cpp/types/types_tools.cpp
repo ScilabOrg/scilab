@@ -280,30 +280,7 @@ int getIndexWithDims(int* _piIndexes, int* _piDims, int _iDims)
 void VariableToString(types::InternalType* pIT, const wchar_t* wcsVarName)
 {
     std::wostringstream ostr;
-    if (pIT->hasToString() == false)
-    {
-        //call overload %type_p
-        types::typed_list in;
-        types::typed_list out;
-        ast::ExecVisitor* exec = new ast::ExecVisitor();
-
-        pIT->IncreaseRef();
-        in.push_back(pIT);
-
-        try
-        {
-            Overload::generateNameAndCall(L"p", in, 1, out, exec);
-            delete exec;
-            pIT->DecreaseRef();
-        }
-        catch (ast::ScilabError &e)
-        {
-            delete exec;
-            pIT->DecreaseRef();
-            throw e;
-        }
-    }
-    else
+    if (pIT->hasToString() == true)
     {
         if (pIT->isList())
         {
@@ -328,6 +305,30 @@ void VariableToString(types::InternalType* pIT, const wchar_t* wcsVarName)
         while (bFinish == false);
 
         pIT->clearPrintState();
+    }
+
+    //call overload %type_p
+    types::typed_list in;
+    types::typed_list out;
+    ast::ExecVisitor* exec = new ast::ExecVisitor();
+
+    pIT->IncreaseRef();
+    in.push_back(pIT);
+
+    try
+    {
+        Overload::generateNameAndCall(L"p", in, 1, out, exec);
+        delete exec;
+        pIT->DecreaseRef();
+    }
+    catch (ast::ScilabError &e)
+    {
+        delete exec;
+        pIT->DecreaseRef();
+        if (pIT->hasToString() == false)
+        {
+            throw e;
+        }
     }
 }
 }
