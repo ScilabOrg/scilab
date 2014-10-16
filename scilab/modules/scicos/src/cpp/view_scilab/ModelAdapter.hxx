@@ -36,6 +36,8 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    types::InternalType* clone();
 };
 
 } /* namespace view_scilab */
