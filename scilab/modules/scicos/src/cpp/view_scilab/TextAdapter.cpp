@@ -20,6 +20,8 @@
 
 #include "Controller.hxx"
 #include "TextAdapter.hxx"
+#include "GraphicsAdapter.hxx"
+#include "ModelAdapter.hxx"
 
 extern "C" {
 #include "sci_malloc.h"
@@ -38,54 +40,14 @@ const std::wstring orig(L"orig");
 const std::wstring sz(L"sz");
 const std::wstring exprs(L"exprs");
 
-const std::wstring Model(L"model");
-const std::wstring sim(L"sim");
-const std::wstring rpar(L"rpar");
-const std::wstring ipar(L"ipar");
-
 struct graphics
 {
     static types::InternalType* get(const TextAdapter& adaptor, const Controller& controller)
     {
-        model::Annotation* adaptee = adaptor.getAdaptee();
+        // silent unused parameter warnings
+        (void) controller;
 
-        types::MList* o = new types::MList();
-        types::String* MListFields = new types::String(1, 4);
-        MListFields->set(0, Graphics.c_str());
-        MListFields->set(1, orig.c_str());
-        MListFields->set(2, sz.c_str());
-        MListFields->set(3, exprs.c_str());
-        o->set(0, MListFields);
-
-        // orig and sz
-        std::vector<double> geom;
-        controller.getObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, geom);
-
-        double* dataOrig;
-        double* dataSz;
-        types::Double* origField = new types::Double(1, 2, &dataOrig);
-        types::Double* szField   = new types::Double(1, 2, &dataSz);
-        dataOrig[0] = geom[0];
-        dataOrig[1] = geom[1];
-        dataSz[0]   = geom[2];
-        dataSz[1]   = geom[3];
-        o->set(1, origField);
-        o->set(2, szField);
-
-        // exprs
-        std::vector<std::string> Exprs (3);
-        controller.getObjectProperty(adaptee->id(), adaptee->kind(), DESCRIPTION, Exprs[0]);
-        controller.getObjectProperty(adaptee->id(), adaptee->kind(), FONT, Exprs[1]);
-        controller.getObjectProperty(adaptee->id(), adaptee->kind(), FONT_SIZE, Exprs[2]);
-
-        types::String* exprsField = new types::String(3, 1);
-        for (int i = 0; i < (int) Exprs.size(); ++i)
-        {
-            exprsField->set(i, Exprs[i].data());
-        }
-        o->set(3, exprsField);
-
-        return o;
+        return adaptor.getGraphics();
     }
 
     static bool set(TextAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -100,6 +62,13 @@ struct graphics
         {
             return false;
         }
+        types::MList* toAdapter = new types::MList(); // At the same time that we extract 'graphics', copy it to this Adapter
+        types::String* header = new types::String(1, 4);
+        header->set(0, Graphics.c_str());
+        header->set(1, orig.c_str());
+        header->set(2, sz.c_str());
+        header->set(3, exprs.c_str());
+        toAdapter->set(0, header);
 
         types::InternalType* currentField;
         types::Double* currentFieldDouble;
@@ -127,6 +96,8 @@ struct graphics
         origField[1] = currentFieldDouble->get(1);
         controller.setObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, origField);
 
+        toAdapter->set(1, currentFieldDouble);
+
         // sz
         if ((currentField = current->getField(sz.c_str())) == NULL)
         {
@@ -146,6 +117,8 @@ struct graphics
         szField[2] = currentFieldDouble->get(0);
         szField[3] = currentFieldDouble->get(1);
         controller.setObjectProperty(adaptee->id(), adaptee->kind(), GEOMETRY, szField);
+
+        toAdapter->set(2, currentFieldDouble);
 
         // exprs
         if ((currentField = current->getField(exprs.c_str())) == NULL)
@@ -170,6 +143,9 @@ struct graphics
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESCRIPTION, exprsField[0]);
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT, exprsField[1]);
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT_SIZE, exprsField[2]);
+
+            toAdapter->set(3, currentFieldString);
+            adaptor.setGraphics(toAdapter);
             return true;
         }
         else if (currentField->getType() == types::InternalType::ScilabDouble)
@@ -184,48 +160,13 @@ struct graphics
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), DESCRIPTION, exprsField[0]);
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT, exprsField[1]);
             controller.setObjectProperty(adaptee->id(), adaptee->kind(), FONT_SIZE, exprsField[2]);
+
+            toAdapter->set(3, currentFieldString);
+            adaptor.setGraphics(toAdapter);
             return true;
         }
 
         return false;
-    }
-};
-
-struct model
-{
-
-    static types::InternalType* get(const TextAdapter& adaptor, const Controller& controller)
-    {
-        // silent unused parameter warnings
-        (void) adaptor;
-        (void) controller;
-
-        // Return an empty "model"-typed mlist because this field isn't used.
-        types::MList* o = new types::MList();
-        types::String* MListFields = new types::String(1, 4);
-
-        MListFields->set(0, Model.c_str());
-        MListFields->set(1, sim.c_str());
-        MListFields->set(2, rpar.c_str());
-        MListFields->set(3, ipar.c_str());
-
-        o->set(0, MListFields);
-        // 'sim' field needs to be defined for the console display.
-        o->set(1, types::Double::Empty());
-        o->set(2, types::Double::Empty());
-        o->set(3, types::Double::Empty());
-        return o;
-    }
-
-    static bool set(TextAdapter& adaptor, types::InternalType* v, Controller& controller)
-    {
-        // silent unused parameter warnings
-        (void) adaptor;
-        (void) v;
-        (void) controller;
-
-        // everything should be right as the properties mapped using this adapter do not perform anything
-        return true;
     }
 };
 
@@ -265,10 +206,12 @@ TextAdapter::TextAdapter(bool ownAdaptee, org_scilab_modules_scicos::model::Anno
     {
         property<TextAdapter>::fields.reserve(4);
         property<TextAdapter>::add_property(Graphics, &graphics::get, &graphics::set);
-        property<TextAdapter>::add_property(Model, &model::get, &model::set);
+        property<TextAdapter>::add_property(L"model", &dummy_property::get, &dummy_property::set);
         property<TextAdapter>::add_property(L"void", &dummy_property::get, &dummy_property::set);
         property<TextAdapter>::add_property(L"gui", &dummy_property::get, &dummy_property::set);
     }
+
+    graphicsAdapter = new types::MList();
 }
 
 TextAdapter::~TextAdapter()
@@ -282,6 +225,17 @@ std::wstring TextAdapter::getTypeStr()
 std::wstring TextAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+types::InternalType* TextAdapter::getGraphics() const
+{
+    return graphicsAdapter->clone();
+}
+
+void TextAdapter::setGraphics(types::InternalType* newGraphics)
+{
+    delete graphicsAdapter;
+    graphicsAdapter = newGraphics->clone();
 }
 
 } /* namespace view_scilab */
