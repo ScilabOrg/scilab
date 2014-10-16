@@ -46,6 +46,12 @@ types::Function::ReturnValue sci_bezout(types::typed_list &in, int _iRetCount, t
         return types::Function::Error;
     }
 
+    if (in[0]->isDouble() && in[1]->isDouble())
+    {
+        std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_bezout";
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
+    }
+
     // get input arguments
     for (int i = 0; i < in.size(); i++)
     {
