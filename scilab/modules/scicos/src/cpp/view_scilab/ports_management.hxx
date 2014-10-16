@@ -102,6 +102,12 @@ types::InternalType* get_ports_property(const Adaptor& adaptor, const object_pro
         }
         case IMPLICIT:
         {
+            if (ids.size() == 0)
+            {
+                // When no port is present, return an empty matrix
+                return types::Double::Empty();
+            }
+
             types::String* o = new types::String((int)ids.size(), 1);
             for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
             {

@@ -237,8 +237,7 @@ public:
     virtual std::wstring getTypeStr() = 0;
     virtual std::wstring getShortTypeStr() = 0;
 
-private:
-
+public:
     types::InternalType* clone()
     {
         Controller controller = Controller();
@@ -247,6 +246,7 @@ private:
         return new Adaptor(adaptee);
     }
 
+private:
     /*
      * Implement a specific types::User
      */
@@ -332,12 +332,13 @@ private:
 
     bool hasToString()
     {
-        // allow scilab to call toString of this class
-        return true;
+        // Do not allow scilab to call toString of this class
+        return false;
     }
 
     bool toString(std::wostringstream& ostr)
     {
+        // Deprecated, use the overload instead
         typename property<Adaptor>::props_t properties = property<Adaptor>::fields;
         std::sort(properties.begin(), properties.end(), property<Adaptor>::original_index_cmp);
 

@@ -550,12 +550,12 @@ GraphicsAdapter::GraphicsAdapter(std::shared_ptr<model::Block> adaptee) :
 GraphicsAdapter::GraphicsAdapter(const GraphicsAdapter& adapter) :
     BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>(adapter)
 {
-    setGrIContent(adapter.getGrIContent());
+    gr_i_content = adapter.gr_i_content->clone();
 }
 
 GraphicsAdapter::~GraphicsAdapter()
 {
-    delete gr_i_content;
+    gr_i_content->killMe();
 }
 
 std::wstring GraphicsAdapter::getTypeStr()
@@ -575,7 +575,7 @@ types::InternalType* GraphicsAdapter::getGrIContent() const
 
 void GraphicsAdapter::setGrIContent(types::InternalType* v)
 {
-    delete gr_i_content;
+    gr_i_content->killMe();
     gr_i_content = v->clone();
 }
 

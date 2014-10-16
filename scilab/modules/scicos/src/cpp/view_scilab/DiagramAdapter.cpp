@@ -156,7 +156,9 @@ struct objs
                 case Adapters::BLOCK_ADAPTER:
                 {
                     BlockAdapter* modelElement = list->get(i)->getAs<BlockAdapter>();
+                    std::cout<<"get()"<<std::endl;
                     model::Block* subAdaptee = modelElement->getAdaptee().get();
+                    std::cout<<"get()2"<<std::endl;
 
                     id = subAdaptee->id();
 
@@ -320,16 +322,15 @@ DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adapter)
 {
     // When cloning a DiagramAdapter, clone its Links information as well
-    for (int i = 0; i < static_cast<int>(from_vec.size()); ++i)
-    {
-        setFrom(adapter.getFrom(i));
-        setTo(adapter.getTo(i));
-    }
+    from_vec = adapter.from_vec;
+    to_vec = adapter.to_vec;
+
+    contrib_content = adapter.contrib_content->clone();
 }
 
 DiagramAdapter::~DiagramAdapter()
 {
-    delete contrib_content;
+    contrib_content->killMe();
 }
 
 std::wstring DiagramAdapter::getTypeStr()
@@ -348,7 +349,7 @@ types::InternalType* DiagramAdapter::getContribContent() const
 
 void DiagramAdapter::setContribContent(types::InternalType* v)
 {
-    delete contrib_content;
+    contrib_content->killMe();
     contrib_content = v->clone();
 }
 
