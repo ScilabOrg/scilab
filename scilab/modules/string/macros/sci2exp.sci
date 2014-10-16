@@ -408,6 +408,14 @@ function t=mlist2exp(l,lmax)
             t1=mlist2exp(lk,lmax)
         elseif type(lk)==9 then
             t1=h2exp(lk,lmax)
+        elseif type(lk)==128 then
+            if typeof(lk)=="graphics" then
+                t1=mlist2exp(graphics2mlist(lk),lmax)
+            elseif typeof(lk)=="model" then
+                t1=mlist2exp(model2mlist(lk),lmax)
+            else
+                t1=sci2exp(lk,lmax)
+            end
         else
             t1=sci2exp(lk,lmax)
         end
@@ -814,5 +822,25 @@ function t=h2exp(a,lmax) //Only for figure and uicontrol
     else
         error(msprintf(gettext("%s: This feature has not been implemented: Variable translation of type %s.\n"),"sci2exp",string(a.type)));
     end
+
+endfunction
+
+function ml = graphics2mlist(g)
+
+    fn = ["graphics" "orig" "sz" "flip" "theta" "exprs" "pin" "pout" "pein" "peout",..
+    "gr_i" "id" "in_implicit" "out_implicit" "in_style" "out_style" "in_label" "out_label" "style"];
+
+    ml = mlist(fn, g.orig, g.sz, g.flip, g.theta, g.exprs, g.pin, g.pout, g.pein, g.peout,..
+    g.gr_i, g.id, g.in_implicit, g.out_implicit, g.in_style, g.out_style, g.in_label, g.out_label, g.style);
+
+endfunction
+
+function ml = model2mlist(m)
+
+    fn = ["model" "sim" "in" "in2" "intyp" "out" "out2" "outtyp" "evtin" "evtout" "state" "dstate" "odstate",..
+    "rpar" "ipar" "opar" "blocktype" "firing" "dep_ut" "label" "nzcross" "nmode" "equations" "uid"];
+
+    ml = mlist(fn, m.sim, m.in, m.in2, m.intyp, m.out, m.out2, m.outtyp, m.evtin, m.evtout, m.state, m.dstate,..
+    m.odstate, m.rpar, m.ipar, m.opar, m.blocktype, m.firing, m.dep_ut, m.label, m.nmode, m.nzcross, m.equations, m.uid);
 
 endfunction
