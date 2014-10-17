@@ -16,6 +16,13 @@ Removed Functions
 
 * milk_drop removed.
 
+
+Compilation
+===========
+
+* Required version of JOGL updated to 2.2.4 (See Bug #13586).
+
+
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
 
