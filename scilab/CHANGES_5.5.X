@@ -23,6 +23,12 @@ Removed Functions
 * relocate_handle removed.
 
 
+Compilation
+===========
+
+* Required version of JOGL updated to 2.2.4 (See Bug #13586).
+
+
 Scilab Bug Fixes
 ================
 
