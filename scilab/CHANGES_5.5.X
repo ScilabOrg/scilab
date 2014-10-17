@@ -20,6 +20,13 @@ Removed Functions
 
 * milk_drop removed.
 
+
+Compilation
+===========
+
+* Required version of JOGL updated to 2.2.4 (See Bug #13586).
+
+
 Scilab Bug Fixes
 ================
 
@@ -45,6 +52,7 @@ Scilab Bug Fixes
 
 * Bug #13712 fixed - Details added in strcat help page for strcat(strings, "", "r") case.
 
+=======
 
 
                      Changes between version 5.5.0 and 5.5.1
