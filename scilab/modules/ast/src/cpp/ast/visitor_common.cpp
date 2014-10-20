@@ -855,7 +855,7 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     workFields.push_back(pEHChield);
                 }
 
-                delete pLOut;
+                pLOut->killMe();
             }
         }
         else if (pITCurrent->isTList() || pITCurrent->isMList())
@@ -1455,6 +1455,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
         //_pInsert = new Double(-1, -1, &pdbl);
         //pdbl[0] = 1;
         pIL = Double::Identity(-1, -1);
+        _pInsert->killMe();
         _pInsert = pIL;
     }
     else if (_pInsert->isImplicitList())
@@ -1462,6 +1463,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
         pIL = _pInsert->getAs<ImplicitList>()->extractFullMatrix();
         if (pIL && pIL->isDeletable())
         {
+            _pInsert->killMe();
             _pInsert = pIL;
         }
     }
@@ -1673,7 +1675,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                     // overload
                     types::Double* pEmpty = types::Double::Empty();
                     pOut = callOverload(e, L"i", _pArgs, _pInsert, pEmpty);
-                    delete pEmpty;
+                    pEmpty->killMe();
                     break;
                 }
             }
@@ -1795,7 +1797,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
             }
 
             pRet = pDest->insert(_pArgs, pP);
-            delete pP;
+            pP->killMe();
         }
         else if (_pVar->isPoly() && _pInsert->isPoly())
         {

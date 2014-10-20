@@ -41,7 +41,8 @@ Struct::Struct(int _iRows, int _iCols)
     {
         set(i, p);
     }
-    delete p;
+
+    p->killMe();
 #ifndef NDEBUG
     Inspector::addItem(this);
 #endif
@@ -56,7 +57,7 @@ Struct::Struct(int _iDims, int* _piDims)
     {
         SingleStruct *p = new SingleStruct();
         set(i, p);
-        delete p;
+        p->killMe();
     }
 #ifndef NDEBUG
     Inspector::addItem(this);
@@ -75,12 +76,11 @@ Struct::~Struct()
                 pStr->DecreaseRef();
                 if (pStr->isDeletable())
                 {
-                    //std::wcout << L"delete sub struct(" << i << L") : " << pStr << std::endl;
-                    delete pStr;
+                    pStr->killMe();
                 }
                 else
                 {
-                    //std::wcout << L"!!!!!!!!!!!!!!! pas touche sub struct(" << i << L") : " << pStr->getRef() << L" @" << pStr << std::endl;
+                    pStr->killMe();
                 }
             }
         }
@@ -238,10 +238,7 @@ bool Struct::set(int _iIndex, SingleStruct* _pIT)
         if (pOld != NULL)
         {
             pOld->DecreaseRef();
-            if (pOld->isDeletable())
-            {
-                delete pOld;
-            }
+            pOld->killMe();
         }
 
         return true;
@@ -260,10 +257,7 @@ bool Struct::set(int _iIndex, const SingleStruct* _pIT)
         if (pOld != NULL)
         {
             pOld->DecreaseRef();
-            if (pOld->isDeletable())
-            {
-                delete pOld;
-            }
+            pOld->killMe();
         }
 
         return true;
@@ -373,10 +367,7 @@ void Struct::deleteAll()
     for (int i = 0 ; i < getSize() ; i++)
     {
         m_pRealData[i]->DecreaseRef();
-        if (m_pRealData[i]->isDeletable())
-        {
-            delete m_pRealData[i];
-        }
+        m_pRealData[i]->killMe();
     }
     delete[] m_pRealData;
     m_pRealData = NULL;
@@ -475,7 +466,7 @@ bool Struct::toString(std::wostringstream& ostr)
             ostr << pIT->toStringInLine();
             ostr << std::endl;
         }
-        delete pwstFields;
+        pwstFields->killMe();;
     }
     else
     {
@@ -496,7 +487,7 @@ bool Struct::toString(std::wostringstream& ostr)
         {
             ostr << L"    " << pwstFields->get(i) << std::endl;
         }
-        delete pwstFields;
+        pwstFields->killMe();
     }
 
     scilabWriteW(ostr.str().c_str());
@@ -595,7 +586,7 @@ std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
                 pFields->set(2 + j, pS->get(j));
             }
 
-            delete pS;
+            pS->killMe();
             ResultList.push_back(pFields);
         }
         else if (iIndex == 2)
@@ -646,9 +637,9 @@ std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
     //free pArg content
     for (int iArg = 0 ; iArg < (int)pArg.size() ; iArg++)
     {
-        if (pArg[iArg] != (*_pArgs)[iArg] && pArg[iArg]->isDeletable())
+        if (pArg[iArg] != (*_pArgs)[iArg])
         {
-            delete pArg[iArg];
+            pArg[iArg]->killMe();
         }
     }
 

@@ -67,23 +67,44 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
                 }
                 //evalute polynom with "MaxDim"
                 int iMaxDim = _pRef->getAs<GenericType>()->getVarMaxDim(i, iDims);
+#if defined(_SCILAB_DEBUGREF_)
+                Double* pdbl = new Double(iMaxDim);
+#else
                 Double dbl(iMaxDim);
+#endif
                 if (pIL->getStart()->isPoly())
                 {
                     Polynom *poPoly	= pIL->getStart()->getAs<types::Polynom>();
+#if defined(_SCILAB_DEBUGREF_)
+                    pIL->setStart(poPoly->evaluate(pdbl));
+#else
                     pIL->setStart(poPoly->evaluate(&dbl));
+#endif
                 }
                 if (pIL->getStep()->isPoly())
                 {
                     Polynom *poPoly	= pIL->getStep()->getAs<types::Polynom>();
+#if defined(_SCILAB_DEBUGREF_)
+                    pIL->setStep(poPoly->evaluate(pdbl));
+#else
                     pIL->setStep(poPoly->evaluate(&dbl));
+#endif
                 }
                 if (pIL->getEnd()->isPoly())
                 {
                     Polynom *poPoly	= pIL->getEnd()->getAs<types::Polynom>();
+#if defined(_SCILAB_DEBUGREF_)
+                    pIL->setEnd(poPoly->evaluate(pdbl));
+#else
                     pIL->setEnd(poPoly->evaluate(&dbl));
+#endif
                 }
+
+#if defined(_SCILAB_DEBUGREF_)
+                pdbl->killMe();
+#endif
             }
+
 
             pCurrentArg = pIL->extractFullMatrix()->getAs<Double>();
             pIL->killMe();
@@ -150,8 +171,15 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
             {
                 iMaxDim     = _pRef->getAs<GenericType>()->getVarMaxDim(i, iDims);
             }
+
+#ifdef _SCILAB_DEBUGREF_
+            Double* pdbl = new Double(iMaxDim); // $
+            pCurrentArg = pMP->evaluate(pdbl);
+            pdbl->killMe();
+#else
             Double dbl(iMaxDim); // $
             pCurrentArg = pMP->evaluate(&dbl);
+#endif
         }
         else if (pIT->isBool())
         {
@@ -220,6 +248,18 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
 
         _pArgsOut->push_back(pCurrentArg);
 
+    }
+
+    if (iSeqCount == 0)
+    {
+        //clean _pArgsOut before output with 0 sequence
+        for (int iArg = 0; iArg < _pArgsOut->size(); iArg++)
+        {
+            if ((*_pArgsOut)[iArg] != (*_pArgsIn)[iArg])
+            {
+                (*_pArgsOut)[iArg]->killMe();
+            }
+        }
     }
 
     //returns a negative value if at least one parameter is undefined
