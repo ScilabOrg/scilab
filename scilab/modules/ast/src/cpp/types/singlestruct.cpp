@@ -33,10 +33,7 @@ SingleStruct::~SingleStruct()
         for (iterFieldData = m_Data.begin(); iterFieldData != m_Data.end() ; iterFieldData++)
         {
             (*iterFieldData)->DecreaseRef();
-            if ((*iterFieldData)->isDeletable())
-            {
-                delete (*iterFieldData);
-            }
+            (*iterFieldData)->killMe();
         }
     }
 }
@@ -98,10 +95,7 @@ bool SingleStruct::set(const std::wstring& _sKey, InternalType *_typedValue)
         if (pOld != NULL)
         {
             pOld->DecreaseRef();
-            if (pOld->isDeletable())
-            {
-                delete pOld;
-            }
+            pOld->killMe();
         }
 
         if (_typedValue)
@@ -214,11 +208,7 @@ bool SingleStruct::removeField(const std::wstring& _sKey)
         if (*iterFieldNames == _sKey)
         {
             (*iterFieldData)->DecreaseRef();
-            if ((*iterFieldData)->isDeletable())
-            {
-                delete (*iterFieldData);
-            }
-
+            (*iterFieldData)->killMe();
             continue;
         }
 
