@@ -39,11 +39,8 @@ namespace
 
 struct graphics
 {
-    static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const BlockAdapter& adaptor, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         return adaptor.getGraphics();
     }
 
@@ -62,11 +59,8 @@ struct graphics
 
 struct model
 {
-    static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const BlockAdapter& adaptor, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         return adaptor.getModel();
     }
 
@@ -120,19 +114,13 @@ struct gui
 
 struct doc
 {
-    static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const BlockAdapter& adaptor, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         return adaptor.getDocContent();
     }
 
-    static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
+    static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         adaptor.setDocContent(v->clone());
         return true;
     }

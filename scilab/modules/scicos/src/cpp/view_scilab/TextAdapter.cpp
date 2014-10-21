@@ -41,11 +41,8 @@ const std::wstring exprs(L"exprs");
 
 struct graphics
 {
-    static types::InternalType* get(const TextAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const TextAdapter& adaptor, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         return adaptor.getGraphics();
     }
 
@@ -172,23 +169,14 @@ struct graphics
 struct dummy_property
 {
 
-    static types::InternalType* get(const TextAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const TextAdapter& /*adaptor*/, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) adaptor;
-        (void) controller;
-
         // Return an empty matrix because this field isn't used.
         return types::Double::Empty();
     }
 
-    static bool set(TextAdapter& adaptor, types::InternalType* v, Controller& controller)
+    static bool set(TextAdapter& /*adaptor*/, types::InternalType* /*v*/, Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) adaptor;
-        (void) v;
-        (void) controller;
-
         // everything should be right as the properties mapped using this adapter do not perform anything
         return true;
     }
