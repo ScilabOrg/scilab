@@ -920,7 +920,7 @@ struct rpar
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
             ScicosID clone = controller.cloneObject(diagram->getAdaptee()->id());
             model::Diagram* newSubAdaptee = static_cast<model::Diagram*>(controller.getObject(clone));
-            DiagramAdapter* newDiagram = new DiagramAdapter(true, newSubAdaptee);
+            //DiagramAdapter* newDiagram = new DiagramAdapter(true, newSubAdaptee);
 
             // Save the children list, adding the new diagram ID at the beginning
             std::vector<ScicosID> children;

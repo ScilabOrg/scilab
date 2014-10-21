@@ -81,12 +81,9 @@ Controller::Controller()
     }
 }
 
-Controller::Controller(const Controller& c)
+Controller::Controller(const Controller& /*c*/)
 {
     // _instance is already initialized
-
-    // silent unused parameter warnings
-    (void) c;
 }
 
 Controller::~Controller()
@@ -282,7 +279,7 @@ void Controller::deepCloneVector(std::map<ScicosID, ScicosID>& mapped, ScicosID 
     std::vector<ScicosID> cloned;
     cloned.reserve(v.size());
 
-    for (const ScicosID& id : v)
+    for (const ScicosID & id : v)
     {
 
         std::map<ScicosID, ScicosID>::iterator it = mapped.find(id);

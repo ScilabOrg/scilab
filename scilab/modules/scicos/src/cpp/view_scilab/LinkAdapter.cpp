@@ -656,11 +656,8 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
 struct from
 {
 
-    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         std::vector<double> from_content;
         from_content = adaptor.getFrom();
         double* data;
@@ -706,11 +703,8 @@ struct from
 struct to
 {
 
-    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& controller)
+    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& /*controller*/)
     {
-        // silent unused parameter warnings
-        (void) controller;
-
         std::vector<double> to_content;
         to_content = adaptor.getTo();
         double* data;
