@@ -22,6 +22,7 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_spcompack.cpp \
     sci_gateway/cpp/sci_spget.cpp \
     sci_gateway/cpp/sci_spzeros.cpp \
+    sci_gateway/cpp/sci_spchol.cpp \
     sci_gateway/cpp/sci_spones.cpp \
     sci_gateway/cpp/sci_ordmmd.cpp
 
