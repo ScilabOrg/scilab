@@ -37,7 +37,8 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
-    types::InternalType* clone();
+
+    void setAdapterContent(DiagramAdapter* oldAdaptor);
 
     types::InternalType* getContribContent() const;
     void setContribContent(types::InternalType* v);

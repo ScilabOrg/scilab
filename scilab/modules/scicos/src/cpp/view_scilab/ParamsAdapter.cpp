@@ -346,6 +346,11 @@ std::wstring ParamsAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void ParamsAdapter::setAdapterContent(ParamsAdapter* oldAdaptor)
+{
+    setDocContent(oldAdaptor->getDocContent());
+}
+
 types::InternalType* ParamsAdapter::getDocContent() const
 {
     return doc_content->clone();

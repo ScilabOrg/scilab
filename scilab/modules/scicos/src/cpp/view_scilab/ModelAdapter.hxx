@@ -36,6 +36,8 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    void setAdapterContent(ModelAdapter* oldAdaptor);
 };
 
 } /* namespace view_scilab */

@@ -1367,5 +1367,9 @@ std::wstring ModelAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void ModelAdapter::setAdapterContent(ModelAdapter* /*oldAdaptor*/)
+{
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

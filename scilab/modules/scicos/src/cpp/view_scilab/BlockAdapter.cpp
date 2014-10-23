@@ -155,6 +155,11 @@ std::wstring BlockAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void BlockAdapter::setAdapterContent(BlockAdapter* oldAdaptor)
+{
+    setDocContent(oldAdaptor->getDocContent());
+}
+
 types::InternalType* BlockAdapter::getDocContent() const
 {
     return doc_content->clone();

@@ -37,6 +37,8 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
+    void setAdapterContent(GraphicsAdapter* oldAdaptor);
+
     types::InternalType* getGrIContent() const;
     void setGrIContent(types::InternalType* v);
 private:

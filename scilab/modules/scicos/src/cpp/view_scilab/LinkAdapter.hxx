@@ -37,7 +37,8 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
-    types::InternalType* clone();
+
+    void setAdapterContent(LinkAdapter* oldAdaptor);
 
     std::vector<double> getFrom() const;
     bool setFrom(const ScicosID id, const std::vector<double>& v, Controller& controller, const bool model_level = true);

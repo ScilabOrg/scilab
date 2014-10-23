@@ -53,5 +53,9 @@ std::wstring StateAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void StateAdapter::setAdapterContent(StateAdapter* /*oldAdaptor*/)
+{
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

@@ -284,5 +284,9 @@ std::wstring TextAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void TextAdapter::setAdapterContent(TextAdapter* /*oldAdaptor*/)
+{
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

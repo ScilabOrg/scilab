@@ -233,14 +233,25 @@ public:
 
     virtual std::wstring getTypeStr() = 0;
     virtual std::wstring getShortTypeStr() = 0;
+    virtual void setAdapterContent(Adaptor*) = 0;
 
 private:
 
-    virtual types::InternalType* clone()
+    types::InternalType* clone()
     {
+        if (getAdaptee() == 0)
+        {
+            // Basic cloning, no adaptee has been defined (Adapter initialization case)
+            return new Adaptor(false, 0);
+        }
+
         Controller controller = Controller();
         ScicosID clone = controller.cloneObject(getAdaptee()->id());
-        return new Adaptor(false, static_cast<Adaptee*>(controller.getObject(clone)));
+        Adaptor* retAdaptor = new Adaptor(false, static_cast<Adaptee*>(controller.getObject(clone)));
+
+        // When cloning an Adapter, clone its inner information as well
+        retAdaptor->setAdapterContent(static_cast<Adaptor*>(this));
+        return retAdaptor;
     }
 
     /*

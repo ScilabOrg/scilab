@@ -53,5 +53,9 @@ std::wstring ScsAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void ScsAdapter::setAdapterContent(ScsAdapter* /*oldAdaptor*/)
+{
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

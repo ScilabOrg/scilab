@@ -38,6 +38,8 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
+    void setAdapterContent(BlockAdapter* oldAdaptor);
+
     types::InternalType* getDocContent() const;
     void setDocContent(types::InternalType* v);
 private:

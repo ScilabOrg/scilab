@@ -801,6 +801,15 @@ std::wstring LinkAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void LinkAdapter::setAdapterContent(LinkAdapter* oldAdaptor)
+{
+    Controller controller = Controller();
+
+    // setFrom() will propagate the information at model-level if necessary.
+    setFrom(oldAdaptor->getAdaptee()->id(), oldAdaptor->getFrom(), controller);
+    setTo(oldAdaptor->getAdaptee()->id(), oldAdaptor->getTo(), controller);
+}
+
 std::vector<double> LinkAdapter::getFrom() const
 {
     return from_content;
@@ -889,19 +898,6 @@ bool LinkAdapter::setTo(const ScicosID id, const std::vector<double>& v, Control
     }
 
     return true;
-}
-
-types::InternalType* LinkAdapter::clone()
-{
-    Controller controller = Controller();
-    ScicosID clone = controller.cloneObject(getAdaptee()->id());
-    LinkAdapter* ret = new LinkAdapter(false, static_cast<org_scilab_modules_scicos::model::Link*>(controller.getObject(clone)));
-
-    // When cloning a LinkAdapter, clone its 'from' and 'to' information as well.
-    // setFrom() will propagate the information at model-level if necessary.
-    ret->setFrom(clone, this->getFrom(), controller);
-    ret->setTo(clone, this->getTo(), controller);
-    return ret;
 }
 
 } /* namespace view_scilab */

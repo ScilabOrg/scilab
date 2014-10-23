@@ -341,6 +341,15 @@ void DiagramAdapter::setContribContent(types::InternalType* v)
     contrib_content = v->clone();
 }
 
+void DiagramAdapter::setAdapterContent(DiagramAdapter* oldAdaptor)
+{
+    for (int i = 0; i < static_cast<int>(oldAdaptor->from_vec.size()); ++i)
+    {
+        setFrom(oldAdaptor->getFrom(i));
+        setTo(oldAdaptor->getTo(i));
+    }
+}
+
 std::vector<double> DiagramAdapter::getFrom(int link_number) const
 {
     return from_vec[link_number];
@@ -374,21 +383,6 @@ void DiagramAdapter::setTo(const std::vector<double>& to_content)
 void DiagramAdapter::clearTo()
 {
     to_vec.clear();
-}
-
-types::InternalType* DiagramAdapter::clone()
-{
-    Controller controller = Controller();
-    ScicosID clone = controller.cloneObject(getAdaptee()->id());
-    DiagramAdapter* ret = new DiagramAdapter(false, static_cast<org_scilab_modules_scicos::model::Diagram*>(controller.getObject(clone)));
-
-    // When cloning a DiagramAdapter, clone its Links information as well
-    for (int i = 0; i < static_cast<int>(from_vec.size()); ++i)
-    {
-        ret->setFrom(getFrom(i));
-        ret->setTo(getTo(i));
-    }
-    return ret;
 }
 
 } /* namespace view_scilab */

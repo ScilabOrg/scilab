@@ -53,5 +53,9 @@ std::wstring CprAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void CprAdapter::setAdapterContent(CprAdapter* /*oldAdaptor*/)
+{
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

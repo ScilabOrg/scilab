@@ -562,6 +562,11 @@ std::wstring GraphicsAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
+void GraphicsAdapter::setAdapterContent(GraphicsAdapter* oldAdaptor)
+{
+    setGrIContent(oldAdaptor->getGrIContent());
+}
+
 types::InternalType* GraphicsAdapter::getGrIContent() const
 {
     return gr_i_content->clone();
