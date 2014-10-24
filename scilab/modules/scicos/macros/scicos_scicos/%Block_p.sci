@@ -23,22 +23,24 @@ function %Block_p(block)
     mprintf("GUI     : " + block.gui + "\n")
     mprintf("Graphics: \n")
     txt = graphics2txt(block.graphics);
-    for i = 1:size(txt, 'r')
+    for i = 1:size(txt, "r")
         mprintf("          %s\n", txt(i))
     end
     mprintf("Model   : " + "\n")
     txt = model2txt(block.model);
-    for i = 1:size(txt, 'r')
+    for i = 1:size(txt, "r")
         mprintf("          %s\n", txt(i))
     end
 endfunction
 
 function txt=graphics2txt(graphics)
-    fn=getfield(1,graphics)
+    //fn=getfield(1,graphics)
+    fn=["graphics" "orig" "sz" "flip" "theta" "exprs" "pin" "pout" "pein" "peout",..
+    "gr_i" "id" "in_implicit" "out_implicit" "in_style" "out_style" "in_label" "out_label" "style"];
     txt=[]
     for k=2:size(fn,"*")
         txt=[txt
-        sci2exp(graphics(fn(k)),fn(k))]
+        sci2exp(eval("graphics."+fn(k)),fn(k))]
     end
 endfunction
 
@@ -49,13 +51,15 @@ function txt=model2txt(model)
     else
         txt=sim+" type: 0"
     end
-    fn=getfield(1,model)
+    //fn=getfield(1,model)
+    fn=["model" "sim" "in" "in2" "intyp" "out" "out2" "outtyp" "evtin" "evtout" "state" "dstate" "odstate",..
+    "rpar" "ipar" "opar" "blocktype" "firing" "dep_ut" "label" "nmode" "nzcross" "equations" "uid"];
     for k=3:size(fn,"*")
-        if fn(k)=="rpar" & type(model(fn(k)))==15 then
+        if fn(k)=="rpar" & (type(model(fn(k)))==15 | typeof(model.rpar)=="diagram") then
             txt=[txt;fn(k)+" : SuperBlock"];
         else
             txt=[txt
-            sci2exp(model(fn(k)),fn(k))];
+            sci2exp(eval("model."+fn(k)),fn(k))];
         end
     end
 endfunction

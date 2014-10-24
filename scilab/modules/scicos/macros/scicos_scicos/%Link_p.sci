@@ -1,6 +1,6 @@
 //  Scicos
 //
-//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//  Copyright (C) 2014 - Scilab Enterprises - Paul Bignier
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,10 +19,20 @@
 // See the file ../license.txt
 //
 
-function %graphics_p(graphics)
-    fn=getfield(1,graphics)
+function %Link_p(l)
 
-    for k=2:size(fn,"*")
-        mprintf("%s\n", sci2exp(eval("graphics."+fn(k)),fn(k)))
+    mprintf("Link    :\n");
+
+    linkFields = ["xx", "yy", "id", "thick", "ct", "from", "to"];
+
+    for i = 1:size(linkFields, "*")
+        res = string(eval("l."+linkFields(i)));
+        sizeRes = size(res, "*")
+        if sizeRes == 0 then
+            mprintf("          %s: %s\n", linkFields(i), "[]")
+        else
+            mprintf("          %s: %s\n", linkFields(i), strcat(res, " "))
+        end
     end
+
 endfunction
