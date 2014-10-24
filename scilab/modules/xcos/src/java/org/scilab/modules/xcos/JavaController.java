@@ -20,8 +20,18 @@ public class JavaController extends Controller {
         return View.getCPtr(v);
     }
 
+    private static View remove_reference(View v) {
+        references.remove(v);
+        return v;
+    }
+
     public static void register_view(String name, View view) {
         JavaControllerJNI.register_view(name, add_reference(view), view);
+    }
+
+    public static void unregister_view(View view) {
+        JavaControllerJNI.unregister_view(View.getCPtr(view), view);
+        remove_reference(view);
     }
 
 }

@@ -154,18 +154,24 @@ void Controller::deleteObject(ScicosID uid)
         return;
     }
 
+    auto initial = getObject(uid);
+    const kind_t k = initial->kind();
+
     // if this object has been referenced somewhere else do not delete it but decrement the reference counter
     unsigned& refCount = m_instance.model.referenceCount(uid);
     if (refCount > 0)
     {
         --refCount;
         UNREF_PRINT(uid, refCount);
+
+        for (view_set_t::iterator iter = m_instance.allViews.begin(); iter != m_instance.allViews.end(); ++iter)
+        {
+            (*iter)->objectUnreferenced(uid, k);
+        }
         return;
     }
 
     // We need to delete this object and cleanup all the referenced model object
-    auto initial = getObject(uid);
-    const kind_t k = initial->kind();
 
     // disconnect / remove references of weak connected objects and decrement the reference count of all strongly connected objects.
     if (k == ANNOTATION)
@@ -419,6 +425,16 @@ ScicosID Controller::cloneObject(ScicosID uid, bool cloneChildren)
     ScicosID clone = cloneObject(mapped, uid, cloneChildren);
     CLONE_PRINT(uid, clone);
     return clone;
+}
+
+kind_t Controller::getKind(ScicosID uid) const
+{
+    return m_instance.model.getKind(uid);
+}
+
+std::vector<ScicosID> Controller::getAll(kind_t k) const
+{
+    return m_instance.model.getAll(k);
 }
 
 model::BaseObject* Controller::getObject(ScicosID uid) const
