@@ -13,9 +13,9 @@
 #ifndef CONTROLLER_HXX_
 #define CONTROLLER_HXX_
 
-#include <vector>
 #include <map>
 #include <memory>
+#include <vector>
 
 #include "utilities.hxx"
 #include "Model.hxx"
@@ -34,10 +34,8 @@ namespace org_scilab_modules_scicos
 class SCICOS_IMPEXP Controller
 {
 public:
-    static View* register_view(const std::string& name, View* v);
-    static void unregister_view(View* v);
-    static View* unregister_view(const std::string& name);
-    static View* look_for_view(const std::string& name);
+    static View* register_view(View* v);
+    static View* unregister_view(View* v);
 
     Controller();
     ~Controller();
@@ -46,6 +44,8 @@ public:
     void deleteObject(ScicosID uid);
     ScicosID cloneObject(ScicosID uid);
 
+    kind_t getKind(ScicosID uid) const;
+    std::vector<ScicosID> getAll(kind_t k) const;
     std::shared_ptr<model::BaseObject> getObject(ScicosID uid) const;
 
     template<typename T>
@@ -58,13 +58,6 @@ public:
     update_status_t setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, T v)
     {
         update_status_t status = m_instance.model.setObjectProperty(uid, k, p, v);
-        if (status == SUCCESS)
-        {
-            for (view_set_t::iterator iter = m_instance.allViews.begin(); iter != m_instance.allViews.end(); ++iter)
-            {
-                (*iter)->propertyUpdated(uid, k, p);
-            }
-        }
         for (view_set_t::iterator iter = m_instance.allViews.begin(); iter != m_instance.allViews.end(); ++iter)
         {
             (*iter)->propertyUpdated(uid, k, p, status);
@@ -83,7 +76,6 @@ private:
     struct SharedData
     {
         Model model;
-        view_name_set_t allNamedViews;
         view_set_t allViews;
 
         SharedData();

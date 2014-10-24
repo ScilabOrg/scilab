@@ -53,7 +53,7 @@ static const std::string funame = "scicos_new";
 template<class Adaptor, class Adaptee>
 types::InternalType * alloc_and_set(kind_t k, types::String* type_name, types::typed_list &in)
 {
-    Controller controller = Controller();
+    Controller controller;
 
     // create the associated object
     ScicosID o = controller.createObject(k);

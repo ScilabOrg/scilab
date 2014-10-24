@@ -13,9 +13,7 @@ public class JavaControllerJNI {
     public final static native void delete_View(long jarg1);
     public final static native void View_objectCreated(long jarg1, View jarg1_, long jarg2, int jarg3);
     public final static native void View_objectDeleted(long jarg1, View jarg1_, long jarg2, int jarg3);
-    public final static native void View_objectUpdated(long jarg1, View jarg1_, long jarg2, int jarg3);
-    public final static native void View_propertyUpdated__SWIG_0(long jarg1, View jarg1_, long jarg2, int jarg3, int jarg4);
-    public final static native void View_propertyUpdated__SWIG_1(long jarg1, View jarg1_, long jarg2, int jarg3, int jarg4, int jarg5);
+    public final static native void View_propertyUpdated(long jarg1, View jarg1_, long jarg2, int jarg3, int jarg4, int jarg5);
     public final static native void View_director_connect(View obj, long cptr, boolean mem_own, boolean weak_global);
     public final static native void View_change_ownership(View obj, long cptr, boolean take_or_release);
     public final static native long new_Controller();
@@ -23,6 +21,8 @@ public class JavaControllerJNI {
     public final static native long Controller_createObject(long jarg1, Controller jarg1_, int jarg2);
     public final static native void Controller_deleteObject(long jarg1, Controller jarg1_, long jarg2);
     public final static native long Controller_cloneObject(long jarg1, Controller jarg1_, long jarg2);
+    public final static native int Controller_getKind(long jarg1, Controller jarg1_, long jarg2);
+    public final static native long Controller_getAll(long jarg1, Controller jarg1_, int jarg2);
     public final static native boolean Controller_getObjectProperty__SWIG_1(long jarg1, Controller jarg1_, long jarg2, int jarg3, int jarg4, int[] jarg5);
     public final static native boolean Controller_getObjectProperty__SWIG_2(long jarg1, Controller jarg1_, long jarg2, int jarg3, int jarg4, double[] jarg5);
     public final static native boolean Controller_getObjectProperty__SWIG_3(long jarg1, Controller jarg1_, long jarg2, int jarg3, int jarg4, String[] jarg5);
@@ -94,7 +94,8 @@ public class JavaControllerJNI {
     public final static native long VectorOfScicosID_get(long jarg1, VectorOfScicosID jarg1_, int jarg2);
     public final static native void VectorOfScicosID_set(long jarg1, VectorOfScicosID jarg1_, int jarg2, long jarg3);
     public final static native void delete_VectorOfScicosID(long jarg1);
-    public final static native void register_view(String jarg1, long jarg2, View jarg2_);
+    public final static native void register_view(long jarg1, View jarg1_);
+    public final static native void unregister_view(long jarg1, View jarg1_);
 
     static {
         try {
@@ -116,17 +117,14 @@ public class JavaControllerJNI {
     }
 
 
-    public static void SwigDirector_View_objectCreated(View self, long uid, int k) {
-        self.objectCreated(uid, Kind.class.getEnumConstants()[k]);
+    public static void SwigDirector_View_objectCreated(View self, long uid, int kind) {
+        self.objectCreated(uid, Kind.class.getEnumConstants()[kind]);
     }
-    public static void SwigDirector_View_objectDeleted(View self, long uid, int k) {
-        self.objectDeleted(uid, Kind.class.getEnumConstants()[k]);
+    public static void SwigDirector_View_objectDeleted(View self, long uid, int kind) {
+        self.objectDeleted(uid, Kind.class.getEnumConstants()[kind]);
     }
-    public static void SwigDirector_View_objectUpdated(View self, long uid, int k) {
-        self.objectUpdated(uid, Kind.class.getEnumConstants()[k]);
-    }
-    public static void SwigDirector_View_propertyUpdated__SWIG_0(View self, long uid, int k, int p) {
-        self.propertyUpdated(uid, Kind.class.getEnumConstants()[k], ObjectProperties.class.getEnumConstants()[p]);
+    public static void SwigDirector_View_propertyUpdated(View self, long uid, int kind, int property, int status) {
+        self.propertyUpdated(uid, Kind.class.getEnumConstants()[kind], ObjectProperties.class.getEnumConstants()[property], UpdateStatus.class.getEnumConstants()[status]);
     }
 
     private final static native void swig_module_init();

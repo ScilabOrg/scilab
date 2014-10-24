@@ -33,19 +33,7 @@ extern "C"
 using namespace org_scilab_modules_scicos;
 
 static const std::string funame = "scicos_log";
-
-LoggerView* get_or_allocate_logger()
-{
-    static const std::string loggerViewName = "logger";
-
-    View* registeredView = Controller::look_for_view(loggerViewName);
-    if (registeredView == nullptr)
-    {
-        registeredView = Controller::register_view(loggerViewName, new LoggerView());
-    }
-    LoggerView* logger = static_cast<LoggerView*>(registeredView);
-    return logger;
-}
+static LoggerView logger;
 
 types::Function::ReturnValue sci_scicos_log(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
@@ -62,8 +50,7 @@ types::Function::ReturnValue sci_scicos_log(types::typed_list &in, int _iRetCoun
 
     if (in.size() == 0)
     {
-        LoggerView* logger = get_or_allocate_logger();
-        enum LogLevel previous = logger->getLevel();
+        enum LogLevel previous = logger.getLevel();
 
         if (_iRetCount == 1)
         {
@@ -107,9 +94,8 @@ types::Function::ReturnValue sci_scicos_log(types::typed_list &in, int _iRetCoun
         /*
          * Configure the logger value mode and return the previous log level
          */
-        LoggerView* logger = get_or_allocate_logger();
-        enum LogLevel previous = logger->getLevel();
-        logger->setLevel(logLevel);
+        enum LogLevel previous = logger.getLevel();
+        logger.setLevel(logLevel);
 
         if (_iRetCount == 1)
         {
@@ -134,8 +120,7 @@ types::Function::ReturnValue sci_scicos_log(types::typed_list &in, int _iRetCoun
             return types::Function::Error;
         }
 
-        LoggerView* logger = get_or_allocate_logger();
-        logger->log(logLevel, strMsg->get(0));
+        logger.log(logLevel, strMsg->get(0));
 
         if (_iRetCount == 1)
         {

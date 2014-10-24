@@ -51,6 +51,14 @@ public class Controller {
         return JavaControllerJNI.Controller_cloneObject(swigCPtr, this, uid);
     }
 
+    public Kind getKind(long uid) {
+        return Kind.class.getEnumConstants()[JavaControllerJNI.Controller_getKind(swigCPtr, this, uid)];
+    }
+
+    public VectorOfScicosID getAll(Kind k) {
+        return new VectorOfScicosID(JavaControllerJNI.Controller_getAll(swigCPtr, this, k.ordinal()), true);
+    }
+
     public boolean getObjectProperty(long uid, Kind k, ObjectProperties p, int[] v) {
         return JavaControllerJNI.Controller_getObjectProperty__SWIG_1(swigCPtr, this, uid, k.ordinal(), p.ordinal(), v);
     }

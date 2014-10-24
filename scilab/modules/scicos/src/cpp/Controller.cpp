@@ -10,12 +10,12 @@
  *
  */
 
-#include <string>
-#include <vector>
+#include <algorithm>
 #include <map>
 #include <memory>
+#include <string>
 #include <utility>
-#include <algorithm>
+#include <vector>
 
 #include "Controller.hxx"
 
@@ -28,7 +28,7 @@ namespace org_scilab_modules_scicos
  * Implement SharedData methods
  */
 Controller::SharedData::SharedData() :
-    model(), allNamedViews(), allViews()
+    model(), allViews()
 {
 }
 
@@ -42,55 +42,21 @@ Controller::SharedData::~SharedData()
 
 Controller::SharedData Controller::m_instance;
 
-View* Controller::register_view(const std::string& name, View* v)
+View* Controller::register_view(View* v)
 {
-    m_instance.allNamedViews.push_back(name);
     m_instance.allViews.push_back(v);
     return v;
 }
 
-void Controller::unregister_view(View* v)
+View* Controller::unregister_view(View* v)
 {
     view_set_t::iterator it = std::find(m_instance.allViews.begin(), m_instance.allViews.end(), v);
     if (it != m_instance.allViews.end())
     {
-        int d = std::distance(m_instance.allViews.begin(), it);
-
-        m_instance.allNamedViews.erase(m_instance.allNamedViews.begin() + d);
-        m_instance.allViews.erase(m_instance.allViews.begin() + d);
+        m_instance.allViews.erase(it);
+        return *it;
     }
-}
-
-View* Controller::unregister_view(const std::string& name)
-{
-    View* view = nullptr;
-
-    view_name_set_t::iterator it = std::find(m_instance.allNamedViews.begin(), m_instance.allNamedViews.end(), name);
-    if (it != m_instance.allNamedViews.end())
-    {
-        int d = std::distance(m_instance.allNamedViews.begin(), it);
-
-        view = *(m_instance.allViews.begin() + d);
-        m_instance.allNamedViews.erase(m_instance.allNamedViews.begin() + d);
-        m_instance.allViews.erase(m_instance.allViews.begin() + d);
-    }
-
-    return view;
-}
-
-View* Controller::look_for_view(const std::string& name)
-{
-    View* view = nullptr;
-
-    view_name_set_t::iterator it = std::find(m_instance.allNamedViews.begin(), m_instance.allNamedViews.end(), name);
-    if (it != m_instance.allNamedViews.end())
-    {
-        int d = std::distance(m_instance.allNamedViews.begin(), it);
-
-        view = *(m_instance.allViews.begin() + d);
-    }
-
-    return view;
+    return nullptr;
 }
 
 Controller::Controller()
@@ -343,6 +309,16 @@ ScicosID Controller::cloneObject(ScicosID uid)
 {
     std::map<ScicosID, ScicosID> mapped;
     return cloneObject(mapped, uid);
+}
+
+kind_t Controller::getKind(ScicosID uid) const
+{
+    return m_instance.model.getKind(uid);
+}
+
+std::vector<ScicosID> Controller::getAll(kind_t k) const
+{
+    return m_instance.model.getAll(k);
 }
 
 std::shared_ptr<model::BaseObject> Controller::getObject(ScicosID uid) const

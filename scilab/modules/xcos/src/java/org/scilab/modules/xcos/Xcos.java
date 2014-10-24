@@ -112,9 +112,6 @@ public final class Xcos {
     private static volatile Xcos sharedInstance;
 
     static {
-        /* register the main view */
-        JavaController.register_view(new XcosView());
-
         Scilab.registerInitialHook(new Runnable() {
             @Override
             public void run() {
@@ -130,6 +127,7 @@ public final class Xcos {
      * Instance data
      */
     private final Map<File, Collection<XcosDiagram>> diagrams;
+    private BrowserView browser;
     private boolean onDiagramIteration = false;
     private String lastError = null;
 
@@ -171,6 +169,9 @@ public final class Xcos {
         // null is used for not saved diagrams
         addDiagram(null, null);
 
+        // allocate and install the view on demand to avoid any cost
+        browser = null;
+
         /*
          * get the handlers instance
          */
@@ -195,6 +196,12 @@ public final class Xcos {
         }
         ScilabTabFactory.getInstance().addTabFactory(this.factory);
     }
+
+    protected void finalize() throws Throwable {
+        if (browser != null) {
+            JavaController.unregister_view(browser);
+        }
+    };
 
     /**
      * Check the dependencies and the version dependencies.
@@ -255,12 +262,18 @@ public final class Xcos {
     private static synchronized Xcos getInstance(final XcosTabFactory factory) {
         if (sharedInstance == null) {
             try {
-                SwingUtilities.invokeAndWait(new Runnable() {
+                final Runnable run = new Runnable() {
                     @Override
                     public void run() {
                         sharedInstance = new Xcos(factory);
                     }
-                });
+                };
+
+                if (SwingUtilities.isEventDispatchThread()) {
+                    run.run();
+                } else {
+                    SwingUtilities.invokeAndWait(run);
+                }
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -463,6 +476,27 @@ public final class Xcos {
      */
     public void setLastError(String error) {
         this.lastError = error;
+    }
+
+    /**
+     * @return the Browser view
+     */
+    public BrowserView getBrowser() {
+        if (browser == null) {
+            browser = new BrowserView();
+            JavaController.register_view(browser);
+        }
+        return browser;
+    }
+
+    /**
+     * Clear the browser state and unregister the current view.
+     */
+    public void clearBrowser()  {
+        if (browser != null) {
+            JavaController.register_view(browser);
+            browser = null;
+        }
     }
 
     /**
