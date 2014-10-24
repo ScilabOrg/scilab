@@ -15,8 +15,10 @@
 
 #include <string>
 
-#include "BaseAdapter.hxx"
+#include "internal.hxx"
 
+#include "utilities.hxx"
+#include "BaseAdapter.hxx"
 #include "model/Annotation.hxx"
 
 namespace org_scilab_modules_scicos
