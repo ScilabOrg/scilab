@@ -139,9 +139,17 @@ int cumsum(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
         }
 
         pOut->set(0, pSP);
+        pdblLastReal = new double[iRank + 1];
+        memcpy(pdblLastReal, pdblReal, (iRank + 1)*sizeof(pdRData));
+
+        if (bComplex)
+        {
+            pdblLastImg = new double[iRank + 1];
+            memcpy(pdblLastImg, pdblImg, (iRank + 1)*sizeof(pdRData));
+        }
+
         iLastRank = iRank;
-        pdblLastReal = pdblReal;
-        pdblLastImg = pdblImg;
+        delete pSP;
 
         // compute next elements
         if (bComplex)
@@ -180,11 +188,19 @@ int cumsum(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
                 }
 
                 pOut->set(i, pSP);
-                pdblLastReal = pdRData;
-                pdblLastImg = pdIData;
+
+                delete[] pdblLastReal;
+                delete[] pdblLastImg;
+
+                pdblLastReal = new double[iOutRank + 1];
+                pdblLastImg  = new double[iOutRank + 1];
+                memcpy(pdblLastReal, pdRData, (iOutRank + 1)*sizeof(pdRData));
+                memcpy(pdblLastImg, pdIData, (iOutRank + 1)*sizeof(pdRData));
                 iLastRank = iOutRank;
                 delete pSP;
             }
+            delete[] pdblLastReal;
+            delete[] pdblLastImg;
         }
         else
         {
@@ -218,10 +234,15 @@ int cumsum(types::Polynom* pIn, int iOrientation, types::Polynom* pOut)
                 }
 
                 pOut->set(i, pSP);
-                pdblLastReal = pdRData;
+
+                delete[] pdblLastReal;
+
+                pdblLastReal = new double[iOutRank + 1];
+                memcpy(pdblLastReal, pdRData, (iOutRank + 1)*sizeof(pdRData));
                 iLastRank = iOutRank;
                 delete pSP;
             }
+            delete[] pdblLastReal;
         }
     }
     else // cumsum on one dimension
