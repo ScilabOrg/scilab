@@ -581,15 +581,15 @@ InternalType* and_S_S(T *_pL, U *_pR)
 }
 
 template<class T, class U, class O>
-InternalType* and_M_E(T * /*_pL*/, U *_pR)
+InternalType* and_M_E(T* _pL, U * /*_pR*/)
 {
-    return _pR;
+    return _pL;
 }
 
 template<class T, class U, class O>
-InternalType* and_E_M(T *_pL, U * /*_pR*/)
+InternalType* and_E_M(T * /*_pL*/, U* _pR)
 {
-    return _pL;
+    return _pR;
 }
 
 template<class T, class U, class O>
