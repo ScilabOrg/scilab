@@ -93,7 +93,6 @@
  * Generate the View interface
  */
 %feature("director", assumeoverride=1) org_scilab_modules_scicos::View;
-%feature("nodirector") org_scilab_modules_scicos::View::propertyUpdated(const ScicosID& uid, kind_t k, object_properties_t p, update_status_t u);
 %include "../scicos/includes/View.hxx";
 
 
@@ -104,7 +103,6 @@
 %ignore org_scilab_modules_scicos::Controller::getObject;
 %ignore org_scilab_modules_scicos::Controller::unregister_view;
 %ignore org_scilab_modules_scicos::Controller::register_view;
-%ignore org_scilab_modules_scicos::Controller::delete_all_instances;
 %include "../scicos/includes/Controller.hxx";
 
 // Instanciate templates mapped to Java
@@ -143,6 +141,9 @@
 static void register_view(org_scilab_modules_scicos::View* view) {
 	org_scilab_modules_scicos::Controller::register_view(view);
 };
+static void unregister_view(org_scilab_modules_scicos::View* view) {
+	org_scilab_modules_scicos::Controller::unregister_view(view);
+};
 %}
 
 %pragma(java) moduleimports=%{
@@ -159,11 +160,17 @@ import java.util.ArrayList;
         references.add(v);
         return View.getCPtr(v);
     }
+
+    private static long remove_reference(View v) {
+        references.remove(v);
+        return View.getCPtr(v);
+    }
 %}
 
 %typemap(javain) org_scilab_modules_scicos::View* "add_reference($javainput)"
-
 void register_view(org_scilab_modules_scicos::View* view);
+%typemap(javain) org_scilab_modules_scicos::View* "remove_reference($javainput)"
+void unregister_view(org_scilab_modules_scicos::View* view);
 
 /*
  * Static load of library

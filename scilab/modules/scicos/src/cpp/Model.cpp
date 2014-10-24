@@ -116,10 +116,31 @@ void Model::deleteObject(ScicosID uid)
     objects_map_t::iterator iter = allObjects.lower_bound(uid);
     if (iter == allObjects.end() || uid < iter->first)
     {
-        throw std::string("key has not been found");
+        // key has not been found
+        return;
     }
 
     allObjects.erase(iter);
+}
+
+kind_t Model::getKind(ScicosID uid) const
+{
+    return getObject(uid)->kind();
+}
+
+std::vector<ScicosID> Model::getAll(kind_t k) const
+{
+    std::vector<ScicosID> all;
+
+    for (objects_map_t::const_iterator it = allObjects.begin(); it != allObjects.end(); ++it)
+    {
+        if (it->second->kind() == k)
+        {
+            all.push_back(it->second->id());
+        }
+    }
+
+    return all;
 }
 
 std::shared_ptr<model::BaseObject> Model::getObject(ScicosID uid) const
@@ -127,7 +148,8 @@ std::shared_ptr<model::BaseObject> Model::getObject(ScicosID uid) const
     objects_map_t::const_iterator iter = allObjects.lower_bound(uid);
     if (iter == allObjects.end() || uid < iter->first)
     {
-        throw std::string("key has not been found");
+        // key has not been found
+        return nullptr;
     }
 
     return iter->second;

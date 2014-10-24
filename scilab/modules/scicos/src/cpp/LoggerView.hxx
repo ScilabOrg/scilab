@@ -26,8 +26,6 @@ public:
 
     void objectCreated(const ScicosID& uid, kind_t k);
     void objectDeleted(const ScicosID& uid, kind_t k);
-    void objectUpdated(const ScicosID& uid, kind_t k);
-    void propertyUpdated(const ScicosID& uid, kind_t k, object_properties_t p);
     void propertyUpdated(const ScicosID& uid, kind_t k, object_properties_t p, update_status_t u);
 };
 

@@ -113,7 +113,7 @@ public final class Xcos {
 
     static {
         /* register the main view */
-        JavaController.register_view(new XcosView());
+        JavaController.register_view(new LoggerView());
 
         Scilab.registerInitialHook(new Runnable() {
             @Override
@@ -130,6 +130,7 @@ public final class Xcos {
      * Instance data
      */
     private final Map<File, Collection<XcosDiagram>> diagrams;
+    private final BrowserView browser;
     private boolean onDiagramIteration = false;
     private String lastError = null;
 
@@ -170,6 +171,9 @@ public final class Xcos {
         diagrams = new HashMap<File, Collection<XcosDiagram>>();
         // null is used for not saved diagrams
         addDiagram(null, null);
+
+        browser = new BrowserView();
+        JavaController.register_view(browser);
 
         /*
          * get the handlers instance
@@ -255,12 +259,18 @@ public final class Xcos {
     private static synchronized Xcos getInstance(final XcosTabFactory factory) {
         if (sharedInstance == null) {
             try {
-                SwingUtilities.invokeAndWait(new Runnable() {
+                final Runnable run = new Runnable() {
                     @Override
                     public void run() {
                         sharedInstance = new Xcos(factory);
                     }
-                });
+                };
+
+                if (SwingUtilities.isEventDispatchThread()) {
+                    run.run();
+                } else {
+                    SwingUtilities.invokeAndWait(run);
+                }
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -463,6 +473,13 @@ public final class Xcos {
      */
     public void setLastError(String error) {
         this.lastError = error;
+    }
+
+    /**
+     * @return the Browser view
+     */
+    public BrowserView getBrowser() {
+        return browser;
     }
 
     /**

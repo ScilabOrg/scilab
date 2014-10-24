@@ -63,6 +63,8 @@ public:
      * Model internal methods
      */
 
+    kind_t getKind(ScicosID uid) const;
+    std::vector<ScicosID> getAll(kind_t k) const;
     std::shared_ptr<model::BaseObject> getObject(ScicosID uid) const;
 
     model::Datatype* flyweight(const model::Datatype& d);

@@ -310,6 +310,16 @@ ScicosID Controller::cloneObject(ScicosID uid)
     return cloneObject(mapped, uid);
 }
 
+kind_t Controller::getKind(ScicosID uid) const
+{
+    return m_instance.model.getKind(uid);
+}
+
+std::vector<ScicosID> Controller::getAll(kind_t k) const
+{
+    return m_instance.model.getAll(k);
+}
+
 std::shared_ptr<model::BaseObject> Controller::getObject(ScicosID uid) const
 {
     return m_instance.model.getObject(uid);

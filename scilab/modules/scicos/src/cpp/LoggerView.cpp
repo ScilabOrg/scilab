@@ -284,29 +284,7 @@ void LoggerView::objectDeleted(const ScicosID& uid, kind_t k)
     }
 }
 
-void LoggerView::objectUpdated(const ScicosID& uid, kind_t k)
-{
-    std::stringstream ss;
-
-    ss << __FUNCTION__ << "( " << uid << " , " << k << " )" << std::endl;
-
-    if (USE_SCILAB_WRITE)
-    {
-        scilabForcedWrite(ss.str().data());
-    }
-    else
-    {
-        std::cerr << ss.str();
-    }
-}
-
-void LoggerView::propertyUpdated(const ScicosID& /*uid*/, kind_t /*k*/, object_properties_t /*p*/)
-{
-    // do not log anything on success; the message has already been logged
-}
-
-void LoggerView::propertyUpdated(const ScicosID& uid, kind_t k, object_properties_t p,
-                                 update_status_t u)
+void LoggerView::propertyUpdated(const ScicosID& uid, kind_t k, object_properties_t p, update_status_t u)
 {
     std::stringstream ss;
 
