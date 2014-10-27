@@ -98,6 +98,22 @@ InternalType *GenericDotPower(InternalType *_pLeftOperand, InternalType *_pRight
 
         return pResult;
     }
+    /*
+    ** SPARSE  .^ DOUBLE
+    ** SPARSE .** DOUBLE
+    */
+    if (TypeL == GenericType::ScilabSparse && TypeR == GenericType::ScilabDouble)
+    {
+        types::Sparse *pL = _pLeftOperand->getAs<types::Sparse>();
+        Double *pR = _pRightOperand->getAs<Double>();
+        int iResult = DotPowerSpaseByDouble(pL, pR, &pResult);
+        if (iResult)
+        {
+            throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
+        }
+        return pResult;
+
+    }
 
     /*
     ** POLY .^ DOUBLE
@@ -392,6 +408,87 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
     }
     return 0;
 }
+
+int DotPowerSpaseByDouble(Sparse* _pSp, Double* _pDouble, InternalType** _pOut)
+{
+    if (_pDouble->isEmpty())
+    {
+        //sp .^ []
+        *_pOut = Double::Empty();
+        return 0;
+    }
+
+    int iSize = _pSp->getSize();
+    Double** pDbl = new Double*[iSize];
+    Double** pDblSp = new Double*[iSize];
+    double* pdbl = _pDouble->get();
+
+    if (_pDouble->isScalar())
+    {
+        if (_pDouble->isComplex())
+        {
+            double* pdblImg = _pDouble->getImg();
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[0], pdblImg[0]);
+                pDblSp[i] = new Double(_pSp->get(i), _pSp->getImg(i).imag());
+            }
+        }
+        else
+        {
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[0]);
+                pDblSp[i] = new Double(_pSp->getReal(i), _pSp->getImg(i).imag());
+            }
+        }
+    }
+    else if (_pDouble->getSize() == iSize)
+    {
+        if (_pDouble->isComplex())
+        {
+            double* pdblImg = _pDouble->getImg();
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[i], pdblImg[i]);
+                pDblSp[i] = new Double(_pSp->getReal(i), _pSp->getImg(i).imag());
+            }
+        }
+        else
+        {
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[i]);
+                pDblSp[i] = new Double(_pSp->getReal(i), _pSp->getImg(i).imag());
+            }
+        }
+    }
+    else
+    {
+        delete[] pDblSp;
+        throw ast::ScilabError(_W("Invalid exponent.\n"));
+        return 1;
+    }
+
+    Sparse* pSpTemp = new Sparse(_pSp->getRows(), _pSp->getCols());
+    pSpTemp->zero_set();
+
+    Double* ppDblGet = NULL;
+    for (int i = 0; i < iSize; i++)
+    {
+        DotPowerDoubleByDouble(pDblSp[i], pDbl[i], &ppDblGet);
+        std::complex<double> cplx(ppDblGet->get(0), ppDblGet->getImg(0));
+        if ((ppDblGet->get(0) != 0) || (ppDblGet->getImg(0) != 0))
+        {
+            pSpTemp->set(i, cplx, true);
+        }
+    }
+
+    *_pOut = pSpTemp;
+    return 0;
+
+}
+
 
 int DotPowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
 {
