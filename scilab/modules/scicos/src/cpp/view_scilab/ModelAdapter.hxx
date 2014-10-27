@@ -16,6 +16,7 @@
 #include <string>
 
 #include "BaseAdapter.hxx"
+#include "DiagramAdapter.hxx"
 #include "model/Block.hxx"
 
 namespace org_scilab_modules_scicos
@@ -37,6 +38,12 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    DiagramAdapter* getDiagram() const;
+    void setDiagram(DiagramAdapter* newDiagram);
+
+private:
+    DiagramAdapter* diagramAdapter;
 };
 
 } /* namespace view_scilab */
