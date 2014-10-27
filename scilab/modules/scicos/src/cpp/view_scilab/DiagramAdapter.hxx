@@ -14,6 +14,7 @@
 #define DIAGRAMADAPTER_HXX_
 
 #include <string>
+#include <vector>
 
 #include "utilities.hxx"
 #include "BaseAdapter.hxx"
@@ -23,6 +24,8 @@ namespace org_scilab_modules_scicos
 {
 namespace view_scilab
 {
+
+class BlockAdapter;
 
 class DiagramAdapter : public BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>
 {
@@ -39,9 +42,6 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
-    types::InternalType* getContribContent() const;
-    void setContribContent(types::InternalType* v);
-
     std::vector<double> getFrom(int link_number) const;
     int getFromSize() const;
     void setFrom(const std::vector<double>& from_content);
@@ -50,10 +50,14 @@ public:
     void setTo(const std::vector<double>& to_content);
     void clearTo();
 
+    types::InternalType* getContribContent() const;
+    void setContribContent(types::InternalType* v);
+
 private:
-    types::InternalType* contrib_content;
     std::vector< std::vector<double> > from_vec;
     std::vector< std::vector<double> > to_vec;
+
+    types::InternalType* contrib_content;
 };
 
 } /* namespace view_scilab */

@@ -27,9 +27,9 @@
 #include "DiagramAdapter.hxx"
 #include "Adapters.hxx"
 #include "ParamsAdapter.hxx"
-#include "TextAdapter.hxx"
 #include "BlockAdapter.hxx"
 #include "LinkAdapter.hxx"
+#include "TextAdapter.hxx"
 #include "model/BaseObject.hxx"
 
 extern "C" {
@@ -65,7 +65,7 @@ struct objs
 
     static types::InternalType* get(const DiagramAdapter& adaptor, const Controller& controller)
     {
-        // FIXME: get all children of the Diagram and return them as a list
+        // Get all children of the Diagram and return them as a list
         model::Diagram* adaptee = adaptor.getAdaptee().get();
 
         std::vector<ScicosID> children;
@@ -104,8 +104,8 @@ struct objs
                     // without updating the model
                     if (adaptor.getFromSize() != 0)
                     {
-                        localAdaptor->setFrom(children[i], adaptor.getFrom(link_number), newController, false);
-                        localAdaptor->setTo(children[i], adaptor.getTo(link_number), newController, false);
+                        localAdaptor->setFrom(adaptor.getFrom(link_number), newController, false);
+                        localAdaptor->setTo(adaptor.getTo(link_number), newController, false);
                         link_number++;
                     }
                     o->set(i, localAdaptor);
@@ -120,7 +120,7 @@ struct objs
 
     static bool set(DiagramAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        // FIXME implement, decode the list and set all children of the Diagram
+        // Decode the list and set all children of the Diagram
         if (v->getType() != types::InternalType::ScilabList)
         {
             return false;
@@ -137,7 +137,6 @@ struct objs
         adaptor.clearFrom();
         adaptor.clearTo();
         std::vector<LinkAdapter*> linkListView;
-        std::vector<ScicosID> linkListModel;
         for (int i = 0; i < list->getSize(); ++i)
         {
             if (list->get(i)->getType() != types::InternalType::ScilabUserType)
@@ -156,11 +155,11 @@ struct objs
                 case Adapters::BLOCK_ADAPTER:
                 {
                     BlockAdapter* modelElement = list->get(i)->getAs<BlockAdapter>();
-                    model::Block* subAdaptee = modelElement->getAdaptee().get();
+                    modelElement->IncreaseRef();
 
-                    id = subAdaptee->id();
+                    id = modelElement->getAdaptee()->id();
 
-                    controller.setObjectProperty(id, BLOCK, PARENT_DIAGRAM, adaptee);
+                    controller.setObjectProperty(id, BLOCK, PARENT_DIAGRAM, adaptee->id());
                     controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
                     diagramChildren.push_back(id);
                     controller.setObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
@@ -169,15 +168,14 @@ struct objs
                 case Adapters::LINK_ADAPTER:
                 {
                     LinkAdapter* modelElement = list->get(i)->getAs<LinkAdapter>();
-                    model::Link* subAdaptee = modelElement->getAdaptee().get();
+                    modelElement->IncreaseRef();
 
-                    id = subAdaptee->id();
+                    id = modelElement->getAdaptee()->id();
 
-                    controller.setObjectProperty(id, LINK, PARENT_DIAGRAM, adaptee);
+                    controller.setObjectProperty(id, LINK, PARENT_DIAGRAM, adaptee->id());
 
                     // Hold Links information, to try the linking at model-level once all the elements have been added to the Diagram
                     linkListView.push_back(modelElement);
-                    linkListModel.push_back(id);
 
                     controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
                     diagramChildren.push_back(id);
@@ -187,9 +185,9 @@ struct objs
                 case Adapters::TEXT_ADAPTER:
                 {
                     TextAdapter* modelElement = list->get(i)->getAs<TextAdapter>();
-                    model::Annotation* subAdaptee = modelElement->getAdaptee().get();
+                    modelElement->IncreaseRef();
 
-                    id = subAdaptee->id();
+                    id = modelElement->getAdaptee()->id();
 
                     controller.setObjectProperty(id, ANNOTATION, PARENT_DIAGRAM, adaptee->id());
                     controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
@@ -207,13 +205,13 @@ struct objs
         {
             // Trigger 'from' and 'to' properties
             std::vector<double> from_content = linkListView[i]->getFrom();
-            if (!linkListView[i]->setFrom(linkListModel[i], from_content, controller, true))
+            if (!linkListView[i]->setFrom(from_content, controller, true))
             {
                 return false;
             }
             adaptor.setFrom(from_content);
             std::vector<double> to_content = linkListView[i]->getTo();
-            if (!linkListView[i]->setTo(linkListModel[i], to_content, controller, true))
+            if (!linkListView[i]->setTo(to_content, controller, true))
             {
                 return false;
             }
@@ -320,16 +318,18 @@ DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adapter)
 {
     // When cloning a DiagramAdapter, clone its Links information as well
-    for (int i = 0; i < static_cast<int>(from_vec.size()); ++i)
+    for (int i = 0; i < static_cast<int>(adapter.from_vec.size()); ++i)
     {
         setFrom(adapter.getFrom(i));
         setTo(adapter.getTo(i));
     }
+
+    contrib_content = adapter.contrib_content->clone();
 }
 
 DiagramAdapter::~DiagramAdapter()
 {
-    delete contrib_content;
+    contrib_content->killMe();
 }
 
 std::wstring DiagramAdapter::getTypeStr()
@@ -348,7 +348,7 @@ types::InternalType* DiagramAdapter::getContribContent() const
 
 void DiagramAdapter::setContribContent(types::InternalType* v)
 {
-    delete contrib_content;
+    contrib_content->killMe();
     contrib_content = v->clone();
 }
 

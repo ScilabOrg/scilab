@@ -870,9 +870,8 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram, whose ID is stored in children[0]
         {
-            // FIXME : leak memory
-            model::Diagram* super = static_cast<model::Diagram*>(controller.getObject(children[0]).get());
-            return new DiagramAdapter(std::shared_ptr<model::Diagram>(super));
+            // FIXME : leak memory?
+            return adaptor.getDiagram();
         }
     }
 
@@ -907,15 +906,19 @@ struct rpar
                 return false;
             }
 
-            // Translate 'v' to an DiagramAdapter and clone it, updating the new Diagram's children
+            // Translate 'v' to an DiagramAdapter and clone it, updating the SuperBlock's children
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
             ScicosID clone = controller.cloneObject(diagram->getAdaptee()->id());
+
+            // Retrieve the clone and create a DiagramAdapter linked to it, saving the information of the input diagram
+            model::Diagram* newSubAdaptee = static_cast<model::Diagram*>(controller.getObject(clone).get());
+            adaptor.setDiagram(new DiagramAdapter(std::shared_ptr<model::Diagram>(newSubAdaptee)));
 
             // Save the children list, adding the new diagram ID at the beginning
             std::vector<ScicosID> children;
             controller.getObjectProperty(clone, DIAGRAM, CHILDREN, children);
             children.insert(children.begin(), clone);
-            controller.setObjectProperty(clone, DIAGRAM, CHILDREN, children);
+            controller.setObjectProperty(adaptee, BLOCK, CHILDREN, children);
 
             // Link the Superblock ports to their inner "port blocks"
             return setInnerBlocksRefs(adaptor, children, controller);
@@ -1349,15 +1352,19 @@ ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
         property<ModelAdapter>::add_property(L"equations", &equations::get, &equations::set);
         property<ModelAdapter>::add_property(L"uid", &uid::get, &uid::set);
     }
+
+    diagramAdapter = new DiagramAdapter(0);
 }
 
 ModelAdapter::ModelAdapter(const ModelAdapter& adapter) :
     BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adapter)
 {
+    diagramAdapter = new DiagramAdapter(*(adapter.diagramAdapter));
 }
 
 ModelAdapter::~ModelAdapter()
 {
+    diagramAdapter->killMe();
 }
 
 std::wstring ModelAdapter::getTypeStr()
@@ -1368,6 +1375,17 @@ std::wstring ModelAdapter::getTypeStr()
 std::wstring ModelAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+DiagramAdapter* ModelAdapter::getDiagram() const
+{
+    return new DiagramAdapter(*diagramAdapter);
+}
+
+void ModelAdapter::setDiagram(DiagramAdapter* newDiagram)
+{
+    diagramAdapter->killMe();
+    diagramAdapter = new DiagramAdapter(*newDiagram);
 }
 
 } /* namespace view_scilab */
