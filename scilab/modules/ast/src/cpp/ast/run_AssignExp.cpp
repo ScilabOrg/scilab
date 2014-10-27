@@ -231,8 +231,6 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 VariableToString(pOut, ostrName.str().c_str());
             }
 
-            pITR->killMe();
-
             clearResult();
             return;
         }
