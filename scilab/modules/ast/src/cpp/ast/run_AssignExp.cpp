@@ -174,7 +174,8 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
         if (pCall)
         {
             //x(?) = ?
-            InternalType *pOut	= NULL;
+            InternalType *pOut = NULL;
+            bool bDeleteR = true;
 
             /*getting what to assign*/
             InternalType* pITR = e.getRightVal();
@@ -192,6 +193,13 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 std::wostringstream os;
                 os << _W("Unable to extract right part expression.\n");
                 throw ast::ScilabError(os.str(), 999, e.getLeftExp().getLocation());
+            }
+
+            if (pITR->isImplicitList())
+            {
+                // will be delete after extractFullMatrix
+                // called in evaluateFields
+                bDeleteR = false;
             }
 
             std::list<ExpHistory*> fields;
@@ -212,6 +220,11 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 delete *i;
             }
 
+            if (bDeleteR)
+            {
+                pITR->killMe();
+            }
+
             if (pOut == NULL)
             {
                 std::wostringstream os;
@@ -230,8 +243,6 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 ostrName << SPACES_LIST << *getStructNameFromExp(&pCall->getName());
                 VariableToString(pOut, ostrName.str().c_str());
             }
-
-            pITR->killMe();
 
             clearResult();
             return;
