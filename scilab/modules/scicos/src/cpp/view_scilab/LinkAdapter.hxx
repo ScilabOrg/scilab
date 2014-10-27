@@ -43,6 +43,7 @@ public:
     bool setFrom(const ScicosID id, const std::vector<double>& v, Controller& controller, const bool model_level = true);
     std::vector<double> getTo() const;
     bool setTo(const ScicosID id, const std::vector<double>& v, Controller& controller, const bool model_level = true);
+
 private:
     std::vector<double> from_content;
     std::vector<double> to_content;

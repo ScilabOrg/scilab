@@ -160,7 +160,7 @@ struct objs
 
                     id = subAdaptee->id();
 
-                    controller.setObjectProperty(id, BLOCK, PARENT_DIAGRAM, adaptee);
+                    controller.setObjectProperty(id, BLOCK, PARENT_DIAGRAM, adaptee->id());
                     controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
                     diagramChildren.push_back(id);
                     controller.setObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
@@ -173,7 +173,7 @@ struct objs
 
                     id = subAdaptee->id();
 
-                    controller.setObjectProperty(id, LINK, PARENT_DIAGRAM, adaptee);
+                    controller.setObjectProperty(id, LINK, PARENT_DIAGRAM, adaptee->id());
 
                     // Hold Links information, to try the linking at model-level once all the elements have been added to the Diagram
                     linkListView.push_back(modelElement);
@@ -320,16 +320,15 @@ DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adapter)
 {
     // When cloning a DiagramAdapter, clone its Links information as well
-    for (int i = 0; i < static_cast<int>(from_vec.size()); ++i)
-    {
-        setFrom(adapter.getFrom(i));
-        setTo(adapter.getTo(i));
-    }
+    from_vec = adapter.from_vec;
+    to_vec = adapter.to_vec;
+
+    contrib_content = adapter.contrib_content->clone();
 }
 
 DiagramAdapter::~DiagramAdapter()
 {
-    delete contrib_content;
+    contrib_content->killMe();
 }
 
 std::wstring DiagramAdapter::getTypeStr()
@@ -348,7 +347,7 @@ types::InternalType* DiagramAdapter::getContribContent() const
 
 void DiagramAdapter::setContribContent(types::InternalType* v)
 {
-    delete contrib_content;
+    contrib_content->killMe();
     contrib_content = v->clone();
 }
 
