@@ -15,14 +15,20 @@
 
 #include <string>
 
+#include "internal.hxx"
+
 #include "utilities.hxx"
 #include "BaseAdapter.hxx"
+#include "GraphicsAdapter.hxx"
+#include "ModelAdapter.hxx"
 #include "model/Block.hxx"
 
 namespace org_scilab_modules_scicos
 {
 namespace view_scilab
 {
+
+class ModelAdapter;
 
 class BlockAdapter : public BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>
 {
@@ -39,10 +45,18 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
+    GraphicsAdapter* getGraphics() const;
+    void setGraphics(GraphicsAdapter* newGraphics);
+    ModelAdapter* getModel() const;
+    void setModel(ModelAdapter* newModel);
+
     types::InternalType* getDocContent() const;
     void setDocContent(types::InternalType* v);
 
 private:
+    GraphicsAdapter* graphicsAdapter;
+    ModelAdapter* modelAdapter;
+
     types::InternalType* doc_content;
 };
 

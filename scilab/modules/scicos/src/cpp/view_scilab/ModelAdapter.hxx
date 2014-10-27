@@ -16,12 +16,15 @@
 #include <string>
 
 #include "BaseAdapter.hxx"
+#include "DiagramAdapter.hxx"
 #include "model/Block.hxx"
 
 namespace org_scilab_modules_scicos
 {
 namespace view_scilab
 {
+
+class DiagramAdapter;
 
 class ModelAdapter : public BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>
 {
@@ -37,6 +40,12 @@ public:
 
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
+
+    DiagramAdapter* getDiagram() const;
+    void setDiagram(DiagramAdapter* newDiagram);
+
+private:
+    DiagramAdapter* diagramAdapter;
 };
 
 } /* namespace view_scilab */
