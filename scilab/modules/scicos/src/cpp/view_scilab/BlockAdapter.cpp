@@ -41,14 +41,22 @@ struct graphics
 {
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
-        GraphicsAdapter localAdaptor = GraphicsAdapter(adaptor.getAdaptee());
-        return localAdaptor.getAsTList(new types::MList(), controller);
+        // silent unused parameter warnings
+        (void) controller;
+
+        return adaptor.getGraphics();
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        GraphicsAdapter localAdaptor = GraphicsAdapter(adaptor.getAdaptee());
-        return localAdaptor.setAsTList(v, controller);
+        GraphicsAdapter* newGraphics = new GraphicsAdapter(adaptor.getAdaptee());
+        if (!newGraphics->setAsTList(v, controller))
+        {
+            return false;
+        }
+
+        adaptor.setGraphics(newGraphics);
+        return true;
     }
 };
 
@@ -56,14 +64,22 @@ struct model
 {
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
-        ModelAdapter localAdaptor = ModelAdapter(adaptor.getAdaptee());
-        return localAdaptor.getAsTList(new types::MList(), controller);
+        // silent unused parameter warnings
+        (void) controller;
+
+        return adaptor.getModel();
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        ModelAdapter localAdaptor = ModelAdapter(adaptor.getAdaptee());
-        return localAdaptor.setAsTList(v, controller);
+        ModelAdapter* newModel = new ModelAdapter(adaptor.getAdaptee());
+        if (!newModel->setAsTList(v, controller))
+        {
+            return false;
+        }
+
+        adaptor.setModel(newModel);
+        return true;
     }
 };
 
@@ -138,17 +154,26 @@ BlockAdapter::BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Blo
         property<BlockAdapter>::add_property(L"doc", &doc::get, &doc::set);
     }
 
+    graphicsAdapter = new GraphicsAdapter(this->getAdaptee());
+    modelAdapter = new ModelAdapter(this->getAdaptee());
+
     doc_content = new types::List();
 }
 
 BlockAdapter::BlockAdapter(const BlockAdapter& adapter) :
     BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adapter)
 {
+    graphicsAdapter = new GraphicsAdapter(*(adapter.graphicsAdapter));
+    modelAdapter = new ModelAdapter(*(adapter.modelAdapter));
+
     doc_content = adapter.doc_content->clone();
 }
 
 BlockAdapter::~BlockAdapter()
 {
+    graphicsAdapter->killMe();
+    modelAdapter->killMe();
+
     doc_content->killMe();
 }
 
@@ -159,6 +184,28 @@ std::wstring BlockAdapter::getTypeStr()
 std::wstring BlockAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+GraphicsAdapter* BlockAdapter::getGraphics() const
+{
+    return new GraphicsAdapter(*graphicsAdapter);
+}
+
+void BlockAdapter::setGraphics(GraphicsAdapter* newGraphics)
+{
+    graphicsAdapter->killMe();
+    graphicsAdapter = new GraphicsAdapter(*newGraphics);
+}
+
+ModelAdapter* BlockAdapter::getModel() const
+{
+    return new ModelAdapter(*modelAdapter);
+}
+
+void BlockAdapter::setModel(ModelAdapter* newModel)
+{
+    modelAdapter->killMe();
+    modelAdapter = new ModelAdapter(*newModel);
 }
 
 types::InternalType* BlockAdapter::getDocContent() const

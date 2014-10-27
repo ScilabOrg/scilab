@@ -14,15 +14,21 @@
 #define DIAGRAMADAPTER_HXX_
 
 #include <string>
+#include <vector>
 
 #include "utilities.hxx"
 #include "BaseAdapter.hxx"
+#include "BlockAdapter.hxx"
+#include "LinkAdapter.hxx"
+#include "TextAdapter.hxx"
 #include "model/Diagram.hxx"
 
 namespace org_scilab_modules_scicos
 {
 namespace view_scilab
 {
+
+class BlockAdapter;
 
 class DiagramAdapter : public BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>
 {
@@ -39,21 +45,25 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
+    std::vector<BlockAdapter*> getBlocks() const;
+    void addBlock(const BlockAdapter* newBlock);
+    void clearBlocks();
+    std::vector<LinkAdapter*> getLinks() const;
+    void addLink(const LinkAdapter* newLink);
+    void clearLinks();
+    std::vector<TextAdapter*> getTexts() const;
+    void addText(const TextAdapter* newText);
+    void clearTexts();
+
     types::InternalType* getContribContent() const;
     void setContribContent(types::InternalType* v);
 
-    std::vector<double> getFrom(int link_number) const;
-    int getFromSize() const;
-    void setFrom(const std::vector<double>& from_content);
-    void clearFrom();
-    std::vector<double> getTo(int link_number) const;
-    void setTo(const std::vector<double>& to_content);
-    void clearTo();
-
 private:
+    std::vector<BlockAdapter*> blockAdapters;
+    std::vector<LinkAdapter*> linkAdapters;
+    std::vector<TextAdapter*> textAdapters;
+
     types::InternalType* contrib_content;
-    std::vector< std::vector<double> > from_vec;
-    std::vector< std::vector<double> > to_vec;
 };
 
 } /* namespace view_scilab */

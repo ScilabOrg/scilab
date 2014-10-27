@@ -20,7 +20,23 @@
 //
 
 function %graphics_p(graphics)
-    fn=getfield(1,graphics)
+    //fn=getfield(1,graphics)
+    try
+        // 'pin' property exists: Block
+        graphics.pin;
+        fn=["graphics" "orig" "sz" "flip" "theta" "exprs" "pin" "pout" "pein" "peout",..
+        "gr_i" "id" "in_implicit" "out_implicit" "in_style" "out_style" "in_label" "out_label" "style"];
+    catch
+        // Annotation
+        fn=["graphics" "orig" "sz" "exprs"];
+    end
+
+    //if type(graphics) == 17 then // Annotation
+    //    fn=["graphics" "orig" "sz" "exprs"];
+    //else // Type 128: Block
+    //    fn=["graphics" "orig" "sz" "flip" "theta" "exprs" "pin" "pout" "pein" "peout",..
+    //    "gr_i" "id" "in_implicit" "out_implicit" "in_style" "out_style" "in_label" "out_label" "style"];
+    //end
 
     for k=2:size(fn,"*")
         mprintf("%s\n", sci2exp(eval("graphics."+fn(k)),fn(k)))
