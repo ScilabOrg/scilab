@@ -55,7 +55,7 @@ function txt=model2txt(model)
     fn=["model" "sim" "in" "in2" "intyp" "out" "out2" "outtyp" "evtin" "evtout" "state" "dstate" "odstate",..
     "rpar" "ipar" "opar" "blocktype" "firing" "dep_ut" "label" "nmode" "nzcross" "equations" "uid"];
     for k=3:size(fn,"*")
-        if fn(k)=="rpar" & (type(model(fn(k)))==15 | typeof(model.rpar)=="diagram") then
+        if fn(k)=="rpar" & typeof(model.rpar)=="diagram" then
             txt=[txt;fn(k)+" : SuperBlock"];
         else
             txt=[txt

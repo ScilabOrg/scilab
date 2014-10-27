@@ -674,8 +674,6 @@ struct from
 
     static bool set(LinkAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        ScicosID adaptee = adaptor.getAdaptee()->id();
-
         if (v->getType() != types::InternalType::ScilabDouble)
         {
             return false;
@@ -699,7 +697,7 @@ struct from
             from_content[2] = current->get(2);
         }
 
-        return adaptor.setFrom(adaptee, from_content, controller);
+        return adaptor.setFrom(from_content, controller);
     }
 };
 
@@ -724,8 +722,6 @@ struct to
 
     static bool set(LinkAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        ScicosID adaptee = adaptor.getAdaptee()->id();
-
         if (v->getType() != types::InternalType::ScilabDouble)
         {
             return false;
@@ -750,7 +746,7 @@ struct to
             to_content[2] = current->get(2);
         }
 
-        return adaptor.setTo(adaptee, to_content, controller);
+        return adaptor.setTo(to_content, controller);
     }
 };
 
@@ -795,8 +791,8 @@ LinkAdapter::LinkAdapter(const LinkAdapter& adapter) :
 
     // When cloning a LinkAdapter, clone its 'from' and 'to' information as well.
     // setFrom() will propagate the information at model-level if necessary.
-    setFrom(getAdaptee()->id(), adapter.getFrom(), controller);
-    setTo(getAdaptee()->id(), adapter.getTo(), controller);
+    setFrom(adapter.getFrom(), controller, false);
+    setTo(adapter.getTo(), controller, false);
 }
 
 LinkAdapter::~LinkAdapter()
@@ -817,7 +813,7 @@ std::vector<double> LinkAdapter::getFrom() const
     return from_content;
 }
 
-bool LinkAdapter::setFrom(const ScicosID id, const std::vector<double>& v, Controller& controller, const bool model_level)
+bool LinkAdapter::setFrom(const std::vector<double>& v, Controller& controller, const bool model_level)
 {
     if (v.size() >= 2)
     {
@@ -845,13 +841,13 @@ bool LinkAdapter::setFrom(const ScicosID id, const std::vector<double>& v, Contr
     from_content = v;
 
     ScicosID parentDiagram;
-    controller.getObjectProperty(id, LINK, PARENT_DIAGRAM, parentDiagram);
+    controller.getObjectProperty(getAdaptee()->id(), LINK, PARENT_DIAGRAM, parentDiagram);
 
     if (parentDiagram != 0 && model_level)
     {
         // If the Link has been added to a diagram, do the linking at model-level
         // If the provided values are wrong, the model is not updated but the info is stored in the Adapter for future attempts
-        setLinkEnd(id, controller, SOURCE_PORT, v);
+        setLinkEnd(getAdaptee()->id(), controller, SOURCE_PORT, v);
     }
 
     return true;
@@ -862,7 +858,7 @@ std::vector<double> LinkAdapter::getTo() const
     return to_content;
 }
 
-bool LinkAdapter::setTo(const ScicosID id, const std::vector<double>& v, Controller& controller, const bool model_level)
+bool LinkAdapter::setTo(const std::vector<double>& v, Controller& controller, const bool model_level)
 {
     if (v.size() >= 2)
     {
@@ -890,13 +886,13 @@ bool LinkAdapter::setTo(const ScicosID id, const std::vector<double>& v, Control
     to_content = v;
 
     ScicosID parentDiagram;
-    controller.getObjectProperty(id, LINK, PARENT_DIAGRAM, parentDiagram);
+    controller.getObjectProperty(getAdaptee()->id(), LINK, PARENT_DIAGRAM, parentDiagram);
 
     if (parentDiagram != 0 && model_level)
     {
         // If the Link has been added to a diagram, do the linking at model-level
         // If the provided values are wrong, the model is not updated but the info is stored in the Adapter for future attempts
-        setLinkEnd(id, controller, DESTINATION_PORT, v);
+        setLinkEnd(getAdaptee()->id(), controller, DESTINATION_PORT, v);
     }
 
     return true;
