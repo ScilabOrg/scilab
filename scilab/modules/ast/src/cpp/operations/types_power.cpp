@@ -32,8 +32,8 @@ InternalType *GenericPower(InternalType *_pLeftOperand, InternalType *_pRightOpe
     */
     if (_pLeftOperand->isDouble() && _pRightOperand->isDouble())
     {
-        Double *pL   = _pLeftOperand->getAs<Double>();
-        Double *pR   = _pRightOperand->getAs<Double>();
+        Double *pL = _pLeftOperand->getAs<Double>();
+        Double *pR = _pRightOperand->getAs<Double>();
 
         int iResult = PowerDoubleByDouble(pL, pR, (Double**)&pResult);
         if (iResult)
@@ -50,75 +50,21 @@ InternalType *GenericPower(InternalType *_pLeftOperand, InternalType *_pRightOpe
     */
     if (_pLeftOperand->isPoly() && _pRightOperand->isDouble())
     {
-        Polynom *pL   = _pLeftOperand->getAs<Polynom>();
-        Double *pR    = _pRightOperand->getAs<Double>();
+        Polynom *pL = _pLeftOperand->getAs<Polynom>();
+        Double *pR = _pRightOperand->getAs<Double>();
 
         int iResult = PowerPolyByDouble(pL, pR, &pResult);
         switch (iResult)
         {
-            case 1 :
+            case 1:
                 throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
-            case 2 :
+            case 2:
                 throw ast::ScilabError(_W("Invalid exponent.\n"));
             default:
                 //OK
                 break;
         }
 
-        return pResult;
-    }
-
-    /*
-    ** Default case : Return NULL will Call Overloading.
-    */
-    return NULL;
-
-}
-
-InternalType *GenericDotPower(InternalType *_pLeftOperand, InternalType *_pRightOperand)
-{
-    InternalType *pResult = NULL;
-    GenericType::ScilabType TypeL = _pLeftOperand->getType();
-    GenericType::ScilabType TypeR = _pRightOperand->getType();
-
-    /*
-    ** DOUBLE .^ DOUBLE
-    ** DOUBLE .** DOUBLE
-    */
-    if (TypeL == GenericType::ScilabDouble && TypeR == GenericType::ScilabDouble)
-    {
-        Double *pL  = _pLeftOperand->getAs<Double>();
-        Double *pR  = _pRightOperand->getAs<Double>();
-
-        int iResult = DotPowerDoubleByDouble(pL, pR, (Double**)&pResult);
-        if (iResult)
-        {
-            throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
-        }
-
-        return pResult;
-    }
-
-    /*
-    ** POLY .^ DOUBLE
-    ** POLY .** DOUBLE
-    */
-    if (TypeL == GenericType::ScilabPolynom && TypeR == GenericType::ScilabDouble)
-    {
-        Polynom *pL   = _pLeftOperand->getAs<Polynom>();
-        Double *pR   = _pRightOperand->getAs<Double>();
-
-        int iResult = DotPowerPolyByDouble(pL, pR, &pResult);
-        switch (iResult)
-        {
-            case 1 :
-                throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
-            case 2 :
-                throw ast::ScilabError(_W("Invalid exponent.\n"));
-            default:
-                //OK
-                break;
-        }
         return pResult;
     }
 
@@ -131,10 +77,10 @@ InternalType *GenericDotPower(InternalType *_pLeftOperand, InternalType *_pRight
 
 int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut)
 {
-    bool bComplex1  = _pDouble1->isComplex();
-    bool bComplex2  = _pDouble2->isComplex();
-    bool bScalar1   = _pDouble1->isScalar();
-    bool bScalar2   = _pDouble2->isScalar();
+    bool bComplex1 = _pDouble1->isComplex();
+    bool bComplex2 = _pDouble2->isComplex();
+    bool bScalar1 = _pDouble1->isScalar();
+    bool bScalar2 = _pDouble2->isScalar();
 
     int iComplex = 1;
 
@@ -209,14 +155,14 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
         return 0;
     }
 
-    if (bScalar2 && _pDouble1->getDims() == 2 && _pDouble1->isVector() )
+    if (bScalar2 && _pDouble1->getDims() == 2 && _pDouble1->isVector())
     {
         //_pDouble1 is a vector and _pDouble is a scalar
-        *_pDoubleOut = new Double(_pDouble1->getRows(), _pDouble1->getCols() , true);
+        *_pDoubleOut = new Double(_pDouble1->getRows(), _pDouble1->getCols(), true);
 
         if (bComplex1 == false && bComplex2 == false)
         {
-            for (int i = 0 ; i < (*_pDoubleOut)->getSize() ; i++)
+            for (int i = 0; i < (*_pDoubleOut)->getSize(); i++)
             {
                 iPowerRealScalarByRealScalar(
                     _pDouble1->get(i),
@@ -226,7 +172,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
         }
         else if (bComplex1 == false && bComplex2 == true)
         {
-            for (int i = 0 ; i < (*_pDoubleOut)->getSize() ; i++)
+            for (int i = 0; i < (*_pDoubleOut)->getSize(); i++)
             {
                 iPowerRealScalarByComplexScalar(
                     _pDouble1->get(i),
@@ -236,7 +182,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
         }
         else if (bComplex1 == true && bComplex2 == false)
         {
-            for (int i = 0 ; i < (*_pDoubleOut)->getSize() ; i++)
+            for (int i = 0; i < (*_pDoubleOut)->getSize(); i++)
             {
                 iPowerComplexScalarByRealScalar(
                     _pDouble1->get(i), _pDouble1->getImg(i),
@@ -246,7 +192,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
         }
         else if (bComplex1 == true && bComplex2 == true)
         {
-            for (int i = 0 ; i < (*_pDoubleOut)->getSize() ; i++)
+            for (int i = 0; i < (*_pDoubleOut)->getSize(); i++)
             {
                 iPowerComplexScalarByComplexScalar(
                     _pDouble1->get(i), _pDouble1->getImg(i),
@@ -263,7 +209,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
         return 0;
     }
 
-    if (bScalar2 && ( _pDouble1->getRows() == _pDouble1->getCols()))
+    if (bScalar2 && (_pDouble1->getRows() == _pDouble1->getCols()))
     {
         //power of a square matrix by a scalar exponent.
         int iRet = 0;
@@ -273,7 +219,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
             return 0;
         }
 
-        *_pDoubleOut = new Double(_pDouble1->getRows(), _pDouble1->getCols() , true);
+        *_pDoubleOut = new Double(_pDouble1->getRows(), _pDouble1->getCols(), true);
         if (bComplex1 == false)
         {
             iRet = iPowerRealSquareMatrixByRealScalar(
@@ -307,9 +253,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 
 int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
 {
-    bool bComplex1  = _pPoly->isComplex();
-    bool bComplex2  = _pDouble->isComplex();
-    bool bScalar1   = _pPoly->isScalar();
+    bool bComplex1 = _pPoly->isComplex();
+    bool bComplex2 = _pDouble->isComplex();
+    bool bScalar1 = _pPoly->isScalar();
 
     if (bComplex2)
     {
@@ -327,11 +273,11 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
     if (bScalar1)
     {
         //p ^ x or p ^ X
-        int iRank   = 0;
+        int iRank = 0;
         int* piRank = new int[_pDouble->getSize()];
 
         _pPoly->getRank(&iRank);
-        for (int i = 0 ; i < _pDouble->getSize() ; i++)
+        for (int i = 0; i < _pDouble->getSize(); i++)
         {
             int iInputRank = (int)_pDouble->get(i);
             if (iInputRank < 0)
@@ -348,12 +294,12 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
         Polynom* pOut = new Polynom(_pPoly->getVariableName(), _pDouble->getRows(), _pDouble->getCols(), piRank);
         pOut->setComplex(bComplex1);
 
-        for (int i = 0 ; i < _pDouble->getSize() ; i++)
+        for (int i = 0; i < _pDouble->getSize(); i++)
         {
             SinglePoly* pCoeffOut = pOut->get(i);
 
-            int iCurrentRank    = 0;
-            int iLoop           = (int)_pDouble->get(i);
+            int iCurrentRank = 0;
+            int iLoop = (int)_pDouble->get(i);
 
             //initialize Out to 1
             pCoeffOut->set(0, 1);
@@ -392,337 +338,3 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
     }
     return 0;
 }
-
-int DotPowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
-{
-    if (_pDouble->isEmpty())
-    {
-        //p .^ []
-        *_pOut = Double::Empty();
-        return 0;
-    }
-
-    int iSize = _pPoly->getSize();
-    Double** pDblPower  = new Double*[iSize];
-    double* pdblPower   = _pDouble->get();
-    if (_pPoly->isScalar())
-    {
-        return PowerPolyByDouble(_pPoly, _pDouble, _pOut);
-    }
-    else if (_pDouble->isScalar())
-    {
-        if (pdblPower[0] < 0)
-        {
-            //call overload
-            _pOut = NULL;
-            delete[] pDblPower;
-            return 0;
-        }
-
-        for (int i = 0; i < iSize; i++)
-        {
-            pDblPower[i] = new Double(pdblPower[0]);
-        }
-    }
-    else if (_pDouble->getSize() == iSize)
-    {
-        for (int i = 0; i < iSize; i++)
-        {
-            if (pdblPower[i] < 0)
-            {
-                //call overload
-                _pOut = NULL;
-                delete[] pDblPower;
-                return 0;
-            }
-
-            pDblPower[i] = new Double(pdblPower[i]);
-        }
-    }
-    else
-    {
-        delete[] pDblPower;
-        throw ast::ScilabError(_W("Invalid exponent.\n"));
-    }
-
-    InternalType* pITTempOut    = NULL;
-    Polynom* pPolyTemp          = new Polynom(_pPoly->getVariableName(), 1, 1);
-    Polynom* pPolyOut           = new Polynom(_pPoly->getVariableName(), _pPoly->getDims(), _pPoly->getDimsArray());
-    SinglePoly** pSPOut         = pPolyOut->get();
-    SinglePoly** pSPTemp        = pPolyTemp->get();
-    SinglePoly** pSP            = _pPoly->get();
-
-    int iResult = 0;
-    for (int i = 0; i < iSize; i++)
-    {
-        // set singlePoly of _pPoly in pPolyTemp without copy
-        pSPTemp[0] = pSP[i];
-        iResult = PowerPolyByDouble(pPolyTemp, pDblPower[i], &pITTempOut);
-        if (iResult)
-        {
-            break;
-        }
-
-        // get singlePoly of pITTempOut and set it in pPolyOut without copy
-        SinglePoly** pSPTempOut = pITTempOut->getAs<Polynom>()->get();
-        pSPOut[i] = pSPTempOut[0];
-        pSPTempOut[0] = NULL;
-        delete pITTempOut;
-    }
-
-    // delete exp
-    for (int i = 0; i < iSize; i++)
-    {
-        delete pDblPower[i];
-    }
-
-    delete pDblPower;
-
-    // delete temporary polynom
-    // do not delete the last SinglePoly of _pPoly setted without copy in pPolyTemp
-    pSPTemp[0] = NULL;
-    delete pPolyTemp;
-
-    switch (iResult)
-    {
-        case 1 :
-        {
-            delete pPolyOut;
-            throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
-        }
-        case 2 :
-        {
-            delete pPolyOut;
-            throw ast::ScilabError(_W("Invalid exponent.\n"));
-        }
-        default:
-            //OK
-            break;
-    }
-
-    *_pOut = pPolyOut;
-    return 0;
-}
-
-int DotPowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut)
-{
-    int iResultComplex = 0;
-
-    if (_pDouble1->isEmpty() || _pDouble2->isEmpty())
-    {
-        *_pDoubleOut = Double::Empty();
-    }
-    else if (_pDouble1->isIdentity())
-    {
-        return 1;
-    }
-    else if (_pDouble2->isIdentity())
-    {
-        *_pDoubleOut = dynamic_cast<Double*>(_pDouble1->clone());
-    }
-    else if (_pDouble1->isScalar())
-    {
-        //a .^ (b or B)
-        *_pDoubleOut = new Double(_pDouble2->getDims() , _pDouble2->getDimsArray(), true);
-
-        if (_pDouble1->isComplex())
-        {
-            double dblR1 = _pDouble1->get(0);
-            double dblI1 = _pDouble1->getImg(0);
-
-            if (_pDouble2->isComplex())
-            {
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble2->getSize() ; i++)
-                {
-                    iPowerComplexScalarByComplexScalar(
-                        dblR1, dblI1,
-                        _pDouble2->get(i), _pDouble2->getImg(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-            else
-            {
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble2->getSize() ; i++)
-                {
-                    iPowerComplexScalarByRealScalar(
-                        dblR1, dblI1,
-                        _pDouble2->get(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-        }
-        else
-        {
-            double dblR1 = _pDouble1->get(0);
-            if (_pDouble2->isComplex())
-            {
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble2->getSize() ; i++)
-                {
-                    iPowerRealScalarByComplexScalar(
-                        dblR1,
-                        _pDouble2->get(i), _pDouble2->getImg(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0 ; i < _pDouble2->getSize() ; i++)
-                {
-                    int iComplex = 1;
-                    iPowerRealScalarByRealScalar(
-                        dblR1,
-                        _pDouble2->get(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i], &iComplex);
-                    iResultComplex |= iComplex;
-                }
-            }
-        }
-    }
-    else if (_pDouble2->isScalar())
-    {
-        //A .^ b
-        *_pDoubleOut = new Double(_pDouble1->getDims() , _pDouble1->getDimsArray(), true);
-        if (_pDouble1->isComplex())
-        {
-            double dblR2 = _pDouble2->get(0);
-            if (_pDouble2->isComplex())
-            {
-                double dblI2 = _pDouble2->getImg(0);
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    iPowerComplexScalarByComplexScalar(
-                        _pDouble1->get(i), _pDouble1->getImg(i),
-                        dblR2, dblI2,
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-            else
-            {
-                double dblR2 = _pDouble2->get(0);
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    iPowerComplexScalarByRealScalar(
-                        _pDouble1->get(i), _pDouble1->getImg(i),
-                        dblR2,
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-        }
-        else
-        {
-            double dblR2 = _pDouble2->get(0);
-            if (_pDouble2->isComplex())
-            {
-                double dblI2 = _pDouble2->getImg(0);
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    iPowerRealScalarByComplexScalar(
-                        _pDouble1->get(i),
-                        dblR2, dblI2,
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    int iComplex = 1;
-                    iPowerRealScalarByRealScalar(
-                        _pDouble1->get(i),
-                        dblR2,
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i], &iComplex);
-                    iResultComplex |= iComplex;
-                }
-            }
-        }
-    }
-    else
-    {
-        //A .^ B
-        //check dimension compatibilities ( same number of dimension and same size for each dimension
-        int iDims1      = _pDouble1->getDims();
-        int* piDims1    = _pDouble1->getDimsArray();
-        int iDims2      = _pDouble2->getDims();
-        int* piDims2    = _pDouble2->getDimsArray();
-
-        if (iDims1 != iDims2)
-        {
-            return 1;
-        }
-
-        for (int i = 0 ; i < iDims1 ; i++)
-        {
-            if (piDims1[i] != piDims2[i])
-            {
-                return 1;
-            }
-        }
-
-        (*_pDoubleOut) = new Double(iDims2, piDims2, true);
-
-        if (_pDouble1->isComplex())
-        {
-            if (_pDouble2->isComplex())
-            {
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    iPowerComplexScalarByComplexScalar(
-                        _pDouble1->get(i), _pDouble1->getImg(i),
-                        _pDouble2->get(i), _pDouble2->getImg(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-            else
-            {
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    iPowerComplexScalarByRealScalar(
-                        _pDouble1->get(i), _pDouble1->getImg(i),
-                        _pDouble2->get(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-        }
-        else
-        {
-            if (_pDouble2->isComplex())
-            {
-                iResultComplex = 1;
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    iPowerRealScalarByComplexScalar(
-                        _pDouble1->get(i),
-                        _pDouble2->get(i), _pDouble2->getImg(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0 ; i < _pDouble1->getSize() ; i++)
-                {
-                    int iComplex = 1;
-                    iPowerRealScalarByRealScalar(
-                        _pDouble1->get(i),
-                        _pDouble2->get(i),
-                        &(*_pDoubleOut)->get()[i], &(*_pDoubleOut)->getImg()[i], &iComplex);
-                    iResultComplex |= iComplex;
-                }
-            }
-        }
-    }
-
-    if (iResultComplex == 0)
-    {
-        (*_pDoubleOut)->setComplex(false);
-    }
-    return 0;
-}
-

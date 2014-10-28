@@ -25,10 +25,6 @@ using namespace types;
 int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut);
 int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut);
 
-//dot power operations
-int DotPowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut);
-int DotPowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut);
-
 extern "C"
 {
     /*declare extern fortran functions*/
