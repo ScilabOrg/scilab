@@ -78,6 +78,17 @@ InternalType *GenericRDivide(InternalType *_pLeftOperand, InternalType *_pRightO
         iResult = RDivideDoubleByPoly(pL, pR, (Polynom**)&pResult);
     }
 
+    /*
+    ** SPARSE / DOUBLE
+    */
+    else if (TypeL == GenericType::ScilabSparse && TypeR == GenericType::ScilabDouble)
+    {
+        Sparse *pL = _pLeftOperand->getAs<types::Sparse>();
+        Double *pR = _pRightOperand->getAs<Double>();
+
+        iResult = RDivideSparseByDouble(pL, pR, &pResult);
+    }
+
     //manage errors
     if (iResult)
     {
@@ -430,6 +441,93 @@ int RDivideDoubleByPoly(Double* /*_pDouble*/, Polynom* /*_pPoly*/, Polynom** /*_
 {
     return 0;
 }
+
+int RDivideSparseByDouble(types::Sparse* _pSp, types::Double* _pDouble, InternalType** _pSpOut)
+{
+    if (_pDouble->isEmpty())
+    {
+        //sp .^ []
+        *_pSpOut = Double::Empty();
+        return 0;
+    }
+
+    int iSize = _pSp->getSize();
+    Double** pDbl = new Double*[iSize];
+    Double** pDblSp = new Double*[iSize];
+    double* pdbl = _pDouble->get();
+
+    if (_pDouble->isScalar())
+    {
+        if (_pDouble->isComplex())
+        {
+            double* pdblImg = _pDouble->getImg();
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[0], pdblImg[0]);
+                pDblSp[i] = new Double(_pSp->get(i), _pSp->getImg(i).imag());
+            }
+        }
+        else
+        {
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[0]);
+                pDblSp[i] = new Double(_pSp->getReal(i), _pSp->getImg(i).imag());
+            }
+        }
+    }
+    else if (_pDouble->getSize() == iSize)
+    {
+        if (_pDouble->isComplex())
+        {
+            double* pdblImg = _pDouble->getImg();
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[i], pdblImg[i]);
+                pDblSp[i] = new Double(_pSp->getReal(i), _pSp->getImg(i).imag());
+            }
+        }
+        else
+        {
+            for (int i = 0; i < iSize; i++)
+            {
+                pDbl[i] = new Double(pdbl[i]);
+                pDblSp[i] = new Double(_pSp->getReal(i), _pSp->getImg(i).imag());
+            }
+        }
+    }
+    else
+    {
+        delete[] pDblSp;
+        throw ast::ScilabError(_W("Invalid exponent.\n"));
+        return 1;
+    }
+
+    Sparse* pSpTemp = new Sparse(_pSp->getRows(), _pSp->getCols(), _pSp->isComplex() || _pDouble->isComplex());
+    pSpTemp->zero_set();
+
+    Double* ppDblGet = NULL;
+    int iResultat;
+    for (int i = 0; i < iSize; i++)
+    {
+        if ((pDblSp[i]->get(0) != 0) || (pDblSp[i]->getImg(0) != 0))
+        {
+            iResultat = RDivideDoubleByDouble(pDblSp[i], pDbl[i], &ppDblGet);
+            if (iResultat != 0)
+            {
+                return iResultat;
+            }
+            std::complex<double> cplx(ppDblGet->get(0), ppDblGet->getImg(0));
+            pSpTemp->set(i, cplx, true);
+        }
+    }
+
+    *_pSpOut = pSpTemp;
+    return 0;
+}
+
+
+
 
 int DotRDivideDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut)
 {
