@@ -21,7 +21,4 @@ int RDivideDoubleByDouble(types::Double *_pDouble1, types::Double *_pDouble2, ty
 int RDividePolyByDouble(types::Polynom* _pPoly, types::Double* _pDouble, types::Polynom** _pPolyOut);
 int RDivideDoubleByPoly(types::Double* _pDouble, types::Polynom* _pPoly, types::Polynom** _pPolyOut);
 
-int DotRDivideDoubleByDouble(types::Double *_pDouble1, types::Double *_pDouble2, types::Double **_pDoubleOut);
-int DotRDividePolyByDouble(types::Polynom *_pPoly1, types::Double *_pDouble2, types::Polynom **_pPolyOut);
-
 #endif /* !__TYPES_DIVIDE_HXX__ */
