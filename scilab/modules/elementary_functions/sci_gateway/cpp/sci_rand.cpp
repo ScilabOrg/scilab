@@ -40,6 +40,7 @@ double getNextRandValue(int _iRandType, int* _piRandSave, int _iForceInit);
 
 types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
+    types::Double* pOut = NULL;
     static int siRandType = 0;
     static int siRandSave = 0;
     static int iForceInit	= 0;
@@ -132,6 +133,7 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
             iSizeIn--;
         }
 
+
         if (iSizeIn == 1)
         {
             //rand(X) or rand(X, "")
@@ -167,31 +169,90 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
         }
         else
         {
-            int iDims = iSizeIn;
-            int *piDims = new int[iDims];
-
-            //check others parameter type and size
-            for (int i = 0 ; i < iSizeIn ; i++)
+            int iDims = static_cast<int>(in.size());
+            int* piDims = new int[iDims];
+            for (int i = 0; i < iDims; i++)
             {
-                if (in[i]->isDouble() == false || in[i]->getAs<types::Double>()->isScalar() == false)
+                if (in[i]->isGenericType() == false)
                 {
-                    delete[] piDims;
-                    Scierror(999, _("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "rand" , i + 1);
-                    return types::Function::Error;
+                    Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), "rand", i + 1);
+                    return Function::Error;
                 }
 
-                double dValue = in[i]->getAs<types::Double>()->get(0);
-                if (dValue >= INT_MAX)
+                types::GenericType* pGTIn = in[i]->getAs<types::GenericType>();
+                if (pGTIn->isScalar() == false || pGTIn->isComplex())
                 {
-                    delete[] piDims;
-                    Scierror(999, _("%s: variable size exceeded : less than %d expected.\n"), "rand", INT_MAX);
-                    return types::Function::Error;
+                    Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), "rand", i + 1);
+                    return Function::Error;
                 }
 
-                piDims[i] = (int)dValue;
+                switch (in[i]->getType())
+                {
+                    case types::InternalType::ScilabDouble:
+                    {
+                        double dValue = in[i]->getAs<types::Double>()->get(0);
+                        if (dValue >= INT_MAX)
+                        {
+                            Scierror(999, _("%s: variable size exceeded : less than %d expected.\n"), "rand", INT_MAX);
+                            return types::Function::Error;
+                        }
+                        piDims[i] = static_cast<int>(dValue);
+                    }
+                    break;
+                    case types::InternalType::ScilabInt8:
+                        piDims[i] = static_cast<int>(in[i]->getAs<types::Int8>()->get()[0]);
+                        break;
+                    case types::InternalType::ScilabUInt8:
+                        piDims[i] = static_cast<int>(in[i]->getAs<types::UInt8>()->get()[0]);
+                        break;
+                    case types::InternalType::ScilabInt16:
+                        piDims[i] = static_cast<int>(in[i]->getAs<types::Int16>()->get()[0]);
+                        break;
+                    case types::InternalType::ScilabUInt16:
+                        piDims[i] = static_cast<int>(in[i]->getAs<types::UInt16>()->get()[0]);
+                        break;
+                    case types::InternalType::ScilabInt32:
+                        piDims[i] = in[i]->getAs<types::Int32>()->get()[0];
+                        break;
+                    case types::InternalType::ScilabUInt32:
+                        piDims[i] = static_cast<int>(in[i]->getAs<types::UInt32>()->get()[0]);
+                        break;
+                    case types::InternalType::ScilabInt64:
+                    {
+                        long long llValue = in[i]->getAs<types::Int64>()->get(0);
+                        if (llValue >= INT_MAX)
+                        {
+                            Scierror(999, _("%s: variable size exceeded : less than %d expected.\n"), "rand", INT_MAX);
+                            return types::Function::Error;
+                        }
+                        piDims[i] = static_cast<int>(llValue);
+                    }
+                    break;
+                    case types::InternalType::ScilabUInt64:
+                    {
+                        unsigned long long ullValue = in[i]->getAs<types::UInt64>()->get(0);
+                        if (ullValue >= INT_MAX)
+                        {
+                            Scierror(999, _("%s: variable size exceeded : less than %d expected.\n"), "rand", INT_MAX);
+                            return types::Function::Error;
+                        }
+                        piDims[i] = static_cast<int>(ullValue);
+                    }
+                    break;
+                    default:
+                        Scierror(999, _("%s: Wrong type for input argument #%d: Real scalar expected.\n"), "rand", i + 1);
+                        return Function::Error;
+                }
+
+                if (piDims[i] < 1)
+                {
+                    delete[] piDims;
+                    out.push_back(types::Double::Empty());
+                    return types::Function::OK;
+                }
             }
 
-            types::Double* pOut = new types::Double(iDims, piDims);
+            pOut = new Double(iDims, piDims);
             delete[] piDims;
 
             double* pd = pOut->get();
@@ -205,8 +266,7 @@ types::Function::ReturnValue sci_rand(types::typed_list &in, int _iRetCount, typ
     }
     else
     {
-        std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_rand";
-        return Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
+        return Overload::generateNameAndCall(L"rand", in, _iRetCount, out, new ast::ExecVisitor());
     }
 
     return types::Function::OK;
