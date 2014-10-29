@@ -8,21 +8,7 @@ loadXcosLibs();
 // Allocate a Link and access its fields
 lnk = scicos_link()
 objectCreated( 1 , LINK )
-propertyUpdated( 1 , LINK , CONTROL_POINTS ) : NO_CHANGES
-propertyUpdated( 1 , LINK , CONTROL_POINTS ) : NO_CHANGES
-propertyUpdated( 1 , LINK , LABEL ) : NO_CHANGES
-propertyUpdated( 1 , LINK , THICK ) : NO_CHANGES
-propertyUpdated( 1 , LINK , COLOR ) : NO_CHANGES
-propertyUpdated( 1 , LINK , KIND ) : NO_CHANGES
 lnk  = 
-scicos_Link type :
-  xx
-  yy
-  id
-  thick
-  ct
-  from
-  to
 lnk.xx
  ans  =
     []
@@ -43,4 +29,7 @@ lnk.from
     0.    0.    0.
 lnk.to
  ans  =
-    0.    0.    0.
+    0.    0.    1.
+// Check that the Link is freed
+clear
+objectDeleted( 1 , LINK )
