@@ -494,11 +494,12 @@ types::InternalType* getPropList(const ModelAdapter& adaptor, const Controller& 
                 for (int j = 0; j < m * n; ++j)
                 {
                     int strLen = prop_content[index + 3 + numberOfIntNeeded];
+
                     wchar_t* str = new wchar_t[strLen + 1];
                     memcpy(str, &prop_content[index + 3 + numberOfIntNeeded + 1], strLen * sizeof(wchar_t));
                     str[strLen] = '\0';
                     pString->set(j, str);
-                    delete str;
+                    delete[] str;
 
                     numberOfIntNeeded += 1 + strLen;
                 }
@@ -1349,15 +1350,19 @@ ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
         property<ModelAdapter>::add_property(L"equations", &equations::get, &equations::set);
         property<ModelAdapter>::add_property(L"uid", &uid::get, &uid::set);
     }
+
+    diagramAdapter = new DiagramAdapter(0);
 }
 
 ModelAdapter::ModelAdapter(const ModelAdapter& adapter) :
     BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adapter)
 {
+    diagramAdapter = new DiagramAdapter(*(adapter.diagramAdapter));
 }
 
 ModelAdapter::~ModelAdapter()
 {
+    diagramAdapter->killMe();
 }
 
 std::wstring ModelAdapter::getTypeStr()
@@ -1368,6 +1373,17 @@ std::wstring ModelAdapter::getTypeStr()
 std::wstring ModelAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
+}
+
+DiagramAdapter* ModelAdapter::getDiagram() const
+{
+    return new DiagramAdapter(*diagramAdapter);
+}
+
+void ModelAdapter::setDiagram(DiagramAdapter* newDiagram)
+{
+    diagramAdapter->killMe();
+    diagramAdapter = new DiagramAdapter(*newDiagram);
 }
 
 } /* namespace view_scilab */

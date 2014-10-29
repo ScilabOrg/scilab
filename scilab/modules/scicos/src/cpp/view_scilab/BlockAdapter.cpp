@@ -127,8 +127,8 @@ struct doc
 template<> property<BlockAdapter>::props_t property<BlockAdapter>::fields = property<BlockAdapter>::props_t();
 
 BlockAdapter::BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Block> adaptee) :
-    doc_content(new types::List()),
-    BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adaptee)
+    BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adaptee),
+    doc_content(new types::List())
 {
     if (property<BlockAdapter>::properties_have_not_been_set())
     {
@@ -141,8 +141,8 @@ BlockAdapter::BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Blo
 }
 
 BlockAdapter::BlockAdapter(const BlockAdapter& adapter) :
-    doc_content(adapter.getDocContent()),
-    BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adapter)
+    BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adapter),
+    doc_content(adapter.getDocContent())
 {
 }
 
