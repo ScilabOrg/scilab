@@ -14,6 +14,7 @@
 #define BLOCKADAPTER_HXX_
 
 #include <string>
+#include <memory>
 
 #include "utilities.hxx"
 #include "BaseAdapter.hxx"
