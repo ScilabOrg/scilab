@@ -168,6 +168,7 @@ public:
             tlist->set(index, it->get(*static_cast<Adaptor*>(this), controller));
         }
 
+        tlist->IncreaseRef();
         return tlist;
     }
 
@@ -209,9 +210,6 @@ public:
         index = 1;
         for (typename property<Adaptor>::props_t_it it = properties.begin(); it != properties.end(); ++it, ++index)
         {
-            // DEBUG LOG:
-            // std::wcerr << Adaptor::getSharedTypeStr() << L" set " << it->name << std::endl;
-
             bool status = it->set(*static_cast<Adaptor*>(this), current->get(index), controller);
             if (!status)
             {
