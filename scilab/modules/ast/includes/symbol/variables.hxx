@@ -335,6 +335,32 @@ struct Variables
         return plOut;
     }
 
+    bool getVarsNameForWho(std::list<std::wstring>& lstVarName, int* iVarLenMax, std::list<std::wstring>& lstGlobalVarName, int* iGlobalLenMax)
+    {
+        MapVars::const_iterator it = vars.begin();
+        for (; it != vars.end(); ++it)
+        {
+            std::wstring wstrVarName = it->first.getName().c_str();
+            if (it->second->empty() == false)
+            {
+                types::InternalType* pIT = it->second->top()->m_pIT;
+                if (pIT && pIT->isFunction() == false)
+                {
+                    lstVarName.push_back(wstrVarName);
+                    *iVarLenMax = std::max(*iVarLenMax, (int)wstrVarName.size());
+                }
+            }
+
+            if (it->second->isGlobal())
+            {
+                lstGlobalVarName.push_back(wstrVarName);
+                *iGlobalLenMax = std::max(*iGlobalLenMax, (int)wstrVarName.size());
+            }
+        }
+
+        return true;
+    }
+
     std::list<std::wstring>* getFunctionsName()
     {
         std::list<std::wstring>* plOut = new std::list<std::wstring>();

@@ -9,12 +9,20 @@
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
+#include <iomanip>
+
 #include "context.hxx"
 #include "internal.hxx"
 #include "function.hxx"
 #include "macro.hxx"
 #include "macrofile.hxx"
 #include "variables.hxx"
+
+extern "C"
+{
+#include "memory.h"
+#include "os_swprintf.h"
+}
 
 namespace symbol
 {
@@ -336,8 +344,66 @@ void Context::removeGlobalAll()
 
 void Context::print(std::wostream& ostr) const
 {
-    ostr << L"  Environment Variables:" << std::endl;
-    ostr << L"==========================" << std::endl;
+    std::list<std::wstring> lstVar;
+    std::list<std::wstring> lstGlobal;
+    int iVarLenMax = 10; // initialise to the minimal value of padding
+    int iGlobalLenMax = 10; // initialise to the minimal value of padding
+    const_cast<Variables&>(variables).getVarsNameForWho(lstVar, &iVarLenMax, lstGlobal, &iGlobalLenMax);
+
+#define strSize 64
+    wchar_t wcsVarElem[strSize];
+    wchar_t wcsVarVariable[strSize];
+    wchar_t wcsGlobalElem[strSize];
+    wchar_t wcsGlobalVariable[strSize];
+
+    int iMemTotal = 0;
+    int iMemUsed  = 0;
+    int nbMaxVar  = 0;
+
+#ifdef _MSC_VER
+    MEMORYSTATUSEX statex;
+    statex.dwLength = sizeof(statex);
+    GlobalMemoryStatusEx (&statex);
+    iMemTotal = (int)(statex.ullTotalPhys / (1024 * 1024));
+#else
+    iMemTotal = getmemorysize();
+#endif
+
+    ostr << _W("Your variables are:") << std::endl << std::endl;
+    std::list<std::wstring>::const_iterator it = lstVar.begin();
+    for (int i = 1; it != lstVar.end(); ++it, i++)
+    {
+        ostr << std::setw(iVarLenMax + 1) << *it;
+        if (i % 4 == 0)
+        {
+            ostr << std::endl;
+        }
+    }
+
+    os_swprintf(wcsVarElem, strSize, _W(" using %10d elements out of  %10d.\n").c_str(), iMemUsed, iMemTotal);
+    ostr << std::endl << wcsVarElem;
+
+    os_swprintf(wcsVarVariable, strSize, _W(" and   %10d variables out of %10d.\n").c_str(), lstVar.size(), nbMaxVar);
+    ostr << wcsVarVariable;
+
+    ostr << std::endl << _W("Your global variables are:") << std::endl << std::endl;
+    it = lstGlobal.begin();
+    for (int i = 1; it != lstGlobal.end(); ++it, i++)
+    {
+        ostr << std::setw(iGlobalLenMax + 1) << *it;
+        if (i % 4 == 0)
+        {
+            ostr << std::endl;
+        }
+    }
+
+    os_swprintf(wcsGlobalElem, strSize, _W(" using %10d elements out of  %10d.\n").c_str(), iMemUsed, iMemTotal);
+    ostr << std::endl << wcsGlobalElem;
+
+    os_swprintf(wcsGlobalVariable, strSize, _W(" and   %10d variables out of %10d.\n").c_str(), lstGlobal.size(), nbMaxVar);
+    ostr << wcsGlobalVariable;
+
+    ostr << std::endl;
 }
 
 int Context::getScopeLevel()
