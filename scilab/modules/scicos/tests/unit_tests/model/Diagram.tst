@@ -14,6 +14,12 @@ scs_m.objs
 scs_m.version
 scs_m.contrib
 
+clear scs_m
+
+// Create a dummy diagram with one undefined block then clear it
+scs_m = scicos_diagram(objs=list(scicos_block()));
+clear scs_m
+
 // Create a diagram containing 2 summation blocks and two links
 Sum    = BIGSOM_f("define");
 Scope1 = CSCOPE("define");
