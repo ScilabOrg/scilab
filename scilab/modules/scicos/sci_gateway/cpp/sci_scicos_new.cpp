@@ -71,6 +71,7 @@ types::InternalType * alloc_and_set(kind_t k, types::String* type_name, types::t
         }
     }
 
+    adaptor->IncreaseRef();
     return adaptor;
 }
 
