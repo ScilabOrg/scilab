@@ -344,7 +344,7 @@ void C2F(luget1)(int *fmatindex, int *indP, double *P,
                  int *indQ, double *Q, int *ierr)
 {
     char *fmat;
-    if (getluptr((int)*fmatindex, &fmat) == -1)
+    if (getluptr((int)fmatindex, &fmat) == -1)
     {
         *ierr = 1;
         return;
@@ -390,7 +390,7 @@ static void spLusiz(char *eMatrix, int *lsize, int *usize)
 void C2F(lusiz1)(int* fmatindex, int* lsize, int* usize, int *ierr)
 {
     char *fmat;
-    if (getluptr((int)*fmatindex, &fmat) == -1)
+    if (getluptr((int)fmatindex, &fmat) == -1)
     {
         *ierr = 1;
         return;

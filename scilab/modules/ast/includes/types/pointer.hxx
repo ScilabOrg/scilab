@@ -30,6 +30,13 @@ public :
         m_pvData = _pvData;
     }
 
+    Pointer(int _rows, int _cols, void* _pvData, bool complex)
+    {
+        m_iRows = _rows;
+        m_iCols = _cols;
+        m_pvData = _pvData;
+        complex = _cplx;
+    }
     virtual ~Pointer() {}
 
     bool hasToString()
@@ -50,6 +57,11 @@ public :
     bool isPointer(void)
     {
         return true;
+    }
+
+    bool isComplex(void)
+    {
+        return _cplx;
     }
 
     bool toString(std::wostringstream& ostr)
@@ -80,6 +92,7 @@ public :
 protected :
 
     void* m_pvData;
+    bool _cplx;
 };
 }
 
