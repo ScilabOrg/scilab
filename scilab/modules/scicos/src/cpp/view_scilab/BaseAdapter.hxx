@@ -101,7 +101,12 @@ class BaseAdapter : public types::UserType
 
 public:
     BaseAdapter(std::shared_ptr<Adaptee> adaptee) : m_adaptee(adaptee) {};
-    BaseAdapter(const BaseAdapter& adapter) : m_adaptee(adapter.m_adaptee) {};
+    BaseAdapter(const BaseAdapter& adapter) : m_adaptee(0)
+    {
+        Controller controller = Controller();
+        ScicosID id = controller.cloneObject(adapter.getAdaptee()->id());
+        m_adaptee = std::static_pointer_cast<Adaptee>(controller.getObject(id));
+    };
     ~BaseAdapter()
     {
         // do not use adaptee.unique() as adaptee has not been destroyed yet
@@ -168,6 +173,7 @@ public:
             tlist->set(index, it->get(*static_cast<Adaptor*>(this), controller));
         }
 
+        tlist->IncreaseRef();
         return tlist;
     }
 
@@ -209,9 +215,6 @@ public:
         index = 1;
         for (typename property<Adaptor>::props_t_it it = properties.begin(); it != properties.end(); ++it, ++index)
         {
-            // DEBUG LOG:
-            // std::wcerr << Adaptor::getSharedTypeStr() << L" set " << it->name << std::endl;
-
             bool status = it->set(*static_cast<Adaptor*>(this), current->get(index), controller);
             if (!status)
             {
@@ -241,10 +244,7 @@ private:
 
     types::InternalType* clone()
     {
-        Controller controller = Controller();
-        ScicosID id = controller.cloneObject(getAdaptee()->id());
-        std::shared_ptr<Adaptee> adaptee = std::static_pointer_cast<Adaptee>(controller.getObject(id));
-        return new Adaptor(adaptee);
+        return new Adaptor(*static_cast<Adaptor*>(this));
     }
 
     /*
