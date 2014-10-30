@@ -32,7 +32,7 @@ types::Function::ReturnValue sci_lufact(types::typed_list &in, int _iRetCount, t
 
     double abstol   = 0;
     double reltol   = 0.001;
-    int fmatindex   = 0;
+    int *fmatindex   = NULL;
     int nrank       = 0;
     int ierr        = 0;
     int m           = 0;
@@ -110,14 +110,15 @@ types::Function::ReturnValue sci_lufact(types::typed_list &in, int _iRetCount, t
     dbl = new double[nonZeros];
     colPos = new int[nonZeros];
     itemsRow = new int[m];
+    fmatindex = new int[1];
 
     pSpIn->outputValues(dbl, NULL);
     pSpIn->getNbItemByRow(itemsRow);
     pSpIn->getColPos(colPos);
 
-    C2F(lufact1)(dbl, itemsRow, colPos, &m, &nonZeros, &fmatindex, &abstol, &reltol, &nrank, &ierr);
+    C2F(lufact1)(dbl, itemsRow, colPos, &m, &nonZeros, fmatindex, &abstol, &reltol, &nrank, &ierr);
 
-    out.push_back(new types::Pointer((void*)&fmatindex));
+    out.push_back(new types::Pointer((void*)fmatindex));
     if (_iRetCount == 2)
     {
         out.push_back(new types::Double((double)nrank));
