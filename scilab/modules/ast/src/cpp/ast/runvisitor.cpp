@@ -794,18 +794,27 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                 break;
             }
 
-            if ((&e)->isContinuable() && (*itExp)->isContinue())
-            {
-                const_cast<SeqExp *>(&e)->setContinue();
-                break;
-            }
-
             if ((&e)->isReturnable() && (*itExp)->isReturn())
             {
                 const_cast<SeqExp *>(&e)->setReturn();
                 (*itExp)->resetReturn();
                 break;
             }
+
+            if ((&e)->isContinuable() && (*itExp)->isReturn())
+            {
+                const_cast<SeqExp *>(&e)->setReturn();
+                (*itExp)->resetReturn();
+                break;
+            }
+
+            if ((&e)->isContinuable() && (*itExp)->isContinue())
+            {
+                const_cast<SeqExp *>(&e)->setContinue();
+                break;
+            }
+
+
         }
         catch (const ScilabMessage& sm)
         {
