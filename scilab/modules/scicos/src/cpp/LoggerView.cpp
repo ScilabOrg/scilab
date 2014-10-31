@@ -266,11 +266,11 @@ void LoggerView::objectCreated(const ScicosID& uid, kind_t k)
     }
 }
 
-void LoggerView::objectDeleted(const ScicosID& uid)
+void LoggerView::objectDeleted(const ScicosID& uid, kind_t k)
 {
     std::stringstream ss;
 
-    ss << __FUNCTION__ << "( " << uid << " )" << std::endl;
+    ss << __FUNCTION__ << "( " << uid << " , " << k << " )" << std::endl;
 
     if (USE_SCILAB_WRITE)
     {
@@ -311,18 +311,18 @@ void LoggerView::propertyUpdated(const ScicosID& uid, kind_t k, object_propertie
 void LoggerView::propertyUpdated(const ScicosID& uid, kind_t k, object_properties_t p,
                                  update_status_t u)
 {
-    std::stringstream ss;
-
-    ss << __FUNCTION__ << "( " << uid << " , " << k << " , " << p << " ) : " << u << std::endl;
-
-    if (USE_SCILAB_WRITE)
-    {
-        scilabForcedWrite(ss.str().data());
-    }
-    else
-    {
-        std::cerr << ss.str();
-    }
+    //    std::stringstream ss;
+    //
+    //    ss << __FUNCTION__ << "( " << uid << " , " << k << " , " << p << " ) : " << u << std::endl;
+    //
+    //    if (USE_SCILAB_WRITE)
+    //    {
+    //        scilabForcedWrite(ss.str().data());
+    //    }
+    //    else
+    //    {
+    //        std::cerr << ss.str();
+    //    }
 }
 
 } /* namespace org_scilab_modules_scicos */

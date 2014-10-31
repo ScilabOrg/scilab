@@ -153,7 +153,7 @@ void Controller::deleteObject(ScicosID uid)
 
     for (view_set_t::iterator iter = _instance->allViews.begin(); iter != _instance->allViews.end(); ++iter)
     {
-        (*iter)->objectDeleted(uid);
+        (*iter)->objectDeleted(uid, k);
     }
 }
 
