@@ -76,7 +76,20 @@ public :
 
     bool isComplex()
     {
-        return (m_pImgData != NULL) || isViewAsZComplex();
+        if (m_pImgData == NULL)
+        {
+            return false;
+        }
+        for (int i = 0; i < m_iSize; i++)
+        {
+            if (m_pImgData[i] != 0)
+            {
+                return true;
+            }
+        }
+        return false;
+
+        // return (m_pImgData != NULL) || isViewAsZComplex();
     }
 
     bool isTrue()
@@ -142,10 +155,10 @@ public :
     inline ScilabId             getId(void)
     {
         return isIdentity() ? isComplex() ? IdIdentityComplex : IdIdentity
-       : isEmpty() ? IdEmpty
+               : isEmpty() ? IdEmpty
                : isComplex() ? isScalar() ? IdScalarDoubleComplex
                : IdDoubleComplex
-       : isScalar() ? IdScalarDouble
+               : isScalar() ? IdScalarDouble
                : IdDouble;
     }
 
