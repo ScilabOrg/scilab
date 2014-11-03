@@ -17,5 +17,4 @@ x = rand(5,5,100)+%i;
 warning('off');
 ierr = execstr('savematfile TMPDIR/bug_649.mat x','errcatch');
 warning('on');
-fields = getfield(1,x);
-if ierr<>999 | lasterror()<>msprintf(gettext("%s: Mlists of type %s can not be written to Matlab binary files.\n"), "GetMlistVariable", fields(1)) then bugmes();quit;end
+if ierr<>999 | lasterror()<>msprintf(gettext("%s: Wrong number of dimensions for input argument #%d: %d expected.\n"), "GetDoubleVariable", 3, 2) then bugmes();quit;end

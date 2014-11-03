@@ -370,6 +370,21 @@ SciErr getVarDimension(void *_pvCtx, int *_piAddress, int *_piRows, int *_piCols
 }
 
 /*--------------------------------------------------------------------------*/
+int getVarDimensions(void *_pvCtx, int *_piAddress)
+{
+    SciErr sciErr = sciErrInit();
+
+    if (_piAddress != NULL && isVarMatrixType(_pvCtx, _piAddress))
+    {
+        InternalType* pIT = (InternalType*)_piAddress;
+        GenericType* pGT = dynamic_cast<GenericType*>(pIT);
+        return pGT->getDims();
+    }
+
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/
 SciErr getNamedVarDimension(void *_pvCtx, const char *_pstName, int *_piRows, int *_piCols)
 {
     SciErr sciErr = sciErrInit();
