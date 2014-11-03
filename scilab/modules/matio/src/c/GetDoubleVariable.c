@@ -45,6 +45,7 @@ matvar_t * GetDoubleVariable(void *pvApiCtx, int iVar, const char* name, int mat
             return 0;
         }
         isComplex = isVarComplex(pvApiCtx, var_addr);
+        rank = getVarDimensions(pvApiCtx, var_addr);
     }
     else
     {
@@ -61,6 +62,12 @@ matvar_t * GetDoubleVariable(void *pvApiCtx, int iVar, const char* name, int mat
             return 0;
         }
         isComplex = isVarComplex(pvApiCtx, item_addr);
+        rank = getVarDimensions(pvApiCtx, item_addr);
+    }
+    if (rank != 2)
+    {
+        Scierror(999, _("%s: Wrong number of dimensions for input argument #%d: %d expected.\n"), "GetDoubleVariable", iVar, 2);
+        return NULL;
     }
 
     if (var_type == sci_matrix) /* 2-D array */

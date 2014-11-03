@@ -250,6 +250,13 @@ extern "C" {
     SciErr getVarDimension(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols);
 
     /**
+    * Get variable dimensions
+    * @param[in] _piAddress variable address
+    * @return Dims
+    */
+    int getVarDimensions(void *_pvCtx, int *_piAddress);
+
+    /**
      * Get named variable dimensions
      * @param[in] _pstName variable name
      * @param[out] _piRows return number of rows
