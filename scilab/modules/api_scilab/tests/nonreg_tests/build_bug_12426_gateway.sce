@@ -31,14 +31,13 @@ if getos() == "Windows" then
 
 elseif isdir(lib1include)
     // Unix source version
-    libs   = SCI + "/modules/" + lib1 + "/.libs/lib" + lib1;
-    cflags = "-I " lib1include;
+    libs   = SCI + "/modules/" + lib1 + "/.libs/libsci" + lib1;
+    cflags = "-I " + lib1include;
 else
     // Unix binary version
     SCI_LIB     = strsubst(SCI,"/share\/scilab$/", "lib/scilab", "r");
     SCI_INCLUDE = strsubst(SCI,"/share\/scilab$/", "include/scilab", "r");
-    libs        = SCI_LIB + "/lib" + lib1 + ..
-    SCI_LIB + "/lib" + lib1;
+    libs        = SCI_LIB + "/libscilab-cli";
     cflags      = "-I " + SCI_INCLUDE;
 end
 
