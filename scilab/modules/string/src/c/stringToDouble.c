@@ -220,6 +220,22 @@ double stringToDoubleW(const wchar_t *pSTR, BOOL bConvertByNAN, stringToDoubleEr
         {
             dValue = -M_PI;
         }
+        else if ((wcsicmp(pSTR, ScilabPosEStringW) == 0) || (wcsicmp(pSTR, ScilabEStringW) == 0))
+        {
+            dValue = exp(1);
+        }
+        else if (wcsicmp(pSTR, ScilabNegEStringW) == 0)
+        {
+            dValue = -exp(1);
+        }
+        else if ((wcsicmp(pSTR, ScilabEpsStringW) == 0) || (wcsicmp(pSTR, ScilabPosEpsStringW) == 0))
+        {
+            dValue = EPSILON;
+        }
+        else if (wcsicmp(pSTR, ScilabNegEpsStringW) == 0)
+        {
+            dValue = -EPSILON;
+        }
         else
         {
             wchar_t* pstReplaced = replace_D_By_EW(pSTR);
