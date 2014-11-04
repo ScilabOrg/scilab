@@ -14,6 +14,8 @@
 #include "function.hxx"
 #include "double.hxx"
 #include "string.hxx"
+#include "overload.hxx"
+#include "execvisitor.hxx"
 
 
 extern "C"
@@ -55,8 +57,7 @@ types::Function::ReturnValue sci_dsearch(types::typed_list &in, int _iRetCount, 
     // input data
     if (in[0]->isDouble() == false)
     {
-        Scierror(999, _("%s: Wrong type for argument #%d: Real matrix expected.\n"), "dsearch", 1);
-        return types::Function::Error;
+        return Overload::generateNameAndCall(L"dsearch", in, _iRetCount, out, new ast::ExecVisitor());
     }
 
     pDblIn = in[0]->getAs<types::Double>();
