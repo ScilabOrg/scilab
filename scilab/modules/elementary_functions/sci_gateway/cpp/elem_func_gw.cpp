@@ -90,11 +90,23 @@ bool getDimsFromArguments(types::typed_list& in, char* _pstName, int* _iDims, in
 
     if (in.size() == 0)
     {
-        *_iDims = 2;
-        *_piDims = new int[*_iDims];
-        (*_piDims)[0] = 1;
-        (*_piDims)[1] = 1;
-        *_alloc = true;
+        if (_pstName != "eye")
+        {
+            *_iDims = 2;
+            *_piDims = new int[*_iDims];
+            (*_piDims)[0] = 1;
+            (*_piDims)[1] = 1;
+            *_alloc = true;
+        }
+        else
+        {
+            *_iDims = 2;
+            *_piDims = new int[*_iDims];
+            (*_piDims)[0] = -1;
+            (*_piDims)[1] = -1;
+            *_alloc = true;
+
+        }
         return true;
     }
     else if (in.size() == 1)
