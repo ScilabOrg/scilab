@@ -400,7 +400,8 @@ GRAPHICS_C_SOURCES = \
     src/c/addColor.c
 
 GRAPHICS_CXX_SOURCES = \
-    src/cpp/configgraphicvariable.cpp
+    src/cpp/configgraphicvariable.cpp \
+    src/cpp/set_data_property.cpp
 
 GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_swap_handles.c \
