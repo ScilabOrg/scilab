@@ -28,6 +28,11 @@ propertyUpdated( 1 , ANNOTATION , DESCRIPTION ) : NO_CHANGES
 propertyUpdated( 1 , ANNOTATION , FONT ) : NO_CHANGES
 propertyUpdated( 1 , ANNOTATION , FONT_SIZE ) : NO_CHANGES
 o  = 
+scicos_Text type :
+  graphics
+  model
+  void
+  gui
 o.graphics
  ans  =
 orig = [0,0]
@@ -60,6 +65,11 @@ propertyUpdated( 2 , ANNOTATION , FONT ) : SUCCESS
 propertyUpdated( 2 , ANNOTATION , FONT_SIZE ) : SUCCESS
 objectDeleted( 1 , ANNOTATION )
 o  = 
+scicos_Text type :
+  graphics
+  model
+  void
+  gui
 close;
 o.graphics
  ans  =

@@ -55,6 +55,11 @@ propertyUpdated( 1 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.graphics
  ans  =
 orig = [0,0]
@@ -228,6 +233,11 @@ propertyUpdated( 1 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 4 , PORT )
 objectDeleted( 1 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.graphics
  ans  =
 orig = [0,0]
@@ -394,6 +404,11 @@ propertyUpdated( 5 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 8 , PORT )
 objectDeleted( 5 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.graphics
  ans  =
 orig = [0,0]
@@ -564,6 +579,11 @@ propertyUpdated( 9 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 12 , PORT )
 objectDeleted( 9 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.graphics
  ans  =
 orig = [0,0]
@@ -670,6 +690,11 @@ propertyUpdated( 13 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 16 , PORT )
 objectDeleted( 13 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.graphics
  ans  =
 orig = [0,0]
@@ -827,6 +852,11 @@ propertyUpdated( 18 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 20 , PORT )
 objectDeleted( 18 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 // Test 'opar' and 'odstate'
 o = LOGIC("define")
 objectCreated( 24 , BLOCK )
@@ -898,6 +928,11 @@ propertyUpdated( 21 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 23 , PORT )
 objectDeleted( 21 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.model.opar
  ans  =
        ans(1)
@@ -905,10 +940,9 @@ o.model.opar
   0
   0
   1
-typeof(o.model.opar(1))
- ans  =
- int8
-o.model.opar = list([1 2 3; 4 5 6], ["Hello" "world!"; "Test" "123"], [%i 2 3*%i; 4 5*%i 6], uint32([32 32; 32 32]));
+assert_checkequal(typeof(o.model.opar(1)), "int8");
+listRef = list([1 2 3; 4 5 6], ["Hello" "world!"; "Test" "123"], [%i 2 3*%i; 4 5*%i 6], uint32([32 32; 32 32]));
+o.model.opar = listRef;
 propertyUpdated( 24 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
 propertyUpdated( 26 , PORT , DATATYPE ) : NO_CHANGES
@@ -933,22 +967,8 @@ propertyUpdated( 24 , BLOCK , LABEL ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , UID ) : NO_CHANGES
-o.model.opar
- ans  =
-       ans(1)
-    1.    2.    3.
-    4.    5.    6.
-       ans(2)
-!Hello  world!  !
-!               !
-!Test   123     !
-       ans(3)
-    i      2.    3.i
-    4.    5.i    6.
-       ans(4)
-  32  32
-  32  32
-o.model.odstate = list([1 2 3; 4 5 6], ["Hello" "world!"; "Test" "123"], [%i 2 3*%i; 4 5*%i 6], uint32([32 32; 32 32]));
+assert_checkequal(o.model.opar, listRef);
+o.model.odstate = listRef;
 propertyUpdated( 24 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
 propertyUpdated( 26 , PORT , DATATYPE ) : NO_CHANGES
@@ -973,21 +993,7 @@ propertyUpdated( 24 , BLOCK , LABEL ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 24 , BLOCK , UID ) : NO_CHANGES
-o.model.odstate
- ans  =
-       ans(1)
-    1.    2.    3.
-    4.    5.    6.
-       ans(2)
-!Hello  world!  !
-!               !
-!Test   123     !
-       ans(3)
-    i      2.    3.i
-    4.    5.i    6.
-       ans(4)
-  32  32
-  32  32
+assert_checkequal(o.model.odstate, listRef);
 // Test 'equations'
 o = VsourceAC("define")
 objectCreated( 29 , BLOCK )
@@ -1078,6 +1084,11 @@ propertyUpdated( 24 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 28 , PORT )
 objectDeleted( 24 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.model.equations
  ans  =
        ans(1)
@@ -1098,7 +1109,8 @@ o.model.equations
     220.
          ans(5)(2)(2)
     50.
-o.model.equations = modelica();
+listRef = modelica();
+o.model.equations = listRef;
 propertyUpdated( 29 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
 propertyUpdated( 29 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
 propertyUpdated( 30 , PORT , DATATYPE ) : NO_CHANGES
@@ -1120,21 +1132,7 @@ propertyUpdated( 29 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 29 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 29 , BLOCK , EQUATIONS ) : SUCCESS
 propertyUpdated( 29 , BLOCK , UID ) : NO_CHANGES
-o.model.equations
- ans  =
-       ans(1)
-!modelica  model  inputs  outputs  parameters  !
-       ans(2)
-    []
-       ans(3)
-    []
-       ans(4)
-    []
-       ans(5)
-        ans(5)(1)
-    []
-        ans(5)(2)
-     ()
+assert_checkequal(o.model.equations, listRef);
 // Test 'exprs' with Modelica Block
 o = MBLOCK("define")
 objectCreated( 32 , BLOCK )
@@ -1228,6 +1226,11 @@ propertyUpdated( 29 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 31 , PORT )
 objectDeleted( 29 , BLOCK )
 o  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 o.graphics
  ans  =
 orig = [0,0]

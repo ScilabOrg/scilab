@@ -58,11 +58,21 @@ l = list(Sum);
 // Copy the list content (no duplicate)
 Sum2 = l(1)
 Sum2  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 // The following action should not delete the Block in the model
 clear Sum
 // Sum2's refCount must have been affected by "clear Sum"
 Sum2
 Sum2  = (2)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 // Delete the original block in the model
 clear
 propertyUpdated( 1 , BLOCK , INPUTS ) : SUCCESS
