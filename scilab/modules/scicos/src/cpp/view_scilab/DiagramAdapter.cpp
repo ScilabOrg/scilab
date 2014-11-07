@@ -66,7 +66,64 @@ struct objs
 
     static types::InternalType* get(const DiagramAdapter& adaptor, const Controller& controller)
     {
-        return adaptor.getListObjects();
+        // Get all children of the Diagram and return them as a list
+        model::Diagram* adaptee = adaptor.getAdaptee().get();
+
+        std::vector<ScicosID> children;
+        controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, children);
+
+        types::List* o = new types::List();
+
+        int link_number = 0;
+        Controller newController;
+        for (int i = 0; i < static_cast<int>(children.size()); ++i)
+        {
+            std::shared_ptr<model::BaseObject> item = newController.getObject(children[i]);
+            switch (item->kind())
+            {
+                case ANNOTATION:
+                {
+                    std::shared_ptr<model::Annotation> annotation = std::static_pointer_cast<model::Annotation>(item);
+                    TextAdapter* localAdaptor = new TextAdapter(annotation);
+
+                    localAdaptor->IncreaseRef();
+                    o->set(i, localAdaptor);
+                    continue;
+                }
+                case BLOCK:
+                {
+                    std::shared_ptr<model::Block> block = std::static_pointer_cast<model::Block>(item);
+                    BlockAdapter* localAdaptor = new BlockAdapter(block);
+
+                    localAdaptor->IncreaseRef();
+                    o->set(i, localAdaptor);
+                    continue;
+                }
+                case LINK:
+                {
+                    std::shared_ptr<model::Link> link = std::static_pointer_cast<model::Link>(item);
+                    LinkAdapter* localAdaptor = new LinkAdapter(link);
+
+                    // In case a Link points to a Block that has not been added yet,
+                    // retrieve the 'from' and 'to' values from the Diagram Adapter if they have been saved,
+                    // without updating the model
+                    DiagramAdapter& rwAdaptor = const_cast<DiagramAdapter&>(adaptor);
+                    if (!rwAdaptor.getFrom().empty())
+                    {
+                        localAdaptor->setFrom(rwAdaptor.getFrom()[link_number], newController);
+                        localAdaptor->setTo(rwAdaptor.getTo()[link_number], newController);
+                        link_number++;
+                    }
+
+                    localAdaptor->IncreaseRef();
+                    o->set(i, localAdaptor);
+                    continue;
+                }
+                default:
+                    return 0;
+            }
+        }
+        return o;
     }
 
     static bool set(DiagramAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -149,8 +206,6 @@ struct objs
             }
         }
         controller.setObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, diagramChildren);
-
-        adaptor.setListObjects(v);
 
         // Do the linking at model-level
         for (int i = 0; i < static_cast<int>(linkListView.size()); ++i)
@@ -252,7 +307,6 @@ template<> property<DiagramAdapter>::props_t property<DiagramAdapter>::fields = 
 
 DiagramAdapter::DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram> adaptee) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adaptee),
-    list_objects(new types::List()),
     from_vec(),
     to_vec(),
     contrib_content(new types::List())
@@ -269,7 +323,6 @@ DiagramAdapter::DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model:
 
 DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adapter),
-    list_objects(adapter.getListObjects()),
     from_vec(adapter.from_vec),
     to_vec(adapter.to_vec),
     contrib_content(adapter.getContribContent())
@@ -290,9 +343,6 @@ DiagramAdapter::~DiagramAdapter()
             controller.setObjectProperty(id, o->kind(), PARENT_DIAGRAM, 0ll);
         }
     }
-
-    list_objects->DecreaseRef();
-    list_objects->killMe();
 
     contrib_content->DecreaseRef();
     contrib_content->killMe();
@@ -322,31 +372,24 @@ void DiagramAdapter::setContribContent(types::InternalType* v)
     contrib_content = v;
 }
 
-types::InternalType* DiagramAdapter::getListObjects() const
-{
-    return list_objects;
-}
-
-void DiagramAdapter::setListObjects(types::InternalType* v)
-{
-    // The old 'list_objects' needs to be freed after setting it to 'v'
-    types::InternalType* temp = list_objects;
-
-    v->IncreaseRef();
-    list_objects = v;
-
-    temp->DecreaseRef();
-    temp->killMe();
-}
-
 std::vector<link_t>& DiagramAdapter::getFrom()
 {
     return from_vec;
 }
 
+void DiagramAdapter::setFrom(std::vector<link_t>& v)
+{
+    from_vec = v;
+}
+
 std::vector<link_t>& DiagramAdapter::getTo()
 {
     return to_vec;
+}
+
+void DiagramAdapter::setTo(std::vector<link_t>& v)
+{
+    to_vec = v;
 }
 
 } /* namespace view_scilab */

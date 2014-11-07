@@ -61,17 +61,12 @@ struct model
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
         ModelAdapter localAdaptor = ModelAdapter(adaptor.getAdaptee());
-        types::MList* ret = localAdaptor.getAsTList(new types::MList(), controller)->getAs<types::MList>();
 
-        // If the Block is a SuperBlock, set its 'rpar' property with the saved Diagram
-        DiagramAdapter* rpar_content = adaptor.getRpar()->getAs<DiagramAdapter>();
-        if (rpar_content != 0 && localAdaptor.getDiagram() == 0)
-        {
-            // Decrease rpar_content's ref count to counter the increases from the other Adapters
-            rpar_content->DecreaseRef();
-            rpar_content->DecreaseRef();
-            ret->set(rpar, rpar_content);
-        }
+        BlockAdapter& rwAdaptor = const_cast<BlockAdapter&>(adaptor);
+        localAdaptor.setFrom(rwAdaptor.getFrom());
+        localAdaptor.setTo(rwAdaptor.getTo());
+
+        types::MList* ret = localAdaptor.getAsTList(new types::MList(), controller)->getAs<types::MList>();
 
         return ret;
     }
@@ -84,7 +79,8 @@ struct model
             return false;
         }
 
-        adaptor.setRpar(localAdaptor.getDiagram());
+        adaptor.setFrom(localAdaptor.getFrom());
+        adaptor.setTo(localAdaptor.getTo());
         return true;
     }
 };
@@ -150,7 +146,8 @@ template<> property<BlockAdapter>::props_t property<BlockAdapter>::fields = prop
 
 BlockAdapter::BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Block> adaptee) :
     BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adaptee),
-    rpar_content(nullptr),
+    from_vec(),
+    to_vec(),
     doc_content(new types::List())
 {
     if (property<BlockAdapter>::properties_have_not_been_set())
@@ -165,19 +162,14 @@ BlockAdapter::BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Blo
 
 BlockAdapter::BlockAdapter(const BlockAdapter& adapter) :
     BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adapter),
-    rpar_content(adapter.getRpar()),
+    from_vec(adapter.from_vec),
+    to_vec(adapter.to_vec),
     doc_content(adapter.getDocContent())
 {
 }
 
 BlockAdapter::~BlockAdapter()
 {
-    if (rpar_content != nullptr)
-    {
-        rpar_content->DecreaseRef();
-        rpar_content->killMe();
-    }
-
     doc_content->DecreaseRef();
     doc_content->killMe();
 }
@@ -190,33 +182,6 @@ std::wstring BlockAdapter::getTypeStr()
 std::wstring BlockAdapter::getShortTypeStr()
 {
     return getSharedTypeStr();
-}
-
-types::InternalType* BlockAdapter::getRpar() const
-{
-    if (rpar_content != nullptr)
-    {
-        rpar_content->IncreaseRef();
-    }
-    return rpar_content;
-}
-
-void BlockAdapter::setRpar(types::InternalType* v)
-{
-    if (v != nullptr)
-    {
-        // The old 'rpar_content' needs to be freed after setting it to 'v'
-        types::InternalType* temp = rpar_content;
-
-        v->IncreaseRef();
-        rpar_content = v;
-
-        if (temp != nullptr)
-        {
-            temp->DecreaseRef();
-            temp->killMe();
-        }
-    }
 }
 
 types::InternalType* BlockAdapter::getDocContent() const
@@ -232,6 +197,26 @@ void BlockAdapter::setDocContent(types::InternalType* v)
 
     v->IncreaseRef();
     doc_content = v;
+}
+
+std::vector<link_t>& BlockAdapter::getFrom()
+{
+    return from_vec;
+}
+
+void BlockAdapter::setFrom(std::vector<link_t>& v)
+{
+    from_vec = v;
+}
+
+std::vector<link_t>& BlockAdapter::getTo()
+{
+    return to_vec;
+}
+
+void BlockAdapter::setTo(std::vector<link_t>& v)
+{
+    to_vec = v;
 }
 
 } /* namespace view_scilab */

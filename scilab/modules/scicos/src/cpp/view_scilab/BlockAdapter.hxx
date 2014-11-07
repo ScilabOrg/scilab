@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "utilities.hxx"
+#include "adapters_utilities.hxx"
 #include "BaseAdapter.hxx"
 #include "model/Block.hxx"
 
@@ -40,14 +41,17 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
-    types::InternalType* getRpar() const;
-    void setRpar(types::InternalType* v);
+    std::vector<link_t>& getFrom();
+    void setFrom(std::vector<link_t>& v);
+    std::vector<link_t>& getTo();
+    void setTo(std::vector<link_t>& v);
 
     types::InternalType* getDocContent() const;
     void setDocContent(types::InternalType* v);
 
 private:
-    types::InternalType* rpar_content;
+    std::vector<link_t> from_vec;
+    std::vector<link_t> to_vec;
 
     types::InternalType* doc_content;
 };

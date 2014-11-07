@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "BaseAdapter.hxx"
+#include "adapters_utilities.hxx"
 #include "DiagramAdapter.hxx"
 #include "model/Block.hxx"
 
@@ -40,11 +41,17 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
+    std::vector<link_t>& getFrom();
+    void setFrom(std::vector<link_t>& v);
+    std::vector<link_t>& getTo();
+    void setTo(std::vector<link_t>& v);
+
     DiagramAdapter* getDiagram() const;
     void setDiagram(DiagramAdapter* newDiagram);
 
 private:
-    DiagramAdapter* diagramAdapter;
+    std::vector<link_t> from_vec;
+    std::vector<link_t> to_vec;
 };
 
 } /* namespace view_scilab */

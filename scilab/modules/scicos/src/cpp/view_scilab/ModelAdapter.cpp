@@ -872,7 +872,13 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram
         {
-            return adaptor.getDiagram();
+            model::Diagram* super = static_cast<model::Diagram*>(controller.getObject(children[children.size() - 1]).get());
+
+            DiagramAdapter* newAdapter = new DiagramAdapter(std::shared_ptr<model::Diagram>(super));
+            ModelAdapter& rwAdaptor = const_cast<ModelAdapter&>(adaptor);
+            newAdapter->setFrom(rwAdaptor.getFrom());
+            newAdapter->setTo(rwAdaptor.getTo());
+            return newAdapter;
         }
     }
 
@@ -911,7 +917,8 @@ struct rpar
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
             diagram->IncreaseRef();
 
-            adaptor.setDiagram(diagram);
+            adaptor.setFrom(diagram->getFrom());
+            adaptor.setTo(diagram->getTo());
 
             // Save the children list, adding the new diagram ID at the end so it is deleted on 'clear'
             std::vector<ScicosID> children;
@@ -1323,7 +1330,8 @@ template<> property<ModelAdapter>::props_t property<ModelAdapter>::fields = prop
 
 ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
     BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adaptee),
-    diagramAdapter(nullptr)
+    from_vec(),
+    to_vec()
 {
     if (property<ModelAdapter>::properties_have_not_been_set())
     {
@@ -1356,17 +1364,13 @@ ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
 
 ModelAdapter::ModelAdapter(const ModelAdapter& adapter) :
     BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adapter),
-    diagramAdapter(adapter.getDiagram())
+    from_vec(adapter.from_vec),
+    to_vec(adapter.to_vec)
 {
 }
 
 ModelAdapter::~ModelAdapter()
 {
-    if (diagramAdapter != nullptr)
-    {
-        diagramAdapter->DecreaseRef();
-        diagramAdapter->killMe();
-    }
 }
 
 std::wstring ModelAdapter::getTypeStr()
@@ -1379,28 +1383,24 @@ std::wstring ModelAdapter::getShortTypeStr()
     return getSharedTypeStr();
 }
 
-DiagramAdapter* ModelAdapter::getDiagram() const
+std::vector<link_t>& ModelAdapter::getFrom()
 {
-    if (diagramAdapter != nullptr)
-    {
-        diagramAdapter->IncreaseRef();
-    }
-    return diagramAdapter;
+    return from_vec;
 }
 
-void ModelAdapter::setDiagram(DiagramAdapter* newDiagram)
+void ModelAdapter::setFrom(std::vector<link_t>& v)
 {
-    // The old 'diagramAdapter' needs to be freed after setting it to 'newDiagram'
-    types::InternalType* temp = diagramAdapter;
+    from_vec = v;
+}
 
-    newDiagram->IncreaseRef();
-    diagramAdapter = newDiagram;
+std::vector<link_t>& ModelAdapter::getTo()
+{
+    return to_vec;
+}
 
-    if (temp != nullptr)
-    {
-        temp->DecreaseRef();
-        temp->killMe();
-    }
+void ModelAdapter::setTo(std::vector<link_t>& v)
+{
+    to_vec = v;
 }
 
 } /* namespace view_scilab */
