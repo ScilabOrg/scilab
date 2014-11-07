@@ -250,19 +250,24 @@ propertyUpdated( 10 , BLOCK , NZCROSS ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , NMODE ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , UID ) : NO_CHANGES
 propertyUpdated( 10 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
-propertyUpdated( 2 , BLOCK , INPUTS ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , OUTPUTS ) : SUCCESS
-propertyUpdated( 2 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
-propertyUpdated( 2 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
-objectDeleted( 3 , PORT )
-objectDeleted( 2 , BLOCK )
 propertyUpdated( 4 , BLOCK , INPUTS ) : SUCCESS
 propertyUpdated( 4 , BLOCK , OUTPUTS ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 propertyUpdated( 4 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 5 , PORT )
 objectDeleted( 4 , BLOCK )
+propertyUpdated( 2 , BLOCK , INPUTS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 2 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 3 , PORT )
+objectDeleted( 2 , BLOCK )
 sb  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 sb.graphics
  ans  =
 orig = [0,0]
@@ -317,6 +322,11 @@ sb.doc
 // Access the contained diagram's fields
 sb.model.rpar
  ans  =
+scicos_diagram type :
+  props
+  objs
+  version
+  contrib
 sb.model.rpar.props
  ans  =
 wpar = []
@@ -332,7 +342,17 @@ doc = list()
 sb.model.rpar.objs
  ans  =
        ans(1)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
        ans(2)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 sb.model.rpar.objs(1).graphics
  ans  =
 orig = [40,40]
@@ -1126,6 +1146,11 @@ propertyUpdated( 18 , BLOCK , EVENT_OUTPUTS ) : SUCCESS
 objectDeleted( 21 , PORT )
 objectDeleted( 18 , BLOCK )
 clk  = 
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
 clk.graphics
  ans  =
 orig = [0,0]
@@ -1173,6 +1198,11 @@ equations = list()
 uid = ""
 clk.model.rpar
  ans  =
+scicos_diagram type :
+  props
+  objs
+  version
+  contrib
 clk.model.rpar.props
  ans  =
 wpar = []
@@ -1188,11 +1218,50 @@ doc = list()
 clk.model.rpar.objs
  ans  =
        ans(1)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
        ans(2)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
        ans(3)
+scicos_Link type :
+  xx
+  yy
+  id
+  thick
+  ct
+  from
+  to
        ans(4)
+scicos_Block type :
+  graphics
+  model
+  gui
+  doc
        ans(5)
+scicos_Link type :
+  xx
+  yy
+  id
+  thick
+  ct
+  from
+  to
        ans(6)
+scicos_Link type :
+  xx
+  yy
+  id
+  thick
+  ct
+  from
+  to
 clk.model.rpar.objs(1).graphics
  ans  =
 orig = [399,162]
@@ -1347,7 +1416,35 @@ clk.model.rpar.objs(6).to
  ans  =
     2.    1.    1.
 // Check that all the model items are freed
-clear
+clear sb clk
+propertyUpdated( 10 , BLOCK , INPUTS ) : SUCCESS
+propertyUpdated( 10 , BLOCK , OUTPUTS ) : NO_CHANGES
+propertyUpdated( 10 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 10 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 11 , PORT )
+propertyUpdated( 10 , BLOCK , INPUTS ) : NO_CHANGES
+propertyUpdated( 10 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 10 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 10 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 12 , PORT )
+propertyUpdated( 1 , DIAGRAM , CHILDREN ) : SUCCESS
+propertyUpdated( 6 , BLOCK , INPUTS ) : NO_CHANGES
+propertyUpdated( 6 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 6 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 6 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 7 , PORT )
+propertyUpdated( 10 , BLOCK , CHILDREN ) : SUCCESS
+objectDeleted( 6 , BLOCK )
+propertyUpdated( 1 , DIAGRAM , CHILDREN ) : SUCCESS
+propertyUpdated( 8 , BLOCK , INPUTS ) : SUCCESS
+propertyUpdated( 8 , BLOCK , OUTPUTS ) : NO_CHANGES
+propertyUpdated( 8 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 8 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 9 , PORT )
+propertyUpdated( 10 , BLOCK , CHILDREN ) : SUCCESS
+objectDeleted( 8 , BLOCK )
+objectDeleted( 1 , DIAGRAM )
+objectDeleted( 10 , BLOCK )
 propertyUpdated( 38 , BLOCK , INPUTS ) : NO_CHANGES
 propertyUpdated( 38 , BLOCK , OUTPUTS ) : NO_CHANGES
 propertyUpdated( 38 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
@@ -1406,31 +1503,3 @@ propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
 objectDeleted( 37 , LINK )
 objectDeleted( 22 , DIAGRAM )
 objectDeleted( 38 , BLOCK )
-propertyUpdated( 10 , BLOCK , INPUTS ) : SUCCESS
-propertyUpdated( 10 , BLOCK , OUTPUTS ) : NO_CHANGES
-propertyUpdated( 10 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
-propertyUpdated( 10 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
-objectDeleted( 11 , PORT )
-propertyUpdated( 10 , BLOCK , INPUTS ) : NO_CHANGES
-propertyUpdated( 10 , BLOCK , OUTPUTS ) : SUCCESS
-propertyUpdated( 10 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
-propertyUpdated( 10 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
-objectDeleted( 12 , PORT )
-propertyUpdated( 1 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 6 , BLOCK , INPUTS ) : NO_CHANGES
-propertyUpdated( 6 , BLOCK , OUTPUTS ) : SUCCESS
-propertyUpdated( 6 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
-propertyUpdated( 6 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
-objectDeleted( 7 , PORT )
-propertyUpdated( 10 , BLOCK , CHILDREN ) : SUCCESS
-objectDeleted( 6 , BLOCK )
-propertyUpdated( 1 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 8 , BLOCK , INPUTS ) : SUCCESS
-propertyUpdated( 8 , BLOCK , OUTPUTS ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
-objectDeleted( 9 , PORT )
-propertyUpdated( 10 , BLOCK , CHILDREN ) : SUCCESS
-objectDeleted( 8 , BLOCK )
-objectDeleted( 1 , DIAGRAM )
-objectDeleted( 10 , BLOCK )
