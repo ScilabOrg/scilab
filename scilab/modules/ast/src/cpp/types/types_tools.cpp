@@ -365,6 +365,8 @@ void VariableToString(types::InternalType* pIT, const wchar_t* wcsVarName)
                 //show message on prompt
                 bFinish = linesmore() == 1;
             }
+
+            scilabWriteW(ostr.str().c_str());
             ostr.str(L"");
         }
         while (bFinish == false);
