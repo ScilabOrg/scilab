@@ -1609,6 +1609,8 @@ public :
         bool bFinish = parseSubMatrix(ostr, piDims, m_iDims, m_iDims - 1);
         delete[] piDims;
         scilabWriteW(ostr.str().c_str());
+        // reset ostr after scilabWriteW call
+        ostr.str(L"");
         return bFinish;
     }
 
