@@ -396,6 +396,11 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
             out.push_back(in[0]);
             break;
         }
+        case GenericType::ScilabFunction:
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: Handle matrix expected.\n"), "string", 1);
+            return Function::Error;
+        }
         case GenericType::ScilabMacroFile :
         {
             if (_iRetCount != 3)
