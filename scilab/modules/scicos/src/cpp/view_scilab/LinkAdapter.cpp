@@ -784,9 +784,7 @@ struct to
 template<> property<LinkAdapter>::props_t property<LinkAdapter>::fields = property<LinkAdapter>::props_t();
 
 LinkAdapter::LinkAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Link> adaptee) :
-    BaseAdapter<LinkAdapter, org_scilab_modules_scicos::model::Link>(adaptee),
-    m_from {0, 0, Start},
-m_to {0, 0, End}
+    BaseAdapter<LinkAdapter, org_scilab_modules_scicos::model::Link>(adaptee)
 {
     if (property<LinkAdapter>::properties_have_not_been_set())
     {
