@@ -26,6 +26,7 @@
 
 extern "C"
 {
+#include "Scierror.h"
 #include "core_math.h"
 #include "elem_common.h"
 #include "finite.h"
@@ -600,6 +601,19 @@ bool ImplicitList::invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetC
     }
     else
     {
+        int iDims = static_cast<int>(in.size());
+        //:(:)
+        for (int i = 0; i < iDims; i++)
+        {
+            InternalType* pIT = (in)[i];
+            if (pIT->isColon() || pIT->isImplicitList() || pIT->isString())
+            {
+                std::wostringstream os;
+                os << _W("Eye variable undefined in this context.\n");
+                throw ast::ScilabError(os.str(), 999, (*e.getArgs().begin())->getLocation());
+            }
+        }
+
         InternalType * _out = extract(&in);
         if (!_out)
         {
@@ -618,6 +632,18 @@ InternalType* ImplicitList::extract(typed_list* _pArgs)
     int iDims = (int)_pArgs->size();
     typed_list pArg;
     InternalType* pOut = NULL;
+
+    //:(:)
+    for (int i = 0; i < iDims; i++)
+    {
+        InternalType* pIT = (*_pArgs)[i];
+        if (pIT->isColon() || pIT->isImplicitList() || pIT->isString())
+        {
+            Scierror(999, _("Eye variable undefined in this context.\n"));
+            return NULL;
+        }
+    }
+
     int index = 0;
 
     int* piMaxDim = new int[iDims];
