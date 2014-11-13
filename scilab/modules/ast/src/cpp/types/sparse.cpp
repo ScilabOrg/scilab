@@ -284,6 +284,7 @@ Sparse::Sparse( Sparse const& src) : GenericType(src)
     m_iDims = 2;
     m_piDims[0] = const_cast<Sparse*>(&src)->getRows();
     m_piDims[1] = const_cast<Sparse*>(&src)->getCols();
+    finalize();
 }
 
 Sparse::Sparse(int _iRows, int _iCols, bool cplx)
@@ -296,6 +297,7 @@ Sparse::Sparse(int _iRows, int _iCols, bool cplx)
     m_iDims = 2;
     m_piDims[0] = _iRows;
     m_piDims[1] = _iCols;
+    finalize();
 }
 
 Sparse::Sparse(Double SPARSE_CONST& src)
