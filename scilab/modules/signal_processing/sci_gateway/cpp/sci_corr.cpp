@@ -14,7 +14,9 @@
 #include "signal_gw.hxx"
 #include "double.hxx"
 #include "string.hxx"
+#include "internal.hxx"
 #include "function.hxx"
+#include "signalprocessingfunctions.hxx"
 
 extern "C"
 {
@@ -23,8 +25,8 @@ extern "C"
 #include "sciprint.h"
 
     //fortran prototypes
-    extern void C2F(tscccf)(double *x, double *y, int *length, double *cxy, double *xymean, int *lag, int *error);
-
+    //extern void C2F(tscccf)(double *x, double *y, int *length, double *cxy, double *xymean, int *lag, int *error);
+    //  extern void C2F(cmpse2)(int *iSect, int *iTotalSize, int *iMode, void *pXFunction,void *pYFunction, double *xa, double *xr, double *xi, double *zr, double *zi, int *error);
 }
 
 /*--------------------------------------------------------------------------*/
@@ -40,8 +42,7 @@ types::Function::ReturnValue sci_corr(types::typed_list &in, int _iRetCount, typ
     //call format
     if (in[0]->isString())
     {
-        sciprint(_("%ls: Need to plug external call"), L"corr");
-        return types::Function::Error;
+
 
         types::String* pS = in[0]->getAs<types::String>();
         if (pS->getSize() == 1 && pS->get(0)[0] == L'f')
@@ -52,8 +53,16 @@ types::Function::ReturnValue sci_corr(types::typed_list &in, int _iRetCount, typ
             int iTotalSize              = 0;
             int iSize                   = 0;
             int iMode                   = 0;
-            types::Callable* pXFunction = NULL;
-            types::Callable* pYFunction = NULL;
+            types::InternalType* pXFunction = NULL;
+            types::InternalType* pYFunction = NULL;
+            double * xa = NULL;
+            double * xi = NULL;
+            double * xr = NULL;
+            double * zr = NULL;
+            double * zi = NULL;
+            char *dx = NULL;
+            char *dy = NULL;
+            bool bOK = false;
 
             //check input parameters
             if (in.size() < 4 || in.size() > 5)
@@ -82,28 +91,67 @@ types::Function::ReturnValue sci_corr(types::typed_list &in, int _iRetCount, typ
 
             iTotalSize = (int)in[iPos]->getAs<types::Double>()->get(0);
 
+            Signalprocessingfunctions* deFunctionsManager = new Signalprocessingfunctions(L"corr");
+            Signalprocessing::addSignalprocessingfunctions(deFunctionsManager);
             //get xmacro
-            if (in[1]->isCallable() == false)
+            if (in[1]->isCallable())
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A function expected.\n"), "corr", 2);
+                pXFunction = in[1]->getAs<types::Callable>();
+                deFunctionsManager->setDgetx(in[1]->getAs<types::Callable>());
+            }
+            else if (in[1]->isString())
+            {
+                pXFunction = in[1]->getAs<types::String>();
+                deFunctionsManager->setDgetx(in[1]->getAs<types::String>());
+            }
+            else
+            {
+                Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), "corr", iPos + 1);
                 return types::Function::Error;
             }
 
-            pXFunction = in[1]->getAs<types::Callable>();
             iMode = 2;
 
             if (in.size() == 5)
             {
                 //get ymacro
-                if (in[2]->isCallable() == false)
+                if (in[2]->isCallable())
                 {
-                    Scierror(999, _("%s: Wrong type for input argument #%d: A function expected.\n"), "corr", 3);
+                    pYFunction = in[2]->getAs<types::Callable>();
+                    deFunctionsManager->setDgety(in[2]->getAs<types::Callable>());
+                }
+                else if (in[2]->isString())
+                {
+                    pYFunction = in[2]->getAs<types::String>();
+                    deFunctionsManager->setDgety(in[2]->getAs<types::String>());
+                }
+                else
+                {
+                    Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), "corr", iPos + 2);
                     return types::Function::Error;
                 }
 
-                pYFunction = in[2]->getAs<types::Callable>();
                 iMode = 3;
             }
+            xa = new double[iSect];
+            xi = new double[iSect];
+            xr = new double[iSect];
+            zr = new double[iSect / 2 + 1];
+            zi = new double[iSect / 2 + 1];
+            C2F(cmpse2)(&iSect, &iTotalSize, &iMode, (void*) dgetx_f, (void*) dgety_f, xa, xr, xi, zr, zi, &iErr);
+            if (iErr > 0)
+            {
+                Scierror(999, _("fft call : needs power of two!"));
+                return types::Function::Error;
+            }
+            types::Double *pDblOut1 = new types::Double(1, iSect);
+            pDblOut1->set(xa);
+            out.push_back(pDblOut1);
+            types::Double *pDblOut2 = new types::Double(1, iMode - 1);
+            pDblOut2->set(xr);
+
+            out.push_back(pDblOut2);
+            return types::Function::OK;
 
         }
         else if (pS->getSize() == 1 && pS->get(0)[0] == L'u')
@@ -212,3 +260,4 @@ types::Function::ReturnValue sci_corr(types::typed_list &in, int _iRetCount, typ
     }
     return types::Function::OK;
 }
+
