@@ -176,7 +176,7 @@ Double* StringToDouble(String* _pst)
         for (int j = 0; j < pstLen[i]; j++, index++)
         {
             //transform character value as double.
-            pdbl[index] = pst[i][j];
+            pdbl[index] = (unsigned char)pst[i][j];
         }
     }
 
