@@ -43,7 +43,6 @@ char *wide_string_to_UTF8(const wchar_t *_wide)
     {
         return (char *)NULL;
     }
-    size += 1;
     buf = (char*)MALLOC(sizeof(char) * size);
     if (buf)
     {
@@ -54,45 +53,52 @@ char *wide_string_to_UTF8(const wchar_t *_wide)
             return (char *)NULL;
         }
     }
+
+    buf[size - 1] = '\0';
     return buf;
 }
 /*--------------------------------------------------------------------------*/
-wchar_t *to_wide_string(const char *_UTFStr)
+static wchar_t *to_wide_string_common(const char *_UTFStr, int codePage)
 {
     int nwide = 0;
     wchar_t *_buf = NULL;
-
-    /* About MultiByteToWideChar :
-    Starting with Windows Vista,
-    the function does not drop illegal code points
-    if the application does not set this flag.
-
-    Windows XP: To prevent the security problem of the non-shortest-form
-    versions of UTF-8 characters, MultiByteToWideChar deletes these characters.
-    */
-
     DWORD dwFlags = 0;
 
     if (_UTFStr == NULL)
     {
         return NULL;
     }
-    nwide = MultiByteToWideChar(CP_UTF8, dwFlags, _UTFStr, -1, NULL, 0);
+
+    nwide = MultiByteToWideChar(codePage, dwFlags, _UTFStr, -1, NULL, 0);
     if (nwide == 0)
     {
         return NULL;
     }
+
     _buf = (wchar_t *)MALLOC(nwide * sizeof(wchar_t));
     if (_buf == NULL)
     {
         return NULL;
     }
-    if (MultiByteToWideChar(CP_UTF8, dwFlags, _UTFStr, -1, _buf, nwide) == 0)
+
+    if (MultiByteToWideChar(codePage, dwFlags, _UTFStr, -1, _buf, nwide) == 0)
     {
         FREE(_buf);
         _buf = NULL;
     }
+
+    _buf[nwide - 1] = L'\0';
     return _buf;
+}
+/*--------------------------------------------------------------------------*/
+wchar_t *to_wide_string(const char *_UTFStr)
+{
+    return to_wide_string_common(_UTFStr, CP_UTF8);
+}
+/*--------------------------------------------------------------------------*/
+wchar_t *to_wide_string_from_ascii(const char *_UTFStr)
+{
+    return to_wide_string_common(_UTFStr, CP_ACP);
 }
 /*--------------------------------------------------------------------------*/
 int wcstat(char* filename, struct _stat *st)
