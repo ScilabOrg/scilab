@@ -79,7 +79,7 @@ public :
 
     InternalType* clone()
     {
-        return new Pointer(m_pvData);
+        return new Pointer(m_iRows, m_iCols, m_pvData, m_cplx);
     }
 
     void* get()
