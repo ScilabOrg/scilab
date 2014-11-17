@@ -14,15 +14,7 @@
 //    The median function with a sparse as a first argument did not return the
 //    good result. Moreover, median(sparse,'r'|'c") were not supported.
 // =============================================================================
-s=sparse([1 0 2 0 0 ; 0 -4 0 0 7 ])
- s  =
- 
-(    2,    5) sparse matrix
- 
-(    1,    1)        1. 
-(    1,    3)        2. 
-(    2,    2)      - 4. 
-(    2,    5)        7. 
+s=sparse([1 0 2 0 0 ; 0 -4 0 0 7 ]);
 y = median(s);
 res = sparse(median(full(s)));
 assert_checkequal(y, res);
