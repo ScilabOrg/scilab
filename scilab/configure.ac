@@ -24,6 +24,18 @@ SCI_BUILDDIR="`pwd`"
 SCI_SRCDIR="$srcdir"
 SCI_SRCDIR_FULL="`cd $SCI_SRCDIR && pwd`"
 
+if test -d "$SCI_SRCDIR_FULL/usr"; then
+    WITH_DEVTOOLS=true
+    DEVTOOLS_BINDIR="$SCI_SRCDIR_FULL/usr/bin"
+    DEVTOOLS_INCDIR="$SCI_SRCDIR_FULL/usr/include"
+    DEVTOOLS_LIBDIR="$SCI_SRCDIR_FULL/usr/lib"
+else
+    WITH_DEVTOOLS=false
+    DEVTOOLS_BINDIR=
+    DEVTOOLS_INCDIR=
+    DEVTOOLS_LIBDIR=
+fi
+
 SCILAB_VERSION_MAJOR=5
 SCILAB_VERSION_MINOR=5
 SCILAB_VERSION_MAINTENANCE=2
@@ -1504,11 +1516,12 @@ ACX_ARPACK(
         [AC_MSG_RESULT([ARPACK-NG library found])],
         AC_MSG_ERROR([Impossible to find the ARPACK library. Please note that arpack was bundled with version prior to 5.4.0 and Scilab requires arpack-ng ( http://forge.scilab.org/index.php/p/arpack-ng/ ).])
         )
-
-CHECK_ARPACK_OK(
-[AC_MSG_RESULT([Working ARPACK-NG library found (probably ARPACK-NG or a patched version of ARPACK)])],
-[AC_MSG_ERROR([ARPACK library found, but seems not to work properly. Please make sure you are using arpack-ng])
-])
+if ! $WITH_DEVTOOLS; then
+    CHECK_ARPACK_OK(
+    [AC_MSG_RESULT([Working ARPACK-NG library found (probably ARPACK-NG or a patched version of ARPACK)])],
+    [AC_MSG_ERROR([ARPACK library found, but seems not to work properly. Please make sure you are using arpack-ng])
+    ])
+fi
 else
    AC_MSG_CHECKING([Skip ARPACK-NG detection])
 fi
@@ -1631,7 +1644,12 @@ if test "$with_matio" != no; then
       MATIO_CFLAGS="$with_matio_include"
       MATIO_LIBS="$with_matio_library -lm -lz -lmatio -lhdf5"
    else
-      PKG_CHECK_MODULES(MATIO, [matio >= 1.5.0])
+      if $WITH_DEVTOOLS; then # Scilab thirdparties
+         MATIO_CFLAGS="-I$DEVTOOLS_INCDIR"
+         MATIO_LIBS="-L$DEVTOOLS_LIBDIR -lm -lz -lmatio -lhdf5"
+      else
+         PKG_CHECK_MODULES(MATIO, [matio >= 1.5.0])
+      fi
    fi
 
    save_CFLAGS="$CFLAGS"
@@ -2070,6 +2088,8 @@ echo "  Compilation tests (--enable-compilation-tests) ... = $COMPILATION_TESTS"
 echo "  Make the package relocatable (--enable-relocatable)= $RELOCATABLE"
 echo "  Use FFTW (--without-fftw) ........................ = $with_fftw"
 echo "  Use MATIO (--without-matio) ...................... = $with_matio"
+echo ""
+echo "  Compile with Scilab thirdparties ................. = $WITH_DEVTOOLS"
 
 echo ""
 if test "$with_gui" = no; then
