@@ -39,7 +39,7 @@ namespace view_scilab
 namespace
 {
 
-std::wstring rpar(L"rpar");
+const std::wstring rpar(L"rpar");
 
 struct graphics
 {
@@ -67,8 +67,6 @@ struct model
         DiagramAdapter* rpar_content = adaptor.getRpar()->getAs<DiagramAdapter>();
         if (rpar_content != 0 && localAdaptor.getDiagram() == 0)
         {
-            // Decrease rpar_content's ref count to counter the increases from the other Adapters
-            rpar_content->DecreaseRef();
             ret->set(rpar, rpar_content);
         }
 
