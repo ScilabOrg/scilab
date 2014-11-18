@@ -3,6 +3,7 @@
     <refnamediv>
         <refname>comp</refname>
         <refpurpose>pré-interprétation ou "compilation" de fonctions Scilab  </refpurpose>
+        <refpurpose>comp est obsolète et sera supprimé de Scilab 6.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>

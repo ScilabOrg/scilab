@@ -3,6 +3,7 @@
     <refnamediv>
         <refname>comp</refname>
         <refpurpose>scilab function compilation</refpurpose>
+        <refpurpose>comp is obsolete and will be removed in Scilab 6.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Calling Sequence</title>

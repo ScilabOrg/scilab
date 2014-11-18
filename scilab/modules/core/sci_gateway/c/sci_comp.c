@@ -10,11 +10,20 @@
  *
  */
 #include "gw_core.h"
+#include "sciprint.h"
+#include "warningmode.h"
+#include "localization.h"
 /*--------------------------------------------------------------------------*/
 extern int C2F(intcomp)(void); /* fortran */
 /*--------------------------------------------------------------------------*/
 int C2F(sci_comp)(char *fname, unsigned long fname_len)
 {
+    if (getWarningMode())
+    {
+        sciprint(_("WARNING: Feature %s is obsolete.\n"), fname);
+        sciprint(_("WARNING: This feature will be permanently removed in Scilab %s.\n"), "6");
+    }
+
     C2F(intcomp)();
     return 0;
 }
