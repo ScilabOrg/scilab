@@ -19,6 +19,8 @@
 #include "freeArrayOfString.h"
 #include "strsubst.h"
 #include "MALLOC.h"
+#include "warningmode.h"
+#include "sciprint.h"
 
 //#undef CheckRhs
 //#undef CheckLhs
@@ -85,6 +87,12 @@ static int error_one_rhs(const char *fname)
     {
         if (isDoubleType(pvApiCtx, piAddressVarOne))
         {
+            if (getWarningMode())
+            {
+                sciprint(_("WARNING: Feature %s is obsolete.\n"), fname);
+                sciprint(_("WARNING: This feature will be permanently removed in Scilab %s.\n"), "6");
+            }
+
             iComplex = isVarComplex(pvApiCtx, piAddressVarOne);
             if (iComplex)
             {
@@ -158,6 +166,12 @@ static int error_two_rhs(const char *fname)
     }
     else if (isDoubleType(pvApiCtx, piAddressVarTwo) && isDoubleType(pvApiCtx, piAddressVarOne))
     {
+        if (getWarningMode())
+        {
+            sciprint(_("WARNING: Feature %s is obsolete.\n"), fname);
+            sciprint(_("WARNING: This feature will be permanently removed in Scilab %s.\n"), "6");
+        }
+
         iComplexVarOne = isVarComplex(pvApiCtx, piAddressVarOne);
         iComplexVarTwo = isVarComplex(pvApiCtx, piAddressVarTwo);
         if (iComplexVarOne)

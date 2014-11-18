@@ -8,3 +8,8 @@ Compilation
 
 * --without-xcos now only disable Xcos compilation. Xcos Graphic interface is disabled
 using --without-gui.
+
+Obsolete
+=========
+
+* error with number is obsolete, error(x) or error(x,y)

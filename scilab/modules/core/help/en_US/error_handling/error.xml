@@ -47,21 +47,22 @@
         <para>
             <literal>error(message)</literal> prints the character string contained in
             <literal>message</literal>. The number associated with the error message is
-            10000 
+            10000
         </para>
         <para>
             <literal>error(message,n)</literal> prints the character string contained in
             <literal>message</literal>. The number associated with the error message is
-            given by <literal>n</literal>. This number should be greater than 10000. 
+            given by <literal>n</literal>. This number should be greater than 10000.
         </para>
         <para>
             <literal>error(n)</literal> prints the predefined error message associated with
-            the error number <literal>n</literal>. 
+            the error number <literal>n</literal>.
         </para>
         <para>Some predefined error messages  require a parameter (see
             <link linkend="error_table">error_table</link>). In this case the <literal>pos</literal>
             argument must be used <literal>error(n,pos)</literal> to give the parameter
             value. In the other cases the <literal>pos</literal>  argument is ignored.
+            Warning this will be removed from Scilab 6.
         </para>
         <para>
             See <link linkend="error_table">error_table</link> for a list of error messages and the
@@ -71,8 +72,8 @@
     <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[error('my error message')
-error(43)
-error(52, 3)
+error(43) // Obsolete
+error(52, 3) // Obsolete
 error(10001, ['A'; 'multi';'line';'error';'message'])
 lasterror()]]></programlisting>
     </refsection>

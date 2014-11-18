@@ -62,6 +62,7 @@
             <literal>error_table</literal>). Dans ce cas l'argument <literal>pos</literal> doit
             contenir ce nombre entier : <literal>error(n,pos)</literal>. Dans les autres cas
             l'argument <literal>pos</literal> est ignoré.
+            Attention cette fonctionnalité sera supprimé de Scilab 6.
         </para>
         <para>
             Voir la table des erreurs dans <link linkend="error_table">error_table</link> .
@@ -70,8 +71,8 @@
     <refsection>
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[error('my error message')
-error(43)
-error(52, 3)
+error(43)// Obsolete
+error(52, 3) // Obsolete
 error(10001, ['A'; 'multi';'line';'error';'message'])
 lasterror()]]></programlisting>
     </refsection>
