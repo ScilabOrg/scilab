@@ -169,7 +169,8 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
             throw ScilabError(os.str(), 999, e.getLocation());
         }
 
-        setResult(pReturn);
+        setResult(pReturn->clone());
+        pReturn->killMe();
         pValue->killMe();
     }
     else if (pValue->isFieldExtractionOverloadable())
