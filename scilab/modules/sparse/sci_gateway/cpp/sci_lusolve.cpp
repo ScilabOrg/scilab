@@ -70,6 +70,7 @@ types::Function::ReturnValue sci_lusolve(types::typed_list &in, int _iRetCount, 
     }
     else if (in[0]->isSparse())
     {
+        printf("KKKKK");
         types::Sparse *pSpIn = in[0]->getAs<types::Sparse>();
         m1 = pSpIn->getRows();
         n1 = pSpIn->getCols();
@@ -126,11 +127,7 @@ types::Function::ReturnValue sci_lusolve(types::typed_list &in, int _iRetCount, 
 
         m2 = pDblIn->getRows();
         n2 = pDblIn->getCols();
-        if (m2 != m1)
-        {
-            Scierror(77, _("%s: Wrong size for input argument #%d: Square matrix expected.\n"), "lusolve", 2);
-            return types::Function::Error;
-        }
+
 
         double *dbl  = pDblIn->getReal();
         types::Double *pDblOut = new Double(m2, n2, pDblIn->isComplex());
