@@ -46,6 +46,9 @@ void *Runner::launch(void *args)
         scilabErrorW(se.GetErrorMessage().c_str());
     }
 
+    // reset error state when new prompt occured
+    ConfigVariable::resetError();
+
     __threadKey currentThreadKey = __GetCurrentThreadKey();
 
     //change thread status
