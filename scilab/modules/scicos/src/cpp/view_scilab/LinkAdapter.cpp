@@ -394,7 +394,7 @@ bool checkConnectivity(const int neededType, const ScicosID port, const ScicosID
     return true;
 }
 
-void setLinkEnd(const ScicosID id, Controller& controller, const object_properties_t end, const link_t& v)
+void setLinkEnd(const ScicosID id, Controller& controller, const object_properties_t end, link_t v)
 {
 
     ScicosID from;
@@ -447,6 +447,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     }
 
     // Connect the new one
+
     if (v.kind != Start && v.kind != End)
     {
         return;
@@ -539,30 +540,44 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             }
 
             // Rule out the implicit ports
-            for (std::vector<ScicosID>::iterator it = sourceBlockPorts.begin(); it != sourceBlockPorts.end(); ++it)
+            for (int i = 0; i < sourceBlockPorts.size(); ++i)
             {
                 bool isImplicit;
-                controller.getObjectProperty(*it, PORT, IMPLICIT, isImplicit);
+                controller.getObjectProperty(sourceBlockPorts[i], PORT, IMPLICIT, isImplicit);
                 if (isImplicit == true)
                 {
-                    sourceBlockPorts.erase(it);
+                    sourceBlockPorts.erase(sourceBlockPorts.begin() + i);
+                    if (v.port > i + 1)
+                    {
+                        v.port--; // Keep v.port index consistent with the port indexes
+                    }
                 }
             }
         }
         else // model::implicit
         {
             newPortIsImplicit = true;
-            sourceBlockPorts.insert(sourceBlockPorts.begin(), in.begin(), in.end());
-            sourceBlockPorts.insert(sourceBlockPorts.begin(), out.begin(), out.end());
+            if (v.kind == Start)
+            {
+                sourceBlockPorts = out;
+            }
+            else // End
+            {
+                sourceBlockPorts = in;
+            }
 
             // Rule out the explicit ports
-            for (std::vector<ScicosID>::iterator it = sourceBlockPorts.begin(); it != sourceBlockPorts.end(); ++it)
+            for (int i = 0; i < sourceBlockPorts.size(); ++i)
             {
                 bool isImplicit;
-                controller.getObjectProperty(*it, PORT, IMPLICIT, isImplicit);
+                controller.getObjectProperty(sourceBlockPorts[i], PORT, IMPLICIT, isImplicit);
                 if (isImplicit == false)
                 {
-                    sourceBlockPorts.erase(it);
+                    sourceBlockPorts.erase(sourceBlockPorts.begin() + i);
+                    if (v.port > i + 1)
+                    {
+                        v.port--;
+                    }
                 }
             }
         }
@@ -632,11 +647,9 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     controller.getObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, oldLink);
     if (oldLink != 0)
     {
-        // Disconnect the old other end port and delete the old link
-        ScicosID oldPort;
-        controller.getObjectProperty(oldLink, LINK, otherEnd, oldPort);
-        controller.setObjectProperty(oldPort, PORT, CONNECTED_SIGNALS, unconnected);
-        controller.deleteObject(oldLink);
+        // Disconnect the old link
+        controller.setObjectProperty(oldLink, LINK, end, unconnected);
+        controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
     }
 
     // Connect the new source and destination ports together
