@@ -39,7 +39,7 @@ types::Callable::ReturnValue sci_mprintf(types::typed_list &in, int _iRetCount, 
         return types::Function::Error;
     }
 
-    if (in[0]->isString() == false || in[0]->getAs<types::String>()->getSize() != 1)
+    if (in[0]->isString() == false)
     {
         Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "mprintf" , 1);
         return types::Function::Error;
@@ -54,7 +54,21 @@ types::Callable::ReturnValue sci_mprintf(types::typed_list &in, int _iRetCount, 
         }
     }
 
-    wchar_t* pwstInput = in[0]->getAs<types::String>()->get()[0];
+    //wchar_t* pwstInput = in[0]->getAs<types::String>()->get()[0];
+    int isize = in[0]->getAs<types::String>()->getSize();
+    size_t ssize = 0;
+    for (int i = 0; i < isize; i++)
+    {
+        ssize = ssize + wcslen(in[0]->getAs<types::String>()->get()[i]);
+    }
+    wchar_t* pwstInput = new wchar_t[ssize];
+    //int isize = in[0]->getAs<types::String>()->getSize();
+    wcscpy(pwstInput, in[0]->getAs<types::String>()->get()[0]);
+    for (int i = 1; i < isize; i++)
+    {
+        wcscat(pwstInput, in[0]->getAs<types::String>()->get()[i]);
+    }
+
     int iNumberPercent = 0;
     int iNumberPercentPercent = 0;
     for (int i = 0 ; i < wcslen(pwstInput) ; i++)
