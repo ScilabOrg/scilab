@@ -892,10 +892,10 @@ struct rpar
     {
         ScicosID adaptee = adaptor.getAdaptee()->id();
 
-        std::vector<ScicosID> children;
-        controller.getObjectProperty(adaptee, BLOCK, CHILDREN, children);
+        std::vector<ScicosID> diagramChild;
+        controller.getObjectProperty(adaptee, BLOCK, CHILDREN, diagramChild);
 
-        if (children.empty())
+        if (diagramChild.empty())
         {
             std::vector<double> rpar;
             controller.getObjectProperty(adaptee, BLOCK, RPAR, rpar);
@@ -911,7 +911,14 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram
         {
-            return adaptor.getDiagram();
+            std::shared_ptr<model::Diagram> super = std::static_pointer_cast<model::Diagram>(controller.getObject(diagramChild[0]));
+            DiagramAdapter* localAdaptor = new DiagramAdapter(std::shared_ptr<model::Diagram>(super));
+            //model::Diagram* super = static_cast<model::Diagram*>(controller.getObject(diagramC[0]).get());
+            //DiagramAdapter* localAdapter = new DiagramAdapter(std::shared_ptr<model::Diagram>(super));
+
+            localAdaptor->setFrom(adaptor.getDiagram()->getFrom());
+            localAdaptor->setTo(adaptor.getDiagram()->getTo());
+            return localAdaptor;
         }
     }
 
@@ -948,18 +955,17 @@ struct rpar
 
             // Translate 'v' to an DiagramAdapter, save it and update the Block's children list
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
-            diagram->IncreaseRef();
 
             adaptor.setDiagram(diagram);
 
-            // Save the children list, adding the new diagram ID at the end so it is deleted on 'clear'
-            std::vector<ScicosID> children;
-            controller.getObjectProperty(diagram->getAdaptee()->id(), DIAGRAM, CHILDREN, children);
-            children.push_back(diagram->getAdaptee()->id());
-            controller.setObjectProperty(adaptee, BLOCK, CHILDREN, children);
+            // Save the child diagram's ID so it is deleted on 'clear'
+            std::vector<ScicosID> diagramChild (1, diagram->getAdaptee()->id());
+            controller.setObjectProperty(adaptee, BLOCK, CHILDREN, diagramChild);
 
             // Link the Superblock ports to their inner "port blocks"
-            return setInnerBlocksRefs(adaptor, children, controller);
+            std::vector<ScicosID> diagramChildren;
+            controller.getObjectProperty(diagram->getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
+            return setInnerBlocksRefs(adaptor, diagramChildren, controller);
         }
         else
         {
@@ -1774,16 +1780,19 @@ DiagramAdapter* ModelAdapter::getDiagram() const
 
 void ModelAdapter::setDiagram(DiagramAdapter* newDiagram)
 {
-    // The old 'diagramAdapter' needs to be freed after setting it to 'newDiagram'
-    types::InternalType* temp = diagramAdapter;
-
-    newDiagram->IncreaseRef();
-    diagramAdapter = newDiagram;
-
-    if (temp != nullptr)
+    if (newDiagram != nullptr)
     {
-        temp->DecreaseRef();
-        temp->killMe();
+        // The old 'diagramAdapter' needs to be freed after setting it to 'v'
+        types::InternalType* temp = diagramAdapter;
+
+        newDiagram->IncreaseRef();
+        diagramAdapter = newDiagram;
+
+        if (temp != nullptr)
+        {
+            temp->DecreaseRef();
+            temp->killMe();
+        }
     }
 }
 
