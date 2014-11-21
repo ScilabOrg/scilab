@@ -97,7 +97,6 @@ void Controller::deleteObject(ScicosID uid)
         deleteVector(uid, k, EVENT_INPUTS);
         deleteVector(uid, k, EVENT_OUTPUTS);
         unlinkVector(uid, k, PARENT_BLOCK, CHILDREN);
-        deleteVector(uid, k, CHILDREN);
         // FIXME what about REFERENCED_PORT ?
     }
     else if (k == DIAGRAM)
@@ -208,7 +207,6 @@ ScicosID Controller::cloneObject(std::map<ScicosID, ScicosID>& mapped, ScicosID 
         deepCloneVector(mapped, uid, o, k, EVENT_INPUTS, true);
         deepCloneVector(mapped, uid, o, k, EVENT_OUTPUTS, true);
         deepClone(mapped, uid, o, k, PARENT_BLOCK, false);
-        deepCloneVector(mapped, uid, o, k, CHILDREN, true);
         // FIXME what about REFERENCED_PORT ?
     }
     else if (k == DIAGRAM)

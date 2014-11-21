@@ -161,6 +161,23 @@ BlockAdapter::BlockAdapter(const BlockAdapter& adapter) :
     rpar_content(adapter.getRpar()),
     doc_content(adapter.getDocContent())
 {
+    if (rpar_content != nullptr)
+    {
+        rpar_content = static_cast<DiagramAdapter*>(rpar_content->clone());
+        Controller controller;
+        DiagramAdapter* rpar_contentRW = rpar_content->getAs<DiagramAdapter>();
+        ScicosID diagramID = rpar_contentRW->getAdaptee()->id();
+
+        std::vector<ScicosID> diagramChildren;
+        controller.getObjectProperty(diagramID, DIAGRAM, CHILDREN, diagramChildren);
+        for (ScicosID id : diagramChildren)
+        {
+            auto o = controller.getObject(id);
+            controller.setObjectProperty(id, o->kind(), PARENT_DIAGRAM, diagramID);
+        }
+        diagramChildren.push_back(diagramID);
+        controller.setObjectProperty(getAdaptee()->id(), BLOCK, CHILDREN, diagramChildren);
+    }
 }
 
 BlockAdapter::~BlockAdapter()
@@ -187,29 +204,12 @@ std::wstring BlockAdapter::getShortTypeStr()
 
 types::InternalType* BlockAdapter::getRpar() const
 {
-    if (rpar_content != nullptr)
-    {
-        rpar_content->IncreaseRef();
-    }
     return rpar_content;
 }
 
 void BlockAdapter::setRpar(types::InternalType* v)
 {
-    if (v != nullptr)
-    {
-        // The old 'rpar_content' needs to be freed after setting it to 'v'
-        types::InternalType* temp = rpar_content;
-
-        v->IncreaseRef();
-        rpar_content = v;
-
-        if (temp != nullptr)
-        {
-            temp->DecreaseRef();
-            temp->killMe();
-        }
-    }
+    rpar_content = v;
 }
 
 types::InternalType* BlockAdapter::getDocContent() const

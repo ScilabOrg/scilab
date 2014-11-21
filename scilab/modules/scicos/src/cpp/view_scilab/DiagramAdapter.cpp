@@ -293,7 +293,7 @@ DiagramAdapter::DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model:
 
 DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adapter),
-    list_objects(adapter.getListObjects()),
+    list_objects(adapter.getListObjects()->clone()),
     from_vec(adapter.from_vec),
     to_vec(adapter.to_vec),
     contrib_content(adapter.getContribContent())

@@ -948,7 +948,6 @@ struct rpar
 
             // Translate 'v' to an DiagramAdapter, save it and update the Block's children list
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
-            diagram->IncreaseRef();
 
             adaptor.setDiagram(diagram);
 
