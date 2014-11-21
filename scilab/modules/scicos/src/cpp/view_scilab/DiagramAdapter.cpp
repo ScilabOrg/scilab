@@ -293,11 +293,56 @@ DiagramAdapter::DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model:
 
 DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
     BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adapter),
-    list_objects(adapter.getListObjects()),
+    list_objects(),
     from_vec(adapter.from_vec),
     to_vec(adapter.to_vec),
     contrib_content(adapter.getContribContent())
 {
+    // Generate an Adapter for each child of the cloned Diagram and store them all in 'list_objects'
+    Controller controller;
+    std::vector<ScicosID> children;
+    controller.getObjectProperty(getAdaptee()->id(), DIAGRAM, CHILDREN, children);
+
+    types::List* List_objects = new types::List();
+    for (int i = 0; i < static_cast<int>(children.size()); ++i)
+    {
+        model::BaseObject* item = controller.getObject(children[i]).get();
+        switch (item->kind())
+        {
+            case ANNOTATION:
+            {
+                model::Annotation* annotation = static_cast<model::Annotation*>(item);
+                TextAdapter* localAdaptor = new TextAdapter(std::shared_ptr<model::Annotation>(annotation));
+                List_objects->set(i, localAdaptor);
+                continue;
+            }
+            case BLOCK:
+            {
+                model::Block* block = static_cast<model::Block*>(item);
+                BlockAdapter* localAdaptor = new BlockAdapter(std::shared_ptr<model::Block>(block));
+                List_objects->set(i, localAdaptor);
+                continue;
+            }
+            case LINK:
+            {
+                model::Link* link = static_cast<model::Link*>(item);
+                LinkAdapter* localAdaptor = new LinkAdapter(std::shared_ptr<model::Link>(link));
+
+                // In case a Link points to a Block that has not been added yet,
+                // retrieve the 'from' and 'to' values from the Diagram Adapter
+                localAdaptor->setFrom(from_vec[i], controller);
+                localAdaptor->setTo(to_vec[i], controller);
+
+                List_objects->set(i, localAdaptor);
+                continue;
+            }
+            default:
+            {
+            }
+        }
+    }
+
+    list_objects = List_objects;
 }
 
 DiagramAdapter::~DiagramAdapter()
