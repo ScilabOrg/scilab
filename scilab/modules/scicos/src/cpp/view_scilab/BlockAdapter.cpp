@@ -11,6 +11,7 @@
  */
 
 #include <string>
+#include <vector>
 #include <memory>
 
 #include "internal.hxx"
@@ -25,7 +26,9 @@
 #include "BlockAdapter.hxx"
 #include "DiagramAdapter.hxx"
 #include "GraphicsAdapter.hxx"
+#include "LinkAdapter.hxx"
 #include "ModelAdapter.hxx"
+#include "TextAdapter.hxx"
 
 extern "C" {
 #include "sci_malloc.h"
@@ -38,8 +41,6 @@ namespace view_scilab
 {
 namespace
 {
-
-std::wstring rpar(L"rpar");
 
 struct graphics
 {
@@ -61,18 +62,8 @@ struct model
     static types::InternalType* get(const BlockAdapter& adaptor, const Controller& controller)
     {
         ModelAdapter localAdaptor = ModelAdapter(adaptor.getAdaptee());
-        types::MList* ret = localAdaptor.getAsTList(new types::MList(), controller)->getAs<types::MList>();
-
-        // If the Block is a SuperBlock, set its 'rpar' property with the saved Diagram
-        DiagramAdapter* rpar_content = adaptor.getRpar()->getAs<DiagramAdapter>();
-        if (rpar_content != 0 && localAdaptor.getDiagram() == 0)
-        {
-            // Decrease rpar_content's ref count to counter the increases from the other Adapters
-            rpar_content->DecreaseRef();
-            ret->set(rpar, rpar_content);
-        }
-
-        return ret;
+        localAdaptor.setDiagram(static_cast<DiagramAdapter*>(adaptor.getRpar()));
+        return localAdaptor.getAsTList(new types::MList(), controller)->getAs<types::MList>();
     }
 
     static bool set(BlockAdapter& adaptor, types::InternalType* v, Controller& controller)
@@ -158,15 +149,80 @@ BlockAdapter::BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Blo
 
 BlockAdapter::BlockAdapter(const BlockAdapter& adapter) :
     BaseAdapter<BlockAdapter, org_scilab_modules_scicos::model::Block>(adapter),
-    rpar_content(adapter.getRpar()),
+    rpar_content(),
     doc_content(adapter.getDocContent())
 {
+    Controller controller;
+    std::vector<ScicosID> diagramChild;
+    controller.getObjectProperty(getAdaptee()->id(), BLOCK, CHILDREN, diagramChild);
+
+    if (!diagramChild.empty())
+    {
+        std::shared_ptr<org_scilab_modules_scicos::model::Diagram> diagram = std::static_pointer_cast<org_scilab_modules_scicos::model::Diagram>(controller.getObject(diagramChild[0]));
+        DiagramAdapter* newRpar = new DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram>(diagram));
+
+        DiagramAdapter* oldRpar = static_cast<DiagramAdapter*>(adapter.getRpar());
+        std::vector<link_t> from_vec = oldRpar->getFrom();
+        std::vector<link_t> to_vec = oldRpar->getTo();
+
+        std::vector<ScicosID> diagramChildren;
+        controller.getObjectProperty(diagram->id(), DIAGRAM, CHILDREN, diagramChildren);
+
+        // FIXME: factor the following code with DiagramAdapter copy constructor?
+        types::List* List_objects = new types::List();
+        for (int i = 0; i < static_cast<int>(diagramChildren.size()); ++i)
+        {
+            std::shared_ptr<org_scilab_modules_scicos::model::BaseObject> item = controller.getObject(diagramChildren[i]);
+            switch (item->kind())
+            {
+                case ANNOTATION:
+                {
+                    std::shared_ptr<org_scilab_modules_scicos::model::Annotation> annotation = std::static_pointer_cast<org_scilab_modules_scicos::model::Annotation>(item);
+                    TextAdapter* localAdaptor = new TextAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Annotation>(annotation));
+
+                    List_objects->set(i, localAdaptor);
+                    continue;
+                }
+                case BLOCK:
+                {
+                    std::shared_ptr<org_scilab_modules_scicos::model::Block> block = std::static_pointer_cast<org_scilab_modules_scicos::model::Block>(item);
+                    BlockAdapter* localAdaptor = new BlockAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Block>(block));
+
+                    List_objects->set(i, localAdaptor);
+                    continue;
+                }
+                case LINK:
+                {
+                    std::shared_ptr<org_scilab_modules_scicos::model::Link> link = std::static_pointer_cast<org_scilab_modules_scicos::model::Link>(item);
+                    LinkAdapter* localAdaptor = new LinkAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Link>(link));
+
+                    // In case a Link points to a Block that has not been added yet,
+                    // retrieve the 'from' and 'to' values from the Diagram Adapter
+                    localAdaptor->setFromInModel(from_vec[i], controller);
+                    localAdaptor->setToInModel(to_vec[i], controller);
+
+                    List_objects->set(i, localAdaptor);
+                    continue;
+                }
+                default:
+                {
+                }
+            }
+        }
+        newRpar->setListObjects(List_objects);
+
+        rpar_content = newRpar;
+    }
 }
 
 BlockAdapter::~BlockAdapter()
 {
     if (rpar_content != nullptr)
     {
+        // FIXME: update the model?
+        Controller controller;
+        controller.setObjectProperty(getAdaptee()->id(), BLOCK, CHILDREN, std::vector<ScicosID>());
+
         rpar_content->DecreaseRef();
         rpar_content->killMe();
     }
@@ -201,7 +257,6 @@ void BlockAdapter::setRpar(types::InternalType* v)
         // The old 'rpar_content' needs to be freed after setting it to 'v'
         types::InternalType* temp = rpar_content;
 
-        v->IncreaseRef();
         rpar_content = v;
 
         if (temp != nullptr)
