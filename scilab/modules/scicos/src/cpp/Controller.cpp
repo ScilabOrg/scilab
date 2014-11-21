@@ -97,7 +97,17 @@ void Controller::deleteObject(ScicosID uid)
         deleteVector(uid, k, EVENT_INPUTS);
         deleteVector(uid, k, EVENT_OUTPUTS);
         unlinkVector(uid, k, PARENT_BLOCK, CHILDREN);
-        deleteVector(uid, k, CHILDREN);
+        // Now unlink Superblocks' children
+        std::vector<ScicosID> children;
+        getObjectProperty(uid, k, CHILDREN, children);
+        for (const ScicosID id : children)
+        {
+            auto o = getObject(id);
+            if (o->kind() == BLOCK)
+            {
+                setObjectProperty(id, o->kind(), PARENT_BLOCK, 0ll);
+            }
+        }
         // FIXME what about REFERENCED_PORT ?
     }
     else if (k == DIAGRAM)
