@@ -16,6 +16,9 @@
 #include "double.hxx"
 #include "string.hxx"
 #include "configvariable.hxx"
+#include "int.hxx"
+#include "polynom.hxx"
+#include "sparse.hxx"
 
 extern "C"
 {
@@ -28,6 +31,9 @@ extern "C"
 #include "others_generators.h"
 }
 /*--------------------------------------------------------------------------*/
+
+template<class U>
+void sci_grand_prm(int iNumIter, U *pIn, types::InternalType** pOut);
 
 types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
@@ -359,8 +365,13 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
             return types::Function::Error;
         }
     }
+    else if (meth == 16)
+    {
+
+    }
     else
     {
+
         for (int i = iPos; i < in.size(); i++)
         {
             if (in[i]->isDouble() == false)
@@ -950,27 +961,121 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
         case 16: // random permutations
         {
-            if (vectpDblInput[0]->getCols() != 1)
+            delete pDblOut;
+            types::InternalType* pITOut = NULL;
+            types::InternalType* pITOutTempo = NULL;
+            types::Double* pDblTempo = NULL;
+            std::complex<double> cplxDbl;
+            int isize = 0;
+            switch (in[2]->getType())
             {
-                delete pDblOut;
-                Scierror(999, _("%s: Wrong type for input argument #%d : A colomn vector expected.\n"), "grand", 4);
+                case types::InternalType::ScilabInt8:
+                    pITOut = new types::Int8(in[2]->getAs<types::Int8>()->getDims(), in[2]->getAs<types::Int8>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Int8>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabUInt8:
+                    pITOut = new types::UInt8(in[2]->getAs<types::UInt8>()->getDims(), in[2]->getAs<types::UInt8>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::UInt8>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabInt16:
+                    pITOut = new types::Int16(in[2]->getAs<types::Int16>()->getDims(), in[2]->getAs<types::Int16>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Int16>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabUInt16:
+                    pITOut = new types::UInt16(in[2]->getAs<types::UInt16>()->getDims(), in[2]->getAs<types::UInt16>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::UInt16>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabInt32:
+                    pITOut = new types::Int32(in[2]->getAs<types::Int32>()->getDims(), in[2]->getAs<types::Int32>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Int32>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabUInt32:
+                    pITOut = new types::UInt32(in[2]->getAs<types::UInt32>()->getDims(), in[2]->getAs<types::UInt32>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::UInt32>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabInt64:
+                    pITOut = new types::Int64(in[2]->getAs<types::Int64>()->getDims(), in[2]->getAs<types::Int64>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Int64>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabUInt64:
+                    pITOut = new types::UInt64(in[2]->getAs<types::UInt64>()->getDims(), in[2]->getAs<types::UInt64>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::UInt64>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabDouble:
+                    pITOut = new types::Double(in[2]->getAs<types::Double>()->getDims(), in[2]->getAs<types::Double>()->getDimsArray(), in[2]->getAs<types::Double>()->isComplex());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Double>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabBool:
+                    pITOut = new types::Bool(in[2]->getAs<types::Bool>()->getDims(), in[2]->getAs<types::Bool>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Bool>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabString:
+                    pITOut = new types::String(in[2]->getAs<types::String>()->getDims(), in[2]->getAs<types::String>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::String>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabPolynom:
+                    pITOut = new types::Polynom(in[2]->getAs<types::Polynom>()->getVariableName(), in[2]->getAs<types::Polynom>()->getDims(), in[2]->getAs<types::Polynom>()->getDimsArray());
+                    sci_grand_prm(iNumIter, in[2]->getAs<types::Polynom>(), &pITOut);
+                    break;
+                case types::InternalType::ScilabSparse:
+                    isize = in[2]->getAs<types::Sparse>()->getSize();
+                    in[2]->getAs<types::Double>()->getDimsArray();
+                    pITOut = new types::Sparse(in[2]->getAs<types::Sparse>()->getRows(), in[2]->getAs<types::Sparse>()->getCols(), in[2]->getAs<types::Sparse>()->isComplex());
+                    pDblTempo = new types::Double(isize, 1, in[2]->getAs<types::Sparse>()->isComplex());
+                    pITOutTempo = new types::Double(isize, iNumIter, in[2]->getAs<types::Sparse>()->isComplex());
+
+                    if (pDblTempo->isComplex())
+                    {
+                        for (int i = 0; i < isize; i++)
+                        {
+                            cplxDbl = in[2]->getAs<types::Sparse>()->getImg(i);
+                            pDblTempo->set(i, cplxDbl.real());
+                            pDblTempo->set(i, cplxDbl.imag());
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < isize; i++)
+                        {
+                            pDblTempo->set(i, in[2]->getAs<types::Sparse>()->get(i));
+                        }
+                    }
+                    sci_grand_prm(iNumIter, pDblTempo, &pITOutTempo);
+
+                    if (pDblTempo->isComplex())
+                    {
+                        for (int i = 0; i < isize; i++)
+                        {
+                            cplxDbl.real(pITOutTempo->getAs<types::Double>()->get(i));
+                            cplxDbl.imag(pITOutTempo->getAs<types::Double>()->getImg(i));
+                            pITOutTempo->getAs<types::Sparse>()->set(i, cplxDbl);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < isize; i++)
+                        {
+                            pITOut->getAs<types::Sparse>()->set(i, pITOutTempo->getAs<types::Double>()->get(i));
+                        }
+                    }
+
+                    delete pITOutTempo;
+                    delete pDblTempo;
+                    break;
+                default:
+                    Scierror(999, _("%s: Wrong type for input argument: Matrix (full or sparse) or Hypermatrix of Reals, Complexes, Integers, Booleans, Strings or Polynomials expected.\n"), "grand");
+                    return types::Function::Error;
+                    break;
+            }
+            if ((pITOut->isDouble()) && (pITOut->getAs<types::Double>()->isEmpty()))
+            {
                 return types::Function::Error;
             }
-
-            int iVectRows = vectpDblInput[0]->getRows();
-
-            delete pDblOut;
-            pDblOut = new types::Double(iVectRows, iNumIter);
-            for (int i = 0; i < iNumIter; i++)
+            else
             {
-                for (int j = 0; j < iVectRows; j++)
-                {
-                    pDblOut->set(iVectRows * i + j, vectpDblInput[0]->get(j));
-                }
-                C2F(genprm)(pDblOut->get() + (iVectRows * i), &iVectRows);
+                out.push_back(pITOut);
             }
 
-            out.push_back(pDblOut);
             break;
         }
         case 17: // uniform (def)
@@ -1427,3 +1532,79 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
 }
 /*--------------------------------------------------------------------------*/
 
+template<class U>
+void sci_grand_prm(int iNumIter, U *pIn, types::InternalType** pOut)
+{
+    U* pUTempo = NULL;
+    types::InternalType* pITTempo = NULL;
+    int* piDimsArray = NULL;
+    int Dims = 0;
+
+    if (pIn->getCols() != 1)
+    {
+        if (pIn->getRows() == 1)
+        {
+            pIn->transpose(pITTempo);
+            pOut[0]->getAs<U>()->resize(iNumIter, pIn->getCols());
+            pUTempo = pITTempo->getAs<U>();
+        }
+        else
+        {
+            piDimsArray = pOut[0]->getAs<U>()->getDimsArray();
+            Dims = pOut[0]->getAs<U>()->getDims();
+            piDimsArray[Dims] = iNumIter;
+            pOut[0]->getAs<U>()->resize(piDimsArray, Dims + 1 );
+            pUTempo = pIn;
+        }
+    }
+    else
+    {
+        pOut[0]->getAs<U>()->resize(pIn->getRows(), iNumIter);
+        pUTempo = pIn;
+    }
+
+    int isize = pUTempo->getSize();
+
+    types::Double* pDblOut = new types::Double(isize, iNumIter, pUTempo->isComplex());
+
+    for (int i = 0; i < iNumIter; i++)
+    {
+        for (int j = 0; j < isize; j++)
+        {
+            pDblOut->set(isize * i + j, j);
+        }
+        C2F(genprm)(pDblOut->get() + (isize * i), &isize);
+    }
+
+    if ((pIn->getCols() != 1) && (pIn->getRows() == 1) && (pIn->getDims() == 2))
+    {
+        pDblOut->transpose(pITTempo);
+        delete pDblOut;
+        pDblOut = pITTempo->getAs<types::Double>();
+    }
+
+    if ((pUTempo->isComplex()) && (!pUTempo->isPoly()))
+    {
+        for (int i = 0; i < pOut[0]->getAs<U>()->getSize(); i++)
+        {
+            pOut[0]->getAs<U>()->set(i , pIn->get(pDblOut->get(i)));
+            pOut[0]->getAs<U>()->setImg(i , pIn->getImg(pDblOut->get(i)));
+        }
+    }
+    else
+    {
+        for (int i = 0; i < pOut[0]->getAs<U>()->getSize(); i++)
+        {
+            pOut[0]->getAs<U>()->set(i, pIn->get(pDblOut->get(i)));
+        }
+    }
+
+    if ((pIn->getCols() != 1) && (pIn->getRows() == 1) && (pIn->getDims() == 2))
+    {
+        delete pITTempo;
+    }
+    else
+    {
+        delete pDblOut;
+    }
+}
