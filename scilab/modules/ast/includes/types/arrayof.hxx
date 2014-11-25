@@ -1666,6 +1666,18 @@ public :
         return true;
     }
 
+    void addColumnString(std::wostringstream& ostr, int _iFrom, int _iTo)
+    {
+        if (_iFrom == _iTo)
+        {
+            ostr << std::endl << L"       column " << _iFrom << std::endl << std::endl;
+        }
+        else
+        {
+            ostr << std::endl << L"       column " << _iFrom << L" to " << _iTo << std::endl << std::endl;
+        }
+    }
+
     virtual bool subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iDims) = 0;
 
     virtual std::wstring toStringInLine()
