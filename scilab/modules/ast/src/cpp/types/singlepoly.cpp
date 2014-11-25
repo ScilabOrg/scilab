@@ -288,7 +288,7 @@ bool SinglePoly::evaluate(double _dblInR, double _dblInI, double *_pdblOutR, dou
 
 void SinglePoly::updateRank(void)
 {
-    double dblEps = getRelativeMachinePrecision();
+    double dblEps = 2 * getRelativeMachinePrecision();
     int iNewRank = getRank();
     if (m_pImgData)
     {
