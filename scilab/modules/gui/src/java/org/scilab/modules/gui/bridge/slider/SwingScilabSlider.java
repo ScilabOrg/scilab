@@ -160,10 +160,13 @@ public class SwingScilabSlider extends JSlider implements SwingViewObject, Simpl
 
 
         changeListener = new ChangeListener() {
-            public void stateChanged(ChangeEvent arg0) {
-                updateModel();
-                if (callback != null) {
-                    callback.actionPerformed(null);
+            public void stateChanged(ChangeEvent changeEvent) {
+                JSlider source = (JSlider) changeEvent.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    updateModel();
+                    if (callback != null) {
+                        callback.actionPerformed(null);
+                    }
                 }
             }
         };
