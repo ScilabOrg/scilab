@@ -8,3 +8,10 @@ Compilation
 
 * --without-xcos now only disable Xcos compilation. Xcos Graphic interface is disabled
 using --without-gui.
+
+
+Obsolete
+=========
+
+* errcatch() tagged as obsolete. Will be removed for Scilab 6.
+* iserror() tagged as obsolete. Will be removed for Scilab 6.

@@ -19,6 +19,12 @@
             <literal>n&gt;0</literal> est le numéro de l'erreur; toutes les erreurs sont testées si <literal>n&lt;0</literal>.
         </para>
     </refsection>
+    <refsection>
+        <title>REMARQUES</title>
+        <para>
+            <literal>errcatch</literal> est obsolete.
+        </para>
+    </refsection>
     <refsection role="see also">
         <title>Voir aussi</title>
         <simplelist type="inline">

@@ -31,6 +31,12 @@
         </para>
     </refsection>
     <refsection>
+        <title>REMARKS</title>
+        <para>
+            <literal>iserror</literal> is obsolete.
+        </para>
+    </refsection>
+    <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 errcatch(4,'continue') // trap undefined variable

@@ -70,7 +70,7 @@
                             errcatch(n,"continue",..)
                         </literal>
                         peut être remplacé par
-                        l'usage de la fonction <literal>execstr</literal>.  
+                        l'usage de la fonction <literal>execstr</literal>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -99,12 +99,12 @@
         <para>
             Pour revenir au mode par défaut, taper
             <literal>errcatch(-1,"kill")</literal> ou bien
-            <literal>errcatch(-1)</literal>. 
+            <literal>errcatch(-1)</literal>.
         </para>
         <para>
             Lorsque <literal>errcatch</literal> est appelée à l'intérieur d'une
             fonction, le mode d'interception d'erreur est automatiquement
-            réinitialisé au mode par défaut lorsque l'on sort de la fonction. 
+            réinitialisé au mode par défaut lorsque l'on sort de la fonction.
         </para>
         <para>
             <literal>errcatch()</literal> est un equivalent obsolete de <literal>errcatch(-1)</literal>.
@@ -115,7 +115,7 @@
         <para>
             <literal>errcatch</literal> est obsolete.
             Il est préférable d'utiliser  <link linkend="try">try</link> ou <literal>execstr(...,'errcatch')</literal>  à
-            la place de <literal>errcatch</literal> lorsque c'est possible.
+            la place de <literal>errcatch</literal>.
         </para>
     </refsection>
     <refsection role="see also">
