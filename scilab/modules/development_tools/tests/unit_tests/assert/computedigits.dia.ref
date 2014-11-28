@@ -18,7 +18,7 @@ function flag = MY_assert_equal ( computed , expected )
 endfunction
 format("v",10);
 //
-dmax = -log10(2^(-53));
+dmax = -log(2^(-53))/log(10);
 //
 computed = assert_computedigits ( 1 , 1 );
 MY_assert_equal ( computed , dmax );
