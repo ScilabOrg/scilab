@@ -27,6 +27,8 @@ Scilab Bug Fixes
 
 * Bug #13677 fixed - Indentation of examples in assert_checkerror help page was wrong.
 
+* Bug #13674 fixed - Bypass user .wgetrc config file use when ATOMS uses no proxy.
+
 
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
