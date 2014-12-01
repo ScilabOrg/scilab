@@ -61,6 +61,8 @@ src/fortran/calcsc.f \
 src/fortran/writebufsfact.f \
 src/fortran/chkvar.f
 
+POLYNOMIALS_C_SOURCES = src/c/jenkins_traub.c \
+src/c/jenkins_utils.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_polynomials.c \
 sci_gateway/c/sci_sfact.c \
@@ -115,7 +117,7 @@ endif
 
 
 
-libscipolynomials_algo_la_SOURCES = $(POLYNOMIALS_FORTRAN_SOURCES)
+libscipolynomials_algo_la_SOURCES = $(POLYNOMIALS_FORTRAN_SOURCES) $(POLYNOMIALS_C_SOURCES)
 libscipolynomials_la_SOURCES = $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES)
 libscipolynomials_algo_la_CPPFLAGS = $(libscipolynomials_la_CPPFLAGS)
 
