@@ -8,3 +8,8 @@ Compilation
 
 * --without-xcos now only disable Xcos compilation. Xcos Graphic interface is disabled
 using --without-gui.
+
+Scilab Bug Fixes
+================
+
+* Bug #13496 fixed - implementation of RPOLY algorithm changed

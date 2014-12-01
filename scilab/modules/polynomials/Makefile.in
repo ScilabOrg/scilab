@@ -192,7 +192,10 @@ am__objects_1 = src/fortran/residu.lo src/fortran/imptra.lo \
 	src/fortran/quadit.lo src/fortran/quad.lo \
 	src/fortran/calcsc.lo src/fortran/writebufsfact.lo \
 	src/fortran/chkvar.lo
-am_libscipolynomials_algo_la_OBJECTS = $(am__objects_1)
+am__objects_2 = src/c/libscipolynomials_algo_la-jenkins_traub.lo \
+	src/c/libscipolynomials_algo_la-jenkins_utils.lo
+am_libscipolynomials_algo_la_OBJECTS = $(am__objects_1) \
+	$(am__objects_2)
 libscipolynomials_algo_la_OBJECTS =  \
 	$(am_libscipolynomials_algo_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -202,7 +205,7 @@ am__v_lt_1 =
 @MAINTAINER_MODE_FALSE@am_libscipolynomials_algo_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscipolynomials_algo_la_rpath =
 libscipolynomials_la_DEPENDENCIES = libscipolynomials-algo.la
-am__objects_2 = sci_gateway/fortran/sci_f_simp.lo \
+am__objects_3 = sci_gateway/fortran/sci_f_simp.lo \
 	sci_gateway/fortran/sci_f_poly.lo \
 	sci_gateway/fortran/sci_f_varn.lo \
 	sci_gateway/fortran/sci_f_sum.lo \
@@ -220,7 +223,7 @@ am__objects_2 = sci_gateway/fortran/sci_f_simp.lo \
 	sci_gateway/fortran/sci_f_pclean.lo \
 	sci_gateway/fortran/sci_f_sfact.lo \
 	sci_gateway/fortran/sci_f_simpmd.lo
-am__objects_3 = sci_gateway/c/libscipolynomials_la-gw_polynomials.lo \
+am__objects_4 = sci_gateway/c/libscipolynomials_la-gw_polynomials.lo \
 	sci_gateway/c/libscipolynomials_la-sci_sfact.lo \
 	sci_gateway/c/libscipolynomials_la-sci_cleanp.lo \
 	sci_gateway/c/libscipolynomials_la-sci_sum.lo \
@@ -237,7 +240,7 @@ am__objects_3 = sci_gateway/c/libscipolynomials_la-gw_polynomials.lo \
 	sci_gateway/c/libscipolynomials_la-sci_poly.lo \
 	sci_gateway/c/libscipolynomials_la-sci_triu.lo \
 	sci_gateway/c/libscipolynomials_la-sci_degree.lo
-am_libscipolynomials_la_OBJECTS = $(am__objects_2) $(am__objects_3)
+am_libscipolynomials_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscipolynomials_la_OBJECTS = $(am_libscipolynomials_la_OBJECTS)
 @MAINTAINER_MODE_FALSE@am_libscipolynomials_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscipolynomials_la_rpath = -rpath \
@@ -657,6 +660,9 @@ src/fortran/calcsc.f \
 src/fortran/writebufsfact.f \
 src/fortran/chkvar.f
 
+POLYNOMIALS_C_SOURCES = src/c/jenkins_traub.c \
+src/c/jenkins_utils.c
+
 GATEWAY_C_SOURCES = sci_gateway/c/gw_polynomials.c \
 sci_gateway/c/sci_sfact.c \
 sci_gateway/c/sci_cleanp.c \
@@ -703,7 +709,7 @@ libscipolynomials_la_CPPFLAGS = -I$(srcdir)/includes/ \
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscipolynomials.la
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscipolynomials-algo.la libscipolynomials.la
 @MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscipolynomials-algo.la
-libscipolynomials_algo_la_SOURCES = $(POLYNOMIALS_FORTRAN_SOURCES)
+libscipolynomials_algo_la_SOURCES = $(POLYNOMIALS_FORTRAN_SOURCES) $(POLYNOMIALS_C_SOURCES)
 libscipolynomials_la_SOURCES = $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES)
 libscipolynomials_algo_la_CPPFLAGS = $(libscipolynomials_la_CPPFLAGS)
 
@@ -1000,6 +1006,16 @@ src/fortran/writebufsfact.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 src/fortran/chkvar.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
+src/c/$(am__dirstamp):
+	@$(MKDIR_P) src/c
+	@: > src/c/$(am__dirstamp)
+src/c/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/c/$(DEPDIR)
+	@: > src/c/$(DEPDIR)/$(am__dirstamp)
+src/c/libscipolynomials_algo_la-jenkins_traub.lo:  \
+	src/c/$(am__dirstamp) src/c/$(DEPDIR)/$(am__dirstamp)
+src/c/libscipolynomials_algo_la-jenkins_utils.lo:  \
+	src/c/$(am__dirstamp) src/c/$(DEPDIR)/$(am__dirstamp)
 
 libscipolynomials-algo.la: $(libscipolynomials_algo_la_OBJECTS) $(libscipolynomials_algo_la_DEPENDENCIES) $(EXTRA_libscipolynomials_algo_la_DEPENDENCIES) 
 	$(AM_V_F77LD)$(F77LINK) $(am_libscipolynomials_algo_la_rpath) $(libscipolynomials_algo_la_OBJECTS) $(libscipolynomials_algo_la_LIBADD) $(LIBS)
@@ -1127,6 +1143,8 @@ mostlyclean-compile:
 	-rm -f sci_gateway/c/*.lo
 	-rm -f sci_gateway/fortran/*.$(OBJEXT)
 	-rm -f sci_gateway/fortran/*.lo
+	-rm -f src/c/*.$(OBJEXT)
+	-rm -f src/c/*.lo
 	-rm -f src/fortran/*.$(OBJEXT)
 	-rm -f src/fortran/*.lo
 
@@ -1150,6 +1168,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscipolynomials_la-sci_tril.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscipolynomials_la-sci_triu.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/c/$(DEPDIR)/libscipolynomials_la-sci_varn.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_traub.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_utils.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -1174,6 +1194,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+src/c/libscipolynomials_algo_la-jenkins_traub.lo: src/c/jenkins_traub.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscipolynomials_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/c/libscipolynomials_algo_la-jenkins_traub.lo -MD -MP -MF src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_traub.Tpo -c -o src/c/libscipolynomials_algo_la-jenkins_traub.lo `test -f 'src/c/jenkins_traub.c' || echo '$(srcdir)/'`src/c/jenkins_traub.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_traub.Tpo src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_traub.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/c/jenkins_traub.c' object='src/c/libscipolynomials_algo_la-jenkins_traub.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscipolynomials_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/c/libscipolynomials_algo_la-jenkins_traub.lo `test -f 'src/c/jenkins_traub.c' || echo '$(srcdir)/'`src/c/jenkins_traub.c
+
+src/c/libscipolynomials_algo_la-jenkins_utils.lo: src/c/jenkins_utils.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscipolynomials_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/c/libscipolynomials_algo_la-jenkins_utils.lo -MD -MP -MF src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_utils.Tpo -c -o src/c/libscipolynomials_algo_la-jenkins_utils.lo `test -f 'src/c/jenkins_utils.c' || echo '$(srcdir)/'`src/c/jenkins_utils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_utils.Tpo src/c/$(DEPDIR)/libscipolynomials_algo_la-jenkins_utils.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/c/jenkins_utils.c' object='src/c/libscipolynomials_algo_la-jenkins_utils.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscipolynomials_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/c/libscipolynomials_algo_la-jenkins_utils.lo `test -f 'src/c/jenkins_utils.c' || echo '$(srcdir)/'`src/c/jenkins_utils.c
 
 sci_gateway/c/libscipolynomials_la-gw_polynomials.lo: sci_gateway/c/gw_polynomials.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscipolynomials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sci_gateway/c/libscipolynomials_la-gw_polynomials.lo -MD -MP -MF sci_gateway/c/$(DEPDIR)/libscipolynomials_la-gw_polynomials.Tpo -c -o sci_gateway/c/libscipolynomials_la-gw_polynomials.lo `test -f 'sci_gateway/c/gw_polynomials.c' || echo '$(srcdir)/'`sci_gateway/c/gw_polynomials.c
@@ -1310,6 +1344,7 @@ clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf sci_gateway/c/.libs sci_gateway/c/_libs
 	-rm -rf sci_gateway/fortran/.libs sci_gateway/fortran/_libs
+	-rm -rf src/c/.libs src/c/_libs
 	-rm -rf src/fortran/.libs src/fortran/_libs
 install-libscipolynomials_la_etcDATA: $(libscipolynomials_la_etc_DATA)
 	@$(NORMAL_INSTALL)
@@ -1495,6 +1530,8 @@ distclean-generic:
 	-rm -f sci_gateway/c/$(am__dirstamp)
 	-rm -f sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
 	-rm -f sci_gateway/fortran/$(am__dirstamp)
+	-rm -f src/c/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/c/$(am__dirstamp)
 	-rm -f src/fortran/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/fortran/$(am__dirstamp)
 
@@ -1507,7 +1544,7 @@ clean-am: clean-generic clean-libtool clean-local \
 	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf sci_gateway/c/$(DEPDIR)
+	-rm -rf sci_gateway/c/$(DEPDIR) src/c/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-local distclean-tags
@@ -1556,7 +1593,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf sci_gateway/c/$(DEPDIR)
+	-rm -rf sci_gateway/c/$(DEPDIR) src/c/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
