@@ -212,10 +212,14 @@ lib /DEF:"$(ProjectDir)polynomials_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(P
     <ClCompile Include="..\..\sci_gateway\c\sci_tril.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_triu.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_varn.c" />
+    <ClCompile Include="jenkins_traub.c" />
+    <ClCompile Include="jenkins_utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_polynomials.h" />
     <ClInclude Include="..\..\includes\gw_polynomials.h" />
+    <ClInclude Include="..\..\includes\jenkins_traub.h" />
+    <ClInclude Include="..\..\includes\jenkins_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\locales\polynomials.pot" />
@@ -235,6 +239,9 @@ lib /DEF:"$(ProjectDir)polynomials_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(P
     </ProjectReference>
     <ProjectReference Include="..\..\..\api_scilab\api_scilab.vcxproj">
       <Project>{43c5bab1-1dca-4743-a183-77e0d42fe7d0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\output_stream\src\c\output_stream.vcxproj">
+      <Project>{a5911cd7-f8e8-440c-a23e-4843a0636f3a}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

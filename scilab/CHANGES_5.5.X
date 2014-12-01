@@ -23,6 +23,8 @@ Removed Functions
 Scilab Bug Fixes
 ================
 
+* Bug #13496 fixed - implementation of RPOLY algorithm changed
+
 * Bug #13549 fixed - Slider uicontrols triggered three callbacks instead of one.
 
 * Bug #13605 fixed - harmean returned an inverted result when called with parameters "r" or "c".
