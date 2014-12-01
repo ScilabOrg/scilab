@@ -132,7 +132,7 @@ function atomsDownload(url_in,file_out,md5sum)
         timeout_arg = timeout_arg + " ";
 
         // Proxy configuration
-        if (atomsGetConfig("useProxy") == "True") & (atomsGetConfig("proxyHost") <> "") then
+        if (atomsGetConfig("useProxy") == "true") & (atomsGetConfig("proxyHost") <> "") then
             // Host
             proxy_host = atomsGetConfig("proxyHost");
 
@@ -162,6 +162,11 @@ function atomsDownload(url_in,file_out,md5sum)
             end
 
         end
+
+        if WGET & atomsGetConfig("useProxy") == "false" then
+            proxy_user_arg = " --no-proxy";
+        end
+
 
         if getos() == "Windows" & CURL then
             download_cmd = """" + pathconvert(SCI+"/tools/curl/curl.exe",%F) + """" + proxy_host_arg + proxy_user_arg + timeout_arg + " -s """ + url_in + """ -o """ + file_out + """";
