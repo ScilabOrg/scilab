@@ -666,7 +666,7 @@ bool is_valid(types::Double* o)
         {
             return false; // Must be an integer value
         }
-        if (o->get(0) < 0 || o->get(1) < 0)
+        if (o->get(1) < 0)
         {
             return false; // Must be positive
         }
