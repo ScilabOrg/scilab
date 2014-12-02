@@ -19,9 +19,17 @@
 #include "localization.h"
 #include "freeArrayOfString.h"
 #include "with_module.h"
+#include "sciprint.h"
+#include "warningmode.h"
 /*--------------------------------------------------------------------------*/
 int C2F(sci_readgateway)(char *fname, unsigned long fname_len)
 {
+    if (getWarningMode())
+    {
+        sciprint(_("WARNING: Feature %s is obsolete.\n"), fname);
+        sciprint(_("WARNING: This feature will be permanently removed in Scilab %s.\n"), "6");
+    }
+
     CheckRhs(1, 1);
     CheckLhs(1, 3);
 
