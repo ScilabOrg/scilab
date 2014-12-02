@@ -16,6 +16,7 @@
 #include "cpp_gateway_prototype.hxx"
 #include "dynlib_scicos.h"
 
+CPP_GATEWAY_PROTOTYPE_EXPORT(sci_duplicate, SCICOS_IMPEXP);
 CPP_GATEWAY_PROTOTYPE_EXPORT(sci_scicos_new, SCICOS_IMPEXP);
 CPP_GATEWAY_PROTOTYPE_EXPORT(sci_scicos_setfield, SCICOS_IMPEXP);
 

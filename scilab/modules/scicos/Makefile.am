@@ -70,6 +70,7 @@ src/fortran/scifunc.f
 NO_SCICOS_C_SOURCES = src/c/noscicos/noscicos.c
 
 GATEWAY_CXX_SOURCES = \
+sci_gateway/cpp/sci_duplicate.cpp \
 sci_gateway/cpp/sci_scicos_new.cpp \
 sci_gateway/cpp/sci_scicos_setfield.cpp
 
@@ -84,7 +85,6 @@ sci_gateway/c/sci_curblock.c \
 sci_gateway/c/sci_curblockc.c \
 sci_gateway/c/sci_data2sig.c \
 sci_gateway/c/sci_diffobjs.c \
-sci_gateway/c/sci_duplicate.c \
 sci_gateway/c/sci_end_scicosim.c \
 sci_gateway/c/sci_ftree2.c \
 sci_gateway/c/sci_ftree3.c \

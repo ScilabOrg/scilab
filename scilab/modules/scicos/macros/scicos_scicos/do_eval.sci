@@ -120,18 +120,18 @@ function [scs_m,cpr,needcompile,ok]=do_eval(scs_m,cpr,%scicos_context)
             elseif o.model.sim(1)=="asuper" then
             else
                 model=o.model
-                if ~isdef(o.gui) | ~or(type(evstr(o.gui) == [13 11])) then
-                    if length(o.doc) >= 1 then
-                        uid = [full_uids o.doc(1)];
+                // if ~isdef(o.gui) | ~or(type(evstr(o.gui) == [13 11])) then
+                // if length(o.doc) >= 1 then
+                // uid = [full_uids o.doc(1)];
 
-                        html = "<html><body>";
-                        html = html + "<em>" + gettext("Evaluation problem: Unknown block") + "</em><br/>";
-                        html = html + "</body></html>";
-                        warnBlockByUID(uid, html);
-                    else
-                        error("do_eval: " + gettext("Evaluation problem: Unknown block") + " " + o.gui);
-                    end
-                end
+                // html = "<html><body>";
+                // html = html + "<em>" + gettext("Evaluation problem: Unknown block") + "</em><br/>";
+                // html = html + "</body></html>";
+                // warnBlockByUID(uid, html);
+                // else
+                // error("do_eval: " + gettext("Evaluation problem: Unknown block") + " " + o.gui);
+                // end
+                // end
 
                 %scicos_prob=%f
                 ier=execstr("o="+o.gui+"(''set'',o)","errcatch", "m")
@@ -163,7 +163,7 @@ function [scs_m,cpr,needcompile,ok]=do_eval(scs_m,cpr,%scicos_context)
                         end
                     end
 
-                    if (prod(size(model.sim))==1 & ~model.equations==list()) | itisanMBLOCK then
+                    if (prod(size(model.sim))==1 & ~(model.equations==list())) | itisanMBLOCK then
                         if ~isequal(model.equations.parameters,model_n.equations.parameters) then
                             param_name   = model.equations.parameters(1);
                             param_name_n = model_n.equations.parameters(1);

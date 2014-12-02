@@ -15,7 +15,7 @@
             Scilab
             Interface description. In this file, we define the list of the function which
             will be available into Scilab and the link to the "native" function.
-            
+
             Don't touch if you do not know what you are doing !
         -->
 <module name="scicos">
@@ -30,7 +30,6 @@
     <gateway type="0" name="sci_tree4" function="sci_tree4"/>
     <gateway type="0" name="sci_curblock" function="curblock"/>
     <gateway type="0" name="sci_scicos_time" function="scicos_time"/>
-    <gateway type="0" name="sci_duplicate" function="duplicate"/>
     <gateway type="0" name="sci_diffobjs" function="diffobjs"/>
     <gateway type="0" name="sci_pointer_xproperty" function="pointer_xproperty"/>
     <gateway type="0" name="sci_phase_simulation" function="phase_simulation"/>
@@ -52,6 +51,7 @@
     <gateway type="0" name="sci_callblk" function="callblk"/>
     <gateway type="0" name="sci_loadScicos" function="loadScicos"/>
     <!-- C++ Gateways -->
+    <gateway type="0" name="sci_duplicate" function="duplicate"/>
     <gateway type="1" name="sci_scicos_new" function="scicos_new"/>
     <gateway type="1" name="sci_scicos_setfield" function="scicos_setfield"/>
 </module>
