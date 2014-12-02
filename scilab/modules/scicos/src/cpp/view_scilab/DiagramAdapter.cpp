@@ -108,6 +108,8 @@ struct objs
                             oldBlockDiagram->IncreaseRef();
                         }
                         localAdaptor->setDiagram(oldBlockDiagram);
+                        types::InternalType* oldDoc = oldBlock->getDocContent();
+                        localAdaptor->setDocContent(oldDoc);
                     }
 
                     o->set(i, localAdaptor);
