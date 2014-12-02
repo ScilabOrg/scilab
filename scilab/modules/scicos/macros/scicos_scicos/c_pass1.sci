@@ -92,7 +92,9 @@ function  [blklst,cmat,ccmat,cor,corinv,ok,scs_m,flgcdgen,freof]=c_pass1(scs_m,f
     ind=[];
 
     for kb=1:nb
-        o=scs_m(scs_full_path(corinvt(kb)));
+        // FIXME: replace the following line with the next one after https://codereview.scilab.org/#/c/15701/ is merged
+        //o=scs_m(scs_full_path(corinvt(kb)));
+        o=scs_m.objs(corinvt(kb));
         if is_modelica_block(o) then
             km=km+1;blklstm(km)=o.model;
             ind(kb)=-km;
