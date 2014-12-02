@@ -360,6 +360,7 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok, IN, OUT, EIN, EOUT]
     //-------------- Analyse  links --------------
     for k=Links
         o=scs_m.objs(k);
+        l=list(1);l(1)=o;o=l(1); // Passing 'o' through a list to clone it, so that 'scs_m' is not modified when 'o' is
         f=0
         if o.from(1)<0|o.from(1)>MaxBlock then //Link coming from a superblock input port
         else
