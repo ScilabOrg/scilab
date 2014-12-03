@@ -2,6 +2,7 @@
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) INRIA
 * Copyright (C) DIGITEO - 2012 - Allan CORNET
+* Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
 *
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -14,63 +15,81 @@
 #include "BOOL.h"
 #include "vect_or.h"
 /*--------------------------------------------------------------------------*/
-void vect_or(const int *v, int m, int n, int *r, int opt)
+void vect_or(const int *v, int *dimsArray, int dims, int *r, int opt)
 {
-    switch (opt)
+    int siz = 1;
+    int i = 0;
+    int sizeD = 1;
+    int k = 0;
+    int l = 0;
+
+    for (i = 0; i < dims; i++)
     {
-        case OR_ON_ALL:
+        siz *= dimsArray[i];
+    }
+    if (opt == 1)
+    {
+        for (k = 0; k < siz / dimsArray[opt - 1]; k++)
         {
-            int k = 0;
-            r[0] = FALSE;
-            for (k = 0; k < m * n; k++)
+            i = k * dimsArray[0];
+            r[k] = FALSE;
+            for (l = 0; l < dimsArray[0]; l++)
             {
-                if (v[k])
+                if (v[i++])
                 {
-                    r[0] = TRUE;
+                    r[k] = TRUE;
                     break;
                 }
             }
         }
-        break;
-        case OR_BY_ROWS:
-        {
-            int k = 0;
-            for (k = 0; k < n; k++)
-            {
-                int l = 0;
-                int i = k * m;
-                r[k] = FALSE;
-                for (l = 0; l < m; l++)
-                {
-                    if (v[i++])
-                    {
-                        r[k] = TRUE;
-                        break;
-                    }
-                }
-            }
-        }
-        break;
-        case OR_BY_COLUMNS:
-        {
-            int l = 0;
-            for (l = 0; l < m; l++)
-            {
-                int k = 0;
-                int i = l;
-                r[l] = FALSE;
-                for (k = 0; k < n; k++)
-                {
-                    if (v[i])
-                    {
-                        r[l] = TRUE;
-                        break;
-                    }
-                    i += m;
-                }
-            }
-        }
-        break;
     }
+    else if (opt == 2)
+    {
+        for (l = 0; l < siz / dimsArray[opt - 1]; l++)
+        {
+            i = l * dimsArray[1];
+            if (i % 2 == 1)
+            {
+                i -= 2;
+            }
+            r[l] = FALSE;
+            for (k = 0; k < dimsArray[1]; k++)
+            {
+                if (v[i])
+                {
+                    r[l] = TRUE;
+                    break;
+                }
+                i += dimsArray[0];
+            }
+        }
+    }
+    else
+    {
+        for (i = 0; i < opt - 1; i++)
+        {
+            sizeD *= dimsArray[i];
+        }
+
+
+        r[0] = FALSE;
+
+        for (k = 0; k < (siz / dimsArray[opt - 1]); k++)
+        {
+            i = k;
+            r[k] = FALSE;
+            for (l = 0; l < dimsArray[opt - 1]; l++)
+            {
+                if (v[i])
+                {
+                    r[k] = TRUE;
+                    break;
+                }
+                i += sizeD;
+            }
+        }
+    }
+
 }
+
 /*--------------------------------------------------------------------------*/
