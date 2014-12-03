@@ -8,11 +8,8 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function r=%l_n_l(l1,l2)
-    //%l_n_l(l1,l2)  : l1<>l2
-    //!
     n1=lstsize(l1)
     r=n1<>lstsize(l2)
-
     if ~r&n1>0 then
         r=%f(ones(1,n1))
         sel=%f(ones(1,n1))
