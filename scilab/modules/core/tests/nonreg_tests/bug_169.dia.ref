@@ -21,6 +21,5 @@ big2=(big1==0);
 Z=sum(big1(S,:),'r');
 Z=sum(1.*big2(S,:),'r');
 endfunction
-stacksize(10E6);
 global S big1 Z big2 X Y
 crash()
