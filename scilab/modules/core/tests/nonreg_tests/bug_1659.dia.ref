@@ -17,8 +17,6 @@ function m=f2()
   m=lasterror();
 endfunction
 clear b
-execstr('f1(1)','errcatch')
- ans  =
- 
-    4.  
-if f2()<>[] then bugmes();quit;end
+err=execstr('f1(1)','errcatch');
+assert_checkfalse(err == 0);
+assert_checkequal(f2(), []);
