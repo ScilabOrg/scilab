@@ -914,7 +914,19 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                 // create field in parent if it not exist
                 if (pStruct->exists(pwcsFieldname) == false)
                 {
-                    pStruct->addField(pwcsFieldname);
+                    if (_pAssignValue->isListDelete())
+                    {
+                        ExpHistory* pEHtempo = fields.front();
+                        types::typed_list in;
+                        types::String* pstringFieldname = new types::String(pwcsFieldname.data());
+                        in.push_back(pstringFieldname);
+                        in.push_back(pStruct);
+                        return insertionCall(*_pExp, &in, pEH->getCurrent(), _pAssignValue);
+                    }
+                    else
+                    {
+                        pStruct->addField(pwcsFieldname);
+                    }
                 }
 
                 if (pEH->getArgs())
