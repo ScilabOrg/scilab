@@ -53,18 +53,31 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
     }
 
     wchar_t* pwstInput = in[0]->getAs<types::String>()->get()[0];
+    int iNumberPercentData = 0;
     int iNumberPercent = 0;
     for (int i = 0 ; i < wcslen(pwstInput) ; i++)
     {
         if (pwstInput[i] == L'%')
         {
             iNumberPercent++;
-            if (pwstInput[i + 1] == L'%')
+            if ((pwstInput[i + 1] == L'd') || (pwstInput[i + 1] == L'i') || (pwstInput[i + 1] == L'u') || (pwstInput[i + 1] == L'o') ||
+                    (pwstInput[i + 1] == L'x') || (pwstInput[i + 1] == L'X') || (pwstInput[i + 1] == L'f') || (pwstInput[i + 1] == L'e') ||
+                    (pwstInput[i + 1] == L'E') || (pwstInput[i + 1] == L'g') || (pwstInput[i + 1] == L'G') || (pwstInput[i + 1] == L'c') ||
+                    (pwstInput[i + 1] == L's'))
+            {
+                iNumberPercentData++;
+            }
+            else if (pwstInput[i + 1] == L'%')
             {
                 //it is a %%, not a %_
-                iNumberPercent--;
+                //iNumberPercentData--;
                 //force incremantation to bypass the second % of %%
                 i++;
+            }
+            else
+            {
+                Scierror(998, _("%s: An error occurred: %s\n"), "msprintf", _("Bad conversion."));
+                return types::Function::Error;
             }
         }
     }
@@ -94,7 +107,7 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
         }
     }
 
-    if (iNumberCols != iNumberPercent)
+    if (iNumberCols != iNumberPercentData)
     {
         Scierror(999, _("%s: Wrong number of input arguments: data doesn't fit with format.\n"), "msprintf");
         return types::Function::Error;
