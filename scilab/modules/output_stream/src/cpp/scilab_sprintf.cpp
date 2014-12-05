@@ -374,7 +374,7 @@ static wchar_t* replaceAndCountLines(const wchar_t* _pwstInput, int* _piLines, i
         {
             if (iInputLen == i + 1)
             {
-                pwstFirstOutput[iPos++] = L'\\';
+                //pwstFirstOutput[iPos++] = L'\\';
                 continue;
             }
 
@@ -402,9 +402,11 @@ static wchar_t* replaceAndCountLines(const wchar_t* _pwstInput, int* _piLines, i
                     pwstFirstOutput[iPos++] = L'\t';
                     i++;
                     break;
-                default:
+                case L'\\':
                     pwstFirstOutput[iPos++] = L'\\';
                     i++;
+                    break;
+                default:
                     break;
             }
         }
