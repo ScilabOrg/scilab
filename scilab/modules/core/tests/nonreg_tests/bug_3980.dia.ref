@@ -14,20 +14,7 @@
 // <-- Short Description -->
 // Wrong line number in error message
 deff('l=foo()','[l,m]=where()','n')
-if foo()<>2 then bugmes();quit;end
-comp(foo)
-Warning : redefining function: foo                     . Use funcprot(0) to avoid this message
-
-if foo()<>2 then bugmes();quit;end
-deff('foo','a=aaaa','n')
-Warning : redefining function: foo                     . Use funcprot(0) to avoid this message
-
-if execstr('foo()','errcatch')<>4 then bugmes();quit;end
-[str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then bugmes();quit;end
-deff('foo','a=aaaa')
-Warning : redefining function: foo                     . Use funcprot(0) to avoid this message
-
-if execstr('foo()','errcatch')<>4 then bugmes();quit;end
-[str,n,l,f]=lasterror(%t);
-if l<>2|f<>'foo' then bugmes();quit;end
+assert_checkequal(foo(), 2);
+assert_checkequal: Incompatible input arguments #1 and #2: Same sizes expected.
+assert_checkequal(foo(), 2)
+at line    34 of exec file called by :
