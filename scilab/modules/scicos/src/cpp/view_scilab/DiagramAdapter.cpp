@@ -80,7 +80,7 @@ struct objs
         std::vector<link_t> to = adaptor.getTo();
 
         int link_number = 0;
-        Controller newController = Controller();
+        Controller newController;
         for (int i = 0; i < static_cast<int>(children.size()); ++i)
         {
             std::shared_ptr<model::BaseObject> item = newController.getObject(children[i]);
@@ -108,6 +108,8 @@ struct objs
                             oldBlockDiagram->IncreaseRef();
                         }
                         localAdaptor->setDiagram(oldBlockDiagram);
+                        types::InternalType* oldDoc = oldBlock->getDocContent();
+                        localAdaptor->setDocContent(oldDoc);
                     }
 
                     o->set(i, localAdaptor);
@@ -437,7 +439,7 @@ DiagramAdapter::~DiagramAdapter()
     // Unlink the diagram's children if necessary
     Controller controller;
     std::vector<ScicosID> diagramChildren;
-    if (getAdaptee() != 0)
+    if (getAdaptee().use_count() == 3 && getAdaptee() != 0)
     {
         controller.getObjectProperty(getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
         for (ScicosID id : diagramChildren)
