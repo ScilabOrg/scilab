@@ -104,7 +104,7 @@ public:
     BaseAdapter(std::shared_ptr<Adaptee> adaptee) : m_adaptee(adaptee) {};
     BaseAdapter(const BaseAdapter& adapter) : m_adaptee(0)
     {
-        Controller controller = Controller();
+        Controller controller;
         ScicosID id = controller.cloneObject(adapter.getAdaptee()->id());
         m_adaptee = std::static_pointer_cast<Adaptee>(controller.getObject(id));
     };

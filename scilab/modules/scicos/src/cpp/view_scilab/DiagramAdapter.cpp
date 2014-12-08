@@ -80,7 +80,7 @@ struct objs
         std::vector<link_t> to = adaptor.getTo();
 
         int link_number = 0;
-        Controller newController = Controller();
+        Controller newController;
         for (int i = 0; i < static_cast<int>(children.size()); ++i)
         {
             std::shared_ptr<model::BaseObject> item = newController.getObject(children[i]);
