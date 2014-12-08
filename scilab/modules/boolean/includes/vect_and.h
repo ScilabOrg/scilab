@@ -30,6 +30,6 @@
  * @param[in] opt: AND_ON_ALL, AND_BY_ROWS or AND_BY_COLUMNS
  */
 
-BOOLEAN_IMPEXP void vect_and(const int *v, int m, int n, int *r, int opt);
+BOOLEAN_IMPEXP void vect_and(const int *v, int* dimsArray, int dims, int *r, int opt);
 
 #endif /* __VECT_AND_H__ */
