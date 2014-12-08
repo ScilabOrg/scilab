@@ -1,77 +1,99 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA
- * Copyright (C) DIGITEO - 2012 - Allan CORNET
- *
- * This file must be used under the terms of the CeCILL.
- * This source file is licensed as described in the file COPYING, which
- * you should have received as part of this distribution.  The terms
- * are also available at
- * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
- *
- */
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) INRIA
+* Copyright (C) DIGITEO - 2012 - Allan CORNET
+* Copyright (C) 2014 - Scilab Enterprises - Anais AUBERT
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+*
+*/
 /*--------------------------------------------------------------------------*/
 #include "BOOL.h"
 #include "vect_and.h"
 /*--------------------------------------------------------------------------*/
-void vect_and(const int *v, int m, int n, int *r, int opt)
+void vect_and(const int *v, int *dimsArray, int dims, int *r, int opt)
 {
-    switch (opt)
+    int siz = 1;
+    int i = 0;
+    int sizeD = 1;
+
+    for (i = 0; i < dims; i++)
     {
-        case AND_ON_ALL:
+        siz *= dimsArray[i];
+    }
+    if (opt == 1)
+    {
+        int k = 0;
+        for (k = 0; k < siz / dimsArray[opt - 1]; k++)
         {
-            int k = 0;
-            r[0] = TRUE;
-            for (k = 0; k < m * n; k++)
+            int l = 0;
+            int i = k * dimsArray[0];
+            r[k] = TRUE;
+            for (l = 0; l < dimsArray[0]; l++)
             {
-                if (!v[k])
+                if (!v[i++])
                 {
-                    r[0] = FALSE;
+                    r[k] = FALSE;
                     break;
                 }
             }
         }
-        break;
-        case AND_BY_COLUMNS:
-        {
-            int l = 0;
-            for (l = 0; l < m; l++)
-            {
-                int k = 0;
-                int i = l;
-
-                r[l] = TRUE;
-                for (k = 0; k < n; k++)
-                {
-                    if (!v[i])
-                    {
-                        r[l] = FALSE;
-                        break;
-                    }
-                    i += m;
-                }
-            }
-        }
-        break;
-        case AND_BY_ROWS:
+    }
+    else if (opt == 2)
+    {
+        int l = 0;
+        for (l = 0; l < siz / dimsArray[opt - 1]; l++)
         {
             int k = 0;
-            for (k = 0; k < n; k++)
+            int i = l * dimsArray[1];
+            if (i % 2 == 1)
             {
-                int l = 0;
-                int i = k * m;
-                r[k] = TRUE;
-                for (l = 0; l < m; l++)
+                i -= 2;
+            }
+            r[l] = TRUE;
+            for (k = 0; k < dimsArray[1]; k++)
+            {
+                if (!v[i])
                 {
-                    if (!v[i++])
-                    {
-                        r[k] = FALSE;
-                        break;
-                    }
+                    r[l] = FALSE;
+                    break;
                 }
+                i += dimsArray[0];
             }
         }
-        break;
     }
+    else
+    {
+        for (i = 0; i < opt - 1; i++)
+        {
+            sizeD *= dimsArray[i];
+        }
+
+
+        int k = 0;
+        r[0] = FALSE;
+
+        for (k = 0; k < (siz / dimsArray[opt - 1]); k++)
+        {
+            int l = 0;
+            i = k;
+            r[k] = TRUE;
+            for (l = 0; l < dimsArray[opt - 1]; l++)
+            {
+                if (!v[i])
+                {
+                    r[k] = FALSE;
+                    break;
+                }
+                i += sizeD;
+            }
+        }
+    }
+
 }
+
 /*--------------------------------------------------------------------------*/
