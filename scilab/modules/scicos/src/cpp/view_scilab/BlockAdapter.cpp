@@ -31,6 +31,8 @@
 #include "TextAdapter.hxx"
 
 extern "C" {
+#include "wchar.h"
+
 #include "sci_malloc.h"
 #include "charEncoding.h"
 }

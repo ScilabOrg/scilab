@@ -258,8 +258,8 @@ struct ct
         double* data;
         types::Double* o = new types::Double(1, 2, &data);
 
-        data[0] = static_cast<double>(color);
-        data[1] = static_cast<double>(kind);
+        data[0] = color;
+        data[1] = kind;
         return o;
     }
 
@@ -452,7 +452,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     // kind == 0: trying to set the start of the link (output port)
     // kind == 1: trying to set the end of the link (input port)
 
-    if (v.block > children.size())
+    if (v.block > static_cast<int>(children.size()))
     {
         return; // Trying to link to a non-existing block
     }
@@ -465,7 +465,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     }
 
     // v.port may be decremented locally to square with the port indexes
-    size_t portIndex = v.port;
+    int portIndex = v.port;
 
     std::vector<ScicosID> sourceBlockPorts;
     bool newPortIsImplicit = false;
@@ -547,7 +547,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
                 if (isImplicit == true)
                 {
                     sourceBlockPorts.erase(sourceBlockPorts.begin() + i);
-                    if (portIndex > i + 1)
+                    if (portIndex > static_cast<int>(i + 1))
                     {
                         portIndex--; // Keep portIndex consistent with the port indexes
                     }
@@ -574,7 +574,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
                 if (isImplicit == false)
                 {
                     sourceBlockPorts.erase(sourceBlockPorts.begin() + i);
-                    if (portIndex > i + 1)
+                    if (portIndex > static_cast<int>(i + 1))
                     {
                         portIndex--; // Keep portIndex consistent with the port indexes
                     }
@@ -589,7 +589,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
         controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
     }
 
-    size_t nBlockPorts = sourceBlockPorts.size();
+    int nBlockPorts = sourceBlockPorts.size();
     if (nBlockPorts >= portIndex)
     {
         concernedPort = sourceBlockPorts[portIndex - 1];
@@ -666,7 +666,7 @@ bool is_valid(types::Double* o)
         {
             return false; // Must be an integer value
         }
-        if (o->get(0) < 0 || o->get(1) < 0)
+        if (o->get(1) < 0)
         {
             return false; // Must be positive
         }
