@@ -264,7 +264,7 @@ doc = list()
 3     CSCOPE
 scs_m.objs
  ans  =
-       ans(1)
+             ans(1)
 GUI     : BIGSOM_f
 Graphics: 
           orig = [0,0]
@@ -309,7 +309,7 @@ Model   :
           nmode = 0
           equations = list()
           uid = ""
-       ans(2)
+             ans(2)
 GUI     : CSCOPE
 Graphics: 
           orig = [0,0]
@@ -354,7 +354,7 @@ Model   :
           nmode = 0
           equations = list()
           uid = ""
-       ans(3)
+             ans(3)
 GUI     : CSCOPE
 Graphics: 
           orig = [0,0]
@@ -399,7 +399,7 @@ Model   :
           nmode = 0
           equations = list()
           uid = ""
-       ans(4)
+             ans(4)
 Link    :
           xx: []
           yy: []
@@ -408,7 +408,7 @@ Link    :
           ct: 1 1
           from: 0 0 0
           to: 0 0 1
-       ans(5)
+             ans(5)
 Link    :
           xx: []
           yy: []
@@ -730,7 +730,7 @@ propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 23 , LINK , DESTINATION_PORT ) : SUCCESS
 scs_m.objs
  ans  =
-       ans(1)
+             ans(1)
 GUI     : BIGSOM_f
 Graphics: 
           orig = [0,0]
@@ -775,7 +775,7 @@ Model   :
           nmode = 0
           equations = list()
           uid = ""
-       ans(2)
+             ans(2)
 GUI     : CSCOPE
 Graphics: 
           orig = [0,0]
@@ -820,7 +820,7 @@ Model   :
           nmode = 0
           equations = list()
           uid = ""
-       ans(3)
+             ans(3)
 Link    :
           xx: []
           yy: []
@@ -1073,7 +1073,7 @@ propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 26 , LINK , DESTINATION_PORT ) : SUCCESS
 scs_m.objs
  ans  =
-       ans(1)
+             ans(1)
 Link    :
           xx: []
           yy: []
@@ -1082,7 +1082,7 @@ Link    :
           ct: 1 1
           from: 2 1 0
           to: 3 1 1
-       ans(2)
+             ans(2)
 GUI     : BIGSOM_f
 Graphics: 
           orig = [0,0]
@@ -1127,7 +1127,7 @@ Model   :
           nmode = 0
           equations = list()
           uid = ""
-       ans(3)
+             ans(3)
 GUI     : CSCOPE
 Graphics: 
           orig = [0,0]
