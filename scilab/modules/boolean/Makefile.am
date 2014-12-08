@@ -17,10 +17,10 @@ BOOLEAN_FORTRAN_SOURCES = \
 GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_bool2s.cpp \
     sci_gateway/cpp/sci_find.cpp \
-    sci_gateway/cpp/sci_or.cpp
-
-GATEWAY_C_SOURCES = \
-    sci_gateway/c/sci_and.c 
+    sci_gateway/cpp/sci_or.cpp\
+    sci_gateway/cpp/sci_and.cpp
+    
+GATEWAY_C_SOURCES = 
 
 GATEWAY_FORTRAN_SOURCES =
 
