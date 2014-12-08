@@ -12,6 +12,8 @@
 
 #include <iostream>
 #include <sstream>
+#include <cwchar>
+
 #include "scilabWrite.hxx"
 
 #include "LoggerView.hxx"
@@ -20,12 +22,93 @@
 namespace org_scilab_modules_scicos
 {
 
-LoggerView::LoggerView()
+static const bool USE_SCILAB_WRITE = true;
+
+LoggerView::LoggerView() :
+    View(), level (WARNING)
 {
 }
 
 LoggerView::~LoggerView()
 {
+}
+
+static std::wstring levelTable[] =
+{
+    L"FATAL",
+    L"ERROR",
+    L"WARNING",
+    L"INFO",
+    L"DEBUG",
+    L"TRACE",
+};
+
+enum LogLevel LoggerView::indexOf(const wchar_t* name)
+{
+    for (int i = FATAL ; i <= TRACE; i++)
+    {
+        if (!wcscmp(name, levelTable[i].data()))
+        {
+            return static_cast<enum LogLevel>(i);
+        }
+    }
+    return UNDEF;
+}
+
+const wchar_t* LoggerView::toString(enum LogLevel level)
+{
+    if (FATAL <= level && level <= TRACE)
+    {
+        return levelTable[level].data();
+    }
+
+    return L"";
+}
+
+void LoggerView::log(enum LogLevel level, const std::stringstream& msg)
+{
+    if (level >= this->level)
+    {
+        std::string str = msg.str();
+        if (USE_SCILAB_WRITE)
+        {
+            scilabForcedWrite(str.data());
+        }
+        else
+        {
+            std::cerr << str;
+        }
+    }
+}
+
+void LoggerView::log(enum LogLevel level, const char* msg)
+{
+    if (level >= this->level)
+    {
+        if (USE_SCILAB_WRITE)
+        {
+            scilabForcedWrite(msg);
+        }
+        else
+        {
+            std::wcerr << msg;
+        }
+    }
+}
+
+void LoggerView::log(enum LogLevel level, const wchar_t* msg)
+{
+    if (level >= this->level)
+    {
+        if (USE_SCILAB_WRITE)
+        {
+            scilabForcedWriteW(msg);
+        }
+        else
+        {
+            std::wcerr << msg;
+        }
+    }
 }
 
 // generated with :
@@ -250,54 +333,25 @@ std::ostream& operator<<(std::ostream& os, object_properties_t p)
     return os;
 }
 
-static const bool USE_SCILAB_WRITE = true;
-
 void LoggerView::objectCreated(const ScicosID& uid, kind_t k)
 {
     std::stringstream ss;
-
     ss << __FUNCTION__ << "( " << uid << " , " << k << " )" << std::endl;
-
-    if (USE_SCILAB_WRITE)
-    {
-        scilabForcedWrite(ss.str().data());
-    }
-    else
-    {
-        std::cerr << ss.str();
-    }
+    log(DEBUG, ss);
 }
 
 void LoggerView::objectDeleted(const ScicosID& uid, kind_t k)
 {
     std::stringstream ss;
-
     ss << __FUNCTION__ << "( " << uid << " , " << k << " )" << std::endl;
-
-    if (USE_SCILAB_WRITE)
-    {
-        scilabForcedWrite(ss.str().data());
-    }
-    else
-    {
-        std::cerr << ss.str();
-    }
+    log(DEBUG, ss);
 }
 
 void LoggerView::objectUpdated(const ScicosID& uid, kind_t k)
 {
     std::stringstream ss;
-
     ss << __FUNCTION__ << "( " << uid << " , " << k << " )" << std::endl;
-
-    if (USE_SCILAB_WRITE)
-    {
-        scilabForcedWrite(ss.str().data());
-    }
-    else
-    {
-        std::cerr << ss.str();
-    }
+    log(DEBUG, ss);
 }
 
 void LoggerView::propertyUpdated(const ScicosID& /*uid*/, kind_t /*k*/, object_properties_t /*p*/)
@@ -309,17 +363,8 @@ void LoggerView::propertyUpdated(const ScicosID& uid, kind_t k, object_propertie
                                  update_status_t u)
 {
     std::stringstream ss;
-
     ss << __FUNCTION__ << "( " << uid << " , " << k << " , " << p << " ) : " << u << std::endl;
-
-    if (USE_SCILAB_WRITE)
-    {
-        scilabForcedWrite(ss.str().data());
-    }
-    else
-    {
-        std::cerr << ss.str();
-    }
+    log(TRACE, ss);
 }
 
 } /* namespace org_scilab_modules_scicos */
