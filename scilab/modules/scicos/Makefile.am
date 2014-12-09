@@ -14,6 +14,8 @@ DISABLE_HELP_CLEAN=yes
 #### Source listing ######
 
 SCICOS_CXX_SOURCES = \
+src/cpp/il_state.cpp \
+src/cpp/il_sim.cpp \
 src/cpp/Controller.cpp \
 src/cpp/LoggerView.cpp \
 src/cpp/Model.cpp \
@@ -43,8 +45,6 @@ src/c/scicos_free.c \
 src/c/sciblk2.c \
 src/c/sciblk4.c \
 src/c/ezxml.c \
-src/c/il_state.c \
-src/c/il_sim.c \
 src/c/createblklist.c \
 src/c/var2sci.c \
 src/c/copyvarfromlistentry.c \
@@ -76,7 +76,8 @@ sci_gateway/cpp/sci_ctree3.cpp \
 sci_gateway/cpp/sci_ctree4.cpp \
 sci_gateway/cpp/sci_duplicate.cpp \
 sci_gateway/cpp/sci_scicos_new.cpp \
-sci_gateway/cpp/sci_scicos_setfield.cpp
+sci_gateway/cpp/sci_scicos_setfield.cpp \
+sci_gateway/cpp/sci_scicosim.cpp
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_scicos.c \
 sci_gateway/c/sci_callblk.c \
@@ -98,7 +99,6 @@ sci_gateway/c/sci_phase_simulation.c \
 sci_gateway/c/sci_pointer_xproperty.c \
 sci_gateway/c/sci_scicos_debug.c \
 sci_gateway/c/sci_scicos_debug_count.c \
-sci_gateway/c/sci_scicosim.c \
 sci_gateway/c/sci_scicos_time.c \
 sci_gateway/c/sci_sctree.c \
 sci_gateway/c/sci_set_blockerror.c \
@@ -150,6 +150,7 @@ libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
 			-I$(top_srcdir)/modules/ast/includes/ast/ \
 			-I$(top_srcdir)/modules/ast/includes/exps/ \
+			-I$(top_srcdir)/modules/ast/includes/symbol/ \
 			-I$(top_srcdir)/modules/ast/includes/operations/ \
 			-I$(top_srcdir)/modules/ast/includes/system_env/ \
 			-I$(top_srcdir)/modules/ast/includes/types/ \
