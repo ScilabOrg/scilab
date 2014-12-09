@@ -274,6 +274,11 @@ void addDoubleValue(std::wostringstream * _postr, double _dblVal, DoubleFormat *
             dblTemp = log10(dblEnt);
         }
 
+        if (std::abs(dblTemp) >= 100)
+        {
+            _pDF->iPrec -= 1;
+        }
+
         dblDec = dblAbs / pow(10., (double)(int)dblTemp);
         dblDec = modf(dblDec, &dblEnt) * pow(10., _pDF->iPrec);
 
