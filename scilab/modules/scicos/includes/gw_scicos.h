@@ -32,8 +32,6 @@
 SCICOS_IMPEXP int gw_scicos(void);
 
 /*--------------------------------------------------------------------------*/
-SCICOS_IMPEXP int sci_var2vec(char *fname, void* pvApiCtx);
-SCICOS_IMPEXP int sci_vec2var(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_getblocklabel(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_scicos_debug(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_scicos_debug_count(char *fname, void* pvApiCtx);
@@ -49,7 +47,6 @@ SCICOS_IMPEXP int sci_pointer_xproperty(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_phase_simulation(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_set_xproperty(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_set_blockerror(char *fname, void* pvApiCtx);
-SCICOS_IMPEXP int sci_scicosim(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_getscicosvars(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_curblockc(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_end_scicosim(char *fname, void* pvApiCtx);
