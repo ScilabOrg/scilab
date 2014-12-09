@@ -16,6 +16,7 @@
 
 #include "types.hxx"
 #include "string.hxx"
+#include "int.hxx"
 #include "list.hxx"
 #include "function.hxx"
 
