@@ -70,7 +70,6 @@
 #include "syncexec.h"
 #include "realtime.h"
 #include "sci_malloc.h"
-#include "cvstr.h"
 #include "ezxml.h"
 #include "xscion.h"
 
@@ -287,7 +286,7 @@ int simblkKinsol(N_Vector yy, N_Vector resval, void *rdata);
 int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 void **work, int *zptr, int *modptr_in,
                 void **oz, int *ozsz, int *oztyp, int *ozptr,
-                int *iz, int *izptr, int* uid, int* uidptr, double *t0_in,
+                char **iz, int *izptr, char **uid, int *uidptr, double *t0_in,
                 double *tf_in, double *tevts_in, int *evtspt_in,
                 int *nevts, int *pointi_in, void **outtbptr_in,
                 int *outtbsz_in, int *outtbtyp_in,
@@ -752,7 +751,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         }
 
         /* 11 : block label (label) */
-        i1 = izptr[kf + 2] - izptr[kf + 1];
+        i1 = izptr[kf];
         if ((Blocks[kf].label = MALLOC(sizeof(char) * (i1 + 1))) == NULL)
         {
             FREE_blocks();
@@ -760,10 +759,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             return 0;
         }
         Blocks[kf].label[i1] = '\0';
-        C2F(cvstr)(&i1, &(iz[izptr[kf + 1] - 1]), Blocks[kf].label, &job, i1);
+        strcpy(Blocks[kf].label, iz[kf]);
 
         /* block uid (uid) */
-        i1 = uidptr[kf + 1] - uidptr[kf];
+        i1 = uidptr[kf];
         if ((Blocks[kf].uid = MALLOC(sizeof(char) * (i1 + 1))) == NULL)
         {
             FREE_blocks();
@@ -771,7 +770,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             return 0;
         }
         Blocks[kf].uid[i1] = '\0';
-        C2F(cvstr)(&i1, &(uid[uidptr[kf] - 1]), Blocks[kf].uid, &job, i1);
+        strcpy(Blocks[kf].uid, uid[kf]);
 
         /* 12 : block array of crossed surfaces (jroot) */
         Blocks[kf].jroot = NULL;
