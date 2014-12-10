@@ -229,6 +229,13 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
                             *_piOutputRows = 0;
                             return NULL;
                         }
+
+                        if (in[iPosArg + 1]->isString() && (bsiz < wcslen(in[iPosArg + 1]->getAs<types::String>()->get(0))))
+                        {
+                            Scierror(998, _("%s: An error occurred: %s\n"), _pstName, _("Buffer too small."));
+                            *_piOutputRows = 0;
+                            return NULL;
+                        }
                         pToken[iToken].outputType = InternalType::ScilabString;
                         iPosArg++;
                         break;
@@ -255,6 +262,7 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
         if (in.size() > 1)
         {
             iLoop = in[iFirstArg]->getAs<GenericType>()->getRows();
+
             for (int i = iFirstArg + 1 ; i < in.size() ; i++)
             {
                 iLoop = std::min(iLoop, in[i]->getAs<GenericType>()->getRows());
