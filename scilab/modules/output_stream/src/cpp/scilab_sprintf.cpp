@@ -13,7 +13,8 @@
  */
 
 #include <stdio.h>
-
+#include <iomanip>
+#include <cmath>
 #include "types.hxx"
 #include "double.hxx"
 #include "string.hxx"
@@ -42,8 +43,8 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
 #ifdef _MSC_VER
     _set_output_format(_TWO_DIGIT_EXPONENT);
 #endif
-    wchar_t** pwstOutput        = NULL;
-    wchar_t* pwstFirstOutput    = NULL;
+    wchar_t** pwstOutput = NULL;
+    wchar_t* pwstFirstOutput = NULL;
     *_piNewLine = 0;
     size_t pos = 0;
 
@@ -62,15 +63,15 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
         //pwstToken[1] : "%s bla2 "
         //pwstToken[2] : "%d bla3"
 
-        size_t iStart   = 0;
-        size_t iEnd     = 0;
-        int iToken      = 0;
-        int iPosArg     = 0;
+        size_t iStart = 0;
+        size_t iEnd = 0;
+        int iToken = 0;
+        int iPosArg = 0;
 
         TokenDef* pToken = new TokenDef[_iArgsCount + 1];
-        wchar_t* pwstStart  = pwstFirstOutput;
+        wchar_t* pwstStart = pwstFirstOutput;
 
-        bool bFinish         = false;
+        bool bFinish = false;
         bool bPercentPercent = false;
 
         while (!bFinish)
@@ -87,7 +88,7 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
                     if (pwstEnd == NULL)
                     {
                         //end of string
-                        iEnd    = wcslen(pwstFirstOutput);
+                        iEnd = wcslen(pwstFirstOutput);
                         bFinish = true;
                     }
                     else
@@ -107,7 +108,7 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
             else
             {
                 //end of string
-                iEnd    = wcslen(pwstFirstOutput);
+                iEnd = wcslen(pwstFirstOutput);
                 bFinish = true;
             }
 
@@ -134,6 +135,7 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
                 }
 
                 //looking for width
+                pToken[iToken].width = -1;
                 if (*(pwstPercent + 1) == L'*')
                 {
                     pwstPercent++;
@@ -141,19 +143,29 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
                 else
                 {
                     //number
-                    while (iswdigit(*(pwstPercent + 1)))
+                    if (iswdigit(*(pwstPercent + 1)))
                     {
-                        pwstPercent++;
+                        pToken[iToken].width = _wtoi(pwstPercent + 1);
+                        while (iswdigit(*(pwstPercent + 1)))
+                        {
+                            pwstPercent++;
+                        }
                     }
                 }
 
                 //looking for precision
+                pToken[iToken].prec = -1;
                 if (*(pwstPercent + 1) == L'.')
                 {
                     pwstPercent++;
-                    while (iswdigit(*(pwstPercent + 1)))
+
+                    if (iswdigit(*(pwstPercent + 1)))
                     {
-                        pwstPercent++;
+                        pToken[iToken].prec = _wtoi(pwstPercent + 1);
+                        while (iswdigit(*(pwstPercent + 1)))
+                        {
+                            pwstPercent++;
+                        }
                     }
                 }
 
@@ -326,15 +338,99 @@ wchar_t** scilab_sprintf(const char* _pstName, const wchar_t* _pwstInput, typed_
                         return NULL;
                     }
 
-                    if (posC < posS)
+                    bool bC = posC < posS;
+
+                    int len = 1;
+                    if (pToken[i].prec == -1)
                     {
-                        oFirstOutput << pwstStr[0];
+                        if (bC == false)
+                        {
+                            len = (int)wcslen(pwstStr);
+                        }
                     }
-                    else //'s'
+                    else
                     {
-                        oFirstOutput << pwstStr;
+                        if (bC = false)
+                        {
+                            len = std::min(pToken[i].prec, (int)wcslen(pwstStr));
+                        }
                     }
 
+                    len += (int)wcslen(pToken[i].pwstToken);
+                    len = std::max(len, pToken[i].width);
+                    wchar_t* pwstTemp = (wchar_t*)MALLOC((len + 1) * sizeof(wchar_t));
+
+                    if (bC)
+                    {
+                        swprintf(pwstTemp, len + 1, pToken[i].pwstToken, pwstStr[0]);
+                    }
+                    else
+                    {
+                        swprintf(pwstTemp, len + 1, pToken[i].pwstToken, pwstStr);
+                    }
+                    oFirstOutput << pwstTemp;
+                    FREE(pwstTemp);
+
+                    /*
+                                        wchar_t* p = pToken[i].pwstToken + 1; //avoid %
+                                        wchar_t fill = L' ';
+                                        if (p[0] == L' ' || p[0] == L'0')
+                                        {
+                                            fill = p[0];
+                                            p++;
+                                        }
+
+                                        int padd = _wtoi(p);
+                                        int offset = 0;
+                                        if (padd)
+                                        {
+                                            if (padd < 0)
+                                            {
+                                                p++;
+                                                oFirstOutput << std::left;
+                                            }
+
+                                            padd = std::abs(padd);
+                                            oFirstOutput << std::setw(padd) << std::setfill(fill);
+                                            p += (int)std::ceil(std::log10(padd + 1));
+                                        }
+
+                                        int prec = 0;
+                                        if (p[0] == L'.')
+                                        {
+                                            p++;
+                                            prec = _wtoi(p);
+                                            int len = std::min(prec, (int)wcslen(pwstStr)) + (int)wcslen(pToken[i].pwstToken);
+                                            len = std::max(len, padd);
+                                            //in this case where final size is know, we can use sprintf and allocated buffer
+                                            wchar_t* pwstTemp = (wchar_t*)MALLOC((len + 1) * sizeof(wchar_t));
+
+                                            swprintf(pwstTemp, len + 1, pToken[i].pwstToken, pwstStr);
+                                            oFirstOutput << pwstTemp;
+                                            FREE(pwstTemp);
+                                        }
+                                        else
+                                        {
+                                            if (posC < posS)
+                                            {
+                                                oFirstOutput << pwstStr[0];
+                                            }
+                                            else //'s'
+                                            {
+                                                oFirstOutput << pwstStr;
+                                            }
+
+
+                                            if (pToken[i].bLengthFlag)
+                                            {
+                                                oFirstOutput << (p + 2);
+                                            }
+                                            else
+                                            {
+                                                oFirstOutput << (p + 1);
+                                            }
+                                        }
+                    */
                     iPosArg++;
                 }
                 else
