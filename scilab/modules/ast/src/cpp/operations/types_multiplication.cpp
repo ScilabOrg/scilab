@@ -234,46 +234,288 @@ int MultiplyDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoub
         return 0;
     }
 
-    if (_pDouble1->getDims() > 2 || _pDouble2->getDims() > 2 || _pDouble1->getCols() != _pDouble2->getRows())
+    if ((_pDouble1->getDims() > 2 && _pDouble2->getDims() > 3) || (_pDouble2->getDims() > 2 && _pDouble1->getDims() > 3) || _pDouble1->getCols() != _pDouble2->getRows())
     {
         return 1;
     }
 
     bool bComplex1  = _pDouble1->isComplex();
     bool bComplex2  = _pDouble2->isComplex();
-    (*_pDoubleOut) = new Double(_pDouble1->getRows(), _pDouble2->getCols(), bComplex1 | bComplex2);
 
-    if (bComplex1 == false && bComplex2 == false)
+    if (_pDouble2->getDims() == 3)
     {
-        //Real Matrix by Real Matrix
-        iMultiRealMatrixByRealMatrix(
-            _pDouble1->get(), _pDouble1->getRows(), _pDouble1->getCols(),
-            _pDouble2->get(), _pDouble2->getRows(), _pDouble2->getCols(),
-            (*_pDoubleOut)->get());
+        int* piDimsArray = new int[_pDouble2->getDims()];
+        piDimsArray[0] = _pDouble1->getRows();
+        piDimsArray[1] = _pDouble2->getCols();
+        piDimsArray[2] = _pDouble2->getDimsArray()[2];
+
+        (*_pDoubleOut) = new Double(_pDouble2->getDims(), piDimsArray, bComplex1 | bComplex2);
+
+        double *piTempoOutReal = new double[_pDouble2->getCols()*_pDouble1->getRows()];
+        double *piTempoDouble2Real = new double[_pDouble2->getCols()*_pDouble1->getRows()];
+        double *piOutReal = (*_pDoubleOut)->get();
+
+        double *piOutImg = NULL;
+        double *piTempoOutImg = NULL;
+        double *piTempoDouble2Img = NULL;
+
+        if ((*_pDoubleOut)->isComplex())
+        {
+            piOutImg = (*_pDoubleOut)->getImg();
+        }
+
+        if (bComplex2)
+        {
+            piTempoOutImg = new double[_pDouble2->getCols()*_pDouble1->getRows()];
+            piTempoDouble2Img = new double[_pDouble2->getCols()*_pDouble1->getRows()];
+        }
+
+        for (int k = 0; k < _pDouble2->getDims(); k++)
+        {
+            if (bComplex2)
+            {
+                for (int i = 0; i < _pDouble2->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble2->getRows(); j++)
+                    {
+                        piTempoDouble2Real[j + i * _pDouble2->getRows()] = _pDouble2->get(j + i * _pDouble2->getRows() + k * _pDouble2->getRows() * _pDouble2->getCols());
+                        piTempoDouble2Img[j + i * _pDouble2->getRows()] = _pDouble2->getImg(j + i * _pDouble2->getRows() + k * _pDouble2->getRows() * _pDouble2->getCols());
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _pDouble2->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble2->getRows(); j++)
+                    {
+                        piTempoDouble2Real[j + i * _pDouble2->getRows()] = _pDouble2->get(j + i * _pDouble2->getRows() + k * _pDouble2->getRows() * _pDouble2->getCols());
+                    }
+                }
+            }
+
+            if (bComplex1 == false && bComplex2 == false)
+            {
+                //Real Matrix by Real Matrix
+                iMultiRealMatrixByRealMatrix(
+                    _pDouble1->get(), _pDouble1->getRows(), _pDouble1->getCols(),
+                    piTempoDouble2Real, _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal);
+            }
+            else if (bComplex1 == false && bComplex2 == true)
+            {
+                //Real Matrix by Matrix Complex
+                iMultiRealMatrixByComplexMatrix(
+                    _pDouble1->get(), _pDouble1->getRows(), _pDouble1->getCols(),
+                    piTempoDouble2Real, piTempoDouble2Img, _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal, piTempoOutImg);
+            }
+            else if (bComplex1 == true && bComplex2 == false)
+            {
+                //Complex Matrix by Real Matrix
+                iMultiComplexMatrixByRealMatrix(
+                    _pDouble1->get(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                    piTempoDouble2Real, _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal, piTempoOutImg);
+            }
+            else //if(bComplex1 == true && bComplex2 == true)
+            {
+                //Complex Matrix by Complex Matrix
+                iMultiComplexMatrixByComplexMatrix(
+                    _pDouble1->get(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                    piTempoDouble2Real, piTempoDouble2Img, _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal, piTempoOutImg);
+            }
+
+            if ((*_pDoubleOut)->isComplex())
+            {
+                for (int i = 0; i < _pDouble2->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble1->getRows(); j++)
+                    {
+                        piOutReal[j + i * _pDouble1->getRows() + k * _pDouble1->getRows()*_pDouble2->getCols()] = piTempoOutReal[j + i * _pDouble1->getRows()];
+                        piOutImg[j + i * _pDouble1->getRows() + k * _pDouble1->getRows()*_pDouble2->getCols()] = piTempoOutImg[j + i * _pDouble1->getRows()];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _pDouble2->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble1->getRows(); j++)
+                    {
+                        piOutReal[j + i * _pDouble1->getRows() + k * _pDouble1->getRows()*_pDouble2->getCols()] = piTempoOutReal[j + i * _pDouble1->getRows()];
+                    }
+                }
+            }
+        }
+
+        delete[] piTempoOutReal;
+        delete[] piTempoDouble2Real;
+        if ((*_pDoubleOut)->isComplex())
+        {
+            delete[] piTempoOutImg;
+        }
+        if (bComplex2)
+        {
+            delete[] piTempoDouble2Img;
+        }
     }
-    else if (bComplex1 == false && bComplex2 == true)
+    else if (_pDouble1->getDims() == 3)
     {
-        //Real Matrix by Matrix Complex
-        iMultiRealMatrixByComplexMatrix(
-            _pDouble1->get(), _pDouble1->getRows(), _pDouble1->getCols(),
-            _pDouble2->get(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
-            (*_pDoubleOut)->get(), (*_pDoubleOut)->getImg());
+        int* piDimsArray = new int[_pDouble1->getDims()];
+        piDimsArray[0] = _pDouble1->getRows();
+        piDimsArray[1] = _pDouble2->getCols();
+        piDimsArray[2] = _pDouble1->getDimsArray()[2];
+
+        (*_pDoubleOut) = new Double(_pDouble1->getDims(), piDimsArray, bComplex1 | bComplex2);
+
+        double *piTempoOutReal = new double[_pDouble2->getCols()*_pDouble1->getRows()];
+        double *piTempoDouble1Real = new double[_pDouble1->getCols()*_pDouble1->getRows()];
+        double *piOutReal = (*_pDoubleOut)->get();
+
+        double *piOutImg = NULL;
+        double *piTempoOutImg = NULL;
+        double *piTempoDouble1Img = NULL;
+
+        if ((*_pDoubleOut)->isComplex())
+        {
+            piOutImg = (*_pDoubleOut)->getImg();
+        }
+
+        if (bComplex1)
+        {
+            piTempoOutImg = new double[_pDouble2->getCols()*_pDouble1->getRows()];
+            piTempoDouble1Img = new double[_pDouble1->getCols()*_pDouble1->getRows()];
+        }
+
+        for (int k = 0; k < _pDouble1->getDims(); k++)
+        {
+            if (bComplex1)
+            {
+                for (int i = 0; i < _pDouble1->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble1->getRows(); j++)
+                    {
+                        piTempoDouble1Real[j + i * _pDouble1->getRows()] = _pDouble1->get(j + i * _pDouble1->getRows() + k * _pDouble1->getRows() * _pDouble1->getCols());
+                        piTempoDouble1Img[j + i * _pDouble1->getRows()] = _pDouble1->getImg(j + i * _pDouble1->getRows() + k * _pDouble1->getRows() * _pDouble1->getCols());
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _pDouble1->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble1->getRows(); j++)
+                    {
+                        piTempoDouble1Real[j + i * _pDouble1->getRows()] = _pDouble1->get(j + i * _pDouble1->getRows() + k * _pDouble1->getRows() * _pDouble1->getCols());
+                    }
+                }
+            }
+
+            if (bComplex1 == false && bComplex2 == false)
+            {
+                //Real Matrix by Real Matrix
+                iMultiRealMatrixByRealMatrix(
+                    piTempoDouble1Real, _pDouble1->getRows(), _pDouble1->getCols(),
+                    _pDouble2->get(), _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal);
+            }
+            else if (bComplex1 == false && bComplex2 == true)
+            {
+                //Real Matrix by Matrix Complex
+                iMultiRealMatrixByComplexMatrix(
+                    piTempoDouble1Real, _pDouble1->getRows(), _pDouble1->getCols(),
+                    _pDouble2->get(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal, piTempoOutImg);
+            }
+            else if (bComplex1 == true && bComplex2 == false)
+            {
+                //Complex Matrix by Real Matrix
+                iMultiComplexMatrixByRealMatrix(
+                    piTempoDouble1Real, piTempoDouble1Img, _pDouble1->getRows(), _pDouble1->getCols(),
+                    _pDouble2->get(), _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal, piTempoOutImg);
+            }
+            else //if(bComplex1 == true && bComplex2 == true)
+            {
+                //Complex Matrix by Complex Matrix
+                iMultiComplexMatrixByComplexMatrix(
+                    piTempoDouble1Real, piTempoDouble1Img, _pDouble1->getRows(), _pDouble1->getCols(),
+                    _pDouble2->get(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
+                    piTempoOutReal, piTempoOutImg);
+            }
+
+            if ((*_pDoubleOut)->isComplex())
+            {
+                for (int i = 0; i < _pDouble2->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble1->getRows(); j++)
+                    {
+                        piOutReal[j + i * _pDouble1->getRows() + k * _pDouble1->getRows()*_pDouble2->getCols()] = piTempoOutReal[j + i * _pDouble1->getRows()];
+                        piOutImg[j + i * _pDouble1->getRows() + k * _pDouble1->getRows()*_pDouble2->getCols()] = piTempoOutImg[j + i * _pDouble1->getRows()];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _pDouble2->getCols(); i++)
+                {
+                    for (int j = 0; j < _pDouble1->getRows(); j++)
+                    {
+                        piOutReal[j + i * _pDouble1->getRows() + k * _pDouble1->getRows()*_pDouble2->getCols()] = piTempoOutReal[j + i * _pDouble1->getRows()];
+                    }
+                }
+            }
+        }
+
+        delete[] piTempoOutReal;
+        delete[] piTempoDouble1Real;
+        if ((*_pDoubleOut)->isComplex())
+        {
+            delete[] piTempoOutImg;
+        }
+        if (bComplex1)
+        {
+            delete[] piTempoDouble1Img;
+        }
     }
-    else if (bComplex1 == true && bComplex2 == false)
+    else
     {
-        //Complex Matrix by Real Matrix
-        iMultiComplexMatrixByRealMatrix(
-            _pDouble1->get(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
-            _pDouble2->get(), _pDouble2->getRows(), _pDouble2->getCols(),
-            (*_pDoubleOut)->get(), (*_pDoubleOut)->getImg());
-    }
-    else //if(bComplex1 == true && bComplex2 == true)
-    {
-        //Complex Matrix by Complex Matrix
-        iMultiComplexMatrixByComplexMatrix(
-            _pDouble1->get(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
-            _pDouble2->get(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
-            (*_pDoubleOut)->get(), (*_pDoubleOut)->getImg());
+        (*_pDoubleOut) = new Double(_pDouble1->getRows(), _pDouble2->getCols(), bComplex1 | bComplex2);
+
+        if (bComplex1 == false && bComplex2 == false)
+        {
+            //Real Matrix by Real Matrix
+            iMultiRealMatrixByRealMatrix(
+                _pDouble1->get(), _pDouble1->getRows(), _pDouble1->getCols(),
+                _pDouble2->get(), _pDouble2->getRows(), _pDouble2->getCols(),
+                (*_pDoubleOut)->get());
+        }
+        else if (bComplex1 == false && bComplex2 == true)
+        {
+            //Real Matrix by Matrix Complex
+            iMultiRealMatrixByComplexMatrix(
+                _pDouble1->get(), _pDouble1->getRows(), _pDouble1->getCols(),
+                _pDouble2->get(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
+                (*_pDoubleOut)->get(), (*_pDoubleOut)->getImg());
+        }
+        else if (bComplex1 == true && bComplex2 == false)
+        {
+            //Complex Matrix by Real Matrix
+            iMultiComplexMatrixByRealMatrix(
+                _pDouble1->get(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                _pDouble2->get(), _pDouble2->getRows(), _pDouble2->getCols(),
+                (*_pDoubleOut)->get(), (*_pDoubleOut)->getImg());
+        }
+        else //if(bComplex1 == true && bComplex2 == true)
+        {
+            //Complex Matrix by Complex Matrix
+            iMultiComplexMatrixByComplexMatrix(
+                _pDouble1->get(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                _pDouble2->get(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
+                (*_pDoubleOut)->get(), (*_pDoubleOut)->getImg());
+        }
     }
     return 0;
 }
