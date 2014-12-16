@@ -162,11 +162,11 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         }
 
         // We dont care about the input and output argument
-        if (pMacro->outputs_get()->empty() == false || pMacro->inputs_get()->empty() == false)
-        {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A macro without input and output argument expected.\n"), "exec", 1);
-            return Function::Error;
-        }
+        /* if (pMacro->outputs_get()->empty() == false || pMacro->inputs_get()->empty() == false)
+         {
+             Scierror(999, _("%s: Wrong type for input argument #%d: A macro without input and output argument expected.\n"), "exec", 1);
+             return Function::Error;
+         }*/
 
         promptMode = 3;
         pExp = pMacro->getBody();
