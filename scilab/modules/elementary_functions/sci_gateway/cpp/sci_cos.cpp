@@ -16,7 +16,6 @@
 #include "overload.hxx"
 #include "execvisitor.hxx"
 
-
 extern "C"
 {
 #include "Scierror.h"
@@ -25,6 +24,10 @@ extern "C"
 #include "cos.h"
 }
 
+/*
+clear a;nb = 2500;a = rand(nb, nb);tic();cos(a);toc
+clear a;nb = 2500;a = rand(nb, nb); a = a + a *%i;tic();cos(a);toc
+*/
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_cos(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
@@ -46,23 +49,7 @@ types::Function::ReturnValue sci_cos(types::typed_list &in, int _iRetCount, type
     if (in[0]->isDouble())
     {
         pDblIn = in[0]->getAs<types::Double>();
-        pDblOut = new types::Double(pDblIn->getDims(), pDblIn->getDimsArray(), pDblIn->isComplex());
-
-        if (pDblIn->isComplex())
-        {
-            for (int i = 0 ; i < pDblIn->getSize() ; i++)
-            {
-                zcoss(pDblIn->get(i), pDblIn->getImg(i), pDblOut->get() + i, pDblOut->getImg() + i);
-            }
-        }
-        else
-        {
-            for (int i = 0 ; i < pDblIn->getSize() ; i++)
-            {
-                pDblOut->set(i, dcoss(pDblIn->get(i)));
-            }
-        }
-
+        pDblOut = trigo(pDblIn, cos, cos);
         out.push_back(pDblOut);
     }
     else if (in[0]->isSparse())
@@ -79,16 +66,18 @@ types::Function::ReturnValue sci_cos(types::typed_list &in, int _iRetCount, type
         double* pNonZeroI = new double[nonZeros];
         pSparseIn->outputValues(pNonZeroR, pNonZeroI);
 
-        int iSize = pSparseIn->getSize();
-        int iOne    = 1;
-        double dOne = 1;
-        int iZero   = 0;
+        int iSize       = pSparseIn->getSize();
+        int iOne        = 1;
+        double dOne     = 1;
+        double dZero    = 0;
+        int iZero       = 0;
 
         C2F(dcopy)(&iSize, &dOne, &iZero, pDblOut->get(), &iOne);
 
         if (pSparseIn->isComplex())
         {
-            for (int i = 0 ; i < nonZeros ; i++)
+            C2F(dcopy)(&iSize, &dZero, &iZero, pDblOut->getImg(), &iOne);
+            for (int i = 0; i < nonZeros; i++)
             {
                 int iPos = (pCols[i] - 1) * pSparseIn->getRows() + (pRows[i] - 1);
                 zcoss(pNonZeroR[i], pNonZeroI[i], pDblOut->get() + iPos, pDblOut->getImg() + iPos);
