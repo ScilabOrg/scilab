@@ -16,7 +16,6 @@
 #include "overload.hxx"
 #include "execvisitor.hxx"
 
-
 extern "C"
 {
 #include "Scierror.h"
@@ -25,6 +24,10 @@ extern "C"
 #include "cos.h"
 }
 
+/*
+clear a;nb = 2500;a = rand(nb, nb);tic();cos(a);toc
+clear a;nb = 2500;a = rand(nb, nb); a = a + a *%i;tic();cos(a);toc
+*/
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_cos(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
@@ -48,18 +51,24 @@ types::Function::ReturnValue sci_cos(types::typed_list &in, int _iRetCount, type
         pDblIn = in[0]->getAs<types::Double>();
         pDblOut = new types::Double(pDblIn->getDims(), pDblIn->getDimsArray(), pDblIn->isComplex());
 
+        double* pInR = pDblIn->get();
+        double* pOutR = pDblOut->get();
+        int size = pDblIn->getSize();
         if (pDblIn->isComplex())
         {
-            for (int i = 0 ; i < pDblIn->getSize() ; i++)
+            double* pInI = pDblIn->getImg();
+            double* pOutI = pDblOut->getImg();
+
+            for (int i = 0; i < size; i++)
             {
-                zcoss(pDblIn->get(i), pDblIn->getImg(i), pDblOut->get() + i, pDblOut->getImg() + i);
+                zcoss(pInR[i], pInI[i], &pOutR[i], &pOutI[i]);
             }
         }
         else
         {
-            for (int i = 0 ; i < pDblIn->getSize() ; i++)
+            for (int i = 0; i < size; i++)
             {
-                pDblOut->set(i, dcoss(pDblIn->get(i)));
+                pOutR[i] = dcoss(pInR[i]);
             }
         }
 

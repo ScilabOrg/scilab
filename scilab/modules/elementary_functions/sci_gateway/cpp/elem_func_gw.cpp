@@ -76,6 +76,7 @@ int ElemFuncModule::Load()
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"rat", &sci_rat, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"base2dec", &sci_base2dec, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"dec2base", &sci_dec2base, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"cosh", &sci_cosh, MODULE_NAME));
     return 1;
 }
 

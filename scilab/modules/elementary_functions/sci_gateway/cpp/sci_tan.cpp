@@ -22,8 +22,13 @@ extern "C"
 #include "Scierror.h"
 #include "localization.h"
 #include "tan.h"
+    int C2F(wtan)(double*, double*, double*, double*);
 }
 
+/*
+clear a;nb = 2500;a = rand(nb, nb);tic();tan(a);toc
+clear a;nb = 2500;a = rand(nb, nb); a = a + a *%i;tic();tan(a);toc
+*/
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_tan(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
@@ -51,18 +56,24 @@ types::Function::ReturnValue sci_tan(types::typed_list &in, int _iRetCount, type
     pDblIn = in[0]->getAs<types::Double>();
     pDblOut = new types::Double(pDblIn->getDims(), pDblIn->getDimsArray(), pDblIn->isComplex());
 
+    double* pInR = pDblIn->get();
+    double* pOutR = pDblOut->get();
+    int size = pDblIn->getSize();
+
     if (pDblIn->isComplex())
     {
-        for (int i = 0 ; i < pDblIn->getSize() ; i++)
+        double* pInI = pDblIn->getImg();
+        double* pOutI = pDblOut->getImg();
+        for (int i = 0; i < size; i++)
         {
-            ztans(pDblIn->get(i), pDblIn->getImg(i), pDblOut->get() + i, pDblOut->getImg() + i);
+            C2F(wtan)(pInR + i, pInI + i, pOutR + i, pOutI + i);
         }
     }
     else
     {
-        for (int i = 0 ; i < pDblIn->getSize() ; i++)
+        for (int i = 0; i < size; i++)
         {
-            pDblOut->set(i, dtans(pDblIn->get(i)));
+            pOutR[i] = std::tan(pInR[i]);
         }
     }
 
