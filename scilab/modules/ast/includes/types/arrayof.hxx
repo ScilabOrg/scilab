@@ -604,6 +604,7 @@ public :
 
         //evaluate each argument and replace by appropriate value and compute the count of combinations
         int iSeqCount = checkIndexesArguments(NULL, _pArgs, &pArg, piMaxDim, piCountDim);
+
         if (iSeqCount == 0)
         {
             //free pArg content
@@ -617,13 +618,24 @@ public :
             bUndefine = true;
         }
 
+
         if (bUndefine)
         {
             //manage : and $ in creation by insertion
-            int iSource         = 0;
+            int iSource = (pSource->getDims() - 1);
             int *piSourceDims   = pSource->getDimsArray();
+            int iCompteurNull = 0;
+            bool bPassed = false;
 
-            for (int i = 0 ; i < iDims ; i++)
+            for (int i = 0; i < iDims; i++)
+            {
+                if (pArg[i] == NULL)
+                {
+                    iCompteurNull++;
+                }
+            }
+
+            for (int i = (iDims - 1); i >= 0; i--)
             {
                 if (pArg[i] == NULL)
                 {
@@ -633,9 +645,15 @@ public :
                         piMaxDim[i]     = 1;
                         //piCountDim[i]   = 1;
                     }
-                    else if (pSource->isVector())
+                    else if (pSource->isVector() && (iCompteurNull != pSource->getSize()) && (bPassed == false))
                     {
                         piMaxDim[i] = std::max(piSourceDims[0], piSourceDims[1]);
+                        bPassed = true;
+                    }
+                    else if ((iSource < 0) || (bPassed))
+                    {
+                        piMaxDim[i] = 1;
+                        iSource = -1;
                     }
                     else
                     {
@@ -643,7 +661,7 @@ public :
                         //piCountDim[i]   = piSourceDims[iSource];
                     }
 
-                    iSource++;
+                    iSource--;
                     //replace pArg value by the new one
                     pArg[i] = createDoubleVector(piMaxDim[i]);
                 }
