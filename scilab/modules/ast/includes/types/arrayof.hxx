@@ -361,6 +361,7 @@ public :
     {
         bool bNeedToResize  = false;
         int iDims           = (int)_pArgs->size();
+        int iDimsOrigine = m_iDims;
         typed_list pArg;
 
         int* piMaxDim       = new int[iDims];
@@ -370,6 +371,8 @@ public :
         int* piNewDims      = NULL;
         int iNewDims        = 0;
         ArrayOf* pSource = _pSource->getAs<ArrayOf>();
+
+        bool bIsColon = false;
 
         //evaluate each argument and replace by appropriate value and compute the count of combinations
         int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
@@ -410,9 +413,33 @@ public :
                     piNewDims[i] = std::max(piMaxDim[i], m_piDims[i]);
                 }
 
-                for (int i = m_iDims ; i < iNewDims ; i++)
+                int iSource = (pSource->getDims() - 1);
+                bool bPassed = false;
+                int *piSourceDims = pSource->getDimsArray();
+
+                for (int i = (iNewDims - 1); i >= m_iDims; i--)
                 {
-                    piNewDims[i] = piMaxDim[i];
+                    if ((*_pArgs)[i]->isColon())
+                    {
+                        bIsColon = true;
+                        if (pSource->isVector() && ( bPassed == false ))
+                        {
+                            piNewDims[i] = std::max(piSourceDims[0], piSourceDims[1]);
+                        }
+                        else if ((iSource < 0) || (bPassed))
+                        {
+                            piNewDims[i] = 1;
+                        }
+                        else
+                        {
+                            piNewDims[i] = piSourceDims[iSource];
+                            iSource--;
+                        }
+                    }
+                    else
+                    {
+                        piNewDims[i] = piMaxDim[i];
+                    }
                 }
             }
         }
@@ -481,7 +508,7 @@ public :
         }
 
         //before resize, check input dimension
-        if (pSource->isScalar() == false)
+        /*if (pSource->isScalar() == false)
         {
             if (pSource->getSize() != iSeqCount)
             {
@@ -489,7 +516,7 @@ public :
                 cleanIndexesArguments(_pArgs, &pArg);
                 return NULL;
             }
-        }
+        }*/
 
         if (bNeedToResize)
         {
@@ -556,10 +583,31 @@ public :
             }
             else
             {
-                set(iPos, pRealData[i]);
-                if (pImgData != NULL && bComplex)
+                if ( bIsColon)
                 {
-                    setImg(iPos, pImgData[i]);
+                    int iPas = 1;
+                    for (int j = 0; j < iDimsOrigine; j++)
+                    {
+                        iPas = iPas * m_piDims[j];
+                    }
+
+                    for (int iPos = 0; iPos < this->getSize(); iPos += iPas)
+                    {
+                        set(iPos, pRealData[i]);
+                        if (pImgData != NULL && bComplex)
+                        {
+                            setImg(iPos, pImgData[i]);
+                        }
+                        i++;
+                    }
+                }
+                else
+                {
+                    set(iPos, pRealData[i]);
+                    if (pImgData != NULL && bComplex)
+                    {
+                        setImg(iPos, pImgData[i]);
+                    }
                 }
             }
 
@@ -604,6 +652,7 @@ public :
 
         //evaluate each argument and replace by appropriate value and compute the count of combinations
         int iSeqCount = checkIndexesArguments(NULL, _pArgs, &pArg, piMaxDim, piCountDim);
+
         if (iSeqCount == 0)
         {
             //free pArg content
@@ -617,13 +666,24 @@ public :
             bUndefine = true;
         }
 
+
         if (bUndefine)
         {
             //manage : and $ in creation by insertion
-            int iSource         = 0;
+            int iSource = (pSource->getDims() - 1);
             int *piSourceDims   = pSource->getDimsArray();
+            int iCompteurNull = 0;
+            bool bPassed = false;
 
-            for (int i = 0 ; i < iDims ; i++)
+            for (int i = 0; i < iDims; i++)
+            {
+                if (pArg[i] == NULL)
+                {
+                    iCompteurNull++;
+                }
+            }
+
+            for (int i = (iDims - 1); i >= 0; i--)
             {
                 if (pArg[i] == NULL)
                 {
@@ -633,9 +693,20 @@ public :
                         piMaxDim[i]     = 1;
                         //piCountDim[i]   = 1;
                     }
-                    else if (pSource->isVector())
+                    else if (pSource->isVector() && (iCompteurNull != pSource->getSize()) && (bPassed == false))
                     {
                         piMaxDim[i] = std::max(piSourceDims[0], piSourceDims[1]);
+                        bPassed = true;
+                    }
+                    else if ((iCompteurNull > pSource->getRows()) && (bPassed == false))
+                    {
+                        piMaxDim[i] = pSource->getSize();
+                        bPassed = true;
+                    }
+                    else if ((iSource < 0) || (bPassed))
+                    {
+                        piMaxDim[i] = 1;
+                        iSource = -1;
                     }
                     else
                     {
@@ -643,7 +714,7 @@ public :
                         //piCountDim[i]   = piSourceDims[iSource];
                     }
 
-                    iSource++;
+                    iSource--;
                     //replace pArg value by the new one
                     pArg[i] = createDoubleVector(piMaxDim[i]);
                 }
