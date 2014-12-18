@@ -664,7 +664,7 @@ bool is_valid(const link_t& linkt)
 {
     if (floor(linkt.block) != linkt.block ||
             floor(linkt.port) != linkt.port ||
-            floor(linkt.kind) != linkt.kind)
+            floor((int)linkt.kind) != linkt.kind)
     {
         return false; // Block, Port and Kind must be integer values
     }
