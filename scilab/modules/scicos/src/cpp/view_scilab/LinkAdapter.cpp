@@ -22,6 +22,8 @@
 #include "user.hxx"
 #include "double.hxx"
 
+#include "utilities.hxx"
+#include "adapters_utilities.hxx"
 #include "Controller.hxx"
 #include "LinkAdapter.hxx"
 #include "model/Link.hxx"
