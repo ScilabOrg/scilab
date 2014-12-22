@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NOT FIXED -->
 
 // <-- Non-regression test for bug 528 -->
 //
@@ -18,19 +19,19 @@
 //
 //    On Scilab CVS with " fun2string()   " function
 //    The Error Messages are:
-//      -->fun2string(ones)    
+//      -->fun2string(ones)
 //     Warning: obsolete use of eye rand or ones
-//                 !       
+//                 !
 //
 //
-//     !--error    44 
+//     !--error    44
 //    first argument is incorrect
-//    at line      13 of function fun2string               called by :  
+//    at line      13 of function fun2string               called by :
 //    fun2string(ones)
 //
 //
 //
-//    Commands:  fun2string(ones)   
+//    Commands:  fun2string(ones)
 //
 //    Enrico SEGRE on Linux version  distribution RH9-i386 with   as window manager
 // ...
