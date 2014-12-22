@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NOT FIXED -->
 
 // <-- Non-regression test for bug 6841 -->
 //
@@ -16,7 +17,7 @@
 // fun2string does not work on a simple example.
 
 function myfoo ( )
-  B = zeros(2,1)
-  v = B(1,1)
+    B = zeros(2,1)
+    v = B(1,1)
 endfunction
 fun2string(myfoo)

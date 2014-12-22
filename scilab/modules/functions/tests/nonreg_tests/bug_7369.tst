@@ -6,6 +6,7 @@
 // =============================================================================
 //
 // <-- CLI SHELL MODE -->
+// <-- NOT FIXED -->
 //
 // <-- Non-regression test for bug 7619 -->
 //
@@ -16,8 +17,8 @@
 //fun2string may produce invalid output code
 
 function y=foo(ntimes)
-  a=33;b=7;
-  y  = sqrt(a/ntimes - (b/ntimes)^2);
+    a=33;b=7;
+    y  = sqrt(a/ntimes - (b/ntimes)^2);
 endfunction
 
 execstr(fun2string(foo,"foo1"));

@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NOT FIXED -->
 
 // <-- Non-regression test for bug 1074 -->
 //
@@ -20,7 +21,7 @@ mode(-1);
 clear;
 
 function foo()
-	[a,b,c]=foo1(1)
+    [a,b,c]=foo1(1)
 endfunction
 
 A = fun2string(foo)

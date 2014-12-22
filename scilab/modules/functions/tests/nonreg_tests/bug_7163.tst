@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NOT FIXED -->
 
 // <-- Non-regression test for bug 7163 -->
 //
@@ -15,17 +16,17 @@
 // <-- Short Description -->
 //   assignment index : are translated into eye()
 function foo
-  a(:)
-  a(:,1)
-  a(1,:)
-  a(:,:)
+    a(:)
+    a(:,1)
+    a(1,:)
+    a(:,:)
 
-  a(:)=3
-  a(:,1)=4
-  a(1,:)=5
-  a(:,:)=6
+    a(:)=3
+    a(:,1)=4
+    a(1,:)=5
+    a(:,:)=6
 endfunction
 t=stripblanks(fun2string(foo));
-t=strsubst(t(2:$-1),' ','');
+t=strsubst(t(2:$-1)," ","");
 tref=["a(:)";"a(:,1)";"a(1,:)";"a(:,:)";"";"a(:)=3";"a(:,1)=4";"a(1,:)=5";"a(:,:)=6"];
 if or(t<>tref) then pause,end
