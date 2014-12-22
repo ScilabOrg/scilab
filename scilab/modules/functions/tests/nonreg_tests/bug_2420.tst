@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NOT FIXED -->
 
 // <-- Non-regression test for bug 2420 -->
 //
@@ -15,6 +16,6 @@
 // <-- Short Description -->
 //    fun2string converts the sequence \@ as carriage return
 
-function a=strudel(),a='+\@+';endfunction
+function a=strudel(),a="+\@+";endfunction
 t=fun2string(strudel);
 if stripblanks(t)<>"function a=ans(),a = ''+\@+'';endfunction" then pause,end
