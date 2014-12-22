@@ -38,7 +38,7 @@ Function::ReturnValue sci_size(types::typed_list &in, int _iRetCount, types::typ
 
     switch (in[0]->getType())
     {
-            // Dedicated case for lists.
+        // Dedicated case for lists.
         case InternalType::ScilabMList:
         {
             std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_size";
@@ -65,6 +65,12 @@ Function::ReturnValue sci_size(types::typed_list &in, int _iRetCount, types::typ
 
             Double* pD = new Double(in[0]->getAs<Container>()->getSize());
             out.push_back(pD);
+            break;
+        }
+        case InternalType::ScilabCell:
+        {
+            std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_size";
+            Overload::call(wstFuncName, in, _iRetCount, out, new ast::ExecVisitor());
             break;
         }
         default :
