@@ -359,6 +359,15 @@ public :
 
     InternalType* insert(typed_list* _pArgs, InternalType* _pSource)
     {
+        if (getRef() > 1)
+        {
+            // An ArrayOf content in more than one Scilab variable
+            // must be cloned before to be modified.
+            InternalType* pITClone = clone();
+            ArrayOf* pClone = pITClone->getAs<ArrayOf>();
+            return pClone->insert(_pArgs, _pSource);
+        }
+
         bool bNeedToResize  = false;
         int iDims           = (int)_pArgs->size();
         typed_list pArg;
