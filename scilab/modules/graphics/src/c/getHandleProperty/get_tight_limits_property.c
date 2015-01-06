@@ -27,9 +27,7 @@
 #include "returnProperty.h"
 #include "Scierror.h"
 #include "localization.h"
-#ifdef _MSC_VER
-#include "strdup_windows.h"
-#endif
+#include "os_strdup.h"
 
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
