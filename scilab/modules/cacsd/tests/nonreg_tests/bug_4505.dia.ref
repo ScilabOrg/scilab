@@ -14,12 +14,7 @@
 // <-- Short Description -->
 //  A red vertical bar appeared  for some bode plots of continuous time systems.
 //check there is not Shannon limit curve for continuous systems
-sys=syslin('c',1/(1+%s))
- sys  =
- 
-      1     
-    -----   
-    1 + s   
+sys=syslin('c',1/(1+%s));
 clf();bode(sys,0.001,1000)
 f=gcf();
 a_phase=f.children(1);
