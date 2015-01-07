@@ -914,8 +914,6 @@ struct rpar
         {
             std::shared_ptr<model::Diagram> super = std::static_pointer_cast<model::Diagram>(controller.getObject(diagramChild[0]));
             DiagramAdapter* localAdaptor = new DiagramAdapter(super);
-            //model::Diagram* super = static_cast<model::Diagram*>(controller.getObject(diagramC[0]).get());
-            //DiagramAdapter* localAdapter = new DiagramAdapter(std::shared_ptr<model::Diagram>(super));
 
             DiagramAdapter* diagram = adaptor.getDiagram();
             localAdaptor->setListObjects(diagram->getListObjects());
