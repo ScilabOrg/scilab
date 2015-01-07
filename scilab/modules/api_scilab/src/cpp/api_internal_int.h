@@ -15,6 +15,7 @@
 //internal
 SciErr getCommonMatrixOfInteger(void* _pvCtx, int* _piAddress, int _iPrecision, int* _piRows, int* _piCols, void** _piData);
 SciErr allocCommonMatrixOfInteger(void* _pvCtx, int _iVar, int *_piAddress, int _iPrecision, int _iRows, int _iCols, void** piData);
+SciErr allocCommonMatrixOfIntegerByDims(void* _pvCtx, int _iVar, int *_piAddress, int _iPrecision, int _iDim, int* _piDims, void** _pvData);
 SciErr createCommonNamedMatrixOfInteger(void* _pvCtx, const char* _pstName, int _iPrecision, int _iRows, int _iCols, const void* _piData);
 SciErr readCommonNamedMatrixOfInteger(void* _pvCtx, const char* _pstName, int _iPrecision, int* _piRows, int* _piCols, void* _piData);
 #endif /* __INTERNAL_INT_API__ */
