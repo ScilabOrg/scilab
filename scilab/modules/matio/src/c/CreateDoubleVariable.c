@@ -73,12 +73,14 @@ int CreateDoubleVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * 
 
         if (matVariable->isComplex == 0)
         {
+            sciErr = createMatrixOfDoubleByDims(pvApiCtx, iVar, matVariable->rank, piDims, (double*)matVariable->data);
             //CreateHyperMatrixVariable(pvApiCtx, iVar, MATRIX_OF_DOUBLE_DATATYPE, &matVariable->isComplex, &matVariable->rank,
             //                          piDims, (double*)matVariable->data, NULL, parent, item_position);
         }
         else
         {
-            //mat5ComplexData = (mat_complex_split_t*)matVariable->data;
+            mat5ComplexData = (mat_complex_split_t*)matVariable->data;
+            sciErr = createComplexMatrixOfDoubleByDims(pvApiCtx, iVar, matVariable->rank, piDims, (double*)mat5ComplexData->Re, (double*)mat5ComplexData->Im);
             //CreateHyperMatrixVariable(pvApiCtx, iVar, MATRIX_OF_DOUBLE_DATATYPE, &matVariable->isComplex, &matVariable->rank,
             //                          piDims, (double*)mat5ComplexData->Re, (double*)mat5ComplexData->Im, parent, item_position);
         }

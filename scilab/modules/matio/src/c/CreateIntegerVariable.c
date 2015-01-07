@@ -21,6 +21,7 @@
 int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *matVariable, int * parent, int item_position)
 {
     int nbRow, nbCol, i;
+    int Dim, Size;
     SciErr sciErr;
     char * tmp_int8 = NULL;
     short * tmp_int16 = NULL;
@@ -37,26 +38,43 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
     // Matrix dimensions
     nbRow = (int)matVariable->dims[0];
     nbCol = (int)matVariable->dims[1];
+    Dim = matVariable->rank;
+    Size = 1;
+    piDims = (int*)MALLOC(matVariable->rank * sizeof(int));
+    if (piDims == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "CreateBooleanVariable");
+        return FALSE;
+    }
+    for (i = 0; i < Dim; i++)
+    {
+        piDims[i] = (int)matVariable->dims[i];
+        Size = Size * piDims[i];
+    }
 
-    if (matVariable->rank == 2) /* 2-D array */
+
+    if (matVariable->rank >= 2) /* 2-D array */
     {
         switch (integerType)
         {
             case SCI_INT8:
-                tmp_int8 = (char *)MALLOC(nbRow * nbCol * sizeof(char));
-                if (tmp_int8 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_int8[i] = ((char *)matVariable->data)[i];
+                    tmp_int8 = (char *)MALLOC(Size * sizeof(char));
+                    if (tmp_int8 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_int8[i] = ((char *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfInteger8(pvApiCtx, iVar, nbRow, nbCol, tmp_int8);
+                    sciErr = createMatrixOfInteger8ByDims(pvApiCtx, iVar, Dim, piDims, tmp_int8);
                 }
                 else
                 {
@@ -72,20 +90,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 FREE(tmp_int8);
                 break;
             case SCI_INT16:
-                tmp_int16 = (short *)MALLOC(nbRow * nbCol * sizeof(short));
-                if (tmp_int16 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_int16[i] = ((short *)matVariable->data)[i];
+                    tmp_int16 = (short *)MALLOC(Size * sizeof(short));
+                    if (tmp_int16 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_int16[i] = ((short *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfInteger16(pvApiCtx, iVar, nbRow, nbCol, tmp_int16);
+                    sciErr = createMatrixOfInteger16ByDims(pvApiCtx, iVar, Dim, piDims, tmp_int16);
                 }
                 else
                 {
@@ -101,20 +122,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 FREE(tmp_int16);
                 break;
             case SCI_INT32:
-                tmp_int32 = (int *)MALLOC(nbRow * nbCol * sizeof(int));
-                if (tmp_int32 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_int32[i] = ((int *)matVariable->data)[i];
+                    tmp_int32 = (int *)MALLOC(Size * sizeof(int));
+                    if (tmp_int32 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_int32[i] = ((int *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfInteger32(pvApiCtx, iVar, nbRow, nbCol, tmp_int32);
+                    sciErr = createMatrixOfInteger32ByDims(pvApiCtx, iVar, Dim, piDims, tmp_int32);
                 }
                 else
                 {
@@ -131,20 +155,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 break;
 #ifdef __SCILAB_INT64__
             case SCI_INT64:
-                tmp_int64 = (long long *)MALLOC(nbRow * nbCol * sizeof(long long));
-                if (tmp_int64 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_int64[i] = ((long long *)matVariable->data)[i];
+                    tmp_int64 = (long long *)MALLOC(Size * sizeof(long long));
+                    if (tmp_int64 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_int64[i] = ((long long *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfInteger64(pvApiCtx, iVar, nbRow, nbCol, tmp_int64);
+                    sciErr = createMatrixOfInteger64ByDims(pvApiCtx, iVar, Dim, piDims, tmp_int64);
                 }
                 else
                 {
@@ -161,20 +188,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 break;
 #endif
             case SCI_UINT8 :
-                tmp_uint8 = (unsigned char *)MALLOC(nbRow * nbCol * sizeof(unsigned char));
-                if (tmp_uint8 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_uint8[i] = ((unsigned char *)matVariable->data)[i];
+                    tmp_uint8 = (unsigned char *)MALLOC(Size * sizeof(unsigned char));
+                    if (tmp_uint8 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_uint8[i] = ((unsigned char *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfUnsignedInteger8(pvApiCtx, iVar, nbRow, nbCol, tmp_uint8);
+                    sciErr = createMatrixOfUnsignedInteger8ByDims(pvApiCtx, iVar, Dim, piDims, tmp_uint8);
                 }
                 else
                 {
@@ -190,20 +220,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 FREE(tmp_uint8);
                 break;
             case SCI_UINT16:
-                tmp_uint16 = (unsigned short *)MALLOC(nbRow * nbCol * sizeof(unsigned short));
-                if (tmp_uint16 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_uint16[i] = ((unsigned short *)matVariable->data)[i];
+                    tmp_uint16 = (unsigned short *)MALLOC(Size * sizeof(unsigned short));
+                    if (tmp_uint16 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_uint16[i] = ((unsigned short *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfUnsignedInteger16(pvApiCtx, iVar, nbRow, nbCol, tmp_uint16);
+                    sciErr = createMatrixOfUnsignedInteger16ByDims(pvApiCtx, iVar, Dim, piDims, tmp_uint16);
                 }
                 else
                 {
@@ -219,20 +252,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 FREE(tmp_uint16);
                 break;
             case SCI_UINT32:
-                tmp_uint32 = (unsigned int *)MALLOC(nbRow * nbCol * sizeof(unsigned int));
-                if (tmp_uint32 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_uint32[i] = ((unsigned int *)matVariable->data)[i];
+                    tmp_uint32 = (unsigned int *)MALLOC(Size * sizeof(unsigned int));
+                    if (tmp_uint32 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_uint32[i] = ((unsigned int *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfUnsignedInteger32(pvApiCtx, iVar, nbRow, nbCol, tmp_uint32);
+                    sciErr = createMatrixOfUnsignedInteger32ByDims(pvApiCtx, iVar, Dim, piDims, tmp_uint32);
                 }
                 else
                 {
@@ -249,20 +285,23 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 break;
 #ifdef __SCILAB_INT64__
             case SCI_UINT64:
-                tmp_uint64 = (unsigned long long *)MALLOC(nbRow * nbCol * sizeof(unsigned long long));
-                if (tmp_uint64 == NULL)
+                if (Size)
                 {
-                    Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
-                    return FALSE;
-                }
-                for (i = 0; i < nbRow * nbCol; i++)
-                {
-                    tmp_uint64[i] = ((unsigned long long *)matVariable->data)[i];
+                    tmp_uint64 = (unsigned long long *)MALLOC(Size * sizeof(unsigned long long));
+                    if (tmp_uint64 == NULL)
+                    {
+                        Scierror(999, _("%s: No more memory.\n"), "CreateIntegerVariable");
+                        return FALSE;
+                    }
+                    for (i = 0; i < Size; i++)
+                    {
+                        tmp_uint64[i] = ((unsigned long long *)matVariable->data)[i];
+                    }
                 }
 
                 if (parent == NULL)
                 {
-                    sciErr = createMatrixOfUnsignedInteger64(pvApiCtx, iVar, nbRow, nbCol, tmp_uint64);
+                    sciErr = createMatrixOfUnsignedInteger64ByDims(pvApiCtx, iVar, Dim, piDims, tmp_uint64);
                 }
                 else
                 {
@@ -279,8 +318,8 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
                 break;
 #endif
         }
-    }
-    else /* Multi-dimension array -> Scilab HyperMatrix */
+    }/* Multi-dimension array -> Scilab HyperMatrix */
+    /*else
     {
         piDims = (int*) MALLOC(matVariable->rank * sizeof(int));
         if (piDims == NULL)
@@ -297,7 +336,7 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
         //                          piDims, (double*)matVariable->data, NULL, parent, item_position);
 
         FREE(piDims);
-    }
+    }*/
 
     return TRUE;
 }

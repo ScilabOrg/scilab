@@ -170,6 +170,22 @@ SciErr allocMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, doub
     return sciErr;
 }
 
+SciErr allocMatrixOfDoubleByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, double** _pdblReal)
+{
+    double *pdblReal = NULL;
+
+    SciErr sciErr = allocCommonMatrixOfDoubleByDims(_pvCtx, _iVar, '$', 0, _iDim, _piDims, &pdblReal, NULL);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_ALLOC_DOUBLE, _("%s: Unable to create variable in Scilab memory"), "allocMatrixOfDouble");
+        return sciErr;
+    }
+
+    *_pdblReal = pdblReal;
+
+    return sciErr;
+}
+
 SciErr allocComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, double** _pdblReal, double** _pdblImg)
 {
     double *pdblReal	= NULL;
@@ -184,6 +200,23 @@ SciErr allocComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCol
 
     *_pdblReal = pdblReal;
     *_pdblImg  = pdblImg;
+    return sciErr;
+}
+
+SciErr allocComplexMatrixOfDoubleByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, double** _pdblReal, double** _pdblImg)
+{
+    double *pdblReal = NULL;
+    double *pdblImg = NULL;
+
+    SciErr sciErr = allocCommonMatrixOfDoubleByDims(_pvCtx, _iVar, '$', 1, _iDim, _piDims, &pdblReal, &pdblImg);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_ALLOC_COMPLEX_DOUBLE, _("%s: Unable to create variable in Scilab memory"), "allocComplexMatrixOfDouble");
+        return sciErr;
+    }
+
+    *_pdblReal = pdblReal;
+    *_pdblImg = pdblImg;
     return sciErr;
 }
 
@@ -283,6 +316,70 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, char _cType, int _iCom
     return sciErr;
 }
 
+SciErr allocCommonMatrixOfDoubleByDims(void* _pvCtx, int _iVar, char _cType, int _iComplex, int _iDim, int* _piDims, double** _pdblReal, double** _pdblImg)
+{
+    SciErr sciErr = sciErrInit();
+
+    if (_pvCtx == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble");
+        return sciErr;
+    }
+
+    GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
+    typed_list in = *pStr->m_pIn;
+    InternalType** out = pStr->m_pOut;
+
+    Double* pDbl = NULL;
+    try
+    {
+        if (_cType == 'z')
+        {
+            pDbl = new Double(_iDim, _piDims, _iComplex == 1, true);
+        }
+        else
+        {
+            pDbl = new Double(_iDim, _piDims, _iComplex == 1);
+            if (_cType == 'i')
+            {
+                pDbl->setViewAsInteger();
+            }
+        }
+    }
+    catch (const ast::ScilabError& se)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: %ls"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble", se.GetErrorMessage().c_str());
+        return sciErr;
+    }
+
+    if (pDbl == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble");
+        return sciErr;
+    }
+
+    int rhs = _iVar - *getNbInputArgument(_pvCtx);
+    out[rhs - 1] = pDbl;
+    *_pdblReal = pDbl->getReal();
+    if (*_pdblReal == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocexMatrixOfDouble");
+        return sciErr;
+    }
+
+    if (_iComplex && _pdblImg != NULL)
+    {
+        *_pdblImg = pDbl->getImg();
+        if (*_pdblImg == NULL)
+        {
+            addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble");
+            return sciErr;
+        }
+    }
+
+    return sciErr;
+}
+
 SciErr allocComplexZMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const doublecomplex** _pdblData)
 {
     SciErr sciErr = sciErrInit();
@@ -318,6 +415,28 @@ SciErr createMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, con
     return sciErr;
 }
 
+SciErr createMatrixOfDoubleByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const double* _pdblReal)
+{
+    double *pdblReal = NULL;
+
+    int iOne = 1;
+    int iSize = 1;
+    for (int i = 0; i < _iDim; i++)
+    {
+        iSize = iSize * _piDims[i];
+    }
+
+    SciErr sciErr = allocMatrixOfDoubleByDims(_pvCtx, _iVar, _iDim, _piDims, &pdblReal);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_CREATE_DOUBLE, _("%s: Unable to create variable in Scilab memory"), "allocComplexMatrixOfDouble");
+        return sciErr;
+    }
+
+    C2F(dcopy)(&iSize, const_cast<double*>(_pdblReal), &iOne, pdblReal, &iOne);
+    return sciErr;
+}
+
 SciErr createComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const double* _pdblReal, const double* _pdblImg)
 {
     double *pdblReal	= NULL;
@@ -327,6 +446,30 @@ SciErr createComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCo
     int iSize = _iRows * _iCols;
 
     SciErr sciErr = allocComplexMatrixOfDouble(_pvCtx, _iVar, _iRows, _iCols, &pdblReal, &pdblImg);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_CREATE_COMPLEX_DOUBLE, _("%s: Unable to create variable in Scilab memory"), "allocComplexMatrixOfDouble");
+        return sciErr;
+    }
+
+    C2F(dcopy)(&iSize, const_cast<double*>(_pdblReal), &iOne, pdblReal, &iOne);
+    C2F(dcopy)(&iSize, const_cast<double*>(_pdblImg), &iOne, pdblImg, &iOne);
+    return sciErr;
+}
+
+SciErr createComplexMatrixOfDoubleByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const double* _pdblReal, const double* _pdblImg)
+{
+    double *pdblReal = NULL;
+    double *pdblImg = NULL;
+
+    int iOne = 1;
+    int iSize = 1;
+    for (int i = 0; i < _iDim; i++)
+    {
+        iSize = iSize * _piDims[i];
+    }
+
+    SciErr sciErr = allocComplexMatrixOfDoubleByDims(_pvCtx, _iVar, _iDim, _piDims, &pdblReal, &pdblImg);
     if (sciErr.iErr)
     {
         addErrorMessage(&sciErr, API_ERROR_CREATE_COMPLEX_DOUBLE, _("%s: Unable to create variable in Scilab memory"), "allocComplexMatrixOfDouble");
