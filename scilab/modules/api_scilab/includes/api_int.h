@@ -220,6 +220,90 @@ extern "C" {
 #endif
 
     /**
+    * Create 8-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _pcData8 array of 8-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfInteger8ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const char* _pcData8);
+
+    /**
+    * Create 8-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _pucData8 array of 8-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfUnsignedInteger8ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const unsigned char* _pucData8);
+
+    /**
+    * Create 16-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _psData16 array of 16-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfInteger16ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const short* _psData16);
+
+    /**
+    * Create 16-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _pusData16 array of 16-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfUnsignedInteger16ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const unsigned short* _pusData16);
+
+    /**
+    * Create 32-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _piData32 array of 32-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfInteger32ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const int* _piData32);
+
+    /**
+    * Create 32-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _puiData32 array of 32-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfUnsignedInteger32ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const unsigned int* _puiData32);
+
+#ifdef __SCILAB_INT64__
+
+    /**
+    * Create 64-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _pllData64 array of 64-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfInteger64ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const long long* _pllData64);
+
+    /**
+    * Create 64-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[in] _pullData64 array of 64-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr createMatrixOfUnsignedInteger64ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, const unsigned long long* _pullData64);
+
+#endif
+
+    /**
      * Create named 8-bit integer variable
      * @param[in] _pstName variable name
      * @param[in] _iRows number of rows
@@ -384,6 +468,90 @@ extern "C" {
      * @return if the operation succeeded ( 0 ) or not ( !0 )
      */
     SciErr allocMatrixOfUnsignedInteger64(void* _pvCtx, int _iVar, int _iRows, int _iCols, unsigned long long** _pullData64);
+
+#endif
+
+    /**
+    * Allocate 8-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _pcData8 return array of 8-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfInteger8ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, char** _pcData8);
+
+    /**
+    * Allocate 8-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _pucData8 return array of 8-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfUnsignedInteger8ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, unsigned char** _pucData8);
+
+    /**
+    * Allocate 16-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _psData16 return array of 16-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfInteger16ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, short** _psData16);
+
+    /**
+    * Allocate 16-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _pusData16 return array of 16-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfUnsignedInteger16ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, unsigned short** _pusData16);
+
+    /**
+    * Allocate 32-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _piData32 return array of 32-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfInteger32ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, int** _piData32);
+
+    /**
+    * Allocate 32-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _puiData32 return array of 32-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfUnsignedInteger32ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, unsigned int** _puiData32);
+
+#ifdef __SCILAB_INT64__
+
+    /**
+    * Allocate 64-bit integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _pllData64 return array of 64-bit integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfInteger64ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, long long** _pllData64);
+
+    /**
+    * Allocate 64-bit unsigned integer variable
+    * @param[in] _iVar variable number
+    * @param[in] _iDim number of dimension
+    * @param[in] _piDims pointer in the size of dimension
+    * @param[out] _pullData64 return array of 64-bit unsigned integers
+    * @return if the operation succeeded ( 0 ) or not ( !0 )
+    */
+    SciErr allocMatrixOfUnsignedInteger64ByDims(void* _pvCtx, int _iVar, int _iDim, int* _piDims, unsigned long long** _pullData64);
 
 #endif
 
