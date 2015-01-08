@@ -126,6 +126,24 @@ o.graphics
 o.graphics.exprs
 o.model.equations
 
+// Test 'exprs' with SuperBlock and CBLOCK
+// SuperBlock with no parameter
+lS = list([],list([],"Configuration des Paramètres du bloc",list([])));
+o = scicos_block(gui="SUPER", graphics=scicos_graphics(exprs=lS));
+assert_checkequal(o.graphics.exprs, lS);
+// Masked SuperBlock with one parameter
+lDS = list("3",list("J",["Configuration des Paramètres du bloc"; "mon_param"],list("pol", -1)));
+o = scicos_block(gui="DSUPER", graphics=scicos_graphics(exprs=lDS));
+assert_checkequal(o.graphics.exprs, lDS);
+// CBLOCK, default has empty function body
+o = CBLOCK("define");
+lCB = list(["toto"; "n"; "1"; "1"; "[]"; "[]"; "[]"; "0"; "[]"; "[]"; "[]"; "[]"; "y"; "n"], []);
+assert_checkequal(o.graphics.exprs, lCB);
+// Add a function body
+lCB2 = list(["toto"; "n"; "1"; "1"; "[]"; "[]"; "[]"; "0"; "[]"; "[]"; "[]"; "[]"; "y"; "n"], ["Function body"]);
+o.graphics.exprs = lCB2;
+assert_checkequal(o.graphics.exprs, lCB2);
+
 
 // Check that all the model items are freed
 clear
