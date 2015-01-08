@@ -149,6 +149,16 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 {
                     in[0] = pListArg->get(i);
                     in[0]->IncreaseRef();
+
+                    if (in[0]->isList())
+                    {
+                        pListArg->DecreaseRef();
+                        pListArg->killMe();
+
+                        std::wostringstream os;
+                        os << _W("Invalid index.\n");
+                        throw ast::ScilabError(os.str(), 999, (*e.getArgs().begin())->getLocation());
+                    }
                 }
 
                 if (pIT->invoke(in, opt, iRetCount, out, *this, e))
@@ -198,6 +208,12 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                     os << _W("Invalid index.\n");
                     throw ast::ScilabError(os.str(), 999, (*e.getArgs().begin())->getLocation());
                 }
+            }
+
+            if (pListArg)
+            {
+                pListArg->DecreaseRef();
+                pListArg->killMe();
             }
         }
         catch (ScilabMessage & sm)
