@@ -225,17 +225,111 @@ struct exprs
         std::vector<std::string> exprs;
         controller.getObjectProperty(adaptee, BLOCK, EXPRS, exprs);
 
-        if (exprs.size() < 10 || (!exprs.empty() && exprs[0] != "MBLOCK"))
+        if (!exprs.empty() && (exprs[0] == "CBLOCK" || exprs[0] == "SUPER"))
         {
-            // Simple case
-            types::String* o = new types::String((int)exprs.size(), 1);
-            for (int i = 0; i < (int)exprs.size(); ++i)
+            // Get and return a list
+            types::List* o = new types::List();
+
+            // Element #1: Default values
+            std::istringstream nParamsStr (exprs[1]);
+            int nParams;
+            nParamsStr >> nParams;
+            if (nParams == 0)
             {
-                o->set(i, exprs[i].data());
+                types::Double* defaultValuesField = types::Double::Empty();
+                o->append(defaultValuesField);
             }
+            else
+            {
+                types::String* defaultValuesField = new types::String(nParams, 1);
+                for (int i = 0; i < nParams; ++i)
+                {
+                    defaultValuesField->set(i, exprs[2 + i].c_str());
+                }
+                o->append(defaultValuesField);
+            }
+
+            // Element #2 depends on the block kind
+            if (exprs[0] == "CBLOCK")
+            {
+                std::istringstream nLinesStr (exprs[2 + nParams]);
+                int nLines;
+                nLinesStr >> nLines;
+                if (nLines == 0)
+                {
+                    types::Double* functionBodyField = types::Double::Empty();
+                    o->append(functionBodyField);
+                }
+                else
+                {
+                    types::String* functionBodyField = new types::String(nLines, 1);
+                    for (int i = 0; i < nLines; ++i)
+                    {
+                        functionBodyField->set(i, exprs[2 + nParams + 1 + i].c_str());
+                    }
+                    o->append(functionBodyField);
+                }
+            }
+            else // SUPER
+            {
+                types::List* secondElement = new types::List();
+
+                // Paramaters names
+                if (nParams == 0)
+                {
+                    types::Double* namesField = types::Double::Empty();
+                    secondElement->append(namesField);
+                }
+                else
+                {
+                    types::String* namesField = new types::String(nParams, 1);
+                    for (int i = 0; i < nParams; ++i)
+                    {
+                        namesField->set(i, exprs[2 + nParams + i].c_str());
+                    }
+                    secondElement->append(namesField);
+                }
+
+                // Title message and paramaters decriptions
+                types::String* titleField = new types::String(nParams + 1, 1);
+                for (int i = 0; i < nParams + 1; ++i)
+                {
+                    titleField->set(i, exprs[2 + 2 * nParams + i].c_str());
+                }
+                secondElement->append(titleField);
+
+                // Parameters types and sizes
+                types::List* typesAndSizes = new types::List();
+
+                if (nParams == 0)
+                {
+                    types::Double* typeSizeField = types::Double::Empty();
+                    typesAndSizes->append(typeSizeField);
+                }
+                else
+                {
+                    for (int i = 0; i < nParams; ++i)
+                    {
+                        // Read type
+                        types::String* Type = new types::String(exprs[2 + 3 * nParams + 1 + i].c_str());
+                        typesAndSizes->append(Type);
+
+                        // Read size
+                        std::istringstream sizeStr (exprs[2 + 4 * nParams + 1 + i]);
+                        int size;
+                        sizeStr >> size;
+                        types::Double* Size = new types::Double(size);
+                        typesAndSizes->append(Size);
+                    }
+                }
+                secondElement->append(typesAndSizes);
+
+                o->append(secondElement);
+            }
+
             return o;
         }
-        else
+        else if (exprs.size() >= 10 && (exprs.empty() || exprs[0] == "MBLOCK"))
         {
             // Get and return a Modelica tlist
             types::TList* o = new types::TList();
@@ -252,27 +346,27 @@ struct exprs
             header->set(7, pprop.c_str());
             header->set(8, nameF.c_str());
             header->set(9, funtxt.c_str());
-            o->set(0, header);
+            o->append(header);
 
             // 'in'
             types::String* inField = new types::String(exprs[1].c_str());
-            o->set(1, inField);
+            o->append(inField);
 
             // 'intype'
             types::String* intypeField = new types::String(exprs[2].c_str());
-            o->set(2, intypeField);
+            o->append(intypeField);
 
             // 'out'
             types::String* outField = new types::String(exprs[3].c_str());
-            o->set(3, outField);
+            o->append(outField);
 
             // 'outtype'
             types::String* outtypeField = new types::String(exprs[4].c_str());
-            o->set(4, outtypeField);
+            o->append(outtypeField);
 
             // 'param'
             types::String* paramField = new types::String(exprs[5].c_str());
-            o->set(5, paramField);
+            o->append(paramField);
 
             // 'paramv'
             types::List* paramvField = new types::List();
@@ -284,15 +378,15 @@ struct exprs
                 types::String* paramvElement = new types::String(exprs[7 + i].c_str());
                 paramvField->set(i, paramvElement);
             }
-            o->set(6, paramvField);
+            o->append(paramvField);
 
             // 'pprop'
             types::String* ppropField = new types::String(exprs[7 + paramvSize].c_str());
-            o->set(7, ppropField);
+            o->append(ppropField);
 
             // 'nameF'
             types::String* nameFField = new types::String(exprs[7 + paramvSize + 1].c_str());
-            o->set(8, nameFField);
+            o->append(nameFField);
 
             // 'funtxt'
             std::istringstream funtxtSizeStr (exprs[7 + paramvSize + 2]);
@@ -302,7 +396,7 @@ struct exprs
             if (funtxtSize == 0)
             {
                 // An empty 'funtxt' field returns an empty matrix
-                o->set(9, types::Double::Empty());
+                o->append(types::Double::Empty());
                 return o;
             }
             types::String* funtxtField = new types::String(funtxtSize, 1);
@@ -310,8 +404,18 @@ struct exprs
             {
                 funtxtField->set(i, exprs[7 + paramvSize + 3 + i].c_str());
             }
-            o->set(9, funtxtField);
+            o->append(funtxtField);
 
+            return o;
+        }
+        else
+        {
+            // Simple case
+            types::String* o = new types::String((int)exprs.size(), 1);
+            for (int i = 0; i < (int)exprs.size(); ++i)
+            {
+                o->set(i, exprs[i].data());
+            }
             return o;
         }
     }
@@ -349,7 +453,227 @@ struct exprs
         }
         else if (v->getType() == types::InternalType::ScilabList)
         {
-            std::vector<std::string> exprs;
+            types::List* initial_list = v->getAs<types::List>();
+
+            std::vector<std::string> exprs (1); // Leave the first field empty, because we don't know yet if we are dealing with a SuperBlock or a "CBLOCK"
+            char* c_str; // Buffer
+
+            // Both blocks have two elements in 'exprs'
+            if (initial_list->getSize() != 2)
+            {
+                return false;
+            }
+
+            size_t nParams = 0;
+            // Whatever the block kind, the first element is necessarily a string matrix (can be empty)
+            if (initial_list->get(0)->getType() == types::InternalType::ScilabDouble)
+            {
+                types::Double* empty_matrix_expected = initial_list->get(0)->getAs<types::Double>();
+                if (empty_matrix_expected->getSize() != 0)
+                {
+                    return false;
+                }
+                exprs.resize(2);
+                exprs[1] = "0"; // Indicating empty matrix
+            }
+            else if (initial_list->get(0)->getType() == types::InternalType::ScilabString)
+            {
+                types::String* initial_string = initial_list->get(0)->getAs<types::String>();
+
+                nParams = initial_string->getSize();
+                exprs.resize(exprs.size() + 1 + nParams); // Allocation for the first string
+                std::ostringstream strSize;
+                strSize << nParams;
+                std::string sizeStr = strSize.str();
+                exprs[1] = sizeStr; // Saving the size of the initial string
+
+                for (size_t i = 0; i < nParams; ++i)
+                {
+                    c_str = wide_string_to_UTF8(initial_string->get(i));
+                    std::string stringElement(c_str);
+                    FREE(c_str);
+                    exprs[2 + i] = stringElement;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            // The second element determines the block kind
+            if (initial_list->get(1)->getType() == types::InternalType::ScilabDouble)
+            {
+                exprs[0] = "CBLOCK"; // C block
+                types::Double* empty_matrix_expected = initial_list->get(1)->getAs<types::Double>();
+                if (empty_matrix_expected->getSize() != 0)
+                {
+                    return false;
+                }
+                // An empty matrix stores an empty string, which will later be translated back to an empty matrix
+                exprs.push_back(std::string());
+            }
+            else if (initial_list->get(1)->getType() == types::InternalType::ScilabString)
+            {
+                exprs[0] = "CBLOCK"; // C block
+                types::String* second_string = initial_list->get(1)->getAs<types::String>();
+
+                size_t second_size = second_string->getSize();
+                int exprsSize = exprs.size(); // Saving last index before resizing
+                exprs.resize(exprs.size() + 1 + second_size); // Allocation for the first string
+                std::ostringstream strSize2;
+                strSize2 << second_size;
+                std::string sizeStr2 = strSize2.str();
+                exprs[exprsSize] = sizeStr2; // Saving the size of the second string
+
+                for (size_t i = 0; i < second_size; ++i)
+                {
+                    c_str = wide_string_to_UTF8(second_string->get(i));
+                    std::string stringElement(c_str);
+                    FREE(c_str);
+                    exprs[exprsSize + 1 + i] = stringElement;
+                }
+            }
+            else if (initial_list->get(1)->getType() == types::InternalType::ScilabList)
+            {
+                exprs[0] = "SUPER"; // SuperBlock (masked or not)
+                types::List* second_list = initial_list->get(1)->getAs<types::List>();
+
+                // Parameter names, Title message and Parameters types & sizes
+                if (second_list->getSize() != 3)
+                {
+                    return false;
+                }
+
+                // Parameters Names (string matrix, can be empty)
+                if (second_list->get(0)->getType() == types::InternalType::ScilabDouble)
+                {
+                    types::Double* empty_matrix_expected = second_list->get(0)->getAs<types::Double>();
+                    if (empty_matrix_expected->getSize() != 0)
+                    {
+                        return false;
+                    }
+                    // No parameters are present, so nothing needs to be saved
+                }
+                else if (second_list->get(0)->getType() == types::InternalType::ScilabString)
+                {
+                    types::String* second_string = second_list->get(0)->getAs<types::String>();
+
+                    if (second_string->getSize() != static_cast<int>(nParams))
+                    {
+                        return false;
+                    }
+
+                    int exprsSize = exprs.size(); // Saving last index before resizing
+                    exprs.resize(exprs.size() + nParams); // Allocation for the first string
+
+                    for (size_t i = 0; i < nParams; ++i)
+                    {
+                        c_str = wide_string_to_UTF8(second_string->get(i));
+                        std::string stringElement(c_str);
+                        FREE(c_str);
+                        exprs[exprsSize + i] = stringElement;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
+                // Title message (string matrix, can be empty)
+                if (second_list->get(1)->getType() == types::InternalType::ScilabDouble)
+                {
+                    types::Double* empty_matrix_expected = second_list->get(1)->getAs<types::Double>();
+                    if (empty_matrix_expected->getSize() != 0 || nParams != 0)
+                    {
+                        return false;
+                    }
+                    // No parameters are present, so nothing needs to be saved
+                }
+                else if (second_list->get(1)->getType() == types::InternalType::ScilabString)
+                {
+                    types::String* title_message = second_list->get(1)->getAs<types::String>();
+                    if (title_message->getSize() != static_cast<int>(nParams + 1))
+                    {
+                        // There must be as many parameter descriptions as there are parameters, plus the title message
+                        return false;
+                    }
+
+                    int exprsSize = exprs.size(); // Saving last index before resizing
+                    exprs.resize(exprs.size() + nParams + 1); // Allocation for the first string, minding the title message
+
+                    for (size_t i = 0; i < nParams + 1; ++i)
+                    {
+                        c_str = wide_string_to_UTF8(title_message->get(i));
+                        std::string stringElement(c_str);
+                        FREE(c_str);
+                        exprs[exprsSize + i] = stringElement;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
+                // Parameters types & sizes (list mixing strings and integers, can be empty)
+                if (second_list->get(2)->getType() != types::InternalType::ScilabList)
+                {
+                    return false;
+                }
+                types::List* third_list = second_list->get(2)->getAs<types::List>();
+
+                if (third_list->getSize() != static_cast<int>(2 * nParams))
+                {
+                    // There must be one type and one size for each parameter, so '2*nParams' elements
+                    if (!(third_list->getSize() == 1 && nParams == 0))
+                    {
+                        // Allow third_list != 2*params only for the dummy case 'third_list=list([])'. Do nothing then
+                        return false;
+                    }
+                }
+
+                // First, read all types
+                for (size_t i = 0; i < nParams; ++i)
+                {
+                    if (third_list->get(2 * i)->getType() != types::InternalType::ScilabString)
+                    {
+                        return false;
+                    }
+                    types::String* paramType = third_list->get(2 * i)->getAs<types::String>();
+                    if (!paramType->isScalar())
+                    {
+                        return false;
+                    }
+                    c_str = wide_string_to_UTF8(paramType->get(0));
+                    std::string paramTypeStored(c_str);
+                    FREE(c_str);
+
+                    exprs.push_back(paramTypeStored);
+                }
+                // Then, read all sizes
+                for (size_t i = 0; i < nParams; ++i)
+                {
+                    if (third_list->get(2 * i + 1)->getType() != types::InternalType::ScilabDouble)
+                    {
+                        return false;
+                    }
+                    types::Double* paramSize = third_list->get(2 * i + 1)->getAs<types::Double>();
+                    if (!paramSize->isScalar())
+                    {
+                        return false;
+                    }
+
+                    std::ostringstream paramSizeStored;
+                    paramSizeStored << paramSize->get(0);
+                    std::string paramSizeStr = paramSizeStored.str();
+                    exprs.push_back(paramSizeStr);
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+
             controller.setObjectProperty(adaptee, BLOCK, EXPRS, exprs);
             return true;
         }
@@ -413,7 +737,7 @@ struct exprs
                 return false;
             }
             types::String* inField = current->get(1)->getAs<types::String>();
-            if (inField->getSize() != 1)
+            if (!inField->isScalar())
             {
                 return false;
             }
@@ -428,7 +752,7 @@ struct exprs
                 return false;
             }
             types::String* intypeField = current->get(2)->getAs<types::String>();
-            if (intypeField->getSize() != 1)
+            if (!intypeField->isScalar())
             {
                 return false;
             }
@@ -443,7 +767,7 @@ struct exprs
                 return false;
             }
             types::String* outField = current->get(3)->getAs<types::String>();
-            if (inField->getSize() != 1)
+            if (!inField->isScalar())
             {
                 return false;
             }
@@ -458,7 +782,7 @@ struct exprs
                 return false;
             }
             types::String* outtypeField = current->get(4)->getAs<types::String>();
-            if (outtypeField->getSize() != 1)
+            if (!outtypeField->isScalar())
             {
                 return false;
             }
@@ -473,7 +797,7 @@ struct exprs
                 return false;
             }
             types::String* paramField = current->get(5)->getAs<types::String>();
-            if (paramField->getSize() != 1)
+            if (!paramField->isScalar())
             {
                 return false;
             }
@@ -515,7 +839,7 @@ struct exprs
                 return false;
             }
             types::String* ppropField = current->get(7)->getAs<types::String>();
-            if (ppropField->getSize() != 1)
+            if (!ppropField->isScalar())
             {
                 return false;
             }
@@ -530,7 +854,7 @@ struct exprs
                 return false;
             }
             types::String* nameFField = current->get(8)->getAs<types::String>();
-            if (nameFField->getSize() != 1)
+            if (!nameFField->isScalar())
             {
                 return false;
             }
@@ -682,7 +1006,7 @@ struct id
         }
 
         types::String* current = v->getAs<types::String>();
-        if (current->getSize() != 1)
+        if (!current->isScalar())
         {
             return false;
         }
@@ -801,7 +1125,7 @@ struct style
         if (v->getType() == types::InternalType::ScilabString)
         {
             types::String* current = v->getAs<types::String>();
-            if (current->getSize() != 1)
+            if (!current->isScalar())
             {
                 return false;
             }

@@ -1872,8 +1872,33 @@ o.model.equations
     0.1
                            ans(5)(2)(2)
     0.0001
-// Check that all the model items are freed
-clear
+// Test 'exprs' with SuperBlock or CBLOCK
+// SuperBlock with no parameter
+lS = list([],list([],"Configuration des Paramètres du bloc",list([])));
+o = scicos_block(gui="SUPER",graphics=scicos_graphics(exprs=lS));
+objectCreated( 43 , BLOCK )
+propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , RPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 43 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
 propertyUpdated( 39 , BLOCK , INPUTS ) : SUCCESS
 propertyUpdated( 39 , BLOCK , OUTPUTS ) : NO_CHANGES
 propertyUpdated( 39 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
@@ -1890,3 +1915,89 @@ propertyUpdated( 39 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 propertyUpdated( 39 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 objectDeleted( 42 , PORT )
 objectDeleted( 39 , BLOCK )
+assert_checkequal(o.graphics.exprs, lS);
+// Masked SuperBlock with one parameter
+lDS = list("3",list("J",["Configuration des Paramètres du bloc"; "mon_param"],list("pol", -1)));
+o = scicos_block(gui="DSUPER",graphics=scicos_graphics(exprs=lDS));
+objectCreated( 44 , BLOCK )
+propertyUpdated( 44 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , EXPRS ) : SUCCESS
+propertyUpdated( 44 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , RPAR ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 44 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
+objectDeleted( 43 , BLOCK )
+assert_checkequal(o.graphics.exprs, lDS);
+// CBLOCK
+o = CBLOCK("define");
+objectCreated( 45 , BLOCK )
+propertyUpdated( 45 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , GEOMETRY ) : SUCCESS
+propertyUpdated( 45 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , EXPRS ) : SUCCESS
+objectCreated( 46 , PORT )
+propertyUpdated( 46 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 46 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 45 , BLOCK , INPUTS ) : SUCCESS
+objectCreated( 47 , PORT )
+propertyUpdated( 47 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 47 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 45 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 45 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 46 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 47 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 46 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 47 , PORT , STYLE ) : NO_CHANGES
+propertyUpdated( 46 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 47 , PORT , LABEL ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
+propertyUpdated( 45 , BLOCK , SIM_FUNCTION_API ) : SUCCESS
+propertyUpdated( 46 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 47 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 45 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , RPAR ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , SIM_DEP_UT ) : SUCCESS
+propertyUpdated( 45 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , INTERFACE_FUNCTION ) : SUCCESS
+objectDeleted( 44 , BLOCK )
+lCB = list(["toto";"n";"1";"1";"[]";"[]";"[]";"0";"[]";"[]";"[]";"[]";"y";"n"],[]);
+assert_checkequal(o.graphics.exprs, lCB);
+// Check that all the model items are freed
+clear
+propertyUpdated( 45 , BLOCK , INPUTS ) : SUCCESS
+propertyUpdated( 45 , BLOCK , OUTPUTS ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 46 , PORT )
+propertyUpdated( 45 , BLOCK , INPUTS ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 45 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 45 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+objectDeleted( 47 , PORT )
+objectDeleted( 45 , BLOCK )
