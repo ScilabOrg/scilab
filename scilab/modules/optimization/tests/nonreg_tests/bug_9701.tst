@@ -30,11 +30,10 @@ function [f, g, ind] = optimCost(x, ind, n)
     end
 endfunction
 
-stacksize("max");
 n = 50000;
 x0 = ones(n, 1);
 
 try optim(list(optimCost, n), x0, "qn", "ar",1000,1000, imp=2); catch msg = lasterror(); end
-refMsg = "stack size exceeded!";
+refMsg = "optim: Can not allocate 8000000.00 MB memory..";
 
 assert_checkequal(msg(1), refMsg);

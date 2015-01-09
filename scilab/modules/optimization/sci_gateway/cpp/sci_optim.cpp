@@ -17,6 +17,7 @@
 #include "polynom.hxx"
 #include "list.hxx"
 #include "optimizationfunctions.hxx"
+#include <limits>
 
 extern "C"
 {
@@ -368,14 +369,20 @@ types::Function::ReturnValue sci_optim(types::typed_list &in, types::optional_li
         // management of work table
         if (iAlgo == 1)
         {
+            if ((iSizeX0 > 0) && (iSizeX0 < MAXINT))
+            {
+                Scierror(999, _("%s: Can not allocate 8000000.00 MB memory..\n"), "optim");
+                return types::Function::Error;
+            }
             // compute size
             if (iContr == 1)
             {
-                iWorkSize   = iSizeX0 * (iSizeX0 + 13) / 2;
+                iWorkSize   = iSizeX0 * ((iSizeX0 + 13) / 2);
                 iWorkSizeI  = 0;
             }
             else // iContr == 2
             {
+
                 iWorkSize   = iSizeX0 * (iSizeX0 + 1) / 2 + 4 * iSizeX0 + 1;
                 iWorkSizeI  = 2 * iSizeX0;
             }
