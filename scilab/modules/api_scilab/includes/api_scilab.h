@@ -39,15 +39,18 @@
 #include "api_double.h"
 #include "api_string.h"
 #include "api_int.h"
+#include "api_cell.h"
 #include "api_poly.h"
 #include "api_sparse.h"
 #include "api_boolean.h"
 #include "api_boolean_sparse.h"
 #include "api_pointer.h"
 #include "api_list.h"
+
 #include "api_error.h"
 #include "api_handle.h"
 #include "api_optional.h"
+
 
 #undef __INTERNAL_API_SCILAB__
 
