@@ -26,7 +26,7 @@ int sci_setenv(char *fname, void* pvApiCtx);
 
 int sci_read(char *fname, unsigned long fname_len);
 int sci_oldsave(char *fname, unsigned long fname_len);
-int sci_write(char *fname, unsigned long fname_len);
+//int sci_write(char *fname, unsigned long fname_len);
 int sci_readb(char *fname, unsigned long fname_len);
 int sci_writb(char *fname, unsigned long fname_len);
 int sci_getpid(char *fname, unsigned long fname_len);
