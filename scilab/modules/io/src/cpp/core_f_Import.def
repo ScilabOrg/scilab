@@ -9,3 +9,13 @@ clunit_
 readinter_
 rewindinter_
 backspaceinter_
+write_double_
+write_double_szsc_
+write_double_file_
+write_double_szsc_file_
+write_int_
+write_int_file_
+write_int_szsc_
+write_int_szsc_file_
+write_string_
+write_string_file_
