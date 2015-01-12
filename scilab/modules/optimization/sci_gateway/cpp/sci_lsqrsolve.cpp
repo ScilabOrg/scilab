@@ -281,6 +281,12 @@ types::Function::ReturnValue sci_lsqrsolve(types::typed_list &in, int _iRetCount
             iMaxfev = pDblStop->get(3);
             dEpsfcn = pDblStop->get(4);
             dFactor = pDblStop->get(5);
+
+            if (dFtol < 0 || dXtol < 0 || dGtol < 0 || iMaxfev <= 0 || dFactor <= 0)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d.\n"), "lsqrsolve", iPos + 1, 1, 6);
+                return types::Function::Error;
+            }
         }
         else
         {
