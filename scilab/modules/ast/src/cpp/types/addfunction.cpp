@@ -14,10 +14,7 @@
 #include "context.hxx"
 #include "function.hxx"
 
-extern "C"
-{
 #include "addfunction.h"
-}
 
 void addCFunction(wchar_t* _wstName, OLDGW_FUNC _pFunc, wchar_t* _wstModule)
 {
