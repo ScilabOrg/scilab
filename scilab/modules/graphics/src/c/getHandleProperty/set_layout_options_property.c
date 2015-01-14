@@ -15,6 +15,9 @@
 /* desc : function to modify in Scilab the figure_name field of           */
 /*        a handle                                                        */
 /*------------------------------------------------------------------------*/
+
+#include <string.h>
+
 #include "api_scilab.h"
 #include "sci_malloc.h"
 #include "freeArrayOfString.h"
