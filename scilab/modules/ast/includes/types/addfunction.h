@@ -15,7 +15,11 @@
 #define __ADDFUNCTION_H__
 
 #include "dynlib_ast.h"
+#include "c_gateway_prototype.h"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 EXTERN_AST void addCFunction(wchar_t* _wstName, OLDGW_FUNC _pFunc, wchar_t* _wstModule);
 EXTERN_AST void addMexFunction(wchar_t* _wstName, MEXGW_FUNC _pFunc, wchar_t* _wstModule);
 
