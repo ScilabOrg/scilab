@@ -87,7 +87,7 @@ assert_checkequal ( myobj.nb , 3 );
 nbve = optimsimplex_getnbve ( s1 );
 assert_checkequal ( nbve , 3 );
 s1 = optimsimplex_destroy ( s1 );
-
+pause
 // Test with a unconsistent x0 and len
 cmd = "newobj = optimsimplex_new ( ""axes"" , [1 2] , rosenbrock , [1 2 3] )";
 instr = "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n";
