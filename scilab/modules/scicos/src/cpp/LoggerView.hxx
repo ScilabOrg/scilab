@@ -13,6 +13,7 @@
 #ifndef LOGGERVIEW_HXX_
 #define LOGGERVIEW_HXX_
 
+#include <string>
 #include <sstream>
 #include "View.hxx"
 
@@ -42,6 +43,7 @@ public:
 
     static enum LogLevel indexOf(const wchar_t* name);
     static const wchar_t* toString(enum LogLevel level);
+    static const char* toDisplay(enum LogLevel level);
 
     enum LogLevel getLevel() const
     {
@@ -53,6 +55,8 @@ public:
     }
 
     void log(enum LogLevel level, const std::stringstream& msg);
+    void log(enum LogLevel level, const std::string& msg);
+    void log(enum LogLevel level, const char* msg, ...);
     void log(enum LogLevel level, const char* msg);
     void log(enum LogLevel level, const wchar_t* msg);
 

@@ -15,6 +15,7 @@ DISABLE_HELP_CLEAN=yes
 
 SCICOS_CXX_SOURCES = \
 src/cpp/Controller.cpp \
+src/cpp/controller_helpers.cpp \
 src/cpp/LoggerView.cpp \
 src/cpp/Model.cpp \
 src/cpp/Model_getObjectProperties.cpp \
