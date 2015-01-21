@@ -271,6 +271,18 @@
     <ClInclude Include="includes\ast\runvisitor.hxx">
       <Filter>Header Files\ast</Filter>
     </ClInclude>
+    <ClInclude Include="includes\ast\run_AssignExp.hpp">
+      <Filter>Header Files\ast</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\ast\run_CallExp.hpp">
+      <Filter>Header Files\ast</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\ast\run_MatrixExp.hpp">
+      <Filter>Header Files\ast</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\ast\run_OpExp.hpp">
+      <Filter>Header Files\ast</Filter>
+    </ClInclude>
     <ClInclude Include="includes\ast\scilabexception.hxx">
       <Filter>Header Files\ast</Filter>
     </ClInclude>
