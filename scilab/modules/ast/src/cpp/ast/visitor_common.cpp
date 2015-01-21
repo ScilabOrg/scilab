@@ -2218,7 +2218,16 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
         }
         else if (_pVar->isList())
         {
-            pRet = _pVar->getAs<List>()->insert(_pArgs, _pInsert);
+            types::List* pL = _pVar->getAs<List>();
+            // In case where pL is in several scilab variable,
+            // we have to clone it for keep the other variables unchanged.
+            if (_pVar->getRef() > 1)
+            {
+                pL = _pVar->clone()->getAs<List>();
+            }
+
+            pRet = pL->insert(_pArgs, _pInsert);
+
             if (pRet == NULL)
             {
                 // call overload
