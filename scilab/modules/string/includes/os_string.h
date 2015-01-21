@@ -12,6 +12,14 @@
 
 #ifndef __OS_STRING_H__
 #define __OS_STRING_H__
+
+#ifdef __linux__
+// used to make scilab portable
+// when it is built with old glibc version (<2.10)
+// see man wcsdup
+#define _GNU_SOURCE
+#endif
+
 #include <wchar.h>
 #include <string.h>
 // Windows
