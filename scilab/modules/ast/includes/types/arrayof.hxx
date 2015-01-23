@@ -679,6 +679,7 @@ public :
             int *piSourceDims   = pSource->getDimsArray();
             int iCompteurNull = 0;
             bool bPassed = false;
+            int iTwoColon = 2;
 
             for (int i = 0; i < iDims; i++)
             {
@@ -707,8 +708,25 @@ public :
                     }
                     else if (pSource->isVector() && (iCompteurNull != pSource->getSize()) && (bPassed == false))
                     {
-                        piMaxDim[i] = std::max(piSourceDims[0], piSourceDims[1]);
-                        bPassed = true;
+                        if (iCompteurNull == 1)
+                        {
+                            piMaxDim[i] = std::max(piSourceDims[0], piSourceDims[1]);
+                            bPassed = true;
+                        }
+                        else
+                        {
+                            if (iTwoColon > 0)
+                            {
+                                iTwoColon--;
+                                piMaxDim[i] = piSourceDims[iTwoColon];
+                            }
+                            else
+                            {
+                                piMaxDim[i] = 1;
+                            }
+
+                        }
+
                     }
                     else if ((iCompteurNull > pSource->getRows()) && (bPassed == false))
                     {
