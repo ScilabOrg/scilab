@@ -18,7 +18,7 @@ assert_checkequal(size(b,3), 1);
 
 A(:,:,2)=[1;1;1];
 B(:,:,2)=[1,1,1];
-errmsg2=msprintf(_("%s: Input argument #%d and input argument #%d have incompatible dimensions.\n"),"%hm_1_hm",1,2);
+errmsg2=msprintf(_("Inconsistent row/column dimensions.\n"));
 assert_checkerror("A<B", errmsg2);
 
 s=poly(0,"s");
