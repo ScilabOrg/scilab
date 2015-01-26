@@ -16,6 +16,11 @@
 #include "function.hxx"
 #include "funcmanager.hxx"
 
+extern "C"
+{
+#include "Scierror.h"
+}
+
 using namespace types;
 
 int prodDims(Double* _pVar);
@@ -47,24 +52,43 @@ Function::ReturnValue sci_makecell(typed_list &in, int _piRetCount, typed_list &
     //check input parameters count
     if (prodDims(pD) != (in.size() - 1))
     {
+        Scierror(999, _("%s: Wrong input arguments: Dimensions given as first argument do not match specified cell contents.\n"), "makecell");
         return Function::Error;
     }
 
     Cell *pC  = NULL;
-    if (pD->getRows() > 2 || pD->getCols() > 2)
+    int iDims = pD->getSize();
+    int* piDims = new int[iDims];
+    int isizeHype = 1;
+    for (int i = 0; i < iDims; i++)
     {
-        //arrayOf<Cell>
+        piDims[i] = pD->get(i);
+        isizeHype = isizeHype * piDims[i];
     }
-    else
-    {
-        //2 dims
-        pC  = new Cell(static_cast<int>(pD->getReal()[0]), static_cast<int>(pD->getReal()[1]));
 
-        for (int i = 1 ; i < in.size() ; i++)
+    int isize = pD->get(0) * pD->get(1);
+    isizeHype = isizeHype / isize;
+
+    pC = new Cell(iDims, piDims);
+
+    int iPost = 0;
+    int iReadData = 0;
+    for (int k = 0; k < isizeHype; k++)
+    {
+        for (int j = 0; j < pD->get(0); j++)
         {
-            pC->set(i - 1, in[i]);
+            for (int i = 0; i < pD->get(1); i++)
+            {
+                iPost = i * static_cast<int>(pD->get(0)) + j + k * isize;
+                iReadData = i + j * static_cast<int>(pD->get(1)) + 1 + k * isize;
+                pC->set(iPost, in[iReadData]);
+            }
         }
     }
+
+
+    delete piDims;
+
 
     out.push_back(pC);
     return Function::OK;
