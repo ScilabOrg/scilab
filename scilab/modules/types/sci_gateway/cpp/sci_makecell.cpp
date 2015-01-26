@@ -51,7 +51,7 @@ Function::ReturnValue sci_makecell(typed_list &in, int _piRetCount, typed_list &
     }
 
     Cell *pC  = NULL;
-    if (pD->getRows() > 2 || pD->getCols() > 2)
+    if (pD->getSize() > 2)
     {
         //arrayOf<Cell>
     }
@@ -59,10 +59,16 @@ Function::ReturnValue sci_makecell(typed_list &in, int _piRetCount, typed_list &
     {
         //2 dims
         pC  = new Cell(static_cast<int>(pD->getReal()[0]), static_cast<int>(pD->getReal()[1]));
-
-        for (int i = 1 ; i < in.size() ; i++)
+        int iPost = 0;
+        int iReadData = 0;
+        for (int j = 0; j < pD->get(0); j++)
         {
-            pC->set(i - 1, in[i]);
+            for (int i = 0; i < pD->get(1); i++)
+            {
+                iPost = i * static_cast<int>(pD->get(0)) + j;
+                iReadData = i + j * static_cast<int>(pD->get(1)) + 1;
+                pC->set(iPost, in[iReadData]);
+            }
         }
     }
 
