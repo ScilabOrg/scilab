@@ -293,8 +293,8 @@ int CreateIntegerVariable(void *pvApiCtx, int iVar, int integerType, matvar_t *m
             piDims[i] = (int)matVariable->dims[i];
         }
 
-        //CreateHyperMatrixVariable(pvApiCtx, iVar, MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE,  &integerType, &matVariable->rank,
-        //                          piDims, (double*)matVariable->data, NULL, parent, item_position);
+        CreateHyperMatrixVariable(pvApiCtx, iVar, matVariable->class_type, &integerType, &matVariable->rank,
+                                  piDims, matVariable , parent, item_position);
 
         FREE(piDims);
     }
