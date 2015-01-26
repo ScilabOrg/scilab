@@ -37,6 +37,7 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
         if (pIT->isDouble())
         {
             pCurrentArg = pIT->getAs<Double>();
+            pCurrentArg->IncreaseRef();
             if (pCurrentArg->isEmpty())
             {
                 return 0;
