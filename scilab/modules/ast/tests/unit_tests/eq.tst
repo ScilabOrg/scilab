@@ -29,14 +29,13 @@ assert_checktrue(C3 == C3);
 
 // list() tlist() mlist()
 t=list("any_type");
-assert_checktrue(t == list());
+assert_checktrue(t == list("any_type"));
 t=tlist("any_type");
-assert_checktrue(t == tlist("any_type"))
+assert_checktrue(t == tlist("any_type"));
 t=tlist("any_type");
-assert_checktrue(t == mlist("any_type"))
+assert_checktrue(t == mlist("any_type"));
 
 function res=%mytype_o_l(a,b)
-    disp("mytype_o_l");
     res = %t;
 endfunction
 t=tlist("mytype");
