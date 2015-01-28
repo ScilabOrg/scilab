@@ -203,7 +203,7 @@ protected:
         e.getSelect()->accept(*this);
 
         exps_t* cases = e.getCases();
-        for (exps_t::iterator it = cases->begin(), itEnd = cases->end(); it !=  itEnd ; ++it)
+        for (exps_t::iterator it = cases->begin(); it !=  cases->end() ; ++it)
         {
             (*it)->accept(*this);
         }
@@ -223,7 +223,7 @@ protected:
 
     virtual void visit (const SeqExp  &e)
     {
-        for (exps_t::const_iterator it = e.getExps().begin (), itEnd = e.getExps().end(); it != itEnd; ++it)
+        for (exps_t::const_iterator it = e.getExps().begin (); it != e.getExps().end(); ++it)
         {
             (*it)->accept(*this);
         }
@@ -231,7 +231,7 @@ protected:
 
     virtual void visit (const ArrayListExp  &e)
     {
-        for (exps_t::const_iterator it = e.getExps().begin (), itEnd = e.getExps().end(); it != itEnd; ++it)
+        for (exps_t::const_iterator it = e.getExps().begin (); it != e.getExps().end(); ++it)
         {
             (*it)->accept (*this);
         }
@@ -239,7 +239,7 @@ protected:
 
     virtual void visit (const AssignListExp  &e)
     {
-        for (exps_t::const_iterator it = e.getExps().begin (), itEnd = e.getExps().end(); it != itEnd; ++it)
+        for (exps_t::const_iterator it = e.getExps().begin (); it != e.getExps().end(); ++it)
         {
             (*it)->accept (*this);
         }

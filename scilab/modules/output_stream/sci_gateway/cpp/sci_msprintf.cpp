@@ -43,7 +43,7 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
         return types::Function::Error;
     }
 
-    for (int i = 1 ; i < in.size() ; i++)
+    for (int i = 1 ; i < static_cast<int>(in.size()) ; i++)
     {
         if (in[i]->isDouble() == false && in[i]->isString() == false)
         {
@@ -54,7 +54,7 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
 
     wchar_t* pwstInput = in[0]->getAs<types::String>()->get()[0];
     int iNumberPercent = 0;
-    for (int i = 0 ; i < wcslen(pwstInput) ; i++)
+    for (int i = 0 ; i < static_cast<int>(wcslen(pwstInput)) ; i++)
     {
         if (pwstInput[i] == L'%')
         {
@@ -70,7 +70,7 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
     }
 
     //Input values must be less or equal than excepted
-    if ((in.size() - 1) > iNumberPercent)
+    if ((static_cast<int>(in.size()) - 1) > iNumberPercent)
     {
         Scierror(999, _("%s: Wrong number of input arguments: at most %d expected.\n"), "msprintf", iNumberPercent);
         return types::Function::Error;
@@ -81,7 +81,7 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
     if ( in.size() > 1 )
     {
         int iRefRows = in[1]->getAs<GenericType>()->getRows();
-        for (int i = 1 ; i < in.size() ; i++)
+        for (int i = 1 ; i < static_cast<int>(in.size()) ; i++)
         {
             //all arguments must have the same numbers of rows !
             if (iRefRows != in[i]->getAs<GenericType>()->getRows())
@@ -104,7 +104,7 @@ types::Callable::ReturnValue sci_msprintf(types::typed_list &in, int _iRetCount,
     //fill ArgumentPosition structure
     pArgs = new ArgumentPosition[iNumberPercent];
     int idx = 0;
-    for (int i = 1 ; i < in.size() ; i++)
+    for (int i = 1 ; i < static_cast<int>(in.size()) ; i++)
     {
         for (int j = 0 ; j < in[i]->getAs<GenericType>()->getCols() ; j++)
         {

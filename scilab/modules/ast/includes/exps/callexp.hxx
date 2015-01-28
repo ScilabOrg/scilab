@@ -95,7 +95,7 @@ public:
     const exps_t& getArgs() const
     {
         exps_t* args = new exps_t;
-        for (exps_t::const_iterator it = ++(_exps.begin()), itEnd = _exps.end(); it != itEnd ; ++it)
+        for (exps_t::const_iterator it = ++(_exps.begin()); it != _exps.end() ; ++it)
         {
             args->push_back(*it);
         }
@@ -105,7 +105,7 @@ public:
     exps_t& getArgs()
     {
         exps_t* args = new exps_t;
-        for (exps_t::const_iterator it = ++(_exps.begin()), itEnd = _exps.end(); it != itEnd ; ++it)
+        for (exps_t::const_iterator it = ++(_exps.begin()); it != _exps.end() ; ++it)
         {
             args->push_back(*it);
         }

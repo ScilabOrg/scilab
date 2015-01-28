@@ -100,7 +100,7 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
     bool bFindFirstMatrix = false;
 
     // get the size of the first input non scalar
-    for (int i = 0; i < inputs.size(); i++)
+    for (int i = 0; i < static_cast<int>(inputs.size()); i++)
     {
         pGT = inputs[i]->getAs<types::GenericType>();
         if (pGT->getSize() == 0)
@@ -202,9 +202,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::UInt8* pIIn = inputs[i]->getAs<types::UInt8>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iLargerInput = max(iLargerInput, 8);
@@ -213,9 +213,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::Int8* pIIn = inputs[i]->getAs<types::Int8>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iSigned = 1;
@@ -225,9 +225,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::UInt16* pIIn = inputs[i]->getAs<types::UInt16>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iLargerInput = max(iLargerInput, 16);
@@ -236,9 +236,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::Int16* pIIn = inputs[i]->getAs<types::Int16>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iSigned = 1;
@@ -248,9 +248,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::UInt32* pIIn = inputs[i]->getAs<types::UInt32>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iLargerInput = max(iLargerInput, 32);
@@ -259,9 +259,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::Int32* pIIn = inputs[i]->getAs<types::Int32>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iSigned = 1;
@@ -271,9 +271,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::UInt64* pIIn = inputs[i]->getAs<types::UInt64>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iLargerInput = max(iLargerInput, 64);
@@ -282,9 +282,9 @@ types::Function::ReturnValue sci_MinMax(types::typed_list &in, int _iRetCount, t
             {
                 types::Int64* pIIn = inputs[i]->getAs<types::Int64>();
                 pDbl = new types::Double(pIIn->getDims(), pIIn->getDimsArray());
-                for (int i = 0; i < pIIn->getSize(); i++)
+                for (int j = 0; j < pIIn->getSize(); j++)
                 {
-                    pDbl->set(i, static_cast<double>(pIIn->get(i)));
+                    pDbl->set(j, static_cast<double>(pIIn->get(j)));
                 }
 
                 iSigned = 1;

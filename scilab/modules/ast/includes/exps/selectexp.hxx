@@ -120,7 +120,7 @@ public :
             --itEnd;
         }
 
-        for (; it != itEnd ; ++it)
+        for (; it != const_cast<const exps_t::const_iterator>(itEnd) ; ++it)
         {
             cases->push_back(*it);
         }

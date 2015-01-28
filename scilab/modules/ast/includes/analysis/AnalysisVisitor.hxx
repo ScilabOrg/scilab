@@ -488,7 +488,7 @@ private:
     {
         e.getSelect()->accept(*this);
         ast::exps_t* cases = e.getCases();
-        for (ast::exps_t::const_iterator i = cases->begin(), end = cases->end(); i != end; ++i)
+        for (ast::exps_t::const_iterator i = cases->begin(); i != cases->end(); ++i)
         {
             (*i)->accept(*this);
         }
@@ -649,12 +649,12 @@ private:
     /* optimized */
     void visit(ast::OptimizedExp & e)
     {
-        //gné ??? Oo
+        //gnÃ© ??? Oo
     }
 
     void visit(ast::DAXPYExp & e)
     {
-        //gné ??? Oo
+        //gnÃ© ??? Oo
     }
 
     bool replaceDAXPY(ast::OpExp& e)

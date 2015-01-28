@@ -114,7 +114,7 @@ types::Function::ReturnValue sci_matrix(types::typed_list &in, int _iRetCount, t
     {
         iDims = in.size() - 1;
         piSizes = new int[iDims];
-        for (int i = 1; i < in.size(); i++)
+        for (int i = 1; i < static_cast<int>(in.size()); i++)
         {
             if (in[i]->isDouble() == false)
             {

@@ -144,15 +144,14 @@ struct Libraries
         }
 
         //does _key is a macro in a lib
-        auto it = libs.rbegin();
         for (auto it = libs.rbegin(), itEnd = libs.rend(); it != itEnd ; ++it)
         {
             Library* lib = it->second;
-            if (it->second->empty() == false)
+            if (lib->empty() == false)
             {
-                if (_iLevel == -1 || it->second->top()->m_iLevel == _iLevel)
+                if (_iLevel == -1 || lib->top()->m_iLevel == _iLevel)
                 {
-                    types::MacroFile* pMF = it->second->get(_key);
+                    types::MacroFile* pMF = lib->get(_key);
                     if (pMF)
                     {
                         return (types::InternalType*)pMF;
