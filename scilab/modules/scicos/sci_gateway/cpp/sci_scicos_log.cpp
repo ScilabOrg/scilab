@@ -30,9 +30,9 @@ extern "C"
 #include "localization.h"
 }
 
-using namespace org_scilab_modules_scicos;
+const std::string funame = "scicos_log";
 
-static const std::string funame = "scicos_log";
+using namespace org_scilab_modules_scicos;
 
 LoggerView* get_or_allocate_logger()
 {

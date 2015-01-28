@@ -23,6 +23,9 @@
 #include "int.hxx"
 #include "bool.hxx"
 #include "string.hxx"
+#include "list.hxx"
+#include "tlist.hxx"
+#include "mlist.hxx"
 
 extern "C"
 {
@@ -403,6 +406,48 @@ types::Function::ReturnValue sci_var2vec(types::typed_list &in, int _iRetCount, 
                 offset += listElement->getRows();
             }
             // An empty list input will return [22; 0]
+
+            break;
+        }
+
+        case types::InternalType::ScilabTList  :
+        case types::InternalType::ScilabMList  :
+        {
+            types::List* pList;
+            if (in[0]->getType() == types::InternalType::ScilabTList)
+            {
+                pList = in[0]->getAs<types::TList>();
+            }
+            else
+            {
+                pList = in[0]->getAs<types::MList>();
+            }
+
+            int iElements = pList->getSize();
+            totalSize = 2;
+
+            std::vector<types::typed_list> listElements (iElements);
+            for (int i = 0; i < iElements; ++i)
+            {
+                // Recursively call sci_var2vec on each element and extract the obtained results
+                types::typed_list tempIn (1, pList->get(i));
+                sci_var2vec(tempIn, 1, listElements[i]);
+
+                types::Double* listElement = listElements[i][0]->getAs<types::Double>();
+                totalSize += listElement->getRows();
+            }
+            // Allocation for type + list length + each list element
+            ret = new types::Double(totalSize, 1);
+
+            ret->set(0, in[0]->getType());
+            ret->set(1, iElements);
+            int offset = 0;
+            for (int i = 0; i < iElements; ++i)
+            {
+                types::Double* listElement = listElements[i][0]->getAs<types::Double>();
+                memcpy(ret->get() + 2 + offset, listElement->get(), listElement->getRows() * sizeof(double));
+                offset += listElement->getRows();
+            }
 
             break;
         }

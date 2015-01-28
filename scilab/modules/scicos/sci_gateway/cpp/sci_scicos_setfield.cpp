@@ -45,9 +45,9 @@ extern "C"
 #include "localization.h"
 }
 
-using namespace org_scilab_modules_scicos;
+const std::string funame = "scicos_setfield";
 
-static const std::string funame = "scicos_setfield";
+using namespace org_scilab_modules_scicos;
 
 template<class Adaptor, class Adaptee>
 types::InternalType* set(types::InternalType* adaptor_type, const std::wstring& field, types::InternalType* value)
