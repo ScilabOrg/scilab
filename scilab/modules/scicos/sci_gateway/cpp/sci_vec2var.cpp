@@ -23,6 +23,9 @@
 #include "int.hxx"
 #include "bool.hxx"
 #include "string.hxx"
+#include "list.hxx"
+#include "tlist.hxx"
+#include "mlist.hxx"
 
 extern "C"
 {
@@ -428,6 +431,111 @@ types::Function::ReturnValue sci_vec2var(types::typed_list &in, int _iRetCount, 
         case types::InternalType::ScilabList   :
         {
             types::List* pList = new types::List();
+
+            int offset = 0;
+            for (int i = 0; i < iDims; ++i)
+            {
+                switch (static_cast<int>(input->get(2 + offset)))
+                {
+                    case types::InternalType::ScilabDouble :
+                    {
+                        types::Double* pDouble;
+                        offset += fill_double(input->get() + 4 + offset, input->get(3 + offset), pDouble);
+                        pList->append(pDouble);
+                        break;
+                    }
+                    case types::InternalType::ScilabInt8   :
+                    {
+                        types::Int8* pInt8;
+                        offset += fill_int8(input->get() + 4 + offset, input->get(3 + offset), pInt8);
+                        pList->append(pInt8);
+                        break;
+                    }
+                    case types::InternalType::ScilabUInt8  :
+                    {
+                        types::UInt8* pUInt8;
+                        offset += fill_uint8(input->get() + 4 + offset, input->get(3 + offset), pUInt8);
+                        pList->append(pUInt8);
+                        break;
+                    }
+                    case types::InternalType::ScilabInt16  :
+                    {
+                        types::Int16* pInt16;
+                        offset += fill_int16(input->get() + 4 + offset, input->get(3 + offset), pInt16);
+                        pList->append(pInt16);
+                        break;
+                    }
+                    case types::InternalType::ScilabUInt16 :
+                    {
+                        types::UInt16* pUInt16;
+                        offset += fill_uint16(input->get() + 4 + offset, input->get(3 + offset), pUInt16);
+                        pList->append(pUInt16);
+                        break;
+                    }
+                    case types::InternalType::ScilabInt32  :
+                    {
+                        types::Int32* pInt32;
+                        offset += fill_int32(input->get() + 4 + offset, input->get(3 + offset), pInt32);
+                        pList->append(pInt32);
+                        break;
+                    }
+                    case types::InternalType::ScilabUInt32 :
+                    {
+                        types::UInt32* pUInt32;
+                        offset += fill_uint32(input->get() + 4 + offset, input->get(3 + offset), pUInt32);
+                        pList->append(pUInt32);
+                        break;
+                    }
+                    case types::InternalType::ScilabBool   :
+                    {
+                        types::Bool* pBool;
+                        offset += fill_bool(input->get() + 4 + offset, input->get(3 + offset), pBool);
+                        pList->append(pBool);
+                        break;
+                    }
+                    case types::InternalType::ScilabString :
+                    {
+                        types::String* pString;
+                        offset += fill_string(input->get() + 4 + offset, input->get(3 + offset), pString);
+                        pList->append(pString);
+                        break;
+                    }
+                    default :
+                    {
+                        Scierror(999, _("%s: Wrong value for element #%d of input argument #%d: Unknown type.\n"), funname.c_str(), 3 + offset, 1);
+                        return types::Function::Error;
+                    }
+                }
+            }
+
+            out.push_back(pList);
+            break;
+        }
+
+        case types::InternalType::ScilabTList  :
+        case types::InternalType::ScilabMList  :
+        {
+            if (input->getRows() < 7)
+            {
+                Scierror(999, _("%s:  Wrong size for input argument #%d: At least %dx%d elements expected.\n"), funname.c_str(), 1, 7, 1);
+                return types::Function::Error;
+            }
+
+            if (input->get(2) != types::InternalType::ScilabString)
+            {
+                Scierror(999, _("%s:  Wrong value for element %d of input argument #%d: %d expected (specifying String type).\n"), funname.c_str(), 3, 1, types::InternalType::ScilabString);
+                return types::Function::Error;
+            }
+
+            types::List* pList;
+            if (iType == types::InternalType::ScilabTList)
+            {
+                pList = new types::TList();
+            }
+            else
+            {
+                pList = new types::MList();
+            }
 
             int offset = 0;
             for (int i = 0; i < iDims; ++i)

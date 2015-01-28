@@ -62,6 +62,10 @@ sHyperMat = string(HyperMat);
 assert_checkequal(vec2var(var2vec(sHyperMat)), sHyperMat);
 // List
 // Double
+l = list();
+assert_checkequal(vec2var(var2vec(l)), l);
+lEmpties = list([], "", [], "");
+assert_checkequal(vec2var(var2vec(lEmpties)), lEmpties);
 lMat = list(Mat);
 assert_checkequal(vec2var(var2vec(lMat)), lMat);
 lHyperMat = list(HyperMat);
@@ -81,3 +85,17 @@ lsMat = list(string(Mat));
 assert_checkequal(vec2var(var2vec(lsMat)), lsMat);
 lsHyperMat = list(string(HyperMat));
 assert_checkequal(vec2var(var2vec(lsHyperMat)), lsHyperMat);
+// TList
+tl = tlist("");
+assert_checkequal(vec2var(var2vec(tl)), tl);
+tlEmpties = tlist(["Type" "f1" "f2" "f3" "f4" "f5"]);
+assert_checkequal(vec2var(var2vec(tlEmpties)), tlEmpties);
+tlMixed = tlist(["Type" "f1" "f2" "f3" "f4" "f5"], Mat, HyperMat, int32(Mat), string(Mat), Mat > 15);
+assert_checkequal(vec2var(var2vec(tlMixed)), tlMixed);
+// MList
+ml = mlist("");
+assert_checkequal(vec2var(var2vec(ml)), ml);
+mlEmpties = mlist(["Type" "f1" "f2" "f3" "f4" "f5"]);
+assert_checkequal(vec2var(var2vec(mlEmpties)), mlEmpties);
+mlMixed = mlist(["Type" "f1" "f2" "f3" "f4" "f5"], Mat, HyperMat, int32(Mat), string(Mat), Mat > 15);
+assert_checkequal(vec2var(var2vec(mlMixed)), mlMixed);
