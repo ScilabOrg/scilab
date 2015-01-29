@@ -420,8 +420,8 @@ Link    :
           to: 0 0 1
 // Link output port #1 of block #1 with input port #1 of block #2 thanks to lnk1
 scs_m.objs(4).from = [1 1 0]; // Link block #1
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
@@ -434,16 +434,16 @@ propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(1).graphics.pout, 4);   // Check that block #1 is connected to lnk1
 assert_checkequal(scs_m.objs(1).model.out,    -1);   // "
 scs_m.objs(4).to = [2 1 1];   // Link block #2
-propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
@@ -456,11 +456,11 @@ propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(4).from, [1 1 0]);
@@ -477,8 +477,8 @@ propertyUpdated( 17 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
 propertyUpdated( 17 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 8 , BLOCK , INPUTS ) : SUCCESS
-propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
@@ -491,11 +491,11 @@ propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(4).from, [1 1 0]);
@@ -519,8 +519,8 @@ propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(4).from, [0 0 0]);
@@ -549,8 +549,8 @@ propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(2).graphics.pin, [0; 0]);  // Check that block #2 is not connected
 // Now link the two Scope blocks together by adding an event output port to block #3 thanks to lnk2
 scs_m.objs(5).from = [2 1 1]; // Link the input of block #2
-propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
@@ -565,8 +565,8 @@ propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
 propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : NO_CHANGES
+propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 scs_m.objs(5).to = [3 1 0];   // Add an event output to block #3 and link it to the previous
 objectCreated( 18 , PORT )
@@ -576,8 +576,8 @@ propertyUpdated( 18 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
 propertyUpdated( 18 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 11 , BLOCK , EVENT_OUTPUTS ) : SUCCESS
-propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
@@ -592,11 +592,11 @@ propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
 propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 assert_checkequal(scs_m.objs(5).from, [2 1 1]);
 assert_checkequal(scs_m.objs(5).to,   [3 1 0]);
 assert_checkequal(scs_m.objs(2).graphics.pein,  5);  // Check that block #2 is connected to lnk2
@@ -619,8 +619,8 @@ propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
 propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 scs_m.objs(5).to = [3 1 1];   // Two inputs
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
@@ -664,10 +664,10 @@ propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 19 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 20 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 19 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 19 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
 assert_checkequal(scs_m.objs(3).from, [1 1 0]);
 assert_checkequal(scs_m.objs(3).to,   [2 1 1]);
@@ -725,10 +725,10 @@ propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 23 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 23 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 23 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 scs_m.objs
  ans  =
              ans(1)
@@ -939,8 +939,8 @@ propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 27 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 25 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 26 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 scs_m.objs(3) = Scope1;       // Add the Block that lnk's 'to' points to
 objectCreated( 31 , BLOCK )
 propertyUpdated( 31 , BLOCK , SIM_FUNCTION_API ) : SUCCESS
@@ -1068,10 +1068,10 @@ propertyUpdated( 27 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 31 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 25 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 26 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 26 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 scs_m.objs
  ans  =
              ans(1)

@@ -942,8 +942,8 @@ propertyUpdated( 23 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 25 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 29 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectDeleted( 28 , LINK )
 objectCreated( 30 , BLOCK )
 propertyUpdated( 30 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
@@ -1009,10 +1009,10 @@ propertyUpdated( 29 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 30 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectCreated( 34 , LINK )
 propertyUpdated( 34 , LINK , CONTROL_POINTS ) : SUCCESS
 propertyUpdated( 34 , LINK , CONTROL_POINTS ) : SUCCESS
@@ -1040,15 +1040,15 @@ propertyUpdated( 30 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 35 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , DESTINATION_PORT ) : NO_CHANGES
-propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 35 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 35 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectDeleted( 34 , LINK )
 objectCreated( 36 , LINK )
 propertyUpdated( 36 , LINK , CONTROL_POINTS ) : SUCCESS
@@ -1079,21 +1079,21 @@ propertyUpdated( 35 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 37 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 27 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 29 , LINK , DESTINATION_PORT ) : NO_CHANGES
-propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 35 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 35 , LINK , DESTINATION_PORT ) : NO_CHANGES
-propertyUpdated( 33 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 37 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 26 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 33 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 37 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 26 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectDeleted( 36 , LINK )
 objectCreated( 38 , BLOCK )
 propertyUpdated( 38 , BLOCK , GEOMETRY ) : NO_CHANGES

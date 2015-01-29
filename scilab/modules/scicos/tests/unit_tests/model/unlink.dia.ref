@@ -1,0 +1,199 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+loadXcosLibs();
+scicos_log("TRACE");
+// Allocate a Link and check its default valuesscs_m=scicos_diagram();
+b1 = scicos_block();
+objectCreated( 1 , BLOCK )
+propertyUpdated( 1 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , RPAR ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , INTERFACE_FUNCTION ) : NO_CHANGES
+b2 = scicos_block();
+objectCreated( 2 , BLOCK )
+propertyUpdated( 2 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , RPAR ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , INTERFACE_FUNCTION ) : NO_CHANGES
+l1 = scicos_link( from=[1 1 0],to=[2 1 1] );
+objectCreated( 3 , LINK )
+propertyUpdated( 3 , LINK , CONTROL_POINTS ) : NO_CHANGES
+propertyUpdated( 3 , LINK , CONTROL_POINTS ) : NO_CHANGES
+propertyUpdated( 3 , LINK , LABEL ) : NO_CHANGES
+propertyUpdated( 3 , LINK , THICK ) : NO_CHANGES
+propertyUpdated( 3 , LINK , COLOR ) : NO_CHANGES
+propertyUpdated( 3 , LINK , KIND ) : NO_CHANGES
+l2 = scicos_link();
+objectCreated( 4 , LINK )
+propertyUpdated( 4 , LINK , CONTROL_POINTS ) : NO_CHANGES
+propertyUpdated( 4 , LINK , CONTROL_POINTS ) : NO_CHANGES
+propertyUpdated( 4 , LINK , LABEL ) : NO_CHANGES
+propertyUpdated( 4 , LINK , THICK ) : NO_CHANGES
+propertyUpdated( 4 , LINK , COLOR ) : NO_CHANGES
+propertyUpdated( 4 , LINK , KIND ) : NO_CHANGES
+scs_m = scicos_diagram( objs=list(b1, b2, l1, l2) );
+objectCreated( 5 , DIAGRAM )
+propertyUpdated( 5 , DIAGRAM , TITLE ) : NO_CHANGES
+propertyUpdated( 5 , DIAGRAM , PATH ) : NO_CHANGES
+propertyUpdated( 5 , DIAGRAM , PROPERTIES ) : NO_CHANGES
+propertyUpdated( 5 , DIAGRAM , PROPERTIES ) : NO_CHANGES
+propertyUpdated( 5 , DIAGRAM , CONTEXT ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 3 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 4 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 5 , DIAGRAM , CHILDREN ) : SUCCESS
+objectCreated( 6 , PORT )
+propertyUpdated( 6 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 6 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 6 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
+propertyUpdated( 6 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 1 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 3 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+objectCreated( 7 , PORT )
+propertyUpdated( 7 , PORT , IMPLICIT ) : NO_CHANGES
+propertyUpdated( 7 , PORT , PORT_KIND ) : SUCCESS
+propertyUpdated( 7 , PORT , SOURCE_BLOCK ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
+propertyUpdated( 7 , PORT , DATATYPE ) : SUCCESS
+propertyUpdated( 2 , BLOCK , INPUTS ) : SUCCESS
+propertyUpdated( 3 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : NO_CHANGES
+propertyUpdated( 4 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 5 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
+assert_checkequal(scs_m.objs(1).graphics.pout, 3);
+assert_checkequal(scs_m.objs(2).graphics.pin,  3);
+// Now replace 'l1' with 'l2' at both ends
+scs_m.objs(4).from = [1 1 0];
+propertyUpdated( 3 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 1 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 3 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 4 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 1 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 3 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 4 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 5 , DIAGRAM , CHILDREN ) : NO_CHANGES
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , DESTINATION_PORT ) : NO_CHANGES
+assert_checkequal(scs_m.objs(1).graphics.pout, 4);
+assert_checkequal(scs_m.objs(2).graphics.pin,  3);
+assert_checkequal(scs_m.objs(3).from, [0 0 0]);
+assert_checkequal(scs_m.objs(4).from, [1 1 0]);
+scs_m.objs(4).to = [2 1 1];
+propertyUpdated( 3 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 1 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 3 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 4 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 1 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 3 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 4 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 5 , DIAGRAM , CHILDREN ) : NO_CHANGES
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 6 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 3 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 4 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+assert_checkequal(scs_m.objs(1).graphics.pout, 4);
+assert_checkequal(scs_m.objs(2).graphics.pin,  4);
+assert_checkequal(scs_m.objs(3).to, [0 0 0]);
+assert_checkequal(scs_m.objs(4).to, [2 1 0]);
+assert_checkequal: Assertion failed: expected = [2 ...] while computed = [2 ...] (mean diff = 0.3333333)
+assert_generror(errmsg)assert_checkequal(scs_m.objs(4).to, [2, 1, 0])
+at line    47 of exec file called by :
+propertyUpdated( 1 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 3 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 4 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 5 , DIAGRAM , CHILDREN ) : SUCCESS
+propertyUpdated( 1 , BLOCK , INPUTS ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , OUTPUTS ) : SUCCESS
+propertyUpdated( 1 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 1 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+propertyUpdated( 4 , LINK , SOURCE_PORT ) : SUCCESS
+objectDeleted( 6 , PORT )
+objectDeleted( 1 , BLOCK )
+propertyUpdated( 2 , BLOCK , INPUTS ) : SUCCESS
+propertyUpdated( 2 , BLOCK , OUTPUTS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+propertyUpdated( 2 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+propertyUpdated( 4 , LINK , DESTINATION_PORT ) : SUCCESS
+objectDeleted( 7 , PORT )
+objectDeleted( 2 , BLOCK )
+objectDeleted( 3 , LINK )
+objectDeleted( 4 , LINK )
+objectDeleted( 5 , DIAGRAM )
