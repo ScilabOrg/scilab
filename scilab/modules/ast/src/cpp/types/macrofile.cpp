@@ -93,6 +93,7 @@ bool MacroFile::parse(void)
 
         ast::exps_t::iterator j;
         ast::exps_t LExp = tree->getAs<ast::SeqExp>()->getExps();
+        std::map<symbol::Symbol, Macro*> sub;
 
         for (j = LExp.begin() ; j != LExp.end() ; j++)
         {
@@ -102,40 +103,53 @@ bool MacroFile::parse(void)
             }
 
             pFD = (*j)->getAs<ast::FunctionDec>();
-            if (pFD) // &&	pFD->getName() == m_stName
+
+            //get input parameters list
+            std::list<symbol::Variable*> *pVarList = new std::list<symbol::Variable*>();
+            ast::ArrayListVar *pListVar = pFD->getArgs().getAs<ast::ArrayListVar>();
+            ast::exps_t vars = pListVar->getVars();
+            for (ast::exps_t::const_iterator it = vars.begin(), itEnd = vars.end(); it != itEnd; ++it)
             {
-                symbol::Context* pContext = symbol::Context::getInstance();
-                InternalType* pFunc = pContext->getFunction(pFD->getSymbol());
-                if (pFunc && pFunc->isMacroFile())
-                {
-                    MacroFile* pMacro = pContext->getFunction(pFD->getSymbol())->getAs<MacroFile>();
-                    if (pMacro->m_pMacro == NULL)
-                    {
-
-                        //get input parameters list
-                        std::list<symbol::Variable*> *pVarList = new std::list<symbol::Variable*>();
-                        ast::ArrayListVar *pListVar = pFD->getArgs().getAs<ast::ArrayListVar>();
-                        ast::exps_t vars = pListVar->getVars();
-                        for (ast::exps_t::const_iterator it = vars.begin(), itEnd = vars.end() ; it != itEnd ; ++it)
-                        {
-                            pVarList->push_back((*it)->getAs<ast::SimpleVar>()->getStack());
-                        }
-
-                        //get output parameters list
-                        std::list<symbol::Variable*> *pRetList = new std::list<symbol::Variable*>();
-                        ast::ArrayListVar *pListRet = pFD->getReturns().getAs<ast::ArrayListVar>();
-                        ast::exps_t recs = pListRet->getVars();
-                        for (ast::exps_t::const_iterator it = recs.begin(), itEnd = recs.end(); it != itEnd ; ++it)
-                        {
-                            pRetList->push_back((*it)->getAs<ast::SimpleVar>()->getStack());
-                        }
-
-                        pMacro->m_pMacro = new Macro(m_wstName, *pVarList, *pRetList, (ast::SeqExp&)pFD->getBody(), m_wstModule);
-                        pMacro->setFirstLine(pFD->getLocation().first_line);
-                    }
-                }
+                pVarList->push_back((*it)->getAs<ast::SimpleVar>()->getStack());
             }
-            delete *j;
+
+            //get output parameters list
+            std::list<symbol::Variable*> *pRetList = new std::list<symbol::Variable*>();
+            ast::ArrayListVar *pListRet = pFD->getReturns().getAs<ast::ArrayListVar>();
+            ast::exps_t recs = pListRet->getVars();
+            for (ast::exps_t::const_iterator it = recs.begin(), itEnd = recs.end(); it != itEnd; ++it)
+            {
+                pRetList->push_back((*it)->getAs<ast::SimpleVar>()->getStack());
+            }
+
+            symbol::Symbol sym(pFD->getSymbol());
+            Macro* macro = new Macro(sym.getName(), *pVarList, *pRetList, (ast::SeqExp&)pFD->getBody(), m_wstModule);
+            macro->setFirstLine(pFD->getLocation().first_line);
+
+            if (sym.getName() == getName())
+            {
+                //we found the main macro
+                m_pMacro = macro;
+            }
+            else
+            {
+                //we found a sub macro
+                sub[sym] = macro;
+            }
+        }
+
+        if (m_pMacro)
+        {
+            auto it = sub.begin();
+            auto itEnd = sub.end();
+            for (; it != itEnd; ++it)
+            {
+                //lock var to avoid scope_end kill it
+                it->second->IncreaseRef();
+                m_pMacro->add_submacro(it->first, it->second);
+            }
+
+            sub.clear();
         }
 
         ((ast::SeqExp*)tree)->clearExps();

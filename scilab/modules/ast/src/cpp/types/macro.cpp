@@ -69,6 +69,16 @@ Macro::~Macro()
     {
         delete m_outputArgs;
     }
+
+    auto it = m_submacro.begin();
+    auto itEnd = m_submacro.end();
+    for (; it != itEnd; ++it)
+    {
+        it->second->DecreaseRef();
+        it->second->killMe();
+    }
+
+    m_submacro.clear();
 }
 
 void Macro::cleanCall(symbol::Context * pContext, int oldPromptMode)
@@ -282,6 +292,14 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
     pContext->put(m_Nargin, m_pDblArgIn);
     pContext->put(m_Nargout, m_pDblArgOut);
 
+
+    //add sub macro in current context
+    auto it = m_submacro.begin();
+    auto itEnd = m_submacro.end();
+    for (; it != itEnd; ++it)
+    {
+        pContext->put(it->first, it->second);
+    }
     //save current prompt mode
     int oldVal = ConfigVariable::getPromptMode();
     try
