@@ -129,8 +129,8 @@ propertyUpdated( 7 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
 propertyUpdated( 7 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 5 , BLOCK , OUTPUTS ) : SUCCESS
-propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 6 , LINK , SOURCE_PORT ) : SUCCESS
+propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectCreated( 8 , PORT )
 propertyUpdated( 8 , PORT , IMPLICIT ) : NO_CHANGES
 propertyUpdated( 8 , PORT , PORT_KIND ) : SUCCESS
@@ -138,8 +138,8 @@ propertyUpdated( 8 , PORT , SOURCE_BLOCK ) : SUCCESS
 propertyUpdated( 8 , PORT , CONNECTED_SIGNALS ) : NO_CHANGES
 propertyUpdated( 8 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 5 , BLOCK , INPUTS ) : SUCCESS
-propertyUpdated( 8 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 6 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 8 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 sb.model.rpar = d;
 propertyUpdated( 1 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
 propertyUpdated( 1 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
@@ -258,11 +258,11 @@ propertyUpdated( 12 , BLOCK , CHILDREN ) : NO_CHANGES
 propertyUpdated( 11 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 10 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 13 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 13 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 13 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 10 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 9 , DIAGRAM , CHILDREN ) : SUCCESS
 scs_m.objs(1).model.rpar // Checking 'sb' elements
@@ -434,11 +434,11 @@ propertyUpdated( 18 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 17 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 22 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 22 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 21 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 20 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 22 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 21 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 20 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 l(1).objs(1).model.rpar
  ans  =
 wpar = []
@@ -803,10 +803,10 @@ propertyUpdated( 34 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 38 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 42 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 24 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 37 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 42 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 39 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 37 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 42 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 39 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 sb.model.rpar = d;
 propertyUpdated( 23 , BLOCK , SIM_FUNCTION_NAME ) : NO_CHANGES
 propertyUpdated( 23 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
@@ -990,11 +990,11 @@ propertyUpdated( 46 , BLOCK , CHILDREN ) : NO_CHANGES
 propertyUpdated( 45 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 44 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 49 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 49 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 50 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 51 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 49 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 51 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 50 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 51 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 44 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 43 , DIAGRAM , CHILDREN ) : SUCCESS
 scs_m.objs(1).model.rpar // Checking 'sb' elements
@@ -1276,11 +1276,11 @@ propertyUpdated( 57 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 56 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 55 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 61 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 61 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 62 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 63 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 61 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 63 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 62 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 63 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 l(1).objs(1).model.rpar
  ans  =
 wpar = []
@@ -1567,11 +1567,11 @@ propertyUpdated( 69 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 68 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 67 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 73 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 73 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 74 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 75 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 73 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 75 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 74 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 75 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 l2(1).objs(1).model.rpar
  ans  =
 wpar = []

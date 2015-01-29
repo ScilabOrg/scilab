@@ -261,10 +261,10 @@ propertyUpdated( 12 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 20 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 1 , DIAGRAM , CHILDREN ) : SUCCESS
-propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , LINK , DESTINATION_PORT ) : SUCCESS
+propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 scs_m.objs(4) = lnk2;
 objectCreated( 21 , LINK )
 propertyUpdated( 21 , LINK , COLOR ) : NO_CHANGES
@@ -284,11 +284,11 @@ propertyUpdated( 20 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 21 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 1 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+propertyUpdated( 15 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 21 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 21 , LINK , DESTINATION_PORT ) : NO_CHANGES
 // Consecutively delete the diagram objects,
@@ -320,8 +320,8 @@ propertyUpdated( 20 , LINK , SOURCE_PORT ) : SUCCESS
 objectDeleted( 15 , PORT )
 objectDeleted( 12 , BLOCK )
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
-propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 20 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 21 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 21 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(1), mlist("Deleted"));
