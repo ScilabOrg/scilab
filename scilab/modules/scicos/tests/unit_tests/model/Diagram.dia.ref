@@ -725,16 +725,27 @@ assert_checkequal(scs_m.objs(3).graphics.peout, 5);  // Check that block #3 is c
 assert_checkequal(scs_m.objs(3).model.evtout,  -1);  // "
 // Verify that it is impossible to link two inputs or two outputs together
 scs_m.objs(5).from = [2 1 0]; // Two outputs
+Xcos error: Inconsistent linking.
 Xcos trace: propertyUpdated( 17 , DIAGRAM , CHILDREN ) : NO_CHANGES
 Xcos trace: propertyUpdated( 28 , LINK , SOURCE_PORT ) : NO_CHANGES
 Xcos trace: propertyUpdated( 28 , LINK , DESTINATION_PORT ) : NO_CHANGES
+Xcos trace: propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+Xcos trace: propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+Xcos trace: propertyUpdated( 29 , LINK , SOURCE_PORT ) : NO_CHANGES
 Xcos trace: propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 Xcos trace: propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 Xcos trace: propertyUpdated( 29 , LINK , DESTINATION_PORT ) : NO_CHANGES
 scs_m.objs(5).to = [3 1 1];   // Two inputs
+Xcos error: Inconsistent linking.
 Xcos trace: propertyUpdated( 17 , DIAGRAM , CHILDREN ) : NO_CHANGES
 Xcos trace: propertyUpdated( 28 , LINK , SOURCE_PORT ) : NO_CHANGES
 Xcos trace: propertyUpdated( 28 , LINK , DESTINATION_PORT ) : NO_CHANGES
+Xcos trace: propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+Xcos trace: propertyUpdated( 24 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+Xcos trace: propertyUpdated( 29 , LINK , SOURCE_PORT ) : NO_CHANGES
+Xcos trace: propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+Xcos trace: propertyUpdated( 31 , PORT , CONNECTED_SIGNALS ) : SUCCESS
+Xcos trace: propertyUpdated( 29 , LINK , DESTINATION_PORT ) : NO_CHANGES
 //===================================================================================================
 // Test predefined link at diagram creation
 clear scs_m;

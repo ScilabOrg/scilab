@@ -344,11 +344,25 @@ struct objs
         for (int i = 0; i < static_cast<int>(links.size()); ++i)
         {
             // Trigger 'from' and 'to' properties
-            from_content[i] = links[i]->getFrom();
-            links[i]->setFromInModel(from_content[i], controller);
+            // If not possible to set in the model, take the old content
 
-            to_content[i] = links[i]->getTo();
-            links[i]->setToInModel(to_content[i], controller);
+            if (links[i]->setFromInModel(links[i]->getFrom(), controller))
+            {
+                from_content[i] = links[i]->getFrom();
+            }
+            else
+            {
+                from_content[i] = adaptor.getFrom()[i];
+            }
+
+            if (links[i]->setToInModel(links[i]->getTo(), controller))
+            {
+                to_content[i] = links[i]->getTo();
+            }
+            else
+            {
+                to_content[i] = adaptor.getTo()[i];
+            }
         }
         adaptor.setFrom(from_content);
         adaptor.setTo(to_content);

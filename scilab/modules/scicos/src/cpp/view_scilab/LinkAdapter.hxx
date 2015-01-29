@@ -41,10 +41,10 @@ public:
 
     link_t getFrom() const;
     void setFrom(const link_t& v);
-    void setFromInModel(const link_t& v, Controller& controller);
+    bool setFromInModel(const link_t& v, Controller& controller);
     link_t getTo() const;
     void setTo(const link_t& v);
-    void setToInModel(const link_t& v, Controller& controller);
+    bool setToInModel(const link_t& v, Controller& controller);
 
 private:
     link_t m_from;
