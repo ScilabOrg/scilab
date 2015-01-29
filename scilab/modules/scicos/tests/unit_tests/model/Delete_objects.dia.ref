@@ -302,6 +302,7 @@ Xcos trace: propertyUpdated( 12 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos trace: propertyUpdated( 20 , LINK , SOURCE_PORT ) : SUCCESS
 Xcos debug: objectDeleted( 15 , PORT )
 Xcos debug: objectDeleted( 12 , BLOCK )
+Xcos error: Trying to link to a deleted block.
 Xcos trace: propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 Xcos trace: propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 Xcos trace: propertyUpdated( 20 , LINK , DESTINATION_PORT ) : NO_CHANGES
@@ -328,6 +329,8 @@ Xcos trace: propertyUpdated( 16 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 Xcos trace: propertyUpdated( 16 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos debug: objectDeleted( 19 , PORT )
 Xcos debug: objectDeleted( 16 , BLOCK )
+Xcos error: Trying to link to a deleted block.
+Xcos error: Trying to link to a deleted block.
 Xcos trace: propertyUpdated( 21 , LINK , SOURCE_PORT ) : NO_CHANGES
 Xcos trace: propertyUpdated( 21 , LINK , DESTINATION_PORT ) : NO_CHANGES
 assert_checkequal(scs_m.objs(2), DeletedBlock);
