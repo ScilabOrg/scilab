@@ -27,10 +27,12 @@
 #include "LinkAdapter.hxx"
 #include "model/Link.hxx"
 #include "model/Port.hxx"
+#include "controller_helpers.hxx"
 
 extern "C" {
 #include "sci_malloc.h"
 #include "charEncoding.h"
+#include "localization.h"
 }
 
 namespace org_scilab_modules_scicos
@@ -390,7 +392,7 @@ bool checkConnectivity(const int neededType, const ScicosID port, const ScicosID
     return true;
 }
 
-void setLinkEnd(const ScicosID id, Controller& controller, const object_properties_t end, const link_t& v)
+bool setLinkEnd(const ScicosID id, Controller& controller, const object_properties_t end, const link_t& v)
 {
 
     ScicosID from;
@@ -410,7 +412,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             otherPort = from;
             break;
         default:
-            return;
+            return false;
     }
     ScicosID unconnected = 0;
 
@@ -428,7 +430,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
             controller.setObjectProperty(id, LINK, end, unconnected);
         }
-        return;
+        return true;
     }
 
     ScicosID parentDiagram;
@@ -443,27 +445,29 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
 
     if (v.kind != Start && v.kind != End)
     {
-        return;
+        return false;
     }
     // kind == 0: trying to set the start of the link (output port)
     // kind == 1: trying to set the end of the link (input port)
 
     if (v.block < 0 || v.block > static_cast<int>(children.size()))
     {
-        return; // Trying to link to a non-existing block
+        return true; // Linking to a block that doesn't exist yet
     }
     ScicosID blkID = children[v.block - 1];
 
     if (blkID == 0)
     {
         // Deleted Block
-        return;
+        get_or_allocate_logger()->log(LOG_ERROR, "Trying to link to a deleted block.\n");
+        return false;
     }
 
     // Check that the ID designates a BLOCK (and not an ANNOTATION)
     if (controller.getObject(blkID)->kind() != BLOCK)
     {
-        return;
+        get_or_allocate_logger()->log(LOG_ERROR, _("Trying to link to an Annotation.\n"));
+        return false;
     }
 
     // v.port may be decremented locally to square with the port indexes
@@ -487,7 +491,8 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             {
                 if (!checkConnectivity(model::PORT_EIN, otherPort, blkID, controller))
                 {
-                    return;
+                    get_or_allocate_logger()->log(LOG_ERROR, _("Inconsistent linking.\n"));
+                    return false;
                 }
             }
             newPortKind = model::PORT_EOUT;
@@ -499,7 +504,8 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             {
                 if (!checkConnectivity(model::PORT_EOUT, otherPort, blkID, controller))
                 {
-                    return;
+                    get_or_allocate_logger()->log(LOG_ERROR, _("Inconsistent linking.\n"));
+                    return false;
                 }
             }
             newPortKind = model::PORT_EIN;
@@ -522,7 +528,8 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
                 {
                     if (!checkConnectivity(model::PORT_IN, otherPort, blkID, controller))
                     {
-                        return;
+                        get_or_allocate_logger()->log(LOG_ERROR, _("Inconsistent linking.\n"));
+                        return false;
                     }
                 }
                 newPortKind = model::PORT_OUT;
@@ -534,7 +541,8 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
                 {
                     if (!checkConnectivity(model::PORT_OUT, otherPort, blkID, controller))
                     {
-                        return;
+                        get_or_allocate_logger()->log(LOG_ERROR, _("Inconsistent linking.\n"));
+                        return false;
                     }
                 }
                 newPortKind = model::PORT_IN;
@@ -585,7 +593,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
         }
     }
 
-    // Disconnect the old port if it was connected. After that, concernedPort will be reused to designate the new port
+    // If the old port was connected, error out. After that, concernedPort will be reused to designate the new port
     if (concernedPort != 0)
     {
         controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
@@ -645,18 +653,29 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             nBlockPorts++;
         }
     }
+
     ScicosID oldLink;
     controller.getObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, oldLink);
     if (oldLink != 0)
     {
-        // Disconnect the old link
-        controller.setObjectProperty(oldLink, LINK, end, unconnected);
-        controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
+        // The target port was already connected. If it is to the current link, then do nothing (already connected),
+        // otherwise error out, because the user needs to unlink a port before linking it anew.
+        if (oldLink != id)
+        {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Port already connected. Please disconnect it first.\n"));
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     // Connect the new source and destination ports together
     controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, id);
     controller.setObjectProperty(id, LINK, end, concernedPort);
+
+    return true;
 }
 
 // Check if the Link is valid
@@ -736,7 +755,7 @@ struct from
 
             if (current->getSize() == 3)
             {
-                from_content.kind = (current->get(2) == 0.) ? Start : End;
+                from_content.kind = (current->get(2) == 0) ? Start : End;
             }
         }
 
@@ -789,7 +808,7 @@ struct to
 
             if (current->getSize() == 3)
             {
-                to_content.kind = (current->get(2) == 0.) ? Start : End;
+                to_content.kind = (current->get(2) == 0) ? Start : End;
             }
         }
 
@@ -855,10 +874,9 @@ void LinkAdapter::setFrom(const link_t& v)
     m_from = v;
 }
 
-void LinkAdapter::setFromInModel(const link_t& v, Controller& controller)
+bool LinkAdapter::setFromInModel(const link_t& v, Controller& controller)
 {
-    m_from = v;
-
+    bool ret = true;
     ScicosID parentDiagram;
     controller.getObjectProperty(getAdaptee()->id(), LINK, PARENT_DIAGRAM, parentDiagram);
 
@@ -866,8 +884,19 @@ void LinkAdapter::setFromInModel(const link_t& v, Controller& controller)
     {
         // If the Link has been added to a diagram, do the linking at model-level
         // If the provided values are wrong, the model is not updated but the info is stored in the Adapter for future attempts
-        setLinkEnd(getAdaptee()->id(), controller, SOURCE_PORT, v);
+        if (ret = setLinkEnd(getAdaptee()->id(), controller, SOURCE_PORT, v))
+        {
+            // Only set the adapter parameters if it is doable in the model (port isn't already connected)
+            m_from = v;
+        }
     }
+    else
+    {
+        // If the link is not part of a diagram, there is no problem with storing its parameters
+        m_from = v;
+    }
+
+    return ret;
 }
 
 link_t LinkAdapter::getTo() const
@@ -880,10 +909,9 @@ void LinkAdapter::setTo(const link_t& v)
     m_to = v;
 }
 
-void LinkAdapter::setToInModel(const link_t& v, Controller& controller)
+bool LinkAdapter::setToInModel(const link_t& v, Controller& controller)
 {
-    m_to = v;
-
+    bool ret = true;
     ScicosID parentDiagram;
     controller.getObjectProperty(getAdaptee()->id(), LINK, PARENT_DIAGRAM, parentDiagram);
 
@@ -891,8 +919,19 @@ void LinkAdapter::setToInModel(const link_t& v, Controller& controller)
     {
         // If the Link has been added to a diagram, do the linking at model-level
         // If the provided values are wrong, the model is not updated but the info is stored in the Adapter for future attempts
-        setLinkEnd(getAdaptee()->id(), controller, DESTINATION_PORT, v);
+        if (ret = setLinkEnd(getAdaptee()->id(), controller, DESTINATION_PORT, v))
+        {
+            // Only set the adapter parameters if it is doable in the model (port isn't already connected)
+            m_to = v;
+        }
     }
+    else
+    {
+        // If the link is not part of a diagram, there is no problem with storing its parameters
+        m_to = v;
+    }
+
+    return ret;
 }
 
 } /* namespace view_scilab */

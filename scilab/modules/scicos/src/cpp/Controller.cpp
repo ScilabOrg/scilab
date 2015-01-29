@@ -238,7 +238,7 @@ void Controller::unlinkVector(ScicosID uid, kind_t k, object_properties_t uid_pr
 {
     ScicosID v;
     getObjectProperty(uid, k, uid_prop, v);
-    if (v != 0)
+    if (v > 0)
     {
         auto o = getObject(v);
 

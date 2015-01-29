@@ -1,0 +1,79 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- XCOS TEST -->
+b1 = scicos_block();
+b2 = scicos_block();
+l1 = scicos_link( from=[1 1 0],to=[2 1 1] );
+l2 = scicos_link();
+l3 = scicos_link( from=[1 2 0],to=[2 2 1] );
+scs_m = scicos_diagram( objs=list(b1, b2, l1, l2, l3) );
+// Check that each block's 2 ports are linked to l1 (resp l3)
+assert_checkequal(scs_m.objs(1).graphics.pout, [3; 5]);
+assert_checkequal(scs_m.objs(2).graphics.pin,  [3; 5]);
+// Check that it is impossible to link to an already linked port (error message displayed)
+scs_m.objs(4).from = [1 1 0];
+Xcos error: Port already connected. Please disconnect it first.
+assert_checkequal(scs_m.objs(1).graphics.pout, [3; 5]);
+assert_checkequal(scs_m.objs(2).graphics.pin,  [3; 5]);
+scs_m.objs(4).from = [1 2 0];
+Xcos error: Port already connected. Please disconnect it first.
+assert_checkequal(scs_m.objs(1).graphics.pout, [3; 5]);
+assert_checkequal(scs_m.objs(2).graphics.pin,  [3; 5]);
+scs_m.objs(4).to = [2 1 1];
+Xcos error: Port already connected. Please disconnect it first.
+assert_checkequal(scs_m.objs(1).graphics.pout, [3; 5]);
+assert_checkequal(scs_m.objs(2).graphics.pin,  [3; 5]);
+scs_m.objs(4).to = [2 2 1];
+Xcos error: Port already connected. Please disconnect it first.
+assert_checkequal(scs_m.objs(1).graphics.pout, [3; 5]);
+assert_checkequal(scs_m.objs(2).graphics.pin,  [3; 5]);
+// Check that all model items are freed
+scicos_log("TRACE");
+clear
+Xcos debug: objectDeleted( 1 , BLOCK )
+Xcos debug: objectDeleted( 2 , BLOCK )
+Xcos debug: objectDeleted( 3 , LINK )
+Xcos debug: objectDeleted( 4 , LINK )
+Xcos debug: objectDeleted( 5 , LINK )
+Xcos trace: propertyUpdated( 7 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+Xcos trace: propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+Xcos trace: propertyUpdated( 9 , LINK , PARENT_DIAGRAM ) : SUCCESS
+Xcos trace: propertyUpdated( 10 , LINK , PARENT_DIAGRAM ) : SUCCESS
+Xcos trace: propertyUpdated( 11 , LINK , PARENT_DIAGRAM ) : SUCCESS
+Xcos trace: propertyUpdated( 7 , BLOCK , INPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 7 , BLOCK , OUTPUTS ) : SUCCESS
+Xcos trace: propertyUpdated( 7 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 7 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 9 , LINK , SOURCE_PORT ) : SUCCESS
+Xcos debug: objectDeleted( 12 , PORT )
+Xcos trace: propertyUpdated( 7 , BLOCK , INPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 7 , BLOCK , OUTPUTS ) : SUCCESS
+Xcos trace: propertyUpdated( 7 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 7 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 11 , LINK , SOURCE_PORT ) : SUCCESS
+Xcos debug: objectDeleted( 14 , PORT )
+Xcos debug: objectDeleted( 7 , BLOCK )
+Xcos trace: propertyUpdated( 8 , BLOCK , INPUTS ) : SUCCESS
+Xcos trace: propertyUpdated( 8 , BLOCK , OUTPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 8 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 8 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 9 , LINK , DESTINATION_PORT ) : SUCCESS
+Xcos debug: objectDeleted( 13 , PORT )
+Xcos trace: propertyUpdated( 8 , BLOCK , INPUTS ) : SUCCESS
+Xcos trace: propertyUpdated( 8 , BLOCK , OUTPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 8 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 8 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
+Xcos trace: propertyUpdated( 11 , LINK , DESTINATION_PORT ) : SUCCESS
+Xcos debug: objectDeleted( 15 , PORT )
+Xcos debug: objectDeleted( 8 , BLOCK )
+Xcos debug: objectDeleted( 9 , LINK )
+Xcos debug: objectDeleted( 10 , LINK )
+Xcos debug: objectDeleted( 11 , LINK )
+Xcos debug: objectDeleted( 6 , DIAGRAM )
