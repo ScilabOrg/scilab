@@ -300,7 +300,7 @@ link_t getLinkEnd(const LinkAdapter& adaptor, const Controller& controller, cons
 
     ScicosID endID;
     controller.getObjectProperty(adaptee, LINK, end, endID);
-    if (endID != 0)
+    if (endID > 0)
     {
         ScicosID sourceBlock;
         controller.getObjectProperty(endID, PORT, SOURCE_BLOCK, sourceBlock);
@@ -484,7 +484,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
 
         if (v.kind == Start)
         {
-            if (otherPort != 0)
+            if (otherPort > 0)
             {
                 if (!checkConnectivity(model::PORT_EIN, otherPort, blkID, controller))
                 {
@@ -496,7 +496,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
         }
         else
         {
-            if (otherPort != 0)
+            if (otherPort > 0)
             {
                 if (!checkConnectivity(model::PORT_EOUT, otherPort, blkID, controller))
                 {
@@ -519,7 +519,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
         {
             if (v.kind == Start)
             {
-                if (otherPort != 0)
+                if (otherPort > 0)
                 {
                     if (!checkConnectivity(model::PORT_IN, otherPort, blkID, controller))
                     {
@@ -531,7 +531,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             }
             else
             {
-                if (otherPort != 0)
+                if (otherPort > 0)
                 {
                     if (!checkConnectivity(model::PORT_OUT, otherPort, blkID, controller))
                     {
@@ -587,7 +587,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     }
 
     // Disconnect the old port if it was connected. After that, concernedPort will be reused to designate the new port
-    if (concernedPort != 0)
+    if (concernedPort > 0)
     {
         controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
     }
@@ -651,13 +651,14 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     if (oldLink != 0)
     {
         // Disconnect the old link
-        controller.setObjectProperty(oldLink, LINK, end, unconnected);
+        ScicosID disconnected = -1;
+        controller.setObjectProperty(oldLink, LINK, end, disconnected);
         controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
     }
 
     // Connect the new source and destination ports together
-    controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, id);
     controller.setObjectProperty(id, LINK, end, concernedPort);
+    controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, id);
 }
 
 // Check if the Link is valid
@@ -701,16 +702,30 @@ bool is_valid(types::Double* o)
 struct from
 {
 
-    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& /*controller*/)
+    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& controller)
     {
-        link_t from_content = adaptor.getFrom();
+        ScicosID adaptee = adaptor.getAdaptee()->id();
 
         double* data;
         types::Double* o = new types::Double(1, 3, &data);
 
-        data[0] = from_content.block;
-        data[1] = from_content.port;
-        data[2] = from_content.kind;
+        ScicosID port;
+        controller.getObjectProperty(adaptee, LINK, SOURCE_PORT, port);
+
+        if (port == -1)
+        {
+            data[0] = 0;
+            data[1] = 0;
+            data[2] = 0;
+        }
+        else
+        {
+            link_t from_content = adaptor.getFrom();
+
+            data[0] = from_content.block;
+            data[1] = from_content.port;
+            data[2] = from_content.kind;
+        }
         return o;
     }
 
@@ -749,16 +764,30 @@ struct from
 struct to
 {
 
-    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& /*controller*/)
+    static types::InternalType* get(const LinkAdapter& adaptor, const Controller& controller)
     {
-        link_t to_content = adaptor.getTo();
+        ScicosID adaptee = adaptor.getAdaptee()->id();
 
         double* data;
         types::Double* o = new types::Double(1, 3, &data);
 
-        data[0] = to_content.block;
-        data[1] = to_content.port;
-        data[2] = to_content.kind;
+        ScicosID port;
+        controller.getObjectProperty(adaptee, LINK, DESTINATION_PORT, port);
+
+        if (port == -1)
+        {
+            data[0] = 0;
+            data[1] = 0;
+            data[2] = 0;
+        }
+        else
+        {
+            link_t to_content = adaptor.getTo();
+
+            data[0] = to_content.block;
+            data[1] = to_content.port;
+            data[2] = to_content.kind;
+        }
         return o;
     }
 

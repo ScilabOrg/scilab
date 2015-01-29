@@ -1,0 +1,38 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+loadXcosLibs();
+//scicos_log("TRACE");
+
+// Allocate a Link and check its default valuesscs_m=scicos_diagram();
+b1 = scicos_block();
+b2 = scicos_block();
+l1 = scicos_link( from=[1 1 0],to=[2 1 1] );
+l2 = scicos_link();
+scs_m = scicos_diagram( objs=list(b1, b2, l1, l2) );
+
+assert_checkequal(scs_m.objs(1).graphics.pout, 3);
+assert_checkequal(scs_m.objs(2).graphics.pin,  3);
+
+// Now replace 'l1' with 'l2' at both ends
+scs_m.objs(4).from = [1 1 0];
+assert_checkequal(scs_m.objs(1).graphics.pout, 4);
+assert_checkequal(scs_m.objs(2).graphics.pin,  3);
+assert_checkequal(scs_m.objs(3).from, [0 0 0]);
+assert_checkequal(scs_m.objs(4).from, [1 1 0]);
+
+scs_m.objs(4).to = [2 1 1];
+assert_checkequal(scs_m.objs(1).graphics.pout, 4);
+assert_checkequal(scs_m.objs(2).graphics.pin,  4);
+assert_checkequal(scs_m.objs(3).to, [0 0 0]);
+assert_checkequal(scs_m.objs(4).to, [2 1 0]);
+
+
+// Check that all model items are freed
+clear
