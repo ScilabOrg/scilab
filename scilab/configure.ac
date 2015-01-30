@@ -353,21 +353,15 @@ else
    enable_debug=no
 fi
 
-if test "$enable_debug_fortran" = yes; then
-   FFLAGS="`echo "$FFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
-else
+if test "$enable_debug_fortran" != yes; then
    enable_debug_fortran=no
 fi
 
-if test "$enable_debug_C" = yes; then
-   CFLAGS="`echo "$CFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
-else
+if test "$enable_debug_C" != yes; then
    enable_debug_C=no
 fi
 
-if test "$enable_debug_CXX" = yes; then
-   CXXFLAGS="`echo "$CXXFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
-else
+if test "$enable_debug_CXX" != yes; then
    enable_debug_CXX=no
 fi
 
@@ -409,45 +403,28 @@ fi
 if test -n "$F77"; then
    case "$F77" in
      gfortran*)
-        ## With GNU Compiler enable the code coverage
+        # enable the code coverage
         if test "$enable_code_coverage" = yes; then
             CODECOVERAGE_FFLAGS="-fprofile-arcs -ftest-coverage"
         fi
+
+        # enable the debug settings
+        if test "$enable_debug_fortran" = yes; then
+            DEBUG_FFLAGS="-fsanitize=address -O0 -g3"
+            DEBUG_LDFLAGS="-fsanitize=address -O0 -g3"
+        else
+            DEBUG_FFLAGS="-DNDEBUG"
+        fi
+
+        # Enable warnings
+        COMPILER_FFLAGS="-Werror=format-security -Wall -Wextra"
      ;;
      g77*)
         AC_MSG_ERROR([g77 is no longer supported. Please consider switching to gfortran])
      ;;
    esac
 
-   if test "$enable_debug_fortran" = yes; then
-    AC_LANG_PUSH([Fortran 77])
-    for flag in -g -Wall -Wsurprising; do
-        case " ${FFLAGS} " in
-            *\ ${flag}\ *)
-                # flag is already present
-                ;;
-
-            *)
-                AC_MSG_CHECKING([if the Fortran compiler accepts ${flag}])
-                ac_save_FFLAGS="$FFLAGS"
-                FFLAGS="$FFLAGS ${flag}"
-                AC_COMPILE_IFELSE([AC_LANG_PROGRAM()],
-                    [AC_MSG_RESULT([yes])
-                     DEBUG_FFLAGS="${flag}"
-                    ],
-                    [AC_MSG_RESULT([no])]
-                )
-                ;;
-        esac
-    done
-    AC_LANG_POP([Fortran 77])
-   else
-      DEBUG_FFLAGS="-DNDEBUG"
-   fi
       case "$host" in
-         x86_64-*-linux*)
-            ARCH_FFLAGS="-m64 -fPIC"
-                    ;;
         # Dec Alpha OSF 4
         alpha*-dec-osf4.*)
           ARCH_FFLAGS="-fpe3"
@@ -534,18 +511,16 @@ case "$CXX" in
             CODECOVERAGE_CXXFLAGS="-fprofile-arcs -ftest-coverage"
         fi
 
+        # enable the debug settings
         if test "$enable_debug_CXX" = yes; then
-            DEBUG_CXXFLAGS="-pipe -Wshadow -Wpointer-arith -Wcast-align -Wreturn-type -Wswitch -Wtrigraphs -Wcomment -W -Wchar-subscripts -Wformat -Wparentheses -Wsign-compare -Wwrite-strings -Wunused -Wno-strict-aliasing -Wextra -Wall -g3 -Wunsafe-loop-optimizations"
-            case "$host" in
-                *-linux-gnu )
-                    # Only doing that under Linux
-                    DEBUG_CXXFLAGS="$DEBUG_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
-                ;;
-            esac
+            DEBUG_CXXFLAGS="-fsanitize=address -O0 -g3"
+            DEBUG_LDFLAGS="-fsanitize=address -O0 -g3"
         else
             DEBUG_CXXFLAGS="-DNDEBUG"
         fi
-        COMPILER_CXXFLAGS="-fno-stack-protector " # bug 3131
+
+        # Enable warnings
+        COMPILER_CXXFLAGS="-Werror=format-security -Wall -Wextra"
     ;;
 
 esac
@@ -562,43 +537,38 @@ esac
 
 case "$CC" in
      gcc-* | gcc | ccache*gcc | ccache*gcc-* )
-   ## With GNU Compiler
+        ## With GNU Compiler
 
-   # enable the code coverage
-   if test "$enable_code_coverage" = yes; then
-    CODECOVERAGE_CFLAGS="-fprofile-arcs -ftest-coverage"
-   fi
+        ARCH_LDFLAGS="-Wl,--no-copy-dt-needed-entries -Wl,--no-as-needed"
 
-   if test "$enable_debug_C" = yes; then
-      DEBUG_CFLAGS="-pipe -Wformat -Wshadow -Wfloat-equal -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations  -Wstrict-prototypes  -Wmissing-noreturn -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wwrite-strings -Winline -Wredundant-decls -Wall -Wchar-subscripts -Wextra  -Wuninitialized -Wno-format-y2k -Wmissing-format-attribute -Wno-missing-field-initializers -Wno-strict-aliasing  -Wold-style-definition -g3 -Wunsafe-loop-optimizations"
-      # used to be -O0
-      case "$host" in
-      *-linux-gnu )
-      # Only doing that under Linux
-        if test "$enable_debug_linker" = yes; then
-            LDFLAGS="$LDFLAGS -Wl,--warn-common,-x"
+        # enable the code coverage
+        if test "$enable_code_coverage" = yes; then
+            CODECOVERAGE_CFLAGS="-fprofile-arcs -ftest-coverage"
         fi
-          DEBUG_CFLAGS="$DEBUG_CFLAGS -fdiagnostics-show-option -Werror=format-security"
-          ;;
-          esac
-   else
-      DEBUG_CFLAGS="-DNDEBUG"
-   fi
 
-   COMPILER_CFLAGS="-fno-stack-protector " # bug 3131
-   # Explictly disable the as needed. It was disable by default but Ubuntu
-   # activated it by default since release 11.04. See bug #8961.
-   # Once all cyclic dependencies have been dropped, this line could be removed.
-   # Check if linker supports --as-needed and --no-as-needed options
-   if $LD --help 2>/dev/null | grep no-as-needed > /dev/null; then
-      LDFLAGS="$LDFLAGS -Wl,--no-as-needed"
-   fi
+        # enable the debug settings
+        if test "$enable_debug_CXX" = yes; then
+            DEBUG_CFLAGS="-fsanitize=address -O0 -g3"
+            DEBUG_LDFLAGS="-fsanitize=address -O0 -g3"
+        else
+            DEBUG_CFLAGS="-DNDEBUG"
+        fi
+
+        # Enable warnings
+        COMPILER_CFLAGS="-Werror=format-security -Wall -Wextra"
+
+        # used to be -O0
+        case "$host" in
+            *-linux-gnu )
+              # Only doing that under Linux
+              if test "$enable_debug_linker" = yes; then
+                  DEBUG_LDFLAGS="$DEBUG_LDFLAGS -Wl,--warn-common,-x"
+              fi
+        ;;
+        esac
 
 
    case "$host" in
-     x86_64-*-linux-gnu | x86_64-linux-gnu)
-        ARCH_CFLAGS="-m64"
-    ;;
      alpha-*-linux-gnu)
         ARCH_CFLAGS="-mieee-with-inexact"
         ARCH_LDFLAGS="-mieee-with-inexact"
@@ -649,11 +619,6 @@ case "$CC" in
 esac
 ;; # end of the gcc case on the $CC
    *)
-
-        ## CC compiler (not GCC)
-        if test "$enable_debug_C" != yes; then
-             ARCH_CFLAGS="-DNDEBUG"
-        fi
 
 case "$host" in
 # Dec Alpha OSF 4
