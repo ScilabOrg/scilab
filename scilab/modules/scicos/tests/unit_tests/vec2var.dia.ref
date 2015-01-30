@@ -1,5 +1,14 @@
-a=list("cos",[1.1,2]);
-b=var2vec(a);
-c=vec2var(b);
-if type(c) <> 15 then bugmes();quit;end
-if c(1) <> 'cos' then bugmes();quit;end
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
+// Copyright (C) ????-2008 - INRIA
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+a = list("cos", [1.1 2]);
+b = var2vec(a);
+c = vec2var(b);
+vec2var: Wrong value for element #8 of input argument #1: Unknown type.
+c = vec2var(b);
+at line    26 of exec file called by :
