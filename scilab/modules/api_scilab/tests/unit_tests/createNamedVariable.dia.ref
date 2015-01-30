@@ -1,0 +1,63 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+ilib_verbose(0);
+testDir = fullfile(TMPDIR, "createNamedVariable");
+mkdir(testDir);
+cd(testDir);
+copyfile(SCI+"/modules/api_scilab/tests/unit_tests/createNamedVariable.c", fullfile(testDir, "createNamedVariable.c"));
+cflags = "-I" + SCI+"/modules/localization/includes";
+setenv("DEBUG_SCILAB_DYNAMIC_LINK", "YES");
+ilib_build("gw_createNamedVariable", ..
+    ["createNamedVariable", "sci_createNamedVariable"; ..
+    "dbl2ptr", "sci_dbl2ptr"; ..
+    "ptr2dbl", "sci_ptr2dbl"], ..
+    "createNamedVariable.c", [], "", "", cflags);
+exec("loader.sce");
+function testCreateNamedVariable(varName, varValue)
+    fullVarName = sprintf("t%d_c%d_r%d_%s", type(varValue), size(varValue, 'c'), size(varValue, 'r'), varName);
+    ret = createNamedVariable(fullVarName, varValue);
+    assert_checkequal(ret, %t);
+    assert_checkequal(exists(fullVarName), 1);
+    assert_checkequal(eval(fullVarName), varValue);
+endfunction
+// double
+s = 101;
+m = [101 102 103; 104 105 106];
+testCreateNamedVariable("a", [101]);
+testCreateNamedVariable("a", [101 102 103; 104 105 106]);
+// poly
+x = poly(0, "x");
+testCreateNamedVariable("a", 1+x^2);
+testCreateNamedVariable("a", [1+x 2+x^2 3+x^3; 4+x^4 5+x^5 6+x^6]);
+// boolean
+testCreateNamedVariable("a", %t);
+testCreateNamedVariable("a", [%f %f %f; %t %t %t]);
+// sparse
+testCreateNamedVariable("a", sparse([1]));
+testCreateNamedVariable("a", sparse([0 0 1; 1 0 0]));
+// boolean sparse
+testCreateNamedVariable("a", sparse([%t]));
+testCreateNamedVariable("a", sparse([%f %f %t; %t %f %f]));
+// integer
+testCreateNamedVariable("a", int8(s));
+testCreateNamedVariable("a", int8(m));
+testCreateNamedVariable("a", int16(s));
+testCreateNamedVariable("a", int16(m));
+testCreateNamedVariable("a", int32(s));
+testCreateNamedVariable("a", int32(m));
+testCreateNamedVariable("a", uint8(s));
+testCreateNamedVariable("a", uint8(m));
+testCreateNamedVariable("a", uint16(s));
+testCreateNamedVariable("a", uint16(m));
+testCreateNamedVariable("a", uint32(s));
+testCreateNamedVariable("a", uint32(m));
+// pointer
+ret = createNamedVariable("ptr",  dbl2ptr(s));
+assert_checkequal(ret, %t);
+assert_checkequal(exists("ptr"), 1);
+assert_checkequal(eval("ptr2dbl(ptr)"), s);
