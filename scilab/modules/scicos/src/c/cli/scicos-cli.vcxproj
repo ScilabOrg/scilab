@@ -296,8 +296,6 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClCompile Include="..\..\..\sci_gateway\c\sci_set_blockerror.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_set_xproperty.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_sig2data.c" />
-    <ClCompile Include="..\..\..\sci_gateway\c\sci_var2vec.c" />
-    <ClCompile Include="..\..\..\sci_gateway\c\sci_vec2var.c" />
     <ClCompile Include="..\sciblk2.c" />
     <ClCompile Include="..\sciblk4.c" />
     <ClCompile Include="..\scicos.c" />
