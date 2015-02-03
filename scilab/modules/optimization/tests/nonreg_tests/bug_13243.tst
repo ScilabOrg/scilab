@@ -23,7 +23,7 @@ endfunction
 // Define the cost function:
 function [f, g, ind] = myoptfunc(x, ind)
     f = problem1(x);
-    g = numderivative(problem1, x, order=4);
+    g = numderivative(problem1, x, %eps^(1/3), order=4);
 endfunction
 
 // Initial guess:

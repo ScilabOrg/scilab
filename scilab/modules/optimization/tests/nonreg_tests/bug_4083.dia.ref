@@ -19,7 +19,7 @@ function y = myfunction(x)
     y = x^3;
 endfunction
 x = 1;
-g = numderivative(myfunction, x);
+g = numderivative(myfunction, x, %eps^(1/3));
 expectedJ = 3;
 assert_checkalmostequal(g, expectedJ, [], 1.d-8);
 [J, H] = numderivative(myfunction, x);

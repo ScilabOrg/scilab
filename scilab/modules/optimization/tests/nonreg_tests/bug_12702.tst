@@ -25,7 +25,7 @@ function [f, g, ind] = rosenbrockCost(x, ind)
         f = rosenbrock ( x );
     end
     if ((ind == 1) | (ind == 4)) then
-        g = numderivative ( rosenbrock , x(:) );
+        g = numderivative ( rosenbrock , x(:) , %eps^(1/3));
     end
 endfunction
 
