@@ -18,14 +18,19 @@
 function y = myfunction(x)
     y = x^3;
 endfunction
+// Old 'numdiff' function equivalent
 x = 1;
-g = numderivative(myfunction, x);
+dx = sqrt(%eps)*(1+1d-3*abs(x))
+dx  = 
+    1.492D-08
+g = numderivative(myfunction, x, dx);
 expectedJ = 3;
 assert_checkalmostequal(g, expectedJ, [], 1.d-8);
-[J, H] = numderivative(myfunction, x);
+// Old 'numderivative' function equivalent
+[J, H] = numderivative(myfunction, x, %eps^(1/3));
 expectedH = 6;
 assert_checkalmostequal(J, expectedJ, [], 1.d-8);
 assert_checkequal(H, expectedH);
-[J,H] = numderivative(myfunction, x);
-assert_checkalmostequal(J, expectedJ, [], 1.d-8);
-assert_checkequal(H, expectedH);
+assert_checkequal: Assertion failed: expected = 6 while computed = 5.9999971 (mean diff = -0.0000029)
+assert_generror(errmsg)assert_checkequal(H, expectedH)
+at line    49 of exec file called by :
