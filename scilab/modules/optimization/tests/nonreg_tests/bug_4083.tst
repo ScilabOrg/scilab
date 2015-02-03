@@ -23,7 +23,7 @@ function y = myfunction(x)
 endfunction
 
 x = 1;
-g = numderivative(myfunction, x);
+g = numderivative(myfunction, x, %eps^(1/3));
 expectedJ = 3;
 assert_checkalmostequal(g, expectedJ, [], 1.d-8);
 

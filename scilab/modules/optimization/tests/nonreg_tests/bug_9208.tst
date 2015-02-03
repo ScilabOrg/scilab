@@ -48,7 +48,7 @@ function f = rosenbrock(x)
 endfunction
 function [f, g, ind] = rosenbrockCost2(x, ind)
     f = rosenbrock ( x );
-    g = derivative ( rosenbrock , x.' , order = 4 );
+    g = derivative ( rosenbrock , x.' , %eps^(1/3), order = 4 );
 endfunction
 
 [fopt, xopt, w, g, iters, evals, err] = optim ( rosenbrockCost2 , x0 );
