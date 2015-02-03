@@ -80,9 +80,9 @@ function [f,x,g]=leastsq(imp,fun,varargin)
         end
     else
         if params==list() then
-            deff("g=Dfun(x)","g=numderivative(fn,x)")
+            deff("g=Dfun(x)","g=numderivative(fn,x, %eps^(1/3))")
         else
-            deff("g=Dfun(x,varargin)","g=numderivative(list(fn,varargin(:)),x)")
+            deff("g=Dfun(x,varargin)","g=numderivative(list(fn,varargin(:)),x, %eps^(1/3))")
         end
     end
 
