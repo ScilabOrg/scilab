@@ -197,7 +197,6 @@ static bool readElement(const double* const input, int iType, int iDims, int inp
             if (inputRows < 4)
             {
                 Error(offset + 4);
-                Scierror(999, _("%s: Wrong size for input argument #%d: At least %dx%d expected.\n"), funname.c_str(), 1, offset + 4, 1);
                 return false;
             }
 

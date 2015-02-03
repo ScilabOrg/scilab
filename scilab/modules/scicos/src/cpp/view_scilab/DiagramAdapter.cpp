@@ -148,6 +148,8 @@ struct objs
                     return 0;
             }
         }
+
+        o->IncreaseRef();
         return o;
     }
 
@@ -167,7 +169,7 @@ struct objs
         // and clear the old Links information
         std::vector<ScicosID> oldDiagramChildren;
         controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, oldDiagramChildren);
-for (ScicosID id : oldDiagramChildren)
+        for (ScicosID id : oldDiagramChildren)
         {
             if (id != 0)
             {
@@ -415,7 +417,7 @@ DiagramAdapter::~DiagramAdapter()
         Controller controller;
         std::vector<ScicosID> diagramChildren;
         controller.getObjectProperty(getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
-for (ScicosID id : diagramChildren)
+        for (ScicosID id : diagramChildren)
         {
             if (id != 0)
             {
