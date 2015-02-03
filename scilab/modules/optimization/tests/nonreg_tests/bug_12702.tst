@@ -25,7 +25,25 @@ function [f, g, ind] = rosenbrockCost(x, ind)
         f = rosenbrock ( x );
     end
     if ((ind == 1) | (ind == 4)) then
-        g = numderivative ( rosenbrock , x(:) );
+        g = numderivative ( rosenbrock , x(:) , %eps^(1/3)); // Fixed step (based on old 'derivative' function)
+    end
+endfunction
+
+x0 = [-1.2 1.0];
+lines(0);
+
+for impval = 1:5
+    [ fopt , xopt ] = optim ( rosenbrockCost , x0 , "gc" , imp=impval);
+end
+
+clear rosenbrockCost
+
+function [f, g, ind] = rosenbrockCost(x, ind)
+    if ((ind == 1) | (ind == 4)) then
+        f = rosenbrock ( x );
+    end
+    if ((ind == 1) | (ind == 4)) then
+        g = numderivative ( rosenbrock , x(:)); // Variable step
     end
 endfunction
 
