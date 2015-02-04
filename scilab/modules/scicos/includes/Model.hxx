@@ -37,6 +37,8 @@ public:
      */
 
     ScicosID createObject(kind_t k);
+    void referenceObject(ScicosID uid);
+    unsigned& referenceCount(ScicosID uid);
     void deleteObject(ScicosID uid);
 
     bool getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, double& v) const;
@@ -60,10 +62,15 @@ public:
     update_status_t setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector<ScicosID>& v);
 
     /*
-     * Model internal methods
+     * Model custom methods
      */
 
-    std::shared_ptr<model::BaseObject> getObject(ScicosID uid) const;
+    model::BaseObject* getObject(ScicosID uid) const;
+    template<typename T>
+    T* getObject(ScicosID uid) const
+    {
+        return static_cast<T*>(getObject(uid));
+    };
 
     model::Datatype* flyweight(const model::Datatype& d);
     void erase(model::Datatype* d);
@@ -72,6 +79,9 @@ private:
     ScicosID lastId;
     typedef std::map<ScicosID, std::shared_ptr<model::BaseObject> > objects_map_t;
     objects_map_t allObjects;
+    typedef std::map<ScicosID, unsigned > reference_counter_map_t;
+    reference_counter_map_t allReferenceCounters;
+
 
     typedef std::vector<model::Datatype*> datatypes_set_t;
     datatypes_set_t datatypes;

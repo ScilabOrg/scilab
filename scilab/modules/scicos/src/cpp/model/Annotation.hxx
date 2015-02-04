@@ -28,7 +28,7 @@ class Annotation: public BaseObject
 {
 public:
     Annotation(): BaseObject(ANNOTATION), m_parentDiagram(0),
-        m_description(std::string("Text")), m_font(std::string("2")), m_font_size(std::string("1")), relatedTo(0)
+        m_description(std::string("Text")), m_font(std::string("2")), m_font_size(std::string("1")), m_relatedTo(0)
     {
         std::vector<double> geom (4, 0);
         geom[2] = 2;
@@ -36,7 +36,7 @@ public:
         m_geometry = Geometry(geom);
     };
     Annotation(const Annotation& o) : BaseObject(ANNOTATION), m_parentDiagram(o.m_parentDiagram), m_geometry(o.m_geometry),
-        m_description(o.m_description), m_font(o.m_font), m_font_size(o.m_font_size), relatedTo(o.relatedTo) {};
+        m_description(o.m_description), m_font(o.m_font), m_font_size(o.m_font_size), m_relatedTo(o.m_relatedTo) {};
     ~Annotation() = default;
 
 private:
@@ -130,17 +130,17 @@ private:
 
     ScicosID getRelatedTo() const
     {
-        return relatedTo;
+        return m_relatedTo;
     }
 
     update_status_t setRelatedTo(ScicosID relatedTo)
     {
-        if (this->relatedTo == relatedTo)
+        if (this->m_relatedTo == relatedTo)
         {
             return NO_CHANGES;
         }
 
-        this->relatedTo = relatedTo;
+        this->m_relatedTo = relatedTo;
         return SUCCESS;
     }
 
@@ -150,7 +150,7 @@ private:
     std::string m_description;
     std::string m_font;
     std::string m_font_size;
-    ScicosID relatedTo;
+    ScicosID m_relatedTo;
 };
 
 } /* namespace model */

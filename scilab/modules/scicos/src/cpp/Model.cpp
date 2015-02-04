@@ -13,7 +13,6 @@
 #include <string>
 #include <utility>
 #include <algorithm>
-#include <memory>
 
 #include "Model.hxx"
 #include "utilities.hxx"
@@ -107,22 +106,56 @@ ScicosID Model::createObject(kind_t k)
      * Insert then return
      */
     allObjects.insert(iter, std::make_pair(lastId, o));
+    allReferenceCounters.insert(std::make_pair(lastId, 0));
     o->id(lastId);
     return lastId;
 }
 
-void Model::deleteObject(ScicosID uid)
+void Model::referenceObject(ScicosID uid)
 {
-    objects_map_t::iterator iter = allObjects.lower_bound(uid);
-    if (iter == allObjects.end() || uid < iter->first)
+    reference_counter_map_t::iterator ref_it = allReferenceCounters.lower_bound(uid);
+    if (ref_it == allReferenceCounters.end() || uid < ref_it->first)
     {
         throw std::string("key has not been found");
     }
 
-    allObjects.erase(iter);
+    ++ref_it->second;
 }
 
-std::shared_ptr<model::BaseObject> Model::getObject(ScicosID uid) const
+unsigned& Model::referenceCount(ScicosID uid)
+{
+    reference_counter_map_t::iterator ref_it = allReferenceCounters.lower_bound(uid);
+    if (ref_it == allReferenceCounters.end() || uid < ref_it->first)
+    {
+        throw std::string("key has not been found");
+    }
+
+    return ref_it->second;
+
+}
+
+void Model::deleteObject(ScicosID uid)
+{
+    reference_counter_map_t::iterator ref_it = allReferenceCounters.lower_bound(uid);
+    if (ref_it == allReferenceCounters.end() || uid < ref_it->first)
+    {
+        throw std::string("key has not been found");
+    }
+
+    if (ref_it->second == 0)
+    {
+        objects_map_t::iterator object_it = allObjects.lower_bound(uid);
+
+        allObjects.erase(object_it);
+        allReferenceCounters.erase(ref_it);
+    }
+    else
+    {
+        --ref_it->second;
+    }
+}
+
+model::BaseObject* Model::getObject(ScicosID uid) const
 {
     objects_map_t::const_iterator iter = allObjects.lower_bound(uid);
     if (iter == allObjects.end() || uid < iter->first)
@@ -130,7 +163,7 @@ std::shared_ptr<model::BaseObject> Model::getObject(ScicosID uid) const
         throw std::string("key has not been found");
     }
 
-    return iter->second;
+    return iter->second.get();
 }
 
 // datatypes being a vector of Datatype pointers, we need a dereferencing comparison operator to use std::lower_bound()

@@ -13,7 +13,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <memory>
 
 #include "double.hxx"
 #include "string.hxx"
@@ -304,10 +303,7 @@ struct doc
 } /* namespace */
 
 template<> property<ParamsAdapter>::props_t property<ParamsAdapter>::fields = property<ParamsAdapter>::props_t();
-
-ParamsAdapter::ParamsAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram> adaptee) :
-    BaseAdapter<ParamsAdapter, org_scilab_modules_scicos::model::Diagram>(adaptee),
-    doc_content(new types::List())
+static void initialize_fields()
 {
     if (property<ParamsAdapter>::properties_have_not_been_set())
     {
@@ -323,6 +319,20 @@ ParamsAdapter::ParamsAdapter(std::shared_ptr<org_scilab_modules_scicos::model::D
         property<ParamsAdapter>::add_property(L"void3", &dummy_property::get, &dummy_property::set);
         property<ParamsAdapter>::add_property(L"doc", &doc::get, &doc::set);
     }
+}
+
+ParamsAdapter::ParamsAdapter() :
+    BaseAdapter<ParamsAdapter, org_scilab_modules_scicos::model::Diagram>(),
+    doc_content(new types::List())
+{
+    initialize_fields();
+}
+
+ParamsAdapter::ParamsAdapter(const Controller& c, org_scilab_modules_scicos::model::Diagram* adaptee) :
+    BaseAdapter<ParamsAdapter, org_scilab_modules_scicos::model::Diagram>(c, adaptee),
+    doc_content(new types::List())
+{
+    initialize_fields();
 }
 
 ParamsAdapter::ParamsAdapter(const ParamsAdapter& adapter) :

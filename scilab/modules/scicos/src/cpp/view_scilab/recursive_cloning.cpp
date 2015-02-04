@@ -11,7 +11,6 @@
  */
 
 #include <vector>
-#include <memory>
 
 #include "types.hxx"
 #include "list.hxx"
@@ -53,29 +52,29 @@ types::List* deepCreateAdapters(const std::vector<ScicosID>& diagramChildren, ty
             continue;
         }
 
-        std::shared_ptr<model::BaseObject> item = controller.getObject(diagramChildren[i]);
+        model::BaseObject* item = controller.getObject(diagramChildren[i]);
         switch (item->kind())
         {
             case ANNOTATION:
             {
-                std::shared_ptr<model::Annotation> annotation = std::static_pointer_cast<model::Annotation>(item);
-                TextAdapter* localAdaptor = new TextAdapter(annotation);
+                model::Annotation* annotation = static_cast<model::Annotation*>(item);
+                TextAdapter* localAdaptor = new TextAdapter(controller, controller.referenceObject(annotation));
 
                 List_objects->append(localAdaptor);
                 continue;
             }
             case BLOCK:
             {
-                std::shared_ptr<model::Block> block = std::static_pointer_cast<model::Block>(item);
-                BlockAdapter* localAdaptor = new BlockAdapter(block);
+                model::Block* block = static_cast<model::Block*>(item);
+                BlockAdapter* localAdaptor = new BlockAdapter(controller, controller.referenceObject(block));
 
                 std::vector<ScicosID> childDiagram;
                 controller.getObjectProperty(block->id(), BLOCK, CHILDREN, childDiagram);
 
                 if (!childDiagram.empty())
                 {
-                    std::shared_ptr<org_scilab_modules_scicos::model::Diagram> diagram = std::static_pointer_cast<org_scilab_modules_scicos::model::Diagram>(controller.getObject(childDiagram[0]));
-                    DiagramAdapter* diagramAdapter = new DiagramAdapter(diagram);
+                    org_scilab_modules_scicos::model::Diagram* diagram = static_cast<org_scilab_modules_scicos::model::Diagram*>(controller.getObject(childDiagram[0]));
+                    DiagramAdapter* diagramAdapter = new DiagramAdapter(controller, controller.referenceObject(diagram));
 
                     // Extract the information of the old cloned diagram
                     BlockAdapter* oldBlock = oldList_objects->get(i)->getAs<BlockAdapter>();
@@ -103,8 +102,8 @@ types::List* deepCreateAdapters(const std::vector<ScicosID>& diagramChildren, ty
             }
             case LINK:
             {
-                std::shared_ptr<model::Link> link = std::static_pointer_cast<model::Link>(item);
-                LinkAdapter* localAdaptor = new LinkAdapter(link);
+                model::Link* link = static_cast<model::Link*>(item);
+                LinkAdapter* localAdaptor = new LinkAdapter(controller, controller.referenceObject(link));
 
                 // Do the model linking in the next loop, in case the Link points to a Block that has not been added yet
                 linkListView.push_back(localAdaptor);

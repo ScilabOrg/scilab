@@ -13,7 +13,6 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <memory>
 
 #include "internal.hxx"
 #include "double.hxx"
@@ -56,13 +55,13 @@ struct props
 
     static types::InternalType* get(const DiagramAdapter& adaptor, const Controller& controller)
     {
-        ParamsAdapter localAdaptor(adaptor.getAdaptee());
+        ParamsAdapter localAdaptor(controller, controller.referenceObject(adaptor.getAdaptee()));
         return localAdaptor.getAsTList(new types::TList(), controller);
     }
 
     static bool set(DiagramAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        ParamsAdapter localAdaptor(adaptor.getAdaptee());
+        ParamsAdapter localAdaptor(controller, controller.referenceObject(adaptor.getAdaptee()));
         return localAdaptor.setAsTList(v, controller);
     }
 };
@@ -72,7 +71,7 @@ struct objs
 
     static types::InternalType* get(const DiagramAdapter& adaptor, const Controller& controller)
     {
-        model::Diagram* adaptee = adaptor.getAdaptee().get();
+        model::Diagram* adaptee = adaptor.getAdaptee();
 
         std::vector<ScicosID> children;
         controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, children);
@@ -83,7 +82,6 @@ struct objs
         std::vector<link_t> to = adaptor.getTo();
 
         int link_number = 0;
-        Controller newController;
         for (int i = 0; i < static_cast<int>(children.size()); ++i)
         {
             if (children[i] == 0)
@@ -95,21 +93,21 @@ struct objs
                 continue;
             }
 
-            std::shared_ptr<model::BaseObject> item = newController.getObject(children[i]);
+            model::BaseObject* item = controller.getObject(children[i]);
 
             switch (item->kind())
             {
                 case ANNOTATION:
                 {
-                    std::shared_ptr<model::Annotation> annotation = std::static_pointer_cast<model::Annotation>(item);
-                    TextAdapter* localAdaptor = new TextAdapter(annotation);
+                    model::Annotation* annotation = static_cast<model::Annotation*>(item);
+                    TextAdapter* localAdaptor = new TextAdapter(controller, controller.referenceObject(annotation));
                     o->append(localAdaptor);
                     continue;
                 }
                 case BLOCK:
                 {
-                    std::shared_ptr<model::Block> block = std::static_pointer_cast<model::Block>(item);
-                    BlockAdapter* localAdaptor = new BlockAdapter(block);
+                    model::Block* block = static_cast<model::Block*>(item);
+                    BlockAdapter* localAdaptor = new BlockAdapter(controller, controller.referenceObject(block));
 
                     types::List* list_objects = adaptor.getListObjects()->getAs<types::List>();
                     if (i < list_objects->getSize())
@@ -130,8 +128,8 @@ struct objs
                 }
                 case LINK:
                 {
-                    std::shared_ptr<model::Link> link = std::static_pointer_cast<model::Link>(item);
-                    LinkAdapter* localAdaptor = new LinkAdapter(link);
+                    model::Link* link = static_cast<model::Link*>(item);
+                    LinkAdapter* localAdaptor = new LinkAdapter(controller, controller.referenceObject(link));
 
                     // In case a Link points to a Block that has not been added yet,
                     // retrieve the 'from' and 'to' values from the Diagram Adapter if they have been saved
@@ -159,7 +157,7 @@ struct objs
             return false;
         }
 
-        model::Diagram* adaptee = adaptor.getAdaptee().get();
+        model::Diagram* adaptee = adaptor.getAdaptee();
 
         types::List* list = v->getAs<types::List>();
 
@@ -167,7 +165,7 @@ struct objs
         // and clear the old Links information
         std::vector<ScicosID> oldDiagramChildren;
         controller.getObjectProperty(adaptee->id(), DIAGRAM, CHILDREN, oldDiagramChildren);
-for (ScicosID id : oldDiagramChildren)
+        for (ScicosID id : oldDiagramChildren)
         {
             if (id != 0)
             {
@@ -250,7 +248,7 @@ for (ScicosID id : oldDiagramChildren)
 
                 // Create a Text block based on the input MList and add it to the diagram
                 ScicosID newID = controller.createObject(ANNOTATION);
-                TextAdapter* newAdaptor = new TextAdapter(std::static_pointer_cast<model::Annotation>(controller.getObject(newID)));
+                TextAdapter* newAdaptor = new TextAdapter(controller, controller.getObject<model::Annotation>(newID));
                 // Fill the block with the input mlist
                 if (!newAdaptor->setAsTList(modelElement, controller))
                 {
@@ -308,7 +306,7 @@ struct version
 
     static types::InternalType* get(const DiagramAdapter& adaptor, const Controller& controller)
     {
-        model::Diagram* adaptee = adaptor.getAdaptee().get();
+        model::Diagram* adaptee = adaptor.getAdaptee();
 
         std::string version;
         controller.getObjectProperty(adaptee->id(), DIAGRAM, VERSION_NUMBER, version);
@@ -326,7 +324,7 @@ struct version
                 return false;
             }
 
-            model::Diagram* adaptee = adaptor.getAdaptee().get();
+            model::Diagram* adaptee = adaptor.getAdaptee();
 
             char* c_str = wide_string_to_UTF8(current->get(0));
             std::string version (c_str);
@@ -343,7 +341,7 @@ struct version
                 return false;
             }
 
-            model::Diagram* adaptee = adaptor.getAdaptee().get();
+            model::Diagram* adaptee = adaptor.getAdaptee();
 
             std::string version;
             controller.setObjectProperty(adaptee->id(), DIAGRAM, VERSION_NUMBER, version);
@@ -373,8 +371,8 @@ struct contrib
 
 template<> property<DiagramAdapter>::props_t property<DiagramAdapter>::fields = property<DiagramAdapter>::props_t();
 
-DiagramAdapter::DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram> adaptee) :
-    BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(adaptee),
+DiagramAdapter::DiagramAdapter(const Controller& c, org_scilab_modules_scicos::model::Diagram* adaptee) :
+    BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>(c, adaptee),
     list_objects(new types::List()),
     from_vec(),
     to_vec(),
@@ -409,24 +407,6 @@ DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
 
 DiagramAdapter::~DiagramAdapter()
 {
-    // Unlink the diagram's children if the adaptee is being deleted
-    if (getAdaptee().use_count() == 3)
-    {
-        Controller controller;
-        std::vector<ScicosID> diagramChildren;
-        controller.getObjectProperty(getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
-for (ScicosID id : diagramChildren)
-        {
-            if (id != 0)
-            {
-                auto o = controller.getObject(id);
-                controller.setObjectProperty(id, o->kind(), PARENT_DIAGRAM, 0ll);
-            }
-        }
-        diagramChildren.clear();
-        controller.setObjectProperty(getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
-    }
-
     list_objects->DecreaseRef();
     list_objects->killMe();
 

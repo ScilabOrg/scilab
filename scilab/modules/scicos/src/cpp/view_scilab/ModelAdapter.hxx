@@ -14,7 +14,6 @@
 #define MODELADAPTER_HXX_
 
 #include <string>
-#include <memory>
 
 #include "BaseAdapter.hxx"
 #include "DiagramAdapter.hxx"
@@ -28,7 +27,8 @@ namespace view_scilab
 class ModelAdapter : public BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>
 {
 public:
-    ModelAdapter(std::shared_ptr<model::Block> adaptee);
+    ModelAdapter();
+    ModelAdapter(const Controller& c, model::Block* adaptee);
     ModelAdapter(const ModelAdapter& adapter);
     ~ModelAdapter();
 

@@ -63,7 +63,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case FIRING:
@@ -88,7 +88,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case SIM_FUNCTION_API:
@@ -107,7 +107,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == LINK)
     {
-        model::Link* o = static_cast<model::Link*>(getObject(uid).get());
+        model::Link* o = getObject<model::Link>(uid);
         switch (p)
         {
             case COLOR:
@@ -120,7 +120,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case PORT_KIND:
@@ -169,7 +169,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case IMPLICIT:
@@ -186,7 +186,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
 
     if (k == ANNOTATION)
     {
-        model::Annotation* o = static_cast<model::Annotation*>(getObject(uid).get());
+        model::Annotation* o = getObject<model::Annotation>(uid);
         switch (p)
         {
             case PARENT_DIAGRAM:
@@ -197,7 +197,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case PARENT_DIAGRAM:
@@ -220,7 +220,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == LINK)
     {
-        model::Link* o = static_cast<model::Link*>(getObject(uid).get());
+        model::Link* o = getObject<model::Link>(uid);
         switch (p)
         {
             case PARENT_DIAGRAM:
@@ -235,7 +235,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case SOURCE_BLOCK:
@@ -254,7 +254,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
 
     if (k == ANNOTATION)
     {
-        model::Annotation* o = static_cast<model::Annotation*>(getObject(uid).get());
+        model::Annotation* o = getObject<model::Annotation>(uid);
         switch (p)
         {
             case DESCRIPTION:
@@ -269,7 +269,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case INTERFACE_FUNCTION:
@@ -290,7 +290,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == DIAGRAM)
     {
-        model::Diagram* o = static_cast<model::Diagram*>(getObject(uid).get());
+        model::Diagram* o = getObject<model::Diagram>(uid);
         switch (p)
         {
             case TITLE:
@@ -305,7 +305,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == LINK)
     {
-        model::Link* o = static_cast<model::Link*>(getObject(uid).get());
+        model::Link* o = getObject<model::Link>(uid);
         switch (p)
         {
             case LABEL:
@@ -316,7 +316,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case STYLE:
@@ -335,7 +335,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
 
     if (k == ANNOTATION)
     {
-        model::Annotation* o = static_cast<model::Annotation*>(getObject(uid).get());
+        model::Annotation* o = getObject<model::Annotation>(uid);
         switch (p)
         {
             case GEOMETRY:
@@ -346,7 +346,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case GEOMETRY:
@@ -365,7 +365,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == DIAGRAM)
     {
-        model::Diagram* o = static_cast<model::Diagram*>(getObject(uid).get());
+        model::Diagram* o = getObject<model::Diagram>(uid);
         switch (p)
         {
             case PROPERTIES:
@@ -376,7 +376,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == LINK)
     {
-        model::Link* o = static_cast<model::Link*>(getObject(uid).get());
+        model::Link* o = getObject<model::Link>(uid);
         switch (p)
         {
             case CONTROL_POINTS:
@@ -411,7 +411,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case SIM_DEP_UT:
@@ -448,7 +448,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case DATATYPE:
@@ -473,7 +473,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case EXPRS:
@@ -486,7 +486,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == DIAGRAM)
     {
-        model::Diagram* o = static_cast<model::Diagram*>(getObject(uid).get());
+        model::Diagram* o = getObject<model::Diagram>(uid);
         switch (p)
         {
             case DIAGRAM_CONTEXT:
@@ -527,7 +527,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == BLOCK)
     {
-        model::Block* o = static_cast<model::Block*>(getObject(uid).get());
+        model::Block* o = getObject<model::Block>(uid);
         switch (p)
         {
             case INPUTS:
@@ -546,7 +546,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == DIAGRAM)
     {
-        model::Diagram* o = static_cast<model::Diagram*>(getObject(uid).get());
+        model::Diagram* o = getObject<model::Diagram>(uid);
         switch (p)
         {
             case CHILDREN:
@@ -565,7 +565,7 @@ update_status_t Model::setObjectProperty(ScicosID uid, kind_t k, object_properti
     }
     else if (k == PORT)
     {
-        model::Port* o = static_cast<model::Port*>(getObject(uid).get());
+        model::Port* o = getObject<model::Port>(uid);
         switch (p)
         {
             case CONNECTED_SIGNALS:

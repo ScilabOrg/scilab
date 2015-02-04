@@ -17,7 +17,6 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include <memory>
 
 #include "int.hxx"
 #include "bool.hxx"
@@ -833,8 +832,8 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram
         {
-            std::shared_ptr<model::Diagram> super = std::static_pointer_cast<model::Diagram>(controller.getObject(diagramChild[0]));
-            DiagramAdapter* localAdaptor = new DiagramAdapter(super);
+            model::Diagram* super = controller.getObject<model::Diagram>(diagramChild[0]);
+            DiagramAdapter* localAdaptor = new DiagramAdapter(controller, controller.referenceObject(super));
 
             DiagramAdapter* diagram = adaptor.getDiagram();
             localAdaptor->setListObjects(diagram->getListObjects());
@@ -1693,10 +1692,7 @@ struct uid
 } /* namespace */
 
 template<> property<ModelAdapter>::props_t property<ModelAdapter>::fields = property<ModelAdapter>::props_t();
-
-ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
-    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adaptee),
-    diagramAdapter(nullptr)
+static void initialize_fields()
 {
     if (property<ModelAdapter>::properties_have_not_been_set())
     {
@@ -1725,6 +1721,19 @@ ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
         property<ModelAdapter>::add_property(L"equations", &equations::get, &equations::set);
         property<ModelAdapter>::add_property(L"uid", &uid::get, &uid::set);
     }
+}
+
+ModelAdapter::ModelAdapter() :
+    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(),
+    diagramAdapter(nullptr)
+{
+    initialize_fields();
+}
+ModelAdapter::ModelAdapter(const Controller& c, model::Block* adaptee) :
+    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(c, adaptee),
+    diagramAdapter(nullptr)
+{
+    initialize_fields();
 }
 
 ModelAdapter::ModelAdapter(const ModelAdapter& adapter) :

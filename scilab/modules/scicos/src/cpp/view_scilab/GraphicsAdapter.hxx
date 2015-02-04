@@ -14,7 +14,6 @@
 #define GRAPHICSADAPTER_HXX_
 
 #include <string>
-#include <memory>
 
 #include "BaseAdapter.hxx"
 #include "model/Block.hxx"
@@ -27,7 +26,8 @@ namespace view_scilab
 class GraphicsAdapter : public BaseAdapter<GraphicsAdapter, org_scilab_modules_scicos::model::Block>
 {
 public:
-    GraphicsAdapter(std::shared_ptr<model::Block> adaptee);
+    GraphicsAdapter();
+    GraphicsAdapter(const Controller& c, model::Block* adaptee);
     GraphicsAdapter(const GraphicsAdapter& adapter);
     ~GraphicsAdapter();
 

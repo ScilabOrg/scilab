@@ -11,7 +11,6 @@
  */
 
 #include <string>
-#include <memory>
 
 #include "internal.hxx"
 #include "types.hxx"
@@ -46,9 +45,7 @@ struct dummy_property
 } /* namespace */
 
 template<> property<CprAdapter>::props_t property<CprAdapter>::fields = property<CprAdapter>::props_t();
-
-CprAdapter::CprAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram> adaptee) :
-    BaseAdapter<CprAdapter, org_scilab_modules_scicos::model::Diagram>(adaptee)
+static void initialize_fields()
 {
     if (property<CprAdapter>::properties_have_not_been_set())
     {
@@ -58,6 +55,18 @@ CprAdapter::CprAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram
         property<CprAdapter>::add_property(L"cor", &dummy_property::get, &dummy_property::set);
         property<CprAdapter>::add_property(L"corinv", &dummy_property::get, &dummy_property::set);
     }
+}
+
+CprAdapter::CprAdapter() :
+    BaseAdapter<CprAdapter, org_scilab_modules_scicos::model::Diagram>()
+{
+    initialize_fields();
+}
+
+CprAdapter::CprAdapter(const Controller& c, org_scilab_modules_scicos::model::Diagram* adaptee) :
+    BaseAdapter<CprAdapter, org_scilab_modules_scicos::model::Diagram>(c, adaptee)
+{
+    initialize_fields();
 }
 
 CprAdapter::CprAdapter(const CprAdapter& adapter) :
