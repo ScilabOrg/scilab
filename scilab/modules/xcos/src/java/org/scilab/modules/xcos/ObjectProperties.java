@@ -10,6 +10,7 @@ package org.scilab.modules.xcos;
 
 public enum ObjectProperties {
     PARENT_DIAGRAM,
+    PARENT_BLOCK,
     GEOMETRY,
     DESCRIPTION,
     FONT,
@@ -37,7 +38,6 @@ public enum ObjectProperties {
     OPAR,
     EQUATIONS,
     UID,
-    PARENT_BLOCK,
     CHILDREN,
     PORT_REFERENCE,
     STYLE,
