@@ -1041,6 +1041,23 @@ SWIGEXPORT jlong JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controll
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1referenceObject(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  jboolean jresult = 0 ;
+  org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
+  ScicosID arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
+  arg2 = (ScicosID)jarg2; 
+  result = (bool)((org_scilab_modules_scicos::Controller const *)arg1)->referenceObject(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1deleteObject(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
   ScicosID arg2 ;
@@ -1054,10 +1071,11 @@ SWIGEXPORT void JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1cloneObject(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT jlong JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1cloneObject(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jboolean jarg3) {
   jlong jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
   ScicosID arg2 ;
+  bool arg3 ;
   ScicosID result;
   
   (void)jenv;
@@ -1065,7 +1083,8 @@ SWIGEXPORT jlong JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controll
   (void)jarg1_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
   arg2 = (ScicosID)jarg2; 
-  result = (ScicosID)(arg1)->cloneObject(arg2);
+  arg3 = jarg3 ? true : false; 
+  result = (ScicosID)(arg1)->cloneObject(arg2,arg3);
   jresult = (jlong)result; 
   return jresult;
 }

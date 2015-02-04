@@ -43,12 +43,16 @@ public class Controller {
         return JavaControllerJNI.Controller_createObject(swigCPtr, this, k.ordinal());
     }
 
+    public boolean referenceObject(long uid) {
+        return JavaControllerJNI.Controller_referenceObject(swigCPtr, this, uid);
+    }
+
     public void deleteObject(long uid) {
         JavaControllerJNI.Controller_deleteObject(swigCPtr, this, uid);
     }
 
-    public long cloneObject(long uid) {
-        return JavaControllerJNI.Controller_cloneObject(swigCPtr, this, uid);
+    public long cloneObject(long uid, boolean cloneChildren) {
+        return JavaControllerJNI.Controller_cloneObject(swigCPtr, this, uid, cloneChildren);
     }
 
     public boolean getObjectProperty(long uid, Kind k, ObjectProperties p, int[] v) {
