@@ -13,7 +13,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <memory>
 #include <utility>
 #include <algorithm>
 
@@ -110,8 +109,28 @@ ScicosID Controller::createObject(kind_t k)
     return id;
 }
 
+bool Controller::referenceObject(const ScicosID uid) const
+{
+    return m_instance.model.referenceObject(uid);
+}
+
 void Controller::deleteObject(ScicosID uid)
 {
+    // if this object is the empty uid, ignore it : is is not stored in the model
+    if (uid == 0)
+    {
+        return;
+    }
+
+    // if this object has been referenced somewhere else do not delete it but decrement the reference counter
+    unsigned& refCount = m_instance.model.referenceCount(uid);
+    if (refCount > 0)
+    {
+        --refCount;
+        return;
+    }
+
+    // We need to delete this object and cleanup all the referenced model object
     auto initial = getObject(uid);
     const kind_t k = initial->kind();
 
@@ -124,16 +143,19 @@ void Controller::deleteObject(ScicosID uid)
     else if (k == BLOCK)
     {
         unlinkVector(uid, k, PARENT_DIAGRAM, CHILDREN);
+
         deleteVector(uid, k, INPUTS);
         deleteVector(uid, k, OUTPUTS);
         deleteVector(uid, k, EVENT_INPUTS);
         deleteVector(uid, k, EVENT_OUTPUTS);
-        unlinkVector(uid, k, PARENT_BLOCK, CHILDREN);
+
+        unlink(uid, k, CHILDREN, PARENT_BLOCK);
         deleteVector(uid, k, CHILDREN);
         // FIXME what about REFERENCED_PORT ?
     }
     else if (k == DIAGRAM)
     {
+        unlink(uid, k, CHILDREN, PARENT_DIAGRAM);
         deleteVector(uid, k, CHILDREN);
     }
     else if (k == LINK)
@@ -185,17 +207,20 @@ void Controller::unlinkVector(ScicosID uid, kind_t k, object_properties_t uid_pr
 
 void Controller::unlink(ScicosID uid, kind_t k, object_properties_t uid_prop, object_properties_t ref_prop)
 {
-    ScicosID v;
+    std::vector<ScicosID> v;
     getObjectProperty(uid, k, uid_prop, v);
-    if (v != 0)
+    for (const ScicosID id : v)
     {
-        auto o = getObject(v);
-        // Find which end of the link is connected to the port
-        ScicosID connected_port;
-        getObjectProperty(o->id(), o->kind(), ref_prop, connected_port);
-        if (connected_port == uid)
+        if (id != 0)
         {
-            setObjectProperty(o->id(), o->kind(), ref_prop, 0ll);
+            auto o = getObject(id);
+            // Find which end of the link is connected to the port
+            ScicosID oppositeRef;
+            getObjectProperty(o->id(), o->kind(), ref_prop, oppositeRef);
+            if (oppositeRef == uid)
+            {
+                setObjectProperty(o->id(), o->kind(), ref_prop, 0ll);
+            }
         }
     }
 }
@@ -205,7 +230,7 @@ void Controller::deleteVector(ScicosID uid, kind_t k, object_properties_t uid_pr
     std::vector<ScicosID> children;
     getObjectProperty(uid, k, uid_prop, children);
 
-for (ScicosID id : children)
+    for (ScicosID id : children)
     {
         deleteObject(id);
     }
@@ -305,7 +330,7 @@ void Controller::deepCloneVector(std::map<ScicosID, ScicosID>& mapped, ScicosID 
     std::vector<ScicosID> cloned;
     cloned.reserve(v.size());
 
-for (const ScicosID & id : v)
+    for (const ScicosID & id : v)
     {
         if (id == 0)
         {
@@ -348,7 +373,7 @@ ScicosID Controller::cloneObject(ScicosID uid)
     return cloneObject(mapped, uid);
 }
 
-std::shared_ptr<model::BaseObject> Controller::getObject(ScicosID uid) const
+model::BaseObject* Controller::getObject(ScicosID uid) const
 {
     return m_instance.model.getObject(uid);
 }

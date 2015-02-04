@@ -90,22 +90,32 @@ propertyUpdated( 5 , BLOCK , OUTPUTS ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 5 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
-objectCreated( 6 , DIAGRAM )
-propertyUpdated( 6 , DIAGRAM , TITLE ) : NO_CHANGES
-propertyUpdated( 6 , DIAGRAM , PATH ) : NO_CHANGES
-propertyUpdated( 6 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
-propertyUpdated( 6 , DIAGRAM , PROPERTIES ) : NO_CHANGES
-propertyUpdated( 6 , DIAGRAM , CONTEXT ) : NO_CHANGES
-objectCreated( 7 , LINK )
-propertyUpdated( 7 , LINK , COLOR ) : NO_CHANGES
-propertyUpdated( 7 , LINK , KIND ) : NO_CHANGES
-propertyUpdated( 7 , LINK , LABEL ) : NO_CHANGES
-propertyUpdated( 7 , LINK , CONTROL_POINTS ) : NO_CHANGES
-propertyUpdated( 7 , LINK , THICK ) : NO_CHANGES
-propertyUpdated( 7 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 7 , LINK , SOURCE_PORT ) : NO_CHANGES
-propertyUpdated( 7 , LINK , DESTINATION_PORT ) : NO_CHANGES
-propertyUpdated( 6 , DIAGRAM , CHILDREN ) : SUCCESS
+objectCreated( 6 , LINK )
+propertyUpdated( 6 , LINK , COLOR ) : NO_CHANGES
+propertyUpdated( 6 , LINK , KIND ) : NO_CHANGES
+propertyUpdated( 6 , LINK , LABEL ) : NO_CHANGES
+propertyUpdated( 6 , LINK , CONTROL_POINTS ) : NO_CHANGES
+propertyUpdated( 6 , LINK , THICK ) : NO_CHANGES
+propertyUpdated( 6 , LINK , PARENT_DIAGRAM ) : NO_CHANGES
+propertyUpdated( 6 , LINK , SOURCE_PORT ) : NO_CHANGES
+propertyUpdated( 6 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 5 , BLOCK , CHILDREN ) : SUCCESS
+objectCreated( 7 , DIAGRAM )
+propertyUpdated( 7 , DIAGRAM , TITLE ) : NO_CHANGES
+propertyUpdated( 7 , DIAGRAM , PATH ) : NO_CHANGES
+propertyUpdated( 7 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
+propertyUpdated( 7 , DIAGRAM , PROPERTIES ) : NO_CHANGES
+propertyUpdated( 7 , DIAGRAM , CONTEXT ) : NO_CHANGES
+objectCreated( 8 , LINK )
+propertyUpdated( 8 , LINK , COLOR ) : NO_CHANGES
+propertyUpdated( 8 , LINK , KIND ) : NO_CHANGES
+propertyUpdated( 8 , LINK , LABEL ) : NO_CHANGES
+propertyUpdated( 8 , LINK , CONTROL_POINTS ) : NO_CHANGES
+propertyUpdated( 8 , LINK , THICK ) : NO_CHANGES
+propertyUpdated( 8 , LINK , PARENT_DIAGRAM ) : SUCCESS
+propertyUpdated( 8 , LINK , SOURCE_PORT ) : NO_CHANGES
+propertyUpdated( 8 , LINK , DESTINATION_PORT ) : NO_CHANGES
+propertyUpdated( 7 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 5 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 5 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 4 , DIAGRAM , CHILDREN ) : SUCCESS
@@ -195,30 +205,30 @@ model=scicos_model(sim="super",in=[],in2=[],intyp=1,out=[],out2=[],outtyp=[],evt
 rpar=diag,..
 ipar=[],opar=list(),blocktype="h",firing=[],dep_ut=[%f,%f],label="Quat_Conj",nzcross=0,nmode=0,equations=list())..
 );
-objectCreated( 8 , BLOCK )
-propertyUpdated( 8 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , GEOMETRY ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , ANGLE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , EXPRS ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , LABEL ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , STYLE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
-propertyUpdated( 8 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , STATE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , ODSTATE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , CHILDREN ) : SUCCESS
+objectCreated( 9 , BLOCK )
+propertyUpdated( 9 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , GEOMETRY ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , ANGLE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , EXPRS ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , LABEL ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , STYLE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , SIM_FUNCTION_NAME ) : SUCCESS
+propertyUpdated( 9 , BLOCK , SIM_FUNCTION_API ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , STATE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , DSTATE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , ODSTATE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , CHILDREN ) : SUCCESS
 propertyUpdated( 5 , BLOCK , PARENT_BLOCK ) : SUCCESS
-propertyUpdated( 8 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , OPAR ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
-propertyUpdated( 8 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , LABEL ) : SUCCESS
-propertyUpdated( 8 , BLOCK , NZCROSS ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , NMODE ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , UID ) : NO_CHANGES
-propertyUpdated( 8 , BLOCK , INTERFACE_FUNCTION ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , IPAR ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , OPAR ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , SIM_BLOCKTYPE ) : SUCCESS
+propertyUpdated( 9 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , LABEL ) : SUCCESS
+propertyUpdated( 9 , BLOCK , NZCROSS ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , NMODE ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , UID ) : NO_CHANGES
+propertyUpdated( 9 , BLOCK , INTERFACE_FUNCTION ) : NO_CHANGES
 Super2.model
  ans  =
 super type: 0
@@ -354,7 +364,15 @@ assert_checkequal(Super2.model.rpar.objs(1).model.rpar.objs(1).from, [2 1 0]);
 assert_checkequal(Super2.model.rpar.objs(1).model.rpar.objs(1).to,   [3 1 1]);
 // Check that all the model items are freed
 clear
-propertyUpdated( 3 , BLOCK , CHILDREN ) : SUCCESS
 objectDeleted( 3 , BLOCK )
-propertyUpdated( 8 , BLOCK , CHILDREN ) : SUCCESS
-objectDeleted( 8 , BLOCK )
+propertyUpdated( 5 , BLOCK , PARENT_BLOCK ) : SUCCESS
+objectDeleted( 9 , BLOCK )
+propertyUpdated( 8 , LINK , PARENT_DIAGRAM ) : SUCCESS
+objectDeleted( 7 , DIAGRAM )
+propertyUpdated( 5 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
+objectDeleted( 8 , LINK )
+objectDeleted( 5 , BLOCK )
+objectDeleted( 4 , DIAGRAM )
+propertyUpdated( 1 , LINK , PARENT_DIAGRAM ) : SUCCESS
+objectDeleted( 1 , LINK )
+objectDeleted( 2 , DIAGRAM )

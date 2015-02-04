@@ -15,7 +15,6 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 
 #include "utilities.hxx"
 #include "adapters_utilities.hxx"
@@ -30,7 +29,7 @@ namespace view_scilab
 class DiagramAdapter : public BaseAdapter<DiagramAdapter, org_scilab_modules_scicos::model::Diagram>
 {
 public:
-    DiagramAdapter(std::shared_ptr<org_scilab_modules_scicos::model::Diagram> adaptee);
+    DiagramAdapter(const Controller& c, org_scilab_modules_scicos::model::Diagram* adaptee);
     DiagramAdapter(const DiagramAdapter& adapter);
     ~DiagramAdapter();
 

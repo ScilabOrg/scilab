@@ -50,7 +50,6 @@ scs_m.contrib
  ans  =
      ()
 clear scs_m
-propertyUpdated( 1 , DIAGRAM , CHILDREN ) : NO_CHANGES
 objectDeleted( 1 , DIAGRAM )
 // Create a dummy diagram with one undefined block then clear it
 scs_m = scicos_diagram(objs=list(scicos_block()));
@@ -88,7 +87,6 @@ propertyUpdated( 3 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 3 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
 clear scs_m
 propertyUpdated( 2 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 3 , DIAGRAM , CHILDREN ) : SUCCESS
 objectDeleted( 2 , BLOCK )
 objectDeleted( 3 , DIAGRAM )
 // Create a diagram containing 2 summation blocks and two links
@@ -422,16 +420,6 @@ Link    :
 scs_m.objs(4).from = [1 1 0]; // Link block #1
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -444,16 +432,6 @@ assert_checkequal(scs_m.objs(1).model.out,    -1);   // "
 scs_m.objs(4).to = [2 1 1];   // Link block #2
 propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -479,16 +457,6 @@ propertyUpdated( 17 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 8 , BLOCK , INPUTS ) : SUCCESS
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -506,16 +474,6 @@ assert_checkequal(scs_m.objs(2).model.in,     [-1; -1]); // "
 scs_m.objs(4).from = [0 0 0];
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -531,16 +489,6 @@ assert_checkequal(scs_m.objs(2).graphics.pin, [0; 4]); // But block #2 is still 
 scs_m.objs(4).to = [0 0 0];
 propertyUpdated( 17 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
@@ -551,16 +499,6 @@ assert_checkequal(scs_m.objs(2).graphics.pin, [0; 0]);  // Check that block #2 i
 scs_m.objs(5).from = [2 1 1]; // Link the input of block #2
 propertyUpdated( 10 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , SOURCE_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
@@ -578,16 +516,6 @@ propertyUpdated( 18 , PORT , DATATYPE ) : SUCCESS
 propertyUpdated( 11 , BLOCK , EVENT_OUTPUTS ) : SUCCESS
 propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
@@ -605,16 +533,6 @@ assert_checkequal(scs_m.objs(3).graphics.peout, 5);  // Check that block #3 is c
 assert_checkequal(scs_m.objs(3).model.evtout,  -1);  // "
 // Verify that it is impossible to link two inputs or two outputs together
 scs_m.objs(5).from = [2 1 0]; // Two outputs
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
@@ -622,16 +540,6 @@ propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 18 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 15 , LINK , DESTINATION_PORT ) : NO_CHANGES
 scs_m.objs(5).to = [3 1 1];   // Two inputs
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 16 , DIAGRAM , CHILDREN ) : NO_CHANGES
 propertyUpdated( 14 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 14 , LINK , DESTINATION_PORT ) : NO_CHANGES
@@ -643,7 +551,6 @@ propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 11 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 14 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 15 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 16 , DIAGRAM , CHILDREN ) : SUCCESS
 objectDeleted( 16 , DIAGRAM )
 lnk   = scicos_link( from=[1 1 0],to=[2 1 1] );
 objectCreated( 19 , LINK )
@@ -681,7 +588,6 @@ clear scs_m;
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 19 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 20 , DIAGRAM , CHILDREN ) : SUCCESS
 objectDeleted( 20 , DIAGRAM )
 lnk   = scicos_link( from=[1 1 0],to=[2 1 1] );
 objectCreated( 21 , LINK )
@@ -719,10 +625,6 @@ propertyUpdated( 23 , LINK , THICK ) : NO_CHANGES
 propertyUpdated( 23 , LINK , PARENT_DIAGRAM ) : NO_CHANGES
 propertyUpdated( 23 , LINK , SOURCE_PORT ) : NO_CHANGES
 propertyUpdated( 23 , LINK , DESTINATION_PORT ) : NO_CHANGES
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 23 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -842,7 +744,6 @@ clear scs_m;
 propertyUpdated( 4 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 8 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 23 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 22 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 7 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 9 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectDeleted( 23 , LINK )
@@ -935,8 +836,6 @@ propertyUpdated( 27 , BLOCK , EVENT_INPUTS ) : NO_CHANGES
 propertyUpdated( 27 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 27 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
 propertyUpdated( 27 , BLOCK , CHILDREN ) : NO_CHANGES
-propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 27 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 25 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -1061,10 +960,6 @@ propertyUpdated( 31 , BLOCK , EVENT_INPUTS ) : SUCCESS
 propertyUpdated( 31 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , PARENT_BLOCK ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , CHILDREN ) : NO_CHANGES
-propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 27 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 27 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 31 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 25 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
@@ -1239,7 +1134,6 @@ objectDeleted( 24 , LINK )
 propertyUpdated( 26 , LINK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 27 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
 propertyUpdated( 31 , BLOCK , PARENT_DIAGRAM ) : SUCCESS
-propertyUpdated( 25 , DIAGRAM , CHILDREN ) : SUCCESS
 propertyUpdated( 30 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 propertyUpdated( 32 , PORT , CONNECTED_SIGNALS ) : SUCCESS
 objectDeleted( 26 , LINK )

@@ -17,7 +17,6 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include <memory>
 
 #include "int.hxx"
 #include "bool.hxx"
@@ -833,14 +832,11 @@ struct rpar
         }
         else // SuperBlock, return the contained diagram
         {
-            std::shared_ptr<model::Diagram> super = std::static_pointer_cast<model::Diagram>(controller.getObject(diagramChild[0]));
-            DiagramAdapter* localAdaptor = new DiagramAdapter(super);
-
             DiagramAdapter* diagram = adaptor.getDiagram();
-            localAdaptor->setListObjects(diagram->getListObjects());
-            localAdaptor->setFrom(diagram->getFrom());
-            localAdaptor->setTo(diagram->getTo());
-            return localAdaptor;
+
+            // FIXME: sync all diagram children as the blocks might be modified by xcos
+
+            return diagram;
         }
     }
 
@@ -877,16 +873,18 @@ struct rpar
 
             // Translate 'v' to an DiagramAdapter, save it and update the Block's children list
             DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
-
             adaptor.setDiagram(diagram);
 
-            // Save the child diagram's ID so it is deleted on 'clear'
-            std::vector<ScicosID> diagramChild (1, diagram->getAdaptee()->id());
-            controller.setObjectProperty(adaptee, BLOCK, CHILDREN, diagramChild);
-
-            // Link the Superblock ports to their inner "port blocks"
+            // set the diagram children as block children ; referencing them
             std::vector<ScicosID> diagramChildren;
             controller.getObjectProperty(diagram->getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
+            for (const auto id : diagramChildren)
+            {
+                controller.referenceObject(id);
+            }
+            controller.setObjectProperty(adaptor.getAdaptee()->id(), BLOCK, CHILDREN, diagramChildren);
+
+            // Link the Superblock ports to their inner "port blocks"
             return setInnerBlocksRefs(adaptor, diagramChildren, controller);
         }
         else
@@ -1693,10 +1691,7 @@ struct uid
 } /* namespace */
 
 template<> property<ModelAdapter>::props_t property<ModelAdapter>::fields = property<ModelAdapter>::props_t();
-
-ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
-    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adaptee),
-    diagramAdapter(nullptr)
+static void initialize_fields()
 {
     if (property<ModelAdapter>::properties_have_not_been_set())
     {
@@ -1727,19 +1722,21 @@ ModelAdapter::ModelAdapter(std::shared_ptr<model::Block> adaptee) :
     }
 }
 
-ModelAdapter::ModelAdapter(const ModelAdapter& adapter) :
-    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(adapter),
-    diagramAdapter(adapter.getDiagram())
+ModelAdapter::ModelAdapter() :
+    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(),
+    m_diagramAdapter(nullptr)
 {
+    initialize_fields();
+}
+ModelAdapter::ModelAdapter(const Controller& c, model::Block* adaptee, DiagramAdapter* diagramAdapter) :
+    BaseAdapter<ModelAdapter, org_scilab_modules_scicos::model::Block>(c, adaptee),
+    m_diagramAdapter(diagramAdapter)
+{
+    initialize_fields();
 }
 
 ModelAdapter::~ModelAdapter()
 {
-    if (diagramAdapter != nullptr)
-    {
-        diagramAdapter->DecreaseRef();
-        diagramAdapter->killMe();
-    }
 }
 
 std::wstring ModelAdapter::getTypeStr()
@@ -1754,29 +1751,13 @@ std::wstring ModelAdapter::getShortTypeStr()
 
 DiagramAdapter* ModelAdapter::getDiagram() const
 {
-    if (diagramAdapter != nullptr)
-    {
-        diagramAdapter->IncreaseRef();
-    }
-    return diagramAdapter;
+    return m_diagramAdapter;
 }
 
-void ModelAdapter::setDiagram(DiagramAdapter* newDiagram)
+void ModelAdapter::setDiagram(DiagramAdapter* diagramAdapter)
 {
-    if (newDiagram != nullptr)
-    {
-        // The old 'diagramAdapter' needs to be freed after setting it to 'v'
-        DiagramAdapter* temp = diagramAdapter;
-
-        newDiagram->IncreaseRef();
-        diagramAdapter = newDiagram;
-
-        if (temp != nullptr)
-        {
-            temp->DecreaseRef();
-            temp->killMe();
-        }
-    }
+    // does not increment reference as this adapter does not own the DiagramAdapter
+    m_diagramAdapter = diagramAdapter;
 }
 
 } /* namespace view_scilab */
