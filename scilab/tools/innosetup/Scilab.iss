@@ -16,6 +16,7 @@
 #define ScilabBaseFilename "scilab-master"
 #define ScilabBaseDirectory "scilab-master"
 #define ScilabName "scilab-master"
+#define ScilabConsoleName "scilab-master Console"
 #define ScilabVersion "5.4.0"
 #define CurrentYear "2011"
 #define javaSpecificationVersion "1.6"

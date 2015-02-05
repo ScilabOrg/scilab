@@ -50,6 +50,8 @@ Scilab Bug Fixes
 
 * Bug #13725 fixed - Polyline was not correctly filled with big values.
 
+* Bug #13732 fixed - Scilab GUI & console icon labels are unsatisfying.
+
 * Bug #13741 fixed - Impossible to print an invisible figure under Windows.
 
 * Bug #13742 fixed - Figure was not well printed when there is a xstring with latex.

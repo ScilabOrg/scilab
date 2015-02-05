@@ -81,7 +81,7 @@ pt_BR.DescriptionParallel = Parallel Computing with Scilab
 pt_BR.DescriptionModulesManager = Tools for management of extern modules 
 pt_BR.DescriptionModuleJVM = JVM Module
 ;
-pt_BR.ConsoleIconName =Scilab Console
+pt_BR.ConsoleIconName =Console
 ;
 pt_BR.WebIconScilab =Scilab on the Web
 ;

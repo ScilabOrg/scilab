@@ -82,7 +82,7 @@ uk_UA.DescriptionParallel = Parallel Computing with Scilab
 uk_UA.DescriptionModulesManager = Tools for management of extern modules 
 uk_UA.DescriptionModuleJVM = JVM Module
 ;
-uk_UA.ConsoleIconName =Scilab Console
+uk_UA.ConsoleIconName =Console
 ;
 uk_UA.WebIconScilab =Scilab on the Web
 ;
