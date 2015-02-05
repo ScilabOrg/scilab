@@ -82,7 +82,7 @@ ru_RU.DescriptionParallel = Parallel Computing with Scilab
 ru_RU.DescriptionModulesManager = Tools for management of extern modules 
 ru_RU.DescriptionModuleJVM = JVM Module
 ;
-ru_RU.ConsoleIconName =Scilab Console
+ru_RU.ConsoleIconName =Console
 ;
 ru_RU.WebIconScilab =Scilab on the Web
 ;

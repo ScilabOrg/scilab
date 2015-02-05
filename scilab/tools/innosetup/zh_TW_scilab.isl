@@ -82,7 +82,7 @@ zh_TW.DescriptionParallel = Parallel Computing with Scilab
 zh_TW.DescriptionModulesManager = Tools for management of extern modules 
 zh_TW.DescriptionModuleJVM = JVM Module
 ;
-zh_TW.ConsoleIconName =Scilab Console
+zh_TW.ConsoleIconName =Console
 ;
 zh_TW.WebIconScilab =Scilab on the Web
 ;

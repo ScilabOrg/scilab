@@ -45,6 +45,8 @@ Scilab Bug Fixes
 
 * Bug #13712 fixed - Details added in strcat help page for strcat(strings, "", "r") case.
 
+* Bug #13732 fixed - Scilab GUI & console icon labels are unsatisfying.
+
 
 
                      Changes between version 5.5.0 and 5.5.1

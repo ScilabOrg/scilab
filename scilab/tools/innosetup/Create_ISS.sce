@@ -68,6 +68,8 @@ function ret = Update_Script_Innosetup(ISSFilenameSource)
     scilab_version = getversion("scilab");
     scilab_version_vstr = getversion();
 
+    num_version = sprintf("%d.%d.%d", scilab_version(1), scilab_version(2), scilab_version(3));
+
     [SciFile, err] = FindAndReplace(SciFile, "#define TESTS_SIZE", "#define TESTS_SIZE " + sprintf("%20d",getTestsSize()));
     if err == %F then
         ret = err;
@@ -96,11 +98,23 @@ function ret = Update_Script_Innosetup(ISSFilenameSource)
         return;
     end;
 
-    if win64() then
-        [SciFile, err] = FindAndReplace(SciFile, "#define ScilabName", "#define ScilabName """ + scilab_version_vstr + " (64-bit)""");
+    // Icon names depend on the version type: release or dev version ?
+    if ~isempty(strstr(scilab_version_vstr, "branch"))
+        // Dev icon names contain getversion() name
+        scilabName = scilab_version_vstr;
     else
-        [SciFile, err] = FindAndReplace(SciFile,"#define ScilabName","#define ScilabName """+ scilab_version_vstr +"""");
+        // Release icon names have the format "Scilab x.x.x"
+        scilabName = "Scilab " + num_version;
     end
+
+    if win64() then
+        [SciFile, err] = FindAndReplace(SciFile, "#define ScilabName", "#define ScilabName """ + scilabName + " (64-bit)""");
+        [SciFile, err] = FindAndReplace(SciFile, "#define ScilabConsoleName", "#define ScilabConsoleName """ + scilabName + " {cm:ConsoleIconName} (64-bit)""");
+    else
+        [SciFile, err] = FindAndReplace(SciFile, "#define ScilabName", "#define ScilabName """ + scilabName + """");
+        [SciFile, err] = FindAndReplace(SciFile, "#define ScilabConsoleName", "#define ScilabConsoleName """ + scilabName + " {cm:ConsoleIconName}""");
+    end
+
     if err == %F then
         ret = err;
         return;
@@ -118,9 +132,9 @@ function ret = Update_Script_Innosetup(ISSFilenameSource)
         return;
     end;
 
-    currentVersion = sprintf("%d.%d.%d",scilab_version(1),scilab_version(2),scilab_version(3));
 
-    [SciFile,err] = FindAndReplace(SciFile,"#define ScilabVersion ","#define ScilabVersion """+ currentVersion +"""");
+
+    [SciFile,err] = FindAndReplace(SciFile,"#define ScilabVersion ","#define ScilabVersion """ + num_version + """");
     if err == %F then
         ret = err;
         return;

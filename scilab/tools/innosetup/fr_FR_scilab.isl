@@ -55,7 +55,7 @@ fr_FR.DescriptionModulesManager = Outils pour créer des modules externes
 fr_FR.DescriptionModuleJVM = Interface graphique
 fr_FR.DescriptionMPI = MPI ( basé sur Microsoft HPC Pack 2012 R2 )
 ;
-fr_FR.ConsoleIconName = Console Scilab
+fr_FR.ConsoleIconName =Console
 ;
 fr_FR.WebIconScilab = Site Internet Scilab
 ;

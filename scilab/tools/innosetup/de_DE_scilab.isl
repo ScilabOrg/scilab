@@ -81,7 +81,7 @@ de_DE.DescriptionParallel = Parallel Computing with Scilab
 de_DE.DescriptionModulesManager = Tools for management of extern modules 
 de_DE.DescriptionModuleJVM = JVM Module
 ;
-de_DE.ConsoleIconName =Scilab Console
+de_DE.ConsoleIconName =Console
 ;
 de_DE.WebIconScilab =Scilab on the Web
 ;
