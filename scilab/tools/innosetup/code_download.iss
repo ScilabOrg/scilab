@@ -39,7 +39,7 @@ external 'isxdl_GetFileName@files:isxdl.dll stdcall';
 //------------------------------------------------------------------------------
 function getInstallerDirectory: String;
   begin
-    Result := ExtractFileDir(ExpandConstant('{srcexe}')); 
+    Result := ExtractFileDir(ExpandConstant('{srcexe}'));
   end;
 //------------------------------------------------------------------------------
 function Download_Package(const packagefilename, URL, labeltxt, descriptiontxt: String): Boolean;
@@ -47,12 +47,14 @@ function Download_Package(const packagefilename, URL, labeltxt, descriptiontxt: 
     hWnd: Integer;
     DestinationTmpDirName: String;
     iConnect : Integer;
+    packageLocalPath: String;
   begin
     Result := false;
     DestinationTmpDirName := ExpandConstant('{tmp}') + '\';
-    if (FileExists(getInstallerDirectory() + '\' + packagefilename) = true) then
+    packageLocalPath := getInstallerDirectory() + '\' + packagefilename;
+    if (FileExists(packageLocalPath) = true) then
       begin
-        Result := FileCopy(getInstallerDirectory() + '\' + packagefilename, DestinationTmpDirName + packagefilename, false);
+        Result := FileCopy(packageLocalPath, DestinationTmpDirName + packagefilename, false);
       end
     else
       begin
@@ -67,9 +69,11 @@ function Download_Package(const packagefilename, URL, labeltxt, descriptiontxt: 
             if isxdl_DownloadFiles(hWnd) = 0 then
               begin
                 Result := false;
-              end else begin
-                FileCopy(DestinationTmpDirName + packagefilename, getInstallerDirectory() + '\' + packagefilename, false);
+              end else
+              begin
+                FileCopy(DestinationTmpDirName + packagefilename, packageLocalPath, false);
                 Result := FileExists(DestinationTmpDirName + packagefilename);
+                DeleteFile(packageLocalPath);
               end;
           end;
       end;
@@ -96,7 +100,7 @@ function Download_MKL_FFTW: Boolean;
     URL: String;
   begin
     URL := ExpandConstant('{#MKL_DOWNLOAD_HTTP}')+ '/';
-    Result := Download_Package(ExpandConstant('{#MKL_FFTW_PACKAGENAME}'), URL, CustomMessage('DownloadMKLFFTWLabel'), CustomMessage('DownloadMKLDescription'));  
+    Result := Download_Package(ExpandConstant('{#MKL_FFTW_PACKAGENAME}'), URL, CustomMessage('DownloadMKLFFTWLabel'), CustomMessage('DownloadMKLDescription'));
   end;
 //------------------------------------------------------------------------------
 function Install_Package(const packagefullfilename, pathdest: String):  Boolean;
@@ -110,7 +114,7 @@ function Install_Package(const packagefullfilename, pathdest: String):  Boolean;
     Result := True;
     TmpDirName := ExpandConstant('{tmp}') + '\';
     listfiles_name := TmpDirName + 'list_files.txt';
-    
+
     if (Unzip(packagefullfilename) = true) then
       begin
         if (LoadStringsFromFile(listfiles_name, listfilesArray) = true) then
@@ -132,7 +136,7 @@ function Install_Package(const packagefullfilename, pathdest: String):  Boolean;
     else
       begin
         Result := False;
-      end; 
+      end;
   end;
 //------------------------------------------------------------------------------
 function Install_MKL: Boolean;
@@ -145,7 +149,7 @@ function Install_MKL: Boolean;
     TmpDirName := ExpandConstant('{tmp}') + '\';
     fullnamePackage := TmpDirName + ExpandConstant('{#MKL_BLASLAPACK_PACKAGENAME}');
     destinationDirectory := ExpandConstant('{app}') + '\bin\';
-    
+
     if FileExists(fullnamePackage) then
       begin
         Result := Install_Package(fullnamePackage, destinationDirectory);
@@ -164,10 +168,10 @@ function Install_commons_MKL: Boolean;
     destinationDirectory: String;
 
   begin
-    TmpDirName := ExpandConstant('{tmp}') + '\';  
+    TmpDirName := ExpandConstant('{tmp}') + '\';
     fullnamePackage := TmpDirName + ExpandConstant('{#MKL_COMMONS_PACKAGENAME}');
     destinationDirectory := ExpandConstant('{app}') + '\bin\';
-    
+
     if FileExists(fullnamePackage) then
       begin
         Result := Install_Package(fullnamePackage, destinationDirectory);
@@ -189,7 +193,7 @@ function Install_MKL_FFTW: Boolean;
     TmpDirName := ExpandConstant('{tmp}') + '\';
     fullnamePackage := TmpDirName + ExpandConstant('{#MKL_FFTW_PACKAGENAME}');
     destinationDirectory := ExpandConstant('{app}') + '\bin\fftw\';
-    
+
     if FileExists(fullnamePackage) then
       begin
         Result := Install_Package(fullnamePackage, destinationDirectory);
