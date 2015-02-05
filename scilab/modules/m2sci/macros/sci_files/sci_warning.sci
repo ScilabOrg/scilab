@@ -20,7 +20,7 @@ function [tree]=sci_warning(tree)
             tree.rhs(1)=Cste("query")
             // [s,f] = warning
         else
-            insert(Equal(list(tree.lhs(2)),Cste("once")))
+            m2sci_insert(Equal(list(tree.lhs(2)),Cste("once")))
             tree.rhs(1)=Cste("query");
             tree.lhs(2)=null();
         end
