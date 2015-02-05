@@ -58,13 +58,13 @@ en_US.DescriptionMPI = MPI ( based on Microsoft HPC Pack 2012 R2 )
 ;
 en_US.ConsoleIconName =Console
 ;
-en_US.WebIconScilab = Scilab on the Web
+en_US.WebIconScilab =Scilab on the Web
 ;
-en_US.ReadMeIcon = Read Me
+en_US.ReadMeIcon =Read Me
 ;
-en_US.UnInstallIcon = Uninstall Scilab
+en_US.UnInstallIcon =Uninstall Scilab
 ;
-en_US.RegKeyRunWith = Run with
+en_US.RegKeyRunWith =Run with
 ;
 en_US.DescriptionVC2008Redist = Install Microsoft Visual C++ 2008 Redistributable Package
 ;
