@@ -52,6 +52,8 @@ Scilab Bug Fixes
 
 * Bug #13712 fixed - Details added in strcat help page for strcat(strings, "", "r") case.
 
+* Bug #13731 fixed - xmlDelete could be very slow.
+
 =======
 
 
