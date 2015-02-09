@@ -17,6 +17,11 @@
 #include "polynom.hxx"
 #include "configvariable.hxx"
 
+extern "C"
+{
+#include "elem_common.h"
+}
+
 using namespace std;
 
 namespace types
@@ -324,6 +329,82 @@ void Polynom::updateRank(void)
     {
         m_pRealData[i]->updateRank();
     }
+}
+
+void Polynom::cleanParasiteValue(Polynom* _pPolynomOrigne)
+{
+    //suppresion des parasite
+    SinglePoly** ppSinglePolyOrigne = _pPolynomOrigne->get();
+
+    double dblmax = 0;
+    double dblEps = 2 * getRelativeMachinePrecision();
+
+    if (_pPolynomOrigne->isComplex())
+    {
+        for (int i = 0; i < _pPolynomOrigne->getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyOrigne[i]->getSize(); j++)
+            {
+                if (dblmax < abs(ppSinglePolyOrigne[i]->get(j)))
+                {
+                    dblmax = abs(ppSinglePolyOrigne[i]->get(j));
+                }
+
+                if (dblmax < abs(ppSinglePolyOrigne[i]->getImg(j)))
+                {
+                    dblmax = abs(ppSinglePolyOrigne[i]->getImg(j));
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < _pPolynomOrigne->getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyOrigne[i]->getSize(); j++)
+            {
+                if (dblmax < abs(ppSinglePolyOrigne[i]->get(j)))
+                {
+                    dblmax = abs(ppSinglePolyOrigne[i]->get(j));
+                }
+            }
+        }
+    }
+
+    SinglePoly** ppSinglePolyThis = this->get();
+    if (isComplex())
+    {
+        for (int i = 0; i < getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyThis[i]->getSize(); j++)
+            {
+                if ((dblmax * dblEps) >= ppSinglePolyThis[i]->get(j) && ppSinglePolyThis[i]->get(j) >= (-dblmax * dblEps))
+                {
+                    ppSinglePolyThis[i]->set(j, (double)0);
+                }
+
+                if ((dblmax * dblEps) >= ppSinglePolyThis[i]->getImg(j) && ppSinglePolyThis[i]->getImg(j) >= (-dblmax * dblEps))
+                {
+                    ppSinglePolyThis[i]->setImg(j, (double)0);
+                }
+
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyThis[i]->getSize(); j++)
+            {
+                if ((dblmax * dblEps) >= ppSinglePolyThis[i]->get(j) && ppSinglePolyThis[i]->get(j) >= (-dblmax * dblEps))
+                {
+                    ppSinglePolyThis[i]->set(j, (double)0);
+                }
+            }
+        }
+    }
+
 }
 
 int Polynom::getMaxRank(void)
