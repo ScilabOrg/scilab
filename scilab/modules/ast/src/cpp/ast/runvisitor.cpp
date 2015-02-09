@@ -405,6 +405,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
     //allow return operation
     if (e.isReturnable())
     {
+        const_cast<Exp&>(e.getBody()).resetReturn();
         const_cast<Exp&>(e.getBody()).setReturnable();
     }
 
@@ -433,6 +434,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             if (e.getBody().isReturn())
             {
                 const_cast<ForExp&>(e).setReturn();
+                const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
         }
@@ -462,6 +464,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             if (e.getBody().isReturn())
             {
                 const_cast<ForExp*>(&e)->setReturn();
+                const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
         }
@@ -505,6 +508,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             if (e.getBody().isReturn())
             {
                 const_cast<ForExp*>(&e)->setReturn();
+                const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
         }
