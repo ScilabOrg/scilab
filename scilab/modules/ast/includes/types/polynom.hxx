@@ -61,7 +61,7 @@ public :
     {
         return isScalar() ? isComplex() ? IdScalarPolynomComplex
                : IdScalarPolynom
-       : isComplex() ? IdPolynomComplex
+               : isComplex() ? IdPolynomComplex
                : IdPolynom;
     }
 
@@ -80,6 +80,7 @@ public :
     int                     getMaxRank(void);
     Double*                 evaluate(Double* _pdblValue);
     void                    updateRank(void);
+    void                    cleanParasiteValue(Polynom* _pPolynomOrigne);
     Double*                 getCoef(void);
     void                    setCoef(Double *_pCoef);
     Double*                 extractCoef(int _iRank);
