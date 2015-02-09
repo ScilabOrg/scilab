@@ -203,21 +203,34 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         in.push_back(pS);
         in.push_back(pValue);
         Callable::ReturnValue Ret = Callable::Error;
+        std::wstring stType = pValue->getShortTypeStr();
 
         try
         {
-            Ret = Overload::call(L"%" + pValue->getShortTypeStr() + L"_e", in, 1, out, this);
+            Ret = Overload::call(L"%" + stType + L"_e", in, 1, out, this);
         }
-        catch (ast::ScilabError & se)
+        catch (ast::ScilabError &/*se*/)
         {
-            // TList or Mlist
-            if (pValue->isList())
+            try
             {
-                Ret = Overload::call(L"%l_e", in, 1, out, this);
+                //to compatibility with scilab 5 code.
+                //tlist/mlist name are truncated to 8 first character
+                if (stType.size() > 8)
+                {
+                    Ret = Overload::call(L"%" + stType.substr(0, 8) + L"_e", in, 1, out, this);
+                }
             }
-            else
+            catch (ast::ScilabError & se)
             {
-                throw se;
+                // TList or Mlist
+                if (pValue->isList())
+                {
+                    Ret = Overload::call(L"%l_e", in, 1, out, this);
+                }
+                else
+                {
+                    throw se;
+                }
             }
         }
 
@@ -392,6 +405,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
     //allow return operation
     if (e.isReturnable())
     {
+        const_cast<Exp&>(e.getBody()).resetReturn();
         const_cast<Exp&>(e.getBody()).setReturnable();
     }
 
@@ -420,6 +434,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             if (e.getBody().isReturn())
             {
                 const_cast<ForExp&>(e).setReturn();
+                const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
         }
@@ -449,6 +464,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             if (e.getBody().isReturn())
             {
                 const_cast<ForExp*>(&e)->setReturn();
+                const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
         }
@@ -492,6 +508,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             if (e.getBody().isReturn())
             {
                 const_cast<ForExp*>(&e)->setReturn();
+                const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
         }
