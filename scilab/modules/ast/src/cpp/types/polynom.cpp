@@ -17,6 +17,11 @@
 #include "polynom.hxx"
 #include "configvariable.hxx"
 
+extern "C"
+{
+#include "elem_common.h"
+}
+
 using namespace std;
 
 namespace types
@@ -323,6 +328,114 @@ void Polynom::updateRank(void)
     for (int i = 0 ; i < getSize() ; i++)
     {
         m_pRealData[i]->updateRank();
+    }
+}
+
+void Polynom::cleanParasiteValue(Polynom* _pPolynomOrigne1, Polynom* _pPolynomOrigne2)
+{
+    SinglePoly** ppSinglePolyOrigne1 = _pPolynomOrigne1->get();
+    SinglePoly** ppSinglePolyOrigne2 = _pPolynomOrigne2->get();
+
+    double dblmax1 = 0;
+    double dblmax2 = 0;
+    double dblEps = 2 * getRelativeMachinePrecision();
+
+    if (_pPolynomOrigne1->isComplex())
+    {
+        for (int i = 0; i < _pPolynomOrigne1->getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyOrigne1[i]->getSize(); j++)
+            {
+                if (dblmax1 < abs(ppSinglePolyOrigne1[i]->get(j)))
+                {
+                    dblmax1 = abs(ppSinglePolyOrigne1[i]->get(j));
+                }
+
+                if (dblmax1 < abs(ppSinglePolyOrigne1[i]->getImg(j)))
+                {
+                    dblmax1 = abs(ppSinglePolyOrigne1[i]->getImg(j));
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < _pPolynomOrigne1->getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyOrigne1[i]->getSize(); j++)
+            {
+                if (dblmax1 < abs(ppSinglePolyOrigne1[i]->get(j)))
+                {
+                    dblmax1 = abs(ppSinglePolyOrigne1[i]->get(j));
+                }
+            }
+        }
+    }
+
+    if (_pPolynomOrigne2->isComplex())
+    {
+        for (int i = 0; i < _pPolynomOrigne2->getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyOrigne2[i]->getSize(); j++)
+            {
+                if (dblmax2 < abs(ppSinglePolyOrigne2[i]->get(j)))
+                {
+                    dblmax2 = abs(ppSinglePolyOrigne2[i]->get(j));
+                }
+
+                if (dblmax2 < abs(ppSinglePolyOrigne2[i]->getImg(j)))
+                {
+                    dblmax2 = abs(ppSinglePolyOrigne2[i]->getImg(j));
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < _pPolynomOrigne2->getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyOrigne2[i]->getSize(); j++)
+            {
+                if (dblmax2 < abs(ppSinglePolyOrigne2[i]->get(j)))
+                {
+                    dblmax2 = abs(ppSinglePolyOrigne2[i]->get(j));
+                }
+            }
+        }
+    }
+
+    SinglePoly** ppSinglePolyThis = this->get();
+    if (isComplex())
+    {
+        for (int i = 0; i < getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyThis[i]->getSize(); j++)
+            {
+                if ((dblmax1 * dblmax2 * dblEps) >= ppSinglePolyThis[i]->get(j) && ppSinglePolyThis[i]->get(j) >= (-dblmax1 * dblmax2  * dblEps))
+                {
+                    ppSinglePolyThis[i]->set(j, (double)0);
+                }
+
+                if ((dblmax1 * dblmax2  * dblEps) >= ppSinglePolyThis[i]->getImg(j) && ppSinglePolyThis[i]->getImg(j) >= (-dblmax1 * dblmax2  * dblEps))
+                {
+                    ppSinglePolyThis[i]->setImg(j, (double)0);
+                }
+
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < getSize(); i++)
+        {
+            for (int j = 0; j < ppSinglePolyThis[i]->getSize(); j++)
+            {
+                if ((dblmax1 * dblmax2  * dblEps) >= ppSinglePolyThis[i]->get(j) && ppSinglePolyThis[i]->get(j) >= (-dblmax1 * dblmax2  * dblEps))
+                {
+                    ppSinglePolyThis[i]->set(j, (double)0);
+                }
+            }
+        }
     }
 }
 

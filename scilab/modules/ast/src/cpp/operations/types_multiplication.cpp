@@ -1094,6 +1094,8 @@ int MultiplyPolyByPoly(Polynom* _pPoly1, Polynom* _pPoly2, Polynom** _pPolyOut)
             }
         }
     }
+
+    (*_pPolyOut)->cleanParasiteValue(_pPoly1, _pPoly2);
     (*_pPolyOut)->updateRank();
 
     return 0;
