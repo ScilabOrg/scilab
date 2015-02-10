@@ -14,6 +14,8 @@ DISABLE_HELP_CLEAN=yes
 #### Source listing ######
 
 SCICOS_CXX_SOURCES = \
+src/cpp/var2vec.cpp \
+src/cpp/vec2var.cpp \
 src/cpp/Controller.cpp \
 src/cpp/LoggerView.cpp \
 src/cpp/Model.cpp \
