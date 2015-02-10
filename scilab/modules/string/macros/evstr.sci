@@ -40,7 +40,9 @@ function [%val, %ierr] = evstr(%str)
         end
 
         for %l = 1:size(%str, "r")
-            %t1(%l) = strcat(%str(%l, :), ",") + ";"
+            if strsubst(%str(%l)," ","") <> ""
+                %t1(%l) = strcat(%str(%l, :), ",") + ";"
+            end
         end
         %t1(1) = "%val=[" + %t1(1);
         %t1($) = part(%t1($), 1:length(%t1($)) - 1)+";";
