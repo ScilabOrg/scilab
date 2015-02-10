@@ -125,6 +125,7 @@ int encode(const double* const tab, const int tabSize, const int iDims, const in
     if (isComplex == true)
     {
         res->setImg(tab + iDims + 1 + iElements);
+        iElements *= 2;
     }
 
     return 2 + iDims + 1 + iElements;
