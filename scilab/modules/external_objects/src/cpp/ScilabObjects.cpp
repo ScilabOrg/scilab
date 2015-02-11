@@ -10,11 +10,13 @@
  *
  */
 
-#include "ScilabObjects.hxx"
 #include <cstring>
-
 #include <cstdio>
 #include <vector>
+
+#include "internal.hxx"
+#include "mlist.hxx"
+#include "ScilabObjects.hxx"
 
 extern "C" {
     extern int C2F(varfunptr)(int *, int *, int *);
@@ -27,6 +29,9 @@ const char * ScilabObjects::_EOBJ[] = {"_EObj", "_EnvId", "_id"};
 const char * ScilabObjects::_ECLASS[] = {"_EClass", "_EnvId", "_id"};
 const char * ScilabObjects::_EVOID[] = {"_EVoid", "_EnvId", "_id"};
 const char * ScilabObjects::_INVOKE_ = "!!_invoke_";
+const wchar_t pwstEClass[] = {L"_EClass"};
+const wchar_t pwstEObj[] = {L"_EObj"};
+const wchar_t pwstEVoid[] = {L"_EVoid"};
 
 void ScilabObjects::initialization(ScilabAbstractEnvironment & env, void * pvApiCtx)
 {
@@ -789,41 +794,43 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
 
 int ScilabObjects::getMListType(int * mlist, void * pvApiCtx)
 {
-    char * mlist_type[3];
-    char * mtype = 0;
-    int lengths[3];
-    int rows, cols;
-    int type;
+    types::InternalType* pVar = (types::InternalType*) mlist;
 
-    // OK it's crappy... but it works and it is performant...
+    //if (mlist[0] == 0)
+    //{
+    //    return EXTERNAL_VOID;
+    //}
 
-    if (mlist[0] == 0)
-    {
-        return EXTERNAL_VOID;
-    }
-
-    if (mlist[0] != sci_mlist || mlist[1] != 3)
+    if (!pVar->isMList())
     {
         return EXTERNAL_INVALID;
     }
 
-    if (mlist[6] != sci_strings || mlist[7] != 1 || mlist[8] != 3)
+    types::MList* pMlist = pVar->getAs<types::MList>();
+    if (pMlist->getSize() != 3)
+    {
+        return EXTERNAL_INVALID;
+    }
+
+    types::String* pStrFieldNames = pMlist->getFieldNames();
+    if (pStrFieldNames->getSize() != 3)
     {
         // first field is not a matrix 1x3 of strings
         return EXTERNAL_INVALID;
     }
 
-    if (mlist[11] - 1 == strlen("_EClass") && mlist[14] == 36 && mlist[15] == -14 && mlist[16] == -12 && mlist[17] == 21 && mlist[18] == 10 && mlist[19] == 28 && mlist[20] == 28)
+    wchar_t* pwstMlistType = pStrFieldNames->get(0);
+    if (pwstMlistType[0] == pwstEClass[0])
     {
         return EXTERNAL_CLASS;
     }
 
-    if (mlist[11] - 1 == strlen("_EObj") && mlist[14] == 36 && mlist[15] == -14 && mlist[16] == -24 && mlist[17] == 11 && mlist[18] == 19)
+    if (pwstMlistType[0] == pwstEObj[0])
     {
         return EXTERNAL_OBJECT;
     }
 
-    if (mlist[11] - 1 == strlen("_EVoid") && mlist[14] == 36 && mlist[15] == -14 && mlist[16] == -31 && mlist[17] == 24 && mlist[18] == 18 && mlist[19] == 13)
+    if (pwstMlistType[0] == pwstEVoid[0])
     {
         return EXTERNAL_VOID;
     }
