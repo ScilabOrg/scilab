@@ -34,7 +34,7 @@ class EXTERNAL_OBJECTS_SCILAB_IMPEXP ScilabObjects
     static const char * _EOBJ[];
     static const char * _ECLASS[];
     static const char * _EVOID[];
-    static const char * _INVOKE_;
+    static const wchar_t * _INVOKE_;
 
 public:
 

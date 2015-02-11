@@ -55,7 +55,7 @@ int ScilabGateway::exists(char * fname, const int envId, void * pvApiCtx)
     {
         exists = env.isvalidobject(*id);
     }
-    catch (std::exception & e)
+    catch (std::exception & /*e*/)
     {
         throw;
     }
