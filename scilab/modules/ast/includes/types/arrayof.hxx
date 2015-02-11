@@ -494,7 +494,7 @@ public :
                     int iSize = pArg[i]->getAs<ArrayOf>()->getSize();
                     for (int j = 0 ; j < iSize ; j++)
                     {
-                        if (pIdx[j] >= m_piDims[i])
+                        if (pIdx[j] > m_piDims[i])
                         {
                             //free pArg content
                             cleanIndexesArguments(_pArgs, &pArg);
