@@ -1431,12 +1431,14 @@ C
 C
       SAVE LID, LENID, NONNEG, NCPHI
 C
+      INTEGER ierror
       COMMON /ierode/ierror
 C
 C
 C***FIRST EXECUTABLE STATEMENT  DDASKR
 C
 C
+      ierror = 0
       IF(INFO(1).NE.0) GO TO 100
 C
 C-----------------------------------------------------------------------
