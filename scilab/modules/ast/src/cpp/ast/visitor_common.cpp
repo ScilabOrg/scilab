@@ -944,28 +944,36 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     }
                     else
                     {
+                        // Avoid insertion in most of one element.
+                        if (pStruct->isScalar() == false)
+                        {
+                            std::wostringstream os;
+                            os << _W("Unable to insert multiple item in a Struct.");
+                            throw ast::ScilabError(os.str(), 999, _pExp->getLocation());
+                        }
+
                         // extract field x and append it to elements for next recursion.
                         List* pLOut = pStruct->extractFieldWithoutClone(pwcsFieldname);
-                        for (int iList = 0; iList < pLOut->getSize(); iList++)
-                        {
-                            InternalType* pIT = pLOut->get(iList);
-                            if (pIT->getRef() > 2) //One for my own ref + 1 for "extractFieldWithoutClone" artificial ref
-                            {
-                                // clone element before modify it.
-                                //pIT->DecreaseRef();
-                                pIT = pIT->clone();
-                                pStruct->get(iList)->set(pwcsFieldname, pIT);
-                            }
 
-                            ExpHistory* pEHChield = new ExpHistory(pEH,
-                                                                   (*iterFields)->getExp(),
-                                                                   (*iterFields)->getArgs(),
-                                                                   (*iterFields)->getLevel(),
-                                                                   (*iterFields)->isCellExp(),
-                                                                   pIT);
-                            pEHChield->setWhereReinsert(iList);
-                            workFields.push_back(pEHChield);
+                        // pStruct must be scalar because we cant insert most of one element in the same insertion
+                        InternalType* pIT = pLOut->get(0);
+                        if (pIT->getRef() > 2) //One for my own ref + 1 for "extractFieldWithoutClone" artificial ref
+                        {
+                            // clone element before modify it.
+                            //pIT->DecreaseRef();
+                            pIT = pIT->clone();
+                            pStruct->get(0)->set(pwcsFieldname, pIT);
                         }
+
+                        ExpHistory* pEHChield = new ExpHistory(pEH,
+                                                               (*iterFields)->getExp(),
+                                                               (*iterFields)->getArgs(),
+                                                               (*iterFields)->getLevel(),
+                                                               (*iterFields)->isCellExp(),
+                                                               pIT);
+
+                        pEHChield->setWhereReinsert(0);
+                        workFields.push_back(pEHChield);
 
                         pLOut->killMe();
                     }
@@ -2069,15 +2077,18 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                     /* Remove a field */
                     pStruct->removeField(pS->get(0));
                 }
+                else if (pStruct->isScalar())
+                {
+                    pStruct->addField(pS->get(0));
+                    pStruct->get(0)->set(pS->get(0), _pInsert);
+                }
                 else
                 {
-                    /* Add a field */
-                    pStruct->addField(pS->get(0));
-                    for (int i = 0; i < pStruct->getSize(); i++)
-                    {
-                        pStruct->get(i)->set(pS->get(0), _pInsert);
-                    }
+                    std::wostringstream os;
+                    os << _W("Unable to insert multiple item in a Struct.");
+                    throw ast::ScilabError(os.str(), 999, e.getLocation());
                 }
+
                 pRet = pStruct;
             }
             else // insert something in a struct
