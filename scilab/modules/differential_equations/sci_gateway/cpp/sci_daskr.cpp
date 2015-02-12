@@ -839,7 +839,7 @@ types::Function::ReturnValue sci_daskr(types::typed_list &in, int _iRetCount, ty
         // LENWP is the length ot the rwork segment containing
         // the matrix elements of the preconditioner P
 
-        LENWP = 7 * pDblX0->getRows();
+        LENWP = pDblX0->getRows() * pDblX0->getRows();
         rworksize += (maxord + 5) * pDblX0->getRows() + 3 * ng
                      + (maxl + 3 + min(1, maxl - kmp)) * pDblX0->getRows()
                      + (maxl + 3) * maxl + 1 + LENWP;
@@ -862,7 +862,7 @@ types::Function::ReturnValue sci_daskr(types::typed_list &in, int _iRetCount, ty
         // LENIWP is the length ot the iwork segment containing
         // the matrix indexes of the preconditioner P
         // (compressed sparse row format)
-        LENIWP = 25 * pDblX0->getRows() + 1;
+        LENIWP = 2 * pDblX0->getRows() * pDblX0->getRows();
         iworksize += LENIWP;
     }
 
