@@ -161,7 +161,6 @@ function [wp, iwp, ires] = pjac(neq, t, y, ydot, h, cj, rewt, savr)
     end
 endfunction
 Warning : redefining function: pjac                    . Use funcprot(0) to avoid this message
-
 [yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,res2,jac2,ng,"gr2",info,psol,pjac);
 assert_checkalmostequal(nn(1),81.163512,0.003);
 deff("s=gr2(t,y,yd)","s=y(1)")
@@ -202,7 +201,7 @@ t01=nn(1);t=100:20:200;[pp,qq]=size(yy);y01=yy(3:4,qq);y0d1=yy(4:5,qq);
 [yy,nn,hotd]=daskr([y01,y0d1],t01,t,atol,rtol,"res22","jac22",ng,"gr22",info,hotd);
 DASKR--  TOUT (=R1) BEHIND T (=R2)                                              
       In above message,  R1 =  0.1000000000000D+03   R2 =  0.1625746057949D+03  
-daskr encountered trouble.
+encountered trouble.
 rtol=[1.d-6;1.d-6];
 atol=[1.d-6;1.d-4];
 t0=0;y0=[2;0];y0d=[0;-2];t=[20:20:200];ng=1;
