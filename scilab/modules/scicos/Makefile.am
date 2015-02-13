@@ -16,6 +16,7 @@ DISABLE_HELP_CLEAN=yes
 SCICOS_CXX_SOURCES = \
 src/cpp/il_state.cpp \
 src/cpp/il_sim.cpp \
+src/cpp/sciblk4.cpp \
 src/cpp/Controller.cpp \
 src/cpp/LoggerView.cpp \
 src/cpp/Model.cpp \
@@ -44,7 +45,6 @@ src/c/import.c \
 src/c/scicos.c \
 src/c/scicos_free.c \
 src/c/sciblk2.c \
-src/c/sciblk4.c \
 src/c/ezxml.c \
 src/c/createblklist.c \
 src/c/var2sci.c \

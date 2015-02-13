@@ -266,6 +266,7 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\cpp\Controller.cpp" />
     <ClCompile Include="..\cpp\il_sim.cpp" />
     <ClCompile Include="..\cpp\il_state.cpp" />
+    <ClCompile Include="..\cpp\sciblk4.cpp" />
     <ClCompile Include="..\cpp\LoggerView.cpp" />
     <ClCompile Include="..\cpp\Model.cpp" />
     <ClCompile Include="..\cpp\Model_getObjectProperties.cpp" />
@@ -316,7 +317,6 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\..\sci_gateway\c\sci_set_xproperty.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_sig2data.c" />
     <ClCompile Include="sciblk2.c" />
-    <ClCompile Include="sciblk4.c" />
     <ClCompile Include="scicos.c" />
     <ClCompile Include="scicos_free.c" />
     <ClCompile Include="scicos_malloc.c" />
@@ -332,6 +332,7 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClInclude Include="..\..\includes\View.hxx" />
     <ClInclude Include="..\cpp\il_sim.hxx" />
     <ClInclude Include="..\cpp\il_state.hxx" />
+    <ClInclude Include="..\cpp\sciblk4.hxx" />
     <ClInclude Include="..\cpp\LoggerView.hxx" />
     <ClInclude Include="..\cpp\model\Annotation.hxx" />
     <ClInclude Include="..\cpp\model\Block.hxx" />
@@ -371,7 +372,6 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClInclude Include="..\..\includes\scicos_math.h" />
     <ClInclude Include="..\..\includes\scicos_print.h" />
     <ClInclude Include="sciblk2.h" />
-    <ClInclude Include="sciblk4.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="var2sci.h" />
   </ItemGroup>

@@ -203,9 +203,9 @@ LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libsciscicos_algo_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__libsciscicos_algo_la_SOURCES_DIST = src/c/noscicos/noscicos.c \
-	src/cpp/il_state.cpp src/cpp/il_sim.cpp src/cpp/Controller.cpp \
-	src/cpp/LoggerView.cpp src/cpp/Model.cpp \
-	src/cpp/Model_getObjectProperties.cpp \
+	src/cpp/il_state.cpp src/cpp/il_sim.cpp src/cpp/sciblk4.cpp \
+	src/cpp/Controller.cpp src/cpp/LoggerView.cpp \
+	src/cpp/Model.cpp src/cpp/Model_getObjectProperties.cpp \
 	src/cpp/Model_setObjectProperties.cpp \
 	src/cpp/view_scilab/Adapters.cpp \
 	src/cpp/view_scilab/BlockAdapter.cpp \
@@ -222,19 +222,20 @@ am__libsciscicos_algo_la_SOURCES_DIST = src/c/noscicos/noscicos.c \
 	src/c/scilab5_needed_stubs.c src/c/tree.c \
 	src/c/scicos_malloc.c src/c/scicos_print.c src/c/import.c \
 	src/c/scicos.c src/c/scicos_free.c src/c/sciblk2.c \
-	src/c/sciblk4.c src/c/ezxml.c src/c/createblklist.c \
-	src/c/var2sci.c src/c/copyvarfromlistentry.c \
-	src/c/MlistGetFieldNumber.c src/c/extractblklist.c \
-	src/c/lsodar.c src/c/ddaskr.c src/fortran/scitovv.f \
-	src/fortran/vvtosci.f src/fortran/skipvars.f \
-	src/fortran/coselm.f src/fortran/scitod.f src/fortran/sctree.f \
-	src/fortran/scierr.f src/fortran/ftree2.f src/fortran/ftree3.f \
+	src/c/ezxml.c src/c/createblklist.c src/c/var2sci.c \
+	src/c/copyvarfromlistentry.c src/c/MlistGetFieldNumber.c \
+	src/c/extractblklist.c src/c/lsodar.c src/c/ddaskr.c \
+	src/fortran/scitovv.f src/fortran/vvtosci.f \
+	src/fortran/skipvars.f src/fortran/coselm.f \
+	src/fortran/scitod.f src/fortran/sctree.f src/fortran/scierr.f \
+	src/fortran/ftree2.f src/fortran/ftree3.f \
 	src/fortran/list2vars.f src/fortran/ftree4.f \
 	src/fortran/scitoi.f src/fortran/scifunc.f
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = src/c/noscicos/libsciscicos_algo_la-noscicos.lo
 am__objects_2 = src/cpp/libsciscicos_algo_la-il_state.lo \
 	src/cpp/libsciscicos_algo_la-il_sim.lo \
+	src/cpp/libsciscicos_algo_la-sciblk4.lo \
 	src/cpp/libsciscicos_algo_la-Controller.lo \
 	src/cpp/libsciscicos_algo_la-LoggerView.lo \
 	src/cpp/libsciscicos_algo_la-Model.lo \
@@ -260,7 +261,6 @@ am__objects_3 = src/c/libsciscicos_algo_la-scilab5_needed_stubs.lo \
 	src/c/libsciscicos_algo_la-scicos.lo \
 	src/c/libsciscicos_algo_la-scicos_free.lo \
 	src/c/libsciscicos_algo_la-sciblk2.lo \
-	src/c/libsciscicos_algo_la-sciblk4.lo \
 	src/c/libsciscicos_algo_la-ezxml.lo \
 	src/c/libsciscicos_algo_la-createblklist.lo \
 	src/c/libsciscicos_algo_la-var2sci.lo \
@@ -941,6 +941,7 @@ DISABLE_HELP_CLEAN = yes
 SCICOS_CXX_SOURCES = \
 src/cpp/il_state.cpp \
 src/cpp/il_sim.cpp \
+src/cpp/sciblk4.cpp \
 src/cpp/Controller.cpp \
 src/cpp/LoggerView.cpp \
 src/cpp/Model.cpp \
@@ -968,7 +969,6 @@ src/c/import.c \
 src/c/scicos.c \
 src/c/scicos_free.c \
 src/c/sciblk2.c \
-src/c/sciblk4.c \
 src/c/ezxml.c \
 src/c/createblklist.c \
 src/c/var2sci.c \
@@ -1463,6 +1463,8 @@ src/cpp/libsciscicos_algo_la-il_state.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libsciscicos_algo_la-il_sim.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
+src/cpp/libsciscicos_algo_la-sciblk4.lo: src/cpp/$(am__dirstamp) \
+	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libsciscicos_algo_la-Controller.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libsciscicos_algo_la-LoggerView.lo: src/cpp/$(am__dirstamp) \
@@ -1536,8 +1538,6 @@ src/c/libsciscicos_algo_la-scicos.lo: src/c/$(am__dirstamp) \
 src/c/libsciscicos_algo_la-scicos_free.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
 src/c/libsciscicos_algo_la-sciblk2.lo: src/c/$(am__dirstamp) \
-	src/c/$(DEPDIR)/$(am__dirstamp)
-src/c/libsciscicos_algo_la-sciblk4.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
 src/c/libsciscicos_algo_la-ezxml.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
@@ -2136,7 +2136,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-import.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-lsodar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-sciblk2.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-scicos.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-scicos_free.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/c/$(DEPDIR)/libsciscicos_algo_la-scicos_malloc.Plo@am__quote@
@@ -2152,6 +2151,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciscicos_algo_la-Model_setObjectProperties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciscicos_algo_la-il_sim.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciscicos_algo_la-il_state.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/view_scilab/$(DEPDIR)/libsciscicos_algo_la-Adapters.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/view_scilab/$(DEPDIR)/libsciscicos_algo_la-BlockAdapter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/view_scilab/$(DEPDIR)/libsciscicos_algo_la-CprAdapter.Plo@am__quote@
@@ -2270,13 +2270,6 @@ src/c/libsciscicos_algo_la-sciblk2.lo: src/c/sciblk2.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/c/sciblk2.c' object='src/c/libsciscicos_algo_la-sciblk2.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/c/libsciscicos_algo_la-sciblk2.lo `test -f 'src/c/sciblk2.c' || echo '$(srcdir)/'`src/c/sciblk2.c
-
-src/c/libsciscicos_algo_la-sciblk4.lo: src/c/sciblk4.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/c/libsciscicos_algo_la-sciblk4.lo -MD -MP -MF src/c/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Tpo -c -o src/c/libsciscicos_algo_la-sciblk4.lo `test -f 'src/c/sciblk4.c' || echo '$(srcdir)/'`src/c/sciblk4.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/c/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Tpo src/c/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/c/sciblk4.c' object='src/c/libsciscicos_algo_la-sciblk4.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/c/libsciscicos_algo_la-sciblk4.lo `test -f 'src/c/sciblk4.c' || echo '$(srcdir)/'`src/c/sciblk4.c
 
 src/c/libsciscicos_algo_la-ezxml.lo: src/c/ezxml.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/c/libsciscicos_algo_la-ezxml.lo -MD -MP -MF src/c/$(DEPDIR)/libsciscicos_algo_la-ezxml.Tpo -c -o src/c/libsciscicos_algo_la-ezxml.lo `test -f 'src/c/ezxml.c' || echo '$(srcdir)/'`src/c/ezxml.c
@@ -2840,6 +2833,13 @@ src/cpp/libsciscicos_algo_la-il_sim.lo: src/cpp/il_sim.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/il_sim.cpp' object='src/cpp/libsciscicos_algo_la-il_sim.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libsciscicos_algo_la-il_sim.lo `test -f 'src/cpp/il_sim.cpp' || echo '$(srcdir)/'`src/cpp/il_sim.cpp
+
+src/cpp/libsciscicos_algo_la-sciblk4.lo: src/cpp/sciblk4.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libsciscicos_algo_la-sciblk4.lo -MD -MP -MF src/cpp/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Tpo -c -o src/cpp/libsciscicos_algo_la-sciblk4.lo `test -f 'src/cpp/sciblk4.cpp' || echo '$(srcdir)/'`src/cpp/sciblk4.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Tpo src/cpp/$(DEPDIR)/libsciscicos_algo_la-sciblk4.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/sciblk4.cpp' object='src/cpp/libsciscicos_algo_la-sciblk4.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libsciscicos_algo_la-sciblk4.lo `test -f 'src/cpp/sciblk4.cpp' || echo '$(srcdir)/'`src/cpp/sciblk4.cpp
 
 src/cpp/libsciscicos_algo_la-Controller.lo: src/cpp/Controller.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libsciscicos_algo_la-Controller.lo -MD -MP -MF src/cpp/$(DEPDIR)/libsciscicos_algo_la-Controller.Tpo -c -o src/cpp/libsciscicos_algo_la-Controller.lo `test -f 'src/cpp/Controller.cpp' || echo '$(srcdir)/'`src/cpp/Controller.cpp
