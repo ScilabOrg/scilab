@@ -143,9 +143,6 @@
     <ClCompile Include="sciblk2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sciblk4.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="scicos.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -266,6 +263,9 @@
     <ClCompile Include="..\cpp\il_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\cpp\sciblk4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\sci_gateway\cpp\sci_var2vec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -335,9 +335,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sciblk2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sciblk4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\cpp\LoggerView.hxx">
@@ -416,6 +413,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\cpp\il_state.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cpp\sciblk4.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

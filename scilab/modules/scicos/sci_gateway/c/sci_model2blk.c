@@ -28,7 +28,12 @@
 #include "scicos_block4.h"
 #include "sci_malloc.h"
 #include "cvstr.h"
-#include "sciblk4.h"
+#idef _cplusplus
+extern "C"
+{
+#include "sciblk4.hxx"
+}
+#endif
 #include "sciblk2.h"
 #include "MlistGetFieldNumber.h"
 #include "createblklist.h"

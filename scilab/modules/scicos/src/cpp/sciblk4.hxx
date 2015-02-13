@@ -1,5 +1,6 @@
 /*  Scicos
 *
+*  Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
 *  Copyright (C) DIGITEO - 2009 - Allan CORNET
 *
 * This program is free software; you can redistribute it and/or modify
@@ -19,10 +20,13 @@
 * See the file ./license.txt
 */
 /*--------------------------------------------------------------------------*/
-#ifndef __SCIBLK4_H__
-#define __SCIBLK4_H__
+#ifndef __SCIBLK4_HXX__
+#define __SCIBLK4_HXX__
 
+extern "C"
+{
 #include "scicos_block4.h"
+}
 
 /* sciblk4. Run scilab block type 5.
 *
@@ -97,5 +101,5 @@
 
 void sciblk4(scicos_block *Blocks, int flag);
 
-#endif /* __SCIBLK4_H__ */
+#endif /* __SCIBLK4_HXX__ */
 /*--------------------------------------------------------------------------*/
