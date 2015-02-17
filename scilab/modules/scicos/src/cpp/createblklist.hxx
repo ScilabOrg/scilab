@@ -22,7 +22,12 @@
 #ifndef __CREATEBLKLIST_H__
 #define __CREATEBLKLIST_H__
 
+#include "mlist.hxx"
+
+extern "C"
+{
 #include "scicos_block4.h"
+}
 
 /* createblklist : function to create a Typed List
 *                 of a scicos_block structure
@@ -54,7 +59,7 @@
 *
 */
 
-int createblklist(scicos_block *Blocks, int *ierr, int flag_imp, int funtyp);
+types::InternalType* createblklist(scicos_block *Blocks, int flag_imp, int funtyp);
 
 #endif /* __CREATEBLKLIST_H__ */
 /*--------------------------------------------------------------------------*/

@@ -23,23 +23,20 @@
 #include <cstring>
 #include <cstdio>
 
+#include "createblklist.hxx"
+#include "double.hxx"
+#include "function.hxx"
+#include "execvisitor.hxx"
+#include "vec2var.hxx"
+#include "var2vec.hxx"
+
 extern "C"
 {
 #include "sciblk4.h"
-}
-
-//#include "internal.hxx"
-//#include "types.hxx"
-//#include "double.hxx"
-
-extern "C"
-{
 #include "machine.h" /*C2F*/
-#include "stack-c.h"
 #include "sci_malloc.h"
 #include "scicos.h"
 #include "import.h"
-#include "createblklist.h"
 #include "Scierror.h"
 #include "localization.h"
     /*--------------------------------------------------------------------------*/
@@ -50,70 +47,177 @@ extern "C"
     extern void C2F(itosci)(int&, int, int);
 }
 /*--------------------------------------------------------------------------*/
-static int sci2var(void* x, void* y, int typ_var);
-/*--------------------------------------------------------------------------*/
-static void Error(int ierr)
+template <class T>
+bool sci2var(T* p, void* dest, int row, int col)
 {
-    if (ierr < 0) /*flag value error*/
+    int size = p->getSize();
+    T::type* srcR = p->get();
+
+    if (row != p->getRows())
     {
-        Scierror(888, _("%s: error %d. Wrong flag value : %d to %d expected.\n"), "var2sci", ierr, 1, 10);
+        return false;
     }
-    else if (ierr > 0) /*var2sci or sci2var error*/
+
+    if (col != p->getCols())
     {
-        /* Please update me! */
-        if (ierr < 1000) /*var2sci error*/
+        return false;
+    }
+
+    if (p->isComplex())
+    {
+        T::type* srcI = p->getImg();
+        if (dest == nullptr)
         {
-            switch (ierr)
-            {
-                case 1  :
-                    Scierror(888, _("%s: error %d. Stack is full.\n"), "var2sci", ierr);
-                    break;
-
-                case 2  :
-                    Scierror(888, _("%s: error %d. No more space on the stack for new data.\n"), "var2sci", ierr);
-                    break;
-
-                default :
-                    Scierror(888, _("%s: error %d. Undefined error.\n"), "var2sci", ierr);
-                    break;
-            }
+            return false;
         }
-        else /*sci2var error*/
+
+        T::type* destR = (T::type*)dest;
+        T::type* destI = destR + size;
+        for (int i = 0; i < size; ++i)
         {
-            switch (ierr)
-            {
-                case 1001  :
-                    Scierror(888, _("%s: error %d. Only int or double object are accepted.\n"), "sci2var", ierr);
-                    break;
-
-                case 1002  :
-                    Scierror(888, _("%s: error %d. Bad double object sub_type.\n"), "sci2var", ierr);
-                    break;
-
-                case 1003  :
-                    Scierror(888, _("%s: error %d. Bad int object sub_type.\n"), "sci2var", ierr);
-                    break;
-
-                case 1004  :
-                    Scierror(888, _("%s: error %d. A type of a scilab object has changed.\n"), "sci2var", ierr);
-                    break;
-
-                default    :
-                    Scierror(888, _("%s: error %d. Undefined error.\n"), "sci2var", ierr);
-                    break;
-            }
+            destR[i] = srcR[i];
+            destI[i] = srcI[i];
         }
     }
-    set_block_error(-1);
+    else
+    {
+        if (dest == nullptr)
+        {
+            return false;
+        }
+
+        T::type* destR = (T::type*)dest;
+        for (int i = 0; i < size; ++i)
+        {
+            destR[i] = srcR[i];
+        }
+    }
+
+    return true;
+}
+/*--------------------------------------------------------------------------*/
+bool sci2var(types::InternalType* p, void* dest, int desttype, int row, int col)
+{
+    switch (p->getType())
+    {
+        case types::InternalType::ScilabDouble:
+        {
+            if (p->getAs<types::Double>()->isComplex() && desttype == SCSCOMPLEX_N)
+            {
+                return sci2var(p->getAs<types::Double>(), dest, row, col);
+            }
+
+            if (p->getAs<types::Double>()->isComplex() == false && desttype == SCSREAL_N)
+            {
+                return sci2var(p->getAs<types::Double>(), dest, row, col);
+            }
+        }
+        case types::InternalType::ScilabInt8:
+        {
+            if (desttype == SCSINT8_N)
+            {
+                return sci2var(p->getAs<types::Int8>(), dest, row, col);
+            }
+        }
+        case types::InternalType::ScilabInt16:
+        {
+            if (desttype == SCSINT16_N)
+            {
+                return sci2var(p->getAs<types::Int16>(), dest, row, col);
+            }
+        }
+        case types::InternalType::ScilabInt32:
+        {
+            if (desttype == SCSINT32_N)
+            {
+                return sci2var(p->getAs<types::Int32>(), dest, row, col);
+            }
+        }
+        case types::InternalType::ScilabUInt8:
+        {
+            if (desttype == SCSUINT8_N)
+            {
+                return sci2var(p->getAs<types::UInt8>(), dest, row, col);
+            }
+        }
+        case types::InternalType::ScilabUInt16:
+        {
+            if (desttype == SCSUINT16_N)
+            {
+                return sci2var(p->getAs<types::UInt16>(), dest, row, col);
+            }
+        }
+        case types::InternalType::ScilabUInt32:
+        {
+            if (desttype == SCSUINT32_N)
+            {
+                return sci2var(p->getAs<types::UInt32>(), dest, row, col);
+            }
+        }
+    }
+
+    return false;
+}
+/*--------------------------------------------------------------------------*/
+bool getDoubleArray(types::InternalType* p, double* dest)
+{
+    if (p == nullptr)
+    {
+        return false;
+    }
+
+    if (p->isDouble())
+    {
+        types::Double* d = p->getAs<types::Double>();
+        int size = d->getSize();
+        if (size == 0)
+        {
+            return true;
+        }
+
+        if (dest == nullptr)
+        {
+            return false;
+        }
+
+        memcpy(dest, d->get(), sizeof(double) * size);
+        return true;
+    }
+
+    return false;
+}
+/*--------------------------------------------------------------------------*/
+bool getDoubleArrayAsInt(types::InternalType* p, int* dest)
+{
+    if (p == nullptr)
+    {
+        return false;
+    }
+
+    if (p->isDouble())
+    {
+        types::Double* d = p->getAs<types::Double>();
+        int size = d->getSize();
+        if (size == 0)
+        {
+            return true;
+        }
+
+        double* dbl = d->get();
+        for (int i = 0; i < size; ++i)
+        {
+            dest[i] = static_cast<int>(dbl[i]);
+        }
+        return true;
+    }
+
+    return false;
 }
 /*--------------------------------------------------------------------------*/
 void sciblk4(scicos_block* Blocks, int flag)
 {
     int ierr = 0;
-
-    /* Save 'Top' counter */
-    int topsave = Top;
-
+    bool bOK = false;
     /* Retrieve block number */
     int kfun = get_block_number();
 
@@ -124,10 +228,9 @@ void sciblk4(scicos_block* Blocks, int flag)
     ierr = getscicosvarsfromimport(buf, (void**)&ptr, &nv, &mv);
     if (ierr == 0)
     {
-        Error(ierr);
         return;
     }
-    int* funtyp = (int *) ptr;
+    int* funtyp = (int *)ptr;
 
     /* Retrieve 'funptr' by import structure */
     void* ptr2 = nullptr;
@@ -136,312 +239,329 @@ void sciblk4(scicos_block* Blocks, int flag)
     ierr = getscicosvarsfromimport(buf2, (void**)&ptr2, &nv2, &mv2);
     if (ierr == 0)
     {
-        Error(ierr);
         return;
     }
-    void* funptr = (void *) ptr2;
+    void* funptr = (void *)ptr2;
+
+    types::typed_list in, out;
+    types::optional_list opt;
 
     /*****************************
     * Create Scilab tlist Blocks *
     *****************************/
-    int i = -1;
-    if ((createblklist(&Blocks[0], &ierr, i, funtyp[kfun - 1])) == 0)
+    types::InternalType* pIT = createblklist(Blocks, -1, funtyp[kfun - 1]);
+    if (pIT == NULL)
     {
-        Error(ierr);
+        set_block_error(-1);
         return;
     }
 
+    in.push_back(pIT);
     /* * flag * */
-    i = 1;
-    int j = 1;
-    C2F(itosci)(flag, i, j);
-    if (C2F(scierr)() != 0)
-    {
-        Error(ierr);
-        return;
-    }
-
-    /* Set number of left and right hand side parameters */
-    int mlhs = 1, mrhs = 2;
+    in.push_back(new types::Double(flag));
 
     /***********************
     * Call Scilab function *
     ***********************/
-    C2F(scifunc)(mlhs, mrhs);
-    if (C2F(scierr)() != 0)
+    ast::ExecVisitor exec;
+    types::Callable* pCall = static_cast<types::Callable*>(Blocks->scsptr);
+    if (pCall->call(in, opt, 1, out, &exec) != types::Function::OK)
     {
-        Error(ierr);
         return;
     }
 
-    /***************************
-    * Update C block structure *
-    ***************************/
+    //clear inputs
+    //delete in[0];
+    //delete in[1];
 
-    /* Get header of output variable Blocks of sciblk4 */
-    int* header = (int *) stk(*Lstk(Top));
+    pIT = out[0];
+    if (pIT->isTList() == false)
+    {
+        delete pIT;
+        return;
+    }
 
-    /* Switch to appropriate flag */
+    types::TList* t = pIT->getAs<types::TList>();
+
     switch (flag)
     {
-            /**************************
-            * Update continuous state *
-            **************************/
-        case 0  :
+        /**************************
+        * update continuous state
+        **************************/
+        case 0:
         {
-            if (Blocks[0].nx != 0)
+            if (Blocks->nx != 0)
             {
                 /* 14 - xd */
-                int* il_xd = (int *) listentry(header, 14);
-                ierr = sci2var(il_xd, Blocks[0].xd, SCSREAL_N); /* double */
-                if (ierr != 0)
+                if (getDoubleArray(t->getField(L"xd"), Blocks->xd) == false)
                 {
-                    Error(ierr);
+                    delete t;
                     return;
                 }
 
                 if ((funtyp[kfun - 1] == 10004) || (funtyp[kfun - 1] == 10005))
                 {
                     /* 15 - res */
-                    int* il_res = (int *) listentry(header, 15);
-                    ierr = sci2var(il_res, Blocks[0].res, SCSREAL_N); /* double */
-                    if (ierr != 0)
+                    if (getDoubleArray(t->getField(L"res"), Blocks->res) == false)
                     {
-                        Error(ierr);
+                        delete t;
                         return;
                     }
                 }
             }
+            break;
         }
-        break;
+        /**********************
+        * update output state
+        **********************/
+        case 1:
+        {
+            /* 21 - outptr */
+            if (Blocks->nout > 0)
+            {
+                InternalType* pIT = t->getField(L"outptr");
+                if (pIT && pIT->isList())
+                {
+                    types::List* lout = pIT->getAs<List>();
+                    if (Blocks->nout == lout->getSize())
+                    {
+                        for (int i = 0; i < Blocks->nout; ++i)
+                        {
+                            //update data
+                            int row = Blocks->outsz[i];
+                            int col = Blocks->outsz[i + Blocks->nout];
+                            int type = Blocks->outsz[i + Blocks->nout * 2];
+                            bOK = sci2var(lout->get(i), Blocks->outptr[i], type, row, col);
+                        }
+                    }
+                }
+            }
+            break;
+        }
+        case 2:
+        {
+            /* 7 - z */
+            if (Blocks[0].nz != 0)
+            {
+                if (getDoubleArray(t->getField(L"z"), Blocks->z) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
 
-        default :
-            Error(3);
-            return;
+            /* 11 - oz */
+            //TODO : how to store object ?
+
+            if (Blocks[0].nx != 0)
+            {
+                /* 13 - x */
+                if (getDoubleArray(t->getField(L"x"), Blocks->x) == false)
+                {
+                    delete t;
+                    return;
+                }
+
+                /* 14 - xd */
+                if (getDoubleArray(t->getField(L"xd"), Blocks->xd) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+
+            break;
+        }
+
+        /***************************
+        * update event output state
+        ***************************/
+        case 3:
+        {
+            /* 23 - evout */
+            if (getDoubleArray(t->getField(L"evout"), Blocks->evout) == false)
+            {
+                delete t;
+                return;
+            }
+            break;
+        }
+        /**********************
+        * state initialisation
+        **********************/
+        case 4:
+        {
+            /* 7 - z */
+            if (Blocks[0].nz != 0)
+            {
+                if (getDoubleArray(t->getField(L"z"), Blocks->z) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+
+            /* 11 - oz */
+            //TODO : how to store object ?
+
+            if (Blocks[0].nx != 0)
+            {
+                /* 13 - x */
+                if (getDoubleArray(t->getField(L"x"), Blocks->x) == false)
+                {
+                    delete t;
+                    return;
+                }
+
+                /* 14 - xd */
+                if (getDoubleArray(t->getField(L"xd"), Blocks->xd) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+
+            break;
+        }
+
+        case 5:
+        {
+            /* 7 - z */
+            if (Blocks[0].nz != 0)
+            {
+                if (getDoubleArray(t->getField(L"z"), Blocks->z) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+
+            /* 11 - oz */
+            //TODO : how to store object ?
+
+            break;
+        }
+
+        /*****************************
+        * output state initialisation
+        *****************************/
+        case 6:
+        {
+            /* 7 - z */
+            if (Blocks[0].nz != 0)
+            {
+                if (getDoubleArray(t->getField(L"z"), Blocks->z) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+
+            /* 11 - oz */
+            //TODO : how to store object ?
+
+            if (Blocks[0].nx != 0)
+            {
+                /* 13 - x */
+                if (getDoubleArray(t->getField(L"x"), Blocks->x) == false)
+                {
+                    delete t;
+                    return;
+                }
+
+                /* 14 - xd */
+                if (getDoubleArray(t->getField(L"xd"), Blocks->xd) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+
+            /* 21 - outptr */
+            if (Blocks->nout > 0)
+            {
+                InternalType* pIT = t->getField(L"outptr");
+                if (pIT && pIT->isList())
+                {
+                    types::List* lout = pIT->getAs<List>();
+                    if (Blocks->nout == lout->getSize())
+                    {
+                        for (int i = 0; i < Blocks->nout; ++i)
+                        {
+                            //update data
+                            int row = Blocks->outsz[i];
+                            int col = Blocks->outsz[i + Blocks->nout];
+                            int type = Blocks->outsz[i + Blocks->nout * 2];
+                            bOK = sci2var(lout->get(i), Blocks->outptr[i], type, row, col);
+                        }
+                    }
+                }
+            }
+            break;
+        }
+
+        /*******************************************
+        * define property of continuous time states
+        * (algebraic or differential states)
+        *******************************************/
+        case 7:
+        {
+            if (Blocks[0].nx != 0)
+            {
+                /* 40 - xprop */
+                if (getDoubleArrayAsInt(t->getField(L"xprop"), Blocks->xprop) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+            break;
+        }
+
+        /****************************
+        * zero crossing computation
+        ****************************/
+        case 9:
+        {
+            /* 33 - g */
+            if (getDoubleArray(t->getField(L"g"), Blocks->g) == false)
+            {
+                delete t;
+                return;
+            }
+
+            if (get_phase_simulation() == 1)
+            {
+                /* 39 - mode */
+                if (getDoubleArrayAsInt(t->getField(L"mode"), Blocks->mode) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+            break;
+        }
+        /**********************
+        * Jacobian computation
+        **********************/
+        case 10:
+        {
+            if ((funtyp[kfun - 1] == 10004) || (funtyp[kfun - 1] == 10005))
+            {
+                /* 15 - res */
+                if (getDoubleArray(t->getField(L"res"), Blocks->res) == false)
+                {
+                    delete t;
+                    return;
+                }
+            }
+            break;
+        }
     }
+
+    if (bOK == false)
+    {
+    }
+    return;
 }
 /*--------------------------------------------------------------------------*/
-/* sci2var function to convert scilab object
- * to an array of scicos blocks.
- *
- * Input parameters :
- * *x      : void ptr of scilab object.
- * *y      : void ptr of scicos blocks array.
- * typ_var : integer, type of scicos data :
- *           SCSREAL_N    : double real
- *           SCSCOMPLEX_N : double complex
- *           SCSINT_N     : int
- *           SCSINT8_N    : int8
- *           SCSINT16_N   : int16
- *           SCSINT32_N   : int32
- *           SCSUINT _N   : uint
- *           SCSUINT8_N   : uint8
- *           SCSUINT16_N  : uint16
- *           SCSUINT32_N  : uint32
- *           SCSUNKNOW_N  :
- *
- * Output parameters : int (>1000), error flag
- *                     (0 if no error)
- *
- * 15/06/06, Alan   : Initial version.
- *
- */
-
-/* prototype */
-static int sci2var(void* x, void* y, int typ_var)
-{
-    /* Define all types of accepted ptr */
-    SCSREAL_COP *ptr_d, *y_d;
-    SCSINT8_COP *ptr_c, *y_c;
-    SCSUINT8_COP *ptr_uc, *y_uc;
-    SCSINT16_COP *ptr_s, *y_s;
-    SCSUINT16_COP *ptr_us, *y_us;
-    SCSINT_COP *ptr_i, *y_i;
-    SCSUINT_COP *ptr_ui, *y_ui;
-    SCSINT32_COP *ptr_l, *y_l;
-    SCSUINT32_COP *ptr_ul, *y_ul;
-
-    /*****************************************
-     * Get header,n,m and typ of scilab object
-     *****************************************/
-    /* Retrieve header address */
-    int* header = (int *) x;
-
-    /* Retieve number of rows and columns */
-    int n = header[1];
-    int m = header[2];
-
-    /* Retrieve type of scilab object */
-    int typ = header[0];
-
-    /* Test if scilab object is a typed scicos accepted data */
-    if ((typ != 1) & (typ != 8))
-    {
-        return 1001;
-    }
-
-    /* Retrieve sub_type of scilab object */
-    int sub_typ =  header[3];
-
-    /* Cross type of data checking
-     * and copy scilab object in
-     * scicos blocks array structure
-     */
-    int i, j;
-    switch (typ)
-    {
-        case 1 :
-        {
-            /*Check type of double matrix*/
-            if ((sub_typ != 0) & (sub_typ != 1))
-            {
-                return 1002;
-            }
-            if ((sub_typ == 0) & (typ_var != SCSREAL_N))
-            {
-                return 1004;
-            }
-            if ((sub_typ == 1) & (typ_var != SCSCOMPLEX_N))
-            {
-                return 1004;
-            }
-
-            /*Copy double matrix*/
-            switch (sub_typ)
-            {
-                case 0 :
-                {
-                    int nm = n * m;
-                    ptr_d = (SCSREAL_COP *) (header + 4);
-                    y_d = (SCSREAL_COP *) y;
-                    C2F(unsfdcopy)(&nm, ptr_d, (i = -1, &i), y_d, (j = -1, &j));
-                    break;
-                }
-
-                case 1 :
-                {
-                    int nm = 2 * n * m;
-                    ptr_d = (SCSCOMPLEX_COP *) (header + 4);
-                    y_d = (SCSCOMPLEX_COP *) y;
-                    C2F(unsfdcopy)(&nm, ptr_d, (i = -1, &i), y_d, (j = -1, &j));
-                    break;
-                }
-            }
-        }
-        break;
-
-        case 8 :
-        {
-            /*Check type of int matrix*/
-            if ((sub_typ != 1)  && (sub_typ != 2) && (sub_typ != 4) &&
-                    (sub_typ != 11) && (sub_typ != 12) && (sub_typ != 14))
-            {
-                return 1003;
-            }
-            if ((sub_typ == 1) & (typ_var != SCSINT8_N))
-            {
-                return 1004;
-            }
-            if ((sub_typ == 2) & (typ_var != SCSINT16_N))
-            {
-                return 1004;
-            }
-            if ((sub_typ == 4) & (typ_var != SCSINT_N) & (typ_var != SCSINT32_N))
-            {
-                return 1004;
-            }
-            if ((sub_typ == 11) & (typ_var != SCSUINT8_N))
-            {
-                return 1004;
-            }
-            if ((sub_typ == 12) & (typ_var != SCSUINT16_N))
-            {
-                return 1004;
-            }
-            if ((sub_typ == 14) & (typ_var != SCSUINT_N) & (typ_var != SCSUINT32_N))
-            {
-                return 1004;
-            }
-
-            /*Copy int matrix*/
-            switch (typ_var)
-            {
-                case SCSINT_N    :
-                    ptr_i = (SCSINT_COP *) (header + 4);
-                    y_i = (SCSINT_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_i[i] = ptr_i[i];
-                    }
-                    break;
-
-                case SCSINT8_N   :
-                    ptr_c = (SCSINT8_COP *) (header + 4);
-                    y_c = (SCSINT8_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_c[i] = ptr_c[i];
-                    }
-                    break;
-
-                case SCSINT16_N  :
-                    ptr_s = (SCSINT16_COP *) (header + 4);
-                    y_s = (SCSINT16_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_s[i] = ptr_s[i];
-                    }
-                    break;
-
-                case SCSINT32_N  :
-                    ptr_l = (SCSINT32_COP *) (header + 4);
-                    y_l = (SCSINT32_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_l[i] = ptr_l[i];
-                    }
-                    break;
-
-                case SCSUINT_N   :
-                    ptr_ui = (SCSUINT_COP *) (header + 4);
-                    y_ui = (SCSUINT_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_ui[i] = ptr_ui[i];
-                    }
-                    break;
-
-                case SCSUINT8_N  :
-                    ptr_uc = (SCSUINT8_COP *) (header + 4);
-                    y_uc = (SCSUINT8_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_uc[i] = ptr_uc[i];
-                    }
-                    break;
-
-                case SCSUINT16_N :
-                    ptr_us = (SCSUINT16_COP *) (header + 4);
-                    y_us = (SCSUINT16_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_us[i] = ptr_us[i];
-                    }
-                    break;
-
-                case SCSUINT32_N :
-                    ptr_ul = (SCSUINT32_COP *) (header + 4);
-                    y_ul = (SCSUINT32_COP *) y;
-                    for (i = 0; i < n * m; i++)
-                    {
-                        y_ul[i] = ptr_ul[i];
-                    }
-                    break;
-            }
-        }
-        break;
-    }
-
-    /* Return error flag = 0 */
-    return 0;
-}
