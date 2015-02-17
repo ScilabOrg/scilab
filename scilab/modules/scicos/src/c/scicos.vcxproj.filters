@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -44,13 +44,7 @@
     <ClCompile Include="copyvarfromlistentry.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="createblklist.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DllmainScicos.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="extractblklist.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ezxml.c">
@@ -69,9 +63,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ddaskr.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\c\sci_callblk.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\c\sci_coserror.c">
@@ -102,9 +93,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\c\sci_loadScicos.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\c\sci_model2blk.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\c\sci_phase_simulation.c">
@@ -272,18 +260,24 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_vec2var.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\cpp\extractblklist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\createblklist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_callblk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_model2blk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="copyvarfromlistentry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="createblklist.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\includes\dynlib_scicos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="extractblklist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ezxml.h">
@@ -418,7 +412,13 @@
     <ClInclude Include="..\cpp\il_state.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cpp\sciblk4.hxx">
+    <ClInclude Include="..\cpp\createblklist.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cpp\extractblklist.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sciblk4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
