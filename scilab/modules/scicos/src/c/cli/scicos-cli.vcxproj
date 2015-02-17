@@ -255,26 +255,28 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_buildouttb.cpp" />
+    <ClCompile Include="..\..\..\sci_gateway\cpp\sci_callblk.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_ctree2.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_ctree3.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_ctree4.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_duplicate.cpp" />
+    <ClCompile Include="..\..\..\sci_gateway\cpp\sci_model2blk.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_var2vec.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\cpp\sci_vec2var.cpp" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_loadScicos.c" />
+    <ClCompile Include="..\..\cpp\createblklist.cpp" />
+    <ClCompile Include="..\..\cpp\extractblklist.cpp" />
+    <ClCompile Include="..\..\cpp\sciblk4.cpp" />
     <ClCompile Include="..\..\cpp\var2vec.cpp" />
     <ClCompile Include="..\..\cpp\vec2var.cpp" />
     <ClCompile Include="..\copyvarfromlistentry.c" />
-    <ClCompile Include="..\createblklist.c" />
     <ClCompile Include="..\ddaskr.c" />
     <ClCompile Include="..\DllmainScicos.c" />
-    <ClCompile Include="..\extractblklist.c" />
     <ClCompile Include="..\ezxml.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\gw_scicos.c" />
     <ClCompile Include="..\import.c" />
     <ClCompile Include="..\MlistGetFieldNumber.c" />
     <ClCompile Include="..\lsodar.c" />
-    <ClCompile Include="..\..\..\sci_gateway\c\sci_callblk.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_coserror.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_curblockc.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_data2sig.c" />
@@ -286,7 +288,6 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClCompile Include="..\..\..\sci_gateway\c\sci_getblocklabel.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_getscicosvars.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_haltscicos.c" />
-    <ClCompile Include="..\..\..\sci_gateway\c\sci_model2blk.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_phase_simulation.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_pointer_xproperty.c" />
     <ClCompile Include="..\..\..\sci_gateway\c\sci_scicos_debug.c" />
@@ -305,13 +306,13 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClCompile Include="..\var2sci.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\cpp\createblklist.hxx" />
+    <ClInclude Include="..\..\cpp\extractblklist.hxx" />
     <ClInclude Include="..\..\cpp\var2vec.hxx" />
     <ClInclude Include="..\..\cpp\vec2var.hxx" />
     <ClInclude Include="..\copyvarfromlistentry.h" />
-    <ClInclude Include="..\createblklist.h" />
     <ClInclude Include="..\..\..\includes\dynlib_scicos.h" />
     <ClInclude Include="..\ddaskr.h" />
-    <ClInclude Include="..\extractblklist.h" />
     <ClInclude Include="..\ezxml.h" />
     <ClInclude Include="..\..\..\includes\gw_scicos.h" />
     <ClInclude Include="..\il_sim.h" />
