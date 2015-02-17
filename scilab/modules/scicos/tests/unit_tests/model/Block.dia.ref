@@ -1482,7 +1482,7 @@ propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
+propertyUpdated( 31 , BLOCK , OPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , SIM_BLOCKTYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , SIM_DEP_UT ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , LABEL ) : NO_CHANGES
@@ -1509,7 +1509,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1537,7 +1537,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1565,7 +1565,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1593,7 +1593,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1649,7 +1649,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1677,7 +1677,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1705,7 +1705,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
@@ -1733,7 +1733,7 @@ propertyUpdated( 34 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 35 , PORT , DATATYPE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , STATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , DSTATE ) : NO_CHANGES
-propertyUpdated( 31 , BLOCK , ODSTATE ) : SUCCESS
+propertyUpdated( 31 , BLOCK , ODSTATE ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , RPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , IPAR ) : NO_CHANGES
 propertyUpdated( 31 , BLOCK , OPAR ) : SUCCESS
