@@ -20,11 +20,15 @@
 */
 /*--------------------------------------------------------------------------*/
 
-#ifndef __EXTRACTBLKLIST_H__
-#define __EXTRACTBLKLIST_H__
+#ifndef __EXTRACTBLKLIST_HXX__
+#define __EXTRACTBLKLIST_HXX__
 
+#include "tlist.hxx"
+
+extern "C"
+{
 #include "scicos_block4.h"
-
+}
 /* extractblklist : create a scicos_block C structure from
 * a scicos_block scilab structure.
 *
@@ -37,7 +41,7 @@
 * initial rev 13/11/07, Alan Layec
 */
 
-int extractblklist(int *il, scicos_block *Block, int *ierr);
+bool extractblklist(types::TList* t, scicos_block *Block);
 
-#endif /* __EXTRACTBLKLIST_H__ */
+#endif /* __EXTRACTBLKLIST_HXX__ */
 /*--------------------------------------------------------------------------*/

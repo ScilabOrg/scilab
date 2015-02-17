@@ -33,7 +33,10 @@ src/cpp/view_scilab/ModelAdapter.cpp \
 src/cpp/view_scilab/ParamsAdapter.cpp \
 src/cpp/view_scilab/ScsAdapter.cpp \
 src/cpp/view_scilab/StateAdapter.cpp \
-src/cpp/view_scilab/TextAdapter.cpp
+src/cpp/view_scilab/TextAdapter.cpp \
+src/cpp/sciblk4.cpp \
+src/cpp/createblklist.cpp \
+src/cpp/extractblklist.cpp
 
 
 SCICOS_C_SOURCES = \
@@ -45,13 +48,10 @@ src/c/import.c \
 src/c/scicos.c \
 src/c/scicos_free.c \
 src/c/sciblk2.c \
-src/c/sciblk4.c \
 src/c/ezxml.c \
-src/c/createblklist.c \
 src/c/var2sci.c \
 src/c/copyvarfromlistentry.c \
 src/c/MlistGetFieldNumber.c \
-src/c/extractblklist.c \
 src/c/lsodar.c \
 src/c/ddaskr.c
 
@@ -87,10 +87,12 @@ sci_gateway/cpp/sci_scicos_time.cpp \
 sci_gateway/cpp/sci_scicosim.cpp \
 sci_gateway/cpp/sci_validvar.cpp \
 sci_gateway/cpp/sci_var2vec.cpp \
-sci_gateway/cpp/sci_vec2var.cpp
+sci_gateway/cpp/sci_vec2var.cpp \
+sci_gateway/cpp/sci_callblk.cpp \
+sci_gateway/cpp/sci_model2blk.cpp
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_scicos.c \
-sci_gateway/c/sci_callblk.c \
+GATEWAY_C_SOURCES = \
+sci_gateway/c/gw_scicos.c \
 sci_gateway/c/sci_coserror.c \
 sci_gateway/c/sci_curblockc.c \
 sci_gateway/c/sci_data2sig.c \
@@ -101,7 +103,6 @@ sci_gateway/c/sci_ftree4.c \
 sci_gateway/c/sci_getblocklabel.c \
 sci_gateway/c/sci_getscicosvars.c \
 sci_gateway/c/sci_loadScicos.c \
-sci_gateway/c/sci_model2blk.c \
 sci_gateway/c/sci_phase_simulation.c \
 sci_gateway/c/sci_pointer_xproperty.c \
 sci_gateway/c/sci_scicos_debug.c \
@@ -111,7 +112,8 @@ sci_gateway/c/sci_set_blockerror.c \
 sci_gateway/c/sci_set_xproperty.c \
 sci_gateway/c/sci_sig2data.c
 
-GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_ctree.f \
+GATEWAY_FORTRAN_SOURCES = \
+sci_gateway/fortran/sci_f_ctree.f \
 sci_gateway/fortran/sci_f_debug_count.f \
 sci_gateway/fortran/sci_f_getblocklabel.f \
 sci_gateway/fortran/sci_f_scicos_debug.f \
@@ -157,6 +159,7 @@ libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/ast/includes/types/ \
 			-I$(top_srcdir)/modules/ast/includes/analysis/ \
 			-I$(top_srcdir)/modules/threads/includes/ \
+			-I$(top_srcdir)/modules/console/includes/ \
 			$(EIGEN_CPPFLAGS) \
 			$(AM_CPPFLAGS)
 else
