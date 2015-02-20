@@ -42,7 +42,6 @@ SCICOS_IMPEXP int sci_scicos_time(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_diffobjs(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_pointer_xproperty(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_set_xproperty(char *fname, void* pvApiCtx);
-SCICOS_IMPEXP int sci_set_blockerror(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_getscicosvars(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_curblockc(char *fname, void* pvApiCtx);
 SCICOS_IMPEXP int sci_end_scicosim(char *fname, void* pvApiCtx);
