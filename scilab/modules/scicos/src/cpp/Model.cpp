@@ -28,7 +28,7 @@ namespace org_scilab_modules_scicos
 {
 
 Model::Model() :
-    lastId(0), allObjects()
+    lastId(0), has_looped(false), allObjects()
 {
     std::vector<int> datatypeDefault (3, 1);
     datatypeDefault[0] = -1;
@@ -76,36 +76,29 @@ ScicosID Model::createObject(kind_t k)
     if (lastId == 0)
     {
         lastId++;
+        has_looped = true;
     }
 
-    // full map, detection
-    bool has_looped = false;
-
-    objects_map_t::iterator iter = allObjects.find(lastId);
-    while (iter != allObjects.end()) // while key is found
+    if (has_looped)
     {
-        // try a valid ID
-        lastId++;
-        if (lastId == 0)
+        // while key is found
+        for (objects_map_t::iterator iter = allObjects.find(lastId);
+                iter != allObjects.end();
+                iter = allObjects.find(lastId))
         {
+            // try a valid ID
             lastId++;
-
-            // if the map is full, return a zero initialized value;
-            if (has_looped)
+            if (lastId == 0)
             {
-                return 0;
+                lastId++;
             }
-            has_looped = true;
         }
-
-        // look for it
-        iter = allObjects.find(lastId);
     }
 
     /*
      * Insert then return
      */
-    allObjects.insert(iter, std::make_pair(lastId, ModelObject(o)));
+    allObjects.emplace(lastId, ModelObject(o));
     o->id(lastId);
     return lastId;
 }
