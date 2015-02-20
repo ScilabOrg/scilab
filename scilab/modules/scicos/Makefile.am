@@ -82,6 +82,7 @@ sci_gateway/cpp/sci_ctree3.cpp \
 sci_gateway/cpp/sci_ctree4.cpp \
 sci_gateway/cpp/sci_curblock.cpp \
 sci_gateway/cpp/sci_duplicate.cpp \
+sci_gateway/cpp/sci_phase_simulation.cpp \
 sci_gateway/cpp/sci_scicos_new.cpp \
 sci_gateway/cpp/sci_scicos_setfield.cpp \
 sci_gateway/cpp/sci_scicosim.cpp \
@@ -104,7 +105,6 @@ sci_gateway/c/sci_getscicosvars.c \
 sci_gateway/c/sci_haltscicos.c \
 sci_gateway/c/sci_loadScicos.c \
 sci_gateway/c/sci_model2blk.c \
-sci_gateway/c/sci_phase_simulation.c \
 sci_gateway/c/sci_pointer_xproperty.c \
 sci_gateway/c/sci_scicos_time.c \
 sci_gateway/c/sci_sctree.c \
