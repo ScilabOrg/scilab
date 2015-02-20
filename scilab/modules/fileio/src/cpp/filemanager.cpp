@@ -59,7 +59,7 @@ types::File* FileManager::getFile(int _iID)
 
     if (_iID < static_cast<int>(m_fileList.size()))
     {
-        return m_fileList[_iID];
+        return m_fileList[Max(_iID, 0)];
     }
 
     return NULL;
@@ -118,10 +118,10 @@ void FileManager::deleteFile(int _iID)
     {
         delete m_fileList[_iID];
         m_fileList[_iID] = NULL;
-        if (m_iCurrentFile == _iID)
+        /*if (m_iCurrentFile == _iID)
         {
-            m_iCurrentFile = -1;
-        }
+            m_iCurrentFile = m_iCurrentFile - 1;
+        }*/
     }
 
     //to clean end of list and remove empty spaces
