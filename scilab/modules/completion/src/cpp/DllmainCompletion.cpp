@@ -9,17 +9,24 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
+
+extern "C"
+{
 #include <windows.h>
+    int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved);
+}
+#include "FieldsManager.hxx"
 /*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
 /*--------------------------------------------------------------------------*/
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
     switch (reason)
     {
         case DLL_PROCESS_ATTACH:
             break;
         case DLL_PROCESS_DETACH:
+            org_modules_completion::FieldsManager::clearFieldsGetter();
             break;
         case DLL_THREAD_ATTACH:
             break;

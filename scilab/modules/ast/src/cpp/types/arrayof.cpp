@@ -145,6 +145,8 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
     if (iSeqCount == 0)
     {
         //free pArg content
+        delete[] piCountDim;
+        delete[] piMaxDim;
         cleanIndexesArguments(_pArgs, &pArg);
         return this;
     }
@@ -248,6 +250,8 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
                 {
                     if (pIdx[j] >= m_piDims[i])
                     {
+                        delete[] piCountDim;
+                        delete[] piMaxDim;
                         //free pArg content
                         cleanIndexesArguments(_pArgs, &pArg);
                         return NULL;
@@ -265,6 +269,8 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
             {
                 if (pIdx[i] > iMaxLastDim)
                 {
+                    delete[] piCountDim;
+                    delete[] piMaxDim;
                     //free pArg content
                     cleanIndexesArguments(_pArgs, &pArg);
                     return NULL;
@@ -280,6 +286,8 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
         bool bPass = resize(piNewDims, iNewDims);
         if (bPass == false)
         {
+            delete[] piCountDim;
+            delete[] piMaxDim;
             //free pArg content
             cleanIndexesArguments(_pArgs, &pArg);
             return NULL;

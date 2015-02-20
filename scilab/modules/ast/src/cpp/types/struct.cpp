@@ -174,7 +174,7 @@ bool Struct::invoke(typed_list & in, optional_list & opt, int _iRetCount, typed_
                 {
                     wchar_t szError[bsiz];
                     os_swprintf(szError, bsiz, _W("Field \"%ls\" does not exists\n").c_str(), wstField.c_str());
-                    throw ast::ScilabError(szError, 999, (*e.getArgs().begin())->getLocation());
+                    throw ast::ScilabError(szError, 999, e.getFirstLocation());
                 }
             }
 

@@ -354,6 +354,14 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
 #ifndef NDEBUG
     //uncomment to print mem leak log
     //types::Inspector::displayMemleak();
+    int toto = ast::Exp::inspector.size();
+    std::vector<ast::Exp*>* truc = &ast::Exp::inspector;
+    std::wcout << L"exp : " << toto << std::endl;
+    //while (truc->size() != 0)
+    //{
+    //    delete *truc->rbegin();
+    //}
+
 #endif
 
     // cleanup Java dependent features

@@ -20,7 +20,7 @@
 
 #include <list>
 #include <vector>
-
+#include <algorithm>
 #include "ast.hxx"
 
 namespace ast
@@ -36,6 +36,8 @@ class Exp : public Ast
     /** \name Ctor & dtor.
     ** \{ */
 public:
+    EXTERN_AST static std::vector<Exp*> inspector;
+
     /** \brief Construct an Expression node.
     ** \param location scanner position informations */
     Exp (const Location& location)
@@ -51,6 +53,9 @@ public:
           original(NULL)
     {
         original = this;
+#ifndef NDEBUG
+        inspector.push_back(this);
+#endif
     }
     /** \brief Destroys an Expression node. */
     virtual ~Exp ()
@@ -67,6 +72,9 @@ public:
         {
             delete original;
         }
+#ifndef NDEBUG
+        inspector.erase(std::remove(inspector.begin(), inspector.end(), this), inspector.end());
+#endif
     }
     /** \} */
 

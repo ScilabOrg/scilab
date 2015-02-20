@@ -38,7 +38,9 @@ extern "C"
 #include "elem_common.h"
 }
 
-
+#ifndef NDEBUG
+std::vector<ast::Exp*> ast::Exp::inspector;
+#endif
 
 namespace ast
 {
@@ -1038,7 +1040,7 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
     }
 
     types::Macro *pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList,
-                                            *const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())).clone(), L"script");
+                                            const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
     pMacro->setFirstLine(e.getLocation().first_line);
 
     bool bEquals = false;
