@@ -104,7 +104,9 @@ SciErr getMatrixOfString(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCo
                 return sciErr;
             }
 
-            strcpy(_pstStrings[i], wide_string_to_UTF8(pS->get(i)));
+            char* c = wide_string_to_UTF8(pS->get(i));
+            strcpy(_pstStrings[i], c);
+            FREE(c);
         }
     }
 
