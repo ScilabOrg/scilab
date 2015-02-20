@@ -11,7 +11,7 @@
  *
  */
 
-//#define DEBUG_VLD
+#define DEBUG_VLD
 #if defined(DEBUG_VLD)
 #include <vld.h>
 #endif
