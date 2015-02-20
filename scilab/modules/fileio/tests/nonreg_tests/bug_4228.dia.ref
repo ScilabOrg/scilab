@@ -12,4 +12,5 @@
 //
 ierr = 999;
 ierr = execstr('mclearerr(10000);','errcatch');
+mclearerr: Cannot check the end of file whose descriptor is 10000: File is not active.
 if ierr <> 0 then bugmes();quit;end
