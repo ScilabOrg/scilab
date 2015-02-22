@@ -464,12 +464,12 @@ public:
     {
         if (_old && _new)
         {
-            for (exps_t::iterator it = _exps.begin(), itEnd = _exps.end(); it != itEnd ; ++it)
+            for (auto exp : _exps)
             {
-                if (*it == _old)
+                if (exp == _old)
                 {
-                    _new->setOriginal(*it);
-                    *it = _new;
+                    _new->setOriginal(exp);
+                    exp = _new;
                     _new->setParent(this);
                 }
             }

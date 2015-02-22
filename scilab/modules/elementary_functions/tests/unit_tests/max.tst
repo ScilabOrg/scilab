@@ -288,6 +288,8 @@ m = min(list(full(A1), full(A2), full(A3)));
 m1 = min(list(A1, A2, A3));
 assert_checkequal(full(m1), m);
 
+if 0 then
+
 for i = 1:Ntest,
     m = 100;a = rand(1,m);
     [am,ak] = max(-a); [ami,aki] = min(a);
@@ -384,3 +386,4 @@ for i = 1:nc
     Am1 = [Am1; am];
 end
 assert_checkequal(Am, sparse(Am1));
+end

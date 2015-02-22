@@ -469,7 +469,7 @@ types::Double* gsort(types::Double* pIn, types::Double* pDblInd, std::wstring ws
 /*--------------------------- String ---------------------------------------*/
 types::String* gsort(types::String* pIn, types::Double* pDblInd, std::wstring wstrWay, std::wstring wstrProcess)
 {
-    types::String* pOut = new types::String(pIn->getDims(), pIn->getDimsArray());
+    types::String* pOut = nullptr;
 
     int iTimes      = 1;
     int iItem       = 0;
@@ -529,6 +529,8 @@ types::String* gsort(types::String* pIn, types::Double* pDblInd, std::wstring ws
     {
         if (pDblInd)
         {
+            pOut = new types::String(pIn->getDims(), pIn->getDimsArray());
+
             std::vector<std::pair<int, wchar_t*> > V;
             std::vector<std::pair<int, wchar_t*> >::iterator it;
 
@@ -634,6 +636,7 @@ types::String* gsort(types::String* pIn, types::Double* pDblInd, std::wstring ws
     }
     else// wstrProcess == L"lr" and wstrProcess == L"lc"
     {
+        pOut = new types::String(pIn->getDims(), pIn->getDimsArray());
         std::vector<std::pair<int, std::pair<wchar_t**, wchar_t**> > > V;
         std::vector<std::pair<int, std::pair<wchar_t**, wchar_t**> > >::iterator it;
 
