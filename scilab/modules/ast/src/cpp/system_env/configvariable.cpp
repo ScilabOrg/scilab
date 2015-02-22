@@ -305,8 +305,7 @@ std::wstring ConfigVariable::m_wstError;
 
 void ConfigVariable::setLastErrorMessage(std::wstring _wstError)
 {
-    wchar_t* pwstTemp1 = os_wcsdup(_wstError.c_str());
-    m_wstError = pwstTemp1;
+    m_wstError = _wstError;
 }
 
 std::wstring ConfigVariable::getLastErrorMessage()
@@ -520,9 +519,9 @@ types::Cell* ConfigVariable::getAllThreads(void)
     types::Cell *pcResult = new types::Cell(iSize, 1);
     std::list<types::ThreadId *>::iterator it;
 
-    for (it = ConfigVariable::m_threadList.begin() ; it != ConfigVariable::m_threadList.end() ; ++it, ++i)
+    for (auto thread : ConfigVariable::m_threadList)
     {
-        pcResult->set(i, *it);
+        pcResult->set(i++, *it);
     }
 
     return pcResult;
@@ -553,19 +552,6 @@ types::ThreadId* ConfigVariable::getThread(__threadKey _key)
 
 void ConfigVariable::deleteThread(__threadKey _key)
 {
-    //for(int i = 0 ; i < m_threadList.size() ; i++)
-    //{
-    //    types::ThreadId* pThread = m_threadList[i];
-    //    if(pThread->getKey() == _key)
-    //    {
-    //        pThread->DecreaseRef();
-    //        if(pThread->isDeletable())
-    //        {
-    //            delete pThread;
-    //            m_threadList.erase(.begin() + i - 1);
-    //        }
-    //    }
-    //}
     std::list<types::ThreadId *>::iterator it;
     for (it = ConfigVariable::m_threadList.begin() ; it != ConfigVariable::m_threadList.end() ; ++it)
     {
@@ -1155,10 +1141,9 @@ std::list<std::wstring> ConfigVariable::m_ReferenceModules;
 
 bool ConfigVariable::checkReferenceModule(std::wstring _module)
 {
-    std::list<std::wstring>::iterator it = m_ReferenceModules.begin();
-    for ( ; it != m_ReferenceModules.end() ; ++it)
+    for (auto ref : m_ReferenceModules)
     {
-        if (*it == _module)
+        if (ref == _module)
         {
             return true;
         }
