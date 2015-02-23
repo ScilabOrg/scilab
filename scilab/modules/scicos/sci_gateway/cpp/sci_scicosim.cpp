@@ -142,13 +142,13 @@ const std::string funname = "scicosim";
 
 extern "C"
 {
-    extern COSIM_struct C2F(cosim); // Declaration of cosim -valable partout-
-
-    extern COSERR_struct coserr;    // Declaration of coserr -defined in scicos-
-    extern int C2F(funnum)(char *fname);
-
-    // Variable defined in scicos.c
+    COSIM_struct C2F(cosim);
+    /*--------------------------------------------------------------------------*/
+    // Variables and function defined in scicos.c
+    extern COSERR_struct coserr;
     extern CURBLK_struct C2F(curblk);
+    extern int C2F(funnum)(char *fname);
+    /*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/
 
