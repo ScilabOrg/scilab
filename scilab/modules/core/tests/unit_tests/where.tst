@@ -15,6 +15,8 @@ function [line, fun]=fun1()
     5
     6
     7
+    pause()
+
     [line, fun] = where();
 endfunction
 function [line, fun]=fun2()

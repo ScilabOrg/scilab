@@ -75,7 +75,7 @@ public :
     {
         m_wstName = _wstName;
     }
-    std::wstring        getName()
+    const std::wstring&   getName()
     {
         return m_wstName;
     }
