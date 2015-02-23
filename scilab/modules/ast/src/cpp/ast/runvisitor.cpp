@@ -745,8 +745,13 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                         //in this case of calling, we can return only one values
                         int iSaveExpectedSize = getExpectedSize();
                         setExpectedSize(1);
+
+                        ConfigVariable::where_begin(e.getLocation().first_line + 1 - ConfigVariable::getMacroFirstLines(), e.getLocation().first_line, pCall->getName());
+
                         Function::ReturnValue Ret = pCall->call(in, opt, getExpectedSize(), out, this);
                         setExpectedSize(iSaveExpectedSize);
+
+                        ConfigVariable::where_end();
 
                         if (Ret == Callable::OK)
                         {
