@@ -56,6 +56,7 @@ Scilab Bug Fixes
 
 * Bug #13742 fixed - Figure was not well printed when there is a xstring with latex.
 
+* Bug #13752 fixed - The 'Supported compilers' page is outdated
 
                      Changes between version 5.5.0 and 5.5.1
                      =======================================
