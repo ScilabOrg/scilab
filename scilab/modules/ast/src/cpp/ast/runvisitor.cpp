@@ -10,12 +10,6 @@
  *
  */
 
-//for Visual Leak Detector
-//#define DEBUG_VLD
-#if defined(DEBUG_VLD)
-#include <vld.h>
-#endif
-
 #include <string>
 
 #include "runvisitor.hxx"
@@ -43,6 +37,8 @@ extern "C"
 #include "os_string.h"
 #include "elem_common.h"
 }
+
+
 
 namespace ast
 {
@@ -416,10 +412,11 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
     if (pIT->isImplicitList())
     {
         ImplicitList* pVar = pIT->getAs<ImplicitList>();
+        InternalType * pIL = NULL;
         for (int i = 0; i < pVar->getSize(); ++i)
         {
             //TODO : maybe it would be interesting here to reuse the same InternalType (to avoid delete/new)
-            InternalType * pIL = pVar->extractValue(i);
+            pIL = pVar->extractValue(i);
             symbol::Context::getInstance()->put(e.getVardec().getAs<VarDec>()->getStack(), pIL);
 
             e.getBody().accept(*this);
@@ -441,7 +438,9 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
                 const_cast<Exp&>(e.getBody()).resetReturn();
                 break;
             }
+
         }
+
     }
     else if (pIT->isList())
     {
@@ -692,8 +691,6 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
     }
 
     clearResult();
-
-    pIT->killMe();
 }
 
 template <class T>
@@ -1018,7 +1015,6 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const FunctionDec & e)
 {
-
     /*
       function foo
       endfunction
@@ -1045,7 +1041,7 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
     }
 
     types::Macro *pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList,
-                                            const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+                                            *const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())).clone(), L"script");
     pMacro->setFirstLine(e.getLocation().first_line);
 
     bool bEquals = false;
