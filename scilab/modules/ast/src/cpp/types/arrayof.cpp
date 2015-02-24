@@ -248,7 +248,7 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
                 int iSize = pArg[i]->getAs<ArrayOf>()->getSize();
                 for (int j = 0 ; j < iSize ; j++)
                 {
-                    if (pIdx[j] >= m_piDims[i])
+                    if (pIdx[j] > m_piDims[i])
                     {
                         delete[] piCountDim;
                         delete[] piMaxDim;
