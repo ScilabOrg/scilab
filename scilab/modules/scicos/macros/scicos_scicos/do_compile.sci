@@ -102,7 +102,7 @@ function  [%cpr,ok] = do_compile(scs_m)
     //** Second PASSAGE
     %cpr = c_pass2(bllst,connectmat,clkconnect,cor,corinv);
 
-    if %cpr==list() then
+    if length(%cpr)==0 then
         ok = %f ;
     end
 
