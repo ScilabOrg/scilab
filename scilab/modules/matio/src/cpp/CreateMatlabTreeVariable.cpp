@@ -74,12 +74,12 @@ InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
             else
             {
                 pOut = new Struct(iRank, piDims);
+                int iSizeStruct = Mat_VarGetNumberOfFields(matVariable);
 
                 matvar_t** allData = (matvar_t**)(matVariable->data);
 
-                int iSizeStruct = 0;
                 bool bSearchSizeStruck = false;
-                for (int i = 0; (allData[i] != NULL) && (bSearchSizeStruck == false); i++)
+                for (int i = 0; (allData[i] != NULL) && (bSearchSizeStruck == false) && (i < iSizeStruct); i++)
                 {
                     for (int j = (i - 1); j >= 0; j--)
                     {
@@ -92,9 +92,9 @@ InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
                     std::wstring wstField(to_wide_string((char*)allData[i]->name));
                     pOut->getAs<Struct>()->addField(wstField);
 
-                    iSizeStruct++;
+                    //iSizeStruct++;
                 }
-                iSizeStruct--;
+                //iSizeStruct--;
 
                 for (int i = 0; i < pOut->getAs<Struct>()->getSize(); i++)
                 {
