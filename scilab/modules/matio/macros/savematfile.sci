@@ -37,7 +37,7 @@ function savematfile(varargin)
 
     // Sort all inputs (Options/Names/Filename)
     k=1
-    while k<=lstsize(varargin)
+    while k<=size(varargin)
         // All options are converted to lower case
         if part(varargin(k),1)=="-" then
             varargin(k)=convstr(varargin(k));
@@ -227,7 +227,7 @@ function savematfile(varargin)
                 [m,n]=size(x)
                 head=[MOPT*[1000;100;10;1] m,n,it,length(mtlb_names(mtlb_k))+1]
 
-                head=mput(head,"uil",mtlb_fd);
+                mput(head,"uil",mtlb_fd);
                 mput([ascii(mtlb_names(mtlb_k)) 0],"c",mtlb_fd);
                 select P
                 case 0 then
