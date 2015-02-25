@@ -556,7 +556,11 @@ types::Function::ReturnValue sci_bvode(types::typed_list &in, int _iRetCount, ty
     catch (ast::ScilabError &e)
     {
         char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
-        sciprint(_("%s: exception caught in '%s' subroutine.\n"), "bvode", "colnew");
+        if (getWarningMode())
+        {
+            sciprint(_("WARNING: %s: exception caught in '%s' subroutine.\n"), "bvode", "colnew");
+        }
+
         Scierror(999, pstrMsg);
         FREE(pstrMsg);
         FREE(iwork);

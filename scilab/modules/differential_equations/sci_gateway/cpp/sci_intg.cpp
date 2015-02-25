@@ -237,7 +237,11 @@ types::Function::ReturnValue sci_intg(types::typed_list &in, int _iRetCount, typ
     catch (ast::ScilabError &e)
     {
         char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
-        sciprint(_("%s: exception caught in '%s' subroutine.\n"), "intg", "dqags");
+        if (getWarningMode())
+        {
+            sciprint(_("WARNING: %s: exception caught in '%s' subroutine.\n"), "intg", "dqags");
+        }
+
         Scierror(999, pstrMsg);
         FREE(dwork);
         FREE(iwork);

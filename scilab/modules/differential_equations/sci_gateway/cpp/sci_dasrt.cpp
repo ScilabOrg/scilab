@@ -753,7 +753,11 @@ types::Function::ReturnValue sci_dasrt(types::typed_list &in, int _iRetCount, ty
         catch (ast::ScilabError &e)
         {
             char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
-            sciprint(_("%s: exception caught in '%s' subroutine.\n"), "dasrt", "ddasrt");
+            if (getWarningMode())
+            {
+                sciprint(_("WARNING: %s: exception caught in '%s' subroutine.\n"), "dasrt", "ddasrt");
+            }
+
             Scierror(999, pstrMsg);
             FREE(pstrMsg);
             iret = 1;
