@@ -241,7 +241,11 @@ types::Function::ReturnValue sci_int2d(types::typed_list &in, int _iRetCount, ty
     catch (ast::ScilabError &e)
     {
         char* pstrMsg = wide_string_to_UTF8(e.GetErrorMessage().c_str());
-        sciprint(_("%s: exception caught in '%s' subroutine.\n"), "int2d", "twodq");
+        if (getWarningMode())
+        {
+            sciprint(_("WARNING: %s: exception caught in '%s' subroutine.\n"), "int2d", "twodq");
+        }
+
         Scierror(999, pstrMsg);
         FREE(dwork);
         FREE(iwork);
