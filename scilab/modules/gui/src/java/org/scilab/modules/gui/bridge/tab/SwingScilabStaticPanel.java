@@ -64,7 +64,7 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
 
     /** The listener for event handling */
     private ScilabEventListener eventHandler;
-    private EditorEventListener editorEventHandler = null;
+    //private EditorEventListener editorEventHandler = null;
 
     private SwingScilabCanvas contentCanvas;
     protected boolean hasLayout;
@@ -75,7 +75,7 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
     public SwingScilabStaticPanel(String figureTitle, Integer figureId, Figure figure) {
         super(new JLayeredPane(), new JLayeredPane(), figure);
 
-        editorEventHandler = new EditorEventListener(figure.getIdentifier());
+        //editorEventHandler = new EditorEventListener(figure.getIdentifier());
 
         uiContentPane = (JLayeredPane) getUIComponent();
         layeredPane = (JLayeredPane) getGlobalComponent();
@@ -226,7 +226,7 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
         disableEventHandler();
         eventHandler = new ScilabEventListener(funName, getId(), false);
         if (eventEnabled) {
-            editorEventHandler.setEnable(false);
+            //editorEventHandler.setEnable(false);
             enableEventHandler();
         }
     }
@@ -241,11 +241,11 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
         }
 
         if (status) {
-            editorEventHandler.setEnable(false);
+            //editorEventHandler.setEnable(false);
             enableEventHandler();
             eventEnabled = true;
         } else {
-            editorEventHandler.setEnable(true);
+            //editorEventHandler.setEnable(true);
             disableEventHandler();
             eventEnabled = false;
         }
@@ -264,11 +264,11 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
         if (member instanceof SwingScilabAxes) {
             if (contentCanvas == null) {
                 contentCanvas = new SwingScilabCanvas((Figure) GraphicController.getController().getObjectFromId(((SwingScilabAxes) member).getFigureId()));
-                contentCanvas.addEventHandlerKeyListener(editorEventHandler);
-                contentCanvas.addEventHandlerMouseListener(editorEventHandler);
-                contentCanvas.addEventHandlerMouseMotionListener(editorEventHandler);
+                //contentCanvas.addEventHandlerKeyListener(editorEventHandler);
+                //contentCanvas.addEventHandlerMouseListener(editorEventHandler);
+                //contentCanvas.addEventHandlerMouseMotionListener(editorEventHandler);
                 if (eventEnabled) {
-                    editorEventHandler.setEnable(false);
+                    //editorEventHandler.setEnable(false);
                     enableEventHandler();
                 }
 
@@ -316,6 +316,10 @@ public class SwingScilabStaticPanel extends SwingScilabScrollPane implements Swi
         win.setContentPane(dummyContainer);
         win.close();
         setVisible(false);
+
+        //if (editorEventHandler != null) {
+        //    editorEventHandler.onExit();
+        //}
     }
 
     /**
