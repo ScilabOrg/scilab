@@ -1,5 +1,6 @@
 /*  Scicos
 *
+*  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *  Copyright (C) INRIA -
 *
 * This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,7 @@
 #include <cstring>
 
 #include "gw_scicos.hxx"
+#include "createblklist.hxx"
 
 #include "internal.hxx"
 #include "function.hxx"
@@ -32,9 +34,8 @@
 #include "int.hxx"
 #include "list.hxx"
 #include "mlist.hxx"
-#include "configvariable.hxx"
 #include "context.hxx"
-#include "createblklist.hxx"
+#include "configvariable.hxx"
 
 extern "C"
 {
@@ -229,7 +230,7 @@ types::Function::ReturnValue sci_model2blk(types::typed_list &in, int _iRetCount
     {
         l = pIT->getAs<types::List>();
         il_sim = l->get(0)->getAs<types::Double>();
-        types::Double* d = l->get(1)->getAs<types::Double>();
+        d = l->get(1)->getAs<types::Double>();
         Block.type = static_cast<int>(d->get()[0]);
     }
     else
@@ -467,6 +468,9 @@ types::Function::ReturnValue sci_model2blk(types::typed_list &in, int _iRetCount
                 case 811: //uint8
                     size *= sizeof(unsigned char);
                     break;
+                default:
+                    Scierror(888, _("%s : Unknown Data type\n"), name.data());
+                    return types::Function::Error;
             }
 
             Block.inptr[i] = MALLOC(size);
@@ -632,6 +636,9 @@ types::Function::ReturnValue sci_model2blk(types::typed_list &in, int _iRetCount
                 case 811: //uint8
                     size *= sizeof(unsigned char);
                     break;
+                default:
+                    Scierror(888, _("%s : Unknown Data type\n"), name.data());
+                    return types::Function::Error;
             }
 
             Block.outptr[i] = MALLOC(size);

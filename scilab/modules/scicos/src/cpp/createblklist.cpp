@@ -1,5 +1,6 @@
 /*  Scicos
 *
+*  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *  Copyright (C) DIGITEO - 2009 - Allan CORNET
 *
 * This program is free software; you can redistribute it and/or modify
@@ -20,6 +21,7 @@
 */
 /*--------------------------------------------------------------------------*/
 #include "createblklist.hxx"
+
 #include "internal.hxx"
 #include "list.hxx"
 #include "tlist.hxx"
@@ -30,7 +32,6 @@
 extern "C"
 {
 #include "import.h"
-#include "sci_malloc.h"
 #include "scicos_block4.h"
 }
 /*--------------------------------------------------------------------------*/
@@ -41,7 +42,7 @@ extern "C"
 //extern void C2F(vvtosci)();
 //extern int C2F(mktlist)();
 /*--------------------------------------------------------------------------*/
-static types::InternalType* vartosci(void* data, const int rows, int const cols, const int type)
+static types::InternalType* vartosci(void* data, const int rows, const int cols, const int type)
 {
     const int size = rows * cols;
     switch (type)
@@ -126,7 +127,7 @@ static types::InternalType* vartosci(void* data, const int rows, int const cols,
     }
 }
 
-types::InternalType* createblklist(scicos_block *Blocks, const int flag_imp, int /*funtyp*/)
+types::InternalType* createblklist(const scicos_block* const Blocks, const int flag_imp, const int /*funtyp*/)
 {
     /* set string of first element of scilab Blocks tlist -please update me- */
     const int fieldCount = 41;
@@ -146,16 +147,17 @@ types::InternalType* createblklist(scicos_block *Blocks, const int flag_imp, int
                                       };
 
     int *xptr = nullptr;   /* to retrieve xptr by import and zcptr of scicos_blocks */
-    double *x = nullptr;   /* ptr for x, xd and g for scicos_blocks              */
+    double *x = nullptr;   /* ptr for x, xd and g for scicos_blocks                 */
     double *xd = nullptr;
     int *zcptr = nullptr;
     double *g = nullptr;
 
     if (flag_imp >= 0)
     {
-        int nv, mv;         /* length of data                                        */
-        int nblk, ng;       /* to store number of blocks and number of zero cross.   */
-        void *ptr;          /* ptr for data comming from import structure            */
+        int nv, mv;         /* length of data                             */
+        int nblk;           /* to store number of blocks                  */
+        //int ng;             /* to store number of zero cross              */
+        void *ptr;          /* ptr for data comming from import structure */
 
         /*retrieve nblk by import structure*/
         char Nblk[] = "nblk";
@@ -165,7 +167,7 @@ types::InternalType* createblklist(scicos_block *Blocks, const int flag_imp, int
         /* retrieve ng by import structure */
         char Ng[] = "ng";
         getscicosvarsfromimport(Ng, &ptr, &nv, &mv);
-        ng = ((int*)ptr)[0];
+        //ng = ((int*)ptr)[0];
 
         /*retrieve xptr by import structure*/
         char Xptr[] = "xptr";
@@ -334,9 +336,9 @@ types::InternalType* createblklist(scicos_block *Blocks, const int flag_imp, int
     types::List* inptr = new types::List();
     for (int k = 0; k < Blocks->nin; k++)
     {
-        int rows = Blocks->insz[k]; /* retrieve number of rows */
-        int cols = Blocks->insz[Blocks->nin + k]; /* retrieve number of cols */
-        int type = Blocks->insz[2 * Blocks->nin + k]; /* retrieve type */
+        const int rows = Blocks->insz[k]; /* retrieve number of rows */
+        const int cols = Blocks->insz[Blocks->nin + k]; /* retrieve number of cols */
+        const int type = Blocks->insz[2 * Blocks->nin + k]; /* retrieve type */
         inptr->append(vartosci(Blocks->inptr[k], rows, cols, type));
     }
 

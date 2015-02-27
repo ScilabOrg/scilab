@@ -1,5 +1,6 @@
 /*  Scicos
 *
+*  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *  Copyright (C) DIGITEO - Allan CORNET
 *
 * This program is free software; you can redistribute it and/or modify
@@ -41,7 +42,7 @@ extern "C"
 * initial rev 13/11/07, Alan Layec
 */
 
-bool extractblklist(types::TList* t, scicos_block *Block);
+bool extractblklist(types::TList* t, scicos_block* const Block);
 
 #endif /* __EXTRACTBLKLIST_HXX__ */
 /*--------------------------------------------------------------------------*/

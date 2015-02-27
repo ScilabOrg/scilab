@@ -24,6 +24,7 @@
 #include <cstdio>
 
 #include "createblklist.hxx"
+
 #include "internal.hxx"
 #include "callable.hxx"
 #include "list.hxx"
@@ -36,8 +37,6 @@
 extern "C"
 {
 #include "sciblk4.h"
-#include "machine.h" /* C2F */
-#include "sci_malloc.h"
 #include "scicos.h"
 #include "import.h"
 }
@@ -93,7 +92,7 @@ bool sci2var(T* p, void* dest, const int row, const int col)
 }
 
 /*--------------------------------------------------------------------------*/
-static bool sci2var(types::InternalType* p, void* dest, int desttype, const int row, const int col)
+static bool sci2var(types::InternalType* p, void* dest, const int desttype, const int row, const int col)
 {
     switch (p->getType())
     {
@@ -239,7 +238,7 @@ void sciblk4(scicos_block* Blocks, const int flag)
     * Create Scilab tlist Blocks *
     *****************************/
     types::InternalType* pIT = createblklist(Blocks, -1, funtyp[kfun - 1]);
-    if (pIT == NULL)
+    if (pIT == nullptr)
     {
         set_block_error(-1);
         return;

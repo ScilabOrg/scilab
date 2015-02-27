@@ -1,5 +1,6 @@
 /*  Scicos
 *
+*  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *  Copyright (C) DIGITEO - 2009 - Allan CORNET
 *
 * This program is free software; you can redistribute it and/or modify
@@ -59,7 +60,7 @@ extern "C"
 *
 */
 
-types::InternalType* createblklist(scicos_block *Blocks, int flag_imp, int funtyp);
+types::InternalType* createblklist(const scicos_block* const Blocks, const int flag_imp, const int funtyp);
 
 #endif /* __CREATEBLKLIST_HXX__ */
 /*--------------------------------------------------------------------------*/

@@ -2,6 +2,7 @@
 *
 *  Copyright (C) INRIA - Alan LAYEC
 *  Copyright (C) 2013 - Scilab Enterprises - Clement DAVID
+*  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -20,7 +21,10 @@
 * See the file ./license.txt
 */
 /*--------------------------------------------------------------------------*/
+#include <cstring>
+
 #include "extractblklist.hxx"
+
 #include "internal.hxx"
 #include "list.hxx"
 #include "tlist.hxx"
@@ -286,7 +290,7 @@ static bool checkType(const int type, types::InternalType* p)
     return false;
 }
 
-bool extractblklist(types::TList* t, scicos_block *Block)
+bool extractblklist(types::TList* t, scicos_block* const Block)
 {
     types::InternalType* pIT = nullptr;
 

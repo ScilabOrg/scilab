@@ -1,5 +1,6 @@
 /*  Scicos
 *
+*  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *  Copyright (C) INRIA -
 *
 * This program is free software; you can redistribute it and/or modify
@@ -24,22 +25,21 @@
 #include <cstring>
 
 #include "gw_scicos.hxx"
+#include "extractblklist.hxx"
+#include "createblklist.hxx"
 
+#include "internal.hxx"
 #include "function.hxx"
 #include "string.hxx"
 #include "double.hxx"
 #include "int.hxx"
 #include "mlist.hxx"
-#include "configvariable.hxx"
 #include "context.hxx"
-#include "extractblklist.hxx"
-#include "createblklist.hxx"
+#include "configvariable.hxx"
 
 extern "C"
 {
 #include "sci_malloc.h"
-#include "sciblk4.h"
-#include "sciblk2.h"
 #include "scicos.h"
 #include "scicos_block4.h"
 #include "Scierror.h"
