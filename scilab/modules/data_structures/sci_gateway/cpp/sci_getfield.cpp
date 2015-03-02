@@ -14,6 +14,7 @@
 #include "data_structures_gw.hxx"
 #include "function.hxx"
 #include "double.hxx"
+#include "int.hxx"
 #include "string.hxx"
 #include "list.hxx"
 #include "mlist.hxx"
@@ -108,6 +109,67 @@ types::Function::ReturnValue sci_getfield(types::typed_list &in, int _iRetCount,
     {
         Scierror(78, _("%s: Wrong number of output argument(s): %d expected.\n"), "getfield", iListSize);
         return types::Function::Error;
+    }
+
+
+    int dlIndex = 0;
+    for (int i = 0; i < iListSize; i++)
+    {
+        if (pList->get(i)->isListUndefined())
+        {
+            switch (pIndex->getType())
+            {
+                case types::InternalType::ScilabType::ScilabDouble:
+                {
+                    dlIndex = (int)pIndex->getAs<types::Double>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt8:
+                {
+                    dlIndex = (int)pIndex->getAs<types::Int8>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt8:
+                {
+                    dlIndex = (int)pIndex->getAs<types::UInt8>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt16:
+                {
+                    dlIndex = (int)pIndex->getAs<types::Int16>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt16:
+                {
+                    dlIndex = (int)pIndex->getAs<types::UInt16>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt32:
+                {
+                    dlIndex = pIndex->getAs<types::Int32>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt32:
+                {
+                    dlIndex = (int)pIndex->getAs<types::UInt32>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt64:
+                {
+                    dlIndex = (int)pIndex->getAs<types::Int64>()->get(0);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt64:
+                {
+                    dlIndex = (int)pIndex->getAs<types::UInt64>()->get(0);
+                }
+                break;
+                default:
+                    break;
+            }
+            Scierror(999, _("List element number %d is Undefined.\n"), dlIndex);
+            return types::Function::Error;
+        }
     }
 
     for (int i = 0 ; i < iListSize ; i++)
