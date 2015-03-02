@@ -14,6 +14,7 @@
 #include "data_structures_gw.hxx"
 #include "function.hxx"
 #include "double.hxx"
+#include "int.hxx"
 #include "string.hxx"
 #include "list.hxx"
 #include "mlist.hxx"
@@ -63,7 +64,6 @@ types::Function::ReturnValue sci_getfield(types::typed_list &in, int _iRetCount,
     types::List* pL = in[1]->getAs<types::List>();
     types::InternalType* pITOut = NULL;
 
-
     if (pIndex->isString())
     {
         //extraction by fieldnames
@@ -108,6 +108,75 @@ types::Function::ReturnValue sci_getfield(types::typed_list &in, int _iRetCount,
     {
         Scierror(78, _("%s: Wrong number of output argument(s): %d expected.\n"), "getfield", iListSize);
         return types::Function::Error;
+    }
+
+    int iIndex = 0;
+    for (int i = 0; i < iListSize; i++)
+    {
+        if (pList->get(i)->isListUndefined())
+        {
+            switch (pIndex->getType())
+            {
+                case types::InternalType::ScilabType::ScilabDouble:
+                {
+                    iIndex = (int)pIndex->getAs<types::Double>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt8:
+                {
+                    iIndex = (int)pIndex->getAs<types::Int8>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt8:
+                {
+                    iIndex = (int)pIndex->getAs<types::UInt8>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt16:
+                {
+                    iIndex = (int)pIndex->getAs<types::Int16>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt16:
+                {
+                    iIndex = (int)pIndex->getAs<types::UInt16>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt32:
+                {
+                    iIndex = pIndex->getAs<types::Int32>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt32:
+                {
+                    iIndex = (int)pIndex->getAs<types::UInt32>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabInt64:
+                {
+                    iIndex = (int)pIndex->getAs<types::Int64>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabUInt64:
+                {
+                    iIndex = (int)pIndex->getAs<types::UInt64>()->get(i);
+                }
+                break;
+                case types::InternalType::ScilabType::ScilabString:
+                {
+                    std::wstring wField(pIndex->getAs<types::String>()->get(i));
+                    iIndex = pL->getAs<types::TList>()->getIndexFromString(wField);
+                    // The type (the first field) is not counted
+                    iIndex++;
+                }
+                break;
+                default:
+                    break;
+            }
+
+            Scierror(999, _("List element number %d is Undefined.\n"), iIndex);
+            return types::Function::Error;
+        }
     }
 
     for (int i = 0 ; i < iListSize ; i++)
