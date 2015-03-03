@@ -429,6 +429,7 @@ bool Polynom::subMatrixToString(std::wostringstream& ostr, int* _piDims, int _iD
     list<wstring>::const_iterator it_Coef;
     list<wstring> listExpR, listCoefR, listExpI, listCoefI;
 
+
     if (isScalar())
     {
         if (isComplex())
@@ -520,14 +521,37 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
     bool bWordWarp  = false;
 
     wstring szExp, szCoef;
+    /*  if (isIdentity())
+      {
+          ostr << L"eye *" << endl << endl;
 
-    int *piMaxLen = new int[getCols()];
-    memset(piMaxLen, 0x00, sizeof(int) * getCols());
+         /* if (isComplex() == false)
+          {
+              DoubleFormat df;
+              getDoubleFormat((m_pRealData[0]), &df);
+              addDoubleValue(&ostr, (m_pRealData[0]), &df);
+              ostr << endl;
+          }
+          else
+          {
+              //complex value
+              DoubleFormat dfR, dfI;
+              getDoubleFormat(ZeroIsZero(m_pRealData[0]), &dfR);
+              getDoubleFormat(ZeroIsZero(m_pImgData[0]), &dfI);
+              addDoubleComplexValue(&ostr, ZeroIsZero(m_pRealData[0]), ZeroIsZero(m_pImgData[0]), dfR.iWidth + dfI.iWidth, &dfR, &dfI);
+              ostr << endl;
+          }
+           ostr << endl;
+           return ostr.str();
+      }*/
+
+    int *piMaxLen = new int[abs(getCols())];
+    memset(piMaxLen, 0x00, sizeof(int) * abs(getCols()));
 
     //find the largest row for each col
-    for (int iCols1 = 0 ; iCols1 < getCols() ; iCols1++)
+    for (int iCols1 = 0 ; iCols1 < abs(getCols()) ; iCols1++)
     {
-        for (int iRows1 = 0 ; iRows1 < getRows() ; iRows1++)
+        for (int iRows1 = 0 ; iRows1 < abs(getRows()) ; iRows1++)
         {
             int iLength = 0;
             _piDims[0] = iRows1;
@@ -571,7 +595,7 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
             //if the max length exceeded
             wostringstream ostemp;
             bWordWarp = true;
-            for (int iRows2 = 0 ; iRows2 < getRows() ; iRows2++)
+            for (int iRows2 = 0 ; iRows2 < abs(getRows()) ; iRows2++)
             {
                 bool bMultiLine = false;
                 for (int iCols2 = iLastCol ; iCols2 < iCols1; iCols2++)
@@ -593,18 +617,21 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
                     {
                         for (it_Coef = listCoefR.begin(), it_Exp = listExpR.begin() ; it_Coef != listCoefR.end() ; it_Coef++, it_Exp++)
                         {
+                            // printf("-- %ls", osExp.str().c_str());
                             osExp << *it_Exp;
                             addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Exp).size()));
                             osExp << endl;
-
+                            //printf("-- %ls", osExp.str().c_str());
                             osExp << *it_Coef;
                             addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Coef).size()));
                             osExp << endl;
                             bMultiLine = true;
+                            // printf("-- %ls", osExp.str().c_str());
                         }
                     }
                     else
                     {
+
                         osExp << listExpR.front();
                         addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>(listExpR.front().size()));
                         osCoef << listCoefR.front();
@@ -646,9 +673,9 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
     }
 
     //print the end
-    for (int iRows2 = 0 ; iRows2 < getRows() ; iRows2++)
+    for (int iRows2 = 0 ; iRows2 < abs(getRows()) ; iRows2++)
     {
-        for (int iCols2 = iLastCol ; iCols2 < getCols() ; iCols2++)
+        for (int iCols2 = iLastCol ; iCols2 < abs(getCols()) ; iCols2++)
         {
             _piDims[0] = iRows2;
             _piDims[1] = iCols2;
@@ -697,6 +724,10 @@ wstring Polynom::getMatrixString(int* _piDims, int /*_iDims*/, bool _bComplex)
             osExp << endl;
         }
         osCoef << endl;
+        if (isIdentity())
+        {
+            ostr << L"eye *" << endl << endl;
+        }
         ostr << osExp.str();
         ostr << osCoef.str() << endl;
         osExp.str(L"");
