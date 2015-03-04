@@ -92,7 +92,6 @@ bool Polynom::set(int _iPos, SinglePoly* _pS)
     {
         delete m_pRealData[_iPos];
     }
-
     m_pRealData[_iPos] = copyValue(_pS);
 
     if (_pS->isComplex() && bComplex == false)
@@ -937,6 +936,7 @@ SinglePoly* Polynom::copyValue(SinglePoly* _pData)
     {
         return NULL;
     }
+    printf("HHHHH");
     return _pData->clone();
 }
 
