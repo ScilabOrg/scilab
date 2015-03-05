@@ -264,6 +264,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
         catch (InternalAbort & ia)
         {
             setExpectedSize(iSaveExpectedSize);
+            setResult(NULL);
             clearResult();
             cleanInOut(in, out);
             cleanOpt(opt);
@@ -274,6 +275,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
         catch (ScilabError & se)
         {
             setExpectedSize(iSaveExpectedSize);
+            setResult(NULL);
             clearResult();
             cleanInOut(in, out);
             cleanOpt(opt);
