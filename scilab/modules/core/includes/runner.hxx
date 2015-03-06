@@ -28,11 +28,13 @@ extern "C"
 class CORE_IMPEXP Runner
 {
 private :
-    Runner(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
+    Runner(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool isInterruptible)
     {
         m_theProgram = _theProgram;
         m_visitor = _visitor;
+        m_isInterruptible = true;
     }
+
     ~Runner()
     {
         delete m_theProgram;
@@ -43,7 +45,7 @@ public :
 
     static void init();
 
-    static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor);
+    static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool isInterruptible);
 
     void exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor);
 
@@ -81,6 +83,11 @@ public :
 
     static void LockPrompt();
 
+    bool isInterruptible()
+    {
+        return m_isInterruptible;
+    }
+
 private :
     static void *launch(void *args);
 
@@ -89,6 +96,7 @@ private :
     __threadId m_threadId;
     ast::Exp*           m_theProgram;
     ast::ExecVisitor*   m_visitor;
+    bool                m_isInterruptible;
 
 private :
     static __threadSignal m_awakeScilab;

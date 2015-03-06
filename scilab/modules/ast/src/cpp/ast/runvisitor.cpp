@@ -709,6 +709,14 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
 
     for (itExp = exps.begin (); itExp != exps.end (); ++itExp)
     {
+        // try to lock Ast locker if I need to be interrupted
+        //        if()
+        //        {
+        //
+        //            __Lock(&m_AstLock);
+        //        }
+
+
         if (e.isBreakable())
         {
             (*itExp)->resetBreak();
@@ -917,6 +925,10 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
         // If something other than NULL is given to setResult, then that would imply
         // to make a cleanup in visit(ForExp) for example (e.getBody().accept(*this);)
         setResult(NULL);
+
+        // unlock
+        //        __UnLock(&m_AstLock);
+        //        __Signal(&m_AstLoopEnd, &m_AstLoopEndLock)
     }
 }
 

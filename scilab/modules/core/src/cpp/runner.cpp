@@ -16,12 +16,20 @@ __threadLock Runner::m_lock;
 __threadSignal Runner::m_awakeScilab;
 __threadSignalLock Runner::m_awakeScilabLock;
 
+//__threadLock Runner::m_AstLock;
+//__threadSignal Runner::m_AstLoopEnd;
+//__threadSignalLock Runner::m_AstLoopEndLock;
+
+
 using namespace ast;
 
 void Runner::init()
 {
     __InitSignal(&m_awakeScilab);
     __InitSignalLock(&m_awakeScilabLock);
+
+    //    __InitSignal(&m_AstLoopEnd);
+    //    __InitSignalLock(&m_AstLoopEndLock);
 }
 
 void *Runner::launch(void *args)
@@ -34,6 +42,13 @@ void *Runner::launch(void *args)
 
     //exec !
     Runner *me = (Runner *)args;
+
+    if (me->isInterruptible() == false)
+    {
+        // wait for interruptible exp execution ended
+        //        __Lock(&m_AstLock);
+    }
+
     try
     {
         me->getProgram()->accept(*(me->getVisitor()));
@@ -41,6 +56,7 @@ void *Runner::launch(void *args)
     }
     catch (const ast::ScilabException& se)
     {
+        //        __UnLock(&m_AstLock);
         // remove the last call from where in case pause/abort
         ConfigVariable::where_end();
         scilabErrorW(se.GetErrorMessage().c_str());
@@ -62,12 +78,20 @@ void *Runner::launch(void *args)
     //unregister thread
     ConfigVariable::deleteThread(currentThreadKey);
 
+    if (me->isInterruptible() == false)
+    {
+        // wait for
+        //        __Lock(&m_AstLock);
+    }
+
     delete me;
 
     if (bdoUnlock)
     {
         UnlockPrompt();
     }
+
+
     return NULL;
 }
 
@@ -88,16 +112,17 @@ void Runner::UnlockPrompt()
 }
 
 
-void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
+void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isInterruptible)
 {
     try
     {
-        Runner *runMe = new Runner(_theProgram, _visitor);
+        Runner *runMe = new Runner(_theProgram, _visitor, _isInterruptible);
         __threadKey threadKey;
         __threadId threadId;
 
         //init locker
         __InitLock(&m_lock);
+        //        __InitLock(&m_AstLock);
         //lock locker
         __Lock(&m_lock);
         //launch thread but is can't really start since locker is locked
