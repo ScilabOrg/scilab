@@ -200,6 +200,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
 
             if (in.size() > 2)
             {
+
                 if (in[2]->isDouble() == false || in[2]->getAs<Double>()->isScalar() == false)
                 {
                     //mode
@@ -213,6 +214,11 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         }
         else if (in[1]->isDouble() && in[1]->getAs<Double>()->isScalar())
         {
+            if (in.size() > 2)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: 'errcatch' expected.\n"), "exec", 2);
+                return Function::Error;
+            }
             //mode
             promptMode = (int)in[1]->getAs<Double>()->getReal()[0];
             bPromptMode = true;
