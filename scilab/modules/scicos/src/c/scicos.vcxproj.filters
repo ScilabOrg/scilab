@@ -119,9 +119,6 @@
     <ClCompile Include="..\..\sci_gateway\c\sci_sig2data.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sciblk2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="scicos.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -261,6 +258,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\cpp\createblklist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\sciblk2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\cpp\sciblk4.cpp">
