@@ -13,8 +13,16 @@
 #include "runner.hxx"
 
 __threadLock Runner::m_lock;
+__threadLock Runner::m_PrioritaryLock;
+
+
 __threadSignal Runner::m_awakeScilab;
 __threadSignalLock Runner::m_awakeScilabLock;
+
+
+__threadSignal Runner::m_AstPending;
+__threadSignalLock Runner::m_AstPendingLock;
+
 
 using namespace ast;
 
@@ -22,6 +30,9 @@ void Runner::init()
 {
     __InitSignal(&m_awakeScilab);
     __InitSignalLock(&m_awakeScilabLock);
+
+    __InitSignal(&m_AstPending);
+    __InitSignalLock(&m_AstPendingLock);
 }
 
 void *Runner::launch(void *args)
@@ -34,6 +45,7 @@ void *Runner::launch(void *args)
 
     //exec !
     Runner *me = (Runner *)args;
+
     try
     {
         me->getProgram()->accept(*(me->getVisitor()));
@@ -41,6 +53,7 @@ void *Runner::launch(void *args)
     }
     catch (const ast::ScilabException& se)
     {
+        //        __UnLock(&m_AstLock);
         // remove the last call from where in case pause/abort
         ConfigVariable::where_end();
         scilabErrorW(se.GetErrorMessage().c_str());
@@ -59,6 +72,19 @@ void *Runner::launch(void *args)
         bdoUnlock = true;
     }
 
+    if (pThread->isInterruptible() == false)
+    {
+        __UnLock(&m_PrioritaryLock);
+    }
+    else
+    {
+        // unlock prioritary thread waiting for
+        // non-prioritary end this "SeqExp" execution
+        // this case appear when error is throw or when
+        // non-prioritary execute this last SeqExp
+        __Signal(&Runner::m_AstPending);
+    }
+
     //unregister thread
     ConfigVariable::deleteThread(currentThreadKey);
 
@@ -68,6 +94,8 @@ void *Runner::launch(void *args)
     {
         UnlockPrompt();
     }
+
+
     return NULL;
 }
 
@@ -82,13 +110,15 @@ void Runner::LockPrompt()
 
 void Runner::UnlockPrompt()
 {
+    __Lock(&m_PrioritaryLock);
     __LockSignal(&m_awakeScilabLock);
     __Signal(&m_awakeScilab);
     __UnLockSignal(&m_awakeScilabLock);
+    __UnLock(&m_PrioritaryLock);
 }
 
 
-void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
+void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPrioritaryThread)
 {
     try
     {
@@ -98,17 +128,62 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
 
         //init locker
         __InitLock(&m_lock);
+        __InitLock(&m_PrioritaryLock);
         //lock locker
         __Lock(&m_lock);
+
+        if (_isPrioritaryThread)
+        {
+            __Lock(&m_PrioritaryLock);
+        }
+
+        types::ThreadId* pInterruptibleThread = ConfigVariable::getLastRunningThread();
+        if (_isPrioritaryThread)
+        {
+            if (pInterruptibleThread)
+            {
+                if (pInterruptibleThread->isInterruptible())
+                {
+                    pInterruptibleThread->setInterrupt(true);
+
+                    __LockSignal(&m_AstPendingLock);
+                    __Wait(&m_AstPending, &m_AstPendingLock);
+                    __UnLockSignal(&m_AstPendingLock);
+                }
+                else
+                {
+                    __WaitThreadDie(pInterruptibleThread->getThreadId());
+                    pInterruptibleThread = NULL;
+                }
+            }
+        }
+        else if (pInterruptibleThread)
+        {
+            __WaitThreadDie(pInterruptibleThread->getThreadId());
+            pInterruptibleThread = NULL;
+        }
+
         //launch thread but is can't really start since locker is locked
         __CreateThreadWithParams(&threadId, &threadKey, &Runner::launch, runMe);
         runMe->setThreadId(threadId);
         runMe->setThreadKey(threadKey);
 
         //register thread
-        ConfigVariable::addThread(new ThreadId(threadId, threadKey));
+        types::ThreadId* pThread = new ThreadId(threadId, threadKey);
+        ConfigVariable::addThread(pThread);
+        if (_isPrioritaryThread)
+        {
+            pThread->setInterruptible(false);
+        }
+
         //free locker to release thread && wait and of thread execution
         LockPrompt();
+
+        if (pInterruptibleThread)
+        {
+            pInterruptibleThread->setInterrupt(false);
+            pInterruptibleThread->resume();
+        }
 
         types::ThreadId* pExecThread = ConfigVariable::getThread(threadKey);
         if (pExecThread == NULL)

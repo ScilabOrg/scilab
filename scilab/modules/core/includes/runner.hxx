@@ -33,6 +33,7 @@ private :
         m_theProgram = _theProgram;
         m_visitor = _visitor;
     }
+
     ~Runner()
     {
         delete m_theProgram;
@@ -43,7 +44,7 @@ public :
 
     static void init();
 
-    static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor);
+    static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPriorityThread);
 
     void exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor);
 
@@ -94,5 +95,9 @@ private :
     static __threadSignal m_awakeScilab;
     static __threadSignalLock m_awakeScilabLock;
     static __threadLock m_lock;
+    static __threadLock m_PrioritaryLock;
+    static __threadSignal m_AstPending;
+    static __threadSignalLock m_AstPendingLock;
+
 };
 #endif /* !__RUNNER_HXX__ */
