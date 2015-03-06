@@ -6,7 +6,6 @@
 // =============================================================================
 // <-- CLI SHELL MODE -->
 // Tests for function dsaupd (added after a bug in the gateway: PutLhsVar missing)
-stacksize(300000);
 N = 1000;
 A = sprand(N, N, 0.01);
 IDO   = 0;
@@ -46,7 +45,8 @@ while (IDO <> 99) & (IDO <> 3)
 end;
 t1 = toc();
 printf("loop %d",i);
-loop 77b = rand(N,1);
+loop 77
+b = rand(N,1);
 tic();
 for j = 1:i
   b = A * b;
