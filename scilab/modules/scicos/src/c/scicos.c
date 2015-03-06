@@ -3875,7 +3875,8 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
                         block->evout, &block->nevout, block->rpar, &block->nrpar,
                         block->ipar, &block->nipar, (double **)block->inptr,
                         block->insz, &block->nin,
-                        (double **)block->outptr, block->outsz, &block->nout);
+                        (double **)block->outptr, block->outsz, &block->nout,
+                        block->scsptr);
             }
             /* with zero crossing */
             else
@@ -3887,6 +3888,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
                          block->ipar, &block->nipar, (double **)block->inptr,
                          block->insz, &block->nin,
                          (double **)block->outptr, block->outsz, &block->nout,
+                         block->scsptr,
                          block->g, &block->ng);
             }
 
