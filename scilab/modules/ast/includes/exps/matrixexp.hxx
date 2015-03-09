@@ -95,7 +95,7 @@ public:
     /** \} */
 
 
-    virtual ExpType getType()
+    virtual ExpType getType() const
     {
         return MATRIXEXP;
     }
