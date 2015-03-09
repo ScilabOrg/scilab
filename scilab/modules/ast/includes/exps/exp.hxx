@@ -503,6 +503,16 @@ public:
         }
     }
 
+    inline const exps_t & getExps() const
+    {
+        return _exps;
+    }
+
+    inline exps_t & getExps()
+    {
+        return _exps;
+    }
+
 private:
     bool _verbose;
     bool _bBreak;
