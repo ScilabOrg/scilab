@@ -16,6 +16,10 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const CallExp &e)
 {
+
+    int iRetCount = getExpectedSize();
+    int iSaveExpectedSize = iRetCount;
+
     e.getName().accept(*this);
 
     if (getResult() != NULL && getResult()->isInvokable())
@@ -25,9 +29,6 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
         types::typed_list out;
         types::typed_list in;
         types::optional_list opt;
-
-        int iRetCount = getExpectedSize();
-        int iSaveExpectedSize = iRetCount;
 
         // manage case [a,b]=foo() where foo is defined as a=foo()
         if (pIT->getInvokeNbOut() != -1 && pIT->getInvokeNbOut() < iRetCount)
