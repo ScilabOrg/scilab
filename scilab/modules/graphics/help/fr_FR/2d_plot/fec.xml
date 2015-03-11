@@ -120,10 +120,11 @@
                 (<literal>macros.sci</literal>) peut être utilisé pour lire les fichiers de
                 données correspondants.
             </para>
-        </refsection>
-        <refsection>
-            <title>Exemples</title>
-            <programlisting role="example"><![CDATA[ 
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[ 
 // define a mini triangulation (4 vertices, 2 triangles)
 x = [0 1 0 -1];
 y = [0 0 1  1];
@@ -142,7 +143,7 @@ subplot(1,2,2)
   xtitle("fec example (without the mesh)")
 show_window()
  ]]></programlisting>
-            <scilab:image>
+        <scilab:image>
                 x = [0 1 0 -1];
                 y = [0 0 1  1];
                 T = [1 1 2 3 1;
@@ -159,8 +160,8 @@ show_window()
                 fec(x,y,T,z,strf="040")  // rmq: mesh=%f by default
                 xtitle("fec example (without the mesh)")
                 show_window()
-            </scilab:image>
-            <programlisting role="example"><![CDATA[ 
+        </scilab:image>
+        <programlisting role="example"><![CDATA[ 
 // define a mini triangulation (4 vertices, 2 triangles)
 x = [0 1 0 -1];
 y = [0 0 1  1];
@@ -176,7 +177,7 @@ fec(x,y,T,z,strf="040", zminmax=[-0.5 0.5], mesh=%t)
 xtitle("fec example : using zminmax argument")
 show_window()
  ]]></programlisting>
-            <scilab:image>
+        <scilab:image>
                 x = [0 1 0 -1];
                 y = [0 0 1  1];
                 T = [1 1 2 3 1;
@@ -190,8 +191,8 @@ show_window()
                 fec(x,y,T,z,strf="040", zminmax=[-0.5 0.5], mesh=%t)
                 xtitle("fec example : using zminmax argument")
                 show_window()
-            </scilab:image>
-            <programlisting role="example"><![CDATA[ 
+        </scilab:image>
+        <programlisting role="example"><![CDATA[ 
 // define a mini triangulation (4 vertices, 2 triangles)
 x = [0 1 0 -1];
 y = [0 0 1  1];
@@ -220,7 +221,7 @@ subplot(2,2,4)
   xtitle("fec example : using zminmax and colout =[0 -1]")
 show_window()
  ]]></programlisting>
-            <scilab:image>
+        <scilab:image>
                 // define a mini triangulation (4 vertices, 2 triangles)
                 x = [0 1 0 -1];
                 y = [0 0 1  1];
@@ -248,8 +249,8 @@ show_window()
                 fec(x,y,T,z,strf="040", zminmax=[-0.5 0.5], colout=[0 -1], mesh=%t)
                 xtitle("fec example : using zminmax and colout =[0 -1]")
                 show_window()
-            </scilab:image>
-            <programlisting role="example"><![CDATA[ 
+        </scilab:image>
+        <programlisting role="example"><![CDATA[ 
 // define a mini triangulation (4 vertices, 2 triangles)
 x = [0 1 0 -1];
 y = [0 0 1  1];
@@ -272,7 +273,7 @@ subplot(1,2,2)
   xtitle("fec using the jet colormap")
 show_window()
  ]]></programlisting>
-            <scilab:image>
+        <scilab:image>
                 // define a mini triangulation (4 vertices, 2 triangles)
                 x = [0 1 0 -1];
                 y = [0 0 1  1];
@@ -294,8 +295,8 @@ show_window()
                 fec(x,y,T,z,strf="040", colminmax=[65 128], mesh=%t)
                 xtitle("fec using the jet colormap")
                 show_window()
-            </scilab:image>
-            <programlisting role="example"><![CDATA[ 
+        </scilab:image>
+        <programlisting role="example"><![CDATA[ 
 // define a mapping with one quadrangle (4 vertices, 1 quadrangle)
 x = [1 2 2 1];
 y = [1 1 2 2];
@@ -309,7 +310,7 @@ colorbar(-1,1);
 fec(x,y,T,z,mesh=%t)
 xtitle("fec using the hot colormap, composed by one quadrangle")
  ]]></programlisting>
-            <scilab:image>
+        <scilab:image>
                 // define a mapping with one quadrangle (4 vertices, 1 quadrangle)
                 x = [1 2 2 1];
                 y = [1 1 2 2];
@@ -322,30 +323,30 @@ xtitle("fec using the hot colormap, composed by one quadrangle")
                 colorbar(-1,1);
                 fec(x,y,T,z,mesh=%t)
                 xtitle("fec using the hot colormap, composed by one quadrangle")
-            </scilab:image>
-        </refsection>
-        <refsection role="see also">
-            <title>Voir aussi</title>
-            <simplelist type="inline">
-                <member>
-                    <link linkend="Sfgrayplot">Sfgrayplot</link>
-                </member>
-                <member>
-                    <link linkend="Sgrayplot">Sgrayplot</link>
-                </member>
-            </simplelist>
-        </refsection>
-        <refsection>
-            <title>History</title>
-            <revhistory>
-                <revision>
-                    <revnumber>5.5.2</revnumber>
-                    <revremark>
-                        <para>
-                            Le maillage peut désormais être consitué de polygones convexes.
-                        </para>
-                    </revremark>
-                </revision>
-            </revhistory>
-        </refsection>
-    </refentry>
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="Sfgrayplot">Sfgrayplot</link>
+            </member>
+            <member>
+                <link linkend="Sgrayplot">Sgrayplot</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.2</revnumber>
+                <revremark>
+                    <para>
+                        Le maillage peut désormais être consitué de polygones convexes.
+                    </para>
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
