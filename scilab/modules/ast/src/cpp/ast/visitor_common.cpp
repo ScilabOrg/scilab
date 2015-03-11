@@ -2336,6 +2336,7 @@ void callOnPrompt(void)
     pOnPrompt = onPrompt->get();
     if (pOnPrompt != NULL && pOnPrompt->isCallable())
     {
+        scilabForcedWrite("\nCall On Prompt !!!!\n");
         typed_list in;
         typed_list out;
         optional_list opt;
