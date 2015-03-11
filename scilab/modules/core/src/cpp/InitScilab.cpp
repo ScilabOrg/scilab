@@ -343,6 +343,7 @@ int RunScilabEngine(ScilabEngineInfo* _pSEI)
 
 int ExecExternalCommand(ScilabEngineInfo* _pSEI)
 {
+    std::cout << "exec external command" << _pSEI->pstExec << std::endl;
     if (_pSEI->pstExec)
     {
         processCommand(_pSEI);
@@ -475,11 +476,9 @@ static void processCommand(ScilabEngineInfo* _pSEI)
      */
     if (_pSEI->iExecAst)
     {
-        //before calling YaspReader, try to call %onprompt function
-        callOnPrompt();
         execAstTask((ast::Exp*)_pSEI->pExpTree, _pSEI->iSerialize != 0,
                     _pSEI->iTimed != 0, _pSEI->iAstTimed != 0,
-                    _pSEI->iExecVerbose != 0, _pSEI->isInterruptible == 0);
+                    _pSEI->iExecVerbose != 0, _pSEI->isInterruptible == 0, _pSEI->isConsoleCommand != 0);
     }
 
     /*
@@ -498,18 +497,26 @@ void* scilabReadAndExecCommand(void* param)
     char* command = NULL;
     ScilabEngineInfo* _pSEI = (ScilabEngineInfo*)param;
 
-    while (!ConfigVariable::getForceQuit())
+    while (ConfigVariable::getForceQuit() == false)
     {
         if (isEmptyCommandQueue())
         {
+            std::cout << "wait for a command" << std::endl;
             __LockSignal(pLaunchScilabLock);
             __Wait(&LaunchScilab, pLaunchScilabLock);
             __UnLockSignal(pLaunchScilabLock);
+
+            if (ConfigVariable::getForceQuit())
+            {
+                break;
+            }
         }
 
         _pSEI->isInterruptible = GetCommand(&command, &iconsoleCmd);
-
+        _pSEI->isConsoleCommand = iconsoleCmd;
         __Lock(&m_ParseLock);
+
+        std::cout << "parse command : " << command << std::endl;
 
         Parser parser;
         parser.setParseTrace(_pSEI->iParseTrace != 0);
@@ -526,13 +533,7 @@ void* scilabReadAndExecCommand(void* param)
         __UnLock(&m_ParseLock);
 
         processCommand(_pSEI);
-
         FREE(command);
-
-        if (iconsoleCmd)
-        {
-            __Signal(&ExecDone);
-        }
     }
 
     return NULL;
@@ -553,15 +554,14 @@ void* scilabReadAndStore(void* param)
         command = _pSEI->pstExec;
     }
 
+    callOnPrompt();
+
     while (!ConfigVariable::getForceQuit())
     {
         Parser parser;
         parser.setParseTrace(_pSEI->iParseTrace != 0);
 
         Parser::ParserStatus exitStatus = Parser::Failed;
-
-        //before calling reader, try to call %onprompt function
-        callOnPrompt();
 
         if (ConfigVariable::isEmptyLineShow())
         {
@@ -577,6 +577,8 @@ void* scilabReadAndStore(void* param)
 
             //set prompt value
             C2F(setprlev) (&pause);
+
+            std::cout << "waiting for console command" << std::endl;
 
             char *pstRead = scilabRead();
 
@@ -615,6 +617,8 @@ void* scilabReadAndStore(void* param)
         }
         while (controlStatus != Parser::AllControlClosed);
 
+        // TO DO : delete parser.getTree() !!!
+
         if (command == NULL)
         {
             continue;
@@ -633,11 +637,16 @@ void* scilabReadAndStore(void* param)
         FREE(command);
         command = NULL;
 
+        std::cout << "wait for console execution end" << std::endl;
+
         __LockSignal(pExecDoneLock);
-        __Wait(&ExecDone, pExecDoneLock);
+        __Wait(Runner::getConsoleExecDone(), pExecDoneLock);
         __UnLockSignal(pExecDoneLock);
+
+        callOnPrompt();
     }
 
+    __Signal(&LaunchScilab);
     return NULL;
 }
 
