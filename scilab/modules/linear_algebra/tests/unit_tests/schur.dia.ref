@@ -11,7 +11,7 @@ rand('normal')
 ilib_verbose(0);
 libName = [];
 if getos() == "Windows" then
-    libName = SCI + "/bin/elem_func";
+    libName = SCI + "/bin/elementary_functions";
 end
 //define tools
 function A=testmat1(a,n)
