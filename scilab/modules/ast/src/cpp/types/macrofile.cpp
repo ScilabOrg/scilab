@@ -57,7 +57,55 @@ void MacroFile::whoAmI()
 
 bool MacroFile::toString(std::wostringstream& ostr)
 {
-    ostr << L"FIXME : Implement MacroFile::toString" << std::endl;
+
+    // get macro name
+    wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
+    ostr.str(L"");
+
+    ostr << L"[";
+
+    // output arguments [a,b,c] = ....
+    if (m_pMacro->outputs_get()->empty() == false)
+    {
+        std::list<symbol::Variable*>::iterator OutArg = m_pMacro->outputs_get()->begin();
+        std::list<symbol::Variable*>::iterator OutArgfter = OutArg;
+        OutArgfter++;
+
+        for (; OutArgfter != m_pMacro->outputs_get()->end(); OutArgfter++)
+        {
+            ostr << (*OutArg)->getSymbol().getName();
+            ostr << ",";
+            OutArg++;
+        }
+
+        ostr << (*OutArg)->getSymbol().getName();
+    }
+
+    ostr << L"]";
+
+    // function name
+    ostr << L"=" << wcsVarName << L"(";
+
+    // input arguments function(a,b,c)
+    if (m_pMacro->inputs_get()->empty() == false)
+    {
+        std::list<symbol::Variable*>::iterator inArg = m_pMacro->inputs_get()->begin();
+        std::list<symbol::Variable*>::iterator inRagAfter = inArg;
+        inRagAfter++;
+
+        for (; inRagAfter != m_pMacro->inputs_get()->end(); inRagAfter++)
+        {
+            ostr << (*inArg)->getSymbol().getName();
+            ostr << ",";
+            inArg++;
+        }
+
+        ostr << (*inArg)->getSymbol().getName();
+    }
+
+    ostr << L")" << std::endl;
+
+    FREE(wcsVarName);
     return true;
 }
 
