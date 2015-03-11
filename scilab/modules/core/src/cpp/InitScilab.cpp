@@ -479,7 +479,7 @@ static void processCommand(ScilabEngineInfo* _pSEI)
         callOnPrompt();
         execAstTask((ast::Exp*)_pSEI->pExpTree, _pSEI->iSerialize != 0,
                     _pSEI->iTimed != 0, _pSEI->iAstTimed != 0,
-                    _pSEI->iExecVerbose != 0, _pSEI->isInterruptible == 0);
+                    _pSEI->iExecVerbose != 0, _pSEI->isInterruptible == 0, _pSEI->isConsoleCommand != 0);
     }
 
     /*
@@ -508,7 +508,7 @@ void* scilabReadAndExecCommand(void* param)
         }
 
         _pSEI->isInterruptible = GetCommand(&command, &iconsoleCmd);
-
+        _pSEI->isConsoleCommand = iconsoleCmd;
         __Lock(&m_ParseLock);
 
         Parser parser;
@@ -526,13 +526,7 @@ void* scilabReadAndExecCommand(void* param)
         __UnLock(&m_ParseLock);
 
         processCommand(_pSEI);
-
         FREE(command);
-
-        if (iconsoleCmd)
-        {
-            __Signal(&ExecDone);
-        }
     }
 
     return NULL;
@@ -615,6 +609,8 @@ void* scilabReadAndStore(void* param)
         }
         while (controlStatus != Parser::AllControlClosed);
 
+        // TO DO : delete parser.getTree() !!!
+
         if (command == NULL)
         {
             continue;
@@ -634,7 +630,7 @@ void* scilabReadAndStore(void* param)
         command = NULL;
 
         __LockSignal(pExecDoneLock);
-        __Wait(&ExecDone, pExecDoneLock);
+        __Wait(Runner::getConsoleExecDone(), pExecDoneLock);
         __UnLockSignal(pExecDoneLock);
     }
 

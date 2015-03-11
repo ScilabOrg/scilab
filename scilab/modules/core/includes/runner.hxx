@@ -47,7 +47,7 @@ public :
 
     static void init();
 
-    static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPriorityThread);
+    static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPriorityThreadbool, bool _isConsoleCommand);
 
     void exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor);
 
@@ -81,6 +81,11 @@ public :
         return &m_AstPending;
     }
 
+    static __threadSignal* getConsoleExecDone(void)
+    {
+        return &m_consoleExecDone;
+    }
+
     void setThreadKey(__threadKey _threadId)
     {
         m_threadKey = _threadId;
@@ -100,6 +105,7 @@ private :
     ast::ExecVisitor*   m_visitor;
 
 private :
+    static __threadSignal m_consoleExecDone;
     static __threadSignal m_awakeScilab;
     static __threadSignalLock m_awakeScilabLock;
     static __threadLock m_lock;
