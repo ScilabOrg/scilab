@@ -14,6 +14,8 @@
 
 __threadLock Runner::m_lock;
 
+__threadSignal Runner::m_consoleExecDone;
+
 __threadSignal Runner::m_awakeScilab;
 __threadSignalLock Runner::m_awakeScilabLock;
 
@@ -26,6 +28,11 @@ using namespace ast;
 __threadSignal* getAstPendingSignal(void)
 {
     return Runner::getAstPendingSignal();
+}
+
+__threadSignal* getConsoleExecDone(void)
+{
+    return Runner::getConsoleExecDone();
 }
 
 
@@ -81,6 +88,11 @@ void *Runner::launch(void *args)
         __Signal(&Runner::m_AstPending);
     }
 
+    if (pThread->isConsoleCommand())
+    {
+        __Signal(&m_consoleExecDone);
+    }
+
     //unregister thread
     ConfigVariable::deleteThread(currentThreadKey);
 
@@ -111,7 +123,7 @@ void Runner::UnlockPrompt()
 }
 
 
-void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPrioritaryThread)
+void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPrioritaryThread, bool _isConsoleCommand)
 {
     try
     {
@@ -161,6 +173,11 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool
         if (_isPrioritaryThread)
         {
             pThread->setInterruptible(false);
+        }
+
+        if (_isConsoleCommand)
+        {
+            pThread->setConsoleCommandFlag(true);
         }
 
         //free locker to release thread && wait and of thread execution
