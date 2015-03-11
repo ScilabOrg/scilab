@@ -135,7 +135,8 @@ ScilabEngineInfo* InitScilabEngineInfo()
     pSEI->iNoBanner = 1;
 
     pSEI->iMultiLine = 0;
-    pSEI->isInterruptible = 1; // by default al thread are interruptible
+    pSEI->isInterruptible = 1;  // by default all thread are interruptible
+    pSEI->isPrioritary = 0;     // by default all thread are non-prioritary
 
     return pSEI;
 }
@@ -345,7 +346,11 @@ int ExecExternalCommand(ScilabEngineInfo* _pSEI)
 {
     if (_pSEI->pstExec)
     {
-        processCommand(_pSEI);
+        StoreConsoleCommand(_pSEI->pstExec);
+        __LockSignal(pExecDoneLock);
+        __Wait(Runner::getConsoleExecDone(), pExecDoneLock);
+        __UnLockSignal(pExecDoneLock);
+
         return ConfigVariable::getExitStatus();
     }
 
@@ -475,11 +480,10 @@ static void processCommand(ScilabEngineInfo* _pSEI)
      */
     if (_pSEI->iExecAst)
     {
-        //before calling YaspReader, try to call %onprompt function
-        callOnPrompt();
         execAstTask((ast::Exp*)_pSEI->pExpTree, _pSEI->iSerialize != 0,
                     _pSEI->iTimed != 0, _pSEI->iAstTimed != 0,
-                    _pSEI->iExecVerbose != 0, _pSEI->isInterruptible == 0);
+                    _pSEI->iExecVerbose != 0, _pSEI->isInterruptible != 0,
+                    _pSEI->isPrioritary != 0, _pSEI->isConsoleCommand != 0);
     }
 
     /*
@@ -494,23 +498,30 @@ static void processCommand(ScilabEngineInfo* _pSEI)
 // Thread used to parse and execute Scilab command setted in storeCommand
 void* scilabReadAndExecCommand(void* param)
 {
-    int iconsoleCmd = 0;
-    char* command = NULL;
+    int iInterruptibleCmd   = 0;
+    int iPrioritaryCmd      = 0;
+    int iConsoleCmd         = 0;
+    char* command           = NULL;
+
     ScilabEngineInfo* _pSEI = (ScilabEngineInfo*)param;
 
-    while (!ConfigVariable::getForceQuit())
+    while (ConfigVariable::getForceQuit() == false)
     {
-        if (isEmptyCommandQueue())
+        if (GetCommand(&command, &iInterruptibleCmd, &iPrioritaryCmd, &iConsoleCmd) == 0)
         {
+            // command queue is empty
             __LockSignal(pLaunchScilabLock);
             __Wait(&LaunchScilab, pLaunchScilabLock);
             __UnLockSignal(pLaunchScilabLock);
+
+            continue;
         }
 
-        _pSEI->isInterruptible = GetCommand(&command, &iconsoleCmd);
+        _pSEI->isInterruptible = iInterruptibleCmd;
+        _pSEI->isPrioritary = iPrioritaryCmd;
+        _pSEI->isConsoleCommand = iConsoleCmd;
 
         __Lock(&m_ParseLock);
-
         Parser parser;
         parser.setParseTrace(_pSEI->iParseTrace != 0);
         parseCommandTask(&parser, _pSEI->iTimed != 0, command);
@@ -526,13 +537,7 @@ void* scilabReadAndExecCommand(void* param)
         __UnLock(&m_ParseLock);
 
         processCommand(_pSEI);
-
         FREE(command);
-
-        if (iconsoleCmd)
-        {
-            __Signal(&ExecDone);
-        }
     }
 
     return NULL;
@@ -553,15 +558,14 @@ void* scilabReadAndStore(void* param)
         command = _pSEI->pstExec;
     }
 
-    while (!ConfigVariable::getForceQuit())
+    callOnPrompt();
+
+    while (ConfigVariable::getForceQuit() == false)
     {
         Parser parser;
         parser.setParseTrace(_pSEI->iParseTrace != 0);
 
         Parser::ParserStatus exitStatus = Parser::Failed;
-
-        //before calling reader, try to call %onprompt function
-        callOnPrompt();
 
         if (ConfigVariable::isEmptyLineShow())
         {
@@ -611,6 +615,10 @@ void* scilabReadAndStore(void* param)
             controlStatus = parser.getControlStatus();
             exitStatus = parser.getExitStatus();
             parserErrorMsg = parser.getErrorMessage();
+            if (parser.getTree())
+            {
+                delete (parser.getTree());
+            }
             __UnLock(&m_ParseLock);
         }
         while (controlStatus != Parser::AllControlClosed);
@@ -628,16 +636,19 @@ void* scilabReadAndStore(void* param)
             continue;
         }
 
-        StoreConsoleCommandWithFlag(command, 1);
+        StoreConsoleCommand(command);
 
         FREE(command);
         command = NULL;
 
         __LockSignal(pExecDoneLock);
-        __Wait(&ExecDone, pExecDoneLock);
+        __Wait(Runner::getConsoleExecDone(), pExecDoneLock);
         __UnLockSignal(pExecDoneLock);
+
+        callOnPrompt();
     }
 
+    __Signal(&LaunchScilab);
     return NULL;
 }
 

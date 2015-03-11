@@ -14,6 +14,8 @@
 
 __threadLock Runner::m_lock;
 
+__threadSignal Runner::m_consoleExecDone;
+
 __threadSignal Runner::m_awakeScilab;
 __threadSignalLock Runner::m_awakeScilabLock;
 
@@ -26,6 +28,11 @@ using namespace ast;
 __threadSignal* getAstPendingSignal(void)
 {
     return Runner::getAstPendingSignal();
+}
+
+__threadSignal* getConsoleExecDone(void)
+{
+    return Runner::getConsoleExecDone();
 }
 
 
@@ -46,6 +53,9 @@ void *Runner::launch(void *args)
     //just release locker
     __UnLock(&m_lock);
 
+    __threadKey currentThreadKey = __GetCurrentThreadKey();
+    ThreadId* pThread = ConfigVariable::getThread(currentThreadKey);
+
     //exec !
     Runner *me = (Runner *)args;
 
@@ -62,23 +72,26 @@ void *Runner::launch(void *args)
     // reset error state when new prompt occurs
     ConfigVariable::resetError();
 
-    __threadKey currentThreadKey = __GetCurrentThreadKey();
-
     //change thread status
-    ThreadId* pThread = ConfigVariable::getThread(currentThreadKey);
     if (pThread->getStatus() != ThreadId::Aborted)
     {
         pThread->setStatus(ThreadId::Done);
         bdoUnlock = true;
     }
 
-    if (pThread->isInterruptible()) // non-prioritary
+    if (pThread->getInterrupt()) // non-prioritary
     {
         // Unlock prioritary thread waiting for
         // non-prioritary thread end this "SeqExp" execution.
         // This case appear when error is throw or when
         // non-prioritary execute this last SeqExp.
+        pThread->setInterrupt(false);
         __Signal(&Runner::m_AstPending);
+    }
+
+    if (pThread->isConsoleCommand())
+    {
+        __Signal(&m_consoleExecDone);
     }
 
     //unregister thread
@@ -111,7 +124,8 @@ void Runner::UnlockPrompt()
 }
 
 
-void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool _isPrioritaryThread)
+void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
+                         bool _isPrioritaryThread, bool _isInterruptibleThread, bool _isConsoleCommand)
 {
     try
     {
@@ -132,7 +146,6 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool
                 if (pInterruptibleThread->isInterruptible())
                 {
                     pInterruptibleThread->setInterrupt(true);
-
                     __LockSignal(&m_AstPendingLock);
                     __Wait(&m_AstPending, &m_AstPendingLock);
                     __UnLockSignal(&m_AstPendingLock);
@@ -158,15 +171,14 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor, bool
         //register thread
         types::ThreadId* pThread = new ThreadId(threadId, threadKey);
         ConfigVariable::addThread(pThread);
-        if (_isPrioritaryThread)
-        {
-            pThread->setInterruptible(false);
-        }
+        pThread->setConsoleCommandFlag(_isConsoleCommand);
+        pThread->setInterruptible(_isInterruptibleThread);
+
 
         //free locker to release thread && wait and of thread execution
         LockPrompt();
 
-        if (pInterruptibleThread)
+        if (pInterruptibleThread && pInterruptibleThread->getInterrupt())
         {
             pInterruptibleThread->setInterrupt(false);
             pInterruptibleThread->resume();
