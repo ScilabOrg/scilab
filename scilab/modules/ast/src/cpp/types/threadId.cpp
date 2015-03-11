@@ -166,5 +166,14 @@ bool ThreadId::isInterruptible()
     return m_isInterruptible;
 }
 
+void ThreadId::setConsoleCommandFlag(bool _isConsoleCommand)
+{
+    m_isConsoleCommand = _isConsoleCommand;
 }
 
+bool ThreadId::isConsoleCommand()
+{
+    return m_isConsoleCommand;
+}
+
+}

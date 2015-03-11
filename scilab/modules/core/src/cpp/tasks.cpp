@@ -134,7 +134,7 @@ void printAstTask(ast::Exp *tree, bool timed)
 **
 ** Execute the stored AST.
 */
-void execAstTask(ast::Exp* tree, bool serialize, bool timed, bool ASTtimed, bool execVerbose, bool isPriorityThread)
+void execAstTask(ast::Exp* tree, bool serialize, bool timed, bool ASTtimed, bool execVerbose, bool isPriorityThread, bool isConsoleCommand)
 {
     if (tree == NULL)
     {
@@ -188,7 +188,7 @@ void execAstTask(ast::Exp* tree, bool serialize, bool timed, bool ASTtimed, bool
         exec = new ast::ExecVisitor();
     }
 
-    Runner::execAndWait(newTree, exec, isPriorityThread);
+    Runner::execAndWait(newTree, exec, isPriorityThread, isConsoleCommand);
     //DO NOT DELETE tree or newTree, they was deleted by Runner or previously;
 
     if (timed)
@@ -236,7 +236,7 @@ void execScilabStartTask(bool _bSerialize)
         return;
     }
 
-    execAstTask(parse.getTree(), _bSerialize, false, false, false, true);
+    execAstTask(parse.getTree(), _bSerialize, false, false, false, true, false);
 }
 
 /*
@@ -258,7 +258,7 @@ void execScilabQuitTask(bool _bSerialize)
         return;
     }
 
-    execAstTask(parse.getTree(), _bSerialize, false, false, false, true);
+    execAstTask(parse.getTree(), _bSerialize, false, false, false, true, false);
 }
 
 
