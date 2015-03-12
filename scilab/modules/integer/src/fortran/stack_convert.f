@@ -1,10 +1,10 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
-c 
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at  
 c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
       subroutine stackconvert(it)
@@ -18,7 +18,7 @@ C     ----------------------------------------------
 
       include 'stack.h'
       logical checkrhs,checklhs
-      integer iadr,sadr,memused
+      integer iadr,sadr,memused,temp
 c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
@@ -39,6 +39,22 @@ c     .  double to intn
             l=sadr(lr)
             istk(il)=8
             istk(il+3)=it
+            i = 0
+            do while(i .lt. mn)
+                temp = stk(l+i)
+                if(stk(l+i)>huge(stk(l+i))) then
+                    temp = huge(istk(lr+i))
+                    temp = ibits(temp,0,((8*it)-1))
+                    stk(l+i) = temp
+                elseif(stk(l+i)<-huge(stk(l+i))) then
+                    temp = 0
+                    temp = ior(temp,ishft(1,(8*it)-1))
+                    stk(l+i) = temp
+                elseif(stk(l+i).ne.stk(l+i)) then
+                    stk(l+i) = 0
+                endif
+            i = i + 1
+            end do
             call tpconv(0,it,mn,stk(l),1,istk(lr),1)
             lstk(top+1)=sadr(lr+memused(it,mn))
          endif

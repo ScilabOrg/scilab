@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #12928 fixed - int8, int16 and int32 functions fixed for %nan and %inf values.
+
 * Bug #13829 fixed - mean and sum functions returned wrong results for hypermatrices.
 
 
