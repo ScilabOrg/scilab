@@ -16,42 +16,42 @@
 
 namespace analysis
 {
-    bool LengthAnalyzer::analyze(AnalysisVisitor & visitor, const unsigned int lhs, ast::CallExp & e)
+bool LengthAnalyzer::analyze(AnalysisVisitor & visitor, const unsigned int lhs, ast::CallExp & e)
+{
+    if (lhs > 2)
     {
-        if (lhs > 2)
-        {
-            return false;
-        }
-
-        const ast::exps_t args = e.getArgs();
-        if (args.size() != 1)
-        {
-            return false;
-        }
-
-        ast::Exp * first = args.front();
-        if (!first)
-        {
-            return false;
-        }
-        first->accept(visitor);
-        Result & res = visitor.getResult();
-	TIType & resType = res.getType();
-        if (!resType.ismatrix() || resType.type == TIType::STRING)
-        {
-            return false;
-        }
-
-        TIType type(visitor.getGVN(), TIType::DOUBLEUINT);
-
-	SymbolicDimension & rows = res.getType().rows;
-	SymbolicDimension & cols = res.getType().cols;
-	SymbolicDimension prod = rows * cols;
-	e.getDecorator().res = Result(type);
-	e.getDecorator().res.setGVNValue(prod.getValue());
-	e.getDecorator().setCall(Call(Call::IDENTITY, type, L"length"));
-	visitor.setResult(e.getDecorator().res);
-
-        return true;
+        return false;
     }
+
+    const ast::exps_t args = e.getArgs();
+    if (args.size() != 1)
+    {
+        return false;
+    }
+
+    ast::Exp * first = args.front();
+    if (!first)
+    {
+        return false;
+    }
+    first->accept(visitor);
+    Result & res = visitor.getResult();
+    TIType & resType = res.getType();
+    if (!resType.ismatrix() || resType.type == TIType::STRING)
+    {
+        return false;
+    }
+
+    TIType type(visitor.getGVN(), TIType::DOUBLEUINT);
+
+    SymbolicDimension & rows = res.getType().rows;
+    SymbolicDimension & cols = res.getType().cols;
+    SymbolicDimension prod = rows * cols;
+    Result & _res = e.getDecorator().setResult(type);
+    _res.getConstant().set(prod.getValue());
+    e.getDecorator().setCall(Call(Call::IDENTITY, type, L"length"));
+    visitor.setResult(_res);
+
+    return true;
+}
 }
