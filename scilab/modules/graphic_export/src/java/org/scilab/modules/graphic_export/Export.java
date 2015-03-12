@@ -21,6 +21,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -367,6 +368,14 @@ public class Export {
                 BufferedImage image = joglCanvas.getImage();
                 //joglCanvas.destroy();
                 PNGExporter exporter = (PNGExporter) getExporter(type);
+                if (image.getType() == BufferedImage.TYPE_INT_ARGB) {
+                    // Conversion needed since JoGL 2.2.4
+                    // BMP can not be generated from ARGB image ==> convert to RGB
+                    BufferedImage argbImage = image;
+                    image = new BufferedImage(argbImage.getWidth(), argbImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    ColorConvertOp colorConvertOp = new ColorConvertOp(null);
+                    colorConvertOp.filter(argbImage, image);
+                }
                 exporter.setImage(file, image, params);
                 exporter.write();
                 exporter.dispose();
