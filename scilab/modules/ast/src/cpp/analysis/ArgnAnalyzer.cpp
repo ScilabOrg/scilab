@@ -16,33 +16,33 @@
 
 namespace analysis
 {
-    bool ArgnAnalyzer::analyze(AnalysisVisitor & visitor, const unsigned int lhs, ast::CallExp & e)
+bool ArgnAnalyzer::analyze(AnalysisVisitor & visitor, const unsigned int lhs, ast::CallExp & e)
+{
+    if (lhs > 2)
     {
-        if (lhs > 2)
+        return false;
+    }
+
+    TIType type(visitor.getGVN(), TIType::DOUBLEUINT);
+    FunctionBlock * fblock = visitor.getDM().topFunction();
+    if (!fblock)
+    {
+        if (lhs == 1)
         {
-            return false;
+            Result & res = e.getDecorator().setResult(type);
+            res.getConstant().set(0.);
+            e.getDecorator().setCall(Call(Call::IDENTITY, type, L"argn"));
+            visitor.setResult(res);
+            return true;
         }
-
-        TIType type(visitor.getGVN(), TIType::DOUBLEUINT);
-        FunctionBlock * fblock = visitor.getDM().topFunction();
-        if (!fblock)
-        {
-            if (lhs == 1)
-            {
-                e.getDecorator().res = Result(type);
-                e.getDecorator().res.setValue(0, tools::IntType::UNSIGNED);
-                e.getDecorator().setCall(Call(Call::IDENTITY, type, L"argn"));
-                visitor.setResult(e.getDecorator().res);
-                return true;
-            }
-            return false;
-        }
+        return false;
+    }
 
 
-        enum Kind { LHS, RHS, LHSRHS } kind;
-        const ast::exps_t args = e.getArgs();
-        switch (args.size())
-        {
+    enum Kind { LHS, RHS, LHSRHS } kind;
+    const ast::exps_t args = e.getArgs();
+    switch (args.size())
+    {
         case 0:
         {
             if (lhs == 1)
@@ -93,18 +93,18 @@ namespace analysis
         }
         default:
             return false;
-        }
+    }
 
-        switch (kind)
-        {
+    switch (kind)
+    {
         case LHS:
         case RHS:
         {
             const unsigned int val = kind == LHS ? fblock->getLHS() : fblock->getRHS();
-            e.getDecorator().res = Result(type);
-            e.getDecorator().res.setValue(val, tools::IntType::UNSIGNED);
+            Result & res = e.getDecorator().setResult(type);
+            res.getConstant().set(val);
             e.getDecorator().setCall(Call(Call::IDENTITY, type, L"argn"));
-            visitor.setResult(e.getDecorator().res);
+            visitor.setResult(res);
         }
         case LHSRHS:
         {
@@ -115,14 +115,14 @@ namespace analysis
             const unsigned int flhs = fblock->getLHS();
             const unsigned int frhs = fblock->getRHS();
             mlhs.emplace_back(type);
-            mlhs.back().setValue(flhs, tools::IntType::UNSIGNED);
+            mlhs.back().getConstant().set((double)flhs);
             mlhs.emplace_back(type);
-            mlhs.back().setValue(frhs, tools::IntType::UNSIGNED);
+            mlhs.back().getConstant().set((double)frhs);
 
             e.getDecorator().setCall(Call(Call::IDENTITY, type, L"argn"));
         }
-        }
-
-        return true;
     }
+
+    return true;
+}
 }

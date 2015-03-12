@@ -16,35 +16,35 @@
 
 namespace analysis
 {
-    bool SizeAnalyzer::analyze(AnalysisVisitor & visitor, const unsigned int lhs, ast::CallExp & e)
+bool SizeAnalyzer::analyze(AnalysisVisitor & visitor, const unsigned int lhs, ast::CallExp & e)
+{
+    if (lhs > 2)
     {
-        if (lhs > 2)
-        {
-            return false;
-        }
+        return false;
+    }
 
-        const ast::exps_t args = e.getArgs();
-        enum Kind { ROWS, COLS, ROWSTIMESCOLS, ROWSCOLS, ONE } kind;
-        const std::size_t size = args.size();
-        if (size == 0 || size >= 3)
-        {
-            return false;
-        }
+    const ast::exps_t args = e.getArgs();
+    enum Kind { ROWS, COLS, ROWSTIMESCOLS, ROWSCOLS, ONE } kind;
+    const std::size_t size = args.size();
+    if (size == 0 || size >= 3)
+    {
+        return false;
+    }
 
-        ast::Exp * first = *args.begin();
-        if (!first)
-        {
-            return false;
-        }
-        first->accept(visitor);
-        Result & res = visitor.getResult();
-        if (!res.getType().ismatrix())
-        {
-            return false;
-        }
+    ast::Exp * first = *args.begin();
+    if (!first)
+    {
+        return false;
+    }
+    first->accept(visitor);
+    Result & res = visitor.getResult();
+    if (!res.getType().ismatrix())
+    {
+        return false;
+    }
 
-        switch (size)
-        {
+    switch (size)
+    {
         case 1:
             if (lhs == 1)
             {
@@ -109,28 +109,28 @@ namespace analysis
         }
         default:
             return false;
-        }
+    }
 
-        TIType type(visitor.getGVN(), TIType::DOUBLEUINT);
+    TIType type(visitor.getGVN(), TIType::DOUBLEUINT);
 
-        switch (kind)
-        {
+    switch (kind)
+    {
         case ROWS:
         {
             SymbolicDimension & rows = res.getType().rows;
-            e.getDecorator().res = Result(type);
-            e.getDecorator().res.setGVNValue(rows.getValue());
+            Result & _res = e.getDecorator().setResult(type);
+            _res.getConstant().set(rows.getValue());
             e.getDecorator().setCall(Call(Call::IDENTITY, type, L"size"));
-            visitor.setResult(e.getDecorator().res);
+            visitor.setResult(_res);
             break;
         }
         case COLS:
         {
             SymbolicDimension & cols = res.getType().cols;
-            e.getDecorator().res = Result(type);
-            e.getDecorator().res.setGVNValue(cols.getValue());
+            Result & _res = e.getDecorator().setResult(type);
+            _res.getConstant().set(cols.getValue());
             e.getDecorator().setCall(Call(Call::IDENTITY, type, L"size"));
-            visitor.setResult(e.getDecorator().res);
+            visitor.setResult(_res);
             break;
         }
         case ROWSTIMESCOLS:
@@ -138,10 +138,10 @@ namespace analysis
             SymbolicDimension & rows = res.getType().rows;
             SymbolicDimension & cols = res.getType().cols;
             SymbolicDimension prod = rows * cols;
-            e.getDecorator().res = Result(type);
-            e.getDecorator().res.setGVNValue(prod.getValue());
+            Result & _res = e.getDecorator().setResult(type);
+            _res.getConstant().set(prod.getValue());
             e.getDecorator().setCall(Call(Call::IDENTITY, type, L"size"));
-            visitor.setResult(e.getDecorator().res);
+            visitor.setResult(_res);
             break;
         }
         case ROWSCOLS:
@@ -152,15 +152,15 @@ namespace analysis
             mlhs.clear();
             mlhs.reserve(2);
             mlhs.emplace_back(type);
-            mlhs.back().setGVNValue(rows.getValue());
+            mlhs.back().getConstant().set(rows.getValue());
             mlhs.emplace_back(type);
-            mlhs.back().setGVNValue(cols.getValue());
+            mlhs.back().getConstant().set(cols.getValue());
 
             e.getDecorator().setCall(Call(Call::IDENTITY, type, L"size"));
             break;
         }
-        }
-
-        return true;
     }
+
+    return true;
+}
 }
