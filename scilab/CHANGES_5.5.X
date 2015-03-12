@@ -75,6 +75,8 @@ Scilab Bug Fixes
 
 * Bug #12842 fixed - Scilab could not be launched under some platforms (ATOMS internal library loading problem).
 
+* Bug #12928 fixed - Fix int32, int16 and int8 with %nan and %inf behaviors
+
 * Bug #13372 fixed - xsetm should have been removed in Scilab 5.5.0.
 
 * Bug #13437 fixed - axis drawn by drawaxis used different font than those drawn by plot.
