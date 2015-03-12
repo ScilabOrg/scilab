@@ -39,7 +39,22 @@ c     .  double to intn
             l=sadr(lr)
             istk(il)=8
             istk(il+3)=it
-            call tpconv(0,it,mn,stk(l),1,istk(lr),1)
+            if(stk(l)>huge(stk(l))) then
+                istk(lr) = huge(istk(lr))
+                istk(lr) = ibits(istk(lr),0,((8*it)-1))
+                stk(l) = istk(lr)
+                call tpconv(0,it,mn,stk(l),1,istk(lr),1)
+            elseif(stk(l)<-huge(stk(l))) then
+                istk(lr) = 0
+                istk(lr) = ior(istk(lr),ishft(1,(8*it)-1))
+                stk(l) = istk(lr)
+                call tpconv(0,it,mn,stk(l),1,istk(lr),1)
+            elseif(stk(l).ne.stk(l)) then
+                istk(lr) = 0
+            else
+                istk(lr) = 0
+                call tpconv(0,it,mn,stk(l),1,istk(lr),1)
+            endif
             lstk(top+1)=sadr(lr+memused(it,mn))
          endif
       elseif(istk(il).eq.8) then
