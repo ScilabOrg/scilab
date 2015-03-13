@@ -95,9 +95,6 @@
     <None Include="output_stream_Import.def">
       <Filter>Libraries Dependencies</Filter>
     </None>
-    <None Include="threads_Import.def">
-      <Filter>Libraries Dependencies</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\exps\all.hxx">
@@ -667,6 +664,9 @@
     <ClInclude Include="includes\analysis\gvn\InferenceConstraint.hxx">
       <Filter>Header Files\analysis\gvn</Filter>
     </ClInclude>
+    <ClInclude Include="includes\system_env\threadmanagement.hxx">
+      <Filter>Header Files\system_env</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\ast\debugvisitor.cpp">
@@ -932,6 +932,9 @@
     </ClCompile>
     <ClCompile Include="src\cpp\analysis\InferenceConstraints.cpp">
       <Filter>Source Files\ast\analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\system_env\threadmanagement.cpp">
+      <Filter>Source Files\system_env</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
