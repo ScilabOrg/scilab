@@ -45,8 +45,6 @@ private :
 
 public :
 
-    static void init();
-
     static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
                             bool _isInterruptible, bool _isPrioritary, bool _isConsoleCommand);
 
@@ -77,24 +75,10 @@ public :
         return m_threadKey;
     }
 
-    static __threadSignal* getAstPendingSignal(void)
-    {
-        return &m_AstPending;
-    }
-
-    static __threadSignal* getConsoleExecDone(void)
-    {
-        return &m_consoleExecDone;
-    }
-
     void setThreadKey(__threadKey _threadId)
     {
         m_threadKey = _threadId;
     }
-
-    static void UnlockPrompt();
-
-    static void LockPrompt();
 
 private :
     static void *launch(void *args);
@@ -104,14 +88,5 @@ private :
     __threadId m_threadId;
     ast::Exp*           m_theProgram;
     ast::ExecVisitor*   m_visitor;
-
-private :
-    static __threadSignal m_consoleExecDone;
-    static __threadSignal m_awakeScilab;
-    static __threadSignalLock m_awakeScilabLock;
-    static __threadLock m_lock;
-    static __threadLock m_PrioritaryLock;
-    static __threadSignal m_AstPending;
-    static __threadSignalLock m_AstPendingLock;
 };
 #endif /* !__RUNNER_HXX__ */
