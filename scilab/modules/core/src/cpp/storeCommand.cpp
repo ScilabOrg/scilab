@@ -92,6 +92,22 @@ static void release(void)
     }
 }
 /*--------------------------------------------------------------------------*/
+int StoreCommandWithFlags(char** cmd, int iPrioritary, int iInterruptible, int iConsole)
+{
+    __Lock(getCommandQueueSingleAccess());
+    if (piPrioritary)
+    {
+        commandQueuePrioritary.emplace_back(os_strdup(command), iPrioritary, iInterruptible, iConsole);
+    }
+    else
+    {
+        commandQueue.emplace_back(os_strdup(command), iPrioritary, iInterruptible, iConsole);
+    }
+    __UnLock(getCommandQueueSingleAccess());
+    __Signal(&LaunchScilab);
+
+}
+
 int StoreCommand(char *command)
 {
     __Lock(getCommandQueueSingleAccess());
@@ -140,7 +156,7 @@ int isEmptyCommandQueue(void)
  * Gets the next command to execute
  * and remove it from the queue
  */
-int GetCommand (char** cmd, int* piInterruptible, int* piPrioritary, int* piConsole)
+int GetCommand(char** cmd, int* piPrioritary, int* piInterruptible, int* piConsole)
 {
     int iCommandReturned = 0;
 
