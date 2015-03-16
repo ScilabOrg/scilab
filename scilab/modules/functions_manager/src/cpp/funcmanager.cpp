@@ -353,6 +353,7 @@ bool FuncManager::CreateModuleList(void)
 
     if (ConfigVariable::getScilabMode() != SCILAB_NWNI)
     {
+        m_ModuleMap[L"tclsci"] = pair<GW_MOD, GW_MOD>(&TclsciModule::Load, &TclsciModule::Unload);
         m_ModuleMap[L"jvm"] = pair<GW_MOD, GW_MOD>(&JvmModule::Load, &JvmModule::Unload);
     }
 #ifdef _MSC_VER
