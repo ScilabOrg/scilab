@@ -23,6 +23,7 @@ extern "C"
 class EXTERN_AST ThreadManagement
 {
 private :
+
     static __threadLock m_RunnerLock;
     static __threadLock m_StartLock;
     static __threadLock m_ParseLock;
@@ -42,6 +43,9 @@ private :
 
     static __threadSignal m_CommandStored;
     static __threadSignalLock m_CommandStoredLock;
+
+    static __threadSignal m_EmptyQueue;
+    static __threadSignalLock m_EmptyQueueLock;
 
 
 public :
@@ -67,6 +71,8 @@ public :
     static void WaitForStartPendingSignal(void);
     static void SendCommandStoredSignal(void);
     static void WaitForCommandStoredSignal(void);
+    static void SendEmptyQueueSignal(void);
+    static void WaitForEmptyQueueSignal(void);
 
 };
 
