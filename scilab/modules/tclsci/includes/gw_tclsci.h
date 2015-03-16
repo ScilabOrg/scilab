@@ -16,12 +16,13 @@
 #define __GW_TCLSCI__
 /*--------------------------------------------------------------------------*/
 #include "dynlib_tclsci.h"
+#include "c_gateway_prototype.h"
 /*--------------------------------------------------------------------------*/
-TCLSCI_IMPEXP int gw_tclsci(void);
-/*--------------------------------------------------------------------------*/
+C_GATEWAY_PROTOTYPE(sci_TCL_EvalStr);
+
 int sci_TCL_DoOneEvent (char *fname, unsigned long fname_len);
 int sci_TCL_EvalFile(char *fname, unsigned long fname_len);
-int sci_TCL_EvalStr(char *fname, unsigned long fname_len);
+//int sci_TCL_EvalStr(char *fname, unsigned long fname_len);
 int sci_TCL_GetVar(char *fname, unsigned long fname_len);
 int sci_TCL_SetVar(char *fname, unsigned long fname_len);
 int sci_opentk(char *fname, unsigned long fname_len);
@@ -36,4 +37,3 @@ int sci_TCL_ExistArray(char *fname, unsigned long fname_len);
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_TCLSCI__ */
 /*--------------------------------------------------------------------------*/
-

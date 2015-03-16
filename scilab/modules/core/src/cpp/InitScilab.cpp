@@ -57,7 +57,6 @@ extern "C"
 #include "h5_fileManagement.h"
 #include "with_fftw.h"
 
-
 #ifdef _MSC_VER
 #include "InitializeWindows_tools.h"
 #include "TerminateWindows_tools.h"
@@ -225,12 +224,6 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
 
     if (_pSEI->iNoJvm == 0) // With JVM
     {
-        /* bug 3702 */
-        /* tclsci creates a TK window on Windows */
-        /* it changes focus on previous windows */
-        /* we put InitializeTclTk before InitializeGUI */
-
-        //InitializeTclTk();
         InitializeJVM();
         InitializeGUI();
 
@@ -404,7 +397,6 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     // stop the JVM
     if (_pSEI->iNoJvm == 0)
     {
-        //dynamic_TerminateTclTk();
         TerminateGraphics();
         TerminateJVM();
     }
