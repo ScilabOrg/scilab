@@ -555,6 +555,7 @@ types::ThreadId* ConfigVariable::getThread(__threadKey _key)
 
 void ConfigVariable::deleteThread(__threadKey _key)
 {
+    bool bFound = false;
     std::list<types::ThreadId *>::iterator it;
     for (it = ConfigVariable::m_threadList.begin() ; it != ConfigVariable::m_threadList.end() ; ++it)
     {
@@ -565,11 +566,19 @@ void ConfigVariable::deleteThread(__threadKey _key)
             {
                 (*it)->killMe();
                 (*it) = NULL;
-                m_threadList.erase(it);
-                return;
             }
+
+            bFound = true;
+            break;
         }
     }
+
+    if (bFound)
+    {
+        m_threadList.erase(it);
+    }
+
+    return;
 }
 
 /*

@@ -131,13 +131,6 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
             pInterruptibleThread->setInterrupt(false);
             pInterruptibleThread->resume();
         }
-
-        types::ThreadId* pExecThread = ConfigVariable::getThread(threadKey);
-        if (pExecThread == NULL)
-        {
-            //call pthread_join to clean stack allocation
-            __WaitThreadDie(threadId);
-        }
     }
     catch (const ast::ScilabException& se)
     {

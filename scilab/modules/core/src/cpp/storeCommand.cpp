@@ -49,6 +49,28 @@ struct CommandRec
 static std::list<CommandRec> commandQueue;
 static std::list<CommandRec> commandQueuePrioritary;
 /*--------------------------------------------------------------------------*/
+int StoreCommandWithFlags(char* command, int iPrioritary, int iInterruptible, int iConsole)
+{
+    ThreadManagement::LockStoreCommand();
+    if (iPrioritary)
+    {
+        commandQueuePrioritary.emplace_back(os_strdup(command), iPrioritary, iInterruptible, iConsole);
+
+        // Awake Runner to execute this prioritary command
+        ThreadManagement::SendAwakeRunnerSignal();
+    }
+    else
+    {
+        commandQueue.emplace_back(os_strdup(command), iPrioritary, iInterruptible, iConsole);
+    }
+
+    ThreadManagement::UnlockStoreCommand();
+    // Awake Scilab to execute a new command
+    ThreadManagement::SendCommandStoredSignal();
+
+    return 0;
+}
+
 int StoreCommand(char *command)
 {
     ThreadManagement::LockStoreCommand();
@@ -107,7 +129,7 @@ int isEmptyCommandQueue(void)
  * Gets the next command to execute
  * and remove it from the queue
  */
-int GetCommand (char** cmd, int* piInterruptible, int* piPrioritary, int* piConsole)
+int GetCommand(char** cmd, int* piPrioritary, int* piInterruptible, int* piConsole)
 {
     int iCommandReturned = 0;
 
@@ -140,6 +162,7 @@ int GetCommand (char** cmd, int* piInterruptible, int* piPrioritary, int* piCons
 
     return iCommandReturned;
 }
+
 /*--------------------------------------------------------------------------*/
 int ismenu(void)
 {
