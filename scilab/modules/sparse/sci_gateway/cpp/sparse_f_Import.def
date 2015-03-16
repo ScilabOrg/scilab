@@ -3,4 +3,5 @@ LIBRARY    sparse_f.dll
 
 EXPORTS
 ordmmd_
-
+sfinit_
+symfct_
