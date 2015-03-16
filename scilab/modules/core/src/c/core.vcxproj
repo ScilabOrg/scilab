@@ -258,7 +258,6 @@ cd ..
     <ClCompile Include="commandwords.c" />
     <ClCompile Include="DllmainCore.c" />
     <ClCompile Include="dynamic_gateways.c" />
-    <ClCompile Include="dynamic_parallel.c" />
     <ClCompile Include="dynamic_tclsci.c" />
     <ClCompile Include="freeArrayOfString.c" />
     <ClCompile Include="getcommandlineargs.c" />
@@ -310,6 +309,7 @@ cd ..
     <ClInclude Include="..\..\includes\commandwords.h" />
     <ClInclude Include="..\..\includes\core_gw.hxx" />
     <ClInclude Include="..\..\includes\core_math.h" />
+    <ClInclude Include="..\..\includes\dynamic_tclsci.h" />
     <ClInclude Include="..\..\includes\dynlib_core.h" />
     <ClInclude Include="..\..\includes\existfunction.h" />
     <ClInclude Include="..\..\includes\exit_status.hxx" />
@@ -369,8 +369,6 @@ cd ..
     <ClInclude Include="..\cpp\unrolled_algorithms.hxx" />
     <ClInclude Include="backtrace.h" />
     <ClInclude Include="dynamic_gateways.h" />
-    <ClInclude Include="dynamic_parallel.h" />
-    <ClInclude Include="dynamic_tclsci.h" />
     <ClInclude Include="getdebuginfo.h" />
     <ClInclude Include="getdynamicdebuginfo.h" />
     <ClInclude Include="getdynamicDebugInfo_Windows.h" />
