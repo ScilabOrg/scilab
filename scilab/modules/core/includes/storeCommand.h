@@ -20,6 +20,17 @@
 /**
  * Store a non-prioritary and interruptible command
  *
+ * @param command           : command wich will be stored
+ * @param piInterruptible   : 1 if it is a interruptible command
+ * @param piPrioritary      : 1 if it is a prioritary command
+ * @param piConsole         : 1 if it is a console command
+ * @return <ReturnValue>
+ */
+int StoreCommandWithFlags(char* command, int iPrioritary, int iInterruptible, int iConsole);
+
+/**
+ * Store a non-prioritary and interruptible command
+ *
  * @param command : the command
  * @return <ReturnValue>
  */
@@ -50,15 +61,13 @@ int StorePrioritaryCommand(char *command);
  * @param piConsole         : 1 if it is a console command
  * @return <ReturnValue>    : 0 if command queue is empty
  */
-int GetCommand (char** command, int* piInterruptible, int* piPrioritary, int* piConsole);
+int GetCommand(char** command, int* piPrioritary, int* piInterruptible, int* piConsole);
 
 /**
 * check if command queue is empty
 * @return 1 if empty , 0 is not empty
 */
 int isEmptyCommandQueue(void);
-
-
 
 /*
  * Checks if there's something on the

@@ -32,6 +32,9 @@ __threadSignalLock ThreadManagement::m_StartPendingLock;
 __threadSignal ThreadManagement::m_CommandStored;
 __threadSignalLock ThreadManagement::m_CommandStoredLock;
 
+__threadSignal ThreadManagement::m_EmptyQueue;
+__threadSignalLock ThreadManagement::m_EmptyQueueLock;
+
 
 void ThreadManagement::initialize()
 {
@@ -54,6 +57,9 @@ void ThreadManagement::initialize()
 
     __InitSignal(&m_CommandStored);
     __InitSignalLock(&m_CommandStoredLock);
+
+    __InitSignal(&m_EmptyQueue);
+    __InitSignalLock(&m_EmptyQueueLock);
 
 }
 
@@ -167,4 +173,18 @@ void ThreadManagement::WaitForCommandStoredSignal(void)
     __LockSignal(&m_CommandStoredLock);
     __Wait(&m_CommandStored, &m_CommandStoredLock);
     __UnLockSignal(&m_CommandStoredLock);
+}
+
+void ThreadManagement::SendEmptyQueueSignal(void)
+{
+    __LockSignal(&m_EmptyQueueLock);
+    __Signal(&m_EmptyQueue);
+    __UnLockSignal(&m_EmptyQueueLock);
+}
+
+void ThreadManagement::WaitForEmptyQueueSignal(void)
+{
+    __LockSignal(&m_EmptyQueueLock);
+    __Wait(&m_EmptyQueue, &m_EmptyQueueLock);
+    __UnLockSignal(&m_EmptyQueueLock);
 }
