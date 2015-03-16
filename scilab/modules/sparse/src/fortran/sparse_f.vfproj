@@ -61,6 +61,7 @@
 		<File RelativePath=".\ordmmd.f"/>
 		<File RelativePath="spreshape.f"/>
 		<File RelativePath="spt.f"/>
+		<File RelativePath=".\symfct.f"/>
 		<File RelativePath="sz2ptr.f"/></Filter>
 		<File RelativePath="..\..\Makefile.am"/></Files>
 	<Globals/></VisualStudioProject>

@@ -41,7 +41,7 @@ int sci_blkfc1i (char *fname, unsigned long fname_len);
 int sci_blkslvi (char *fname, unsigned long fname_len);
 int sci_inpnvi (char *fname, unsigned long fname_len);
 int sci_sfinit (char *fname, unsigned long fname_len);
-int sci_symfcti (char *fname, unsigned long fname_len);
+int sci_bfinit (char *fname, unsigned long fname_len);
 int sci_bfinit (char *fname, unsigned long fname_len);
 int sci_msparse (char *fname, unsigned long fname_len);
 int sci_mspget (char *fname, unsigned long fname_len);
