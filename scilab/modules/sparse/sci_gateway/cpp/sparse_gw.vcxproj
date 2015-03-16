@@ -202,6 +202,7 @@
     <ClCompile Include="sci_lusolve.cpp" />
     <ClCompile Include="sci_nnz.cpp" />
     <ClCompile Include="sci_ordmmd.cpp" />
+    <ClCompile Include="sci_sfinit.cpp" />
     <ClCompile Include="sci_sp2adj.cpp" />
     <ClCompile Include="sci_sparse.cpp" />
     <ClCompile Include="sci_spcompack.cpp" />
