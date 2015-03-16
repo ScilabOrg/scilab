@@ -43,11 +43,11 @@ static void *DaemonOpenTCLsci(void* in)
 /* Checks if tcl/tk has already been initialised and if not */
 /* initialise it. It must find the tcl script */
 {
-    char *SciPath							= NULL;
-    char *SciPathShort				= NULL;
-    char *TkScriptpathShort		= NULL;
-    BOOL tkStarted						= FALSE;
-    BOOL bOK									= FALSE;
+    char *SciPath           = NULL;
+    char *SciPathShort      = NULL;
+    char *TkScriptpathShort = NULL;
+    BOOL tkStarted          = FALSE;
+    BOOL bOK                = FALSE;
 
     char TkScriptpath[PATH_MAX];
     char MyCommand[2048]; /* @TODO: Check for buffer overflow */
@@ -211,7 +211,6 @@ static void *DaemonOpenTCLsci(void* in)
     // and run as if it's in the main program thread.
     startTclLoop();
     return (0);
-
 }
 /*--------------------------------------------------------------------------*/
 int OpenTCLsci(void)
