@@ -9,7 +9,6 @@ if TCLTK
 TCLSCI_C_SOURCES = \
     src/c/TCL_Global.c \
     src/c/InitTclTk.c \
-    src/c/ScilabEval.c \
     src/c/setenvtcl.c \
     src/c/InitializeTclTk.c \
     src/c/TerminateTclTk.c \
@@ -20,7 +19,11 @@ TCLSCI_C_SOURCES = \
     src/c/TCL_ArraySize.c \
     src/c/TCL_Command.c \
     src/c/GlobalTclInterp.c \
-    src/c/TCL_getErrorLine.c
+    src/c/TCL_getErrorLine.c \
+    src/c/LoadUnloadTclsci.c
+
+TCLSCI_CPP_SOURCES = \
+    src/cpp/ScilabEval.cpp
 
 GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_opentk.c \
@@ -29,19 +32,19 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_TCL_DoOneEvent.c \
     sci_gateway/c/sci_TCL_UnsetVar.c \
     sci_gateway/c/sci_TCL_ExistInterp.c \
-    sci_gateway/c/gw_tclsci.c \
     sci_gateway/c/sci_TCL_EvalStr.c \
     sci_gateway/c/sci_TCL_DeleteInterp.c \
     sci_gateway/c/sci_TCL_GetVersion.c \
     sci_gateway/c/sci_TCL_EvalFile.c \
     sci_gateway/c/sci_TCL_GetVar.c \
     sci_gateway/c/sci_TCL_ExistArray.c \
+    sci_gateway/c/sci_TCL_CreateSlave.c \
     sci_gateway/c/sci_TCL_UpVar.c
 
 else
 
 TCLSCI_C_SOURCES = src/notclsci/notclsci.c
-
+TCLSCI_CPP_SOURCES =
 GATEWAY_C_SOURCES =
 
 endif
@@ -73,9 +76,10 @@ libscitclsci_la_CPPFLAGS= \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     -I$(top_srcdir)/modules/threads/includes/ \
     -I$(top_srcdir)/modules/string/includes/ \
+    -I$(top_srcdir)/modules/dynamic_link/includes/ \
     $(AM_CPPFLAGS)
 
-libscitclsci_algo_la_SOURCES = $(TCLSCI_C_SOURCES)
+libscitclsci_algo_la_SOURCES = $(TCLSCI_CPP_SOURCES) $(TCLSCI_C_SOURCES)
 libscitclsci_la_SOURCES = $(GATEWAY_C_SOURCES)
 libscitclsci_algo_la_CPPFLAGS = $(libscitclsci_la_CPPFLAGS)
 
@@ -89,7 +93,7 @@ modulename=tclsci
 
 #### tclsci : Conf files ####
 libscitclsci_la_rootdir = $(mydatadir)
-libscitclsci_la_root_DATA =  license.txt 
+libscitclsci_la_root_DATA =  license.txt
 
 #### tclsci : init scripts ####
 libscitclsci_la_etcdir = $(mydatadir)/etc
