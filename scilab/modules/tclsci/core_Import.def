@@ -8,10 +8,11 @@ intersci_
 stack_
 vstk_
 iop_
+StorePrioritaryCommand
+StoreConsoleCommand
 StoreCommand
 GetCommand
 ismenu
-StorePrioritaryCommand
 freeArrayOfString
 MyHeapAlloc
 MyHeapFree
