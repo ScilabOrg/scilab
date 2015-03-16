@@ -22,6 +22,7 @@ extern "C"
 #include <libxml/xmlreader.h>
 #include "sci_malloc.h"
 #include "configvariable_interface.h"
+#include "dynamic_tclsci.h"
 }
 
 using namespace types;
@@ -614,6 +615,45 @@ int ExternalObjectsModule::Load()
 int ExternalObjectsJavaModule::Load()
 {
     wstring wstModuleName = L"external_objects_java";
+#ifdef _MSC_VER
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_1);
+#else
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
+#endif
+    vectGateway vect = loadGatewaysName(wstModuleName);
+
+    for (int i = 0 ; i < (int)vect.size() ; i++)
+    {
+        symbol::Context::getInstance()->addFunction(types::Function::createFunction(vect[i].wstFunction, vect[i].wstName, pwstLibName, vect[i].iType, NULL, wstModuleName));
+    }
+
+    FREE(pwstLibName);
+    return 1;
+}
+
+bool TclsciModule::loadedDep = false;
+void TclsciModule::LoadDeps(std::wstring _functionName)
+{
+    if (loadedDep == false)
+    {
+        wstring wstModuleName = L"tclsci";
+#ifdef _MSC_VER
+        wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_1);
+#else
+        wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
+#endif
+        DynLibHandle h = ConfigVariable::getDynModule(pwstLibName);
+        FREE(pwstLibName);
+
+        setTclLibHandle(h);
+
+        loadedDep = true;
+    }
+};
+
+int TclsciModule::Load()
+{
+    wstring wstModuleName = L"tclsci";
 #ifdef _MSC_VER
     wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_1);
 #else

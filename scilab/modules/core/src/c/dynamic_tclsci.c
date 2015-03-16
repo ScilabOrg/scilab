@@ -11,11 +11,11 @@
 */
 /*--------------------------------------------------------------------------*/
 #include "dynamic_tclsci.h"
-//#include "callDynamicGateway.h"
 #include "gw_dynamic_generic.h"
 #include "configvariable_interface.h"
 #include "with_module.h"
 #include "sci_malloc.h"
+
 /*--------------------------------------------------------------------------*/
 /* tclsci module */
 #define TCLSCI_MODULE_NAME "tclsci"
@@ -32,14 +32,9 @@ static PROC_SETENVTCL ptr_setenvtcl = NULL;
 typedef BOOL (*PROC_TERMINATETCLTK) (void);
 static PROC_TERMINATETCLTK ptr_TerminatTclTk = NULL;
 /*--------------------------------------------------------------------------*/
-int gw_dynamic_tclsci(void)
+void setTclLibHandle(DynLibHandle _handle)
 {
-    //return gw_dynamic_generic(TCLSCI_MODULE_NAME,
-    //    &dynlibname_tclsci,
-    //    &gatewayname_tclsci,
-    //    &hTclsciLib,
-    //    &ptr_gw_tclsci);
-    return 0;
+    hTclsciLib = _handle;
 }
 /*--------------------------------------------------------------------------*/
 int dynamic_setenvtcl(const char *string, const char *value)
@@ -58,31 +53,5 @@ int dynamic_setenvtcl(const char *string, const char *value)
         return (ptr_setenvtcl)(string , value);
     }
     return 0;
-}
-/*--------------------------------------------------------------------------*/
-BOOL dynamic_TerminateTclTk(void)
-{
-    if (hTclsciLib)
-    {
-        BOOL bResult = FALSE;
-        if (ptr_TerminatTclTk == NULL)
-        {
-            ptr_TerminatTclTk = (PROC_TERMINATETCLTK) GetDynLibFuncPtr(hTclsciLib,
-                                TERMINATETCLTK_NAME);
-            if (ptr_TerminatTclTk == NULL)
-            {
-                return FALSE;
-            }
-        }
-        bResult = (ptr_TerminatTclTk)();
-
-        //freeDynamicGateway(&dynlibname_tclsci,
-        //    &gatewayname_tclsci,
-        //    &hTclsciLib,
-        //    &ptr_gw_tclsci);
-
-        return bResult;
-    }
-    return FALSE;
 }
 /*--------------------------------------------------------------------------*/
