@@ -10,6 +10,13 @@
 *
 */
 
+//#define __DEBUG_LOCK
+//#define __DEBUG_SIGNAL
+# if defined(__DEBUG_SIGNAL) || defined(__DEBUG_LOCK)
+#include <iostream>
+# endif
+
+
 #include "threadmanagement.hxx"
 
 #ifdef DEBUG_THREAD
@@ -221,6 +228,9 @@ void ThreadManagement::SendConsoleExecDoneSignal(void)
 
 void ThreadManagement::WaitForConsoleExecDoneSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "WaitForConsoleExecDoneSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_ConsoleExecDoneLock);
     ThreadManagement::UnlockStoreCommand();
     m_ConsoleExecDoneWasSignalled = false;
@@ -248,8 +258,12 @@ void ThreadManagement::WaitForConsoleExecDoneSignal(void)
 
     The loop while is used to avoid spurious wakeup of __Wait.
 ***/
+
 void ThreadManagement::SendAwakeRunnerSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "SendAwakeRunnerSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_AwakeRunnerLock);
     m_AwakeRunnerWasSignalled = true;
 #ifdef DEBUG_THREAD
@@ -261,6 +275,9 @@ void ThreadManagement::SendAwakeRunnerSignal(void)
 
 void ThreadManagement::WaitForAwakeRunnerSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "WaitForAwakeRunnerSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_AwakeRunnerLock);
     ThreadManagement::UnlockRunner();
     m_AwakeRunnerWasSignalled = false;
@@ -290,6 +307,9 @@ void ThreadManagement::WaitForAwakeRunnerSignal(void)
 ***/
 void ThreadManagement::SendStartPendingSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "SendStartPendingSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_StartPendingLock);
     m_StartPendingWasSignalled = true;
 #ifdef DEBUG_THREAD
@@ -301,6 +321,9 @@ void ThreadManagement::SendStartPendingSignal(void)
 
 void ThreadManagement::WaitForStartPendingSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "WaitForStartPendingSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_StartPendingLock);
     while (m_StartPendingWasSignalled == false)
     {
@@ -326,6 +349,9 @@ void ThreadManagement::WaitForStartPendingSignal(void)
 ***/
 void ThreadManagement::SendCommandStoredSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "SendCommandStoredSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_CommandStoredLock);
     m_CommandStoredWasSignalled = true;
 #ifdef DEBUG_THREAD
@@ -337,6 +363,9 @@ void ThreadManagement::SendCommandStoredSignal(void)
 
 void ThreadManagement::WaitForCommandStoredSignal(void)
 {
+# ifdef __DEBUG_SIGNAL
+    std::cout << "WaitForCommandStoredSignal" << std::endl;
+# endif // __DEBUG_SIGNAL
     __LockSignal(&m_CommandStoredLock);
     while (m_CommandStoredWasSignalled == false)
     {
