@@ -14,3 +14,4 @@ intersci_
 MyHeapAlloc
 MyHeapFree
 MyHeapRealloc
+setTclLibHandle

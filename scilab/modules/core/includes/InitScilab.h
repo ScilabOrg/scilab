@@ -14,6 +14,8 @@
 #ifndef __INITSCILAB_H__
 #define __INITSCILAB_H__
 
+#include "storeCommand.h" // command_origin_t
+
 typedef struct
 {
     int iParseTrace;
@@ -39,7 +41,7 @@ typedef struct
     int iMultiLine;
     int isInterruptible;
     int isPrioritary;
-    int isConsoleCommand;
+    enum command_origin_t iCommandOrigin;
 } ScilabEngineInfo;
 
 ScilabEngineInfo* InitScilabEngineInfo();

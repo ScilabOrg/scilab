@@ -59,9 +59,18 @@ void *Runner::launch(void *args)
         ThreadManagement::SendAstPendingSignal();
     }
 
-    if (pThread->isConsoleCommand())
+    switch ((command_origin_t)pThread->getCommandOrigin())
     {
-        ThreadManagement::SendConsoleExecDoneSignal();
+        case CONSOLE :
+        {
+            ThreadManagement::SendConsoleExecDoneSignal();
+            break;
+        }
+        case TCLSCI :
+        {
+            ThreadManagement::SendTCLExecDoneSignal();
+            break;
+        }
     }
 
     //unregister thread
@@ -78,7 +87,7 @@ void *Runner::launch(void *args)
 }
 
 void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
-                         bool _isPrioritaryThread, bool _isInterruptibleThread, bool _isConsoleCommand)
+                         bool _isPrioritaryThread, bool _isInterruptibleThread, command_origin_t _iCommandOrigin)
 {
     try
     {
@@ -120,7 +129,7 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
         //register thread
         types::ThreadId* pThread = new ThreadId(threadId, threadKey);
         ConfigVariable::addThread(pThread);
-        pThread->setConsoleCommandFlag(_isConsoleCommand);
+        pThread->setCommandOrigin((int)_iCommandOrigin);
         pThread->setInterruptible(_isInterruptibleThread);
 
         //free locker to release thread && wait and of thread execution
@@ -130,13 +139,6 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
         {
             pInterruptibleThread->setInterrupt(false);
             pInterruptibleThread->resume();
-        }
-
-        types::ThreadId* pExecThread = ConfigVariable::getThread(threadKey);
-        if (pExecThread == NULL)
-        {
-            //call pthread_join to clean stack allocation
-            __WaitThreadDie(threadId);
         }
     }
     catch (const ast::ScilabException& se)

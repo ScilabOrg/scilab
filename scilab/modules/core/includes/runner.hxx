@@ -21,6 +21,7 @@ extern "C"
 {
 #include "Thread_Wrapper.h"
 #include "dynlib_core.h"
+#include "storeCommand.h" // command_origin_t
 }
 
 #include "threadId.hxx"
@@ -44,7 +45,7 @@ private :
 public :
 
     static void execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
-                            bool _isInterruptible, bool _isPrioritary, bool _isConsoleCommand);
+                            bool _isInterruptible, bool _isPrioritary, command_origin_t _iCommandOrigin);
 
     void exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor);
 

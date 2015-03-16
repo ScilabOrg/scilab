@@ -14,24 +14,13 @@
 #define __DYNAMIC_TCLSCI_H__
 
 #include "BOOL.h"
-#include "machine.h" /* C2F */
-
-/**
-* see SCI/modules/tclsci/sci_gateway/c/gw_tclsci.c
-*/
-int gw_dynamic_tclsci(void);
+#include "dynamiclibrary.h"
 
 /*
 * see SCI/modules/tclsci/src/c/setenvtcl.c
 */
 int dynamic_setenvtcl(const char *string, const char *value);
-
-/**
-* call & load TerminateTclTk in tclsci dynamic library
-* see SCI/modules/tclsci/src/c/TerminateTclTk.c
-* @return TRUE or FALSE
-*/
-BOOL dynamic_TerminateTclTk(void);
+void setTclLibHandle(DynLibHandle _handle);
 
 #endif /* __DYNAMIC_TCLSCI_H__ */
 /*--------------------------------------------------------------------------*/
