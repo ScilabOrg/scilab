@@ -22,6 +22,7 @@
 extern "C"
 {
 #include "dynlib_core.h"
+#include "storeCommand.h" // command_origin_t
 }
 
 class CORE_IMPEXP Runner
@@ -31,15 +32,15 @@ public :
     {
         m_theProgram = _theProgram;
         m_visitor = _visitor;
-        m_isConsoleCommand = false;
+        m_iCommandOrigin = NONE;
         m_isInterruptible = true;
     }
 
-    Runner(ast::Exp* _theProgram, ast::RunVisitor *_visitor, bool _isConsoleCommand, bool _isInterruptible)
+    Runner(ast::Exp* _theProgram, ast::RunVisitor *_visitor, command_origin_t _iCommandOrigin, bool _isInterruptible)
     {
         m_theProgram = _theProgram;
         m_visitor = _visitor;
-        m_isConsoleCommand = _isConsoleCommand;
+        m_iCommandOrigin = _iCommandOrigin;
         m_isInterruptible = _isInterruptible;
     }
 
@@ -59,9 +60,9 @@ public :
         return m_theProgram;
     }
 
-    bool isConsoleCommand()
+    command_origin_t getCommandOrigin()
     {
-        return m_isConsoleCommand;
+        return m_iCommandOrigin;
     }
 
     bool isInterruptible()
@@ -72,12 +73,11 @@ public :
 private :
     ast::Exp* m_theProgram;
     ast::RunVisitor* m_visitor;
-    bool m_isConsoleCommand;
+    command_origin_t m_iCommandOrigin;
     bool m_isInterruptible;
-
-    // static members to manage execution
 };
 
+// static members to manage execution
 class StaticRunner
 {
 public:
@@ -87,8 +87,9 @@ public:
     static bool isRunnerAvailable(void);
     static bool isInterruptibleCommand(void);
     static void setInterruptibleCommand(bool _isInterruptible);
+    static command_origin_t getCommandOrigin();
     static void execAndWait(ast::Exp* _theProgram, ast::RunVisitor *_visitor,
-                            bool _isInterruptible, bool _isPrioritary, bool _isConsoleCommand);
+                            bool _isInterruptible, bool _isPrioritary, command_origin_t _iCommandOrigin);
     static void exec(ast::Exp* _theProgram, ast::RunVisitor *_visitor);
 
 private:
@@ -102,6 +103,7 @@ extern "C"
     int StaticRunner_isRunnerAvailable(void);
     int StaticRunner_isInterruptibleCommand(void);
     void StaticRunner_setInterruptibleCommand(int val);
+    command_origin_t StaticRunner_getCommandOrigin(void);
 }
 
 #endif /* !__RUNNER_HXX__ */

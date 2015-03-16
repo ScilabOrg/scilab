@@ -170,7 +170,11 @@ lib /DEF:"$(ProjectDir)scilab_windows_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+<<<<<<< HEAD
       <AdditionalIncludeDirectories>.;../../includes;../../../../libs/intl;../../../../libs/libxml2;../../../localization/includes;../../../api_scilab/includes;../../../core/includes;../../../output_stream/includes;../../../fileio/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../dynamic_link/includes;../../../ast/includes/operations;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../threads/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>.;../../includes;../../../localization/includes;../../../api_scilab/includes;../../../core/includes;../../../output_stream/includes;../../../fileio/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../../libs/intl;../../../ast/includes/operations;../../../string/includes;../../../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+>>>>>>> 49d49d6... tclsci plugged
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;IO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

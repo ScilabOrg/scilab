@@ -200,4 +200,12 @@ public :
     static int Load();
 };
 
+class TclsciModule : public GenericModule
+{
+    static bool loadedDep;
+    static int LoadDeps(const std::wstring& _functionName);
+public :
+    static int Load();
+};
+
 #endif /* !__DYNAMIC_MODULES_HXX_ */

@@ -5,10 +5,13 @@ EXPORTS
 callFunctionFromGateway
 com_
 iop_
+StorePrioritaryCommand
+StoreConsoleCommand
+StoreCommandWithFlags
 StoreCommand
 GetCommand
+isEmptyCommandQueue
 ismenu
-StorePrioritaryCommand
 freeArrayOfString
 MyHeapAlloc
 MyHeapFree

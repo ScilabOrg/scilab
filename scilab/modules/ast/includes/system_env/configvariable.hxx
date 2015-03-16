@@ -242,6 +242,7 @@ public :
     static types::ThreadId* getLastRunningThread();
     static types::ThreadId* getLastPausedThread();
     static types::ThreadId* getLastThread();
+    static types::ThreadId* getLastThreadAndRemove();
 
     static types::Cell* getAllThreads(void);
     static void addThread(types::ThreadId* _thread);
