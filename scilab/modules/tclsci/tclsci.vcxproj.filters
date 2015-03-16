@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -24,16 +24,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\c\DllMainTclsci.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\c\EnvTclTk.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\c\GlobalTclInterp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sci_gateway\c\gw_tclsci.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\c\InitializeTclTk.c">
@@ -81,9 +75,6 @@
     <ClCompile Include="sci_gateway\c\sci_TCL_UpVar.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\c\ScilabEval.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\c\setenvtcl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,6 +103,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\c\TerminateTclTk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\c\LoadUnloadTclsci.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ScilabEval.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
