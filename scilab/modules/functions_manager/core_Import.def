@@ -8,3 +8,4 @@ EXPORTS
 MyHeapAlloc
 MyHeapFree
 MyHeapRealloc
+setTclLibHandle
