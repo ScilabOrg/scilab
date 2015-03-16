@@ -22,6 +22,7 @@ extern "C"
 #include <libxml/xmlreader.h>
 #include "sci_malloc.h"
 #include "configvariable_interface.h"
+#include "dynamic_tclsci.h"
 }
 
 vectGateway loadGatewaysName(const std::wstring& _wstModuleName)

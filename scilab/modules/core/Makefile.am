@@ -31,7 +31,6 @@ CORE_C_SOURCES = \
     src/c/transposeMatrix.c \
     src/c/getversion.c \
     src/c/dynamic_tclsci.c \
-    src/c/dynamic_parallel.c \
     src/c/backtrace.c \
     src/c/signal_mgmt.c \
     src/c/suspendProcess.c \

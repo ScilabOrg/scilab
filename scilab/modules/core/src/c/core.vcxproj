@@ -258,7 +258,6 @@ cd ..
     <ClCompile Include="commandwords.c" />
     <ClCompile Include="DllmainCore.c" />
     <ClCompile Include="dynamic_gateways.c" />
-    <ClCompile Include="dynamic_parallel.c" />
     <ClCompile Include="dynamic_tclsci.c" />
     <ClCompile Include="freeArrayOfString.c" />
     <ClCompile Include="getcommandlineargs.c" />
@@ -310,6 +309,7 @@ cd ..
     <ClInclude Include="..\..\includes\commandwords.h" />
     <ClInclude Include="..\..\includes\core_gw.hxx" />
     <ClInclude Include="..\..\includes\core_math.h" />
+    <ClInclude Include="..\..\includes\dynamic_tclsci.h" />
     <ClInclude Include="..\..\includes\dynlib_core.h" />
     <ClInclude Include="..\..\includes\existfunction.h" />
     <ClInclude Include="..\..\includes\exit_status.hxx" />
@@ -369,8 +369,6 @@ cd ..
     <ClInclude Include="..\cpp\unrolled_algorithms.hxx" />
     <ClInclude Include="backtrace.h" />
     <ClInclude Include="dynamic_gateways.h" />
-    <ClInclude Include="dynamic_parallel.h" />
-    <ClInclude Include="dynamic_tclsci.h" />
     <ClInclude Include="getdebuginfo.h" />
     <ClInclude Include="getdynamicdebuginfo.h" />
     <ClInclude Include="getdynamicDebugInfo_Windows.h" />
@@ -433,6 +431,9 @@ cd ..
     </ProjectReference>
     <ProjectReference Include="..\..\..\string\src\c\string.vcxproj">
       <Project>{8d45767a-9b03-4905-97f6-d2f3f79141ea}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\tclsci\tclsci.vcxproj">
+      <Project>{c456d5b8-8a32-496a-a2ee-164b0d734126}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\threads\threads.vcxproj">
       <Project>{50a1ffc8-adc2-4d9e-a2d0-5dcd63188ae9}</Project>
