@@ -298,6 +298,11 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
                 StoreConsoleCommand(_pSEI->pstExec);
             }
 
+            if (parser.getTree())
+            {
+                delete parser.getTree();
+                parser.setTree(NULL);
+            }
             iMainRet = ConfigVariable::getExitStatus();
         }
         else if (_pSEI->pstFile)
@@ -390,10 +395,9 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     symbol::Context::getInstance()->clearAll();
     //destroy context
     symbol::Context::destroyInstance();
-
 #ifndef NDEBUG
     //uncomment to print mem leak log
-    //types::Inspector::displayMemleak();
+    types::Inspector::displayMemleak();
 #endif
 
     // cleanup Java dependent features
@@ -636,7 +640,8 @@ void* scilabReadAndStore(void* param)
             parserErrorMsg = parser.getErrorMessage();
             if (parser.getTree())
             {
-                delete (parser.getTree());
+                delete parser.getTree();
+                parser.setTree(NULL);
             }
             __UnLock(&m_ParseLock);
         }

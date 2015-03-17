@@ -196,7 +196,7 @@ SciErr createCommonMatrixOfPoly(void* _pvCtx, int _iVar, int _iComplex, char* _p
     }
 
     wchar_t* pstTemp = to_wide_string(_pstVarName);
-    Polynom* pP = new Polynom(pstTemp, _iRows, _iCols, _piNbCoef);
+    Polynom* pP = new Polynom(std::wstring(pstTemp), _iRows, _iCols, _piNbCoef);
     FREE(pstTemp);
     if (pP == NULL)
     {
@@ -259,7 +259,7 @@ SciErr createCommonNamedMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _
     }
 
     wchar_t* pstTemp = to_wide_string(_pstVarName);
-    Polynom* pP = new Polynom(pstTemp, _iRows, _iCols, _piNbCoef);
+    Polynom* pP = new Polynom(std::wstring(pstTemp), _iRows, _iCols, _piNbCoef);
     FREE(pstTemp);
     if (pP == NULL)
     {
