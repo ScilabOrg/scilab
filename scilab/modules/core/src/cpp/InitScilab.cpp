@@ -390,10 +390,9 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     symbol::Context::getInstance()->clearAll();
     //destroy context
     symbol::Context::destroyInstance();
-
 #ifndef NDEBUG
     //uncomment to print mem leak log
-    //types::Inspector::displayMemleak();
+    types::Inspector::displayMemleak();
 #endif
 
     // cleanup Java dependent features
@@ -619,6 +618,9 @@ void* scilabReadAndStore(void* param)
         {
             continue;
         }
+
+        //free unsed ast
+        delete parser.getTree();
 
         if (exitStatus == Parser::Failed)
         {
