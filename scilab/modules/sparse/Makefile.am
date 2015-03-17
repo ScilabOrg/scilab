@@ -21,7 +21,11 @@ SPARSE_FORTRAN_SOURCES = \
 	src/fortran/blkfc1.f \
 	src/fortran/blkfct.f \
 	src/fortran/inpnv.f \
-	src/fortran/symfct.f
+	src/fortran/symfct.f \
+	src/fortran/dspasp.f \
+	src/fortran/dspt.f \
+	src/fortran/spcho1.f \
+	src/fortran/spcho2.f
 	
 GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sparse_gw.cpp \
@@ -43,8 +47,9 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_symfcti.cpp \
 	sci_gateway/cpp/sci_bfinit.cpp \
 	sci_gateway/cpp/sci_inpnv.cpp \
-	sci_gateway/cpp/sci_blkfc1i.cpp
-	
+	sci_gateway/cpp/sci_blkfc1i.cpp \
+	sci_gateway/cpp/sci_spchol.cpp	
+
 libscisparse_la_CPPFLAGS = \
     -I$(srcdir)/src/c/ \
     -I$(srcdir)/includes/ \

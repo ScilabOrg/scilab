@@ -59,9 +59,13 @@
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
 		<File RelativePath=".\blkfc1.f"/>
 		<File RelativePath=".\blkfct.f"/>
+		<File RelativePath=".\dspasp.f"/>
+		<File RelativePath=".\dspt.f"/>
 		<File RelativePath=".\inpnv.f"/>
 		<File RelativePath="isort1.f"/>
 		<File RelativePath=".\ordmmd.f"/>
+		<File RelativePath=".\spcho1.f"/>
+		<File RelativePath=".\spcho2.f"/>
 		<File RelativePath="spreshape.f"/>
 		<File RelativePath="spt.f"/>
 		<File RelativePath=".\symfct.f"/>

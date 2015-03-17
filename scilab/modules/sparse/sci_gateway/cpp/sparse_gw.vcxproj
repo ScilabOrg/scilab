@@ -208,6 +208,7 @@
     <ClCompile Include="sci_sfinit.cpp" />
     <ClCompile Include="sci_sp2adj.cpp" />
     <ClCompile Include="sci_sparse.cpp" />
+    <ClCompile Include="sci_spchol.cpp" />
     <ClCompile Include="sci_spcompack.cpp" />
     <ClCompile Include="sci_spget.cpp" />
     <ClCompile Include="sci_spones.cpp" />
