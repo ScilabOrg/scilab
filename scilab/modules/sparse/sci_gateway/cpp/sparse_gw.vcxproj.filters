@@ -76,6 +76,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sci_blkfc1i.cpp">
+    <ClCompile Include="sci_spchol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
