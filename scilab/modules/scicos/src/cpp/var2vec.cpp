@@ -29,6 +29,7 @@
 
 extern "C"
 {
+#include "charEncoding.h"
 #include "Scierror.h"
 #include "localization.h"
 }
@@ -213,7 +214,7 @@ bool var2vec(types::InternalType* in, std::vector<double> &out)
 {
     switch (in->getType())
     {
-        // Reuse scicos model encoding for 'model.opar' and 'model.odstate' fields
+            // Reuse scicos model encoding for 'model.opar' and 'model.odstate' fields
         case types::InternalType::ScilabDouble :
             encode(in->getAs<types::Double>(), out);
             break;
