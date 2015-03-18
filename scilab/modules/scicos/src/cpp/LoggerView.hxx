@@ -15,6 +15,7 @@
 
 #include <sstream>
 #include "View.hxx"
+#include "utilities.hxx"
 
 namespace org_scilab_modules_scicos
 {
