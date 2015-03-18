@@ -46,6 +46,7 @@ extern "C"
 #include "sciblk2.h"
 #include "MlistGetFieldNumber.h"
 #include "scicos.h"
+#include "charEndoding.h"
 #include "Scierror.h"
 #include "localization.h"
 
