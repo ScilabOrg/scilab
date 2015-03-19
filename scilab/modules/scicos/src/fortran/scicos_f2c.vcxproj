@@ -257,7 +257,6 @@ cd ..
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_ctree.c" />
-    <ClCompile Include="..\..\sci_gateway\fortran\sci_f_getblocklabel.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_tree2.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_tree3.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_tree4.c" />
@@ -277,7 +276,6 @@ cd ..
   </ItemGroup>
   <ItemGroup>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_ctree.f" />
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_getblocklabel.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_tree2.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_tree3.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_tree4.f" />
