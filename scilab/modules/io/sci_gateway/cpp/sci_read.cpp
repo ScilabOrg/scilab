@@ -405,6 +405,13 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
 
                             FREE(pC);
 
+                            if ((siz == 1) && (iColsTempo == 0))
+                            {
+                                FREE(pstFormat);
+
+                                delete[] pdData;
+                                break;
+                            }
                             if (iColsTempo != iCols)
                             {
                                 FREE(pstFormat);
