@@ -14,7 +14,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "sciprint.h"
-#include "sci_malloc.h"
+#include "sci_MALLOC.h"
 
 int read_poly(char *fname, void* pvApiCtx)
 {
@@ -56,7 +56,7 @@ int read_poly(char *fname, void* pvApiCtx)
     }
 
     //alloc buff to receive variable name
-    pstVarname = (char*)malloc(sizeof(char) * (iVarLen + 1));//1 for null termination
+    pstVarname = (char*)MALLOC(sizeof(char) * (iVarLen + 1));//1 for null termination
 
     //get variable name
     sciErr = getPolyVariableName(pvApiCtx, piAddr, pstVarname, &iVarLen);
@@ -75,7 +75,7 @@ int read_poly(char *fname, void* pvApiCtx)
     }
 
     //alloc array of coefficient
-    piNbCoef = (int*)malloc(sizeof(int) * iRows * iCols);
+    piNbCoef = (int*)MALLOC(sizeof(int) * iRows * iCols);
 
     //Second call: retrieve coefficient
     sciErr = getComplexMatrixOfPoly(pvApiCtx, piAddr, &iRows, &iCols, piNbCoef, NULL, NULL);
