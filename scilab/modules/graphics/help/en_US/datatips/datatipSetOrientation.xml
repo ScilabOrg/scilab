@@ -37,14 +37,11 @@
                 <listitem>
                     <para>
                         A character string with possible values:
-                        <literal>"automatic"</literal> <literal>"upper
-                            left"
-                        </literal>
-                        <literal>"upper right"</literal>,
-                        <literal>"lower left"</literal>, <literal>"lower
-                            right"
-                        </literal>
-                        .
+                        <literal>"automatic"</literal>, <literal>"upper
+                            left"</literal>, <literal>"upper right"</literal>,
+                        <literal>"lower left"</literal>, <literal>"lower right"</literal>, 
+                        <literal>"left"</literal>, <literal>"right"</literal>, 
+                        <literal>"upper"</literal>, or <literal>"lower"</literal>.
                     </para>
                 </listitem>
             </varlistentry>
