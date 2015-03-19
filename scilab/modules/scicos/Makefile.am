@@ -14,6 +14,7 @@ DISABLE_HELP_CLEAN=yes
 #### Source listing ######
 
 SCICOS_CXX_SOURCES = \
+src/cpp/copyvarfromtlist.cpp \
 src/cpp/il_state.cpp \
 src/cpp/il_sim.cpp \
 src/cpp/var2vec.cpp \
@@ -49,7 +50,6 @@ src/c/sciblk4.c \
 src/c/ezxml.c \
 src/c/createblklist.c \
 src/c/var2sci.c \
-src/c/copyvarfromlistentry.c \
 src/c/MlistGetFieldNumber.c \
 src/c/extractblklist.c \
 src/c/lsodar.c \
@@ -85,6 +85,7 @@ sci_gateway/cpp/sci_data2sig.cpp \
 sci_gateway/cpp/sci_duplicate.cpp \
 sci_gateway/cpp/sci_end_scicosim.cpp \
 sci_gateway/cpp/sci_getblocklabel.cpp \
+sci_gateway/cpp/sci_getscicosvars.cpp \
 sci_gateway/cpp/sci_haltscicos.cpp \
 sci_gateway/cpp/sci_phase_simulation.cpp \
 sci_gateway/cpp/sci_pointer_xproperty.cpp \
@@ -106,7 +107,6 @@ sci_gateway/c/sci_diffobjs.c \
 sci_gateway/c/sci_ftree2.c \
 sci_gateway/c/sci_ftree3.c \
 sci_gateway/c/sci_ftree4.c \
-sci_gateway/c/sci_getscicosvars.c \
 sci_gateway/c/sci_loadScicos.c \
 sci_gateway/c/sci_model2blk.c \
 sci_gateway/c/sci_sctree.c
