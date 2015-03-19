@@ -260,6 +260,7 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\..\sci_gateway\cpp\sci_coserror.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_curblock.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_getblocklabel.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_getscicosvars.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_haltscicos.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_phase_simulation.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_pointer_xproperty.cpp" />
@@ -276,6 +277,7 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\..\sci_gateway\cpp\sci_validvar.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_var2vec.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_vec2var.cpp" />
+    <ClCompile Include="..\cpp\copyvarfromtlist.cpp" />
     <ClCompile Include="..\cpp\var2vec.cpp" />
     <ClCompile Include="..\cpp\vec2var.cpp" />
     <ClCompile Include="..\cpp\Controller.cpp" />
@@ -296,7 +298,6 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\cpp\view_scilab\ScsAdapter.cpp" />
     <ClCompile Include="..\cpp\view_scilab\StateAdapter.cpp" />
     <ClCompile Include="..\cpp\view_scilab\TextAdapter.cpp" />
-    <ClCompile Include="copyvarfromlistentry.c" />
     <ClCompile Include="createblklist.c" />
     <ClCompile Include="DllmainScicos.c" />
     <ClCompile Include="extractblklist.c" />
@@ -312,7 +313,6 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\..\sci_gateway\c\sci_ftree2.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_ftree3.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_ftree4.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_getscicosvars.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_loadScicos.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_model2blk.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_sctree.c" />
@@ -331,6 +331,7 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClInclude Include="..\..\includes\Model.hxx" />
     <ClInclude Include="..\..\includes\model\BaseObject.hxx" />
     <ClInclude Include="..\..\includes\View.hxx" />
+    <ClInclude Include="..\cpp\copyvarfromtlist.hxx" />
     <ClInclude Include="..\cpp\il_sim.hxx" />
     <ClInclude Include="..\cpp\il_state.hxx" />
     <ClInclude Include="..\cpp\LoggerView.hxx" />
@@ -354,7 +355,6 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClInclude Include="..\cpp\view_scilab\StateAdapter.hxx" />
     <ClInclude Include="..\cpp\view_scilab\TextAdapter.hxx" />
     <ClInclude Include="..\cpp\view_scilab\ports_management.hxx" />
-    <ClInclude Include="copyvarfromlistentry.h" />
     <ClInclude Include="createblklist.h" />
     <ClInclude Include="..\..\includes\dynlib_scicos.h" />
     <ClInclude Include="extractblklist.h" />
