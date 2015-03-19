@@ -8,7 +8,6 @@ EXPORTS
 Scierror
 sciprint
 scivprint
-error_
 SciError
 SciStoreError
 cerro
