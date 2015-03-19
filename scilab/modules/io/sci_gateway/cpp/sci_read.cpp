@@ -298,8 +298,8 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                             else
                             {
                                 char* pC = new char[(siz + 1)];
-                                pC[0] = '\0';
-                                strncat(pC, pCt, siz);
+                                strncpy(pC, pCt, siz);
+                                pC[siz] = '\0';
                                 pS->resize(iRows, iCols);
                                 pS->set((iRows - 1), (iCols - 1), pC);
                                 delete[] pC;
@@ -380,8 +380,8 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                         else
                         {
                             char* pC = (char *)MALLOC(sizeof(char) * (siz + 1));
-                            pC[0] = '\0';
-                            strncat(pC, pCt, siz);
+                            strncpy(pC, pCt, siz);
+                            pC[siz] = '\0';
                             FREE(pCt);
 
                             char* pch;
@@ -461,8 +461,8 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                             else
                             {
                                 char* pC = new char[(siz + 1)];
-                                pC[0] = '\0';
-                                strncat(pC, pCt, siz);
+                                strncpy(pC, pCt, siz);
+                                pC[siz] = '\0';
                                 pS->resize(iRows, iCols);
                                 pS->set((iRows - 1), (iCols - 1), pC);
                                 delete[] pC;
@@ -544,8 +544,8 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                         int siz = 0;
                         C2F(readstringfile)(&iID, pstFormat, pCt, &siz, &error, (int)strlen(pstFormat));
                         char* pC = (char *)MALLOC(sizeof(char) * (siz + 1));
-                        pC[0] = '\0';
-                        strncat(pC, pCt, siz);
+                        strncpy(pC, pCt, siz);
+                        pC[siz] = '\0';
                         pS->set(i, pC);
                         FREE(pCt);
                         FREE(pC);
@@ -617,7 +617,8 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                         int siz = 0;
                         C2F(readstring)(pstFormat, pCt, &siz, &error, (int)strlen(pstFormat));
                         char* pC = (char *)MALLOC(sizeof(char) * (siz + 1));
-                        strncat(pC, pCt, siz);
+                        strncpy(pC, pCt, siz);
+                        pC[siz] = '\0';
                         FREE(pCt);
 
                         char* pch;
@@ -681,7 +682,8 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                             int siz = 0;
                             C2F(readstring)(pstFormat, pCt, &siz, &error, (int)strlen(pstFormat));
                             char* pC = (char *)MALLOC(sizeof(char) * (siz + 1));
-                            strncat(pC, pCt, siz);
+                            strncpy(pC, pCt, siz);
+                            pC[siz] = '\0';
                             pS->set(i, pC);
                             FREE(pCt);
                             FREE(pC);
