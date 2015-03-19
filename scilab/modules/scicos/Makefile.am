@@ -84,6 +84,7 @@ sci_gateway/cpp/sci_curblock.cpp \
 sci_gateway/cpp/sci_data2sig.cpp \
 sci_gateway/cpp/sci_duplicate.cpp \
 sci_gateway/cpp/sci_end_scicosim.cpp \
+sci_gateway/cpp/sci_getblocklabel.cpp \
 sci_gateway/cpp/sci_haltscicos.cpp \
 sci_gateway/cpp/sci_phase_simulation.cpp \
 sci_gateway/cpp/sci_pointer_xproperty.cpp \
@@ -105,14 +106,12 @@ sci_gateway/c/sci_diffobjs.c \
 sci_gateway/c/sci_ftree2.c \
 sci_gateway/c/sci_ftree3.c \
 sci_gateway/c/sci_ftree4.c \
-sci_gateway/c/sci_getblocklabel.c \
 sci_gateway/c/sci_getscicosvars.c \
 sci_gateway/c/sci_loadScicos.c \
 sci_gateway/c/sci_model2blk.c \
 sci_gateway/c/sci_sctree.c
 
 GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_ctree.f \
-sci_gateway/fortran/sci_f_getblocklabel.f \
 sci_gateway/fortran/sci_f_tree2.f \
 sci_gateway/fortran/sci_f_tree3.f \
 sci_gateway/fortran/sci_f_tree4.f
