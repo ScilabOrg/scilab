@@ -412,7 +412,6 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
         default:
             return;
     }
-    ScicosID unconnected = 0;
 
     if (v.block == 0 || v.port == 0)
     {
@@ -425,8 +424,8 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
         else
         {
             // Untie the old link on the concerned end and set its port as unconnected
-            controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
-            controller.setObjectProperty(id, LINK, end, unconnected);
+            controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, ScicosID());
+            controller.setObjectProperty(id, LINK, end, ScicosID());
         }
         return;
     }
@@ -588,7 +587,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     // Disconnect the old port if it was connected. After that, concernedPort will be reused to designate the new port
     if (concernedPort != 0)
     {
-        controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
+        controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, ScicosID());
     }
 
     int nBlockPorts = static_cast<int>(sourceBlockPorts.size());
@@ -604,7 +603,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
             controller.setObjectProperty(concernedPort, PORT, IMPLICIT, newPortIsImplicit);
             controller.setObjectProperty(concernedPort, PORT, PORT_KIND, newPortKind);
             controller.setObjectProperty(concernedPort, PORT, SOURCE_BLOCK, blkID);
-            controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
+            controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, ScicosID());
             // Set the default dataType so it is saved in the model
             std::vector<int> dataType;
             controller.getObjectProperty(concernedPort, PORT, DATATYPE, dataType);
@@ -650,8 +649,7 @@ void setLinkEnd(const ScicosID id, Controller& controller, const object_properti
     if (oldLink != 0)
     {
         // Disconnect the old link
-        controller.setObjectProperty(oldLink, LINK, end, unconnected);
-        controller.setObjectProperty(concernedPort, PORT, CONNECTED_SIGNALS, unconnected);
+        controller.setObjectProperty(oldLink, LINK, end, ScicosID());
     }
 
     // Connect the new source and destination ports together

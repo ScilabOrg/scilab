@@ -44,4 +44,5 @@ function o=mark_prt(o,prt_number,inout,typ,v)
             o.graphics.pein(prt_number)=v;
         end
     end
+    mprintf("mark_prt( %ld , %ld , %s , %ld , %ld )\n", o.modelID, prt_number, inout, typ, v);
 endfunction

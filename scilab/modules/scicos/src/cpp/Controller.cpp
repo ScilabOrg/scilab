@@ -38,10 +38,17 @@
 	print << "cloneObject( " << uid << " ) : " << clone << std::endl; \
 	scilabForcedWrite(print.str().data()); \
 	} while(0)
+#define GET_PRINT(uid) \
+	do { \
+	std::stringstream print; \
+	print << "getObject( " << uid << " )" << std::endl; \
+	scilabForcedWrite(print.str().data()); \
+	} while(0)
 #else
 #define REF_PRINT(uid, refCount)
 #define UNREF_PRINT(uid, refCount)
 #define CLONE_PRINT(uid, clone)
+#define GET_PRINT(uid)
 #endif
 
 #include "Controller.hxx"
@@ -421,6 +428,7 @@ ScicosID Controller::cloneObject(ScicosID uid, bool cloneChildren)
 
 model::BaseObject* Controller::getObject(ScicosID uid) const
 {
+    GET_PRINT(uid);
     return m_instance.model.getObject(uid);
 }
 

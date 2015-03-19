@@ -157,8 +157,8 @@ function [scs_m,DEL,DELL]=do_delete1(scs_m,K,gr)
 
                         DEL = [DEL connected(1)] // suppress one link
                         DELL=[DELL  connected(1)]
-                        scs_m.objs(connected(2))=o1 //change link
 
+                        scs_m.objs(connected(2))=o1 //change link
                         scs_m.objs(to2(1))=mark_prt(scs_m.objs(to2(1)),to2(2),outin(to2(3)+1),ct2(2),..
                         connected(2))
                         scs_m.objs(o1.from(1))=mark_prt(scs_m.objs(o1.from(1)),o1.from(2),..

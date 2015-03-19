@@ -148,6 +148,7 @@ struct objs
         diagramChildrenKind.reserve(argumentList->getSize());
 
         std::vector<LinkAdapter*> links;
+        links.reserve(argumentList->getSize() / 2);
         std::vector<int> textAsMListIndices;
         std::vector<int> deletedAsMListIndices;
 
