@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -78,9 +78,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="getstaticDebugInfo_Windows.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="getval.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="getversion.c">
@@ -484,9 +481,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="getstaticDebugInfo_Windows.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="getval.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gw_dynamic_generic.h">

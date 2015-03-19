@@ -3,4 +3,3 @@ LIBRARY    output_stream.dll
 
 EXPORTS
 
-error_
