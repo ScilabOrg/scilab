@@ -114,13 +114,7 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
       integer siz,ierr
              
       string=' '
-      call eventloopprompt(string,len(string),lline,status,0,iflag)
-      if(status.ne.0) goto 10
-      if (lline.eq.0) then
-        string(1:1)=' '
-        lline=1
-      endif
-      
+      call scilabread(string,len(string));
       read(string,form,end=10,err=20) dat
       mn = lch
 128   mn=mn-1
