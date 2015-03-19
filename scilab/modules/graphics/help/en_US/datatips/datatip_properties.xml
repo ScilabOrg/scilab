@@ -80,7 +80,8 @@
                 <term>orientation: </term>
                 <listitem>
                     <para>This field sets the position on the text box with respect to polyline point. 
-                        The possible values are 0, 1, 2 or 3.
+                        The possible values are 0 (upper left), 1 (upper right), 2 (lower left), 3 (lower right), 4 (left), 5 (right), 
+                        6 (upper) or 7 (lower).
                     </para>
                 </listitem>
             </varlistentry>
