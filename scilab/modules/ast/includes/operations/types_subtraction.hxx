@@ -18,6 +18,7 @@
 #include "double.hxx"
 #include "polynom.hxx"
 #include "sparse.hxx"
+#include "configvariable.hxx"
 
 void fillSubtractFunction();
 
