@@ -805,6 +805,25 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
     add_function add = pAddfunction[_pLeftOperand->getId()][_pRightOperand->getId()];
     if (add)
     {
+        if (ConfigVariable::getMtlbMode())
+        {
+            if (_pLeftOperand->isDouble())
+            {
+                Double *p = _pLeftOperand->getAs<Double>();
+                if (p->isEmpty())
+                {
+                    return Double::Empty();
+                }
+            }
+            if (_pRightOperand->isDouble())
+            {
+                Double *p = _pRightOperand->getAs<Double>();
+                if (p->isEmpty())
+                {
+                    return Double::Empty();
+                }
+            }
+        }
         pResult = add(_pLeftOperand, _pRightOperand);
         if (pResult)
         {
@@ -1085,6 +1104,7 @@ InternalType* add_M_M(T *_pL, U *_pR)
             throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
         }
     }
+
 
     O* pOut = new O(iDimsL, piDimsL);
 
@@ -2007,6 +2027,7 @@ template<> InternalType* add_M_M<Double, Polynom, Polynom>(Double* _pL, Polynom*
 
     if (_pL->isEmpty())
     {
+
         return _pR;
     }
 
