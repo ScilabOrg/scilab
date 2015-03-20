@@ -139,8 +139,8 @@ template<typename T> std::wstring toString(T const& m, int precision)
     }
     ostr << L" sparse matrix\n\n";
 
-    const typename Eigen::internal::traits<T>::Index* pIColPos      = m.innerIndexPtr();
-    const typename Eigen::internal::traits<T>::Index* pINbItemByRow = m.outerIndexPtr();
+    const typename Eigen::internal::traits<T>::StorageIndex* pIColPos      = m.innerIndexPtr();
+    const typename Eigen::internal::traits<T>::StorageIndex* pINbItemByRow = m.outerIndexPtr();
 
     int iPos = 0;
 
@@ -188,7 +188,7 @@ utility function to set non zero values of an Eigen::Sparse matrix to a fixed va
 */
 template<typename T> bool setNonZero(T& s, typename Eigen::internal::traits<T>::Scalar v = 1.)
 {
-    for (typename Eigen::internal::traits<T>::Index j = 0; j < s.outerSize(); ++j)
+    for (typename Eigen::internal::traits<T>::StorageIndex j = 0; j < s.outerSize(); ++j)
     {
         for (typename T::InnerIterator it(s, j); it; ++it)
         {
@@ -1877,6 +1877,7 @@ Sparse* Sparse::dotDivide(Sparse SPARSE_CONST& o) const
 
 int Sparse::newCholLLT(Sparse** _SpPermut, Sparse** _SpFactor) const
 {
+    std::cout << "Eigen version : " <<  EIGEN_WORLD_VERSION << "." << EIGEN_MAJOR_VERSION << "." << EIGEN_MINOR_VERSION << std::endl;
     typedef Eigen::SparseMatrix<double, Eigen::ColMajor> RealSparseCol_t;
     RealSparseCol_t spColMajor = RealSparseCol_t((const RealSparse_t&) * matrixReal);
 
