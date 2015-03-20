@@ -33,8 +33,9 @@ function scicos_workspace_init()
     //
     prt=funcprot(),funcprot(0)
     varnames = who("get")   ;
-    varnames = varnames(1:$-predef()+1);  //** exclude protected variables
-    varnames(varnames=="ans")=[];
+    //varnames = varnames(1:$-predef()+1);  //** exclude protected variables
+    protected = ["ans" "%e" "%eps" "%fftw" "%gui" "%i" "%inf" "%io" "%nan" "%pi" "%s" "%z" "%tk" "PWD" "SCI" "SCIHOME" "TMPDIR" "home" "workingDirectory" "workingfiles"];
+    varnames(members(varnames, protected) <> 0) = [];
     for var=varnames'
         v=evstr(var);
         if typeof(v)=="st" then
@@ -45,7 +46,7 @@ function scicos_workspace_init()
                         // remove deprecation warning on save, this will be reimplemented on 6.x
                         warnMode = warning("query");
                         warning("off");
-                        execstr("save("""+path+var+""",x,t)")
+                        execstr("save("""+path+var+""",""x"",""t"")")
                         warning(warnMode);
                     end
                 end

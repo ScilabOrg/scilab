@@ -128,7 +128,6 @@ SCICOS_BLOCKS_C_SOURCES = \
     src/c/exttriu.c \
     src/c/exttriuz.c \
     src/c/foriterator.c \
-    src/c/fromws_c.c \
     src/c/gainblk.c \
     src/c/gainblk_i16e.c \
     src/c/gainblk_i16n.c \
@@ -329,7 +328,8 @@ SCICOS_BLOCKS_C_SOURCES = \
     src/c/zcross2.c
 
 SCICOS_BLOCKS_CXX_SOURCES = \
-    src/cpp/affich2.cpp
+    src/cpp/affich2.cpp \
+    src/cpp/fromws_c.cpp
 
 NON_BLOCK_C_SOURCES = \
     src/c/scicos_evalhermite.c \
