@@ -58,7 +58,7 @@ void fillOrFunction()
     scilab_fill_or(Bool, ScalarDouble, M_S, Bool, Double, Bool);
     scilab_fill_or(Bool, ScalarBool, M_S, Bool, Bool, Bool);
 
-    scilab_fill_or(Bool, Empty, M_E, Bool, Double, Double);
+    scilab_fill_or(Bool, Empty, B_E, Bool, Double, Bool);
     scilab_fill_or(Bool, Identity, M_S, Bool, Double, Bool);
 
     scilab_fill_or(ScalarBool, Double, S_M, Bool, Double, Bool);
@@ -67,14 +67,14 @@ void fillOrFunction()
     scilab_fill_or(ScalarBool, ScalarDouble, S_S, Bool, Double, Bool);
     scilab_fill_or(ScalarBool, ScalarBool, S_S, Bool, Bool, Bool);
 
-    scilab_fill_or(ScalarBool, Empty, M_E, Bool, Double, Double);
+    scilab_fill_or(ScalarBool, Empty, B_E, Bool, Double, Double);
     scilab_fill_or(ScalarBool, Identity, S_S, Bool, Double, Bool);
 
     // []
     scilab_fill_or(Empty, Double, E_M, Double, Double, Double);
-    scilab_fill_or(Empty, Bool, E_M, Double, Bool, Double);
+    scilab_fill_or(Empty, Bool, E_B, Double, Bool, Bool);
     scilab_fill_or(Empty, ScalarDouble, E_M, Double, Double, Double);
-    scilab_fill_or(Empty, ScalarBool, E_M, Double, Bool, Double);
+    scilab_fill_or(Empty, ScalarBool, E_B, Double, Bool, Double);
     scilab_fill_or(Empty, Empty, E_M, Double, Double, Double);
     scilab_fill_or(Empty, Identity, E_M, Double, Double, Double);
 
@@ -590,6 +590,22 @@ template<class T, class U, class O>
 InternalType* or_E_M(T *_pL, U *_pR)
 {
     return _pL;
+}
+
+template<class T, class U, class O>
+InternalType* or_B_E(T *_pL, U *_pR)
+{
+    Bool* pbOut = new Bool(_pL->getDims(), _pL->getDimsArray());
+    pbOut->setTrue();
+    return pbOut;
+}
+
+template<class T, class U, class O>
+InternalType* or_E_B(T *_pL, U *_pR)
+{
+    Bool* pbOut = new Bool(_pR->getDims(), _pR->getDimsArray());
+    pbOut->setTrue();
+    return pbOut;
 }
 
 template<class T, class U, class O>
