@@ -20,6 +20,8 @@
 #include "polynom.hxx"
 #include "sparse.hxx"
 #include "string.hxx"
+#include "configvariable.hxx"
+
 extern "C"
 {
 #include "os_string.h"

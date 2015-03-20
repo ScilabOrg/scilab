@@ -252,7 +252,7 @@ public :
 
     typedef struct
     {
-         wchar_t* pwstLibraryName;      /** name of dynamic library **/
+        wchar_t* pwstLibraryName;      /** name of dynamic library **/
         DynLibHandle hLib;              /** handle of the library **/
     } DynamicLibraryStr;
 
@@ -373,6 +373,14 @@ private :
 public :
     static void setFuncprot(int _iFuncprot);
     static int getFuncprot();
+
+    // mtlb_mode
+private :
+    static bool m_iMtlbMode;
+
+public :
+    static void setMtlbMode(bool _iMtlbMode);
+    static int getMtlbMode();
 
     // where
 public :
