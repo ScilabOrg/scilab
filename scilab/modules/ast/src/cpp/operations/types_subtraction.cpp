@@ -807,6 +807,25 @@ InternalType* GenericMinus(InternalType* _pLeftOperand, InternalType* _pRightOpe
     sub_function sub = pSubfunction[_pLeftOperand->getId()][_pRightOperand->getId()];
     if (sub)
     {
+        if (ConfigVariable::getMtlbMode())
+        {
+            if (_pLeftOperand->isDouble())
+            {
+                Double *p = _pLeftOperand->getAs<Double>();
+                if (p->isEmpty())
+                {
+                    return Double::Empty();
+                }
+            }
+            if (_pRightOperand->isDouble())
+            {
+                Double *p = _pRightOperand->getAs<Double>();
+                if (p->isEmpty())
+                {
+                    return Double::Empty();
+                }
+            }
+        }
         pResult = sub(_pLeftOperand, _pRightOperand);
         if (pResult)
         {

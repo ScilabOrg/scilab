@@ -1092,6 +1092,26 @@ int ConfigVariable::getFuncprot()
 */
 
 /*
+** mtlb_mode
+** \{
+*/
+bool ConfigVariable::m_iMtlbMode = false;
+
+void ConfigVariable::setMtlbMode(bool _iMtlbMode)
+{
+    m_iMtlbMode = _iMtlbMode;
+}
+
+int ConfigVariable::getMtlbMode()
+{
+    return m_iMtlbMode;
+}
+/*
+** \}
+*/
+
+
+/*
 ** where
 ** \{
 */

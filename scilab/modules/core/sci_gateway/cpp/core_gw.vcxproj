@@ -184,6 +184,7 @@
     <ClCompile Include="sci_ieee.cpp" />
     <ClCompile Include="sci_macr2tree.cpp" />
     <ClCompile Include="sci_mode.cpp" />
+    <ClCompile Include="sci_mtlb_mode.cpp" />
     <ClCompile Include="sci_newfun.cpp" />
     <ClCompile Include="sci_sciargs.cpp" />
     <ClCompile Include="..\c\sci_getdebuginfo.c" />
