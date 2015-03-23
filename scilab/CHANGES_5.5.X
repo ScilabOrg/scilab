@@ -96,6 +96,8 @@ Scilab Bug Fixes
 
 * Bug #13689 fixed - There were errors in reading enum from hdf5 files.
 
+* Bug #13684 fixed - Editor component didn't fill all the window content pane when wrap-lines set to false.
+
 * Bug #13690 fixed - tight_limits property can now manage X, Y and Z axis separately.
 
 * Bug #13692 fixed - group returned an error for a discrete dynamical system with a specified sample time.
