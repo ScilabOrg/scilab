@@ -11,7 +11,6 @@
 GATEWAY_C_SOURCES = \
     sci_gateway/c/gw_symbolic.c \
     sci_gateway/c/sci_mulf.c \
-    sci_gateway/c/sci_ldivf.c \
     sci_gateway/c/sci_addsubf.c \
     sci_gateway/c/sci_rdivf.c
 

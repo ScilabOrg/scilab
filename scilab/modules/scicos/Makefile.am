@@ -55,18 +55,14 @@ src/c/extractblklist.c \
 src/c/lsodar.c \
 src/c/ddaskr.c
 
-SCICOS_FORTRAN_SOURCES = src/fortran/scitovv.f \
-src/fortran/vvtosci.f \
+SCICOS_FORTRAN_SOURCES = \
 src/fortran/skipvars.f \
 src/fortran/coselm.f \
-src/fortran/scitod.f \
 src/fortran/sctree.f \
 src/fortran/scierr.f \
 src/fortran/ftree2.f \
 src/fortran/ftree3.f \
-src/fortran/list2vars.f \
 src/fortran/ftree4.f \
-src/fortran/scitoi.f \
 src/fortran/scifunc.f
 
 NO_SCICOS_C_SOURCES = src/c/noscicos/noscicos.c

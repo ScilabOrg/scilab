@@ -11,11 +11,9 @@ DATA_STRUCTURES_FORTRAN_SOURCES = \
     src/fortran/udptr.f \
     src/fortran/rattyp.f \
     src/fortran/gratyp.f \
-    src/fortran/mlist.f \
-    src/fortran/insertfield.f
+    src/fortran/mlist.f
 
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/sci_glist.c \
     sci_gateway/c/gw_data_structures1.c \
     sci_gateway/c/gw_data_structures2.c
 

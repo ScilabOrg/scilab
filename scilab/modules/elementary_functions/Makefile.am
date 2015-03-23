@@ -233,7 +233,6 @@ ELEMENTARIES_FUNCTIONS_FORTRAN_SOURCES = \
     src/fortran/isova0.f \
     src/fortran/wswap.f \
     src/fortran/wwpow1.f \
-    src/fortran/getdimfromvar.f \
     src/fortran/gdcp2i.f \
     src/fortran/drdiv.f \
     src/fortran/wmsum.f \
