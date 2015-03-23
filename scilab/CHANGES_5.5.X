@@ -367,6 +367,8 @@ Scilab Bug Fixes
 * Bug #13588 fixed - Default values of "event_handler" and "event_handler_enable" properties
                      were not taken into account when creating a new figure.
 
+* Bug #13619 fixed - Bad first point in xtringl return.
+
 
 Xcos Bug Fixes
 ==============
