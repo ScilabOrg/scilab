@@ -301,7 +301,6 @@ cd ..
     <f2c_rule Include="fmttyp.f" />
     <f2c_rule Include="formatnumber.f" />
     <f2c_rule Include="lspdsp.f" />
-    <f2c_rule Include="prntid.f" />
     <f2c_rule Include="strdsp.f" />
     <f2c_rule Include="wmdsp.f" />
     <f2c_rule Include="wspdsp.f" />

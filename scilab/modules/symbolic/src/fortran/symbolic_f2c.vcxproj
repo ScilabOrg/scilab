@@ -266,10 +266,6 @@ cd ..
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_addsubf.f" />
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_ldivf.f" />
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_mulf.f" />
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_rdivf.f" />
     <f2c_rule Include="atome.f" />
     <f2c_rule Include="iseye.f" />
     <f2c_rule Include="isnum.f" />

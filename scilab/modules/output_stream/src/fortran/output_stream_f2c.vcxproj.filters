@@ -104,9 +104,6 @@
     <f2c_rule Include="lspdsp.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
-    <f2c_rule Include="prntid.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
     <f2c_rule Include="strdsp.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
