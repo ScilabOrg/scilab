@@ -202,14 +202,18 @@ struct Libraries
         return names;
     }
 
-    std::list<std::wstring>* getVarsName()
+    std::list<std::wstring>* getVarsName(int _iLevel)
     {
         std::list<std::wstring>* plOut = new std::list<std::wstring>();
         for (auto it = libs.begin(), itEnd = libs.end(); it != itEnd; ++it)
         {
             if (it->second->empty() == false)
             {
-                plOut->push_back(it->first.getName().c_str());
+                ScopedLibrary* pSL = it->second->top();
+                if (pSL->m_iLevel == _iLevel || _iLevel == -1)
+                {
+                    plOut->push_back(it->first.getName().c_str());
+                }
             }
         }
 

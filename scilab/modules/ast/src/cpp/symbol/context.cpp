@@ -199,16 +199,19 @@ std::list<Symbol>* Context::getFunctionList(std::wstring _stModuleName)
     return variables.getFunctionList(_stModuleName, m_iLevel);
 }
 
-std::list<std::wstring>* Context::getVarsName()
+std::list<std::wstring>* Context::getVarsName(int _iLevel, bool includeGlobals)
 {
-    std::list<std::wstring>* vars = variables.getVarsName();
-    std::list<std::wstring>* libs = libraries.getVarsName();
+    std::list<std::wstring>* vars = variables.getVarsName(_iLevel);
+    std::list<std::wstring>* libs = libraries.getVarsName(_iLevel);
     vars->insert(vars->end(), libs->begin(), libs->end());
     delete libs;
 
-    for (auto it = globals->begin(), itEnd = globals->end(); it != itEnd; ++it)
+    if (includeGlobals)
     {
-        vars->push_back((*it).getName());
+        for (auto it = globals->begin(), itEnd = globals->end(); it != itEnd; ++it)
+        {
+            vars->push_back((*it).getName());
+        }
     }
     return vars;
 }

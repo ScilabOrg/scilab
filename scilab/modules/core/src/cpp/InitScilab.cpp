@@ -57,6 +57,7 @@ extern "C"
 #include "saveCWDInPreferences.h"
 #include "h5_fileManagement.h"
 #include "with_fftw.h"
+#include "BrowseVarManager.h"
 
 
 #ifdef _MSC_VER
@@ -513,6 +514,11 @@ void* scilabReadAndExecCommand(void* param)
 
         processCommand(_pSEI);
         FREE(command);
+
+        if (getScilabMode() != SCILAB_NWNI)
+        {
+            UpdateBrowseVar();
+        }
     }
 
     return NULL;

@@ -74,7 +74,7 @@ public :
     /*return function list in the module _stModuleName*/
     std::list<Symbol>* getFunctionList(std::wstring _stModuleName);
 
-    std::list<std::wstring>* getVarsName();
+    std::list<std::wstring>* getVarsName(int _iLevel = -1, bool includeGlobals = true);
     std::list<std::wstring>* getMacrosName();
     std::list<std::wstring>* getFunctionsName();
     std::list<std::wstring>* getVarsNameForWho(bool sorted);
