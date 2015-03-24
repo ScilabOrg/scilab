@@ -314,7 +314,7 @@ struct Variables
         return plOut;
     }
 
-    std::list<std::wstring>* getVarsName()
+    std::list<std::wstring>* getVarsName(int _iLevel)
     {
         std::list<std::wstring>* plOut = new std::list<std::wstring>();
         MapVars::const_iterator it = vars.begin();
@@ -322,11 +322,16 @@ struct Variables
         {
             if (it->second->empty() == false)
             {
-                types::InternalType* pIT = it->second->top()->m_pIT;
+                Variable* var = it->second;
+                ScopedVariable* pSV = var->top();
+                types::InternalType* pIT = pSV->m_pIT;
+
                 if (pIT &&
                         pIT->isMacro() == false &&
                         pIT->isMacroFile() == false &&
-                        pIT->isFunction() == false)
+                        pIT->isFunction() == false &&
+                        (pSV->m_iLevel == _iLevel || _iLevel == -1) &&
+                        var->isGlobal() == false)
                 {
                     plOut->push_back(it->first.getName().c_str());
                 }
