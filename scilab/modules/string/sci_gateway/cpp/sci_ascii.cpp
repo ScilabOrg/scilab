@@ -128,16 +128,25 @@ String* TypeToString(T* _pI)
     Y* p = _pI->get();
 
     bool bWarning = getWarningMode() == 0;
+
     for (int i = 0; i < len; i++)
     {
+
         if (bWarning == false && p[i] > MAX_ASCII)
         {
             sciprint(_("WARNING : \n"));
             sciprint(_("%s: Wrong value for input argument #%d: Must be between %d and %d.\n"), "ascii", 1, 0, MAX_ASCII);
             bWarning = true;
         }
+        if (p[i] == 0)
+        {
+            pcText[i] = ' ';
 
-        pcText[i] = static_cast<char>(p[i]);
+        }
+        else
+        {
+            pcText[i] = static_cast<char>(p[i]);
+        }
 
     }
     pcText[len] = '\0';
