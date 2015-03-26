@@ -1576,6 +1576,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
     void** opar = nullptr;
     int* oparsz = nullptr;
     int* opartyp = nullptr;
+    double* complex = nullptr;
     if (nopar > 0)
     {
         // Allocation of 'opar'
@@ -1660,7 +1661,13 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
                     else
                     {
                         opartyp[j] = SCSCOMPLEX_N; // Double complex matrix
-                        opar[j] = (SCSCOMPLEX_COP *) oparDouble->get();
+                        // Reconstitute the [real(opar) imag(opar)] vector from oparDouble->get() and oparDouble->getImg()
+                        // in 'complex' and give it to opar[j]
+                        int nElements = oparDouble->getSize();
+                        complex = new double[2 * nElements];
+                        memcpy(complex, oparDouble->get(), nElements * sizeof(double));
+                        memcpy(complex + nElements, oparDouble->getImg(), nElements * sizeof(double));
+                        opar[j] = (SCSCOMPLEX_COP *) complex;
                     }
                     oparsz[j] = oparDouble->getRows();
                     oparsz[j + nopar] = oparDouble->getCols();
@@ -1737,6 +1744,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
                     delete[] oz;
                     delete[] ozsz;
                     delete[] oztyp;
+                    delete[] complex;
                     delete[] opar;
                     delete[] oparsz;
                     delete[] opartyp;
@@ -1776,6 +1784,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
             delete[] oz;
             delete[] ozsz;
             delete[] oztyp;
+            delete[] complex;
             delete[] opar;
             delete[] oparsz;
             delete[] opartyp;
@@ -1799,6 +1808,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
             delete[] oz;
             delete[] ozsz;
             delete[] oztyp;
+            delete[] complex;
             delete[] opar;
             delete[] oparsz;
             delete[] opartyp;
@@ -1823,6 +1833,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
             delete[] oz;
             delete[] ozsz;
             delete[] oztyp;
+            delete[] complex;
             delete[] opar;
             delete[] oparsz;
             delete[] opartyp;
@@ -1926,6 +1937,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
                     delete[] outtbptr;
                     delete[] outtbtyp;
                     delete[] outtbsz;
+                    delete[] complex;
                     delete[] opar;
                     delete[] oparsz;
                     delete[] opartyp;
@@ -1957,6 +1969,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
                 delete[] outtbptr;
                 delete[] outtbtyp;
                 delete[] outtbsz;
+                delete[] complex;
                 delete[] opar;
                 delete[] oparsz;
                 delete[] opartyp;
@@ -2026,6 +2039,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
     delete[] outtbptr;
     delete[] outtbtyp;
     delete[] outtbsz;
+    delete[] complex;
     delete[] opar;
     delete[] oparsz;
     delete[] opartyp;
