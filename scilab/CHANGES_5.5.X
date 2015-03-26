@@ -117,6 +117,8 @@ Scilab Bug Fixes
 
 * Bug #13712 fixed - Details added in strcat help page for strcat(strings, "", "r") case.
 
+* Bug #13721 fixed - Could not write in a file opened in r+ mode.
+
 * Bug #13725 fixed - Polyline was not correctly filled with big values.
 
 * Bug #13731 fixed - xmlDelete could be very slow.
