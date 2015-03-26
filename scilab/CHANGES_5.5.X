@@ -119,6 +119,8 @@ Scilab Bug Fixes
 
 * Bug #13725 fixed - Polyline was not correctly filled with big values.
 
+* Bug #13723 fixed - No way to insert a single double in double[][].
+
 * Bug #13731 fixed - xmlDelete could be very slow.
 
 * Bug #13733 fixed - fmt could not be used as a singular optional argument in colorbar.
