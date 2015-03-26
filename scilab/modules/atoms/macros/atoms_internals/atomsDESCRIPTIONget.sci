@@ -277,7 +277,7 @@ function [packages,categories_flat,categories] = atomsDESCRIPTIONget(update)
 
         wMode = warning("query");
         warning("off");
-        commandToExec = "save(packages_path, packages, categories, categories_flat)";
+        commandToExec = "save(packages_path, ""packages"", ""categories"", ""categories_flat"")";
         ierr = execstr(commandToExec, "errcatch");
         warning(wMode);
         if ierr <> 0 then
