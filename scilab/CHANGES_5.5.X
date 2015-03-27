@@ -115,6 +115,8 @@ Scilab Bug Fixes
 
 * Bug #13702 fixed - Problems with * prefix for modified files in SciNotes fixed.
 
+* Bug #13706 fixed - Random crashes with plot3d([1 1 1]).
+
 * Bug #13712 fixed - Details added in strcat help page for strcat(strings, "", "r") case.
 
 * Bug #13725 fixed - Polyline was not correctly filled with big values.
