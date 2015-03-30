@@ -102,7 +102,7 @@ function nbAdd = atomsToremoveRegister(name,version,section)
     if nbAdd > 0 then
         wMode = warning("query");
         warning("off");
-        save(toremove_bin, toremove_mat);
+        save(toremove_bin, "toremove_mat");
         warning(wMode);
     end
 
