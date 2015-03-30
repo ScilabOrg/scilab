@@ -33,12 +33,12 @@ if test "x$with_eigen_include" != "xyes"; then
     PATH_TO_EIGEN=$with_eigen_include
 else
     if $WITH_DEVTOOLS; then # Scilab thirparties
-        CPPFLAGS="-I$DEVTOOLS_INCDIR"
+        CPPFLAGS="-I`pwd`/lib/Eigen/include"
         AC_CHECK_HEADER([Eigen/Sparse],
             [EIGEN_CPPFLAGS="$CPPFLAGS"],
             [AC_MSG_ERROR([Cannot find headers (Eigen/Sparse) of the library EIGEN in $with_eigen_include. Please install the dev package (Debian : libeigen3-dev)])]
         )
-        PATH_TO_EIGEN=$DEVTOOLS_INCDIR
+        PATH_TO_EIGEN="`pwd`/lib/Eigen/include"
     else
         AC_CHECK_HEADER([Eigen/Sparse],
             [EIGEN_CPPFLAGS=""],

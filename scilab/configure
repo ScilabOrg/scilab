@@ -23564,7 +23564,7 @@ fi
     PATH_TO_EIGEN=$with_eigen_include
 else
     if $WITH_DEVTOOLS; then # Scilab thirparties
-        CPPFLAGS="-I$DEVTOOLS_INCDIR"
+        CPPFLAGS="-I`pwd`/lib/Eigen/include"
         ac_fn_cxx_check_header_mongrel "$LINENO" "Eigen/Sparse" "ac_cv_header_Eigen_Sparse" "$ac_includes_default"
 if test "x$ac_cv_header_Eigen_Sparse" = xyes; then :
   EIGEN_CPPFLAGS="$CPPFLAGS"
@@ -23574,7 +23574,7 @@ else
 fi
 
 
-        PATH_TO_EIGEN=$DEVTOOLS_INCDIR
+        PATH_TO_EIGEN="`pwd`/lib/Eigen/include"
     else
         ac_fn_cxx_check_header_mongrel "$LINENO" "Eigen/Sparse" "ac_cv_header_Eigen_Sparse" "$ac_includes_default"
 if test "x$ac_cv_header_Eigen_Sparse" = xyes; then :
