@@ -68,6 +68,7 @@ int sci_figure(char * fname, unsigned long fname_len)
     int iToolbarType = 1; // Create a 'figure' toolbar by default
     double dblId = 0;
     BOOL status = FALSE;
+    int iType = 0;
 
     //figure(num) -> scf(num)
     //figure() -> scf()
@@ -99,7 +100,8 @@ int sci_figure(char * fname, unsigned long fname_len)
             return 0;
         }
 
-        if (isVarMatrixType(pvApiCtx, piAddr) == 0)
+        sciErr = getVarType(pvApiCtx, piAddr, &iType);
+        if (sciErr.iErr || iType != sci_matrix)
         {
             Scierror(999, _("%s: Wrong type for input argument #%d: An integer value expected.\n"), fname, 1);
             return 0;
