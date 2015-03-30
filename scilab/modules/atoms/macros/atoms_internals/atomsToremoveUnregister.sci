@@ -83,7 +83,7 @@ function atomsToremoveUnregister(name,version,section)
     if isempty(toremove_mat) then
         wMode = warning("query");
         warning("off");
-        save(toremove_bin, toremove_mat);
+        save(toremove_bin, "toremove_mat");
         warning(wMode);
     else
         mdelete(toremove_bin);

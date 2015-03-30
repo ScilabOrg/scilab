@@ -173,7 +173,7 @@ function  atomsSaveInstalleddeps(child_deps,section)
     mputl(string_matrix,installed_deps_txt);
     wMode = warning("query");
     warning("off");
-    save(installed_deps_bin, child_deps, parent_deps);
+    save(installed_deps_bin, "child_deps", "parent_deps");
     warning(wMode);
 
 endfunction
