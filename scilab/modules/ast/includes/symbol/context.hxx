@@ -97,8 +97,14 @@ public :
     /*remove all global variables and references */
     //clearglobal
     void removeGlobalAll();
-
     void clearAll();
+
+    //predef
+    void protect();
+    void unprotect();
+    bool isprotected(const Symbol& key);
+    bool isprotected(Variable* _var);
+    std::list<std::wstring>* protectedVars();
 
     /*set variable visible/hidden in current global scope*/
     void setGlobalVisible(const Symbol& key, bool bVisible);
@@ -129,6 +135,7 @@ private:
 
     types::InternalType* get(const Symbol& key, int _iLevel);
     bool clearCurrentScope(bool _bClose);
+    void updateProtection(bool protect);
 
     std::list<Symbol>* globals;
     VarStack varStack;

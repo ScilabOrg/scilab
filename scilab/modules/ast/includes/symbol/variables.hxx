@@ -24,11 +24,12 @@ namespace symbol
 struct ScopedVariable
 {
     ScopedVariable(int _iLevel, types::InternalType* _pIT)
-        : m_iLevel(_iLevel), m_pIT(_pIT), m_globalVisible(false) {}
+        : m_iLevel(_iLevel), m_pIT(_pIT), m_globalVisible(false), protect(false) {}
 
     int m_iLevel;
     types::InternalType* m_pIT;
     bool m_globalVisible;
+    bool protect;
 };
 
 struct Variable

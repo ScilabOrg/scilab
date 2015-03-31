@@ -102,14 +102,18 @@ bool Context::clearCurrentScope(bool _bClose)
     VarList* varList = varStack.top();
     for (auto var : *varList)
     {
-        if (var.second->empty() == false && var.second->top()->m_iLevel == m_iLevel)
+        if (var.second->empty() == false)
         {
-            ScopedVariable * pSV = var.second->top();
-            types::InternalType * pIT = pSV->m_pIT;
-            pIT->DecreaseRef();
-            pIT->killMe();
-            var.second->pop();
-            delete pSV;
+            ScopedVariable* pSV = var.second->top();
+            if (pSV->m_iLevel == m_iLevel && (_bClose || pSV->protect == false))
+            {
+                ScopedVariable * pSV = var.second->top();
+                types::InternalType * pIT = pSV->m_pIT;
+                pIT->DecreaseRef();
+                pIT->killMe();
+                var.second->pop();
+                delete pSV;
+            }
         }
     }
 
@@ -509,4 +513,83 @@ std::list<Variable*>* Context::getVarsToVariableBrowser()
     return variables.getVarsToVariableBrowser();
 }
 
+void Context::updateProtection(bool protect)
+{
+    if (varStack.empty() == false)
+    {
+        VarList* lst = varStack.top();
+        for (auto var : *lst)
+        {
+            if (var.second->empty() == false)
+            {
+                ScopedVariable* pSV = var.second->top();
+                //only for current scope but normally vars in VarStack are in the current scope
+                if (pSV->m_iLevel == m_iLevel)
+                {
+                    pSV->protect = protect;
+                }
+                else
+                {
+                    std::wcerr << L"heu ... " << var.first.getName() << std::endl;
+                }
+            }
+        }
+    }
+}
+
+void Context::protect()
+{
+    updateProtection(true);
+}
+
+void Context::unprotect()
+{
+    updateProtection(false);
+}
+
+bool Context::isprotected(const Symbol& key)
+{
+    return isprotected(getOrCreate(key));
+}
+
+bool Context::isprotected(Variable* _var)
+{
+    //don't check protection on "ans"
+    if (_var->getSymbol().getName() == L"ans")
+    {
+        return false;
+    }
+
+    if (_var->empty() == false)
+    {
+        ScopedVariable* pSV = _var->top();
+        if (pSV->m_iLevel == m_iLevel && pSV->protect)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+std::list<std::wstring>* Context::protectedVars()
+{
+    std::list<std::wstring>* vars = new std::list<std::wstring>;
+    if (varStack.empty() == false)
+    {
+        VarList* lst = varStack.top();
+        for (auto var : *lst)
+        {
+            if (var.second->empty() == false)
+            {
+                ScopedVariable* pSV = var.second->top();
+                //only for current scope but normally vars in VarStack are in the current scope
+                if (pSV->m_iLevel == m_iLevel && pSV->protect)
+                {
+                    vars->push_back(var.first.getName());
+                }
+            }
+        }
+    }
+    return vars;
+}
 }
