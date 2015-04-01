@@ -13,6 +13,7 @@
 #include <hdf5.h>
 #include "context.hxx"
 #include "list.hxx"
+#include "struct.hxx"
 
 extern "C"
 {
@@ -45,6 +46,7 @@ static bool import_boolean_sparse(int* pvCtx, int _iDatasetId, int _iItemPos, in
 static bool import_poly(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_list(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_hypermat(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_struct(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_void(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_undefined(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
 
@@ -237,6 +239,10 @@ static bool import_data(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddr
         case sci_mlist:
         {
             bRet = import_hypermat(pvCtx, _iDatasetId, iVarType, _iItemPos, _piAddress, _pstVarname);
+            if (bRet == false)
+            {
+                bRet = import_struct(pvCtx, _iDatasetId, iVarType, _iItemPos, _piAddress, _pstVarname);
+            }
             if (bRet == false)
             {
                 bRet = import_list(pvCtx, _iDatasetId, iVarType, _iItemPos, _piAddress, _pstVarname);
@@ -1278,6 +1284,229 @@ static bool import_hypermat(int* pvCtx, int _iDatasetId, int _iVarType, int _iIt
 
 
     iRet = deleteListItemReferences(_iDatasetId, piItemRef);
+    if (iRet)
+    {
+        return false;
+    }
+
+    return true;
+}
+/*--------------------------------------------------------------------------*/
+
+static bool import_struct(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname)
+{
+    int iRet = 0;
+    int iComplex = 0;
+    int iDims = 0;
+    int iItems = 0;
+    hobj_ref_t *piItemRef = NULL;
+
+    // an struct is stored in an mlist
+    if (_iVarType != sci_mlist)
+    {
+        return false;
+    }
+
+    iRet = getListDims(_iDatasetId, &iItems);
+    if (iRet)
+    {
+        return false;
+    }
+
+    if (iItems < 3)
+    {
+        // struct have 2 elements minimal
+        return false;
+    }
+
+    iRet = getListItemReferences(_iDatasetId, &piItemRef);
+    if (iRet)
+    {
+        return false;
+    }
+
+    // get first item
+    int iItemDataset = 0;
+    iRet = getListItemDataset(_iDatasetId, piItemRef, 0, &iItemDataset);
+    if (iRet || iItemDataset == 0)
+    {
+        return false;
+    }
+
+    // get first item type
+    int iItemType = getScilabTypeFromDataSet(iItemDataset);
+    if (iItemType != sci_strings)
+    {
+        return false;
+    }
+
+    // get size of first item
+    iRet = getDatasetInfo(iItemDataset, &iComplex, &iDims, NULL);
+    if (iRet < 0 || iDims != 2)
+    {
+        return false;
+    }
+
+    int* piDims = new int[2];
+    int iSize = getDatasetInfo(iItemDataset, &iComplex, &iDims, piDims);
+    if (iSize != iItems)
+    {
+        delete[] piDims;
+        return false;
+    }
+
+    delete[] piDims;
+    piDims = NULL;
+
+    // get data of first item for check the type of mlist
+    char** pstData = new char*[iSize];
+    iRet = readStringMatrix(iItemDataset, pstData);
+    if (iRet || strcmp(pstData[0], "st") != 0)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        return false;
+    }
+
+    // get second item, the Size of struct
+    iRet = getListItemDataset(_iDatasetId, piItemRef, 1, &iItemDataset);
+    if (iRet)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        pstData = NULL;
+        return false;
+    }
+
+    iRet = getDatasetInfo(iItemDataset, &iComplex, &iDims, NULL);
+    if (iRet < 0 || iDims != 2)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        pstData = NULL;
+        return false;
+    }
+
+    piDims = new int[2];
+    iSize = getDatasetInfo(iItemDataset, &iComplex, &iDims, piDims);
+    if (piDims[0] != 1)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        pstData = NULL;
+        delete[] piDims;
+        return false;
+    }
+
+    int* piDimsArray = new int[piDims[1]];
+    iRet = readInteger32Matrix(iItemDataset, piDimsArray);
+    if (iRet)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        pstData = NULL;
+        delete[] piDims;
+        delete[] piDimsArray;
+        return false;
+    }
+
+    types::Struct* pStruct = new types::Struct(piDims[1], piDimsArray);
+
+    wchar_t* pwstName = to_wide_string(_pstVarname);
+    symbol::Context::getInstance()->put(symbol::Symbol(pwstName), pStruct);
+    FREE(pwstName);
+
+    for (int i = 2; i < iItems; ++i)
+    {
+        pStruct->addField(to_wide_string(pstData[i]));
+    }
+    freeStringMatrix(iItemDataset, pstData);
+    delete[] pstData;
+    pstData = NULL;
+
+    types::SingleStruct** ppSStruct =  pStruct->get();
+    types::String* pStr = pStruct->getFieldNames();
+
+    types::InternalType* pIT = NULL;
+    if (pStruct->getSize() == 1)
+    {
+        for (int i = 2; i < iItems; ++i)
+        {
+            int iItemDataset = 0;
+
+            iRet = getListItemDataset(_iDatasetId, piItemRef, i, &iItemDataset);
+            if (iRet || iItemDataset == 0)
+            {
+                return false;
+            }
+
+            wchar_t* pwcsName = pStr->get(i - 2);
+            char* pcsName = wide_string_to_UTF8(pStr->get(i - 2));
+            int iSize = strlen(pcsName) + strlen(_pstVarname) + 1;
+            char* pcsNameTempo = (char*)MALLOC(sizeof(char) * iSize);
+            strcpy(pcsNameTempo, _pstVarname);
+            strcat(pcsNameTempo, pcsName);
+            bool bRet = import_data(pvCtx, iItemDataset, i, _piAddress, pcsNameTempo);
+
+            if (bRet == false)
+            {
+                return false;
+            }
+
+
+            pIT = symbol::Context::getInstance()->getCurrentLevel(symbol::Symbol(to_wide_string(pcsNameTempo)));
+            ppSStruct[0]->set(pwcsName, pIT);
+            FREE(pwcsName);
+            FREE(pcsNameTempo);
+            FREE(pcsName);
+        }
+    }
+    else
+    {
+        types::List* pList = NULL;
+        for (int i = 2; i < iItems; ++i)
+        {
+            int iItemDataset = 0;
+
+            iRet = getListItemDataset(_iDatasetId, piItemRef, i, &iItemDataset);
+            if (iRet || iItemDataset == 0)
+            {
+                return false;
+            }
+
+            wchar_t* pwcsName = pStr->get(i - 2);
+            char* pcsName = wide_string_to_UTF8(pStr->get(i - 2));
+            int iSize = strlen(pcsName) + strlen(_pstVarname) + 1;
+            char* pcsNameTempo = (char*)MALLOC(sizeof(char) * iSize);
+            strcpy(pcsNameTempo, _pstVarname);
+            strcat(pcsNameTempo, pcsName);
+            bool bRet = import_data(pvCtx, iItemDataset, i, _piAddress, pcsNameTempo);
+
+            if (bRet == false)
+            {
+                return false;
+            }
+
+
+            pIT = symbol::Context::getInstance()->getCurrentLevel(symbol::Symbol(to_wide_string(pcsNameTempo)));
+            if (pIT->isList() == false)
+            {
+                return false;
+            }
+            pList = pIT->getAs<types::List>();
+            for (int iWriteData = 0; iWriteData < pStruct->getSize(); ++iWriteData)
+            {
+                ppSStruct[iWriteData]->set(pwcsName, pList->get(iWriteData));
+            }
+
+            FREE(pwcsName);
+            FREE(pcsNameTempo);
+            FREE(pcsName);
+        }
+    }
+
+    iRet = deleteListItemReferences(_iDatasetId, piItemRef);
+
     if (iRet)
     {
         return false;
