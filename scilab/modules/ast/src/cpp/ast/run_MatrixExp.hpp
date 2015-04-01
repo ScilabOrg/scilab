@@ -361,7 +361,9 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
             // call overload
             if (p == NULL)
             {
-                pNewSize->killMe();
+				if(pNewSize){
+					pNewSize->killMe();
+				}
                 try
                 {
                     poResult = callOverloadMatrixExp(L"f", pGTResult, pGT);
