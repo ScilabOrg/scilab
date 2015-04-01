@@ -240,3 +240,14 @@ assert_checktrue(exists("l")==0);
 // import from hdf5
 assert_checktrue(import_from_hdf5(fileName));
 assert_checkequal(l == list(1, , 3), [%t %f %t]);
+
+// Struct
+data.data.data = 0;
+data.data.string = "Scilab";
+data.list = list(1,["S" "E"]);
+data2.data.data = 42;
+data2.data.string = "Test";
+data2.list = list(1,["a" "b"]);
+struct_ = [data, data, data2; data2, data2, data];
+checkValue(struct_);
+
