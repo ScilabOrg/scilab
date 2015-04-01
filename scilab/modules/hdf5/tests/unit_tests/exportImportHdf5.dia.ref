@@ -225,4 +225,13 @@ valueRef(5) = "five";
 valueRef(7) = 7;
 checkValue(valueRef);
 //// Void
-checkValue(list(1, , 3));
+//checkValue(list(1, , 3));
+// Struct
+data.data.data = 0;
+data.data.string = "Scilab";
+data.list = list(1,["S" "E"]);
+data2.data.data = 42;
+data2.data.string = "Test";
+data2.list = list(1,["a" "b"]);
+struct_ = [data, data, data2; data2, data2, data];
+checkValue(struct_);
