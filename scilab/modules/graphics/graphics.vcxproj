@@ -239,11 +239,13 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\configgraphicvariable.cpp" />
+    <ClCompile Include="sci_gateway\cpp\sci_contour2dm.cpp" />
     <ClCompile Include="sci_gateway\c\sci_addcolor.c" />
     <ClCompile Include="sci_gateway\c\sci_color.c" />
     <ClCompile Include="sci_gateway\c\sci_light.c" />
     <ClCompile Include="sci_gateway\c\sci_name2rgb.c" />
     <ClCompile Include="src\cpp\set_data_property.cpp" />
+    <ClCompile Include="src\cpp\ContourOnMesh.cpp" />
     <ClCompile Include="src\c\addColor.c" />
     <ClCompile Include="src\c\Axes.c" />
     <ClCompile Include="src\c\axesScale.c" />
@@ -679,6 +681,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClInclude Include="src\cpp\configgraphicvariable.hxx" />
     <ClInclude Include="includes\Light.h" />
     <ClInclude Include="includes\name2rgb.h" />
+    <ClInclude Include="src\cpp\ContourOnMesh.hxx" />
     <ClInclude Include="src\c\CheckScilabXgc.h" />
     <ClInclude Include="src\c\getHandleProperty\AnchorType.h" />
     <ClInclude Include="src\c\getHandleProperty\BarType.h" />
