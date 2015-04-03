@@ -4,9 +4,9 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
-
+//
 // <-- JVM NOT MANDATORY -->
-// <-- ENGLISH IMPOSED -->
+//
 // ============================================================================
 // Unitary tests for mexWarnMsgTxt mex function
 // ============================================================================
@@ -20,7 +20,7 @@ mputl(["#include ""mex.h""";
 "{";
 "    mexWarnMsgTxt(""If you read this message, mexWarnMsgTxt works!"");";
 "}"],"mexwarnMsgTxt.c");
-ilib_mex_build("libmextest",["warnMsgTxt","mexwarnMsgTxt","cmex"], "mexwarnMsgTxt.c",[],"","","","");
+ilib_mex_build("libmextest",["warnMsgTxt","mexwarnMsgTxt","cmex"], "mexwarnMsgTxt.c",[]);
 exec("loader.sce");
 
 warnMsgTxt()

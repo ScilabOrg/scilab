@@ -82,8 +82,7 @@ Function::ReturnValue sci_clearfun(types::typed_list &in, int _iRetCount, types:
             pSV = stack.top();
             stack.pop();
             pSV->m_pIT->DecreaseRef();
-            pVar->put(pSV->m_pIT, pSV->m_iLevel);
-            delete pSV;
+            pVar->put(pSV);
         }
     }
 
