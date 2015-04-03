@@ -169,10 +169,7 @@ types::InternalType* Context::get(const Symbol& _key, int _iLevel)
         VarList::iterator it = varStack.top()->find(_key);
         if (it != varStack.top()->end())
         {
-            if (it->second->empty() == false)
-            {
-                return it->second->top()->m_pIT;
-            }
+            pIT = it->second->get();
         }
     }
 
@@ -185,7 +182,6 @@ types::InternalType* Context::get(const Symbol& _key, int _iLevel)
             pIT = libraries.get(_key, _iLevel);
         }
     }
-
     return pIT;
 }
 
