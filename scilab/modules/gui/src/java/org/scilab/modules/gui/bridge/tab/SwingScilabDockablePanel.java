@@ -304,7 +304,9 @@ public class SwingScilabDockablePanel extends View implements SimpleTab, FocusLi
                 if (e.getChanged() instanceof SwingScilabWindow) {
                     Position parentPosition = SwingScilabWindow.allScilabWindows.get(parentWindowId).getPosition();
                     Integer[] newPosition = new Integer[] { parentPosition.getX(), parentPosition.getY() };
-                    GraphicController.getController().setProperty(id, __GO_POSITION__, newPosition);
+
+					//set of position is done in scilabCommonPanel
+                   // GraphicController.getController().setProperty(id, __GO_POSITION__, newPosition);
                 }
             }
         });
