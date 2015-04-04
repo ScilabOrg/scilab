@@ -15,7 +15,7 @@ import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.implementation.jogl.JoGLDrawingTools;
 import org.scilab.forge.scirenderer.renderer.Renderer;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * @author Pierre Lando

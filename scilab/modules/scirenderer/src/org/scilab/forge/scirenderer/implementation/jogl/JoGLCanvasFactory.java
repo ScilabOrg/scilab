@@ -13,7 +13,7 @@ package org.scilab.forge.scirenderer.implementation.jogl;
 
 import org.scilab.forge.scirenderer.Canvas;
 
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLAutoDrawable;
 
 /**
  * @author Pierre Lando
