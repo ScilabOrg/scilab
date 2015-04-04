@@ -17,7 +17,7 @@ import org.scilab.forge.scirenderer.lightning.Light;
 import org.scilab.forge.scirenderer.lightning.LightManager;
 import org.scilab.forge.scirenderer.shapes.appearance.Material;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * JoGL implementation of {@link LightManager}

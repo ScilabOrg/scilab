@@ -15,7 +15,7 @@ import org.scilab.forge.scirenderer.clipping.ClippingManager;
 import org.scilab.forge.scirenderer.clipping.ClippingPlane;
 import org.scilab.forge.scirenderer.implementation.jogl.JoGLDrawingTools;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * @author Pierre Lando

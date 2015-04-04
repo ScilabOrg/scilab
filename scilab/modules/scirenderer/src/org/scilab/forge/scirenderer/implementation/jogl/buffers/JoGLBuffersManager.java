@@ -16,7 +16,7 @@ import org.scilab.forge.scirenderer.buffers.DataBuffer;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

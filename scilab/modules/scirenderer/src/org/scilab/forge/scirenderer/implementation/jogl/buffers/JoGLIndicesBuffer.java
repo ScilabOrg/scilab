@@ -13,7 +13,7 @@ package org.scilab.forge.scirenderer.implementation.jogl.buffers;
 
 import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 
-import javax.media.opengl.GL;
+import com.jogamp.opengl.GL;
 import java.nio.Buffer;
 import java.nio.IntBuffer;
 import java.util.Collection;

@@ -23,7 +23,7 @@ import org.scilab.forge.scirenderer.texture.Texture;
 import org.scilab.forge.scirenderer.lightning.LightManager;
 import org.scilab.forge.scirenderer.shapes.appearance.Material;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 

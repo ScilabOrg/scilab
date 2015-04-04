@@ -15,7 +15,7 @@ package org.scilab.modules.gui.canvas;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 
-import javax.media.opengl.GL;
+import com.jogamp.opengl.GL;
 import java.awt.image.BufferedImage;
 
 /**
