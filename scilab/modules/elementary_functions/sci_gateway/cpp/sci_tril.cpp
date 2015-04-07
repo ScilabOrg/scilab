@@ -16,12 +16,15 @@
 #include "string.hxx"
 #include "overload.hxx"
 #include "execvisitor.hxx"
+#include "int.hxx"
 
 extern "C"
 {
 #include "Scierror.h"
 #include "localization.h"
 }
+
+template<class T, class U> types::InternalType* tril_const(T *_pL, U* _data, int iOffset);
 
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, types::typed_list &out)
@@ -75,33 +78,42 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
     }
 
     // perform operation
-    if (in[0]->isDouble()) // double
+    if (in[0]->isDouble() || in[0]->isInt()) // double
     {
-        types::Double* pDblOut = in[0]->getAs<types::Double>()->clone()->getAs<types::Double>();
-        int iRows = pDblOut->getRows();
-        int iCols = pDblOut->getCols();
-        double* pdblOutReal = pDblOut->get();
-
-        if (pDblOut->isComplex())
+        types::InternalType* pOut = NULL;
+        switch (in[0]->getType())
         {
-            double* pdblOutImg = pDblOut->getImg();
-            for (int i = 0; i < iCols; i++)
-            {
-                int iSize = min(max(i - iOffset, 0), iRows);
-                memset(&pdblOutReal[i * iRows], 0x00, iSize * sizeof(double));
-                memset(&pdblOutImg[i * iRows],  0x00, iSize * sizeof(double));
-            }
+            case types::InternalType::ScilabDouble:
+                pOut = tril_const(in[0]->getAs<types::Double>(), in[0]->getAs<types::Double>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt8:
+                pOut = tril_const(in[0]->getAs<types::Int8>(), in[0]->getAs<types::Int8>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt16:
+                pOut = tril_const(in[0]->getAs<types::Int16>(), in[0]->getAs<types::Int16>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt32:
+                pOut = tril_const(in[0]->getAs<types::Int32>(), in[0]->getAs<types::Int32>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt64:
+                pOut = tril_const(in[0]->getAs<types::Int64>(), in[0]->getAs<types::Int64>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt8:
+                pOut = tril_const(in[0]->getAs<types::UInt8>(), in[0]->getAs<types::UInt8>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt16:
+                pOut = tril_const(in[0]->getAs<types::UInt16>(), in[0]->getAs<types::UInt16>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt32:
+                pOut = tril_const(in[0]->getAs<types::UInt32>(), in[0]->getAs<types::UInt32>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt64:
+                pOut = tril_const(in[0]->getAs<types::UInt64>(), in[0]->getAs<types::UInt64>()->get(), iOffset);
+                break;
+            default:
+            {} // never occurred
         }
-        else
-        {
-            for (int i = 0; i < iCols; i++)
-            {
-                int iSize = min(max(i - iOffset, 0), iRows);
-                memset(&pdblOutReal[i * iRows], 0x00, iSize * sizeof(double));
-            }
-        }
-
-        out.push_back(pDblOut);
+        out.push_back(pOut);
     }
     else if (in[0]->isPoly()) // polynom
     {
@@ -149,3 +161,32 @@ types::Function::ReturnValue sci_tril(types::typed_list &in, int _iRetCount, typ
     return types::Function::OK;
 }
 /*--------------------------------------------------------------------------*/
+
+template<class T, class U> types::InternalType* tril_const(T *_pL, U* _data, int iOffset)
+{
+    T* pOut = _pL->clone()->getAs<T>();
+    int iRows = pOut->getRows();
+    int iCols = pOut->getCols();
+    U* pOutReal = pOut->get();
+
+    if (pOut->isComplex())
+    {
+        U* pOutImg = pOut->getImg();
+        for (int i = 0; i < iCols; i++)
+        {
+            int iSize = min(max(i - iOffset, 0), iRows);
+            memset(&pOutReal[i * iRows], 0x00, iSize * sizeof(U));
+            memset(&pOutImg[i * iRows], 0x00, iSize * sizeof(U));
+        }
+    }
+    else
+    {
+        for (int i = 0; i < iCols; i++)
+        {
+            int iSize = min(max(i - iOffset, 0), iRows);
+            memset(&pOutReal[i * iRows], 0x00, iSize * sizeof(U));
+        }
+    }
+
+    return pOut;
+}
