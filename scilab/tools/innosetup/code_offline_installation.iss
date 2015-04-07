@@ -63,7 +63,7 @@ begin
   end;
 
   // FFTW
-  Res := Res and SetComponentState('DescriptionFftwMKLDownload', IsOnline,
+  Res := Res and SetComponentState('DescriptionMKLFftwLibrary', IsOnline,
     IsOnline);
   if not IsOnline then
   begin

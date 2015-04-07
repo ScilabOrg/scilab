@@ -10,7 +10,7 @@
 ;
 
 ; library blas standard
-Source: bin\blasplus.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\blasplus.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB} and not {#COMPN_MKL_CPU_LIBRARY}
 Source: bin\blasplus.lib; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 ;
 
@@ -30,10 +30,10 @@ Source: bin\msvcp100.DLL; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 
 
 ;MKL
-Source: bin\LIBMMD.DLL; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
-Source: bin\libifcoremd.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\libmmd.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB} and not {#COMPN_MKL_CPU_LIBRARY}
+Source: bin\libifcoremd.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB} and not {#COMPN_MKL_CPU_LIBRARY}
 Source: bin\libifcorertd.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
-Source: bin\libiomp5md.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\libiomp5md.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB} and not {#COMPN_MKL_CPU_LIBRARY}
 Source: bin\svml_dispmd.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 ;
 ; used for localization
@@ -44,7 +44,7 @@ Source: bin\MALLOC.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 ;
 Source: bin\zlib1.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\GetWindowsVersion.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
-Source: bin\lapack.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\lapack.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB} and not {#COMPN_MKL_CPU_LIBRARY}
 Source: bin\libf2c.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\scilab_windows.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\libxml2.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
