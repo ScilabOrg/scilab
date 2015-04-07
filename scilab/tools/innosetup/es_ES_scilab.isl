@@ -67,7 +67,7 @@ es_ES.DescriptionSpreadsheet =Spreadsheet Toolbox
 es_ES.DescriptionJVM =Java Runtime
 es_ES.DescriptionAtlas =Atlas library 3.8.0 CPU optimized
 es_ES.DescriptionFftwModule =FFTW interface for Scilab
-es_ES.DescriptionFftwMKLDownload =Download FFTW library optimized by Intel Math Kernel Library
+es_ES.DescriptionMKLFftwLibrary =FFTW library optimized by Intel Math Kernel Library
 es_ES.DescriptionRefFftwLibrary =Reference FFTW library
 es_ES.DescriptionParametersTlbx =Parameters Toolbox
 es_ES.DescriptionGeneticTlbx =Genetic Algorithms Toolbox
@@ -120,7 +120,7 @@ es_ES.DescriptionCLIInstall =Command Line Minimal Installation (no gui)
 es_ES.DescriptionCPUOptimization =CPU Optimization for Scilab
 es_ES.DescriptionATLASLibrary =Atlas Library for Scilab
 es_ES.DescriptionRefBlasLibrary =Blas, Lapack Reference libraries for Scilab
-es_ES.DescriptionMKLLibrary =Download Intel Math Kernel Library for Scilab
+es_ES.DescriptionMKLLibrary =Intel Math Kernel Library for Scilab
 ;
 es_ES.DownloadMKLLabel =Downloading Intel Math Kernel Library files for Scilab
 es_ES.DownloadMKLDescription =Please wait while Setup is downloading extra files to your computer.

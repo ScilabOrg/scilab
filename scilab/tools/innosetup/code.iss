@@ -71,8 +71,6 @@ function DoTasksJustAfterInstall: Boolean;
   begin
     Result := true;
     Result := CreateModulesFile();
-    Result := DoTaskInstall_MKL();
-    Result := DoTaskInstall_MKL_FFTW();
   end;
 //------------------------------------------------------------------------------
 function GetJREVersion(): String;
@@ -208,12 +206,6 @@ function NextButtonClick(CurPageID: Integer): Boolean;
         AboutModulesButton.Visible := false;
       end;
 
-    if (CurPageID =  wpReady) then
-      begin
-        bRes := NextButtonClick_Download_MKL();
-        bRes := NextButtonClick_Download_MKL_FFTW();
-      end;
-
     if (CurPageId = wpSelectComponents) then
       begin
         if ( IsComponentSelected( ExpandConstant('{#COMPN_JRE}') ) = false ) then
@@ -324,8 +316,6 @@ begin
   AboutModulesButton.OnClick := @ButtonAboutModulesOnClick;
   AboutModulesButton.Parent := CancelButton.Parent;
   AboutModulesButton.Visible := false;
-
-  CreateOfflineInstallationCheckBox;
 
   OriginalOnTypesComboChange := WizardForm.TypesCombo.OnChange;
   WizardForm.TypesCombo.OnChange := @OnTypesComboChange;

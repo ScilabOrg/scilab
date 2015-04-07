@@ -44,7 +44,7 @@ en_US.DescriptionTclTK =TCL/TK in Scilab
 en_US.DescriptionJVM =Java Runtime
 en_US.DescriptionAtlas =Atlas library 3.8.0 CPU optimized
 en_US.DescriptionFftwModule =FFTW interface for Scilab
-en_US.DescriptionFftwMKLDownload =Download FFTW library optimized by Intel Math Kernel Library
+en_US.DescriptionMKLFftwLibrary =FFTW library optimized by Intel Math Kernel Library
 en_US.DescriptionRefFftwLibrary =Reference FFTW library
 en_US.DescriptionDevTools =Development Tools
 en_US.DescriptionTests =Tests for Scilab
@@ -96,7 +96,7 @@ en_US.DescriptionCLIInstall =Command Line Installation (no gui)
 en_US.DescriptionCPUOptimization =CPU Optimization for Scilab
 en_US.DescriptionATLASLibrary =Atlas Library for Scilab
 en_US.DescriptionRefBlasLibrary =Blas, Lapack Reference libraries for Scilab
-en_US.DescriptionMKLLibrary =Download Intel Math Kernel Library for Scilab
+en_US.DescriptionMKLLibrary =Intel Math Kernel Library for Scilab
 ;
 en_US.DownloadMKLLabel =Downloading Intel Math Kernel Library files for Scilab
 en_US.DownloadMKLDescription =Please wait while Setup is downloading extra files to your computer.
