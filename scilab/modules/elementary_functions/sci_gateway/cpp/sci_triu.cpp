@@ -17,12 +17,15 @@
 #include "string.hxx"
 #include "overload.hxx"
 #include "execvisitor.hxx"
+#include "int.hxx"
 
 extern "C"
 {
 #include "Scierror.h"
 #include "localization.h"
 }
+
+template<class T, class U> types::InternalType* triu_const(T *_pL, U* _data, int iOffset);
 
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_triu(types::typed_list &in, int _iRetCount, types::typed_list &out)
@@ -76,39 +79,42 @@ types::Function::ReturnValue sci_triu(types::typed_list &in, int _iRetCount, typ
     }
 
     /***** get data *****/
-    if (in[0]->isDouble()) // double
+    if (in[0]->isDouble() || in[0]->isInt()) // double
     {
-        types::Double* pDblIn  = in[0]->getAs<types::Double>();
-        int iCols = pDblIn->getCols();
-        int iRows = pDblIn->getRows();
-        double* pdblInReal = pDblIn->get();
-
-        types::Double* pDblOut = new types::Double(iRows, iCols, pDblIn->isComplex());
-        double* pdblOutReal = pDblOut->get();
-        memset(pdblOutReal, 0x00, iRows * iCols * sizeof(double));
-
-        if (pDblIn->isComplex())
+        types::InternalType* pOut = NULL;
+        switch (in[0]->getType())
         {
-            double* pdblInImg  = pDblIn->getImg();
-            double* pdblOutImg = pDblOut->getImg();
-            memset(pdblOutImg, 0x00, iRows * iCols * sizeof(double));
-            for (int i = 0 ; i < iCols ; i++)
-            {
-                int iSize = min(max(i + 1 - iOffset, 0), iRows);
-                memcpy(&pdblOutReal[i * iRows], &pdblInReal[i * iRows], iSize * sizeof(double));
-                memcpy(&pdblOutImg[i * iRows], &pdblInImg[i * iRows], iSize * sizeof(double));
-            }
+            case types::InternalType::ScilabDouble:
+                pOut = triu_const(in[0]->getAs<types::Double>(), in[0]->getAs<types::Double>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt8:
+                pOut = triu_const(in[0]->getAs<types::Int8>(), in[0]->getAs<types::Int8>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt16:
+                pOut = triu_const(in[0]->getAs<types::Int16>(), in[0]->getAs<types::Int16>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt32:
+                pOut = triu_const(in[0]->getAs<types::Int32>(), in[0]->getAs<types::Int32>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabInt64:
+                pOut = triu_const(in[0]->getAs<types::Int64>(), in[0]->getAs<types::Int64>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt8:
+                pOut = triu_const(in[0]->getAs<types::UInt8>(), in[0]->getAs<types::UInt8>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt16:
+                pOut = triu_const(in[0]->getAs<types::UInt16>(), in[0]->getAs<types::UInt16>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt32:
+                pOut = triu_const(in[0]->getAs<types::UInt32>(), in[0]->getAs<types::UInt32>()->get(), iOffset);
+                break;
+            case types::InternalType::ScilabUInt64:
+                pOut = triu_const(in[0]->getAs<types::UInt64>(), in[0]->getAs<types::UInt64>()->get(), iOffset);
+                break;
+            default:
+            {} // never occurred
         }
-        else
-        {
-            for (int i = 0 ; i < iCols ; i++)
-            {
-                int iSize = min(max(i + 1 - iOffset, 0), iRows);
-                memcpy(&pdblOutReal[i * iRows], &pdblInReal[i * iRows], iSize * sizeof(double));
-            }
-        }
-
-        out.push_back(pDblOut);
+        out.push_back(pOut);
     }
     else if (in[0]->isPoly()) // polynom
     {
@@ -143,3 +149,37 @@ types::Function::ReturnValue sci_triu(types::typed_list &in, int _iRetCount, typ
     return types::Function::OK;
 }
 /*--------------------------------------------------------------------------*/
+
+template<class T, class U> types::InternalType* triu_const(T *_pL, U* _data, int iOffset)
+{
+    int iCols = _pL->getCols();
+    int iRows = _pL->getRows();
+    U* pInReal = _data;
+
+    T* pOut = new T(iRows, iCols);
+    pOut->setComplex(_pL->isComplex());
+    U* pOutReal = pOut->get();
+    memset(pOutReal, 0x00, iRows * iCols * sizeof(U));
+
+    if (_pL->isComplex())
+    {
+        U* pInImg = _pL->getImg();
+        U* pOutImg = pOut->getImg();
+        memset(pOutImg, 0x00, iRows * iCols * sizeof(U));
+        for (int i = 0; i < iCols; i++)
+        {
+            int iSize = min(max(i + 1 - iOffset, 0), iRows);
+            memcpy(&pOutReal[i * iRows], &pInReal[i * iRows], iSize * sizeof(U));
+            memcpy(&pOutImg[i * iRows], &pInImg[i * iRows], iSize * sizeof(U));
+        }
+    }
+    else
+    {
+        for (int i = 0; i < iCols; i++)
+        {
+            int iSize = min(max(i + 1 - iOffset, 0), iRows);
+            memcpy(&pOutReal[i * iRows], &pInReal[i * iRows], iSize * sizeof(U));
+        }
+    }
+    return pOut;
+}
