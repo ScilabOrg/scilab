@@ -248,6 +248,6 @@ function [scs_m,DEL,DELL]=do_delete1(scs_m,K,gr)
 
     //** Scan all the deleted elements and update the graphics datastrucure
     for k = DEL
-        scs_m.objs(k) = scicos_new("Deleted"); //** mark the object as "Deleted"
+        scs_m.objs(k) = mlist("Deleted"); //** mark the object as "Deleted"
     end
 endfunction
