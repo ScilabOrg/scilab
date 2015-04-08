@@ -219,7 +219,7 @@ int ConfigVariable::getConsoleLines(void)
 ** \{
 */
 
-int ConfigVariable::m_iScilabMode = 0;
+int ConfigVariable::m_iScilabMode = 1; //SCILAB_API = 1  Scilab is launch as an API
 
 void ConfigVariable::setScilabMode(int _iScilabMode)
 {
