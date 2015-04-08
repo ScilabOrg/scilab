@@ -28,7 +28,7 @@ extern "C"
 
 namespace symbol
 {
-Context* Context::me;
+Context* Context::me = NULL;
 
 Context::Context()
 {
@@ -54,7 +54,7 @@ Context::~Context()
 
 Context* Context::getInstance(void)
 {
-    if (me == 0)
+    if (me == NULL)
     {
         me = new Context();
     }
@@ -66,6 +66,7 @@ void Context::destroyInstance(void)
     if (me)
     {
         delete me;
+        me = NULL;
     }
 }
 
