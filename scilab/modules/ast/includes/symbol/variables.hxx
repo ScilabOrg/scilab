@@ -529,6 +529,8 @@ struct Variables
         {
             delete var.second;
         }
+
+        vars.clear();
     }
 
 private:

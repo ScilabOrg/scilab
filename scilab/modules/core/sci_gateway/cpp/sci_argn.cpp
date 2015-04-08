@@ -25,8 +25,8 @@ using namespace types;
 
 types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    static symbol::Variable* varIn = NULL;
-    static symbol::Variable* varOut = NULL;
+    symbol::Variable* varIn = NULL;
+    symbol::Variable* varOut = NULL;
 
     int iRhs = static_cast<int>(in.size());
     //check input arguments
