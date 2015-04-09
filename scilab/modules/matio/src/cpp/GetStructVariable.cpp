@@ -26,38 +26,42 @@ extern "C"
 }
 
 matvar_t *GetStructVariable(void *pvApiCtx, int iVar, const char *name, int matfile_version, int * parent, int item_position)
-//(void *pvApiCtx, int iVar, const char *name, int matfile_version, char **fieldNames, int nbFields, int * parent, int item_position)
 {
-    GatewayStruct* pStr = (GatewayStruct*)pvApiCtx;
-    typed_list in = *pStr->m_pIn;
-    InternalType** out = pStr->m_pOut;
-    int  Dims = 1;
-    int* pDims = NULL;
-    int prodDims = 1;
+    types::GatewayStruct* pGS = (types::GatewayStruct*)pvApiCtx;
+    types::typed_list in = *pGS->m_pIn;
 
-    int nbFields = 0;
-    int K = 0;
-    size_t *pszDims = NULL;
+    if (in[iVar - 1]->isStruct() == false)
+    {
+        Scierror(999, _("%s: Wrong type for first input argument: String matrix expected.\n"), "GetStructVariable");
+        return NULL;
+    }
 
+    types::Struct* pStruct = in[iVar - 1]->getAs<types::Struct>();
+
+    return GetMat_VarStruct(pStruct, name, matfile_version);
+}
+
+matvar_t* GetMat_VarStruct(types::Struct* pStruct, const char *name, int matfile_version)
+{
     matvar_t **structEntries = NULL;
-    int * var_addr = NULL;
-    Struct* pStruct = in[iVar - 1]->getAs<Struct>();
 
-    Dims = pStruct->getDims();
-    pDims = pStruct->getDimsArray();
-    prodDims = pStruct->getSize();
+    int Dims = pStruct->getDims();
+    int* pDims = pStruct->getDimsArray();
+    int prodDims = pStruct->getSize();
+
+    matvar_t* pMatVarOut = NULL;
 
     /* OTHERS LIST ENTRIES: ALL CELL VALUES */
 
-    pszDims = (size_t*)MALLOC(Dims * sizeof(size_t));
+    size_t* pszDims = (size_t*)MALLOC(Dims * sizeof(size_t));
     if (pszDims == NULL)
     {
-        Scierror(999, _("%s: No more memory.\n"), "GetStructVariable");
+        Scierror(999, _("%s: No more memory.\n"), "GetMat_VarStruct");
         return NULL;
     }
 
     /* Total number of entries */
-    for (K = 0; K < Dims; K++)
+    for (int K = 0; K < Dims; ++K)
     {
         pszDims[K] = ((int*)pDims)[K];
     }
@@ -69,16 +73,17 @@ matvar_t *GetStructVariable(void *pvApiCtx, int iVar, const char *name, int matf
     structEntries = (matvar_t **)MALLOC(sizeof(matvar_t*) * prodDims * isizeFieldNames + 1);
     if (structEntries == NULL)
     {
-        Scierror(999, _("%s: No more memory.\n"), "GetStructVariable");
+        Scierror(999, _("%s: No more memory.\n"), "GetMat_VarStruct");
         return NULL;
     }
 
-    for (int K = 0; K < prodDims * isizeFieldNames + 1; K++)
+    for (int K = 0; K < prodDims * isizeFieldNames + 1; ++K)
     {
         structEntries[K] = NULL;
     }
 
     SingleStruct** ppSingleStruct = pStruct->get();
+
     for (int i = 0; i < prodDims; i++)
     {
         for (int j = 0; j < isizeFieldNames; j++)
@@ -93,5 +98,8 @@ matvar_t *GetStructVariable(void *pvApiCtx, int iVar, const char *name, int matf
         }
     }
 
-    return Mat_VarCreate(name, MAT_C_STRUCT, MAT_T_STRUCT, prodDims * isizeFieldNames, pszDims, structEntries, 0);
+    pMatVarOut = Mat_VarCreate(name, MAT_C_STRUCT, MAT_T_STRUCT, prodDims * isizeFieldNames, pszDims, structEntries, 0);
+
+    FREE(structEntries);
+    FREE(pszDims);
 }
