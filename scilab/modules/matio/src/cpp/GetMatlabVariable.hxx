@@ -36,4 +36,8 @@ matvar_t* GetMat_VarChar(types::String* pStr, const char *name);
 
 matvar_t* GetMat_VarSparse(types::Sparse* pSparse, const char *name);
 
+matvar_t* GetMat_VarCell(types::Cell* pCell, const char *name, int matfile_version);
+
+matvar_t* GetMat_VarStruct(types::Struct* pStruct, const char *name, int matfile_version);
+
 #endif /* !__GETMATLABVARIABLE_HXX__ */
