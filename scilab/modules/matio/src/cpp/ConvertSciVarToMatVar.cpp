@@ -68,66 +68,17 @@ matvar_t *ConvertSciVarToMatVar(InternalType* pIT, const char *name, int matfile
         break;
         case GenericType::ScilabCell:
         {
-            matvar_t **cellEntries = NULL;
-
-            cellEntries = (matvar_t **)MALLOC(sizeof(matvar_t*) * isize);
-            if (cellEntries == NULL)
-            {
-                Scierror(999, _("%s: No more memory.\n"), "ConvertSciVarToMatVar");
-                return NULL;
-            }
-
-            types::InternalType** ppIT = pIT->getAs<Cell>()->get();
-
-            for (int K = 0; K < isize; K++)
-            {
-                cellEntries[K] = ConvertSciVarToMatVar(ppIT[K], name, matfile_version);
-                if (cellEntries[K] == NULL)
-                {
-                    FREE(cellEntries);
-                    FREE(psize_t);
-                    return NULL;
-                }
-            }
-
-            return Mat_VarCreate(name, MAT_C_CELL, MAT_T_CELL, Dims, psize_t, cellEntries, 0);
+            return GetMat_VarCell(pIT->getAs<Cell>(), name, matfile_version);
         }
         break;
         case GenericType::ScilabStruct:
         {
-            matvar_t **structEntries = NULL;
-            String* pFieldNames = pIT->getAs<Struct>()->getFieldNames();
-            wchar_t** ppwchFieldNames = pFieldNames->get();
-            int isizeFieldNames = pFieldNames->getSize();
-
-            structEntries = (matvar_t **)MALLOC(sizeof(matvar_t*) * isize * isizeFieldNames + 1);
-            if (structEntries == NULL)
-            {
-                Scierror(999, _("%s: No more memory.\n"), "ConvertSciVarToMatVar");
-                return NULL;
-            }
-
-            for (int K = 0; K < isize * isizeFieldNames + 1; K++)
-            {
-                structEntries[K] = NULL;
-            }
-
-            SingleStruct** ppSingleStruct = pIT->getAs<Struct>()->get();
-            for (int i = 0; i < isize; i++)
-            {
-                for (int j = 0; j < isizeFieldNames; j++)
-                {
-                    structEntries[i * isizeFieldNames + j] = ConvertSciVarToMatVar(ppSingleStruct[i]->get(pFieldNames->get(j)), wide_string_to_UTF8(pFieldNames->get(j)), matfile_version);
-                    if (structEntries[i * isizeFieldNames + j] == NULL)
-                    {
-                        FREE(structEntries);
-                        FREE(psize_t);
-                        return NULL;
-                    }
-                }
-            }
-
-            return Mat_VarCreate(name, MAT_C_STRUCT, MAT_T_STRUCT, isize * isizeFieldNames, psize_t, structEntries, 0);
+            return GetMat_VarStruct(pIT->getAs<Struct>(), name, matfile_version);
+        }
+        break;
+        case GenericType::ScilabMList:
+        {
+            return GetMat_VarMList(pIT->getAs<MList>(), name, matfile_version);
         }
         break;
         default:
