@@ -28,41 +28,64 @@ f2=['void c_sub(double *a,double *b, double *sub)'
 mputl(f2,TMP_DIR+filesep()+'c_sub.c');
 //creating the interface file
 i=['#define __USE_DEPRECATED_STACK_FUNCTIONS__'
-   '#include ""stack-c.h""'
+   '#include ""api_scilab.h""'
    'extern void c_sum(double *a,double *b, double *sum);'
-   'int sci_csum(char *fname)' 
+   'int sci_csum(char *fname, void *pvApiCtx)' 
    '{'
    '  int m1 = 0, n1 = 0, l1 = 0;'
    '  int m2 = 0, n2 = 0, l2 = 0;'
    '  int m3 = 0, n3 = 0, l3 = 0;'
+   '  SciErr sciErr;'
+    'int* piAddr1 = NULL;'
+    'int* piAddr2 = NULL;'
+    'double* pdblReal2	= NULL;'
+    'double* pdblReal1	= NULL;'
+    'double* pdbl	= NULL;'
    '  CheckRhs(1,2);'
    '  CheckLhs(1,1);'
-   '  GetRhsVar(1, ""d"", &m1, &n1, &l1);'
-   '  GetRhsVar(2, ""d"", &m2, &n2, &l2);'
-   '  m3=1;n3=1;'
-   '  CreateVar(Rhs+1,""d"",&m3,&n3,&l3);'
-   '  c_sum(stk(l1),stk(l2),stk(l3));'
-   '  LhsVar(1) = Rhs+1;'
+    'sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);'
+    'sciErr = getVarDimension(pvApiCtx, piAddr1, &m1, &n1);'
+    'sciErr = getMatrixOfDouble(pvApiCtx, piAddr1, &m1, &n1, &pdblReal1);'
+    'sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);'
+    'sciErr = getVarDimension(pvApiCtx, piAddr2, &m2, &n2);'
+    'sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &m2, &n2, &pdblReal2);'
+    '  m3=1;n3=1;'
+    'sciErr = allocMatrixOfDouble(pvApiCtx, Rhs + 1, m3, n3, &pdbl);'
+   '  c_sum(pdblReal1,pdblReal2,pdbl);'
+     
+    ' LhsVar(1) = Rhs + 1;'
+    ' PutLhsVar();'
    '  return 0;'
    '}'];
 mputl(i,TMP_DIR+filesep()+'sci_csum.c');
 //creating the interface file
 j=['#define __USE_DEPRECATED_STACK_FUNCTIONS__'
-   '#include ""stack-c.h""'
-   'extern void c_sub(double *a,double *b, double *sum);'
-   'int sci_csub(char *fname)' 
+   '#include ""api_scilab.h""'
+   'extern void c_sub(double *a,double *b, double *sub);'
+   'int sci_csub(char *fname, void *pvApiCtx)' 
    '{'
    '  int m1 = 0, n1 = 0, l1 = 0;'
    '  int m2 = 0, n2 = 0, l2 = 0;'
    '  int m3 = 0, n3 = 0, l3 = 0;'
+   '  SciErr sciErr;'
+    'int* piAddr1 = NULL;'
+    'int* piAddr2 = NULL;'
+    'double* pdblReal2	= NULL;'
+    'double* pdblReal1	= NULL;'
+    'double* pdbl	= NULL;'
    '  CheckRhs(1,2);'
    '  CheckLhs(1,1);'
-   '  GetRhsVar(1, ""d"", &m1, &n1, &l1);'
-   '  GetRhsVar(2, ""d"", &m2, &n2, &l2);'
+    'sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);'
+    'sciErr = getVarDimension(pvApiCtx, piAddr1, &m1, &n1);'
+    'sciErr = getMatrixOfDouble(pvApiCtx, piAddr1, &m1, &n1, &pdblReal1);'
+    'sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);'
+    'sciErr = getVarDimension(pvApiCtx, piAddr2, &m2, &n2);'
+    'sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &m2, &n2, &pdblReal2);'
    '  m3=1;n3=1;'
-   '  CreateVar(Rhs+1,""d"",&m3,&n3,&l3);'
-   '  c_sub(stk(l1),stk(l2),stk(l3));'
-   '  LhsVar(1) = Rhs+1;'
+     'sciErr = allocMatrixOfDouble(pvApiCtx, Rhs + 1, m3, n3, &pdbl);'
+   '  c_sub(pdblReal1,pdblReal2,pdbl);'
+    ' LhsVar(1) = Rhs + 1;'
+    ' PutLhsVar();'
    '  return 0;'
    '}'];
 mputl(j,TMP_DIR+filesep()+'sci_csub.c');
@@ -78,7 +101,9 @@ ilib_build('foo',['c_sum','sci_csum';'c_sub','sci_csub'],files,[]);
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
    ilib_gen_Make: Copy c_sub.c to TMPDIR
    ilib_gen_Make: Copy c_sum.c to TMPDIR
-   ilib_gen_Make: Copy libfoo.c to TMPDIR
+   ilib_gen_Make: Copy libfoo.cpp to TMPDIR
+   ilib_gen_Make: Copy libfoo.h to TMPDIR
+   ilib_gen_Make: Copy libfoo.hxx to TMPDIR
    ilib_gen_Make: Copy sci_csub.c to TMPDIR
    ilib_gen_Make: Copy sci_csum.c to TMPDIR
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
