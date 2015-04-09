@@ -82,7 +82,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
 
     if (var_type == sci_sparse)
     {
-        sparseData = (mat_sparse_t*) MALLOC(sizeof(mat_sparse_t));
+        sparseData = (mat_sparse_t*)MALLOC(sizeof(mat_sparse_t));
         if (sparseData == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
@@ -90,7 +90,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
         }
 
         rank = 2;
-        if ((dims = (int*) MALLOC (sizeof(int) * rank)) == NULL)
+        if ((dims = (int*)MALLOC(sizeof(int) * rank)) == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
             return NULL;
@@ -133,7 +133,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
 
                     return FALSE;
                 }
-                scilabSparse.R    = (double *)MALLOC(scilabSparse.nel * sizeof(double));
+                scilabSparse.R = (double *)MALLOC(scilabSparse.nel * sizeof(double));
                 if (scilabSparse.R == NULL)
                 {
                     Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
@@ -144,7 +144,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
 
                     return FALSE;
                 }
-                scilabSparse.I    = (double *)MALLOC(scilabSparse.nel * sizeof(double));
+                scilabSparse.I = (double *)MALLOC(scilabSparse.nel * sizeof(double));
                 if (scilabSparse.I == NULL)
                 {
                     Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
@@ -205,7 +205,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
 
                     return FALSE;
                 }
-                scilabSparse.R    = (double *)MALLOC(scilabSparse.nel * sizeof(double));
+                scilabSparse.R = (double *)MALLOC(scilabSparse.nel * sizeof(double));
                 if (scilabSparse.R == NULL)
                 {
                     Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
@@ -233,7 +233,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
         scilabSparse.n = dims[0];
 
         /* colIndexes = (int*) MALLOC(sizeof(int) *  (scilabSparse.nel + 1));  */
-        colIndexes = (int*) MALLOC(sizeof(int) *  (scilabSparse.m + 1));
+        colIndexes = (int*)MALLOC(sizeof(int) *  (scilabSparse.m + 1));
         if (colIndexes == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
@@ -257,7 +257,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
             colIndexes[K + 1] = colIndexes[K] + scilabSparse.mnel[K];
         }
 
-        rowIndexes = (int*) MALLOC(sizeof(int) *  scilabSparse.nel);
+        rowIndexes = (int*)MALLOC(sizeof(int) *  scilabSparse.nel);
         if (rowIndexes == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
@@ -281,7 +281,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
 
         if (scilabSparse.it == 0) /* Real sparse */
         {
-            if ((data = (double*) MALLOC(sizeof(double) * scilabSparse.nel)) == NULL)
+            if ((data = (double*)MALLOC(sizeof(double) * scilabSparse.nel)) == NULL)
             {
                 Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
                 FREE(rowIndexes);
@@ -305,7 +305,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
         }
         else
         {
-            if ((data = (double*) MALLOC(2 * sizeof(double) * scilabSparse.nel)) == NULL)
+            if ((data = (double*)MALLOC(2 * sizeof(double) * scilabSparse.nel)) == NULL)
             {
                 Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
                 FREE(rowIndexes);
@@ -343,7 +343,7 @@ matvar_t *GetSparseVariable(void *pvApiCtx, int iVar, const char *name, int * pa
         sparseData->ndata = scilabSparse.nel;
         sparseData->data = (void*)data;
 
-        pszDims = (size_t*) MALLOC(rank * sizeof(size_t));
+        pszDims = (size_t*)MALLOC(rank * sizeof(size_t));
         if (pszDims == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), "GetSparseVariable");
