@@ -19,6 +19,7 @@
 #include "struct.hxx"
 #include "context.hxx"
 #include "string.hxx"
+#include "sparse.hxx"
 
 extern "C"
 {
@@ -32,5 +33,7 @@ matvar_t * GetMat_VarDouble(types::Double* pDblIn, const char* name, int matfile
 matvar_t* GetMat_VarInteger(types::InternalType* pITIn, const char *name);
 
 matvar_t* GetMat_VarChar(types::String* pStr, const char *name);
+
+matvar_t* GetMat_VarSparse(types::Sparse* pSparse, const char *name);
 
 #endif /* !__GETMATLABVARIABLE_HXX__ */
