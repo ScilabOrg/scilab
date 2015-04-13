@@ -4,23 +4,31 @@
 #include <string.h>
 #include <stdio.h>
 #define __USE_DEPRECATED_STACK_FUNCTIONS__
-#include "stack-c.h"
+#include "api_scilab.h"
 /* ============================================== */
 static void f99(double *ar, double *ac, int *ita, int *ma, int *na);
 /* ============================================== */
-int intex2c(char *fname)
+int intex2c(char *fname, void * pvApiCtx)
 {
     static int lr1, lc1, it1, m1, n1;
     int minlhs = 1, minrhs = 1, maxlhs = 1, maxrhs = 1;
+    double *pdblReal = NULL, *pdblImag = NULL;
+    int* piAddr1 = NULL;
+
+    SciErr sciErr;
 
     CheckRhs(minrhs, maxrhs) ;
     CheckLhs(minlhs, maxlhs) ;
 
-    GetRhsCVar(1, "d", &it1, &m1, &n1, &lr1, &lc1);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);
+    sciErr = getVarDimension(pvApiCtx, piAddr1, &m1, &n1);
+    it1 = isVarComplex(pvApiCtx, piAddr1);
+    sciErr = getComplexMatrixOfDouble(pvApiCtx, piAddr1, &m1, &n1, &pdblReal, &pdblImag);
 
-    f99(stk(lr1), stk(lc1), &it1, &m1, &n1);
+    f99(pdblReal, pdblImag, &it1, &m1, &n1);
 
     LhsVar(1) = 1;
+    PutLhsVar();
     return 0;
 }
 /* ============================================== */
