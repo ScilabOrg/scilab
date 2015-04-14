@@ -1806,23 +1806,44 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
             case InternalType::ScilabHandle :
             {
                 GraphicHandle* pH = _pVar->getAs<GraphicHandle>();
-                String *pS = (*_pArgs)[0]->getAs<String>();
-
-                typed_list in;
-                typed_list out;
-                optional_list opt;
-                ast::ExecVisitor exec;
-
-                in.push_back(pH);
-                in.push_back(pS);
-                in.push_back(_pInsert);
-
-                Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
-                Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, &exec);
-                if (ret == Callable::OK)
+                InternalType* pITIn = NULL;
+                if ((*_pArgs)[0]->isString())
                 {
-                    pOut = _pVar;
+                    pITIn = (*_pArgs)[0]->getAs<String>();
+
+                    typed_list in;
+                    typed_list out;
+                    optional_list opt;
+                    ast::ExecVisitor exec;
+
+                    in.push_back(pH);
+                    in.push_back(pITIn);
+                    in.push_back(_pInsert);
+
+                    Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
+                    Callable::ReturnValue ret = pCall->call(in, opt, 1, out, &exec);
+                    if (ret == Callable::OK)
+                    {
+                        pOut = _pVar;
+                    }
                 }
+                if ((*_pArgs).size() == 1 ? ((*_pArgs)[0]->isDouble() || (*_pArgs)[0]->isBool()) : (((*_pArgs)[0]->isDouble() || (*_pArgs)[0]->isBool()) && ((*_pArgs)[1]->isDouble() || (*_pArgs)[1]->isBool())))
+                {
+                    if ((*_pArgs).size() == 1 ? ((*_pArgs)[0]->getAs<GenericType>()->getSize() > 1) : (((*_pArgs)[0]->getAs<GenericType>()->getSize() > 1) || ((*_pArgs)[0]->getAs<GenericType>()->getSize() > 1)))
+                    {
+                        pOut = pH;
+                    }
+                    else
+                    {
+                        pOut = pH->insert(_pArgs, _pInsert);
+                    }
+
+                }
+                else
+                {
+                    pOut = pH;
+                }
+
                 break;
             }
             default :
