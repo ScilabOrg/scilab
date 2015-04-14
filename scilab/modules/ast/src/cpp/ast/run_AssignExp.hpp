@@ -416,6 +416,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                     delete i;
                 }
 
+                pIT->killMe();
                 throw error;
             }
 
