@@ -15,8 +15,6 @@
 namespace org_modules_hdf5
 {
 
-std::map<std::string, hid_t> H5Type::nameToType;
-
 void H5Type::init()
 {
     type = H5Topen(getParent().getH5Id(), name.c_str(), H5P_DEFAULT);

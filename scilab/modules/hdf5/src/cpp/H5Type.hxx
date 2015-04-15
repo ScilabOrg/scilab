@@ -25,7 +25,12 @@ class H5Type : public H5Object
 {
     hid_t type;
 
-    static std::map<std::string, hid_t> nameToType;
+    static std::map<std::string, hid_t>& getNameToType()
+    {
+        static std::map<std::string, hid_t> nameToType;
+        return nameToType;
+    }
+
 
 public:
 
@@ -129,8 +134,8 @@ public:
             upper = "H5T_" + upper;
         }
 
-        it = nameToType.find(upper);
-        if (it != nameToType.end())
+        it = getNameToType().find(upper);
+        if (it != getNameToType().end())
         {
             return H5Tcopy(it->second);
         }
@@ -140,144 +145,144 @@ public:
 
     static void initMap()
     {
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I8BE", H5T_STD_I8BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I8LE", H5T_STD_I8LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I16BE", H5T_STD_I16BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I16LE", H5T_STD_I16LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I32BE", H5T_STD_I32BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I32LE", H5T_STD_I32LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I64BE", H5T_STD_I64BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_I64LE", H5T_STD_I64LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U8BE", H5T_STD_U8BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U8LE", H5T_STD_U8LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U16BE", H5T_STD_U16BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U16LE", H5T_STD_U16LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U32BE", H5T_STD_U32BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U32LE", H5T_STD_U32LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U64BE", H5T_STD_U64BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_U64LE", H5T_STD_U64LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_SCHAR", H5T_NATIVE_SCHAR));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UCHAR", H5T_NATIVE_UCHAR));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_SHORT", H5T_NATIVE_SHORT));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_USHORT", H5T_NATIVE_USHORT));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT", H5T_NATIVE_INT));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT", H5T_NATIVE_UINT));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_LONG", H5T_NATIVE_LONG));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_ULONG", H5T_NATIVE_ULONG));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_LLONG", H5T_NATIVE_LLONG));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_ULLONG", H5T_NATIVE_ULLONG));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT8", H5T_NATIVE_INT8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT8", H5T_NATIVE_UINT8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST8", H5T_NATIVE_INT_LEAST8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST8", H5T_NATIVE_UINT_LEAST8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST8", H5T_NATIVE_INT_FAST8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST8", H5T_NATIVE_UINT_FAST8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT16", H5T_NATIVE_INT16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT16", H5T_NATIVE_UINT16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST16", H5T_NATIVE_INT_LEAST16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST16", H5T_NATIVE_UINT_LEAST16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST16", H5T_NATIVE_INT_FAST16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST16", H5T_NATIVE_UINT_FAST16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT32", H5T_NATIVE_INT32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT32", H5T_NATIVE_UINT32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST32", H5T_NATIVE_INT_LEAST32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST32", H5T_NATIVE_UINT_LEAST32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST32", H5T_NATIVE_INT_FAST32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST32", H5T_NATIVE_UINT_FAST32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT64", H5T_NATIVE_INT64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT64", H5T_NATIVE_UINT64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST64", H5T_NATIVE_INT_LEAST64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST64", H5T_NATIVE_UINT_LEAST64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST64", H5T_NATIVE_INT_FAST64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST64", H5T_NATIVE_UINT_FAST64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_I8", H5T_INTEL_I8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_I16", H5T_INTEL_I16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_I32", H5T_INTEL_I32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_I64", H5T_INTEL_I64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_U8", H5T_INTEL_U8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_U16", H5T_INTEL_U16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_U32", H5T_INTEL_U32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_U64", H5T_INTEL_U64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_I8", H5T_ALPHA_I8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_I16", H5T_ALPHA_I16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_I32", H5T_ALPHA_I32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_I64", H5T_ALPHA_I64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_U8", H5T_ALPHA_U8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_U16", H5T_ALPHA_U16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_U32", H5T_ALPHA_U32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_U64", H5T_ALPHA_U64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_I8", H5T_MIPS_I8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_I16", H5T_MIPS_I16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_I32", H5T_MIPS_I32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_I64", H5T_MIPS_I64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_U8", H5T_MIPS_U8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_U16", H5T_MIPS_U16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_U32", H5T_MIPS_U32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_U64", H5T_MIPS_U64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_HADDR", H5T_NATIVE_HADDR));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_HSIZE", H5T_NATIVE_HSIZE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_HSSIZE", H5T_NATIVE_HSSIZE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_HERR", H5T_NATIVE_HERR));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_HBOOL", H5T_NATIVE_HBOOL));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_IEEE_F32BE", H5T_IEEE_F32BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_IEEE_F32LE", H5T_IEEE_F32LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_IEEE_F64BE", H5T_IEEE_F64BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_IEEE_F64LE", H5T_IEEE_F64LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_VAX_F32", H5T_VAX_F32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_VAX_F64", H5T_VAX_F64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_FLOAT", H5T_NATIVE_FLOAT));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_DOUBLE", H5T_NATIVE_DOUBLE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_NATIVE_LDOUBLE", H5T_NATIVE_LDOUBLE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_F32", H5T_INTEL_F32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_F64", H5T_INTEL_F64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_F32", H5T_ALPHA_F32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_F64", H5T_ALPHA_F64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_VAX_F32", H5T_VAX_F32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_VAX_F64", H5T_VAX_F64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_F32", H5T_MIPS_F32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_F64", H5T_MIPS_F64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D32BE", H5T_UNIX_D32BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D32LE", H5T_UNIX_D32LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D64BE", H5T_UNIX_D64BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D64LE", H5T_UNIX_D64LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B8BE", H5T_STD_B8BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B8LE", H5T_STD_B8LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B16BE", H5T_STD_B16BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B16LE", H5T_STD_B16LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B32BE", H5T_STD_B32BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B32LE", H5T_STD_B32LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B64BE", H5T_STD_B64BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_B64LE", H5T_STD_B64LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_B8", H5T_INTEL_B8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_B16", H5T_INTEL_B16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_B32", H5T_INTEL_B32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_INTEL_B64", H5T_INTEL_B64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_B8", H5T_ALPHA_B8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_B16", H5T_ALPHA_B16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_B32", H5T_ALPHA_B32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ALPHA_B64", H5T_ALPHA_B64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_B8", H5T_MIPS_B8));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_B16", H5T_MIPS_B16));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_B32", H5T_MIPS_B32));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_MIPS_B64", H5T_MIPS_B64));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STD_REF_OBJ", H5T_STD_REF_OBJ));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I8BE", H5T_STD_I8BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I8LE", H5T_STD_I8LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I16BE", H5T_STD_I16BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I16LE", H5T_STD_I16LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I32BE", H5T_STD_I32BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I32LE", H5T_STD_I32LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I64BE", H5T_STD_I64BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_I64LE", H5T_STD_I64LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U8BE", H5T_STD_U8BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U8LE", H5T_STD_U8LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U16BE", H5T_STD_U16BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U16LE", H5T_STD_U16LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U32BE", H5T_STD_U32BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U32LE", H5T_STD_U32LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U64BE", H5T_STD_U64BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_U64LE", H5T_STD_U64LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_SCHAR", H5T_NATIVE_SCHAR));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UCHAR", H5T_NATIVE_UCHAR));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_SHORT", H5T_NATIVE_SHORT));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_USHORT", H5T_NATIVE_USHORT));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT", H5T_NATIVE_INT));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT", H5T_NATIVE_UINT));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_LONG", H5T_NATIVE_LONG));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_ULONG", H5T_NATIVE_ULONG));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_LLONG", H5T_NATIVE_LLONG));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_ULLONG", H5T_NATIVE_ULLONG));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT8", H5T_NATIVE_INT8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT8", H5T_NATIVE_UINT8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST8", H5T_NATIVE_INT_LEAST8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST8", H5T_NATIVE_UINT_LEAST8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST8", H5T_NATIVE_INT_FAST8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST8", H5T_NATIVE_UINT_FAST8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT16", H5T_NATIVE_INT16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT16", H5T_NATIVE_UINT16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST16", H5T_NATIVE_INT_LEAST16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST16", H5T_NATIVE_UINT_LEAST16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST16", H5T_NATIVE_INT_FAST16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST16", H5T_NATIVE_UINT_FAST16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT32", H5T_NATIVE_INT32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT32", H5T_NATIVE_UINT32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST32", H5T_NATIVE_INT_LEAST32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST32", H5T_NATIVE_UINT_LEAST32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST32", H5T_NATIVE_INT_FAST32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST32", H5T_NATIVE_UINT_FAST32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT64", H5T_NATIVE_INT64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT64", H5T_NATIVE_UINT64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_LEAST64", H5T_NATIVE_INT_LEAST64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_LEAST64", H5T_NATIVE_UINT_LEAST64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_INT_FAST64", H5T_NATIVE_INT_FAST64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_UINT_FAST64", H5T_NATIVE_UINT_FAST64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_I8", H5T_INTEL_I8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_I16", H5T_INTEL_I16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_I32", H5T_INTEL_I32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_I64", H5T_INTEL_I64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_U8", H5T_INTEL_U8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_U16", H5T_INTEL_U16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_U32", H5T_INTEL_U32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_U64", H5T_INTEL_U64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_I8", H5T_ALPHA_I8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_I16", H5T_ALPHA_I16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_I32", H5T_ALPHA_I32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_I64", H5T_ALPHA_I64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_U8", H5T_ALPHA_U8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_U16", H5T_ALPHA_U16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_U32", H5T_ALPHA_U32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_U64", H5T_ALPHA_U64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_I8", H5T_MIPS_I8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_I16", H5T_MIPS_I16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_I32", H5T_MIPS_I32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_I64", H5T_MIPS_I64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_U8", H5T_MIPS_U8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_U16", H5T_MIPS_U16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_U32", H5T_MIPS_U32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_U64", H5T_MIPS_U64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_HADDR", H5T_NATIVE_HADDR));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_HSIZE", H5T_NATIVE_HSIZE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_HSSIZE", H5T_NATIVE_HSSIZE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_HERR", H5T_NATIVE_HERR));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_HBOOL", H5T_NATIVE_HBOOL));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_IEEE_F32BE", H5T_IEEE_F32BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_IEEE_F32LE", H5T_IEEE_F32LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_IEEE_F64BE", H5T_IEEE_F64BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_IEEE_F64LE", H5T_IEEE_F64LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_VAX_F32", H5T_VAX_F32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_VAX_F64", H5T_VAX_F64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_FLOAT", H5T_NATIVE_FLOAT));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_DOUBLE", H5T_NATIVE_DOUBLE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_NATIVE_LDOUBLE", H5T_NATIVE_LDOUBLE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_F32", H5T_INTEL_F32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_F64", H5T_INTEL_F64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_F32", H5T_ALPHA_F32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_F64", H5T_ALPHA_F64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_VAX_F32", H5T_VAX_F32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_VAX_F64", H5T_VAX_F64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_F32", H5T_MIPS_F32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_F64", H5T_MIPS_F64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D32BE", H5T_UNIX_D32BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D32LE", H5T_UNIX_D32LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D64BE", H5T_UNIX_D64BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D64LE", H5T_UNIX_D64LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B8BE", H5T_STD_B8BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B8LE", H5T_STD_B8LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B16BE", H5T_STD_B16BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B16LE", H5T_STD_B16LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B32BE", H5T_STD_B32BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B32LE", H5T_STD_B32LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B64BE", H5T_STD_B64BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_B64LE", H5T_STD_B64LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_B8", H5T_INTEL_B8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_B16", H5T_INTEL_B16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_B32", H5T_INTEL_B32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_INTEL_B64", H5T_INTEL_B64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_B8", H5T_ALPHA_B8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_B16", H5T_ALPHA_B16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_B32", H5T_ALPHA_B32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ALPHA_B64", H5T_ALPHA_B64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_B8", H5T_MIPS_B8));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_B16", H5T_MIPS_B16));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_B32", H5T_MIPS_B32));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_MIPS_B64", H5T_MIPS_B64));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STD_REF_OBJ", H5T_STD_REF_OBJ));
         /*
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D32BE", H5T_UNIX_D32BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D32LE", H5T_UNIX_D32LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D64BE", H5T_UNIX_D64BE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_UNIX_D64LE", H5T_UNIX_D64LE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_STRING", H5T_STRING));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_OPAQUE", H5T_OPAQUE));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_COMPOUND", H5T_COMPOUND));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ENUM", H5T_ENUM));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_VLEN", H5T_VLEN));
-        nameToType.insert(std::pair<std::string, hid_t>("H5T_ARRAY", H5T_ARRAY));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D32BE", H5T_UNIX_D32BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D32LE", H5T_UNIX_D32LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D64BE", H5T_UNIX_D64BE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_UNIX_D64LE", H5T_UNIX_D64LE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_STRING", H5T_STRING));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_OPAQUE", H5T_OPAQUE));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_COMPOUND", H5T_COMPOUND));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ENUM", H5T_ENUM));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_VLEN", H5T_VLEN));
+        getNameToType().insert(std::pair<std::string, hid_t>("H5T_ARRAY", H5T_ARRAY));
         */
     }
 
     static void cleanMap()
     {
-        nameToType.clear();
+        getNameToType().clear();
     }
 
 
