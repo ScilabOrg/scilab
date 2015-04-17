@@ -84,10 +84,31 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
             }
         }
 
-        if (pIT->isColon() || pIT->isImplicitList())
+        if (pIT->isColon())
+        {
+            if (_pRef == NULL)
+            {
+                //not enough information to compute indexes.
+                _pArgsOut->push_back(NULL);
+                bUndefine = true;
+                continue;
+            }
+
+            int iMaxDim = _pRef->getAs<GenericType>()->getVarMaxDim(i, iDims);
+            Double* pDbl = new Double(1, iMaxDim);//pIL->extractFullMatrix()->getAs<Double>();
+            double* pdbl = pDbl->get();
+
+            for (int j = 0; j < iMaxDim; j++)
+            {
+                pdbl[j] = j + 1;
+            }
+
+            pCurrentArg = pDbl;
+        }
+        else if (pIT->isImplicitList())
         {
             //: or a:b:c
-            ImplicitList* pIL = pIT->getAs<ImplicitList>()->clone()->getAs<ImplicitList>();
+            ImplicitList* pIL = pIT->clone()->getAs<ImplicitList>();
             if (pIL->isComputable() == false)
             {
                 //: or $
@@ -106,6 +127,7 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
 #else
                 Double dbl(iMaxDim);
 #endif
+
                 if (pIL->getStart()->isPoly())
                 {
                     Polynom *poPoly	= pIL->getStart()->getAs<types::Polynom>();
@@ -256,17 +278,18 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
         {
             const int iCountDim = pCurrentArg->getSize();
             _piMaxDim[i] = 0;
+            double* pdbl = pCurrentArg->get();
             for (int j = 0 ; j < iCountDim ; j++)
             {
                 //checks if size < size(int)
-                if (pCurrentArg->get(j) >= INT_MAX)
+                if (pdbl[j] >= INT_MAX)
                 {
                     wchar_t szError[bsiz];
                     os_swprintf(szError, bsiz, _W("variable size exceeded : less than %d expected.\n").c_str(), INT_MAX);
                     throw ast::ScilabError(szError);
                 }
 
-                const int d = static_cast<int>(pCurrentArg->get(j));
+                const int d = static_cast<int>(pdbl[j]);
                 if (d > _piMaxDim[i])
                 {
                     _piMaxDim[i] = d;
