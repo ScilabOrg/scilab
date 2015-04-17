@@ -11,7 +11,7 @@
  */
 
 //file included in runvisitor.cpp
-namespace ast {
+namespace ast{
 
 template<class T>
 void RunVisitorT<T>::visitprivate(const AssignExp  &e)
@@ -127,7 +127,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
         CellCallExp *pCell = dynamic_cast<CellCallExp*>(&e.getLeftExp());
         if (pCell)
         {
-            InternalType *pOut	= NULL;
+            InternalType *pOut  = NULL;
 
             /*getting what to assign*/
             InternalType* pITR = e.getRightVal();
