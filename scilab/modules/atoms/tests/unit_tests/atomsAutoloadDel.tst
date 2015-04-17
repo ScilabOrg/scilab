@@ -36,17 +36,17 @@ atomsInstall("toolbox_5","user");
 // → atomsAutoloadList should return an empty matrix
 if ~ isempty(atomsAutoloadList()) then pause, end
 
-if atomsAutoloadAdd(["toolbox_5" "1.0" "user"]    ,"user") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_4" "1.0" "user"]    ,"user") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "user"]    ,"user") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1" "user"]    ,"user") <> 1 then pause, end
 if atomsAutoloadAdd(["toolbox_2" "1.0" "user"]    ,"user") <> 1 then pause, end
 if atomsAutoloadAdd(["toolbox_1" "1.0" "user"]    ,"user") <> 1 then pause, end
 
 if atomsAutoloadDel("toolbox_5"                   ,"user") <> 1 then pause, end
-if atomsAutoloadDel(["toolbox_5" "1.0-1"]         ,"user") <> 0 then pause, end
-if atomsAutoloadDel(["toolbox_5" "1.0-1" "user"]  ,"user") <> 0 then pause, end
+if atomsAutoloadDel(["toolbox_5" "2.0-1"]         ,"user") <> 0 then pause, end
+if atomsAutoloadDel(["toolbox_5" "2.0-1" "user"]  ,"user") <> 0 then pause, end
 
-if atomsAutoloadDel(["toolbox_4" "1.0-1" "user"]  ,"user") <> 1 then pause, end
-if atomsAutoloadDel(["toolbox_4" "1.0-1"]         ,"user") <> 0 then pause, end
+if atomsAutoloadDel(["toolbox_4" "1.1-1" "user"]  ,"user") <> 1 then pause, end
+if atomsAutoloadDel(["toolbox_4" "1.1-1"]         ,"user") <> 0 then pause, end
 if atomsAutoloadDel("toolbox_4"                   ,"user") <> 0 then pause, end
 
 if atomsAutoloadDel(["toolbox_2" "1.0-1"]         ,"user") <> 1 then pause, end
@@ -73,17 +73,17 @@ atomsInstall("toolbox_5","allusers");
 // → atomsAutoloadList should return an empty matrix
 if ~ isempty(atomsAutoloadList()) then pause, end
 
-if atomsAutoloadAdd(["toolbox_5" "1.0" "allusers" ; ..
-    "toolbox_4" "1.0" "allusers" ; ..
+if atomsAutoloadAdd(["toolbox_5" "2.0" "allusers" ; ..
+    "toolbox_4" "1.1" "allusers" ; ..
     "toolbox_2" "1.0" "allusers" ; ..
 "toolbox_1" "1.0" "allusers" ] ,"allusers") <> 4 then pause, end
 
 if atomsAutoloadDel("toolbox_5"                       ,"allusers") <> 1 then pause, end
-if atomsAutoloadDel(["toolbox_5" "1.0-1"]             ,"allusers") <> 0 then pause, end
-if atomsAutoloadDel(["toolbox_5" "1.0-1" "allusers"]  ,"allusers") <> 0 then pause, end
+if atomsAutoloadDel(["toolbox_5" "2.0-1"]             ,"allusers") <> 0 then pause, end
+if atomsAutoloadDel(["toolbox_5" "2.0-1" "allusers"]  ,"allusers") <> 0 then pause, end
 
-if atomsAutoloadDel(["toolbox_4" "1.0-1" "allusers"]  ,"allusers") <> 1 then pause, end
-if atomsAutoloadDel(["toolbox_4" "1.0-1"]             ,"allusers") <> 0 then pause, end
+if atomsAutoloadDel(["toolbox_4" "1.1-1" "allusers"]  ,"allusers") <> 1 then pause, end
+if atomsAutoloadDel(["toolbox_4" "1.1-1"]             ,"allusers") <> 0 then pause, end
 if atomsAutoloadDel("toolbox_4"                       ,"allusers") <> 0 then pause, end
 
 if atomsAutoloadDel(["toolbox_2" "1.0-1"]             ,"allusers") <> 1 then pause, end
@@ -112,13 +112,13 @@ atomsInstall("toolbox_5","allusers");
 // → atomsAutoloadList should return an empty matrix
 if ~ isempty(atomsAutoloadList()) then pause, end
 
-if atomsAutoloadAdd(["toolbox_5" "1.0" "allusers"]    ,"allusers") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0" "user"]        ,"user")     <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "allusers"]    ,"allusers") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "user"]        ,"user")     <> 1 then pause, end
 
 if atomsAutoloadDel("toolbox_5") <> 2 then pause, end
 
-if atomsAutoloadAdd(["toolbox_5" "1.0" "allusers"]    ,"allusers") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0" "user"]        ,"user")     <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "allusers"]    ,"allusers") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "user"]        ,"user")     <> 1 then pause, end
 
 if atomsAutoloadDel("toolbox_5","user")                            <> 1 then pause, end
 if atomsAutoloadDel("toolbox_5","allusers")                        <> 1 then pause, end
