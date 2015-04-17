@@ -137,7 +137,9 @@ int set_data_bounds_property(void* _pvCtx, int iObjUID, void* _pvData, int value
         bounds[4] = tmpBounds[4];
         bounds[5] = tmpBounds[5];
 
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, tmpBounds, jni_double_vector, 6);
         status = setGraphicObjectProperty(iObjUID, __GO_DATA_BOUNDS__, bounds, jni_double_vector, 6);
+
     }
     else
     {

@@ -36,6 +36,7 @@
 /*------------------------------------------------------------------------*/
 int get_text_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     int* dimensions;
     char** textMatrix;
 
@@ -55,6 +56,11 @@ int get_text_property(void* _pvCtx, int iObjUID)
         return -1;
     }
 
-    return sciReturnStringMatrix(_pvCtx, textMatrix, dimensions[0], dimensions[1]);
+    ret = sciReturnStringMatrix(_pvCtx, textMatrix, dimensions[0], dimensions[1]);
+
+    releaseGraphicObjectProperty(__GO_TEXT_STRINGS__, textMatrix, jni_string_vector, dimensions[0] * dimensions[1]);
+    releaseGraphicObjectProperty(__GO_TEXT_ARRAY_DIMENSIONS__, dimensions, jni_int_vector, 2);
+
+    return ret;
 }
 /*------------------------------------------------------------------------*/

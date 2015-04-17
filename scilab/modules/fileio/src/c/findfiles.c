@@ -51,6 +51,9 @@ char **findfiles(char *path, char *filespec, int *sizeListReturned, BOOL warning
     wcstrPattern = (wchar_t*)MALLOC(sizeof(wchar_t) * len);
     swprintf(wcstrPattern, len, L"%s/%s", wcpath, wcfilespec);
 
+    FREE(wcpath);
+    FREE(wcfilespec);
+
     hFile = FindFirstFileW(wcstrPattern, &FileInformation);
     if (wcstrPattern)
     {

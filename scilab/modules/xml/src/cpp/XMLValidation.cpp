@@ -26,7 +26,7 @@ namespace org_modules_xml
 {
 
 std::string * XMLValidation::errorBuffer = 0;
-std::list<XMLValidation *>& XMLValidation::openValidationFiles = *new std::list < XMLValidation * >();
+std::list<XMLValidation *> XMLValidation::openValidationFiles;
 
 XMLValidation::XMLValidation(): XMLObject(), validationFile(0)
 {

@@ -216,6 +216,7 @@ int plot2dn(int ptype, char *logflags, double *x, double *y, int *n1, int *n2, i
             drect[2] = Min(dataBounds[2], drect[2]);    /*ymin */
             drect[1] = Max(dataBounds[1], drect[1]);    /*xmax */
             drect[3] = Max(dataBounds[3], drect[3]);    /*ymax */
+            releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 6);
         }
 
         if (strflag[1] != '0')
@@ -627,6 +628,7 @@ BOOL update_specification_bounds(int iSubwinUID, double rect[6], int flag)
 
         rect[4] = dataBounds[4];
         rect[5] = dataBounds[5];
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 6);
     }
 
     setGraphicObjectProperty(iSubwinUID, __GO_DATA_BOUNDS__, rect, jni_double_vector, 6);

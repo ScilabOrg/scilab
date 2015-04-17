@@ -58,6 +58,10 @@ int createDataObject(int iUID, int _iType)
     return 0;
 }
 /*--------------------------------------------------------------------------*/
+void destroyDataController()
+{
+}
+/*--------------------------------------------------------------------------*/
 void deleteGraphicObject(int iUID)
 {
 }

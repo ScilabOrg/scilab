@@ -20,6 +20,9 @@
 */
 /*--------------------------------------------------------------------------*/
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 /*--------------------------------------------------------------------------*/
 int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
 {

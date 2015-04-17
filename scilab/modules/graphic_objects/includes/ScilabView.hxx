@@ -52,19 +52,18 @@ private :
     ~ScilabView() {}
 
     // Define type for easy manipulation.
-    typedef std::map<int, long>  __handleList;
-    typedef __handleList::iterator          __handleList_iterator;
-    typedef std::map<long, int>  __uidList;
-    typedef __uidList::iterator          __uidList_iterator;
-    typedef std::map<int, int>    __figureList;
-    typedef __figureList::iterator          __figureList_iterator;
-    typedef __figureList::reverse_iterator          __figureList_reverse_iterator;
-    typedef std::map<int, std::vector<int> >  __userdata;
-
-    typedef  std::map<int, PathItem*> __pathList;
-    typedef __pathList::iterator __pathList_iterator;
-    typedef  std::map<std::string, int> __pathFigList;
-    typedef __pathFigList::iterator __pathFigList_iterator;
+    typedef std::map<int, long>                 __handleList;
+    typedef __handleList::iterator              __handleList_iterator;
+    typedef std::map<long, int>                 __uidList;
+    typedef __uidList::iterator                 __uidList_iterator;
+    typedef std::map<int, int>                  __figureList;
+    typedef __figureList::iterator              __figureList_iterator;
+    typedef __figureList::reverse_iterator      __figureList_reverse_iterator;
+    typedef std::map<int, std::vector<int> >    __userdata;
+    typedef std::map<int, PathItem*>            __pathList;
+    typedef __pathList::iterator                __pathList_iterator;
+    typedef std::map<std::string, int>          __pathFigList;
+    typedef __pathFigList::iterator             __pathFigList_iterator;
 
     static __figureList     m_figureList;
     static __handleList     m_handleList;
@@ -80,6 +79,7 @@ private :
     static int              m_axesModel;
 
 public :
+
     static void createObject(int iUID);
     static void deleteObject(int iUID);
     static void updateObject(int iUID, int iProperty);

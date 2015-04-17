@@ -284,6 +284,11 @@ public :
         }
     }
 
+    static void destroyRoot()
+    {
+        delete &root;
+    }
+
     static std::string getIndentString(const unsigned int indentLevel)
     {
         return std::string((size_t)(__H5_INDENT_LENGTH__ * indentLevel), ' ');

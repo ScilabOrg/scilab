@@ -34,6 +34,7 @@ public:
     static void removeId(const int id);
     static void removeIdAndDelete(const int id);
     static void clearScope();
+    static void destroyScope();
 
 private :
 

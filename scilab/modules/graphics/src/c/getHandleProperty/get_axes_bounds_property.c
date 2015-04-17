@@ -31,6 +31,7 @@
 /*------------------------------------------------------------------------*/
 int get_axes_bounds_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     double* axesBounds = NULL;
 
     getGraphicObjectProperty(iObjUID, __GO_AXES_BOUNDS__, jni_double_vector, (void **)&axesBounds);
@@ -41,6 +42,8 @@ int get_axes_bounds_property(void* _pvCtx, int iObjUID)
         return -1;
     }
 
-    return sciReturnRowVector(_pvCtx, axesBounds, 4);
+    ret = sciReturnRowVector(_pvCtx, axesBounds, 4);
+    releaseGraphicObjectProperty(__GO_AXES_BOUNDS__, axesBounds, jni_double_vector, 4);
+    return ret;
 }
 /*------------------------------------------------------------------------*/

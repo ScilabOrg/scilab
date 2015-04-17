@@ -323,8 +323,6 @@
     <ClInclude Include="..\..\includes\NormalGenerator.hxx" />
     <ClInclude Include="..\..\includes\Plot3DDecomposer.hxx" />
     <ClInclude Include="..\..\includes\PolylineDecomposer.hxx" />
-    <ClInclude Include="..\..\includes\TriangleMeshData.hxx" />
-    <ClInclude Include="..\..\includes\TriangleMeshFecDataDecomposer.hxx" />
     <ClInclude Include="..\jni\CallXmlLoader.hxx" />
   </ItemGroup>
   <ItemGroup>

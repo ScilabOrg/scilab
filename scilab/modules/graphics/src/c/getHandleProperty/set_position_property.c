@@ -64,7 +64,7 @@ int set_position_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTyp
         labelPosition[2] = currentPosition[2];
 
         status = setGraphicObjectProperty(iObjUID, __GO_POSITION__, labelPosition, jni_double_vector, 3);
-
+        releaseGraphicObjectProperty(__GO_POSITION__, currentPosition, jni_double_vector, 3);
         if (status == TRUE)
         {
             return SET_PROPERTY_SUCCEED;

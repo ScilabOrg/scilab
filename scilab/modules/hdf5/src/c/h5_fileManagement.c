@@ -190,19 +190,26 @@ int isHDF5File(char* _pstFilename)
 
 void closeHDF5File(int file)
 {
-    herr_t status					= 0;
+    herr_t status = 0;
 
-    /* printf("Open groups: %d\n", H5Fget_obj_count(file, H5F_OBJ_GROUP));
-    printf("Open datasets: %d\n", H5Fget_obj_count(file, H5F_OBJ_DATASET));
-    printf("Open datatypes: %d\n", H5Fget_obj_count(file, H5F_OBJ_DATATYPE));
-    printf("Open attributes: %d\n", H5Fget_obj_count(file, H5F_OBJ_ATTR));
-    printf("Open all (except the file itself): %d\n", H5Fget_obj_count(file, H5F_OBJ_ALL)  - 1);*/
+    //printf("Open files: %d\n", H5Fget_obj_count(file, H5F_OBJ_FILE));
+    //printf("Open datasets: %d\n", H5Fget_obj_count(file, H5F_OBJ_DATASET));
+    //printf("Open groups: %d\n", H5Fget_obj_count(file, H5F_OBJ_GROUP));
+    //printf("Open datatypes: %d\n", H5Fget_obj_count(file, H5F_OBJ_DATATYPE));
+    //printf("Open attributes: %d\n", H5Fget_obj_count(file, H5F_OBJ_ATTR));
+    //printf("Open all (except the file itself): %d\n", H5Fget_obj_count(file, H5F_OBJ_ALL)  - 1);
 
     //	H5Fflush(file, H5F_SCOPE_GLOBAL);
     status = H5Fclose(file);
     if (status < 0)
     {
         fprintf(stderr, "%s", "failed to close file");
+    }
+
+    status = H5garbage_collect();
+    if (status < 0)
+    {
+        fprintf(stderr, "%s", "failed to call HDF5 garbage collector");
     }
 }
 /*--------------------------------------------------------------------------*/

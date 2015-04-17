@@ -31,6 +31,7 @@
 /*------------------------------------------------------------------------*/
 int get_margins_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     double* margins = NULL;
 
     getGraphicObjectProperty(iObjUID, __GO_MARGINS__, jni_double_vector, (void **)&margins);
@@ -41,7 +42,8 @@ int get_margins_property(void* _pvCtx, int iObjUID)
         return -1;
     }
 
-    return sciReturnRowVector(_pvCtx, margins, 4);
-
+    ret = sciReturnRowVector(_pvCtx, margins, 4);
+    releaseGraphicObjectProperty(__GO_MARGINS__, margins, jni_double_vector, 4);
+    return ret;
 }
 /*------------------------------------------------------------------------*/

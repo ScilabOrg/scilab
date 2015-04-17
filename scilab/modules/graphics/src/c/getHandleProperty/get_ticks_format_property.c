@@ -27,6 +27,7 @@
 /*------------------------------------------------------------------------*/
 int get_ticks_format_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     int const propr[3] = {__GO_X_AXIS_FORMAT__, __GO_Y_AXIS_FORMAT__, __GO_Z_AXIS_FORMAT__};
     char * fmts[3]  = { NULL, NULL, NULL };
     int i = 0;
@@ -42,6 +43,12 @@ int get_ticks_format_property(void* _pvCtx, int iObjUID)
         }
     }
 
-    return sciReturnRowStringVector(_pvCtx, fmts, 3);
+    ret = sciReturnRowStringVector(_pvCtx, fmts, 3);
+    for (i = 0 ; i < 3 ; i++)
+    {
+        releaseGraphicObjectProperty(propr[i], fmts[i], jni_string, 1);
+    }
+
+    return ret;
 }
 /*------------------------------------------------------------------------*/

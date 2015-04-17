@@ -44,6 +44,11 @@ int createDataObject(int _sId, int _iType)
     return DataController::createDataObject(_sId, _iType);
 }
 
+void destroyDataController()
+{
+    DataController::destroy();
+}
+
 void buildFigureMenuBar(int _sFigureId)
 {
     CallGraphicController::buildFigureMenuBar(getScilabJavaVM(), _sFigureId);

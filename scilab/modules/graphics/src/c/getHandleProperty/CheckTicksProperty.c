@@ -19,6 +19,7 @@
 #include "CheckTicksProperty.h"
 #include "localization.h"
 #include "Scierror.h"
+#include "api_scilab.h"
 /*---------------------------------------------------------------------------*/
 
 AssignedList * createTlistForTicks(void* _pvCtx)
@@ -56,13 +57,15 @@ AssignedList * createTlistForTicks(void* _pvCtx)
     }
     else
     {
+        char** res = NULL;
         if (!isListCurrentElementStringMatrix(_pvCtx, tlist))
         {
             Scierror(999, _("%s should be a string vector.\n"), "labels");
             return NULL;
         }
 
-        getCurrentStringMatrixFromList(_pvCtx, tlist, &nbRowLab, &nbColLab);
+        res = getCurrentStringMatrixFromList(_pvCtx, tlist, &nbRowLab, &nbColLab);
+        freeAllocatedMatrixOfString(nbRowLab, nbColLab, res);
 
         if (nbRowLoc != nbRowLab || nbColLoc != nbColLab)
         {

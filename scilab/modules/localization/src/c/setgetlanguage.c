@@ -190,7 +190,7 @@ BOOL setlanguage(char *lang)
                 }
 #endif
 #endif
-
+                FREE(ret);
                 return TRUE;
             }
 #ifndef _MSC_VER

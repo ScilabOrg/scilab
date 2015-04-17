@@ -15,6 +15,9 @@
 #include "stack-def.h"
 #include "typename.h"
 #include "funcprot.h"
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 /*-----------------------------------------------------------------------------------*/
 #pragma comment(lib, "../../../../bin/libxml2.lib")
 #pragma comment(lib, "../../../../bin/libintl.lib")

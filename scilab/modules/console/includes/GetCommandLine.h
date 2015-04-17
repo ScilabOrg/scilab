@@ -15,6 +15,7 @@
 /*--------------------------------------------------------------------------*/
 
 #include "dynlib_console.h"
+#include "machine.h"
 
 /**
 * getConsoleInputLine function
@@ -30,6 +31,8 @@ CONSOLE_IMPEXP char *getConsoleInputLine(void);
 * @param eof
 */
 CONSOLE_IMPEXP void C2F(eventloopprompt)(char *buffer, int *buf_size, int *len_line, int * eof);
+
+void clearCommandLine();
 
 /*--------------------------------------------------------------------------*/
 #endif /* __GETCOMMANDLINE_H__ */

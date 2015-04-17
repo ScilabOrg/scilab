@@ -233,17 +233,25 @@ void ScilabView::deleteObject(int iUID)
     }
 
     // Remove the corresponding handle.
-    __handleList_iterator it = m_handleList.find(iUID);
-    if (it != m_handleList.end())
+    __handleList_iterator itHandle = m_handleList.find(iUID);
+    if (itHandle != m_handleList.end())
     {
-        m_uidList.erase(it->second);
-        m_handleList.erase(it);
+        m_uidList.erase(itHandle->second);
+        m_handleList.erase(itHandle);
     }
 
     deleteDataObject(iUID);
 
-    m_pathList.erase(iUID);
+    /*clear userdata object*/
     m_userdata.erase(iUID);
+
+    //clear path object
+    __pathList_iterator itPath = m_pathList.find(iUID);
+    if (itPath != m_pathList.end())
+    {
+        delete itPath->second; //destroy PathItem object
+        m_pathList.erase(itPath); //remove entry
+    }
 }
 
 void ScilabView::updateObject(int iUID, int iProperty)
@@ -288,6 +296,7 @@ void ScilabView::updateObject(int iUID, int iProperty)
                     int* children = NULL;
                     getGraphicObjectProperty(iUID, __GO_CHILDREN__, jni_int_vector, (void**)&children);
                     item->children.assign(children, children + childrenCount);
+                    releaseGraphicObjectProperty(__GO_CHILDREN__, children, jni_int_vector, childrenCount);
                 }
             }
             break;
@@ -350,9 +359,6 @@ void ScilabView::updateObject(int iUID, int iProperty)
 void ScilabView::registerToController(void)
 {
     org_scilab_modules_graphic_objects::CallGraphicController::registerScilabView(getScilabJavaVM());
-    m_figureList.get_allocator().allocate(4096);
-    m_handleList.get_allocator().allocate(4096);
-    m_uidList.get_allocator().allocate(4096);
 }
 
 /*
@@ -562,9 +568,10 @@ int ScilabView::search_path(char* _pstPath)
                     }
                 }
 
-                //if figure is in ignore list, reeturn not found
+                //if figure is in ignore list, return not found
                 if (std::find(ignoredList.begin(), ignoredList.end(), path->uid) != ignoredList.end())
                 {
+                    free(pstPath);
                     return 0;
                 }
             }
@@ -602,6 +609,7 @@ int ScilabView::search_path(char* _pstPath)
         return 0;
     }
 
+    free(pstPath);
     return path->uid;
 }
 
@@ -702,15 +710,15 @@ int* ScilabView::getUserdata(int _id)
 /*
 ** Allocate static class variable.
 */
-ScilabView::__figureList ScilabView::m_figureList = *new __figureList();
-ScilabView::__handleList ScilabView::m_handleList = *new __handleList();
-ScilabView::__uidList ScilabView::m_uidList = *new __uidList();
+ScilabView::__figureList ScilabView::m_figureList;
+ScilabView::__handleList ScilabView::m_handleList;
+ScilabView::__uidList ScilabView::m_uidList;
 long ScilabView::m_topHandleValue = 0;
 int ScilabView::m_currentFigure;
 int ScilabView::m_currentObject;
 int ScilabView::m_currentSubWin;
 int ScilabView::m_figureModel;
 int ScilabView::m_axesModel;
-ScilabView::__pathList ScilabView::m_pathList = *new __pathList();
-ScilabView::__pathFigList ScilabView::m_pathFigList = *new __pathFigList();
-ScilabView::__userdata ScilabView::m_userdata = *new __userdata();
+ScilabView::__pathList ScilabView::m_pathList;
+ScilabView::__pathFigList ScilabView::m_pathFigList;
+ScilabView::__userdata ScilabView::m_userdata;

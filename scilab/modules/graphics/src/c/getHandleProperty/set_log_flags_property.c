@@ -200,6 +200,7 @@ int set_log_flags_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
     /* X axes */
     if ((dataBounds[0] <= 0. || dataBounds[1] <= 0.) && flags[0] == 'l')
     {
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
         Scierror(999, _("Error: data_bounds on %s axis must be strictly positive to switch to logarithmic mode.\n"), "x");
         return SET_PROPERTY_ERROR;
     }
@@ -220,6 +221,7 @@ int set_log_flags_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
     /* Y axes */
     if ((dataBounds[2] <= 0. || dataBounds[3] <= 0.) && flags[1] == 'l')
     {
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
         Scierror(999, _("Error: data_bounds on %s axis must be strictly positive to switch to logarithmic mode.\n"), "y");
         return SET_PROPERTY_ERROR;
     }
@@ -242,12 +244,14 @@ int set_log_flags_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
     {
         if (flags[2] != 'n' && flags[2] != 'l')
         {
+            releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
             Scierror(999, "flags must be 'n' or 'l'.\n");
             return SET_PROPERTY_ERROR;
         }
 
         if ((dataBounds[4] <= 0. || dataBounds[5] <= 0.) && flags[2] == 'l')
         {
+            releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
             Scierror(999, _("Error: data_bounds on %s axis must be strictly positive to switch to logarithmic mode.\n"), "z");
             return SET_PROPERTY_ERROR;
         }
@@ -281,6 +285,8 @@ int set_log_flags_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
     status[0] = setGraphicObjectProperty(iObjUID, __GO_X_AXIS_LOG_FLAG__, &logFlags[0], jni_bool, 1);
     status[1] = setGraphicObjectProperty(iObjUID, __GO_Y_AXIS_LOG_FLAG__, &logFlags[1], jni_bool, 1);
     status[2] = setGraphicObjectProperty(iObjUID, __GO_Z_AXIS_LOG_FLAG__, &logFlags[2], jni_bool, 1);
+
+    releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
 
     if (status[0] == TRUE && status[1] == TRUE && status[2] == TRUE)
     {

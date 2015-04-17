@@ -11,10 +11,21 @@
  */
 
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
+
+#include "H5VariableScope.hxx"
+#include "H5Object.hxx"
+
+extern "C"
+{
+    int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved);
+}
 /*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
-#pragma comment(lib,"../../../../bin/hdf5dll.lib")
-#pragma comment(lib,"../../../../bin/hdf5_hldll.lib")
+#pragma comment(lib,"../../../../bin/hdf5.lib")
+#pragma comment(lib,"../../../../bin/hdf5_hl.lib")
 /*--------------------------------------------------------------------------*/
 int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
 {
@@ -23,6 +34,8 @@ int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
         case DLL_PROCESS_ATTACH:
             break;
         case DLL_PROCESS_DETACH:
+            org_modules_hdf5::H5VariableScope::destroyScope();
+            org_modules_hdf5::H5Object::destroyRoot();
             break;
         case DLL_THREAD_ATTACH:
             break;

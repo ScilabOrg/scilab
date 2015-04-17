@@ -13,6 +13,9 @@
 
 /*--------------------------------------------------------------------------*/
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 /*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/pcre.lib")
 #pragma comment(lib,"../../../../bin/pcreposix.lib")

@@ -34,7 +34,7 @@ namespace org_modules_xml
 
 std::string * XMLDocument::errorBuffer = 0;
 std::string * XMLDocument::errorXPathBuffer = 0;
-std::list < XMLDocument * >&XMLDocument::openDocs = *new std::list < XMLDocument * >();
+std::list < XMLDocument * > XMLDocument::openDocs;
 
 XMLDocument::XMLDocument(const char *path, bool validate, std::string * error, const char * encoding, const bool html): XMLObject()
 {

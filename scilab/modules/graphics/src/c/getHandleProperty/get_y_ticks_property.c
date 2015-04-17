@@ -57,22 +57,28 @@ int get_y_ticks_property(void* _pvCtx, int iObjUID)
         double* positions = NULL;
 
         getGraphicObjectProperty(iObjUID, __GO_Y_AXIS_TICKS_LOCATIONS__, jni_double_vector, (void **) &positions);
-
         getGraphicObjectProperty(iObjUID, __GO_Y_AXIS_TICKS_LABELS__, jni_string_vector, (void **) &labels);
 
         if (positions == NULL || labels == NULL)
         {
+            if (positions)
+            {
+                releaseGraphicObjectProperty(__GO_Y_AXIS_TICKS_LOCATIONS__, positions, jni_double_vector, iNbTicks);
+            }
+
+            if (labels)
+            {
+                releaseGraphicObjectProperty(__GO_Y_AXIS_TICKS_LABELS__, labels, jni_string_vector, iNbTicks);
+            }
+
             Scierror(999, _("'%s' property does not exist for this handle.\n"), "y_ticks");
             return -1;
         }
 
         buildTListForTicks(positions, labels, iNbTicks);
 
-        /* free arrays */
-#if 0
-        destroyStringArray(labels, iNbTicks);
-        FREE(positions);
-#endif
+        releaseGraphicObjectProperty(__GO_Y_AXIS_TICKS_LOCATIONS__, positions, jni_double_vector, iNbTicks);
+        releaseGraphicObjectProperty(__GO_Y_AXIS_TICKS_LABELS__, labels, jni_string_vector, iNbTicks);
     }
 
     return 0;

@@ -238,7 +238,6 @@ static BOOL AddScilabBinDirectoryToPATHEnvironnementVariable(char *DefaultPath)
     {
         sprintf(scilabBinPath, SCILAB_BIN_PATH, DefaultPath);
 
-        scilabBinPathConverted = (char*) MALLOC(MAX_PATH * sizeof(char));
 #ifdef _MSC_VER
         scilabBinPathConverted = strsub(scilabBinPath, "/", "\\");
 #else

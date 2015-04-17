@@ -93,10 +93,11 @@ int sci_chdir(char *fname, unsigned long fname_len)
             return 0;
         }
 
+        FREE(expandedPath);
+        expandedPath = NULL;
         if (iType1 == sci_strings)
         {
             wchar_t *VARVALUE = NULL;
-            FREE(expandedPath);
             if (getAllocatedNamedSingleWideString(pvApiCtx, "PWD", &VARVALUE))
             {
                 if (VARVALUE)
@@ -124,9 +125,9 @@ int sci_chdir(char *fname, unsigned long fname_len)
             iOutput = TRUE;
         }
 
+        FREE(expandedPath);
         if (createScalarBoolean(pvApiCtx, Rhs + 1, iOutput))
         {
-            FREE(expandedPath);
             Scierror(999, _("%s: Memory allocation error.\n"), fname);
             return 0;
         }

@@ -1258,6 +1258,7 @@ int isNamedVarExist(void *_pvCtx, const char *_pstName)
     SciErr sciErr = getVarAddressFromName(_pvCtx, _pstName, &piAddr);
     if (sciErr.iErr || piAddr == NULL)
     {
+        int i = 0;
         Fin = -1;
         C2F(str2name)(_pstName, iVarID, (int)strlen(_pstName));
         C2F(funs)(iVarID);
@@ -1266,6 +1267,11 @@ int isNamedVarExist(void *_pvCtx, const char *_pstName)
             Fin = 1;
             C2F(com).fun = funs;
             return 1;
+        }
+
+        for (i = 0 ; i < sciErr.iMsgCount ; ++i)
+        {
+            FREE(sciErr.pstMsg[i]);
         }
 
         return 0;

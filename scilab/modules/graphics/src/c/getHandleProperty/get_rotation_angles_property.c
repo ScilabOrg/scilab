@@ -31,16 +31,18 @@
 /*------------------------------------------------------------------------*/
 int get_rotation_angles_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     double* angles = NULL;
 
     getGraphicObjectProperty(iObjUID, __GO_ROTATION_ANGLES__, jni_double_vector, (void **)&angles);
-
     if (angles == NULL)
     {
         Scierror(999, _("'%s' property does not exist for this handle.\n"), "rotation_angles");
         return -1;
     }
 
-    return sciReturnRowVector(_pvCtx, angles, 2);
+    ret = sciReturnRowVector(_pvCtx, angles, 2);
+    releaseGraphicObjectProperty(__GO_ROTATION_ANGLES__, angles, jni_double_vector, 2);
+    return ret;
 }
 /*------------------------------------------------------------------------*/

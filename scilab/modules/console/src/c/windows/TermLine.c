@@ -37,14 +37,19 @@ static void backSpace(void);
 static void initializeLineBuffer(void);
 static void reallocLineBuffer(void);
 /*--------------------------------------------------------------------------*/
-static void initializeLineBuffer(void)
+void destroyLineBuffer(void)
 {
-    int i = 0;
     if (cur_line)
     {
         FREE(cur_line);
         cur_line = NULL;
     }
+}
+
+static void initializeLineBuffer(void)
+{
+    int i = 0;
+    destroyLineBuffer();
     cur_line = (char*) MALLOC(sizeof(char) * CURRENT_MAX_LINE_SIZE);
     if (cur_line)
     {

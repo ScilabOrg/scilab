@@ -77,6 +77,7 @@ int sci_fileparts(char *fname, unsigned long fname_len)
         sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
         if (sciErr.iErr)
         {
+            freeAllocatedMatrixOfWideString(iRows, iCols, pStVarOne);
             printError(&sciErr, 0);
             Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
             return 0;
@@ -84,6 +85,7 @@ int sci_fileparts(char *fname, unsigned long fname_len)
 
         if (!isStringType(pvApiCtx, piAddressVarTwo))
         {
+            freeAllocatedMatrixOfWideString(iRows, iCols, pStVarOne);
             Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
             return 0;
         }
@@ -230,6 +232,7 @@ int sci_fileparts(char *fname, unsigned long fname_len)
         AssignOutputVariable(pvApiCtx, 3) = iRhs + 3;
     }
 
+    freeAllocatedMatrixOfWideString(iRows, iCols, pStVarOne);
     ReturnArguments(pvApiCtx);
     return 0;
 }

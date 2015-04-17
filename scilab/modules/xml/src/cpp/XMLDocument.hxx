@@ -46,7 +46,7 @@ class XMLValidation;
  */
 class XML_SCILAB_IMPEXP XMLDocument: public XMLObject
 {
-    static std::list < XMLDocument * >&openDocs;
+    static std::list < XMLDocument * > openDocs;
     xmlDoc *document;
 
 public:
@@ -67,7 +67,7 @@ public:
      * @param validate a boolean to indicate if the document must be validated in using a DTD
      * @param error a pointer to a string which will receive the error message
      */
-	    XMLDocument(const char *path, bool validate, std::string * error, const char * encoding = 0, const bool html = false);
+    XMLDocument(const char *path, bool validate, std::string * error, const char * encoding = 0, const bool html = false);
 
     /**
      * Builds a document with a given code

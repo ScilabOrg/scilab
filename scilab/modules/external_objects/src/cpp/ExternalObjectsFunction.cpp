@@ -10,6 +10,9 @@
  *
  */
 
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 #include "ScilabAutoCleaner.hxx"
 
 extern "C" {

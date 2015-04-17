@@ -46,6 +46,9 @@ static void freeJavaVMOption(void)
             }
         }
         nOptions = 0;
+
+        FREE(jvm_options);
+        jvm_options = NULL;
     }
 }
 

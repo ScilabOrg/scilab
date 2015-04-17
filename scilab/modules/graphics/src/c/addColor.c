@@ -69,8 +69,10 @@ int addColor(int _iFig, double* _pdblNewColor)
         }
 
         setGraphicObjectProperty(_iFig, __GO_COLORMAP__, pdblNewColorMap, jni_double_vector, iNewColorMapSize);
-
+        FREE(pdblNewColorMap);
         iColorIndex = iColorMapSize + 1;
     }
+
+    releaseGraphicObjectProperty(__GO_COLORMAP__, pdblColorMap, jni_double_vector, iColorMapSize);
     return iColorIndex;
 }

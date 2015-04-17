@@ -35,6 +35,7 @@
 /*------------------------------------------------------------------------*/
 int get_position_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     int iType = -1;
     int* piType = &iType;
     double* position = NULL;
@@ -54,7 +55,6 @@ int get_position_property(void* _pvCtx, int iObjUID)
         double position[4];
 
         getGraphicObjectProperty(iObjUID, __GO_POSITION__, jni_int_vector, (void **) &figurePosition);
-
         getGraphicObjectProperty(iObjUID, __GO_AXES_SIZE__, jni_int_vector, (void **) &figureSize);
 
         if (figurePosition == NULL || figureSize == NULL)
@@ -68,14 +68,15 @@ int get_position_property(void* _pvCtx, int iObjUID)
         position[2] = (double) figureSize[0];
         position[3] = (double) figureSize[1];
 
+        releaseGraphicObjectProperty(__GO_POSITION__, figurePosition, jni_int_vector, 2);
+        releaseGraphicObjectProperty(__GO_AXES_SIZE__, figureSize, jni_int_vector, 2);
+
         return sciReturnRowVector(_pvCtx, position, 4);
     }
 
     /* Special label and legend case : only 2 values for position */
     if (iType == __GO_LABEL__ || iType == __GO_LEGEND__)
     {
-        double* position;
-
         getGraphicObjectProperty(iObjUID, __GO_POSITION__, jni_double_vector, (void **) &position);
 
         if (position == NULL)
@@ -84,13 +85,13 @@ int get_position_property(void* _pvCtx, int iObjUID)
             return -1;
         }
 
-        return sciReturnRowVector(_pvCtx, position, 2);
+        ret = sciReturnRowVector(_pvCtx, position, 2);
+        releaseGraphicObjectProperty(__GO_POSITION__, position, jni_double_vector, 2);
+        return ret;
     }
 
     if (iType == __GO_LIGHT__)
     {
-        double* position = NULL;
-
         getGraphicObjectProperty(iObjUID, __GO_POSITION__, jni_double_vector, (void **)&position);
 
         if (position == NULL)
@@ -99,7 +100,9 @@ int get_position_property(void* _pvCtx, int iObjUID)
             return -1;
         }
 
-        return sciReturnRowVector(_pvCtx, position, 3);
+        ret = sciReturnRowVector(_pvCtx, position, 3);
+        releaseGraphicObjectProperty(__GO_POSITION__, position, jni_double_vector, 3);
+        return ret;
     }
 
     /* Generic case : position is a 4 row vector */
@@ -112,6 +115,8 @@ int get_position_property(void* _pvCtx, int iObjUID)
         return -1;
     }
 
-    return sciReturnRowVector(_pvCtx, position, 4);
+    ret = sciReturnRowVector(_pvCtx, position, 4);
+    releaseGraphicObjectProperty(__GO_POSITION__, position, jni_double_vector, 4);
+    return ret;
 }
 /*------------------------------------------------------------------------*/

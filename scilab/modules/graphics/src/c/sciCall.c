@@ -998,6 +998,8 @@ static void updateXYDataBounds(int iSubwinUID, double rect[6])
         rect[3] = Max(rect[3], dataBounds[3]);
         rect[4] = dataBounds[4];
         rect[5] = dataBounds[5];
+
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
     }
 
     setGraphicObjectProperty(iSubwinUID, __GO_DATA_BOUNDS__, rect, jni_double_vector, 6);

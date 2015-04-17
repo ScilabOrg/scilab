@@ -150,4 +150,8 @@ void putLineSearchedHistory(void);
 */
 void pasteClipBoard(void);
 
+/**
+* destroy static buffer
+*/
+void destroyLineBuffer(void);
 #endif /* __TERMLINE_H__ */

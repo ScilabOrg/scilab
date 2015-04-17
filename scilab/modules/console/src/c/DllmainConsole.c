@@ -12,6 +12,11 @@
 
 /*--------------------------------------------------------------------------*/
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
+#include "windows/TermLine.h"
+#include "GetCommandLine.h"
 /*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
 /*--------------------------------------------------------------------------*/
@@ -22,6 +27,8 @@ int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
         case DLL_PROCESS_ATTACH:
             break;
         case DLL_PROCESS_DETACH:
+            destroyLineBuffer();
+            clearCommandLine();
             break;
         case DLL_THREAD_ATTACH:
             break;

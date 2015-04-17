@@ -12,6 +12,9 @@
  */
 
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 #include "machine.h"
 #include "dynlib_differential_equations.h"
 /*--------------------------------------------------------------------------*/

@@ -37,6 +37,7 @@
 
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
+#include "api_scilab.h"
 
 /*------------------------------------------------------------------------*/
 /* @TODO: remove stackPointer, nbRow, nbCol which are used */
@@ -99,6 +100,7 @@ int set_y_ticks_property(void* _pvCtx, int iObjUID, void* _pvData, int valueType
         loadTextRenderingAPI(userLabels, nbTicsCol, nbTicsRow);
 
         setGraphicObjectProperty(iObjUID, __GO_Y_AXIS_TICKS_LABELS__, userLabels, jni_string_vector, nbTicsRow * nbTicsCol);
+        freeAllocatedMatrixOfString(nbTicsRow, nbTicsCol, userLabels);
     }
     else
     {

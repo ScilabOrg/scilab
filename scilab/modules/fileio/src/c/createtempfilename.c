@@ -74,6 +74,7 @@ wchar_t *createtempfilenameW(const wchar_t *wcprefix, BOOL bShortFormat)
         unsigned int uRetVal = 0;
         wchar_t wcTempFileName[MAX_PATH];
         uRetVal = GetTempFileNameW(wcTmpDir, wcprefix, 0, wcTempFileName);
+        FREE(wcTmpDir);
         if (uRetVal != 0)
         {
             size_t len = wcslen(wcTempFileName) + 1;

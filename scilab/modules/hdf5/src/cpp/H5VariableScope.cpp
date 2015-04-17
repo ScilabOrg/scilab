@@ -20,16 +20,21 @@ std::stack<int> & H5VariableScope::freePlaces = *new std::stack<int>();
 
 void H5VariableScope::clearScope()
 {
+    destroyScope();
+    scope = *initScope();
+    freePlaces = *new std::stack<int>();
+}
+
+void H5VariableScope::destroyScope()
+{
     for (unsigned int i = 0; i < scope.size(); i++)
     {
         delete scope[i];
     }
 
     delete &scope;
-    scope = *initScope();
 
     delete &freePlaces;
-    freePlaces = *new std::stack<int>();
 }
 
 int H5VariableScope::getVariableId(H5Object & obj)

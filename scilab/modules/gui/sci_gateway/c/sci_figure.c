@@ -171,11 +171,11 @@ int sci_figure(char * fname, unsigned long fname_len)
 
     if (bDoCreation)
     {
-        int* piAddrProp = NULL;
-        char* pstProName = NULL;
-        int* piAddrData = NULL;
         for (i = iPos + 1 ; i <= iRhs ; i += 2)
         {
+            int* piAddrProp = NULL;
+            char* pstProName = NULL;
+            int* piAddrData = NULL;
             //get property name
             sciErr = getVarAddressFromPosition(pvApiCtx, i, &piAddrProp);
             if (sciErr.iErr)
@@ -211,6 +211,7 @@ int sci_figure(char * fname, unsigned long fname_len)
             sciErr = getVarAddressFromPosition(pvApiCtx, i + 1, &piAddrData);
             if (sciErr.iErr)
             {
+                freeAllocatedSingleString(pstProName);
                 Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, i + 1);
                 return 1;
             }
@@ -312,6 +313,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                 if (isDoubleType(pvApiCtx, piAddrData) == FALSE)
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A double vector expected.\n"), fname, i + 1);
+                    freeAllocatedSingleString(pstProName);
                     return 1;
                 }
 
@@ -319,6 +321,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                 if (iRows * iCols != 2)
                 {
                     Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "figure_size", 2);
+                    freeAllocatedSingleString(pstProName);
                     return 1;
                 }
             }
@@ -329,6 +332,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                 if (isDoubleType(pvApiCtx, piAddrData) == FALSE)
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A double vector expected.\n"), fname, i + 1);
+                    freeAllocatedSingleString(pstProName);
                     return 1;
                 }
 
@@ -336,6 +340,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                 if (iRows * iCols != 2)
                 {
                     Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "axes_size", 2);
+                    freeAllocatedSingleString(pstProName);
                     return 1;
                 }
             }
@@ -350,6 +355,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                     if (iRows * iCols != 4)
                     {
                         Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "position", 4);
+                        freeAllocatedSingleString(pstProName);
                         return 1;
                     }
 
@@ -368,6 +374,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                     if (iVal != 4)
                     {
                         Scierror(999, _("Wrong value for '%s' property: A string or a 1 x %d real row vector expected.\n"), "position", 4);
+                        freeAllocatedSingleString(pstProName);
                         return 1;
                     }
 
@@ -377,6 +384,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                 else
                 {
                     Scierror(999, _("Wrong value for '%s' property: A string or a 1 x %d real row vector expected.\n"), "position", 4);
+                    freeAllocatedSingleString(pstProName);
                     return 1;
                 }
             }
@@ -421,11 +429,13 @@ int sci_figure(char * fname, unsigned long fname_len)
                 }
             }
 
+            freeAllocatedSingleString(pstProName);
         }
 
         iFig = createFigure(bDockable, iMenubarType, iToolbarType, bDefaultAxes, bVisible);
         setGraphicObjectProperty(iFig, __GO_ID__, &iId, jni_int, 1);
         iAxes = setDefaultProperties(iFig, bDefaultAxes);
+
     }
 
     //set(iFig, iPos, iPos + 1)
@@ -445,12 +455,14 @@ int sci_figure(char * fname, unsigned long fname_len)
         if (sciErr.iErr)
         {
             Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, i);
+            freeAllocatedSingleString(pstProName);
             return 1;
         }
 
         if (getAllocatedSingleString(pvApiCtx, piAddrProp, &pstProName))
         {
             Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, i);
+            freeAllocatedSingleString(pstProName);
             return 1;
         }
 
@@ -470,6 +482,7 @@ int sci_figure(char * fname, unsigned long fname_len)
         {
             // Already set creating new figure
             // but let the set_ function fail if figure already exists
+            freeAllocatedSingleString(pstProName);
             continue;
         }
 
@@ -477,6 +490,7 @@ int sci_figure(char * fname, unsigned long fname_len)
         sciErr = getVarAddressFromPosition(pvApiCtx, i + 1, &piAddrData);
         if (sciErr.iErr)
         {
+            freeAllocatedSingleString(pstProName);
             Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, i + 1);
             return 1;
         }
@@ -515,6 +529,7 @@ int sci_figure(char * fname, unsigned long fname_len)
                     {
                         if (getAllocatedSingleString(pvApiCtx, piAddrData, (char**)&_pvData))
                         {
+                            freeAllocatedSingleString(pstProName);
                             Scierror(999, _("%s: Wrong size for input argument #%d: A single string expected.\n"), fname, 3);
                             return 1;
                         }
@@ -565,6 +580,8 @@ int sci_figure(char * fname, unsigned long fname_len)
                 freeAllocatedSingleString((char*)_pvData);
             }
         }
+
+        freeAllocatedSingleString(pstProName);
     }
 
     if (position)
@@ -588,6 +605,7 @@ int sci_figure(char * fname, unsigned long fname_len)
         int* piAxesSize = NULL;
         getGraphicObjectProperty(getFigureModel(), __GO_AXES_SIZE__, jni_int_vector, (void **)&piAxesSize);
         setGraphicObjectProperty(iFig, __GO_AXES_SIZE__, piAxesSize, jni_int_vector, 2);
+        releaseGraphicObjectProperty(__GO_AXES_SIZE__, piAxesSize, jni_int_vector, 2);
     }
 
     initBar(iFig, bMenuBar, bToolBar, bInfoBar);

@@ -13,6 +13,9 @@
 
 /*--------------------------------------------------------------------------*/
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 /*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libumfpack.lib")
 #pragma comment(lib,"../../../../bin/blasplus.lib")

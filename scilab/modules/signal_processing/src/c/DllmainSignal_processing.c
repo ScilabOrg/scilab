@@ -12,6 +12,9 @@
  */
 
 #include <windows.h>
+#ifdef DEBUG_VLD
+#include <vld.h>
+#endif
 #include "machine.h" /* C2F */
 /*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")

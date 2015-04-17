@@ -31,9 +31,17 @@
 /*------------------------------------------------------------------------*/
 int get_data_bounds_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     double* dataBounds = NULL;
     int iView = 0;
     int* piView = &iView;
+
+    getGraphicObjectProperty(iObjUID, __GO_VIEW__, jni_int, (void **)&piView);
+    if (piView == NULL)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "view");
+        return -1;
+    }
 
     getGraphicObjectProperty(iObjUID, __GO_DATA_BOUNDS__, jni_double_vector, (void **)&dataBounds);
 
@@ -43,21 +51,18 @@ int get_data_bounds_property(void* _pvCtx, int iObjUID)
         return -1;
     }
 
-    getGraphicObjectProperty(iObjUID, __GO_VIEW__, jni_int, (void **)&piView);
-    if (piView == NULL)
-    {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"), "view");
-        return -1;
-    }
-
     /**DJ.Abdemouche 2003**/
     if (iView == 1)
     {
-        return sciReturnMatrix(_pvCtx, dataBounds, 2, 3);
+        ret = sciReturnMatrix(_pvCtx, dataBounds, 2, 3);
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 6);
     }
     else
     {
-        return sciReturnMatrix(_pvCtx, dataBounds, 2, 2);
+        ret = sciReturnMatrix(_pvCtx, dataBounds, 2, 2);
+        releaseGraphicObjectProperty(__GO_DATA_BOUNDS__, dataBounds, jni_double_vector, 4);
     }
+
+    return ret;
 }
 /*------------------------------------------------------------------------*/

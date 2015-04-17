@@ -38,27 +38,36 @@ int get_zoom_box_property(void* _pvCtx, int iObjUID)
     int* zoomEnabled = &iZoomEnabled;
 
     getGraphicObjectProperty(iObjUID, __GO_ZOOM_ENABLED__, jni_bool, (void **)&zoomEnabled);
-
     getGraphicObjectProperty(iObjUID, __GO_ZOOM_BOX__, jni_double_vector, (void **)&zoomBox);
 
     if (zoomEnabled == NULL || zoomBox == NULL)
     {
+        if (zoomBox)
+        {
+            releaseGraphicObjectProperty(__GO_ZOOM_BOX__, zoomBox, jni_double_vector, 6);
+        }
+
         Scierror(999, _("'%s' property does not exist for this handle.\n"), "zoom_box");
         return -1;
     }
 
     if (iZoomEnabled)
     {
+        int ret = 0;
         // Swap zoomBox values to feat Scilab View ordering.
         // MVC stores [xmin, xmax, ymin, ymax, zmin, zmax]
         // Scilab expects [xmin, ymin, xmax, ymax, zmin, zmax]
         dblTmp = zoomBox[2];
         zoomBox[2] = zoomBox[1];
         zoomBox[1] = dblTmp;
-        return sciReturnRowVector(_pvCtx, zoomBox, 6);
+        ret = sciReturnRowVector(_pvCtx, zoomBox, 6);
+        releaseGraphicObjectProperty(__GO_ZOOM_BOX__, zoomBox, jni_double_vector, 6);
+        return ret;
+
     }
     else
     {
+        releaseGraphicObjectProperty(__GO_ZOOM_BOX__, zoomBox, jni_double_vector, 6);
         return sciReturnEmptyMatrix(_pvCtx);
     }
 }

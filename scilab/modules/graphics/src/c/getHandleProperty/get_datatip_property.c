@@ -176,6 +176,7 @@ int get_tip_label_mode_property(void* _pvCtx, int iObjUID)
  */
 int get_tip_disp_function_property(void* _pvCtx, int iObjUID)
 {
+    int ret = 0;
     char *tip_disp_function = NULL;
     getGraphicObjectProperty(iObjUID, __GO_DATATIP_DISPLAY_FNC__, jni_string, (void **)&tip_disp_function);
 
@@ -185,5 +186,7 @@ int get_tip_disp_function_property(void* _pvCtx, int iObjUID)
         return -1;
     }
 
-    return sciReturnString(_pvCtx, tip_disp_function);
+    ret = sciReturnString(_pvCtx, tip_disp_function);
+    releaseGraphicObjectProperty(__GO_DATATIP_DISPLAY_FNC__, tip_disp_function, jni_string, 1);
+    return ret;
 }

@@ -33,6 +33,7 @@ GRAPHIC_OBJECTS_IMPEXP int cloneGraphicObject(int iId);
 ** referenced by the given _sId and of the given _sType
 */
 GRAPHIC_OBJECTS_IMPEXP int createDataObject(int iId, int _iType);
+GRAPHIC_OBJECTS_IMPEXP void destroyDataController();
 
 /*
 ** Ask Controller to create a figure menubar

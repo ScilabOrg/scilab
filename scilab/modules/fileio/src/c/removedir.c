@@ -89,14 +89,14 @@ BOOL removedirW(wchar_t *pathW)
 static int DeleteDirectory(wchar_t *refcstrRootDirectory)
 {
 #define DEFAULT_PATTERN L"%s/*.*"
-    BOOL bDeleteSubdirectories = TRUE;
-    BOOL bSubdirectory = FALSE;
-    HANDLE hFile;
-    WIN32_FIND_DATAW FileInformation;
-    DWORD dwError;
-    wchar_t	*strPattern		= NULL;
-    wchar_t	*strFilePath	= NULL;
-    int len = 0;
+BOOL bDeleteSubdirectories = TRUE;
+BOOL bSubdirectory = FALSE;
+HANDLE hFile;
+WIN32_FIND_DATAW FileInformation;
+DWORD dwError;
+wchar_t	*strPattern		= NULL;
+wchar_t	*strFilePath	= NULL;
+int len = 0;
 
     if (refcstrRootDirectory == NULL)
     {
@@ -109,17 +109,12 @@ static int DeleteDirectory(wchar_t *refcstrRootDirectory)
     if (strPattern)
     {
         swprintf(strPattern, len, DEFAULT_PATTERN, refcstrRootDirectory);
+        hFile = FindFirstFileW(strPattern, &FileInformation);
+        FREE(strPattern);
     }
     else
     {
         return 1;
-    }
-
-    hFile = FindFirstFileW(strPattern, &FileInformation);
-    if (strPattern)
-    {
-        FREE(strPattern);
-        strPattern = NULL;
     }
 
     if (hFile != INVALID_HANDLE_VALUE)
@@ -129,31 +124,22 @@ static int DeleteDirectory(wchar_t *refcstrRootDirectory)
             if ( (wcscmp(FileInformation.cFileName, L".") != 0) && (wcscmp(FileInformation.cFileName, L"..") != 0) )
             {
 #define FORMAT_PATH_TO_REMOVE L"%s\\%s"
-                int len = (int) (wcslen(refcstrRootDirectory) + wcslen(FORMAT_PATH_TO_REMOVE) + wcslen((wchar_t*)(FileInformation.cFileName)) + 1);
-                strFilePath = (wchar_t*) MALLOC(sizeof(wchar_t) * len);
-                if (strFilePath)
-                {
-                    swprintf(strFilePath, len, FORMAT_PATH_TO_REMOVE, refcstrRootDirectory, FileInformation.cFileName);
-                }
+int len = (int) (wcslen(refcstrRootDirectory) + wcslen(FORMAT_PATH_TO_REMOVE) + wcslen((wchar_t*)(FileInformation.cFileName)) + 1);
+strFilePath = (wchar_t*) MALLOC(sizeof(wchar_t) * len);
+if (strFilePath == NULL)
+{
+return 1;
+}
 
+                swprintf(strFilePath, len, FORMAT_PATH_TO_REMOVE, refcstrRootDirectory, FileInformation.cFileName);
                 if (FileInformation.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
                 {
                     if (bDeleteSubdirectories)
                     {
                         int iRC = DeleteDirectory(strFilePath);
-                        if (strFilePath)
-                        {
-                            FREE(strFilePath);
-                            strFilePath = NULL;
-                        }
-                        if (strPattern)
-                        {
-                            FREE(strPattern);
-                            strPattern = NULL;
-                        }
-
                         if (iRC)
                         {
+                            FREE(strFilePath);
                             return iRC;
                         }
                     }
@@ -166,50 +152,23 @@ static int DeleteDirectory(wchar_t *refcstrRootDirectory)
                 {
                     if (SetFileAttributesW(strFilePath, FILE_ATTRIBUTE_NORMAL) == FALSE)
                     {
-                        if (strFilePath)
-                        {
-                            FREE(strFilePath);
-                            strFilePath = NULL;
-                        }
-                        if (strPattern)
-                        {
-                            FREE(strPattern);
-                            strPattern = NULL;
-                        }
+                        FREE(strFilePath);
                         return GetLastError();
                     }
 
                     if (DeleteFileW(strFilePath) == FALSE)
                     {
-                        if (strFilePath)
-                        {
-                            FREE(strFilePath);
-                            strFilePath = NULL;
-                        }
-                        if (strPattern)
-                        {
-                            FREE(strPattern);
-                            strPattern = NULL;
-                        }
+                        FREE(strFilePath);
                         return GetLastError();
                     }
                 }
             }
+
+            FREE(strFilePath);
         }
         while (FindNextFileW(hFile, &FileInformation) == TRUE);
 
         FindClose(hFile);
-        if (strFilePath)
-        {
-            FREE(strFilePath);
-            strFilePath = NULL;
-        }
-        if (strPattern)
-        {
-            FREE(strPattern);
-            strPattern = NULL;
-        }
-
         dwError = GetLastError();
         if (dwError != ERROR_NO_MORE_FILES)
         {
@@ -231,16 +190,6 @@ static int DeleteDirectory(wchar_t *refcstrRootDirectory)
         }
     }
 
-    if (strFilePath)
-    {
-        FREE(strFilePath);
-        strFilePath = NULL;
-    }
-    if (strPattern)
-    {
-        FREE(strPattern);
-        strPattern = NULL;
-    }
     return 0;
 }
 #endif

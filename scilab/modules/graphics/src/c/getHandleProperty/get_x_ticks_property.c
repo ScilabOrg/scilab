@@ -57,7 +57,6 @@ int get_x_ticks_property(void* _pvCtx, int iObjUID)
         double* positions;
 
         getGraphicObjectProperty(iObjUID, __GO_X_AXIS_TICKS_LOCATIONS__, jni_double_vector, (void **) &positions);
-
         getGraphicObjectProperty(iObjUID, __GO_X_AXIS_TICKS_LABELS__, jni_string_vector, (void **) &labels);
 
         if (positions == NULL || labels == NULL)
@@ -67,12 +66,8 @@ int get_x_ticks_property(void* _pvCtx, int iObjUID)
         }
 
         buildTListForTicks(positions, labels, iNbTicks);
-
-        /* free arrays */
-#if 0
-        destroyStringArray(labels, iNbTicks);
-        FREE(positions);
-#endif
+        releaseGraphicObjectProperty(__GO_X_AXIS_TICKS_LOCATIONS__, positions, jni_double_vector, iNbTicks);
+        releaseGraphicObjectProperty(__GO_X_AXIS_TICKS_LABELS__, labels, jni_string_vector, iNbTicks);
     }
 
     return 0;

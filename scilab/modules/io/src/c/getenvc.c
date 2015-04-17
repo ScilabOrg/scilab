@@ -49,6 +49,7 @@ void C2F(getenvc)(int *ierr, char *var, char *buf, int *buflen, int *iflag)
         }
 
         *ierr = 1;
+        FREE(wvar);
         return;
     }
     else
@@ -62,11 +63,15 @@ void C2F(getenvc)(int *ierr, char *var, char *buf, int *buflen, int *iflag)
             }
 
             *ierr = 1;
+            FREE(wvar);
             return;
         }
     }
 
+    FREE(wvar);
+
     temp = wide_string_to_UTF8(wbuf);
+    FREE(wbuf);
     *buflen = (int)strlen(temp);
     if (buf)
     {

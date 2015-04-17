@@ -42,6 +42,7 @@ int get_ticks_st_property(void* _pvCtx, int iObjUID)
         }
         factors[2 * i] = dbls[0];
         factors[2 * i + 1] = dbls[1];
+        releaseGraphicObjectProperty(propr[i], dbls, jni_double_vector, 2);
     }
 
     return sciReturnMatrix(_pvCtx, factors, 2, 3);

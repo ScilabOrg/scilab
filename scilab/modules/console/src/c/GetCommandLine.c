@@ -98,11 +98,7 @@ static void getCommandLine(void)
     tmpPrompt = GetTemporaryPrompt();
     GetCurrentPrompt(Sci_Prompt);
 
-    if (__CommandLine)
-    {
-        FREE(__CommandLine);
-        __CommandLine = NULL;
-    }
+    clearCommandLine();
 
     if (getScilabMode() == SCILAB_STD)
     {
@@ -259,11 +255,7 @@ void C2F(eventloopprompt) (char *buffer, int *buf_size, int *len_line, int *eof)
 
     __LockSignal(pReadyForLaunch);
 
-    if (__CommandLine)
-    {
-        FREE(__CommandLine);
-        __CommandLine = NULL;
-    }
+    clearCommandLine();
     __CommandLine = strdup("");
 
     if (ismenu() == 0)
@@ -322,4 +314,13 @@ void C2F(eventloopprompt) (char *buffer, int *buf_size, int *len_line, int *eof)
     *len_line = (int)strlen(buffer);
 
     *eof = FALSE;
+}
+
+void clearCommandLine()
+{
+    if (__CommandLine)
+    {
+        FREE(__CommandLine);
+        __CommandLine = NULL;
+    }
 }

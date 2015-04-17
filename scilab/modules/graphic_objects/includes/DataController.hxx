@@ -40,4 +40,9 @@ public :
         DataModel::get()->deleteDataObject(iUID);
     }
 
+    static void destroy()
+    {
+        DataModel::destroy();
+    }
+
 };
