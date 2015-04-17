@@ -28,8 +28,8 @@ atomsInstall("toolbox_5");
 
 // Check if the module is really installed
 if ~atomsIsInstalled("toolbox_5")           then pause, end
-if ~atomsIsInstalled(["toolbox_5" "1.0"])   then pause, end
-if ~atomsIsInstalled(["toolbox_5" "1.0-1"]) then pause, end
+if ~atomsIsInstalled(["toolbox_5" "2.0"])   then pause, end
+if ~atomsIsInstalled(["toolbox_5" "2.0-1"]) then pause, end
 if ~atomsIsInstalled("toolbox_4")           then pause, end
 if ~atomsIsInstalled("toolbox_2")           then pause, end
 if ~atomsIsInstalled("toolbox_1")           then pause, end
