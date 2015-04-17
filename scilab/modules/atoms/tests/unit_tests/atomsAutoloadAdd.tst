@@ -37,19 +37,19 @@ atomsInstall("toolbox_5","user");
 if ~ isempty(atomsAutoloadList()) then pause, end
 
 if atomsAutoloadAdd("toolbox_5"               ,"user") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0"]       ,"user") <> 0 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0" "user"],"user") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0"]       ,"user") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "user"],"user") <> 0 then pause, end
 
-if atomsAutoloadAdd(["toolbox_4" "1.0" "user"],"user") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_4" "1.0"]       ,"user") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1" "user"],"user") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1"]       ,"user") <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_4"               ,"user") <> 0 then pause, end
 
 if atomsAutoloadAdd(["toolbox_2" "1.0"]       ,"user") <> 1 then pause, end
 if atomsAutoloadAdd(["toolbox_2" "1.0" "user"],"user") <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_2"               ,"user") <> 0 then pause, end
 
-ref = ["toolbox_5" "1.0-1" "user" "user" ; ..
-"toolbox_4" "1.0-1" "user" "user" ; ..
+ref = ["toolbox_5" "2.0-1" "user" "user" ; ..
+"toolbox_4" "1.1-1" "user" "user" ; ..
 "toolbox_2" "1.0-1" "user" "user"];
 
 
@@ -73,19 +73,19 @@ atomsInstall("toolbox_5","allusers");
 if ~ isempty(atomsAutoloadList()) then pause, end
 
 if atomsAutoloadAdd("toolbox_5"                   ,"allusers") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0"]           ,"allusers") <> 0 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0" "allusers"],"allusers") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0"]           ,"allusers") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "allusers"],"allusers") <> 0 then pause, end
 
-if atomsAutoloadAdd(["toolbox_4" "1.0" "allusers"],"allusers") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_4" "1.0"]           ,"allusers") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1" "allusers"],"allusers") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1"]           ,"allusers") <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_4"                   ,"allusers") <> 0 then pause, end
 
 if atomsAutoloadAdd(["toolbox_2" "1.0"]           ,"allusers") <> 1 then pause, end
 if atomsAutoloadAdd(["toolbox_2" "1.0" "allusers"],"allusers") <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_2"                   ,"allusers") <> 0 then pause, end
 
-ref = ["toolbox_5" "1.0-1" "allusers" "allusers" ; ..
-"toolbox_4" "1.0-1" "allusers" "allusers" ; ..
+ref = ["toolbox_5" "2.0-1" "allusers" "allusers" ; ..
+"toolbox_4" "1.1-1" "allusers" "allusers" ; ..
 "toolbox_2" "1.0-1" "allusers" "allusers"];
 
 if or(atomsAutoloadList()<>ref) then pause, end
@@ -94,19 +94,19 @@ atomsAutoloadDel( ["toolbox_5";"toolbox_4";"toolbox_2"] );
 if ~isempty( atomsAutoloadList() ) then pause, end
 
 if atomsAutoloadAdd("toolbox_5"                   ,"user") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0"]           ,"user") <> 0 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0" "allusers"],"user") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0"]           ,"user") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "allusers"],"user") <> 0 then pause, end
 
-if atomsAutoloadAdd(["toolbox_4" "1.0" "allusers"],"user") <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_4" "1.0"]           ,"user") <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1" "allusers"],"user") <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1"]           ,"user") <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_4"                   ,"user") <> 0 then pause, end
 
 if atomsAutoloadAdd(["toolbox_2" "1.0"]           ,"user") <> 1 then pause, end
 if atomsAutoloadAdd(["toolbox_2" "1.0" "allusers"],"user") <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_2"                   ,"user") <> 0 then pause, end
 
-ref = ["toolbox_5" "1.0-1" "allusers" "user" ; ..
-"toolbox_4" "1.0-1" "allusers" "user" ; ..
+ref = ["toolbox_5" "2.0-1" "allusers" "user" ; ..
+"toolbox_4" "1.1-1" "allusers" "user" ; ..
 "toolbox_2" "1.0-1" "allusers" "user"];
 
 if or(atomsAutoloadList()<>ref) then pause, end
@@ -116,19 +116,19 @@ if ~isempty( atomsAutoloadList() ) then pause, end
 
 
 if atomsAutoloadAdd("toolbox_5"                   ) <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0"]           ) <> 0 then pause, end
-if atomsAutoloadAdd(["toolbox_5" "1.0" "allusers"]) <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0"]           ) <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_5" "2.0" "allusers"]) <> 0 then pause, end
 
-if atomsAutoloadAdd(["toolbox_4" "1.0" "allusers"]) <> 1 then pause, end
-if atomsAutoloadAdd(["toolbox_4" "1.0"]           ) <> 0 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1" "allusers"]) <> 1 then pause, end
+if atomsAutoloadAdd(["toolbox_4" "1.1"]           ) <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_4"                   ) <> 0 then pause, end
 
 if atomsAutoloadAdd(["toolbox_2" "1.0"]           ) <> 1 then pause, end
 if atomsAutoloadAdd(["toolbox_2" "1.0" "allusers"]) <> 0 then pause, end
 if atomsAutoloadAdd("toolbox_2"                   ) <> 0 then pause, end
 
-ref = ["toolbox_5" "1.0-1" "allusers" "allusers" ; ..
-"toolbox_4" "1.0-1" "allusers" "allusers" ; ..
+ref = ["toolbox_5" "2.0-1" "allusers" "allusers" ; ..
+"toolbox_4" "1.1-1" "allusers" "allusers" ; ..
 "toolbox_2" "1.0-1" "allusers" "allusers"];
 
 if or(atomsAutoloadList()<>ref) then pause, end
