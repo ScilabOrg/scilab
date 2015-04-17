@@ -68,5 +68,5 @@ if ~isempty( atomsGetInstalled() ) then bugmes();quit;end
 // =============================================================================
 atomsRestoreConfig(%T);
 atomsRepositorySetOfl(mgetl(SCI+"/modules/atoms/tests/unit_tests/repositories.orig"));
-Scanning repository http://atoms.scilab.org/5.5 ... Done
+Scanning repository http://atoms.scilab.org/6.0 ... Done
 
