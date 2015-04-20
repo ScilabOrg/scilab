@@ -95,7 +95,7 @@ function [tree_out,version_out] = atomsDepTreeFlat(name,version,tree_in)
 
     // Loop on versions
     // =========================================================================
-
+    version = gsort(version,"lr","i");
     for i=1:size(version,"*")
 
         this_package_details = atomsToolboxDetails([name,version(i)]);
