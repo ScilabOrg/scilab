@@ -90,11 +90,14 @@ function gateway_filename = ilib_gen_gateway(name,tables)
         else
             t = [
             "#include <wchar.h>";
+            "";
+            "#include ""addfunction.h""";
+            "";
             "#include """ + tname + ".hxx""";
+            "";
             "extern ""C""";
             "{";
             "#include """ + tname + ".h""";
-            "#include ""addfunction.h""";
             "}";
             "";
             "#define MODULE_NAME L""" + tname + """";
