@@ -1,0 +1,11 @@
+LIBRARY    data_structures_f.dll
+EXPORTS
+	extractfields_
+	forcerhs_
+	gratyp_
+	insertfield_
+	lsstyp_
+	mtlist_
+	rattyp_
+	updptr_
+	subptr_
