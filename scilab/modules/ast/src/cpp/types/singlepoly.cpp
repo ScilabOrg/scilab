@@ -364,9 +364,15 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
 
     int iLen = 0;
     int iLastFlush = 2;
+    double dblMax = 0;
+    for (int i = 0; i < m_iSize; i++)
+    {
+        dblMax = max(dblMax, abs(_pdblVal[i]));
+    }
+
     for (int i = 0 ; i < m_iSize ; i++)
     {
-        //if (isRealZero(_pdblVal[i]) == false)
+        if ((fabs(static_cast<double>(_pdblVal[i])) <= (dblMax * getRelativeMachinePrecision())) == false)
         {
             DoubleFormat df;
             getDoubleFormat(_pdblVal[i], &df);
