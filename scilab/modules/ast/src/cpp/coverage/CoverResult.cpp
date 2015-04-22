@@ -29,10 +29,17 @@ namespace coverage
 
 void CoverResult::populate(const std::vector<Counter>::const_iterator pos, const std::vector<Counter>::const_iterator end)
 {
-    Location current;
+    Location current, prev;
     for (std::vector<Counter>::const_iterator i = pos; i != end; ++i)
     {
         ast::Exp * e = i->getExp();
+        times.emplace(e, i->getNanoTime());
+
+        if (!CoverResult::isInside(prev, e->getLocation()))
+        {
+            addNanoTime(i->getNanoTime());
+            prev = e->getLocation();
+        }
 
         if ((e->isSeqExp() || e->isCommentExp()) && e->getParent() && !e->getParent()->isFunctionDec())
         {
@@ -411,5 +418,33 @@ void CoverResult::toHTML(const std::wstring & outputDir)
         FREE(_output);
         }
     */
+}
+
+std::wstring CoverResult::getStringTime(const uint64_t time) const
+{
+    if (time == 0)
+    {
+        return L"0 s";
+    }
+    else if (time < 1000000UL)
+    {
+        // between 0 and 10^6 ns
+        std::wostringstream out;
+        out << ((double)time / 1000.) << L" µs";
+        return out.str();
+    }
+    else if (time < 1000000000UL)
+    {
+        // between 0 and 10^9 ns
+        std::wostringstream out;
+        out << ((double)(time / 1000UL) / 1000.) << L" ms";
+        return out.str();
+    }
+    else
+    {
+        std::wostringstream out;
+        out << ((double)(time / 1000000UL) / 1000.) << L" s";
+        return out.str();
+    }
 }
 }
