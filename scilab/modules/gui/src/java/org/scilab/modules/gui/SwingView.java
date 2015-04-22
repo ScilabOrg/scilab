@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
  * Copyright (C) 2011 - DIGITEO - Vincent COUVERT
+ * Copyright (C) 2015 - Scilab Enterprises - Anais AUBERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -474,7 +475,8 @@ public final class SwingView implements GraphicView {
                     infoBar.setText(infoMessage);
                 }
 
-                tab.update(__GO_POSITION__, GraphicController.getController().getProperty(id, __GO_POSITION__));
+                /*position is set by OS, so we don't have to manage it*/
+                //tab.update(__GO_POSITION__, GraphicController.getController().getProperty(id, __GO_POSITION__));
 
                 String icon = (String)GraphicController.getController().getProperty(id, __GO_UI_ICON__);
                 if (icon != null && icon.equals("") == false) {
@@ -1083,7 +1085,7 @@ public final class SwingView implements GraphicView {
         boolean needRevalidate = false;
         boolean hasOpenGLAxes = false;
         int oldComponentCount = updatedComponent.getComponentCount();
-        
+
         // Add new children
         for (Integer childId : newChildren) {
             int childType = (Integer) GraphicController.getController().getProperty(childId, __GO_TYPE__);
@@ -1133,7 +1135,7 @@ public final class SwingView implements GraphicView {
         if (needRevalidate && updatedComponent != null) {
             updatedComponent.revalidate();
         }
-        
+
         // Force repaint if we removed components
         if (oldComponentCount > updatedComponent.getComponentCount()) {
             updatedComponent.repaint();
@@ -1184,7 +1186,7 @@ public final class SwingView implements GraphicView {
         if (needRevalidate && updatedComponent != null) {
             updatedComponent.getPanel().revalidate();
         }
-        
+
         // Force repaint if we removed components
         if (oldComponentCount > updatedComponent.getPanel().getComponentCount()) {
             updatedComponent.repaint();
