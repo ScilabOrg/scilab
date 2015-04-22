@@ -17,11 +17,9 @@ template<class T>
 void RunVisitorT<T>::visitprivate(const AssignExp  &e)
 {
     symbol::Context* ctx = symbol::Context::getInstance();
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
-
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
+    
     /*Create local exec visitor*/
     try
     {
@@ -84,6 +82,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 }
 
                 setResult(NULL);
+		coverage::CoverModule::stopChrono(e);
                 return;
             }
 
@@ -126,6 +125,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 ostrName << wstrName;
                 VariableToString(pIT, ostrName.str().c_str());
             }
+	    coverage::CoverModule::stopChrono(e);
             return;
         }
 
@@ -214,7 +214,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 os << _W("Invalid Index.\n");
                 throw ast::ScilabError(os.str(), 999, e.getRightExp().getLocation());
             }
-
+	    coverage::CoverModule::stopChrono(e);
             return;
         }
 
@@ -305,6 +305,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             }
 
             clearResult();
+	    coverage::CoverModule::stopChrono(e);
             return;
         }
 
@@ -360,6 +361,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
 
             delete[] pIT;
             exec.clearResult();
+	    coverage::CoverModule::stopChrono(e);
             return;
         }
 
@@ -444,6 +446,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
             }
 
             clearResult();
+	    coverage::CoverModule::stopChrono(e);
             return;
         }
 
@@ -454,8 +457,11 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
     }
     catch (ast::ScilabError error)
     {
+	coverage::CoverModule::stopChrono(e);
         throw error;
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 } /* namespace ast */
