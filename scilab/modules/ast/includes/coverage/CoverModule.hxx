@@ -80,18 +80,56 @@ public:
         return callCounters.find(f) != callCounters.end();
     }
 
+    inline void startChrono(const uint64_t id)
+    {
+        counters[id - 2].startChrono();
+    }
+
+    inline void stopChrono(const uint64_t id)
+    {
+        counters[id - 2].stopChrono();
+    }
+
+    inline static void invoke(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->invoke(e.getCoverId());
+        }
+    }
+
+    inline static void startChrono(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->startChrono(e.getCoverId());
+        }
+    }
+
+    inline static void stopChrono(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->stopChrono(e.getCoverId());
+        }
+    }
+
 private:
 
     void getMacros(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods);
     void getBuiltins(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods);
     void instrumentMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro);
-    void instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro);
+    void instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro, bool instrumentInners);
     std::vector<std::pair<types::Callable *, uint64_t>> getFunctionCalls(const std::wstring & moduleName, const bool builtin) const;
 
     static bool getStringFromXPath(char * filePath, const char * xpquery, std::unordered_set<std::wstring> & set);
     static void copyDataFiles(const std::wstring & outputDir);
     static void copyFile(const std::wstring & inDir, const std::wstring & outDir, const std::wstring & filename);
     static void writeFile(const std::wostringstream & out, const std::wstring & outputDir, const std::wstring & filename);
+    static ast::Exp * getTree(const std::wstring & path);
+    static const std::wstring getName(const std::wstring & path);
+    static void writeMacroHTMLReport(ast::Exp * tree, const std::wstring & filename, const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir);
+    static bool writeMacroHTMLReport(const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir);
 };
 
 } // namespace coverage

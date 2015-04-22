@@ -16,11 +16,9 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const OpExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-	coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
-	
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
+    
     InternalType * pITL = NULL, * pITR = NULL, * pResult = NULL;
     try
     {
@@ -211,9 +209,11 @@ void RunVisitorT<T>::visitprivate(const OpExp &e)
         }
 
         error.SetErrorLocation(e.getLocation());
+	coverage::CoverModule::stopChrono(e);
         throw error;
     }
 
+    coverage::CoverModule::stopChrono(e);
     /*if (e.getDecorator().res.isConstant())
     {
 
@@ -223,6 +223,9 @@ void RunVisitorT<T>::visitprivate(const OpExp &e)
 template<class T>
 void RunVisitorT<T>::visitprivate(const LogicalOpExp &e)
 {
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
+    
     try
     {
         InternalType *pITR = NULL; //assign only in non shortcut operations.
@@ -353,9 +356,11 @@ void RunVisitorT<T>::visitprivate(const LogicalOpExp &e)
     {
         clearResult();
         error.SetErrorLocation(e.getLocation());
+	coverage::CoverModule::stopChrono(e);
         throw error;
     }
 
+    coverage::CoverModule::stopChrono(e);
 }
 
 template<class T>
