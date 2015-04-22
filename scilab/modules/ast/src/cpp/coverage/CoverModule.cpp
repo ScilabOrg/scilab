@@ -107,13 +107,13 @@ void CoverModule::instrumentMacro(const std::wstring & module, const std::wstrin
     const std::map<symbol::Variable *, types::Macro *> & submacros = macro->getSubMacros();
     for (const auto & p : submacros)
     {
-        instrumentSingleMacro(module, path, p.second);
+        instrumentSingleMacro(module, path, p.second, true);
     }
 
-    instrumentSingleMacro(module, path, macro);
+    instrumentSingleMacro(module, path, macro, true);
 }
 
-void CoverModule::instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro)
+void CoverModule::instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro, bool instrumentInners)
 {
     macro->IncreaseRef();
     visitor.setMacro(macro);
@@ -122,11 +122,14 @@ void CoverModule::instrumentSingleMacro(const std::wstring & module, const std::
     callCounters.emplace(static_cast<types::Callable *>(macro), CallCounter());
     functions.emplace(module, static_cast<types::Callable *>(macro));
 
-    // We make a copy since the call to instrumentSingleMacro will modify visitor.getInnerMacros()
-    const std::vector<types::Macro *> inners = visitor.getInnerMacros();
-    for (auto inner : inners)
+    if (instrumentInners)
     {
-        instrumentSingleMacro(module, path, inner);
+        // We make a copy since the call to instrumentSingleMacro will modify visitor.getInnerMacros()
+        const std::vector<types::Macro *> inners = visitor.getInnerMacros();
+        for (auto inner : inners)
+        {
+            instrumentSingleMacro(module, path, inner, true);
+        }
     }
 }
 
@@ -217,6 +220,7 @@ void CoverModule::collect()
                 {
                     CoverResult & result = map2.emplace(name, CoverResult(name, info)).first->second;
                     result.populate(b, i);
+
                     result.setCounter(callCounters.find(current)->second.get());
                     b = i;
                     current = i->getMacro();
@@ -278,81 +282,7 @@ void CoverModule::toHTML(const std::wstring & outputDir)
 
         for (auto & p2 : p1.second)
         {
-            char * _path = wide_string_to_UTF8(p2.first.c_str());
-            std::ifstream src(_path, ios::in | ios::binary | ios::ate);
-            FREE(_path);
-            if (src.is_open())
-            {
-                std::size_t pos = p2.first.find_last_of(L'.');
-                std::wstring name = p2.first.substr(0, pos);
-                pos = name.find_last_of(L"\\/");
-                if (pos != std::string::npos)
-                {
-                    name = name.substr(pos + 1);
-                }
-                src.seekg(0, src.end);
-                int len = src.tellg();
-                src.seekg (0, src.beg);
-                char * buffer = new char[len + 1];
-                buffer[len] = '\0';
-                src.read(buffer, len);
-                src.close();
-
-                wchar_t * _wstr = to_wide_string(buffer);
-                delete[] buffer;
-                Parser parser;
-                parser.parse(_wstr);
-                FREE(_wstr);
-
-                ast::Exp * tree = parser.getTree();
-                std::wostringstream out;
-
-                out << L"<html lang=\'en\'>\n"
-                    << L"<meta charset=\'UTF-8\'>\n"
-                    << L"<head>\n"
-                    << L"<link rel=\'icon\' href=\'../favicon.ico\'/>\n"
-                    << L"<title>Scilab | Module " << moduleName << L" | " << p2.first << L" | Scilab\'s code coverage" <<  L"</title>\n"
-                    << L"<style type=\'text/css\' media=\'all\'>\n"
-                    << L"@import url(\'../scilab_code.css\');\n"
-                    << L"@import url(\'../src_style.css\');\n"
-                    << L"</style>\n"
-                    << L"<script>\n"
-                    << L"function show(did,fid) {\n"
-                    << L"  x = document.getElementById(did).style;\n"
-                    << L"  y = document.getElementById(fid);\n"
-                    << L"  x.visibility = 'visible';\n"
-                    << L"  x.display = 'block';\n"
-                    << L"  x.height = 'auto';\n"
-                    << L"  x.left = y.offsetLeft + 'px';\n"
-                    << L"  x.top = y.offsetTop + y.offsetHeight + 'px';\n"
-                    << L"}\n"
-                    << L"function hide(did) {\n"
-                    << L"  document.getElementById(did).style.visibility = \'hidden\';\n"
-                    << L"}\n"
-                    << L"</script>\n"
-                    << L"</head>\n"
-                    << L"<body>\n"
-                    << L"<h2 class=\'title\'>Source File</h2>\n"
-                    << L"<table class='sourceFile'>\n"
-                    << L"<tr><td><div class='sourcePath'>" << p2.first << L"</div></td></tr>\n"
-                    << L"<tr><td><div class=\'source\'>\n"
-                    << L"<table>\n";
-
-                CovHTMLCodePrinter printer(out, p2.second);
-                CodePrinterVisitor visitor(printer);
-                tree->accept(visitor);
-                printer.close();
-                delete tree;
-
-                out << L"</table>\n"
-                    << L"</div></tr></td>\n"
-                    << L"</table>\n"
-                    << L"</body>\n"
-                    << L"</html>\n";
-
-                out.flush();
-                writeFile(out, __outputDir, name + L".html");
-            }
+            writeMacroHTMLReport(p2.first, moduleName, p2.second, __outputDir);
         }
 
         // Now we make the module's reports
@@ -466,12 +396,12 @@ void CoverModule::toHTML(const std::wstring & outputDir)
             out << L"</table></div>\n";
         }
 
-        /*	    calls = getFunctionCalls(moduleName, false);
-        	    for (const auto & p : calls)
-        	    {
-        		const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
-        		out << L"<tr><td>" << p.first << L"</td><td class=\'" << countercls << L"\'>" << p.second << L"</td></tr>\n";
-        	    }
+        /*      calls = getFunctionCalls(moduleName, false);
+                for (const auto & p : calls)
+                {
+                const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
+                out << L"<tr><td>" << p.first << L"</td><td class=\'" << countercls << L"\'>" << p.second << L"</td></tr>\n";
+                }
         */
 
         out << L"</div></tr></td>\n"
@@ -493,7 +423,7 @@ void CoverModule::copyDataFiles(const std::wstring & outputDir)
     const std::wstring _inputDir = std::wstring(L"SCI") + DIR_SEPARATORW + L"modules" + DIR_SEPARATORW + L"ast" + DIR_SEPARATORW + L"data";
     copyFile(_inputDir, _outputDir, L"scilab_code.css");
     copyFile(_inputDir, _outputDir, L"src_style.css");
-    //copyFile(_inputDir, _outputDir, L"mod_style.css");
+    copyFile(_inputDir, _outputDir, L"mod_style.css");
     copyFile(_inputDir, _outputDir, L"favicon.ico");
 }
 
@@ -555,5 +485,116 @@ std::vector<std::pair<types::Callable *, uint64_t>> CoverModule::getFunctionCall
     }
 
     return calls;
+}
+
+ast::Exp * CoverModule::getTree(const std::wstring & path)
+{
+    char * _path = wide_string_to_UTF8(path.c_str());
+    std::ifstream src(_path, ios::in | ios::binary | ios::ate);
+    FREE(_path);
+    if (src.is_open())
+    {
+        src.seekg(0, src.end);
+        int len = src.tellg();
+        src.seekg (0, src.beg);
+        char * buffer = new char[len + 1];
+        buffer[len] = '\0';
+        src.read(buffer, len);
+        src.close();
+
+        wchar_t * _wstr = to_wide_string(buffer);
+        delete[] buffer;
+        Parser parser;
+        parser.parse(_wstr);
+        FREE(_wstr);
+
+        return parser.getTree();
+    }
+
+    return nullptr;
+}
+
+const std::wstring CoverModule::getName(const std::wstring & path)
+{
+    std::size_t pos = path.find_last_of(L'.');
+    std::wstring name = path.substr(0, pos);
+    pos = name.find_last_of(L"\\/");
+    if (pos != std::string::npos)
+    {
+        name = name.substr(pos + 1);
+    }
+    return name;
+}
+
+void CoverModule::writeMacroHTMLReport(ast::Exp * tree, const std::wstring & filename, const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir)
+{
+    std::wostringstream out;
+    std::wstring mod;
+    if (!moduleName.empty())
+    {
+        mod = L" | Module " + moduleName;
+    }
+    std::wstring pa;
+    if (!path.empty())
+    {
+        pa = L" | " + path;
+    }
+
+    out << L"<html lang=\'en\'>\n"
+        << L"<meta charset=\'UTF-8\'>\n"
+        << L"<head>\n"
+        << L"<link rel=\'icon\' href=\'../favicon.ico\'/>\n"
+        << L"<title>Scilab" << mod << pa << L" | Scilab\'s code coverage" <<  L"</title>\n"
+        << L"<style type=\'text/css\' media=\'all\'>\n"
+        << L"@import url(\'../scilab_code.css\');\n"
+        << L"@import url(\'../src_style.css\');\n"
+        << L"</style>\n"
+        << L"<script>\n"
+        << L"function show(did,fid) {\n"
+        << L"  x = document.getElementById(did).style;\n"
+        << L"  y = document.getElementById(fid);\n"
+        << L"  x.visibility = 'visible';\n"
+        << L"  x.display = 'block';\n"
+        << L"  x.height = 'auto';\n"
+        << L"  x.left = y.offsetLeft + 'px';\n"
+        << L"  x.top = y.offsetTop + y.offsetHeight + 'px';\n"
+        << L"}\n"
+        << L"function hide(did) {\n"
+        << L"  document.getElementById(did).style.visibility = \'hidden\';\n"
+        << L"}\n"
+        << L"</script>\n"
+        << L"</head>\n"
+        << L"<body>\n"
+        << L"<h2 class=\'title\'>Source File</h2>\n"
+        << L"<table class='sourceFile'>\n";
+    if (!path.empty())
+    {
+        out << L"<tr><td><div class='sourcePath'>" << path << L"</div></td></tr>\n";
+    }
+    out << L"<tr><td><div class=\'source\'>\n"
+        << L"<table>\n";
+
+    CovHTMLCodePrinter printer(out, results);
+    CodePrinterVisitor visitor(printer);
+    tree->accept(visitor);
+    printer.close();
+    delete tree;
+
+    out << L"</table>\n"
+        << L"</div></tr></td>\n"
+        << L"</table>\n"
+        << L"</body>\n"
+        << L"</html>\n";
+
+    out.flush();
+    writeFile(out, outputDir, filename);
+}
+
+void CoverModule::writeMacroHTMLReport(const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir)
+{
+    if (ast::Exp * tree = getTree(path))
+    {
+        writeMacroHTMLReport(tree, getName(path) + L".html", path, moduleName, results, outputDir);
+    }
 }
 }

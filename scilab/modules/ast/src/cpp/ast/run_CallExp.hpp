@@ -16,11 +16,9 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const CallExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-	coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
-
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
+    
     e.getName().accept(*this);
 
     if (getResult() != NULL && getResult()->isInvokable())
@@ -45,6 +43,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
             clearResult();
             std::wostringstream os;
             os << _W("Wrong number of output arguments.\n") << std::endl;
+	    coverage::CoverModule::stopChrono(e);
             throw ast::ScilabError(os.str(), 999, e.getLocation());
         }
 
@@ -65,6 +64,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
 
                     std::wostringstream os;
                     os << _W("left side of optional parameter must be a variable") << std::endl;
+		    coverage::CoverModule::stopChrono(e);
                     throw ast::ScilabError(os.str(), 999, e.getLocation());
                 }
 
@@ -268,10 +268,11 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 {
                     wchar_t szError[bsiz];
                     os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n").c_str(), sm.GetErrorLocation().first_line, pCall->getName().c_str());
+		    coverage::CoverModule::stopChrono(e);
                     throw ScilabMessage(szError);
                 }
             }
-
+	    coverage::CoverModule::stopChrono(e);
             throw sm;
         }
         catch (InternalAbort & ia)
@@ -285,7 +286,8 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
             clearResult();
             cleanInOut(in, out);
             cleanOpt(opt);
-
+	    coverage::CoverModule::stopChrono(e);
+	    
             throw ia;
         }
         catch (ScilabError & se)
@@ -299,6 +301,7 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
             clearResult();
             cleanInOut(in, out);
             cleanOpt(opt);
+	    coverage::CoverModule::stopChrono(e);
 
             throw se;
         }
@@ -310,11 +313,16 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
         // In worst case variable pointing to function does not exists
         // visitprivate(SimpleVar) will throw the right exception.
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template<class T>
 void RunVisitorT<T>::visitprivate(const CellCallExp &e)
 {
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
+
     //get head
     T execMeCell;
     e.getName().accept(execMeCell);
@@ -345,6 +353,7 @@ void RunVisitorT<T>::visitprivate(const CellCallExp &e)
                 std::wostringstream os;
                 os << _W("inconsistent row/column dimensions\n");
                 //os << ((*e.args_get().begin())->getLocation()).getLocationString() << std::endl;
+		coverage::CoverModule::stopChrono(e);
                 throw ast::ScilabError(os.str(), 999, e.getFirstLocation());
             }
 
@@ -374,6 +383,7 @@ void RunVisitorT<T>::visitprivate(const CellCallExp &e)
         // In worst case variable pointing to function does not exists
         // visitprivate(SimpleVar) will throw the right exception.
     }
+    coverage::CoverModule::stopChrono(e);
 }
 
 } /* namespace ast */
