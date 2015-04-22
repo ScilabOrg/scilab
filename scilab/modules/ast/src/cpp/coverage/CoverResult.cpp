@@ -29,10 +29,17 @@ namespace coverage
 
 void CoverResult::populate(const std::vector<Counter>::const_iterator pos, const std::vector<Counter>::const_iterator end)
 {
-    Location current;
+    Location current, prev;
     for (std::vector<Counter>::const_iterator i = pos; i != end; ++i)
     {
         ast::Exp * e = i->getExp();
+        times.emplace(e, i->getNanoTime());
+
+        if (!CoverResult::isInside(prev, e->getLocation()))
+        {
+            addNanoTime(i->getNanoTime());
+            prev = e->getLocation();
+        }
 
         if ((e->isSeqExp() || e->isCommentExp()) && e->getParent() && !e->getParent()->isFunctionDec())
         {

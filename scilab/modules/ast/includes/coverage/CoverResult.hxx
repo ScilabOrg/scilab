@@ -43,6 +43,27 @@ class CoverResult
         }
     };
 
+
+    struct __ExpHelper
+    {
+        struct Hash
+        {
+            inline std::size_t operator()(ast::Exp * const l) const
+            {
+                const Location & loc = l->getLocation();
+                return ((uint64_t)loc.first_line << 48) | ((uint64_t)loc.first_column << 32) | ((uint64_t)loc.last_line << 16) | (uint64_t)loc.last_column;
+            }
+        };
+
+        struct Eq
+        {
+            inline bool operator()(ast::Exp * const l, ast::Exp * const r) const
+            {
+                return l->getLocation() == r->getLocation();
+            }
+        };
+    };
+
     std::wstring name;
     CoverMacroInfo info;
     std::size_t uncoveredInstrs;
@@ -50,11 +71,13 @@ class CoverResult
     std::set<ast::Exp *, __CompareExp> unused;
     std::map<ast::Exp *, std::vector<uint64_t>, __CompareExp> branches;
     std::map<ast::Exp *, uint64_t, __CompareExp> loops;
+    std::unordered_map<ast::Exp *, uint64_t, __ExpHelper::Hash, __ExpHelper::Eq> times;
     uint64_t counter;
+    uint64_t time;
 
 public:
 
-    CoverResult(const std::wstring & _name, const CoverMacroInfo & _info) : name(_name), info(_info), uncoveredInstrs(0), uncoveredBranches(0) { }
+    CoverResult(const std::wstring & _name, const CoverMacroInfo & _info) : name(_name), info(_info), uncoveredInstrs(0), uncoveredBranches(0), counter(0), time(0) { }
 
     void populate(const std::vector<Counter>::const_iterator pos, const std::vector<Counter>::const_iterator end);
 
@@ -66,6 +89,63 @@ public:
     inline uint64_t getCounter() const
     {
         return counter;
+    }
+
+    inline void setNanoTime(const uint64_t _time)
+    {
+        time = _time;
+    }
+
+    inline void addNanoTime(const uint64_t _time)
+    {
+        time += _time;
+    }
+
+    inline void subNanoTime(const uint64_t _time)
+    {
+        time -= _time;
+    }
+
+    inline uint64_t getNanoTime() const
+    {
+        return time;
+    }
+
+    inline double getMilliTime() const
+    {
+        return std::round((double)(getNanoTime() / 1000)) / 1000.;
+    }
+
+    inline double getTime() const
+    {
+        const double x = (double)time / 1e9;
+        return std::round(x * 1000.) / 1000.;
+    }
+
+
+    inline uint64_t getNanoTime(const ast::Exp * e) const
+    {
+        auto i = times.find(const_cast<ast::Exp *>(e));
+        if (i == times.end() || i->first->getLocation() != e->getLocation())
+        {
+            return 0;
+        }
+        if (name == L"members")
+        {
+            //std::wcerr << "DEBUG=" << e->getLocation() << ":::" << i->first->getLocation() << std::endl;
+        }
+        return i->second;
+    }
+
+    inline double getMilliTime(const ast::Exp * e) const
+    {
+        return std::round((double)(getNanoTime(e) / 1000)) / 1000.;
+    }
+
+    inline double getTime(const ast::Exp * e) const
+    {
+        const double x = (double)getNanoTime(e) / 1e9;
+        return std::round(x * 1000.) / 1000.;
     }
 
     inline const CoverMacroInfo & getInfo() const

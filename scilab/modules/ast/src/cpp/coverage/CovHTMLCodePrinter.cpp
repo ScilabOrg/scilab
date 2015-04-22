@@ -62,7 +62,7 @@ void CovHTMLCodePrinter::handleFunctionKwds(const std::wstring & seq)
             << L"<div id=\'" << did << L"\' class=\'functionStats\'>"
             << L"<table class=\'functionInfo\'>"
             << L"<tr><td colspan=\'5\'>Macro <span class=\'scilabfunctionid\'>" << getCurrentFunctionName() << L"</span>:</td></tr>"
-            << L"<tr><td>&nbsp;&mdash;&nbsp;called:</td><td>" << result.getCounter() << L" time" << tools::getPlural(result.getCounter()) << L"</td></tr>"
+            << L"<tr><td>&nbsp;&mdash;&nbsp;called:</td><td>" << result.getCounter() << L" time" << tools::getPlural(result.getCounter()) << L"</td><td>&nbsp;&mdash;&nbsp;time:</td><td>" << result.getMilliTime() << L" ms</td></tr>"
             << L"<tr><td>&nbsp;&mdash;&nbsp;instrs:</td><td>" << instrs << L"</td><td>&nbsp;&mdash;&nbsp;covered:</td><td>" << percentInstrs << L"%</td><td>";
 
         getDivPercent(out, percentInstrs);
@@ -274,6 +274,15 @@ void CovHTMLCodePrinter::handleNewLine()
     {
         if (last && isInsideFunction())
         {
+            if (last->isCommentExp())
+            {
+                out << L"</pre></td><td></td>\n";
+            }
+            else
+            {
+                out << L"</pre></td><td class=\'time\'>" << getCurrentResult().getMilliTime(last) << L" ms</td>\n";
+            }
+
             if (last->isIfExp())
             {
                 const std::vector<uint64_t> stats = getCurrentResult().getBranchesStats(last);
@@ -290,7 +299,7 @@ void CovHTMLCodePrinter::handleNewLine()
                     const std::wstring thencls = stats[0] == 0 ? L"null_stats" : L"stats";
                     const std::wstring elsecls = stats[1] == 0 ? L"null_stats" : L"stats";
 
-                    out << L"</pre></td><td class=\'" << thencls << L"\'>" << thenbr << L"%</td><td class=\'" << elsecls << L"\'>" << elsebr << L"%</td>\n</tr>\n";
+                    out << L"<td class=\'" << thencls << L"\'>" << thenbr << L"%</td><td class=\'" << elsecls << L"\'>" << elsebr << L"%</td>\n</tr>\n";
                     printed = true;
                 }
             }
@@ -300,14 +309,20 @@ void CovHTMLCodePrinter::handleNewLine()
                 if (getCurrentResult().getLoopStats(last, count))
                 {
                     std::wstring loopcls = count == 0 ? L"null_stats" : L"stats";
-                    out << L"</pre></td><td class=\'" << loopcls << L"\' colspan=\'2\'>x" << count << L"</td>\n</tr>\n";
+                    out << L"<td class=\'" << loopcls << L"\' colspan=\'2\'>x" << count << L"</td>\n</tr>\n";
                     printed = true;
                 }
+            }
+
+            if (!printed)
+            {
+                out << L"<td></td><td></td>\n</tr>\n";
+                printed = true;
             }
         }
         if (!printed)
         {
-            out << L"</pre></td><td></td><td></td>\n</tr>\n";
+            out << L"</pre></td><td></td><td></td><td></td>\n</tr>\n";
         }
         out.flush();
     }

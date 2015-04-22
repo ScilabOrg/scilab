@@ -19,11 +19,9 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const MatrixExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-	coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
-    
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
+
     try
     {
         exps_t::const_iterator row;
@@ -35,6 +33,7 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
         if (lines.size() == 0)
         {
             setResult(Double::Empty());
+	    coverage::CoverModule::stopChrono(e);
             return;
         }
 
@@ -52,6 +51,7 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 {
                     setResult(Double::Empty());
                 }
+		coverage::CoverModule::stopChrono(e);
                 return;
             }
         }
@@ -402,8 +402,11 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
     catch (ast::ScilabError error)
     {
         setResult(NULL);
+	coverage::CoverModule::stopChrono(e);
         throw error;
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template<class T>
