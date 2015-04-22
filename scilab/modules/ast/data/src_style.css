@@ -128,6 +128,14 @@ body {
     border: medium none;
 }
 
+.source table .time {
+    font-size: 10px;
+    margin: 0px;
+    padding: 0px 1em 0px 1em;
+    border: medium none;
+    background-color: #7BDB5F;
+}
+
 .source table .null_stats {
     font-size: 10px;
     margin: 0px;
