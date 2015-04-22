@@ -79,6 +79,40 @@ public:
         return callCounters.find(f) != callCounters.end();
     }
 
+    inline void startChrono(const uint64_t id)
+    {
+        counters[id - 2].startChrono();
+    }
+
+    inline void stopChrono(const uint64_t id)
+    {
+        counters[id - 2].stopChrono();
+    }
+
+    inline static void invoke(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->invoke(e.getCoverId());
+        }
+    }
+
+    inline static void startChrono(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->startChrono(e.getCoverId());
+        }
+    }
+
+    inline static void stopChrono(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->stopChrono(e.getCoverId());
+        }
+    }
+
 private:
 
     void getMacros(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods);

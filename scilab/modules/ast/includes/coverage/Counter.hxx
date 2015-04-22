@@ -13,6 +13,8 @@
 #ifndef __COUNTER_HXX__
 #define __COUNTER_HXX__
 
+#include <chrono>
+
 #include "allexp.hxx"
 #include "allvar.hxx"
 #include "alltypes.hxx"
@@ -24,6 +26,8 @@ class Counter
 {
 
     uint64_t counter;
+    uint64_t cumTime;
+    std::chrono::steady_clock::time_point start;
     types::Macro * macro;
     ast::Exp * e;
 
@@ -59,6 +63,16 @@ public:
     inline ast::Exp * getExp() const
     {
         return e;
+    }
+
+    inline void startChrono()
+    {
+        start = std::chrono::steady_clock::now();
+    }
+
+    inline void stopChrono()
+    {
+        cumTime += std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - start).count();
     }
 };
 

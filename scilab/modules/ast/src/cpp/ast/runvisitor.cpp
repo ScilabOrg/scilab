@@ -54,10 +54,8 @@ namespace ast
 template <class T>
 void RunVisitorT<T>::visitprivate(const CellExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     exps_t::const_iterator row;
     exps_t::const_iterator col;
@@ -77,6 +75,7 @@ void RunVisitorT<T>::visitprivate(const CellExp &e)
         {
             std::wostringstream os;
             os << _W("inconsistent row/column dimensions\n");
+            coverage::CoverModule::stopChrono(e);
             //os << ((Location)(*row)->getLocation()).getLocationString() << std::endl;
             throw ScilabError(os.str(), 999, (*row)->getLocation());
         }
@@ -112,6 +111,8 @@ void RunVisitorT<T>::visitprivate(const CellExp &e)
 
     //return new cell
     setResult(pC);
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
@@ -120,6 +121,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     if (e.getCoverId() && coverage::CoverModule::getInstance())
     {
         coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+        coverage::CoverModule::getInstance()->startChrono(e.getCoverId());
     }
 
     /*

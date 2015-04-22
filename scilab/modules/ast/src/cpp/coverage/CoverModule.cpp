@@ -493,7 +493,7 @@ void CoverModule::copyDataFiles(const std::wstring & outputDir)
     const std::wstring _inputDir = std::wstring(L"SCI") + DIR_SEPARATORW + L"modules" + DIR_SEPARATORW + L"ast" + DIR_SEPARATORW + L"data";
     copyFile(_inputDir, _outputDir, L"scilab_code.css");
     copyFile(_inputDir, _outputDir, L"src_style.css");
-    //copyFile(_inputDir, _outputDir, L"mod_style.css");
+    copyFile(_inputDir, _outputDir, L"mod_style.css");
     copyFile(_inputDir, _outputDir, L"favicon.ico");
 }
 
