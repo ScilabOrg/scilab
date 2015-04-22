@@ -16,6 +16,11 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const AssignExp  &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+	coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+    
     /*Create local exec visitor*/
     try
     {

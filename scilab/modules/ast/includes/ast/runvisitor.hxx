@@ -334,6 +334,7 @@ public :
     void visitprivate(const IfExp  &e);
     void visitprivate(const WhileExp  &e);
     void visitprivate(const ForExp  &e);
+    void visitprivate(const TryCatchExp  &e);
     void visitprivate(const ReturnExp &e);
     void visitprivate(const SelectExp &e);
     void visitprivate(const SeqExp  &e);
@@ -458,28 +459,6 @@ public :
     {
         Dollar* pVar = new Dollar();
         setResult(pVar);
-    }
-
-    void visitprivate(const TryCatchExp  &e)
-    {
-        //save current prompt mode
-        int oldVal = ConfigVariable::getSilentError();
-        //set mode silent for errors
-        ConfigVariable::setSilentError(1);
-        try
-        {
-            e.getTry().accept(*this);
-            //restore previous prompt mode
-            ConfigVariable::setSilentError(oldVal);
-        }
-        catch (ScilabMessage sm)
-        {
-            //restore previous prompt mode
-            ConfigVariable::setSilentError(oldVal);
-            //to lock lasterror
-            ConfigVariable::setLastErrorCall();
-            e.getCatch().accept(*this);
-        }
     }
 
     void visitprivate(const BreakExp &e)

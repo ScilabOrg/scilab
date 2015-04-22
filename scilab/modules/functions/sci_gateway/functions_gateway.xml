@@ -30,4 +30,5 @@
     <gateway name="sci_librarieslist"       function="librarieslist"        type="1" />
     <gateway name="sci_testGVN"             function="testGVN"              type="1" />
     <gateway name="sci_testAnalysis"        function="testAnalysis"         type="1" />
+    <gateway name="sci_coverage"            function="coverage"             type="1" />
 </module>

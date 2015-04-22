@@ -71,6 +71,11 @@ public :
 
     bool operator==(const InternalType& it);
 
+    inline const std::wstring & getPath()
+    {
+        return m_stPath;
+    }
+
 private :
     std::wstring            m_stPath;
     Macro*                  m_pMacro;

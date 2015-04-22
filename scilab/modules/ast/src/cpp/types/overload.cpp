@@ -24,6 +24,7 @@ extern "C"
 #include "overload.hxx"
 #include "context.hxx"
 #include "scilabexception.hxx"
+#include "CoverModule.hxx"
 
 std::wstring Overload::buildOverloadName(std::wstring _stFunctionName, types::typed_list &in, int /*_iRetCount*/, bool _isOperator, bool _truncated)
 {
@@ -107,6 +108,11 @@ types::Function::ReturnValue Overload::call(std::wstring _stOverloadingFunctionN
     types::Callable *pCall = pIT->getAs<types::Callable>();
     try
     {
+        if (coverage::CoverModule::getInstance())
+        {
+            coverage::CoverModule::getInstance()->invoke(pCall);
+        }
+
         types::optional_list opt;
         return pCall->call(in, opt, _iRetCount, out, _execMe);
     }
@@ -129,7 +135,7 @@ std::wstring Overload::getNameFromOper(ast::OpExp::Oper _oper)
 {
     switch (_oper)
     {
-            /* standard operators */
+        /* standard operators */
         case ast::OpExp::plus :
             return std::wstring(L"a");
         case ast::OpExp::unaryMinus :
@@ -143,7 +149,7 @@ std::wstring Overload::getNameFromOper(ast::OpExp::Oper _oper)
             return std::wstring(L"l");
         case ast::OpExp::power :
             return std::wstring(L"p");
-            /* dot operators */
+        /* dot operators */
         case ast::OpExp::dottimes :
             return std::wstring(L"x");
         case ast::OpExp::dotrdivide :
@@ -152,14 +158,14 @@ std::wstring Overload::getNameFromOper(ast::OpExp::Oper _oper)
             return std::wstring(L"q");
         case ast::OpExp::dotpower :
             return std::wstring(L"j");
-            /* Kron operators */
+        /* Kron operators */
         case ast::OpExp::krontimes :
             return std::wstring(L"k");
         case ast::OpExp::kronrdivide :
             return std::wstring(L"y");
         case ast::OpExp::kronldivide :
             return std::wstring(L"z");
-            /* Control Operators ??? */
+        /* Control Operators ??? */
         case ast::OpExp::controltimes :
             return std::wstring(L"u");
         case ast::OpExp::controlrdivide :

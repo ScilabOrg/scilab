@@ -1,0 +1,134 @@
+/*
+ *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2015 - Scilab Enterprises - Calixte DENIZET
+ *
+ *  This file must be used under the terms of the CeCILL.
+ *  This source file is licensed as described in the file COPYING, which
+ *  you should have received as part of this distribution.  The terms
+ *  are also available at
+ *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
+#ifndef __COVER_RESULT_HXX__
+#define __COVER_RESULT_HXX__
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <vector>
+
+#include "allexp.hxx"
+#include "allvar.hxx"
+#include "alltypes.hxx"
+#include "parser.hxx"
+
+#include "Counter.hxx"
+#include "CoverMacroInfo.hxx"
+#include "CodePrinterVisitor.hxx"
+
+namespace coverage
+{
+
+class CoverResult
+{
+
+    struct __CompareExp
+    {
+        inline bool operator()(ast::Exp * const l, ast::Exp * const r) const
+        {
+            return l->getLocation() < r->getLocation();
+        }
+    };
+
+    std::wstring name;
+    CoverMacroInfo info;
+    std::size_t uncoveredInstrs;
+    std::size_t uncoveredBranches;
+    std::set<ast::Exp *, __CompareExp> unused;
+    std::map<ast::Exp *, std::vector<uint64_t>, __CompareExp> branches;
+    std::map<ast::Exp *, uint64_t, __CompareExp> loops;
+    uint64_t counter;
+
+public:
+
+    CoverResult(const std::wstring & _name, const CoverMacroInfo & _info) : name(_name), info(_info), uncoveredInstrs(0), uncoveredBranches(0) { }
+
+    void populate(const std::vector<Counter>::const_iterator pos, const std::vector<Counter>::const_iterator end);
+
+    inline void setCounter(const uint64_t _counter)
+    {
+        counter = _counter;
+    }
+
+    inline uint64_t getCounter() const
+    {
+        return counter;
+    }
+
+    inline const CoverMacroInfo & getInfo() const
+    {
+        return info;
+    }
+
+    inline unsigned int getCovInstrsPercent() const
+    {
+        return info.instrsCount ? std::round(100. * (1. - (double)uncoveredInstrs / (double)info.instrsCount)) : 100.;
+    }
+
+    inline unsigned int getCovBranchesPercent() const
+    {
+        return info.branchesCount ? std::round(100. * (1. - (double)uncoveredBranches / (double)info.branchesCount)) : 100.;
+    }
+
+    inline std::size_t getUncInstrs() const
+    {
+        return uncoveredInstrs;
+    }
+
+    inline std::size_t getUncBranches() const
+    {
+        return uncoveredBranches;
+    }
+
+    inline const std::vector<uint64_t> getBranchesStats(const ast::Exp * e)
+    {
+        auto i = branches.find(const_cast<ast::Exp *>(e));
+        if (i == branches.end())
+        {
+            return std::vector<uint64_t>();
+        }
+        return i->second;
+    }
+
+    inline bool getLoopStats(const ast::Exp * e, uint64_t & val)
+    {
+        auto i = loops.find(const_cast<ast::Exp *>(e));
+        if (i == loops.end())
+        {
+            return false;
+        }
+        val = i->second;
+        return true;
+    }
+
+    bool isCovered(const ast::Exp * e) const;
+    void toXML(const std::wstring & outputDir);
+    void toJSON(const std::wstring & outputDir);
+    void toHTML(const std::wstring & outputDir);
+
+    friend std::wostream & operator<<(std::wostream & out, const CoverResult & cr);
+
+private:
+
+    inline static bool isInside(const Location & l1, const Location & l2)
+    {
+        return (l1.first_line <= l2.first_line) && (l2.first_line <= l1.last_line);
+    }
+};
+
+} // namespace coverage
+
+#endif // __COVER_RESULT_HXX__

@@ -40,6 +40,8 @@
 #include "runner.hxx"
 #include "threadmanagement.hxx"
 
+#include "CoverModule.hxx"
+
 extern "C"
 {
 #include "sciprint.h"
@@ -52,6 +54,11 @@ namespace ast
 template <class T>
 void RunVisitorT<T>::visitprivate(const CellExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     exps_t::const_iterator row;
     exps_t::const_iterator col;
     int iColMax = 0;
@@ -110,6 +117,11 @@ void RunVisitorT<T>::visitprivate(const CellExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const FieldExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     /*
       a.b
     */
@@ -266,6 +278,11 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const IfExp  &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     //Create local exec visitor
     ShortCutVisitor SCTest;
     bool bTestStatus = false;
@@ -305,23 +322,34 @@ void RunVisitorT<T>::visitprivate(const IfExp  &e)
 
         if (e.hasElse())
         {
-            if (e.isBreakable())
+            const ast::Exp & _else = e.getElse();
+            if (_else.isCommentExp())
             {
-                const_cast<Exp*>(&e.getElse())->setBreakable();
+                if (_else.getCoverId() && coverage::CoverModule::getInstance())
+                {
+                    coverage::CoverModule::getInstance()->invoke(_else.getCoverId());
+                }
             }
-
-            if (e.isContinuable())
+            else
             {
-                const_cast<IfExp*>(&e)->resetContinue();
-                const_cast<Exp*>(&e.getElse())->setContinuable();
-            }
+                if (e.isBreakable())
+                {
+                    const_cast<Exp*>(&_else)->setBreakable();
+                }
 
-            if (e.isReturnable())
-            {
-                const_cast<Exp*>(&e.getElse())->setReturnable();
-            }
+                if (e.isContinuable())
+                {
+                    const_cast<IfExp*>(&e)->resetContinue();
+                    const_cast<Exp*>(&_else)->setContinuable();
+                }
 
-            e.getElse().accept(*this);
+                if (e.isReturnable())
+                {
+                    const_cast<Exp*>(&_else)->setReturnable();
+                }
+
+                _else.accept(*this);
+            }
         }
     }
 
@@ -356,6 +384,11 @@ void RunVisitorT<T>::visitprivate(const IfExp  &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const WhileExp  &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     //allow break and continue operations
     const_cast<Exp*>(&e.getBody())->setBreakable();
     const_cast<Exp*>(&e.getBody())->setContinuable();
@@ -411,6 +444,11 @@ void RunVisitorT<T>::visitprivate(const WhileExp  &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const ForExp  &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     e.getVardec().accept(*this);
     InternalType* pIT = getResult();
     //allow break and continue operations
@@ -582,8 +620,42 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
 }
 
 template <class T>
+void RunVisitorT<T>::visitprivate(const TryCatchExp  &e)
+{
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
+    //save current prompt mode
+    int oldVal = ConfigVariable::getSilentError();
+    //set mode silent for errors
+    ConfigVariable::setSilentError(1);
+    try
+    {
+        e.getTry().accept(*this);
+        //restore previous prompt mode
+        ConfigVariable::setSilentError(oldVal);
+    }
+    catch (ScilabMessage sm)
+    {
+        //restore previous prompt mode
+        ConfigVariable::setSilentError(oldVal);
+        //to lock lasterror
+        ConfigVariable::setLastErrorCall();
+        e.getCatch().accept(*this);
+    }
+}
+
+
+template <class T>
 void RunVisitorT<T>::visitprivate(const ReturnExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     if (e.isGlobal())
     {
         if (ConfigVariable::getPauseLevel() != 0 && symbol::Context::getInstance()->getScopeLevel() == ConfigVariable::getActivePauseLevel())
@@ -626,6 +698,11 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const SelectExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     // FIXME : exec select ... case ... else ... end
     e.getSelect()->accept(*this);
     bool bCase = false;
@@ -765,6 +842,11 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const SeqExp  &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     //T execMe;
     exps_t::const_iterator itExp;
     exps_t exps = e.getExps();
@@ -994,6 +1076,11 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const NotExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     /*
       @ or ~ !
     */
@@ -1035,6 +1122,11 @@ void RunVisitorT<T>::visitprivate(const NotExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const TransposeExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     e.getExp().accept(*this);
 
     if (getResultSize() != 1)
@@ -1093,6 +1185,10 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const FunctionDec & e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
 
     /*
       function foo
@@ -1102,24 +1198,30 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
     // funcprot(0) : do nothing
     // funcprot(1) && warning(on) : warning
     //get input parameters list
-    std::list<symbol::Variable*> *pVarList = new std::list<symbol::Variable*>();
-    const exps_t & vars = e.getArgs().getVars();
-    for (const auto var : vars)
-    {
-        pVarList->push_back(var->getAs<SimpleVar>()->getStack());
-    }
 
-    //get output parameters list
-    std::list<symbol::Variable*> *pRetList = new std::list<symbol::Variable*>();
-    const exps_t & rets = e.getReturns().getVars();
-    for (const auto ret : rets)
+    types::Macro * pMacro = const_cast<FunctionDec &>(e).getMacro();
+    if (!pMacro)
     {
-        pRetList->push_back(ret->getAs<SimpleVar>()->getStack());
-    }
+        std::list<symbol::Variable*> *pVarList = new std::list<symbol::Variable*>();
+        const exps_t & vars = e.getArgs().getVars();
+        for (const auto var : vars)
+        {
+            pVarList->push_back(var->getAs<SimpleVar>()->getStack());
+        }
 
-    types::Macro *pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList,
-                                            const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
-    pMacro->setFirstLine(e.getLocation().first_line);
+        //get output parameters list
+        std::list<symbol::Variable*> *pRetList = new std::list<symbol::Variable*>();
+        const exps_t & rets = e.getReturns().getVars();
+        for (const auto ret : rets)
+        {
+            pRetList->push_back(ret->getAs<SimpleVar>()->getStack());
+        }
+
+        pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList,
+                                  const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+        pMacro->setFirstLine(e.getLocation().first_line);
+        const_cast<FunctionDec &>(e).setMacro(pMacro);
+    }
 
     bool bEquals = false;
     int iFuncProt = ConfigVariable::getFuncprot();
@@ -1165,7 +1267,6 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
         std::wstring wstError(pwstError);
         FREE(pstFuncName);
         FREE(pwstError);
-        delete pMacro;
         throw ScilabError(wstError, 999, e.getLocation());
     }
 
@@ -1176,6 +1277,11 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const ListExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     e.getStart().accept(*this);
     GenericType* pITStart = static_cast<GenericType*>(getResult());
     if ((pITStart->getSize() != 1 || (pITStart->isDouble() && pITStart->getAs<Double>()->isComplex())) &&
@@ -1301,6 +1407,11 @@ void RunVisitorT<T>::visitprivate(const OptimizedExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     InternalType* pIT = NULL;
     Double* ad = NULL;
     int ar = 0;

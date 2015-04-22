@@ -16,6 +16,11 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const OpExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+	coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+	
     InternalType * pITL = NULL, * pITR = NULL, * pResult = NULL;
     try
     {

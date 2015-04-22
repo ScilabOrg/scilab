@@ -49,7 +49,6 @@ Macro::Macro(const std::wstring& _stName, std::list<symbol::Variable*>& _inputAr
     m_pDblArgIn->IncreaseRef(); //never delete
     m_pDblArgOut = new Double(1);
     m_pDblArgOut->IncreaseRef(); //never delete
-
 }
 
 Macro::~Macro()
