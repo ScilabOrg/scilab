@@ -53,10 +53,8 @@ namespace ast
 template <class T>
 void RunVisitorT<T>::visitprivate(const CellExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     exps_t::const_iterator row;
     exps_t::const_iterator col;
@@ -76,6 +74,7 @@ void RunVisitorT<T>::visitprivate(const CellExp &e)
         {
             std::wostringstream os;
             os << _W("inconsistent row/column dimensions\n");
+            coverage::CoverModule::stopChrono(e);
             //os << ((Location)(*row)->getLocation()).getLocationString() << std::endl;
             throw ScilabError(os.str(), 999, (*row)->getLocation());
         }
@@ -111,15 +110,15 @@ void RunVisitorT<T>::visitprivate(const CellExp &e)
 
     //return new cell
     setResult(pC);
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const FieldExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     /*
       a.b
@@ -129,6 +128,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     {
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("/!\\ Unmanaged FieldExp.\n").c_str());
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
 
@@ -138,6 +138,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     }
     catch (const ScilabError& error)
     {
+        coverage::CoverModule::stopChrono(e);
         throw error;
     }
 
@@ -145,6 +146,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     {
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("Attempt to reference field of non-structure array.\n").c_str());
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
 
@@ -156,6 +158,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         clearResult();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("Not yet implemented in Scilab.\n").c_str());
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
 
@@ -175,6 +178,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     catch (std::wstring & err)
     {
         pValue->killMe();
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(err.c_str(), 999, e.getTail()->getLocation());
     }
 
@@ -184,6 +188,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         {
             std::wostringstream os;
             os << _W("Invalid index.\n");
+            coverage::CoverModule::stopChrono(e);
             throw ScilabError(os.str(), 999, e.getLocation());
         }
 
@@ -239,6 +244,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
                 }
                 else
                 {
+                    coverage::CoverModule::stopChrono(e);
                     throw se;
                 }
             }
@@ -251,6 +257,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
                 }
                 else
                 {
+                    coverage::CoverModule::stopChrono(e);
                     throw se;
                 }
             }
@@ -259,6 +266,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         if (Ret != Callable::OK)
         {
             cleanInOut(in, out);
+            coverage::CoverModule::stopChrono(e);
             throw ScilabError();
         }
 
@@ -270,17 +278,18 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         pValue->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("Attempt to reference field of non-structure array.\n").c_str());
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const IfExp  &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     //Create local exec visitor
     ShortCutVisitor SCTest;
@@ -324,10 +333,7 @@ void RunVisitorT<T>::visitprivate(const IfExp  &e)
             const ast::Exp & _else = e.getElse();
             if (_else.isCommentExp())
             {
-                if (_else.getCoverId() && coverage::CoverModule::getInstance())
-                {
-                    coverage::CoverModule::getInstance()->invoke(_else.getCoverId());
-                }
+                coverage::CoverModule::invoke(_else);
             }
             else
             {
@@ -378,15 +384,15 @@ void RunVisitorT<T>::visitprivate(const IfExp  &e)
         const_cast<Exp*>(&e.getElse())->resetReturn();
         const_cast<Exp*>(&e.getThen())->resetReturn();
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const WhileExp  &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     //allow break and continue operations
     const_cast<Exp*>(&e.getBody())->setBreakable();
@@ -438,16 +444,16 @@ void RunVisitorT<T>::visitprivate(const WhileExp  &e)
     //pIT->killMe();
     //clear result of condition or result of body
     clearResult();
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const ForExp  &e)
 {
     symbol::Context* ctx = symbol::Context::getInstance();
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     //vardec visit increase its result reference
     e.getVardec().accept(*this);
@@ -620,6 +626,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
         {
             pIT->DecreaseRef();
             pIT->killMe();
+            coverage::CoverModule::stopChrono(e);
             throw ScilabError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.getVardec().getLocation());
         }
 
@@ -631,6 +638,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             {
                 pIT->DecreaseRef();
                 pIT->killMe();
+                coverage::CoverModule::stopChrono(e);
                 throw ScilabError(_W("for expression : Wrong type for loop iterator.\n"), 999, e.getVardec().getLocation());
             }
 
@@ -679,6 +687,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
     {
         pIT->DecreaseRef();
         pIT->killMe();
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(_W("for expression : Wrong type for loop iterator.\n"), 999, e.getVardec().getLocation());
     }
 
@@ -686,15 +695,14 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
     pIT->killMe();
 
     setResult(NULL);
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const TryCatchExp  &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     //save current prompt mode
     int oldVal = ConfigVariable::getSilentError();
@@ -714,16 +722,16 @@ void RunVisitorT<T>::visitprivate(const TryCatchExp  &e)
         ConfigVariable::setLastErrorCall();
         e.getCatch().accept(*this);
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const ReturnExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     if (e.isGlobal())
     {
@@ -733,6 +741,7 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
             ThreadId* pThreadId = ConfigVariable::getLastPausedThread();
             if (pThreadId == NULL)
             {
+                coverage::CoverModule::stopChrono(e);
                 //no paused thread, so just go leave
                 return;
             }
@@ -744,6 +753,7 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
             //resume previous execution thread
             pThreadId->resume();
 
+            coverage::CoverModule::stopChrono(e);
             return;
         }
         else
@@ -762,15 +772,15 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
         setExpectedSize(iSaveExpectedSize);
         const_cast<ReturnExp*>(&e)->setReturn();
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const SelectExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     // FIXME : exec select ... case ... else ... end
     e.getSelect()->accept(*this);
@@ -822,6 +832,7 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
                     catch (ScilabMessage& sm)
                     {
                         pIT->killMe();
+                        coverage::CoverModule::stopChrono(e);
                         throw sm;
                     }
 
@@ -881,6 +892,7 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
         catch (ScilabMessage& sm)
         {
             pIT->killMe();
+            coverage::CoverModule::stopChrono(e);
             throw sm;
         }
 
@@ -904,17 +916,15 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
     }
 
     clearResult();
-
     pIT->killMe();
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const SeqExp  &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     //T execMe;
     exps_t::const_iterator itExp;
@@ -1093,7 +1103,7 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                     throw ScilabMessage(os.str(), 0, (*itExp)->getLocation());
                 }
             }
-
+            coverage::CoverModule::stopChrono(e);
             throw ScilabMessage((*itExp)->getLocation());
         }
         catch (const ScilabError& se)
@@ -1133,6 +1143,7 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
 
             scilabErrorW(se.GetErrorMessage().c_str());
             scilabErrorW(L"\n");
+            coverage::CoverModule::stopChrono(e);
             throw ScilabMessage((*itExp)->getLocation());
         }
 
@@ -1140,15 +1151,15 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
         // to make a cleanup in visit(ForExp) for example (e.getBody().accept(*this);)
         setResult(NULL);
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const NotExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     /*
       @ or ~ !
@@ -1180,21 +1191,22 @@ void RunVisitorT<T>::visitprivate(const NotExp &e)
         if (Ret != Callable::OK)
         {
             cleanInOut(in, out);
+            coverage::CoverModule::stopChrono(e);
             throw ScilabError();
         }
 
         setResult(out);
         cleanIn(in, out);
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const TransposeExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     e.getExp().accept(*this);
 
@@ -1203,6 +1215,7 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         clearResult();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Can not transpose multiple elements.\n").c_str(), L"Transpose");
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
 
@@ -1218,7 +1231,7 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         }
 
         setResult(pReturn);
-
+        coverage::CoverModule::stopChrono(e);
         return;
     }
     else
@@ -1243,22 +1256,23 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         if (Ret != Callable::OK)
         {
             cleanInOut(in, out);
+            coverage::CoverModule::stopChrono(e);
             throw ScilabError();
         }
 
         setResult(out);
         cleanIn(in, out);
     }
+
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const FunctionDec & e)
 {
     symbol::Context* ctx = symbol::Context::getInstance();
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     /*
       function foo
@@ -1337,9 +1351,9 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
         std::wstring wstError(pwstError);
         FREE(pstFuncName);
         FREE(pwstError);
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(wstError, 999, e.getLocation());
     }
-
 
     if (ctx->isprotected(symbol::Symbol(pMacro->getName())))
     {
@@ -1350,16 +1364,15 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
     }
 
     ctx->addMacro(pMacro);
-
+    symbol::Context::getInstance()->addMacro(pMacro);
+    coverage::CoverModule::stopChrono(e);
 }
 
 template <class T>
 void RunVisitorT<T>::visitprivate(const ListExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     e.getStart().accept(*this);
     GenericType* pITStart = static_cast<GenericType*>(getResult());
@@ -1369,6 +1382,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         pITStart->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n").c_str(), L"':'", 1);
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
     InternalType * piStart = pITStart;
@@ -1382,6 +1396,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         pITStep->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n").c_str(), L"':'", 2);
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
     InternalType* piStep = pITStep;
@@ -1396,6 +1411,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         pITEnd->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n").c_str(), L"':'", 3);
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError(szError, 999, e.getLocation());
     }
     InternalType* piEnd = pITEnd;
@@ -1408,6 +1424,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
     {
         // No need to kill piStart, ... because Implicit list ctor will incref them
         setResult(new ImplicitList(piStart, piStep, piEnd));
+        coverage::CoverModule::stopChrono(e);
         return;
     }
 
@@ -1423,6 +1440,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         {
             // No need to kill piStart, ... because Implicit list ctor will incref them
             setResult(new ImplicitList(piStart, piStep, piEnd));
+            coverage::CoverModule::stopChrono(e);
             return;
         }
     }
@@ -1460,17 +1478,20 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
     catch (ScilabError& error)
     {
         cleanInOut(in, out);
+        coverage::CoverModule::stopChrono(e);
         throw error;
     }
     catch (ast::ScilabMessage msg)
     {
         cleanInOut(in, out);
+        coverage::CoverModule::stopChrono(e);
         throw msg;
     }
 
     if (Ret != Callable::OK)
     {
         cleanInOut(in, out);
+        coverage::CoverModule::stopChrono(e);
         throw ScilabError();
     }
 
@@ -1486,10 +1507,8 @@ void RunVisitorT<T>::visitprivate(const OptimizedExp &e)
 template <class T>
 void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
 {
-    if (e.getCoverId() && coverage::CoverModule::getInstance())
-    {
-        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
-    }
+    coverage::CoverModule::invoke(e);
+    coverage::CoverModule::startChrono(e);
 
     InternalType* pIT = NULL;
     Double* ad = NULL;
@@ -1522,6 +1541,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
         {
             yd->killMe();
             e.getOriginal()->accept(*this);
+            coverage::CoverModule::stopChrono(e);
             return;
         }
     }
@@ -1529,6 +1549,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
     {
         pIT->killMe();
         e.getOriginal()->accept(*this);
+        coverage::CoverModule::stopChrono(e);
         return;
     }
 
@@ -1590,6 +1611,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
                 xd->killMe();
                 ad->killMe();
                 e.getOriginal()->accept(*this);
+                coverage::CoverModule::stopChrono(e);
                 return;
             }
         }
@@ -1608,6 +1630,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
                 xd->killMe();
                 ad->killMe();
                 e.getOriginal()->accept(*this);
+                coverage::CoverModule::stopChrono(e);
                 return;
             }
         }
@@ -1618,6 +1641,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
         yd->killMe();
         xd->killMe();
         e.getOriginal()->accept(*this);
+        coverage::CoverModule::stopChrono(e);
         return;
     }
 
@@ -1637,6 +1661,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
             //yd->killMe();
             xd->killMe();
             ad->killMe();
+            coverage::CoverModule::stopChrono(e);
             return;
         }
         else if (ac == xr && ar == yr && xc == yc)
@@ -1646,6 +1671,7 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
             C2F(dgemm)(&n, &n, &ar, &xc, &ac, &one, ad->get(), &ar, xd->get(), &ac, &one, yd->get(), &ar);
             xd->killMe();
             ad->killMe();
+            coverage::CoverModule::stopChrono(e);
             return;
         }
     }
@@ -1666,6 +1692,8 @@ void RunVisitorT<T>::visitprivate(const DAXPYExp &e)
     }
 
     e.getOriginal()->accept(*this);
+    coverage::CoverModule::stopChrono(e);
+
     return;
 }
 
