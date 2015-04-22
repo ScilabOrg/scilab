@@ -250,6 +250,89 @@ public:
         DAXPYEXP
     };
 
+    std::wstring getTypeAsString()
+    {
+        switch (getType())
+        {
+            case SIMPLEVAR:
+                return L"SIMPLEVAR";
+            case DOLLARVAR:
+                return L"DOLLARVAR";
+            case COLONVAR:
+                return L"COLONVAR";
+            case ARRAYLISTVAR:
+                return L"ARRAYLISTVAR";
+            case DOUBLEEXP:
+                return L"DOUBLEEXP";
+            case BOOLEXP:
+                return L"BOOLEXP";
+            case STRINGEXP:
+                return L"STRINGEXP";
+            case COMMENTEXP:
+                return L"COMMENTEXP";
+            case CONSTEXP:
+                return L"CONSTEXP";
+            case NILEXP:
+                return L"NILEXP";
+            case CALLEXP:
+                return L"CALLEXP";
+            case CELLCALLEXP:
+                return L"CELLCALLEXP";
+            case OPEXP:
+                return L"OPEXP";
+            case LOGICALOPEXP:
+                return L"LOGICALOPEXP";
+            case ASSIGNEXP:
+                return L"ASSIGNEXP";
+            case IFEXP:
+                return L"IFEXP";
+            case WHILEEXP:
+                return L"WHILEEXP";
+            case FOREXP:
+                return L"FOREXP";
+            case BREAKEXP:
+                return L"BREAKEXP";
+            case CONTINUEEXP:
+                return L"CONTINUEEXP";
+            case TRYCATCHEXP:
+                return L"TRYCATCHEXP";
+            case SELECTEXP:
+                return L"SELECTEXP";
+            case CASEEXP:
+                return L"CASEEXP";
+            case RETURNEXP:
+                return L"RETURNEXP";
+            case FIELDEXP:
+                return L"FIELDEXP";
+            case NOTEXP:
+                return L"NOTEXP";
+            case TRANSPOSEEXP:
+                return L"TRANSPOSEEXP";
+            case MATRIXEXP:
+                return L"MATRIXEXP";
+            case MATRIXLINEEXP:
+                return L"MATRIXLINEEXP";
+            case CELLEXP:
+                return L"CELLEXP";
+            case SEQEXP:
+                return L"SEQEXP";
+            case ARRAYLISTEXP:
+                return L"ARRAYLISTEXP";
+            case ASSIGNLISTEXP:
+                return L"ASSIGNLISTEXP";
+            case VARDEC:
+                return L"VARDEC";
+            case FUNCTIONDEC:
+                return L"FUNCTIONDEC";
+            case LISTEXP:
+                return L"LISTEXP";
+            case OPTIMIZEDEXP:
+                return L"OPTIMIZEDEXP";
+            case DAXPYEXP:
+                return L"DAXPYEXP";
+        }
+    }
+
     virtual ExpType getType() const = 0;
 
     template <class T>
@@ -449,12 +532,12 @@ public:
         return false;
     }
 
-    Exp* getParent() const
+    inline Exp* getParent() const
     {
         return parent;
     }
 
-    Exp* getParent()
+    inline Exp* getParent()
     {
         return parent;
     }

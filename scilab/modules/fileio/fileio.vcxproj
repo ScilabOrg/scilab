@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -299,6 +299,7 @@ lib /DEF:"$(ProjectDir)preferences_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Pla
   <ItemGroup>
     <ClInclude Include="includes\addfile.h" />
     <ClInclude Include="includes\cluni0.h" />
+    <ClInclude Include="includes\copyfile.h" />
     <ClInclude Include="includes\createdirectory.h" />
     <ClInclude Include="includes\createtempfilename.h" />
     <ClInclude Include="includes\deleteafile.h" />
@@ -340,7 +341,6 @@ lib /DEF:"$(ProjectDir)preferences_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Pla
     <ClInclude Include="src\cpp\scilab_sscanf.hxx" />
     <ClInclude Include="src\c\basename.h" />
     <ClInclude Include="src\c\convert_tools.h" />
-    <ClInclude Include="src\c\copyfile.h" />
     <ClInclude Include="src\c\fileinfo.h" />
     <ClInclude Include="src\c\fprintfMat.h" />
     <ClInclude Include="src\c\fscanfMat.h" />

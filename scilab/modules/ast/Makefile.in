@@ -244,7 +244,12 @@ am__libsciast_la_SOURCES_DIST = src/c/operations/doublecomplex.c \
 	src/cpp/analysis/SizeAnalyzer.cpp \
 	src/cpp/analysis/VisitListExp.cpp \
 	src/cpp/analysis/VisitMatrixExp.cpp \
-	src/cpp/analysis/XBlock.cpp src/cpp/types/inspector.cpp
+	src/cpp/analysis/XBlock.cpp src/cpp/coverage/CoverModule.cpp \
+	src/cpp/coverage/InstrumentVisitor.cpp \
+	src/cpp/coverage/CoverResult.cpp \
+	src/cpp/coverage/CodePrinterVisitor.cpp \
+	src/cpp/coverage/CovHTMLCodePrinter.cpp \
+	src/cpp/types/inspector.cpp
 am__dirstamp = $(am__leading_dot)dirstamp
 @ENABLE_DEBUG_TRUE@am__objects_1 =  \
 @ENABLE_DEBUG_TRUE@	src/cpp/types/libsciast_la-inspector.lo
@@ -356,7 +361,13 @@ am_libsciast_la_OBJECTS =  \
 	src/cpp/analysis/libsciast_la-SizeAnalyzer.lo \
 	src/cpp/analysis/libsciast_la-VisitListExp.lo \
 	src/cpp/analysis/libsciast_la-VisitMatrixExp.lo \
-	src/cpp/analysis/libsciast_la-XBlock.lo $(am__objects_1)
+	src/cpp/analysis/libsciast_la-XBlock.lo \
+	src/cpp/coverage/libsciast_la-CoverModule.lo \
+	src/cpp/coverage/libsciast_la-InstrumentVisitor.lo \
+	src/cpp/coverage/libsciast_la-CoverResult.lo \
+	src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo \
+	src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo \
+	$(am__objects_1)
 libsciast_la_OBJECTS = $(am_libsciast_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -810,7 +821,11 @@ libsciast_la_SOURCES = src/c/operations/doublecomplex.c \
 	src/cpp/analysis/SizeAnalyzer.cpp \
 	src/cpp/analysis/VisitListExp.cpp \
 	src/cpp/analysis/VisitMatrixExp.cpp \
-	src/cpp/analysis/XBlock.cpp $(am__append_1)
+	src/cpp/analysis/XBlock.cpp src/cpp/coverage/CoverModule.cpp \
+	src/cpp/coverage/InstrumentVisitor.cpp \
+	src/cpp/coverage/CoverResult.cpp \
+	src/cpp/coverage/CodePrinterVisitor.cpp \
+	src/cpp/coverage/CovHTMLCodePrinter.cpp $(am__append_1)
 libsciast_la_CPPFLAGS = \
 	-I$(srcdir)/includes/ast \
 	-I$(srcdir)/includes/exps \
@@ -820,6 +835,7 @@ libsciast_la_CPPFLAGS = \
 	-I$(srcdir)/includes/system_env \
 	-I$(srcdir)/includes/types \
 	-I$(srcdir)/includes/analysis \
+	-I$(srcdir)/includes/coverage \
 	-I$(srcdir)/src/cpp \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/modules/functions_manager/includes \
@@ -833,6 +849,7 @@ libsciast_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/io/includes \
 	-I$(top_srcdir)/modules/fileio/includes \
 	$(EIGEN_CPPFLAGS) \
+	$(XML_FLAGS) \
 	$(AM_CPPFLAGS)
 
 libsciast_la_includedir = $(pkgincludedir)
@@ -1546,6 +1563,27 @@ src/cpp/analysis/libsciast_la-VisitMatrixExp.lo:  \
 src/cpp/analysis/libsciast_la-XBlock.lo:  \
 	src/cpp/analysis/$(am__dirstamp) \
 	src/cpp/analysis/$(DEPDIR)/$(am__dirstamp)
+src/cpp/coverage/$(am__dirstamp):
+	@$(MKDIR_P) src/cpp/coverage
+	@: > src/cpp/coverage/$(am__dirstamp)
+src/cpp/coverage/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/cpp/coverage/$(DEPDIR)
+	@: > src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
+src/cpp/coverage/libsciast_la-CoverModule.lo:  \
+	src/cpp/coverage/$(am__dirstamp) \
+	src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
+src/cpp/coverage/libsciast_la-InstrumentVisitor.lo:  \
+	src/cpp/coverage/$(am__dirstamp) \
+	src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
+src/cpp/coverage/libsciast_la-CoverResult.lo:  \
+	src/cpp/coverage/$(am__dirstamp) \
+	src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
+src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo:  \
+	src/cpp/coverage/$(am__dirstamp) \
+	src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
+src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo:  \
+	src/cpp/coverage/$(am__dirstamp) \
+	src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
 src/cpp/types/libsciast_la-inspector.lo:  \
 	src/cpp/types/$(am__dirstamp) \
 	src/cpp/types/$(DEPDIR)/$(am__dirstamp)
@@ -1561,6 +1599,8 @@ mostlyclean-compile:
 	-rm -f src/cpp/analysis/*.lo
 	-rm -f src/cpp/ast/*.$(OBJEXT)
 	-rm -f src/cpp/ast/*.lo
+	-rm -f src/cpp/coverage/*.$(OBJEXT)
+	-rm -f src/cpp/coverage/*.lo
 	-rm -f src/cpp/operations/*.$(OBJEXT)
 	-rm -f src/cpp/operations/*.lo
 	-rm -f src/cpp/parse/*.$(OBJEXT)
@@ -1614,6 +1654,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/ast/$(DEPDIR)/libsciast_la-shortcutvisitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/ast/$(DEPDIR)/libsciast_la-treevisitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/ast/$(DEPDIR)/libsciast_la-visitor_common.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/coverage/$(DEPDIR)/libsciast_la-CodePrinterVisitor.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/coverage/$(DEPDIR)/libsciast_la-CovHTMLCodePrinter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverModule.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverResult.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/coverage/$(DEPDIR)/libsciast_la-InstrumentVisitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/operations/$(DEPDIR)/libsciast_la-interface_addition.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/operations/$(DEPDIR)/libsciast_la-operations.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/operations/$(DEPDIR)/libsciast_la-types_addition.Plo@am__quote@
@@ -2489,6 +2534,41 @@ src/cpp/analysis/libsciast_la-XBlock.lo: src/cpp/analysis/XBlock.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/analysis/libsciast_la-XBlock.lo `test -f 'src/cpp/analysis/XBlock.cpp' || echo '$(srcdir)/'`src/cpp/analysis/XBlock.cpp
 
+src/cpp/coverage/libsciast_la-CoverModule.lo: src/cpp/coverage/CoverModule.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/coverage/libsciast_la-CoverModule.lo -MD -MP -MF src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverModule.Tpo -c -o src/cpp/coverage/libsciast_la-CoverModule.lo `test -f 'src/cpp/coverage/CoverModule.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CoverModule.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverModule.Tpo src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverModule.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/coverage/CoverModule.cpp' object='src/cpp/coverage/libsciast_la-CoverModule.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/coverage/libsciast_la-CoverModule.lo `test -f 'src/cpp/coverage/CoverModule.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CoverModule.cpp
+
+src/cpp/coverage/libsciast_la-InstrumentVisitor.lo: src/cpp/coverage/InstrumentVisitor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/coverage/libsciast_la-InstrumentVisitor.lo -MD -MP -MF src/cpp/coverage/$(DEPDIR)/libsciast_la-InstrumentVisitor.Tpo -c -o src/cpp/coverage/libsciast_la-InstrumentVisitor.lo `test -f 'src/cpp/coverage/InstrumentVisitor.cpp' || echo '$(srcdir)/'`src/cpp/coverage/InstrumentVisitor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/coverage/$(DEPDIR)/libsciast_la-InstrumentVisitor.Tpo src/cpp/coverage/$(DEPDIR)/libsciast_la-InstrumentVisitor.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/coverage/InstrumentVisitor.cpp' object='src/cpp/coverage/libsciast_la-InstrumentVisitor.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/coverage/libsciast_la-InstrumentVisitor.lo `test -f 'src/cpp/coverage/InstrumentVisitor.cpp' || echo '$(srcdir)/'`src/cpp/coverage/InstrumentVisitor.cpp
+
+src/cpp/coverage/libsciast_la-CoverResult.lo: src/cpp/coverage/CoverResult.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/coverage/libsciast_la-CoverResult.lo -MD -MP -MF src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverResult.Tpo -c -o src/cpp/coverage/libsciast_la-CoverResult.lo `test -f 'src/cpp/coverage/CoverResult.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CoverResult.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverResult.Tpo src/cpp/coverage/$(DEPDIR)/libsciast_la-CoverResult.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/coverage/CoverResult.cpp' object='src/cpp/coverage/libsciast_la-CoverResult.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/coverage/libsciast_la-CoverResult.lo `test -f 'src/cpp/coverage/CoverResult.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CoverResult.cpp
+
+src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo: src/cpp/coverage/CodePrinterVisitor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo -MD -MP -MF src/cpp/coverage/$(DEPDIR)/libsciast_la-CodePrinterVisitor.Tpo -c -o src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo `test -f 'src/cpp/coverage/CodePrinterVisitor.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CodePrinterVisitor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/coverage/$(DEPDIR)/libsciast_la-CodePrinterVisitor.Tpo src/cpp/coverage/$(DEPDIR)/libsciast_la-CodePrinterVisitor.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/coverage/CodePrinterVisitor.cpp' object='src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/coverage/libsciast_la-CodePrinterVisitor.lo `test -f 'src/cpp/coverage/CodePrinterVisitor.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CodePrinterVisitor.cpp
+
+src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo: src/cpp/coverage/CovHTMLCodePrinter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo -MD -MP -MF src/cpp/coverage/$(DEPDIR)/libsciast_la-CovHTMLCodePrinter.Tpo -c -o src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo `test -f 'src/cpp/coverage/CovHTMLCodePrinter.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CovHTMLCodePrinter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/coverage/$(DEPDIR)/libsciast_la-CovHTMLCodePrinter.Tpo src/cpp/coverage/$(DEPDIR)/libsciast_la-CovHTMLCodePrinter.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/coverage/CovHTMLCodePrinter.cpp' object='src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/coverage/libsciast_la-CovHTMLCodePrinter.lo `test -f 'src/cpp/coverage/CovHTMLCodePrinter.cpp' || echo '$(srcdir)/'`src/cpp/coverage/CovHTMLCodePrinter.cpp
+
 src/cpp/types/libsciast_la-inspector.lo: src/cpp/types/inspector.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/types/libsciast_la-inspector.lo -MD -MP -MF src/cpp/types/$(DEPDIR)/libsciast_la-inspector.Tpo -c -o src/cpp/types/libsciast_la-inspector.lo `test -f 'src/cpp/types/inspector.cpp' || echo '$(srcdir)/'`src/cpp/types/inspector.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/types/$(DEPDIR)/libsciast_la-inspector.Tpo src/cpp/types/$(DEPDIR)/libsciast_la-inspector.Plo
@@ -2504,6 +2584,7 @@ clean-libtool:
 	-rm -rf src/c/operations/.libs src/c/operations/_libs
 	-rm -rf src/cpp/analysis/.libs src/cpp/analysis/_libs
 	-rm -rf src/cpp/ast/.libs src/cpp/ast/_libs
+	-rm -rf src/cpp/coverage/.libs src/cpp/coverage/_libs
 	-rm -rf src/cpp/operations/.libs src/cpp/operations/_libs
 	-rm -rf src/cpp/parse/.libs src/cpp/parse/_libs
 	-rm -rf src/cpp/symbol/.libs src/cpp/symbol/_libs
@@ -2718,6 +2799,8 @@ distclean-generic:
 	-rm -f src/cpp/analysis/$(am__dirstamp)
 	-rm -f src/cpp/ast/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/cpp/ast/$(am__dirstamp)
+	-rm -f src/cpp/coverage/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/cpp/coverage/$(am__dirstamp)
 	-rm -f src/cpp/operations/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/cpp/operations/$(am__dirstamp)
 	-rm -f src/cpp/parse/$(DEPDIR)/$(am__dirstamp)
@@ -2739,7 +2822,7 @@ clean-am: clean-generic clean-libtool clean-local \
 	clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf src/c/operations/$(DEPDIR) src/cpp/analysis/$(DEPDIR) src/cpp/ast/$(DEPDIR) src/cpp/operations/$(DEPDIR) src/cpp/parse/$(DEPDIR) src/cpp/symbol/$(DEPDIR) src/cpp/system_env/$(DEPDIR) src/cpp/types/$(DEPDIR)
+	-rm -rf src/c/operations/$(DEPDIR) src/cpp/analysis/$(DEPDIR) src/cpp/ast/$(DEPDIR) src/cpp/coverage/$(DEPDIR) src/cpp/operations/$(DEPDIR) src/cpp/parse/$(DEPDIR) src/cpp/symbol/$(DEPDIR) src/cpp/system_env/$(DEPDIR) src/cpp/types/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-local distclean-tags
@@ -2789,7 +2872,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf src/c/operations/$(DEPDIR) src/cpp/analysis/$(DEPDIR) src/cpp/ast/$(DEPDIR) src/cpp/operations/$(DEPDIR) src/cpp/parse/$(DEPDIR) src/cpp/symbol/$(DEPDIR) src/cpp/system_env/$(DEPDIR) src/cpp/types/$(DEPDIR)
+	-rm -rf src/c/operations/$(DEPDIR) src/cpp/analysis/$(DEPDIR) src/cpp/ast/$(DEPDIR) src/cpp/coverage/$(DEPDIR) src/cpp/operations/$(DEPDIR) src/cpp/parse/$(DEPDIR) src/cpp/symbol/$(DEPDIR) src/cpp/system_env/$(DEPDIR) src/cpp/types/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

@@ -16,10 +16,20 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const CallExp &e)
 {
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+	coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     e.getName().accept(*this);
 
     if (getResult() != NULL && getResult()->isInvokable())
     {
+	if (coverage::CoverModule::getInstance() && getResult()->isCallable())
+	{
+	    coverage::CoverModule::getInstance()->invoke(static_cast<types::Callable *>(getResult()));
+	}
+    
         //function call
         types::InternalType* pIT = getResult();
         types::typed_list out;

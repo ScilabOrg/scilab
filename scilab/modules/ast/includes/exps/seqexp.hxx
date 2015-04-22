@@ -19,7 +19,6 @@
 #define __AST_SEQEXP_HXX__
 
 #include "exp.hxx"
-#include "functiondec.hxx"
 
 namespace ast
 {

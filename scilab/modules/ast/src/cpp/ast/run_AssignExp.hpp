@@ -17,6 +17,11 @@ template<class T>
 void RunVisitorT<T>::visitprivate(const AssignExp  &e)
 {
     symbol::Context* ctx = symbol::Context::getInstance();
+    if (e.getCoverId() && coverage::CoverModule::getInstance())
+    {
+        coverage::CoverModule::getInstance()->invoke(e.getCoverId());
+    }
+
     /*Create local exec visitor*/
     try
     {

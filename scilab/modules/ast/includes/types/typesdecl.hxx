@@ -10,9 +10,13 @@
  *
  */
 
+#ifndef __TYPES_DECL_HXX__
+#define __TYPES_DECL_HXX__
+
 namespace types
 {
 class MacroFile;
 class Macro;
 }
 
+#endif // TYPES_DECL

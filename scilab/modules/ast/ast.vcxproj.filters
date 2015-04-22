@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Library Include="..\..\bin\blasplus.lib" />
@@ -74,6 +74,12 @@
     </Filter>
     <Filter Include="Header Files\analysis\positivity">
       <UniqueIdentifier>{f4338f25-6b5b-4743-a489-2e7850e944da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ast\coverage">
+      <UniqueIdentifier>{400fc8d7-4fb7-43f9-b029-ca4b497865ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\coverage">
+      <UniqueIdentifier>{fecb858e-48ab-49ce-bf24-95f135105e69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -434,9 +440,6 @@
       <Filter>Header Files\types</Filter>
     </ClInclude>
     <ClInclude Include="includes\types\types_tools.hxx">
-      <Filter>Header Files\types</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\types\typesdecl.hxx">
       <Filter>Header Files\types</Filter>
     </ClInclude>
     <ClInclude Include="includes\types\user.hxx">
@@ -931,6 +934,36 @@
     <ClInclude Include="includes\analysis\ConstantVisitor.hxx">
       <Filter>Header Files\analysis</Filter>
     </ClInclude>
+    <ClInclude Include="includes\coverage\CodePrinter.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\CodePrinterVisitor.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\Counter.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\cover_tools.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\CoverAction.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\CoverMacroInfo.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\CoverModule.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\CoverResult.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\CovHTMLCodePrinter.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\coverage\InstrumentVisitor.hxx">
+      <Filter>Header Files\coverage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\ast\debugvisitor.cpp">
@@ -1256,6 +1289,21 @@
     </ClCompile>
     <ClCompile Include="src\cpp\analysis\ConstantValue.cpp">
       <Filter>Source Files\ast\analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\coverage\CodePrinterVisitor.cpp">
+      <Filter>Source Files\ast\coverage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\coverage\CoverModule.cpp">
+      <Filter>Source Files\ast\coverage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\coverage\CoverResult.cpp">
+      <Filter>Source Files\ast\coverage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\coverage\CovHTMLCodePrinter.cpp">
+      <Filter>Source Files\ast\coverage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\coverage\InstrumentVisitor.cpp">
+      <Filter>Source Files\ast\coverage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

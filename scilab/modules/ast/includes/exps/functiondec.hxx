@@ -20,6 +20,8 @@
 
 #include <list>
 
+#include "macro.hxx"
+
 #include "dec.hxx"
 #include "symbol.hxx"
 #include "exp.hxx"
@@ -53,7 +55,8 @@ public:
                  Exp& body)
         : Dec (location),
           _name (name),
-          _stack(NULL)
+          _stack(nullptr),
+          macro(nullptr)
     {
         args.setParent(this);
         returns.setParent(this);
@@ -68,6 +71,11 @@ public:
         //body will be deleted by types::Macro
         //so replace by NULL to avoir delete in ~Exp()
         //_exps[2] = NULL;
+        if (macro)
+        {
+            macro->DecreaseRef();
+            macro->killMe();
+        }
     }
 
     virtual FunctionDec* clone()
@@ -156,9 +164,30 @@ public:
     {
         return true;
     }
+
+    inline const types::Macro * getMacro() const
+    {
+        return macro;
+    }
+
+    inline types::Macro * getMacro()
+    {
+        return macro;
+    }
+
+    inline void setMacro(types::Macro * _macro)
+    {
+        macro = _macro;
+        if (macro)
+        {
+            macro->IncreaseRef();
+        }
+    }
+
 protected:
     symbol::Symbol _name;
     symbol::Variable* _stack;
+    types::Macro * macro;
 };
 
 } // namespace ast

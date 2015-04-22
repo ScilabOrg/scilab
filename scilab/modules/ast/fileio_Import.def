@@ -4,3 +4,6 @@ LIBRARY    fileio.dll
 EXPORTS
 removedir
 getshortpathname
+expandPathVariableW
+createdirectoryW
+CopyFileFunction

@@ -121,7 +121,12 @@ src/cpp/analysis/PolymorphicMacroCache.cpp \
 src/cpp/analysis/SizeAnalyzer.cpp \
 src/cpp/analysis/VisitListExp.cpp \
 src/cpp/analysis/VisitMatrixExp.cpp \
-src/cpp/analysis/XBlock.cpp
+src/cpp/analysis/XBlock.cpp \
+src/cpp/coverage/CoverModule.cpp \
+src/cpp/coverage/InstrumentVisitor.cpp \
+src/cpp/coverage/CoverResult.cpp \
+src/cpp/coverage/CodePrinterVisitor.cpp \
+src/cpp/coverage/CovHTMLCodePrinter.cpp
 
 if ENABLE_DEBUG
 libsciast_la_SOURCES += src/cpp/types/inspector.cpp
@@ -137,6 +142,7 @@ libsciast_la_CPPFLAGS = \
 	-I$(srcdir)/includes/system_env \
 	-I$(srcdir)/includes/types \
 	-I$(srcdir)/includes/analysis \
+	-I$(srcdir)/includes/coverage \
 	-I$(srcdir)/src/cpp \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/modules/functions_manager/includes \
@@ -150,6 +156,7 @@ libsciast_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/io/includes \
 	-I$(top_srcdir)/modules/fileio/includes \
 	$(EIGEN_CPPFLAGS) \
+	$(XML_FLAGS) \
 	$(AM_CPPFLAGS)
 
 
