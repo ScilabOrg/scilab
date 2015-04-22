@@ -760,9 +760,12 @@ void CodePrinterVisitor::visit(const ast::FunctionDec & e)
         ret.accept(*this);
     }
 
-    printer.handleNothing(L" ");
-    printer.handleOperator(SCI_ASSIGN);
-    printer.handleNothing(L" ");
+    if (ret.getVars().size() != 0)
+    {
+        printer.handleNothing(L" ");
+        printer.handleOperator(SCI_ASSIGN);
+        printer.handleNothing(L" ");
+    }
 
     printer.handleFunctionNameDec(e.getSymbol().getName());
 

@@ -95,7 +95,7 @@ public:
     {
         if (lineCount)
         {
-            out << L"</pre></td><td></td><td></td>\n</tr>\n";
+            out << L"</pre></td><td></td><td></td><td></td>\n</tr>\n";
             out.flush();
         }
     }
@@ -166,9 +166,9 @@ private:
         return *fnStack.top().second;
     }
 
-    inline bool isInsideFunction() const
+    inline bool isInsideKnownFunction() const
     {
-        return !fnStack.empty();
+        return !fnStack.empty() && fnStack.top().second != nullptr;
     }
 
     inline void count(const std::wstring & seq)
@@ -190,7 +190,7 @@ private:
         {
             const std::size_t indent = getIndentSize();
             out << L"<tr class=\'";
-            if (current && isInsideFunction())
+            if (current && isInsideKnownFunction())
             {
                 if (current->isCommentExp())
                 {

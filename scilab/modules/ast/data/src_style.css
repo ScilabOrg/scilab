@@ -51,8 +51,7 @@ body {
 
 .source .functionInfo {
     background-color: #ffffff;
-    width: 100%;
-    display: table;
+    width: 450px;
     border-collapse: separate;
     border-spacing: 0px;
 }
@@ -126,6 +125,14 @@ body {
     margin: 0px;
     padding: 0px 0px 0px 1em;
     border: medium none;
+}
+
+.source table .time {
+    font-size: 10px;
+    margin: 0px;
+    padding: 0px 1em 0px 1em;
+    border: medium none;
+    background-color: #7BDB5F;
 }
 
 .source table .null_stats {

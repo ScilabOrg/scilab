@@ -44,6 +44,7 @@ Function::ReturnValue sci_coverage(types::typed_list &in, int _iRetCount, types:
         if (cover)
         {
             cover->print();
+            coverage::CoverModule::clearInstance();
             return Function::OK;
         }
     }
@@ -54,23 +55,37 @@ Function::ReturnValue sci_coverage(types::typed_list &in, int _iRetCount, types:
         return Function::Error;
     }
 
-    if (!in[0]->isString() || in[0]->getAs<types::String>()->getCols() != 2)
+    if (!in[0]->isMacro() && !in[0]->isMacroFile() && (!in[0]->isString() || in[0]->getAs<types::String>()->getCols() != 2))
     {
         Scierror(999, _("%s: Wrong type for input argument #%d: A two-columns string matrix expected.\n"), "coverage" , 1);
         return Function::Error;
     }
 
-    types::String * strs = in[0]->getAs<types::String>();
-    std::vector<std::pair<std::wstring, std::wstring>> paths_mods;
-    const unsigned int rows = strs->getRows();
-    paths_mods.reserve(rows);
-
-    for (unsigned int i = 0; i < rows; ++i)
+    if (!in[0]->isMacro() && !in[0]->isMacroFile())
     {
-        paths_mods.emplace_back(strs->get(i, 0), strs->get(i, 1));
-    }
+        types::String * strs = in[0]->getAs<types::String>();
+        std::vector<std::pair<std::wstring, std::wstring>> paths_mods;
+        const unsigned int rows = strs->getRows();
+        paths_mods.reserve(rows);
 
-    coverage::CoverModule::createInstance(paths_mods);
+        for (unsigned int i = 0; i < rows; ++i)
+        {
+            paths_mods.emplace_back(strs->get(i, 0), strs->get(i, 1));
+        }
+
+        coverage::CoverModule::createInstance(paths_mods);
+    }
+    else
+    {
+        if (in[0]->isMacro())
+        {
+            coverage::CoverModule::createInstance()->instrumentSingleMacro(L"", L"", static_cast<types::Macro *>(in[0]), false);
+        }
+        else
+        {
+            coverage::CoverModule::createInstance()->instrumentSingleMacro(L"", L"", static_cast<types::MacroFile *>(in[0])->getMacro(), false);
+        }
+    }
 
     return Function::OK;
 }

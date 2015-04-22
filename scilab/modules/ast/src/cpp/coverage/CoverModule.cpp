@@ -38,6 +38,19 @@ namespace coverage
 
 CoverModule * CoverModule::instance = nullptr;
 
+CoverModule::~CoverModule()
+{
+    for (auto & counter : counters)
+    {
+        counter.getExp()->setCoverId(0);
+    }
+    for (auto & p : callCounters)
+    {
+        p.first->DecreaseRef();
+        //p.first->killMe();
+    }
+}
+
 void CoverModule::getMacros(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods)
 {
     for (const auto & p : paths_mods)
@@ -111,13 +124,13 @@ void CoverModule::instrumentMacro(const std::wstring & module, const std::wstrin
     const std::map<symbol::Variable *, types::Macro *> & submacros = macro->getSubMacros();
     for (const auto & p : submacros)
     {
-        instrumentSingleMacro(module, path, p.second);
+        instrumentSingleMacro(module, path, p.second, true);
     }
 
-    instrumentSingleMacro(module, path, macro);
+    instrumentSingleMacro(module, path, macro, true);
 }
 
-void CoverModule::instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro)
+void CoverModule::instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro, bool instrumentInners)
 {
     macro->IncreaseRef();
     visitor.setMacro(macro);
@@ -126,11 +139,14 @@ void CoverModule::instrumentSingleMacro(const std::wstring & module, const std::
     callCounters.emplace(static_cast<types::Callable *>(macro), CallCounter());
     functions.emplace(module, static_cast<types::Callable *>(macro));
 
-    // We make a copy since the call to instrumentSingleMacro will modify visitor.getInnerMacros()
-    const std::vector<types::Macro *> inners = visitor.getInnerMacros();
-    for (auto inner : inners)
+    if (instrumentInners)
     {
-        instrumentSingleMacro(module, path, inner);
+        // We make a copy since the call to instrumentSingleMacro will modify visitor.getInnerMacros()
+        const std::vector<types::Macro *> inners = visitor.getInnerMacros();
+        for (auto inner : inners)
+        {
+            instrumentSingleMacro(module, path, inner, true);
+        }
     }
 }
 
@@ -208,9 +224,9 @@ void CoverModule::collect()
         totalUncInstrs = 0;
         totalUncBranches = 0;
 
-        for (std::vector<Counter>::const_iterator i = std::next(b), e = counters.end(); i != e; ++i)
+        for (std::vector<Counter>::const_iterator i = b, e = counters.end(); i != e; ++i)
         {
-            if (i->getMacro() != current)
+            if (i->getMacro() != current || std::next(i) == e)
             {
                 const std::wstring & name = current->getName();
                 CoverMacroInfo & info = macros.find(current)->second;
@@ -220,10 +236,18 @@ void CoverModule::collect()
                 if (j == map2.end())
                 {
                     CoverResult & result = map2.emplace(name, CoverResult(name, info)).first->second;
-                    result.populate(b, i);
+                    if (std::next(i) == e)
+                    {
+                        result.populate(b, e);
+                    }
+                    else
+                    {
+                        result.populate(b, i);
+                        b = i;
+                        current = i->getMacro();
+                    }
+
                     result.setCounter(callCounters.find(current)->second.get());
-                    b = i;
-                    current = i->getMacro();
 
                     totalInstrs += result.getInfo().instrsCount;
                     totalBranches += result.getInfo().branchesCount;
@@ -273,222 +297,163 @@ void CoverModule::print()
 
 void CoverModule::toHTML(const std::wstring & outputDir)
 {
+    bool nomodules = false;
     wchar_t * _outputDir = expandPathVariableW((wchar_t *)outputDir.c_str());
     createdirectoryW(_outputDir);
 
-    // We make all the reports for the macros
-    for (auto & p1 : results)
+    if (results.size() == 1 && results.begin()->first == L"" && results.begin()->second.size() == 1 && results.begin()->second.begin()->first == L"")
     {
-        const std::wstring & moduleName = p1.first;
-        const std::wstring __outputDir = std::wstring(_outputDir) + DIR_SEPARATORW + moduleName;
-        createdirectoryW((wchar_t *)__outputDir.c_str());
-        uint64_t totalCalls = 0;
-
-        for (auto & p2 : p1.second)
+        for (const auto & p : macros)
         {
-            char * _path = wide_string_to_UTF8(p2.first.c_str());
-            std::ifstream src(_path, ios::in | ios::binary | ios::ate);
-            FREE(_path);
-            if (src.is_open())
+            writeMacroHTMLReport(p.first, results.begin()->second.begin()->second, _outputDir);
+        }
+        nomodules = true;
+    }
+
+    if (!nomodules)
+    {
+        // We make all the reports for the macros
+        for (auto & p1 : results)
+        {
+            const std::wstring & moduleName = p1.first;
+            const std::wstring __outputDir = std::wstring(_outputDir) + DIR_SEPARATORW + moduleName;
+            createdirectoryW((wchar_t *)__outputDir.c_str());
+            uint64_t totalCalls = 0;
+
+            for (auto & p2 : p1.second)
             {
-                std::size_t pos = p2.first.find_last_of(L'.');
-                std::wstring name = p2.first.substr(0, pos);
-                pos = name.find_last_of(L"\\/");
-                if (pos != std::string::npos)
+                writeMacroHTMLReport(p2.first, moduleName, p2.second, __outputDir);
+            }
+
+            // Now we make the module's reports
+            std::wostringstream out;
+
+            out << L"<html lang=\'en\'>\n"
+                << L"<meta charset=\'UTF-8\'>\n"
+                << L"<head>\n"
+                << L"<link rel=\'icon\' href=\'../favicon.ico\'/>\n"
+                << L"<title>Scilab | Module " << moduleName << L" | Scilab\'s code coverage" <<  L"</title>\n"
+                << L"<style type=\'text/css\' media=\'all\'>\n"
+                << L"@import url(\'../mod_style.css\');\n"
+                << L"</style>\n"
+                << L"</head>\n"
+                << L"<body>\n"
+                << L"<h2 class=\'title\'>Builtins calls</h2>\n"
+                << L"<table class='module'>\n"
+                << L"<tr><td><div class='modulePath'>" << moduleName << L"</div></td></tr>\n"
+                << L"<tr><td><div class=\'builtins_stats\'>\n";
+            //<< L"<table>\n";
+
+            // compute total calls
+            auto range = functions.equal_range(moduleName);
+            for (auto fptr = range.first; fptr != range.second; ++fptr)
+            {
+                auto i = callCounters.find(static_cast<types::Callable *>(fptr->second));
+                if (i != callCounters.end())
                 {
-                    name = name.substr(pos + 1);
+                    totalCalls += i->second.get();
                 }
-                src.seekg(0, src.end);
-                int len = src.tellg();
-                src.seekg (0, src.beg);
-                char * buffer = new char[len + 1];
-                buffer[len] = '\0';
-                src.read(buffer, len);
-                src.close();
-
-                wchar_t * _wstr = to_wide_string(buffer);
-                delete[] buffer;
-                Parser parser;
-                parser.parse(_wstr);
-                FREE(_wstr);
-
-                ast::Exp * tree = parser.getTree();
-                std::wostringstream out;
-
-                out << L"<html lang=\'en\'>\n"
-                    << L"<meta charset=\'UTF-8\'>\n"
-                    << L"<head>\n"
-                    << L"<link rel=\'icon\' href=\'../favicon.ico\'/>\n"
-                    << L"<title>Scilab | Module " << moduleName << L" | " << p2.first << L" | Scilab\'s code coverage" <<  L"</title>\n"
-                    << L"<style type=\'text/css\' media=\'all\'>\n"
-                    << L"@import url(\'../scilab_code.css\');\n"
-                    << L"@import url(\'../src_style.css\');\n"
-                    << L"</style>\n"
-                    << L"<script>\n"
-                    << L"function show(did,fid) {\n"
-                    << L"  x = document.getElementById(did).style;\n"
-                    << L"  y = document.getElementById(fid);\n"
-                    << L"  x.visibility = 'visible';\n"
-                    << L"  x.display = 'block';\n"
-                    << L"  x.height = 'auto';\n"
-                    << L"  x.left = y.offsetLeft + 'px';\n"
-                    << L"  x.top = y.offsetTop + y.offsetHeight + 'px';\n"
-                    << L"}\n"
-                    << L"function hide(did) {\n"
-                    << L"  document.getElementById(did).style.visibility = \'hidden\';\n"
-                    << L"}\n"
-                    << L"</script>\n"
-                    << L"</head>\n"
-                    << L"<body>\n"
-                    << L"<h2 class=\'title\'>Source File</h2>\n"
-                    << L"<table class='sourceFile'>\n"
-                    << L"<tr><td><div class='sourcePath'>" << p2.first << L"</div></td></tr>\n"
-                    << L"<tr><td><div class=\'source\'>\n"
-                    << L"<table>\n";
-
-                CovHTMLCodePrinter printer(out, p2.second);
-                CodePrinterVisitor visitor(printer);
-                tree->accept(visitor);
-                printer.close();
-                delete tree;
-
-                out << L"</table>\n"
-                    << L"</div></tr></td>\n"
-                    << L"</table>\n"
-                    << L"</body>\n"
-                    << L"</html>\n";
-
-                out.flush();
-                writeFile(out, __outputDir, name + L".html");
             }
-        }
 
-        // Now we make the module's reports
-        std::wostringstream out;
-
-        out << L"<html lang=\'en\'>\n"
-            << L"<meta charset=\'UTF-8\'>\n"
-            << L"<head>\n"
-            << L"<link rel=\'icon\' href=\'../favicon.ico\'/>\n"
-            << L"<title>Scilab | Module " << moduleName << L" | Scilab\'s code coverage" <<  L"</title>\n"
-            << L"<style type=\'text/css\' media=\'all\'>\n"
-            << L"@import url(\'../mod_style.css\');\n"
-            << L"</style>\n"
-            << L"</head>\n"
-            << L"<body>\n"
-            << L"<h2 class=\'title\'>Builtins calls</h2>\n"
-            << L"<table class='module'>\n"
-            << L"<tr><td><div class='modulePath'>" << moduleName << L"</div></td></tr>\n"
-            << L"<tr><td><div class=\'builtins_stats\'>\n";
-        //<< L"<table>\n";
-
-        // compute total calls
-        auto range = functions.equal_range(moduleName);
-        for (auto fptr = range.first; fptr != range.second; ++fptr)
-        {
-            auto i = callCounters.find(static_cast<types::Callable *>(fptr->second));
-            if (i != callCounters.end())
+            auto calls = getFunctionCalls(moduleName, true);
+            bool altern = false;
+            unsigned int count = 0;
+            bool mustClose = false;
+            for (const auto & p : calls)
             {
-                totalCalls += i->second.get();
+                if (count == 0)
+                {
+                    out << L"<div class=\'builtins_cell\'><table>\n"
+                        << L"<tr class=\'col_name\'><td>Name</td><td class=\'col_name\'>Calls</td></tr>\n";
+                    mustClose = true;
+                }
+                const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
+                const std::wstring trcls = altern ? L"altern1" : L"altern2";
+                out << L"<tr class=\'" << trcls << L"\'><td>" << p.first->getName() << L"</td><td class=\'" << countercls << L"\'>x" << p.second << L"</td></tr>\n";
+                altern = !altern;
+                count = (count + 1) % 20;
+                if (count == 0)
+                {
+                    out << L"</table></div>\n";
+                    mustClose = false;
+                }
             }
-        }
 
-        auto calls = getFunctionCalls(moduleName, true);
-        bool altern = false;
-        unsigned int count = 0;
-        bool mustClose = false;
-        for (const auto & p : calls)
-        {
-            if (count == 0)
-            {
-                out << L"<div class=\'builtins_cell\'><table>\n"
-                    << L"<tr class=\'col_name\'><td>Name</td><td class=\'col_name\'>Calls</td></tr>\n";
-                mustClose = true;
-            }
-            const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
-            const std::wstring trcls = altern ? L"altern1" : L"altern2";
-            out << L"<tr class=\'" << trcls << L"\'><td>" << p.first->getName() << L"</td><td class=\'" << countercls << L"\'>x" << p.second << L"</td></tr>\n";
-            altern = !altern;
-            count = (count + 1) % 20;
-            if (count == 0)
+            if (mustClose)
             {
                 out << L"</table></div>\n";
-                mustClose = false;
             }
-        }
 
-        if (mustClose)
-        {
-            out << L"</table></div>\n";
-        }
+            out << L"</div></tr></td>\n"
+                << L"</table>\n"
+                << L"<h2 class=\'title\'>Macros calls</h2>\n"
+                << L"<table class='module'>\n"
+                << L"<tr><td><div class=\'macros_stats\'>\n";
 
-        out << L"</div></tr></td>\n"
-            << L"</table>\n"
-            << L"<h2 class=\'title\'>Macros calls</h2>\n"
-            << L"<table class='module'>\n"
-            << L"<tr><td><div class=\'macros_stats\'>\n";
+            calls = getFunctionCalls(moduleName, false);
+            altern = false;
 
-        calls = getFunctionCalls(moduleName, false);
-        altern = false;
-
-        out << L"<div class=\'macros_cell\'><table>\n"
-            << L"<tr class=\'col_name\'><td>Name</td><td>File</td><td>Calls</td><td>Covered</td></tr>\n";
-        for (const auto & p : calls)
-        {
-            types::Macro * pMacro = static_cast<types::Macro *>(p.first);
-            auto i = macros.find(pMacro);
-            if (i != macros.end())
+            out << L"<div class=\'macros_cell\'><table>\n"
+                << L"<tr class=\'col_name\'><td>Name</td><td>File</td><td>Calls</td><td>Covered</td></tr>\n";
+            for (const auto & p : calls)
             {
-                CoverMacroInfo & info = i->second;
-                auto j = p1.second.find(info.macroFilePath);
-                if (j != p1.second.end())
+                types::Macro * pMacro = static_cast<types::Macro *>(p.first);
+                auto i = macros.find(pMacro);
+                if (i != macros.end())
                 {
-                    auto k = j->second.find(pMacro->getName());
-                    if (k != j->second.end())
+                    CoverMacroInfo & info = i->second;
+                    auto j = p1.second.find(info.macroFilePath);
+                    if (j != p1.second.end())
                     {
-                        std::size_t pos = info.macroFilePath.find_last_of(L'.');
-                        std::wstring filename = info.macroFilePath.substr(0, pos);
-                        pos = filename.find_last_of(L"\\/");
-                        if (pos != std::string::npos)
+                        auto k = j->second.find(pMacro->getName());
+                        if (k != j->second.end())
                         {
-                            filename = filename.substr(pos + 1);
-                        }
-                        CoverResult & res = k->second;
-                        const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
-                        const std::wstring trcls = altern ? L"altern1" : L"altern2";
-                        out << L"<tr class=\'" << trcls << L"\'><td>" << pMacro->getName() << L"</td>"
-                            << L"<td><a class=\'filepath' href=\'" << filename << L".html\'>" << moduleName << L"/macros/" << filename << L".sci</a></td>"
-                            << L"<td class=\'" << countercls << L"\'>x" << p.second << L"</td>"
-                            << L"<td>";
-                        CovHTMLCodePrinter::getDivPercent(out, res.getCovInstrsPercent());
-                        out << L"</td></tr>\n";
+                            std::size_t pos = info.macroFilePath.find_last_of(L'.');
+                            std::wstring filename = info.macroFilePath.substr(0, pos);
+                            pos = filename.find_last_of(L"\\/");
+                            if (pos != std::string::npos)
+                            {
+                                filename = filename.substr(pos + 1);
+                            }
+                            std::wstring filepath = encodeFilename(filename);
 
-                        altern = !altern;
+                            CoverResult & res = k->second;
+                            const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
+                            const std::wstring trcls = altern ? L"altern1" : L"altern2";
+                            out << L"<tr class=\'" << trcls << L"\'><td>" << pMacro->getName() << L"</td>"
+                                << L"<td><a class=\'filepath' href=\'" << filepath << L".html\'>" << moduleName << L"/macros/" << filename << L".sci</a></td>"
+                                << L"<td class=\'" << countercls << L"\'>x" << p.second << L"</td>"
+                                << L"<td>";
+                            CovHTMLCodePrinter::getDivPercent(out, res.getCovInstrsPercent());
+                            out << L"</td></tr>\n";
+
+                            altern = !altern;
+                        }
                     }
                 }
             }
+
+            if (mustClose)
+            {
+                out << L"</table></div>\n";
+            }
+
+            /*      calls = getFunctionCalls(moduleName, false);
+                    for (const auto & p : calls)
+                    {
+                    const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
+                    out << L"<tr><td>" << p.first << L"</td><td class=\'" << countercls << L"\'>" << p.second << L"</td></tr>\n";
+                    }
+            */
+
+            out << L"</div></tr></td>\n"
+                << L"</table>\n"
+                << L"</body>\n"
+                << L"</html>\n";
+
+            out.flush();
+            writeFile(out, __outputDir, moduleName + L".html");
         }
-
-        if (mustClose)
-        {
-            out << L"</table></div>\n";
-        }
-
-        /*	    calls = getFunctionCalls(moduleName, false);
-        	    for (const auto & p : calls)
-        	    {
-        		const std::wstring countercls = p.second == 0 ? L"null_stats" : L"stats";
-        		out << L"<tr><td>" << p.first << L"</td><td class=\'" << countercls << L"\'>" << p.second << L"</td></tr>\n";
-        	    }
-        */
-
-        out << L"</div></tr></td>\n"
-            << L"</table>\n"
-            << L"</body>\n"
-            << L"</html>\n";
-
-        out.flush();
-        writeFile(out, __outputDir, moduleName + L".html");
     }
 
     FREE(_outputDir);
@@ -563,5 +528,154 @@ std::vector<std::pair<types::Callable *, uint64_t>> CoverModule::getFunctionCall
     }
 
     return calls;
+}
+
+ast::Exp * CoverModule::getTree(const std::wstring & path)
+{
+    if (!path.empty())
+    {
+        char * _path = wide_string_to_UTF8(path.c_str());
+        std::ifstream src(_path, ios::in | ios::binary | ios::ate);
+        FREE(_path);
+        if (src.is_open())
+        {
+            src.seekg(0, src.end);
+            int len = src.tellg();
+            src.seekg (0, src.beg);
+            char * buffer = new char[len + 1];
+            buffer[len] = '\0';
+            src.read(buffer, len);
+            src.close();
+
+            wchar_t * _wstr = to_wide_string(buffer);
+            delete[] buffer;
+            Parser parser;
+            parser.parse(_wstr);
+            FREE(_wstr);
+
+            return parser.getTree();
+        }
+    }
+    return nullptr;
+}
+
+const std::wstring CoverModule::getName(const std::wstring & path)
+{
+    std::size_t pos = path.find_last_of(L'.');
+    std::wstring name = path.substr(0, pos);
+    pos = name.find_last_of(L"\\/");
+    if (pos != std::string::npos)
+    {
+        name = name.substr(pos + 1);
+    }
+    return name;
+}
+
+void CoverModule::writeMacroHTMLReport(types::Macro * macro, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir)
+{
+    std::list<symbol::Variable *> * in = macro->inputs_get();
+    std::list<symbol::Variable *> * out = macro->outputs_get();
+    ast::SeqExp & body = *macro->getBody()->clone();
+
+    ast::exps_t & _in = *new ast::exps_t();
+    ast::exps_t & _out = *new ast::exps_t();
+    for (const auto i : *in)
+    {
+        _in.emplace_back(new ast::SimpleVar(Location(), i->getSymbol()));
+    }
+    for (const auto o : *out)
+    {
+        _out.emplace_back(new ast::SimpleVar(Location(), o->getSymbol()));
+    }
+    ast::FunctionDec * fdec = new ast::FunctionDec(Location(), symbol::Symbol(macro->getName()), *new ast::ArrayListVar(Location(), _in), *new ast::ArrayListVar(Location(), _out), body);
+
+    writeMacroHTMLReport(fdec, macro->getName() + L".html", L"", L"", results, outputDir);
+}
+
+void CoverModule::writeMacroHTMLReport(ast::Exp * tree, const std::wstring & filename, const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir)
+{
+    std::wostringstream out;
+    std::wstring mod, prev;
+    if (!moduleName.empty())
+    {
+        mod = L" | Module " + moduleName;
+        prev = L"../";
+    }
+    std::wstring pa;
+    if (!path.empty())
+    {
+        pa = L" | " + path;
+    }
+
+    out << L"<html lang=\'en\'>\n"
+        << L"<meta charset=\'UTF-8\'>\n"
+        << L"<head>\n"
+        << L"<link rel=\'icon\' href=\'../favicon.ico\'/>\n"
+        << L"<title>Scilab" << mod << pa << L" | Scilab\'s code coverage" <<  L"</title>\n"
+        << L"<style type=\'text/css\' media=\'all\'>\n"
+        << L"@import url(\'" << prev << "scilab_code.css\');\n"
+        << L"@import url(\'" << prev << "src_style.css\');\n"
+        << L"</style>\n"
+        << L"<script>\n"
+        << L"function show(did,fid) {\n"
+        << L"  x = document.getElementById(did).style;\n"
+        << L"  y = document.getElementById(fid);\n"
+        << L"  x.visibility = 'visible';\n"
+        << L"  x.display = 'block';\n"
+        << L"  x.height = 'auto';\n"
+        << L"  x.left = y.offsetLeft + 'px';\n"
+        << L"  x.top = y.offsetTop + y.offsetHeight + 'px';\n"
+        << L"}\n"
+        << L"function hide(did) {\n"
+        << L"  document.getElementById(did).style.visibility = \'hidden\';\n"
+        << L"}\n"
+        << L"</script>\n"
+        << L"</head>\n"
+        << L"<body>\n"
+        << L"<h2 class=\'title\'>Source File</h2>\n"
+        << L"<table class='sourceFile'>\n";
+    if (!path.empty())
+    {
+        out << L"<tr><td><div class='sourcePath'>" << path << L"</div></td></tr>\n";
+    }
+    out << L"<tr><td><div class=\'source\'>\n"
+        << L"<table>\n";
+
+    CovHTMLCodePrinter printer(out, results);
+    CodePrinterVisitor visitor(printer);
+    tree->accept(visitor);
+    printer.close();
+    delete tree;
+
+    out << L"</table>\n"
+        << L"</div></tr></td>\n"
+        << L"</table>\n"
+        << L"</body>\n"
+        << L"</html>\n";
+
+    out.flush();
+    writeFile(out, outputDir, filename);
+}
+
+bool CoverModule::writeMacroHTMLReport(const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir)
+{
+    if (ast::Exp * tree = getTree(path))
+    {
+        writeMacroHTMLReport(tree, getName(path) + L".html", path, moduleName, results, outputDir);
+        return true;
+    }
+
+    return false;
+}
+
+std::wstring CoverModule::encodeFilename(std::wstring name)
+{
+    std::size_t pos = name.find_first_of(L'%');
+    while (pos != std::string::npos)
+    {
+        name.replace(pos, 1, L"%25");
+        pos = name.find_first_of(L'%', pos + 1);
+    }
+    return name;
 }
 }

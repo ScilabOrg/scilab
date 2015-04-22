@@ -55,17 +55,37 @@ class EXTERN_AST CoverModule
         getBuiltins(paths_mods);
     }
 
+    CoverModule() : visitor(*this), totalInstrs(0), totalBranches(0), totalUncInstrs(0), totalUncBranches(0)
+    {
+    }
+
+    ~CoverModule();
+
 public:
 
-    inline static void createInstance(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods)
+    inline static CoverModule * createInstance(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods)
     {
         delete instance;
         instance = new CoverModule(paths_mods);
+        return instance;
+    }
+
+    inline static CoverModule * createInstance()
+    {
+        delete instance;
+        instance = new CoverModule();
+        return instance;
     }
 
     inline static CoverModule * getInstance()
     {
         return instance;
+    }
+
+    inline static void clearInstance()
+    {
+        delete instance;
+        instance = nullptr;
     }
 
     void add(types::Macro * macro, ast::Exp * e);
@@ -80,18 +100,59 @@ public:
         return callCounters.find(f) != callCounters.end();
     }
 
+    inline void startChrono(const uint64_t id)
+    {
+        counters[id - 2].startChrono();
+    }
+
+    inline void stopChrono(const uint64_t id)
+    {
+        counters[id - 2].stopChrono();
+    }
+
+    inline static void invoke(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->invoke(e.getCoverId());
+        }
+    }
+
+    inline static void startChrono(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->startChrono(e.getCoverId());
+        }
+    }
+
+    inline static void stopChrono(const ast::Exp & e)
+    {
+        if (e.getCoverId() && instance)
+        {
+            instance->stopChrono(e.getCoverId());
+        }
+    }
+
+    void instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro, bool instrumentInners);
+
 private:
 
     void getMacros(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods);
     void getBuiltins(const std::vector<std::pair<std::wstring, std::wstring>> & paths_mods);
     void instrumentMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro);
-    void instrumentSingleMacro(const std::wstring & module, const std::wstring & path, types::Macro * macro);
     std::vector<std::pair<types::Callable *, uint64_t>> getFunctionCalls(const std::wstring & moduleName, const bool builtin) const;
 
     static bool getStringFromXPath(char * filePath, const char * xpquery, std::unordered_set<std::wstring> & set);
     static void copyDataFiles(const std::wstring & outputDir);
     static void copyFile(const std::wstring & inDir, const std::wstring & outDir, const std::wstring & filename);
     static void writeFile(const std::wostringstream & out, const std::wstring & outputDir, const std::wstring & filename);
+    static ast::Exp * getTree(const std::wstring & path);
+    static const std::wstring getName(const std::wstring & path);
+    static void writeMacroHTMLReport(ast::Exp * tree, const std::wstring & filename, const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir);
+    static bool writeMacroHTMLReport(const std::wstring & path, const std::wstring & moduleName, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir);
+    static void writeMacroHTMLReport(types::Macro * macro, std::unordered_map<std::wstring, CoverResult> & results, const std::wstring & outputDir);
+    static std::wstring encodeFilename(std::wstring name);
 };
 
 } // namespace coverage
