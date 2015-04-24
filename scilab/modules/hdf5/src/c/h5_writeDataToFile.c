@@ -1685,6 +1685,9 @@ int closeList(int _iFile, void *_pvList, char *_pstListName, int _iNbItem, int _
         case sci_mlist:
             pcstClass = g_SCILAB_CLASS_MLIST;
             break;
+        case sci_c_function:
+            pcstClass = g_SCILAB_CLASS_MACRO;
+            break;
         default:
             return 1;
     }

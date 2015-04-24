@@ -37,6 +37,7 @@ static const char g_SCILAB_CLASS_BSPARSE[]      =	"boolean sparse";
 static const char g_SCILAB_CLASS_LIST[]         =	"list";
 static const char g_SCILAB_CLASS_TLIST[]        =	"tlist";
 static const char g_SCILAB_CLASS_MLIST[]        =	"mlist";
+static const char g_SCILAB_CLASS_MACRO[]        =   "macro";
 static const char g_SCILAB_CLASS_VOID[]         =	"void";
 static const char g_SCILAB_CLASS_UNDEFINED[]    =	"undefined";
 
