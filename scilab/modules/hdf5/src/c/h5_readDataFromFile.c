@@ -1098,6 +1098,10 @@ int getScilabTypeFromDataSet(int _iDatasetId)
     {
         iVarType = sci_mlist;
     }
+    else if (strcmp(pstScilabClass, g_SCILAB_CLASS_MACRO) == 0)
+    {
+        iVarType = sci_c_function;
+    }
     else if (strcmp(pstScilabClass, g_SCILAB_CLASS_VOID) == 0)
     {
         iVarType = sci_void;
