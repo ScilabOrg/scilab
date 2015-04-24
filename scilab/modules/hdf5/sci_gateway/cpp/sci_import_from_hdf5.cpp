@@ -15,6 +15,10 @@
 #include "list.hxx"
 #include "struct.hxx"
 #include "cell.hxx"
+#include "macro.hxx"
+#include "context.hxx"
+#include "serializervisitor.hxx"
+#include "functiondec.hxx"
 
 extern "C"
 {
@@ -49,6 +53,7 @@ static bool import_list(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPo
 static bool import_hypermat(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_struct(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_cell(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_c_function(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_void(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
 static bool import_undefined(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
 
@@ -278,6 +283,11 @@ static bool import_data(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddr
         case sci_boolean_sparse:
         {
             bRet = import_boolean_sparse(pvCtx, _iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            break;
+        }
+        case sci_c_function:
+        {
+            bRet = import_c_function(pvCtx, _iDatasetId, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_void:             //void item only on list variable
@@ -1710,3 +1720,188 @@ static bool import_cell(int* pvCtx, int _iDatasetId, int _iVarType, int _iItemPo
 }
 /*--------------------------------------------------------------------------*/
 
+static bool import_c_function(int* pvCtx, int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+{
+    int iRet = 0;
+    int iComplex = 0;
+    int iDims = 0;
+    int iItems = 0;
+    hobj_ref_t *piItemRef = NULL;
+
+    iRet = getListDims(_iDatasetId, &iItems);
+    if (iRet)
+    {
+        return false;
+    }
+
+    if (iItems != 3)
+    {
+        // cell have 3 elements
+        return false;
+    }
+
+    iRet = getListItemReferences(_iDatasetId, &piItemRef);
+    if (iRet)
+    {
+        return false;
+    }
+
+    // get first item
+    int iItemDataset = 0;
+    iRet = getListItemDataset(_iDatasetId, piItemRef, 0, &iItemDataset);
+    if (iRet || iItemDataset == 0)
+    {
+        return false;
+    }
+
+    // get first item type
+    int iItemType = getScilabTypeFromDataSet(iItemDataset);
+    if (iItemType != sci_strings)
+    {
+        return false;
+    }
+
+    // get size of first item
+    iRet = getDatasetInfo(iItemDataset, &iComplex, &iDims, NULL);
+    if (iRet < 0 || iDims != 2)
+    {
+        return false;
+    }
+
+    int* piDims = new int[2];
+    int iSize = getDatasetInfo(iItemDataset, &iComplex, &iDims, piDims);
+    symbol::Context* pInstance = symbol::Context::getInstance();
+
+    // get data of first item for check the type of macro
+    char** pstData = new char*[iSize];
+    iRet = readStringMatrix(iItemDataset, pstData);
+    if (iRet || strcmp(pstData[0], "Inputs") != 0)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        return false;
+    }
+
+    //get input parameters list
+    wchar_t* pwcTempo = NULL;
+    std::list<symbol::Variable*> *pVarList = new std::list<symbol::Variable*>();
+    for (int i = 1; i < iSize; ++i)
+    {
+        pwcTempo = to_wide_string(pstData[i]);
+        //symbol::Context::getInstance()->getOrCreate((symbol::Symbol(pwcTempo));
+        pVarList->push_back(pInstance->getOrCreate((symbol::Symbol(pwcTempo))));
+        FREE(pwcTempo);
+    }
+
+
+    freeStringMatrix(iItemDataset, pstData);
+    delete[] pstData;
+    pstData = NULL;
+
+
+    // get second item
+    iRet = getListItemDataset(_iDatasetId, piItemRef, 1, &iItemDataset);
+    if (iRet || iItemDataset == 0)
+    {
+        return false;
+    }
+
+    // get second item type
+    iItemType = getScilabTypeFromDataSet(iItemDataset);
+    if (iItemType != sci_strings)
+    {
+        return false;
+    }
+
+    // get size of second item
+    iRet = getDatasetInfo(iItemDataset, &iComplex, &iDims, NULL);
+    if (iRet < 0 || iDims != 2)
+    {
+        return false;
+    }
+
+    iSize = getDatasetInfo(iItemDataset, &iComplex, &iDims, piDims);
+
+    // get data of second item for check the type of macro
+    pstData = new char*[iSize];
+    iRet = readStringMatrix(iItemDataset, pstData);
+    if (iRet || strcmp(pstData[0], "Outputs") != 0)
+    {
+        freeStringMatrix(iItemDataset, pstData);
+        delete[] pstData;
+        return false;
+    }
+
+    //get input parameters list
+    pwcTempo = NULL;
+    std::list<symbol::Variable*> *pRetList = new std::list<symbol::Variable*>();
+    for (int i = 1; i < iSize; ++i)
+    {
+        pwcTempo = to_wide_string(pstData[i]);
+        pRetList->push_back(pInstance->getOrCreate((symbol::Symbol(pwcTempo))));
+        FREE(pwcTempo);
+    }
+
+
+    freeStringMatrix(iItemDataset, pstData);
+    delete[] pstData;
+    pstData = NULL;
+
+    // get third item
+    iRet = getListItemDataset(_iDatasetId, piItemRef, 2, &iItemDataset);
+    if (iRet || iItemDataset == 0)
+    {
+        return false;
+    }
+
+    // get third item type
+    iItemType = getScilabTypeFromDataSet(iItemDataset);
+    if (iItemType != sci_ints)
+    {
+        return false;
+    }
+
+    // get size of third item
+    iRet = getDatasetInfo(iItemDataset, &iComplex, &iDims, NULL);
+    if (iRet < 0 || iDims != 2)
+    {
+        return false;
+    }
+
+    iSize = getDatasetInfo(iItemDataset, &iComplex, &iDims, piDims);
+
+    // get data of third item for check the type of macro
+    unsigned char* pucData = new unsigned char[iSize];
+    iRet = readUnsignedInteger8Matrix(iItemDataset, pucData);
+    if (iRet )
+    {
+        delete[] pucData;
+        return false;
+    }
+
+    ast::DeserializeVisitor d(pucData);
+    ast::Exp* tree = d.deserialize();
+    delete[] pucData;
+
+    wchar_t* pcwNameTempo = to_wide_string(_pstVarname);
+
+    types::Macro* pMacro = new types::Macro(wstring(pcwNameTempo), *pVarList, *pRetList, (ast::SeqExp&)*tree, L"script");
+
+    if (pInstance->isprotected(symbol::Symbol(pMacro->getName())))
+    {
+        delete pMacro;
+        Scierror(999, _("Redefining permanent variable.\n"));
+        return false;
+    }
+
+    pInstance->addMacro(pMacro);
+
+    iRet = deleteListItemReferences(_iDatasetId, piItemRef);
+    if (iRet)
+    {
+        return false;
+    }
+
+    return true;
+}
+/*--------------------------------------------------------------------------*/
