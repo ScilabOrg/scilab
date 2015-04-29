@@ -84,17 +84,16 @@ function %_sodload(%__filename__, varargin)
         end
 
         for i = prod(matrixHandle.dims):-1:1
-
             newItem = createSingleHandle(matrixHandle.values(i));
             if newItem == [] then
                 continue;
             end
-
             h($+1) = newItem;
             if or(fieldnames(matrixHandle.values(i))=="user_data") then // TODO Remove after graphic branch merge
                 if isList(matrixHandle.values(i).user_data) then
                     set(h($), "user_data", parseList(matrixHandle.values(i).user_data));
                 elseif typeof(matrixHandle.values(i).user_data) == "ScilabMatrixHandle" then
+
                     set(h($), "user_data", createMatrixHandle(matrixHandle.values(i).user_data));
                 end
             end
@@ -269,7 +268,7 @@ function %_sodload(%__filename__, varargin)
         // in which case a new Axes object is created
 
         [lnums, fnames] = where();
-        ind = grep(fnames, "%h_copy");
+        ind = grep(fnames, ["%h_copy" "copy"]);
         if ~isempty(ind) then
             newaxes();
         end;
