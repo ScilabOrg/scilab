@@ -1252,7 +1252,7 @@ static void cosini(double *told)
                         {
                             continue;
                         }
-                        if (outtbdptr[kk] != (SCSREAL_COP)outtbd[curouttbd + kk])
+                        if (abs(outtbdptr[kk] - (SCSREAL_COP)outtbd[curouttbd + kk]) > 1e-300)
                         {
                             goto L30;
                         }

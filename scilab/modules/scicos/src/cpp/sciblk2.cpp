@@ -101,7 +101,7 @@ void sciblk2(int* flag, int* nevprt, double* t, double xd[], double x[], int* nx
 
     // Treating 'ipar' differently because it is an int tab, unlike the other double ones
     types::Double* Ipar = new types::Double(*nipar, 1);
-    std::transform(ipar, ipar + *nipar, Ipar, toDouble);
+    std::transform(ipar, ipar + *nipar, Ipar->get(), toDouble);
     in[6] = Ipar;
 
     types::List* Nin = new types::List();
