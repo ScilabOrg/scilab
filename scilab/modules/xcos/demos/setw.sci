@@ -1,4 +1,5 @@
 function y = setw(x)
+    x;
     mu = size(x, 1);
     y(1:mu,1:mu) = 0;
     for j = 1:mu
