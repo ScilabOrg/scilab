@@ -46,7 +46,7 @@ matvar_t *ConvertSciVarToMatVar(InternalType* pIT, const char *name, int matfile
         break;
         case GenericType::ScilabString:
         {
-            return GetCharMatVar(pIT->getAs<String>(), name);
+            return GetCharMatVar(pIT->getAs<String>(), name, matfile_version);
         }
         break;
         case GenericType::ScilabSparse:

@@ -60,7 +60,7 @@ matvar_t *GetMatlabVariable(void *pvApiCtx, int iVar, const char *name, int matf
             tmp_res = GetDoubleVariable(pvApiCtx, iVar, name, matfile_version, parent, item_position);
             break;
         case sci_strings:
-            tmp_res = GetCharVariable(pvApiCtx, iVar, name, parent, item_position);
+            tmp_res = GetCharVariable(pvApiCtx, iVar, name, matfile_version, parent, item_position);
             break;
         case sci_ints:
             tmp_res = GetIntegerVariable(pvApiCtx, iVar, name, parent, item_position);

@@ -116,7 +116,7 @@ MATIO_IMPEXP matvar_t *GetCellVariable(void *pvApiCtx, int iVar, const char *nam
  *
  * @return Matlab variable (See MATIO library)
  */
-matvar_t *GetCharVariable(void *pvApiCtx, int iVar, const char *name, int * parent, int item_position);
+matvar_t *GetCharVariable(void *pvApiCtx, int iVar, const char *name, int matfile_version, int * parent, int item_position);
 
 /*
  * Get a Matlab Sparse variable from stack
