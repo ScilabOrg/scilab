@@ -179,8 +179,21 @@ Function::ReturnValue sci_fileparts(typed_list &in, int _iRetCount, typed_list &
         }
 
         out.push_back(pStrOut);
-        out.push_back(pStrOut2);
-        out.push_back(pStrOut3);
+        if (_iRetCount == 3)
+        {
+            out.push_back(pStrOut2);
+            out.push_back(pStrOut3);
+        }
+        else if (_iRetCount == 2)
+        {
+            out.push_back(pStrOut2);
+            delete(pStrOut3);
+        }
+        else
+        {
+            delete(pStrOut2);
+            delete(pStrOut3);
+        }
     }
 
     return Function::OK;
