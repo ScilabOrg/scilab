@@ -47,7 +47,7 @@ h=syslin(1,((21/500)+(-3933/100000)*z+(-15407/100000)*z^2+(9259/50000)*z^3+(6939
 f_ref=1/2;
 g_ref=6.48227782514616029706190;
 if ~check_gmargin(h,f_ref,g_ref) then bugmes();quit;end
-//continuuous time case
+//continuous time case
 s=poly(0,'s');
 //the reference solutions are computed using  the following Maple instructions
 //s:=I*w:
