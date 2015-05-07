@@ -38,7 +38,6 @@ libscimpi_la_CFLAGS=  -Iincludes/ \
 	-I$(top_srcdir)/modules/localization/includes \
 	-I$(top_srcdir)/modules/api_scilab/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes
-
 # libscimpi_la_LDFLAGS = $(LAMPI_LDFLAGS)
 libscimpi_la_LIBADD = $(OPENMPI_LIBS)
 
