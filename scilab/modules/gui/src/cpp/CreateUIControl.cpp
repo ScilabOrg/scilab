@@ -47,6 +47,7 @@ void initStyleMap()
     styleMap["tab"] = __GO_UI_TAB__;
     styleMap["layer"] = __GO_UI_LAYER__;
     styleMap["spinner"] = __GO_UI_SPINNER__;
+    styleMap["scrollbar"] = __GO_UI_SCROLLBAR__;
     init = true;
 }
 

@@ -252,7 +252,7 @@ public final class GraphicModel {
             case TEXT:
                 createdObject = new Text();
                 break;
-                /* UICONTROLS */
+            /* UICONTROLS */
             case CHECKBOX:
                 createdObject = new CheckBox();
                 break;
@@ -289,7 +289,7 @@ public final class GraphicModel {
             case UITEXT:
                 createdObject = new UiText();
                 break;
-                /* UIMENU */
+            /* UIMENU */
             case UIMENU:
                 createdObject = new Uimenu();
                 break;
@@ -297,11 +297,11 @@ public final class GraphicModel {
                 createdObject = new Uimenu();
                 createdObject.setValid(false);
                 break;
-                /* UICONTEXTMENU */
+            /* UICONTEXTMENU */
             case UICONTEXTMENU:
                 createdObject = new Uicontextmenu();
                 break;
-                /* Create Scilab console object */
+            /* Create Scilab console object */
             case CONSOLE:
                 createdObject = Console.getConsole();
                 ((Console) createdObject).setScilabMode(Console.ScilabMode.NW);
@@ -310,7 +310,7 @@ public final class GraphicModel {
                 createdObject = Console.getConsole();
                 ((Console) createdObject).setScilabMode(Console.ScilabMode.STD);
                 break;
-                /* Uibar */
+            /* Uibar */
             case PROGRESSIONBAR:
                 createdObject = new Progressionbar();
                 break;
@@ -335,6 +335,10 @@ public final class GraphicModel {
             case FRAME_SCROLLABLE:
                 createdObject = new Frame();
                 ((Frame)createdObject).setScrollable(true);
+                break;
+            case SCROLLBAR:
+                createdObject = new Slider();
+                ((Slider)createdObject).setScrollable(true);
                 break;
             default:
                 createdObject = null;

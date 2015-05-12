@@ -1034,7 +1034,7 @@ function %h_p(h)
             end
             t($ + 1) = "Position = " + sci2exp(h.position,0);
             t($ + 1) = "Relief = " + h.relief;
-            if or(h.style == ["frame", "edit"]) | showHiddenProperties then
+            if or(h.style == ["frame", "edit", "slider"]) | showHiddenProperties then
                 t($ + 1) = "Scrollable = " + sci2exp(h.scrollable);
             end
             if or(h.style == ["slider", "spinner"]) | showHiddenProperties then
