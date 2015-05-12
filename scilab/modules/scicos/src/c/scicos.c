@@ -524,7 +524,15 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         void* p = funptr[kf];
         C2F(curblk).kfun = kf + 1;
         Blocks[kf].type = funtyp[kf + 1];
-        if (Blocks[kf].type < 0)
+        if (Blocks[kf].type == 11) // Magic value for "if-then-else" block
+        {
+            funtyp[kf + 1] = -1;
+        }
+        else if (Blocks[kf].type == 12) // Magic value for "eselect" block
+        {
+            funtyp[kf + 1] = -2;
+        }
+        else if (Blocks[kf].type < 0)
         {
             //macros
             funtyp[kf + 1] *= -1; // Restore a positive 'funtyp' for later use
@@ -571,7 +579,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         }
         else
         {
-            //linked functions ( internal or external
+            //linked functions (internal or external)
             Blocks[kf].funpt = (voidf)p;
             Blocks[kf].scsptr = NULL;   /* this is done for being able to test if a block
                                         is a scilab block in the debugging phase when
