@@ -466,7 +466,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                     return 1;
                 }
 
-                if (strcmp(styleProperty, "frame") == 0)
+                if (strcmp(styleProperty, "frame") == 0 || strcmp(styleProperty, "slider") == 0)
                 {
                     //check scrollable property to create a scroll frame instead of normal frame
                     if (propertiesValuesIndices[scrollable_property] != NOT_FOUND)
@@ -513,7 +513,15 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                         if (iScroll)
                         {
                             freeAllocatedSingleString(styleProperty);
-                            styleProperty = strdup("framescrollable");
+                            if (strcmp(styleProperty, "frame") == 0)
+                            {
+                                styleProperty = strdup("framescrollable");
+                            }
+                            else
+                            {
+                                styleProperty = strdup("scrollbar");
+                            }
+
                         }
 
                         propertiesValuesIndices[scrollable_property] = NOT_FOUND;

@@ -343,7 +343,10 @@
                         Used for <literal>frame</literal> and <literal>edit</literal> style uicontrols, this property indicates if the uicontrol must have scrolling capabilities (<literal>%T</literal>) or not (default <literal>%F</literal>).
                     </para>
                     <para>
-                        For <literal>frame</literal> this value must be set at creation.
+                        It is used also for slider style uicontrols. Indeed, it is possible to make a slider look like a scrollbar setting the value at <literal>%T</literal>.
+                    </para>
+                    <para>
+                        For <literal>frame</literal> and <literal>slider</literal> this value must be set at creation.
                     </para>
                 </listitem>
             </varlistentry>
