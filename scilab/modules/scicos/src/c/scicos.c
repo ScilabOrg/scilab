@@ -523,7 +523,15 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         void* p = funptr[kf];
         C2F(curblk).kfun = kf + 1;
         Blocks[kf].type = funtyp[kf + 1];
-        if (Blocks[kf].type < 0)
+        if (Blocks[kf].type == 11) // Magic value for "if-then-else" block
+        {
+            funtyp[kf + 1] = -1;
+        }
+        else if (Blocks[kf].type == 12) // Magic value for "eselect" block
+        {
+            funtyp[kf + 1] = -2;
+        }
+        else if (Blocks[kf].type < 0)
         {
             //macros
             funtyp[kf + 1] *= -1; // Restore a positive 'funtyp' for later use
@@ -570,78 +578,12 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         }
         else
         {
-            //linked functions ( internal or external
+            //linked functions (internal or external)
             Blocks[kf].funpt = (voidf)p;
             Blocks[kf].scsptr = NULL;   /* this is done for being able to test if a block
                                         is a scilab block in the debugging phase when
                                         sciblk4 is called */
         }
-        //if (i < 0)
-        //{
-        //    switch (funtyp[kf + 1])
-        //    {
-        //        case 0:
-        //            Blocks[kf].funpt = (voidg) F2C(sciblk);
-        //            break;
-        //        case 1:
-        //            sciprint(_("type 1 function not allowed for scilab blocks\n"));
-        //            *ierr = 1000 + kf + 1;
-        //            FREE_blocks();
-        //            return 0;
-        //        case 2:
-        //            sciprint(_("type 2 function not allowed for scilab blocks\n"));
-        //            *ierr = 1000 + kf + 1;
-        //            FREE_blocks();
-        //            return 0;
-        //        case 3:
-        //            Blocks[kf].funpt = (voidg) sciblk2;
-        //            Blocks[kf].type = 2;
-        //            break;
-        //        case 5:
-        //            Blocks[kf].funpt = (voidg) sciblk4;
-        //            Blocks[kf].type = 4;
-        //            break;
-        //        case 99: /* debugging block */
-        //            Blocks[kf].funpt = (voidg) sciblk4;
-        //            /*Blocks[kf].type=4;*/
-        //            debug_block = kf;
-        //            break;
-
-        //        case 10005:
-        //            Blocks[kf].funpt = (voidg) sciblk4;
-        //            Blocks[kf].type = 10004;
-        //            break;
-        //        default :
-        //            sciprint(_("Undefined Function type\n"));
-        //            *ierr = 1000 + kf + 1;
-        //            FREE_blocks();
-        //            return 0;
-        //    }
-        //    Blocks[kf].scsptr = -i; /* set scilab function adress for sciblk */
-        //}
-        //else if (i <= ntabsim)
-        //{
-        //    Blocks[kf].funpt = (voidg) * (tabsim[i - 1].fonc);
-        //    Blocks[kf].scsptr = 0;     /* this is done for being able to test if a block
-        //	 is a scilab block in the debugging phase when
-        //	 sciblk4 is called */
-        //}
-        //else
-        //{
-        //    i -= (ntabsim + 1);
-        //    //TODO: see in dynamic_lin how to get funcptr from index
-        //    //GetDynFunc(i, &Blocks[kf].funpt);
-        //    if ( Blocks[kf].funpt == (voidf) 0)
-        //    {
-        //        sciprint(_("Function not found\n"));
-        //        *ierr = 1000 + kf + 1;
-        //        FREE_blocks();
-        //        return 0;
-        //    }
-        //    Blocks[kf].scsptr = 0;   /* this is done for being able to test if a block
-        //   is a scilab block in the debugging phase when
-        //   sciblk4 is called */
-        //}
 
         /* 2 : Dimension properties */
         Blocks[kf].ztyp = ztyp[kf + 1];
