@@ -54,7 +54,6 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
     bool bMute          = false;
     wchar_t* pstMsg     = NULL;
     Exp* pExp           = NULL;
-    wchar_t *pstCommand = NULL;
     Parser parser;
 
     int iOldSilentError = ConfigVariable::getSilentError();
@@ -127,24 +126,14 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
     }
 
     String* pS = in[0]->getAs<types::String>();
-    int iTotalLen = pS->getSize(); //add \n after each string
-    for (int i = 0 ; i < pS->getSize() ; i++)
-    {
-        iTotalLen += (int)wcslen(pS->get(i));
-    }
-
-    pstCommand = (wchar_t*)MALLOC(sizeof(wchar_t) * (iTotalLen + 1));//+1 for null termination
-
+    std::wstring command;
     for (int i = 0, iPos = 0 ; i < pS->getSize() ; i++)
     {
-        wcscpy(pstCommand + iPos, pS->get(i));
-        iPos = (int)wcslen(pstCommand);
-        pstCommand[iPos++] = L'\n';
-        pstCommand[iPos] = 0;
+        command += pS->get(i);
+        command += L"\n";
     }
 
-    parser.parse(pstCommand);
-    FREE(pstCommand);
+    parser.parse(command.data());
     if (parser.getExitStatus() !=  Parser::Succeded)
     {
         if (bErrCatch)
