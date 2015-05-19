@@ -94,7 +94,7 @@ bool getScalarIndex(GenericType* _pRef, typed_list* _pArgsIn, int* index)
     int dimsIn = static_cast<int>(_pArgsIn->size());
 
     //same dims and less than internal limit
-    if (dimsIn != 1 && dimsIn != dimsRef || dimsIn > MAX_DIMS)
+    if (dimsIn != 1 && (dimsIn != dimsRef || dimsIn > MAX_DIMS))
     {
         return false;
     }
@@ -160,13 +160,14 @@ static double evalute(InternalType* pIT, int sizeRef)
     return real;
 }
 //get index from implicit or colon index + scalar
-bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>& index)
+bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>& index, std::vector<int>& dims)
 {
     int dimsRef = _pRef->getDims();
     int dimsIn = static_cast<int>(_pArgsIn->size());
     bool viewAsVector = dimsIn == 1;
+    dims.reserve(dimsIn);
     //same dims and less than internal limit
-    if (dimsIn != 1 && dimsIn != dimsRef || dimsIn > MAX_DIMS)
+    if (dimsIn != 1 && (dimsIn != dimsRef || dimsIn > MAX_DIMS))
     {
         return false;
     }
@@ -187,6 +188,7 @@ bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>
             }
 
             lstIdx.emplace_back(1, idx);
+            dims.push_back(1);
         }
         else if (in->isColon())
         {
@@ -195,6 +197,7 @@ bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>
             idx[1] = viewAsVector ? _pRef->getSize() : pdims[i];
             lstIdx.push_back(idx);
             finalSize *= idx[1];
+            dims.push_back(idx[1]);
         }
         else if (in->isImplicitList())
         {
@@ -217,6 +220,7 @@ bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>
                         lstIdx.push_back(idx);
                         finalSize *= idx[1];
                         isColon = true;
+                        dims.push_back(idx[1]);
                     }
                 }
             }
@@ -249,6 +253,7 @@ bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>
 
                 lstIdx.push_back(idx);
                 finalSize *= size;
+                dims.push_back(size);
             }
         }
         else
