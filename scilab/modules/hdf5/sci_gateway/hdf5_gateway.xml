@@ -19,6 +19,10 @@
  Don't touch if you do not know what you are doing
 -->
 <module name="hdf5">
+    <gateway name="sci_export_to_hdf5_new"              function="export_to_hdf5_new"       type="1" />
+    <gateway name="sci_export_to_hdf5_new"              function="save_new"                 type="1" />
+    <gateway name="sci_import_from_hdf5_new"            function="import_from_hdf5_new"     type="1" />
+    <gateway name="sci_import_from_hdf5_new"            function="load_new"                 type="1" />
     <gateway name="sci_export_to_hdf5"                  function="export_to_hdf5"           type="0" />
     <gateway name="sci_import_from_hdf5"                function="import_from_hdf5"         type="0" />
     <gateway name="sci_listvar_in_hdf5"                 function="listvar_in_hdf5"          type="0" />
