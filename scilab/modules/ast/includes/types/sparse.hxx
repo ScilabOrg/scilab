@@ -64,6 +64,8 @@ struct EXTERN_AST Sparse : GenericType
     **/
     Sparse(Double SPARSE_CONST& xadj, Double SPARSE_CONST& adjncy, Double SPARSE_CONST& src, std::size_t r, std::size_t c);
 
+    //constructor to create a sparse from value extract to another ( save / load operation typically)
+    Sparse(int rows, int cols, int nonzeros, int* inner, int* outer, double* real, double* img);
 
     bool isSparse()
     {
@@ -95,12 +97,14 @@ struct EXTERN_AST Sparse : GenericType
         return getReal(_iIndex % m_iRows, _iIndex / m_iRows);
     }
 
+    double* get();
     double get(int r, int c) const;
     double get(int _iIndex) const
     {
         return get(_iIndex % m_iRows, _iIndex / m_iRows);
     }
 
+    std::complex<double>* getImg();
     std::complex<double> getImg(int r, int c) const;
     std::complex<double> getImg(int _iIndex) const
     {
@@ -368,7 +372,9 @@ struct EXTERN_AST Sparse : GenericType
 
     int* getNbItemByRow(int* _piNbItemByRows);
     int* getColPos(int* _piColPos);
-    int  getNbItemByCol(int* _piNbItemByCols, int* _piRowPos);
+    int* getInnerPtr(int* count);
+    int* getOuterPtr(int* count);
+
 
     /**
        "in-place" cast into a sparse matrix of comlpex values
@@ -719,6 +725,7 @@ struct EXTERN_AST SparseBool : GenericType
 
     void whoAmI() SPARSE_CONST;
 
+    bool* get();
     bool get(int r, int c) SPARSE_CONST;
     bool get(int _iIndex) SPARSE_CONST
     {

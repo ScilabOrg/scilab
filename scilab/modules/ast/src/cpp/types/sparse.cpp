@@ -382,6 +382,62 @@ Sparse::Sparse(Double SPARSE_CONST& xadj, Double SPARSE_CONST& adjncy, Double SP
 #endif
 }
 
+Sparse::Sparse(int rows, int cols, int nonzeros, int* inner, int* outer, double* real, double* img)
+{
+    int* out = nullptr;
+    int* in = nullptr;
+
+    if (img)
+    {
+        matrixCplx = new CplxSparse_t(rows, cols);
+        matrixCplx->reserve((int)nonzeros);
+        out = matrixCplx->outerIndexPtr();
+        in = matrixCplx->innerIndexPtr();
+        matrixReal = nullptr;
+    }
+    else
+    {
+        matrixReal = new RealSparse_t(rows, cols);
+        matrixReal->reserve((int)nonzeros);
+        out = matrixReal->outerIndexPtr();
+        in = matrixReal->innerIndexPtr();
+        matrixCplx = nullptr;
+    }
+
+    //update outerIndexPtr
+    memcpy(out, outer, sizeof(int) * rows);
+    //update innerIndexPtr
+    memcpy(in, inner, sizeof(int) * cols);
+
+    if (img)
+    {
+        std::complex<double>* data = matrixCplx->valuePtr();
+        for (int i = 0; i < nonzeros; ++i)
+        {
+            data[i] = std::complex<double>(real[i], img[i]);
+        }
+    }
+    else
+    {
+        double* data = matrixReal->valuePtr();
+        for (int i = 0; i < nonzeros; ++i)
+        {
+            data[i] = real[i];
+        }
+
+    }
+
+    m_iCols = cols;
+    m_iRows = rows;
+    m_iSize = cols * rows;
+    m_iDims = 2;
+    m_piDims[0] = m_iRows;
+    m_piDims[1] = m_iCols;
+
+    matrixCplx ? matrixCplx->resizeNonZeros(nonzeros) : matrixReal->resizeNonZeros(nonzeros);
+    //finalize();
+}
+
 template<typename DestIter>
 void Sparse::create(int rows, int cols, Double SPARSE_CONST& src, DestIter o, std::size_t n)
 {
@@ -557,6 +613,16 @@ bool Sparse::isComplex() const
 }
 
 // TODO: should have both a bounds checking and a non-checking interface to elt access
+double* Sparse::get()
+{
+    if (isComplex() == false)
+    {
+        return matrixReal->valuePtr();
+    }
+
+    return nullptr;
+}
+
 double  Sparse::get(int _iRows, int _iCols) const
 {
     return getReal(_iRows, _iCols);
@@ -574,6 +640,16 @@ double Sparse::getReal(int _iRows, int _iCols) const
         res = matrixCplx->coeff(_iRows, _iCols).real();
     }
     return res;
+}
+
+std::complex<double>* Sparse::getImg()
+{
+    if (isComplex())
+    {
+        return matrixCplx->valuePtr();
+    }
+
+    return nullptr;
 }
 
 std::complex<double> Sparse::getImg(int _iRows, int _iCols) const
@@ -2018,6 +2094,40 @@ int* Sparse::getColPos(int* _piColPos)
     return _piColPos;
 }
 
+int* Sparse::getInnerPtr(int* count)
+{
+    int* ret = nullptr;
+    if (isComplex())
+    {
+        ret = matrixCplx->innerIndexPtr();
+        *count = matrixCplx->innerSize();
+    }
+    else
+    {
+        ret = matrixReal->innerIndexPtr();
+        *count = matrixReal->innerSize();
+    }
+
+    return ret;
+}
+
+int* Sparse::getOuterPtr(int* count)
+{
+    int* ret = nullptr;
+    if (isComplex())
+    {
+        ret = matrixCplx->outerIndexPtr();
+        *count = matrixCplx->outerSize();
+    }
+    else
+    {
+        ret = matrixReal->outerIndexPtr();
+        *count = matrixReal->outerSize();
+    }
+
+    return ret;
+}
+
 namespace
 {
 template<typename S> struct GetReal: std::unary_function<typename S::InnerIterator, double>
@@ -2028,7 +2138,7 @@ template<typename S> struct GetReal: std::unary_function<typename S::InnerIterat
     }
 };
 template<> struct GetReal< Eigen::SparseMatrix<std::complex<double >, Eigen::RowMajor > >
-        : std::unary_function<Sparse::CplxSparse_t::InnerIterator, double>
+    : std::unary_function<Sparse::CplxSparse_t::InnerIterator, double>
 {
     double operator()( Sparse::CplxSparse_t::InnerIterator it) const
     {

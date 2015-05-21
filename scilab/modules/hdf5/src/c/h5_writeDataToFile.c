@@ -306,7 +306,7 @@ int writeStringMatrix(int _iFile, char *_pstDatasetName, int _iDims, int* _piDim
     return 0;
 }
 
-char *createGroupName(char *_pstGroupName)
+char *createGroupName(const char *_pstGroupName)
 {
     char *pstSlash = NULL;
     char *pstGroupName = (char *)MALLOC((strlen(_pstGroupName) + 3) * sizeof(char));
@@ -1787,7 +1787,7 @@ int closeList(int _iFile, void *_pvList, char *_pstListName, int _iNbItem, int _
     return 0;
 }
 
-static int deleteHDF5group(int _iFile, char* _pstName)
+static int deleteHDF5group(int _iFile, const char* _pstName)
 {
     hid_t status = 0;
     char** pstChildName = NULL;
@@ -1870,7 +1870,7 @@ static int deleteHDF5group(int _iFile, char* _pstName)
 
 //According to 5.5.2. Deleting a Dataset from a File and Reclaiming Space of http://www.hdfgroup.org/HDF5/doc/UG/10_Datasets.html
 //it is actually impossible to really remove data from HDF5 file so unlink dataset to main group
-int deleteHDF5Var(int _iFile, char* _pstName)
+int deleteHDF5Var(int _iFile, const char* _pstName)
 {
     herr_t status = 0;
     void *oldclientdata = NULL;
@@ -1894,5 +1894,552 @@ int deleteHDF5Var(int _iFile, char* _pstName)
     }
 
     H5Eset_auto2(H5E_DEFAULT, oldfunc, oldclientdata);
+    return 0;
+}
+
+/*Scilab 6*/
+int writeDoubleMatrix6(int parent, const char* name, int dims, int* pdims, double* data)
+{
+    hid_t space = 0;
+    hid_t dset = 0;
+    herr_t status = 0;
+    hsize_t *piDims = NULL;
+    hid_t iCompress = 0;
+    int i = 0;
+    int iSize = 0;
+
+    piDims = convertDims(&dims, pdims, &iSize);
+
+    if (dims == 2 && pdims[0] == 0 && pdims[1] == 0)
+    {
+        // []
+        space = H5Screate_simple(0, NULL, NULL);
+        if (space < 0)
+        {
+            free(piDims);
+            return -1;
+        }
+
+        //Create the dataset and write the array data to it.
+        iCompress = enableCompression(9, dims, piDims);
+        free(piDims);
+
+        dset = H5Dcreate(parent, name, H5T_NATIVE_DOUBLE, space, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+        if (dset < 0)
+        {
+            return -1;
+        }
+
+        //Add attribute SCILAB_Class = double to dataset
+        status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_DOUBLE);
+        if (status < 0)
+        {
+            return -1;
+        }
+
+        //Close and release resources.
+        status = H5Dclose(dset);
+        if (status < 0)
+        {
+            return -1;
+        }
+
+        status = H5Sclose(space);
+        if (status < 0)
+        {
+            return -1;
+        }
+        return 0;
+    }
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    space = H5Screate_simple(dims, piDims, NULL);
+    if (space < 0)
+    {
+        free(piDims);
+        return -1;
+    }
+
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, dims, piDims);
+    free(piDims);
+
+    dset = H5Dcreate(parent, name, H5T_NATIVE_DOUBLE, space, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (dset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(dset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = double to dataset
+    status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_DOUBLE);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(dset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(space);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return dset;
+}
+
+writeDoubleComplexMatrix6(int parent, const char* name, int dims, int* pdims, double* real, double* img)
+{
+    hid_t space = 0;
+    hid_t dset = 0;
+    herr_t status = 0;
+    hsize_t *piDims = NULL;
+    hid_t iCompress = 0;
+    hid_t compoundId;
+    int iSize = 1;
+    doublecomplex* pData = NULL;
+
+    //create sub group only for non empty matrix
+    if (dims == 2 && pdims[0] == 0 && pdims[1] == 0)
+    {
+        // [] complex
+        //a revoir
+        return -1;
+    }
+
+    compoundId = H5Tcreate(H5T_COMPOUND, sizeof(doublecomplex));
+    H5Tinsert(compoundId, "real", HOFFSET(doublecomplex, r), H5T_NATIVE_DOUBLE);
+    H5Tinsert(compoundId, "imag", HOFFSET(doublecomplex, i), H5T_NATIVE_DOUBLE);
+    piDims = convertDims(&dims, pdims, &iSize);
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    space = H5Screate_simple(dims, piDims, NULL);
+    if (space < 0)
+    {
+        free(piDims);
+        return -1;
+    }
+
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, dims, piDims);
+    free(piDims);
+
+    dset = H5Dcreate(parent, name, compoundId, space, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (dset < 0)
+    {
+        return -1;
+    }
+
+    //convert double data doublecomplex data
+    pData = oGetDoubleComplexFromPointer(real, img, iSize);
+    status = H5Dwrite(dset, compoundId, H5S_ALL, H5S_ALL, H5P_DEFAULT, pData);
+    FREE(pData);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = double to dataset
+    status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_DOUBLE);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(dset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(space);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return dset;
+}
+
+int writeStringMatrix6(int parent, const char* name, int dims, int* pdims, char** data)
+{
+    int iSize = 0;
+    hsize_t* piDims = NULL;
+    hid_t typeId, space, dset;
+    herr_t status;
+    hid_t iCompress;
+
+    piDims = convertDims(&dims, pdims, &iSize);
+    //Create string dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    space = H5Screate_simple(dims, piDims, NULL);
+    if (space < 0)
+    {
+        FREE(piDims);
+        return -1;
+    }
+
+    //Create special string type
+    typeId = H5Tcopy(H5T_C_S1);
+    status = H5Tset_size(typeId, H5T_VARIABLE);
+    if (status < 0)
+    {
+        FREE(piDims);
+        return -1;
+    }
+
+    //Create the data set and write it.
+    iCompress = enableCompression(9, dims, piDims);
+    FREE(piDims);
+    dset = H5Dcreate(parent, name, typeId, space, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (dset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(dset, typeId, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = string to dataset
+    status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_STRING);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(dset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Tclose(typeId);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return dset;
+}
+
+int writeBooleanMatrix6(int parent, const char* name, int dims, int* pdims, int* data)
+{
+    int iSize = 0;
+    hsize_t* piDims = NULL;
+    herr_t status;
+    hid_t iSpace;
+    hid_t iCompress;
+    hid_t dset;
+
+    piDims = convertDims(&dims, pdims, &iSize);
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    iSpace = H5Screate_simple(dims, piDims, NULL);
+    if (iSpace < 0)
+    {
+        return -1;
+    }
+
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, dims, piDims);
+    dset = H5Dcreate(parent, name, H5T_NATIVE_INT, iSpace, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (dset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(dset, H5T_NATIVE_INT, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = double to dataset
+    status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_BOOLEAN);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(dset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(iSpace);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return dset;
+}
+
+int writeIntegerMatrix6(int parent, const char* name, int type, const char* prec, int dims, int* pdims, void* data)
+{
+    hsize_t* piDims = NULL;
+    herr_t status = 0;
+    hid_t iSpace = 0;
+    hid_t iDataset = 0;
+    hid_t iCompress = 0;
+    int iSize = 0;
+
+    piDims = convertDims(&dims, pdims, &iSize);
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    iSpace = H5Screate_simple(dims, piDims, NULL);
+    if (iSpace < 0)
+    {
+        FREE(piDims);
+        return -1;
+    }
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, dims, piDims);
+    FREE(piDims);
+    iDataset = H5Dcreate(parent, name, type, iSpace, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (iDataset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(iDataset, type, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = double to dataset
+    status = addAttribute(iDataset, g_SCILAB_CLASS, g_SCILAB_CLASS_INT);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = addAttribute(iDataset, g_SCILAB_CLASS_PREC, prec);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(iDataset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(iSpace);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+int openList6(int parent, const char *name, const char* type)
+{
+    //First create a group to store all referenced objects.
+    int group = H5Gcreate(parent, name, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+    //Add attribute SCILAB_Class = string to dataset
+    if (addAttribute(group, g_SCILAB_CLASS, type) < 0)
+    {
+        return -1;
+    }
+
+    return group;
+}
+
+int closeList6(int lst)
+{
+    if (H5Gclose(lst) < 0)
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+int addItemStruct6(int dataset, hobj_ref_t * refs, int pos, const char *name)
+{
+    herr_t status = H5Rcreate(&refs[pos], dataset, name, H5R_OBJECT, -1);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return status;
+}
+
+int writeStructField6(int parent, const char* name, int dims, int* pdims, hobj_ref_t * refs)
+{
+    hid_t space = 0;
+    hid_t dset = 0;
+    herr_t status = 0;
+    hsize_t *piDims = NULL;
+    hid_t iCompress = 0;
+    int i = 0;
+    int iSize = 0;
+
+    piDims = convertDims(&dims, pdims, &iSize);
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    space = H5Screate_simple(dims, piDims, NULL);
+    if (space < 0)
+    {
+        free(piDims);
+        return -1;
+    }
+
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, dims, piDims);
+    free(piDims);
+
+    dset = H5Dcreate(parent, name, H5T_STD_REF_OBJ, space, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (dset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(dset, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT, refs);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(dset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(space);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return dset;
+}
+
+int writeVoid6(int parent, const char* name)
+{
+    hsize_t piDims[1] = {1};
+    herr_t status = 0;
+    hid_t iSpace = 0;
+    hid_t iDataset = 0;
+    hid_t iCompress = 0;
+    char cData = 0;
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    iSpace = H5Screate_simple(1, piDims, NULL);
+    if (iSpace < 0)
+    {
+        return -1;
+    }
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, 1, piDims);
+    iDataset = H5Dcreate(parent, name, H5T_NATIVE_INT8, iSpace, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (iDataset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(iDataset, H5T_NATIVE_INT8, H5S_ALL, H5S_ALL, H5P_DEFAULT, &cData);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = double to dataset
+    status = addAttribute(iDataset, g_SCILAB_CLASS, g_SCILAB_CLASS_VOID);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(iDataset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(iSpace);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+int writeUndefined6(int parent, const char* name)
+{
+    hsize_t piDims[1] = {1};
+    herr_t status = 0;
+    hid_t iSpace = 0;
+    hid_t iDataset = 0;
+    hid_t iCompress = 0;
+    char cData = 0;
+
+    //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
+    iSpace = H5Screate_simple(1, piDims, NULL);
+    if (iSpace < 0)
+    {
+        return -1;
+    }
+    //Create the dataset and write the array data to it.
+    iCompress = enableCompression(9, 1, piDims);
+    iDataset = H5Dcreate(parent, name, H5T_NATIVE_INT8, iSpace, iCompress, H5P_DEFAULT, H5P_DEFAULT);
+    if (iDataset < 0)
+    {
+        return -1;
+    }
+
+    status = H5Dwrite(iDataset, H5T_NATIVE_INT8, H5S_ALL, H5S_ALL, H5P_DEFAULT, &cData);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Add attribute SCILAB_Class = double to dataset
+    status = addAttribute(iDataset, g_SCILAB_CLASS, g_SCILAB_CLASS_UNDEFINED);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    //Close and release resources.
+    status = H5Dclose(iDataset);
+    if (status < 0)
+    {
+        return -1;
+    }
+
+    status = H5Sclose(iSpace);
+    if (status < 0)
+    {
+        return -1;
+    }
+
     return 0;
 }
