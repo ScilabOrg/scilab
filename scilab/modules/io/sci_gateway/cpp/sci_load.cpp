@@ -68,15 +68,33 @@ Function::ReturnValue sci_load(types::typed_list &in, int _iRetCount, types::typ
         }
         else
         {
-            Library* lib = loadlib(pS->get(0));
+            int err = 0;
+            Library* lib = loadlib(pS->get(0), &err);
             FREE(pstPath);
 
-            if (lib == NULL)
+            switch (err)
             {
-                Scierror(999, _("%s: Wrong file type \"%ls\".\n"), "load", pwstPathLib);
-                FREE(pwstPathLib);
-                return Function::Error;
+                case 0:
+                    //no error
+                    break;
+                case 1:
+                {
+                    char* pstPath = wide_string_to_UTF8(pS->get(0));
+                    Scierror(999, _("%s: %s is not a valid module file.\n"), "load", pstPath);
+                    FREE(pstPath);
+                    return Function::Error;
+                }
+                case 2:
+                {
+                    Scierror(999, "%s: %s", "load", _("Redefining permanent variable.\n"));
+                    return Function::Error;
+                }
+                default:
+                {
+                    //nothing
+                }
             }
+
             FREE(pwstPathLib);
             lib->killMe();
         }
