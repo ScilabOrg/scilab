@@ -13,7 +13,7 @@
 #ifndef __H5_ATTRIBUTECONSTATS_H__
 #define __H5_ATTRIBUTECONSTATS_H__
 
-#define SOD_FILE_VERSION     2
+#define SOD_FILE_VERSION     3
 
 static const char g_SCILAB_CLASS[]              =	"SCILAB_Class";
 static const char g_SCILAB_CLASS_EMPTY[]        =	"SCILAB_empty";
@@ -39,6 +39,8 @@ static const char g_SCILAB_CLASS_TLIST[]        =	"tlist";
 static const char g_SCILAB_CLASS_MLIST[]        =	"mlist";
 static const char g_SCILAB_CLASS_VOID[]         =	"void";
 static const char g_SCILAB_CLASS_UNDEFINED[]    =	"undefined";
+static const char g_SCILAB_CLASS_STRUCT[]       =   "struct";
+static const char g_SCILAB_CLASS_CELL[]         =   "cell";
 
 //integer precision
 #define SCI_INT8	1
