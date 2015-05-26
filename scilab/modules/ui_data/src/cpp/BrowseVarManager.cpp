@@ -117,6 +117,12 @@ void SetBrowseVarData()
         //get top level value
         symbol::ScopedVariable* sv = var->top();
         //get value
+        if (sv == NULL)
+        {
+            iLocalVariablesUsed--;
+            continue;
+        }
+
         types::InternalType* pIT = sv->m_pIT;
 
         // get name
