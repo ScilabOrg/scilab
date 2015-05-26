@@ -260,7 +260,13 @@ namespace ast {
                             os << _W("Submatrix incorrectly defined.\n");
                             throw ast::ScilabError(os.str(), 999, e.getLocation());
                         }
+
+                        // call killMe on all arguments
+                        cleanOut(*currentArgs);
                         delete currentArgs;
+
+                        // insertion have done, call killMe on pITR
+                        pITR->killMe();
 
                         //update variable with new value
                         if (pOut != pIT)
