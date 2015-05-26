@@ -102,7 +102,7 @@ void SetBrowseVarData()
     int *piAllVariableIntegerTypes = new int[iLocalVariablesUsed];
     bool *piAllVariableFromUser = new bool[iLocalVariablesUsed];
     /* Necessary for the plots in the var browser */
-    int *piAllVariableNbRows = new int[iLocalVariablesUsed];
+    int *piAllVariableNbRows = new int[iLocalVariablesUsed]; 
     int *piAllVariableNbCols = new int[iLocalVariablesUsed];
 
     int nbRows, nbCols;
@@ -110,110 +110,114 @@ void SetBrowseVarData()
 
     std::set<string> scilabDefaultVariablesSet = createScilabDefaultVariablesSet();
     int iLevel = ctx->getScopeLevel();
-
     // for each local variable get information
     for (auto var : lstVars)
     {
         //get top level value
         symbol::ScopedVariable* sv = var->top();
         //get value
-        types::InternalType* pIT = sv->m_pIT;
+        if(sv == NULL){
+			iLocalVariablesUsed--;
+		}
+		else{
+				
+			types::InternalType* pIT = sv->m_pIT;
 
-        // get name
-        pstAllVariableNames[i] = wide_string_to_UTF8(var->getSymbol().getName().data());
+			// get name
+			pstAllVariableNames[i] = wide_string_to_UTF8(var->getSymbol().getName().data());
 
-        // get visibility
-        if (sv->m_globalVisible == true)
-        {
-            pstAllVariableVisibility[i] = os_strdup(GLOBAL_STR);
-            pIT = var->getGlobalValue();
-        }
-        else if (sv->m_iLevel != iLevel)
-        {
-            pstAllVariableVisibility[i] = os_strdup(INHERITED_STR);
-        }
-        else
-        {
-            pstAllVariableVisibility[i] = os_strdup(LOCAL_STR);
-        }
+			// get visibility
+			if (sv->m_globalVisible == true)
+			{
+				pstAllVariableVisibility[i] = os_strdup(GLOBAL_STR);
+				pIT = var->getGlobalValue();
+			}
+			else if (sv->m_iLevel != iLevel)
+			{
+				pstAllVariableVisibility[i] = os_strdup(INHERITED_STR);
+			}
+			else
+			{
+				pstAllVariableVisibility[i] = os_strdup(LOCAL_STR);
+			}
 
-        // type
-        err = getVarType(NULL, (int*)pIT, &piAllVariableTypes[i]);
-        if (!err.iErr)
-        {
-            piAllVariableBytes[i] = 0;
-            err = getVarDimension(NULL, (int*)pIT, &nbRows, &nbCols);
-        }
+			// type
+			err = getVarType(NULL, (int*)pIT, &piAllVariableTypes[i]);
+			if (!err.iErr)
+			{
+				piAllVariableBytes[i] = 0;
+				err = getVarDimension(NULL, (int*)pIT, &nbRows, &nbCols);
+			}
 
-        if (err.iErr)
-        {
-            pstAllVariableSizes[i] = os_strdup(N_A);
-        }
-        else if (nbRows * nbCols == 0)
-        {
-            pstAllVariableSizes[i] = os_strdup(EMPTY_MATRIX);
-        }
-        else
-        {
-            pstAllVariableSizes[i] = valueToDisplay(pIT, piAllVariableTypes[i], nbRows, nbCols);
-            piAllVariableNbRows[i] = nbRows;
-            piAllVariableNbCols[i] = nbCols;
-        }
+			if (err.iErr)
+			{
+				pstAllVariableSizes[i] = os_strdup(N_A);
+			}
+			else if (nbRows * nbCols == 0)
+			{
+				pstAllVariableSizes[i] = os_strdup(EMPTY_MATRIX);
+			}
+			else
+			{
+				pstAllVariableSizes[i] = valueToDisplay(pIT, piAllVariableTypes[i], nbRows, nbCols);
+				piAllVariableNbRows[i] = nbRows;
+				piAllVariableNbCols[i] = nbCols;
+			}
 
-        if (piAllVariableTypes[i] == sci_ints)
-        {
-            // Integer case
-            int iPrec       = 0;
-            err = getMatrixOfIntegerPrecision(NULL, (int*)pIT, &iPrec);
-            switch (iPrec)
-            {
-                case SCI_INT8:
-                    piAllVariableIntegerTypes[i] = 8;
-                    break;
-                case SCI_INT16:
-                    piAllVariableIntegerTypes[i] = 16;
-                    break;
-                case SCI_INT32:
-                    piAllVariableIntegerTypes[i] = 32;
-                    break;
-#ifdef __SCILAB_INT64__
-                case SCI_INT64:
-                    piAllVariableIntegerTypes[i] = 64;
-                    break;
-#endif
-                default:
-                    piAllVariableIntegerTypes[i] = 0; // Should never occurs
-                    break;
-            }
-        }
-        else
-        {
-            piAllVariableIntegerTypes[i] = -1;
-        }
+			if (piAllVariableTypes[i] == sci_ints)
+			{
+				// Integer case
+				int iPrec       = 0;
+				err = getMatrixOfIntegerPrecision(NULL, (int*)pIT, &iPrec);
+				switch (iPrec)
+				{
+					case SCI_INT8:
+						piAllVariableIntegerTypes[i] = 8;
+						break;
+					case SCI_INT16:
+						piAllVariableIntegerTypes[i] = 16;
+						break;
+					case SCI_INT32:
+						piAllVariableIntegerTypes[i] = 32;
+						break;
+	#ifdef __SCILAB_INT64__
+					case SCI_INT64:
+						piAllVariableIntegerTypes[i] = 64;
+						break;
+	#endif
+					default:
+						piAllVariableIntegerTypes[i] = 0; // Should never occurs
+						break;
+				}
+			}
+			else
+			{
+				piAllVariableIntegerTypes[i] = -1;
+			}
 
-        if (pIT->isTList() || pIT->isMList())
-        {
-            pstAllVariableListTypes[i] = getListName(pstAllVariableNames[i]);
-        }
-        else if (pIT->isStruct())
-        {
-            pstAllVariableListTypes[i] = os_strdup(STRUCT_STR);
-        }
-        else
-        {
-            pstAllVariableListTypes[i] = os_strdup("");
-        }
+			if (pIT->isTList() || pIT->isMList())
+			{
+				pstAllVariableListTypes[i] = getListName(pstAllVariableNames[i]);
+			}
+			else if (pIT->isStruct())
+			{
+				pstAllVariableListTypes[i] = os_strdup(STRUCT_STR);
+			}
+			else
+			{
+				pstAllVariableListTypes[i] = os_strdup("");
+			}
 
-        if (scilabDefaultVariablesSet.find(string(pstAllVariableNames[i])) == scilabDefaultVariablesSet.end() && piAllVariableTypes[i] != sci_lib)
-        {
-            piAllVariableFromUser[i] = TRUE;
-        }
-        else
-        {
-            piAllVariableFromUser[i] = FALSE;
-        }
-
+			if (scilabDefaultVariablesSet.find(string(pstAllVariableNames[i])) == scilabDefaultVariablesSet.end() && piAllVariableTypes[i] != sci_lib)
+			{
+				piAllVariableFromUser[i] = TRUE;
+			}
+			else
+			{
+				piAllVariableFromUser[i] = FALSE;
+			}
         ++i;
+		}
     }
 
     for (auto lib : lstLibs)
