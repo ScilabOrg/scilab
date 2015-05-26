@@ -525,12 +525,9 @@ void* scilabReadAndExecCommand(void* param)
 
         if (getScilabMode() != SCILAB_NWNI)
         {
-
             char *cwd = NULL;
-
             int err = 0;
 
-            UpdateBrowseVar();
             cwd = scigetcwd(&err);
             if (cwd)
             {

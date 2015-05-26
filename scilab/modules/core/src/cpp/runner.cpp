@@ -14,6 +14,11 @@
 #include "threadmanagement.hxx"
 #include "configvariable.hxx"
 
+extern "C"
+{
+#include "BrowseVarManager.h"
+}
+
 using namespace ast;
 
 void *Runner::launch(void *args)
@@ -44,6 +49,8 @@ void *Runner::launch(void *args)
         scilabErrorW(ostr.str().c_str());
         ConfigVariable::resetWhereError();
     }
+
+    UpdateBrowseVar();
 
     // reset error state when new prompt occurs
     ConfigVariable::resetError();
