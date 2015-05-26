@@ -110,13 +110,18 @@ void SetBrowseVarData()
 
     std::set<string> scilabDefaultVariablesSet = createScilabDefaultVariablesSet();
     int iLevel = ctx->getScopeLevel();
-
     // for each local variable get information
     for (auto var : lstVars)
     {
         //get top level value
         symbol::ScopedVariable* sv = var->top();
         //get value
+        if (sv == NULL)
+        {
+            iLocalVariablesUsed--;
+            continue;
+        }
+
         types::InternalType* pIT = sv->m_pIT;
 
         // get name
@@ -212,7 +217,6 @@ void SetBrowseVarData()
         {
             piAllVariableFromUser[i] = FALSE;
         }
-
         ++i;
     }
 
