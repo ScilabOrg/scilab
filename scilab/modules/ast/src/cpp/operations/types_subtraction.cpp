@@ -1817,6 +1817,49 @@ template<> InternalType* sub_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double*
 
     }
 
+    if (_pL->isScalar())
+    {
+        //and _pR is not !
+        int iDims = _pR->getDims();
+        int* piDims = _pR->getDimsArray();
+        int iSize = _pR->getSize();
+
+        pOut = new Polynom(_pL->getVariableName(), iDims, piDims);
+
+        SinglePoly* pSPL = _pL->get(0);
+        if (_pR->isComplex())
+        {
+            double* pdblR = _pR->get();
+            double* pdblI = _pR->getImg();
+
+            for (int i = 0; i < iSize; ++i)
+            {
+                SinglePoly* pSPOut = pSPL->clone();
+                //in case of original is not complex
+                pSPOut->setComplex(isComplexOut);
+                pSPOut->get()[0] -= pdblR[i];
+                pSPOut->getImg()[0] -= pdblI[i];
+                pOut->set(i, pSPOut);
+                delete pSPOut;
+            }
+        }
+        else
+        {
+            double* pdblR = _pR->get();
+
+            for (int i = 0; i < iSize; ++i)
+            {
+                SinglePoly* pSPOut = pSPL->clone();
+                //update 0th rank value
+                pSPOut->get()[0] -= pdblR[i];
+                pOut->set(i, pSPOut);
+                delete pSPOut;
+            }
+        }
+
+        return pOut;
+    }
+
     if (_pR->isScalar())
     {
         //subtract same value to all polynoms
@@ -1847,48 +1890,7 @@ template<> InternalType* sub_M_M<Polynom, Double, Polynom>(Polynom* _pL, Double*
         return pOut;
     }
 
-    if (_pL->isScalar())
-    {
-        //and _pR is not !
-        int iDims = _pR->getDims();
-        int* piDims = _pR->getDimsArray();
-        int iSize = _pR->getSize();
 
-        pOut = new Polynom(_pL->getVariableName(), iDims, piDims);
-
-        SinglePoly* pSPL = _pL->get(0);
-        if (_pR->isComplex())
-        {
-            double* pdblR = _pR->get();
-            double* pdblI = _pR->getImg();
-
-            for (int i = 0 ; i < iSize ; ++i)
-            {
-                SinglePoly* pSPOut = pSPL->clone();
-                //in case of original is not complex
-                pSPOut->setComplex(isComplexOut);
-                pSPOut->get()[0] -= pdblR[i];
-                pSPOut->getImg()[0] -= pdblI[i];
-                pOut->set(i, pSPOut);
-                delete pSPOut;
-            }
-        }
-        else
-        {
-            double* pdblR = _pR->get();
-
-            for (int i = 0 ; i < iSize ; ++i)
-            {
-                SinglePoly* pSPOut = pSPL->clone();
-                //update 0th rank value
-                pSPOut->get()[0] -= pdblR[i];
-                pOut->set(i, pSPOut);
-                delete pSPOut;
-            }
-        }
-
-        return pOut;
-    }
 
     //P - D
 
