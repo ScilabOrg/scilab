@@ -107,8 +107,13 @@ function gateway_filename = ilib_gen_gateway(name,tables)
                     t = [t;
                     "    if(wcscmp(_pwstFuncName, L""" + table(kGw,1) + """) == 0){ " + "addMexFunction(L""" + table(kGw,1) + """, &" + names(kGw) + ", MODULE_NAME); }"];
                 else
-                    t = [t;
-                    "    if(wcscmp(_pwstFuncName, L""" + table(kGw,1) + """) == 0){ " + "addCFunction(L""" + table(kGw,1) + """, &" + names(kGw) + ", MODULE_NAME); }"];
+                    if (getos() == "Windows") then
+                        t = [t;
+                        "if(wcscmp(_pwstFuncName, L""" + table(kGw,1) + """) == 0){ " + "symbol::Context::getInstance()->addFunction(types::Function::createFunction(L""" + table(kGw,1) + """, &" + names(kGw) + ", MODULE_NAME)); }"];
+                    else
+                        t = [t;
+                        "    if(wcscmp(_pwstFuncName, L""" + table(kGw,1) + """) == 0){ " + "addCFunction(L""" + table(kGw,1) + """, &" + names(kGw) + ", MODULE_NAME); }"];
+                    end
                 end
             end
 
@@ -142,7 +147,13 @@ function gateway_filename = ilib_gen_gateway(name,tables)
         t = [
         "#ifndef __" + TNAME + "_GW_HXX__";
         "#define __" + TNAME + "_GW_HXX__";
-        "";
+        "";]
+        if(getos() == "Windows") then
+            t = [ t;
+            "#include ""context.hxx""";
+            "#include ""cpp_gateway_prototype.hxx""";]
+        end
+        t = [t;
         "#ifdef _MSC_VER";
         "#ifdef " + TNAME + "_GW_EXPORTS";
         "#define " + TNAME + "_GW_IMPEXP __declspec(dllexport)";
