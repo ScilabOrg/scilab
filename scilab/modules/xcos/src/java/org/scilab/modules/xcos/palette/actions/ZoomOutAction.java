@@ -12,11 +12,21 @@
 
 package org.scilab.modules.xcos.palette.actions;
 
+import static org.scilab.modules.commons.OS.MAC;
+
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.KeyStroke;
 
+import org.scilab.modules.commons.OS;
 import org.scilab.modules.commons.gui.FindIconHelper;
 import org.scilab.modules.commons.gui.ScilabLAF;
 import org.scilab.modules.graph.utils.ScilabGraphMessages;
@@ -34,11 +44,92 @@ public class ZoomOutAction extends CommonCallBack {
     private static final String LABEL = ScilabGraphMessages.ZOOM_OUT;
     private static final String ICON = FindIconHelper.findIcon("zoom-out");
 
+    private static final int ACCELERATOR_KEY = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+    private static final String ZOOM_OUT = "ZoomOut";
+
+    /**
+     * Implement custom mouse handling for the zoom
+     */
+    private static final class CustomMouseWheelListener implements MouseWheelListener {
+        private final PaletteManagerView view;
+
+        /**
+         * Default constructor
+         * @param view PaletteManagerPanel instance
+         */
+        public CustomMouseWheelListener(PaletteManagerView view) {
+            this.view = view;
+        }
+
+        /**
+         * When the wheel is used
+         * @param e The parameters
+         * @see java.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.MouseWheelEvent)
+         */
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            if ((e.getModifiers() & ACCELERATOR_KEY) != 0) {
+                if (e.getWheelRotation() > 0) {
+                    view.getPanel().zoomOut();
+                }
+            }
+        }
+    }
+
     /**
      * Constructor
      */
     public ZoomOutAction() {
         super("");
+    }
+
+    /**
+     * Register the key for the action
+     * @param view PaletteManagerPanel instance
+     */
+    public static void registerKeyAction(PaletteManagerView view) {
+        MouseWheelListener mouseListener = new CustomMouseWheelListener(view);
+        view.getTree().addMouseWheelListener(mouseListener);
+        view.getPanel().addMouseWheelListener(mouseListener);
+
+        // Multi-shortcut action
+        ActionMap[] ams = new ActionMap[] {
+                view.getTree().getActionMap(),
+                view.getPanel().getActionMap()
+        };
+        InputMap[] maps = new InputMap[] {
+                view.getTree().getInputMap(),
+                view.getPanel().getInputMap()
+        };
+
+        // register the action to a unique action keyword
+        for (ActionMap am : ams) {
+            am.put(ZOOM_OUT, new ZoomOutAction());
+        }
+
+        // add custom key stroke for this action
+        final KeyStroke[] keystrokes;
+        if (OS.get() == MAC) {
+            // AZERTY for Mac has a non-supported classic layout
+            keystrokes = new KeyStroke[] {
+                KeyStroke.getKeyStroke('=', ACCELERATOR_KEY),
+                KeyStroke.getKeyStroke('=', ACCELERATOR_KEY | KeyEvent.SHIFT_DOWN_MASK)
+            };
+        } else {
+            keystrokes = new KeyStroke[] {
+                KeyStroke.getKeyStroke('-', ACCELERATOR_KEY),
+                KeyStroke.getKeyStroke('-', ACCELERATOR_KEY | KeyEvent.SHIFT_DOWN_MASK),
+                KeyStroke.getKeyStroke('_', ACCELERATOR_KEY),
+                KeyStroke.getKeyStroke('_', ACCELERATOR_KEY | KeyEvent.SHIFT_DOWN_MASK),
+                KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, ACCELERATOR_KEY)
+            };
+        }
+
+        for (InputMap map : maps) {
+            for (KeyStroke k : keystrokes) {
+                map.put(k, ZOOM_OUT);
+            }
+        }
     }
 
     /**
