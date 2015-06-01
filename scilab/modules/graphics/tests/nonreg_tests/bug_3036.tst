@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- TEST WITH GRAPHIC -->
+// <-- LONG TIME EXECUTION -->
 
 // <-- Non-regression test for bug 3036 -->
 //
