@@ -53,6 +53,7 @@ public class PaletteManagerPanel extends JSplitPane {
     public PaletteManagerPanel(PaletteManager controller) {
         super(JSplitPane.HORIZONTAL_SPLIT);
         this.controller = controller;
+        currentSize = XcosConstants.PaletteBlockSize.NORMAL;
         fillUpContentPane();
     }
 
@@ -62,9 +63,8 @@ public class PaletteManagerPanel extends JSplitPane {
     private void fillUpContentPane() {
         /** Default instances */
         JScrollPane panel = new JScrollPane();
-        initJScrollPane(panel);
-
-        currentSize = XcosConstants.PaletteBlockSize.NORMAL;
+        panel.setBackground(Color.WHITE);
+        setUpScrollBar(panel, currentSize);
 
         // Set default left component
         JPanel rootPalette = new JPanel();
@@ -109,10 +109,10 @@ public class PaletteManagerPanel extends JSplitPane {
         }
 
         try {
-            // check what's being displayed on the right panel
             JScrollPane jspR = (JScrollPane) this.getRightComponent();
+            setUpScrollBar(jspR, newSize);
+            // check what's being displayed on the right panel
             PaletteNode node = (PaletteNode) tree.getLastSelectedPathComponent();
-
             if (node instanceof PreLoaded) {
                 JPanel panel = (JPanel) jspR.getViewport().getComponent(0);
                 for (Component component : panel.getComponents()) {
@@ -142,25 +142,24 @@ public class PaletteManagerPanel extends JSplitPane {
     }
 
     /**
-     * Init the ScrollPane component
-     *
-     * @param panel
-     *            the component
+     * Setup the ScrollPane component
+     * @param jsp The component
+     * @param pbs PaletteBlockSize
      */
-    private void initJScrollPane(JScrollPane panel) {
-        panel.setBackground(Color.WHITE);
-        panel.getVerticalScrollBar().setBlockIncrement(
-            XcosConstants.PALETTE_BLOCK_HEIGHT
+    private void setUpScrollBar(JScrollPane jsp, PaletteBlockSize pbs) {
+        // vertical
+        jsp.getVerticalScrollBar().setBlockIncrement(
+            pbs.getBlockDimension().height
             + XcosConstants.PALETTE_VMARGIN);
-        panel.getVerticalScrollBar().setUnitIncrement(
-            XcosConstants.PALETTE_BLOCK_HEIGHT
+        jsp.getVerticalScrollBar().setUnitIncrement(
+            pbs.getBlockDimension().height
             + XcosConstants.PALETTE_VMARGIN);
-
-        panel.getHorizontalScrollBar().setBlockIncrement(
-            XcosConstants.PALETTE_BLOCK_WIDTH
+        // horizontal
+        jsp.getHorizontalScrollBar().setBlockIncrement(
+            pbs.getBlockDimension().width
             + XcosConstants.PALETTE_HMARGIN);
-        panel.getHorizontalScrollBar().setUnitIncrement(
-            XcosConstants.PALETTE_BLOCK_WIDTH
+        jsp.getHorizontalScrollBar().setUnitIncrement(
+            pbs.getBlockDimension().width
             + XcosConstants.PALETTE_HMARGIN);
     }
 
