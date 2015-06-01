@@ -211,6 +211,8 @@ public class PaletteManagerView extends SwingScilabDockablePanel implements Simp
                     .getLastPathComponent());
             t.setSelectionPath(p);
         }
+        // bug #12453
+        t.expandPath(p);
     }
 
     /**
