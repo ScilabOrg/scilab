@@ -133,7 +133,7 @@ public:
 
     inline types::InternalType::ScilabId get_scilab_id() const
     {
-        return types::InternalType::getScilabId<T>();
+        //return types::InternalType::getScilabId<T>();
     }
 
     inline void store(llvm::Value * x, JITVisitor & visitor) const
@@ -217,7 +217,7 @@ public:
 
     inline types::InternalType::ScilabId get_scilab_id() const
     {
-        return types::InternalType::getScilabId<T*>();
+        //return types::InternalType::getScilabId<T*>();
     }
 
     static void debug(double * p)
