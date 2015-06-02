@@ -165,7 +165,7 @@ void JITVisitor::visit(const ast::SimpleVar &e)
                     //std::wcout << L"que faire...=" << sym.getName() << std::endl;
                     }
     */
-    symbol::Symbol & sym = e.getSymbol();
+    const symbol::Symbol & sym = e.getSymbol();
     JITSymbolMap::iterator i = symMap3.find(sym);
     if (i != symMap3.end())
     {
@@ -353,41 +353,41 @@ void JITVisitor::visit(const ast::ForExp &e)
     {
         const ast::ListExp & list = static_cast<const ast::ListExp &>(init);
         const analysis::ForList64 & list_info = vardec.getListInfo();
-        const double * list_values = list.get_values();
+        const double * list_values = list.getValues();
         llvm::Value * start = nullptr, * step, * end;
         bool use_int = false;
         bool use_uint = false;
         bool inc = true;
         bool known_step = false;
-        bool it_read_in_loop = list_info.isReadInLoop();
+        bool it_read_in_loop = list_info.is_read_in_loop();
 
-        if (list_info.isConstant())
+        if (list_info.is_constant())
         {
-            if (list_info.isInt())
+            if (list_info.is_int())
             {
                 use_int = true;
-                if (list_info.isUInt())
+                if (list_info.is_uint())
                 {
                     use_uint = true;
-                    start = getConstant(list_info.getMin<uint64_t>());
-                    step = getConstant(list_info.getStep<uint64_t>());
-                    end = getConstant(list_info.getMax<uint64_t>());
+                    start = getConstant(list_info.get_min<uint64_t>());
+                    step = getConstant(list_info.get_step<uint64_t>());
+                    end = getConstant(list_info.get_max<uint64_t>());
                 }
                 else
                 {
-                    start = getConstant(list_info.getMin<int64_t>());
-                    step = getConstant(list_info.getStep<int64_t>());
-                    end = getConstant(list_info.getMax<int64_t>());
+                    start = getConstant(list_info.get_min<int64_t>());
+                    step = getConstant(list_info.get_step<int64_t>());
+                    end = getConstant(list_info.get_max<int64_t>());
                 }
             }
             else
             {
-                start = getConstant(list_info.getMin<double>());
-                step = getConstant(list_info.getStep<double>());
-                end = getConstant(list_info.getMax<double>());
+                start = getConstant(list_info.get_min<double>());
+                step = getConstant(list_info.get_step<double>());
+                end = getConstant(list_info.get_max<double>());
             }
 
-            inc = list_info.getStep<double>() > 0;
+            inc = list_info.get_step<double>() > 0;
             known_step = true;
         }
 

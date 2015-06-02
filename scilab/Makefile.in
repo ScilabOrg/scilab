@@ -113,6 +113,7 @@ bin_PROGRAMS = scilab-bin$(EXEEXT) scilab-cli-bin$(EXEEXT)
 @USE_STATIC_SYSTEM_LIB_FALSE@am__append_4 = -lstdc++
 # -static-libgfortran
 @USE_STATIC_SYSTEM_LIB_FALSE@am__append_5 = -lstdc++
+#-static-libgfortran
 @IS_MACOSX_TRUE@am__append_6 = -framework Cocoa
 @NEED_JAVA_TRUE@am__append_7 = \
 @NEED_JAVA_TRUE@			$(top_builddir)/modules/console/libsciconsole.la \
@@ -177,15 +178,14 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx_11.m4 \
 	$(top_srcdir)/m4/java-thirdparty.m4 $(top_srcdir)/m4/java.m4 \
 	$(top_srcdir)/m4/largefile.m4 $(top_srcdir)/m4/lib-ld.m4 \
 	$(top_srcdir)/m4/libsmath.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/libxml2.m4 $(top_srcdir)/m4/llvm.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/macosx.m4 $(top_srcdir)/m4/mpi.m4 \
-	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/pcre.m4 \
-	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/relocatable.m4 \
-	$(top_srcdir)/m4/swig.m4 $(top_srcdir)/m4/symlinks.m4 \
-	$(top_srcdir)/m4/tcltk.m4 $(top_srcdir)/m4/umfpack.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/libxml2.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/macosx.m4 \
+	$(top_srcdir)/m4/mpi.m4 $(top_srcdir)/m4/ocaml.m4 \
+	$(top_srcdir)/m4/pcre.m4 $(top_srcdir)/m4/pkg.m4 \
+	$(top_srcdir)/m4/relocatable.m4 $(top_srcdir)/m4/swig.m4 \
+	$(top_srcdir)/m4/symlinks.m4 $(top_srcdir)/m4/tcltk.m4 \
+	$(top_srcdir)/m4/umfpack.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -633,13 +633,6 @@ LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
-LLVM_CONFIG_BIN = @LLVM_CONFIG_BIN@
-LLVM_CPPFLAGS = @LLVM_CPPFLAGS@
-LLVM_INCLUDE = @LLVM_INCLUDE@
-LLVM_LDFLAGS = @LLVM_LDFLAGS@
-LLVM_LIBS = @LLVM_LIBS@
-LLVM_LIBS_STATIC = @LLVM_LIBS_STATIC@
-LLVM_VERSION = @LLVM_VERSION@
 LN_S = @LN_S@
 LOGGING_LEVEL = @LOGGING_LEVEL@
 LOOKS = @LOOKS@
@@ -819,11 +812,10 @@ AM_LDFLAGS = $(SCI_LDFLAGS)
 changelogs = CHANGES CHANGES_5.1.X CHANGES_5.2.X CHANGES_5.3.X CHANGES_5.4.X CHANGES_5.5.X CHANGES_6.0.X
 bin_SCRIPTS = bin/scilab bin/scilab-adv-cli bin/scilab-cli \
 	bin/scinotes bin/xcos $(am__append_1)
-#-static-libgfortran
 scilab_bin_LDFLAGS = $(AM_LDFLAGS) $(OPENMPI_LIBS) $(am__append_2) \
-	$(am__append_4) $(LLVM_LDFLAGS) $(LLVM_LIBS) $(am__append_6)
+	$(am__append_4) $(am__append_6)
 scilab_cli_bin_LDFLAGS = $(AM_LDFLAGS) $(OPENMPI_LIBS) $(am__append_3) \
-	$(am__append_5) $(LLVM_LDFLAGS) $(LLVM_LIBS)
+	$(am__append_5)
 scilab_bin_CPPFLAGS = -I$(top_srcdir)/modules/ast/includes/ast/ \
 	-I$(top_srcdir)/modules/ast/includes/exps/ \
 	-I$(top_srcdir)/modules/ast/includes/operations/ \
@@ -843,8 +835,8 @@ scilab_bin_CPPFLAGS = -I$(top_srcdir)/modules/ast/includes/ast/ \
 	-I$(top_srcdir)/modules/api_scilab/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
 	-I$(top_srcdir)/modules/core/src/c/ \
-	-I$(top_srcdir)/modules/dynamic_link/includes/ $(LLVM_INCLUDE) \
-	$(LLVM_CPPFLAGS) $(EIGEN_CPPFLAGS) $(AM_CPPFLAGS) \
+	-I$(top_srcdir)/modules/dynamic_link/includes/ \
+	-I$(top_srcdir)/modules/startup/src/c/ $(AM_CPPFLAGS) \
 	$(am__append_10)
 
 # --no-undefined --relax
@@ -2250,13 +2242,11 @@ code-coverage:
 @CODE_COVERAGE_TRUE@	@if test ! -d $(top_builddir)/coverage/; then \
 @CODE_COVERAGE_TRUE@		mkdir $(top_builddir)/coverage/; \
 @CODE_COVERAGE_TRUE@	fi; \
-@CODE_COVERAGE_TRUE@	touch $(top_srcdir)/modules/differential_equations/callinter.h.f $(top_srcdir)/modules/linear_algebra/callinter.h.f $(top_srcdir)/modules/scicos/callinter.h.f $(top_srcdir)/modules/scicos_blocks/callinter.h.f $(top_srcdir)/modules/optimization/callinter.h.f $(top_srcdir)/modules/signal_processing/callinter.h.f; \
 @CODE_COVERAGE_TRUE@	$(LCOV) --directory $(top_builddir) --capture --ignore-errors source --output-file $(top_builddir)/coverage/scilab-code-coverage.info; \
 @CODE_COVERAGE_TRUE@	if test ! -f ~/.lcovrc; then echo -e "genhtml_hi_limit = 85\ngenhtml_med_limit = 70" > ~/.lcovrc; fi; \
 @CODE_COVERAGE_TRUE@	$(GENHTML) -o $(top_builddir)/coverage/results/ --show-details --highlight --legend $(top_builddir)/coverage/scilab-code-coverage.info; \
 @CODE_COVERAGE_TRUE@	rm -f $(top_builddir)/coverage/lcovrc; \
-@CODE_COVERAGE_TRUE@	echo "To open the result: firefox  $(top_builddir)/coverage/results/index.html"; \
-@CODE_COVERAGE_TRUE@	rm -f $(top_srcdir)/modules/differential_equations/callinter.h.f $(top_srcdir)/modules/linear_algebra/callinter.h.f $(top_srcdir)/modules/scicos/callinter.h.f $(top_srcdir)/modules/scicos_blocks/callinter.h.f $(top_srcdir)/modules/optimization/callinter.h.f $(top_srcdir)/modules/signal_processing/callinter.h.f
+@CODE_COVERAGE_TRUE@	echo "To open the result: firefox  $(top_builddir)/coverage/results/index.html";
 #--frames is disable because of : http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=607206
 @CODE_COVERAGE_FALSE@	@echo "Cannot start the code coverage. Add --enable-code-coverage to the ./configure and 'make clean all'."
 
