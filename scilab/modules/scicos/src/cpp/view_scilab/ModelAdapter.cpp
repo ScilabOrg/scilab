@@ -683,10 +683,6 @@ struct ipar
         }
 
         types::Double* current = v->getAs<types::Double>();
-        if (current->getCols() != 0 && current->getCols() != 1)
-        {
-            return false;
-        }
 
         std::vector<int> ipar (current->getSize());
         for (int i = 0; i < current->getSize(); ++i)
