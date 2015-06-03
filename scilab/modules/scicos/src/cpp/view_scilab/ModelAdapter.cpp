@@ -488,7 +488,15 @@ bool setInnerBlocksRefs(ModelAdapter& adaptor, const std::vector<ScicosID>& chil
                 controller.getObjectProperty(adaptee, BLOCK, kind, superPorts);
                 if (static_cast<int>(superPorts.size()) < portIndex)
                 {
-                    return false;
+                    if (!superPorts.empty())
+                    {
+                        // Arbitrarily take the highest possible value in case the user enters a wrong number
+                        portIndex = superPorts.size();
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
 
                 ScicosID port = superPorts[portIndex - 1];
