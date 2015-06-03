@@ -6,6 +6,8 @@ Scilab Bug Fixes
 
 * Bug #13829 fixed - mean and sum functions returned wrong results for hypermatrices.
 
+* Bug #13834 fixed - NPE when too many strings are drawn.
+
 * Bug #13854 fixed - On some operating systems, SciNotes did not initialize a new document at startup.
 
 * Bug #13866 fixed - There were some issues with FFTW3 library.
