@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #13807 fixed - Invalid margins when the visibility of figure was to off.
+
 * Bug #13829 fixed - mean and sum functions returned wrong results for hypermatrices.
 
 * Bug #13834 fixed - Drawing a high number of strings in a figure generated a Java exceptions.
