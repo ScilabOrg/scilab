@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - DIGITEO - Clement David
+ * Copyright (C) 2015 - Marcos CARDINOT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -67,19 +68,19 @@ public final class XcosConstants extends ScilabGraphConstants {
         }
 
         /**
-         * @return icon scale
+         * @return maximum icon height
          */
-        public float getIconScale() {
-            switch (this) {
-                case SMALL:
-                    return 0.75f;
-                case NORMAL:
-                    return 1.0f;
-                case LARGE:
-                	return 1.25f;
-                default:
-                    return 1.0f;
-            }
+        public int getMaxIconHeight() {
+            // 65% of the frame height
+            return (int) (getBlockDimension().height * 0.65f);
+        }
+
+        /**
+         * @return maximum icon width
+         */
+        public int getMaxIconWidth() {
+            // 65% of the frame width
+            return (int) (getBlockDimension().width * 0.65f);
         }
 
         /**
