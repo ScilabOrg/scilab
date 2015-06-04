@@ -101,18 +101,9 @@ public :
         return true;
     }
 
-    bool neg(InternalType *& out)
-    {
-        out = new Int<T>(this->getDims(), this->getDimsArray());
-        type_traits::bin_neg<T, T>(this->m_iSize, this->m_pRealData, static_cast<Int<T> *>(out)->get());
+    bool neg(InternalType *& out);
 
-        return true;
-    }
-
-    virtual bool transpose(InternalType *& out)
-    {
-        return type_traits::transpose(*this, out);
-    }
+    virtual bool transpose(InternalType *& out);
 
     bool operator==(const InternalType& it)
     {
