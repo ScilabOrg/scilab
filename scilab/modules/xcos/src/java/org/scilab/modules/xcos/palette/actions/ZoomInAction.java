@@ -16,8 +16,6 @@ import static org.scilab.modules.commons.OS.MAC;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ActionMap;
@@ -48,35 +46,6 @@ public class ZoomInAction extends CommonCallBack {
     private static final String ZOOM_IN = "ZoomIn";
 
     /**
-     * Implement custom mouse handling for the zoom
-     */
-    private static final class CustomMouseWheelListener implements MouseWheelListener {
-        private final PaletteManagerView view;
-
-        /**
-         * Default constructor
-         * @param view PaletteManagerPanel instance
-         */
-        public CustomMouseWheelListener(PaletteManagerView view) {
-            this.view = view;
-        }
-
-        /**
-         * When the wheel is used
-         * @param e The parameters
-         * @see java.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.MouseWheelEvent)
-         */
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
-            if ((e.getModifiers() & ACCELERATOR_KEY) != 0) {
-                if (e.getWheelRotation() < 0) {
-                    view.getPanel().zoomIn();
-                }
-            }
-        }
-    }
-
-    /**
      * Constructor
      */
     public ZoomInAction() {
@@ -88,10 +57,6 @@ public class ZoomInAction extends CommonCallBack {
      * @param view PaletteManagerPanel instance
      */
     public static void registerKeyAction(PaletteManagerView view) {
-        MouseWheelListener mouseListener = new CustomMouseWheelListener(view);
-        view.getTree().addMouseWheelListener(mouseListener);
-        view.getPanel().addMouseWheelListener(mouseListener);
-
         // Multi-shortcut action
         ActionMap[] ams = new ActionMap[] {
                 view.getTree().getActionMap(),
