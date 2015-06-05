@@ -20,8 +20,8 @@ import javax.swing.JButton;
 
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
-import org.scilab.modules.graph.utils.ScilabGraphMessages;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
+import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
  * Zoom Out Management
@@ -31,7 +31,7 @@ import org.scilab.modules.xcos.palette.view.PaletteManagerView;
 @SuppressWarnings(value = { "serial" })
 public class ZoomOutAction extends DefaultAction {
     /** Name of the action */
-    public static final String NAME = ScilabGraphMessages.ZOOM_OUT;
+    public static final String NAME = XcosMessages.ZOOM_OUT;
     /** Icon name of the action */
     public static final String SMALL_ICON = "zoom-out";
     /** Mnemonic key of the action */
