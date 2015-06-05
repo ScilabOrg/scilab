@@ -7,6 +7,10 @@ New Features
 * scatter plot with different mark colors is now available:
   TODO : save/load+display+doc of new properties
 
+Xcos
+====
+
+* Palette browser - added zoom feature that enable users to set the size of the icons and labels on the palette browser.
 
 Compilation
 ============
