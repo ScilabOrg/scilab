@@ -62,7 +62,7 @@ int sci_plot2d1_G(char * fname, int ptype, void *pvApiCtx)
     int iskip = 0, test  = 0;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, i = 0, j = 0;
 
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "axesflag", -1, 0, 0, NULL},
         { -1, "frameflag", -1, 0, 0, NULL},

@@ -44,7 +44,7 @@ int sci_champ_G(char *fname,
     double arfact_def = 1.0;
     double* arfact = &arfact_def;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0, m4 = 0, n4 = 0;
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "arfact", -1, 0, 0, NULL},
         { -1, "rect", -1, 0, 0, NULL},

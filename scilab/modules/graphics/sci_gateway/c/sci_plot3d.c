@@ -45,7 +45,7 @@ int sci_plot3d(char * fname, void *pvApiCtx)
     double *zcol = NULL;
     int mustFree = 0;
 
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "alpha", -1, 0, 0, NULL},
         { -1, "ebox", -1, 0, 0, NULL},

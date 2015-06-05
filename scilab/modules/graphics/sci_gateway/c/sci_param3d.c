@@ -37,7 +37,7 @@ int sci_param3d(char * fname, void *pvApiCtx)
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0;
     int m3n = 0, n3n = 0; /* F.Leray 19.03.04*/
 
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "alpha", -1, 0, 0, NULL},
         { -1, "ebox", -1, 0, 0, NULL},
@@ -73,7 +73,7 @@ int sci_param3d(char * fname, void *pvApiCtx)
     if (FirstOpt(pvApiCtx) < 4)
     {
         Scierror(999, _("%s: Misplaced optional argument: #%d must be at position %d.\n"), fname, 1, 4);
-        return(0);
+        return (0);
     }
 
     //get variable address

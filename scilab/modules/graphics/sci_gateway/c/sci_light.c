@@ -36,7 +36,7 @@ int sci_light(char *fname, void* pvApiCtx)
     int axes = 0;
     long long axesHandle = 0;
 
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "ambient_color", -1, 0, 0, NULL},
         { -1, "diffuse_color", -1, 0, 0, NULL},

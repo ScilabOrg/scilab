@@ -43,7 +43,7 @@ int sci_drawaxis(char *fname, void* pvApiCtx)
     /** XXXXX : un point en suspens c'est le "S" ou une adresse est
      *  stockees ds un unsigned long : est ce sufisant ?
      */
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "dir", -1, 0, 0, NULL},
         { -1, "fontsize", -1, 0, 0, NULL},

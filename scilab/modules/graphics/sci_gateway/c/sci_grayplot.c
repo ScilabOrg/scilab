@@ -35,7 +35,7 @@ int sci_grayplot(char *fname, void *pvApiCtx)
     int axes_def = 1;
     int *axes = &axes_def;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0;
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "axesflag", -1, 0, 0, NULL},
         { -1, "frameflag", -1, 0, 0, NULL},

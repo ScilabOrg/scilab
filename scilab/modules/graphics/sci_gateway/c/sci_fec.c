@@ -32,7 +32,7 @@ int sci_fec(char *fname, void *pvApiCtx)
     SciErr sciErr;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0, m4 = 0, n4 = 0, mn1 = 0;
 
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "colminmax", -1, 0, 0, NULL},
         { -1, "colout", -1, 0, 0, NULL},

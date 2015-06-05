@@ -49,7 +49,7 @@ int sci_xtitle(char * fname, void *pvApiCtx)
     int  box = 0;
     BOOL isBoxSpecified = FALSE;
     int iSubwinUID = 0;
-    static rhs_opts opts[] =
+    rhs_opts opts[] =
     {
         { -1, "boxed", -1, 0, 0, NULL},
         { -1, NULL, -1, 0, 0, NULL}
