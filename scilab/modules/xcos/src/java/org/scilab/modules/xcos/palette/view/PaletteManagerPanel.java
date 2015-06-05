@@ -16,6 +16,8 @@ package org.scilab.modules.xcos.palette.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DropMode;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.palette.PaletteManager;
+import org.scilab.modules.xcos.palette.actions.NavigationAction;
 import org.scilab.modules.xcos.palette.listener.PaletteManagerMouseListener;
 import org.scilab.modules.xcos.palette.listener.PaletteManagerTreeSelectionListener;
 import org.scilab.modules.xcos.palette.listener.PaletteTreeTransferHandler;
@@ -47,6 +50,9 @@ public class PaletteManagerPanel extends JSplitPane {
     private PaletteManager controller;
     private JTree tree;
     private PaletteDiagram diagramInstance;
+    private List<TreePath> historyNext;
+    private List<TreePath> historyPrev;
+    private TreePath currentPath;
 
     /**
      * Default constructor
@@ -57,6 +63,9 @@ public class PaletteManagerPanel extends JSplitPane {
     public PaletteManagerPanel(PaletteManager controller) {
         super(JSplitPane.HORIZONTAL_SPLIT);
         this.controller = controller;
+        this.historyNext = new ArrayList<TreePath>();
+        this.historyPrev = new ArrayList<TreePath>();
+        this.currentPath = null;
         currentSize = XcosConstants.PaletteBlockSize.NORMAL;
         fillUpContentPane();
     }
@@ -199,5 +208,80 @@ public class PaletteManagerPanel extends JSplitPane {
 
         /* Global layout */
         setContinuousLayout(true);
+    }
+
+    /**
+     * Updates the history.
+     */
+    public void updateHistory() {
+        TreePath lastPath = currentPath;
+        currentPath = tree.getSelectionPath();
+
+        if (lastPath != null && !currentPath.equals(lastPath)) {
+
+            if (historyPrev.isEmpty()) {
+                historyPrev.add(lastPath);
+            } else {
+                int prevPathIdx = historyPrev.size() - 1;
+                // going backwards?
+                if (currentPath.equals(historyPrev.get(prevPathIdx))) {
+                    historyNext.add(lastPath);
+                    historyPrev.remove(prevPathIdx);
+                    updateHistorySettings();
+                    return;
+                } else {
+                    // it seems to be a new path, just store it!
+                    // Soon we'll check if we are just going forward
+                    // or if it's really a new path!
+                    historyPrev.add(lastPath);
+                }
+            }
+
+            if (!historyNext.isEmpty()) {
+                int nextPathIdx = historyNext.size() - 1;
+                // going forward?
+                if (currentPath.equals(historyNext.get(nextPathIdx))) {
+                    historyNext.remove(nextPathIdx);
+                } else {
+                    // it is really a new path!
+                    // make sure it's on the top of the history!
+                    historyNext.clear();
+                }
+            }
+            updateHistorySettings();
+        }
+    }
+
+    /**
+     * Update the status of the buttons and the history length.
+     */
+    private void updateHistorySettings() {
+        if (historyNext.size() + historyPrev.size() > XcosConstants.HISTORY_LENGTH) {
+            historyPrev.remove(0);
+        }
+        NavigationAction.setEnabledNext(historyNext.size() > 0);
+        NavigationAction.setEnabledPrev(historyPrev.size() > 0);
+    }
+
+    /**
+     * Go to the next path (history).
+     */
+    public void goNext() {
+        try {
+            tree.setSelectionPath(historyNext.get(historyNext.size() - 1));
+        } catch (ArrayIndexOutOfBoundsException err) {
+            NavigationAction.setEnabledNext(false);
+        }
+    }
+
+    /**
+     * Go to the previous path (history).
+     */
+    public void goPrevious() {
+        try {
+            tree.setSelectionPath(historyPrev.get(historyPrev.size() - 1));
+        } catch (ArrayIndexOutOfBoundsException err) {
+            NavigationAction.setEnabledPrev(false);
+        }
     }
 }
