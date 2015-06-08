@@ -19,6 +19,7 @@
 extern "C"
 {
 #include "Scierror.h"
+#include "sciprint.h"
 #include "localization.h"
 #include "elem_common.h"
 }
@@ -69,9 +70,64 @@ types::Function::ReturnValue sci_atanh(types::typed_list &in, int _iRetCount, ty
         }
         else
         {
+            bool bOutSide = 0;
+            //check if all variables are between ]-1,1[
+            double* pInR = pDblIn->get();
+            int size = pDblIn->getSize();
             for (int i = 0; i < size; i++)
             {
-                pOutR[i] = atanh(pInR[i]);
+                if (std::abs(pInR[i]) == 1)
+                {
+                    if (ConfigVariable::getIeee() == 0)
+                    {
+                        Scierror(999, _("%s: Wrong value for input argument #%d : Singularity of the function.\n"), "atanh", 1);
+                        return types::Function::Error;
+                    }
+                    else if (ConfigVariable::getIeee() == 1)
+                    {
+                        if (ConfigVariable::getWarningMode())
+                        {
+                            sciprint(_("%s: Warning: Wrong value for input argument #%d : Singularity of the function.\n"), "atanh", 1);
+                        }
+                    }
+                }
+
+                if (std::abs(pInR[i]) > 1)
+                {
+                    bOutSide = 1;
+                    break;
+                }
+            }
+
+            if (bOutSide) // Values outside [-1,1]
+            {
+                pDblOut = new types::Double(pDblIn->getDims(), pDblIn->getDimsArray(), true);
+                double* pOutR = pDblOut->get();
+                double* pOutI = pDblOut->getImg();
+                double zero = 0;
+                for (int i = 0; i < size; i++)
+                {
+                    std::complex<double> c(pInR[i], zero);
+                    std::complex<double> d = std::atanh(c);
+                    pOutR[i] = d.real();
+                    if (pInR[i] > 1)
+                    {
+                        pOutI[i] = -d.imag();
+                    }
+                    else
+                    {
+                        pOutI[i] = d.imag();
+                    }                    
+                }
+            }
+            else //all values are in ]-1,1[
+            {
+                pDblOut = new types::Double(pDblIn->getDims(), pDblIn->getDimsArray(), false);
+                double* pOutR = pDblOut->get();
+                for (int i = 0; i < size; i++)
+                {
+                    pOutR[i] = atanh(pInR[i]);
+                }
             }
         }
 
