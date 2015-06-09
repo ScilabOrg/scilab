@@ -278,6 +278,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_xcos.h" />
     <ClInclude Include="..\..\includes\gw_xcos.h" />
+    <ClInclude Include="..\..\includes\gw_xcos.hxx" />
     <ClInclude Include="..\..\includes\xcosUtilities.hxx" />
     <ClInclude Include="..\cpp\loadStatus.hxx" />
     <ClInclude Include="..\jni\Modelica.hxx" />
