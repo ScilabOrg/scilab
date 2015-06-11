@@ -7,8 +7,9 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function scatter3(varargin)
+function polyLine = scatter3(varargin)
 
+    polyLine = 0;
     [lhs,rhs] = argn(0);
 
     if ~rhs
@@ -29,7 +30,6 @@ function scatter3(varargin)
                 warning("Not enough input arguments.")
                 return;
             else
-                 disp("Graphic handle specified!")
                 axesHandle = varargin(1);
                 X = varargin(2);
                 Y = varargin(3);
