@@ -6,27 +6,10 @@
 // =============================================================================
 //
 // <-- TEST WITH GRAPHIC -->
+
 assert_checkequal(name2rgb("red"), [255 0 0])
- ans  =
- 
-  T  
 assert_checkequal(name2rgb("nocolor"), [])
- ans  =
- 
-  T  
 assert_checkequal(name2rgb(["red" "green"]), [255 0 0;0 255 0])
- ans  =
- 
-  T  
 assert_checkequal(name2rgb(["red";"green"]), [255 0 0;0 255 0])
- ans  =
- 
-  T  
 assert_checkequal(name2rgb(["red" "green";"blue" "black"]), [255 0 0;0 0 255;0 255 0;0 0 0])
- ans  =
- 
-  T  
 assert_checkequal(name2rgb(["red" "green";"blue" "nocolor"]), [])
- ans  =
- 
-  T  
