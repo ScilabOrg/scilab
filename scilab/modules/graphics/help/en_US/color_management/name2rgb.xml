@@ -72,4 +72,15 @@ rgb2name(rgb)
             </member>
         </simplelist>
     </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0</revnumber>
+                <revremark>
+                    Function <function>name2rgb</function> can now handle a single string and a matrix of strings.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
 </refentry>
