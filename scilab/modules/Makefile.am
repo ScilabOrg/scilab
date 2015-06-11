@@ -121,8 +121,7 @@ libscilab_la_rootdir = $(mydatadir)
 pkglib_LTLIBRARIES = libscilab-cli.la libscilab.la
 libscilab_la_SOURCES =
 
-libscilab_la_LDFLAGS = $(AM_LDFLAGS) $(SCI_LDFLAGS)
-
+libscilab_la_LDFLAGS = $(LIBARCHIVE_LIBS) $(AM_LDFLAGS) $(SCI_LDFLAGS)
 
 GUI_LIBS = $(top_builddir)/modules/gui/libscigui.la \
 	$(top_builddir)/modules/renderer/libscirenderer.la \
@@ -214,6 +213,7 @@ endif
 # Core modules
 
 libscilab_la_LIBADD =
+libscilab_la_LIBADD += $(LIBARCHIVE_LIBS)
 
 if GUI
 libscilab_la_LIBADD += $(GUI_LIBS)	$(top_builddir)/modules/types/libscitypes.la
@@ -240,9 +240,9 @@ libscilab_la_LIBADD += $(LAPACK_LIBS) $(BLAS_LIBS)
 
 libscilab_cli_la_SOURCES =
 
-libscilab_cli_la_LDFLAGS = $(AM_LDFLAGS) $(SCI_LDFLAGS)
+libscilab_cli_la_LDFLAGS = $(LIBARCHIVE_LIBS) $(AM_LDFLAGS) $(SCI_LDFLAGS)
 
 # Core modules
-libscilab_cli_la_LIBADD = $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS) $(LAPACK_LIBS) $(BLAS_LIBS)
+libscilab_cli_la_LIBADD = $(LIBARCHIVE_LIBS) $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS) $(LAPACK_LIBS) $(BLAS_LIBS) 
 
 .NOTPARALLEL: libscilab-cli.la libscilab.la

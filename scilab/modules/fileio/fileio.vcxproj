@@ -240,6 +240,8 @@ lib /DEF:"$(ProjectDir)Preferences_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Pla
     <ClCompile Include="src\c\getlongpathname.c" />
     <ClCompile Include="src\c\getrelativefilename.c" />
     <ClCompile Include="src\c\getshortpathname.c" />
+    <ClCompile Include="src\c\archive_list.c" />
+    <ClCompile Include="src\c\archive_extract.c" />
     <ClCompile Include="sci_gateway\c\gw_fileio.c" />
     <ClCompile Include="src\c\isdir.c" />
     <ClCompile Include="src\c\isDrive.c" />
@@ -307,6 +309,7 @@ lib /DEF:"$(ProjectDir)Preferences_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Pla
     <ClCompile Include="sci_gateway\c\sci_pathsep.c" />
     <ClCompile Include="sci_gateway\c\sci_pwd.c" />
     <ClCompile Include="sci_gateway\c\sci_removedir.c" />
+    <ClCompile Include="sci_gateway\c\archive_wrap.c" />
     <ClCompile Include="src\c\scicurdir.c" />
     <ClCompile Include="src\c\sendtorecyclebin.c" />
     <ClCompile Include="src\c\splitpath.c" />
@@ -345,6 +348,8 @@ lib /DEF:"$(ProjectDir)Preferences_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Pla
     <ClInclude Include="includes\getFullFilename.h" />
     <ClInclude Include="src\c\getlongpathname.h" />
     <ClInclude Include="src\c\getrelativefilename.h" />
+    <ClInclude Include="src\c\archive_list.h" />
+    <ClInclude Include="src\c\archive_extract.h" />
     <ClInclude Include="includes\gw_fileio.h" />
     <ClInclude Include="includes\isdir.h" />
     <ClInclude Include="src\c\isDrive.h" />

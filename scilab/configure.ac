@@ -93,7 +93,7 @@ AC_LIB_RPATH
 # it tries to rebuild configure & makefile which can be a painmaker
 # if the version is different
 AM_MAINTAINER_MODE
-
+#ubdir-object
 AM_INIT_AUTOMAKE([-Wall foreign serial-tests subdir-objects]) # Not using -Werror because we override {C,F}FLAGS in order to disable optimisation
 
 AC_CANONICAL_HOST
