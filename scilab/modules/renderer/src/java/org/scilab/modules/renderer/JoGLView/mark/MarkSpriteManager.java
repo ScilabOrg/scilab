@@ -62,14 +62,13 @@ public class MarkSpriteManager {
         if (sizeMap == null) {
             sizeMap = new  ConcurrentHashMap<Integer, Texture>();
             spriteMap.put(id, sizeMap);
-        }
-        else {
+        } else {
             sprite = sizeMap.get(MarkSize);
         }
         if (sprite == null) {
             Integer selectedColor = contouredObject.getSelected() ? contouredObject.getSelectedColor() : null;
             sprite = MarkSpriteFactory.getMarkSprite(textureManager, contouredObject.getMark(), selectedColor, colorMap, appearance);
-            sizeMap.put(MarkSize,sprite);
+            sizeMap.put(MarkSize, sprite);
         }
         return sprite;
     }
@@ -88,13 +87,12 @@ public class MarkSpriteManager {
         if (sizeMap == null) {
             sizeMap = new  ConcurrentHashMap<Integer, Texture>();
             spriteMap.put(id, sizeMap);
-        }
-        else {
+        } else {
             sprite = sizeMap.get(markSize);
         }
         if (sprite == null) {
             sprite = MarkSpriteFactory.getMarkSprite(textureManager, mark, null, colorMap, appearance);
-            sizeMap.put(markSize,sprite);
+            sizeMap.put(markSize, sprite);
         }
         return sprite;
     }
@@ -119,8 +117,9 @@ public class MarkSpriteManager {
                 || property == GraphicObjectProperties.__GO_LINE_THICKNESS__
                 || property == GraphicObjectProperties.__GO_SELECTED__
                 || property == GraphicObjectProperties.__GO_COLOR_SET__
-                || property == GraphicObjectProperties.__GO_SIZES__
-        		|| property == GraphicObjectProperties.__GO_NUM_SIZES__) {
+                || property == GraphicObjectProperties.__GO_MARK_SIZES__
+                || property == GraphicObjectProperties.__GO_MARK_FOREGROUNDS__
+                || property == GraphicObjectProperties.__GO_MARK_BACKGROUNDS__) {
             dispose(id);
         }
     }
@@ -130,10 +129,10 @@ public class MarkSpriteManager {
      * @param id the given id.
      */
     public void dispose(Integer id) {
-        Map<Integer,Texture> sizeMap = spriteMap.get(id);
+        Map<Integer, Texture> sizeMap = spriteMap.get(id);
         if (sizeMap != null) {
-        	textureManager.dispose(sizeMap.values());
-    		sizeMap.clear();
+            textureManager.dispose(sizeMap.values());
+            sizeMap.clear();
         }
         spriteMap.remove(id);
     }
@@ -142,10 +141,10 @@ public class MarkSpriteManager {
      * Dispose all the mark sprite.
      */
     public void disposeAll() {
-    	for (Map<Integer,Texture> sizeMap: spriteMap.values()) {
-    		textureManager.dispose(sizeMap.values());
-    		sizeMap.clear();
-    	}
+        for (Map<Integer, Texture> sizeMap : spriteMap.values()) {
+            textureManager.dispose(sizeMap.values());
+            sizeMap.clear();
+        }
         spriteMap.clear();
     }
 }

@@ -1,11 +1,26 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+<<<<<<< HEAD
 // Copyright (C) 2015 - Scilab Enterprises - Juergen Koch
+=======
+// Copyright (C) 2014 - Scilab Enterprises - Juergen Koch
+>>>>>>> cfc2eb8... scatter with extended polyline properties mark_size, mark_foreground, mark_background
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
+<<<<<<< HEAD
 // <-- TEST WITH GRAPHIC -->
+=======
+// <-- Unit-test for name2rgb -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/
+//
+// <-- Short Description -->
+// Tests name2rgb
+// 
+>>>>>>> cfc2eb8... scatter with extended polyline properties mark_size, mark_foreground, mark_background
 assert_checkequal(name2rgb("red"), [255 0 0])
  ans  =
  
