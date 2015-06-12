@@ -395,7 +395,17 @@ static bool readElement(const double* const input, const int iType, const int iD
                 pList = new types::MList();
             }
 
-            offset += 2;
+            int offsetSave = 0;
+            if (offset == 0)
+            {
+                offset += 2;
+            }
+            else
+            {
+                // If reading a sublist, start off with a new offset
+                offsetSave = offset;
+                offset = 2;
+            }
             for (int i = 0; i < iDims; ++i)
             {
                 if (inputRows < 2 + offset)
@@ -413,6 +423,7 @@ static bool readElement(const double* const input, const int iType, const int iD
                 }
                 pList->append(element);
             }
+            offset += offsetSave;
             res = pList;
             break;
         }
