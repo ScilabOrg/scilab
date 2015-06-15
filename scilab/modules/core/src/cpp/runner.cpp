@@ -12,6 +12,7 @@
 
 #include "runner.hxx"
 #include "threadmanagement.hxx"
+#include "configvariable.hxx"
 
 using namespace ast;
 
@@ -36,7 +37,15 @@ void *Runner::launch(void *args)
     }
     catch (const ast::ScilabException& se)
     {
-        scilabErrorW(se.GetErrorMessage().c_str());
+        if (se.GetErrorMessage() != L"")
+        {
+            scilabErrorW(se.GetErrorMessage().c_str());
+        }
+
+        std::wostringstream ostr;
+        ConfigVariable::whereErrorToString(ostr);
+        scilabErrorW(ostr.str().c_str());
+        ConfigVariable::resetWhereError();
     }
 
     // reset error state when new prompt occurs
