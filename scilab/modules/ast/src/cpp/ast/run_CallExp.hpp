@@ -274,7 +274,12 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 {
                     wchar_t szError[bsiz];
                     os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n").c_str(), sm.GetErrorLocation().first_line, pCall->getName().c_str());
-                    throw ScilabMessage(szError);
+                    wostringstream os;
+                    PrintVisitor printMe(os);
+                    e.accept(printMe);
+                    os << std::endl;
+
+                    sm.SetErrorMessage(sm.GetErrorMessage() + szError + os.str());
                 }
             }
 
