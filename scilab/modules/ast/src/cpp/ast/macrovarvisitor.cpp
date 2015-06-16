@@ -18,15 +18,41 @@ using namespace ast;
 using namespace symbol;
 namespace ast
 {
+
+void MacrovarVisitor::visit (const MatrixLineExp &e)
+{
+    exps_t columns = e.getColumns();
+    for (exps_t::const_iterator it = columns.begin(), itEnd = columns.end(); it != itEnd ; ++it)
+    {
+        (*it)->accept (*this);
+        add();
+    }
+}
+
 void MacrovarVisitor::visit (const SimpleVar &e)
 {
     m_current = e.getSymbol().getName();
 }
 
+void MacrovarVisitor::visit(const OpExp &e)
+{
+    e.getLeft().accept(*this);
+    add();
+    e.getRight().accept(*this);
+    add();
+}
+
 void MacrovarVisitor::visit(const CallExp &e)
 {
     e.getName().accept (*this);
-    add();
+    if (isAssignExpLeftExp)
+    {
+        add(m_local);
+    }
+    else
+    {
+        add();
+    }
 
     exps_t args = e.getArgs();
     for (auto arg : args)
@@ -38,15 +64,51 @@ void MacrovarVisitor::visit(const CallExp &e)
 
 void MacrovarVisitor::visit(const AssignExp &e)
 {
+    isAssignExpLeftExp = true;
     e.getLeftExp().getOriginal()->accept (*this);
-    add();
+    isAssignExpLeftExp = false;
+    if (e.getLeftExp().isSimpleVar())
+    {
+        add(m_local);
+    }
+    else
+    {
+        add();
+    }
+
     e.getRightExp().getOriginal()->accept (*this);
     add();
+}
+
+void MacrovarVisitor::visit (const AssignListExp  &e)
+{
+    isAssignExpLeftExp = true;
+    for (exps_t::const_iterator it = e.getExps().begin (), itEnd = e.getExps().end(); it != itEnd; ++it)
+    {
+        (*it)->accept (*this);
+        if ((*it)->isSimpleVar())
+        {
+            add(m_local);
+        }
+        else
+        {
+            add();
+        }
+    }
+    isAssignExpLeftExp = false;
 }
 
 void MacrovarVisitor::visit (const VarDec  &e)
 {
     e.getInit().getOriginal()->accept(*this);
+    add(m_local);
+}
+
+void MacrovarVisitor::visit (const FunctionDec  &e)
+{
+    // Function declared locally but never called
+    // If called then the CallExp visitor does the job
+    m_current = e.getSymbol().getName();
     add(m_local);
 }
 
@@ -92,24 +154,15 @@ void MacrovarVisitor::add(std::list<std::wstring>& lst)
 
 void MacrovarVisitor::add()
 {
-    InternalType* pVar = Context::getInstance()->get(Symbol(m_current));
-
-    if (pVar)
+    InternalType* pVar = Context::getInstance()->getAllButCurrentLevel(Symbol(m_current));
+    if (pVar && pVar->isCallable())
     {
-        if (pVar->isCallable())
-        {
-            //symbol already exists and callable
-            add(m_called);
-            return;
-        }
-
-        //symbol already exists and not callable.
-        //it is a external var
-        add(m_external);
+        //symbol already exists and callable
+        add(m_called);
         return;
     }
 
-    add(m_local);
+    add(m_external);
 }
 
 bool MacrovarVisitor::isAlreadyIn(std::list<std::wstring>& lst)
