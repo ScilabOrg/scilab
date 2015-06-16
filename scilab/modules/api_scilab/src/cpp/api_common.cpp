@@ -434,6 +434,27 @@ static SciErr getinternalVarAddress(void *_pvCtx, int _iVar, int **_piAddress)
 SciErr getVarNameFromPosition(void *_pvCtx, int _iVar, char *_pstName)
 {
     SciErr sciErr = sciErrInit();
+
+    if (_pvCtx == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POSITION, _("%s: bad call to %s! (1rst argument).\n"), "",
+                        "getVarNameFromPosition");
+        return sciErr;
+    }
+
+    GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
+    typed_list in = *pStr->m_pIn;
+    optional_list opt = *pStr->m_pOpt;
+
+    if (in[_iVar - 1]->isCallable())
+    {
+        std::wstring pwstring = in[_iVar - 1]->getAs<types::Callable>()->getName();
+        const wchar_t* pwcName = pwstring.c_str();
+        char* pstNameTempo = wide_string_to_UTF8(pwcName);
+        strcpy(_pstName, pstNameTempo);
+        FREE(pstNameTempo);
+    }
+
 #if 0
     int iNameLen = 0;
     int iJob1 = 1;
