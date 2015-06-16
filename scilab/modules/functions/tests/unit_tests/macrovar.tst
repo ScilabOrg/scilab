@@ -84,3 +84,66 @@ endfunction
 
 val = macrovar(foo);
 assert_checkequal(ref, val);
+
+ref = list([], [], ["u";"t"], [], ["y"]);
+function [] = foo()
+    y = [u;t];
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
+ref = list([], [], ["u";"t"], [], ["y"]);
+function [] = foo()
+    y(1) = [u;t];
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
+ref = list([], [], ["u";"t"], [], ["y";"z"]);
+function [] = foo()
+    [y,z] = [u;t];
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
+ref = list([], [], ["u";"t"], [], ["y";"z"]);
+function [] = foo()
+    [y(1),z(2)] = [u;t];
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
+ref = list([], [], ["u";"t"], [], ["bar";"y"]);
+function [] = foo()
+    function bar()
+    endfunction
+    bar();
+    y = [u;t];
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
+ref = list([], [], ["u";"t"], [], ["bar";"y"]);
+function [] = foo()
+    function bar()
+    endfunction
+    y = [u;t];
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
+ref = list(["x1";"x2"], ["y"], ["a"], [], ["loc"]);
+function y = foo(x1, x2)
+    loc = 1;
+    y = a*x1+x2-loc
+endfunction
+
+val = macrovar(foo);
+assert_checkequal(ref, val);
+
