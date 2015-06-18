@@ -1,6 +1,6 @@
-function s = ArchiveList(filename)
-	filepath = fullpath(filename);
-	if isfile(filepath) then
+function s = archiveList(filename)
+	filepath = pathconvert(filename,%f,%t,"u");
+	if isfile(filename) then
 	    output = archive_list(filepath);
 	    output_split = strsplit(output,";");
 	    if output_split(1)=="ERROR" then

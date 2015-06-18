@@ -69,7 +69,8 @@ static gw_generic_table Tab[] =
     {sci_getURL, "getURL"},
     {sci_splitURL, "splitURL"},
     {_wrap_archive_list,"archive_list"},
-    {_wrap_archive_extract,"archive_extract"}
+    {_wrap_archive_extract,"archive_extract"},
+    {_wrap_archive_compress,"archive_compress"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_fileio(void)

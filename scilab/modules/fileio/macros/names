@@ -1,7 +1,8 @@
 %_listvarinfile
 %dir_p
-ArchiveExtract
-ArchiveList
+archiveCompress
+archiveExtract
+archiveList
 dir
 dirname
 dispfiles

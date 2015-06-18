@@ -59,7 +59,8 @@ src/c/createtempfilename.c \
 src/c/dlManager.c \
 src/c/convert_tools.c \
 src/c/archive_list.c \
-src/c/archive_extract.c
+src/c/archive_extract.c \
+src/c/archive_compress.c
 
 GATEWAY_SOURCES = \
 sci_gateway/c/gw_fileio.c \

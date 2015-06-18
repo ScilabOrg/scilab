@@ -1236,6 +1236,7 @@ SWIG_SciDoubleOrInt32_AsInt(void *pvApiCtx, SwigSciObject iVar, int *piValue, ch
 
         extern char* archive_list(char *filename);
         extern int archive_extract(char *filename, int perm_flag);
+        extern int archive_compress(char *archive_name,char *file_list, char *arg_list);
         
 int _wrap_archive_list(SWIG_GatewayParameters) {
   char *arg1 = (char *) 0 ;
@@ -1261,7 +1262,6 @@ int _wrap_archive_list(SWIG_GatewayParameters) {
 }
 
 static int verbose;
-
 int verbose_get(SWIG_GatewayParameters) {
   SWIG_CheckInputArgument(pvApiCtx, 0, 0);
   SWIG_CheckOutputArgument(pvApiCtx, 1, 1);
@@ -1320,6 +1320,50 @@ int _wrap_archive_extract(SWIG_GatewayParameters) {
   SWIG_Scilab_SetOutputPosition(0);
   if (!SWIG_IsOK(SWIG_Scilab_SetOutput(pvApiCtx, SWIG_From_int((int)(result))))) return SWIG_ERROR;
   if (alloc1 == SWIG_NEWOBJ) free((char*)buf1);
+  return SWIG_OK;
+}
+
+
+int _wrap_archive_compress(SWIG_GatewayParameters) {
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int result;
+  
+  SWIG_CheckInputArgument(pvApiCtx, 3, 3);
+  SWIG_CheckOutputArgument(pvApiCtx, 1, 1);
+  SWIG_Scilab_SetFuncName(fname);
+  SWIG_Scilab_SetApiContext(pvApiCtx);
+  res1 = SWIG_SciString_AsCharPtrAndSize(pvApiCtx, 1, &buf1, NULL, &alloc1, SWIG_Scilab_GetFuncName());
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "archive_compress" "', argument " "1"" of type '" "char *""'");
+  }
+  arg1 = (char *)(buf1);
+  res2 = SWIG_SciString_AsCharPtrAndSize(pvApiCtx, 2, &buf2, NULL, &alloc2, SWIG_Scilab_GetFuncName());
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "archive_compress" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = (char *)(buf2);
+  res3 = SWIG_SciString_AsCharPtrAndSize(pvApiCtx, 3, &buf3, NULL, &alloc3, SWIG_Scilab_GetFuncName());
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "archive_compress" "', argument " "3"" of type '" "char *""'");
+  }
+  arg3 = (char *)(buf3);
+  result = (int)archive_compress(arg1,arg2,arg3);
+  SWIG_Scilab_SetOutputPosition(0);
+  if (!SWIG_IsOK(SWIG_Scilab_SetOutput(pvApiCtx, SWIG_From_int((int)(result))))) return SWIG_ERROR;
+  if (alloc1 == SWIG_NEWOBJ) free((char*)buf1);
+  if (alloc2 == SWIG_NEWOBJ) free((char*)buf2);
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
   return SWIG_OK;
 }
 
@@ -1632,6 +1676,9 @@ int libsci_archive_list(wchar_t *pwstFuncName) {
   if (wcscmp(pwstFuncName, L"archive_extract") == 0) {
     addCFunction((wchar_t *)L"archive_extract", &_wrap_archive_extract, (wchar_t *)MODULE_NAME); 
   }
+  if (wcscmp(pwstFuncName, L"archive_compress") == 0) {
+    addCFunction((wchar_t *)L"archive_compress", &_wrap_archive_compress, (wchar_t *)MODULE_NAME); 
+  }
   return 1;
 };
 #else
@@ -1656,6 +1703,9 @@ static GenericTable Tab[] = {
   },
   {
     (Myinterfun)sci_gateway, (GT)_wrap_archive_extract, (char *)"archive_extract"
+  },
+  {
+    (Myinterfun)sci_gateway, (GT)_wrap_archive_compress, (char *)"archive_compress"
   }
 };
 

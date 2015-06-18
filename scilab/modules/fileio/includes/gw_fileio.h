@@ -65,6 +65,7 @@ int sci_getURL(char *fname, unsigned long fname_len);
 int sci_splitURL(char *fname, unsigned long fname_len);
 int _wrap_archive_list(char *fname);
 int _wrap_archive_extract(char *fname);
+int _wrap_archive_compress(char *fname);
 /*--------------------------------------------------------------------------*/
 #endif /* __GW_FILEIO_H__ */
 /*--------------------------------------------------------------------------*/

@@ -1,6 +1,6 @@
-function s = ArchiveExtract(filename,arg_list)
+function s = archiveExtract(filename,arg_list)
 	if exists("filename") & exists("arg_list") then
-	    filepath = fullpath(filename);
+	    filepath = pathconvert(filename,%f,%t,"u");
 	    perm_flag = 0;
 	    if isfile(filepath) then
                 for i = 1:length(length(arg_list))
