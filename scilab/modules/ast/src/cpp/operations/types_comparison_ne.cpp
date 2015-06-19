@@ -25,6 +25,7 @@
 #include "macro.hxx"
 #include "macrofile.hxx"
 #include "overload.hxx"
+#include "user.hxx"
 
 using namespace types;
 
@@ -2121,6 +2122,8 @@ void fillComparisonNoEqualFunction()
     scilab_fill_comparison_no_equal(ScalarHandle, MacroFile, M_E, GraphicHandle, MacroFile, Bool);
     scilab_fill_comparison_no_equal(MacroFile, ScalarHandle, M_E, MacroFile, GraphicHandle, Bool);
 
+    //UserType
+    scilab_fill_comparison_no_equal(UserType, UserType, UT_UT, UserType, UserType, Bool);
 
 #undef scilab_fill_comparison_no_equal
 
@@ -3748,4 +3751,31 @@ InternalType* compnoequal_MCR_MCR(T *_pL, U *_pR)
     }
 
     return new Bool(ret);
+}
+
+//UserType
+template<class T, class U, class O>
+InternalType* compnoequal_UT_UT(T *_pL, U *_pR)
+{
+    if ((_pL->getType() != _pR->getType()) && (_pL->getType() == GenericType::ScilabUserType || _pR->getType() == GenericType::ScilabUserType))
+    {
+        //try to find overload function, if symbol exist, return nullptr to let opexep call it.
+        //otherwise do a "binary" comparison
+        types::typed_list in;
+        in.push_back(_pL);
+        in.push_back(_pR);
+        std::wstring overloadName(Overload::buildOverloadName(Overload::getNameFromOper(ast::OpExp::eq), in, 1, true));
+        types::InternalType* pIT = symbol::Context::getInstance()->get(symbol::Symbol(overloadName));
+        if (pIT)
+        {
+            return nullptr;
+        }
+    }
+
+    Bool* eq = _pL->equal(_pR);
+    for (int i = 0; i < eq->getSize(); ++i)
+    {
+        eq->set(i, !eq->get(i));
+    }
+    return eq;
 }
