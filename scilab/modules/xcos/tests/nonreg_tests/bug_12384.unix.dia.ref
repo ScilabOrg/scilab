@@ -19,6 +19,5 @@ importXcosDiagram(SCI+"/modules/xcos/tests/nonreg_tests/bug_12384.zcos");
 Info = scicos_simulate(scs_m,list());
 --------------------------------------------\
  Main Modelica : TMPDIR/Loop_im.mo
-
  Flat Modelica : TMPDIR/Loop_imf.mo
  Simulation C code :TMPDIR/Loop_im.c
