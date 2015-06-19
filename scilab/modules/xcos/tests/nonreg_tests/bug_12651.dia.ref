@@ -17,8 +17,7 @@
 // this demo contains 2 scopes
 importXcosDiagram SCI/modules/xcos/demos/Simple_Demo.zcos
  ans  =
- 
-  T  
+  T
 // clear any simulation state
 Info = list();
 // first call perform a full-compilation, then ignore some blocks
