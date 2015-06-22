@@ -62,4 +62,5 @@ public abstract class StyleAction extends DefaultAction {
             selectionCellsHandler.clearCellHandler(edge);
         }
     }
+
 }
