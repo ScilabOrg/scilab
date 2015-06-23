@@ -11,8 +11,12 @@
 */
 
 #include "treevisitor.hxx"
+#include "printvisitor.hxx"
 #include "execvisitor.hxx"
 #include "token.hxx"
+#include "os_string.h"
+
+#include <wchar.h>
 
 namespace ast
 {
@@ -136,7 +140,6 @@ void TreeVisitor::visit(const MatrixExp &e)
 
     types::List* sub = createOperation();
     types::List* ope = new types::List();
-    sub->append(ope);
 
     int idx = 0;
     for (auto it : lines)
@@ -145,31 +148,36 @@ void TreeVisitor::visit(const MatrixExp &e)
 
         if (idx >= 2)
         {
+            sub->append(ope);
             sub->append(new types::String(L"cc"));
+
             //create a new operation
             //put previous stage in lhs and
             //result in rhs
-            types::List* lst = createOperation();
-            types::List* tmp = new types::List();
-            tmp->append(sub);
+            types::List* subcolcatOperation = createOperation();
+            types::List* subcolcatOperands = new types::List();
+            subcolcatOperands->append(sub);
             //add EOL
-            tmp->append(getEOL());
+            //subcolcatOperands->append(getEOL());
 
-            lst->append(tmp);
-            ope = tmp;
-            sub = lst;
+            subcolcatOperands->append(getList());
+
+            ope = subcolcatOperands;
+            sub = subcolcatOperation;
         }
-
-        ope->append(getList());
-
-        if (idx == 0)
+        else
         {
-            //add EOL
-            ope->append(getEOL());
+            ope->append(getList());
+            if (idx == 0)
+            {
+                //add EOL
+                //ope->append(getEOL());
+            }
         }
+
         ++idx;
     }
-
+    sub->append(ope);
     sub->append(new types::String(L"cc"));
     l = sub;
 }
@@ -185,7 +193,6 @@ void TreeVisitor::visit(const MatrixLineExp &e)
 
     types::List* sub = createOperation();
     types::List* ope = new types::List();
-    sub->append(ope);
 
     int idx = 0;
     int last_line = -1;
@@ -195,6 +202,7 @@ void TreeVisitor::visit(const MatrixLineExp &e)
 
         if (idx >= 2)
         {
+            sub->append(ope);
             sub->append(new types::String(L"rc"));
             //create a new operation
             //put previous stage in lhs and
@@ -202,16 +210,21 @@ void TreeVisitor::visit(const MatrixLineExp &e)
             types::List* lst = createOperation();
             types::List* tmp = new types::List();
             tmp->append(sub);
+            tmp->append(getList());
 
-            lst->append(tmp);
+            //lst->append(tmp);
             ope = tmp;
             sub = lst;
         }
+        else
+        {
+            ope->append(getList());
+        }
 
-        ope->append(getList());
         ++idx;
     }
 
+    sub->append(ope);
     sub->append(new types::String(L"rc"));
     l = sub;
 }
@@ -816,35 +829,80 @@ void TreeVisitor::visit(const TransposeExp  &e)
 
 void TreeVisitor::visit(const FunctionDec  &e)
 {
-    //types::TList* function = new types::TList();
+    wostringstream wostr;
+    PrintVisitor pv(wostr, false, false);
 
-    ////header
-    //types::String* varstr = new types::String(1, 3);
-    //varstr->set(0, L"inline");
-    //varstr->set(1, L"prototype");
-    //varstr->set(2, L"definition");
-    //function->append(varstr);
+    types::TList* function = new types::TList();
 
-    ////add returns
-    //std::wstring returns;
-    //returns += L"[";
+    //header
+    types::String* varstr = new types::String(1, 3);
+    varstr->set(0, L"inline");
+    varstr->set(1, L"prototype");
+    varstr->set(2, L"definition");
+    function->append(varstr);
 
-    //const ArrayListVar *pListRet = e.getReturns().getAs<ArrayListVar>();
-    //exps_t rets = pListRet->getVars();
-    //int idx = 0;
-    //for (auto ret : rets)
-    //{
-    //    if (idx > 0)
-    //    {
-    //        returns += L", ";
-    //    }
+    // First ask if there are some return values.
+    if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 1)
+    {
+        wostr << SCI_OPEN_RETURNS;
+    }
 
-    //    SimpleVar* s = ret->getAs<SimpleVar>();
-    //    returns += s->getSymbol().getName();
-    //    ++idx;
-    //}
-    //
-    l = new types::List();
+    e.getReturns().getOriginal()->accept(pv);
+
+    if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 1)
+    {
+        wostr << SCI_CLOSE_RETURNS;
+    }
+
+    wostr << " ";
+    if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 0)
+    {
+        wostr << SCI_ASSIGN << " ";
+    }
+
+    // Then get the function name
+    wostr << e.getSymbol().getName();
+
+    // Then get function args
+    wostr << SCI_OPEN_ARGS;
+    e.getArgs().getOriginal()->accept(pv);
+    wostr << SCI_CLOSE_ARGS << std::endl;
+    std::wstring wstFun = wostr.str();
+    wchar_t* pwstFun = wcsdup(wstFun.data());
+    wchar_t* pwstState;
+    function->append(new types::String(wcstok(pwstFun, L"\n", &pwstState)));
+    free(pwstFun);
+
+    // Now print function body
+    wostringstream wostrBody;
+    PrintVisitor pvBody(wostrBody, false, true);
+    std::vector<wchar_t*> allTokens;
+    e.getBody().getOriginal()->accept(pvBody);
+    wchar_t* pwstBody = wcsdup(wostrBody.str().data());
+    wchar_t* pwstToken = wcstok(pwstBody, L"\n", &pwstState);
+    while (pwstToken != NULL)
+    {
+        allTokens.push_back(pwstToken);
+        pwstToken = wcstok(NULL, L"\n", &pwstState);
+    }
+
+    if (allTokens.size() > 0)
+    {
+        types::String *stringMatrix = new types::String(allTokens.size(), 1);
+        for (int i = 0; i < allTokens.size(); i++)
+        {
+            stringMatrix->set(i, allTokens.at(i));
+        }
+        function->append(stringMatrix);
+    }
+    else
+    {
+        function->append(types::Double::Empty());
+    }
+    free(pwstBody);
+    free(pwstToken);
+
+    l = function;
 }
 
 types::InternalType* TreeVisitor::getEOL()
