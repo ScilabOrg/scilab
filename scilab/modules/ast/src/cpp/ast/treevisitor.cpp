@@ -11,8 +11,12 @@
 */
 
 #include "treevisitor.hxx"
+#include "printvisitor.hxx"
 #include "execvisitor.hxx"
 #include "token.hxx"
+#include "os_string.h"
+
+#include <wchar.h>
 
 namespace ast
 {
@@ -816,35 +820,80 @@ void TreeVisitor::visit(const TransposeExp  &e)
 
 void TreeVisitor::visit(const FunctionDec  &e)
 {
-    //types::TList* function = new types::TList();
+    wostringstream wostr;
+    PrintVisitor pv(wostr, false, false);
 
-    ////header
-    //types::String* varstr = new types::String(1, 3);
-    //varstr->set(0, L"inline");
-    //varstr->set(1, L"prototype");
-    //varstr->set(2, L"definition");
-    //function->append(varstr);
+    types::TList* function = new types::TList();
 
-    ////add returns
-    //std::wstring returns;
-    //returns += L"[";
+    //header
+    types::String* varstr = new types::String(1, 3);
+    varstr->set(0, L"inline");
+    varstr->set(1, L"prototype");
+    varstr->set(2, L"definition");
+    function->append(varstr);
 
-    //const ArrayListVar *pListRet = e.getReturns().getAs<ArrayListVar>();
-    //exps_t rets = pListRet->getVars();
-    //int idx = 0;
-    //for (auto ret : rets)
-    //{
-    //    if (idx > 0)
-    //    {
-    //        returns += L", ";
-    //    }
+    // First ask if there are some return values.
+    if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 1)
+    {
+        wostr << SCI_OPEN_RETURNS;
+    }
 
-    //    SimpleVar* s = ret->getAs<SimpleVar>();
-    //    returns += s->getSymbol().getName();
-    //    ++idx;
-    //}
-    //
-    l = new types::List();
+    e.getReturns().getOriginal()->accept(pv);
+
+    if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 1)
+    {
+        wostr << SCI_CLOSE_RETURNS;
+    }
+
+    wostr << " ";
+    if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 0)
+    {
+        wostr << SCI_ASSIGN << " ";
+    }
+
+    // Then get the function name
+    wostr << e.getSymbol().getName();
+
+    // Then get function args
+    wostr << SCI_OPEN_ARGS;
+    e.getArgs().getOriginal()->accept(pv);
+    wostr << SCI_CLOSE_ARGS << std::endl;
+    std::wstring wstFun = wostr.str();
+    wchar_t* pwstFun = wcsdup(wstFun.data());
+    wchar_t* pwstState;
+    function->append(new types::String(wcstok(pwstFun, L"\n", &pwstState)));
+    free(pwstFun);
+
+    // Now print function body
+    wostringstream wostrBody;
+    PrintVisitor pvBody(wostrBody, false, true);
+    std::vector<wchar_t*> allTokens;
+    e.getBody().getOriginal()->accept(pvBody);
+    wchar_t* pwstBody = wcsdup(wostrBody.str().data());
+    wchar_t* pwstToken = wcstok(pwstBody, L"\n", &pwstState);
+    while (pwstToken != NULL)
+    {
+        allTokens.push_back(pwstToken);
+        pwstToken = wcstok(NULL, L"\n", &pwstState);
+    }
+
+    if (allTokens.size() > 0)
+    {
+        types::String *stringMatrix = new types::String(allTokens.size(), 1);
+        for (int i = 0; i < allTokens.size(); i++)
+        {
+            stringMatrix->set(i, allTokens.at(i));
+        }
+        function->append(stringMatrix);
+    }
+    else
+    {
+        function->append(types::Double::Empty());
+    }
+    free(pwstBody);
+    free(pwstToken);
+
+    l = function;
 }
 
 types::InternalType* TreeVisitor::getEOL()
