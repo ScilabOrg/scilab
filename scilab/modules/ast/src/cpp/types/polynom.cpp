@@ -28,24 +28,24 @@ Polynom::Polynom()
 #endif
 }
 
-Polynom::Polynom(wstring& _szVarName, int _iRows, int _iCols)
+Polynom::Polynom(const wstring& _szVarName, int _iRows, int _iCols)
 {
     int piDims[2]   = {_iRows, _iCols};
     createPoly(_szVarName, 2, piDims, NULL);
 }
 
-Polynom::Polynom(wstring& _szVarName, int _iRows, int _iCols, const int *_piRank)
+Polynom::Polynom(const wstring& _szVarName, int _iRows, int _iCols, const int *_piRank)
 {
     int piDims[2]   = {_iRows, _iCols};
     createPoly(_szVarName, 2, piDims, _piRank);
 }
 
-Polynom::Polynom(wstring& _szVarName, int _iDims, int* _piDims)
+Polynom::Polynom(const wstring& _szVarName, int _iDims, int* _piDims)
 {
     createPoly(_szVarName, _iDims, _piDims, NULL);
 }
 
-Polynom::Polynom(wstring& _szVarName, int _iDims, int* _piDims, const int *_piRank)
+Polynom::Polynom(const wstring& _szVarName, int _iDims, int* _piDims, const int *_piRank)
 {
     createPoly(_szVarName, _iDims, _piDims, _piRank);
 }
@@ -61,7 +61,7 @@ Polynom::~Polynom()
 #endif
 }
 
-void Polynom::createPoly(wstring& _szVarName, int _iDims, int* _piDims, const int *_piRank)
+void Polynom::createPoly(const wstring& _szVarName, int _iDims, int* _piDims, const int *_piRank)
 {
     m_szVarName = _szVarName;
     SinglePoly** pPoly = NULL;

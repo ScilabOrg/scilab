@@ -457,9 +457,14 @@ public :
     }
 
 
-    void visitprivate(const DollarVar &/*e*/)
+    void visitprivate(const DollarVar &/*e*/);
     {
-        Dollar* pVar = new Dollar();
+        int iRank = 1;
+        Polynom* pVar = new Polynom(L"$", 1, 1, &iRank);
+        double* pdblCoef = pVar->get(0)->get();
+        pdblCoef[0] = 0;
+        pdblCoef[1] = 1;
+
         setResult(pVar);
     }
 
