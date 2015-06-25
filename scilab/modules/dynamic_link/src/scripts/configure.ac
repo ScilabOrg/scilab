@@ -2,6 +2,7 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) INRIA - 2006-2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009-2010 - Sylvestre Ledru
+# Copyright (C) Scilab Enterprises - 2015 - Clement DAVID
 # 
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
@@ -46,7 +47,6 @@ AC_CONFIG_FILES([Makefile])
 #################
 AC_PROG_CPP
 AC_PROG_GREP
-AC_EIGEN()
 
 # x86_64 needs -fPIC
 case "$host" in
