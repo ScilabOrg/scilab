@@ -21,6 +21,5 @@ l = list();
 l(1) = {};
 assert_checkequal(l, list({}));
 size: Wrong number of input argument(s): 1 expected.
-at line   116 of function assert_checkequal called by :
-assert_checkequal(l, list({}))
-at line    39 of exec file called by :
+at line   112 of function assert_checkequal ( SCI/modules/development_tools/macros/assert/assert_checkequal.sci line 121 )
+at line    39 of executed file TMPDIR/bug_9600.tst
