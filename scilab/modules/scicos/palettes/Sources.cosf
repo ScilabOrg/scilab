@@ -221,8 +221,8 @@ scs_m.objs(1)=scicos_block(..
                        list(..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[82.230597,652.6813],[40,40],%t,["1";"0";"1"],[],4,..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[82.230597,652.6813],[40,40],%t,0,["1";"0";"1"],[],4,..
                        2,2,..
                        list(["txt=[''Step''];";"xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');"],8),..
                        "",[],[]),..
@@ -237,8 +237,8 @@ scs_m.objs(1)=scicos_block(..
                        [5,-1],[1,1,0],[1,1,1]),..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[150.80203,662.6813],[20,20],%t,"1",4,[],[],[],..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[150.80203,662.6813],[20,20],%t,0,"1",4,[],[],[],..
                        list(" ",8),"",[],[]),..
                        mlist(..
                        ["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state",..

@@ -178,8 +178,8 @@ scs_m.objs(1)=scicos_block(..
                        list(..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[60.518363,178.33333],[60,40],%t,["0";"3"],[],7,10,..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[60.518363,178.33333],[60,40],%t,0,["0";"3"],[],7,10,..
                        [],..
                        list(..
                        "xstringb(orig(1),orig(2),[''  Counter'';''Modulo ''+string(base)],sz(1),sz(2),''fill'');",..
@@ -191,8 +191,8 @@ scs_m.objs(1)=scicos_block(..
                        list(),[],3,list(),"c",[],[%f,%f],"",0,0,list()),"Modulo_Count",list()),..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[215.37648,299.81481],[20,30],%t,"1",[],[],[],6,..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[215.37648,299.81481],[20,30],%t,0,"1",[],[],[],6,..
                        list(..
                        ["xo=orig(1);yo=orig(2)+sz(2)/3";"xstringb(xo,yo,string(prt),sz(1),sz(2)/1.5)"],..
                        8),"",[],[]),..
@@ -203,8 +203,8 @@ scs_m.objs(1)=scicos_block(..
                        list(),"d",-1,[%f,%f],"",0,0,list()),"CLKINV_f",list()),..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[221.30407,86.481481],[20,30],%t,"1",[],[],5,[],..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[221.30407,86.481481],[20,30],%t,0,"1",[],[],5,[],..
                        list(" ",8),"",[],[]),..
                        mlist(..
                        ["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state",..
@@ -213,8 +213,8 @@ scs_m.objs(1)=scicos_block(..
                        list(),"d",[],[%f,%f],"",0,0,list()),"CLKOUTV_f",list()),..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[193.14804,168.7037],[60,60],%t,["1";"0"],7,[],9,..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[193.14804,168.7037],[60,60],%t,0,["1";"0"],7,[],9,..
                        [0;5],..
                        list(..
                        ["txt=[''If in>0'';'' '';'' then    else''];";
@@ -232,8 +232,8 @@ scs_m.objs(1)=scicos_block(..
                        [198.33333;198.7037],"drawlink",[0,0],[1,1],[1,1,0],[4,1,1]),..
                        mlist(["Block","graphics","model","gui","doc"],..
                        mlist(..
-                       ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout","gr_i","id",..
-                       "in_implicit","out_implicit"],[224.29194;267.98739],[0.3333333,0.3333333],%t,[],..
+                       ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i","id",..
+                       "in_implicit","out_implicit"],[224.29194;267.98739],[0.3333333,0.3333333],%t,0,[],..
                        [],[],6,[9;10],list([],8),"",[],[]),..
                        mlist(..
                        ["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state",..
