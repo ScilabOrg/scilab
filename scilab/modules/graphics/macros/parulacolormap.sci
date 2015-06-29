@@ -1,11 +1,11 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) Scilab Enterprises - 2015 - 2012 - Juergen Koch <juergen.koch@hs-esslingen.de>
+// Copyright (C) Scilab Enterprises - 2015 - Juergen Koch <juergen.koch@hs-esslingen.de>
 // 
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution.  The terms
 // are also available at    
-// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 function cmap = parulacolormap(varargin)
 
@@ -97,7 +97,9 @@ cmapDefault =[
     0.9763    0.9831    0.0538
 ]
 
-if n == nDefault then
+if n == 0 then
+    cmap = [];
+elseif n == nDefault then
     cmap = cmapDefault;
 else
     cmap = interp1(1:nDefault, cmapDefault, linspace(1,nDefault,n),"linear");

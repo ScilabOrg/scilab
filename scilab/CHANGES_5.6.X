@@ -6,6 +6,7 @@ New Features
 
 * scatter plot with different mark colors is now available:
   TODO : save/load+display+doc of new properties
+* parulacolormap is now available
 
 
 Compilation
