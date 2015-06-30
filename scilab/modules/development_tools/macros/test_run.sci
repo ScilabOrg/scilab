@@ -811,7 +811,7 @@ function status = test_single(_module, _testPath, _testName)
         if (isdir(_module.moduleName) & isfile(loader_path))
             test_cmd = "( " + language_arg + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -e ""exec(''" + loader_path + "'');exec(''" + tmp_tst +"'');""" + " > " + tmp_res + " ) 2> " + tmp_err;
         else
-            test_cmd = "( " + language_arg + " " + prefix_bin + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -f " + tmp_tst + " > " + tmp_res + " ) 2> " + tmp_err;
+            test_cmd = "( SCILAB_GDB_OPT=''-ex run -ex quit'' " + language_arg + " " + prefix_bin + " " + SCI_BIN + "/bin/scilab " + mode_arg + " -nb -debug -f " + tmp_tst + " > " + tmp_res + " ) 2> " + tmp_err;
         end
     end
 
