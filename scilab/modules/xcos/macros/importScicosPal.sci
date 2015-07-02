@@ -121,8 +121,9 @@ function importScicosPal(palFiles, outPath)
 
             if doExport == %t then
                 mprintf("%d: %s\n", i, block_name);
-                bexport = export_to_hdf5(blockFile, "out");
-                if (~bexport) then
+                try
+                    save(blockFile, "out");
+                catch
                     mprintf("FAILED TO EXPORT: %s\n", out.gui);
                 end
 
