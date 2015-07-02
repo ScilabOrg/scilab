@@ -35,10 +35,6 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_freq(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    types::Double* pDblA = NULL;
-    types::Double* pDblB = NULL;
-    types::Double* pDblP = NULL;
-
     if (in.size() < 3 || in.size() > 5)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "freq", 3, 5);
@@ -370,7 +366,16 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
     int iSizeF      = 0;
     int iOne        = 1;
     int iComplex    = 0;
+    int iSizeD      = 0;
+    int iSizeC      = 0;
+    int iSizeB      = 0;
+    int iSizeA      = 0;
 
+
+    double* pdblA       = NULL;
+    double* pdblB       = NULL;
+    double* pdblC       = NULL;
+    double* pdblD       = NULL;
     double* pdblF       = NULL;
     double* pdblFImg    = NULL;
 
@@ -411,6 +416,11 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
             Scierror(999, _("%s: Wrong type for input argument #%d: A real matrix expected.\n"), "freq", 4);
             return types::Function::Error;
         }
+
+        iSizeD = pDblD->getSize();
+        pdblD = new double[iSizeD];
+        memcpy(pdblD, pDblD->get(), iSizeD * sizeof(double));
+
     }
 
     // get C
@@ -421,6 +431,9 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
     }
 
     pDblC = in[2]->getAs<types::Double>();
+    iSizeC = pDblC->getSize();
+    pdblC = new double[iSizeC];
+    memcpy(pdblC, pDblC->get(), iSizeC * sizeof(double));
 
     if (pDblC->isComplex())
     {
@@ -436,6 +449,9 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
     }
 
     pDblB = in[1]->getAs<types::Double>();
+    iSizeB = pDblB->getSize();
+    pdblB = new double[iSizeB];
+    memcpy(pdblB, pDblB->get(), iSizeB * sizeof(double));
 
     if (pDblB->isComplex())
     {
@@ -450,7 +466,11 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
         return types::Function::Error;
     }
 
+    //pDblA = in[0]->getAs<types::Double>()->clone()->getAs<types::Double>();
     pDblA = in[0]->getAs<types::Double>();
+    iSizeA = pDblA->getSize();
+    pdblA = new double[iSizeA];
+    memcpy(pdblA, pDblA->get(), iSizeA * sizeof(double));
 
     if (pDblA->isComplex())
     {
@@ -495,8 +515,7 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
     {
         int ig = i * iColsB * iRowsC;
         C2F(dfrmg)( &iJob, &iRowsA, &iRowsA, &iRowsC, &iRowsC, &iColsB, &iRowsA,
-                    pDblA->get(), pDblB->get(), pDblC->get(), pdblF,
-                    pdblFImg, pdblWgr + ig, pdblWgi + ig, &dRcond, pdblW, pdblW1);
+            pdblA, pdblB, pdblC, pdblF, pdblFImg, pdblWgr + ig, pdblWgi + ig, &dRcond, pdblW, pdblW1);
 
         if (bFirst && dRcond + 1 == 1)
         {
@@ -508,7 +527,7 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
         if (iNbInputArg == 5)
         {
             int iSize = iColsB * iRowsC;
-            C2F(dadd)(&iSize, pDblD->get(), &iOne, pdblWgr + ig, &iOne);
+            C2F(dadd)(&iSize, pdblD, &iOne, pdblWgr + ig, &iOne);
         }
 
         pdblF++;
@@ -532,6 +551,22 @@ types::Function::ReturnValue freqState(types::typed_list &in, int _iRetCount, ty
     delete[] pdblW1;
     delete[] pdblWgr;
     delete[] pdblWgi;
+    if (pdblA)
+    {
+        delete[] pdblA;
+    }
+    if (pdblB)
+    {
+        delete[] pdblB;
+    }
+    if (pdblC)
+    {
+        delete[] pdblC;
+    }
+    if (pdblD)
+    {
+        delete[] pdblD;
+    }
 
     out.push_back(pDblOut);
     return types::Function::OK;
