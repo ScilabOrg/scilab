@@ -49,6 +49,8 @@ extern "C"
 #include "sciprint.h"
 #include "freeArrayOfString.h"
 #include "Scierror.h"
+#include "scicurdir.h"
+
 }
 
 
@@ -70,8 +72,9 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
     wchar_t* pstLibName		= NULL;
     bool bVerbose           = false;
 
-    if (in.size() < 2 && in.size() > 4)
+    if (in.size() < 1 || in.size() > 4)
     {
+        Scierror(78, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "genlib", 1, 4);
         return Function::Error;
     }
 
@@ -79,26 +82,38 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
     InternalType* pIT = in[0];
     if (pIT->isString() == false)
     {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 1);
         return Function::Error;
     }
 
     String *pS = pIT->getAs<types::String>();
     if (pS->getSize() != 1)
     {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 1);
         return Function::Error;
     }
     pstLibName = pS->get(0);
 
     //param 2, library path
-    pIT = in[1];
-    if (pIT->isString() == false)
+    if (in.size() > 1)
     {
-        return Function::Error;
+        pIT = in[1];
+        if (pIT->isString() == false)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 2);
+            return Function::Error;
+        }
+    }
+    else
+    {
+        int ierr = 0;
+        pIT = new types::String(scigetcwd(&ierr));
     }
 
     pS = pIT->getAs<types::String>();
     if (pS->isScalar() == false)
     {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 2);
         return Function::Error;
     }
 
@@ -109,7 +124,7 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
 
     if (in.size() > 3)
     {
-        //versbose flag
+        //verbose flag
         pIT = in[3];
         if (pIT->isBool() == false)
         {
@@ -170,16 +185,18 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
             wstring pstPathBin(pstPath[k]);
             pstPathBin.replace(pstPathBin.end() - 3, pstPathBin.end(), L"bin");
 
-            //sciprint(_("%ls: Processing file: %ls\n"), L"genlib", pstPath[k]);
+            if (bVerbose)
+            {
+                sciprint(_("%ls: Processing file: %ls\n"), L"genlib", pstPath[k]);
+            }
 
             Parser parser;
             parser.parseFile(stFullPath, ConfigVariable::getSCIPath());
             if (parser.getExitStatus() !=  Parser::Succeded)
             {
-                os_swprintf(pstVerbose, 65535, _W("%ls: Warning: Error in file %ls : %ls. File ignored\n").c_str(), L"genlib", pstPath[k], parser.getErrorMessage());
-                scilabWriteW(pstVerbose);
-                delete parser.getTree();
-                continue;
+                scilabWriteW(parser.getErrorMessage());
+                Scierror(999, _("%ls: Error in file %ls.\n"), L"genlib", stFullPath.data());
+                return Function::Error;
             }
 
             //serialize ast
