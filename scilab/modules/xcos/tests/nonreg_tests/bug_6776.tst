@@ -25,8 +25,8 @@ if size(obj.doc) <> 0 then pause, end
 
 // check that the export will not fail
 tempFile = TMPDIR + "/6776temp.sod";
-ierr = export_to_hdf5(tempFile, "scs_m");
-if ierr <> %t then pause, end
+save(tempFile, "scs_m");
+assert_checktrue(isfile(tempFile));
 
 deletefile(tempFile);
 
