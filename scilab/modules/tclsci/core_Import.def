@@ -5,7 +5,6 @@ EXPORTS
 callFunctionFromGateway
 com_
 intersci_
-stack_
 vstk_
 iop_
 StoreCommand
