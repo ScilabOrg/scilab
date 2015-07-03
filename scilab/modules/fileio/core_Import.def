@@ -16,7 +16,6 @@ createvar_
 freeArrayOfWideString
 getrhsvar_
 gettype_
-vstk_
 checklhs_
 checkrhs_
 transposeMatrixDouble

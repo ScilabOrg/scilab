@@ -5,7 +5,6 @@ EXPORTS
 ;core
 callFunctionFromGateway
 com_
-vstk_
 putlhsvar_
 checklhs_
 checkrhs_

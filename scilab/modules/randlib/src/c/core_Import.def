@@ -11,7 +11,6 @@ createvar_
 stack_
 getrhsvar_
 gettype_
-vstk_
 checklhs_
 checkrhs_ 
 intersci_

@@ -5,7 +5,6 @@ EXPORTS
 callFunctionFromGateway
 intersci_
 com_
-vstk_
 getrhsvar_
 scifunction_
 scistring_

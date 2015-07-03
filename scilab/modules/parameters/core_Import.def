@@ -2,7 +2,6 @@ LIBRARY    core.dll
 
 
 EXPORTS
-vstk_
 iop_
 com_
 stack_

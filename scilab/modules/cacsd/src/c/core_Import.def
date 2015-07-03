@@ -13,7 +13,6 @@ intersci_
 errorinfo_
 stack_
 GetData
-vstk_
 MyHeapAlloc
 MyHeapFree
 

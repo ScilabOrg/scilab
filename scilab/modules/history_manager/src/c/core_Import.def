@@ -10,7 +10,6 @@ putlhsvar_
 intersci_
 getrhsvar_
 gettype_
-vstk_
 checklhs_
 checkrhs_
 createvarfromptr_

@@ -4,7 +4,6 @@
 EXPORTS
 ;
 ;core_f
-vstk_
 com_
 stack_
 iop_

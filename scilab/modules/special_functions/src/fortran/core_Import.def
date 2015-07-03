@@ -6,7 +6,6 @@ EXPORTS
 ;core
 ;
 com_
-vstk_
 iop_
 stack_
 errgst_

@@ -11,7 +11,6 @@ createvarfromptr_
 intersci_
 putlhsvar_
 freeArrayOfString
-vstk_
 gettype_
 getrhsvar_
 com_

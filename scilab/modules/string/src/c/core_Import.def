@@ -8,7 +8,6 @@ freeArrayOfString
 freeArrayOfWideString
 gettype_
 com_
-vstk_
 checklhs_
 checkrhs_
 iop_
