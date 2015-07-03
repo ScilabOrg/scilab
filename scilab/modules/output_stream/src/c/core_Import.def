@@ -3,7 +3,6 @@
 
 EXPORTS
 iop_
-stack_
 vstk_
 com_
 errgst_

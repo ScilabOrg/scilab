@@ -4,7 +4,6 @@ LIBRARY    core.dll
 EXPORTS
 ;
 ; core
-stack_
 com_
 vstk_
 MyHeapAlloc

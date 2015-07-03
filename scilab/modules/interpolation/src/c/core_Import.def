@@ -6,7 +6,6 @@ EXPORTS
 callFunctionFromGateway
 com_
 intersci_
-stack_
 vstk_
 putlhsvar_
 createvar_

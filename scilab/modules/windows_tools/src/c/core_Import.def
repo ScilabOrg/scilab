@@ -6,7 +6,6 @@ EXPORTS
 
 com_
 intersci_
-stack_
 vstk_
 freeArrayOfString
 MyHeapAlloc

@@ -12,7 +12,6 @@ vstk_
 checklhs_
 checkrhs_
 iop_
-stack_
 putlhsvar_
 intersci_
 createvar_

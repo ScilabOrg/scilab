@@ -6,7 +6,6 @@ EXPORTS
 ;
 com_
 vstk_
-stack_
 iop_
 errgst_
 adre_

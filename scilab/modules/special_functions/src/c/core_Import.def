@@ -10,7 +10,6 @@ putlhsvar_
 checklhs_
 checkrhs_
 getrhsvar_
-stack_
 getrhscvar_
 intersci_
 createvar_

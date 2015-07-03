@@ -8,7 +8,6 @@ EXPORTS
 callFunctionFromGateway
 com_
 backtrace_print
-stack_
 vstk_
 iop_
 intersci_

@@ -8,7 +8,6 @@ com_
 createvarfromptr_
 putlhsvar_
 createvar_ 
-stack_
 getrhsvar_
 gettype_
 vstk_

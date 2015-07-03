@@ -4,7 +4,6 @@ LIBRARY    core.dll
 EXPORTS
 ; from core
 createvar_
-stack_
 checkrhs_
 checklhs_
 createvarfromptr_
