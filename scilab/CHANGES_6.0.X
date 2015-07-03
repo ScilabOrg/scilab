@@ -35,6 +35,8 @@ Removed functions (previously declared as obsolete)
 
 * derivative removed. Please use numderivative instead.
 
+* gstacksize removed.
+
 
 Functions modified
 ===================
