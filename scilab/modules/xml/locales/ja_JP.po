@@ -33,7 +33,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: メモリ割当エラー.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -66,7 +66,7 @@ msgid ""
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列または論理値を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の次元が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -336,7 +336,7 @@ msgid "%s: No root element.\n"
 msgstr "%s: ルート要素がありません.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr "%s: 入力引数 #%i の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format

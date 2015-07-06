@@ -80,7 +80,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_scinotes.cpp, line: 323
 # File: sci_gateway/cpp/sci_scinotes.cpp, line: 333
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #

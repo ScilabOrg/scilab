@@ -60,7 +60,7 @@ int sci_xchange(char * fname, unsigned long fname_len)
     // Retrieve a matrix of double at position 3.
     if (getAllocatedSingleString(pvApiCtx, piAddrl3, &l3Input))
     {
-        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 3);
+        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 3);
         return 1;
     }
 

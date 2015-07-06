@@ -172,7 +172,7 @@ msgstr ""
 # File: sci_gateway/c/sci_pathconvert.c, line: 209
 # File: sci_gateway/c/sci_tempname.c, line: 80
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -226,7 +226,7 @@ msgstr ""
 # File: sci_gateway/c/sci_getshortpathname.c, line: 78
 # File: sci_gateway/c/sci_removedir.c, line: 71
 #, c-format
-msgid "%s: Wrong type for input argument: A string expected.\n"
+msgid "%s: Wrong type for input argument: string expected.\n"
 msgstr ""
 
 #
@@ -318,7 +318,7 @@ msgstr ""
 # File: sci_gateway/c/sci_fprintfMat.c, line: 190
 # File: sci_gateway/c/sci_mclose.c, line: 104
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -362,7 +362,7 @@ msgstr ""
 # File: sci_gateway/c/sci_getURL.c, line: 123
 # File: sci_gateway/c/sci_splitURL.c, line: 52
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #

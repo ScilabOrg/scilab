@@ -668,13 +668,13 @@ msgstr ""
 # File: macros/atomsList.sci, line: 35
 # File: macros/atoms_internals/atomsGetAvailable.sci, line: 70
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
 # File: macros/atomsList.sci, line: 39
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

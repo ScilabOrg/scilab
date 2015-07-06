@@ -48,7 +48,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_jcreatejar.cpp, line: 96
 # File: sci_gateway/cpp/sci_jcreatejar.cpp, line: 113
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #

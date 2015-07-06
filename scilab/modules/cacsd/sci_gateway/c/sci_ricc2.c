@@ -145,7 +145,7 @@ int sci_ricc2(char *fname, unsigned long fname_len)
     // Retrieve a matrix of double at position 4.
     if (getAllocatedSingleString(pvApiCtx, piAddrlTYPE, &lTYPE))
     {
-        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 4);
+        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 4);
         return 1;
     }
 
@@ -173,7 +173,7 @@ int sci_ricc2(char *fname, unsigned long fname_len)
         // Retrieve a matrix of double at position 5.
         if (getAllocatedSingleString(pvApiCtx, piAddrlMETHOD, &lMETHOD))
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 5);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 5);
             return 1;
         }
 

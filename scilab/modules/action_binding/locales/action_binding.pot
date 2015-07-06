@@ -30,7 +30,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_notify.cpp, line: 60
 # File: sci_gateway/cpp/sci_notify.cpp, line: 75
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

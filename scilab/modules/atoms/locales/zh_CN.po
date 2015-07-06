@@ -244,11 +244,11 @@ msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
 msgstr "%s：输入参数数目错误：应为%d或%d。\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s：第%d个输入参数的类型错误：应为字符串型变量。\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s：第%d个输入参数的规格错误：应为字符串型变量。\n"
 
 #, c-format

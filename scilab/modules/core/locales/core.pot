@@ -492,7 +492,7 @@ msgstr ""
 # File: sci_gateway/c/sci_newfun.c, line: 81
 # File: sci_gateway/c/sci_typename.c, line: 93
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -500,7 +500,7 @@ msgstr ""
 # File: sci_gateway/c/sci_typename.c, line: 127
 # File: src/c/stack2.c, line: 1534
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

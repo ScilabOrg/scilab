@@ -146,12 +146,12 @@ int sci_tokens(char *fname, unsigned long fname_len)
         else
         {
             freeArrayOfString(Input_Strings, mn_One);
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
         }
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
     }
     return 0;
 }

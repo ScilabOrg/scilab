@@ -422,7 +422,7 @@ msgstr ""
 # File: sci_gateway/c/sci_ricc2.c, line: 148
 # File: sci_gateway/c/sci_ricc2.c, line: 176
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -947,7 +947,7 @@ msgstr ""
 # File: macros/cainv.sci, line: 63
 # File: macros/syslin.sci, line: 25
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

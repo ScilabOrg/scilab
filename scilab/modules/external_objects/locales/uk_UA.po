@@ -71,7 +71,7 @@ msgid "A single String expected"
 msgstr "Мало бути вказано одинарний рядок"
 
 #, c-format
-msgid "Wrong type for argument #%d: A string expected."
+msgid "Wrong type for argument #%d: string expected."
 msgstr ""
 "Помилковий тип вхідного параметра №#%d: слід використовувати тип «string»."
 
@@ -129,7 +129,7 @@ msgid "Incompatible External Object"
 msgstr "Несумісний зовнішній об’єкт"
 
 #, c-format
-msgid "Wrong type for input argument #%d: A string expected."
+msgid "Wrong type for input argument #%d: string expected."
 msgstr ""
 "Помилковий тип вхідного параметра №%d: слід використовувати тип «string»."
 

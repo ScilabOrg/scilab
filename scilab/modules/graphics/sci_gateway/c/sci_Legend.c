@@ -126,7 +126,7 @@ int sci_Legend(char * fname, unsigned long fname_len)
         {
             freeAllocatedMatrixOfString(m2, n2, Str);
             freeAllocatedSingleString(l2);
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 3);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 3);
             return 1;
         }
 

@@ -49,7 +49,7 @@ int sci_deletefile(char *fname, unsigned long fname_len)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument: A string expected.\n"), fname);
+        Scierror(999, _("%s: Wrong type for input argument: string expected.\n"), fname);
     }
     return 0;
 }

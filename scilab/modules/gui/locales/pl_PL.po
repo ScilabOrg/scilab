@@ -22,7 +22,7 @@ msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr "Moduł '%s' Scilab jest wyłączony w trybie -nogui lub -nwni.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -36,7 +36,7 @@ msgstr ""
 "'%s' .\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwano łańcuch.\n"
 
@@ -159,7 +159,7 @@ msgstr ""
 "znaków.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy rozmiar parametru wejściowego nr %d: oczekiwano ciągu "
 "znaków.\n"
@@ -450,7 +450,7 @@ msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr "%s: Nieprawidłowa liczba parametrów wejściowych: oczekiwano %d\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -513,7 +513,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -1083,11 +1083,11 @@ msgstr ""
 "Nieprawidłowa wartość własności '%s': Oczekiwano wartości pomiędzy 0 a 1.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "Zły typ właściwości '%s': Oczekiwano ciągu znaków.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "Zły rozmiar właściwości '%s': Oczekiwano ciągu znaków.\n"
 
 #, c-format
@@ -2575,7 +2575,7 @@ msgid "%s: Wrong value for '%s' property: %d, %d or %d expected.\n"
 msgstr "%s: Zła wartość właściwości '%s': Oczekiwano %d, %d lub %d.\n"
 
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr "%s: Nieprawidłowy typ właściwości '%s' : Oczekiwano ciągu znaków.\n"
 
 #, c-format
@@ -2760,7 +2760,7 @@ msgid "%s: Wrong type for %s: A list expected.\n"
 msgstr "%s: Nieprawidłowy typ dla %s: Oczekiwano listy.\n"
 
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr "%s: Nieprawidłowy typ dla %s: Oczekiwano wartości typu string.\n"
 
 #, c-format

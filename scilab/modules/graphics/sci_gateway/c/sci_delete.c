@@ -145,7 +145,7 @@ int sci_delete(char *fname, unsigned long fname_len)
                     // Retrieve a matrix of double at position 2.
                     if (getAllocatedSingleString(pvApiCtx, piAddrl2, &l2))   /* Gets the command name */
                     {
-                        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 2);
+                        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
                         return 1;
                     }
                 }
@@ -163,7 +163,7 @@ int sci_delete(char *fname, unsigned long fname_len)
                 // Retrieve a matrix of double at position 1.
                 if (getAllocatedSingleString(pvApiCtx, piAddrl2, &l2))
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 1);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
                     return 1;
                 }
 

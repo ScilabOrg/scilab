@@ -75,7 +75,7 @@ int sci_getshortpathname(char *fname, unsigned long l)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument: A string expected.\n"), fname);
+        Scierror(999, _("%s: Wrong type for input argument: string expected.\n"), fname);
     }
     return 0;
 }

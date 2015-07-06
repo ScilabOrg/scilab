@@ -165,7 +165,7 @@ msgstr ""
 # File: sci_gateway/c/sci_strtok.c, line: 72
 # File: sci_gateway/c/sci_tokens.c, line: 149
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -287,7 +287,7 @@ msgstr ""
 # File: sci_gateway/c/sci_strtok.c, line: 79
 # File: sci_gateway/c/sci_tokens.c, line: 154
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

@@ -34,7 +34,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: Erro de alocação de memória.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tipo incorreto para o argumento de entrada #%d: esperava-se um texto.\n"
 
@@ -70,7 +70,7 @@ msgstr ""
 "um booleano.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Dimensão incorreta para o argumento de entrada #%d: esperava-se um "
 "texto.\n"
@@ -390,7 +390,7 @@ msgid "%s: No root element.\n"
 msgstr "%s: Não há elemento raiz.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr ""
 "%s: Tipo incorreto para o argumento de entrada #%i: esperava-se um texto.\n"
 

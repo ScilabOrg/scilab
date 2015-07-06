@@ -149,7 +149,7 @@ msgid "Matrix is not compatible with the given LU factors"
 msgstr "La matrice non è compatibile con i fattori LU forniti"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format

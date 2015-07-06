@@ -22,7 +22,7 @@ msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr "Модуль «%s» Scilab у режимі -nogui або -nwni вимкнено.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип параметра №%d: слід використовувати рядок з одного "
 "символу.\n"
@@ -38,7 +38,7 @@ msgstr ""
 "«%s».\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
 "«string».\n"
@@ -178,7 +178,7 @@ msgstr ""
 "рядків.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
 
@@ -490,7 +490,7 @@ msgstr ""
 "%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилкова розмірність вхідного параметра №%d: слід використовувати тип "
 "«string».\n"
@@ -574,7 +574,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип елемента %d вхідного параметра №%d: мало бути вказано "
 "рядок.\n"
@@ -1164,12 +1164,12 @@ msgstr ""
 "Помилкове значення властивості «%s»: слід використовувати число між 0 і 1.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 "Помилковий тип властивості «%s»: слід використовувати тип «string».\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr ""
 "Помилковий розмір значення властивості «%s»: слід використовувати рядок.\n"
 
@@ -2694,7 +2694,7 @@ msgstr ""
 "%d.\n"
 
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr ""
 "%s: помилковий тип властивості «%s»: слід використовувати тип «string».\n"
 
@@ -2906,7 +2906,7 @@ msgid "%s: Wrong type for %s: A list expected.\n"
 msgstr "%s: помилковий тип %s: слід використовувати список.\n"
 
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr "%s: помилковий тип %s: слід використовувати тип «string».\n"
 
 #, c-format

@@ -70,14 +70,14 @@ msgstr ""
 # File: sci_gateway/c/sci_dos.c, line: 76
 # File: sci_gateway/c/sci_dos.c, line: 142
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
 # File: sci_gateway/c/sci_dos.c, line: 90
 # File: sci_gateway/c/sci_dos.c, line: 156
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

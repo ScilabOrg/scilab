@@ -87,7 +87,7 @@ int sci_xmlWrite(char *fname, unsigned long fname_len)
 
         if (Rhs == 3 && !isStringType(pvApiCtx, addr))
         {
-            Scierror(999, gettext("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, gettext("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
 
@@ -95,7 +95,7 @@ int sci_xmlWrite(char *fname, unsigned long fname_len)
         {
             if (!checkVarDimension(pvApiCtx, addr, 1, 1))
             {
-                Scierror(999, gettext("%s: Wrong dimension for input argument #%d: A string expected.\n"), fname, 2);
+                Scierror(999, gettext("%s: Wrong dimension for input argument #%d: string expected.\n"), fname, 2);
                 return 0;
             }
 

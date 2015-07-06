@@ -127,7 +127,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_driver.cpp, line: 63
 # File: sci_gateway/cpp/sci_xinit.cpp, line: 48
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

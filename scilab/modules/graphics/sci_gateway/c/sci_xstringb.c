@@ -189,13 +189,13 @@ int sci_xstringb(char *fname, unsigned long fname_len)
         // Retrieve a string at position 6.
         if (isScalar(pvApiCtx, piAddrl6) == 0)
         {
-            Scierror(999, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 6);
+            Scierror(999, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 6);
             return 1;
         }
 
         if (getAllocatedSingleString(pvApiCtx, piAddrl6, &l6))
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 6);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 6);
             return 1;
         }
 

@@ -33,7 +33,7 @@ msgid "%s: Wrong type for input argument #%d: String array expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáváno pole řetězců.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -65,7 +65,7 @@ msgid "%s: Warning: Directory '%s' already exists.\n"
 msgstr "%s: Varování: Adresář '%s' již existuje.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument: A string expected.\n"
+msgid "%s: Wrong type for input argument: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu: Očekáván řetězec.\n"
 
 #, c-format
@@ -122,7 +122,7 @@ msgstr ""
 "čísla.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Špatná velikost vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -147,7 +147,7 @@ msgstr ""
 "%s: Špatná hodnota vstupního argumentu #%d: '%s' je neplatná cesta.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format

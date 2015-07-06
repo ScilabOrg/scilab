@@ -27,7 +27,7 @@ msgstr ""
 # File: tests/utilities/sci_getfilepartlevel.c, line: 59
 # File: tests/utilities/sci_getpartlevel.c, line: 59
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -84,12 +84,12 @@ msgstr ""
 #
 # File: tests/utilities/sci_getfields.c, line: 51
 #, c-format
-msgid "%s: Wrong size for input argument: A string expected.\n"
+msgid "%s: Wrong size for input argument: string expected.\n"
 msgstr ""
 
 #
 # File: tests/utilities/sci_getfilepartlevel.c, line: 64
 # File: tests/utilities/sci_getpartlevel.c, line: 64
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""

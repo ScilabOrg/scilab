@@ -110,7 +110,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_h5umount.cpp, line: 72
 # File: sci_gateway/cpp/sci_h5write.cpp, line: 129
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -316,7 +316,7 @@ msgstr ""
 # File: src/cpp/import_from_hdf5_v1.cpp, line: 121
 # File: src/cpp/listvar_in_hdf5_v1.cpp, line: 84
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -419,7 +419,7 @@ msgstr ""
 #
 # File: sci_gateway/cpp/sci_h5exists.cpp, line: 119
 #, c-format
-msgid "%s: Wrong size for argument #%d: A string expected.\n"
+msgid "%s: Wrong size for argument #%d: string expected.\n"
 msgstr ""
 
 #

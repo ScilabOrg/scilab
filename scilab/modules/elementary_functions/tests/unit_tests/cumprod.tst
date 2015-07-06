@@ -58,7 +58,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 
 //==============================================================================
@@ -69,7 +69,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,""r"", ""nat"")"   ,"errcatch") == 0);
@@ -77,7 +77,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" ex
 assert_checkerror("cumprod(d,""r"", ""nat"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,""r"", [""nat"" ""dble""])", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,""orient"", ""t"")"   ,"errcatch") == 0);
@@ -86,7 +86,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d,""orient"", ""t"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,1,1)", refMsg);
 
 //==============================================================================
@@ -98,7 +98,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,""r"", ""nat"")"   ,"errcatch") == 0);
@@ -106,7 +106,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" ex
 assert_checkerror("cumprod(d,""r"", ""nat"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,""r"", [""nat"" ""dble""])", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,""orient"", ""t"")"   ,"errcatch") == 0);
@@ -115,7 +115,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d,""orient"", ""t"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,1,1)", refMsg);
 
 //==============================================================================
@@ -127,7 +127,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 
 //==============================================================================
@@ -140,7 +140,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 
 //==============================================================================
@@ -153,7 +153,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 
 //cumprod

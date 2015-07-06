@@ -143,7 +143,7 @@ msgid "%s: MKL fftw library does not implement wisdom functions yet.\n"
 msgstr "%s: Библиотека MKL fftw пока ещё не внедрила функции wisdom.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
 #, c-format

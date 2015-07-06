@@ -160,7 +160,7 @@ msgid "Matrix is not compatible with the given LU factors"
 msgstr "Матриця несумісна з вказаними множниками розкладу LU"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
 "«string».\n"

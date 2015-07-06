@@ -137,7 +137,7 @@ int sci_umfpack(char* fname, unsigned long l)
     if (sciErr.iErr || iType2 != sci_strings)
     {
         printError(&sciErr, 0);
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
         return 1;
     }
 

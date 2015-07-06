@@ -33,7 +33,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: Chyba při přidělování paměti.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -67,7 +67,7 @@ msgstr ""
 "%s: Špatný typ vstupního argumentu #%d: Očekáván boolean nebo řetězec.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr "%s: Špatný rozměr vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -363,7 +363,7 @@ msgid "%s: No root element.\n"
 msgstr "%s: Žádný kořenový prvek.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%i: Očekáván řetězec.\n"
 
 #, c-format

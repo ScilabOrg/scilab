@@ -88,14 +88,14 @@ int C2F(sci_execstr)(char *fname, unsigned long fname_len)
             }
             else
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
                 return 0;
             }
         }
 
         if (iType1 != sci_strings)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
             return 0;
         }
 
@@ -125,7 +125,7 @@ int C2F(sci_execstr)(char *fname, unsigned long fname_len)
 
             if (iType2 != sci_strings)
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
                 return 0;
             }
 
@@ -139,7 +139,7 @@ int C2F(sci_execstr)(char *fname, unsigned long fname_len)
 
             if (m2 * n2 != 1)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
                 return 0;
             }
 
@@ -198,7 +198,7 @@ int C2F(sci_execstr)(char *fname, unsigned long fname_len)
 
             if (iType3 != sci_strings)
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 3);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 3);
                 return 0;
             }
 
@@ -212,7 +212,7 @@ int C2F(sci_execstr)(char *fname, unsigned long fname_len)
 
             if (m3 * n3 != 1)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 3);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 3);
                 return 0;
             }
 

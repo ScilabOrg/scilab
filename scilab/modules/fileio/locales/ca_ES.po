@@ -37,7 +37,7 @@ msgstr ""
 "de cadenes de text.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d és d'un tipus incorrecte: Ha de ser una cadena "
 "de caràcters.\n"
@@ -71,7 +71,7 @@ msgid "%s: Warning: Directory '%s' already exists.\n"
 msgstr "%s: Avís: El directori '%s' ja existeix.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument: A string expected.\n"
+msgid "%s: Wrong type for input argument: string expected.\n"
 msgstr ""
 "%s: L'argument d'entrada és d'un tipus incorrecte: Ha de ser una cadena de "
 "caràcters.\n"
@@ -132,7 +132,7 @@ msgstr ""
 "de nombres decimals amb coma flotant.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d té una mida incorrecta: Ha de ser una cadena de "
 "text.\n"
@@ -160,7 +160,7 @@ msgstr ""
 "invàlid.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format

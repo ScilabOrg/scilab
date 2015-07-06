@@ -195,7 +195,7 @@ msgstr ""
 # File: sci_gateway/c/sci_zneupd.c, line: 500
 # File: sci_gateway/c/sci_zneupd.c, line: 518
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -506,7 +506,7 @@ msgstr ""
 #
 # File: macros/eigs.sci, line: 274
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

@@ -81,7 +81,7 @@ int sci_listvar_in_hdf5_v1(char *fname, unsigned long fname_len)
             FREE(pstFile);
         }
 
-        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
         return 1;
     }
 

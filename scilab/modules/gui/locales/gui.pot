@@ -51,7 +51,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_saveGui.cpp, line: 100
 # File: sci_gateway/cpp/sci_saveGui.cpp, line: 122
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -168,7 +168,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 131
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 165
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -498,7 +498,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_loadGui.cpp, line: 47
 # File: sci_gateway/cpp/sci_saveGui.cpp, line: 89
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -939,7 +939,7 @@ msgstr ""
 #
 # File: sci_gateway/cpp/sci_datatip_set_orient.cpp, line: 187
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -1040,7 +1040,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_displaytree.cpp, line: 171
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -2053,7 +2053,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolString.cpp, line: 50
 # File: src/cpp/SetUimenuLabel.cpp, line: 26
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2065,7 +2065,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolValue.cpp, line: 64
 # File: src/cpp/SetUimenuLabel.cpp, line: 32
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -4493,7 +4493,7 @@ msgstr ""
 #
 # File: macros/addmenu.sci, line: 336
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -4781,7 +4781,7 @@ msgstr ""
 #
 # File: macros/x_choices.sci, line: 56
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr ""
 
 #

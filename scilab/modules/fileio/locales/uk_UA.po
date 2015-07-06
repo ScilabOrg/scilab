@@ -38,7 +38,7 @@ msgstr ""
 "значень типу «string».\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
 "«string».\n"
@@ -72,7 +72,7 @@ msgid "%s: Warning: Directory '%s' already exists.\n"
 msgstr "%s: попередження: каталог з назвою «%s» вже існує.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument: A string expected.\n"
+msgid "%s: Wrong type for input argument: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра: слід використовувати тип «string».\n"
 
@@ -135,7 +135,7 @@ msgstr ""
 "значень з плаваючою комою.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
 
@@ -162,7 +162,7 @@ msgstr ""
 "шляху.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип параметра №%d: слід використовувати рядок з одного "
 "символу.\n"

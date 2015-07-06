@@ -849,7 +849,7 @@ int extractVarNameList(int _iStart, int _iEnd, char** _pstNameList)
 
         if (getAllocatedSingleString(pvApiCtx, piAddr, &_pstNameList[iCount]))
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "export_to_hdf5", i);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "export_to_hdf5", i);
             return 0;
         }
 

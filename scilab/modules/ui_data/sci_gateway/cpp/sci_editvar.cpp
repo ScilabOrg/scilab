@@ -200,7 +200,7 @@ int sci_editvar(char * fname, unsigned long fname_len)
     /* TODO maybe allow vectors in case someone wants to edit several variables in the same time? */
     if (m1 != 1 || n1 != 1)
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 
