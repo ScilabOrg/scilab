@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2012 - ScilabEnterprises - Calixte DENIZET
+ * Copyright (C) 2012-2015 - ScilabEnterprises - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,6 +11,7 @@
 
 package org.scilab.forge.scirenderer.implementation.g2d.buffers;
 
+import org.scilab.forge.scirenderer.buffers.BuffersAllocator;
 import org.scilab.forge.scirenderer.buffers.DataBuffer;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 
@@ -36,6 +37,7 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
      * the data this buffer contain.
      */
     private FloatBuffer data;
+    private BuffersAllocator allocator;
     private final Object mutex;
 
     /**
@@ -45,6 +47,13 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
     G2DElementsBuffer() {
         mutex = new Object();
         data = null;
+        allocator = new BuffersAllocator();
+    }
+
+    G2DElementsBuffer(BuffersAllocator allocator) {
+        mutex = new Object();
+        data = null;
+        this.allocator = allocator;
     }
 
     @Override
@@ -55,8 +64,7 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
         }
 
         int verticesNumber = newData.length / elementSize;
-        //FloatBuffer buffer = BufferUtil.newFloatBuffer(ELEMENT_SIZE * verticesNumber);
-        FloatBuffer buffer = FloatBuffer.allocate(ELEMENT_SIZE * verticesNumber);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(ELEMENT_SIZE * verticesNumber);
         buffer.rewind();
 
 
@@ -86,8 +94,7 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
         }
 
         int verticesNumber = newData.length / elementSize;
-        //FloatBuffer buffer = BufferUtil.newFloatBuffer(ELEMENT_SIZE * verticesNumber);
-        FloatBuffer buffer = FloatBuffer.allocate(ELEMENT_SIZE * verticesNumber);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(ELEMENT_SIZE * verticesNumber);
         buffer.rewind();
 
 
@@ -109,7 +116,7 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
     }
 
     @Override
-    public void setData(FloatBuffer newData, int elementsSize) {
+    public boolean setData(FloatBuffer newData, int elementsSize) {
         // Check the given vertex size
         if ((elementsSize < 1) || (elementsSize > ELEMENT_SIZE)) {
             throw new BadElementSizeException(elementsSize, 1, ELEMENT_SIZE);
@@ -121,12 +128,11 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
                 newData.rewind();
             }
             setData(newData);
-            return;
+            return false;
         }
 
         int verticesNumber = newData.limit() / elementsSize;
-        //FloatBuffer buffer = BufferUtil.newFloatBuffer(ELEMENT_SIZE * verticesNumber);
-        FloatBuffer buffer = FloatBuffer.allocate(ELEMENT_SIZE * verticesNumber);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(ELEMENT_SIZE * verticesNumber);
         buffer.rewind();
 
         // Fill buffer with given data.
@@ -144,6 +150,8 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
 
         buffer.rewind();
         setData(buffer);
+
+        return true;
     }
 
     @Override
@@ -179,6 +187,7 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
      */
     private void setData(FloatBuffer data) {
         synchronized (mutex) {
+            clearData();
             this.data = data;
         }
     }
@@ -204,6 +213,17 @@ public class G2DElementsBuffer implements DataBuffer, ElementsBuffer {
         if (data != null) {
             data.clear();
         }
-        data = null;
+        clearData();
+    }
+
+    public void clearData() {
+        if (data != null) {
+            allocator.release(data);
+            data = null;
+        }
+    }
+
+    public void finalize() {
+        clearData();
     }
 }

@@ -38,6 +38,12 @@ public interface IndicesBuffer extends DataBuffer {
      */
     void setData(IntBuffer indexBuffer);
 
+    /**
+     * Set the data.
+     * @param indexBuffer the new data.
+     */
+    void setDataWithNoCopy(IntBuffer indexBuffer);
+
     @Override
     IntBuffer getData();
 

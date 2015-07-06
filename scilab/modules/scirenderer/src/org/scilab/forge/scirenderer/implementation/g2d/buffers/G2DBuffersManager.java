@@ -11,6 +11,7 @@
 
 package org.scilab.forge.scirenderer.implementation.g2d.buffers;
 
+import org.scilab.forge.scirenderer.buffers.BuffersAllocator;
 import org.scilab.forge.scirenderer.buffers.BuffersManager;
 import org.scilab.forge.scirenderer.buffers.DataBuffer;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
@@ -49,6 +50,20 @@ public final class G2DBuffersManager implements BuffersManager {
     @Override
     public IndicesBuffer createIndicesBuffer() {
         G2DIndicesBuffer newBuffer = new G2DIndicesBuffer();
+        buffers.add(newBuffer);
+        return newBuffer;
+    }
+
+    @Override
+    public ElementsBuffer createElementsBuffer(BuffersAllocator allocator) {
+        G2DElementsBuffer newBuffer = new G2DElementsBuffer(allocator);
+        buffers.add(newBuffer);
+        return newBuffer;
+    }
+
+    @Override
+    public IndicesBuffer createIndicesBuffer(BuffersAllocator allocator) {
+        G2DIndicesBuffer newBuffer = new G2DIndicesBuffer(allocator);
         buffers.add(newBuffer);
         return newBuffer;
     }

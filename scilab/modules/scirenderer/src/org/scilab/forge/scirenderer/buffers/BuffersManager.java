@@ -26,10 +26,22 @@ public interface BuffersManager {
     ElementsBuffer createElementsBuffer();
 
     /**
+     * Create an elements buffer.
+     * @return a new elements buffer.
+     */
+    ElementsBuffer createElementsBuffer(BuffersAllocator allocator);
+
+    /**
      * Create an indices buffer.
      * @return a new indices buffer.
      */
     IndicesBuffer createIndicesBuffer();
+
+    /**
+     * Create an indices buffer.
+     * @return a new indices buffer.
+     */
+    IndicesBuffer createIndicesBuffer(BuffersAllocator allocator);
 
     /**
      * Release all resources used by the given buffer.

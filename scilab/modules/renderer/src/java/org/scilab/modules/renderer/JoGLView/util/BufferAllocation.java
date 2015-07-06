@@ -29,6 +29,24 @@ public final class BufferAllocation {
     private BufferAllocation() {
     }
 
+    private static ScilabBuffersAllocator allocator = new ScilabBuffersAllocator();
+
+    public static void release(ByteBuffer bb) {
+        allocator.release(bb);
+    }
+
+    public static void release(IntBuffer ib) {
+        allocator.release(ib);
+    }
+
+    public static void release(FloatBuffer fb) {
+        allocator.release(fb);
+    }
+
+    public static ScilabBuffersAllocator getAllocator() {
+        return allocator;
+    }
+
     /**
      * Allocate a new direct byte buffer of given length.
      * @param length the given length.
@@ -36,8 +54,8 @@ public final class BufferAllocation {
      * @throws OutOfMemoryException if java heap space is to small.
      */
     public static ByteBuffer newByteBuffer(int length) throws OutOfMemoryException {
-        haveFreeMemory(length);
-        ByteBuffer buffer = GLBuffers.newDirectByteBuffer(length);
+        //haveFreeMemory(length);
+        ByteBuffer buffer = allocator.allocateByteBuffer(length);
         if (buffer.limit() != length) {
             throw new OutOfMemoryException();
         }
@@ -51,8 +69,8 @@ public final class BufferAllocation {
      * @throws OutOfMemoryException if java heap space is to small.
      */
     public static IntBuffer newIntBuffer(int length) throws OutOfMemoryException {
-        haveFreeMemory(length * Integer.SIZE / Byte.SIZE);
-        IntBuffer buffer = GLBuffers.newDirectIntBuffer(length);
+        //haveFreeMemory(length * Integer.SIZE / Byte.SIZE);
+        IntBuffer buffer = allocator.allocateIntBuffer(length);
         if (buffer.limit() != length) {
             throw new OutOfMemoryException();
         }
@@ -66,8 +84,8 @@ public final class BufferAllocation {
      * @throws OutOfMemoryException if java heap space is to small.
      */
     public static FloatBuffer newFloatBuffer(int length) throws OutOfMemoryException {
-        haveFreeMemory(length * Float.SIZE / Byte.SIZE);
-        FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(length);
+        //haveFreeMemory(length * Float.SIZE / Byte.SIZE);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(length);
         if (buffer.limit() != length) {
             throw new OutOfMemoryException();
         }

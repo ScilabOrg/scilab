@@ -11,6 +11,7 @@
 
 package org.scilab.forge.scirenderer.implementation.g2d.buffers;
 
+import org.scilab.forge.scirenderer.buffers.BuffersAllocator;
 import org.scilab.forge.scirenderer.buffers.DataBuffer;
 import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 
@@ -26,6 +27,7 @@ public class G2DIndicesBuffer implements IndicesBuffer, DataBuffer {
      * the data this buffer contain.
      */
     private IntBuffer data;
+    private BuffersAllocator allocator;
 
     /**
      * Default constructor.
@@ -33,15 +35,21 @@ public class G2DIndicesBuffer implements IndicesBuffer, DataBuffer {
      */
     G2DIndicesBuffer() {
         data = null;
+        allocator = new BuffersAllocator();
+    }
+
+    G2DIndicesBuffer(BuffersAllocator allocator) {
+        data = null;
+        this.allocator = allocator;
     }
 
     @Override
     public void setData(int[] indices) {
-        //IntBuffer buffer = BufferUtil.newIntBuffer(indices.length);
         IntBuffer buffer = IntBuffer.allocate(indices.length);
         buffer.rewind();
         buffer.put(indices);
         buffer.rewind();
+        clearData();
         this.data = buffer;
     }
 
@@ -53,19 +61,27 @@ public class G2DIndicesBuffer implements IndicesBuffer, DataBuffer {
             buffer.put(index);
         }
         buffer.rewind();
+        clearData();
         this.data = buffer;
     }
 
     @Override
     public void setData(IntBuffer indexBuffer) {
-        //IntBuffer buffer = BufferUtil.newIntBuffer(indexBuffer.limit());
         IntBuffer buffer = IntBuffer.allocate(indexBuffer.limit());
         buffer.rewind();
         indexBuffer.rewind();
         buffer.put(indexBuffer);
         buffer.rewind();
         indexBuffer.rewind();
+        clearData();
         this.data = buffer;
+    }
+
+    @Override
+    public void setDataWithNoCopy(IntBuffer indexBuffer) {
+        indexBuffer.rewind();
+        clearData();
+        this.data = indexBuffer;
     }
 
     @Override
@@ -82,8 +98,19 @@ public class G2DIndicesBuffer implements IndicesBuffer, DataBuffer {
         return data.asReadOnlyBuffer();
     }
 
+    public void clearData() {
+        if (data != null) {
+            allocator.release(data);
+            data = null;
+        }
+    }
+
     public void clear() {
         data.clear();
-        data = null;
+        clearData();
+    }
+
+    public void finalize() {
+        clearData();
     }
 }

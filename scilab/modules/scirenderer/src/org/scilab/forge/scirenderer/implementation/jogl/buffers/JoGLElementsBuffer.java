@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009-2011 - DIGITEO - Pierre Lando
+ * Copyright (C) 2015 - Scilab Enterprises - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,6 +12,7 @@
 
 package org.scilab.forge.scirenderer.implementation.jogl.buffers;
 
+import org.scilab.forge.scirenderer.buffers.BuffersAllocator;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 
 import javax.media.opengl.GL2;
@@ -37,6 +39,7 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
      * the data this buffer contain.
      */
     private FloatBuffer data;
+    private BuffersAllocator allocator;
     private final Object mutex;
 
     /**
@@ -46,8 +49,14 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
     JoGLElementsBuffer() {
         mutex = new Object();
         data = null;
+        allocator = new BuffersAllocator();
     }
 
+    JoGLElementsBuffer(BuffersAllocator allocator) {
+        mutex = new Object();
+        data = null;
+        this.allocator = allocator;
+    }
 
     @Override
     public void setData(float[] newData, int elementSize) {
@@ -57,8 +66,7 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
         }
 
         int verticesNumber = newData.length / elementSize;
-        //FloatBuffer buffer = BufferUtil.newFloatBuffer(ELEMENT_SIZE * verticesNumber);
-        FloatBuffer buffer = FloatBuffer.allocate(ELEMENT_SIZE * verticesNumber);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(ELEMENT_SIZE * verticesNumber);
         buffer.rewind();
 
 
@@ -89,8 +97,7 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
         }
 
         int verticesNumber = newData.length / elementSize;
-        //FloatBuffer buffer = BufferUtil.newFloatBuffer(ELEMENT_SIZE * verticesNumber);
-        FloatBuffer buffer = FloatBuffer.allocate(ELEMENT_SIZE * verticesNumber);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(ELEMENT_SIZE * verticesNumber);
         buffer.rewind();
 
 
@@ -113,7 +120,7 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
     }
 
     @Override
-    public void setData(FloatBuffer newData, int elementsSize) {
+    public boolean setData(FloatBuffer newData, int elementsSize) {
         // Check the given vertex size
         if ((elementsSize < 1) || (elementsSize > ELEMENT_SIZE)) {
             throw new BadElementSizeException(elementsSize, 1, ELEMENT_SIZE);
@@ -126,12 +133,11 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
             }
             setData(newData);
             setDataUploaded(false);
-            return;
+            return false;
         }
 
         int verticesNumber = newData.limit() / elementsSize;
-        //FloatBuffer buffer = BufferUtil.newFloatBuffer(ELEMENT_SIZE * verticesNumber);
-        FloatBuffer buffer = FloatBuffer.allocate(ELEMENT_SIZE * verticesNumber);
+        FloatBuffer buffer = allocator.allocateFloatBuffer(ELEMENT_SIZE * verticesNumber);
         buffer.rewind();
 
         // Fill buffer with given data.
@@ -150,6 +156,8 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
         buffer.rewind();
         setData(buffer);
         setDataUploaded(false);
+
+        return true;
     }
 
     @Override
@@ -283,6 +291,7 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
      */
     private void setData(FloatBuffer data) {
         synchronized (mutex) {
+            clearData();
             this.data = data;
         }
     }
@@ -308,6 +317,17 @@ public class JoGLElementsBuffer extends JoGLDataBuffer implements ElementsBuffer
         if (data != null) {
             data.clear();
         }
-        data = null;
+        clearData();
+    }
+
+    public void clearData() {
+        if (data != null) {
+            allocator.release(data);
+            data = null;
+        }
+    }
+
+    public void finalize() {
+        clearData();
     }
 }

@@ -36,8 +36,9 @@ public interface ElementsBuffer extends DataBuffer {
      * Set the data.
      * @param data the new data.
      * @param elementsSize the size of data elements.
+     * @return true if data have been copied
      */
-    void setData(FloatBuffer data, int elementsSize);
+    boolean setData(FloatBuffer data, int elementsSize);
 
     @Override
     FloatBuffer getData();

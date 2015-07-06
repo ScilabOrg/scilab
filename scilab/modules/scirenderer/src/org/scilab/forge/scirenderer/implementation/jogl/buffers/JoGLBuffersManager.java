@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009-2011 - DIGITEO - Pierre Lando
+ * Copyright (C) 2015 - Scilab Enterprises - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,6 +12,7 @@
 
 package org.scilab.forge.scirenderer.implementation.jogl.buffers;
 
+import org.scilab.forge.scirenderer.buffers.BuffersAllocator;
 import org.scilab.forge.scirenderer.buffers.BuffersManager;
 import org.scilab.forge.scirenderer.buffers.DataBuffer;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
@@ -53,6 +55,20 @@ public final class JoGLBuffersManager implements BuffersManager {
     @Override
     public synchronized IndicesBuffer createIndicesBuffer() {
         JoGLIndicesBuffer newBuffer = new JoGLIndicesBuffer();
+        buffers.add(newBuffer);
+        return newBuffer;
+    }
+
+    @Override
+    public synchronized ElementsBuffer createElementsBuffer(BuffersAllocator allocator) {
+        JoGLElementsBuffer newBuffer = new JoGLElementsBuffer(allocator);
+        buffers.add(newBuffer);
+        return newBuffer;
+    }
+
+    @Override
+    public synchronized IndicesBuffer createIndicesBuffer(BuffersAllocator allocator) {
+        JoGLIndicesBuffer newBuffer = new JoGLIndicesBuffer(allocator);
         buffers.add(newBuffer);
         return newBuffer;
     }

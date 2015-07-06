@@ -180,7 +180,7 @@ public class DataManager {
             }
         }
 
-        ElementsBuffer vertexBuffer = canvas.getBuffersManager().createElementsBuffer();
+        ElementsBuffer vertexBuffer = canvas.getBuffersManager().createElementsBuffer(BufferAllocation.getAllocator());
         fillVertexBuffer(vertexBuffer, id, factors[0], factors[1]);
         vertexBufferMap.put(id, new TransformedElementsBuffer(vertexBuffer, factors));
 
@@ -197,7 +197,7 @@ public class DataManager {
         if (normalBufferMap.containsKey(id)) {
             return normalBufferMap.get(id);
         } else {
-            ElementsBuffer normalBuffer = canvas.getBuffersManager().createElementsBuffer();
+            ElementsBuffer normalBuffer = canvas.getBuffersManager().createElementsBuffer(BufferAllocation.getAllocator());
             fillNormalBuffer(normalBuffer, id);
             normalBufferMap.put(id, normalBuffer);
             return normalBuffer;
@@ -214,7 +214,7 @@ public class DataManager {
         if (texturesCoordinatesBufferMap.containsKey(identifier)) {
             return texturesCoordinatesBufferMap.get(identifier);
         } else {
-            ElementsBuffer texturesCoordinatesBuffer = canvas.getBuffersManager().createElementsBuffer();
+            ElementsBuffer texturesCoordinatesBuffer = canvas.getBuffersManager().createElementsBuffer(BufferAllocation.getAllocator());
             fillTextureCoordinatesBuffer(texturesCoordinatesBuffer, identifier);
             texturesCoordinatesBufferMap.put(identifier, texturesCoordinatesBuffer);
             return texturesCoordinatesBuffer;
@@ -231,7 +231,7 @@ public class DataManager {
         if (colorBufferMap.containsKey(id)) {
             return colorBufferMap.get(id);
         } else {
-            ElementsBuffer colorBuffer = canvas.getBuffersManager().createElementsBuffer();
+            ElementsBuffer colorBuffer = canvas.getBuffersManager().createElementsBuffer(BufferAllocation.getAllocator());
             fillColorBuffer(colorBuffer, id);
             colorBufferMap.put(id, colorBuffer);
             return colorBuffer;
@@ -248,7 +248,7 @@ public class DataManager {
         if (indexBufferMap.containsKey(id)) {
             return indexBufferMap.get(id);
         } else {
-            IndicesBuffer indexBuffer = canvas.getBuffersManager().createIndicesBuffer();
+            IndicesBuffer indexBuffer = canvas.getBuffersManager().createIndicesBuffer(BufferAllocation.getAllocator());
             fillIndexBuffer(indexBuffer, id);
             indexBufferMap.put(id, indexBuffer);
             return indexBuffer;
@@ -265,7 +265,7 @@ public class DataManager {
         if (wireIndexBufferMap.containsKey(id)) {
             return wireIndexBufferMap.get(id);
         } else {
-            IndicesBuffer indexBuffer = canvas.getBuffersManager().createIndicesBuffer();
+            IndicesBuffer indexBuffer = canvas.getBuffersManager().createIndicesBuffer(BufferAllocation.getAllocator());
             fillWireIndexBuffer(indexBuffer, id);
             wireIndexBufferMap.put(id, indexBuffer);
             return indexBuffer;
@@ -466,35 +466,45 @@ public class DataManager {
         int length = MainDataLoader.getDataSize(id);
         FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
         MainDataLoader.fillVertices(id, data, 4, coordinateMask, scale, translate, logMask);
-        vertexBuffer.setData(data, 4);
+        if (vertexBuffer.setData(data, 4)) {
+            BufferAllocation.release(data);
+        }
     }
 
     private void fillNormalBuffer(ElementsBuffer normalBuffer, Integer id) throws ObjectRemovedException, OutOfMemoryException {
         int length = MainDataLoader.getDataSize(id);
         FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
         MainDataLoader.fillNormals(id, getVertexBuffer(id).getData(), data, 4);
-        normalBuffer.setData(data, 4);
+        if (normalBuffer.setData(data, 4)) {
+            BufferAllocation.release(data);
+        }
     }
 
     private void updateVertexBuffer(ElementsBuffer vertexBuffer, Integer id, int coordinateMask, double[] scale, double[] translate) throws ObjectRemovedException {
         int logMask = MainDataLoader.getLogMask(id);
         FloatBuffer data = vertexBuffer.getData();
         MainDataLoader.fillVertices(id, data, 4, coordinateMask, scale, translate, logMask);
-        vertexBuffer.setData(data, 4);
+        if (vertexBuffer.setData(data, 4)) {
+            BufferAllocation.release(data);
+        }
     }
 
     private void fillTextureCoordinatesBuffer(ElementsBuffer colorBuffer, Integer id) throws ObjectRemovedException, OutOfMemoryException {
         int length = MainDataLoader.getDataSize(id);
         FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
         MainDataLoader.fillTextureCoordinates(id, data, length);
-        colorBuffer.setData(data, 4);
+        if (colorBuffer.setData(data, 4)) {
+            BufferAllocation.release(data);
+        }
     }
 
     private void fillColorBuffer(ElementsBuffer colorBuffer, Integer id) throws ObjectRemovedException, OutOfMemoryException {
         int length = MainDataLoader.getDataSize(id);
         FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
         MainDataLoader.fillColors(id, data, 4);
-        colorBuffer.setData(data, 4);
+        if (colorBuffer.setData(data, 4)) {
+            BufferAllocation.release(data);
+        }
     }
 
     private void fillIndexBuffer(IndicesBuffer indexBuffer, Integer id) throws ObjectRemovedException, OutOfMemoryException {
@@ -513,7 +523,7 @@ public class DataManager {
         /* Set the buffer size to the actual number of indices */
         data.limit(actualLength);
 
-        indexBuffer.setData(data);
+        indexBuffer.setDataWithNoCopy(data);
     }
 
     private void fillWireIndexBuffer(IndicesBuffer indexBuffer, Integer id) throws ObjectRemovedException, OutOfMemoryException {
@@ -531,8 +541,7 @@ public class DataManager {
 
         /* Set the buffer size to the actual number of indices */
         data.limit(actualLength);
-
-        indexBuffer.setData(data);
+        indexBuffer.setDataWithNoCopy(data);
     }
 
     private static class TransformedElementsBuffer {

@@ -85,6 +85,7 @@ public class ScilabTextureManager {
         private boolean isValid;
         private boolean isRowOrder;
         private ByteBuffer buffer;
+        private ByteBuffer subDataBuffer;
 
         public ScilabTextureDataProvider(Integer identifier) {
             this.identifier = identifier;
@@ -130,6 +131,10 @@ public class ScilabTextureManager {
                 }
                 buffer = null;
             }
+            if (subDataBuffer != null) {
+                BufferAllocation.release(subDataBuffer);
+                subDataBuffer = null;
+            }
         }
 
         @Override
@@ -158,17 +163,20 @@ public class ScilabTextureManager {
 
         @Override
         public ByteBuffer getSubData(int x, int y, int width, int height) {
+            if (subDataBuffer != null) {
+                BufferAllocation.release(subDataBuffer);
+                subDataBuffer = null;
+            }
             int bufferLength = width * height * 4;
-            ByteBuffer buffer;
             try {
-                buffer = BufferAllocation.newByteBuffer(bufferLength);
+                subDataBuffer = BufferAllocation.newByteBuffer(bufferLength);
             } catch (OutOfMemoryException exception) {
                 drawerVisitor.invalidate(GraphicController.getController().getObjectFromId(identifier), exception);
                 return null;
             }
-            MainDataLoader.fillTextureData(identifier, buffer, bufferLength, x, y, width, height);
-            buffer.rewind();
-            return buffer;
+            MainDataLoader.fillTextureData(identifier, subDataBuffer, bufferLength, x, y, width, height);
+            subDataBuffer.rewind();
+            return subDataBuffer;
         }
 
         @Override
@@ -196,6 +204,14 @@ public class ScilabTextureManager {
 
         @Override
         public void createObject(Integer id) {
+        }
+
+        @Override
+        public void finalize() {
+            if (subDataBuffer != null) {
+                BufferAllocation.release(subDataBuffer);
+                subDataBuffer = null;
+            }
         }
     }
 }

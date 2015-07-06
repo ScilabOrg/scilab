@@ -4,6 +4,8 @@
 Scilab Bug Fixes
 ================
 
+* Bug #4176 fixed - No way to draw polylines with too many points.
+
 * Bug #13829 fixed - mean and sum functions returned wrong results for hypermatrices.
 
 * Bug #13854 fixed - On some operating systems, SciNotes did not initialize a new document at startup.

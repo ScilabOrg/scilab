@@ -12,6 +12,8 @@
  */
 
 #include <cstring>
+#include <set>
+#include <iostream>
 
 #include "DataLoader.hxx"
 
@@ -30,6 +32,8 @@ extern "C"
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
 }
+
+static std::set<void *> allocPtrs;
 
 int getTextureWidth(int id)
 {
@@ -451,4 +455,41 @@ int isTextureRowOrder(int id)
 void setABGRExt(int isAvailable)
 {
     NgonGridMatplotData::setABGRSupported(isAvailable != 0);
+}
+
+JavaDirectBuffer getDirectBuffer(int size)
+{
+    JavaDirectBuffer buf;
+    buf.address = new char[size];
+    buf.size = size;
+
+    allocPtrs.insert(buf.address);
+    //std::cerr << "Alloc: " << (void *)buf.address << " ,size:" << size << std::endl;
+
+    return buf;
+}
+
+void releaseDirectByteBuffer(unsigned char * buffer)
+{
+    std::set<void *>::const_iterator i = allocPtrs.find((void *)buffer);
+    if (i != allocPtrs.end())
+    {
+        allocPtrs.erase(i);
+        delete[] buffer;
+        //std::cerr << "Delete: " << (void *)buffer << std::endl;
+    }
+    else
+    {
+        //std::cerr << "Delete non allocated: " << (void *)buffer << std::endl;
+    }
+}
+
+void releaseDirectIntBuffer(int * buffer)
+{
+    releaseDirectByteBuffer((unsigned char *)buffer);
+}
+
+void releaseDirectFloatBuffer(float * buffer)
+{
+    releaseDirectByteBuffer((unsigned char *)buffer);
 }

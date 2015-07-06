@@ -8,6 +8,8 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 
+// swig -java -package org.scilab.modules.graphic_objects -outdir ../java/org/scilab/modules/graphic_objects/ DataLoader.i
+
 %module DataLoader
 
 %include "arrays_java.i"
