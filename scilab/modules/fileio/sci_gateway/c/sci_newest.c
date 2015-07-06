@@ -63,7 +63,7 @@ int sci_newest(char *fname, unsigned long fname_len)
                 }
                 else
                 {
-                    Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname);
                     return 0;
                 }
             }
@@ -79,7 +79,7 @@ int sci_newest(char *fname, unsigned long fname_len)
                 }
                 else
                 {
-                    Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname);
                     return 0;
                 }
             }
@@ -95,7 +95,7 @@ int sci_newest(char *fname, unsigned long fname_len)
             {
                 if (GetType(i) != sci_strings)
                 {
-                    Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, i);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, i);
                     return 0;
                 }
             }

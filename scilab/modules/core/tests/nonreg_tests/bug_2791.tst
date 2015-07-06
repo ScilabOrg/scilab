@@ -17,4 +17,4 @@
 
 ierr = execstr("funptr(1);","errcatch");
 if ierr <> 999 then pause,end
-if lasterror() <> gettext(msprintf("funptr: Wrong type for input argument #1: String expected.\n")) then pause, end
+if lasterror() <> gettext(msprintf("funptr: Wrong type for input argument #1: string expected.\n")) then pause, end

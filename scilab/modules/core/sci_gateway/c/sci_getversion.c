@@ -121,7 +121,7 @@ int getversion_one_rhs(char *fname)
 
         if (!isScalar(pvApiCtx, piAddressVarOne))
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
             return 0;
         }
 
@@ -208,7 +208,7 @@ int getversion_one_rhs(char *fname)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
     return 0;
@@ -243,13 +243,13 @@ int getversion_two_rhs(char *fname)
 
         if (!isScalar(pvApiCtx, piAddressVarOne))
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
             return 0;
         }
 
         if (!isScalar(pvApiCtx, piAddressVarTwo))
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
 

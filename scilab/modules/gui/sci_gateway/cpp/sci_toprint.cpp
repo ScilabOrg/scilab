@@ -363,12 +363,12 @@ static int sci_toprint_two_rhs(void* _pvCtx, const char *fname)
             }
             else
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             }
         }
         else
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
         }
     }
     else if (isDoubleType(_pvCtx, piAddressVarOne))

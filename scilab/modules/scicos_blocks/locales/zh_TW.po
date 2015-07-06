@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
 "PO-Revision-Date: 2011-09-01 15:19+0000\n"
 "Last-Translator: Allan CORNET <Unknown>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -115,68 +116,213 @@ msgstr "在變數延時區塊中考慮增加緩衝區的長度\n"
 msgid "Could not open /dev/audio!\n"
 msgstr "無法開啟 /dev/audio!\n"
 
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 35
 msgid "Clear a bit"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 35
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 33
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 33
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 34
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 35
+# File: modules/scicos_blocks/macros/IntegerOp/JKFLIPFLOP.sci, line: 45
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 34
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 34
+# File: modules/scicos_blocks/macros/IntegerOp/SRFLIPFLOP.sci, line: 44
+# File: modules/scicos_blocks/macros/Sinks/CLKOUTV_f.sci, line: 95
+# File: modules/scicos_blocks/macros/Sinks/OUTIMPL_f.sci, line: 37
+# File: modules/scicos_blocks/macros/Sinks/OUT_f.sci, line: 37
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 43
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 37
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 39
+# File: modules/scicos_blocks/macros/Sources/CLKINV_f.sci, line: 36
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 34
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 34
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 34
+# File: modules/scicos_blocks/macros/Sources/INIMPL_f.sci, line: 37
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 34
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 34
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 43
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 46
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 52
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 32
 #, c-format
 msgid "Set %s block parameters"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 36
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 34
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 40
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 36
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 35
 #, c-format
 msgid "Data Type %s"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 36
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 34
 msgid "Index of Bit (0 is least significant)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 45
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 51
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 62
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 73
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 43
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 49
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 59
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 70
 msgid "Index of Bit"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 45
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 43
 #, c-format
 msgid "Wrong type for '%s' parameter: %5.1f."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 46
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 44
 msgid "Must be integer."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 51
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 62
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 73
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 83
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 49
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 59
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 70
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 79
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 49
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 53
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 57
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 49
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 53
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 235
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 45
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 97
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 56
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 43
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 114
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 81
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 85
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 54
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 59
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 78
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 82
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 86
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 66
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 70
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 86
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 94
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 98
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 106
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 114
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 93
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 96
 #, c-format
 msgid "Wrong value for '%s' parameter: %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 52
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 63
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 74
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 84
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 50
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 60
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 71
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 80
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 50
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 54
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 58
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 50
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 54
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 236
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 46
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 98
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 57
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 44
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 115
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 60
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 87
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 51
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 70
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 91
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 99
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 103
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 111
 #, c-format
 msgid "Must be in the interval %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 83
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 79
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 235
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 97
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 114
 msgid "Data Type"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 33
 msgid "Set a bit"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 33
 msgid "Type conversion"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 34
 msgid "Input Type (1:double, 3:int32, 4:int16, 5:int8, ...)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 34
 msgid "Output Type (1:double, 3:int32, 4:int16, 5:int8, ...)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 35
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 36
 msgid "Do on Overflow (0:Nothing, 1:Saturate, 2:Error)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 49
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 45
 msgid "Do on Overflow"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 53
 msgid "Input Type"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/CONVERT.sci, line: 57
 msgid "Output Type"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 34
 msgid "Bits Extraction"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 35
 msgid "&nbsp;- Bits to Extract:"
 msgstr ""
 
@@ -186,81 +332,147 @@ msgstr "&nbsp;&nbsp;&nbsp;&nbsp;1個 上半"
 msgid "&nbsp;&nbsp;&nbsp;&nbsp;2 Lower Half"
 msgstr "&nbsp;&nbsp;&nbsp;&nbsp;2個 下半"
 
+#, fuzzy
 msgid "&nbsp;&nbsp;&nbsp;&nbsp;3 Range from MSB"
-msgstr ""
+msgstr "&nbsp;&nbsp;&nbsp;&nbsp;1個 上半"
 
+#, fuzzy
 msgid "&nbsp;&nbsp;&nbsp;&nbsp;4 Range to LSB"
-msgstr ""
+msgstr "&nbsp;&nbsp;&nbsp;&nbsp;1個 上半"
 
+#, fuzzy
 msgid "&nbsp;&nbsp;&nbsp;&nbsp;5 Range of Bits"
-msgstr ""
+msgstr "&nbsp;&nbsp;&nbsp;&nbsp;1個 上半"
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 38
 msgid "&nbsp;- Number of Bits or Index of bit : Index 0 is LSB"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 39
 msgid ""
 "&nbsp;&nbsp;&nbsp;&nbsp;If 'Bits to Extract' is set to 'Range of bits': "
 "[Start, End]"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 40
 msgid "Bits to extract"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 41
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 64
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 72
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 76
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 92
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 140
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 188
 msgid "Number of Bits or Index of Bit"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 41
 msgid "Treat Bit Field as an Integer (0:No, 1:Yes)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 49
 msgid "Bits to Extract"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 53
 msgid "Treat Bit Field as an Integer"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 64
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 72
 #, c-format
 msgid "Wrong size for '%s' parameter: %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 65
 msgid "Must be a single value."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 73
 msgid "Must have this form: [Start, End]."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 76
 #, c-format
 msgid "Wrong values for '%s' parameter: %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 77
 msgid "'Start' must be less than 'End'."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 92
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 140
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 188
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 77
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 56
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 67
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 69
 #, c-format
 msgid "Wrong value for '%s' parameter: %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 93
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 141
+# File: modules/scicos_blocks/macros/IntegerOp/EXTRACTBITS.sci, line: 189
 #, c-format
 msgid "Indexes must be in the interval %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/INTMUL.sci, line: 35
 msgid "Integer matrix multiplication"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/JKFLIPFLOP.sci, line: 45
 msgid "JK flip-flop"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/JKFLIPFLOP.sci, line: 46
+# File: modules/scicos_blocks/macros/IntegerOp/SRFLIPFLOP.sci, line: 45
 msgid "The 'Initial Value' must be 0 or 1 of type int8"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/JKFLIPFLOP.sci, line: 47
+# File: modules/scicos_blocks/macros/IntegerOp/SRFLIPFLOP.sci, line: 45
 msgid "&nbsp;- Negative values are considered as int8(0)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/JKFLIPFLOP.sci, line: 47
+# File: modules/scicos_blocks/macros/IntegerOp/SRFLIPFLOP.sci, line: 46
 msgid "&nbsp;- Positive values are considered as int8(1)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/JKFLIPFLOP.sci, line: 48
+# File: modules/scicos_blocks/macros/IntegerOp/SRFLIPFLOP.sci, line: 47
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 35
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 34
 msgid "Initial Value"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 34
 msgid "Combinatorial logic"
 msgstr ""
 
@@ -273,552 +485,998 @@ msgstr "&nbsp; 矩陣的行數是輸出值"
 msgid "&nbsp; Number of columns gives the number of outputs."
 msgstr "&nbsp; 欄位數取得輸出數."
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 37
 msgid "Accepts Inherited Events (0:No, 1:Yes)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 37
 msgid "Truth Table (matrix of outputs)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 48
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 52
 msgid "Truth Table"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 48
 #, c-format
 msgid "Wrong size for '%s' parameter: %d."
 msgstr ""
 
+#, fuzzy
 msgid "Number of rows must be a power of two."
-msgstr ""
+msgstr "&nbsp; 行數必須是 2 的倍數."
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 52
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 71
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 68
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 73
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 64
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 63
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 83
 #, c-format
 msgid "Wrong value for '%s' parameter."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 53
 #, c-format
 msgid "Elements must be in the interval %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/LOGIC.sci, line: 56
 msgid "Accepts Inherited Events"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 34
 msgid "Shift/Rotates bits"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 35
 msgid "Number of Bits to Shift Left (Negative number to shift right)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 36
 msgid "Shift Type (0:Arithmetic, 1:Circular)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/SHIFT.sci, line: 43
 msgid "Shift Type"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/SRFLIPFLOP.sci, line: 44
 msgid "SR flip-flop"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Linear/CLSS.sci, line: 71
+# File: modules/scicos_blocks/macros/Linear/DLSS.sci, line: 71
 msgid "Matrix A is not square or D has wrong dimension"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Misc/DSUPER.sci, line: 34
 msgid "Invalid masked block."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 59
 msgid "Finite differences"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 59
 msgid "Finite elements"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 62
 msgid "negative"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 62
 msgid "null"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 62
 msgid "positive"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 83
 msgid "PDE block"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 87
 msgid "Domain"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 100
 msgid "PDE Specification"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 106
 msgid "PDE Expression:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 108
 msgid "Display"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 233
 msgid "Discriminant type:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 237
 msgid "Constant discriminant"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 242
 msgid "Variable discriminant:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 249
 msgid "Spatial discretization method"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 251
 msgid "Choice:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 258
 msgid "Automatic"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 264
 msgid "Manual"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 267
 msgid "Type:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 272
 msgid "Ordering:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 281
 msgid "degree:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 286
 msgid "Number of nodes:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 291
 msgid "Display step value"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 299
 msgid "Initial conditions"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 311
 msgid "Boundary condition on a"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 314
 msgid "Boundary condition on b"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 324
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 328
 msgid "Expression ="
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 336
 msgid "Measurement points"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 340
 msgid "The measurement points"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 346
 msgid "Add"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 348
 msgid "Remove"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 350
 msgid "Validate"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 352
 msgid "Cancel"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 470
 msgid "Please give the discretization domain values"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 478
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 485
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 492
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 499
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 506
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 513
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 520
 #, c-format
 msgid "Please give the %s operator coefficients"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 529
 msgid "Please give the sign for the variable discriminant"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 538
 msgid "Please give the discretization method type"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 544
 msgid "Please give the discretization method degree"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 550
 msgid "Please give the number of discretization points"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 558
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 565
 #, c-format
 msgid "Please give the initial condition %s"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 572
 msgid "Please give the boundary conditions"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 87
 #, c-format
 msgid "The finite element discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 106
 #, c-format
 msgid "The finite differences discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 120
 #, c-format
 msgid "The finite volume discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 131
 #, c-format
 msgid "The code generation, the compilation and link took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/CLKOUTV_f.sci, line: 95
 msgid "Event output port"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/CLKOUTV_f.sci, line: 96
+# File: modules/scicos_blocks/macros/Sinks/OUTIMPL_f.sci, line: 38
+# File: modules/scicos_blocks/macros/Sinks/OUT_f.sci, line: 38
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 41
 msgid "Port number"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/CLKOUTV_f.sci, line: 102
+# File: modules/scicos_blocks/macros/Sinks/OUTIMPL_f.sci, line: 44
+# File: modules/scicos_blocks/macros/Sinks/OUT_f.sci, line: 44
+# File: modules/scicos_blocks/macros/Sources/INIMPL_f.sci, line: 45
 #, c-format
 msgid "Wrong value for 'Port Number' parameter: %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/CLKOUTV_f.sci, line: 103
+# File: modules/scicos_blocks/macros/Sinks/OUTIMPL_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sinks/OUT_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 86
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 79
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 83
+# File: modules/scicos_blocks/macros/Sources/CLKINV_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 43
+# File: modules/scicos_blocks/macros/Sources/INIMPL_f.sci, line: 46
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 48
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 87
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 95
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 107
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 115
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 74
 msgid "Strictly positive integer expected."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/OUTIMPL_f.sci, line: 37
 msgid "Implicit output port"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/OUT_f.sci, line: 37
 msgid "Regular output port"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 30
 #, c-format
 msgid "Feature %s is obsolete."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 31
 #, c-format
 msgid "Please use %s instead."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 43
 msgid "Write to output file"
 msgstr ""
 
+#, fuzzy
 msgid "&nbsp; - A binary file if no format given"
-msgstr ""
+msgstr "&nbsp; - 給定的是 (Fortran 型式) 的格式化文字檔"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 44
 msgid "Write is done on:"
 msgstr ""
 
 msgid "&nbsp; - A formatted text file if a  format (Fortran type) is given"
 msgstr "&nbsp; - 給定的是 (Fortran 型式) 的格式化文字檔"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 85
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 40
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 82
 msgid "Input Size"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 71
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 40
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 68
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 73
 msgid "Output File Name"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 46
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 81
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 38
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 50
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 54
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 41
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 64
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 78
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 68
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 48
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 75
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 106
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 93
 msgid "Buffer Size"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 46
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 41
 msgid "Output Format"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 59
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 62
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 61
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 59
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 68
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 72
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 80
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 78
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 81
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 84
 msgid "End current simulation first."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 59
 msgid ""
 "Simulation running !!! You cannot switch<br />between formatted and "
 "unformatted when running"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 62
 msgid "You cannot modify 'Output File Name' when running."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 65
 msgid "Wrong value for 'Output File Name' parameter"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 65
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 68
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 64
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 87
 msgid "You must provide a filename."
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Directory '%s' does not exist"
-msgstr ""
+msgstr "%s 變數不存在.\n"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 77
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 56
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 60
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 48
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 67
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 90
 msgid "Input Format"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 78
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 91
 msgid "You must enclose the format's string between parentheses."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 82
 msgid "Must be greater than 1."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 38
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 41
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 49
 msgid "Swap Mode (0:No, 1:Yes)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 38
 msgid "Write '.au' sound file on audio device"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 50
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 68
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 75
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 79
 #, c-format
 msgid "You cannot modify '%s' when running."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 51
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 65
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 76
 msgid "End current simulation first"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 59
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 86
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 70
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 110
 msgid "Swap Mode"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 40
 msgid "Write to C binary file"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 57
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 68
 msgid "Valid formats are: "
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 60
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 71
 #, c-format
 msgid "You cannot modify '%s' when running"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 64
 msgid "You cannot modify 'Buffer Size' when running."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLKINV_f.sci, line: 37
 msgid "Event input port"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLKINV_f.sci, line: 44
 #, c-format
 msgid "Wrong values for 'Port Number' parameter: %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 45
 msgid "Event clock generator"
 msgstr ""
 
 msgid "&nbsp; Do not start if 'Initialisation Time' is negative"
 msgstr "&nbsp; 如果 是 '時間初始化' 是負值則不要啟動"
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 46
 msgid "Initialisation Time"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 46
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 52
 msgid "Period"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 52
 msgid "Strictly positive number expected."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 52
 #, c-format
 msgid "Wrong values for '%s' parameter: %5.1e."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 35
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 42
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 65
 msgid "Constant Value"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 35
 msgid "Constant value generator"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 42
 msgid "Constant value must have at least one element."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 42
 #, c-format
 msgid "Wrong size for '%s' parameter"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 65
 #, c-format
 msgid "Wrong type for '%s' parameter"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 66
 msgid "Value type must be a numeric type (double, complex, int, int8, ...)."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 35
 msgid "Integer counter generator"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 36
 msgid "Maximum"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 36
 msgid "Minimum"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 37
 msgid "Rule (1:Increment, 2:Decrement)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 47
 #, c-format
 msgid "Wrong values for 'Maximum' and 'Minimum' parameters: %d &lt; %d"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 48
 msgid "'Minimum' must be less than 'Maximum'."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Counter.sci, line: 50
 #, c-format
 msgid "Wrong value for 'Rule' parameter: %d"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 35
 msgid "Sine wave generator"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 36
 msgid "Frequency (rad/s)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 36
 msgid "Magnitude"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 36
 msgid "Phase (rad)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/GENSIN_f.sci, line: 42
 #, c-format
 msgid "Wrong value for 'Frequency' parameter: %e."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/INIMPL_f.sci, line: 38
 msgid "Implicit input port"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 40
 msgid "Set Input block parameters"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 42
 msgid "Outport size ([-1 -2] for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 43
 msgid "Outport Type (-1 for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 50
 msgid "Port number must be a positive integer"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 52
 msgid "Outport Size must be a 2 elements vector"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 54
 msgid "Outport type must be a number between 1 and 9, or -1 for inheritance."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 34
 msgid "Modulo counter (0 to N counter)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 35
 msgid "Initial State (zero or positive number)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 35
 msgid "Upper Limit (positive number)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 44
 #, c-format
 msgid "Wrong value for 'Initial State' parameter: %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 42
 msgid "Null or positive integer expected."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 47
 #, c-format
 msgid "Wrong values for 'Upper Limit' parameter: %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 34
 msgid "Ramp function"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 35
 msgid "Slope"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 35
 msgid "Start Time"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 41
 #, c-format
 msgid "Wrong value for 'Start Time' parameter: %e."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 44
 msgid "(Read Audio File)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 44
 msgid "Read is done on a binary '.au' file"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 66
 msgid "Buffer size"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 64
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 48
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 71
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 83
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 87
 msgid "Input File Name"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 58
 msgid "Simulation running !!! You cannot modify Input file name"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 66
 #, c-format
 msgid "Must be greater than %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 47
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 94
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 98
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 102
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 96
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 100
 msgid "Outputs Record Selection"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 47
 msgid "Read from C binary file"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 47
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 63
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 79
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 90
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 69
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 73
 msgid "Time Record Selection"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 48
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 86
 msgid "Record Size"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 49
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 114
 msgid "Initial Record Index"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 64
 msgid "Must be a scalar or an empty matrix."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 84
 msgid "You must provide a file name."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 90
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 110
 #, c-format
 msgid "Wrong value for  '%s' parameter: %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 91
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 99
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 103
 msgid "[1, Record Size = "
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 102
 #, c-format
 msgid "Wrong value for indexes in '%s' parameter: %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 53
 msgid "Read from an input file"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 53
 msgid "Read is done on:"
 msgstr ""
 
+#, fuzzy
 msgid "&nbsp; - A formatted text file if a  format (fortran type) is given"
-msgstr ""
+msgstr "&nbsp; - 給定的是 (Fortran 型式) 的格式化文字檔"
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 70
 msgid "Empty matrix or scalar expected."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 73
 #, c-format
 msgid "Wrong value for '%s' parameter: %d"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 77
 msgid ""
 "Simulation running !!! You cannot switch <br />between formatted and "
 "unformatted"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 81
 msgid "Simulation running !!! You cannot modify 'Input File Name"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 84
 msgid "Simulation running !!! You cannot modify 'Time Record Selection"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 87
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 100
 #, c-format
 msgid "Wrong value for '%s' parameter: %s"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 90
 #, c-format
 msgid "Wrong format for '%s' parameter: %s."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 94
 msgid "Buffer size must be at least 2."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 97
 msgid "You must read at least one field in record."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 101
 msgid "Strictly positive indexes expected."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 33
 msgid "Step Function"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 34
 msgid "Final Value"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 34
 msgid "Step Time"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 46
 #, c-format
 msgid "'Initial Value' and 'Final Value': incompatible sizes: %d and %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 46
 msgid "Same sizes expected."
-msgstr ""
-
-#, c-format
-msgid "%s: Wrong number of input arguments: At most %d expected.\n"
 msgstr ""

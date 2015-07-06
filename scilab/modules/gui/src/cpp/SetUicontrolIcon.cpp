@@ -28,7 +28,7 @@ int SetUicontrolIcon(void* _pvCtx, int iObjUID, void* _pvData, int valueType, in
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "icon");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "icon");
         return SET_PROPERTY_ERROR;
     }
 

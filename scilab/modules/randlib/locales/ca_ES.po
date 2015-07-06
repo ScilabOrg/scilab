@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2012-04-19 18:15+0000\n"
 "Last-Translator: Marc Coll Carrillo <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: ca\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument: %d expected with option '%s'.\n"
@@ -127,7 +127,7 @@ msgid "%s: Wrong value for input argument #%d: '%s' is unknown.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -388,8 +388,8 @@ msgid ""
 "Bad seed for fsultra, must be integers in [0, 2^32-1]\n"
 msgstr ""
 "\n"
-"Valors incorrectes per a fsultra, han de ser enters dins el rang [0, 2^32-"
-"1]\n"
+"Valors incorrectes per a fsultra, han de ser enters dins el rang [0, "
+"2^32-1]\n"
 
 #, c-format
 msgid ""
@@ -438,71 +438,44 @@ msgstr ""
 msgid "Scilab randlib interface not installed.\n"
 msgstr "La interfície randlib del Scilab no està instal·lada.\n"
 
-msgid "Simulation of a binomial random variable"
-msgstr "Simulació d'una variable aleatòria binomial"
+#~ msgid "Simulation of a binomial random variable"
+#~ msgstr "Simulació d'una variable aleatòria binomial"
 
-msgid "Simulation"
-msgstr "Simulació"
+#~ msgid "Simulation"
+#~ msgstr "Simulació"
 
-msgid "Theory"
-msgstr "Teoria"
+#~ msgid "Theory"
+#~ msgstr "Teoria"
 
-msgid "Simulation of a discrete random variable"
-msgstr "Simulació d'una variable aleatòria discreta"
+#~ msgid "Simulation of a discrete random variable"
+#~ msgstr "Simulació d'una variable aleatòria discreta"
 
-msgid "Simulation of a discrete uniform random variable"
-msgstr ""
+#~ msgid "Random"
+#~ msgstr "Aleatori"
 
-msgid "Simulation of a Erlang random variable"
-msgstr ""
+#~ msgid "binomial random variable"
+#~ msgstr "variable aleatòria binomial"
 
-msgid "Simulation of an exponential random variable"
-msgstr ""
+#~ msgid "discrete random variable"
+#~ msgstr "variable aleatòria discreta"
 
-msgid "Classes"
-msgstr ""
+#~ msgid "discrete uniform random variable"
+#~ msgstr "variable aleatòria discreta uniforme"
 
-msgid "p must be < 1"
-msgstr ""
+#~ msgid "geometric random variable"
+#~ msgstr "variable aleatòria geomètrica"
 
-msgid "Simulation of a geometric random variable"
-msgstr ""
+#~ msgid "Poisson random variable"
+#~ msgstr "Variable aleatòria de Poisson"
 
-msgid "Simulation of a hyper geometric random variable"
-msgstr ""
+#~ msgid "Exponential random variable"
+#~ msgstr "Variable aleatòria exponencial"
 
-msgid "Simulation of a Poisson random variable"
-msgstr ""
+#~ msgid "Weibull random variable"
+#~ msgstr "Variable aleatòria de Weibull"
 
-msgid "Random"
-msgstr "Aleatori"
+#~ msgid "Hyper geometric random variable"
+#~ msgstr "Variable aleatòria hipergeomètrica"
 
-msgid "binomial random variable"
-msgstr "variable aleatòria binomial"
-
-msgid "discrete random variable"
-msgstr "variable aleatòria discreta"
-
-msgid "discrete uniform random variable"
-msgstr "variable aleatòria discreta uniforme"
-
-msgid "geometric random variable"
-msgstr "variable aleatòria geomètrica"
-
-msgid "Poisson random variable"
-msgstr "Variable aleatòria de Poisson"
-
-msgid "Exponential random variable"
-msgstr "Variable aleatòria exponencial"
-
-msgid "Weibull random variable"
-msgstr "Variable aleatòria de Weibull"
-
-msgid "Hyper geometric random variable"
-msgstr "Variable aleatòria hipergeomètrica"
-
-msgid "Erlang random variable"
-msgstr "Variable aleatòria d'Erlang"
-
-msgid "Simulation of a Weibull random variable"
-msgstr ""
+#~ msgid "Erlang random variable"
+#~ msgstr "Variable aleatòria d'Erlang"

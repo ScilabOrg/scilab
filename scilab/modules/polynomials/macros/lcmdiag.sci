@@ -27,7 +27,7 @@ function [N,D]=lcmdiag(H,flag)
     if rhs==1 then
         flag = "col";
     elseif type(flag)<>10 then
-        error(msprintf(_("%s: Wrong type for argument #%d: String expected.\n"), "lcmdiag", 2));
+        error(msprintf(_("%s: Wrong type for argument #%d: string expected.\n"), "lcmdiag", 2));
     end
     select flag
     case "row"

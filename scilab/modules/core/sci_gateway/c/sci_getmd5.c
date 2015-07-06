@@ -111,7 +111,7 @@ int C2F(sci_getmd5) (char *fname, unsigned long fname_len)
         }
         else
         {
-            Scierror(999, _("%s: Wrong type of input argument #%d: String expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type of input argument #%d: string expected.\n"), fname, 1);
         }
     }
     else /* Rhs == 2 */

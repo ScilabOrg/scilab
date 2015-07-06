@@ -180,7 +180,7 @@ int set_tip_disp_function_property(void* _pvCtx, int iObj, void* _pvData, int va
     BOOL status = FALSE;
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "display_function");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "display_function");
         return SET_PROPERTY_ERROR;
     }
 

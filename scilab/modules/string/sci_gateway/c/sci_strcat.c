@@ -89,13 +89,13 @@ static int sci_strcat_three_rhs(char *fname)
 
     if (VarType(2) != sci_strings)
     {
-        Scierror(999, "%s : Wrong size for input argument #%d: Single string expected.\n", fname, 2);
+        Scierror(999, "%s : Wrong size for input argument #%d: string expected.\n", fname, 2);
         return 0;
     }
 
     if (VarType(3) != sci_strings)
     {
-        Scierror(999, "%s : Wrong size for input argument #%d: Single string expected.\n", fname, 3);
+        Scierror(999, "%s : Wrong size for input argument #%d: string expected.\n", fname, 3);
         return 0;
     }
 
@@ -327,7 +327,7 @@ static int sci_strcat_two_rhs(char *fname)
 
     if (Type_Two != sci_strings)
     {
-        Scierror(246, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 2);
+        Scierror(246, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
         return 0;
     }
     else                        /* sci_strings */
@@ -340,7 +340,7 @@ static int sci_strcat_two_rhs(char *fname)
         if (Number_Inputs_Two != 1)
         {
             freeArrayOfString(Input_String_Two, Number_Inputs_Two);
-            Scierror(36, "%s : Wrong size for input argument #%d: Single string expected.\n", fname, 2);
+            Scierror(36, "%s : Wrong size for input argument #%d: string expected.\n", fname, 2);
             return 0;
         }
     }

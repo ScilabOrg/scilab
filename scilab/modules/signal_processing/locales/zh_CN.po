@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2009-04-12 06:56+0000\n"
 "Last-Translator: Shiqi Yu <shiqi.yu@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: \n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -34,173 +34,7 @@ msgid "%s: Wrong type for argument #%d: Real or complex vector expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
-msgstr ""
-
-#, c-format
 msgid "%s: Memory allocation error.\n"
-msgstr ""
-
-msgid "Simulation of an ARMAX process:"
-msgstr ""
-
-msgid "Identification ARX (least square):"
-msgstr ""
-
-msgid "Simulation of an ARMAX process: "
-msgstr ""
-
-msgid "Identification ARX (least square): "
-msgstr ""
-
-msgid "Arma Spectral power estimation:"
-msgstr ""
-
-msgid "Arma identification"
-msgstr ""
-
-msgid "Theoretical value"
-msgstr ""
-
-msgid "Using macro mese"
-msgstr ""
-
-msgid "Spectral power"
-msgstr ""
-
-msgid "frequency"
-msgstr ""
-
-msgid "spectral estimate"
-msgstr ""
-
-msgid "Press Return to continue ... \n"
-msgstr ""
-
-msgid "filtered signal"
-msgstr ""
-
-msgid "given noisy signal"
-msgstr ""
-
-msgid "Signal"
-msgstr ""
-
-msgid "2 points convolution"
-msgstr ""
-
-msgid "3 points convolution"
-msgstr ""
-
-msgid "Signal derivative estimate"
-msgstr ""
-
-msgid "Choose filter type and parameters"
-msgstr ""
-
-msgid "Discrete IIR filter "
-msgstr ""
-
-msgid "Discrete IIR filter: low pass  fr < 0.2"
-msgstr ""
-
-msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
-msgstr ""
-
-msgid "Minimax FIR filter"
-msgstr ""
-
-msgid "low pass  cut-off in [.23,.27]"
-msgstr ""
-
-msgid "length 33"
-msgstr ""
-
-msgid "Remez Triangular filter"
-msgstr ""
-
-msgid "magnitude error"
-msgstr ""
-
-msgid "Signal Processing"
-msgstr "信号处理"
-
-msgid "Spectral Estimation"
-msgstr ""
-
-msgid "IIR filter design"
-msgstr ""
-
-msgid "Minimax FIR filter design"
-msgstr ""
-
-msgid "Discrete IIR filter"
-msgstr ""
-
-msgid "Wiener filter"
-msgstr ""
-
-msgid "Bode plots"
-msgstr ""
-
-msgid "Window FIR filters"
-msgstr ""
-
-msgid "1-D convolution"
-msgstr ""
-
-msgid "2-D convolution"
-msgstr ""
-
-msgid "Arma simulation and identification"
-msgstr ""
-
-msgid "Arma, bidimensional version"
-msgstr ""
-
-msgid "Arma, Spectral power estimation"
-msgstr ""
-
-msgid "Data spectrum"
-msgstr ""
-
-msgid "magnitude"
-msgstr ""
-
-msgid "Spectral estimation"
-msgstr ""
-
-msgid "spectral power"
-msgstr ""
-
-msgid "estimates xf"
-msgstr ""
-
-msgid "estimates xs"
-msgstr ""
-
-msgid "real state"
-msgstr ""
-
-msgid "Windowed FIR Low pass Filter"
-msgstr ""
-
-msgid "Kaiser window, cut-off: 0.2"
-msgstr ""
-
-msgid "Hamming window, cut-off: 0.2, 0.3"
-msgstr ""
-
-msgid "length 127"
-msgstr ""
-
-msgid "Windowed FIR Band pass Filter"
-msgstr ""
-
-msgid "Chebyshev window, cut-off: 0.15, 0.35"
-msgstr ""
-
-msgid "length 55"
 msgstr ""
 
 #, c-format
@@ -298,8 +132,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: First element must not be %s.\n"
+msgid "%s: Wrong value for input argument #%d: First element must not be %s.\n"
 msgstr ""
 
 #, c-format
@@ -345,8 +178,7 @@ msgid "%s: Wrong size for input argument #%d: A positive integer expected.\n"
 msgstr ""
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: A positive integer expected.\n"
+msgid "%s: Wrong value for input argument #%d: A positive integer expected.\n"
 msgstr ""
 
 #, c-format
@@ -413,8 +245,7 @@ msgid ""
 msgstr "%s：输入参数#%d的类型错误：应该为有理分数数组。\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: A %d elements array expected.\n"
+msgid "%s: Wrong size for input argument #%d: A %d elements array expected.\n"
 msgstr "%s：输入参数#%d的大小错误：应该为一个有%d个元素的数组。\n"
 
 #, c-format
@@ -570,3 +401,6 @@ msgstr "%s：输入参数#%d的值错误：元素必须以升序排列。\n"
 #, c-format
 msgid "%s: Too abrupt change near end of frequency range.\n"
 msgstr "%s：在频率范围的结束处有非常突然的变化。\n"
+
+#~ msgid "Signal Processing"
+#~ msgstr "信号处理"

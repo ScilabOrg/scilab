@@ -75,7 +75,7 @@
             expected."
         </para>
         <para>* 54 "Wrong type for input argument #%d: Polynomial expected."</para>
-        <para>* 55 "Wrong type for argument #%d: String expected."</para>
+        <para>* 55 "Wrong type for argument #%d: string expected."</para>
         <para>* 56 "Wrong type for argument #%d: List expected."</para>
         <para>57 "Problem with comparison symbol..."</para>
         <para>58 "Function has no input argument..."</para>

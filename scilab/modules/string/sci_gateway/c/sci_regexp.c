@@ -75,14 +75,14 @@ int sci_regexp(char *fname, unsigned long fname_len)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 
     if (mn != 1)
     {
         freeArrayOfString(Str, mn);
-        Scierror(36, _("%s: Wrong size for input argument #%d: Single string expected.\n"), fname, 1);
+        Scierror(36, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 
@@ -95,14 +95,14 @@ int sci_regexp(char *fname, unsigned long fname_len)
     else
     {
         freeArrayOfString(Str, mn);
-        Scierror(36, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 2);
+        Scierror(36, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
         return 0;
     }
 
     if (mn2 != 1)
     {
         freeArrayOfString(Str2, mn2);
-        Scierror(36, _("%s: Wrong size for input argument #%d: Single string expected.\n"), fname, 2);
+        Scierror(36, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
         return 0;
     }
 

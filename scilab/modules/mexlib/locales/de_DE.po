@@ -11,14 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2010-10-31 20:45+0000\n"
 "Last-Translator: Petersen <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: de\n"
-
-msgid "mexPutFull failed\n"
-msgstr "mexPutFull fehlgeschlagen\n"
 
 msgid "No more memory available: increase stacksize"
 msgstr "Kein freier Speicher verfügbar: Erhöhe Stapelgröße"
@@ -36,8 +33,7 @@ msgid "Warning: "
 msgstr "Warnung: "
 
 msgid "mexCallSCILAB: invalid pointer passed to called function."
-msgstr ""
-"mexCallSCILAB: ungültiger Zeiger zur aufgerufenen Funktion übergeben."
+msgstr "mexCallSCILAB: ungültiger Zeiger zur aufgerufenen Funktion übergeben."
 
 msgid "mexCallSCILAB: evaluation failed. "
 msgstr "mexCallSCILAB: Auswertung fehlgeschlagen. "
@@ -88,3 +84,6 @@ msgstr "Ungültiger Eingang"
 
 msgid "No more memory"
 msgstr "Kein weiterer Speicher"
+
+#~ msgid "mexPutFull failed\n"
+#~ msgstr "mexPutFull fehlgeschlagen\n"

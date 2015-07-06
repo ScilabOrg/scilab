@@ -16,7 +16,7 @@ function varargout = listvarinfile(filename)
     end
 
     if typeof(filename) <> "string" | size(filename, "*") <> 1 then
-        error(999, msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "listvarinfile", 1));
+        error(999, msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "listvarinfile", 1));
     end
 
     if isfile(filename) & is_hdf5_file(filename) then

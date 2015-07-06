@@ -47,7 +47,7 @@ int set_format_n_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTyp
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "format_n");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "format_n");
         return SET_PROPERTY_ERROR;
     }
 

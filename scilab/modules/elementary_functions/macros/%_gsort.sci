@@ -27,19 +27,19 @@ function [matrix_sorted, origin_indices] = %_gsort(matrix_to_sort, sort_type, so
     end
 
     if type(sort_type) <> 10 then
-        error(999,msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"gsort",2));
+        error(999,msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"gsort",2));
     end
 
     if type(sort_direction) <> 10 then
-        error(999,msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"gsort",3));
+        error(999,msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"gsort",3));
     end
 
     if size(sort_type,"*") <> 1 then
-        error(999,msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"gsort",2));
+        error(999,msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"gsort",2));
     end
 
     if size(sort_direction,"*") <> 1 then
-        error(999,msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"gsort",3));
+        error(999,msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"gsort",3));
     end
 
     if ~or(sort_type == ["g" "r" "c" "lc" "lr"]) then

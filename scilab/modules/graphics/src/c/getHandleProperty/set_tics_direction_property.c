@@ -42,7 +42,7 @@ int set_tics_direction_property(void* _pvCtx, int iObjUID, void* _pvData, int va
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "tics_direction");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "tics_direction");
         return SET_PROPERTY_ERROR;
     }
 

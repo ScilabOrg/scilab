@@ -40,7 +40,7 @@ int set_image_type_property(void* _pvCtx, int iObjUID, void* _pvData, int valueT
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "image_type");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "image_type");
         return SET_PROPERTY_ERROR;
     }
 

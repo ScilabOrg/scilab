@@ -79,7 +79,7 @@ errmsg=msprintf(_("Wrong type for ''%s'' property: Real matrix expected.\n"), "d
 ierr = execstr("l.direction = ''asd''", "errcatch");
 assert_checkequal(lasterror(), errmsg);
 
-errmsg=msprintf(_("Wrong type for ''%s'' property: String expected.\n"),  "light_type");
+errmsg=msprintf(_("Wrong type for ''%s'' property: string expected.\n"),  "light_type");
 ierr = execstr("l.light_type = 0", "errcatch");
 assert_checkequal(lasterror(), errmsg);
 

@@ -20,7 +20,7 @@ function values = getPreferencesValue(xpath, attributes, doc)
     end
 
     if type(xpath) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "getPreferencesValue", 1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "getPreferencesValue", 1));
     end
 
     if type(attributes) <> 10 then

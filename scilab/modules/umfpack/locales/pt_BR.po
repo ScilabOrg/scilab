@@ -153,8 +153,9 @@ msgid "Matrix is not compatible with the given LU factors"
 msgstr "A matriz não é compatível com os fatores LU fornecidos"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
+"%s: Tipo errado para o argumento de entrada #%d: Esperava-se um string.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A matrix expected.\n"
@@ -204,11 +205,6 @@ msgid "%s: Wrong type for input argument #%d: sparse matrix expected.\n"
 msgstr ""
 "%s: Tipo errado para o argumento de entrada #%d: Esperava-se uma matriz "
 "esparsa.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr ""
-"%s: Tipo errado para o argumento de entrada #%d: Esperava-se um string.\n"
 
 msgid "Choose a sparse matrix"
 msgstr "Escolha uma matriz esparsa."
@@ -281,15 +277,13 @@ msgstr ""
 "%s: Quantidade errada de argumentos de entrada: Esperava-se de %d a %d.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
+msgid "%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
 msgstr ""
 "%s: Tipo errado para o argumento de entrada #%d: Esperava-se uma matriz "
 "quadrada esparsa\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
+msgid "%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
 msgstr ""
 "%s: Tamanho errado para o argumento de entrada #%d: Esperava-se uma matriz "
 "quadrada esparasa.\n"
@@ -300,8 +294,7 @@ msgstr "%s: A matriz e os fatores LU não têm dimensões iguais !\n"
 
 #, c-format
 msgid "%s: Invalid type and/or size and/or value for the second arg.\n"
-msgstr ""
-"%s: Tipo inválido e/ou tamanho e/ou valor para o segundo argumento.\n"
+msgstr "%s: Tipo inválido e/ou tamanho e/ou valor para o segundo argumento.\n"
 
 msgid " For this demo the current stack size is not enough "
 msgstr " O tamanho atual da pilha não é suficiente para esta demonstração "

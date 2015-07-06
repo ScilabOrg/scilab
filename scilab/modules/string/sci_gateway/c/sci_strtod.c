@@ -62,12 +62,12 @@ int sci_strtod(char *fname, unsigned long fname_len)
         }
         if (isStringType(pvApiCtx, piAddr2) == 0 || isScalar(pvApiCtx, piAddr2) == 0)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
         if (getAllocatedSingleString(pvApiCtx, piAddr2, &Input_SingleString_2))
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
         //Test on optional argument value

@@ -13,7 +13,7 @@ function [PName] = getPlotPropertyName(PropertyName,current_figure,cur_draw_mode
     err = execstr("str = convstr(PropertyName);", "errcatch", "m");
 
     if err <> 0
-        warning(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"getPlotPropertyName",1));
+        warning(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"getPlotPropertyName",1));
         ResetFigureDDM(current_figure, cur_draw_mode);
         return;
     end

@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2015-03-12 14:51+0000\n"
 "Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: ru\n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -37,179 +37,8 @@ msgstr ""
 "вектор.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
-msgstr ""
-"%s: Неверный тип параметра %d: ожидалась матрица вещественных или "
-"комплексных чисел.\n"
-
-#, c-format
 msgid "%s: Memory allocation error.\n"
 msgstr "%s: Ошибка выделения памяти.\n"
-
-msgid "Simulation of an ARMAX process:"
-msgstr "Моделирование процесса ARMAX:"
-
-msgid "Identification ARX (least square):"
-msgstr "Идентификация ARX (МНК):"
-
-msgid "Simulation of an ARMAX process: "
-msgstr "Моделирование процесса ARMAX: "
-
-msgid "Identification ARX (least square): "
-msgstr "Идентификация ARX (МНК): "
-
-msgid "Arma Spectral power estimation:"
-msgstr ""
-"Оценка спектральной мощности моделью авторегрессионного скользящего среднего:"
-
-msgid "Arma identification"
-msgstr "Идентификация модели ARMA"
-
-msgid "Theoretical value"
-msgstr "Теоретическое значение"
-
-msgid "Using macro mese"
-msgstr "Использование макроса mese"
-
-msgid "Spectral power"
-msgstr "Спектральная мощность"
-
-msgid "frequency"
-msgstr "частота"
-
-msgid "spectral estimate"
-msgstr "оценка спектральной плотности"
-
-msgid "Press Return to continue ... \n"
-msgstr "Нажмите Return для продолжения ... \n"
-
-msgid "filtered signal"
-msgstr "фильтрованный сигнал"
-
-msgid "given noisy signal"
-msgstr "заданный сигнал с шумом"
-
-msgid "Signal"
-msgstr "Сигнал"
-
-msgid "2 points convolution"
-msgstr "двухточечная свёртка"
-
-msgid "3 points convolution"
-msgstr "трёхточечная свёртка"
-
-msgid "Signal derivative estimate"
-msgstr "оценка производной сигнала"
-
-msgid "Choose filter type and parameters"
-msgstr "Выберите тип фильтра и параметры"
-
-msgid "Discrete IIR filter "
-msgstr "Дискретный БИХ-фильтр "
-
-msgid "Discrete IIR filter: low pass  fr < 0.2"
-msgstr "Дискретный БИХ-фильтр: фильтр нижних частот  fr < 0.2"
-
-msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
-msgstr "Дискретный БИХ-фильтр: полосовой фильтр 0.15 < fr < 0.25"
-
-msgid "Minimax FIR filter"
-msgstr "Минимаксный КИХ-фильтр"
-
-msgid "low pass  cut-off in [.23,.27]"
-msgstr "частота отсечки фильтра низких частот в [.23,.27]"
-
-msgid "length 33"
-msgstr "длина 33"
-
-msgid "Remez Triangular filter"
-msgstr "Треугольный фильтр по методу Ремеза"
-
-msgid "magnitude error"
-msgstr "ошибка абсолютной величины"
-
-msgid "Signal Processing"
-msgstr "Обработка сигналов"
-
-msgid "Spectral Estimation"
-msgstr "Спектральное оценивание"
-
-msgid "IIR filter design"
-msgstr "Схема БИХ-фильтра"
-
-msgid "Minimax FIR filter design"
-msgstr "Минимаксная схема КИХ-фильтра"
-
-msgid "Discrete IIR filter"
-msgstr "Дискретный БИХ-фильтр"
-
-msgid "Wiener filter"
-msgstr "Винеровский фильтр"
-
-msgid "Bode plots"
-msgstr "Диаграммы Боде"
-
-msgid "Window FIR filters"
-msgstr "Оконные КИХ-фильтры"
-
-msgid "1-D convolution"
-msgstr "Одномерная свёртка"
-
-msgid "2-D convolution"
-msgstr "Двумерная свёртка"
-
-msgid "Arma simulation and identification"
-msgstr ""
-"Моделирование авторегрессионного скользящего среднего и идентификация"
-
-msgid "Arma, bidimensional version"
-msgstr "Модель авторегрессионного скользящего среднего, двумерная версия"
-
-msgid "Arma, Spectral power estimation"
-msgstr ""
-"Оценка спектральной мощности, модель авторегрессионного скользящего среднего"
-
-msgid "Data spectrum"
-msgstr "Спектр данных"
-
-msgid "magnitude"
-msgstr "абсолютная величина"
-
-msgid "Spectral estimation"
-msgstr "Спектральная оценка"
-
-msgid "spectral power"
-msgstr "спектральная мощность"
-
-msgid "estimates xf"
-msgstr "оценки xf"
-
-msgid "estimates xs"
-msgstr "оценки xs"
-
-msgid "real state"
-msgstr "истинное состояние"
-
-msgid "Windowed FIR Low pass Filter"
-msgstr "КИХ-фильтр низких частот с оконной обработкой"
-
-msgid "Kaiser window, cut-off: 0.2"
-msgstr "Кайзеровское окно, отсечка: 0.2"
-
-msgid "Hamming window, cut-off: 0.2, 0.3"
-msgstr "Окно Хемминга, отсечка 0.2, 0.3"
-
-msgid "length 127"
-msgstr "длина 127"
-
-msgid "Windowed FIR Band pass Filter"
-msgstr "полосовой КИХ-фильтр с оконной обработкой"
-
-msgid "Chebyshev window, cut-off: 0.15, 0.35"
-msgstr "Окно Чебышева, отсечка: 0.15, 0.35"
-
-msgid "length 55"
-msgstr "длина 55"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
@@ -326,8 +155,7 @@ msgstr ""
 "на-1 либо два полинома\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: First element must not be %s.\n"
+msgid "%s: Wrong value for input argument #%d: First element must not be %s.\n"
 msgstr ""
 "%s: Неверное значение входного аргумента №%d: первый элемент НЕ должен быть "
 "%s.\n"
@@ -386,8 +214,7 @@ msgstr ""
 "число.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: A positive integer expected.\n"
+msgid "%s: Wrong value for input argument #%d: A positive integer expected.\n"
 msgstr ""
 "%s: Неверное значение входного аргумента №%d: ожидалось положительное целое "
 "значение.\n"
@@ -473,8 +300,7 @@ msgstr ""
 "функций.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: A %d elements array expected.\n"
+msgid "%s: Wrong size for input argument #%d: A %d elements array expected.\n"
 msgstr ""
 "%s: Неверный размер входного аргумента №%d: ожидался массив из %d "
 "элементов.\n"
@@ -649,3 +475,175 @@ msgstr ""
 #, c-format
 msgid "%s: Too abrupt change near end of frequency range.\n"
 msgstr "%s: Слишком быстрое изменение около границы частотного диапазона.\n"
+
+#~ msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
+#~ msgstr ""
+#~ "%s: Неверный тип параметра %d: ожидалась матрица вещественных или "
+#~ "комплексных чисел.\n"
+
+#~ msgid "Simulation of an ARMAX process:"
+#~ msgstr "Моделирование процесса ARMAX:"
+
+#~ msgid "Identification ARX (least square):"
+#~ msgstr "Идентификация ARX (МНК):"
+
+#~ msgid "Simulation of an ARMAX process: "
+#~ msgstr "Моделирование процесса ARMAX: "
+
+#~ msgid "Identification ARX (least square): "
+#~ msgstr "Идентификация ARX (МНК): "
+
+#~ msgid "Arma Spectral power estimation:"
+#~ msgstr ""
+#~ "Оценка спектральной мощности моделью авторегрессионного скользящего "
+#~ "среднего:"
+
+#~ msgid "Arma identification"
+#~ msgstr "Идентификация модели ARMA"
+
+#~ msgid "Theoretical value"
+#~ msgstr "Теоретическое значение"
+
+#~ msgid "Using macro mese"
+#~ msgstr "Использование макроса mese"
+
+#~ msgid "Spectral power"
+#~ msgstr "Спектральная мощность"
+
+#~ msgid "frequency"
+#~ msgstr "частота"
+
+#~ msgid "spectral estimate"
+#~ msgstr "оценка спектральной плотности"
+
+#~ msgid "Press Return to continue ... \n"
+#~ msgstr "Нажмите Return для продолжения ... \n"
+
+#~ msgid "filtered signal"
+#~ msgstr "фильтрованный сигнал"
+
+#~ msgid "given noisy signal"
+#~ msgstr "заданный сигнал с шумом"
+
+#~ msgid "Signal"
+#~ msgstr "Сигнал"
+
+#~ msgid "2 points convolution"
+#~ msgstr "двухточечная свёртка"
+
+#~ msgid "3 points convolution"
+#~ msgstr "трёхточечная свёртка"
+
+#~ msgid "Signal derivative estimate"
+#~ msgstr "оценка производной сигнала"
+
+#~ msgid "Choose filter type and parameters"
+#~ msgstr "Выберите тип фильтра и параметры"
+
+#~ msgid "Discrete IIR filter "
+#~ msgstr "Дискретный БИХ-фильтр "
+
+#~ msgid "Discrete IIR filter: low pass  fr < 0.2"
+#~ msgstr "Дискретный БИХ-фильтр: фильтр нижних частот  fr < 0.2"
+
+#~ msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
+#~ msgstr "Дискретный БИХ-фильтр: полосовой фильтр 0.15 < fr < 0.25"
+
+#~ msgid "Minimax FIR filter"
+#~ msgstr "Минимаксный КИХ-фильтр"
+
+#~ msgid "low pass  cut-off in [.23,.27]"
+#~ msgstr "частота отсечки фильтра низких частот в [.23,.27]"
+
+#~ msgid "length 33"
+#~ msgstr "длина 33"
+
+#~ msgid "Remez Triangular filter"
+#~ msgstr "Треугольный фильтр по методу Ремеза"
+
+#~ msgid "magnitude error"
+#~ msgstr "ошибка абсолютной величины"
+
+#~ msgid "Signal Processing"
+#~ msgstr "Обработка сигналов"
+
+#~ msgid "Spectral Estimation"
+#~ msgstr "Спектральное оценивание"
+
+#~ msgid "IIR filter design"
+#~ msgstr "Схема БИХ-фильтра"
+
+#~ msgid "Minimax FIR filter design"
+#~ msgstr "Минимаксная схема КИХ-фильтра"
+
+#~ msgid "Discrete IIR filter"
+#~ msgstr "Дискретный БИХ-фильтр"
+
+#~ msgid "Wiener filter"
+#~ msgstr "Винеровский фильтр"
+
+#~ msgid "Bode plots"
+#~ msgstr "Диаграммы Боде"
+
+#~ msgid "Window FIR filters"
+#~ msgstr "Оконные КИХ-фильтры"
+
+#~ msgid "1-D convolution"
+#~ msgstr "Одномерная свёртка"
+
+#~ msgid "2-D convolution"
+#~ msgstr "Двумерная свёртка"
+
+#~ msgid "Arma simulation and identification"
+#~ msgstr ""
+#~ "Моделирование авторегрессионного скользящего среднего и идентификация"
+
+#~ msgid "Arma, bidimensional version"
+#~ msgstr "Модель авторегрессионного скользящего среднего, двумерная версия"
+
+#~ msgid "Arma, Spectral power estimation"
+#~ msgstr ""
+#~ "Оценка спектральной мощности, модель авторегрессионного скользящего "
+#~ "среднего"
+
+#~ msgid "Data spectrum"
+#~ msgstr "Спектр данных"
+
+#~ msgid "magnitude"
+#~ msgstr "абсолютная величина"
+
+#~ msgid "Spectral estimation"
+#~ msgstr "Спектральная оценка"
+
+#~ msgid "spectral power"
+#~ msgstr "спектральная мощность"
+
+#~ msgid "estimates xf"
+#~ msgstr "оценки xf"
+
+#~ msgid "estimates xs"
+#~ msgstr "оценки xs"
+
+#~ msgid "real state"
+#~ msgstr "истинное состояние"
+
+#~ msgid "Windowed FIR Low pass Filter"
+#~ msgstr "КИХ-фильтр низких частот с оконной обработкой"
+
+#~ msgid "Kaiser window, cut-off: 0.2"
+#~ msgstr "Кайзеровское окно, отсечка: 0.2"
+
+#~ msgid "Hamming window, cut-off: 0.2, 0.3"
+#~ msgstr "Окно Хемминга, отсечка 0.2, 0.3"
+
+#~ msgid "length 127"
+#~ msgstr "длина 127"
+
+#~ msgid "Windowed FIR Band pass Filter"
+#~ msgstr "полосовой КИХ-фильтр с оконной обработкой"
+
+#~ msgid "Chebyshev window, cut-off: 0.15, 0.35"
+#~ msgstr "Окно Чебышева, отсечка: 0.15, 0.35"
+
+#~ msgid "length 55"
+#~ msgstr "длина 55"

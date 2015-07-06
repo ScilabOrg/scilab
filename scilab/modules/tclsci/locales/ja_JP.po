@@ -11,12 +11,12 @@ msgstr ""
 "PO-Revision-Date: 2013-06-15 04:58+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
 "X-Poedit-Country: Japan\n"
-"Language: ja\n"
 "X-Poedit-Language: Japanese\n"
 
 #
@@ -60,7 +60,7 @@ msgid "%s: No such slave interpreter.\n"
 msgstr "%s: 従属インタープリタはありません。\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #
@@ -81,7 +81,9 @@ msgstr ""
 msgid ""
 "%s: Wrong type for input argument #%d: String or vector of strings "
 "expected.\n"
-msgstr "%s: 入力引数 #%d の型が間違っています: 文字列または文字列のベクトルを指定してください.\n"
+msgstr ""
+"%s: 入力引数 #%d の型が間違っています: 文字列または文字列のベクトルを指定して"
+"ください.\n"
 
 #, c-format
 msgid "%s: No more memory.\n"
@@ -124,8 +126,9 @@ msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d or #%d: String expected.\n"
-msgstr "%s: 入力引数 #%d または #%d の型が間違っています: 文字列を指定してください.\n"
+msgid "%s: Wrong type for input argument #%d or #%d: string expected.\n"
+msgstr ""
+"%s: 入力引数 #%d または #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
 msgid "%s: An error occurred: %s\n"
@@ -188,13 +191,17 @@ msgstr "TCLエラー: TK初期化(Tk_Init)でエラーです : %s\n"
 msgid ""
 "Tcl Error: Error during the Scilab/Tcl init process. Could not set SciPath: "
 "%s\n"
-msgstr "Tclエラー: Scilab/TKの初期化時にエラーが発生しました. SciPathを設定できませんでした: %s\n"
+msgstr ""
+"Tclエラー: Scilab/TKの初期化時にエラーが発生しました. SciPathを設定できません"
+"でした: %s\n"
 
 #, c-format
 msgid ""
 "Tcl Error: Error during the Scilab/TK init process. Error while loading %s: "
 "%s\n"
-msgstr "Tclエラー: Scilab/TKの初期化時にエラーが発生しました. %s のロードでエラー: %s\n"
+msgstr ""
+"Tclエラー: Scilab/TKの初期化時にエラーが発生しました. %s のロードでエラー: "
+"%s\n"
 
 #
 # File: src/c/ScilabEval.c, line: 50
@@ -245,7 +252,8 @@ msgstr "フラッシュ終了\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): at least one expected.\n"
-msgstr "%s: 入力引数の数が間違っています:　少なくとも1個の引数を指定してください.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています:　少なくとも1個の引数を指定してください.\n"
 
 #
 # File: src/c/TCL_ArrayDim.c, line: 63
@@ -278,24 +286,10 @@ msgstr "%s: TCL インタープリタの初期化エラーです。\n"
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "Scilab TCL/TK モジュールはインストールされていません。\n"
 
-msgid "Tcl/Tk"
-msgstr "Tcl/Tk"
-
-msgid "Color"
-msgstr "色"
-
-msgid "Puzzle"
-msgstr "パズル"
-
-msgid "Scroll"
-msgstr "スクロールする"
-
-msgid "Scale"
-msgstr "拡大・縮小"
-
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
-msgstr "%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
+msgstr ""
+"%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
 
 #, c-format
 msgid "%s: Wrong number of output argument(s): %d expected.\n"
@@ -320,3 +314,18 @@ msgstr "%s: 従属インタープリタは既にあります。\n"
 #, c-format
 msgid "Error %s while loading library %s"
 msgstr "ライブラリ %2$s で %1$s エラー"
+
+#~ msgid "Tcl/Tk"
+#~ msgstr "Tcl/Tk"
+
+#~ msgid "Color"
+#~ msgstr "色"
+
+#~ msgid "Puzzle"
+#~ msgstr "パズル"
+
+#~ msgid "Scroll"
+#~ msgstr "スクロールする"
+
+#~ msgid "Scale"
+#~ msgstr "拡大・縮小"

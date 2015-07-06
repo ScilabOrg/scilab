@@ -39,7 +39,7 @@ int set_x_location_property(void* _pvCtx, int iObjUID, void* _pvData, int valueT
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "x_location");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "x_location");
         return SET_PROPERTY_ERROR;
     }
 

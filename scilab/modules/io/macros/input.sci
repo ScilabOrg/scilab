@@ -18,11 +18,11 @@ function [x] = input(msg, flag)
     end
 
     if type(msg) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"input",1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"input",1));
     end
 
     if size(msg, "*") <> 1 then
-        error(msprintf(gettext("%s: Wrong size for input argument #%d: A string expected.\n"),"input",1));
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: string expected.\n"),"input",1));
     end
 
     // a tricky way to get all ascii codes  sequences
@@ -32,11 +32,11 @@ function [x] = input(msg, flag)
 
     if argn(2) == 2 then
         if type(flag) <> 10 then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"input",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"input",2));
         end
 
         if size(flag, "*") <> 1 then
-            error(msprintf(gettext("%s: Wrong size for input argument #%d: A string expected.\n"),"input",2));
+            error(msprintf(gettext("%s: Wrong size for input argument #%d: string expected.\n"),"input",2));
         end
 
         if (flag <> "s" & flag <> "string") then

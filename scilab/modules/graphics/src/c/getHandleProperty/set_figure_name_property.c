@@ -38,7 +38,7 @@ int set_figure_name_property(void* _pvCtx, int iObjUID, void* _pvData, int value
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "figure_name");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "figure_name");
         return SET_PROPERTY_ERROR;
     }
 

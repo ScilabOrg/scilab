@@ -65,7 +65,7 @@ int sci_xls_open(char *fname, unsigned long fname_len)
 
     if (VarType(1) != sci_strings)
     {
-        Scierror(999, "%s: Invalid type of input argument: String expected.", fname);
+        Scierror(999, "%s: Invalid type of input argument: string expected.", fname);
         return 0;
     }
 

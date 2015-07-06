@@ -29,7 +29,7 @@ function r = isfield(s,field)
     end
 
     if type(field) <> 10 then
-        msg = _("%s: Wrong type for input argument #%d: A string expected.\n")
+        msg = _("%s: Wrong type for input argument #%d: string expected.\n")
         error(msprintf(msg,"isfield",2));
     end
 

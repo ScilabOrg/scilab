@@ -11,17 +11,13 @@ msgstr ""
 "PO-Revision-Date: 2010-08-25 12:54+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
 "X-Poedit-Country: Japan\n"
-"Language: ja\n"
 "X-Poedit-Language: Japanese\n"
-
-# File: includes/mex.h, line: 80
-msgid "mexPutFull failed\n"
-msgstr "mexPutFull に失敗しました\n"
 
 msgid "No more memory available: increase stacksize"
 msgstr "メモリが不足しています: stacksize を増やしてください"
@@ -112,3 +108,7 @@ msgstr "入力間違いです"
 
 msgid "No more memory"
 msgstr "メモリが不足しています"
+
+# File: includes/mex.h, line: 80
+#~ msgid "mexPutFull failed\n"
+#~ msgstr "mexPutFull に失敗しました\n"

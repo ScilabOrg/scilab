@@ -38,7 +38,7 @@ int set_alignment_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "alignment");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "alignment");
         return SET_PROPERTY_ERROR;
     }
 

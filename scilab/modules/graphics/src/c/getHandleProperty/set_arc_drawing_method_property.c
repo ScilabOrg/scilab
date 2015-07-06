@@ -38,7 +38,7 @@ int set_arc_drawing_method_property(void* _pvCtx, int iObjUID, void* _pvData, in
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "arc_drawing_method");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "arc_drawing_method");
         return SET_PROPERTY_ERROR;
     }
 

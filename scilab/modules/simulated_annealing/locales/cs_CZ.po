@@ -6,24 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
 "PO-Revision-Date: 2011-09-02 15:19+0000\n"
 "Last-Translator: davidcl <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-
-msgid "Please wait ..."
-msgstr "Čekejte prosím ..."
-
-msgid "Simulated Annealing"
-msgstr "Simulované Žíhámí"
-
-msgid "Simulated Annealing and Ising problem"
-msgstr "Simulované Žíhání a Isingův problém"
 
 #, c-format
 msgid "%s: cit_f is mandatory"
@@ -42,3 +34,12 @@ msgid ""
 "%f\n"
 msgstr ""
 "%s: Teplota krok %d / %d - T = %f, E(f(T)) = %f var(f(T)) = %f f_best = %f\n"
+
+#~ msgid "Please wait ..."
+#~ msgstr "Čekejte prosím ..."
+
+#~ msgid "Simulated Annealing"
+#~ msgstr "Simulované Žíhámí"
+
+#~ msgid "Simulated Annealing and Ising problem"
+#~ msgstr "Simulované Žíhání a Isingův problém"

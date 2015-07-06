@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2013-06-19 14:12+0000\n"
 "Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: ru\n"
 
 msgid "Warning: Problem(s) with TCL/TK interface. Interface not enabled.\n"
 msgstr "Внимание: проблемы с интерфейсом TCL/TK. Интерфейс недоступен.\n"
@@ -32,7 +32,7 @@ msgid "%s: No such slave interpreter.\n"
 msgstr "%s: Нет такого ведомого интерпретатора.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -89,7 +89,7 @@ msgid "%s: Wrong type for input argument #%d: Matrix expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась матрица.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d or #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d or #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d или №%d: ожидалась строка.\n"
 
 #, c-format
@@ -126,8 +126,7 @@ msgstr ""
 "Сбой инициализации TCL!\n"
 
 msgid "Tcl Error: Unable to create Tcl interpreter (Tcl_CreateInterp).\n"
-msgstr ""
-"Ошибка Tcl: Не удалось создать интерпретатор Tcl (Tcl_CreateInterp).\n"
+msgstr "Ошибка Tcl: Не удалось создать интерпретатор Tcl (Tcl_CreateInterp).\n"
 
 #, c-format
 msgid "Tcl Error: Error during the Tcl initialization (Tcl_Init): %s\n"
@@ -209,21 +208,6 @@ msgstr "%s: Ошибка: интерпретатор TCL не инициализ
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "Модуль TCL/TK не установлен.\n"
 
-msgid "Tcl/Tk"
-msgstr "Tcl/Tk"
-
-msgid "Color"
-msgstr "Цвет"
-
-msgid "Puzzle"
-msgstr "Пазл"
-
-msgid "Scroll"
-msgstr "Прокрутка"
-
-msgid "Scale"
-msgstr "Масштаб"
-
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
 msgstr "%s: Неверное количество входных параметров: ожидалось от %d до %d.\n"
@@ -248,3 +232,18 @@ msgstr "%s: Ведомый интерпретатор уже существуе�
 #, c-format
 msgid "Error %s while loading library %s"
 msgstr "Ошибка %s при загрузке библиотеки %s"
+
+#~ msgid "Tcl/Tk"
+#~ msgstr "Tcl/Tk"
+
+#~ msgid "Color"
+#~ msgstr "Цвет"
+
+#~ msgid "Puzzle"
+#~ msgstr "Пазл"
+
+#~ msgid "Scroll"
+#~ msgstr "Прокрутка"
+
+#~ msgid "Scale"
+#~ msgstr "Масштаб"

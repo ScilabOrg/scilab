@@ -90,7 +90,7 @@ try
 catch
   [str,n]=lasterror();
   if n <> 999 then pause, end
-  if str <> msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"), "mkdir", 1) then pause, end
+  if str <> msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "mkdir", 1) then pause, end
 end
 
 try
@@ -98,5 +98,5 @@ try
 catch
   [str,n]=lasterror();
   if n <> 999 then pause, end
-  if str <> msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "mkdir", 1) then pause, end
+  if str <> msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"), "mkdir", 1) then pause, end
 end

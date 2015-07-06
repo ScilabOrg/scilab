@@ -47,7 +47,7 @@ int set_legend_location_property(void* _pvCtx, int iObjUID, void* _pvData, int v
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "legend_location");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "legend_location");
         return SET_PROPERTY_ERROR;
     }
 

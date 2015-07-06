@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2011-12-03 13:25+0000\n"
 "Last-Translator: I.Rokach <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: pl\n"
 
 #, c-format
 msgid "%s: Could not add line to the history.\n"
@@ -83,24 +83,6 @@ msgstr ""
 "%s: Nieprawidłowy typ parametru wejściowego nr %d: Oczekiwano wartości "
 "logicznej.\n"
 
-msgid "Command history"
-msgstr ""
-
-msgid "History Management Settings"
-msgstr ""
-
-msgid "Enable history management"
-msgstr ""
-
-msgid "History file: "
-msgstr ""
-
-msgid "History files"
-msgstr ""
-
-msgid "History lines: "
-msgstr ""
-
 msgid "Begin Session : "
 msgstr "Rozpocznij sesję : "
 
@@ -160,3 +142,21 @@ msgstr "Lis"
 
 msgid "Dec"
 msgstr "Gru"
+
+msgid "Command history"
+msgstr ""
+
+msgid "History Management Settings"
+msgstr ""
+
+msgid "Enable history management"
+msgstr ""
+
+msgid "History file: "
+msgstr ""
+
+msgid "History files"
+msgstr ""
+
+msgid "History lines: "
+msgstr ""

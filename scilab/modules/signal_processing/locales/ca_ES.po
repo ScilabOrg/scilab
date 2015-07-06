@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2010-04-10 19:18+0000\n"
 "Last-Translator: oriolsbd <oriolsbd@yahoo.es>\n"
 "Language-Team: Catalan <ca@li.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: ca\n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -34,173 +34,7 @@ msgid "%s: Wrong type for argument #%d: Real or complex vector expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
-msgstr ""
-
-#, c-format
 msgid "%s: Memory allocation error.\n"
-msgstr ""
-
-msgid "Simulation of an ARMAX process:"
-msgstr ""
-
-msgid "Identification ARX (least square):"
-msgstr ""
-
-msgid "Simulation of an ARMAX process: "
-msgstr ""
-
-msgid "Identification ARX (least square): "
-msgstr ""
-
-msgid "Arma Spectral power estimation:"
-msgstr ""
-
-msgid "Arma identification"
-msgstr "Identificació Arma"
-
-msgid "Theoretical value"
-msgstr "Valor teòric"
-
-msgid "Using macro mese"
-msgstr "S'està utilitzant la macro mese"
-
-msgid "Spectral power"
-msgstr "Espectre de potència"
-
-msgid "frequency"
-msgstr "freqüència"
-
-msgid "spectral estimate"
-msgstr "espectre estimat"
-
-msgid "Press Return to continue ... \n"
-msgstr ""
-
-msgid "filtered signal"
-msgstr ""
-
-msgid "given noisy signal"
-msgstr ""
-
-msgid "Signal"
-msgstr ""
-
-msgid "2 points convolution"
-msgstr ""
-
-msgid "3 points convolution"
-msgstr ""
-
-msgid "Signal derivative estimate"
-msgstr ""
-
-msgid "Choose filter type and parameters"
-msgstr ""
-
-msgid "Discrete IIR filter "
-msgstr ""
-
-msgid "Discrete IIR filter: low pass  fr < 0.2"
-msgstr ""
-
-msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
-msgstr ""
-
-msgid "Minimax FIR filter"
-msgstr ""
-
-msgid "low pass  cut-off in [.23,.27]"
-msgstr ""
-
-msgid "length 33"
-msgstr ""
-
-msgid "Remez Triangular filter"
-msgstr ""
-
-msgid "magnitude error"
-msgstr ""
-
-msgid "Signal Processing"
-msgstr "Processat de senyal"
-
-msgid "Spectral Estimation"
-msgstr ""
-
-msgid "IIR filter design"
-msgstr ""
-
-msgid "Minimax FIR filter design"
-msgstr ""
-
-msgid "Discrete IIR filter"
-msgstr ""
-
-msgid "Wiener filter"
-msgstr ""
-
-msgid "Bode plots"
-msgstr ""
-
-msgid "Window FIR filters"
-msgstr ""
-
-msgid "1-D convolution"
-msgstr ""
-
-msgid "2-D convolution"
-msgstr ""
-
-msgid "Arma simulation and identification"
-msgstr ""
-
-msgid "Arma, bidimensional version"
-msgstr ""
-
-msgid "Arma, Spectral power estimation"
-msgstr ""
-
-msgid "Data spectrum"
-msgstr ""
-
-msgid "magnitude"
-msgstr ""
-
-msgid "Spectral estimation"
-msgstr ""
-
-msgid "spectral power"
-msgstr ""
-
-msgid "estimates xf"
-msgstr "estima xf"
-
-msgid "estimates xs"
-msgstr "estima xs"
-
-msgid "real state"
-msgstr "estat real"
-
-msgid "Windowed FIR Low pass Filter"
-msgstr ""
-
-msgid "Kaiser window, cut-off: 0.2"
-msgstr ""
-
-msgid "Hamming window, cut-off: 0.2, 0.3"
-msgstr ""
-
-msgid "length 127"
-msgstr ""
-
-msgid "Windowed FIR Band pass Filter"
-msgstr ""
-
-msgid "Chebyshev window, cut-off: 0.15, 0.35"
-msgstr ""
-
-msgid "length 55"
 msgstr ""
 
 #, c-format
@@ -318,8 +152,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: First element must not be %s.\n"
+msgid "%s: Wrong value for input argument #%d: First element must not be %s.\n"
 msgstr ""
 
 #, c-format
@@ -369,8 +202,7 @@ msgid "%s: Wrong size for input argument #%d: A positive integer expected.\n"
 msgstr ""
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: A positive integer expected.\n"
+msgid "%s: Wrong value for input argument #%d: A positive integer expected.\n"
 msgstr ""
 
 #, c-format
@@ -451,8 +283,7 @@ msgstr ""
 "de fraccions racionals.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: A %d elements array expected.\n"
+msgid "%s: Wrong size for input argument #%d: A %d elements array expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d té una mida incorrecta: Ha de ser un vector de "
 "%d elements.\n"
@@ -615,3 +446,33 @@ msgstr ""
 msgid "%s: Too abrupt change near end of frequency range.\n"
 msgstr ""
 "%s: Hi ha un canvi massa abrupte prop del final del rang de freqüències.\n"
+
+#~ msgid "Arma identification"
+#~ msgstr "Identificació Arma"
+
+#~ msgid "Theoretical value"
+#~ msgstr "Valor teòric"
+
+#~ msgid "Using macro mese"
+#~ msgstr "S'està utilitzant la macro mese"
+
+#~ msgid "Spectral power"
+#~ msgstr "Espectre de potència"
+
+#~ msgid "frequency"
+#~ msgstr "freqüència"
+
+#~ msgid "spectral estimate"
+#~ msgstr "espectre estimat"
+
+#~ msgid "Signal Processing"
+#~ msgstr "Processat de senyal"
+
+#~ msgid "estimates xf"
+#~ msgstr "estima xf"
+
+#~ msgid "estimates xs"
+#~ msgstr "estima xs"
+
+#~ msgid "real state"
+#~ msgstr "estat real"

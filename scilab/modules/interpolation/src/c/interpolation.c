@@ -145,7 +145,7 @@ int get_rhs_scalar_string(int num, int *length, int **tabchar)
     if ( ! ( *istk(il) == sci_strings  &&  (*istk(il + 1)) * (*istk(il + 2)) == 1 ) )
     {
         /* we look for a scalar string */
-        Scierror(999, _("Wrong type for input argument #%d: String expected.\n"), num);
+        Scierror(999, _("Wrong type for input argument #%d: string expected.\n"), num);
         return 0;
     }
     *length = *istk(il + 5) - 1;

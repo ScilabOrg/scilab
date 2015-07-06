@@ -93,7 +93,7 @@ static int xlfont_one_rhs(char * fname)
         // Retrieve a matrix of double at position 1.
         if (getAllocatedSingleString(pvApiCtx, piAddrl1, &strl1))
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 1);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
             return 1;
         }
 
@@ -182,7 +182,7 @@ static int xlfont_one_rhs(char * fname)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 
@@ -275,7 +275,7 @@ static int xlfont_n_rhs(char * fname)
         // Retrieve a matrix of double at position 1.
         if (getAllocatedSingleString(pvApiCtx, piAddrl1, &strl1))
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 1);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
             return 1;
         }
 
@@ -359,7 +359,7 @@ static int xlfont_n_rhs(char * fname)
     {
         if ((!checkInputArgumentType(pvApiCtx, 1, sci_strings)))
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
             return 0;
         }
 

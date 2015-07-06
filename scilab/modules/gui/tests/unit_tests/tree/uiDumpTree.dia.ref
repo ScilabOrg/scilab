@@ -48,17 +48,17 @@ assert_checkerror("uiDumpTree(myErrorNode1, %F)", refMsg);
 assert_checkerror("uiDumpTree(myErrorNode1, %T)", refMsg);
 //wrong
 assert_checkerror("uiDumpTree(myErrorNode1, 123)", refMsg);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",1);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",1);
 assert_checkerror("myErrorNode2 = uiCreateNode(123)", refMsg);
 assert_checkerror("myErrorNode3 = uiCreateNode(123, ''icon of My Node'')", refMsg);
 // right inputs
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",2);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",2);
 assert_checkerror("myErrorNode4 = uiCreateNode(''My Node'', 123)", refMsg);
-refMsg = msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",1);
+refMsg = msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",1);
 assert_checkerror("myErrorNode5 = uiCreateNode(123, ''icon of My Node'', ''callback of My Node'')", refMsg);
-refMsg = msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",2);
+refMsg = msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",2);
 assert_checkerror("myErrorNode6 = uiCreateNode(''My Node'', 123, ''callback of My Node'')", refMsg);
-refMsg = msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",3);
+refMsg = msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",3);
 assert_checkerror("myErrorNode6 = uiCreateNode(''My Node'', ''icon of My Node'', 123)", refMsg);
 refMsg = msprintf(_("Wrong number of input arguments."));
 assert_checkerror("myErrorNode8 = uiCreateNode(''My Node'', ''icon of My Node'', ''callback of My Node'', ''test'')", refMsg);

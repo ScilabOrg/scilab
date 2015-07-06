@@ -58,7 +58,7 @@ int sci_part(char *fname, unsigned long fname_len)
     if (VarType(1) != sci_strings)
     {
         OverLoad(1);
-        /*Scierror(999,_("%s: Wrong type for first input argument: String expected.\n"),fname);*/
+        /*Scierror(999,_("%s: Wrong type for first input argument: string expected.\n"),fname);*/
         return 0;
     }
 

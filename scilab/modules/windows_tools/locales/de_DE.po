@@ -38,12 +38,12 @@ msgid "%s: Can not read input argument #%d.\n"
 msgstr "%s: Kann Eingangsgument nicht lesen #%d.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: eine Zeichenkette erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: eine Zeichenkette erwartet.\n"
 
@@ -54,10 +54,6 @@ msgstr "%s: falscher Wert für Eingangsargument #%d: '%s' erwartet.\n"
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr "%s: kein weiterer Speicher.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr "%s: falscher Typ für Eingangsargument #%d: Variable erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong type for input arguments: Strings expected.\n"
@@ -73,12 +69,6 @@ msgstr "in der Hilfe nachsehen"
 #, c-format
 msgid "%s: Cannot open file %s.\n"
 msgstr "%s: Kann die Datei nicht öffnen %s.\n"
-
-#, c-format
-msgid "%s: Wrong size for input argument #%d: String expected.\n"
-msgstr ""
-"%s: Falsche Größe für Eingangsargument #%d: es wird eine Zeichenkette "
-"erwartet.\n"
 
 #, c-format
 msgid "%s: Cannot open Windows registry.\n"

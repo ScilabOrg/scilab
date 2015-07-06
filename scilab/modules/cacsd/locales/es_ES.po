@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2013-06-26 01:19+0000\n"
 "Last-Translator: Scilab.team <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: es\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A real matrix expected.\n"
@@ -83,11 +83,6 @@ msgid "%s: SB10FD exit with info = %d.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A real expected.\n"
-msgstr ""
-"%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un real.\n"
-
-#, c-format
 msgid "%s: %s must be a scalar.\n"
 msgstr ""
 
@@ -116,10 +111,6 @@ msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A square matrix expected.\n"
-msgstr ""
-
-#, c-format
 msgid ""
 "%s: Wrong column size for input argument #%d: Same column size of input "
 "argument #%d expected.\n"
@@ -127,8 +118,8 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong row size for input argument #%d: Same row size of input argument "
-"#%d expected.\n"
+"%s: Wrong row size for input argument #%d: Same row size of input argument #"
+"%d expected.\n"
 msgstr ""
 
 #, c-format
@@ -194,7 +185,7 @@ msgid "%s: The matrices A, C and D must have the same order.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -218,11 +209,6 @@ msgid "%s: RICDMF exit with info = %d.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
-msgstr ""
-"%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba un escalar.\n"
-
-#, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: Same column dimension as input "
 "argument #%d expected.\n"
@@ -244,36 +230,8 @@ msgstr ""
 msgid "%s: ZUNGQR exit with info = %d.\n"
 msgstr ""
 
-msgid "CACSD"
-msgstr "CACSD"
-
-msgid "LQG"
-msgstr "LQG"
-
-msgid "Mixed-sensitivity"
-msgstr "Sensibilidad mezclada."
-
-msgid "PID"
-msgstr "PID"
-
-msgid "Inverted pendulum"
-msgstr "Péndulo invertido"
-
-msgid "Flat systems"
-msgstr "Sistemas planos"
-
-msgid "Tracking"
-msgstr "Seguimiento"
-
-msgid "Robust control"
-msgstr "Control robusto"
-
-msgid "Press Return to continue ... \n"
-msgstr ""
-
 #, c-format
-msgid ""
-"%s: Wrong type for input argument: Linear dynamical system expected.\n"
+msgid "%s: Wrong type for input argument: Linear dynamical system expected.\n"
 msgstr ""
 "%s: Tipo incorrecto de argumento de entrada: Se esperaba un sistema lineal "
 "dinámico.\n"
@@ -387,8 +345,7 @@ msgstr "%s: %s debe ser de dimensión (%s, %s).\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
-msgstr ""
-"%s: Valor incorrecto del argumento de entrada #%d: Se esperaba '%s'.\n"
+msgstr "%s: Valor incorrecto del argumento de entrada #%d: Se esperaba '%s'.\n"
 
 #, c-format
 msgid ""
@@ -483,8 +440,7 @@ msgid "Frequency (rad/s)"
 msgstr ""
 
 #, c-format
-msgid ""
-"Wrong type for argument #%d: Rational or State-space matrix expected.\n"
+msgid "Wrong type for argument #%d: Rational or State-space matrix expected.\n"
 msgstr ""
 
 #, c-format
@@ -504,7 +460,7 @@ msgstr ""
 "strings.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
@@ -557,8 +513,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong size for input argument #%d: %d expected.\n"
-msgstr ""
-"%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba %d.\n"
+msgstr "%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba %d.\n"
 
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Elements must be positive.\n"
@@ -612,8 +567,7 @@ msgid "%s: Wrong size for argument #%d: %d expected.\n"
 msgstr "%s: Tamaño incorrecto para el argumento %d: Se esperaba %d.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: Stabilizable system expected.\n"
+msgid "%s: Wrong value for input argument #%d: Stabilizable system expected.\n"
 msgstr ""
 "%s: Valor incorrecto del argumento de entrada#%d: Se esperaba un sistema "
 "estabilizable.\n"
@@ -689,8 +643,7 @@ msgstr "%s: Condicionamiento equivocado.\n"
 
 #, c-format
 msgid "%s: Wrong number of output arguments: %d or %d expected.\n"
-msgstr ""
-"%s: Número incorrecto de argumentos de salida: Se esperaban %d o %d.\n"
+msgstr "%s: Número incorrecto de argumentos de salida: Se esperaban %d o %d.\n"
 
 #, c-format
 msgid "%s: More than %d iterations.\n"
@@ -849,8 +802,7 @@ msgid "%s: %s is indefinite.\n"
 msgstr "%s: %s es indefinida.\n"
 
 #, c-format
-msgid ""
-"%s: Controllable & observable mode(s) of %s near the imaginary axis.\n"
+msgid "%s: Controllable & observable mode(s) of %s near the imaginary axis.\n"
 msgstr ""
 "%s: Modos controlables y observables de %s están cerca del eje imaginario.\n"
 
@@ -1021,8 +973,7 @@ msgid "%s: %s non symmetric.\n"
 msgstr "%s: %s no es simétrico.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: Linear state space  expected.\n"
+msgid "%s: Wrong type for input argument #%d: Linear state space  expected.\n"
 msgstr ""
 "%s: Tipo erróneo de argumentos de entrada #%d: se esperaba un espacio de "
 "estados lineal.\n"
@@ -1039,8 +990,7 @@ msgstr ""
 "%s: Modo controlables y observables de A están cerca del eje imaginario."
 
 #, c-format
-msgid ""
-"%s: All modes of A are nearly nonminimal so that || G || is almost 0.\n"
+msgid "%s: All modes of A are nearly nonminimal so that || G || is almost 0.\n"
 msgstr ""
 "%s: Todos los modos de A son casi no-mínimos tal que || G || es casi 0.\n"
 
@@ -1314,3 +1264,36 @@ msgstr "Eje Real"
 
 msgid "Imaginary Axis"
 msgstr "Eje Imaginario"
+
+#~ msgid "%s: Wrong type for input argument #%d: A real expected.\n"
+#~ msgstr ""
+#~ "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un real.\n"
+
+#~ msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
+#~ msgstr ""
+#~ "%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba un "
+#~ "escalar.\n"
+
+#~ msgid "CACSD"
+#~ msgstr "CACSD"
+
+#~ msgid "LQG"
+#~ msgstr "LQG"
+
+#~ msgid "Mixed-sensitivity"
+#~ msgstr "Sensibilidad mezclada."
+
+#~ msgid "PID"
+#~ msgstr "PID"
+
+#~ msgid "Inverted pendulum"
+#~ msgstr "Péndulo invertido"
+
+#~ msgid "Flat systems"
+#~ msgstr "Sistemas planos"
+
+#~ msgid "Tracking"
+#~ msgstr "Seguimiento"
+
+#~ msgid "Robust control"
+#~ msgstr "Control robusto"

@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
 "PO-Revision-Date: 2015-03-08 12:25+0000\n"
 "Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,8 +88,8 @@ msgid ""
 "The LU factorization has been completed, but the factor U is exactly "
 "singular : U(%d,%d) is exactly zero."
 msgstr ""
-"Разложение LU матрицы выполнено, но множитель U является вырожденным : "
-"U(%d,%d) равен нулю."
+"Разложение LU матрицы выполнено, но множитель U является вырожденным : U(%d,"
+"%d) равен нулю."
 
 msgid "Read error!\n"
 msgstr "Ошибка чтения!\n"
@@ -325,6 +326,8 @@ msgstr "SR-триггер"
 msgid "Matrix A is not square or D has wrong dimension"
 msgstr "Матрица A не квадратная либо у D неверная размерность"
 
+#
+# File: modules/scicos_blocks/macros/Misc/DSUPER.sci, line: 34
 msgid "Invalid masked block."
 msgstr ""
 
@@ -343,9 +346,13 @@ msgstr "ноль"
 msgid "positive"
 msgstr "положительный"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 83
 msgid "PDE block"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 87
 msgid "Domain"
 msgstr ""
 
@@ -355,6 +362,8 @@ msgstr "Спецификация ДРЧП"
 msgid "PDE Expression:"
 msgstr "Выражение ДРЧП:"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 108
 msgid "Display"
 msgstr ""
 
@@ -376,12 +385,16 @@ msgstr "Выбор:"
 msgid "Automatic"
 msgstr "Автоматически"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 264
 msgid "Manual"
 msgstr ""
 
 msgid "Type:"
 msgstr "Тип:"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 272
 msgid "Ordering:"
 msgstr ""
 
@@ -391,6 +404,8 @@ msgstr "степень:"
 msgid "Number of nodes:"
 msgstr "Число узлов:"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 291
 msgid "Display step value"
 msgstr ""
 
@@ -424,15 +439,17 @@ msgstr "Утвердить"
 msgid "Cancel"
 msgstr "Отмена"
 
+#, fuzzy
 msgid "Please give the discretization domain values"
-msgstr ""
+msgstr "Пожалуйтса, укажите тип метода дискретизации"
 
 #, c-format
 msgid "Please give the %s operator coefficients"
 msgstr "Пожалуйста, укажите коэффициенты оператора %s"
 
+#, fuzzy
 msgid "Please give the sign for the variable discriminant"
-msgstr ""
+msgstr "Пожалуйста, укажите начальное условие %s"
 
 msgid "Please give the discretization method type"
 msgstr "Пожалуйтса, укажите тип метода дискретизации"
@@ -458,16 +475,17 @@ msgstr "Дискретизация конечного элемента заня�
 msgid "The finite differences discretization took %.2f seconds"
 msgstr "Дискретизация конечных разностей заняла %.2f секунды"
 
-#, c-format
+#, fuzzy, c-format
 msgid "The finite volume discretization took %.2f seconds"
-msgstr ""
+msgstr "Дискретизация конечного элемента заняла %.2f секунды"
 
-#, c-format
+#, fuzzy, c-format
 msgid "The code generation, the compilation and link took %.2f seconds"
-msgstr ""
+msgstr "Дискретизация конечного элемента заняла %.2f секунды"
 
+#, fuzzy
 msgid "Event output port"
-msgstr ""
+msgstr "Выходной формат"
 
 msgid "Port number"
 msgstr "Номер порта"
@@ -479,9 +497,13 @@ msgstr "Неверное значение параметра 'Номер пор�
 msgid "Strictly positive integer expected."
 msgstr "Ожидалось строго положительное целое."
 
+#
+# File: modules/scicos_blocks/macros/Sinks/OUTIMPL_f.sci, line: 37
 msgid "Implicit output port"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/OUT_f.sci, line: 37
 msgid "Regular output port"
 msgstr ""
 
@@ -506,8 +528,9 @@ msgid "&nbsp; - A formatted text file if a  format (Fortran type) is given"
 msgstr ""
 "&nbsp; - Форматированный текстовый файл, если задан формат (тип ФОРТРАН)"
 
+#, fuzzy
 msgid "Input Size"
-msgstr ""
+msgstr "Тип на входе"
 
 msgid "Output File Name"
 msgstr "Имя файла вывода"
@@ -525,8 +548,8 @@ msgid ""
 "Simulation running !!! You cannot switch<br />between formatted and "
 "unformatted when running"
 msgstr ""
-"Моделирование запущено!!! Вы не можете во время работы переключать<br "
-"/>между форматированным и неформатированным"
+"Моделирование запущено!!! Вы не можете во время работы переключать<br /"
+">между форматированным и неформатированным"
 
 msgid "You cannot modify 'Output File Name' when running."
 msgstr "Вы не можете изменить 'Имя файла вывода' во время выполнения."
@@ -550,6 +573,11 @@ msgstr "Вы должны поместить строку формата меж�
 msgid "Must be greater than 1."
 msgstr "Должно быть больше 1."
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 38
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 41
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 49
 msgid "Swap Mode (0:No, 1:Yes)"
 msgstr ""
 
@@ -563,6 +591,11 @@ msgstr "Вы не можете изменить '%s' во время выпол�
 msgid "End current simulation first"
 msgstr "Сначала закончите текущее моделирование"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 59
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 86
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 70
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 110
 msgid "Swap Mode"
 msgstr ""
 
@@ -579,6 +612,8 @@ msgstr "Вы не можете изменить '%s' во время выпол�
 msgid "You cannot modify 'Buffer Size' when running."
 msgstr "Вы не можете изменить 'Размер буфера' во время выполнения."
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLKINV_f.sci, line: 37
 msgid "Event input port"
 msgstr ""
 
@@ -586,8 +621,9 @@ msgstr ""
 msgid "Wrong values for 'Port Number' parameter: %d."
 msgstr "Неверные значения параметра 'Номер порта': %d."
 
+#, fuzzy
 msgid "Event clock generator"
-msgstr ""
+msgstr "Генератор постоянных значений"
 
 msgid "&nbsp; Do not start if 'Initialisation Time' is negative"
 msgstr "&nbsp; Не запускать, если 'Время инициализации' отрицательно"
@@ -595,6 +631,9 @@ msgstr "&nbsp; Не запускать, если 'Время инициализ�
 msgid "Initialisation Time"
 msgstr "Время инициализации"
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 46
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 52
 msgid "Period"
 msgstr ""
 
@@ -626,8 +665,9 @@ msgid "Value type must be a numeric type (double, complex, int, int8, ...)."
 msgstr ""
 "Тип значения должне быть числовым типом (double, complex, int, int8, ...)."
 
+#, fuzzy
 msgid "Integer counter generator"
-msgstr ""
+msgstr "Генератор синусоидальных колебаний"
 
 msgid "Maximum"
 msgstr "Максимум"
@@ -665,27 +705,42 @@ msgstr "Фаза (рад)"
 msgid "Wrong value for 'Frequency' parameter: %e."
 msgstr "Неверное значение параметра 'Частота': %e."
 
+#
+# File: modules/scicos_blocks/macros/Sources/INIMPL_f.sci, line: 38
 msgid "Implicit input port"
 msgstr ""
 
+#, fuzzy
 msgid "Set Input block parameters"
-msgstr ""
+msgstr "Установите параметры блока %s"
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 42
 msgid "Outport size ([-1 -2] for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 43
 msgid "Outport Type (-1 for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 50
 msgid "Port number must be a positive integer"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 52
 msgid "Outport Size must be a 2 elements vector"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 54
 msgid "Outport type must be a number between 1 and 9, or -1 for inheritance."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 34
 msgid "Modulo counter (0 to N counter)"
 msgstr ""
 
@@ -706,9 +761,13 @@ msgstr "Ожидался ноль или положительное целое"
 msgid "Wrong values for 'Upper Limit' parameter: %d."
 msgstr "Неверные значения параметра 'Верхний предел': %d."
 
+#
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 34
 msgid "Ramp function"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RAMP.sci, line: 35
 msgid "Slope"
 msgstr ""
 
@@ -722,6 +781,8 @@ msgstr "Неверное значение параметра 'Время нач�
 msgid "(Read Audio File)"
 msgstr "(Чтение аудио-файла)"
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 44
 msgid "Read is done on a binary '.au' file"
 msgstr ""
 
@@ -738,11 +799,13 @@ msgstr "Моделирование запущено !!! Вы не можете �
 msgid "Must be greater than %d."
 msgstr "Должно быть больше чем %d."
 
+#, fuzzy
 msgid "Outputs Record Selection"
-msgstr ""
+msgstr "Выбор времени записи"
 
+#, fuzzy
 msgid "Read from C binary file"
-msgstr ""
+msgstr "Запись в двоичный C файл"
 
 msgid "Time Record Selection"
 msgstr "Выбор времени записи"
@@ -770,14 +833,18 @@ msgstr "[1, Размер записи = "
 msgid "Wrong value for indexes in '%s' parameter: %s."
 msgstr "Неверное значение для индексов в параметре '%s': %s."
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 53
 msgid "Read from an input file"
 msgstr ""
 
 msgid "Read is done on:"
 msgstr "Прочитано:"
 
+#, fuzzy
 msgid "&nbsp; - A formatted text file if a  format (fortran type) is given"
 msgstr ""
+"&nbsp; - Форматированный текстовый файл, если задан формат (тип ФОРТРАН)"
 
 msgid "Empty matrix or scalar expected."
 msgstr "Ожидалась пустая матрица или скаляр."
@@ -786,16 +853,21 @@ msgstr "Ожидалась пустая матрица или скаляр."
 msgid "Wrong value for '%s' parameter: %d"
 msgstr "Неверное значение параметра '%s': %d"
 
+#, fuzzy
 msgid ""
 "Simulation running !!! You cannot switch <br />between formatted and "
 "unformatted"
 msgstr ""
+"Моделирование запущено!!! Вы не можете во время работы переключать<br /"
+">между форматированным и неформатированным"
 
+#, fuzzy
 msgid "Simulation running !!! You cannot modify 'Input File Name"
-msgstr ""
+msgstr "Моделирование запущено !!! Вы не можете изменять имя входного файла"
 
+#, fuzzy
 msgid "Simulation running !!! You cannot modify 'Time Record Selection"
-msgstr ""
+msgstr "Моделирование запущено !!! Вы не можете изменять имя входного файла"
 
 #, c-format
 msgid "Wrong value for '%s' parameter: %s"
@@ -814,14 +886,17 @@ msgstr "Вы должны прочитать хотя бы одно поле в 
 msgid "Strictly positive indexes expected."
 msgstr "Ожидались строго положительные индексы."
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 33
 msgid "Step Function"
 msgstr ""
 
 msgid "Final Value"
 msgstr "Итоговое значение"
 
+#, fuzzy
 msgid "Step Time"
-msgstr ""
+msgstr "Время начала"
 
 #, c-format
 msgid "'Initial Value' and 'Final Value': incompatible sizes: %d and %d."
@@ -830,7 +905,3 @@ msgstr ""
 
 msgid "Same sizes expected."
 msgstr "Ожидались одинаковые размеры."
-
-#, c-format
-msgid "%s: Wrong number of input arguments: At most %d expected.\n"
-msgstr ""

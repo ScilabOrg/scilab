@@ -38,7 +38,7 @@ int set_rotation_style_property(void* _pvCtx, int iObjUID, void* _pvData, int va
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "rotation_style");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "rotation_style");
         return SET_PROPERTY_ERROR;
     }
 

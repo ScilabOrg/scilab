@@ -21,7 +21,7 @@ function res = dlwMake(files, objects_or_dll)
     msg = "";
 
     if typeof(objects_or_dll)<>"string" then
-        error(sprintf(gettext("%s: Wrong type for input argument #%d: String expected."), "G_make", 2));
+        error(sprintf(gettext("%s: Wrong type for input argument #%d: string expected."), "G_make", 2));
     end
 
     OBJ = "";

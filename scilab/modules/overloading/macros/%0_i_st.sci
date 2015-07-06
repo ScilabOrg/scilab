@@ -19,6 +19,6 @@ function st=%0_i_st(i,void,st)
             error(msprintf(_("%s: Invalid index.\n"),"%0_i_st"));
         end
     else
-        error(msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"),"%0_i_st",1));
+        error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"%0_i_st",1));
     end
 endfunction

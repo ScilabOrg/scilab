@@ -42,7 +42,7 @@ msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
@@ -52,8 +52,7 @@ msgstr "%s: No se puede leer el argumento de entrada #%d.\n"
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: Real scalar expected.\n"
-msgstr ""
-"%s: Tipo incorrecto para argumento %d: Se esperaba un escalar real.\n"
+msgstr "%s: Tipo incorrecto para argumento %d: Se esperaba un escalar real.\n"
 
 #, c-format
 msgid "%s: Wrong size for argument #%d: Real scalar expected.\n"
@@ -151,7 +150,7 @@ msgid "%s: The file %s does not exist.\n"
 msgstr "%s: El archivo %s no existe.\n"
 
 #, c-format
-msgid "%s: Wrong type of input argument #%d: String expected.\n"
+msgid "%s: Wrong type of input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
@@ -171,7 +170,7 @@ msgid "Warning: Problems with %s.\n"
 msgstr "Advertencia: Problemas con %s.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: String expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
@@ -185,8 +184,7 @@ msgstr "%s: Nombre incorrecto para el módulo %s .\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
-msgstr ""
-"%s: Valor incorrecto del argumento de entrada #%d: Se esperaba '%s'.\n"
+msgstr "%s: Valor incorrecto del argumento de entrada #%d: Se esperaba '%s'.\n"
 
 #, c-format
 msgid "%s: Wrong type for input arguments #%d and #%d: Strings expected.\n"
@@ -229,16 +227,6 @@ msgstr ""
 "%s: Valor incorrecto del argumento de entrada #%d: Se esperaba un entero.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
-msgstr ""
-"%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
-
-#, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
-msgstr ""
-"%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
-
-#, c-format
 msgid "%s: function-name is incorrect.\n"
 msgstr "%s: El nombre de la función es incorrecto.\n"
 
@@ -247,8 +235,7 @@ msgid "%s: Wrong value for input argument #%d: Must be %s.\n"
 msgstr "%s: Valor incorrecto del argumento de entrada #%d: Debe ser %s.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: A scalar or a string expected.\n"
+msgid "%s: Wrong type for input argument #%d: A scalar or a string expected.\n"
 msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un escalar o "
 "un string.\n"
@@ -278,8 +265,7 @@ msgid "%s: The requested size is smaller than the minimal one.\n"
 msgstr "%s: El tamaño requerido es menor que el mínimo.\n"
 
 #, c-format
-msgid ""
-"%s: Unable to create (or resize) the stack (probably a malloc error).\n"
+msgid "%s: Unable to create (or resize) the stack (probably a malloc error).\n"
 msgstr ""
 "%s: Incapaz de crear (o cambiar el tamaño) de la pila (probablemente un "
 "error malloc).\n"
@@ -632,8 +618,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong size for argument #%d: At least %d expected.\n"
-msgstr ""
-"%s: Tamaño incorrecto para el argumento %d: Se esperaba al menos %d.\n"
+msgstr "%s: Tamaño incorrecto para el argumento %d: Se esperaba al menos %d.\n"
 
 #, c-format
 msgid ""
@@ -703,8 +688,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: Polynomial expected.\n"
-msgstr ""
-"%s: Tipo incorrecto para el argumento %d: Se esperaba un polinomio.\n"
+msgstr "%s: Tipo incorrecto para el argumento %d: Se esperaba un polinomio.\n"
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: Working int matrix expected.\n"

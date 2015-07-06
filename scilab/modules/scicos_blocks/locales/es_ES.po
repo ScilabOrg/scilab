@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2011-12-29 08:37+0000\n"
 "Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: es\n"
 
 msgid "overflow error"
 msgstr "error de desbordamiento"
@@ -125,26 +125,35 @@ msgstr "Limpiar un bit"
 msgid "Set %s block parameters"
 msgstr "Asignar %s parámetros de bloque"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Data Type %s"
-msgstr ""
+msgstr "Tipo de dato"
 
 msgid "Index of Bit (0 is least significant)"
 msgstr "Índice del bit (0 es el menos significativo)"
 
+#
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 45
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 51
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 62
+# File: modules/scicos_blocks/macros/IntegerOp/BITCLEAR.sci, line: 73
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 43
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 49
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 59
+# File: modules/scicos_blocks/macros/IntegerOp/BITSET.sci, line: 70
 msgid "Index of Bit"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong type for '%s' parameter: %5.1f."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 msgid "Must be integer."
 msgstr "Debe ser un entero."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter: %d."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 
 #, c-format
 msgid "Must be in the interval %s."
@@ -220,12 +229,13 @@ msgstr "Tratar al campo del bit como a un entero (0:No, 1:Sí)"
 msgid "Bits to Extract"
 msgstr "Bits a extraer"
 
+#, fuzzy
 msgid "Treat Bit Field as an Integer"
-msgstr ""
+msgstr "Tratar al campo del bit como a un entero (0:No, 1:Sí)"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong size for '%s' parameter: %s."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 msgid "Must be a single value."
 msgstr "Debe ser un solo valor."
@@ -233,16 +243,16 @@ msgstr "Debe ser un solo valor."
 msgid "Must have this form: [Start, End]."
 msgstr "Debe tener esta forma: [Inicio, Final]."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong values for '%s' parameter: %s."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 
 msgid "'Start' must be less than 'End'."
 msgstr "'Inicio' debe ser menor que 'Final'."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter: %s."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 #, c-format
 msgid "Indexes must be in the interval %s."
@@ -287,16 +297,16 @@ msgstr "Tabla de Verdad (matriz de salidas)"
 msgid "Truth Table"
 msgstr "Tabla de verdad"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong size for '%s' parameter: %d."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 
 msgid "Number of rows must be a power of two."
 msgstr "El número de filas debe ser una potencia de dos."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 #, c-format
 msgid "Elements must be in the interval %s."
@@ -316,15 +326,21 @@ msgstr ""
 msgid "Shift Type (0:Arithmetic, 1:Circular)"
 msgstr "Tipo de desplazamiento (0:Aritmético, 1:Circular)"
 
+#, fuzzy
 msgid "Shift Type"
-msgstr ""
+msgstr "Tipo de dato"
 
 msgid "SR flip-flop"
 msgstr "Flip-flop SR"
 
+#
+# File: modules/scicos_blocks/macros/Linear/CLSS.sci, line: 71
+# File: modules/scicos_blocks/macros/Linear/DLSS.sci, line: 71
 msgid "Matrix A is not square or D has wrong dimension"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Misc/DSUPER.sci, line: 34
 msgid "Invalid masked block."
 msgstr ""
 
@@ -424,44 +440,70 @@ msgstr "Validar"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 470
 msgid "Please give the discretization domain values"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 478
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 485
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 492
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 499
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 506
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 513
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 520
 #, c-format
 msgid "Please give the %s operator coefficients"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 529
 msgid "Please give the sign for the variable discriminant"
 msgstr ""
 
+#, fuzzy
 msgid "Please give the discretization method type"
-msgstr ""
+msgstr "Método de discretización Espacial"
 
+#, fuzzy
 msgid "Please give the discretization method degree"
-msgstr ""
+msgstr "Método de discretización Espacial"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 550
 msgid "Please give the number of discretization points"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Please give the initial condition %s"
-msgstr ""
+msgstr "Condiciones iniciales"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 572
 msgid "Please give the boundary conditions"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 87
 #, c-format
 msgid "The finite element discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 106
 #, c-format
 msgid "The finite differences discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 120
 #, c-format
 msgid "The finite volume discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 131
 #, c-format
 msgid "The code generation, the compilation and link took %.2f seconds"
 msgstr ""
@@ -485,10 +527,14 @@ msgstr "Puerto de salida implicito"
 msgid "Regular output port"
 msgstr "Puerto de salida normal"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 30
 #, c-format
 msgid "Feature %s is obsolete."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 31
 #, c-format
 msgid "Please use %s instead."
 msgstr ""
@@ -496,12 +542,19 @@ msgstr ""
 msgid "Write to output file"
 msgstr "Escribir al archivo de salida"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 44
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 53
 msgid "&nbsp; - A binary file if no format given"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 44
 msgid "Write is done on:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 45
 msgid "&nbsp; - A formatted text file if a  format (Fortran type) is given"
 msgstr ""
 
@@ -520,16 +573,20 @@ msgstr "Formato de salida"
 msgid "End current simulation first."
 msgstr "Terminar primero la simulación actual."
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 59
 msgid ""
 "Simulation running !!! You cannot switch<br />between formatted and "
 "unformatted when running"
 msgstr ""
 
+#, fuzzy
 msgid "You cannot modify 'Output File Name' when running."
-msgstr ""
+msgstr "No puede modificar 'Tamaño del buffer' mientras se ejecuta."
 
+#, fuzzy
 msgid "Wrong value for 'Output File Name' parameter"
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 msgid "You must provide a filename."
 msgstr "Debe proporcionar un nombre de archivo."
@@ -541,30 +598,47 @@ msgstr "La carpeta '%s' no existe"
 msgid "Input Format"
 msgstr "Formato de entrada"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 78
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 91
 msgid "You must enclose the format's string between parentheses."
 msgstr ""
 
 msgid "Must be greater than 1."
 msgstr "Debe ser mayor a 1."
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 38
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 41
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 45
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 49
 msgid "Swap Mode (0:No, 1:Yes)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 38
 msgid "Write '.au' sound file on audio device"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "You cannot modify '%s' when running."
-msgstr ""
+msgstr "No puede modificar '%s' mientras se ejecuta"
 
+#, fuzzy
 msgid "End current simulation first"
-msgstr ""
+msgstr "Terminar primero la simulación actual."
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WRITEAU_f.sci, line: 59
+# File: modules/scicos_blocks/macros/Sinks/WRITEC_f.sci, line: 86
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 70
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 110
 msgid "Swap Mode"
 msgstr ""
 
+#, fuzzy
 msgid "Write to C binary file"
-msgstr ""
+msgstr "Escribir al archivo de salida"
 
 msgid "Valid formats are: "
 msgstr "Los formatos válidos son: "
@@ -586,6 +660,8 @@ msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 msgid "Event clock generator"
 msgstr "Generador de eventos de reloj"
 
+#
+# File: modules/scicos_blocks/macros/Sources/CLOCK_c.sci, line: 46
 msgid "&nbsp; Do not start if 'Initialisation Time' is negative"
 msgstr ""
 
@@ -598,9 +674,9 @@ msgstr "Período"
 msgid "Strictly positive number expected."
 msgstr "Se esperaba un número estríctamente positivo"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong values for '%s' parameter: %5.1e."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 msgid "Constant Value"
 msgstr "Valor constante"
@@ -611,14 +687,16 @@ msgstr "Generador de valores constantes"
 msgid "Constant value must have at least one element."
 msgstr "Un valor constante debe contener al menos un elemento"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong size for '%s' parameter"
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong type for '%s' parameter"
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
+#
+# File: modules/scicos_blocks/macros/Sources/CONST_m.sci, line: 66
 msgid "Value type must be a numeric type (double, complex, int, int8, ...)."
 msgstr ""
 
@@ -641,9 +719,9 @@ msgstr "Valores incorrectos para los parámetros Máximo y Mínimo: %d &lt; %d"
 msgid "'Minimum' must be less than 'Maximum'."
 msgstr "'Mínimo' debe ser menor que Máximo."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for 'Rule' parameter: %d"
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 
 msgid "Sine wave generator"
 msgstr "Generador de ondas senoidales"
@@ -657,31 +735,44 @@ msgstr "Magnitud"
 msgid "Phase (rad)"
 msgstr "Fase (rad)"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for 'Frequency' parameter: %e."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
 msgid "Implicit input port"
 msgstr "Puerto de entrada implicito"
 
+#, fuzzy
 msgid "Set Input block parameters"
-msgstr ""
+msgstr "Asignar %s parámetros de bloque"
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 42
 msgid "Outport size ([-1 -2] for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 43
 msgid "Outport Type (-1 for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 50
 msgid "Port number must be a positive integer"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 52
 msgid "Outport Size must be a 2 elements vector"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 54
 msgid "Outport type must be a number between 1 and 9, or -1 for inheritance."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/Modulo_Count.sci, line: 34
 msgid "Modulo counter (0 to N counter)"
 msgstr ""
 
@@ -715,117 +806,171 @@ msgstr "Tiempo inicial"
 msgid "Wrong value for 'Start Time' parameter: %e."
 msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 44
 msgid "(Read Audio File)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 44
 msgid "Read is done on a binary '.au' file"
 msgstr ""
 
 msgid "Buffer size"
 msgstr "Tamaño del buffer"
 
+#, fuzzy
 msgid "Input File Name"
-msgstr ""
+msgstr "Nombre del archivo de salida"
 
+#
+# File: modules/scicos_blocks/macros/Sources/READAU_f.sci, line: 58
 msgid "Simulation running !!! You cannot modify Input file name"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Must be greater than %d."
-msgstr ""
+msgstr "Debe ser mayor a 1."
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 47
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 94
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 98
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 102
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 96
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 100
 msgid "Outputs Record Selection"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 47
 msgid "Read from C binary file"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 47
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 63
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 79
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 90
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 55
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 69
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 73
 msgid "Time Record Selection"
 msgstr ""
 
+#, fuzzy
 msgid "Record Size"
-msgstr ""
+msgstr "Tamaño del buffer"
 
+#, fuzzy
 msgid "Initial Record Index"
-msgstr ""
+msgstr "Condiciones iniciales"
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 64
 msgid "Must be a scalar or an empty matrix."
 msgstr ""
 
+#, fuzzy
 msgid "You must provide a file name."
-msgstr ""
+msgstr "Debe proporcionar un nombre de archivo."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for  '%s' parameter: %d."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 
+#
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 91
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 99
+# File: modules/scicos_blocks/macros/Sources/READC_f.sci, line: 103
 msgid "[1, Record Size = "
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for indexes in '%s' parameter: %s."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro : %d."
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 53
 msgid "Read from an input file"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 53
 msgid "Read is done on:"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 54
 msgid "&nbsp; - A formatted text file if a  format (fortran type) is given"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 70
 msgid "Empty matrix or scalar expected."
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter: %d"
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Puerto número: %d."
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 77
 msgid ""
 "Simulation running !!! You cannot switch <br />between formatted and "
 "unformatted"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 81
 msgid "Simulation running !!! You cannot modify 'Input File Name"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 84
 msgid "Simulation running !!! You cannot modify 'Time Record Selection"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter: %s"
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong format for '%s' parameter: %s."
-msgstr ""
+msgstr "Valor incorrecto para el parámetro Tiempo inicial: %e."
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 94
 msgid "Buffer size must be at least 2."
 msgstr ""
 
+#, fuzzy
 msgid "You must read at least one field in record."
-msgstr ""
+msgstr "Un valor constante debe contener al menos un elemento"
 
+#, fuzzy
 msgid "Strictly positive indexes expected."
-msgstr ""
+msgstr "Se esperaba un entero estrictamente positivo."
 
+#, fuzzy
 msgid "Step Function"
-msgstr ""
+msgstr "Funcion rampa"
 
 msgid "Final Value"
 msgstr "Valor final"
 
+#, fuzzy
 msgid "Step Time"
-msgstr ""
+msgstr "Tiempo inicial"
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 46
 #, c-format
 msgid "'Initial Value' and 'Final Value': incompatible sizes: %d and %d."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/STEP.sci, line: 46
 msgid "Same sizes expected."
-msgstr ""
-
-#, c-format
-msgid "%s: Wrong number of input arguments: At most %d expected.\n"
 msgstr ""

@@ -43,7 +43,7 @@ int set_tics_style_property(void* _pvCtx, int iObjUID, void* _pvData, int valueT
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "tics_style");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "tics_style");
         return SET_PROPERTY_ERROR;
     }
 

@@ -102,7 +102,7 @@ int sci_matfile_varwrite(char *fname, unsigned long fname_len)
         }
         if (nbCol != 1)
         {
-            Scierror(999, _("%s: Wrong size for second input argument: A string expected.\n"), fname);
+            Scierror(999, _("%s: Wrong size for second input argument: string expected.\n"), fname);
 
             freeAllocatedSingleString(varname);
 
@@ -111,7 +111,7 @@ int sci_matfile_varwrite(char *fname, unsigned long fname_len)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for second input argument: A string expected.\n"), fname);
+        Scierror(999, _("%s: Wrong type for second input argument: string expected.\n"), fname);
 
         freeAllocatedSingleString(varname);
 

@@ -37,7 +37,7 @@ int sci_call_xerbla(char *fname)
     {
         if (!isScalar(pvApiCtx, piAddressVarOne))
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
             return 0;
         }
 
@@ -49,7 +49,7 @@ int sci_call_xerbla(char *fname)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type of input argument #%d: String expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type of input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 

@@ -27,15 +27,15 @@ function versions = atomsGetVersions(name,min_version,max_version,min_version_in
     end
 
     if type(name) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"atomsGetVersions",1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"atomsGetVersions",1));
     end
 
     if (rhs>1) & (type(min_version)<>10) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"atomsGetVersions",2));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"atomsGetVersions",2));
     end
 
     if (rhs>2) & (type(max_version)<>10) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"atomsGetVersions",3));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"atomsGetVersions",3));
     end
 
     if (rhs>3) & (type(min_version_included)<>4) then

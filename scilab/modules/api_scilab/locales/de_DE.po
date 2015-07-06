@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2013-10-04 11:16+0000\n"
 "Last-Translator: Dennis Baudys <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: de\n"
 
 #, c-format
 msgid "%s: Invalid argument address"
@@ -146,15 +146,13 @@ msgid "%s: Wrong size for argument #%d: (%d,%d) expected.\n"
 msgstr "%s: Falsche Größe für Argument #%d: (%d,%d) erwartet.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
 msgstr ""
 "%s: Falscher Typ für Eingabeargument #%d: String oder Skalar erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
-msgstr ""
-"%s: Falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
+msgstr "%s: Falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: Real matrix expected.\n"
@@ -308,18 +306,11 @@ msgid "%s: Wrong type for input argument \"%s\": A single string expected.\n"
 msgstr ""
 "%s: Falscher Typ des Eingangsarguments \"%s\": Einzelner String erwartet.\n"
 
-#, c-format
-msgid "%s: Wrong size for input argument #%d.\n"
-msgstr "%s: falsche Größe des Eingangsargumentes #%d.\n"
+#~ msgid "%s: Wrong size for input argument #%d.\n"
+#~ msgstr "%s: falsche Größe des Eingangsargumentes #%d.\n"
 
-#, c-format
-msgid "%s: No more memory.\n"
-msgstr "%s: Kein weiterer Speicher verfügbar.\n"
+#~ msgid "%s: No more memory.\n"
+#~ msgstr "%s: Kein weiterer Speicher verfügbar.\n"
 
-#, c-format
-msgid "%s: Invalid variable name.\n"
-msgstr "%s: Ungültiger Variablenname.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: An integer expected.\n"
-msgstr ""
+#~ msgid "%s: Invalid variable name.\n"
+#~ msgstr "%s: Ungültiger Variablenname.\n"

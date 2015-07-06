@@ -22,7 +22,7 @@ function setPreferencesValue(xpath, kv, doc)
     end
 
     if type(xpath) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "setPreferencesValue", 1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "setPreferencesValue", 1));
     end
 
     if type(kv) <> 10 then

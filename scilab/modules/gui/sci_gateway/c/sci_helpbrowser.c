@@ -64,7 +64,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
         // Retrieve a matrix of string at position 1.
         if (getAllocatedMatrixOfString(pvApiCtx, piAddrhelpAdr, &nbRowHelp, &nbColHelp, &helpAdr))
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, 1);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
             return 1;
         }
     }
@@ -101,7 +101,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                 {
                     freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
                 }
-                Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, 2);
+                Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
                 return 1;
             }
 
@@ -112,7 +112,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                     freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
                 }
                 freeAllocatedMatrixOfString(nbRow, nbCol, languageAdr);
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
                 return FALSE;
             }
         }
@@ -122,7 +122,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
             {
                 freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
             }
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return FALSE;
         }
 
@@ -158,7 +158,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                     freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
                 }
 
-                Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, 2);
+                Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
                 return 1;
             }
 
@@ -169,7 +169,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                     freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
                 }
                 freeAllocatedMatrixOfString(nbRow, nbCol, keywordAdr);
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
                 return FALSE;
             }
         }
@@ -179,7 +179,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
             {
                 freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
             }
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return FALSE;
         }
 
@@ -206,7 +206,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                     freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
                 }
                 freeAllocatedSingleString(*keywordAdr);
-                Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, 3);
+                Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 3);
                 return 1;
             }
 
@@ -218,7 +218,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                 }
                 freeAllocatedSingleString(*keywordAdr);
                 freeAllocatedMatrixOfString(nbRow, nbCol, languageAdr);
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 3);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 3);
                 return FALSE;
             }
         }
@@ -229,7 +229,7 @@ int sci_helpbrowser(char *fname, unsigned long fname_len)
                 freeAllocatedMatrixOfString(nbRowHelp, nbColHelp, helpAdr);
             }
             freeAllocatedSingleString(*keywordAdr);
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 3);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 3);
             return FALSE;
         }
 

@@ -174,7 +174,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
 
             if (isScalar(pvApiCtx, piAddr) == 0)
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
                 return FALSE;
             }
 
@@ -403,7 +403,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
             /* Read property name */
             if ((!checkInputArgumentType(pvApiCtx, inputIndex, sci_strings)))
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, inputIndex);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, inputIndex);
                 return FALSE;
             }
             else
@@ -418,7 +418,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
 
                 if (getAllocatedSingleString(pvApiCtx, piAddr, &propertyName))
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, inputIndex);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, inputIndex);
                     return 1;
                 }
 
@@ -462,7 +462,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
 
                 if (getAllocatedSingleString(pvApiCtx, piAddr, &styleProperty))
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, propertiesValuesIndices[style_property]);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, propertiesValuesIndices[style_property]);
                     return 1;
                 }
 
@@ -490,7 +490,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                         {
                             if (getAllocatedSingleString(pvApiCtx, piAddr, &pstScroll))
                             {
-                                Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, propertiesValuesIndices[scrollable_property]);
+                                Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, propertiesValuesIndices[scrollable_property]);
                                 return 1;
                             }
 
@@ -505,7 +505,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                         {
                             if (getScalarBoolean(pvApiCtx, piAddr, &iScroll))
                             {
-                                Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, propertiesValuesIndices[scrollable_property]);
+                                Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, propertiesValuesIndices[scrollable_property]);
                                 return 1;
                             }
                         }
@@ -522,7 +522,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
             }
             else
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, propertiesValuesIndices[style_property]);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, propertiesValuesIndices[style_property]);
                 return FALSE;
             }
         }
@@ -602,7 +602,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                                 char** pstValue = NULL;
                                 if (getAllocatedMatrixOfString(pvApiCtx, piAddr, &nbRow, &nbCol, &pstValue))
                                 {
-                                    Scierror(202, _("%s: Wrong type for argument #%d: String matrix expected.\n"), fname, propertiesValuesIndices[inputIndex]);
+                                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, propertiesValuesIndices[inputIndex]);
                                     return 1;
                                 }
 
@@ -614,7 +614,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                                 char* pstValue = NULL;
                                 if (getAllocatedSingleString(pvApiCtx, piAddr, &pstValue))
                                 {
-                                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, propertiesValuesIndices[inputIndex]);
+                                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, propertiesValuesIndices[inputIndex]);
                                     return 1;
                                 }
 

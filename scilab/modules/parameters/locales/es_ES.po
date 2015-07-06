@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2011-09-01 09:53+0000\n"
 "Last-Translator: Scilab.team <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: es\n"
 
 #, c-format
 msgid "%s: wrong parameter type. %s expected. Return default value %d.\n"
@@ -89,68 +89,6 @@ msgid "%s: wrong size for parameter %s: %d requested, got %d\n"
 msgstr ""
 "%s: tamaño del parámetro %s incorrecto: Se pidió %d, pero se obtuvo %d\n"
 
-msgid "Parameters"
-msgstr ""
-
-msgid "plist handling"
-msgstr ""
-
-msgid ""
-"This demo shows examples of plist utilizations: creation, insertion, "
-"removal, ..."
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"Create a plist '%s' containing two fields 'min' = [0 0 0] and 'max' = [1 1 "
-"1].\n"
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"Check fields: \n"
-msgstr ""
-
-#, c-format
-msgid "Set 'min' = [0 0 0] and 'max' = [1 1 1]:\n"
-msgstr ""
-
-#, c-format
-msgid "Check values: \n"
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"Remove the parameter 'min' from %s.\n"
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"Before remove_param: \n"
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"After remove_param: \n"
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"Check removal: \n"
-msgstr ""
-
-#, c-format
-msgid ""
-"\n"
-"Check type: \n"
-msgstr ""
-
 #, c-format
 msgid "Second output argument of %s is obsolete.\n"
 msgstr ""
@@ -181,7 +119,7 @@ msgstr ""
 "%s: Número incorrecto de argumentos de entrada: Se esperaba un número par.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 

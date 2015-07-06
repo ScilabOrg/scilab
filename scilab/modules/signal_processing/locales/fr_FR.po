@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2014-09-29 08:25+0000\n"
 "Last-Translator: Vincent Couvert <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: fr\n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -36,176 +36,8 @@ msgstr ""
 "%s : Type erroné de l'argument n°%d : Un vecteur réel ou complexe attendu.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
-msgstr ""
-"%s : Type erroné de l'argument %d : Une matrice réelle ou complexe "
-"attendue.\n"
-
-#, c-format
 msgid "%s: Memory allocation error.\n"
 msgstr "%s : Erreur d'allocation mémoire.\n"
-
-msgid "Simulation of an ARMAX process:"
-msgstr "Simulation d'un processus ARMAX :"
-
-msgid "Identification ARX (least square):"
-msgstr "Identification ARX (moindres carrés) :"
-
-msgid "Simulation of an ARMAX process: "
-msgstr "Simulation d'un processus ARMAX : "
-
-msgid "Identification ARX (least square): "
-msgstr "Identification ARX (moindres carrés) : "
-
-msgid "Arma Spectral power estimation:"
-msgstr "Estimation de la densité spectrale d'énergie d'Arma :"
-
-msgid "Arma identification"
-msgstr "Identification d'Arma"
-
-msgid "Theoretical value"
-msgstr "Valeur théorique"
-
-msgid "Using macro mese"
-msgstr "Utiliser la macro mese"
-
-msgid "Spectral power"
-msgstr "Énergie spectrale"
-
-msgid "frequency"
-msgstr "Fréquence"
-
-msgid "spectral estimate"
-msgstr "Estimation spectrale"
-
-msgid "Press Return to continue ... \n"
-msgstr "Pressez sur la touche Retour pour continuer... \n"
-
-msgid "filtered signal"
-msgstr "Signal filtré"
-
-msgid "given noisy signal"
-msgstr "Signal bruité donné"
-
-msgid "Signal"
-msgstr "Signal"
-
-msgid "2 points convolution"
-msgstr "Convolution 2 points"
-
-msgid "3 points convolution"
-msgstr "Convolution 3 points"
-
-msgid "Signal derivative estimate"
-msgstr "Estimation de la dérivée du signal"
-
-msgid "Choose filter type and parameters"
-msgstr "Choisir le type et les paramètres du filtre"
-
-msgid "Discrete IIR filter "
-msgstr "Filtre RII discret "
-
-msgid "Discrete IIR filter: low pass  fr < 0.2"
-msgstr "Filtre RII discret : passe-bas fr < 0.2"
-
-msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
-msgstr "Filtre RII discret : passe-bande 0.15 < fr < 0.25"
-
-msgid "Minimax FIR filter"
-msgstr "Filtres RIF minimax"
-
-msgid "low pass  cut-off in [.23,.27]"
-msgstr "Fréquence de coupure dans l'intervalle [.23,.27]"
-
-msgid "length 33"
-msgstr "Longueur 33"
-
-msgid "Remez Triangular filter"
-msgstr "Filtre triangulaire de Remez"
-
-msgid "magnitude error"
-msgstr "Erreur d'amplitude"
-
-msgid "Signal Processing"
-msgstr "Traitement du signal"
-
-msgid "Spectral Estimation"
-msgstr "Estimation spectrale"
-
-msgid "IIR filter design"
-msgstr "Conception de filtres RII"
-
-msgid "Minimax FIR filter design"
-msgstr "Conception de filtres RIF minimax"
-
-msgid "Discrete IIR filter"
-msgstr "Filtres RII discrets"
-
-msgid "Wiener filter"
-msgstr "Filtre de Wiener"
-
-msgid "Bode plots"
-msgstr "Diagrammes de Bode"
-
-msgid "Window FIR filters"
-msgstr "Filtres RIF avec fenêtre"
-
-msgid "1-D convolution"
-msgstr "Convolution 1D"
-
-msgid "2-D convolution"
-msgstr "Convolution 2D"
-
-msgid "Arma simulation and identification"
-msgstr "Simulation et identification d'Arma :"
-
-msgid "Arma, bidimensional version"
-msgstr "Arma, version bidimensionnelle"
-
-msgid "Arma, Spectral power estimation"
-msgstr "Arma, Estimation de la densité spectrale d'énergie :"
-
-msgid "Data spectrum"
-msgstr "Spectre de données"
-
-msgid "magnitude"
-msgstr "Amplitude"
-
-msgid "Spectral estimation"
-msgstr "Estimation spectrale"
-
-msgid "spectral power"
-msgstr "Puissance spectrale"
-
-msgid "estimates xf"
-msgstr "Estime xf"
-
-msgid "estimates xs"
-msgstr "Estime xs"
-
-msgid "real state"
-msgstr "état réel"
-
-msgid "Windowed FIR Low pass Filter"
-msgstr "Filtre passe-bas RIF avec fenêtre"
-
-msgid "Kaiser window, cut-off: 0.2"
-msgstr "Fenêtre de Kaiser, fréquence de coupure : 0.2"
-
-msgid "Hamming window, cut-off: 0.2, 0.3"
-msgstr "Fenêtre de Hamming,  fréquences de coupure : 0.2, 0.3"
-
-msgid "length 127"
-msgstr "Longueur 127"
-
-msgid "Windowed FIR Band pass Filter"
-msgstr "Filtre passe-bande RIF avec fenêtre"
-
-msgid "Chebyshev window, cut-off: 0.15, 0.35"
-msgstr "Fenêtre de Chebyshev,  fréquences de coupure : 0.15, 0.35"
-
-msgid "length 55"
-msgstr "Longueur 55"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
@@ -282,8 +114,7 @@ msgstr "%s : Dimension erronée de l'argument n°%d : Un vecteur attendu.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: %s or %s expected.\n"
-msgstr ""
-"%s : Valeur erronée de l'argument d'entrée n°%d : %s ou %s attendu.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée n°%d : %s ou %s attendu.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: %d expected.\n"
@@ -291,8 +122,7 @@ msgstr "%s : Nombre erroné d'arguments d'entrée : %d attendus.\n"
 
 #, c-format
 msgid "%s: Arguments #%d and #%d must have the same sizes.\n"
-msgstr ""
-"%s : Les arguments n°%d et n°%d doivent avoir les mêmes dimensions.\n"
+msgstr "%s : Les arguments n°%d et n°%d doivent avoir les mêmes dimensions.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
@@ -328,8 +158,7 @@ msgstr ""
 "matrice 1-par-1 ou deux polynômes attendus.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: First element must not be %s.\n"
+msgid "%s: Wrong value for input argument #%d: First element must not be %s.\n"
 msgstr ""
 "%s : Valeur erronée de l'argument d'entrée n°%d : Le premier élément ne doit "
 "pas être %s.\n"
@@ -387,8 +216,7 @@ msgstr ""
 "attendu.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: A positive integer expected.\n"
+msgid "%s: Wrong value for input argument #%d: A positive integer expected.\n"
 msgstr ""
 "%s : Valeur erronée de l'argument d'entrée n°%d : Un entier positif "
 "attendu.\n"
@@ -448,8 +276,8 @@ msgid ""
 "%s: Incompatible input arguments #%d and #%d: Argument #%d expected to be "
 "less than argument #%d.\n"
 msgstr ""
-"%s : Les arguments d'entrée n°%d et n°%d sont incompatibles : L'argument  "
-"n°%d doit être plus petit que l'argument n°%d.\n"
+"%s : Les arguments d'entrée n°%d et n°%d sont incompatibles : L'argument  n°"
+"%d doit être plus petit que l'argument n°%d.\n"
 
 #, c-format
 msgid ""
@@ -476,8 +304,7 @@ msgstr ""
 "rationnelle attendu.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: A %d elements array expected.\n"
+msgid "%s: Wrong size for input argument #%d: A %d elements array expected.\n"
 msgstr ""
 "%s : Dimension erronée de l'argument d'entrée n°%d : Un tableau de %d "
 "éléments attendu.\n"
@@ -653,3 +480,170 @@ msgstr ""
 msgid "%s: Too abrupt change near end of frequency range.\n"
 msgstr ""
 "%s : Changement trop brusque près de la fin de la bande de fréquence.\n"
+
+#~ msgid "%s: Wrong type for argument #%d: Real or complex matrix expected.\n"
+#~ msgstr ""
+#~ "%s : Type erroné de l'argument %d : Une matrice réelle ou complexe "
+#~ "attendue.\n"
+
+#~ msgid "Simulation of an ARMAX process:"
+#~ msgstr "Simulation d'un processus ARMAX :"
+
+#~ msgid "Identification ARX (least square):"
+#~ msgstr "Identification ARX (moindres carrés) :"
+
+#~ msgid "Simulation of an ARMAX process: "
+#~ msgstr "Simulation d'un processus ARMAX : "
+
+#~ msgid "Identification ARX (least square): "
+#~ msgstr "Identification ARX (moindres carrés) : "
+
+#~ msgid "Arma Spectral power estimation:"
+#~ msgstr "Estimation de la densité spectrale d'énergie d'Arma :"
+
+#~ msgid "Arma identification"
+#~ msgstr "Identification d'Arma"
+
+#~ msgid "Theoretical value"
+#~ msgstr "Valeur théorique"
+
+#~ msgid "Using macro mese"
+#~ msgstr "Utiliser la macro mese"
+
+#~ msgid "Spectral power"
+#~ msgstr "Énergie spectrale"
+
+#~ msgid "frequency"
+#~ msgstr "Fréquence"
+
+#~ msgid "spectral estimate"
+#~ msgstr "Estimation spectrale"
+
+#~ msgid "Press Return to continue ... \n"
+#~ msgstr "Pressez sur la touche Retour pour continuer... \n"
+
+#~ msgid "filtered signal"
+#~ msgstr "Signal filtré"
+
+#~ msgid "given noisy signal"
+#~ msgstr "Signal bruité donné"
+
+#~ msgid "Signal"
+#~ msgstr "Signal"
+
+#~ msgid "2 points convolution"
+#~ msgstr "Convolution 2 points"
+
+#~ msgid "3 points convolution"
+#~ msgstr "Convolution 3 points"
+
+#~ msgid "Signal derivative estimate"
+#~ msgstr "Estimation de la dérivée du signal"
+
+#~ msgid "Choose filter type and parameters"
+#~ msgstr "Choisir le type et les paramètres du filtre"
+
+#~ msgid "Discrete IIR filter "
+#~ msgstr "Filtre RII discret "
+
+#~ msgid "Discrete IIR filter: low pass  fr < 0.2"
+#~ msgstr "Filtre RII discret : passe-bas fr < 0.2"
+
+#~ msgid "Discrete IIR filter: band pass 0.15 < fr < 0.25"
+#~ msgstr "Filtre RII discret : passe-bande 0.15 < fr < 0.25"
+
+#~ msgid "Minimax FIR filter"
+#~ msgstr "Filtres RIF minimax"
+
+#~ msgid "low pass  cut-off in [.23,.27]"
+#~ msgstr "Fréquence de coupure dans l'intervalle [.23,.27]"
+
+#~ msgid "length 33"
+#~ msgstr "Longueur 33"
+
+#~ msgid "Remez Triangular filter"
+#~ msgstr "Filtre triangulaire de Remez"
+
+#~ msgid "magnitude error"
+#~ msgstr "Erreur d'amplitude"
+
+#~ msgid "Signal Processing"
+#~ msgstr "Traitement du signal"
+
+#~ msgid "Spectral Estimation"
+#~ msgstr "Estimation spectrale"
+
+#~ msgid "IIR filter design"
+#~ msgstr "Conception de filtres RII"
+
+#~ msgid "Minimax FIR filter design"
+#~ msgstr "Conception de filtres RIF minimax"
+
+#~ msgid "Discrete IIR filter"
+#~ msgstr "Filtres RII discrets"
+
+#~ msgid "Wiener filter"
+#~ msgstr "Filtre de Wiener"
+
+#~ msgid "Bode plots"
+#~ msgstr "Diagrammes de Bode"
+
+#~ msgid "Window FIR filters"
+#~ msgstr "Filtres RIF avec fenêtre"
+
+#~ msgid "1-D convolution"
+#~ msgstr "Convolution 1D"
+
+#~ msgid "2-D convolution"
+#~ msgstr "Convolution 2D"
+
+#~ msgid "Arma simulation and identification"
+#~ msgstr "Simulation et identification d'Arma :"
+
+#~ msgid "Arma, bidimensional version"
+#~ msgstr "Arma, version bidimensionnelle"
+
+#~ msgid "Arma, Spectral power estimation"
+#~ msgstr "Arma, Estimation de la densité spectrale d'énergie :"
+
+#~ msgid "Data spectrum"
+#~ msgstr "Spectre de données"
+
+#~ msgid "magnitude"
+#~ msgstr "Amplitude"
+
+#~ msgid "Spectral estimation"
+#~ msgstr "Estimation spectrale"
+
+#~ msgid "spectral power"
+#~ msgstr "Puissance spectrale"
+
+#~ msgid "estimates xf"
+#~ msgstr "Estime xf"
+
+#~ msgid "estimates xs"
+#~ msgstr "Estime xs"
+
+#~ msgid "real state"
+#~ msgstr "état réel"
+
+#~ msgid "Windowed FIR Low pass Filter"
+#~ msgstr "Filtre passe-bas RIF avec fenêtre"
+
+#~ msgid "Kaiser window, cut-off: 0.2"
+#~ msgstr "Fenêtre de Kaiser, fréquence de coupure : 0.2"
+
+#~ msgid "Hamming window, cut-off: 0.2, 0.3"
+#~ msgstr "Fenêtre de Hamming,  fréquences de coupure : 0.2, 0.3"
+
+#~ msgid "length 127"
+#~ msgstr "Longueur 127"
+
+#~ msgid "Windowed FIR Band pass Filter"
+#~ msgstr "Filtre passe-bande RIF avec fenêtre"
+
+#~ msgid "Chebyshev window, cut-off: 0.15, 0.35"
+#~ msgstr "Fenêtre de Chebyshev,  fréquences de coupure : 0.15, 0.35"
+
+#~ msgid "length 55"
+#~ msgstr "Longueur 55"

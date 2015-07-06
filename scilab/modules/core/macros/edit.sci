@@ -19,7 +19,7 @@ function edit(macroname,linenumber)
     end
 
     if (rhs >= 1 & type(macroname) ~= 10) then
-        error(sprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"edit",1));
+        error(sprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"edit",1));
     end
 
     if (rhs == 2 & type(linenumber) ~= 1) then

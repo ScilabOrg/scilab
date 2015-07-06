@@ -42,7 +42,7 @@ function a=%b_sum(varargin)
         end
     case 10 
         if size(d,'*') <> 1 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2))
+            error(msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2))
         end
         if and(d<>["r","c","*","m"]) then
             error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
@@ -54,11 +54,11 @@ function a=%b_sum(varargin)
 
     // Check third argument
     if type(typ)<>10 then
-        error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"sum",3))
+        error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"sum",3))
     end
 
     if size(typ,"*")<>1 then
-        error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",3))
+        error(msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",3))
     end
 
     if and(typ <> ["native" "double"]) then
@@ -95,7 +95,7 @@ function a=%b_sum(varargin)
 //
 //                if size(d,"*")<>1 then
 //                    if type(d)==10 then
-//                        error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2))
+//                        error(msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2))
 //                    else
 //                        error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"sum",2))
 //                    end
@@ -147,7 +147,7 @@ function a=%b_sum(varargin)
 //
 //            if size(d,"*")<>1 then
 //                if type(d)==10 then
-//                    error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2))
+//                    error(msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2))
 //                else
 //                    error(msprintf(_("%s: Wrong size for input argument #%d: A scalar expected.\n"),"sum",2))
 //                end
@@ -170,11 +170,11 @@ function a=%b_sum(varargin)
 //            // typ must be a string and typ="double"
 //            typ = varargin($)
 //            if type(typ)<>10 then
-//                error(msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"sum",3))
+//                error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"sum",3))
 //            end
 //
 //            if size(typ,"*")<>1 then
-//                error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",3))
+//                error(msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",3))
 //            end
 //
 //            if typ <> "double" then

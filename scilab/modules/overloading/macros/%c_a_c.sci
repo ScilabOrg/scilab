@@ -14,11 +14,11 @@ function r=%c_a_c(a,b)
 
     if (type(a)<> 10 | type(b)<> 10) then
         if ( type(a)<> 10 ) then
-            error(msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"),"%%c_a_c",1));
+            error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"%%c_a_c",1));
         end
 
         if ( type(b)<> 10 ) then
-            error(msprintf(_("%s: Wrong type for input argument #%d: String expected.\n"),"%%c_a_c",2));
+            error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"%%c_a_c",2));
         end
     end
 

@@ -53,7 +53,7 @@ int sci_TCL_SetVar(char *fname, unsigned long l)
         }
         else
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 3);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 3);
             return 0;
         }
     }
@@ -132,7 +132,7 @@ int sci_TCL_SetVar(char *fname, unsigned long l)
         }
         if (GetType(1) != sci_strings)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname , 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname , 1);
         }
         if (GetType(2) != sci_matrix)
         {

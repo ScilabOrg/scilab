@@ -15,7 +15,7 @@ function plist = init_param(varargin)
     end
     for i=1:2:length(varargin)
         if typeof(varargin(i))~="string" then
-            error(sprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"init_param",i));
+            error(sprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"init_param",i));
         end
     end
 

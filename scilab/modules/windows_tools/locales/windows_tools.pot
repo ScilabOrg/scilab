@@ -15,171 +15,148 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2015-07-03 10:13+0100\n"
+"Revision-Date: 2015-07-07 17:34+0100\n"
 
-# File: sci_gateway/c/sci_consolebox.c, line: 51
-# File: sci_gateway/c/sci_consolebox.c, line: 93
+# File: modules/windows_tools/sci_gateway/c/sci_consolebox.c, line: 51
+# File: modules/windows_tools/sci_gateway/c/sci_consolebox.c, line: 93
 msgid "Only on Windows Mode, not in Console Mode.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_createGUID.c, line: 56
-# File: sci_gateway/c/sci_dos.c, line: 241
-# File: sci_gateway/c/sci_dos.c, line: 269
-# File: sci_gateway/c/sci_dos.c, line: 279
-# File: sci_gateway/c/sci_dos.c, line: 293
-# File: sci_gateway/c/sci_winqueryreg.c, line: 65
-# File: sci_gateway/c/sci_winqueryreg.c, line: 117
-# File: sci_gateway/c/sci_winqueryreg.c, line: 135
-# File: sci_gateway/c/sci_winqueryreg.c, line: 189
-# File: sci_gateway/c/sci_winqueryreg.c, line: 260
+# File: modules/windows_tools/sci_gateway/c/sci_createGUID.c, line: 56
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 241
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 269
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 279
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 293
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 65
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 117
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 135
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 189
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 260
 #, c-format
 msgid "%s: Memory allocation error.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_createGUID.c, line: 61
+# File: modules/windows_tools/sci_gateway/c/sci_createGUID.c, line: 61
 #, c-format
 msgid "%s: Wrong value for input argument: Non-negative integers expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_createGUID.c, line: 66
-# File: sci_gateway/c/sci_createGUID.c, line: 71
+# File: modules/windows_tools/sci_gateway/c/sci_createGUID.c, line: 66
+# File: modules/windows_tools/sci_gateway/c/sci_createGUID.c, line: 71
 #, c-format
 msgid "%s: Wrong type for input argument: Scalar expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_dos.c, line: 62
-# File: sci_gateway/c/sci_dos.c, line: 70
-# File: sci_gateway/c/sci_dos.c, line: 84
-# File: sci_gateway/c/sci_dos.c, line: 101
-# File: sci_gateway/c/sci_dos.c, line: 128
-# File: sci_gateway/c/sci_dos.c, line: 136
-# File: sci_gateway/c/sci_dos.c, line: 150
-# File: sci_gateway/c/sci_dos.c, line: 171
-# File: sci_gateway/c/sci_winqueryreg.c, line: 47
-# File: sci_gateway/c/sci_winqueryreg.c, line: 74
-# File: sci_gateway/c/sci_winqueryreg.c, line: 94
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 62
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 70
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 84
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 101
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 128
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 136
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 150
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 171
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 47
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 74
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 94
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_dos.c, line: 76
-# File: sci_gateway/c/sci_dos.c, line: 142
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 90
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 156
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 59
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 86
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 106
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_dos.c, line: 90
-# File: sci_gateway/c/sci_dos.c, line: 156
-#, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
-msgstr ""
-
-#
-# File: sci_gateway/c/sci_dos.c, line: 109
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 109
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_dos.c, line: 119
-# File: sci_gateway/c/sci_dos.c, line: 313
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 119
+# File: modules/windows_tools/sci_gateway/c/sci_dos.c, line: 313
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_findfileassociation.c, line: 39
-# File: sci_gateway/c/sci_getsystemmetrics.c, line: 32
-# File: sci_gateway/c/sci_mcisendstring.c, line: 119
-# File: sci_gateway/c/sci_winqueryreg.c, line: 53
-# File: sci_gateway/c/sci_winqueryreg.c, line: 80
-# File: sci_gateway/c/sci_winqueryreg.c, line: 100
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr ""
-
-#
-# File: sci_gateway/c/sci_findfileassociation.c, line: 57
-# File: sci_gateway/c/sci_winhttpdownload.c, line: 81
+# File: modules/windows_tools/sci_gateway/c/sci_findfileassociation.c, line: 57
+# File: modules/windows_tools/sci_gateway/c/sci_winhttpdownload.c, line: 81
 #, c-format
 msgid "%s: Wrong type for input arguments: Strings expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_getsystemmetrics.c, line: 51
+# File: modules/windows_tools/sci_gateway/c/sci_getsystemmetrics.c, line: 51
 #, c-format
 msgid "%s: Wrong value for input argument: %s.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_getsystemmetrics.c, line: 51
+# File: modules/windows_tools/sci_gateway/c/sci_getsystemmetrics.c, line: 51
 msgid "see help"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_winopen.c, line: 34
+# File: modules/windows_tools/sci_gateway/c/sci_winopen.c, line: 34
 #, c-format
 msgid "%s: Cannot open file %s.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_winqueryreg.c, line: 59
-# File: sci_gateway/c/sci_winqueryreg.c, line: 86
-# File: sci_gateway/c/sci_winqueryreg.c, line: 106
-#, c-format
-msgid "%s: Wrong size for input argument #%d: String expected.\n"
-msgstr ""
-
-#
-# File: sci_gateway/c/sci_winqueryreg.c, line: 199
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 199
 #, c-format
 msgid "%s: Cannot open Windows registry.\n"
 msgstr ""
 
 #
-# File: sci_gateway/c/sci_winqueryreg.c, line: 252
+# File: modules/windows_tools/sci_gateway/c/sci_winqueryreg.c, line: 252
 #, c-format
 msgid "%s: Cannot query value of this type.\n"
 msgstr ""
 
 #
-# File: src/c/scilab_windows/splashScreen.cpp, line: 225
+# File: modules/windows_tools/src/c/scilab_windows/splashScreen.cpp, line: 225
 #, c-format
 msgid "Scilab %s Console"
 msgstr ""
 
-# File: etc/windows_tools.start, line: 30
+# File: modules/windows_tools/etc/windows_tools.start, line: 30
 msgid "Scilab 5.5.X family will be the latest one working under Windows XP."
 msgstr ""
 
 #
-# File: macros/powershell.sci, line: 15
+# File: modules/windows_tools/macros/powershell.sci, line: 15
 msgid "Error(s) : see help powershell"
 msgstr ""
 
 #
-# File: macros/powershell.sci, line: 15
+# File: modules/windows_tools/macros/powershell.sci, line: 15
 msgid "Please verify your powershell command without Scilab."
 msgstr ""
 
 #
-# File: macros/powershell.sci, line: 21
+# File: modules/windows_tools/macros/powershell.sci, line: 21
 msgid "Only for Microsoft Windows."
 msgstr ""
 
 #
-# File: macros/powershell.sci, line: 28
+# File: modules/windows_tools/macros/powershell.sci, line: 28
 msgid "Powershell 1.0 not found."
 msgstr ""
 
 #
-# File: macros/powershell.sci, line: 40
+# File: modules/windows_tools/macros/powershell.sci, line: 40
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d expected.\n"
 msgstr ""

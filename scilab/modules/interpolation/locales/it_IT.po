@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2015-02-14 21:39+0000\n"
 "Last-Translator: Carml <mighty.carml@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: it\n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -53,8 +53,7 @@ msgid "%s: Duplicate nodes or all nodes colinears (ier = %d).\n"
 msgstr "%s: Tutti i nodi sono doppioni o collineari (ier = %d).\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input arguments #%d and #%d: Same sizes expected.\n"
+msgid "%s: Wrong size for input arguments #%d and #%d: Same sizes expected.\n"
 msgstr ""
 "%s: Gli argomenti in ingresso #%d e #%d hanno una grandezza sbagliata: erano "
 "attese le stesse dimensioni.\n"
@@ -66,8 +65,7 @@ msgstr ""
 "sconosciuto.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input arguments #%d and #%d: Same sizes expected.\n"
+msgid "%s: Wrong value for input arguments #%d and #%d: Same sizes expected.\n"
 msgstr ""
 "%s: Gli argomenti in ingresso #%d e #%d hanno un valore sbagliato: erano "
 "attese le stesse dimensioni.\n"
@@ -173,8 +171,7 @@ msgstr ""
 "%s: L'argomento in ingresso #%d, #%d o #%d ha una grandezza sbagliata.\n"
 
 #, c-format
-msgid ""
-"%s: x and/or y are not in strict increasing order (or +-inf detected)\n"
+msgid "%s: x and/or y are not in strict increasing order (or +-inf detected)\n"
 msgstr ""
 "%s: x e/o y non sono in ordine strettamente crescente (o è stato trovato +-"
 "inf)\n"
@@ -213,7 +210,7 @@ msgstr ""
 "reale.\n"
 
 #, c-format
-msgid "Wrong type for input argument #%d: String expected.\n"
+msgid "Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "L'argomento in ingresso #%d è di tipo sbagliato: era attesa una stringa.\n"
 

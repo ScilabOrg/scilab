@@ -50,7 +50,7 @@ int sci_color(char *fname, unsigned long fname_len)
 
         if (isStringType(pvApiCtx, piAddr) == FALSE || isScalar(pvApiCtx, piAddr) == FALSE)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
             return 1;
         }
 

@@ -54,7 +54,7 @@ int sci_addlocalizationdomain(char *fname, unsigned long fname_len)
 
     if (isStringType(pvApiCtx, piAddr1) == 0 || isScalar(pvApiCtx, piAddr1) == 0)
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 
@@ -75,7 +75,7 @@ int sci_addlocalizationdomain(char *fname, unsigned long fname_len)
 
     if (isStringType(pvApiCtx, piAddr2) == 0 || isScalar(pvApiCtx, piAddr2) == 0)
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 2);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
         return 0;
     }
 

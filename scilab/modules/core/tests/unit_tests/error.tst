@@ -170,7 +170,7 @@ assert_checkerror ( "error(53, 69)" , msgerror );
 msgerror = msprintf(gettext("Wrong type for input argument #%d: Polynomial expected.\n"), 69);
 assert_checkerror ( "error(54, 69)" , msgerror );
 
-msgerror = msprintf(gettext("Wrong type for argument #%d: String expected.\n"), 69);
+msgerror = msprintf(gettext("Wrong type for argument #%d: string expected.\n"), 69);
 assert_checkerror ( "error(55, 69)" , msgerror );
 
 msgerror = msprintf(gettext("Wrong type for argument #%d: List expected.\n"), 69);
@@ -524,7 +524,7 @@ assert_checkerror ( "error(229)" , msgerror );
 msgerror = msprintf(gettext("semi def fails.\n"));
 assert_checkerror ( "error(230)" , msgerror );
 
-msgerror = msprintf(gettext("Wrong type for first input argument: Single string expected.\n"));
+msgerror = msprintf(gettext("Wrong type for first input argument: string expected.\n"));
 assert_checkerror ( "error(231)" , msgerror );
 
 msgerror = msprintf(gettext("Entry name not found.\n"));

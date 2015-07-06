@@ -43,7 +43,7 @@ int set_text_box_mode_property(void* _pvCtx, int iObjUID, void* _pvData, int val
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "text_box_mode");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "text_box_mode");
         return SET_PROPERTY_ERROR;
     }
 

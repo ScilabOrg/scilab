@@ -33,7 +33,7 @@ int set_figure_style_property(void* _pvCtx, int iObjUID, void* _pvData, int valu
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "figure_style");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "figure_style");
         return SET_PROPERTY_ERROR;
     }
 

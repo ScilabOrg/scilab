@@ -98,7 +98,7 @@ msgstr "%s: Memory 分配有誤.\n"
 # File: sci_gateway/c/sci_strsubst.c, line: 108
 # File: sci_gateway/c/sci_convstr.c, line: 72
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數長度錯誤: 應為一字串.\n"
 
 #
@@ -150,14 +150,13 @@ msgstr ""
 # File: sci_gateway/c/sci_isdigit.c, line: 79
 # File: sci_gateway/c/sci_grep.c, line: 94
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為字串.\n"
 
 #
 # File: sci_gateway/c/sci_grep.c, line: 204
 #, c-format
-msgid ""
-"%s: Wrong values for input argument #%d: Non-empty strings expected.\n"
+msgid "%s: Wrong values for input argument #%d: Non-empty strings expected.\n"
 msgstr "%s: Wrong values for input argument #%d: 應為非空字串.\n"
 
 #, c-format
@@ -172,31 +171,9 @@ msgid ""
 "expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為實數矩陣或字串矩陣.\n"
 
-#
-# File: sci_gateway/c/sci_isalphanum.c, line: 48
-# File: sci_gateway/c/sci_regexp.c, line: 98
-# File: sci_gateway/c/sci_isletter.c, line: 48
-# File: sci_gateway/c/sci_isdigit.c, line: 48
-#, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
-msgstr "%s: 第 %d 個輸入參數長度錯誤: 應為字串.\n"
-
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A matrix of string expected.\n"
 msgstr ""
-
-#
-# File: sci_gateway/c/sci_strindex.c, line: 268
-# File: sci_gateway/c/sci_tokens.c, line: 152
-# File: sci_gateway/c/sci_strcmp.c, line: 65
-# File: sci_gateway/c/sci_strtok.c, line: 60
-# File: sci_gateway/c/sci_strtok.c, line: 81
-# File: sci_gateway/c/sci_strsubst.c, line: 78
-# File: sci_gateway/c/sci_strsubst.c, line: 82
-# File: sci_gateway/c/sci_convstr.c, line: 78
-#, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
-msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為一字串.\n"
 
 #, c-format
 msgid "%s: impossible to get dimensions of this matrix.\n"
@@ -224,12 +201,6 @@ msgstr "%s: 第 %d 個輸入參數長度錯誤.\n"
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Must be >= 1.\n"
 msgstr "%s: Wrong values for input argument #%d: 應 >= 1.\n"
-
-#
-# File: sci_gateway/c/sci_strcat.c, line: 220
-#, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
-msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為字串.\n"
 
 #
 # File: macros/tree2code.sci, line: 21
@@ -498,7 +469,7 @@ msgstr "%s: 輸入參數之數目錯誤: 應為 %d.\n"
 #
 # File: macros/arobasestring2strings.sci, line: 31
 #, c-format
-msgid "%s: Wrong type for input argument: String expected.\n"
+msgid "%s: Wrong type for input argument: string expected.\n"
 msgstr "%s: 輸入參數型態錯誤: 應為字串.\n"
 
 # File: macros/tokenpos.sci, line: 16
@@ -542,7 +513,8 @@ msgstr "%s: Wrong values for input argument #%d: 應為一非負整數.\n"
 msgid ""
 "%s: Wrong type for input argument #%d: Real or Complex matrix, Matrix of "
 "character strings or list expected.\n"
-msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為實數或複數矩陣, 應為字串矩陣 或 list.\n"
+msgstr ""
+"%s: 第 %d 個輸入參數型態錯誤: 應為實數或複數矩陣, 應為字串矩陣 或 list.\n"
 
 #
 # File: macros/evstr.sci, line: 48

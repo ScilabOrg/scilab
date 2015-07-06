@@ -24,7 +24,7 @@ function myNode = uiCreateNode(label, icon, callback)
             myIcon = "";
             myCallback = "";
         else
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",1));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",1));
             return;
         end
         // Check 2nd input : icon
@@ -33,7 +33,7 @@ function myNode = uiCreateNode(label, icon, callback)
                 myIcon = icon;
                 myCallback = "";
             else
-                error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",2));
+                error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",2));
                 return;
             end
             // Check 3rd input : callback
@@ -41,7 +41,7 @@ function myNode = uiCreateNode(label, icon, callback)
                 if (type(callback) == 10) then
                     myCallback = callback;
                 else
-                    error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "uiCreateNode",3));
+                    error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "uiCreateNode",3));
                     return;
                 end
             end

@@ -435,7 +435,7 @@ int errorTable(int iErr)
         break;
         case 55:
         {
-            iValueReturned = Scierror(iErr, _("Wrong type for argument #%d: String expected.\n"), Err);
+            iValueReturned = Scierror(iErr, _("Wrong type for argument #%d: string expected.\n"), Err);
         }
         break;
         case 56:
@@ -1302,7 +1302,7 @@ int errorTable(int iErr)
         break;
         case 231:
         {
-            iValueReturned = Scierror(iErr, _("Wrong type for first input argument: Single string expected.\n"));
+            iValueReturned = Scierror(iErr, _("Wrong type for first input argument: string expected.\n"));
         }
         break;
         case 232:

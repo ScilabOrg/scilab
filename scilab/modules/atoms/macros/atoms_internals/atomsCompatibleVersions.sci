@@ -26,7 +26,7 @@ function versions = atomsCompatibleVersions(name)
     end
 
     if type(name) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"atomsCompatibleVersions",1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"atomsCompatibleVersions",1));
     end
 
     // Get all package description

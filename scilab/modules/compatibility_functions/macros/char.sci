@@ -116,7 +116,7 @@ function y=char(varargin)
                     end
                     y=[y;t]
                 else
-                    error(msprintf(gettext("%s: Wrong type for input arguments: String expected.\n"),"char"));
+                    error(msprintf(gettext("%s: Wrong type for input arguments: string expected.\n"),"char"));
                 end
             elseif type(varargin(i))==10 then // Input sti is a matrix of strings
                 lst=varargin(i)
@@ -126,7 +126,7 @@ function y=char(varargin)
                 end
                 y=[y;t]
             else
-                error(msprintf(gettext("%s: Wrong type for input arguments: String expected.\n"),"char"));
+                error(msprintf(gettext("%s: Wrong type for input arguments: string expected.\n"),"char"));
             end
         end
         // Add blanks at the length of strings

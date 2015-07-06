@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2012-09-30 16:57+0000\n"
 "Last-Translator: Carml <mighty.carml@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: it\n"
 
 #, c-format
 msgid "%s: Could not add line to the history.\n"
@@ -84,24 +84,6 @@ msgstr ""
 "%s: L'argomento in ingresso #%d è di tipo sbagliato: era atteso un valore "
 "booleano.\n"
 
-msgid "Command history"
-msgstr "Cronologia dei comandi"
-
-msgid "History Management Settings"
-msgstr "Impostazioni di gestione della cronologia"
-
-msgid "Enable history management"
-msgstr "Abilita la gestione della cronologia"
-
-msgid "History file: "
-msgstr "File della cronologia: "
-
-msgid "History files"
-msgstr "I file della cronologia"
-
-msgid "History lines: "
-msgstr "Righe della cronologia: "
-
 msgid "Begin Session : "
 msgstr "Inizia una sessione: "
 
@@ -161,3 +143,21 @@ msgstr "Nov"
 
 msgid "Dec"
 msgstr "Dic"
+
+msgid "Command history"
+msgstr "Cronologia dei comandi"
+
+msgid "History Management Settings"
+msgstr "Impostazioni di gestione della cronologia"
+
+msgid "Enable history management"
+msgstr "Abilita la gestione della cronologia"
+
+msgid "History file: "
+msgstr "File della cronologia: "
+
+msgid "History files"
+msgstr "I file della cronologia"
+
+msgid "History lines: "
+msgstr "Righe della cronologia: "

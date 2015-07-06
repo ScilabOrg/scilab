@@ -33,7 +33,7 @@ int set_groupname_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
     BOOL status = FALSE;
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "groupname");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "groupname");
         return SET_PROPERTY_ERROR;
     }
 

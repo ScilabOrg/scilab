@@ -39,7 +39,7 @@ int set_pixel_drawing_mode_property(void* _pvCtx, int iObjUID, void* _pvData, in
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "pixel_drawing_mode");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "pixel_drawing_mode");
         return SET_PROPERTY_ERROR;
     }
 

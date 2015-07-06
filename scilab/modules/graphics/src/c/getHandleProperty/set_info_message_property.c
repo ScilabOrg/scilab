@@ -36,7 +36,7 @@ int set_info_message_property(void* _pvCtx, int iObjUID, void* _pvData, int valu
     BOOL status = FALSE;
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "info_message");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "info_message");
         return SET_PROPERTY_ERROR;
     }
 

@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2014-01-27 13:16+0000\n"
 "Last-Translator: Julie PAUL <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: fr\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Defined variable expected.\n"
@@ -60,7 +60,7 @@ msgstr ""
 "%s : Impossible de mettre à jour la version du format HDF5 dans \"%s\"."
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s : Type erroné de l'argument d'entrée n°%d : Une chaîne de caractères "
 "attendue.\n"
@@ -85,7 +85,7 @@ msgid "%s: No more memory.\n"
 msgstr "%s : Plus de mémoire disponible.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s : Dimension erronée de l'argument d'entrée n°%d : Une chaîne de "
 "caractères attendue.\n"
@@ -96,8 +96,7 @@ msgstr "%s : %s\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A H5Object expected.\n"
-msgstr ""
-"%s : Type erroné de l'argument d'entrée n°%d : Un H5Object attendu.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : Un H5Object attendu.\n"
 
 #, c-format
 msgid "%s: Cannot remove H5Object.\n"
@@ -138,11 +137,10 @@ msgstr "%s : Impossible d'imprimer le H5Object : Objet invalide.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: a H5Object expected.\n"
-msgstr ""
-"%s : Type erroné de l'argument d'entrée n°%d : Un H5Object attendu.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : Un H5Object attendu.\n"
 
 #, c-format
-msgid "%s: Wrong size for argument #%d: A string expected.\n"
+msgid "%s: Wrong size for argument #%d: string expected.\n"
 msgstr ""
 "%s : Dimension erronée de l'argument n°%d : Une chaîne de caractères "
 "attendue.\n"
@@ -178,8 +176,7 @@ msgstr ""
 "réel ou colonne attendu.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: Row array of strings expected.\n"
+msgid "%s: Wrong type for input argument #%d: Row array of strings expected.\n"
 msgstr ""
 "%s : Type erroné de l'argument d'entrée n°%d : Un vecteur ligne de chaîne de "
 "caractères attendu.\n"
@@ -265,12 +262,10 @@ msgstr "%s : Format Scilab HDF5 invalide.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: More than %d expected.\n"
-msgstr ""
-"%s : Nombre erroné d'arguments d'entrée : Plus de %d sont attendus.\n"
+msgstr "%s : Nombre erroné d'arguments d'entrée : Plus de %d sont attendus.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: A string or a double expected.\n"
+msgid "%s: Wrong type for input argument #%d: A string or a double expected.\n"
 msgstr ""
 "%s : Type erroné de l'argument d'entrée n°%d : Une chaîne de caractères ou "
 "un double attendu.\n"
@@ -562,8 +557,7 @@ msgid "Cannot get the links number"
 msgstr "Impossible d'obtenir le nombre de liens"
 
 msgid "Cannot create a column of strings on the stack."
-msgstr ""
-"Impossible de créer une colonne de chaîne de caractères dans la pile."
+msgstr "Impossible de créer une colonne de chaîne de caractères dans la pile."
 
 msgid "Cannot list group links."
 msgstr "Impossible de lister les liens du groupe."
@@ -794,23 +788,23 @@ msgstr ""
 msgid "Invalid path: %s."
 msgstr "Chemin invalide : %s."
 
-msgid "HDF5"
-msgstr "HDF5"
+#~ msgid "HDF5"
+#~ msgstr "HDF5"
 
-msgid "Ring resonator (HDF5 data source)"
-msgstr "Cavité en anneau (source de données HDF5)"
+#~ msgid "Ring resonator (HDF5 data source)"
+#~ msgstr "Cavité en anneau (source de données HDF5)"
 
-msgid "Ring Resonator from a HDF5 file"
-msgstr "Cavité en anneau depuis un fichier HDF5"
+#~ msgid "Ring Resonator from a HDF5 file"
+#~ msgstr "Cavité en anneau depuis un fichier HDF5"
 
-msgid "X position [a]"
-msgstr "Position X [a]"
+#~ msgid "X position [a]"
+#~ msgstr "Position X [a]"
 
-msgid "Y position [a]"
-msgstr "Position Y [a]"
+#~ msgid "Y position [a]"
+#~ msgstr "Position Y [a]"
 
-msgid "Permittivity"
-msgstr "Permittivité"
+#~ msgid "Permittivity"
+#~ msgstr "Permittivité"
 
-msgid "Ring Resonator"
-msgstr "Cavité en anneau"
+#~ msgid "Ring Resonator"
+#~ msgstr "Cavité en anneau"

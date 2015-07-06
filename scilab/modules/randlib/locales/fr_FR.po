@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2014-03-31 08:34+0000\n"
 "Last-Translator: Vincent Couvert <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: fr\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument: %d expected with option '%s'.\n"
@@ -40,8 +40,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Scalar expected.\n"
-msgstr ""
-"%s : Type erroné de l'argument d'entrée n°%d : Un scalaire attendu.\n"
+msgstr "%s : Type erroné de l'argument d'entrée n°%d : Un scalaire attendu.\n"
 
 #, c-format
 msgid ""
@@ -61,8 +60,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong size for input argument #%d: %dx%d expected.\n"
-msgstr ""
-"%s : Dimension erronée de l'argument d'entrée n°%d : %dx%d attendu.\n"
+msgstr "%s : Dimension erronée de l'argument d'entrée n°%d : %dx%d attendu.\n"
 
 #, c-format
 msgid ""
@@ -128,11 +126,10 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' is unknown.\n"
-msgstr ""
-"%s : Valeur erronée de l'argument d'entrée n°%d : '%s' est inconnu.\n"
+msgstr "%s : Valeur erronée de l'argument d'entrée n°%d : '%s' est inconnu.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s : Type erroné de l'argument d'entrée n°%d : Une chaîne de caractères "
 "attendue.\n"
@@ -415,8 +412,8 @@ msgid ""
 "Bad seed for fsultra, must be integers in [0, 2^32-1]\n"
 msgstr ""
 "\n"
-"Souche erronée de fsultra, doit être un entier dans l'intervalle [0, 2^32-"
-"1]\n"
+"Souche erronée de fsultra, doit être un entier dans l'intervalle [0, "
+"2^32-1]\n"
 
 #, c-format
 msgid ""
@@ -467,71 +464,71 @@ msgstr ""
 msgid "Scilab randlib interface not installed.\n"
 msgstr "L'interface randlib de Scilab n'est pas installée.\n"
 
-msgid "Simulation of a binomial random variable"
-msgstr "Simulation d'une variable aléatoire binomiale"
+#~ msgid "Simulation of a binomial random variable"
+#~ msgstr "Simulation d'une variable aléatoire binomiale"
 
-msgid "Simulation"
-msgstr "Simulation"
+#~ msgid "Simulation"
+#~ msgstr "Simulation"
 
-msgid "Theory"
-msgstr "Théorie"
+#~ msgid "Theory"
+#~ msgstr "Théorie"
 
-msgid "Simulation of a discrete random variable"
-msgstr "Simulation d'une variable aléatoire discrète"
+#~ msgid "Simulation of a discrete random variable"
+#~ msgstr "Simulation d'une variable aléatoire discrète"
 
-msgid "Simulation of a discrete uniform random variable"
-msgstr "Simulation d'une variable aléatoire uniforme discrète"
+#~ msgid "Simulation of a discrete uniform random variable"
+#~ msgstr "Simulation d'une variable aléatoire uniforme discrète"
 
-msgid "Simulation of a Erlang random variable"
-msgstr "Simulation d'une variable aléatoire selon la loi de Erlang"
+#~ msgid "Simulation of a Erlang random variable"
+#~ msgstr "Simulation d'une variable aléatoire selon la loi de Erlang"
 
-msgid "Simulation of an exponential random variable"
-msgstr "Simulation d'une variable aléatoire exponentielle."
+#~ msgid "Simulation of an exponential random variable"
+#~ msgstr "Simulation d'une variable aléatoire exponentielle."
 
-msgid "Classes"
-msgstr "Classes"
+#~ msgid "Classes"
+#~ msgstr "Classes"
 
-msgid "p must be < 1"
-msgstr "p doit être < 1"
+#~ msgid "p must be < 1"
+#~ msgstr "p doit être < 1"
 
-msgid "Simulation of a geometric random variable"
-msgstr "Simulation d'une variable aléatoire géométrique"
+#~ msgid "Simulation of a geometric random variable"
+#~ msgstr "Simulation d'une variable aléatoire géométrique"
 
-msgid "Simulation of a hyper geometric random variable"
-msgstr "Simulation d'une variable aléatoire hypergéométrique"
+#~ msgid "Simulation of a hyper geometric random variable"
+#~ msgstr "Simulation d'une variable aléatoire hypergéométrique"
 
-msgid "Simulation of a Poisson random variable"
-msgstr "Simulation d'une variable aléatoire selon la loi de Poisson"
+#~ msgid "Simulation of a Poisson random variable"
+#~ msgstr "Simulation d'une variable aléatoire selon la loi de Poisson"
 
-msgid "Random"
-msgstr "Aléatoire"
+#~ msgid "Random"
+#~ msgstr "Aléatoire"
 
-msgid "binomial random variable"
-msgstr "Variable aléatoire binomiale"
+#~ msgid "binomial random variable"
+#~ msgstr "Variable aléatoire binomiale"
 
-msgid "discrete random variable"
-msgstr "Variable aléatoire discrète"
+#~ msgid "discrete random variable"
+#~ msgstr "Variable aléatoire discrète"
 
-msgid "discrete uniform random variable"
-msgstr "Variable aléatoire uniforme discrète"
+#~ msgid "discrete uniform random variable"
+#~ msgstr "Variable aléatoire uniforme discrète"
 
-msgid "geometric random variable"
-msgstr "Variable aléatoire géométrique"
+#~ msgid "geometric random variable"
+#~ msgstr "Variable aléatoire géométrique"
 
-msgid "Poisson random variable"
-msgstr "Variable aléatoire de Poisson"
+#~ msgid "Poisson random variable"
+#~ msgstr "Variable aléatoire de Poisson"
 
-msgid "Exponential random variable"
-msgstr "Variable aléatoire exponentielle"
+#~ msgid "Exponential random variable"
+#~ msgstr "Variable aléatoire exponentielle"
 
-msgid "Weibull random variable"
-msgstr "Variable aléatoire de Weibull"
+#~ msgid "Weibull random variable"
+#~ msgstr "Variable aléatoire de Weibull"
 
-msgid "Hyper geometric random variable"
-msgstr "Variable aléatoire hyper géométrique"
+#~ msgid "Hyper geometric random variable"
+#~ msgstr "Variable aléatoire hyper géométrique"
 
-msgid "Erlang random variable"
-msgstr "Variable aléatoire de Erlang"
+#~ msgid "Erlang random variable"
+#~ msgstr "Variable aléatoire de Erlang"
 
-msgid "Simulation of a Weibull random variable"
-msgstr "Simulation d'une variable aléatoire selon la loi de Weibull"
+#~ msgid "Simulation of a Weibull random variable"
+#~ msgstr "Simulation d'une variable aléatoire selon la loi de Weibull"

@@ -40,7 +40,7 @@ function a=%r_cumprod(varargin)
         end
     case 10 
         if size(d,'*') <> 1 then
-            error(msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2))
+            error(msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2))
         end
         if and(d<>["r","c","*","m"]) then
             error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..

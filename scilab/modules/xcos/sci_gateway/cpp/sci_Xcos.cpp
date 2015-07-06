@@ -207,7 +207,7 @@ int sci_Xcos(char *fname, unsigned long fname_len)
      * if not returned yet, disp the error message.
      */
     Scierror(999,
-             _("%s: Wrong type for input argument #%d: A string expected.\n"),
+             _("%s: Wrong type for input argument #%d: string expected.\n"),
              fname, 1);
     return 0;
 }

@@ -40,7 +40,7 @@ int set_clip_state_property(void* _pvCtx, int iObjUID, void* _pvData, int valueT
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "clip_state");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "clip_state");
         return SET_PROPERTY_ERROR;
     }
 

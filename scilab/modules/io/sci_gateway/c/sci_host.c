@@ -42,7 +42,7 @@ int sci_host(char *fname, unsigned long fname_len)
 
     if (isStringType(pvApiCtx, piAddr1) == 0 || isScalar(pvApiCtx, piAddr1) == 0)
     {
-        Scierror(55, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+        Scierror(55, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 

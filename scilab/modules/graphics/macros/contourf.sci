@@ -68,11 +68,11 @@ function contourf(x, y, z, nv, style, strf, leg, rect, nax)
     end
 
     if type(strf) <> 10 then
-        error(999, msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "contourf", 6));
+        error(999, msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "contourf", 6));
     end
 
     if type(leg) <> 10 then
-        error(999, msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "contourf", 7));
+        error(999, msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "contourf", 7));
     end
 
     if type(rect) <> 1 then
@@ -113,11 +113,11 @@ function contourf(x, y, z, nv, style, strf, leg, rect, nax)
     end
 
     if size(strf, "*") <> 1 then
-        error(999, msprintf(gettext("%s: Wrong size for input argument #%d: A string expected.\n"), "contourf", 6));
+        error(999, msprintf(gettext("%s: Wrong size for input argument #%d: string expected.\n"), "contourf", 6));
     end
 
     if size(leg, "*") <> 1 then
-        error(999, msprintf(gettext("%s: Wrong size for input argument #%d: A string expected.\n"), "contourf", 7));
+        error(999, msprintf(gettext("%s: Wrong size for input argument #%d: string expected.\n"), "contourf", 7));
     end
 
     nv1 = nv;

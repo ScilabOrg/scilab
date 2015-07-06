@@ -187,9 +187,12 @@ msgstr "%s: 第 %d 個輸入參數長度錯誤: %s.\n"
 msgid "Matrix is not compatible with the given LU factors"
 msgstr "矩陣與給定之 LU 因子不相容"
 
+#
+# File: macros/PlotSparse.sci, line: 88
+# File: macros/ReadHBSparse.sci, line: 81
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
-msgstr ""
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為字串.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A matrix expected.\n"
@@ -263,13 +266,6 @@ msgstr "%s: 輸入參數之數目錯誤(s).\n"
 #, c-format
 msgid "%s: Wrong type for input argument #%d: sparse matrix expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為一方陣.\n"
-
-#
-# File: macros/PlotSparse.sci, line: 88
-# File: macros/ReadHBSparse.sci, line: 81
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為字串.\n"
 
 #
 # File: macros/ReadHBSparse.sci, line: 77
@@ -369,13 +365,11 @@ msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
 msgstr "%s: 輸入參數之數目錯誤: 應為 %d 到 %d 之數.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
+msgid "%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
 msgstr "%s: 第 %d 輸入參數型態錯誤: 應為一方陣.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
+msgid "%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
 msgstr "%s: 第 %d 輸入參數長度錯誤: 應為一方陣.\n"
 
 #

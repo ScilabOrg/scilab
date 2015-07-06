@@ -11,14 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2009-10-11 15:12+0000\n"
 "Last-Translator: Carml <mighty.carml@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: it\n"
-
-msgid "mexPutFull failed\n"
-msgstr "mexPutFull fallito\n"
 
 msgid "No more memory available: increase stacksize"
 msgstr "Non c'è più memoria disponibile: incrementare stacksize"
@@ -79,8 +76,7 @@ msgid "Invalid string matrix (at most one column!)"
 msgstr "Matrice di stringhe non valida (serve almeno una colonna!)"
 
 msgid "Column length of string matrix must agree!"
-msgstr ""
-"La lunghezza delle colonne della matrice di stringhe deve concordare!"
+msgstr "La lunghezza delle colonne della matrice di stringhe deve concordare!"
 
 msgid "Use mtlb_sparse(sparse( ))!"
 msgstr "Usare mtlb_sparse(sparse( ))!"
@@ -90,3 +86,6 @@ msgstr "Input non valido"
 
 msgid "No more memory"
 msgstr "Memoria esaurita"
+
+#~ msgid "mexPutFull failed\n"
+#~ msgstr "mexPutFull fallito\n"

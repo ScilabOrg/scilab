@@ -49,7 +49,7 @@ refMsg = msprintf(_("Wrong argument #%d.\n"), 2);
 assert_checkerror("sum(i,""orient"", ""t"")", refMsg);
 
 assert_checkfalse(execstr("sum(i,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("Wrong type for argument #%d: String expected.\n"), 3);
+refMsg = msprintf(_("Wrong type for argument #%d: string expected.\n"), 3);
 assert_checkerror("sum(i,1,1)", refMsg);
 
 //==============================================================================
@@ -71,7 +71,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("sum(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2);
 assert_checkerror("sum(d, [""r"", ""c""])", refMsg);
 
 assert_checkfalse(execstr("sum(d,""r"", ""nat"")"   ,"errcatch") == 0);
@@ -79,7 +79,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" ex
 assert_checkerror("sum(d,""r"", ""nat"")", refMsg);
 
 assert_checkfalse(execstr("sum(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",3);
 assert_checkerror("sum(d,""r"", [""nat"" ""dble""])", refMsg);
 
 assert_checkfalse(execstr("sum(d,""orient"", ""t"")"   ,"errcatch") == 0);
@@ -88,7 +88,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d,""orient"", ""t"")", refMsg);
 
 assert_checkfalse(execstr("sum(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "sum", 3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "sum", 3);
 assert_checkerror("sum(d,1,1)", refMsg);
 
 //==============================================================================
@@ -100,7 +100,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("sum(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2);
 assert_checkerror("sum(d, [""r"", ""c""])", refMsg);
 
 assert_checkfalse(execstr("sum(d,""r"", ""nat"")"   ,"errcatch") == 0);
@@ -108,7 +108,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" ex
 assert_checkerror("sum(d,""r"", ""nat"")", refMsg);
 
 assert_checkfalse(execstr("sum(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",3);
 assert_checkerror("sum(d,""r"", [""nat"" ""dble""])", refMsg);
 
 assert_checkfalse(execstr("sum(d,""orient"", ""t"")"   ,"errcatch") == 0);
@@ -117,7 +117,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d,""orient"", ""t"")", refMsg);
 
 assert_checkfalse(execstr("sum(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"sum",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"sum",3);
 assert_checkerror("sum(d,1,1)", refMsg);
 
 //==============================================================================
@@ -129,7 +129,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("sum(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2);
 assert_checkerror("sum(d, [""r"", ""c""])", refMsg);
 
 //==============================================================================
@@ -142,7 +142,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("sum(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2);
 assert_checkerror("sum(d, [""r"", ""c""])", refMsg);
 
 //==============================================================================
@@ -155,7 +155,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 assert_checkerror("sum(d, ""orient"")", refMsg);
 
 assert_checkfalse(execstr("sum(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"sum",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"sum",2);
 assert_checkerror("sum(d, [""r"", ""c""])", refMsg);
 
 //empty matrices

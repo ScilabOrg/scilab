@@ -11,20 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2010-12-26 10:39+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: ru\n"
-
-msgid "Please wait ..."
-msgstr "Пожалуйста, подождите..."
-
-msgid "Simulated Annealing"
-msgstr "Имитационный отжиг"
-
-msgid "Simulated Annealing and Ising problem"
-msgstr "Имитационный отжиг и модель Изинга"
 
 #, c-format
 msgid "%s: cit_f is mandatory"
@@ -44,3 +35,12 @@ msgid ""
 msgstr ""
 "%s: Шаг температуры %d / %d - T = %f, E(f(T)) = %f var(f(T)) = %f f_best = "
 "%f\n"
+
+#~ msgid "Please wait ..."
+#~ msgstr "Пожалуйста, подождите..."
+
+#~ msgid "Simulated Annealing"
+#~ msgstr "Имитационный отжиг"
+
+#~ msgid "Simulated Annealing and Ising problem"
+#~ msgstr "Имитационный отжиг и модель Изинга"

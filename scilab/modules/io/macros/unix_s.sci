@@ -30,11 +30,11 @@ function unix_s(cmd)
     end
 
     if type(cmd) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"unix_s",1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"unix_s",1));
     end
 
     if size(cmd,"*") <> 1 then
-        error(msprintf(gettext("%s: Wrong size for input argument #%d: A string expected.\n"),"unix_s",1));
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: string expected.\n"),"unix_s",1));
     end
 
     if getos() == "Windows" then

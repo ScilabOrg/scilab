@@ -25,7 +25,8 @@ msgstr "%s：输入参数的大小错误：应该为同样大小。\n"
 msgid ""
 "%s: Wrong value for input argument #%d: not a valid reference to Cholesky "
 "factors.\n"
-msgstr "%s：输入参数#%d的值错误：不是一个Cholesky因式分解的参考（reference）。\n"
+msgstr ""
+"%s：输入参数#%d的值错误：不是一个Cholesky因式分解的参考（reference）。\n"
 
 #, c-format
 msgid ""
@@ -88,7 +89,8 @@ msgstr ""
 msgid ""
 "%s: Wrong value for input argument #%d: Must be a valid reference to (umf) "
 "LU factors.\n"
-msgstr "%s：输入参数#%d的值错误：必须是一个正确的(umf)LU系数的参考（reference）。\n"
+msgstr ""
+"%s：输入参数#%d的值错误：必须是一个正确的(umf)LU系数的参考（reference）。\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A sparse matrix expected.\n"
@@ -138,8 +140,8 @@ msgid "Matrix is not compatible with the given LU factors"
 msgstr "矩阵跟给定的LU系数不兼容。"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
-msgstr ""
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr "%s：输入参数#%d的类型错误：应该为字符串。\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A matrix expected.\n"
@@ -187,10 +189,6 @@ msgstr "%s：输入参数的数目错误。\n"
 #, c-format
 msgid "%s: Wrong type for input argument #%d: sparse matrix expected.\n"
 msgstr "%s：输入参数#%d的类型错误：应该为系数矩阵。\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr "%s：输入参数#%d的类型错误：应该为字符串。\n"
 
 msgid "Choose a sparse matrix"
 msgstr "请选择一个系数矩阵"
@@ -259,13 +257,11 @@ msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
 msgstr "%s：输入参数的数目错误：应该为%d到%d个参数。\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
+msgid "%s: Wrong type for input argument #%d: Square sparse matrix expected.\n"
 msgstr "%s：输入参数#%d的类型错误：应该为稀疏方阵。\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
+msgid "%s: Wrong size for input argument #%d: Square sparse matrix expected.\n"
 msgstr "%s：输入参数#%d的大小错误：应该为稀疏方阵。\n"
 
 #, c-format

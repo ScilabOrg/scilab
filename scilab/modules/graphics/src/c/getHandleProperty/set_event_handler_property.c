@@ -39,7 +39,7 @@ int set_event_handler_property(void* _pvCtx, int iObjUID, void* _pvData, int val
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "event_handler");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "event_handler");
         return SET_PROPERTY_ERROR;
     }
 

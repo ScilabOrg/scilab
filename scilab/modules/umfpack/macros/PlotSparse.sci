@@ -85,7 +85,7 @@ function [] = PlotSparse(A, style)
         markColor = default_markColor
         markId = default_markId
     elseif typeof(style) ~= "string" then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"PlotSparse",2));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"PlotSparse",2));
     else
         [ markColor , markId ] = ana_style(style)
     end

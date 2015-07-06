@@ -141,7 +141,7 @@ int set_log_flags_property(void* _pvCtx, int iObjUID, void* _pvData, int valueTy
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "log_flags");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "log_flags");
         return SET_PROPERTY_ERROR;
     }
 

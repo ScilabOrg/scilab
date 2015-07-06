@@ -39,7 +39,7 @@ msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: falscher Typ für Eingangsargument #%d: Variable erwartet.\n"
 
 #, c-format
@@ -99,8 +99,7 @@ msgstr "%s: falscher Wert für Eingangsargument #%d: ein Integer erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
-msgstr ""
-"%s: falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
+msgstr "%s: falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
 
 #, c-format
 msgid ""
@@ -136,7 +135,7 @@ msgid "%s: The file %s does not exist.\n"
 msgstr "%s: Die Datei %s existiert nicht.\n"
 
 #, c-format
-msgid "%s: Wrong type of input argument #%d: String expected.\n"
+msgid "%s: Wrong type of input argument #%d: string expected.\n"
 msgstr "%s: falscher Typ von Eingangsargumenten #%d: Variable erwartet.\n"
 
 #, c-format
@@ -153,9 +152,8 @@ msgid "Warning: Problems with %s.\n"
 msgstr "Warnung: Problem mit %s.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: String expected.\n"
-msgstr ""
-"%s: falsche Größe des Eingabewertes #%d: Zeichenkette wird erwartet.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
+msgstr "%s: falsche Größe des Eingabewertes #%d: Zeichenkette wird erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong file version.xml %s.\n"
@@ -205,16 +203,6 @@ msgid "%s: Wrong value for input argument #%d: A int expected.\n"
 msgstr "%s: Falscher Wert für Eingangsargument #%d: Integer erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
-msgstr ""
-"%s: falscher Typ für Eingangsargument #%d: eine Zeichenkette erwartet.\n"
-
-#, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
-msgstr ""
-"%s: falsche Größe für Eingangsargument #%d: eine Variable erwartet.\n"
-
-#, c-format
 msgid "%s: function-name is incorrect.\n"
 msgstr "%s: Funktionsname ist inkorrekt.\n"
 
@@ -223,8 +211,7 @@ msgid "%s: Wrong value for input argument #%d: Must be %s.\n"
 msgstr "%s: falscher Wert für Eingangsargument #%d: muß %s sein.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong type for input argument #%d: A scalar or a string expected.\n"
+msgid "%s: Wrong type for input argument #%d: A scalar or a string expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: ein Skalar oder Zeichenkette "
 "erwartet.\n"
@@ -252,8 +239,7 @@ msgid "%s: The requested size is smaller than the minimal one.\n"
 msgstr ""
 
 #, c-format
-msgid ""
-"%s: Unable to create (or resize) the stack (probably a malloc error).\n"
+msgid "%s: Unable to create (or resize) the stack (probably a malloc error).\n"
 msgstr ""
 
 #, c-format
@@ -653,8 +639,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: Matrix of strings expected.\n"
-msgstr ""
-"%s: falscher Typ für Argument %d: Matrix mit Zeichenfolgen erwartet.\n"
+msgstr "%s: falscher Typ für Argument %d: Matrix mit Zeichenfolgen erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: List expected.\n"

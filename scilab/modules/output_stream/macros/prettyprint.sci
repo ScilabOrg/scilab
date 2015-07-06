@@ -79,14 +79,14 @@ function str = prettyprint(a, exportFormat, delimiter, processByElement, isWrapp
         isWrapped = %T;
     case 2 then
         if type(exportFormat) <> 10 then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"prettyprint",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"prettyprint",2));
         end
         delimiter = "(";
         processByElement = %F;
         isWrapped = %T;
     case 3 then
         if type(exportFormat) <> 10 then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"prettyprint",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"prettyprint",2));
         end
         if type(delimiter) <> 10 | (delimiter <> "(" &  delimiter <> "[" & delimiter <> "|" & delimiter <> "||" & delimiter <> "{" & delimiter <> "") then
             error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' expected.\n"),"prettyprint",3,"(","[","|","||","{",""));
@@ -95,7 +95,7 @@ function str = prettyprint(a, exportFormat, delimiter, processByElement, isWrapp
         isWrapped = %T;
     case 4 then
         if type(exportFormat) <> 10 then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"prettyprint",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"prettyprint",2));
         end
         if type(delimiter) <> 10 | (delimiter <> "(" &  delimiter <> "[" & delimiter <> "|" & delimiter <> "||" & delimiter <> "{" & delimiter <> "") then
             error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' expected.\n"),"prettyprint",3,"(","[","|","||","{",""));
@@ -106,7 +106,7 @@ function str = prettyprint(a, exportFormat, delimiter, processByElement, isWrapp
         isWrapped = %T;
     case 5
         if type(exportFormat) <> 10 then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"prettyprint",2));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"prettyprint",2));
         end
         if type(delimiter) <> 10 | (delimiter <> "(" &  delimiter <> "[" & delimiter <> "|" & delimiter <> "||" & delimiter <> "{" & delimiter <> "") then
             error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' expected.\n"),"prettyprint",3,"(","[","|","||","{",""));

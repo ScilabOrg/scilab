@@ -78,7 +78,7 @@ function [A,description,ref,mtype] = ReadHBSparse(filename)
         gettext("   then click on OK   ")])
     elseif rhs == 1 then
         if typeof(filename) ~= "string" then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"ReadHBSparse",1));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"ReadHBSparse",1));
         end
     else
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"),"ReadHBSparse",0));

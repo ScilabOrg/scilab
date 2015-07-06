@@ -55,7 +55,7 @@ function nodeList = uiFindNode(tree, node, value)
                     return;
                 end
             else
-                error(msprintf(gettext("%s: Wrong type for input argument #%d or #%d: String expected.\n"), "uiFindNode",2,3));
+                error(msprintf(gettext("%s: Wrong type for input argument #%d or #%d: string expected.\n"), "uiFindNode",2,3));
                 return;
             end
         end

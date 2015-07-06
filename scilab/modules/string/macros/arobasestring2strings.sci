@@ -28,7 +28,7 @@ function [strings] = arobasestring2strings( varargin )
 
     // check type
     if ( type(cText) ~= 10 ) then
-        error(msprintf(gettext("%s: Wrong type for input argument: String expected.\n"),"arobasestring2strings"));
+        error(msprintf(gettext("%s: Wrong type for input argument: string expected.\n"),"arobasestring2strings"));
         return ;
     end
 

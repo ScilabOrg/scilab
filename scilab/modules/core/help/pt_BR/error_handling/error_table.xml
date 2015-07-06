@@ -128,7 +128,7 @@
         <para>* 54 "Wrong type for input argument #%d: Polynomial expected." (tipo
             errado para o argumento %d: esperava polinômio)
         </para>
-        <para>* 55 "Wrong type for argument #%d: String expected." (tipo errado
+        <para>* 55 "Wrong type for argument #%d: string expected." (tipo errado
             para o argumento %d: esperava string)
         </para>
         <para>* 56 "Wrong type for argument #%d: List expected." (tipo errado para
@@ -459,7 +459,7 @@
             (operandos de / e \\ não devem conter NaN ou Inf)
         </para>
         <para>230 "semidef fails" (semidef falhou)</para>
-        <para>231 "Wrong type for first input argument: Single string expected."
+        <para>231 "Wrong type for first input argument: string expected."
             (tipo errado para o primeiro argumento de entrada: esperava string
             único)
         </para>

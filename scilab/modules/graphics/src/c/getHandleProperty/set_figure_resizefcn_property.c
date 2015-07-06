@@ -27,7 +27,7 @@ int set_figure_resizefcn_property(void* _pvCtx, int iObjUID, void* _pvData, int 
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "resizefcn");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "resizefcn");
         return SET_PROPERTY_ERROR;
     }
 

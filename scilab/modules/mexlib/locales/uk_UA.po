@@ -12,14 +12,11 @@ msgstr ""
 "PO-Revision-Date: 2010-01-15 19:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: uk\n"
-
-msgid "mexPutFull failed\n"
-msgstr "Помилка mexPutFull\n"
 
 msgid "No more memory available: increase stacksize"
 msgstr "Доступну пам’ять вичерпано: збільшіть розмір стека."
@@ -89,3 +86,6 @@ msgstr "Некоректні дані"
 
 msgid "No more memory"
 msgstr "Доступну пам’ять вичерпано"
+
+#~ msgid "mexPutFull failed\n"
+#~ msgstr "Помилка mexPutFull\n"

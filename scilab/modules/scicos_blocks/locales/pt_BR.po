@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
 "PO-Revision-Date: 2012-03-25 18:36+0000\n"
 "Last-Translator: Eberval Oliveira Castro <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,8 +68,8 @@ msgstr "Saída deveria ser do tipo uint32.\n"
 msgid ""
 "The Time vector has a wrong size, expecting [%d, %d] and getting [%d, %d].\n"
 msgstr ""
-"O vetor Time possui tamanho incorreto. Esperava-se [%d,%d] e foi obtido "
-"[%d,%d].\n"
+"O vetor Time possui tamanho incorreto. Esperava-se [%d,%d] e foi obtido [%d,"
+"%d].\n"
 
 msgid "The Time vector type is not double.\n"
 msgstr "O tipo do vetor Time não é double.\n"
@@ -80,16 +81,15 @@ msgid "Allocation problem in spline.\n"
 msgstr "Problema de alocação em spline.\n"
 
 msgid "Invalid variable type : error in hypermat scilab coding.\n"
-msgstr ""
-"Tipo de variável inválido : erro na codificação de hypermat scilab.\n"
+msgstr "Tipo de variável inválido : erro na codificação de hypermat scilab.\n"
 
 #, c-format
 msgid ""
 "The LU factorization has been completed, but the factor U is exactly "
 "singular : U(%d,%d) is exactly zero."
 msgstr ""
-"A fatorização LU está completa, mas o fator U é exatamente singular : "
-"U(%d,%d) é exatamente zero."
+"A fatorização LU está completa, mas o fator U é exatamente singular : U(%d,"
+"%d) é exatamente zero."
 
 msgid "Read error!\n"
 msgstr "Erro de leitura!\n"
@@ -325,6 +325,9 @@ msgstr "Tipo de deslocamento"
 msgid "SR flip-flop"
 msgstr "Flip-flop SR"
 
+#
+# File: modules/scicos_blocks/macros/Linear/CLSS.sci, line: 71
+# File: modules/scicos_blocks/macros/Linear/DLSS.sci, line: 71
 msgid "Matrix A is not square or D has wrong dimension"
 msgstr ""
 
@@ -427,44 +430,70 @@ msgstr "Validar"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 470
 msgid "Please give the discretization domain values"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 478
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 485
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 492
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 499
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 506
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 513
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 520
 #, c-format
 msgid "Please give the %s operator coefficients"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 529
 msgid "Please give the sign for the variable discriminant"
 msgstr ""
 
+#, fuzzy
 msgid "Please give the discretization method type"
-msgstr ""
+msgstr "Método da discretização espacial"
 
+#, fuzzy
 msgid "Please give the discretization method degree"
-msgstr ""
+msgstr "Método da discretização espacial"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 550
 msgid "Please give the number of discretization points"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Please give the initial condition %s"
-msgstr ""
+msgstr "Condições iniciais"
 
+#
+# File: modules/scicos_blocks/macros/PDE/IHM_EDP.sci, line: 572
 msgid "Please give the boundary conditions"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 87
 #, c-format
 msgid "The finite element discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 106
 #, c-format
 msgid "The finite differences discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 120
 #, c-format
 msgid "The finite volume discretization took %.2f seconds"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/PDE/translate.sci, line: 131
 #, c-format
 msgid "The code generation, the compilation and link took %.2f seconds"
 msgstr ""
@@ -488,10 +517,14 @@ msgstr "Porta de saída implícita"
 msgid "Regular output port"
 msgstr "Porta de saída regular"
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 30
 #, c-format
 msgid "Feature %s is obsolete."
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sinks/WFILE_f.sci, line: 31
 #, c-format
 msgid "Please use %s instead."
 msgstr ""
@@ -672,21 +705,32 @@ msgstr "Valor incorreto para o parâmetro 'Frequência': %e."
 msgid "Implicit input port"
 msgstr "Porta de entrada implícita"
 
+#, fuzzy
 msgid "Set Input block parameters"
-msgstr ""
+msgstr "Definir parâmetros do bloco %s"
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 42
 msgid "Outport size ([-1 -2] for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 43
 msgid "Outport Type (-1 for inherit)"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 50
 msgid "Port number must be a positive integer"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 52
 msgid "Outport Size must be a 2 elements vector"
 msgstr ""
 
+#
+# File: modules/scicos_blocks/macros/Sources/IN_f.sci, line: 54
 msgid "Outport type must be a number between 1 and 9, or -1 for inheritance."
 msgstr ""
 
@@ -776,49 +820,68 @@ msgstr "[1, Tamanho da gravação = "
 msgid "Wrong value for indexes in '%s' parameter: %s."
 msgstr "Valor incorreto para parâmetros de índice em '%s': %s."
 
+#, fuzzy
 msgid "Read from an input file"
-msgstr ""
+msgstr "Ler de um arquivo binário em C"
 
+#, fuzzy
 msgid "Read is done on:"
-msgstr ""
+msgstr "Escrita feita em:"
 
+#, fuzzy
 msgid "&nbsp; - A formatted text file if a  format (fortran type) is given"
 msgstr ""
+"&nbsp; - Um arquivo de texto formatado se um formato (tipo Fortran) for dado"
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 70
 msgid "Empty matrix or scalar expected."
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter: %d"
-msgstr ""
+msgstr "Valor incorreto para o parâmetro '%s': %d."
 
+#, fuzzy
 msgid ""
 "Simulation running !!! You cannot switch <br />between formatted and "
 "unformatted"
 msgstr ""
+"Simulação sendo executada !!! Você não pode alternar <br /> entre "
+"'formatado' e 'não formatado' enquanto executando"
 
+#, fuzzy
 msgid "Simulation running !!! You cannot modify 'Input File Name"
 msgstr ""
+"Simulação em execução !!! Você não pode modificar o nome do arquivo de "
+"entrada"
 
+#, fuzzy
 msgid "Simulation running !!! You cannot modify 'Time Record Selection"
 msgstr ""
+"Simulação em execução !!! Você não pode modificar o nome do arquivo de "
+"entrada"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong value for '%s' parameter: %s"
-msgstr ""
+msgstr "Valor incorreto para o parâmetro '%s': %s."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Wrong format for '%s' parameter: %s."
-msgstr ""
+msgstr "Valor incorreto para o parâmetro '%s': %s."
 
+#
+# File: modules/scicos_blocks/macros/Sources/RFILE_f.sci, line: 94
 msgid "Buffer size must be at least 2."
 msgstr ""
 
+#, fuzzy
 msgid "You must read at least one field in record."
-msgstr ""
+msgstr "Valor constante deve ter ao menos um elemento."
 
+#, fuzzy
 msgid "Strictly positive indexes expected."
-msgstr ""
+msgstr "Espera-se um inteiro estritamente positivo."
 
 msgid "Step Function"
 msgstr "Função degrau"
@@ -835,7 +898,3 @@ msgstr "'Valor inicial' e 'Valor final': tamanhos incompatíveis: %d e %d."
 
 msgid "Same sizes expected."
 msgstr "Esperava-se o mesmo tamanho."
-
-#, c-format
-msgid "%s: Wrong number of input arguments: At most %d expected.\n"
-msgstr ""

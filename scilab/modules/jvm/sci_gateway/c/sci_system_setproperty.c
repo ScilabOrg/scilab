@@ -64,7 +64,7 @@ int sci_system_setproperty(char *fname, unsigned long fname_len)
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d or #%d: String expected.\n"), fname, 1, 2);
+        Scierror(999, _("%s: Wrong type for input argument #%d or #%d: string expected.\n"), fname, 1, 2);
     }
     return 0;
 }

@@ -27,7 +27,7 @@ int set_figure_closerequestfcn_property(void* _pvCtx, int iObjUID, void* _pvData
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "closerequestfcn");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "closerequestfcn");
         return SET_PROPERTY_ERROR;
     }
 

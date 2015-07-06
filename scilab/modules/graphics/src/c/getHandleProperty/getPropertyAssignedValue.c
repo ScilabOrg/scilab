@@ -105,7 +105,7 @@ int tryGetBooleanValueFromStack(void* _pvData, int _iType, int _iRows, int _iCol
         return TRUE;
     }
 
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), _pstPropertyName);
+    Scierror(999, _("Wrong type for '%s' property: string expected.\n"), _pstPropertyName);
     return NOT_A_BOOLEAN_VALUE;
 }
 /*--------------------------------------------------------------------------*/

@@ -61,7 +61,7 @@ function [retval, K] = unwrap(a, varargin)
         if ~unfold & rhs>=3 then
             direc = varargin(2)
             if typeof(direc)~="string" then
-                msg = _("%s: Wrong type for input argument #%d: String expected.\n")
+                msg = _("%s: Wrong type for input argument #%d: string expected.\n")
                 error(msprintf(msg, "unwrap", 3))
             else
                 direc = direc(1)

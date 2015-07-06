@@ -7,21 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
-"POT-Creation-Date: 2013-04-16 17:44+0100\n"
+"POT-Creation-Date: 2015-07-07 10:33+0100\n"
 "PO-Revision-Date: 2015-02-23 03:54+0000\n"
 "Last-Translator: RodolfoRG <rodolforg@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: pt_BR\n"
-
-#, c-format
-msgid "%s: Wrong value for input argument #%d: Must be between %d and %d.\n"
-msgstr ""
-"%s: Valor incorreto para o argumento de entrada #%d: deve estar entre %d e "
-"%d.\n"
 
 #, c-format
 msgid "%s: Wrong type for input arguments: Scalar values expected.\n"
@@ -51,20 +45,18 @@ msgstr ""
 "%s: Valor incorreto para o argumento de entrada #%d: Esperava-se '%s'.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tamanho incorreto para o argumento de entrada #%d: Esperava-se um "
 "string.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Must be > %d.\n"
-msgstr ""
-"%s: Valor incorreto para o argumento de entrada #%d: deve ser > %d.\n"
+msgstr "%s: Valor incorreto para o argumento de entrada #%d: deve ser > %d.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: A real expected.\n"
-msgstr ""
-"%s: Valor errado para argumento de entrada #%d: um real é esperado.\n"
+msgstr "%s: Valor errado para argumento de entrada #%d: um real é esperado.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Integer or '%s' expected.\n"
@@ -146,8 +138,7 @@ msgstr ""
 "matriz m*3 ou m*6.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: %s must be between %d and %d.\n"
+msgid "%s: Wrong value for input argument #%d: %s must be between %d and %d.\n"
 msgstr ""
 "%s: Valor incorretos para o argumento de entrada #%d: %s deve estar entre %d "
 "e%d.\n"
@@ -196,8 +187,7 @@ msgstr ""
 "inteiro.\n"
 
 #, c-format
-msgid ""
-"%s: Wrong size for input arguments #%d and #%d: Same sizes expected.\n"
+msgid "%s: Wrong size for input arguments #%d and #%d: Same sizes expected.\n"
 msgstr ""
 "%s: Tamanho incorreto para os argumentos de entrada #%d e #%d: esperava-se "
 "dimensões iguais.\n"
@@ -283,3 +273,8 @@ msgstr "Quinta-feira"
 
 msgid "Friday"
 msgstr "Sexta-feira"
+
+#~ msgid "%s: Wrong value for input argument #%d: Must be between %d and %d.\n"
+#~ msgstr ""
+#~ "%s: Valor incorreto para o argumento de entrada #%d: deve estar entre %d "
+#~ "e %d.\n"

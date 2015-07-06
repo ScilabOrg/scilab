@@ -157,7 +157,7 @@ int sci_setdefaultlanguage(char *fname, unsigned long fname_len)
         }
         else
         {
-            Scierror(999, _("%s: Wrong type for first input argument: String expected.\n"), fname);
+            Scierror(999, _("%s: Wrong type for first input argument: string expected.\n"), fname);
         }
     }
 #endif

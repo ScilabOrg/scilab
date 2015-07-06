@@ -23,7 +23,7 @@ function atomsDisp(str)
     end
 
     if type(str) <> 10 then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"),"atomsDisp",1));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"atomsDisp",1));
     end
 
     // Verbose Mode ?

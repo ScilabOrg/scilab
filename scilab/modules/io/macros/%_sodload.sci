@@ -944,7 +944,7 @@ function %_sodload(%__filename__, varargin)
 
     if %__rhs__ >= 1 then
         if typeof(%__filename__) <> "string" | size(%__filename__, "*") <> 1 then
-            error(999, msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "load", 1));
+            error(999, msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "load", 1));
         end
     end
 
@@ -962,7 +962,7 @@ function %_sodload(%__filename__, varargin)
         for i = 1:size(varargin)
             %__variableName__ = varargin(i);
             if typeof(%__variableName__) <> "string" | size(%__variableName__, "*") <> 1 then
-                error(999, msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "load", i));
+                error(999, msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "load", i));
             end
 
             if or(%__variableList__ == %__variableName__) then

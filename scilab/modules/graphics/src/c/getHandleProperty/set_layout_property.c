@@ -35,7 +35,7 @@ int set_layout_property(void* _pvCtx, int iObjUID, void* _pvData, int valueType,
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "layout");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "layout");
         return SET_PROPERTY_ERROR;
     }
 

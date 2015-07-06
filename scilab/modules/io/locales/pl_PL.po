@@ -22,7 +22,7 @@ msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Niewłaściwy rozmiar parametru wejściowego nr %d: Oczekiwano ciągu "
 "znaków.\n"
@@ -51,7 +51,7 @@ msgstr ""
 "wartości całkowitej.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: Oczekiwano łańcuch.\n"
 
@@ -62,11 +62,6 @@ msgstr "%s: Niezdefiniowana zmienna środowiskowa %s.\n"
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr "%s: Brak pamięci.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr ""
-"%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwano łańcuch.\n"
 
 #, c-format
 msgid "%s: Feature %s is obsolete.\n"

@@ -38,7 +38,7 @@ int set_ticks_format_property(void* _pvCtx, int iObjUID, void* _pvData, int valu
 
     if (valueType != sci_strings)
     {
-        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "ticks_format");
+        Scierror(999, _("Wrong type for '%s' property: string expected.\n"), "ticks_format");
         return SET_PROPERTY_ERROR;
     }
 

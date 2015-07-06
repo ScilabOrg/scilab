@@ -34,7 +34,7 @@ function [resultat, status] = powershell(varargin)
             Chainecmd = Chainecmdbegin + "-command """ + varargin(1) + """";
             [resultat, status] = dos(Chainecmd);
         else
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: String expected.\n"), "powershell", 1));
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"), "powershell", 1));
         end
     else
         error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "powershell", 1));

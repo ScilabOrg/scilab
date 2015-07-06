@@ -226,7 +226,7 @@ matvar_t *GetCharVariable(void *pvApiCtx, int iVar, const char *name, int * pare
     }
     else
     {
-        Scierror(999, _("%s: Wrong type for first input argument: String matrix expected.\n"), "GetCharVariable");
+        Scierror(999, _("%s: Wrong type for first input argument: string expected.\n"), "GetCharVariable");
         freeArrayOfString(pstData, piDims[0]*piDims[1]);
         FREE(pszDims);
         FREE(piDims);

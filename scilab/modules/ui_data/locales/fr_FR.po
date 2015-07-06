@@ -11,11 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2014-09-09 08:44+0000\n"
 "Last-Translator: Julie PAUL <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Launchpad (build 17413)\n"
-"Language: fr\n"
 
 #, c-format
 msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
@@ -23,8 +23,7 @@ msgstr "Le module Scilab '%s' est désactivé en mode -nogui ou -nwni.\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d, %d or %d expected.\n"
-msgstr ""
-"%s : Nombre erroné d'argument(s) d'entrée : %d, %d ou %d attendu(s).\n"
+msgstr "%s : Nombre erroné d'argument(s) d'entrée : %d, %d ou %d attendu(s).\n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -37,7 +36,7 @@ msgstr ""
 "attendue.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s : Dimension erronée de l'argument d'entrée n°%d : Une chaîne de "
 "caractères attendue.\n"
@@ -68,18 +67,6 @@ msgstr ""
 #, c-format
 msgid "%s: Type not handle yet"
 msgstr "%s : Ce type n'est pas encore pris en charge."
-
-msgid "&File"
-msgstr "&Fichier"
-
-msgid "&Close"
-msgstr "&Fermer"
-
-msgid "&?"
-msgstr "&?"
-
-msgid "&About Scilab..."
-msgstr "&À propos de Scilab..."
 
 msgid "Name"
 msgstr "Nom"
@@ -375,3 +362,15 @@ msgstr "Le type n'est pas pris en charge pour cette opération"
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "Le module '%s' de Scilab n'est pas installé.\n"
+
+msgid "&File"
+msgstr "&Fichier"
+
+msgid "&Close"
+msgstr "&Fermer"
+
+msgid "&?"
+msgstr "&?"
+
+msgid "&About Scilab..."
+msgstr "&À propos de Scilab..."

@@ -1531,7 +1531,7 @@ int C2F(getrhsvar) (int *number, char *typex, int *m, int *n, int *lr, unsigned 
             if ((m1 != 1) || (n1 != 1))
             {
                 /* bug 8768 check dimensions */
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, *number);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, *number);
                 return FALSE;
             }
 

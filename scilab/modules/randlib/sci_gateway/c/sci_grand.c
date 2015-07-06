@@ -657,7 +657,7 @@ int sci_Rand(char *fname, unsigned long fname_len)
 
         if ( GetType(suite) != sci_strings )
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, suite);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, suite);
             return 0;
         }
 
