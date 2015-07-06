@@ -58,7 +58,7 @@ msgid "%s: Unable to update HDF5 format version in \"%s\"."
 msgstr "%s: Impossibile aggiornare il formato HDF5 alla versione \"%s\"."
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: L'argomento in ingresso #%d è di tipo sbagliato: era attesa una "
 "stringa.\n"
@@ -81,7 +81,7 @@ msgid "%s: No more memory.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: L'argomento in ingresso #%d ha una dimensione sbagliata: era attesa una "
 "stringa.\n"
@@ -127,7 +127,7 @@ msgid "%s: Wrong type for input argument #%d: a H5Object expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size for argument #%d: A string expected.\n"
+msgid "%s: Wrong size for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format

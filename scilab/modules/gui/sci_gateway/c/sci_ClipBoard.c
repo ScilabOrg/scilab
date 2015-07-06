@@ -67,7 +67,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
                 // Retrieve a matrix of double at position 1.
                 if (getAllocatedSingleString(pvApiCtx, piAddrl1, &param1))
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 1);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
                     return 1;
                 }
 
@@ -105,7 +105,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
             }
             else
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
                 return FALSE;
             }
         }
@@ -124,7 +124,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
                 // Retrieve a matrix of double at position 1.
                 if (getAllocatedSingleString(pvApiCtx, piAddrl1, &param1))
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 1);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
                     return 1;
                 }
 
@@ -157,7 +157,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
                         // Retrieve a matrix of double at position 2.
                         if (getAllocatedSingleString(pvApiCtx, piAddrl1, &param2))
                         {
-                            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 2);
+                            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
                             return 1;
                         }
 
@@ -311,7 +311,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
                 else
                 {
                     freeAllocatedSingleString(param1);
-                    Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
                     return FALSE;
                 }
             }
@@ -361,7 +361,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
                     // Retrieve a matrix of double at position 2.
                     if (getAllocatedSingleString(pvApiCtx, piAddrl1, &param2))
                     {
-                        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 2);
+                        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
                         return 1;
                     }
 
@@ -415,7 +415,7 @@ int sci_ClipBoard(char *fname, unsigned long l)
                 }
                 else
                 {
-                    Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
                     return FALSE;
                 }
             }

@@ -44,7 +44,7 @@ msgstr ""
 "%s: помилковий тип параметра %d: слід використовувати матрицю з рядків.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип параметра №%d: слід використовувати рядок з одного "
 "символу.\n"
@@ -277,7 +277,7 @@ msgstr ""
 "керування графічним об’єктом.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
 "«string».\n"
@@ -981,7 +981,7 @@ msgstr ""
 "У властивості «%s»: «%s» застаріла, використовуйте «%s».\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr ""
 "Помилковий розмір значення властивості «%s»: слід використовувати рядок.\n"
 
@@ -1312,7 +1312,7 @@ msgstr ""
 "або «%d» елементів.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 "Помилковий тип властивості «%s»: слід використовувати тип «string».\n"
 
@@ -1675,7 +1675,7 @@ msgstr ""
 "керування «Axes».\n"
 
 #, c-format
-msgid "%s: Wrong size or type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size or type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилкова розмірність або тип вхідного параметра №%d: слід "
 "використовувати рядок.\n"
@@ -1703,7 +1703,7 @@ msgstr ""
 "%d параметрів.\n"
 
 #, c-format
-msgid "%s: Wrong type for input arguments #%d: A string expected.\n"
+msgid "%s: Wrong type for input arguments #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати «string».\n"
 
@@ -1928,7 +1928,7 @@ msgstr ""
 "дійсних значень.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
 

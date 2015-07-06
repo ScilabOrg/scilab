@@ -128,7 +128,7 @@ int sci_uiputfile(char *fname, unsigned long fname_len)
         {
             freeArrayOfString(description, nbRow);
             freeAllocatedMatrixOfString(nbRow, nbCol, mask);
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return 1;
         }
 
@@ -162,7 +162,7 @@ int sci_uiputfile(char *fname, unsigned long fname_len)
             freeArrayOfString(description, nbRow);
             freeAllocatedMatrixOfString(nbRow, nbCol, mask);
             freeAllocatedSingleString(initialDirectory);
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 3);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 3);
             return 1;
         }
 

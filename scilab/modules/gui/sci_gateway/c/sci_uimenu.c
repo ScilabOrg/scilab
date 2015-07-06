@@ -148,7 +148,7 @@ int sci_uimenu(char *fname, unsigned long fname_len)
         /* Read property name */
         if ((!checkInputArgumentType(pvApiCtx, inputIndex, sci_strings)))
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, inputIndex);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, inputIndex);
             return FALSE;
         }
         else
@@ -162,7 +162,7 @@ int sci_uimenu(char *fname, unsigned long fname_len)
 
             if (getAllocatedSingleString(pvApiCtx, piAddrProperty, &propertyName))
             {
-                Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, inputIndex);
+                Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, inputIndex);
                 return 1;
             }
 
@@ -211,7 +211,7 @@ int sci_uimenu(char *fname, unsigned long fname_len)
                     char* pstValue = NULL;
                     if (getAllocatedSingleString(pvApiCtx, piAddrValue, &pstValue))
                     {
-                        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, iPropertyValuePositionIndex);
+                        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, iPropertyValuePositionIndex);
                         return 1;
                     }
 

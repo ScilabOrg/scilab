@@ -72,7 +72,7 @@ int sci_beep(char *fname, unsigned long fname_len)
 
         if (iType1  != sci_strings )
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
             return 1;
         }
 
@@ -86,7 +86,7 @@ int sci_beep(char *fname, unsigned long fname_len)
 
         if ( (m1 != n1) && (n1 != 1) )
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
             return 1;
         }
 

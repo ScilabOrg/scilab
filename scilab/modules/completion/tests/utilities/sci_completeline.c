@@ -42,7 +42,7 @@ int sci_completeline(char *fname, unsigned long fname_len)
             else
             {
                 freeArrayOfString(InputString_Parameter6, m6 * n6);
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 6);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 6);
                 return 0;
             }
         }
@@ -90,7 +90,7 @@ int sci_completeline(char *fname, unsigned long fname_len)
         {
             freeArrayOfString(InputString_Parameter1, m * n);
             freeArrayOfString(InputString_Parameter6, 1);
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
             return 0;
         }
 
@@ -104,7 +104,7 @@ int sci_completeline(char *fname, unsigned long fname_len)
             freeArrayOfString(InputString_Parameter1, 1);
             freeArrayOfString(InputString_Parameter2, m * n);
             freeArrayOfString(InputString_Parameter6, 1);
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
 
@@ -119,7 +119,7 @@ int sci_completeline(char *fname, unsigned long fname_len)
             freeArrayOfString(InputString_Parameter2, 1);
             freeArrayOfString(InputString_Parameter3, m * n);
             freeArrayOfString(InputString_Parameter6, 1);
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 3);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 3);
             return 0;
         }
 
@@ -135,7 +135,7 @@ int sci_completeline(char *fname, unsigned long fname_len)
             freeArrayOfString(InputString_Parameter3, 1);
             freeArrayOfString(InputString_Parameter4, m * n);
             freeArrayOfString(InputString_Parameter6, 1);
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 4);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 4);
             return 0;
         }
 

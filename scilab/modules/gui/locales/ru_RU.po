@@ -24,7 +24,7 @@ msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr "Модуль «%s» выключен в режимах -nogui и -nwni.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: Неверный тип аргумента №%d: ожидалась строка.\n"
 
 #, c-format
@@ -37,7 +37,7 @@ msgstr ""
 "%s: Неверное значение входного параметра №%d: ожидалось «%s» или «%s».\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -159,7 +159,7 @@ msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась матрица строк.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Неверный размер входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -438,7 +438,7 @@ msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr "%s: Неверное количество входных параметров: ожидалось %d.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr "%s: Неверный размер входного аргумента №%d: ожидалась строка.\n"
 
 #, c-format
@@ -509,7 +509,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 "%s: Неверный тип элемента %d входного аргумента №%d: ожидалось строковое "
 "значение.\n"
@@ -1084,11 +1084,11 @@ msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
 msgstr "Неверное значение свойства «%s»: ожидались числа между 0 и 1.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "Неверный тип для свойства «%s»: ожидалась строка.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "Неверный размер свойства «%s»: ожидалась строка.\n"
 
 #, c-format
@@ -2582,7 +2582,7 @@ msgid "%s: Wrong value for '%s' property: %d, %d or %d expected.\n"
 msgstr "%s: Неверное значение свойства «%s»: ожидалось %d, %d или %d.\n"
 
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr "%s: Неверный тип свойства «%s»: ожидалась строка.\n"
 
 #, c-format
@@ -2772,7 +2772,7 @@ msgid "%s: Wrong type for %s: A list expected.\n"
 msgstr "%s: Неверный тип %s: ожидался список.\n"
 
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr "%s: Неверный тип %s: ожидалась строка.\n"
 
 #, c-format

@@ -125,13 +125,13 @@ int sci_x_choose_modeless(char *fname, unsigned long fname_len)
             if (nbRow*nbCol != 1)
             {
                 freeAllocatedMatrixOfString(nbRow, nbCol, buttonLabelAdr);
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 3);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 3);
                 return FALSE;
             }
         }
         else
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 3);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 3);
             return FALSE;
         }
 

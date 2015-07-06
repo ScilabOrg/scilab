@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2015-07-03 10:13+0100\n"
+"Revision-Date: 2015-07-06 11:21+0100\n"
 
 # File: sci_gateway/c/gw_graphics.c, line: 134
 # File: src/nographics/nographics.c, line: 83
@@ -144,7 +144,7 @@ msgstr ""
 # File: sci_gateway/c/sci_xstringb.c, line: 192
 # File: sci_gateway/c/sci_xstringb.c, line: 198
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -180,10 +180,10 @@ msgstr ""
 # File: src/c/Plo2dn.c, line: 401
 # File: src/c/Plo2dn.c, line: 433
 # File: src/c/Plo2dn.c, line: 455
-# File: src/c/SetProperty.c, line: 293
-# File: src/c/SetProperty.c, line: 490
-# File: src/c/SetProperty.c, line: 573
-# File: src/c/SetProperty.c, line: 597
+# File: src/c/SetProperty.c, line: 311
+# File: src/c/SetProperty.c, line: 508
+# File: src/c/SetProperty.c, line: 591
+# File: src/c/SetProperty.c, line: 615
 # File: src/c/getHandleProperty/get_auto_ticks_property.c, line: 75
 # File: src/c/getHandleProperty/get_axes_reverse_property.c, line: 73
 # File: src/c/getHandleProperty/get_axes_visible_property.c, line: 74
@@ -706,10 +706,12 @@ msgstr ""
 #
 # File: sci_gateway/c/sci_light.c, line: 103
 # File: sci_gateway/c/sci_light.c, line: 128
+# File: sci_gateway/c/sci_name2rgb.c, line: 45
+# File: sci_gateway/c/sci_set.c, line: 319
 # File: sci_gateway/c/sci_xlfont.c, line: 185
 # File: sci_gateway/c/sci_xlfont.c, line: 362
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -798,13 +800,6 @@ msgstr ""
 # File: sci_gateway/c/sci_move.c, line: 126
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Vector %s or %s expected.\n"
-msgstr ""
-
-#
-# File: sci_gateway/c/sci_name2rgb.c, line: 37
-# File: sci_gateway/c/sci_set.c, line: 319
-#, c-format
-msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -1455,56 +1450,62 @@ msgstr ""
 #
 # File: src/c/SetProperty.c, line: 76
 # File: src/c/SetProperty.c, line: 100
-# File: src/c/SetProperty.c, line: 121
+# File: src/c/SetProperty.c, line: 133
 #, c-format
 msgid "Wrong value for '%s' property: Must be greater or equal to %d.\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 142
+# File: src/c/SetProperty.c, line: 124
+#, c-format
+msgid "Wrong value for '%s' property: Number of mark sizes %d.\n"
+msgstr ""
+
+#
+# File: src/c/SetProperty.c, line: 160
 #, c-format
 msgid "The mark offset must be greater or equal than %d.\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 163
+# File: src/c/SetProperty.c, line: 181
 #, c-format
 msgid "The mark stride must be greater or equal than %d.\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 260
-# File: src/c/SetProperty.c, line: 473
+# File: src/c/SetProperty.c, line: 278
+# File: src/c/SetProperty.c, line: 491
 #, c-format
 msgid "Number of columns must be %d (%d if %s coordinate).\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 332
-# File: src/c/SetProperty.c, line: 435
+# File: src/c/SetProperty.c, line: 350
+# File: src/c/SetProperty.c, line: 453
 #, c-format
 msgid "Number of elements must be %d (%d if %s coordinate).\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 382
+# File: src/c/SetProperty.c, line: 400
 #, c-format
 msgid "Number of elements must be %d (%d if z coordinate)\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 479
+# File: src/c/SetProperty.c, line: 497
 msgid "Number of rows must be a multiple of 2.\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 542
-# File: src/c/SetProperty.c, line: 547
+# File: src/c/SetProperty.c, line: 560
+# File: src/c/SetProperty.c, line: 565
 msgid "Unhandled data field\n"
 msgstr ""
 
 #
-# File: src/c/SetProperty.c, line: 586
+# File: src/c/SetProperty.c, line: 604
 #, c-format
 msgid "Number of columns must be %d.\n"
 msgstr ""
@@ -1551,6 +1552,7 @@ msgstr ""
 # File: src/c/getHandleProperty/get_color_mode_property.c, line: 42
 # File: src/c/getHandleProperty/get_color_range_property.c, line: 40
 # File: src/c/getHandleProperty/get_colored_property.c, line: 42
+# File: src/c/getHandleProperty/get_colors_property.c, line: 40
 # File: src/c/getHandleProperty/get_constraints_property.c, line: 43
 # File: src/c/getHandleProperty/get_constraints_property.c, line: 50
 # File: src/c/getHandleProperty/get_constraints_property.c, line: 85
@@ -1645,11 +1647,11 @@ msgstr ""
 # File: src/c/getHandleProperty/get_log_flags_property.c, line: 53
 # File: src/c/getHandleProperty/get_log_flags_property.c, line: 62
 # File: src/c/getHandleProperty/get_margins_property.c, line: 40
-# File: src/c/getHandleProperty/get_mark_background_property.c, line: 42
-# File: src/c/getHandleProperty/get_mark_foreground_property.c, line: 44
+# File: src/c/getHandleProperty/get_mark_background_property.c, line: 49
+# File: src/c/getHandleProperty/get_mark_foreground_property.c, line: 51
 # File: src/c/getHandleProperty/get_mark_mode_property.c, line: 42
 # File: src/c/getHandleProperty/get_mark_offset_property.c, line: 38
-# File: src/c/getHandleProperty/get_mark_size_property.c, line: 42
+# File: src/c/getHandleProperty/get_mark_size_property.c, line: 49
 # File: src/c/getHandleProperty/get_mark_size_unit_property.c, line: 42
 # File: src/c/getHandleProperty/get_mark_stride_property.c, line: 38
 # File: src/c/getHandleProperty/get_mark_style_property.c, line: 42
@@ -1770,6 +1772,9 @@ msgstr ""
 # File: src/c/getHandleProperty/set_color_mode_property.c, line: 54
 # File: src/c/getHandleProperty/set_color_range_property.c, line: 71
 # File: src/c/getHandleProperty/set_colored_property.c, line: 54
+# File: src/c/getHandleProperty/set_colors_property.c, line: 52
+# File: src/c/getHandleProperty/set_colors_property.c, line: 62
+# File: src/c/getHandleProperty/set_colors_property.c, line: 86
 # File: src/c/getHandleProperty/set_constraints_property.c, line: 385
 # File: src/c/getHandleProperty/set_constraints_property.c, line: 392
 # File: src/c/getHandleProperty/set_constraints_property.c, line: 399
@@ -1851,8 +1856,8 @@ msgstr ""
 # File: src/c/getHandleProperty/set_log_flags_property.c, line: 196
 # File: src/c/getHandleProperty/set_log_flags_property.c, line: 291
 # File: src/c/getHandleProperty/set_margins_property.c, line: 60
-# File: src/c/getHandleProperty/set_mark_background_property.c, line: 54
-# File: src/c/getHandleProperty/set_mark_foreground_property.c, line: 54
+# File: src/c/getHandleProperty/set_mark_background_property.c, line: 75
+# File: src/c/getHandleProperty/set_mark_foreground_property.c, line: 75
 # File: src/c/getHandleProperty/set_mark_mode_property.c, line: 51
 # File: src/c/getHandleProperty/set_mark_size_unit_property.c, line: 69
 # File: src/c/getHandleProperty/set_mark_style_property.c, line: 68
@@ -1953,8 +1958,8 @@ msgid "%s should be a string vector.\n"
 msgstr ""
 
 #
-# File: src/c/getHandleProperty/GetHashTable.c, line: 297
-# File: src/c/getHandleProperty/SetHashTable.c, line: 299
+# File: src/c/getHandleProperty/GetHashTable.c, line: 298
+# File: src/c/getHandleProperty/SetHashTable.c, line: 300
 #, c-format
 msgid "Unknown property: %s.\n"
 msgstr ""
@@ -2070,6 +2075,7 @@ msgstr ""
 # File: src/c/getHandleProperty/set_clip_box_property.c, line: 46
 # File: src/c/getHandleProperty/set_color_map_property.c, line: 40
 # File: src/c/getHandleProperty/set_color_range_property.c, line: 42
+# File: src/c/getHandleProperty/set_colors_property.c, line: 40
 # File: src/c/getHandleProperty/set_data_bounds_property.c, line: 101
 # File: src/c/getHandleProperty/set_diffuse_color_property.c, line: 34
 # File: src/c/getHandleProperty/set_direction_property.c, line: 44
@@ -2161,7 +2167,6 @@ msgstr ""
 # File: src/c/getHandleProperty/set_labels_font_size_property.c, line: 46
 # File: src/c/getHandleProperty/set_line_width_property.c, line: 37
 # File: src/c/getHandleProperty/set_mark_offset_property.c, line: 31
-# File: src/c/getHandleProperty/set_mark_size_property.c, line: 33
 # File: src/c/getHandleProperty/set_mark_stride_property.c, line: 31
 # File: src/c/getHandleProperty/set_marks_count_property.c, line: 37
 # File: src/c/getHandleProperty/set_thickness_property.c, line: 34
@@ -2204,8 +2209,8 @@ msgstr ""
 # File: src/c/getHandleProperty/set_label_font_style_property.c, line: 46
 # File: src/c/getHandleProperty/set_labels_font_color_property.c, line: 46
 # File: src/c/getHandleProperty/set_line_style_property.c, line: 38
-# File: src/c/getHandleProperty/set_mark_background_property.c, line: 40
-# File: src/c/getHandleProperty/set_mark_foreground_property.c, line: 40
+# File: src/c/getHandleProperty/set_mark_background_property.c, line: 44
+# File: src/c/getHandleProperty/set_mark_foreground_property.c, line: 44
 # File: src/c/getHandleProperty/set_mark_style_property.c, line: 47
 # File: src/c/getHandleProperty/set_outside_colors_property.c, line: 41
 # File: src/c/getHandleProperty/set_polyline_style_property.c, line: 41
@@ -2233,7 +2238,7 @@ msgstr ""
 # File: src/c/getHandleProperty/set_callback_property.c, line: 78
 # File: src/c/getHandleProperty/set_tag_property.c, line: 44
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2298,6 +2303,13 @@ msgstr ""
 msgid ""
 "WARNING: Wrong value for '%s' property: indices outside the colormap will be "
 "clamped.\n"
+msgstr ""
+
+#
+# File: src/c/getHandleProperty/set_colors_property.c, line: 92
+msgid ""
+"The number of column of the color vector must match the number of points "
+"defining the line.\n"
 msgstr ""
 
 #
@@ -2608,6 +2620,22 @@ msgid ""
 msgstr ""
 
 #
+# File: src/c/getHandleProperty/set_mark_background_property.c, line: 50
+# File: src/c/getHandleProperty/set_mark_foreground_property.c, line: 50
+# File: src/c/getHandleProperty/set_mark_size_property.c, line: 43
+# File: src/c/getHandleProperty/set_xtics_coord_property.c, line: 58
+# File: src/c/getHandleProperty/set_yticks_coord_property.c, line: 60
+#, c-format
+msgid "Wrong size for '%s' property: Row vector expected.\n"
+msgstr ""
+
+#
+# File: src/c/getHandleProperty/set_mark_size_property.c, line: 37
+#, c-format
+msgid "Wrong type for '%s' property: Matrix expected.\n"
+msgstr ""
+
+#
 # File: src/c/getHandleProperty/set_parent_property.c, line: 62
 # File: src/c/getHandleProperty/set_parent_property.c, line: 94
 # File: src/c/getHandleProperty/set_parent_property.c, line: 115
@@ -2642,7 +2670,7 @@ msgstr ""
 #
 # File: src/c/getHandleProperty/set_tag_property.c, line: 38
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2680,13 +2708,6 @@ msgstr ""
 # File: src/c/getHandleProperty/set_z_ticks_property.c, line: 55
 #, c-format
 msgid "Wrong type for '%s' property: Typed list expected.\n"
-msgstr ""
-
-#
-# File: src/c/getHandleProperty/set_xtics_coord_property.c, line: 58
-# File: src/c/getHandleProperty/set_yticks_coord_property.c, line: 60
-#, c-format
-msgid "Wrong size for '%s' property: Row vector expected.\n"
 msgstr ""
 
 #
@@ -2998,66 +3019,71 @@ msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 112
-msgid "HSV"
+msgid "Parula"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 128
-msgid "Hot"
+msgid "HSV"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 144
-msgid "Gray"
+msgid "Hot"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 160
-msgid "Winter"
+msgid "Gray"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 176
-msgid "Spring"
+msgid "Winter"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 192
-msgid "Summer"
+msgid "Spring"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 208
-msgid "Autumn"
+msgid "Summer"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 224
-msgid "Bone"
+msgid "Autumn"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 240
-msgid "Copper"
+msgid "Bone"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 256
-msgid "Pink"
+msgid "Copper"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 272
-msgid "Rainbow"
+msgid "Pink"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 288
-msgid "Ocean"
+msgid "Rainbow"
 msgstr ""
 
 #
 # File: demos/misc/misc.dem.sce, line: 304
+msgid "Ocean"
+msgstr ""
+
+#
+# File: demos/misc/misc.dem.sce, line: 320
 msgid "White"
 msgstr ""
 
@@ -3207,7 +3233,7 @@ msgstr ""
 #
 # File: macros/TitleLabel.sci, line: 44
 #, c-format
-msgid "%s: Wrong size or type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size or type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -3231,6 +3257,7 @@ msgstr ""
 # File: macros/jetcolormap.sci, line: 19
 # File: macros/nf3d.sci, line: 15
 # File: macros/oceancolormap.sci, line: 15
+# File: macros/parulacolormap.sci, line: 16
 # File: macros/pinkcolormap.sci, line: 15
 # File: macros/projaff.sci, line: 26
 # File: macros/rainbowcolormap.sci, line: 15
@@ -3253,6 +3280,7 @@ msgstr ""
 # File: macros/hsvcolormap.sci, line: 20
 # File: macros/jetcolormap.sci, line: 26
 # File: macros/oceancolormap.sci, line: 22
+# File: macros/parulacolormap.sci, line: 25
 # File: macros/pinkcolormap.sci, line: 22
 # File: macros/rainbowcolormap.sci, line: 22
 # File: macros/springcolormap.sci, line: 22
@@ -3273,6 +3301,7 @@ msgstr ""
 # File: macros/hsvcolormap.sci, line: 25
 # File: macros/jetcolormap.sci, line: 31
 # File: macros/oceancolormap.sci, line: 27
+# File: macros/parulacolormap.sci, line: 29
 # File: macros/pinkcolormap.sci, line: 27
 # File: macros/rainbowcolormap.sci, line: 27
 # File: macros/springcolormap.sci, line: 27
@@ -3297,7 +3326,7 @@ msgstr ""
 # File: macros/bar.sci, line: 47
 # File: macros/bar.sci, line: 53
 #, c-format
-msgid "%s: Wrong type for input arguments #%d: A string expected.\n"
+msgid "%s: Wrong type for input arguments #%d: string expected.\n"
 msgstr ""
 
 #
@@ -3637,7 +3666,7 @@ msgstr ""
 # File: macros/getcolor.sci, line: 21
 # File: macros/getcolor.sci, line: 29
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

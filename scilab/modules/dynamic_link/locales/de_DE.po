@@ -43,7 +43,7 @@ msgstr ""
 "sein.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Falscher Typ für Eingangsargument #%d: Eine Zeichenkette wird erwartet.\n"
 
@@ -273,7 +273,7 @@ msgstr ""
 "der Unix-Welt von Natur aus viele verschiedene Anbieter gibt."
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: eine Zeichenkette erwartet.\n"
 

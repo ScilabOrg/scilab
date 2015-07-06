@@ -49,7 +49,7 @@ msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr "%s: valor incorrecte del paràmetre d'entrada #%d: s'esperava '%s'.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: el paràmetre d'entrada #%d té una mida incorrecta: s'esperava una "
 "cadena.\n"

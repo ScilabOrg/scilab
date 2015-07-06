@@ -81,7 +81,7 @@ int sci_convstr(char *fname, unsigned long fname_len)
 
         if (isStringType(pvApiCtx, piAddr2) && isScalar(pvApiCtx, piAddr2) == 0)
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
 

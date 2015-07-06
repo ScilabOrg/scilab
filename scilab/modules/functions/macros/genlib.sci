@@ -18,11 +18,11 @@ function [success, funcs, success_files, failed_files] = genlib(nam, path, force
     end
 
     if type(nam) <> 10 then
-        error(999, msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 1));
+        error(999, msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "genlib", 1));
     end
 
     if size(nam, "*") <> 1 then
-        error(999, msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 1));
+        error(999, msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"), "genlib", 1));
     end
 
     if exists("force", "local") == 0 then
@@ -90,11 +90,11 @@ function [success, funcs, success_files, failed_files] = genlib(nam, path, force
         end
     else
         if type(path) <> 10 then
-            error(999, msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 2));
+            error(999, msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "genlib", 2));
         end
 
         if size(path, "*") <> 1 then
-            error(999, msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 2));
+            error(999, msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"), "genlib", 2));
         end
     end
 

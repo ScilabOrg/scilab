@@ -22,7 +22,7 @@ msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr "Scilab '%s' Modul in Modus -nogui oder -nmwi deaktiviert.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -35,7 +35,7 @@ msgstr ""
 "%s: falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument '%d: eine Zeichenkette erwartet.\n"
 
@@ -152,7 +152,7 @@ msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: Matrix von Variablen erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: eine Variable erwartet.\n"
 
@@ -434,7 +434,7 @@ msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr "%s: falsche Anzahl für Eingangsargumente: %d erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -496,7 +496,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -1059,11 +1059,11 @@ msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
 msgstr ""
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "Falscher Typ für Eigenschaft '%s': eine Zeichenkette erwartet.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "Falsche Größe für Eigenschaft '%s': eine Zeichenkette erwartet.\n"
 
 #, c-format
@@ -2537,7 +2537,7 @@ msgid "%s: Wrong value for '%s' property: %d, %d or %d expected.\n"
 msgstr "%s: falscher Wert für '%s' Eigenschaft: %d, %d oder %d erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr "%s: falscher Typ für '%s' Eigenschaft: eine Zeichenkette erwartet.\n"
 
 #, c-format
@@ -2717,7 +2717,7 @@ msgid "%s: Wrong type for %s: A list expected.\n"
 msgstr "%s: falscher Typ für %s: eine Liste erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr "%s: falscher Typ für %s: eine Zeichenkette erwartet.\n"
 
 #, c-format

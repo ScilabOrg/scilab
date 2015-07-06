@@ -43,7 +43,7 @@ msgstr "%s : 第二參數必須為共用程式庫之唯一 id.\n"
 # File: macros/ilib_compile.sci, line: 29
 # File: sci_gateway/c/sci_c_link.c, line: 103
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: A 應為字串.\n"
 
 #, c-format
@@ -318,7 +318,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數的資料長度錯誤: 應該是字串型態.\n"
 
 #, c-format

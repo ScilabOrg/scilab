@@ -194,7 +194,7 @@ msgid "%s: The matrices A, C and D must have the same order.\n"
 msgstr "%s: 行列 A, C および D の次数は同じにしてください.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: 引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -512,7 +512,7 @@ msgid "%s: Wrong type for input argument #%d: String array expected.\n"
 msgstr "%s: 入力引数 #%d の型が正しくありません: 文字配列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが正しくありません: 文字列を指定してください.\n"
 
 #, c-format

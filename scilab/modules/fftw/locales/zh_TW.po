@@ -149,7 +149,7 @@ msgstr ""
 # File: sci_gateway/c/sci_loadfftwlibrary.c, line: 50
 # File: sci_gateway/c/sci_set_fftw_wisdom.c, line: 85
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為一字串.\n"
 
 #, c-format

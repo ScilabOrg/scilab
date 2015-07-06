@@ -101,7 +101,7 @@ int sci_mclose(char *fname, unsigned long fname_len)
             else
             {
                 freeArrayOfString(input_string, m1 * n1);
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
             }
         }
         else

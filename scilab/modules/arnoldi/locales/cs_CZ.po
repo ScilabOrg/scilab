@@ -36,7 +36,7 @@ msgstr ""
 "%s: Chybná velikost vstupního argumentu %s: Očekávána matice typu %dx%d.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: Špatný typ argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -276,7 +276,7 @@ msgstr ""
 "maxiter, ncv, resid, cholB"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format

@@ -40,7 +40,7 @@ int sci_mopen(char *fname, unsigned long fname_len)
 
     if (GetType(1) != sci_strings)
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
         return 0;
     }
 
@@ -51,7 +51,7 @@ int sci_mopen(char *fname, unsigned long fname_len)
     {
         if (GetType(2) != sci_strings)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, 2);
             return 0;
         }
 

@@ -481,7 +481,7 @@ int sci_zneupd(char *fname, unsigned long fname_len)
     // Retrieve a matrix of double at position 2.
     if (getAllocatedSingleString(pvApiCtx, piAddrpHOWMANY, &pHOWMANY))
     {
-        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 2);
+        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
         return 1;
     }
 
@@ -497,7 +497,7 @@ int sci_zneupd(char *fname, unsigned long fname_len)
     if (getAllocatedSingleString(pvApiCtx, piAddrpBMAT, &pBMAT))
     {
         freeAllocatedSingleString(pHOWMANY);
-        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 8);
+        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 8);
         return 1;
     }
 
@@ -515,7 +515,7 @@ int sci_zneupd(char *fname, unsigned long fname_len)
     {
         freeAllocatedSingleString(pHOWMANY);
         freeAllocatedSingleString(pBMAT);
-        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 10);
+        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 10);
         return 1;
     }
 

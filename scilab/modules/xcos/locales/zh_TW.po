@@ -31,7 +31,7 @@ msgid "%s: No more memory.\n"
 msgstr "%s: 記憶體空間不足.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 輸入參數 的資料型態錯誤: 應該是字串型態.\n"
 
 #, c-format

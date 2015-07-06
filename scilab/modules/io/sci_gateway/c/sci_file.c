@@ -97,19 +97,19 @@ int sci_file(char *fname, unsigned long fname_len)
 
             if (isScalar(pvApiCtx, piAddressVarOne) == 0)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 1);
                 return 0;
             }
 
             if (isScalar(pvApiCtx, piAddressVarTwo) == 0)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 2);
                 return 0;
             }
 
             if (isScalar(pvApiCtx, piAddressVarThree) == 0)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 3);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname, 3);
                 return 0;
             }
 

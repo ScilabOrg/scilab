@@ -96,7 +96,7 @@ msgid "-- Deleting help files --\n"
 msgstr "-- Mazání souborů s nápovědou --\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -144,7 +144,7 @@ msgid "%s: File skipped %s."
 msgstr "%s: Soubor %s přeskočen."
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Špatná velikost vstupního argumentu #%d: Očekáván řetězec.\n"
 
 msgid " * Add some comments about XML file"

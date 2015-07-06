@@ -24,7 +24,7 @@ msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr "-nogui または -nwni モードでは Scilab '%s' モジュールは無効です.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: 引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -36,7 +36,7 @@ msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
 msgstr "%s: 入力引数 #%d の値が間違っています: '%s' または '%s' を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -140,7 +140,7 @@ msgid "%s: Wrong type for input argument #%d: Matrix of strings expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列の行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -384,7 +384,7 @@ msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr "%s: 入力引数の数が間違っています: %d 個の引数を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の次元が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -446,7 +446,7 @@ msgstr "%s: 入力引数 #%d の型が間違っています:  2番目の要素�
 
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr "%1$s: 入力引数 #%3$d の要素 %2$d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -1089,11 +1089,11 @@ msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
 msgstr "'%s' プロパティの値が間違っています: 0 と 1 の間の数を指定してください.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "'%s' プロパティの型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "'%s' プロパティの大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -2586,7 +2586,7 @@ msgid "%s: Wrong value for '%s' property: %d, %d or %d expected.\n"
 msgstr "%s: '%s' プロパティの値が間違っています: %d, %d または %d を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr "%s: '%s' プロパティの型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -2761,7 +2761,7 @@ msgid "%s: Wrong type for %s: A list expected.\n"
 msgstr "%s: %s の型が間違っています: リストを指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr "%s: %s の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format

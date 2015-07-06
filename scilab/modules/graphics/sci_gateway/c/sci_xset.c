@@ -80,7 +80,7 @@ int sci_xset(char *fname, unsigned long fname_len)
     // Retrieve a string at position 1.
     if (getAllocatedSingleString(pvApiCtx, piAddrl1, &l1))
     {
-        Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 1);
+        Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 1);
         return 1;
     }
 
@@ -123,7 +123,7 @@ int sci_xset(char *fname, unsigned long fname_len)
         if (getAllocatedSingleString(pvApiCtx, piAddrl2, &l2))
         {
             freeAllocatedSingleString(l1);
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), fname, 2);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), fname, 2);
             return 1;
         }
 

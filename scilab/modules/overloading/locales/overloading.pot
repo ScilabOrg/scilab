@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2015-07-03 10:13+0100\n"
+"Revision-Date: 2015-07-06 11:21+0100\n"
 
 # File: macros/%0_i_st.sci, line: 19
 #, c-format
@@ -280,7 +280,7 @@ msgstr ""
 # File: macros/%spb_sum.sci, line: 45
 # File: macros/%spb_sum.sci, line: 63
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -343,7 +343,7 @@ msgstr ""
 # File: macros/%spb_prod.sci, line: 59
 # File: macros/%spb_sum.sci, line: 59
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

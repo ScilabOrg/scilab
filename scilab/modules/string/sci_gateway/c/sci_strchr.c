@@ -135,7 +135,7 @@ static wchar_t **getInputArgumentAsMatrixOfWideString(void* _pvCtx, int _iVar,
     if (iType != sci_strings)
     {
         *iErr =  API_ERROR_INVALID_TYPE;
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, _iVar);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), fname, _iVar);
         return NULL;
     }
 

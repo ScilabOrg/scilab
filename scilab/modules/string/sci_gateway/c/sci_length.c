@@ -129,7 +129,7 @@ static int lengthStrings(int *piAddressVar)
 
     if ( iType != sci_strings )
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "length", 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "length", 1);
         return 0;
     }
 

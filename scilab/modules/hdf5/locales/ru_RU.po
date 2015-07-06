@@ -59,7 +59,7 @@ msgid "%s: Unable to update HDF5 format version in \"%s\"."
 msgstr "%s: Невозможно обновить версию формата HDF5 в \"%s\"."
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -81,7 +81,7 @@ msgid "%s: No more memory.\n"
 msgstr "%s: Недостаточно памяти.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Неверный размер входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -133,7 +133,7 @@ msgid "%s: Wrong type for input argument #%d: a H5Object expected.\n"
 msgstr "%s: Неверный тип входного аргумента №%d: ожидался H5Object.\n"
 
 #, c-format
-msgid "%s: Wrong size for argument #%d: A string expected.\n"
+msgid "%s: Wrong size for argument #%d: string expected.\n"
 msgstr ""
 "%s: Неверный размер входного аргумента №%d: ожидалось строковое значение.\n"
 

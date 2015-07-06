@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2015-07-03 10:13+0100\n"
+"Revision-Date: 2015-07-06 11:21+0100\n"
 
 # File: includes/ScilabAbstractEnvironmentException.hxx, line: 108
 msgid "Exception thrown in file"
@@ -260,7 +260,7 @@ msgstr ""
 #
 # File: src/cpp/addToClasspath.cpp, line: 51
 #, c-format
-msgid "Wrong type for argument #%d: A string expected."
+msgid "Wrong type for argument #%d: string expected."
 msgstr ""
 
 #
@@ -347,7 +347,7 @@ msgstr ""
 #
 # File: src/cpp/evalString.cpp, line: 44
 #, c-format
-msgid "Wrong type for input argument #%d: A string expected."
+msgid "Wrong type for input argument #%d: string expected."
 msgstr ""
 
 #
