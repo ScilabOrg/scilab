@@ -81,7 +81,7 @@ Function::ReturnValue sci_grep(typed_list &in, int _iRetCount, typed_list &out)
         String* pS = in[2]->getAs<types::String>();
         if (pS->getSize() != 1)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), "grep", 3);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "grep", 3);
             return Function::Error;
         }
 

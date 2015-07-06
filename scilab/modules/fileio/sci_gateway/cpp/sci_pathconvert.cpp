@@ -55,7 +55,7 @@ Function::ReturnValue sci_pathconvert(typed_list &in, int _iRetCount, typed_list
     {
         if (in[3]->isString() == false || in[3]->getAs<types::String>()->getSize() != 1)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "pathconvert", 4);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "pathconvert", 4);
             return Function::Error;
         }
 
@@ -165,7 +165,7 @@ Function::ReturnValue sci_pathconvert(typed_list &in, int _iRetCount, typed_list
 
     //	if (iType4 != sci_strings)
     //	{
-    //		Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 4);
+    //		Scierror(999,_("%s: Wrong type for input argument #%d: string expected.\n"), fname, 4);
     //		return 0;
     //	}
 
@@ -178,7 +178,7 @@ Function::ReturnValue sci_pathconvert(typed_list &in, int _iRetCount, typed_list
 
     //	if ( (m4 != n4) && (n4 != 1) )
     //	{
-    //		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 4);
+    //		Scierror(999,_("%s: Wrong size for input argument #%d: string expected.\n"), fname, 4);
     //		return 0;
     //	}
 
@@ -446,7 +446,7 @@ Function::ReturnValue sci_pathconvert(typed_list &in, int _iRetCount, typed_list
     //}
     //else
     //{
-    //	Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+    //	Scierror(999,_("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
     //	return 0;
     //}
     //return 0;

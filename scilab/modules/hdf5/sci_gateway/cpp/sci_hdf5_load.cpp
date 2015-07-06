@@ -43,7 +43,7 @@ Function::ReturnValue sci_hdf5_load(typed_list &in, int _iRetCount, typed_list& 
 
     if (in[0]->getId() != InternalType::IdScalarString)
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname.data(), 1);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), fname.data(), 1);
         return Function::Error;
     }
 

@@ -49,7 +49,7 @@ assert_checkfalse(execstr("prod(i,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(i,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("prod(i,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "prod", 3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "prod", 3);
 assert_checkerror("prod(i,1,1)", refMsg);
 //==============================================================================
 // sparse matrices
@@ -58,7 +58,7 @@ assert_checkfalse(execstr("prod(d, ""orient"")","errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("prod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",2);
 assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 //==============================================================================
 // boolean matrices
@@ -80,7 +80,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("prod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"prod",3);
 assert_checkerror("prod(d,1,1)", refMsg);
 //==============================================================================
 // sparse boolean matrices
@@ -90,20 +90,20 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("prod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",2);
 assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 assert_checkfalse(execstr("prod(d,""r"", ""nat"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"prod", 3, "native", "double");
 assert_checkerror("prod(d,""r"", ""nat"")", refMsg);
 assert_checkfalse(execstr("prod(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",3);
 assert_checkerror("prod(d,""r"", [""nat"" ""dble""])", refMsg);
 assert_checkfalse(execstr("prod(d,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
 "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("prod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"prod",3);
 assert_checkerror("prod(d,1,1)", refMsg);
 //==============================================================================
 // hypermatrices
@@ -132,7 +132,7 @@ assert_checkfalse(execstr("prod(d, ""orient"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),"prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("prod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",2);
 assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 //empty matrices
 T=list(list(),list("native"),list("double"));
@@ -330,7 +330,7 @@ assert_checkfalse(execstr("cumprod(i,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(i,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("cumprod(i,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "cumprod", 3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "cumprod", 3);
 assert_checkerror("cumprod(i,1,1)", refMsg);
 //==============================================================================
 // sparse matrices
@@ -339,7 +339,7 @@ assert_checkfalse(execstr("cumprod(d, ""orient"")","errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 //==============================================================================
 // boolean matrices
@@ -361,7 +361,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("cumprod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,1,1)", refMsg);
 //==============================================================================
 // sparse boolean matrices
@@ -371,20 +371,20 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 assert_checkfalse(execstr("cumprod(d,""r"", ""nat"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumprod", 3, "native", "double");
 assert_checkerror("cumprod(d,""r"", ""nat"")", refMsg);
 assert_checkfalse(execstr("cumprod(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,""r"", [""nat"" ""dble""])", refMsg);
 assert_checkfalse(execstr("cumprod(d,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("cumprod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,1,1)", refMsg);
 //==============================================================================
 // hypermatrices
@@ -414,7 +414,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 //cumprod
 //Empty matrices
@@ -607,7 +607,7 @@ assert_checkfalse(execstr("prod(i,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(i,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("prod(i,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "prod", 3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "prod", 3);
 assert_checkerror("prod(i,1,1)", refMsg);
 //==============================================================================
 // sparse matrices
@@ -616,7 +616,7 @@ assert_checkfalse(execstr("prod(d, ""orient"")","errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("prod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",2);
 assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 //==============================================================================
 // boolean matrices
@@ -638,7 +638,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("prod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"prod",3);
 assert_checkerror("prod(d,1,1)", refMsg);
 //==============================================================================
 // sparse boolean matrices
@@ -648,20 +648,20 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("prod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",2);
 assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 assert_checkfalse(execstr("prod(d,""r"", ""nat"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"prod", 3, "native", "double");
 assert_checkerror("prod(d,""r"", ""nat"")", refMsg);
 assert_checkfalse(execstr("prod(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",3);
 assert_checkerror("prod(d,""r"", [""nat"" ""dble""])", refMsg);
 assert_checkfalse(execstr("prod(d,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
 "prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("prod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"prod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"prod",3);
 assert_checkerror("prod(d,1,1)", refMsg);
 //==============================================================================
 // hypermatrices
@@ -690,7 +690,7 @@ assert_checkfalse(execstr("prod(d, ""orient"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),"prod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("prod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("prod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"prod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"prod",2);
 assert_checkerror("prod(d, [""r"", ""c""])", refMsg);
 //empty matrices
 T=list(list(),list("native"),list("double"));
@@ -888,7 +888,7 @@ assert_checkfalse(execstr("cumprod(i,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(i,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("cumprod(i,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), "cumprod", 3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "cumprod", 3);
 assert_checkerror("cumprod(i,1,1)", refMsg);
 //==============================================================================
 // sparse matrices
@@ -897,7 +897,7 @@ assert_checkfalse(execstr("cumprod(d, ""orient"")","errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 //==============================================================================
 // boolean matrices
@@ -919,7 +919,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("cumprod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,1,1)", refMsg);
 //==============================================================================
 // sparse boolean matrices
@@ -929,20 +929,20 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 assert_checkfalse(execstr("cumprod(d,""r"", ""nat"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" or ""%s"" expected.\n"),"cumprod", 3, "native", "double");
 assert_checkerror("cumprod(d,""r"", ""nat"")", refMsg);
 assert_checkfalse(execstr("cumprod(d,""r"", [""nat"" ""dble""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,""r"", [""nat"" ""dble""])", refMsg);
 assert_checkfalse(execstr("cumprod(d,""orient"", ""t"")"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d,""orient"", ""t"")", refMsg);
 assert_checkfalse(execstr("cumprod(d,1,1)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"),"cumprod",3);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"cumprod",3);
 assert_checkerror("cumprod(d,1,1)", refMsg);
 //==============================================================================
 // hypermatrices
@@ -972,7 +972,7 @@ refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set 
 "cumprod",2,"""*"",""r"",""c"",""m""");
 assert_checkerror("cumprod(d, ""orient"")", refMsg);
 assert_checkfalse(execstr("cumprod(d, [""r"", ""c""])"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong size for input argument #%d: A string expected.\n"),"cumprod",2);
+refMsg = msprintf(_("%s: Wrong size for input argument #%d: string expected.\n"),"cumprod",2);
 assert_checkerror("cumprod(d, [""r"", ""c""])", refMsg);
 //cumprod
 //Empty matrices

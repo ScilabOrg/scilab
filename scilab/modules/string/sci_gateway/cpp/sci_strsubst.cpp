@@ -46,7 +46,7 @@ Function::ReturnValue sci_strsubst(typed_list &in, int _iRetCount, typed_list &o
     {
         if (in[3]->isString() == false && in[3]->getAs<types::String>()->getSize() != 1)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "strsubst", 4);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "strsubst", 4);
             return Function::Error;
         }
 
@@ -67,7 +67,7 @@ Function::ReturnValue sci_strsubst(typed_list &in, int _iRetCount, typed_list &o
 
     if (in[2]->isString() == false || in[2]->getAs<types::String>()->getSize() != 1)
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "strsubst", 3);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "strsubst", 3);
         return Function::Error;
     }
 
@@ -75,7 +75,7 @@ Function::ReturnValue sci_strsubst(typed_list &in, int _iRetCount, typed_list &o
 
     if (in[1]->isString() == false || in[1]->getAs<types::String>()->getSize() != 1)
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "strsubst", 2);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "strsubst", 2);
         return Function::Error;
     }
 

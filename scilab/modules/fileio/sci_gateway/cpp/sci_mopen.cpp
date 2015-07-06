@@ -51,14 +51,14 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
         //filename
         if (in[0]->isString() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "mopen", 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "mopen", 1);
             return Function::Error;
         }
 
         String* pS1 = in[0]->getAs<types::String>();
         if (pS1->getSize() != 1)
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "mopen" , 1);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), "mopen" , 1);
             return Function::Error;
         }
 
@@ -69,14 +69,14 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
             //mode
             if (in[1]->isString() == false)
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "mopen", 2);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "mopen", 2);
                 return Function::Error;
             }
 
             String* pS2 = in[1]->getAs<types::String>();
             if (pS2->getSize() != 1)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "mopen" , 2);
+                Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), "mopen" , 2);
                 return Function::Error;
             }
 

@@ -74,7 +74,7 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
 
         if (pSPath->isScalar() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d : A string expected.\n"), "read", 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d : string expected.\n"), "read", 1);
             return Function::Error;
         }
 
@@ -127,7 +127,7 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
         if (in[iPos]->isString() == false)
         {
             closeFile(in[0], iID);
-            Scierror(999, _("%s: Wrong type for input argument #%d : A string expected.\n"), "read", iRhs);
+            Scierror(999, _("%s: Wrong type for input argument #%d : string expected.\n"), "read", iRhs);
             return Function::Error;
         }
 
@@ -135,7 +135,7 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
         if (pSFormat->isScalar() == false)
         {
             closeFile(in[0], iID);
-            Scierror(999, _("%s: Wrong type for input argument #%d : A string expected.\n"), "read", iRhs);
+            Scierror(999, _("%s: Wrong type for input argument #%d : string expected.\n"), "read", iRhs);
             return Function::Error;
         }
 
@@ -329,7 +329,7 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                 default:
                 {
                     closeFile(in[0], iID);
-                    Scierror(999, _("%s: Wrong type for input argument #%d : A string expected.\n"), "read", 2);
+                    Scierror(999, _("%s: Wrong type for input argument #%d : string expected.\n"), "read", 2);
                     return Function::Error;
                 }
             }
@@ -530,7 +530,7 @@ Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
                 break;
                 default:
                 {
-                    Scierror(999, _("%s: Wrong type for input argument #%d : A string expected.\n"), "read", 2);
+                    Scierror(999, _("%s: Wrong type for input argument #%d : string expected.\n"), "read", 2);
                     closeFile(in[0], iID);
                     return Function::Error;
                 }
