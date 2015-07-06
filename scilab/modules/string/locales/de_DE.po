@@ -63,7 +63,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: Fehler in Speicherreservierung.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: eine Variable erwartet.\n"
 
@@ -114,7 +114,7 @@ msgstr ""
 "Zeichenketten erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: einzelne Zeichenkette erwartet.\n"
 
@@ -123,7 +123,7 @@ msgid "%s: Wrong type for input argument #%d: A matrix of string expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument '%d: eine Zeichenkette erwartet.\n"
 
@@ -144,7 +144,7 @@ msgid "%s: Wrong values for input argument #%d: Must be >= 1.\n"
 msgstr "%s: falscher Wert für Eingangsargument #%d: muß =>1 sein.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangargument #%d: einzelne Zeichenkette erwartet.\n"
 

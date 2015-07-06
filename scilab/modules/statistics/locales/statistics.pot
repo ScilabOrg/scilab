@@ -683,7 +683,7 @@ msgstr ""
 # File: macros/nancumsum.sci, line: 58
 # File: macros/nansum.sci, line: 50
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 
 #

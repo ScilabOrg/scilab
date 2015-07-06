@@ -36,11 +36,11 @@ msgstr ""
 "%s: Špatný typ vstupního argumentu #%d: Očekávána matice obslužné rutiny.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: Špatný typ argumentu #%d: Očekávána řetězcová matice.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: Špatný typ argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -198,7 +198,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -231,7 +231,7 @@ msgid "%s: Wrong type for input argument #%d: A graphic handle expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -824,7 +824,7 @@ msgid "Wrong type for '%s' property: Real expected.\n"
 msgstr "Špatný typ vlastnosti '%s': Očekáváno reálné číslo.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: String matrix expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "Špatný typ vlastnosti '%s': Očekávána řetězcová matice.\n"
 
 #, c-format
@@ -848,7 +848,7 @@ msgstr ""
 "Ve vlastnosti '%s': '%s' je zastaralé, použijte místo toho '%s'.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "Špatná velikost vlastnosti '%s': Očekáván řetězec.\n"
 
 #, c-format
@@ -860,7 +860,7 @@ msgid "Wrong size for '%s' property: A real expected.\n"
 msgstr "Špatná velikost vlastnosti '%s': Očekáváno reálné číslo.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string or a 2-item list expected.\n"
+msgid "Wrong type for '%s' property: string or 2-item list expected.\n"
 msgstr ""
 "Špatný typ vlastnosti '%s': Očekáván 2-položkový seznam nebo řetězec.\n"
 
@@ -1117,7 +1117,7 @@ msgid "Wrong size for '%s' property: %d or %d elements expected.\n"
 msgstr "Špatná velikost vlastnosti '%s': Očekáváno %d nebo %d prvků.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "Špatný typ vlastnosti '%s': Očekáván řetězec.\n"
 
 #, c-format
@@ -1452,7 +1452,7 @@ msgid "%s: Wrong type for input argument #%d: Axes handle expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong size or type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size or type for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -1472,7 +1472,7 @@ msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
 msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d až %d.\n"
 
 #, c-format
-msgid "%s: Wrong type for input arguments #%d: A string expected.\n"
+msgid "%s: Wrong type for input arguments #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -1513,7 +1513,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+"%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 
 #, c-format
@@ -1652,7 +1652,7 @@ msgid "%s: Wrong type for input argument #%d:  Real matrix expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekávána reálná matice.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Špatná velikost vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format

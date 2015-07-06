@@ -55,7 +55,7 @@ msgstr ""
 # File: macros/%b_sum.sci, line: 45
 # File: macros/%b_sum.sci, line: 61
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -73,7 +73,7 @@ msgstr ""
 # File: macros/%b_prod.sci, line: 52
 # File: macros/%b_sum.sci, line: 52
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 
 #
@@ -82,7 +82,7 @@ msgstr ""
 # File: macros/%b_prod.sci, line: 57
 # File: macros/%b_sum.sci, line: 57
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

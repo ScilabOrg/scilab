@@ -26,7 +26,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_addModulePreferences.cpp, line: 56
 # File: sci_gateway/cpp/sci_removeModulePreferences.cpp, line: 49
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr ""
 
 #

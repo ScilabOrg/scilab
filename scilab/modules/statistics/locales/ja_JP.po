@@ -476,7 +476,7 @@ msgid ""
 msgstr "%s: 入力引数 #%d の型が間違っています: 実数または複素数, 論理値, 多項式行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列またはスカラーを指定してください.\n"
 
 #, c-format

@@ -47,7 +47,7 @@ Function::ReturnValue sci_mputstr(types::typed_list &in, int _iRetCount, types::
 
     if (in[0]->isString() == false || in[0]->getAs<types::String>()->isScalar() == false)
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "mputstr", 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "mputstr", 1);
         return types::Function::Error;
     }
 

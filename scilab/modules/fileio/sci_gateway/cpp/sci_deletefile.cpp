@@ -83,7 +83,7 @@ Function::ReturnValue sci_deletefile(typed_list &in, int _iRetCount, typed_list 
     //}
     //else
     //{
-    //	Scierror(999,_("%s: Wrong type for input argument: A string expected.\n"),fname);
+    //	Scierror(999,_("%s: Wrong type for input argument: string expected.\n"),fname);
     //}
     //return 0;
 }

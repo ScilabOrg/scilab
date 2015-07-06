@@ -37,11 +37,11 @@ msgid "%s: Wrong type for input argument #%d: Handle matrix expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: ハンドル行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: 入力引数 %d 型が間違っています: 文字列行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: 引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -196,7 +196,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: 引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -228,7 +228,7 @@ msgid "%s: Wrong type for input argument #%d: A graphic handle expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: グラフィックのハンドルを指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -962,7 +962,7 @@ msgid "Wrong type for '%s' property: Real expected.\n"
 msgstr "'%s' プロパティの型が間違っています: 実数を指定してください.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: String matrix expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "'%s' プロパティの型が間違っています: 文字列の行列を指定してください.\n"
 
 #, c-format
@@ -986,7 +986,7 @@ msgstr ""
 "'%s' プロパティ:において  '%s' は廃止されています. 代わりに '%s' を使用してください.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "'%s' プロパティの大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -998,7 +998,7 @@ msgid "Wrong size for '%s' property: A real expected.\n"
 msgstr "'%s' プロパティの大きさが間違っています: 実数を指定してください.\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string or a 2-item list expected.\n"
+msgid "Wrong type for '%s' property: string or 2-item list expected.\n"
 msgstr "プロパティ'%s' の型が間違っています: 文字列または2要素のリストを指定してください.\n"
 
 #, c-format
@@ -1386,7 +1386,7 @@ msgid "Wrong size for '%s' property: %d or %d elements expected.\n"
 msgstr "プロパティ '%s' で不正なサイズ: 要素 %d または %d を想定します。\n"
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "'%s' プロパティの型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -1775,7 +1775,7 @@ msgid "%s: Wrong type for input argument #%d: Axes handle expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 軸のハンドルを指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size or type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size or type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさと型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -1795,7 +1795,7 @@ msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
 msgstr "%s: 入力引数の数が誤っています: %d から %d を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input arguments #%d: A string expected.\n"
+msgid "%s: Wrong type for input arguments #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています:  文字列を指定してください.\n"
 
 #, c-format
@@ -1836,7 +1836,7 @@ msgstr "%s: 入力引数 #%d の型が間違っています:  ハンドル, 文�
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+"%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列またはスカラーを指定してください.\n"
 
 #, c-format
@@ -1970,7 +1970,7 @@ msgid "%s: Wrong type for input argument #%d:  Real matrix expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 実行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが正しくありません: 文字列を指定してください.\n"
 
 #, c-format

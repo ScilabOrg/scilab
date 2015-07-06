@@ -227,7 +227,7 @@ msgstr ""
 #
 # File: sci_gateway/c/sci_umfpack.c, line: 140
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

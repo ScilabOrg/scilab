@@ -147,7 +147,7 @@ msgstr "%s: 引数 %d の大きさが間違っています: 大きさを (%d,%d)
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+"%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列またはスカラーを指定してください.\n"
 
 #, c-format

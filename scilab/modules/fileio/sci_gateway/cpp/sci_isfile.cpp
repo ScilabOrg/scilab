@@ -100,7 +100,7 @@ Function::ReturnValue sci_isfile(typed_list &in, int _iRetCount, typed_list &out
 
     //if (iType != sci_strings)
     //{
-    //	Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+    //	Scierror(999,_("%s: Wrong type for input argument #%d: string expected.\n"), fname, 1);
     //	return 0;
     //}
 

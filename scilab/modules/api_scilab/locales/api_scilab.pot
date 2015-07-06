@@ -480,7 +480,7 @@ msgstr ""
 #
 # File: src/cpp/api_common.cpp, line: 590
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 
 #

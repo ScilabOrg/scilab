@@ -67,7 +67,7 @@ Function::ReturnValue sci_fileparts(typed_list &in, int _iRetCount, typed_list &
 
     if (in[0]->isString() == false)
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "fileparts", 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "fileparts", 1);
         return Function::Error;
     }
 
@@ -78,13 +78,13 @@ Function::ReturnValue sci_fileparts(typed_list &in, int _iRetCount, typed_list &
     {
         if (in[1]->isString() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "fileparts", 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "fileparts", 2);
             return Function::Error;
         }
 
         if (in[1]->getAs<types::String>()->getSize() != 1)
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "fileparts", 2);
+            Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), "fileparts", 2);
             return Function::Error;
         }
 

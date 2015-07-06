@@ -66,7 +66,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: Błąd przedzielania pamięci\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Niewłaściwy rozmiar parametru wejściowego nr %d: Oczekiwano ciągu "
 "znaków.\n"
@@ -121,7 +121,7 @@ msgstr ""
 "real lub macierz ciągów znaków.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy rozmiar dla argumentu wejściowego nr %d: oczekiwano "
 "pojedynczego łańcuchu znaków.\n"
@@ -131,7 +131,7 @@ msgid "%s: Wrong type for input argument #%d: A matrix of string expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwano łańcuch.\n"
 
@@ -153,7 +153,7 @@ msgstr ""
 "%s: Nieprawidłowe wartości argumentu wejściowego nr %d: musi być >= 1.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwany jest "
 "pojedynczy łańcuch.\n"

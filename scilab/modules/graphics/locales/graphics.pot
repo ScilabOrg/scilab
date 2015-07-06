@@ -120,7 +120,7 @@ msgstr ""
 # File: sci_gateway/c/sci_xstringb.c, line: 120
 # File: sci_gateway/c/sci_xtitle.c, line: 146
 #, c-format
-msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -144,7 +144,7 @@ msgstr ""
 # File: sci_gateway/c/sci_xstringb.c, line: 192
 # File: sci_gateway/c/sci_xstringb.c, line: 198
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -646,7 +646,7 @@ msgstr ""
 #
 # File: sci_gateway/c/sci_get.c, line: 134
 #, c-format
-msgid "%s: Wrong type for argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -709,7 +709,7 @@ msgstr ""
 # File: sci_gateway/c/sci_xlfont.c, line: 185
 # File: sci_gateway/c/sci_xlfont.c, line: 362
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -2177,7 +2177,7 @@ msgstr ""
 # File: src/c/getHandleProperty/set_tics_labels_property.c, line: 45
 # File: src/c/getHandleProperty/set_tight_limits_property.c, line: 87
 #, c-format
-msgid "Wrong type for '%s' property: String matrix expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2233,7 +2233,7 @@ msgstr ""
 # File: src/c/getHandleProperty/set_callback_property.c, line: 78
 # File: src/c/getHandleProperty/set_tag_property.c, line: 44
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2251,7 +2251,7 @@ msgstr ""
 #
 # File: src/c/getHandleProperty/set_callback_property.c, line: 89
 #, c-format
-msgid "Wrong type for '%s' property: A string or a 2-item list expected.\n"
+msgid "Wrong type for '%s' property: string or 2-item list expected.\n"
 msgstr ""
 
 #
@@ -2642,7 +2642,7 @@ msgstr ""
 #
 # File: src/c/getHandleProperty/set_tag_property.c, line: 38
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -3207,7 +3207,7 @@ msgstr ""
 #
 # File: macros/TitleLabel.sci, line: 44
 #, c-format
-msgid "%s: Wrong size or type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size or type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -3297,7 +3297,7 @@ msgstr ""
 # File: macros/bar.sci, line: 47
 # File: macros/bar.sci, line: 53
 #, c-format
-msgid "%s: Wrong type for input arguments #%d: A string expected.\n"
+msgid "%s: Wrong type for input arguments #%d: string expected.\n"
 msgstr ""
 
 #
@@ -3363,7 +3363,7 @@ msgstr ""
 #
 # File: macros/barhomogenize.sci, line: 64
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 
 #
@@ -3637,7 +3637,7 @@ msgstr ""
 # File: macros/getcolor.sci, line: 21
 # File: macros/getcolor.sci, line: 29
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

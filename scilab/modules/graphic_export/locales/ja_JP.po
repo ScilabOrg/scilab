@@ -58,7 +58,7 @@ msgid ""
 msgstr "%s: 引数 %d の型が間違っています:  スカラーまたは図のハンドルを指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr "%s: 入力引数 %d 型が間違っています: 文字列行列を指定してください.\n"
 
 #, c-format
@@ -89,7 +89,7 @@ msgid "%s: Can not read input argument #%d.\n"
 msgstr "%s: 入力引数 #%d を読み込めません.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format

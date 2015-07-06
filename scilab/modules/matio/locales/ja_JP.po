@@ -42,15 +42,15 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: メモリ確保エラー.\n"
 
 #, c-format
-msgid "%s: Wrong size for first input argument: A string expected.\n"
+msgid "%s: Wrong size for first input argument: string expected.\n"
 msgstr "%s: 最初の入力引数の大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for first input argument: A string expected.\n"
+msgid "%s: Wrong type for first input argument: string expected.\n"
 msgstr "%s: 最初の入力引数の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size for second input argument: A string expected.\n"
+msgid "%s: Wrong size for second input argument: string expected.\n"
 msgstr "%s: 2番目の入力引数の大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -58,15 +58,15 @@ msgid "%s: Wrong value for second input argument: 'r' or 'w' expected.\n"
 msgstr "%s: 2番目の入力引数の値が間違っています:  'r' または 'w' を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for second input argument: A string expected.\n"
+msgid "%s: Wrong type for second input argument: string expected.\n"
 msgstr "%s: 2番目の入力引数の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -108,7 +108,7 @@ msgid "%s: 2D array of strings saving is not implemented.\n"
 msgstr "%s: 文字列の二次元配列の保存は実装されていません.\n"
 
 #, c-format
-msgid "%s: Wrong type for first input argument: String matrix expected.\n"
+msgid "%s: Wrong type for first input argument: string expected.\n"
 msgstr "%s: 最初の入力引数の型が間違っています:  文字列行列を指定してください.\n"
 
 #, c-format

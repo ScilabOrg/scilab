@@ -146,7 +146,7 @@ msgstr "%s: Špatná velikost argumentu %d: očekáváno (%d,%d).\n"
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+"%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec nebo skalár.\n"
 

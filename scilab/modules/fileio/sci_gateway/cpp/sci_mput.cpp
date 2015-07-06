@@ -60,7 +60,7 @@ Function::ReturnValue sci_mput(typed_list &in, int _iRetCount, typed_list &out)
         //export format
         if (in[1]->isString() == false || in[1]->getAs<types::String>()->getSize() != 1)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "mput", 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "mput", 2);
             return Function::Error;
         }
 

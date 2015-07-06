@@ -97,14 +97,14 @@ types::Function::ReturnValue sci_get(types::typed_list &in, int _iRetCount, type
 
         if (in[1]->isString() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), "get", 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "get", 2);
             return types::Function::Error;
         }
 
         types::String* pStr = in[1]->getAs<types::String>();
         if (pStr->isScalar() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), "get", 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "get", 2);
             return types::Function::Error;
         }
 
@@ -150,7 +150,7 @@ types::Function::ReturnValue sci_get(types::typed_list &in, int _iRetCount, type
 
         if (in[1]->isString() == false)
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), "get", 2);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), "get", 2);
             return types::Function::Error;
         }
 
@@ -158,7 +158,7 @@ types::Function::ReturnValue sci_get(types::typed_list &in, int _iRetCount, type
 
         if (pS->isScalar() == false)
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), "get", 2);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), "get", 2);
             return types::Function::Error;
         }
 
@@ -168,14 +168,14 @@ types::Function::ReturnValue sci_get(types::typed_list &in, int _iRetCount, type
     {
         if (in[0]->isString() == false)
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), "get", 1);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), "get", 1);
             return types::Function::Error;
         }
 
         pS = in[0]->getAs<types::String>();
         if (pS->isScalar() == false)
         {
-            Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), "get", 1);
+            Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), "get", 1);
             return types::Function::Error;
         }
 
@@ -204,14 +204,14 @@ types::Function::ReturnValue sci_get(types::typed_list &in, int _iRetCount, type
 
                 if (in[1]->isString() == false)
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), "get", 2);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), "get", 2);
                     return types::Function::Error;
                 }
 
                 pS = in[1]->getAs<types::String>();
                 if (pS->isScalar() == false)
                 {
-                    Scierror(202, _("%s: Wrong type for argument #%d: A string expected.\n"), "get", 2);
+                    Scierror(202, _("%s: Wrong type for argument #%d: string expected.\n"), "get", 2);
                     return types::Function::Error;
                 }
             }

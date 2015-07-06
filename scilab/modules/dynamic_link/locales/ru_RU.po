@@ -41,7 +41,7 @@ msgstr ""
 "библиотеки.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -277,7 +277,7 @@ msgstr ""
 "'haveacompiler' поддерживается только в Windows."
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Неверный размер входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -547,7 +547,7 @@ msgstr ""
 "%s: Неверное количество входных параметров: ожидалось %d,%d или %d.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась матрица строк.\n"
 
 #, c-format

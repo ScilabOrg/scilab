@@ -53,7 +53,7 @@ msgid "%s: Unable to update HDF5 format version in \"%s\"."
 msgstr "%s: HDF5形式のバージョンを \"%s\" に更新できませんでした."
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -66,7 +66,7 @@ msgstr "%s:  H5Object が無効です.\n"
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a H5Object expected.\n"
+"%s: Wrong type for input argument #%d: string or H5Object expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列またはH5Objectを指定してください.\n"
 
 #, c-format
@@ -74,7 +74,7 @@ msgid "%s: No more memory.\n"
 msgstr "%s: メモリ不足です.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -118,7 +118,7 @@ msgid "%s: Wrong type for input argument #%d: a H5Object expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています:  H5Object を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong size for argument #%d: A string expected.\n"
+msgid "%s: Wrong size for argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが間違っています:  文字列を指定してください.\n"
 
 #, c-format
@@ -162,7 +162,7 @@ msgstr "%s: H5Objectを使用できません: オブジェクトが無効です.
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a boolean expected.\n"
+"%s: Wrong type for input argument #%d: string or boolean expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列または論理値を指定してください.\n"
 
 #, c-format
@@ -228,7 +228,7 @@ msgstr "%s: 入力引数の数が間違っています:  %d 個より大きい�
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a double expected.\n"
+"%s: Wrong type for input argument #%d: string or double expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列またはdoubleを指定してください.\n"
 
 #, c-format

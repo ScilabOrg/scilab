@@ -33,7 +33,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: Błąd alokacji pamięci.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwana jest wartość "
 "typu string.\n"
@@ -60,11 +60,11 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a boolean expected.\n"
+"%s: Wrong type for input argument #%d: string or boolean expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -112,7 +112,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong dimension for input argument #%d: A string or a double expected.\n"
+"%s: Wrong dimension for input argument #%d: string or double expected.\n"
 msgstr ""
 
 #, c-format
@@ -141,7 +141,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a single integer "
+"%s: Wrong type for input argument #%d: string or single integer "
 "expected\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwano łańcuch albo "
@@ -149,7 +149,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a single integer "
+"%s: Wrong type for input argument #%d: string or single integer "
 "expected.\n"
 msgstr ""
 "%s: Nieprawidłowy typ argumentu wejściowego nr %d: oczekiwano łańcuch albo "
@@ -346,7 +346,7 @@ msgid "%s: No root element.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr ""
 
 #, c-format

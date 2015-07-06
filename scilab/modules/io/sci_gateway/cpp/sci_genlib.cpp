@@ -92,14 +92,14 @@ Function::ReturnValue sci_genlib(typed_list &in, int _iRetCount, typed_list &out
     InternalType* pIT = in[0];
     if (pIT->isString() == false)
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "genlib", 1);
         return Function::Error;
     }
 
     String *pS = pIT->getAs<String>();
     if (pS->getSize() != 1)
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 1);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), "genlib", 1);
         return Function::Error;
     }
     pstLibName = pS->get(0);
@@ -110,7 +110,7 @@ Function::ReturnValue sci_genlib(typed_list &in, int _iRetCount, typed_list &out
         pIT = in[1];
         if (pIT->isString() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "genlib", 2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "genlib", 2);
             return Function::Error;
         }
     }
@@ -123,7 +123,7 @@ Function::ReturnValue sci_genlib(typed_list &in, int _iRetCount, typed_list &out
     pS = pIT->getAs<String>();
     if (pS->isScalar() == false)
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), "genlib", 2);
+        Scierror(999, _("%s: Wrong size for input argument #%d: string expected.\n"), "genlib", 2);
         return Function::Error;
     }
 

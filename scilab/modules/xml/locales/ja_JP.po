@@ -33,7 +33,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: メモリ割当エラー.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -62,11 +62,11 @@ msgstr "%s: XML文書が存在しません.\n"
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a boolean expected.\n"
+"%s: Wrong type for input argument #%d: string or boolean expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列または論理値を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の次元が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -109,7 +109,7 @@ msgstr "%s: 入力引数 #%d の値が間違っています: '%s', '%s'  また�
 
 #, c-format
 msgid ""
-"%s: Wrong dimension for input argument #%d: A string or a double expected.\n"
+"%s: Wrong dimension for input argument #%d: string or double expected.\n"
 msgstr "%s: 入力引数 #%d の次元が間違っています: 文字列またはdoubleを指定してください.\n"
 
 #, c-format
@@ -134,13 +134,13 @@ msgstr "%s: 入力引数 #%d の型が間違っています: XMLListまたはXML
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a single integer "
+"%s: Wrong type for input argument #%d: string or single integer "
 "expected\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列または整数を1つ指定してください.\n"
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a single integer "
+"%s: Wrong type for input argument #%d: string or single integer "
 "expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列または整数を1つ指定してください.\n"
 
@@ -336,7 +336,7 @@ msgid "%s: No root element.\n"
 msgstr "%s: ルート要素がありません.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr "%s: 入力引数 #%i の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format

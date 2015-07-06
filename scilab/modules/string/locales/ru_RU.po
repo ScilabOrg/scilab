@@ -67,7 +67,7 @@ msgid "%s: Memory allocation error.\n"
 msgstr "%s: Ошибка выделения памяти.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Неверный размер входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -114,7 +114,7 @@ msgstr ""
 "чисел или строк.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Неверный размер входного параметра №%d: ожидалась одиночная строка.\n"
 
@@ -125,7 +125,7 @@ msgstr ""
 "значений.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
 #, c-format
@@ -145,7 +145,7 @@ msgid "%s: Wrong values for input argument #%d: Must be >= 1.\n"
 msgstr "%s: Неверные значения входного аргумента №%d: должны быть >= 1.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Неверный тип входного параметра №%d: ожидалась одиночная строка.\n"
 

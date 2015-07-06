@@ -147,7 +147,7 @@ msgstr "%s: Falsche Größe für Argument #%d: (%d,%d) erwartet.\n"
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
+"%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 "%s: Falscher Typ für Eingabeargument #%d: String oder Skalar erwartet.\n"
 

@@ -41,7 +41,7 @@ Function::ReturnValue sci_clearglobal(types::typed_list &in, int _iRetCount, typ
         {
             if (!(*inIterator)->isString() || (*inIterator)->getAs<String>()->getSize() != 1)
             {
-                Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), "clearglobal", iWrongType);
+                Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "clearglobal", iWrongType);
                 return Function::Error;
             }
             iWrongType++;

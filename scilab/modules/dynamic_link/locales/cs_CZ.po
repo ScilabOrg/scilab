@@ -40,7 +40,7 @@ msgid "%s : second argument must be a unique id of a shared library.\n"
 msgstr "%s: druhý argument musí být jedinečné id sdílené knihovny.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -272,7 +272,7 @@ msgstr ""
 "'haveacompiler' podporována pouze ve Windows."
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: Špatná velikost vstupního argumentu #%d: Očekáván řetězec.\n"
 
 #, c-format
@@ -535,7 +535,7 @@ msgid "%s: Wrong number of input argument(s): %d,%d or %d expected.\n"
 msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d, %d, nebo %d.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekávána matice řetězců.\n"
 
 #, c-format

@@ -33,7 +33,7 @@ msgid "%s: Can not read input argument #%d.\n"
 msgstr "%s: No se puede leer el argumento de entrada #%d.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tamaño incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
@@ -97,7 +97,7 @@ msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un escalar.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
@@ -890,7 +890,7 @@ msgstr "Operandos de operaciones / y \\ no pueden contener NaN de Inf.\n"
 msgid "semi def fails.\n"
 msgstr "falla la semi definición.\n"
 
-msgid "Wrong type for first input argument: Single string expected.\n"
+msgid "Wrong type for first input argument: string expected.\n"
 msgstr ""
 "Tipo incorrecto para el primer argumento de entrada: Se esperaba un string "
 "simple.\n"

@@ -22,7 +22,7 @@ msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr "Scilab '%s' Modul in Modus -nogui oder -nmwi deaktiviert.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -35,7 +35,7 @@ msgstr ""
 "%s: falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument '%d: eine Zeichenkette erwartet.\n"
 
@@ -46,7 +46,7 @@ msgstr ""
 "%s: falscher Wert für Eingangsargument #%d: '%s', '%s' oder '%s' erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -68,7 +68,7 @@ msgstr ""
 "%s: falscher Wert für Eingangsargument #%d: es wird => %d erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or a real expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or real expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: eine Zeichenkette oder Realzahl "
 "erwartet.\n"
@@ -136,7 +136,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong value for '%s' property: A string or a 1 x %d real row vector "
+"Wrong value for '%s' property: string or 1 x %d real row vector "
 "expected.\n"
 msgstr ""
 "Falscher Wert für Eigenschaft '%s': eine Zeichenkette oder ein 1 x %d "
@@ -152,7 +152,7 @@ msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: Matrix von Variablen erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: eine Variable erwartet.\n"
 
@@ -177,7 +177,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a string vector "
+"%s: Wrong type for input argument #%d: string or string vector "
 "expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: eine Zeichenkette oder Vektor mit "
@@ -294,7 +294,7 @@ msgid "%s: Unknown property: %s for '%s' handles.\n"
 msgstr "%s: unbekannte Eigenschaft: %s für '%s' Handhabung.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string or boolean expected.\n"
+msgid "%s: Wrong type for argument #%d: string or boolean expected.\n"
 msgstr ""
 
 #, c-format
@@ -421,12 +421,12 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong size for input argument #%d: A string or a macro name expected.\n"
+"%s: Wrong size for input argument #%d: string or macro name expected.\n"
 msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a macro name expected.\n"
+"%s: Wrong type for input argument #%d: string or macro name expected.\n"
 msgstr ""
 
 #, c-format
@@ -434,7 +434,7 @@ msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr "%s: falsche Anzahl für Eingangsargumente: %d erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -496,7 +496,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
@@ -1059,11 +1059,11 @@ msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
 msgstr ""
 
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr "Falscher Typ für Eigenschaft '%s': eine Zeichenkette erwartet.\n"
 
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr "Falsche Größe für Eigenschaft '%s': eine Zeichenkette erwartet.\n"
 
 #, c-format
@@ -1116,7 +1116,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong size for '%s' property: A string or a 1 x %d real row vector "
+"Wrong size for '%s' property: string or 1 x %d real row vector "
 "expected.\n"
 msgstr ""
 "Falsche Größe für Eigenschaft '%s': eine Zeichenkette oder 1 x %d reeller "
@@ -1124,7 +1124,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong type for '%s' property: A string or a 1 x %d real row vector "
+"Wrong type for '%s' property: string or 1 x %d real row vector "
 "expected.\n"
 msgstr ""
 "Falscher Typ für Eigenschaft '%s': eine Zeichenkette oder ein 1 x %d reeller "
@@ -1150,14 +1150,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong size for '%s' property: A string or a vector of strings expected.\n"
+"Wrong size for '%s' property: string or vector of strings expected.\n"
 msgstr ""
 "Falsche Größe für Eigenschaft '%s': eine Zeichenkette oder ein Vektor mit "
 "Zeichenketten erwartet.\n"
 
 #, c-format
 msgid ""
-"Wrong type for '%s' property: A string or a vector of strings expected.\n"
+"Wrong type for '%s' property: string or vector of strings expected.\n"
 msgstr ""
 
 #, c-format
@@ -2537,7 +2537,7 @@ msgid "%s: Wrong value for '%s' property: %d, %d or %d expected.\n"
 msgstr "%s: falscher Wert für '%s' Eigenschaft: %d, %d oder %d erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr "%s: falscher Typ für '%s' Eigenschaft: eine Zeichenkette erwartet.\n"
 
 #, c-format
@@ -2717,7 +2717,7 @@ msgid "%s: Wrong type for %s: A list expected.\n"
 msgstr "%s: falscher Typ für %s: eine Liste erwartet.\n"
 
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr "%s: falscher Typ für %s: eine Zeichenkette erwartet.\n"
 
 #, c-format

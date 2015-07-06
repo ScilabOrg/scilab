@@ -98,7 +98,7 @@ msgstr "%s: メモリ確保エラー.\n"
 # File: sci_gateway/c/sci_strtok.c, line: 73
 # File: sci_gateway/c/sci_tokens.c, line: 146
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正なサイズ: 文字列を想定します。\n"
 
 #
@@ -177,7 +177,7 @@ msgstr "%s: 入力引数 #%d で不正な型: 実行列、または、文字列�
 # File: sci_gateway/c/sci_isletter.c, line: 47
 # File: sci_gateway/c/sci_regexp.c, line: 91
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正なサイズ: 単一の文字列を想定します。\n"
 
 #, c-format
@@ -194,7 +194,7 @@ msgstr "%s: 入力引数 #%d の型が間違っています: 文字列の行列�
 # File: sci_gateway/c/sci_strtok.c, line: 80
 # File: sci_gateway/c/sci_tokens.c, line: 151
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で、不正な型: 文字列を想定します。\n"
 
 #, c-format
@@ -227,7 +227,7 @@ msgstr "%s: 入力引数 #%d で不正な値: >= 1であるべきです。\n"
 #
 # File: sci_gateway/c/sci_strcat.c, line: 226
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正な型: 単一文字列を想定します。\n"
 
 #, c-format

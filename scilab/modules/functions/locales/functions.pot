@@ -124,7 +124,7 @@ msgstr ""
 # File: sci_gateway/c/sci_execstr.c, line: 201
 # File: sci_gateway/c/sci_lib.c, line: 67
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -132,7 +132,7 @@ msgstr ""
 # File: sci_gateway/c/sci_execstr.c, line: 215
 # File: sci_gateway/c/sci_whereis.c, line: 96
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

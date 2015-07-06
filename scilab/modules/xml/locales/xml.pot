@@ -187,7 +187,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_xmlXPath.cpp, line: 101
 # File: sci_gateway/cpp/sci_xmlXPath.cpp, line: 125
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -255,7 +255,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_xmlWrite.cpp, line: 84
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a boolean expected.\n"
+"%s: Wrong type for input argument #%d: string or boolean expected.\n"
 msgstr ""
 
 #
@@ -263,7 +263,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_xmlDelete.cpp, line: 59
 # File: sci_gateway/cpp/sci_xmlWrite.cpp, line: 98
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -339,7 +339,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_percent_XMLList_e.cpp, line: 76
 #, c-format
 msgid ""
-"%s: Wrong dimension for input argument #%d: A string or a double expected.\n"
+"%s: Wrong dimension for input argument #%d: string or double expected.\n"
 msgstr ""
 
 #
@@ -382,7 +382,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_percent_c_i_XMLAttr.cpp, line: 66
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a single integer "
+"%s: Wrong type for input argument #%d: string or single integer "
 "expected\n"
 msgstr ""
 
@@ -390,7 +390,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_percent_c_i_XMLAttr.cpp, line: 74
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a single integer "
+"%s: Wrong type for input argument #%d: string or single integer "
 "expected.\n"
 msgstr ""
 
@@ -699,7 +699,7 @@ msgstr ""
 # File: src/cpp/extraction.hxx, line: 261
 # File: src/cpp/insertion.hxx, line: 188
 #, c-format
-msgid "%s: Wrong type for input argument #%i: A string expected.\n"
+msgid "%s: Wrong type for input argument #%i: string expected.\n"
 msgstr ""
 
 #

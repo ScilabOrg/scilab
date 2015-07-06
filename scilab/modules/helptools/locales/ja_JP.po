@@ -32,7 +32,7 @@ msgstr "%s: 入力引数 #%d を読み込めません.\n"
 #
 # File: macros/help.sci, line: 24
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正な型: 単一文字列を想定します。\n"
 
 #
@@ -141,7 +141,7 @@ msgstr "-- ヘルプファイルを削除 --\n"
 #
 # File: macros/help.sci, line: 24
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正な型: 文字列を想定します。\n"
 
 #
@@ -191,7 +191,7 @@ msgid "%s: File skipped %s."
 msgstr "%s: ファイル %s はスキップされました 。"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正なサイズ: 文字を想定します。\n"
 
 msgid " * Add some comments about XML file"
@@ -364,7 +364,7 @@ msgstr "%s: 入力引数 #%d で不正な型: 整数を想定します。\n"
 #
 # File: macros/help.sci, line: 24
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d で不正なサイズ: 単一文字列を想定します。\n"
 
 #

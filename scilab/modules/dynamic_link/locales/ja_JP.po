@@ -40,7 +40,7 @@ msgid "%s : second argument must be a unique id of a shared library.\n"
 msgstr "%s: 第2引数には, 共有ライブラリのユニークなIDを指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -287,7 +287,7 @@ msgid ""
 msgstr "Unix業界には複数のベンダが存在するため,'haveacompiler'関数がサポートされているのはWindows環境のみです."
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の大きさが間違っています: 文字列を指定してください.\n"
 
 #, c-format
@@ -564,7 +564,7 @@ msgid "%s: Wrong number of input argument(s): %d,%d or %d expected.\n"
 msgstr "%s: 入力引数の数が不間違っています: %d,%d または %d 個の引数を指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列行列を指定してください.\n"
 
 #, c-format

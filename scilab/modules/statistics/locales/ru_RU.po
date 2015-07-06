@@ -446,7 +446,7 @@ msgstr ""
 "комплексных, логических, полиномиальных значений.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or scalar expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or scalar expected.\n"
 msgstr ""
 "%s: Неверный тип входного аргумента №%d: ожидалось строковое значение или "
 "скаляр.\n"

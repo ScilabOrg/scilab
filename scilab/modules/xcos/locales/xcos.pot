@@ -60,7 +60,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_Xcos.cpp, line: 210
 # File: src/cpp/xcosUtilities.cpp, line: 115
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #

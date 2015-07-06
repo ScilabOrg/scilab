@@ -841,7 +841,7 @@ struct id
     {
         if (v->getType() != types::InternalType::ScilabString)
         {
-            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: String matrix expected.\n"), "graphics", "id");
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: string expected.\n"), "graphics", "id");
             return false;
         }
 
@@ -984,7 +984,7 @@ struct style
             types::Double* current = v->getAs<types::Double>();
             if (current->getSize() != 0)
             {
-                get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: String matrix expected.\n"), "graphics", "style");
+                get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: string expected.\n"), "graphics", "style");
                 return false;
             }
 
@@ -993,7 +993,7 @@ struct style
             return true;
         }
 
-        get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: String matrix expected.\n"), "graphics", "style");
+        get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: string expected.\n"), "graphics", "style");
         return false;
     }
 };

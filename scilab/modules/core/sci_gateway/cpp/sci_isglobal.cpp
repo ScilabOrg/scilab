@@ -39,14 +39,14 @@ Function::ReturnValue sci_isglobal(types::typed_list &in, int _iRetCount, types:
     {
         if (in[0]->isString() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), "isglobal", 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "isglobal", 1);
             return Function::Error;
         }
 
         String* pS = in[0]->getAs<types::String>();
         if (pS->isScalar() == false)
         {
-            Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), "isglobal", 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: string expected.\n"), "isglobal", 1);
             return Function::Error;
         }
 

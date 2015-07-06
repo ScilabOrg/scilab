@@ -51,7 +51,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_saveGui.cpp, line: 100
 # File: sci_gateway/cpp/sci_saveGui.cpp, line: 122
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -168,7 +168,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 131
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 165
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -212,7 +212,7 @@ msgstr ""
 # File: sci_gateway/c/sci_x_mdialog.c, line: 161
 # File: sci_gateway/c/sci_x_mdialog.c, line: 197
 #, c-format
-msgid "%s: Wrong type for argument #%d: String matrix expected.\n"
+msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -301,7 +301,7 @@ msgstr ""
 #
 # File: sci_gateway/c/sci_ClipBoard.c, line: 424
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string or a real expected.\n"
+msgid "%s: Wrong type for input argument #%d: string or real expected.\n"
 msgstr ""
 
 #
@@ -467,7 +467,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolPosition.cpp, line: 43
 #, c-format
 msgid ""
-"Wrong value for '%s' property: A string or a 1 x %d real row vector "
+"Wrong value for '%s' property: string or 1 x %d real row vector "
 "expected.\n"
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_loadGui.cpp, line: 47
 # File: sci_gateway/cpp/sci_saveGui.cpp, line: 89
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -550,7 +550,7 @@ msgstr ""
 # File: sci_gateway/c/sci_messagebox.c, line: 195
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a string vector "
+"%s: Wrong type for input argument #%d: string or string vector "
 "expected.\n"
 msgstr ""
 
@@ -712,7 +712,7 @@ msgstr ""
 #
 # File: sci_gateway/c/sci_uicontrol.c, line: 485
 #, c-format
-msgid "%s: Wrong type for argument #%d: A string or boolean expected.\n"
+msgid "%s: Wrong type for argument #%d: string or boolean expected.\n"
 msgstr ""
 
 #
@@ -916,7 +916,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_datatip_set_display.cpp, line: 102
 #, c-format
 msgid ""
-"%s: Wrong size for input argument #%d: A string or a macro name expected.\n"
+"%s: Wrong size for input argument #%d: string or macro name expected.\n"
 msgstr ""
 
 #
@@ -924,7 +924,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_datatip_set_display.cpp, line: 126
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: A string or a macro name expected.\n"
+"%s: Wrong type for input argument #%d: string or macro name expected.\n"
 msgstr ""
 
 #
@@ -939,7 +939,7 @@ msgstr ""
 #
 # File: sci_gateway/cpp/sci_datatip_set_orient.cpp, line: 187
 #, c-format
-msgid "%s: Wrong dimension for input argument #%d: A string expected.\n"
+msgid "%s: Wrong dimension for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -1040,7 +1040,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_displaytree.cpp, line: 171
 #, c-format
 msgid ""
-"%s: Wrong type for element %d of input argument #%d: A string expected.\n"
+"%s: Wrong type for element %d of input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -2053,7 +2053,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolString.cpp, line: 50
 # File: src/cpp/SetUimenuLabel.cpp, line: 26
 #, c-format
-msgid "Wrong type for '%s' property: A string expected.\n"
+msgid "Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2065,7 +2065,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolValue.cpp, line: 64
 # File: src/cpp/SetUimenuLabel.cpp, line: 32
 #, c-format
-msgid "Wrong size for '%s' property: A string expected.\n"
+msgid "Wrong size for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -2147,7 +2147,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolPosition.cpp, line: 51
 #, c-format
 msgid ""
-"Wrong size for '%s' property: A string or a 1 x %d real row vector "
+"Wrong size for '%s' property: string or 1 x %d real row vector "
 "expected.\n"
 msgstr ""
 
@@ -2155,7 +2155,7 @@ msgstr ""
 # File: src/cpp/SetUicontrolPosition.cpp, line: 60
 #, c-format
 msgid ""
-"Wrong type for '%s' property: A string or a 1 x %d real row vector "
+"Wrong type for '%s' property: string or 1 x %d real row vector "
 "expected.\n"
 msgstr ""
 
@@ -2186,14 +2186,14 @@ msgstr ""
 # File: src/cpp/SetUicontrolTooltipString.cpp, line: 47
 #, c-format
 msgid ""
-"Wrong size for '%s' property: A string or a vector of strings expected.\n"
+"Wrong size for '%s' property: string or vector of strings expected.\n"
 msgstr ""
 
 #
 # File: src/cpp/SetUicontrolTooltipString.cpp, line: 38
 #, c-format
 msgid ""
-"Wrong type for '%s' property: A string or a vector of strings expected.\n"
+"Wrong type for '%s' property: string or vector of strings expected.\n"
 msgstr ""
 
 #
@@ -4493,7 +4493,7 @@ msgstr ""
 #
 # File: macros/addmenu.sci, line: 336
 #, c-format
-msgid "%s: Wrong type for '%s' property: A string expected.\n"
+msgid "%s: Wrong type for '%s' property: string expected.\n"
 msgstr ""
 
 #
@@ -4781,7 +4781,7 @@ msgstr ""
 #
 # File: macros/x_choices.sci, line: 56
 #, c-format
-msgid "%s: Wrong type for %s: A string expected.\n"
+msgid "%s: Wrong type for %s: string expected.\n"
 msgstr ""
 
 #

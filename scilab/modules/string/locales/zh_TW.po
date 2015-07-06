@@ -89,7 +89,7 @@ msgstr "%s: Memory 分配有誤.\n"
 # File: sci_gateway/c/sci_strsubst.c, line: 108
 # File: sci_gateway/c/sci_convstr.c, line: 72
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數長度錯誤: 應為一字串.\n"
 
 #
@@ -168,7 +168,7 @@ msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為實數矩陣或字串矩�
 # File: sci_gateway/c/sci_isletter.c, line: 48
 # File: sci_gateway/c/sci_isdigit.c, line: 48
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數長度錯誤: 應為字串.\n"
 
 #, c-format
@@ -185,7 +185,7 @@ msgstr ""
 # File: sci_gateway/c/sci_strsubst.c, line: 82
 # File: sci_gateway/c/sci_convstr.c, line: 78
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為一字串.\n"
 
 #, c-format
@@ -218,7 +218,7 @@ msgstr "%s: Wrong values for input argument #%d: 應 >= 1.\n"
 #
 # File: sci_gateway/c/sci_strcat.c, line: 220
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為字串.\n"
 
 #

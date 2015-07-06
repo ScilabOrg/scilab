@@ -37,7 +37,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_buildDoc.cpp, line: 165
 # File: sci_gateway/cpp/sci_buildDoc.cpp, line: 193
 #, c-format
-msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -153,7 +153,7 @@ msgstr ""
 # File: macros/help.sci, line: 32
 # File: macros/help_skeleton.sci, line: 20
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -226,7 +226,7 @@ msgstr ""
 #
 # File: macros/help_skeleton.sci, line: 24
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
@@ -449,7 +449,7 @@ msgstr ""
 # File: macros/xmltoformat.sci, line: 1033
 # File: macros/xmltoformat.sci, line: 1122
 #, c-format
-msgid "%s: Wrong size for input argument #%d: Single string expected.\n"
+msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #

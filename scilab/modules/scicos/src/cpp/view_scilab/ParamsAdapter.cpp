@@ -270,7 +270,7 @@ struct context
             types::Double* current = v->getAs<types::Double>();
             if (!current->isEmpty())
             {
-                get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s : String matrix expected.\n"), "params", "context");
+                get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s : string expected.\n"), "params", "context");
                 return false;
             }
 
@@ -281,7 +281,7 @@ struct context
             return true;
         }
 
-        get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s : String matrix expected.\n"), "params", "context");
+        get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s : string expected.\n"), "params", "context");
         return false;
     }
 };
