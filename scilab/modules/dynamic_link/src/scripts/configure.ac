@@ -25,6 +25,9 @@ AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
+# Initialise libtool
+LT_INIT([shared disable-static dlopen])
+
 # Detect C compiler
 AC_PROG_CC
 
@@ -34,9 +37,6 @@ AC_PROG_CXX
 # Detect Fortran Compiler (77 and 90)
 AC_PROG_F77
 AC_PROG_FC
-
-# Initialise libtool
-AC_PROG_LIBTOOL
 
 # Specify which Makefile.in should be "adapted"
 AC_CONFIG_FILES([Makefile])
