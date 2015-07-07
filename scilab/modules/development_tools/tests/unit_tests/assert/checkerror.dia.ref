@@ -142,11 +142,11 @@ lerr = lasterror();
 MY_assert_equal ( lerr , sprintf( gettext ( "%s: No error was produced while evaluating ""%s"".") , "assert_checkerror" , "y=f(1)" ) );
 //
 // Check error message when formatting the error message generates an error (!).
-instr = "assert_checkerror ( ""y=f()"" , ""foo"" , [] , 2 )";
+instr = "assert_checkerror ( ""y=f()"" , ""foo%d%d"" , [] , 2 )";
 ierr=execstr(instr,"errcatch");
 MY_assert_equal ( ierr , 10000 );
 lerr = lasterror();
-msprerrmsg = sprintf(gettext("%s: Wrong number of input arguments: at most %d expected.\n"),"msprintf",0);
+msprerrmsg = sprintf(gettext("%s: Wrong number of input arguments: data doesn''t fit with format.\n"),"msprintf",0);
 MY_assert_equal ( lerr , sprintf( gettext ( "%s: Error while formatting the error message: ""%s""") , "assert_checkerror" , msprerrmsg ) );
 //
 ///////////////////////////////////////////////
