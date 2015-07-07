@@ -248,12 +248,13 @@ cd ..
     <ClCompile Include="..\cpp\getvariablesname.cpp" />
     <ClCompile Include="..\cpp\InitScilab.cpp" />
     <ClCompile Include="..\cpp\runner.cpp" />
+    <ClCompile Include="..\cpp\setformat.cpp" />
+    <ClCompile Include="..\cpp\setieee.cpp" />
     <ClCompile Include="..\cpp\storeCommand.cpp" />
     <ClCompile Include="..\cpp\tasks.cpp" />
     <ClCompile Include="..\cpp\with_module.cpp" />
     <ClCompile Include="..\cpp\backtrace_print.cpp" />
     <ClCompile Include="backtrace.c" />
-    <ClCompile Include="callFunctionFromGateway.c" />
     <ClCompile Include="commandwords.c" />
     <ClCompile Include="DllmainCore.c" />
     <ClCompile Include="dynamic_gateways.c" />
@@ -275,7 +276,6 @@ cd ..
     <ClCompile Include="GetXmlFileEncoding.c" />
     <ClCompile Include="hashtable\hashtable.c" />
     <ClCompile Include="hashtable\hashtable_utility.c" />
-    <ClCompile Include="InitializePreferences.c" />
     <ClCompile Include="isanan.c" />
     <ClCompile Include="islittleendian.c" />
     <ClCompile Include="loadversion.c" />
@@ -283,9 +283,6 @@ cd ..
     <ClCompile Include="..\cpp\namstr.cpp" />
     <ClCompile Include="returnanan.c" />
     <ClCompile Include="saveCWDInPreferences.c" />
-    <ClCompile Include="setformat.c" />
-    <ClCompile Include="setieee.c" />
-    <ClCompile Include="setlines.c" />
     <ClCompile Include="setPrecisionFPU.c" />
     <ClCompile Include="texmacs.c" />
     <ClCompile Include="transposeMatrix.c" />

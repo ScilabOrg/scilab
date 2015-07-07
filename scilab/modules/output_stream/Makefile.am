@@ -57,12 +57,6 @@ OUTPUT_STREAM_FORTRAN_SOURCES = \
 	src/fortran/formatnumber.f
 
 
-GATEWAY_C_SOURCES = \
-	sci_gateway/c/sci_print.c
-
-
-GATEWAY_FORTRAN_SOURCES =
-
 libscioutput_stream_la_CPPFLAGS= \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/cpp/ \
@@ -94,11 +88,11 @@ endif
 
 
 libscioutput_stream_algo_la_SOURCES = $(OUTPUT_STREAM_C_SOURCES) $(OUTPUT_STREAM_CPP_SOURCES) $(OUTPUT_STREAM_FORTRAN_SOURCES) $(JNI_SOURCES)
-libscioutput_stream_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
+libscioutput_stream_la_SOURCES = $(GATEWAY_CPP_SOURCES)
 libscioutput_stream_algo_la_CPPFLAGS = $(libscioutput_stream_la_CPPFLAGS)
 
 # For the code check (splint)
-CHECK_SRC= $(OUTPUT_STREAM_C_SOURCES) $(OUTPUT_STREAM_CPP_SOURCES) $(GATEWAY_C_SOURCES) $(OUTPUT_STREAM_CPP_SOURCES)
+CHECK_SRC= $(OUTPUT_STREAM_C_SOURCES) $(OUTPUT_STREAM_CPP_SOURCES) $(OUTPUT_STREAM_CPP_SOURCES)
 INCLUDE_FLAGS = $(libscioutput_stream_la_CPPFLAGS)
 
 libscioutput_stream_la_LIBADD =  libscioutput_stream-algo.la
