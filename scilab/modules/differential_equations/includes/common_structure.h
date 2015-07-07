@@ -17,6 +17,22 @@
 
 typedef struct
 {
+    int err1; /**< @TODO : add comment */
+    int err2; /**< @TODO : add comment */
+    int errct; /**< @TODO : add comment */
+    int toperr; /**< @TODO : add comment */
+    int errpt; /**< @TODO : add comment */
+    int ieee; /**< @TODO : add comment */
+    int errcatch; /**< @TODO : add comment */
+} STR_ERRGST;
+
+typedef struct
+{
+    int iero;
+} STR_IERODE;
+
+typedef struct
+{
     int mesflg, lunit;
 } STR_EH0001;
 
@@ -103,17 +119,23 @@ typedef struct
 } STR_LS0001;
 
 #ifdef _MSC_VER
+DIFFERENTIAL_EQUATIONS_IMPEXP STR_ERRGST C2F(errgst);
+DIFFERENTIAL_EQUATIONS_IMPEXP STR_IERODE C2F(ierode);
 DIFFERENTIAL_EQUATIONS_IMPEXP STR_EH0001 C2F(eh0001);
 DIFFERENTIAL_EQUATIONS_IMPEXP STR_LSA001 C2F(lsa001);
 DIFFERENTIAL_EQUATIONS_IMPEXP STR_LSR001 C2F(lsr001);
 DIFFERENTIAL_EQUATIONS_IMPEXP STR_LS0001 C2F(ls0001);
 #else
 #ifdef __DIFFERENTIAL_EQUATIONS_GW_HXX__
+extern STR_ERRGST C2F(errgst);
+extern STR_IERODE C2F(ierode);
 extern STR_EH0001 C2F(eh0001);
 extern STR_LSA001 C2F(lsa001);
 extern STR_LSR001 C2F(lsr001);
 extern STR_LS0001 C2F(ls0001);
 #else
+STR_ERRGST C2F(errgst);
+STR_IERODE C2F(ierode);
 STR_EH0001 C2F(eh0001);
 STR_LSA001 C2F(lsa001);
 STR_LSR001 C2F(lsr001);

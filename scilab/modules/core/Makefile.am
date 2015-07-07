@@ -21,7 +21,6 @@ CORE_C_SOURCES = \
     src/c/GetXmlFileEncoding.c \
     src/c/islittleendian.c \
     src/c/getcommandlineargs.c \
-    src/c/callFunctionFromGateway.c \
     src/c/commandwords.c \
     src/c/freeArrayOfString.c \
     src/c/getstaticdebuginfo.c \
@@ -36,9 +35,6 @@ CORE_C_SOURCES = \
     src/c/backtrace.c \
     src/c/signal_mgmt.c \
     src/c/suspendProcess.c \
-    src/c/setlines.c \
-    src/c/setformat.c \
-    src/c/InitializePreferences.c \
     src/c/saveCWDInPreferences.c \
     src/c/getmaxMALLOC.c \
     src/c/sci_mem_alloc.c \
@@ -57,15 +53,15 @@ CORE_CPP_SOURCES = \
     src/cpp/getvariablesname.cpp \
     src/cpp/getmacrosname.cpp \
     src/cpp/getfunctionsname.cpp \
-    src/cpp/InitScilab.cpp
+    src/cpp/InitScilab.cpp \
+    src/cpp/setieee.cpp \
+    src/cpp/setformat.cpp
 
 CORE_FORTRAN_SOURCES = \
     src/fortran/clunit.f \
     src/fortran/folhp.f \
     src/fortran/xerbla.f \
-    src/fortran/whatln.f \
     src/fortran/expsum.f \
-    src/fortran/putid.f \
     src/fortran/readinter.f \
     src/fortran/rewindinter.f \
     src/fortran/backspaceinter.f \
@@ -220,16 +216,7 @@ includes/sci_malloc.h \
 includes/PATH_MAX.h \
 includes/scilabDefaults.h \
 includes/scisparse.h \
-includes/stack-c.h \
 includes/sci_types.h \
-includes/stack-def.h \
-includes/stack.h \
-includes/stack1.h \
-includes/stack2.h \
-includes/stack3.h \
-includes/stack-optional.h \
-includes/stackinfo.h \
-includes/stackTypeVariable.h \
 includes/version.h \
 includes/getversion.h \
 includes/backtrace_print.h \
