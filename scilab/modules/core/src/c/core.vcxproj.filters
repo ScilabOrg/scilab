@@ -17,9 +17,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="callFunctionFromGateway.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="commandwords.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -98,15 +95,6 @@
     <ClCompile Include="DllmainCore.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InitializePreferences.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="setformat.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="setieee.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\cpp\with_module.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,9 +105,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="backtrace.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="setlines.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="getmaxMALLOC.c">
@@ -162,6 +147,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="saveCWDInPreferences.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\setformat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\setieee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -318,22 +309,7 @@
     <ClInclude Include="..\..\includes\signal_mgmt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\includes\stack1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\includes\stack2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\includes\stack3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\includes\stack-def.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\includes\stackinfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\includes\stackTypeVariable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\includes\storeCommand.h">

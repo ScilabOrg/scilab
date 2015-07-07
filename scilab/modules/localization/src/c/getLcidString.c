@@ -20,7 +20,6 @@
 #include "getLcidString.h"
 #include "sci_malloc.h"
 #include "charEncoding.h"
-#include "stack-def.h"
 /*--------------------------------------------------------------------------*/
 #define DEFAULT_EN_LCID "0x0409"
 /*--------------------------------------------------------------------------*/
