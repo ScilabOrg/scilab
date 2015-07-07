@@ -56,10 +56,7 @@ src/c/lsodar.c \
 src/c/ddaskr.c
 
 SCICOS_FORTRAN_SOURCES = \
-src/fortran/skipvars.f \
-src/fortran/coselm.f \
 src/fortran/sctree.f \
-src/fortran/scierr.f \
 src/fortran/ftree2.f \
 src/fortran/ftree3.f \
 src/fortran/ftree4.f \

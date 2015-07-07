@@ -10,17 +10,20 @@
  *
  */
 
+#include "configvariable.hxx"
+extern "C"
+{
 #include "setieee.h"
-#include "stack-c.h"
+}
 
 /*--------------------------------------------------------------------------*/
 void setieee(int ieee)
 {
-    C2F(errgst).ieee = ieee;
+    ConfigVariable::setIeee(ieee);
 }
 /*--------------------------------------------------------------------------*/
 int getieee()
 {
-    return C2F(errgst).ieee;
+    return ConfigVariable::getIeee();
 }
 /*--------------------------------------------------------------------------*/
