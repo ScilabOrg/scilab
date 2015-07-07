@@ -25,7 +25,6 @@ extern "C"
 #include "sci_malloc.h" /* MALLOC */
 #include "configvariable_interface.h"
 #include "sciprint.h"
-#include "stack-c.h"
 #include "addinter.h"
 #include "localization.h"
 #include "Scierror.h"
