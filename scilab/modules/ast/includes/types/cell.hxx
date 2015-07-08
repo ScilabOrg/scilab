@@ -50,7 +50,7 @@ public :
     }
     ScilabId            getId(void)
     {
-        return IdCell;
+        return isScalar() ? IdScalarCell : IdCell;
     }
     bool                isCell()
     {
