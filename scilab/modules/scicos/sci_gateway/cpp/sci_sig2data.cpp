@@ -37,8 +37,8 @@ extern "C"
 * -->a(:,:,4)=([7 8 9;10 11 12]);
 * -->b=data2sig(a,0.1)
 * b  =
-*   values: [2x3x4 hypermat]
 *   time: [4x1 constant]
+*   values: [2x3x4 hypermat]
 * -->b.time
 * ans  =
 *    0.
@@ -60,9 +60,9 @@ extern "C"
 *
 * Inputs
 *   B    : a scilab structure that defines a signal :
-*          B.values :  B data,
 *          B.time   :  the samples time in the form of
-*                      a columun vector.
+*                      a columun vector,
+*          B.values :  B data.
 *
 * Outputs
 *   x    : the field B.values
@@ -107,23 +107,23 @@ types::Function::ReturnValue sci_sig2data(types::typed_list &in, int _iRetCount,
     types::String* fields = B->get(0)->getFieldNames();
     if (fields->getSize() != 2)
     {
-        Scierror(999, _("%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"), funname.data(), 1, "values", "time");
+        Scierror(999, _("%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"), funname.data(), 1, "time", "values");
         return types::Function::Error;
     }
-    if (fields->get(0) != Values)
+    if (fields->get(0) != Time)
     {
-        Scierror(999, _("%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"), funname.data(), 1, "values", "time");
+        Scierror(999, _("%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"), funname.data(), 1, "time", "values");
         return types::Function::Error;
     }
-    if (fields->get(1) != Time)
+    if (fields->get(1) != Values)
     {
-        Scierror(999, _("%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"), funname.data(), 1, "values", "time");
+        Scierror(999, _("%s: Wrong fields for input argument #%d : \"%s\" and \"%s\" expected.\n"), funname.data(), 1, "time", "values");
         return types::Function::Error;
     }
 
     // Values
-    types::InternalType* A = B->get(0)->get(Values);
     types::InternalType* timeValues = B->get(0)->get(Time);
+    types::InternalType* A = B->get(0)->get(Values);
 
     out.push_back(A);
     if (_iRetCount == 2)

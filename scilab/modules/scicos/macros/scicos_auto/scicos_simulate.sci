@@ -348,7 +348,7 @@ function [alreadyran, %cpr, Resume_line, TOWS_vals, Names] = do_terminate1(scs_m
 
     // Default return values
     Resume_line = "";
-    TOWS_vals = struct("values",[],"time",[]);
+    TOWS_vals = struct("time",[],"values",[]);
     Names = [];
 
     if prod(size(%cpr)) < 2 then
@@ -395,8 +395,8 @@ function [alreadyran, %cpr, Resume_line, TOWS_vals, Names] = do_terminate1(scs_m
         //and call '[names(1), names(2), ...] = resume(names(1), names(2), ...)' to save the variable into Scilab
         if ~isempty(Names) then
             for i=1:size(Names, "c")
-                execstr("NamesIval = "+Names(i)+"_val;");
                 execstr("NamesIvalt = "+Names(i)+"_valt;");
+                execstr("NamesIval = "+Names(i)+"_val;");
                 // If input is a matrix, use function matrix() to reshape the saved values
                 // Check condition using time vector, if we have more values than time stamps, split it
                 if (size(NamesIval, "r") > size(NamesIvalt, "r")) then  // In this case, size(Names(i), 'r') = buff_sizes(i) * nCols2
@@ -407,11 +407,11 @@ function [alreadyran, %cpr, Resume_line, TOWS_vals, Names] = do_terminate1(scs_m
                 end
                 if i == 1 then
                     // Replace default struct with value vector of first element of 'Names'
-                    TOWS_vals.values = NamesIval;
                     TOWS_vals.time   = NamesIvalt;
+                    TOWS_vals.values = NamesIval;
                     Resume_line_args = Names(1);
                 else
-                    ierr = execstr("TOWS_vals = [TOWS_vals struct(''values'', NamesIval, ''time'', NamesIvalt)];", "errcatch");
+                    ierr = execstr("TOWS_vals = [TOWS_vals struct(''time'', NamesIvalt, ''values'', NamesIval)];", "errcatch");
                     if ierr <> 0 then
                         str_err = split_lasterror(lasterror());
                         message(["Simulation problem" ; "Unable to find To Workspace Variable {"+Names(i)+"}:" ; str_err]);

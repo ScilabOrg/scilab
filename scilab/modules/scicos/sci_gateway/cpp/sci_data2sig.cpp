@@ -42,8 +42,8 @@ extern "C"
 * -->a(:,:,4)=([7 8 9;10 11 12]);
 * -->b=data2sig(a,0.1)
 * b  =
-*   values: [2x3x4 hypermat]
 *   time: [4x1 constant]
+*   values: [2x3x4 hypermat]
 * -->b.time
 * ans  =
 *    0.
@@ -61,10 +61,10 @@ extern "C"
 *
 * Output
 *   B    : a scilab structure that defines a signal :
-*          B.values :  A input,
 *          B.time   :  the samples time in the form of
 *                      a columun vector. The size of that
-*                      vector is given by the A input.
+*                      vector is given by the A input,
+*          B.values :  A input.
 *
 * initial rev 08/11/07, Alan
 *
