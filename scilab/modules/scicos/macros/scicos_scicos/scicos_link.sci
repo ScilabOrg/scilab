@@ -19,7 +19,7 @@
 // See the file ../license.txt
 //
 
-function lnk=scicos_link(v1,v2,v3,v4,v5,v6,v7,v8)
+function lnk=scicos_link(v1,v2,v3,v4,v5,v6,v7)
     //initialisation de link scicos_new
     if exists("xx","local")==0 then xx=[],end
     if exists("yy","local")==0 then yy=[],end
