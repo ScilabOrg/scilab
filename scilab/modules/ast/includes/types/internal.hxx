@@ -159,6 +159,8 @@ public :
         IdMList,
         IdSingleStruct,
         IdStruct,
+        IdScalarStruct,
+        IdScalarCell,
         IdCell,
         /* User */
         IdUserType,
