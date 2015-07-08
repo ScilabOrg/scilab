@@ -11,8 +11,8 @@
 a(:, :, 4) = [7 8 9; 10 11 12];
 res = data2sig(a, 0.1);
 
-resRef.values = a;
 resRef.time = (0:0.1:0.3)';
+resRef.values = a;
 
 assert_checkequal(res, resRef);
 
@@ -21,8 +21,8 @@ assert_checkequal(res, resRef);
 a_int = int8(a);
 res_int = data2sig(a_int, 0.1);
 
-resRef_int.values = a_int;
 resRef_int.time = (0:0.1:0.3)';
+resRef_int.values = a_int;
 
 assert_checkequal(res_int, resRef_int);
 
@@ -43,5 +43,5 @@ assert_checkequal(time, resRef.time);
 refMsg = msprintf(_("%s: Wrong size for input argument #%d : A single struct expected.\n"), "sig2data", 1);
 assert_checkerror("sig2data(struct())", refMsg);
 
-refMsg = msprintf(_("%s: Wrong fields for input argument #%d : ""%s"" and ""%s"" expected.\n"), "sig2data", 1, "values", "time");
+refMsg = msprintf(_("%s: Wrong fields for input argument #%d : ""%s"" and ""%s"" expected.\n"), "sig2data", 1, "time", "values");
 assert_checkerror("sig2data(struct(""values"", 1))", refMsg);
