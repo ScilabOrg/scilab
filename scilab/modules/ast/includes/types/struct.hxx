@@ -48,7 +48,7 @@ public :
     }
     inline ScilabId             getId(void)
     {
-        return IdStruct;
+        return isScalar() ? IdScalarStruct : IdStruct;
     }
 
     bool                        isStruct()
