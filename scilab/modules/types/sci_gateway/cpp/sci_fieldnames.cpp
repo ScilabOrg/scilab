@@ -78,24 +78,32 @@ Function::ReturnValue sci_fieldnames(typed_list &in, int _iRetCount, typed_list 
         }
     }
 
-    // USER-TYPE (typically a Xcos object)
+    // USER-TYPE (typically an Xcos object)
     if (in[0]->isUserType() == true)
     {
         // We only need userType capabilities to retrieve first argument as UserType.
         UserType *pInUser = in[0]->getAs<UserType>();
 
-        // Extract "diagram" first then the properties, or all in one shot?? Should DiagramA implement such a routine or should fieldnames include DiagramA?
-        //std::cout<<"diag "<<pInUser->getSharedTypeStr()<<std::endl;
+        // Extract the sub-type (not mandatory since it won't appear in the return)
+        std::wstring subType (pInUser->getShortTypeStr());
 
         // Extract the properties
         typed_list one (1, new types::Double(1));
-        InternalType* pProperties = pInUser->extract(&one);
+        types::InternalType* pProperties = pInUser->extract(&one);
         if (pProperties == nullptr || pProperties->isString() == false)
         {
             // FIXME : iso-functionnal to Scilab < 6
             // Works on other types except userType, {m,t}list and struct
             out.push_back(Double::Empty());
             return Function::OK;
+        }
+        int nProp = ((types::String*) pProperties)->getSize();
+
+        pIT = new types::String(nProp + 1, 1);
+        ((types::String*) pIT)->set(0, subType.data());
+        for (int i = 0; i < nProp; ++i)
+        {
+            ((types::String*) pIT)->set(i + 1, ((types::String*) pProperties)->get(i));
         }
     }
 
