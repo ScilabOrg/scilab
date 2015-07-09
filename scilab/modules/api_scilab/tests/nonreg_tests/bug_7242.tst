@@ -13,11 +13,16 @@
 // http://bugzilla.scilab.org/show_bug.cgi?id=7242
 //
 // <-- Short Description -->
-//  API was unable to retrieve named variable address 
+//  API was unable to retrieve named variable address
 //  when variable name is passed in argument of function
 
 function result = myExport(data, filepath)
-    result = export_to_hdf5(filepath, "data");
+    result = %t
+    try
+        save(filepath, "data");
+    catch
+        retult = %f;
+    end
 endfunction
 
 myData = "blam";
