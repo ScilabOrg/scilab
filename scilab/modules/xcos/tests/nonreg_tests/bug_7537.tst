@@ -6,7 +6,6 @@
 // =============================================================================
 
 // <-- XCOS TEST -->
-// <-- LONG TIME EXECUTION -->
 //
 // <-- Non-regression test for bug 7537 -->
 //
@@ -44,5 +43,4 @@ if err <> 0 then pause, end
 
 // import to xcos (decode/encode synchronous version)
 status = xcosDiagramToScilab(h5name);
-if status <> 0 then pause, end
-
+assert_checkequal(status, 0);
