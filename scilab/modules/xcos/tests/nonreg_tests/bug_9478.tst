@@ -65,7 +65,7 @@ evtout=[],..
 state=[],..
 dstate=[],..
 odstate=list(),..
-rpar=[],..
+rpar=scicos_diagram(),..
 ipar=[],..
 opar=list(0.1),..
 blocktype="d",..
@@ -81,7 +81,7 @@ doc=list());
 tmpFileName = TMPDIR + "/bug_9478_scs_m.sod";
 
 err = execstr("save(tmpFileName, ""scs_m"")", "errcatch");
-assert_checktrue(err, 0);
+assert_checkequal(err, 0);
 assert_checktrue(isfile(tmpFileName));
 
 xcos(tmpFileName)
