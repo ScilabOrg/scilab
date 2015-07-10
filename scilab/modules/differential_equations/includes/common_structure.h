@@ -126,7 +126,7 @@ DIFFERENTIAL_EQUATIONS_IMPEXP STR_LSA001 C2F(lsa001);
 DIFFERENTIAL_EQUATIONS_IMPEXP STR_LSR001 C2F(lsr001);
 DIFFERENTIAL_EQUATIONS_IMPEXP STR_LS0001 C2F(ls0001);
 #else
-#ifdef __DIFFERENTIAL_EQUATIONS_GW_HXX__
+#if defined(__DIFFERENTIAL_EQUATIONS_GW_HXX__) || defined(__DIFFERENTIAL_EQUATIONS_STR_DEF__)
 extern STR_ERRGST C2F(errgst);
 extern STR_IERODE C2F(ierode);
 extern STR_EH0001 C2F(eh0001);
@@ -134,6 +134,11 @@ extern STR_LSA001 C2F(lsa001);
 extern STR_LSR001 C2F(lsr001);
 extern STR_LS0001 C2F(ls0001);
 #else
+#ifdef __APPLE__
+// Apple do not allow common blocks (see -fno-common gcc flag)
+// this define is used to avoid multiple definition
+#define __DIFFERENTIAL_EQUATIONS_STR_DEF__
+#endif
 STR_ERRGST C2F(errgst);
 STR_IERODE C2F(ierode);
 STR_EH0001 C2F(eh0001);
