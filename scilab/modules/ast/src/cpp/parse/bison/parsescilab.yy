@@ -908,8 +908,12 @@ lineEnd				{ /* !! Do Nothing !! */ }
 */
 /* What may content a function */
 functionBody :
-expressions			{ $$ = $1; }
-| /* Epsilon */			{
+expressions			{
+                        $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
+                        $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
+                        $$ = $1;
+                    }
+| /* Epsilon */		{
 				  ast::exps_t* tmp = new ast::exps_t;
 				  #ifdef BUILD_DEBUG_AST
 				    tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty function body")));
