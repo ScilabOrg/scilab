@@ -1,0 +1,79 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab-Enterprises - Cedric Delamarre
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// function in one line
+txt_ref = [ "function [] = test(), a = 1;endfunction"];
+execstr(txt_ref);
+tree = macr2tree(test);
+assert_checkequal(tree(6), size(txt_ref,"*"));
+txt_comp = tree2code(tree);
+assert_checkequal(txt_ref, txt_comp);
+txt_pretty_ref = [ "function [] = test()";
+"  a = 1;";
+"endfunction"];
+txt_pretty_comp = tree2code(tree, %t);
+assert_checkequal(txt_pretty_ref, txt_pretty_comp);
+clear test;
+// function in two lines
+txt_ref = [ "function [] = test(), a = 1;";
+"endfunction"];
+execstr(txt_ref);
+tree = macr2tree(test);
+assert_checkequal(tree(6), size(txt_ref,"*"));
+txt_comp = tree2code(tree);
+assert_checkequal(txt_ref, txt_comp);
+txt_pretty_ref = [ "function [] = test()";
+"  a = 1;";
+"endfunction"];
+txt_pretty_comp = tree2code(tree, %t);
+assert_checkequal(txt_pretty_ref, txt_pretty_comp);
+clear test;
+txt_ref = [ "function [] = test(), a = 1;";
+"b = 2;endfunction"];
+execstr(txt_ref);
+tree = macr2tree(test);
+assert_checkequal(tree(6), size(txt_ref,"*"));
+txt_comp = tree2code(tree);
+assert_checkequal(txt_ref, txt_comp);
+txt_pretty_ref = [ "function [] = test()";
+"  a = 1;";
+"  b = 2;";
+"endfunction"];
+txt_pretty_comp = tree2code(tree, %t);
+assert_checkequal(txt_pretty_ref, txt_pretty_comp);
+clear test;
+// function with empty lines
+txt_ref = [ "function [] = test()";
+"";
+"";
+"a = 1;"
+"";
+"";
+"";
+"b = 2;"
+"";
+"";
+"endfunction";
+];
+execstr(txt_ref);
+tree = macr2tree(test);
+assert_checkequal(tree(6), size(txt_ref,"*"));
+txt_comp = tree2code(tree);
+assert_checkequal(txt_ref, txt_comp);
+clear test;
+// function without empty lines
+txt_ref = [ "function [] = test()";
+"a = 1;"
+"b = 2;"
+"endfunction";
+];
+execstr(txt_ref);
+tree = macr2tree(test);
+assert_checkequal(tree(6), size(txt_ref,"*"));
+txt_comp = tree2code(tree);
+assert_checkequal(txt_ref, txt_comp);
+clear test;
