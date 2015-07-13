@@ -97,28 +97,33 @@ types::Function::ReturnValue sci_macr2tree(types::typed_list &in, int _iRetCount
     //statement
     ast::TreeVisitor v;
     body->accept(v);
-    //add fake return
-    types::List* statement = v.getList();
 
-    types::TList* funcall = new types::TList();
-    types::String* sf = new String(1, 4);
-    sf->set(0, L"funcall");
-    sf->set(1, L"rhs");
-    sf->set(2, L"name");
-    sf->set(3, L"lhsnb");
+    types::List* statement = new List();
+    // add empty line between the "function" line and first body line
+    int iNbEmptyLine = body->getLocation().first_line - macro->getFirstLine();
+    for (int i = 0; i < iNbEmptyLine; ++i)
+    {
+        statement->append(v.getEOL());
+    }
 
-    funcall->append(sf);
-    funcall->append(types::Double::Empty());
-    funcall->append(new types::String(L"return"));
-    funcall->append(new types::Double(0));
+    // add body of function
+    types::List* lBody = v.getList();
+    for (int i = 0; i < lBody->getSize(); ++i)
+    {
+        statement->append(lBody->get(i));
+    }
+    lBody->killMe();
 
-    statement->append(funcall);
+    // add empty line between last bidy line and the "endfunction" line
+    iNbEmptyLine = macro->getLastLine() - body->getLocation().last_line;
+    for (int i = 0; i < iNbEmptyLine; ++i)
+    {
+        statement->append(v.getEOL());
+    }
 
-    statement->append(v.getEOL());
-
-    l->append(v.getList());
+    l->append(statement);
     //nb lines
-    l->append(new types::Double(body->getLocation().last_line - body->getLocation().first_line + 1));
+    l->append(new types::Double(macro->getLastLine() - macro->getFirstLine() + 1));
     out.push_back(l);
     statement->killMe();
     return types::Function::OK;

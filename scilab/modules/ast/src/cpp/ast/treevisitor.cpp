@@ -27,16 +27,15 @@ namespace ast
 void TreeVisitor::visit(const SeqExp  &e)
 {
     types::List* lst = new types::List();
-    lst->append(getEOL());
 
-    int last_line = -1;
+    int last_line = e.getLocation().first_line;
     for (auto it : e.getExps())
     {
         int fisrt = it->getLocation().first_line;
-        while (last_line != -1 && last_line < it->getLocation().first_line)
+        // fill by empty line betwenn two exps
+        for (int i = last_line; i < fisrt; ++i)
         {
             lst->append(getEOL());
-            ++last_line;
         }
 
         last_line = it->getLocation().last_line;
@@ -75,7 +74,6 @@ void TreeVisitor::visit(const SeqExp  &e)
         }
     }
 
-    lst->append(getEOL());
     l = lst;
 }
 
@@ -249,7 +247,7 @@ void TreeVisitor::visit(const OpExp &e)
 
     switch (e.getOper())
     {
-        // Arithmetics.
+            // Arithmetics.
         case OpExp::plus:
             ope->append(new types::String(SCI_PLUS));
             break;
@@ -269,7 +267,7 @@ void TreeVisitor::visit(const OpExp &e)
         case OpExp::power:
             ope->append(new types::String(SCI_POWER));
             break;
-        // Element wise.
+            // Element wise.
         case OpExp::dottimes:
             ope->append(new types::String(SCI_DOTTIMES));
             break;
@@ -282,7 +280,7 @@ void TreeVisitor::visit(const OpExp &e)
         case OpExp::dotpower:
             ope->append(new types::String(SCI_DOTPOWER));
             break;
-        // Kroneckers
+            // Kroneckers
         case OpExp::krontimes:
             ope->append(new types::String(SCI_KRONTIMES));
             break;
@@ -292,7 +290,7 @@ void TreeVisitor::visit(const OpExp &e)
         case OpExp::kronldivide:
             ope->append(new types::String(SCI_KRONLDIVIDE));
             break;
-        // Control
+            // Control
         case OpExp::controltimes:
             ope->append(new types::String(SCI_CONTROLTIMES));
             break;
@@ -302,7 +300,7 @@ void TreeVisitor::visit(const OpExp &e)
         case OpExp::controlldivide:
             ope->append(new types::String(SCI_CONTROLLDIVIDE));
             break;
-        // Comparisons
+            // Comparisons
         case OpExp::eq:
             ope->append(new types::String(SCI_EQ));
             break;

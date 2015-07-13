@@ -50,11 +50,15 @@ function C=tree2code(P,bprettyprintformat)
 
     // To avoid to have some instructions on the first line (function prototype)
     if I(1)<>list("EOL") then
-        C=cat_code(C,instruction2code(list("EOL"),%T));
+        if bprettyprintformat then
+            C=cat_code(C,instruction2code(list("EOL"),%T));
+        else
+            C=cat_code(C,", ");
+        end
     end
 
     // For each statement, generate corresponding code
-    for i=1:size(I)-2 // -2 to ignore last return+EOL
+    for i=1:size(I)-1
         if bprettyprintformat then
             C=cat_code(C,"  "+instruction2code(I(i),bprettyprintformat));
         else
@@ -63,9 +67,19 @@ function C=tree2code(P,bprettyprintformat)
         C = format_txt(C,I(i),bprettyprintformat,I(i+1));
     end
 
+    if bprettyprintformat then
+        C=cat_code(C,"  "+instruction2code(I($),bprettyprintformat));
+    else
+        C=cat_code(C,instruction2code(I($),bprettyprintformat));
+    end
+
+    // To avoid to have some instructions on the last line (endfunction)
+    if bprettyprintformat && I($)<>list("EOL") then
+        C=cat_code(C,instruction2code(list("EOL"),%T));
+    end
+
     if P.name<>"" then // Not a batch file
-        C=cat_code(C,"endfunction"); // Replace last return
-        C=cat_code(C,"");
+        C=cat_code(C,"endfunction");
     end
 endfunction
 
