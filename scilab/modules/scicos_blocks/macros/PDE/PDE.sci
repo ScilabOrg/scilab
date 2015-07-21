@@ -106,6 +106,7 @@ function [x,y,typ]=PDE(job,arg1,arg2)
             end
             // a voir si c'est à rajouter pour ne pas regenerer dans le cas d'eval
             //if ~ok then
+            disp(CLa_type)
             [flag_type,rdnom,DF_type,tt]=translate(CI,CI1,CLa_type,CLa_exp,CLb_type,CLb_exp,oper,type_meth,degre,a_domaine,..
             b_domaine,Nbr_maillage,a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,rdnom,mesures);
             //else

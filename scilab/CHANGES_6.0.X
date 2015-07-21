@@ -89,7 +89,7 @@ Removed functions
   - subf
   - trianfml
   - trisolve
-
+  - block2exp
 
 Removed functions (based on old Scilab stack)
 ==============================================
