@@ -11,7 +11,32 @@ Installation
 Compilation
 ===========
 
- * Scilab requires conforming C++11 compilers
+* Scilab requires conforming C++11 compilers
+
+* Scilab requires at least JDK 1.8
+
+
+Packaging & Supported operating systems
+=======================================
+
+* Scilab embedded JVM has been upgraded to Java 1.8 then to run or compile Scilab you need at least:
+   - Windows:
+        Windows 8 (Desktop)
+        Windows 7
+        Windows Vista SP2
+        Windows Server 2008 R2 SP1 (64-bit)
+        Windows Server 2012 (64-bit)
+   - Mac OS X:
+        Intel-based Mac running Mac OS X 10.8.3+, 10.9+
+   - Linux:
+        Red Hat Enterprise Linux 5.5+1, 6.x (32-bit), 6.x (64-bit), 
+        Oracle Linux 5.5+1
+        Oracle Linux 6.x (32-bit), 6.x (64-bit)2
+        Oracle Linux 7.x (64-bit)2
+
+        Ubuntu Linux 12.04 LTS, 13.x
+        Suse Linux Enterprise Server 10 SP2+, 11.x
+For more information, see: http://java.com/en/download/help/sysreq.xml
 
 
 Signal processing
