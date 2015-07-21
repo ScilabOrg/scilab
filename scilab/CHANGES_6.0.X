@@ -47,7 +47,7 @@ Data structures
 Removed functions
 ==================
 
-* maxfile function is now obsolete.
+* maxfiles function is now obsolete.
 
 * intersci has been removed. Please use swig instead.
 
