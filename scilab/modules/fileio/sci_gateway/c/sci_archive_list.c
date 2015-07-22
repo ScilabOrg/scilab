@@ -76,8 +76,8 @@ int sci_archive_list(char *fname, unsigned long fname_len)
     freeAllocatedMatrixOfString(mOne, nOne, pStVarOne);
     if(error == 1)
     {
-	    Scierror(999, _("%s: Sorry the archive could not be opened\n"), fname);
-	    return 0;
+        Scierror(999, _("%s: Sorry the archive could not be opened\n"), fname);
+        return 0;
     }
     else if(error == 2)
     {

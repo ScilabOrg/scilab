@@ -72,7 +72,7 @@ z = archiveExtract("example.zip",%f,"example2")
             <revision>
                 <revnumber>5.6.0</revnumber>
                 <revremark>
-                    Function <literal>archiveList(archive)</literal> introduced
+                    Function <literal>archiveExtract</literal> introduced
                 </revremark>
             </revision>
         </revhistory>
