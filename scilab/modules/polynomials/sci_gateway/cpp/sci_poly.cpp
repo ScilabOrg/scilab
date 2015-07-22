@@ -113,6 +113,7 @@ types::Function::ReturnValue sci_poly(types::typed_list &in, int _iRetCount, typ
         }
 
         bool bDeleteInput = false;
+        bool bt1 = pDblIn->isComplex();
         if (pDblIn->getSize() != 1 && pDblIn->getCols() == pDblIn->getRows())
         {
             ast::ExecVisitor exec;
@@ -134,19 +135,26 @@ types::Function::ReturnValue sci_poly(types::typed_list &in, int _iRetCount, typ
         int iRanks = iSize;
         pPolyOut = new types::Polynom(wstrName, 2, piDimsArray, &iRanks);
         double* pdblCoefReal = pPolyOut->get(0)->get();
+        bool btr = pDblIn->isComplex();
 
-        if (pDblIn->isComplex())
+        if (btr)
         {
             double dblEps = (double)C2F(dlamch)("p", 1L);
             pPolyOut->setComplex(true);
             double* pdblInImg   = pDblIn->getImg();
             double* pdblCoefImg = pPolyOut->get(0)->getImg();
             C2F(wprxc)(&iRanks, pdblInReal, pdblInImg, pdblCoefReal, pdblCoefImg);
-            // if imaginary part is null, set polynom real
-            if (C2F(dasum)(&iSize, pdblCoefImg, &iOne) <= dblEps)
+            for (int k = 0; k < iRanks; k++)
             {
-                pPolyOut->setComplex(false);
+                if ((pdblCoefReal[k] + pdblCoefImg[k]) != pdblCoefReal[k])
+                {
+                    pPolyOut->setComplex((btr && bt1) ? true : false);
+                    out.push_back(pPolyOut);
+                    return types::Function::OK;
+                }
             }
+            pPolyOut->setComplex(false);
+            
         }
         else
         {
