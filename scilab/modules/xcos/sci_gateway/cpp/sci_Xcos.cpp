@@ -20,6 +20,7 @@
 extern "C" {
 #include "gw_xcos.h"
 #include "sci_malloc.h"
+#include "sciprint.h"
 #include "freeArrayOfString.h"
 #include "api_scilab.h"
 #include "localization.h"
@@ -41,6 +42,9 @@ int sci_Xcos(char *fname, void *pvApiCtx)
     int *piAddressVar = NULL;
     int iType = 0;
     SciErr sciErr;
+
+    // FIXME: remove this display on stable release
+    sciprint(_("WARNING: %s\n"), "xcos is not available on Scilab 6 yet.");
 
     /*
      * xcos() call

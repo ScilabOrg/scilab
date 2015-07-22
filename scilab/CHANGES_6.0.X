@@ -117,6 +117,13 @@ Deprecated behavior
 
 * while/else control instruction is no more supported.
 
+Xcos
+=====
+
+Xcos is not fully available yet. Currently supported features are :
+  * Block / Diagram / Link instanciation on the Scilab Console
+  * Compilation and simulation of a diagram from the Scilab Console
+
 
 Scilab Bug Fixes
 ================
