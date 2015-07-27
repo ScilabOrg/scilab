@@ -172,7 +172,7 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
         {
             if (sizeIn == 1)
             {
-                for (int& i : indexes)
+                for (int & i : indexes)
                 {
                     if (set(i, *pRealData) == false)
                     {
@@ -183,7 +183,7 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
             }
             else
             {
-                for (int& i : indexes)
+                for (int & i : indexes)
                 {
                     if (set(i, *pRealData) == false)
                     {
@@ -436,7 +436,7 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
 
             wchar_t szError[bsiz];
             os_swprintf(szError, bsiz, _W("Invalid index.\n").c_str());
-            throw ast::ScilabError(szError);
+            throw ast::InternalError(szError);
         }
 
         if (pSource->isScalar())
@@ -1070,7 +1070,7 @@ InternalType* ArrayOf<T>::extract(typed_list* _pArgs)
         if (isComplex())
         {
             int idx = 0;
-            for (int& i : indexes)
+            for (int & i : indexes)
             {
                 if (i < 0 || i >= size)
                 {
@@ -1086,7 +1086,7 @@ InternalType* ArrayOf<T>::extract(typed_list* _pArgs)
         else
         {
             int idx = 0;
-            for (int& i : indexes)
+            for (int & i : indexes)
             {
                 pOut->set(idx, get(i));
                 ++idx;
