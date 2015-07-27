@@ -72,11 +72,11 @@ InternalType *GenericLDivide(InternalType *_pLeftOperand, InternalType *_pRightO
         switch (iResult)
         {
             case 1 :
-                throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
+                throw ast::InternalError(_W("Inconsistent row/column dimensions.\n"));
             case 2 :
-                throw ast::ScilabError(_W("With NaN or Inf a left division by scalar expected.\n"));
+                throw ast::InternalError(_W("With NaN or Inf a left division by scalar expected.\n"));
             case 3 :
-                throw ast::ScilabError(_W("Left division by zero...\n"));
+                throw ast::InternalError(_W("Left division by zero...\n"));
             case 4 :
                 sciprint(_("Warning : Left division by zero...\n"));
                 break;

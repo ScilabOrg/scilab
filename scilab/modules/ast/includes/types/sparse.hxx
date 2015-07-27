@@ -217,7 +217,7 @@ struct EXTERN_AST Sparse : GenericType
             {
                 std::wostringstream os;
                 os << _W("Invalid index.\n");
-                throw ast::ScilabError(os.str(), 999, e.getLocation());
+                throw ast::InternalError(os.str(), 999, e.getLocation());
             }
             out.push_back(_out);
         }
@@ -616,7 +616,7 @@ struct EXTERN_AST SparseBool : GenericType
             {
                 std::wostringstream os;
                 os << _W("Invalid index.\n");
-                throw ast::ScilabError(os.str(), 999, e.getLocation());
+                throw ast::InternalError(os.str(), 999, e.getLocation());
             }
             out.push_back(_out);
         }

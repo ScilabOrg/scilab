@@ -72,7 +72,7 @@ void RunVisitorT<T>::visitprivate(const CellExp &e)
             std::wostringstream os;
             os << _W("inconsistent row/column dimensions\n");
             //os << ((Location)(*row)->getLocation()).getLocationString() << std::endl;
-            throw ScilabError(os.str(), 999, (*row)->getLocation());
+            throw InternalError(os.str(), 999, (*row)->getLocation());
         }
     }
 
@@ -119,14 +119,14 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     {
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("/!\\ Unmanaged FieldExp.\n").c_str());
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
 
     try
     {
         e.getHead()->accept(*this);
     }
-    catch (const ScilabError& error)
+    catch (const InternalError& error)
     {
         throw error;
     }
@@ -135,7 +135,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     {
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("Attempt to reference field of non-structure array.\n").c_str());
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
 
     // TODO: handle case where getSize() > 1
@@ -146,7 +146,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         clearResult();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("Not yet implemented in Scilab.\n").c_str());
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
 
     SimpleVar * psvRightMember = static_cast<SimpleVar *>(const_cast<Exp *>(e.getTail()));
@@ -165,7 +165,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     catch (std::wstring & err)
     {
         pValue->killMe();
-        throw ScilabError(err.c_str(), 999, e.getTail()->getLocation());
+        throw InternalError(err.c_str(), 999, e.getTail()->getLocation());
     }
 
     if (ok)
@@ -174,7 +174,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         {
             std::wostringstream os;
             os << _W("Invalid index.\n");
-            throw ScilabError(os.str(), 999, e.getLocation());
+            throw InternalError(os.str(), 999, e.getLocation());
         }
 
         setResult(pReturn);
@@ -217,7 +217,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         {
             Ret = Overload::call(L"%" + stType + L"_e", in, 1, out, this);
         }
-        catch (ast::ScilabError & se)
+        catch (const InternalError& ie)
         {
             try
             {
@@ -229,10 +229,10 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
                 }
                 else
                 {
-                    throw se;
+                    throw ie;
                 }
             }
-            catch (ast::ScilabError & se)
+            catch (const InternalError& ie)
             {
                 // TList or Mlist
                 if (pValue->isList())
@@ -241,7 +241,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
                 }
                 else
                 {
-                    throw se;
+                    throw ie;
                 }
             }
         }
@@ -250,7 +250,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         {
             cleanInOut(in, out);
             setResult(NULL);
-            throw ScilabError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
+            throw InternalError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
         }
 
         setResult(out);
@@ -261,7 +261,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
         pValue->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("Attempt to reference field of non-structure array.\n").c_str());
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
 }
 
@@ -390,7 +390,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
         {
             std::wostringstream os;
             os << _W("Redefining permanent variable.\n");
-            throw ast::ScilabError(os.str(), 999, e.getVardec().getLocation());
+            throw ast::InternalError(os.str(), 999, e.getVardec().getLocation());
         }
 
         ctx->put(var, pIL);
@@ -427,7 +427,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
                         {
                             std::wostringstream os;
                             os << _W("Redefining permanent variable.\n");
-                            throw ast::ScilabError(os.str(), 999, e.getVardec().getLocation());
+                            throw ast::InternalError(os.str(), 999, e.getVardec().getLocation());
                         }
 
                         ctx->put(var, pIL);
@@ -441,7 +441,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             {
                 e.getBody().accept(*this);
             }
-            catch (ScilabMessage& sm)
+            catch (const InternalError& ie)
             {
                 //unlock loop index and implicit list
                 pIL->DecreaseRef();
@@ -450,7 +450,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
                 pIT->killMe();
 
                 setResult(NULL);
-                throw sm;
+                throw ie;
             }
 
             if (e.getBody().isBreak())
@@ -490,7 +490,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             {
                 std::wostringstream os;
                 os << _W("Redefining permanent variable.\n");
-                throw ast::ScilabError(os.str(), 999, e.getVardec().getLocation());
+                throw ast::InternalError(os.str(), 999, e.getVardec().getLocation());
             }
             ctx->put(var, pNew);
 
@@ -498,13 +498,13 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             {
                 e.getBody().accept(*this);
             }
-            catch (ScilabMessage& sm)
+            catch (const InternalError& ie)
             {
                 //implicit list
                 pIT->DecreaseRef();
                 pIT->killMe();
                 setResult(NULL);
-                throw sm;
+                throw ie;
             }
 
             if (e.getBody().isBreak())
@@ -535,7 +535,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
         {
             pIT->DecreaseRef();
             pIT->killMe();
-            throw ScilabError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.getVardec().getLocation());
+            throw InternalError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.getVardec().getLocation());
         }
 
         symbol::Variable* var = e.getVardec().getAs<VarDec>()->getStack();
@@ -546,14 +546,14 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             {
                 pIT->DecreaseRef();
                 pIT->killMe();
-                throw ScilabError(_W("for expression : Wrong type for loop iterator.\n"), 999, e.getVardec().getLocation());
+                throw InternalError(_W("for expression : Wrong type for loop iterator.\n"), 999, e.getVardec().getLocation());
             }
 
             if (ctx->isprotected(var))
             {
                 std::wostringstream os;
                 os << _W("Redefining permanent variable.\n");
-                throw ast::ScilabError(os.str(), 999, e.getVardec().getLocation());
+                throw InternalError(os.str(), 999, e.getVardec().getLocation());
             }
             ctx->put(var, pNew);
 
@@ -561,13 +561,13 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
             {
                 e.getBody().accept(*this);
             }
-            catch (ScilabMessage& sm)
+            catch (const InternalError& ie)
             {
                 //implicit list
                 pIT->DecreaseRef();
                 pIT->killMe();
                 setResult(NULL);
-                throw sm;
+                throw ie;
             }
 
             if (e.getBody().isBreak())
@@ -594,7 +594,7 @@ void RunVisitorT<T>::visitprivate(const ForExp  &e)
     {
         pIT->DecreaseRef();
         pIT->killMe();
-        throw ScilabError(_W("for expression : Wrong type for loop iterator.\n"), 999, e.getVardec().getLocation());
+        throw InternalError(_W("for expression : Wrong type for loop iterator.\n"), 999, e.getVardec().getLocation());
     }
 
     pIT->DecreaseRef();
@@ -688,10 +688,10 @@ void RunVisitorT<T>::visitprivate(const IntSelectExp &e)
     //                    //the good one
     //                    body->accept(*this);
     //                }
-    //                catch (ScilabMessage& sm)
+    //                catch (const InternalError& ie)
     //                {
     //                    pIT->killMe();
-    //                    throw sm;
+    //                    throw ie;
     //                }
 
     //                if (e.isBreakable() && body->isBreak())
@@ -765,10 +765,10 @@ void RunVisitorT<T>::visitprivate(const StringSelectExp &e)
                         //the good one
                         body->accept(*this);
                     }
-                    catch (ScilabMessage& sm)
+                    catch (const InternalError& ie)
                     {
                         pIT->killMe();
-                        throw sm;
+                        throw ie;
                     }
 
                     if (e.isBreakable() && body->isBreak())
@@ -831,10 +831,10 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
                         //the good one
                         pCase->getBody()->accept(*this);
                     }
-                    catch (ScilabMessage& sm)
+                    catch (const InternalError& ie)
                     {
                         pIT->killMe();
-                        throw sm;
+                        throw ie;
                     }
 
                     if (e.isBreakable() && pCase->getBody()->isBreak())
@@ -872,10 +872,10 @@ void RunVisitorT<T>::visitprivate(const SelectExp &e)
             //default case
             e.getDefaultCase()->accept(*this);
         }
-        catch (ScilabMessage& sm)
+        catch (const InternalError& ie)
         {
             pIT->killMe();
-            throw sm;
+            throw ie;
         }
 
         if (e.isBreakable() && e.getDefaultCase()->isBreak())
@@ -978,16 +978,7 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
 
                         bImplicitCall = true;
                     }
-                    catch (ScilabMessage& sm)
-                    {
-                        if (ConfigVariable::getLastErrorFunction() == L"")
-                        {
-                            ConfigVariable::setLastErrorFunction(pCall->getName());
-                        }
-
-                        throw sm;
-                    }
-                    catch (ast::ScilabError & se)
+                    catch (const InternalError& ie)
                     {
                         if (ConfigVariable::getLastErrorFunction() == L"")
                         {
@@ -995,7 +986,7 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                             ConfigVariable::setLastErrorLine(e.getLocation().first_line);
                         }
 
-                        throw se;
+                        throw ie;
                     }
                 }
 
@@ -1039,24 +1030,10 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                 break;
             }
         }
-        catch (ScilabMessage& sm)
+        catch (const InternalError& ie)
         {
-            ConfigVariable::fillWhereError(sm.GetErrorLocation().first_line);
-            throw sm;
-        }
-        catch (const ScilabError& se)
-        {
-            // check on error number because error message can be empty.
-            if (ConfigVariable::getLastErrorNumber() == 0)
-            {
-                ConfigVariable::setLastErrorMessage(se.GetErrorMessage());
-                ConfigVariable::setLastErrorNumber(se.GetErrorNumber());
-                ConfigVariable::setLastErrorLine(se.GetErrorLocation().first_line);
-                ConfigVariable::setLastErrorFunction(wstring(L""));
-            }
-
-            ConfigVariable::fillWhereError(se.GetErrorLocation().first_line);
-            throw ScilabMessage(se.GetErrorMessage(), se.GetErrorNumber(), se.GetErrorLocation());
+            ConfigVariable::fillWhereError(ie.GetErrorLocation().first_line);
+            throw ie;
         }
 
         // If something other than NULL is given to setResult, then that would imply
@@ -1098,7 +1075,7 @@ void RunVisitorT<T>::visitprivate(const NotExp &e)
         if (Ret != Callable::OK)
         {
             cleanInOut(in, out);
-            throw ScilabError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
+            throw InternalError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
         }
 
         setResult(out);
@@ -1116,7 +1093,7 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         clearResult();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Can not transpose multiple elements.\n").c_str(), L"Transpose");
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
 
     InternalType * pValue = getResult();
@@ -1156,7 +1133,7 @@ void RunVisitorT<T>::visitprivate(const TransposeExp &e)
         if (Ret != Callable::OK)
         {
             cleanInOut(in, out);
-            throw ScilabError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
+            throw InternalError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
         }
 
         setResult(out);
@@ -1240,7 +1217,7 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
         FREE(pstFuncName);
         FREE(pwstError);
         delete pMacro;
-        throw ScilabError(wstError, 999, e.getLocation());
+        throw InternalError(wstError, 999, e.getLocation());
     }
 
 
@@ -1249,7 +1226,7 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
         delete pMacro;
         std::wostringstream os;
         os << _W("Redefining permanent variable.\n");
-        throw ScilabError(os.str(), 999, e.getLocation());
+        throw InternalError(os.str(), 999, e.getLocation());
     }
 
     ctx->addMacro(pMacro);
@@ -1267,7 +1244,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         pITStart->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n").c_str(), L"':'", 1);
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
     InternalType * piStart = pITStart;
 
@@ -1280,7 +1257,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         pITStep->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n").c_str(), L"':'", 2);
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
     InternalType* piStep = pITStep;
 
@@ -1294,7 +1271,7 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
         pITEnd->killMe();
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n").c_str(), L"':'", 3);
-        throw ScilabError(szError, 999, e.getLocation());
+        throw InternalError(szError, 999, e.getLocation());
     }
     InternalType* piEnd = pITEnd;
 
@@ -1369,21 +1346,16 @@ void RunVisitorT<T>::visitprivate(const ListExp &e)
             Ret = Overload::call(L"%" + piStart->getShortTypeStr() + L"_b_" + piEnd->getShortTypeStr(), in, 1, out, this, true);
         }
     }
-    catch (ScilabError& error)
+    catch (const InternalError& error)
     {
         cleanInOut(in, out);
         throw error;
-    }
-    catch (ast::ScilabMessage msg)
-    {
-        cleanInOut(in, out);
-        throw msg;
     }
 
     if (Ret != Callable::OK)
     {
         cleanInOut(in, out);
-        throw ScilabError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
+        throw InternalError(ConfigVariable::getLastErrorMessage(), ConfigVariable::getLastErrorNumber(), e.getLocation());
     }
 
     setResult(out);

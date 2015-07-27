@@ -312,12 +312,12 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
         //restore previous prompt mode
         ConfigVariable::setPromptMode(oldVal);
     }
-    catch (ast::ScilabMessage & sm)
+    catch (const ast::InternalError& ie)
     {
         cleanCall(pContext, oldVal);
-        throw sm;
+        throw ie;
     }
-    catch (ast::InternalAbort & ia)
+    catch (const ast::InternalAbort& ia)
     {
         cleanCall(pContext, oldVal);
         throw ia;

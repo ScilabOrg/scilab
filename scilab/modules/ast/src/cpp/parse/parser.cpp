@@ -90,7 +90,7 @@ void ParserSingleInstance::parseFile(const std::wstring& fileName, const std::ws
     {
         wchar_t szError[bsiz];
         os_swprintf(szError, bsiz, _W("%ls: Cannot open file %ls.\n").c_str(), L"parser", fileName.c_str());
-        throw ast::ScilabError(szError, 999, *new Location());
+        throw ast::InternalError(szError);
     }
 
 
