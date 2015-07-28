@@ -170,7 +170,7 @@ int iGetStringFromPointer(int* _piAddr, int *_piRows, int *_piCols, int *_piLen,
 int* iGetAddressFromItemPos(int *_piParent, int _iItemPos);
 
 
-/* Internal functions to retrieve varaibles information from Address ( old "il" ) */
+/* Internal functions to retrieve variables information from Address ( old "il" ) */
 int iGetDoubleFromAddress(int _iAddr, int *_piRows, int *_piCols, int *_piReal, int *_piImg);
 int iGetPolyFromAddress(int _iAddr, int** _piVarName, int* _piRows, int* _piCols, int* _piPow, int* _piReal, int *_piImg);
 int iGetSparseFromAddress(int _iAddr, int* _piRows, int* _piCols, int* _piTotalElem, int* _piElemByRow, int* _piColByRow, int* _piReal, int* _piImg);

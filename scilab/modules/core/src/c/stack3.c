@@ -161,7 +161,7 @@ int C2F(creadcmat)(char *namex, int *m, int *n, double *scimat, unsigned long na
     {
         return FALSE;
     }
-    ix1 = *m * *n;
+    ix1 = *m **n;
     C2F(dmcopy)(stk(l ), m, scimat, m, m, n);
     C2F(dmcopy)(stk(l + ix1 ), m, scimat + ix1, m, m, n);
 
@@ -179,7 +179,7 @@ int C2F(creadcmat)(char *namex, int *m, int *n, double *scimat, unsigned long na
 
 int C2F(cwritemat)(char *namex, int *m, int *n,  double *mat, unsigned long name_len)
 {
-    int   ix1 = *m * *n;
+    int   ix1 = *m **n;
     int Rhs_k = Rhs , Top_k = Top ;
     int l4, id[nsiz], lc, lr;
 
@@ -215,7 +215,7 @@ int C2F(cwritemat)(char *namex, int *m, int *n,  double *mat, unsigned long name
 */
 int C2F(cwritecmat)(char *namex, int *m, int*n, double *mat, unsigned long name_len)
 {
-    int   ix1 = *m * *n * 2; /* real part + imaginary part */
+    int   ix1 = *m **n * 2; /* real part + imaginary part */
     int Rhs_k = Rhs , Top_k = Top ;
     int l4, id[nsiz], lc, lr;
     int IT = 1; /* Type Complex */
@@ -768,7 +768,7 @@ int C2F(creadbmat)(char *namex, int *m, int *n, int *scimat, unsigned long name_
         return FALSE;
     }
 
-    N = *n * *m;
+    N = *n **m;
     C2F(icopy)(&N, istk(l), &c_x, scimat, &c_x);
 
     return TRUE;
@@ -776,7 +776,7 @@ int C2F(creadbmat)(char *namex, int *m, int *n, int *scimat, unsigned long name_
 /*--------------------------------------------------------------------------*/
 int C2F(cwritebmat)(char *namex, int *m, int *n,  int *mat, unsigned long name_len)
 {
-    int   ix1 = *m * *n;
+    int   ix1 = *m **n;
     int Rhs_k = Rhs , Top_k = Top ;
     int l4, id[nsiz], lr;
 
@@ -1099,7 +1099,7 @@ void GetRhsStringVar(int _iVarNum, int* _piRows, int* _piCols, int* _piLen, char
     {
         return;
     }
-    code2str(&_pstData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows * *_piCols));
+    code2str(&_pstData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows **_piCols));
 
     C2F(intersci).ntypes[_iVarNum - 1] = '$' ;
     C2F(intersci).iwhere[_iVarNum - 1] = *Lstk(_iVarNum);
@@ -1293,7 +1293,7 @@ void CheckVarUsed(int _iVarNum)
             iAddress += 4;
             break;
         case sci_poly :
-            iAddress += 9 + (*istk(iAddress + 1) * *istk(iAddress + 2));
+            iAddress += 9 + (*istk(iAddress + 1) **istk(iAddress + 2));
             break;
         case sci_boolean :
             iAddress += 3;
@@ -1925,7 +1925,7 @@ int iGetListItemString(int _iVar, int _iItemNumber, int *_piRows, int *_piCols, 
         return 0;
     }
 
-    code2str(&_pszData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows * *_piCols));
+    code2str(&_pszData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows **_piCols));
     return 0;
 }
 
@@ -1988,14 +1988,14 @@ int iGetListSubItemString(int _iVar, int* _piParentList, int _iItemNumber, int *
         return 0;
     }
 
-    code2str(&_pszData, piString, iArraySum(_piLen, 0, *_piRows * *_piCols));
+    code2str(&_pszData, piString, iArraySum(_piLen, 0, *_piRows **_piCols));
     {
         return 0;
     }
 }
 
 
-//Internal fonctions to retrieve varaibles information from Address ( old "il" )
+//Internal fonctions to retrieve variables information from Address ( old "il" )
 int iGetDoubleFromAddress(int _iAddr, int *_piRows, int *_piCols, int *_piReal, int *_piImg)
 {
     int iAddrOffset		= 0;
@@ -2006,7 +2006,7 @@ int iGetDoubleFromAddress(int _iAddr, int *_piRows, int *_piCols, int *_piReal, 
     *_piReal	= sadr(iAddrOffset);
     if (*istk(_iAddr + 3) == 1) //complex variable and allocated buffer
     {
-        *_piImg		= sadr(iAddrOffset + *_piRows * *_piCols);
+        *_piImg		= sadr(iAddrOffset + *_piRows **_piCols);
     }
     return 0;
 }
@@ -2027,15 +2027,15 @@ int iGetPolyFromAddress(int _iAddr, int** _piVarName, int* _piRows, int* _piCols
     }
 
     /*Get all offest*/
-    for (iIndex = 0 ; iIndex < *_piRows * *_piCols; iIndex++)
+    for (iIndex = 0 ; iIndex < *_piRows **_piCols; iIndex++)
     {
         _piPow[iIndex] = *istk(iAddrOffset + iIndex + 1) - *istk(iAddrOffset + iIndex );
     }
 
-    *_piReal	= sadr(iAddrOffset + 1 + *_piRows * *_piCols);
+    *_piReal	= sadr(iAddrOffset + 1 + *_piRows **_piCols);
     if (_piImg != NULL && *istk(_iAddr + 3) == 1) //complex variable and allocated buffer
     {
-        *_piImg		= sadr(iAddrOffset + 1 + *_piRows * *_piCols) + iArraySum(_piPow, 0, *_piRows * *_piCols);
+        *_piImg		= sadr(iAddrOffset + 1 + *_piRows **_piCols) + iArraySum(_piPow, 0, *_piRows **_piCols);
     }
     return 0;
 }
@@ -2131,7 +2131,7 @@ int iGetStringFromAddress(int _iAddr, int *_piRows, int *_piCols, int *_piLen, i
 
     iAddrOffset			= _iAddr + 4;
     /*Get all offest*/
-    for (iIndex = 0 ; iIndex < *_piRows * *_piCols; iIndex++)
+    for (iIndex = 0 ; iIndex < *_piRows **_piCols; iIndex++)
     {
         _piLen[iIndex] = *istk(iAddrOffset + iIndex + 1) - *istk(iAddrOffset + iIndex );
     }
@@ -2141,7 +2141,7 @@ int iGetStringFromAddress(int _iAddr, int *_piRows, int *_piCols, int *_piLen, i
 
     	*_pszRealData = cstk(sadr(iAddrData));
     */
-    iAddrData = _iAddr + (5 + *_piRows * *_piCols);
+    iAddrData = _iAddr + (5 + *_piRows **_piCols);
 
     *_piString			= cadr(iAddrData);
     return 0;
@@ -2164,7 +2164,7 @@ int iGetStringFromPointer(int* _piAddr, int *_piRows, int *_piCols, int *_piLen,
     piOffset			= _piAddr + 4;
 
     /*Get all offest*/
-    for (iIndex = 0 ; iIndex < *_piRows * *_piCols; iIndex++)
+    for (iIndex = 0 ; iIndex < *_piRows **_piCols; iIndex++)
     {
         _piLen[iIndex] = piOffset[iIndex + 1] - piOffset[iIndex];
     }
@@ -2614,7 +2614,7 @@ int *GetLengthStringMatrixByName(char *name_, int *m, int *n)
         return NULL;
     }
 
-    mn = *m * *n;
+    mn = *m **n;
     lengthMatrix = (int*)MALLOC(mn * sizeof(int));
     if (!lengthMatrix)
     {
