@@ -105,7 +105,6 @@ import com.mxgraph.model.mxGraphModel.Filter;
 import com.mxgraph.model.mxGraphModel.mxChildChange;
 import com.mxgraph.model.mxGraphModel.mxStyleChange;
 import com.mxgraph.model.mxICell;
-import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.model.mxIGraphModel.mxAtomicGraphModelChange;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -161,6 +160,24 @@ public class XcosDiagram extends ScilabGraph {
      */
     public XcosDiagram() {
         this(true);
+        // Create a diagram in the Scilab console and retrieve its model id
+        final ScilabDirectHandler handler = ScilabDirectHandler.acquire();
+        if (handler == null) {
+            return;
+        }
+
+        try {
+            ScilabInterpreterManagement.synchronousScilabExec("scicos_diagram();");
+        } catch (final InterpreterException e) {
+            info("Unable to create a new diagram");
+            e.printStackTrace();
+        } finally {
+            handler.release();
+        }
+        // Retrieve id (+ kind)
+        long id = 0;
+        int kind = 0; // To check that the object created was a DIAGRAM, by importing xcos.Kind
+        this.id = id;
     }
 
     /**
@@ -181,7 +198,7 @@ public class XcosDiagram extends ScilabGraph {
 
         // Scicos related setup
         engine = new CompilationEngineStatus();
-        setScicosParameters(new ScicosParameters());
+        setScicosParameters(new ScicosParameters(this.id));
 
         if (withVisibleFeatures) {
             // Add a default listener to update the modification status when
@@ -1892,6 +1909,13 @@ public class XcosDiagram extends ScilabGraph {
      */
     public long getId() {
         return id;
+    }
+
+    /**
+     * @param the model ID
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
