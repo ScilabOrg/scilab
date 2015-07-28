@@ -105,7 +105,6 @@ import com.mxgraph.model.mxGraphModel.Filter;
 import com.mxgraph.model.mxGraphModel.mxChildChange;
 import com.mxgraph.model.mxGraphModel.mxStyleChange;
 import com.mxgraph.model.mxICell;
-import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.model.mxIGraphModel.mxAtomicGraphModelChange;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -161,6 +160,25 @@ public class XcosDiagram extends ScilabGraph {
      */
     public XcosDiagram() {
         this(true);
+        // Create a diagram in the Scilab console and retrieve its model id
+        final ScilabDirectHandler handler = ScilabDirectHandler.acquire();
+        if (handler == null) {
+            return;
+        }
+
+        try {
+            ScilabInterpreterManagement.synchronousScilabExec("scicos_diagram();");
+        } catch (final InterpreterException e) {
+            info("Unable to create a new diagram");
+            e.printStackTrace();
+        } finally {
+            handler.release();
+        }
+        // Retrieve id (+ kind)
+        long id = 2; // "scicos_diagram()" shows that the first instantiated diagram is deleted but a second one is kept
+        int kind = 2; // To check that the object created was a DIAGRAM, by importing xcos.Kind
+        this.id = id;
+        getScicosParameters().setId(id); // So the model parameters are updated when the user modifies the options
     }
 
     /**
@@ -1892,6 +1910,13 @@ public class XcosDiagram extends ScilabGraph {
      */
     public long getId() {
         return id;
+    }
+
+    /**
+     * @param the model ID
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

@@ -466,7 +466,6 @@ DiagramAdapter::DiagramAdapter(const DiagramAdapter& adapter) :
 DiagramAdapter::~DiagramAdapter()
 {
     // CHILDREN will be unreferenced on Controller::deleteObject
-
     list_objects->DecreaseRef();
     list_objects->killMe();
 
