@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009-2009 - DIGITEO - Bruno JOFRET
  * Copyright (C) 2009-2010 - DIGITEO - Clement DAVID
+ * Copyright (C) 2015 - Scilab Enterprises - Paul Bignier
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -56,8 +57,11 @@ import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.JavaController;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
+import org.scilab.modules.xcos.XcosView;
 import org.scilab.modules.xcos.actions.SaveAsAction;
 import org.scilab.modules.xcos.block.AfficheBlock;
 import org.scilab.modules.xcos.block.BasicBlock;
@@ -105,7 +109,6 @@ import com.mxgraph.model.mxGraphModel.Filter;
 import com.mxgraph.model.mxGraphModel.mxChildChange;
 import com.mxgraph.model.mxGraphModel.mxStyleChange;
 import com.mxgraph.model.mxICell;
-import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.model.mxIGraphModel.mxAtomicGraphModelChange;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -152,7 +155,7 @@ public class XcosDiagram extends ScilabGraph {
     // the scicos engine current status
     private final transient CompilationEngineStatus engine;
 
-    // the associated object uid
+    // the associated object id
     private long id;
 
 
@@ -161,6 +164,28 @@ public class XcosDiagram extends ScilabGraph {
      */
     public XcosDiagram() {
         this(true);
+        // Create a diagram in the Scilab console and retrieve its model id
+        final ScilabDirectHandler handler = ScilabDirectHandler.acquire();
+        if (handler == null) {
+            return;
+        }
+
+        try {
+            XcosView diagramView = new XcosView();
+            JavaController.register_view("diagLog", diagramView);
+            ScilabInterpreterManagement.synchronousScilabExec("scicos_diagram();");
+            setID(diagramView.getId());
+            JavaController.unregister_view(diagramView);
+        } catch (final InterpreterException e) {
+            info("Unable to create a new diagram");
+            e.printStackTrace();
+        } finally {
+            handler.release();
+        }
+        // Increment the diargam ID so it is not deleted on the next Constructor call
+        final Controller controller = new Controller();
+        controller.referenceObject(getID());
+        getScicosParameters().setID(getID()); // So the model parameters are updated when the user modifies the options
     }
 
     /**
@@ -1890,8 +1915,15 @@ public class XcosDiagram extends ScilabGraph {
     /**
      * @return the model ID
      */
-    public long getId() {
+    public long getID() {
         return id;
+    }
+
+    /**
+     * @param the model ID
+     */
+    public void setID(long id) {
+        this.id = id;
     }
 
     /**

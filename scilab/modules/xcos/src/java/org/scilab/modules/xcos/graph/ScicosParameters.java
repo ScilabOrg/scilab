@@ -20,7 +20,12 @@ import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
 import java.io.Serializable;
 
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.preferences.XcosOptions;
+import org.scilab.modules.xcos.VectorOfDouble;
+import org.scilab.modules.xcos.VectorOfString;
 
 /**
  * Contains Scicos specific parameters.
@@ -39,6 +44,11 @@ public class ScicosParameters implements Serializable, Cloneable {
      *
      * These values are preferences and thus can be updated by user settings.
      */
+
+    /**
+     * The related diagram id.
+     */
+    private long id = 0;
 
     /**
      * The default integration time
@@ -176,6 +186,20 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
+     * @return the id
+     */
+    public long getID() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setID(long id) {
+        this.id = id;
+    }
+
+    /**
      * @return integration time
      */
     public double getFinalIntegrationTime() {
@@ -190,7 +214,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setFinalIntegrationTime(double finalIntegrationTime) throws PropertyVetoException {
         double oldValue = this.finalIntegrationTime;
+
         vcs.fireVetoableChange(FINAL_INTEGRATION_TIME_CHANGE, oldValue, finalIntegrationTime);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(0, finalIntegrationTime);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.finalIntegrationTime = finalIntegrationTime;
         pcs.firePropertyChange(FINAL_INTEGRATION_TIME_CHANGE, oldValue, finalIntegrationTime);
     }
@@ -210,7 +240,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setIntegratorAbsoluteTolerance(double integratorAbsoluteTolerance) throws PropertyVetoException {
         double oldValue = this.integratorAbsoluteTolerance;
+
         vcs.fireVetoableChange(INTEGRATOR_ABSOLUTE_TOLERANCE_CHANGE, oldValue, integratorAbsoluteTolerance);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(1, integratorAbsoluteTolerance);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.integratorAbsoluteTolerance = integratorAbsoluteTolerance;
         pcs.firePropertyChange(INTEGRATOR_ABSOLUTE_TOLERANCE_CHANGE, oldValue, integratorAbsoluteTolerance);
     }
@@ -230,7 +266,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setIntegratorRelativeTolerance(double integratorRelativeTolerance) throws PropertyVetoException {
         double oldValue = this.integratorRelativeTolerance;
+
         vcs.fireVetoableChange(INTEGRATOR_RELATIVE_TOLERANCE_CHANGE, oldValue, integratorRelativeTolerance);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(2, integratorRelativeTolerance);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.integratorRelativeTolerance = integratorRelativeTolerance;
         pcs.firePropertyChange(INTEGRATOR_RELATIVE_TOLERANCE_CHANGE, oldValue, integratorRelativeTolerance);
     }
@@ -250,7 +292,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setMaximumStepSize(double maximumStepSize) throws PropertyVetoException {
         double oldValue = this.maximumStepSize;
+
         vcs.fireVetoableChange(MAXIMUM_STEP_SIZE_CHANGE, oldValue, maximumStepSize);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(5, maximumStepSize);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.maximumStepSize = maximumStepSize;
         pcs.firePropertyChange(MAXIMUM_STEP_SIZE_CHANGE, oldValue, maximumStepSize);
     }
@@ -263,16 +311,22 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
-     * @param maxIntegrationTimeinterval
+     * @param maxIntegrationTimeInterval
      *            set max integration time
      * @throws PropertyVetoException
      *             when the value is not acceptable.
      */
-    public void setMaxIntegrationTimeInterval(double maxIntegrationTimeinterval) throws PropertyVetoException {
+    public void setMaxIntegrationTimeInterval(double maxIntegrationTimeInterval) throws PropertyVetoException {
         double oldValue = this.maxIntegrationTimeInterval;
-        vcs.fireVetoableChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeinterval);
-        this.maxIntegrationTimeInterval = maxIntegrationTimeinterval;
-        pcs.firePropertyChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeinterval);
+
+        vcs.fireVetoableChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeInterval);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(4, maxIntegrationTimeInterval);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        this.maxIntegrationTimeInterval = maxIntegrationTimeInterval;
+        pcs.firePropertyChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeInterval);
     }
 
     /**
@@ -290,7 +344,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setRealTimeScaling(double realTimeScaling) throws PropertyVetoException {
         double oldValue = this.realTimeScaling;
+
         vcs.fireVetoableChange(REAL_TIME_SCALING_CHANGE, oldValue, realTimeScaling);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(6, realTimeScaling);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.realTimeScaling = realTimeScaling;
         pcs.firePropertyChange(REAL_TIME_SCALING_CHANGE, oldValue, realTimeScaling);
     }
@@ -338,7 +398,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setSolver(double solver) throws PropertyVetoException {
         double oldValue = this.solver;
+
         vcs.fireVetoableChange(SOLVER_CHANGE, oldValue, solver);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(7, solver);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.solver = solver;
         pcs.firePropertyChange(SOLVER_CHANGE, oldValue, solver);
     }
@@ -358,7 +424,13 @@ public class ScicosParameters implements Serializable, Cloneable {
      */
     public void setToleranceOnTime(double toleranceOnTime) throws PropertyVetoException {
         double oldValue = this.toleranceOnTime;
+
         vcs.fireVetoableChange(TOLERANCE_ON_TIME_CHANGE, oldValue, toleranceOnTime);
+        final Controller controller = new Controller();
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(3, toleranceOnTime);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
         this.toleranceOnTime = toleranceOnTime;
         pcs.firePropertyChange(TOLERANCE_ON_TIME_CHANGE, oldValue, toleranceOnTime);
     }
@@ -403,6 +475,12 @@ public class ScicosParameters implements Serializable, Cloneable {
         if (modified) {
             vcs.fireVetoableChange(CONTEXT_CHANGE, oldValue, context);
             this.context = context;
+            final Controller controller = new Controller();
+            VectorOfString newContext = new VectorOfString();
+            for (int i = 0; i < context.length; ++i) {
+                newContext.set(i, context[i]);
+            }
+            controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.DIAGRAM_CONTEXT, newContext);
             pcs.firePropertyChange(CONTEXT_CHANGE, oldValue, context);
         }
     }
