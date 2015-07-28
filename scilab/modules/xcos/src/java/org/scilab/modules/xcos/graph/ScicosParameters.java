@@ -20,7 +20,12 @@ import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
 import java.io.Serializable;
 
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.preferences.XcosOptions;
+import org.scilab.modules.xcos.VectorOfDouble;
+import org.scilab.modules.xcos.VectorOfString;
 
 /**
  * Contains Scicos specific parameters.
@@ -39,6 +44,11 @@ public class ScicosParameters implements Serializable, Cloneable {
      *
      * These values are preferences and thus can be updated by user settings.
      */
+
+    /**
+     * The related diagram id.
+     */
+    private long id = 0;
 
     /**
      * The default integration time
@@ -176,6 +186,20 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
+     * @return the id
+     */
+    public long getID() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setID(long id) {
+        this.id = id;
+    }
+
+    /**
      * @return integration time
      */
     public double getFinalIntegrationTime() {
@@ -263,16 +287,16 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
-     * @param maxIntegrationTimeinterval
+     * @param maxIntegrationTimeInterval
      *            set max integration time
      * @throws PropertyVetoException
      *             when the value is not acceptable.
      */
-    public void setMaxIntegrationTimeInterval(double maxIntegrationTimeinterval) throws PropertyVetoException {
+    public void setMaxIntegrationTimeInterval(double maxIntegrationTimeInterval) throws PropertyVetoException {
         double oldValue = this.maxIntegrationTimeInterval;
-        vcs.fireVetoableChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeinterval);
-        this.maxIntegrationTimeInterval = maxIntegrationTimeinterval;
-        pcs.firePropertyChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeinterval);
+        vcs.fireVetoableChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeInterval);
+        this.maxIntegrationTimeInterval = maxIntegrationTimeInterval;
+        pcs.firePropertyChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeInterval);
     }
 
     /**
@@ -364,6 +388,13 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
+     * @return current context
+     */
+    public String[] getContext() {
+        return context;
+    }
+
+    /**
      * Set the associated context if there is noticeable changes.
      *
      * @param context
@@ -408,10 +439,21 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
-     * @return current context
+     * Set the associated context in the model
+     *
+     * @param context
+     *            set context
+     * @throws PropertyVetoException
+     *             when the value is not acceptable.
      */
-    public String[] getContext() {
-        return context;
+    public void setContextInModel(String[] context) {
+        final Controller controller = new Controller();
+
+        VectorOfString newContext = new VectorOfString();
+        for (int i = 0; i < context.length; ++i) {
+            newContext.add(context[i]);
+        }
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.DIAGRAM_CONTEXT, newContext);
     }
 
     /**
@@ -439,6 +481,47 @@ public class ScicosParameters implements Serializable, Cloneable {
         vcs.fireVetoableChange(DEBUG_LEVEL_CHANGE, oldValue, debugLevel);
         this.debugLevel = debugLevel;
         pcs.firePropertyChange(DEBUG_LEVEL_CHANGE, oldValue, debugLevel);
+    }
+
+    /**
+     * Set the properties in the model with current parameters
+     */
+    public void setPropertiesInModel() {
+        final Controller controller = new Controller();
+
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(0, finalIntegrationTime);
+        props.set(1, integratorAbsoluteTolerance);
+        props.set(2, integratorRelativeTolerance);
+        props.set(3, toleranceOnTime);
+        props.set(4, maxIntegrationTimeInterval);
+        props.set(5, maximumStepSize);
+        props.set(6, realTimeScaling);
+        props.set(7, solver);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+    }
+
+    /**
+     * Set the properties in the model with updated parameters
+     */
+    public void setPropertiesInModel(double finalIntegrationTime, double integratorAbsoluteTolerance,
+                                     double integratorRelativeTolerance, double toleranceOnTime,
+                                     double maxIntegrationTimeInterval, double maximumStepSize,
+                                     double realTimeScaling, int solver) {
+        final Controller controller = new Controller();
+
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(0, finalIntegrationTime);
+        props.set(1, integratorAbsoluteTolerance);
+        props.set(2, integratorRelativeTolerance);
+        props.set(3, toleranceOnTime);
+        props.set(4, maxIntegrationTimeInterval);
+        props.set(5, maximumStepSize);
+        props.set(6, realTimeScaling);
+        props.set(7, solver);
+        controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
     }
 
     /*
