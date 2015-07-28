@@ -52,6 +52,7 @@ import org.scilab.modules.gui.utils.BarUpdater;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.xcos.Controller;
 import org.scilab.modules.xcos.actions.ExternalAction;
 import org.scilab.modules.xcos.actions.StopAction;
 import org.scilab.modules.xcos.block.BasicBlock;
@@ -197,6 +198,7 @@ public final class Xcos {
         ScilabTabFactory.getInstance().addTabFactory(this.factory);
     }
 
+    @Override
     protected void finalize() throws Throwable {
         if (browser != null) {
             JavaController.unregister_view(browser);
@@ -663,6 +665,9 @@ public final class Xcos {
         final File f = graph.getSavedFile();
         final boolean wasLastOpenedForFile = openedDiagrams(f).size() <= 1;
 
+        final Controller controller = new Controller();
+        controller.deleteObject(graph.getID());
+
         if (!onDiagramIteration && wasLastOpenedForFile) {
             diagrams.remove(f);
         }
@@ -693,7 +698,7 @@ public final class Xcos {
     }
 
     /**
-     * Does Xcos will close or not ?
+     * Will Xcos close or not ?
      *
      * @param list
      *            the list to be closed

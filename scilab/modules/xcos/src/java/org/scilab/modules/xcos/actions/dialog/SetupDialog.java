@@ -472,6 +472,24 @@ public class SetupDialog extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int solverSelectedIndex = solver.getSelectedIndex();
+                parameters.setPropertiesInModel(
+                    ((BigDecimal) integration.getValue()).doubleValue(),
+                    ((BigDecimal) integrator.getValue()).doubleValue(),
+                    ((BigDecimal) integratorRel.getValue()).doubleValue(),
+                    ((BigDecimal) toleranceOnTime.getValue()).doubleValue(),
+                    ((BigDecimal) maxIntegrationTime.getValue()).doubleValue(),
+                    ((BigDecimal) maxStepSize.getValue()).doubleValue(),
+                    ((BigDecimal) rts.getValue()).doubleValue(),
+                    AVAILABLE_SOLVERS[solverSelectedIndex].getNumber());
+
+                dispose();
+            }
+        });
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 try {
                     /*
                      * FIXME This logic must be deported to a vetoable
