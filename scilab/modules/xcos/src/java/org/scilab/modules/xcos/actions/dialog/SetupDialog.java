@@ -43,6 +43,10 @@ import javax.swing.JList;
 
 import org.scilab.modules.commons.gui.FindIconHelper;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.actions.SetupAction;
 import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.XcosDiagram;
@@ -466,6 +470,29 @@ public class SetupDialog extends JDialog {
                 maxIntegrationTime.setValue(new BigDecimal(ScicosParameters.MAX_INTEGRATION_TIME_INTERVAL));
                 solver.setSelectedIndex((int) ScicosParameters.SOLVER);
                 maxStepSize.setValue(new BigDecimal(ScicosParameters.MAXIMUM_STEP_SIZE));
+            }
+        });
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /**
+                 * Synchronize the new parameters in the model
+                 */
+                final JavaController controller = new JavaController();
+
+                VectorOfDouble props = new VectorOfDouble(8);
+                controller.getObjectProperty(rootGraph.getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+                props.set(0, ((BigDecimal) integration.getValue()).doubleValue());
+                props.set(1, ((BigDecimal) integrator.getValue()).doubleValue());
+                props.set(2, ((BigDecimal) integratorRel.getValue()).doubleValue());
+                props.set(3, ((BigDecimal) toleranceOnTime.getValue()).doubleValue());
+                props.set(4, ((BigDecimal) maxIntegrationTime.getValue()).doubleValue());
+                props.set(5, ((BigDecimal) maxStepSize.getValue()).doubleValue());
+                props.set(6, ((BigDecimal) rts.getValue()).doubleValue());
+                int solverSelectedIndex = solver.getSelectedIndex();
+                props.set(7, AVAILABLE_SOLVERS[solverSelectedIndex].getNumber());
+                controller.setObjectProperty(rootGraph.getID(), Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
             }
         });
 

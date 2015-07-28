@@ -38,6 +38,10 @@ import javax.swing.ScrollPaneConstants;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.commons.gui.FindIconHelper;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfString;
 import org.scilab.modules.xcos.actions.SetContextAction;
 import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
@@ -48,7 +52,7 @@ import org.scilab.modules.xcos.utils.XcosMessages;
 /**
  * Dialog associated with the {@link SetContextAction}.
  *
- * Note that this dialog break the Data Abstraction Coupling metric because of
+ * Note that this dialog breaks the Data Abstraction Coupling metric because of
  * the numbers of graphical components involved in the GUI creation. For the
  * same reason (GUI class), constants are not used on this code.
  */
@@ -161,7 +165,7 @@ public class SetContextDialog extends JDialog {
      */
     private void installActionListeners(JButton cancelButton, JButton okButton) {
         /*
-         * The cancel button just exit without doing anything
+         * The cancel button just exits without doing anything
          */
         cancelButton.addActionListener(new ActionListener() {
             @Override
@@ -171,8 +175,28 @@ public class SetContextDialog extends JDialog {
         });
 
         /*
-         * The ok button parse the contextArea, reconstruct the real context and
-         * set the scicosParameters before exiting.
+         * The ok button sets the scicosParameters in the model before exiting.
+         */
+        okButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final String[] context = contextArea.getText().split(SHARED_NEW_LINE);
+                /**
+                 * Synchronize the context in the model
+                 */
+                final JavaController controller = new JavaController();
+                VectorOfString newContext = new VectorOfString();
+                for (int i = 0; i < context.length; ++i) {
+                    newContext.add(context[i]);
+                }
+                controller.setObjectProperty(rootGraph.getID(), Kind.DIAGRAM, ObjectProperties.DIAGRAM_CONTEXT, newContext);
+            }
+        });
+
+        /*
+         * The ok button parses the contextArea, reconstructs the real context and
+         * sets the scicosParameters before exiting.
          */
         okButton.addActionListener(new ActionListener() {
 
@@ -202,7 +226,7 @@ public class SetContextDialog extends JDialog {
                 }
 
                 /*
-                 * if superblock is concerned, then regenerate child diagram.
+                 * If superblock is concerned, then regenerate child diagram.
                  */
                 if (rootGraph instanceof SuperBlockDiagram) {
                     SuperBlockDiagram superBlockDiagram = (SuperBlockDiagram) rootGraph;

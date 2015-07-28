@@ -20,7 +20,11 @@ import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
 import java.io.Serializable;
 
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.preferences.XcosOptions;
+import org.scilab.modules.xcos.VectorOfDouble;
 
 /**
  * Contains Scicos specific parameters.
@@ -263,16 +267,16 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
-     * @param maxIntegrationTimeinterval
+     * @param maxIntegrationTimeInterval
      *            set max integration time
      * @throws PropertyVetoException
      *             when the value is not acceptable.
      */
-    public void setMaxIntegrationTimeInterval(double maxIntegrationTimeinterval) throws PropertyVetoException {
+    public void setMaxIntegrationTimeInterval(double maxIntegrationTimeInterval) throws PropertyVetoException {
         double oldValue = this.maxIntegrationTimeInterval;
-        vcs.fireVetoableChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeinterval);
-        this.maxIntegrationTimeInterval = maxIntegrationTimeinterval;
-        pcs.firePropertyChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeinterval);
+        vcs.fireVetoableChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeInterval);
+        this.maxIntegrationTimeInterval = maxIntegrationTimeInterval;
+        pcs.firePropertyChange(MAX_INTEGRATION_TIME_INTERVAL_CHANGE, oldValue, maxIntegrationTimeInterval);
     }
 
     /**
@@ -364,6 +368,13 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
+     * @return current context
+     */
+    public String[] getContext() {
+        return context;
+    }
+
+    /**
      * Set the associated context if there is noticeable changes.
      *
      * @param context
@@ -408,13 +419,6 @@ public class ScicosParameters implements Serializable, Cloneable {
     }
 
     /**
-     * @return current context
-     */
-    public String[] getContext() {
-        return context;
-    }
-
-    /**
      * @return current version
      */
     public String getVersion() {
@@ -439,6 +443,25 @@ public class ScicosParameters implements Serializable, Cloneable {
         vcs.fireVetoableChange(DEBUG_LEVEL_CHANGE, oldValue, debugLevel);
         this.debugLevel = debugLevel;
         pcs.firePropertyChange(DEBUG_LEVEL_CHANGE, oldValue, debugLevel);
+    }
+
+    /**
+     * Set the properties in the model with current parameters
+     */
+    public void fillParametersInModel(long id) {
+        final JavaController controller = new JavaController();
+
+        VectorOfDouble props = new VectorOfDouble(8);
+        controller.getObjectProperty(id, Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
+        props.set(0, finalIntegrationTime);
+        props.set(1, integratorAbsoluteTolerance);
+        props.set(2, integratorRelativeTolerance);
+        props.set(3, toleranceOnTime);
+        props.set(4, maxIntegrationTimeInterval);
+        props.set(5, maximumStepSize);
+        props.set(6, realTimeScaling);
+        props.set(7, solver);
+        controller.setObjectProperty(id, Kind.DIAGRAM, ObjectProperties.PROPERTIES, props);
     }
 
     /*

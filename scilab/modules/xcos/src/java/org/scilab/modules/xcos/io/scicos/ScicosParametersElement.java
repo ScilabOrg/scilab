@@ -115,7 +115,7 @@ public final class ScicosParametersElement extends AbstractElement<ScicosParamet
 
         int field = 0;
 
-        // we test if the structure as enough field
+        // we test if the structure has enough fields
         if (data.size() != DATA_FIELD_NAMES.size()) {
             throw new WrongStructureException(DATA_FIELD_NAMES);
         }
