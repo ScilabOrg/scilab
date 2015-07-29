@@ -128,6 +128,12 @@ Removed functions
   - trisolve
   - block2exp
 
+* comp has been removed.
+
+* errcatch has been removed.
+
+
+
 Removed functions (based on old Scilab stack)
 ==============================================
 
@@ -156,6 +162,8 @@ Functions modified
 * pppdiv : return a scalar of type 'constant' when the rank is 0.
 * pdiv   : return a matrix of type 'constant' when all the rank are 0.
 * typeof : add a 2nd argument "overload" of get overloaded name (typeof(cell(), "overload") -> "ce")
+* exec   : exec of macro execute the body in the current scope but the proto must have zero input and output arguments.
+* error  : an error number in input is deprecated.
 
 
 Syntax modifications
@@ -185,6 +193,7 @@ Deprecated behavior
 
 * while/else control instruction is no more supported.
 
+* (a=b) executed like a == b is now deprecated and return an error.
 
 Scilab Bug Fixes
 ================
