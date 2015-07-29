@@ -58,19 +58,19 @@
                     <para>
                         The following function <literal>foo</literal>:
                     </para>
-                    <programlisting role=""><![CDATA[ 
-function foo
+                    <programlisting role=""><![CDATA[
+function foo()
   a=1
   disp(a),..
   disp('ok')
 endfunction
  ]]></programlisting>
                     <para>is equivalent to:</para>
-                    <programlisting role=""><![CDATA[ 
-function foo 
+                    <programlisting role=""><![CDATA[
+function foo()
   a=1
 
-  disp(a),disp('ok') 
+  disp(a),disp('ok')
 endfunction
  ]]></programlisting>
                     <para>The logical line formed by physical line 3 and physical line 4
@@ -96,8 +96,13 @@ x=[1 2 3];x.^2 .*x // a space is required between 2 and dot
 T=[123,..//first element
    456] //second one
 
+// This expression does not work anymore in Scilab 6
 a="here I start a very long string...  //but I'm not in the mood of continuing
      - and here I go on"
+// This one is the correct expression now
+a="here I start a very long string"+...  //but I'm not in the mood of continuing
+"    - and here I go on"
+// This expression is not allowed anymore in Scilab 6: scalar number must be written on one line
 y=12..
 45
  ]]></programlisting>
@@ -118,5 +123,21 @@ y=12..
                 <link linkend="backslash">backslash</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <para>
+                        It is not possible anymore to cut a scalar number.
+                    </para>
+                    <para>
+                        To cut a single string, "+" operator must be used.
+                    </para>
+                </revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
