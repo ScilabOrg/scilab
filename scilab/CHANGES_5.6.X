@@ -17,7 +17,7 @@ Xcos
 * Palette browser enable users to add blocks to the most recent diagram by using the ENTER key.
 
 * Bug #13906 fixed - It is now possible to navigate through the Palette browser with the arrow keys.
-
+* Bug #13942 fixed - Now the palette browser tree is always resized when expanded/collapsed.
 
 Compilation
 ============
