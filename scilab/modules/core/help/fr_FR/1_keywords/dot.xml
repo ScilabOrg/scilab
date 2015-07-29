@@ -7,10 +7,16 @@
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
         <synopsis>123.33
+
             a.*b
-            
-            [123,..
-            456]
+            a .*. b
+
+            %pi * (%e + ..
+            %i)
+
+            cd ..
+            ls ..
+            dir ..
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -59,19 +65,19 @@
                     <para>
                         La fonction <literal>foo</literal> suivante :
                     </para>
-                    <programlisting role=""><![CDATA[ 
-function foo
-  a=1
-  disp(a),..
-  disp('ok')
+                    <programlisting role=""><![CDATA[
+function foo()
+    plot2d()
+    xtitle(["Titre général"; "Peut être sur plusieurs lignes, donc assez long"], ..
+            "Ceci est le titre de l''axe des X", "titre de l''axe Y")
 endfunction
  ]]></programlisting>
                     <para>est équivalente à :</para>
-                    <programlisting role=""><![CDATA[ 
-function foo 
-  a=1
+                    <programlisting role=""><![CDATA[
+function foo()
+    plot2d()
 
-  disp(a),disp('ok') 
+    xtitle(["Titre général"; "Peut être sur plusieurs lignes, donc assez long"], "Ceci est le titre de l''axe des X", "titre de l''axe Y")
 endfunction
  ]]></programlisting>
                     <para>La ligne logique formée par les lignes physiques 3 et 4 est
@@ -79,7 +85,10 @@ endfunction
                         physique 4 alors que la ligne physique 3 serait vide. Cette manière
                         de faire est nécessaire car les points de suite peuvent apparaître
                         n'importe où dans la ligne logique, même à l'intérieur d'une
-                        expression.
+                        expression. Notez que la différence entre lignes logiques et lignes physiques
+                        a son importance lors de l'édition (scinotes, edit), lors de profilage (profile, 
+                        showprofile, plotprofile), et lorsque le numéro de ligne est indiqué dans les
+                        messages d'erreur (whereami).
                     </para>
                 </listitem>
             </varlistentry>
@@ -89,9 +98,40 @@ endfunction
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[ 
 1.345
-x=[1 2 3];x.^2 .*x // il faut absolument mettre un espace entre le 2 et le point
-[123,..
- 456]
+x = [1 2 3];x.^2 .*x // il faut absolument mettre un espace entre le 2 et le point
+
+// Pour une meilleure lisibilité, il est possible d'écrire un vecteur ou une matrice
+// sur plusieurs lignes
+T = [0, ..
+     0.14083587356641726296, ..
+     0.19835452215880472592, ..
+     0.24194508276597658228, ..
+     0.27824682273479715921];
+
+// Les points de suite peuvent également permettre une meilleure lisibilité
+// lors de la création de figure ou d'uicontrol
+fig = figure("figure_name", "FIGURE", ..
+"dockable", "off", ..
+"axes_size", [990,670], ..
+"infobar_visible", "off", ..
+"toolbar", "none", ..
+"menubar_visible", "on", ..
+"menubar", "none", ..
+"default_axes", "off", ..
+"layout", "border", ..
+"background", color(244,244,244), ..
+"tag", "figure_1", ..
+"visible", "on");
+
+// Cette expression ne fonctionne plus dans Scilab 6
+a = "Je commence à écrire une très longue chaîne de caractères...
+     - et je continue ici"
+// L'expression suivante est celle à utiliser
+a = "Je commence à écrire une très longue chaîne de caractères"+...
+    "    - et je continue ici"
+// Cette expression n'est plus autorisée dans Scilab 6: Les singletons doivent être écrits sur une ligne
+y = 12..
+45
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
@@ -109,6 +149,34 @@ x=[1 2 3];x.^2 .*x // il faut absolument mettre un espace entre le 2 et le point
             <member>
                 <link linkend="backslash">backslash</link>
             </member>
+            <member>
+                <link linkend="whereami">whereami</link>
+            </member>
+            <member>
+                <link linkend="showprofile">showprofile</link>
+            </member>
+            <member>
+                <link linkend="edit">edit</link>
+            </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <para>
+                        Il est désormais impossible de couper un scalaire.
+                    </para>
+                    <para>
+                        Pour couper une chaîne de caractères, les opérateurs "+.." doit être utilisé.
+                    </para>
+                    <para>
+                        Pour accéder au répertoire parent, ";" n'est plus nécessaire dans la commande "cd ..;".
+                    </para>
+                </revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
