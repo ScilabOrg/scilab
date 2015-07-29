@@ -121,15 +121,15 @@ public:
     }
 
     inline uint64_t getCurrentValue() const
-	{
-	    return current;
-	}
+    {
+        return current;
+    }
 
-     /**
-     * \brief Inserts a value associated with a polynomial
-     * \param mp a polynomial
-     * \param value a value
-     */
+    /**
+    * \brief Inserts a value associated with a polynomial
+    * \param mp a polynomial
+    * \param value a value
+    */
     inline void insertValue(const MultivariatePolynomial & mp, Value & value)
     {
         MapPolys::iterator i = mapp.find(mp);
@@ -257,24 +257,24 @@ public:
      */
     inline Value * getValue(const double x)
     {
-	int64_t _x;
-	if (tools::asInteger(x, _x))
-	{
-	    const auto i = mapi64.find(_x);
-	    if (i == mapi64.end())
-	    {
-		Value & value = mapi64.emplace(_x, current++).first->second;
-		insertValue(_x, value);
-		
-		return &value;
-	    }
-	    else
-	    {
-		return &i->second;
-	    }
-	}
+        int64_t _x;
+        if (tools::asInteger(x, _x))
+        {
+            const auto i = mapi64.find(_x);
+            if (i == mapi64.end())
+            {
+                Value & value = mapi64.emplace(_x, current++).first->second;
+                insertValue(_x, value);
 
-	return nullptr;
+                return &value;
+            }
+            else
+            {
+                return &i->second;
+            }
+        }
+
+        return nullptr;
     }
 
     /**
@@ -380,7 +380,7 @@ public:
         out << L"Symbols:" << std::endl;
         for (const auto & p : gvn.maps)
         {
-            out << L"  " << p.first << L" -> " << p.second.value << std::endl;
+            out << L"  " << p.first.getName().data() << L" -> " << p.second.value << std::endl;
         }
 
         std::map<uint64_t, std::wstring> map;
