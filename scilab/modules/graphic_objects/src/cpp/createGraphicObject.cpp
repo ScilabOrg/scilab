@@ -98,7 +98,7 @@ int createNewFigureWithAxes()
 
         getGraphicObjectProperty(getFigureModel(), __GO_USER_DATA__, jni_int_vector, (void**)&pUserData);
 
-        increaseValRef(NULL, (int*)*pUserData);
+        increaseValRef(NULL, pUserData);
 
         setGraphicObjectProperty(id, __GO_USER_DATA__, pUserData, jni_int_vector, iUserDataSize);
     }
