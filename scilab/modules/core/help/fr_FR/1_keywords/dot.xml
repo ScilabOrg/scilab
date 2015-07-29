@@ -59,19 +59,19 @@
                     <para>
                         La fonction <literal>foo</literal> suivante :
                     </para>
-                    <programlisting role=""><![CDATA[ 
-function foo
-  a=1
-  disp(a),..
-  disp('ok')
+                    <programlisting role=""><![CDATA[
+function foo()
+    plot2d()
+    xtitle(["Titre général"; "Peut être sur plusieurs lignes, donc assez long"], ..
+            "Ceci est le titre de l''axe des X", "titre de l''axe Y")
 endfunction
  ]]></programlisting>
                     <para>est équivalente à :</para>
-                    <programlisting role=""><![CDATA[ 
-function foo 
-  a=1
+                    <programlisting role=""><![CDATA[
+function foo()
+    plot2d()
 
-  disp(a),disp('ok') 
+    xtitle(["Titre général"; "Peut être sur plusieurs lignes, donc assez long"], "Ceci est le titre de l''axe des X", "titre de l''axe Y")
 endfunction
  ]]></programlisting>
                     <para>La ligne logique formée par les lignes physiques 3 et 4 est
@@ -89,9 +89,18 @@ endfunction
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[ 
 1.345
-x=[1 2 3];x.^2 .*x // il faut absolument mettre un espace entre le 2 et le point
-[123,..
- 456]
+x = [1 2 3];x.^2 .*x // il faut absolument mettre un espace entre le 2 et le point
+T = [123,.. // Premier élément
+     456] // Deuxième élément
+// Cette expression ne fonctionne plus dans Scilab 6
+a = "Je commence à écrire une très longue chaîne de caractères...
+     - et je continue ici"
+// L'expression suivante est celle à utiliser
+a = "Je commence à écrire une très longue chaîne de caractères"+...
+    "    - et je continue ici"
+// Cette expression n'est plus autorisée dans Scilab 6: Les singletons doivent être écrits sur une ligne
+y = 12..
+45
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
@@ -110,5 +119,21 @@ x=[1 2 3];x.^2 .*x // il faut absolument mettre un espace entre le 2 et le point
                 <link linkend="backslash">backslash</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <para>
+                        Il est désormais impossible de couper un scalaire.
+                    </para>
+                    <para>
+                        Pour couper une chaîne de caractères, les opérateurs "+.." doit être utilisé.
+                    </para>
+                </revremark>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
