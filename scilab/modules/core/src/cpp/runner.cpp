@@ -113,9 +113,6 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
         __threadKey threadKey;
         __threadId threadId;
 
-        //lock locker
-        ThreadManagement::LockRunner();
-
         types::ThreadId* pInterruptibleThread = ConfigVariable::getLastRunningThread();
         if (_isPrioritaryThread)
         {
@@ -138,6 +135,8 @@ void Runner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
             __WaitThreadDie(pInterruptibleThread->getThreadId());
             pInterruptibleThread = NULL;
         }
+
+        ThreadManagement::LockRunner();
 
         //launch thread but is can't really start since locker is locked
         __CreateThreadWithParams(&threadId, &threadKey, &Runner::launch, runMe);
