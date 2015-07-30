@@ -13,6 +13,7 @@
 
 #include <string>
 #include <algorithm>
+#include <iterator>
 
 #include "gw_scicos.hxx"
 

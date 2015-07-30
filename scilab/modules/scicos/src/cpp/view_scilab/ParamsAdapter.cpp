@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
 #include "double.hxx"
 #include "string.hxx"

@@ -10,6 +10,7 @@
  *
  */
 /*--------------------------------------------------------------------------*/
+#include <iterator>
 #include "polynomials_gw.hxx"
 #include "function.hxx"
 #include "double.hxx"

@@ -11,6 +11,7 @@
  *
  */
 /*--------------------------------------------------------------------------*/
+#include <iterator>
 #include "elem_func_gw.hxx"
 #include "function.hxx"
 #include "overload.hxx"
