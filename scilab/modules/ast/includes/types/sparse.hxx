@@ -396,7 +396,7 @@ struct EXTERN_AST Sparse : GenericType
        @return ptr to a new Sparse matrix where each element is the result of the logical operator
         '!=' between the elements of *this and those of o.
      */
-    SparseBool* newNotEqualTo(Sparse const&o) const;
+    SparseBool* newNotEqualTo(Sparse& o);
 
     /* coefficient wise relational operator <= between *this sparse matrix and an other.
        Matrices must have the same dimensions except if one of them is of size (1,1)
@@ -702,11 +702,11 @@ struct EXTERN_AST SparseBool : GenericType
     void fill(Bool& dest, int r = 0, int c = 0) SPARSE_CONST;
 
     Sparse* newOnes() const;
-    SparseBool* newNotEqualTo(SparseBool const&o) const;
+    SparseBool* newNotEqualTo(SparseBool& o);
     SparseBool* newEqualTo(SparseBool& o);
 
-    SparseBool* newLogicalOr(SparseBool const&o) const;
-    SparseBool* newLogicalAnd(SparseBool const&o) const;
+    SparseBool* newLogicalOr(SparseBool& o);
+    SparseBool* newLogicalAnd(SparseBool& o);
 
     typedef Eigen::SparseMatrix<bool, 0x1, int> BoolSparse_t;
     SparseBool(BoolSparse_t* o);
