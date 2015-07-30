@@ -27,6 +27,7 @@ private :
     static __threadLock m_StartLock;
     static __threadLock m_ParseLock;
     static __threadLock m_StoreCommandLock;
+    static __threadLock m_ForceQuitLock;
 
     static __threadSignal m_ConsoleExecDone;
     static __threadSignalLock m_ConsoleExecDoneLock;
@@ -43,9 +44,14 @@ private :
     static __threadSignal m_CommandStored;
     static __threadSignalLock m_CommandStoredLock;
 
+    // used to avoid "Spurious Wakeups"
+    static bool m_AstPendingWasSignalled;
+    static bool m_ConsoleExecDoneWasSignalled;
+    static bool m_AwakeRunnerWasSignalled;
+    static bool m_StartPendingWasSignalled;
+    static bool m_CommandStoredWasSignalled;
 
 public :
-
     static void initialize(void);
 
     static void LockStart(void);
@@ -56,6 +62,8 @@ public :
     static void UnlockStoreCommand(void);
     static void LockRunner(void);
     static void UnlockRunner(void);
+    static void LockForceQuit(void);
+    static void UnlockForceQuit(void);
 
     static void SendAstPendingSignal(void);
     static void WaitForAstPendingSignal(void);
