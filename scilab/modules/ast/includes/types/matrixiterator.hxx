@@ -191,7 +191,7 @@ std::complex<double> const cplxZero(0., 0.);
 }
 template<> bool set(types::Sparse::CplxSparse_t& s, int r, int c, std::complex<double> v)
 {
-    if (v != cplxZero)
+    if (v.real() != 0 || v.imag() != 0)
     {
         s.insert(r, c) = v;
     }

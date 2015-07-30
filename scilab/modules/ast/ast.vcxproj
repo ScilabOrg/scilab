@@ -414,7 +414,6 @@ lib /DEF:"$(ProjectDir)string_import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClInclude Include="includes\types\singlepoly.hxx" />
     <ClInclude Include="includes\types\singlestruct.hxx" />
     <ClInclude Include="includes\types\sparse.hxx" />
-    <ClInclude Include="includes\types\sparseOp.hxx" />
     <ClInclude Include="includes\types\string.hxx" />
     <ClInclude Include="includes\types\struct.hxx" />
     <ClInclude Include="includes\types\threadId.hxx" />

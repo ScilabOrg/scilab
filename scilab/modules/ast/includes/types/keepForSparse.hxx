@@ -17,10 +17,18 @@
  * used by Eigen to prune sparse matrices.
  * Scilab <6 keeps values <%eps, so we prune only 0. but it should really be a property of the sparse matrix.
  */
-template<typename T>
-bool keepForSparse(std::size_t /* unused */, std::size_t /* unused */, T const& v)
+bool keepForSparseDouble(std::size_t /* unused */, std::size_t /* unused */, double v)
 {
-    static T const zero(0);
-    return v != zero;
+    return v != 0;
+}
+
+bool keepForSparseComplex(std::size_t /* unused */, std::size_t /* unused */, std::complex<double> v)
+{
+    return (v.real() != 0 || v.imag() != 0);
+}
+
+bool keepForSparseBool(std::size_t /* unused */, std::size_t /* unused */, bool v)
+{
+    return v;
 }
 #endif // __KEEPFORSPARSE__

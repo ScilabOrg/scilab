@@ -2683,7 +2683,7 @@ InternalType* compnoequal_M_M<SparseBool, SparseBool, SparseBool>(SparseBool* _p
         return new Bool(true);
     }
 
-    return _pR->newNotEqualTo(*_pL);
+    return _pL->newNotEqualTo(*_pR);
 }
 
 template<>
@@ -2696,7 +2696,7 @@ InternalType* compnoequal_M_M<Sparse, Sparse, SparseBool>(Sparse* _pL, Sparse* _
         return new Bool(true);
     }
 
-    return _pR->newNotEqualTo(*_pL);
+    return _pL->newNotEqualTo(*_pR);
 }
 
 //[] != SP

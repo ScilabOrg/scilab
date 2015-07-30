@@ -388,9 +388,6 @@
     <ClInclude Include="includes\types\sparse.hxx">
       <Filter>Header Files\types</Filter>
     </ClInclude>
-    <ClInclude Include="includes\types\sparseOp.hxx">
-      <Filter>Header Files\types</Filter>
-    </ClInclude>
     <ClInclude Include="includes\types\string.hxx">
       <Filter>Header Files\types</Filter>
     </ClInclude>
