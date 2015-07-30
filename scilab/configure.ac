@@ -1092,7 +1092,7 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                    BATIK=$PACKAGE_JAR_FILE
                 fi
                 AC_SUBST(BATIK)
-                AC_JAVA_CHECK_VERSION_PACKAGE([batik],[import org.apache.batik.Version;],$BATIK,[1.7],[Version.getVersion()])
+                AC_JAVA_CHECK_VERSION_PACKAGE([batik],[import org.apache.batik.Version;],$BATIK,[1.8],[Version.getVersion()])
 
                 # Commons I/O library
                 AC_JAVA_CHECK_PACKAGE([commons-io],[org.apache.commons.io.output.CountingOutputStream],[Commons I/O library])
