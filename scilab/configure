@@ -17105,8 +17105,8 @@ $as_echo "$as_me: WARNING: Could not find or use the Java package/jar batik used
                 fi
 
 
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking minimal version (1.7) of batik" >&5
-$as_echo_n "checking minimal version (1.7) of batik... " >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking minimal version (1.8) of batik" >&5
+$as_echo_n "checking minimal version (1.8) of batik... " >&6; }
    saved_ac_java_classpath=$ac_java_classpath
    export ac_java_classpath="$BATIK:$ac_java_classpath"
    if test "x" == "x"; then
@@ -17119,7 +17119,7 @@ import org.apache.batik.Version;
 
 public class conftest {
     public static void main(String[] argv) {
-        String minVersion="1.7";
+        String minVersion="1.8";
 
                             System.out.println(Version.getVersion());
                                   if (compare(minVersion, Version.getVersion()) > 0) {
@@ -17168,7 +17168,7 @@ EOF
                    STDOUT=`cat conftest.java.output`
                 fi
                 echo "configure: CLASSPATH was $CLASSPATH" >&5
-                  as_fn_error $? "Wrong version of batik. Expected at least 1.7. Found $STDOUT" "$LINENO" 5
+                  as_fn_error $? "Wrong version of batik. Expected at least 1.8. Found $STDOUT" "$LINENO" 5
                             fi
         fi
         if test -f conftest.java.output; then
@@ -17178,7 +17178,7 @@ EOF
         echo "configure: failed program was:" >&5
         cat conftest.java >&5
         echo "configure: CLASSPATH was $CLASSPATH" >&5
-          as_fn_error $? "Wrong version of batik. Expected at least 1.7. Found $STDOUT" "$LINENO" 5
+          as_fn_error $? "Wrong version of batik. Expected at least 1.8. Found $STDOUT" "$LINENO" 5
             fi
 
    else
@@ -17191,7 +17191,7 @@ import org.apache.batik.Version;
 
 public class conftest {
     public static void main(String[] argv) {
-        String minVersion="1.7";
+        String minVersion="1.8";
 
                             System.out.println(Version.getVersion());
                                   if (compare(minVersion, Version.getVersion()) != 0) {
@@ -17240,7 +17240,7 @@ EOF
                    STDOUT=`cat conftest.java.output`
                 fi
                 echo "configure: CLASSPATH was $CLASSPATH" >&5
-                  as_fn_error $? "Wrong version of batik. Expected exact version 1.7. Found $STDOUT" "$LINENO" 5
+                  as_fn_error $? "Wrong version of batik. Expected exact version 1.8. Found $STDOUT" "$LINENO" 5
                             fi
         fi
         if test -f conftest.java.output; then
@@ -17250,7 +17250,7 @@ EOF
         echo "configure: failed program was:" >&5
         cat conftest.java >&5
         echo "configure: CLASSPATH was $CLASSPATH" >&5
-          as_fn_error $? "Wrong version of batik. Expected exact version 1.7. Found $STDOUT" "$LINENO" 5
+          as_fn_error $? "Wrong version of batik. Expected exact version 1.8. Found $STDOUT" "$LINENO" 5
             fi
 
     fi
