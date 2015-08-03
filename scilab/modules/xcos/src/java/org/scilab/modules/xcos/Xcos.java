@@ -1035,7 +1035,7 @@ public final class Xcos {
         block.updateBlockSettings(modifiedBlock);
         block.setInterfaceFunctionName(modifiedBlock.getInterfaceFunctionName());
         block.setSimulationFunctionName(modifiedBlock.getSimulationFunctionName());
-        block.setSimulationFunctionType(modifiedBlock.getSimulationFunctionType());
+        block.setSimulationFunctionType((int) modifiedBlock.getSimulationFunctionType().getAsDouble());
         if (block instanceof SuperBlock) {
             ((SuperBlock) block).setChild(null);
         }

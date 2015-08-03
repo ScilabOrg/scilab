@@ -130,25 +130,7 @@ public class ScilabDirectHandler implements Handler {
 
         LOG.finer("object allocated");
 
-        ScilabType data;
-        try {
-            data = Scilab.getInCurrentScilabSession(BLK);
-        } catch (JavasciException e) {
-            return null;
-        }
-
-        // fail safely
-        if (data == null) {
-            return null;
-        }
-        if (data.isEmpty()) {
-            LOG.finer("data not available");
-            return null;
-        }
-
-        LOG.finer("data available");
-
-        final BasicBlock block = element.decode(data, instance);
+        final BasicBlock block = element.decode(instance);
         final StyleMap style = new StyleMap(block.getInterfaceFunctionName());
         style.putAll(block.getStyle());
 

@@ -32,9 +32,11 @@ public abstract class InputPort extends BasicPort {
      * @param type
      *            The string port name ("ExplicitInputPort" or
      *            "ImplicitInputPort")
+     * @param id
+     *            The port id in the model
      */
-    protected InputPort(String type) {
-        super(type);
+    protected InputPort(String type, long id) {
+        super(type, id);
         setOrientation(Orientation.WEST);
 
         setDefaultValues();
