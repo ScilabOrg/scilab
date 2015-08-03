@@ -172,7 +172,7 @@ public class CodeGenerationAction extends SuperBlockSelectedAction {
                 block.updateBlockSettings(modifiedBlock);
                 block.setInterfaceFunctionName(modifiedBlock.getInterfaceFunctionName());
                 block.setSimulationFunctionName(modifiedBlock.getSimulationFunctionName());
-                block.setSimulationFunctionType(modifiedBlock.getSimulationFunctionType());
+                block.setSimulationFunctionType((int) modifiedBlock.getSimulationFunctionType().getAsDouble());
                 block.setChild(null);
 
                 block.setStyle(block.getStyle() + ";blockWithLabel");

@@ -21,8 +21,8 @@ public class ExplicitInputPort extends InputPort {
     private static final long serialVersionUID = 3389508566614965375L;
 
     /** Default constructor */
-    public ExplicitInputPort() {
-        super("ExplicitInputPort");
+    public ExplicitInputPort(long id) {
+        super("ExplicitInputPort", id);
     }
 
     /** @return always Type.EXPLICIT */
