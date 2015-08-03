@@ -13,8 +13,8 @@
             scilab-cli &lt;Options&gt;
         </synopsis>
     </refsynopsisdiv>
-    <refsection>
-        <title>Description</title>
+    <refsection role="arguments">
+        <title>Paramètres</title>
         <variablelist>
             <varlistentry>
                 <term>-args arguments</term>
@@ -124,6 +124,17 @@
                         et -e ne peuvent pas être utilisée en même temps.
                     </para>
                     <para>Un fichier avec l'extension .xcos sera ouvert par Xcos.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>-quit</term>
+                <listitem>
+                    <para>Cette option force Scilab à quitter la session après l'exécution des instructions 
+					données par l'option <literal>-e</literal> ou par le script indiqué via l'option
+					<literal>-f</literal>, y compris en cas d'erreur d'exécution. 
+					Cette option doit toujours être utilisée en mode batch. Elle est ignorée lorsque
+					l'option <literal>-e</literal> ou <literal>-f</literal> est utilisée.
+                    </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -265,7 +276,7 @@
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description">
         <title>Description des variables d'environnement</title>
         <variablelist>
             <varlistentry>
@@ -297,7 +308,7 @@
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description">
         <title>Java Virtual Machine options</title>
         <para>A partir de la version 5.0 de Scilab, l'interface graphique et le
             système de génération de la documentation sont basés sur des
@@ -359,8 +370,8 @@
             De nombreuses options sont disponibles. Elles peuvent améliorer les performances, changer le rendu graphique, la gestion de la mémoire... Voir: <ulink url="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html</ulink>
         </para>
     </refsection>
-    <refsection>
-        <title>Examples</title>
+    <refsection role="examples">
+        <title>Exemples</title>
         <programlisting role="example"> 
             # Lançons Scilab en mode profilage sans qu'un gdb soit lancé à chaque SIGSEGV.
             # On est sous Bash
@@ -394,20 +405,33 @@
         </programlisting>
     </refsection>
     <refsection role="see also">
-        <title>See Also</title>
+        <title>Voir aussi</title>
         <simplelist type="inline">
             <member>
                 <link linkend="exit">exit</link>
             </member>
+            <member>
+                <link linkend="startup">startup</link>
+            </member>
         </simplelist>
     </refsection>
-    <refsection>
-        <title>History</title>
+    <refsection role="history">
+        <title>Historique</title>
         <revhistory>
             <revision>
                 <revnumber>5.4.0</revnumber>
                 <revremark>-noatomsautoload ajouté.</revremark>
             </revision>
         </revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revremark>scinotes et xcos peuvent maintenant être démarrés en ligne de commande. Voir le SEP #87.</revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    Option <literal>-quit</literal> ajoutée. Option <literal>-mem</literal> supprimée. 
+                </revremark>
+            </revision>
     </refsection>
 </refentry>

@@ -30,9 +30,9 @@
         
     </refsynopsisdiv>
     
-    <refsection>
+    <refsection role="arguments">
         
-        <title>説明</title>
+        <title>説定</title>
         
         <variablelist>
             
@@ -242,6 +242,18 @@
                     
                 </listitem>
                 
+            </varlistentry>
+			
+            <varlistentry>
+                <term>-quit</term>
+                <listitem>
+                    <para>This option forces scilab to exit after executing instructions given through
+					the <literal>-e</literal> option, or after executing the script referred with the 
+					<literal>-f</literal> option, also in case of runtime error. 
+					This option should always be used in batch mode. 
+					It is ignored whether <literal>-e</literal> or <literal>-f</literal> is used.
+                    </para>
+                </listitem>
             </varlistentry>
             
             <varlistentry>
@@ -530,7 +542,7 @@
         
     </refsection>
     
-    <refsection>
+    <refsection role="description">
         
         <title>環境変数の説明</title>
         
@@ -606,7 +618,7 @@
         
     </refsection>
     
-    <refsection>
+    <refsection role="description">
         
         <title>Java 仮想マシンオプション</title>
         
@@ -738,7 +750,7 @@
         
     </refsection>
     
-    <refsection>
+    <refsection role="examples">
         
         <title>例</title>
         
@@ -797,7 +809,7 @@ echo $? ]]></programlisting>
         
     </refsection>
     
-    <refsection>
+    <refsection role="history">
         
         <title>履歴</title>
         
@@ -818,7 +830,12 @@ echo $? ]]></programlisting>
                 <revremark>scinotes と xcos 個別スクリプトが導入されました. SEP #87参照.</revremark>
                 
             </revision>
-            
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <literal>-quit</literal> option added. <literal>-mem</literal> option removed. 
+                </revremark>
+            </revision>            
         </revhistory>
         
     </refsection>

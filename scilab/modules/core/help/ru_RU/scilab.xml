@@ -14,8 +14,8 @@
             scilab-cli &lt;Options&gt;
         </synopsis>
     </refsynopsisdiv>
-    <refsection>
-        <title>Описание</title>
+    <refsection role="arguments">
+        <title>Аргументы</title>
         <variablelist>
             <varlistentry>
                 <term>-args Arguments</term>
@@ -116,6 +116,17 @@
                         <literal>-f</literal>  взаимоисключающие.
                     </para>
                     <para>Файл с расширением .xcos будет открыт в Xcos.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>-quit</term>
+                <listitem>
+                    <para>This option forces scilab to exit after executing instructions given through
+					the <literal>-e</literal> option, or after executing the script referred with the 
+					<literal>-f</literal> option, also in case of runtime error. 
+					This option should always be used in batch mode. 
+					It is ignored whether <literal>-e</literal> or <literal>-f</literal> is used.
+                    </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -257,7 +268,7 @@
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description">
         <title>Описание переменных окружения</title>
         <variablelist>
             <varlistentry>
@@ -295,7 +306,7 @@
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description">
         <title>Опции виртуальной машины Java</title>
         <para>
             Начиная с Scilab 5.0, графический пользовательский интерфейс (GUI) и встроенная 
@@ -359,7 +370,7 @@
             или <ulink url="http://blogs.sun.com/watt/resource/jvm-options-list.html">http://blogs.sun.com/watt/resource/jvm-options-list.html</ulink>.
         </para>
     </refsection>
-    <refsection>
+    <refsection role="examples">
         <title>Примеры</title>
         <programlisting role="example"><![CDATA[ 
 # Запустим Scilab в режиме профилирования без прикрепления gdb после каждого SIGSEGV.
@@ -403,7 +414,7 @@ echo $? ]]></programlisting>
             </member>
         </simplelist>
     </refsection>
-    <refsection>
+    <refsection role="history">
         <title>История</title>
         <revhistory>
             <revision>
@@ -415,6 +426,12 @@ echo $? ]]></programlisting>
                 <revremark>
                     введены отдельные сценарии scinotes и xcos. 
                     См.SEP #87.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>
+                    <literal>-quit</literal> option added. <literal>-mem</literal> option removed. 
                 </revremark>
             </revision>
         </revhistory>

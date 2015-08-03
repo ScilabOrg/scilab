@@ -13,8 +13,8 @@
             scilab-cli &lt;Options&gt;
         </synopsis>
     </refsynopsisdiv>
-    <refsection>
-        <title>Description</title>
+    <refsection role="arguments">
+        <title>Arguments</title>
         <variablelist>
             <varlistentry>
                 <term>-args Arguments</term>
@@ -111,6 +111,17 @@
                         <literal>-f</literal> options are mutually exclusive.
                     </para>
                     <para>A file with .xcos extension will be opened by Xcos.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>-quit</term>
+                <listitem>
+                    <para>This option forces scilab to exit after executing instructions given through
+					the <literal>-e</literal> option, or after executing the script referred with the 
+					<literal>-f</literal> option, also in case of runtime error. 
+					This option should always be used in batch mode. 
+					It is ignored whether <literal>-e</literal> or <literal>-f</literal> is used.
+                    </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -246,7 +257,7 @@
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description">
         <title>Description of environment variables</title>
         <variablelist>
             <varlistentry>
@@ -283,7 +294,7 @@
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description">
         <title>Java Virtual Machine options</title>
         <para>Starting from Scilab 5.0, the graphical user interface (GUI) and the
             build documentation are based on Java features. In some cases, it can be
@@ -341,7 +352,7 @@
             change look and feel, change memory managements... See: <ulink url="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html</ulink>.
         </para>
     </refsection>
-    <refsection>
+    <refsection role="examples">
         <title>Examples</title>
         <programlisting role="no-scilab-exec"><![CDATA[ 
 # Let's start Scilab in profiling mode without attaching a gdb once a SIGSEGV is met.
@@ -384,7 +395,7 @@ echo $? ]]></programlisting>
             </member>
         </simplelist>
     </refsection>
-    <refsection>
+    <refsection role="history">
         <title>History</title>
         <revhistory>
             <revision>
@@ -398,7 +409,7 @@ echo $? ]]></programlisting>
             <revision>
                 <revnumber>6.0.0</revnumber>
                 <revremark>
-                    <literal>-mem</literal> option removed.
+                    <literal>-quit</literal> option added. <literal>-mem</literal> option removed. 
                 </revremark>
             </revision>
         </revhistory>
