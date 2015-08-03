@@ -55,11 +55,22 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabList;
+import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabType;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.UpdateStatus;
+import org.scilab.modules.xcos.VectorOfInt;
+import org.scilab.modules.xcos.VectorOfDouble;
+import org.scilab.modules.xcos.VectorOfString;
+import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
+import org.scilab.modules.xcos.XcosView;
 import org.scilab.modules.xcos.actions.EditFormatAction;
 import org.scilab.modules.xcos.actions.ShowHideShadowAction;
 import org.scilab.modules.xcos.block.actions.BlockDocumentationAction;
@@ -82,7 +93,6 @@ import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.BasicBlockInfo;
-import org.scilab.modules.xcos.io.scicos.DiagramElement;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
 import org.scilab.modules.xcos.port.BasicPort;
@@ -113,6 +123,11 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * Sorted kind of input, useful to sort them by kind
      */
     private static final Class<?>[] sortedChildrenClass = {InputPort.class, OutputPort.class, ControlPort.class, CommandPort.class, Object.class};
+
+    /**
+     * The block id in the model
+     */
+    private long id = 0;
 
     /*
      * Property names
@@ -214,6 +229,21 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     private static final Logger LOG = Logger.getLogger(BasicBlock.class.getName());
 
     /**
+     * @return the id
+     *
+     */
+    public long getID() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setID(long id) {
+        this.id = id;
+    }
+
+    /**
      * Sort the children list in place.
      *
      * The sort put inputs then outputs the control then command ports. The
@@ -313,13 +343,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      */
     private PropertyChangeSupport parametersPCS = new PropertyChangeSupport(this);
 
-    private String interfaceFunctionName = DEFAULT_INTERFACE_FUNCTION;
-    private String simulationFunctionName = DEFAULT_SIMULATION_FUNCTION;
-    private SimulationFunctionType simulationFunctionType = SimulationFunctionType.DEFAULT;
     private transient XcosDiagram parentDiagram;
+    // Child diagram (in case of Superblock, stored in RPAR
+    private ScilabMList childDiagram;
 
-    private int angle;
-    private boolean isFlipped;
     private boolean isMirrored;
 
     // TODO : Must make this types evolve, but for now keep a strong link to
@@ -327,33 +354,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     // !! WARNING !!
     // exprs = [] ; rpar = [] ; ipar = [] ; opar = list()
 
-    // private List<String> exprs = new ArrayList<String>();
-    private ScilabType exprs;
-    // private List<Double> realParameters = new ArrayList<Double>();
-    private ScilabType realParameters;
     /**
      * Update status on the rpar mlist, if true then a re-encode has to be performed on the getter.
      */
     protected boolean hasAValidRpar = false;
-    // private List<Integer> integerParameters = new ArrayList<Integer>();
-    private ScilabType integerParameters;
-    // private List objectsParameters = new ArrayList();
-    private ScilabType objectsParameters;
-
-    private ScilabType nbZerosCrossing = new ScilabDouble();
-
-    private ScilabType nmode = new ScilabDouble();
-
-    private ScilabType state = new ScilabDouble();
-    private ScilabType dState = new ScilabDouble();
-    private ScilabType oDState = new ScilabDouble();
-
-    private ScilabType equations;
-
-    private boolean dependsOnU;
-    private boolean dependsOnT;
-
-    private String blockType = "c";
 
     private int ordering;
     private boolean locked;
@@ -520,6 +524,51 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      */
     public BasicBlock() {
         super();
+        // Create a block in the Scilab console and retrieve its model id
+        final ScilabDirectHandler handler = ScilabDirectHandler.acquire();
+        if (handler == null) {
+            return;
+        }
+
+        try {
+            XcosView blockView = new XcosView();
+            JavaController.register_view("blockLog", blockView);
+            ScilabInterpreterManagement.synchronousScilabExec("scicos_block();");
+            setID(blockView.getId(Kind.BLOCK));
+            JavaController.unregister_view(blockView);
+        } catch (final InterpreterException e) {
+            e.printStackTrace();
+        } finally {
+            handler.release();
+        }
+        // Increment the block ID so it is not deleted on the next Constructor call
+        final Controller controller = new Controller();
+        controller.referenceObject(getID());
+
+        setDefaultValues();
+        setVisible(true);
+        setVertex(true);
+
+        if (getStyle().isEmpty() && !getInterfaceFunctionName().isEmpty()) {
+            setStyle(getInterfaceFunctionName());
+        }
+
+        parametersPCS.addPropertyChangeListener(INTERFACE_FUNCTION_NAME, STYLE_UPDATER);
+
+        /*
+         * Trace block parameters change if applicable.
+         */
+        if (LOG.isLoggable(Level.FINEST)) {
+            parametersPCS.addPropertyChangeListener(TraceParametersListener.getInstance());
+        }
+    }
+
+    /**
+     * Constructor by id.
+     */
+    public BasicBlock(long id) {
+        super();
+        setID(id);
         setDefaultValues();
         setVisible(true);
         setVertex(true);
@@ -582,6 +631,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            parent diagram
      */
     public void setParentDiagram(XcosDiagram parentDiagram) {
+        final Controller controller = new Controller();
+        controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.PARENT_DIAGRAM, parentDiagram.getID());
         this.parentDiagram = parentDiagram;
     }
 
@@ -589,7 +640,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return interface function name
      */
     public String getInterfaceFunctionName() {
-        return interfaceFunctionName;
+        final Controller controller = new Controller();
+        String[] interfaceFunctionName = {""};
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.INTERFACE_FUNCTION, interfaceFunctionName);
+        return interfaceFunctionName[0];
     }
 
     /**
@@ -597,53 +651,30 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            interface function name
      */
     public void setInterfaceFunctionName(String interfaceFunctionName) {
-        if ((this.interfaceFunctionName == null && interfaceFunctionName != null) || !this.interfaceFunctionName.equals(interfaceFunctionName)) {
-
-            final String oldValue = this.interfaceFunctionName;
-            this.interfaceFunctionName = interfaceFunctionName;
-            parametersPCS.firePropertyChange(INTERFACE_FUNCTION_NAME, oldValue, interfaceFunctionName);
+        final Controller controller = new Controller();
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.INTERFACE_FUNCTION, interfaceFunctionName) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(INTERFACE_FUNCTION_NAME, null, interfaceFunctionName); // FIXME: get model's 'interface function' for fallback (oldValue)?
         }
+    }
+
+    /**
+     * @return simulation function name
+     */
+    public String getSimulationFunctionName() {
+        final Controller controller = new Controller();
+        String[] simulationFunctionName = {""};
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_FUNCTION_NAME, simulationFunctionName);
+        return simulationFunctionName[0];
     }
 
     /**
      * @param simulationFunctionName
-     *            sumulation function name
+     *            simulation function name
      */
     public void setSimulationFunctionName(String simulationFunctionName) {
-        if ((this.simulationFunctionName == null && simulationFunctionName != null) || !this.simulationFunctionName.equals(simulationFunctionName)) {
-
-            final String oldValue = this.simulationFunctionName;
-            this.simulationFunctionName = simulationFunctionName;
-            parametersPCS.firePropertyChange(SIMULATION_FUNCTION_NAME, oldValue, simulationFunctionName);
-        }
-    }
-
-    /**
-     * @return sumulation function name
-     */
-    public String getSimulationFunctionName() {
-        return simulationFunctionName;
-    }
-
-    /**
-     * @param scilabValue
-     *            simulation function type
-     */
-    public void setSimulationFunctionType(int scilabValue) {
-        SimulationFunctionType simFunctionType = SimulationFunctionType.convertScilabValue(scilabValue);
-        setSimulationFunctionType(simFunctionType);
-    }
-
-    /**
-     * @param simulationFunctionType
-     *            simulation function type
-     */
-    public void setSimulationFunctionType(SimulationFunctionType simulationFunctionType) {
-        if ((this.simulationFunctionType == null && simulationFunctionType != null) || !this.simulationFunctionType.equals(simulationFunctionType)) {
-
-            final SimulationFunctionType oldValue = this.simulationFunctionType;
-            this.simulationFunctionType = simulationFunctionType;
-            parametersPCS.firePropertyChange(SIMULATION_FUNCTION_TYPE, oldValue, simulationFunctionType);
+        final Controller controller = new Controller();
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_FUNCTION_NAME, simulationFunctionName) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(SIMULATION_FUNCTION_NAME, null, simulationFunctionName); // FIXME: get model's 'simulation function' for fallback (oldValue)?
         }
     }
 
@@ -651,24 +682,42 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return simulation function type
      */
     public SimulationFunctionType getSimulationFunctionType() {
-        return simulationFunctionType;
+        final Controller controller = new Controller();
+        int[] simulationFunctionType = {0};
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_FUNCTION_API, simulationFunctionType);
+        return SimulationFunctionType.convertScilabValue(simulationFunctionType[0]);
+    }
+
+    /**
+     * @param scilabValue
+     *            simulation function type
+     */
+    public void setSimulationFunctionType(int scilabValue) {
+        final Controller controller = new Controller();
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_FUNCTION_API, scilabValue) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(SIMULATION_FUNCTION_TYPE, null, scilabValue); // FIXME: get model's 'simulation type' for fallback (oldValue)?
+        }
     }
 
     /**
      * @return real parameter ( rpar )
      */
     public ScilabType getRealParameters() {
-        if (!hasAValidRpar && realParameters instanceof ScilabMList) {
-            try {
-                final DiagramElement elem = new DiagramElement();
-                final XcosDiagram d = elem.decode(realParameters, new XcosDiagram(false));
-                realParameters = elem.encode(d, null);
-            } catch (ScicosFormatException e) {
-                // do nothing on error (no assignation)
-            }
-        }
+        final Controller controller = new Controller();
+        VectorOfScicosID children = new VectorOfScicosID();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.CHILDREN, children);
 
-        return realParameters;
+        if (children.isEmpty()) {
+            VectorOfDouble Rpar = new VectorOfDouble();
+            controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.RPAR, Rpar);
+            double rpar[][] = new double[(int) Rpar.size()][1];
+            for (int i = 0; i < Rpar.size(); ++i) {
+                rpar[i][0] = Rpar.get(i);
+            }
+            return new ScilabDouble(rpar);
+        } else {
+            return childDiagram;
+        }
     }
 
     /**
@@ -676,10 +725,19 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            reaL parameter ( rpar )
      */
     public void setRealParameters(ScilabType realParameters) {
-        if ((this.realParameters == null && realParameters != null) || !this.realParameters.equals(realParameters)) {
-
-            final ScilabType oldValue = this.realParameters;
-            this.realParameters = realParameters;
+        if (realParameters instanceof ScilabDouble) {
+            ScilabDouble Rpar = (ScilabDouble) realParameters;
+            final Controller controller = new Controller();
+            VectorOfDouble rpar = new VectorOfDouble(Rpar.getHeight());
+            for (int i = 0;  i < Rpar.getHeight(); ++i) {
+                rpar.set(i, Rpar.getRealElement(i, 0));
+            }
+            if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.RPAR, rpar) == UpdateStatus.SUCCESS) {
+                parametersPCS.firePropertyChange(REAL_PARAMETERS, null, realParameters); // FIXME: get model's 'rpar' for fallback (oldValue)?
+            }
+        } else if (realParameters instanceof ScilabMList) {
+            final ScilabType oldValue = this.childDiagram;
+            this.childDiagram = (ScilabMList) realParameters;
             parametersPCS.firePropertyChange(REAL_PARAMETERS, oldValue, realParameters);
         }
     }
@@ -696,7 +754,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return integer parameter ( ipar )
      */
     public ScilabType getIntegerParameters() {
-        return integerParameters;
+        final Controller controller = new Controller();
+        VectorOfDouble Ipar = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.IPAR, Ipar);
+        double ipar[][] = new double[(int) Ipar.size()][1];
+        for (int i = 0; i < Ipar.size(); ++i) {
+            ipar[i][0] = Ipar.get(i);
+        }
+        return new ScilabDouble(ipar);
     }
 
     /**
@@ -704,11 +769,23 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            integer parameter ( ipar )
      */
     public void setIntegerParameters(ScilabType integerParameters) {
-        if ((this.integerParameters == null && integerParameters != null) || !this.integerParameters.equals(integerParameters)) {
-
-            final ScilabType oldValue = this.integerParameters;
-            this.integerParameters = integerParameters;
-            parametersPCS.firePropertyChange(INTEGER_PARAMETERS, oldValue, integerParameters);
+        if (integerParameters instanceof ScilabList) {
+            // List clears previous value
+            final Controller controller = new Controller();
+            VectorOfInt ipar = new VectorOfInt();
+            controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.IPAR, ipar);
+            parametersPCS.firePropertyChange(INTEGER_PARAMETERS, null, integerParameters); // FIXME: get model's 'ipar' for fallback (oldValue)?
+        }
+        if (integerParameters instanceof ScilabDouble) {
+            ScilabDouble Ipar = (ScilabDouble) integerParameters;
+            final Controller controller = new Controller();
+            VectorOfInt ipar = new VectorOfInt(Ipar.getHeight());
+            for (int i = 0;  i < Ipar.getHeight(); ++i) {
+                ipar.set(i, (int) Ipar.getRealElement(i, 0));
+            }
+            if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.IPAR, ipar) == UpdateStatus.SUCCESS) {
+                parametersPCS.firePropertyChange(INTEGER_PARAMETERS, null, integerParameters); // FIXME: get model's 'ipar' for fallback (oldValue)?
+            }
         }
     }
 
@@ -716,7 +793,11 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return object parameter ( opar )
      */
     public ScilabType getObjectsParameters() {
-        return objectsParameters;
+        final Controller controller = new Controller();
+        VectorOfDouble Opar = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.OPAR, Opar);
+        // FIXME: find how to call ScilabType opar = vec2var(Opar);
+        return null;
     }
 
     /**
@@ -724,24 +805,11 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            object parameter ( opar )
      */
     public void setObjectsParameters(ScilabType objectsParameters) {
-        if ((this.objectsParameters == null && objectsParameters != null) || !this.objectsParameters.equals(objectsParameters)) {
-
-            final ScilabType oldValue = this.objectsParameters;
-            this.objectsParameters = objectsParameters;
-            parametersPCS.firePropertyChange(OBJECTS_PARAMETERS, oldValue, objectsParameters);
-        }
-    }
-
-    /**
-     * @param dependsOnU
-     *            ?
-     */
-    public void setDependsOnU(boolean dependsOnU) {
-        if (this.dependsOnU != dependsOnU) {
-
-            final boolean oldValue = this.dependsOnU;
-            this.dependsOnU = dependsOnU;
-            parametersPCS.firePropertyChange(DEPENDS_ON_U, oldValue, dependsOnU);
+        final Controller controller = new Controller();
+        VectorOfDouble opar = new VectorOfDouble(); // Stub
+        // FIXME: find how to call VectorOfDouble opar = var2vec(objectsParameters);
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.OPAR, opar) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(OBJECTS_PARAMETERS, null, objectsParameters); // FIXME: get model's 'opar' for fallback (oldValue)?
         }
     }
 
@@ -749,19 +817,23 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return ?
      */
     public boolean isDependsOnU() {
-        return dependsOnU;
+        final Controller controller = new Controller();
+        VectorOfInt DepUT = new VectorOfInt();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_DEP_UT, DepUT);
+        return (DepUT.get(0) == 1 ? true : false);
     }
 
     /**
-     * @param dependsOnT
+     * @param dependsOnU
      *            ?
      */
-    public void setDependsOnT(boolean dependsOnT) {
-        if (this.dependsOnT != dependsOnT) {
-
-            final boolean oldValue = this.dependsOnT;
-            this.dependsOnT = dependsOnT;
-            parametersPCS.firePropertyChange(DEPENDS_ON_T, oldValue, dependsOnT);
+    public void setDependsOnU(boolean dependsOnU) {
+        final Controller controller = new Controller();
+        VectorOfInt DepUT = new VectorOfInt();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_DEP_UT, DepUT);
+        DepUT.set(0, (dependsOnU ? 1 : 0));
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_DEP_UT, DepUT) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(DEPENDS_ON_U, null, dependsOnU); // FIXME: get model's 'deput' for fallback (oldValue)?
         }
     }
 
@@ -769,19 +841,23 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return ?
      */
     public boolean isDependsOnT() {
-        return dependsOnT;
+        final Controller controller = new Controller();
+        VectorOfInt DepUT = new VectorOfInt();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_DEP_UT, DepUT);
+        return (DepUT.get(1) == 1 ? true : false);
     }
 
     /**
-     * @param blockType
-     *            block type
+     * @param dependsOnT
+     *            ?
      */
-    public void setBlockType(String blockType) {
-        if ((this.blockType == null && blockType != null) || !this.blockType.equals(blockType)) {
-
-            final String oldValue = this.blockType;
-            this.blockType = blockType;
-            parametersPCS.firePropertyChange(BLOCK_TYPE, oldValue, blockType);
+    public void setDependsOnT(boolean dependsOnT) {
+        final Controller controller = new Controller();
+        VectorOfInt DepUT = new VectorOfInt();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_DEP_UT, DepUT);
+        DepUT.set(1, (dependsOnT ? 1 : 0));
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_DEP_UT, DepUT) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(DEPENDS_ON_U, null, dependsOnT); // FIXME: get model's 'deput' for fallback (oldValue)?
         }
     }
 
@@ -789,7 +865,28 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return block type
      */
     public String getBlockType() {
-        return blockType;
+        final Controller controller = new Controller();
+        String[] blocktype = {""};
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_BLOCKTYPE, blocktype);
+        return blocktype[0];
+    }
+
+    /**
+     * @param blockType
+     *            block type
+     */
+    public void setBlockType(String blockType) {
+        final Controller controller = new Controller();
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.SIM_BLOCKTYPE, blockType) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(BLOCK_TYPE, null, blockType); // FIXME: get model's 'blocktype' for fallback (oldValue)?
+        }
+    }
+
+    /**
+     * @return order value
+     */
+    public int getOrdering() {
+        return ordering;
     }
 
     /**
@@ -806,10 +903,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     }
 
     /**
-     * @return order value
+     * @return expression
      */
-    public int getOrdering() {
-        return ordering;
+    public ScilabType getExprs() {
+        final Controller controller = new Controller();
+        VectorOfDouble Exprs = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.EXPRS, Exprs);
+        // FIXME: find how to call ScilabType exprs = vec2var(Exprs);
+        return null;
     }
 
     /**
@@ -817,19 +918,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            expression
      */
     public void setExprs(ScilabType exprs) {
-        if ((this.exprs == null && exprs != null) || !this.exprs.equals(exprs)) {
-
-            final ScilabType oldValue = this.exprs;
-            this.exprs = exprs;
-            parametersPCS.firePropertyChange(EXPRS, oldValue, exprs);
+        if (exprs != null) {
+            final Controller controller = new Controller();
+            VectorOfDouble Exprs = new VectorOfDouble(); // Stub
+            // FIXME: find how to call VectorOfDouble Exprs = var2vec(exprs);
+            if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.EXPRS, Exprs) == UpdateStatus.SUCCESS) {
+                parametersPCS.firePropertyChange(EXPRS, null, exprs); // FIXME: get model's 'exprs' for fallback (oldValue)?
+            }
         }
-    }
-
-    /**
-     * @return expression
-     */
-    public ScilabType getExprs() {
-        return exprs;
     }
 
     /**
@@ -911,7 +1007,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return zero crossing value
      */
     public ScilabType getNbZerosCrossing() {
-        return nbZerosCrossing;
+        final Controller controller = new Controller();
+        VectorOfInt Nbzcross = new VectorOfInt();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.NZCROSS, Nbzcross);
+        double nbzcross[][] = new double[(int) Nbzcross.size()][1];
+        for (int i = 0; i < Nbzcross.size(); ++i) {
+            nbzcross[i][0] = Nbzcross.get(i);
+        }
+        return new ScilabDouble(nbzcross);
     }
 
     /**
@@ -919,11 +1022,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            zero crossing value
      */
     public void setNbZerosCrossing(ScilabType nbZerosCrossing) {
-        if ((this.nbZerosCrossing == null && nbZerosCrossing != null) || !this.nbZerosCrossing.equals(nbZerosCrossing)) {
-
-            final ScilabType oldValue = this.nbZerosCrossing;
-            this.nbZerosCrossing = nbZerosCrossing;
-            parametersPCS.firePropertyChange(NB_ZEROS_CROSSING, oldValue, nbZerosCrossing);
+        ScilabDouble NbZerosCrossing = (ScilabDouble) nbZerosCrossing;
+        final Controller controller = new Controller();
+        VectorOfInt nbzcross = new VectorOfInt(NbZerosCrossing.getHeight());
+        for (int i = 0;  i < NbZerosCrossing.getHeight(); ++i) {
+            nbzcross.set(i, (int) NbZerosCrossing.getRealElement(i, 0));
+        }
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.NZCROSS, nbzcross) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(NB_ZEROS_CROSSING, null, nbZerosCrossing); // FIXME: get model's 'nbzcross' for fallback (oldValue)?
         }
     }
 
@@ -931,7 +1037,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return nmode
      */
     public ScilabType getNmode() {
-        return nmode;
+        final Controller controller = new Controller();
+        VectorOfInt Nmode = new VectorOfInt();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.NMODE, Nmode);
+        double nmode[][] = new double[(int) Nmode.size()][1];
+        for (int i = 0; i < Nmode.size(); ++i) {
+            nmode[i][0] = Nmode.get(i);
+        }
+        return new ScilabDouble(nmode);
     }
 
     /**
@@ -939,11 +1052,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            nmode
      */
     public void setNmode(ScilabType nmode) {
-        if ((this.nmode == null && nmode != null) || !this.nmode.equals(nmode)) {
-
-            final ScilabType oldValue = this.nmode;
-            this.nmode = nmode;
-            parametersPCS.firePropertyChange(NMODE, oldValue, nmode);
+        ScilabDouble Nmode = (ScilabDouble) nmode;
+        final Controller controller = new Controller();
+        VectorOfInt nbmode = new VectorOfInt(Nmode.getHeight());
+        for (int i = 0;  i < Nmode.getHeight(); ++i) {
+            nbmode.set(i, (int) Nmode.getRealElement(i, 0));
+        }
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.NMODE, nbmode) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(NMODE, null, nmode); // FIXME: get model's 'nmode' for fallback (oldValue)?
         }
     }
 
@@ -951,7 +1067,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return current state
      */
     public ScilabType getState() {
-        return state;
+        final Controller controller = new Controller();
+        VectorOfDouble State = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.STATE, State);
+        double state[][] = new double[(int) State.size()][1];
+        for (int i = 0; i < State.size(); ++i) {
+            state[i][0] = State.get(i);
+        }
+        return new ScilabDouble(state);
     }
 
     /**
@@ -959,11 +1082,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            new state
      */
     public void setState(ScilabType state) {
-        if ((this.state == null && state != null) || !this.state.equals(state)) {
-
-            final ScilabType oldValue = this.state;
-            this.state = state;
-            parametersPCS.firePropertyChange(STATE, oldValue, state);
+        ScilabDouble State = (ScilabDouble) state;
+        final Controller controller = new Controller();
+        VectorOfDouble stateVector = new VectorOfDouble(State.getHeight());
+        for (int i = 0;  i < State.getHeight(); ++i) {
+            stateVector.set(i, State.getRealElement(i, 0));
+        }
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.STATE, stateVector) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(STATE, null, state); // FIXME: get model's 'state' for fallback (oldValue)?
         }
     }
 
@@ -971,7 +1097,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return current dstate
      */
     public ScilabType getDState() {
-        return dState;
+        final Controller controller = new Controller();
+        VectorOfDouble Dstate = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.DSTATE, Dstate);
+        double dstate[][] = new double[(int) Dstate.size()][1];
+        for (int i = 0; i < Dstate.size(); ++i) {
+            dstate[i][0] = Dstate.get(i);
+        }
+        return new ScilabDouble(dstate);
     }
 
     /**
@@ -979,19 +1112,26 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            new dstate
      */
     public void setDState(ScilabType dState) {
-        if ((this.dState == null && dState != null) || !this.dState.equals(dState)) {
-
-            final ScilabType oldValue = this.dState;
-            this.dState = dState;
-            parametersPCS.firePropertyChange(D_STATE, oldValue, dState);
+        ScilabDouble Dstate = (ScilabDouble) dState;
+        final Controller controller = new Controller();
+        VectorOfDouble dstateVector = new VectorOfDouble(Dstate.getHeight());
+        for (int i = 0;  i < Dstate.getHeight(); ++i) {
+            dstateVector.set(i, Dstate.getRealElement(i, 0));
+        }
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.DSTATE, dstateVector) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(D_STATE, null, dState); // FIXME: get model's 'dstate' for fallback (oldValue)?
         }
     }
 
     /**
-     * @return current ostate
+     * @return current odstate
      */
     public ScilabType getODState() {
-        return oDState;
+        final Controller controller = new Controller();
+        VectorOfDouble Odstate = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ODSTATE, Odstate);
+        // FIXME: find how to call ScilabType odstate = vec2var(Odstate);
+        return null;
     }
 
     /**
@@ -999,11 +1139,11 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            new odstate
      */
     public void setODState(ScilabType oDState) {
-        if ((this.oDState == null && oDState != null) || !this.oDState.equals(oDState)) {
-
-            final ScilabType oldValue = this.oDState;
-            this.oDState = oDState;
-            parametersPCS.firePropertyChange(O_D_STATE, oldValue, oDState);
+        final Controller controller = new Controller();
+        VectorOfDouble odstate = new VectorOfDouble(); // Stub
+        // FIXME: find how to call VectorOfDouble odstate = var2vec(oDState);
+        if (controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ODSTATE, odstate) == UpdateStatus.SUCCESS) {
+            parametersPCS.firePropertyChange(O_D_STATE, null, oDState); // FIXME: get model's 'odstate' for fallback (oldValue)?
         }
     }
 
@@ -1011,7 +1151,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return equations
      */
     public ScilabType getEquations() {
-        return equations;
+        final Controller controller = new Controller();
+        VectorOfString Equations = new VectorOfString();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.EQUATIONS, Equations);
+        if (Equations.isEmpty()) {
+            return new ScilabList();
+        }
+        // FIXME: Decode Equations into a ScilabTList
+        return null;
     }
 
     /**
@@ -1019,12 +1166,16 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      *            equations
      */
     public void setEquations(ScilabType equations) {
-        if ((this.equations == null && equations != null) || !this.equations.equals(equations)) {
-
-            final ScilabType oldValue = this.equations;
-            this.equations = equations;
-            parametersPCS.firePropertyChange(EQUATIONS, oldValue, equations);
+        if (equations instanceof ScilabTList) {
+            ScilabTList Equations = (ScilabTList) equations;
+            // FIXME: decode Equations into a VectorOfDouble
         }
+        //if ((this.equations == null && equations != null) || !this.equations.equals(equations)) {
+
+        //    final ScilabType oldValue = this.equations;
+        //    this.equations = equations;
+        //    parametersPCS.firePropertyChange(EQUATIONS, oldValue, equations);
+        //}
     }
 
     /**
@@ -1163,7 +1314,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 
         setBlockType(modifiedBlock.getBlockType());
         setSimulationFunctionName(modifiedBlock.getSimulationFunctionName());
-        setSimulationFunctionType(modifiedBlock.getSimulationFunctionType());
+        setSimulationFunctionType((int) modifiedBlock.getSimulationFunctionType().getAsDouble());
 
         setNbZerosCrossing(modifiedBlock.getNbZerosCrossing());
         setNmode(modifiedBlock.getNmode());
@@ -1193,7 +1344,6 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         /*
          * Checked as port classes only
          */
-        @SuppressWarnings("unchecked")
         Set < Class <? extends mxICell >> types = new HashSet < Class <? extends mxICell >> (Arrays.asList(InputPort.class, OutputPort.class, ControlPort.class,
                 CommandPort.class));
 
@@ -1653,15 +1803,38 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     // CSON: JavaNCSS
 
     /**
+     * @return flip status
+     */
+    public boolean getFlip() {
+        final Controller controller = new Controller();
+        VectorOfDouble angle = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
+        return (angle.get(0) == 1 ? true : false);
+    }
+
+    /**
      * @param flip
      *            value
      */
+    @SuppressWarnings("deprecation")
     public void setFlip(boolean flip) {
-        isFlipped = flip;
+        final Controller controller = new Controller();
+        VectorOfDouble angle = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
+        angle.set(0, (flip ? 1 : 0));
+        controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
+
         if (getParentDiagram() != null) {
             final mxIGraphModel model = getParentDiagram().getModel();
             mxUtils.setCellStyles(model, new Object[] { this }, ScilabGraphConstants.STYLE_FLIP, Boolean.toString(flip));
         }
+    }
+
+    /**
+     * invert flip status
+     */
+    public void toggleFlip() {
+        BlockPositioning.toggleFlip(this);
     }
 
     /**
@@ -1685,26 +1858,13 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @param mirror
      *            new mirror value
      */
+    @SuppressWarnings("deprecation")
     public void setMirror(boolean mirror) {
         isMirrored = mirror;
         if (getParentDiagram() != null) {
             final mxIGraphModel model = getParentDiagram().getModel();
             mxUtils.setCellStyles(model, new Object[] { this }, ScilabGraphConstants.STYLE_MIRROR, Boolean.toString(mirror));
         }
-    }
-
-    /**
-     * @return flip status
-     */
-    public boolean getFlip() {
-        return isFlipped;
-    }
-
-    /**
-     * invert flip status
-     */
-    public void toggleFlip() {
-        BlockPositioning.toggleFlip(this);
     }
 
     /**
@@ -1726,19 +1886,47 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * @return current angle
      */
     public int getAngle() {
-        return angle;
+        final Controller controller = new Controller();
+        VectorOfDouble angle = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
+        return (int) angle.get(1);
     }
 
     /**
      * @param angle
      *            new block angle
      */
+    @SuppressWarnings("deprecation")
     public void setAngle(int angle) {
-        this.angle = angle;
+        final Controller controller = new Controller();
+        VectorOfDouble Angle = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, Angle);
+        Angle.set(1, angle);
+        controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, Angle);
 
         if (getParentDiagram() != null) {
             mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
         }
+    }
+
+    /**
+     * @param style
+     *            new block style (as one-liner)
+     */
+    @Override
+    public void setStyle(String style) {
+        /**
+         * Update the model, but not at instantiation (id=0)
+         */
+        if (id != 0) {
+            final Controller controller = new Controller();
+            controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.STYLE, style);
+        }
+
+        /**
+         * Update the view
+         */
+        super.setStyle(style);
     }
 
     /**
@@ -1748,13 +1936,17 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     public void updateFieldsFromStyle() {
         StyleMap map = new StyleMap(getStyle());
 
+        final Controller controller = new Controller();
+        VectorOfDouble angle = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
         if (map.get(mxConstants.STYLE_ROTATION) != null) {
-            angle = Integer.parseInt(map.get(mxConstants.STYLE_ROTATION));
+            angle.set(1, Double.parseDouble(map.get(mxConstants.STYLE_ROTATION)));
         } else {
-            angle = 0;
+            angle.set(1, 0);
         }
 
-        isFlipped = Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_FLIP));
+        angle.set(0, (Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_FLIP)) ? 1 : 0));
+        controller.setObjectProperty(getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
         isMirrored = Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_MIRROR));
     }
 
@@ -1809,6 +2001,9 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     @Override
     public Object clone() throws CloneNotSupportedException {
         BasicBlock clone = (BasicBlock) super.clone();
+        final Controller controller = new Controller();
+        long newId = controller.cloneObject(getID(), true);
+        clone.setID(newId);
 
         /* Reinstall the PropertyChangeSupport and all of it listeners */
         clone.parametersPCS = new PropertyChangeSupport(clone);
