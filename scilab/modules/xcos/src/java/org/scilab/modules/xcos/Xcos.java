@@ -65,6 +65,7 @@ import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.XcosFileType;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
+import org.scilab.modules.xcos.palette.PaletteBlockCtrl;
 import org.scilab.modules.xcos.palette.PaletteManager;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
 import org.scilab.modules.xcos.preferences.XcosConfiguration;
@@ -868,6 +869,14 @@ public final class Xcos {
 
             throw new RuntimeException(firstMessage, e);
         }
+
+        // Delete the internal graph containing the dragged palette blocks
+        // Set it to '0' to avoid double free (typing 'closeXcos' in Scilab console and closing Scilab right after)
+        final Controller controller = new Controller();
+        if (PaletteBlockCtrl.INTERNAL_GRAPH.getID() != 0) {
+            controller.deleteObject(PaletteBlockCtrl.INTERNAL_GRAPH.getID());
+            PaletteBlockCtrl.INTERNAL_GRAPH.setID(0);
+        }
     }
 
     /**
@@ -1035,7 +1044,7 @@ public final class Xcos {
         block.updateBlockSettings(modifiedBlock);
         block.setInterfaceFunctionName(modifiedBlock.getInterfaceFunctionName());
         block.setSimulationFunctionName(modifiedBlock.getSimulationFunctionName());
-        block.setSimulationFunctionType(modifiedBlock.getSimulationFunctionType());
+        block.setSimulationFunctionType((int) modifiedBlock.getSimulationFunctionType().getAsDouble());
         if (block instanceof SuperBlock) {
             ((SuperBlock) block).setChild(null);
         }

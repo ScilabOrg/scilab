@@ -25,6 +25,10 @@ import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.types.ScilabType;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongElementException;
@@ -64,12 +68,6 @@ final class BlockGraphicElement extends BlockPartsElement {
     private static final int GRAPHICS_INSTRUCTION_SIZE = 8;
     private static final double DEFAULT_SIZE_FACTOR = 20.0;
 
-    /** Mutable field to easily get the data through methods */
-    private ScilabMList data;
-
-    /** In-progress decoded diagram */
-    private final XcosDiagram diag;
-
     /** Size factor use to scale Xcos-Scicos dimensions */
     private final double sizeFactor;
 
@@ -77,26 +75,7 @@ final class BlockGraphicElement extends BlockPartsElement {
      * Default constructor
      */
     public BlockGraphicElement() {
-        this(null);
-    }
-
-    /**
-     * Default constructor with diagram
-     *
-     * @param diag
-     *            the diagram
-     */
-    public BlockGraphicElement(final XcosDiagram diag) {
-        this.diag = diag;
-
-        /*
-         * Out of a diagram update, use the DEFAULT_SIZE_FACTOR.
-         */
-        if (diag == null) {
-            sizeFactor = DEFAULT_SIZE_FACTOR;
-        } else {
-            sizeFactor = 1.0;
-        }
+        sizeFactor = DEFAULT_SIZE_FACTOR;
     }
 
     /**
@@ -107,15 +86,56 @@ final class BlockGraphicElement extends BlockPartsElement {
      * @param sizeFactor
      *            the size factor
      */
-    public BlockGraphicElement(final XcosDiagram diag, final double sizeFactor) {
-        this.diag = diag;
+    public BlockGraphicElement(final double sizeFactor) {
         this.sizeFactor = sizeFactor;
+    }
+
+    /**
+     * Apply the zoom factor to the block's dimensions (both in the view and the model)
+     *
+     * @param into
+     *            the target instance
+     */
+    public void applyFactor(final BasicBlock block) {
+        final Controller controller = new Controller();
+        VectorOfDouble geom = new VectorOfDouble();
+        controller.getObjectProperty(block.getID(), Kind.BLOCK, ObjectProperties.GEOMETRY, geom);
+        double x = geom.get(0);
+        double y = geom.get(1);
+        double w = geom.get(2);
+        double h = geom.get(3);
+        x *= sizeFactor;
+        y *= sizeFactor;
+        w *= sizeFactor;
+        h *= sizeFactor;
+
+        /*
+         * Invert the y-axis value and translate it.
+         */
+        y = -y - block.getGeometry().getHeight();
+
+        /*
+         * Fill the view
+         */
+        block.getGeometry().setX(x);
+        block.getGeometry().setY(y);
+        block.getGeometry().setWidth(w);
+        block.getGeometry().setHeight(h);
+
+        /*
+         * Fill the model with the new parameters
+         */
+        geom.set(0, x);
+        geom.set(1, y);
+        geom.set(2, w);
+        geom.set(3, h);
+        controller.setObjectProperty(block.getID(), Kind.BLOCK, ObjectProperties.GEOMETRY, geom);
     }
 
     /**
      * Decode Scicos element into the block.
      *
-     * This decode method doesn't coverage Port management because we need model
+     * This decode method doesn't cover Port management because we need model
      * information to handle it.
      *
      * @param element
@@ -136,12 +156,9 @@ final class BlockGraphicElement extends BlockPartsElement {
         }
         BasicBlock block = into;
 
-        data = (ScilabMList) element;
-
-        validate();
+        ScilabMList data = (ScilabMList) element;
 
         block = beforeDecode(element, block);
-
         /*
          * fill the data
          */
@@ -164,140 +181,6 @@ final class BlockGraphicElement extends BlockPartsElement {
         block = afterDecode(element, block);
 
         return block;
-    }
-
-    /**
-     * Validate the current data.
-     *
-     * This method doesn't pass the metrics because it perform many test.
-     * Therefore all these tests are trivial and the conditioned action only
-     * throw an exception.
-     *
-     * @throws ScicosFormatException
-     *             when there is a validation error.
-     */
-    // CSOFF: CyclomaticComplexity
-    // CSOFF: NPathComplexity
-    // CSOFF: JavaNCSS
-    private void validate() throws ScicosFormatException {
-        if (!canDecode(data)) {
-            throw new WrongElementException();
-        }
-
-        int field = 0;
-
-        // we test if the structure as enough field
-        if (data.size() < DATA_FIELD_NAMES.size()) {
-            throw new WrongStructureException(DATA_FIELD_NAMES);
-        }
-
-        /*
-         * Checking the MList header
-         */
-
-        // Check the first field
-        if (!(data.get(field) instanceof ScilabString)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-        final String[] header = ((ScilabString) data.get(field)).getData()[0];
-
-        // Checking for the field names
-        if (header.length < DATA_FIELD_NAMES.size()) {
-            throw new WrongStructureException(DATA_FIELD_NAMES);
-        }
-        for (int i = 0; i < DATA_FIELD_NAMES.size(); i++) {
-            if (!header[i].equals(DATA_FIELD_NAMES.get(i))) {
-                throw new WrongStructureException(DATA_FIELD_NAMES);
-            }
-        }
-
-        /*
-         * Checking the data
-         */
-
-        // orig : must contain the coord of the block
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // sz : must contains the size of the block
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // flip
-        field++;
-        if (!(data.get(field) instanceof ScilabBoolean)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // theta
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // exprs
-        field++;
-        if (!(data.get(field) instanceof ScilabString) && !(data.get(field) instanceof ScilabList) && !(data.get(field) instanceof ScilabTList)
-                && !isEmptyField(data.get(field))) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // pin
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // pout
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // pein
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // peout
-        field++;
-        if (!(data.get(field) instanceof ScilabDouble)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // gr_i
-        // !! WARNING !! we do not care about gr_i because there are only
-        // block look related.
-        field++;
-
-        // id
-        field++;
-        if (!(data.get(field) instanceof ScilabString)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // in_implicit
-        field++;
-        if (!(data.get(field) instanceof ScilabString) && !isEmptyField(data.get(field))) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // out_implicit
-        field++;
-        if (!(data.get(field) instanceof ScilabString) && !isEmptyField(data.get(field))) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // field added on the 5.3-5.4 dev. cycle
-        // not checked due to compatibility
-        // in_style
-        // out_style
-        // style
     }
 
     // CSON: CyclomaticComplexity
@@ -458,8 +341,7 @@ final class BlockGraphicElement extends BlockPartsElement {
      */
     @Override
     public ScilabType encode(BasicBlock from, ScilabType element) {
-        data = (ScilabMList) element;
-        int field = 0;
+        ScilabMList data = (ScilabMList) element;
 
         if (data == null) {
             data = allocateElement();
@@ -470,20 +352,33 @@ final class BlockGraphicElement extends BlockPartsElement {
         data = (ScilabMList) beforeEncode(from, data);
 
         /*
-         * fill the data
+         * Fill the data
          */
 
-        field++; // orig
-        encodeOrigin(from, field);
+        int field = 1; // orig
+        // Encode the position (in Xcos coordinates)
+        final Controller controller = new Controller();
+        VectorOfDouble geom = new VectorOfDouble();
+        controller.getObjectProperty(from.getID(), Kind.BLOCK, ObjectProperties.GEOMETRY, geom);
+        final double[][] orig = { { geom.get(0) - geom.get(3), -geom.get(1) } };
+        data.set(field, new ScilabDouble(orig));
 
         field++; // sz
-        encodeDimension(from, field);
+        // Encode the dimension
+        final double[][] sz = { { geom.get(3), geom.get(2) } };
+        data.set(field, new ScilabDouble(sz));
 
         field++; // flip
-        encodeFlip(from, field);
+        // Encode the flip
+        VectorOfDouble angle = new VectorOfDouble();
+        controller.getObjectProperty(from.getID(), Kind.BLOCK, ObjectProperties.ANGLE, angle);
+        // Take care, the flip value is inverted
+        data.set(field, new ScilabBoolean(!(angle.get(0) == 1 ? true : false)));
 
         field++; // theta
-        encodeRotation(from, field);
+        // Encode the theta value
+        // Take care, the angle value has a 0 symmetry
+        data.set(field, new ScilabDouble(-angle.get(1)));
 
         field++; // exprs
         data.set(field, from.getExprs());
@@ -512,7 +407,10 @@ final class BlockGraphicElement extends BlockPartsElement {
         data.set(field, graphics);
 
         field++; // id
-        encodeIdCell(from, field);
+        // Encode the id value
+        String[] label = {""};
+        controller.getObjectProperty(from.getID(), Kind.BLOCK, ObjectProperties.LABEL, label);
+        data.set(field, new ScilabString(label));
 
         /*
          * Fields managed by specific elements.
@@ -532,78 +430,6 @@ final class BlockGraphicElement extends BlockPartsElement {
         data = (ScilabMList) afterEncode(from, data);
 
         return data;
-    }
-
-    /**
-     * Encode the position (in Xcos coordinates)
-     *
-     * @param from
-     *            the instance
-     * @param field
-     *            the incremented field index
-     */
-    private final void encodeOrigin(BasicBlock from, final int field) {
-        final mxGeometry geom = from.getGeometry();
-
-        final double[][] orig = { { geom.getX() - geom.getWidth(), -geom.getY() } };
-        data.set(field, new ScilabDouble(orig));
-    }
-
-    /**
-     * Encode the dimension
-     *
-     * @param from
-     *            the instance
-     * @param field
-     *            the incremented field index
-     */
-    private final void encodeDimension(BasicBlock from, final int field) {
-        final mxGeometry geom = from.getGeometry();
-
-        final double[][] sz = { { geom.getWidth(), geom.getHeight() } };
-        data.set(field, new ScilabDouble(sz));
-    }
-
-    /**
-     * Encode the flip
-     *
-     * @param from
-     *            the instance
-     * @param field
-     *            the incremented field index
-     */
-    private final void encodeFlip(BasicBlock from, final int field) {
-        // take care, the flip value is inverted
-        data.set(field, new ScilabBoolean(!from.getFlip()));
-    }
-
-    /**
-     * Encode the theta value
-     *
-     * @param from
-     *            the instance
-     * @param field
-     *            the incremented field index
-     */
-    private final void encodeRotation(BasicBlock from, final int field) {
-        // take care, the angle value has a 0 symmetry
-        data.set(field, new ScilabDouble(-from.getAngle()));
-    }
-
-    /**
-     * Encode the id value
-     *
-     * @param from
-     *            the instance
-     * @param field
-     *            the incremented field index
-     */
-    private final void encodeIdCell(BasicBlock from, final int field) {
-        final mxCell identifier = diag.getCellIdentifier(from);
-
-        if (identifier != null) {
-            data.set(field, new ScilabString(String.valueOf(identifier.getValue())));
-        }
     }
 
     /**
