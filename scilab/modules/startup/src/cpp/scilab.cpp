@@ -144,6 +144,10 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
                 _pSEI->pstParseFile = argv[i];
             }
         }
+        else if (!strcmp("-quit", argv[i]))
+        {
+            _pSEI->iForceQuit = 1;
+        }
         else if (!strcmp("-version", argv[i]))
         {
             i++;
