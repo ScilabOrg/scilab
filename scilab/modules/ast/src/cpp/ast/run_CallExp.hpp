@@ -194,8 +194,6 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                     ret = pIT->invoke(in, opt, iRetCount, out, *this, e);
                     if(ret == false && pIT->isUserType())
                     {
-
-
                         // call overload
                         ret = Overload::call(L"%" + pIT->getShortTypeStr() + L"_e", in, iRetCount, out, this);
                     }
@@ -205,9 +203,18 @@ void RunVisitorT<T>::visitprivate(const CallExp &e)
                 {
                     if (iSaveExpectedSize != -1 && iSaveExpectedSize > out.size())
                     {
-                        std::wostringstream os;
-                        os << _W("bad lhs, expected : ") << iRetCount << _W(" returned : ") << out.size() << std::endl;
-                        throw ScilabError(os.str(), 999, e.getLocation());
+                        wchar_t szError[bsiz];
+                        if(pIT->isCallable())
+                        {
+                            char* strFName = wide_string_to_UTF8(pIT->getAs<Callable>()->getName().c_str());
+                            os_swprintf(szError, bsiz, _W("%s: Wrong number of output argument(s): %d expected.\n").c_str(), strFName, out.size());
+                            FREE(strFName);
+                        }
+                        else
+                        {
+                            os_swprintf(szError, bsiz, _W("%s: Wrong number of output argument(s): %d expected.\n").c_str(), "extract", out.size());
+                        }
+                        throw ScilabError(szError, 999, e.getLocation());
                     }
 
                     setExpectedSize(iSaveExpectedSize);
