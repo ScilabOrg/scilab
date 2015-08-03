@@ -12,6 +12,8 @@
 
 package org.scilab.modules.xcos;
 
+import org.scilab.modules.xcos.Kind;
+
 /**
  * Default view for the Xcos java side.
  */
@@ -20,7 +22,10 @@ public class XcosView extends View {
     /**
      * To retain the id on object creation
      */
-    private long retainedId;
+    private long diagramId;
+    private long blockId;
+    private long portId;
+    private long linkId;
 
     public XcosView() {
 
@@ -29,20 +34,41 @@ public class XcosView extends View {
     /**
      * @return the id
      */
-    public long getId() {
-        return retainedId;
+    public long getId(Kind k) {
+        switch (k) {
+            case DIAGRAM :
+                return diagramId;
+            case BLOCK:
+                return blockId;
+            case PORT :
+                return portId;
+            default : // Kind.LINK
+                return linkId;
+        }
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
-        this.retainedId = id;
+    public void setId(long id, Kind k) {
+        switch (k) {
+            case DIAGRAM :
+                this.diagramId = id;
+                break;
+            case BLOCK :
+                this.blockId = id;
+                break;
+            case PORT :
+                this.portId = id;
+                break;
+            default : //Kind.LINK:
+                this.linkId = id;
+        }
     }
 
     @Override
     public void objectCreated(long uid, Kind k) {
-        setId(uid);
+        setId(uid, k);
         //System.out.println("XcosView::objectCreated(" + uid + ", " + k + ")");
     }
 
