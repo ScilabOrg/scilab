@@ -34,6 +34,8 @@ import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.I
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.XcosView;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BlockFactory.BlockInterFunction;
@@ -174,8 +176,11 @@ public final class PaletteBlockCtrl {
             }
 
             try {
+                XcosView blockView = new XcosView();
+                JavaController.register_view("diagLog", blockView);
                 synchronousScilabExec(ScilabDirectHandler.BLK + " = " + buildCall(model.getName(), "define"));
-                block = handler.readBlock();
+                block = new BasicBlock(blockView.getId());
+                JavaController.unregister_view(blockView);
             } catch (InterpreterException e1) {
                 LOG.severe(e1.toString());
                 block = null;
