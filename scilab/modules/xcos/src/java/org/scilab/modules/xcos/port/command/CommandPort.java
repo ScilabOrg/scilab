@@ -29,9 +29,14 @@ public class CommandPort extends BasicPort {
     private static final long serialVersionUID = 8098231554414576405L;
     private double initialState = -1.0;
 
-    /** Default constructor */
-    public CommandPort() {
-        super("CommandPort");
+    /**
+     * Default constructor
+     *
+     * @param id
+     *            The port id in the model
+     */
+    public CommandPort(long id) {
+        super("CommandPort", id);
         setOrientation(Orientation.SOUTH);
 
         setDefaultValues();

@@ -30,6 +30,11 @@ import com.mxgraph.util.mxConstants;
 public abstract class BasicPort extends ScilabGraphUniqueObject {
 
     /**
+     * The port id in the model
+     */
+    private long id = 0;
+
+    /**
      * The side-size of any port. All ports must have the same size.
      */
     public static final double DEFAULT_PORTSIZE = 8;
@@ -124,13 +129,30 @@ public abstract class BasicPort extends ScilabGraphUniqueObject {
      *
      * @param style
      *            Value to be set as a Style and as TypeName
+     * @param id
+     *            The port id in the model
      */
-    public BasicPort(String style) {
+    public BasicPort(String style, long id) {
         super();
+        setID(id);
         setVertex(true);
         setStyle(style);
         setTypeName(style);
         setGeometry(new mxGeometry(0, 0, DEFAULT_PORTSIZE, DEFAULT_PORTSIZE));
+    }
+
+    /**
+     * @return the id
+     */
+    public long getID() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setID(long id) {
+        this.id = id;
     }
 
     /**
