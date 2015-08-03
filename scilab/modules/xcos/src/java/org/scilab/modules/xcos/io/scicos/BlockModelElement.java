@@ -666,7 +666,7 @@ final class BlockModelElement extends BlockPartsElement {
         addSizedPortVector(element, ScilabDouble.class, getEoutSize()); // evtout
         element.add(new ScilabDouble()); // state
         element.add(new ScilabDouble()); // dstate
-        element.add(new ScilabDouble()); // ostate
+        element.add(new ScilabDouble()); // odstate
         element.add(new ScilabDouble()); // rpar
         element.add(new ScilabDouble()); // ipar
         element.add(new ScilabDouble()); // opar

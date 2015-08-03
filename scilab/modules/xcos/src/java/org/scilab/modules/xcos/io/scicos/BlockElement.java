@@ -22,6 +22,10 @@ import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabType;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
@@ -88,40 +92,33 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
      * @see org.scilab.modules.xcos.io.scicos.Element#decode(org.scilab.modules.types.ScilabType,
      *      java.lang.Object)
      */
-    @Override
-    public BasicBlock decode(ScilabType element, BasicBlock into) throws ScicosFormatException {
-        data = (ScilabMList) element;
+    public BasicBlock decode(BasicBlock into) throws ScicosFormatException {
         BasicBlock block = into;
 
-        validate();
-
-        /*
-         * Instantiate the block if it doesn't exist
-         */
-        final String interfunction = ((ScilabString) data.get(INTERFUNCTION_INDEX)).getData()[0][0];
-        if (block == null) {
-            block = BlockFactory.createBlock(interfunction);
-        }
-
-        block = beforeDecode(element, block);
+        block = beforeDecode(null, block);
 
         /*
          * Allocate and setup ports
          */
-        InputPortElement inElement = new InputPortElement(data);
-        final int numberOfInputPorts = inElement.getNumberOfInputPort();
-        for (int i = 0; i < numberOfInputPorts; i++) {
-            final BasicPort port = inElement.decode(data, null);
+        InputPortElement inElement = new InputPortElement(block.getID());
+        final Controller controller = new Controller();
+        VectorOfScicosID inputs = new VectorOfScicosID();
+        controller.getObjectProperty(block.getID(), Kind.BLOCK, ObjectProperties.INPUTS, inputs);
+        final int numberOfInputPorts = (int) inputs.size();
+        for (int i = 0; i < numberOfInputPorts; ++i) {
+            final BasicPort port = inElement.decode(inputs.get(i));
 
             // do not use BasicPort#addPort() to avoid the view update
             port.setOrdering(i + 1);
             block.insert(port, i);
         }
 
-        OutputPortElement outElement = new OutputPortElement(data);
-        final int numberOfOutputPorts = outElement.getNumberOfOutputPort();
+        OutputPortElement outElement = new OutputPortElement(block.getID());
+        VectorOfScicosID outputs = new VectorOfScicosID();
+        controller.getObjectProperty(block.getID(), Kind.BLOCK, ObjectProperties.OUTPUTS, outputs);
+        final int numberOfOutputPorts = (int) outputs.size();
         for (int i = 0; i < numberOfOutputPorts; i++) {
-            final BasicPort port = outElement.decode(data, null);
+            final BasicPort port = outElement.decode(outputs.get(i));
 
             // do not use BasicPort#addPort() to avoid the view update
             port.setOrdering(i + 1);
@@ -131,17 +128,7 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         /*
          * Fill block with the data structure
          */
-        int field = 1;
-        graphicElement.decode(data.get(field), block);
-
-        field++;
-        modelElement.decode(data.get(field), block);
-
-        field++;
-        block.setInterfaceFunctionName(interfunction);
-
-        field++;
-        fillDocStructure(data.get(field), block);
+        // The data is already in the model
 
         /*
          * Set state dependent information.
@@ -149,7 +136,7 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         block.setOrdering(ordering);
         ordering++;
 
-        block = afterDecode(element, block);
+        block = afterDecode(null, block);
 
         return block;
     }
@@ -427,6 +414,13 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         element.add(new ScilabString()); // gui
         element.add(new ScilabList()); // doc
         return element;
+    }
+
+    @Override
+    public BasicBlock decode(ScilabType element, BasicBlock into) throws ScicosFormatException {
+        // TODO Auto-generated method stub
+        // AbstractElement decodings won't take ScilabTypes anymore
+        return null;
     }
 }
 // CSON: ClassFanOutComplexity
