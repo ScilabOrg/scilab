@@ -60,6 +60,9 @@ import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.xcos.Controller;
 import org.scilab.modules.xcos.JavaController;
 import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfDouble;
+import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.XcosView;
@@ -157,8 +160,7 @@ public class XcosDiagram extends ScilabGraph {
     private final transient CompilationEngineStatus engine;
 
     // the associated object id
-    private long id;
-
+    private long id = 0;
 
     /**
      * FIXME:: do not commit
@@ -501,6 +503,11 @@ public class XcosDiagram extends ScilabGraph {
 
                             // Update parent on cell addition
                             blk.setParentDiagram(diagram);
+                            final Controller controller = new Controller();
+                            VectorOfScicosID children = new VectorOfScicosID();
+                            controller.getObjectProperty(diagram.getID(), Kind.DIAGRAM, ObjectProperties.CHILDREN, children);
+                            children.add(blk.getID());
+                            controller.setObjectProperty(diagram.getID(), Kind.DIAGRAM, ObjectProperties.CHILDREN, children);
 
                             // update port numbering
                             diagram.updateIOBlocks(blk);
@@ -695,7 +702,7 @@ public class XcosDiagram extends ScilabGraph {
             /*
              * The rpar value is set as invalid, encode the child on demand.
              */
-            updatedBlock.invalidateRpar();
+            //updatedBlock.invalidateRpar();
 
             if (diagram instanceof SuperBlockDiagram) {
                 final SuperBlock parentBlock = ((SuperBlockDiagram) diagram).getContainer();

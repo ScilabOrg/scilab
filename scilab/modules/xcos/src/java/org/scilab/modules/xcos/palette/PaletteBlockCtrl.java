@@ -34,6 +34,10 @@ import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.I
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.XcosView;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BlockFactory.BlockInterFunction;
@@ -64,7 +68,6 @@ public final class PaletteBlockCtrl {
         INTERNAL_GRAPH.installListeners();
     }
 
-    private static final double BLOCK_DEFAULT_POSITION = 10.0;
     private static final MouseListener MOUSE_LISTENER = new PaletteBlockMouseListener();
     private static final Logger LOG = Logger.getLogger(PaletteBlockCtrl.class.getName());
 
@@ -141,8 +144,8 @@ public final class PaletteBlockCtrl {
             getView().setEnabled(true);
 
             /* Render it and export it */
-            block.getGeometry().setX(BLOCK_DEFAULT_POSITION);
-            block.getGeometry().setY(BLOCK_DEFAULT_POSITION);
+            //block.getGeometry().setX(BLOCK_DEFAULT_POSITION);
+            //block.getGeometry().setY(BLOCK_DEFAULT_POSITION);
 
             INTERNAL_GRAPH.addCell(block);
             INTERNAL_GRAPH.selectAll();
@@ -174,8 +177,12 @@ public final class PaletteBlockCtrl {
             }
 
             try {
+                XcosView blockView = new XcosView();
+                JavaController.register_view("blockLog", blockView);
                 synchronousScilabExec(ScilabDirectHandler.BLK + " = " + buildCall(model.getName(), "define"));
-                block = handler.readBlock();
+                block = new BasicBlock(blockView.getId(Kind.BLOCK));
+                block = handler.readBlock(block);
+                JavaController.unregister_view(blockView);
             } catch (InterpreterException e1) {
                 LOG.severe(e1.toString());
                 block = null;
@@ -187,6 +194,10 @@ public final class PaletteBlockCtrl {
             if (block == null) {
                 return null;
             }
+
+            // Increment the block ID so it is not deleted on the next Constructor call
+            final Controller controller = new Controller();
+            controller.referenceObject(block.getID());
 
             if (block.getStyle().compareTo("") == 0) {
                 block.setStyle(block.getInterfaceFunctionName());
@@ -249,7 +260,7 @@ public final class PaletteBlockCtrl {
     }
 
     /**
-     * This function load the block and render it on the hidden diagram. This
+     * This function load the block and renders it on the hidden diagram. This
      * can be time-consuming and each block should be cached on the caller when
      * possible.
      *
