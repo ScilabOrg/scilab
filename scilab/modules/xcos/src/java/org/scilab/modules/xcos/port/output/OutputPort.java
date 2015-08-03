@@ -32,9 +32,11 @@ public abstract class OutputPort extends BasicPort {
      * @param type
      *            The string port name ("ExplicitOutputPort" or
      *            "ImplicitOutputPort")
+     * @param id
+     *            The port id in the model
      */
-    public OutputPort(String type) {
-        super(type);
+    public OutputPort(String type, long id) {
+        super(type, id);
         setOrientation(Orientation.EAST);
 
         setDefaultValues();

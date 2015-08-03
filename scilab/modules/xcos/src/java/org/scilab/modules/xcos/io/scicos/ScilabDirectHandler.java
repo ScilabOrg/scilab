@@ -126,29 +126,11 @@ public class ScilabDirectHandler implements Handler {
     @Override
     public synchronized BasicBlock readBlock(final BasicBlock instance) throws ScicosFormatException {
         LOG.entering("ScilabDirectHandler", "readBlock");
-        final BlockElement element = new BlockElement(null);
+        final BlockElement element = new BlockElement(instance.getID());
 
         LOG.finer("object allocated");
 
-        ScilabType data;
-        try {
-            data = Scilab.getInCurrentScilabSession(BLK);
-        } catch (JavasciException e) {
-            return null;
-        }
-
-        // fail safely
-        if (data == null) {
-            return null;
-        }
-        if (data.isEmpty()) {
-            LOG.finer("data not available");
-            return null;
-        }
-
-        LOG.finer("data available");
-
-        final BasicBlock block = element.decode(data, instance);
+        final BasicBlock block = element.decode(instance);
         final StyleMap style = new StyleMap(block.getInterfaceFunctionName());
         style.putAll(block.getStyle());
 
@@ -258,7 +240,7 @@ public class ScilabDirectHandler implements Handler {
     public void writeBlock(final BasicBlock block) {
         LOG.entering("ScilabDirectHandler", "writeBlock");
 
-        final BlockElement element = new BlockElement(block.getParentDiagram());
+        final BlockElement element = new BlockElement(block.getID());
         final ScilabType data = element.encode(block, null);
 
         LOG.finer("encoding done");

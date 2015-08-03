@@ -59,14 +59,10 @@ final class BlockModelElement extends BlockPartsElement {
     /** Mutable field to easily get the data through methods */
     private ScilabMList data;
 
-    /** In-progress decoded diagram */
-    private final XcosDiagram diag;
-
     /**
      * Default constructor
      */
-    public BlockModelElement(final XcosDiagram diag) {
-        this.diag = diag;
+    public BlockModelElement() {
     }
 
     /**
@@ -131,7 +127,7 @@ final class BlockModelElement extends BlockPartsElement {
         }
 
         into.setSimulationFunctionName(functionName);
-        into.setSimulationFunctionType(functionType);
+        into.setSimulationFunctionType((int) functionType.getAsDouble());
     }
 
     /**
@@ -666,7 +662,7 @@ final class BlockModelElement extends BlockPartsElement {
         addSizedPortVector(element, ScilabDouble.class, getEoutSize()); // evtout
         element.add(new ScilabDouble()); // state
         element.add(new ScilabDouble()); // dstate
-        element.add(new ScilabDouble()); // ostate
+        element.add(new ScilabDouble()); // odstate
         element.add(new ScilabDouble()); // rpar
         element.add(new ScilabDouble()); // ipar
         element.add(new ScilabDouble()); // opar

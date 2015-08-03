@@ -22,13 +22,13 @@ import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabType;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
-import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongElementException;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongStructureException;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongTypeException;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
@@ -42,8 +42,6 @@ import org.scilab.modules.xcos.port.output.OutputPort;
 // CSOFF: ClassFanOutComplexity
 public final class BlockElement extends AbstractElement<BasicBlock> {
     protected static final List<String> DATA_FIELD_NAMES = asList("Block", "graphics", "model", "gui", "doc");
-
-    private static final int INTERFUNCTION_INDEX = DATA_FIELD_NAMES.indexOf("gui");
 
     /** Mutable field to easily get the data through methods */
     private ScilabMList data;
@@ -70,16 +68,14 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
      * The state change on each {@link BlockElement} instance so be careful when
      * allocated a new {@link BlockElement}.
      */
-    public BlockElement(final XcosDiagram diag) {
-        modelElement = new BlockModelElement(diag);
-        graphicElement = new BlockGraphicElement(diag);
+    public BlockElement(long id) {
+        graphicElement = new BlockGraphicElement();
+        modelElement = new BlockModelElement();
     }
 
     /**
      * Decode the element into the block.
      *
-     * @param element
-     *            The current Scilab data
      * @param into
      *            the target, if null a new instance is allocated and returned.
      * @return the decoded block.
@@ -88,40 +84,33 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
      * @see org.scilab.modules.xcos.io.scicos.Element#decode(org.scilab.modules.types.ScilabType,
      *      java.lang.Object)
      */
-    @Override
-    public BasicBlock decode(ScilabType element, BasicBlock into) throws ScicosFormatException {
-        data = (ScilabMList) element;
+    public BasicBlock decode(BasicBlock into) throws ScicosFormatException {
         BasicBlock block = into;
 
-        validate();
-
-        /*
-         * Instantiate the block if it doesn't exist
-         */
-        final String interfunction = ((ScilabString) data.get(INTERFUNCTION_INDEX)).getData()[0][0];
-        if (block == null) {
-            block = BlockFactory.createBlock(interfunction);
-        }
-
-        block = beforeDecode(element, block);
+        block = beforeDecode(null, block);
 
         /*
          * Allocate and setup ports
          */
-        InputPortElement inElement = new InputPortElement(data);
-        final int numberOfInputPorts = inElement.getNumberOfInputPort();
-        for (int i = 0; i < numberOfInputPorts; i++) {
-            final BasicPort port = inElement.decode(data, null);
+        InputPortElement inElement = new InputPortElement(block.getID());
+        final Controller controller = new Controller();
+        VectorOfScicosID inputs = new VectorOfScicosID();
+        controller.getObjectProperty(block.getID(), Kind.BLOCK, ObjectProperties.INPUTS, inputs);
+        final int numberOfInputPorts = (int) inputs.size();
+        for (int i = 0; i < numberOfInputPorts; ++i) {
+            final BasicPort port = inElement.decode(inputs.get(i));
 
             // do not use BasicPort#addPort() to avoid the view update
             port.setOrdering(i + 1);
             block.insert(port, i);
         }
 
-        OutputPortElement outElement = new OutputPortElement(data);
-        final int numberOfOutputPorts = outElement.getNumberOfOutputPort();
+        OutputPortElement outElement = new OutputPortElement(block.getID());
+        VectorOfScicosID outputs = new VectorOfScicosID();
+        controller.getObjectProperty(block.getID(), Kind.BLOCK, ObjectProperties.OUTPUTS, outputs);
+        final int numberOfOutputPorts = (int) outputs.size();
         for (int i = 0; i < numberOfOutputPorts; i++) {
-            final BasicPort port = outElement.decode(data, null);
+            final BasicPort port = outElement.decode(outputs.get(i));
 
             // do not use BasicPort#addPort() to avoid the view update
             port.setOrdering(i + 1);
@@ -129,19 +118,9 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         }
 
         /*
-         * Fill block with the data structure
+         * Apply the zoom factor to the dimensions of the model
          */
-        int field = 1;
-        graphicElement.decode(data.get(field), block);
-
-        field++;
-        modelElement.decode(data.get(field), block);
-
-        field++;
-        block.setInterfaceFunctionName(interfunction);
-
-        field++;
-        fillDocStructure(data.get(field), block);
+        graphicElement.applyFactor(block);
 
         /*
          * Set state dependent information.
@@ -149,7 +128,7 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         block.setOrdering(ordering);
         ordering++;
 
-        block = afterDecode(element, block);
+        block = afterDecode(null, block);
 
         return block;
     }
@@ -203,83 +182,6 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
             }
         }
         return valid;
-    }
-
-    /**
-     * Validate the current data.
-     *
-     * This method doesn't pass the metrics because it perform many test.
-     * Therefore all these tests are trivial and the conditioned action only
-     * throw an exception.
-     *
-     * @throws ScicosFormatException
-     *             when there is a validation error.
-     */
-    // CSOFF: CyclomaticComplexity
-    // CSOFF: NPathComplexity
-    private void validate() throws ScicosFormatException {
-        if (!canDecode(data)) {
-            throw new WrongElementException();
-        }
-
-        int field = 0;
-
-        // we test if the structure as enough field
-        if (data.size() != DATA_FIELD_NAMES.size()) {
-            throw new WrongStructureException(DATA_FIELD_NAMES);
-        }
-
-        /*
-         * Checking the MList header
-         */
-
-        // Check the first field
-        if (!(data.get(field) instanceof ScilabString)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-        final String[] header = ((ScilabString) data.get(field)).getData()[0];
-
-        // Checking for the field names
-        if (header.length != DATA_FIELD_NAMES.size()) {
-            throw new WrongStructureException(DATA_FIELD_NAMES);
-        }
-        for (int i = 0; i < header.length; i++) {
-            if (!header[i].equals(DATA_FIELD_NAMES.get(i))) {
-                throw new WrongStructureException(DATA_FIELD_NAMES);
-            }
-        }
-
-        /*
-         * Checking the data
-         */
-
-        // the second field must contain list of all graphic property (how the
-        // block will be displayed )
-        field++;
-        if (!(data.get(field) instanceof ScilabMList)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // the third field must contains all the information needed to compile
-        // the block
-        field++;
-        if (!(data.get(field) instanceof ScilabMList)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // the fourth field must contains all the information needed to
-        // represent
-        // the block
-        field++;
-        if (!(data.get(field) instanceof ScilabString)) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
-
-        // the last field must contain a list of nothing aka scicos doc
-        field++;
-        if (!(data.get(field) instanceof ScilabList) && !isEmptyField(data.get(field))) {
-            throw new WrongTypeException(DATA_FIELD_NAMES, field);
-        }
     }
 
     // CSON: CyclomaticComplexity
@@ -366,11 +268,11 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         /*
          * Encoding the InputPorts and OutputPorts using their own elements
          */
-        final InputPortElement inElement = new InputPortElement(data);
-        final OutputPortElement outElement = new OutputPortElement(data);
+        final InputPortElement inElement = new InputPortElement(from.getID());
+        final OutputPortElement outElement = new OutputPortElement(from.getID());
         final int numberOfPorts = from.getChildCount();
 
-        // assume the children are sorted by type
+        // Assume the children are sorted by type
         for (int i = 0; i < numberOfPorts; i++) {
             final Object instance = from.getChildAt(i);
 
@@ -382,10 +284,11 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         }
 
         /*
-         * post process for element shared fields
+         * Post-process for element shared fields
          */
-        inElement.afterEncode();
-        outElement.afterEncode();
+        final int MODEL_INDEX = BlockElement.DATA_FIELD_NAMES.indexOf("model");
+        data.set(MODEL_INDEX, inElement.afterEncode(data.get(MODEL_INDEX)));
+        data.set(MODEL_INDEX, outElement.afterEncode(data.get(MODEL_INDEX)));
 
         data = (ScilabMList) afterEncode(from, data);
 
@@ -427,6 +330,13 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
         element.add(new ScilabString()); // gui
         element.add(new ScilabList()); // doc
         return element;
+    }
+
+    @Override
+    public BasicBlock decode(ScilabType element, BasicBlock into) throws ScicosFormatException {
+        // TODO Auto-generated method stub
+        // AbstractElement decodings won't take ScilabTypes anymore
+        return null;
     }
 }
 // CSON: ClassFanOutComplexity
