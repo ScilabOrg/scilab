@@ -71,7 +71,7 @@
     SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "Array must contain at least 1 element");
     return $null;
   }
-  $1 = &temp; 
+  $1 = &temp;
   *$1 = "";
 }
 
@@ -80,7 +80,7 @@
   if ($1) {
      jnewstring = JCALL1(NewStringUTF, jenv, $1->c_str());
   }
-  JCALL3(SetObjectArrayElement, jenv, $input, 0, jnewstring); 
+  JCALL3(SetObjectArrayElement, jenv, $input, 0, jnewstring);
 }
 
 %apply double &OUTPUT { double &v };
@@ -107,6 +107,7 @@
 
 // Instanciate templates mapped to Java
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<int>;
+%template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<bool>;
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<double>;
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<std::string>;
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<ScicosID>;
@@ -116,6 +117,7 @@
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty< std::vector<ScicosID> >;
 
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<int>;
+%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<bool>;
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<double>;
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<std::string>;
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<ScicosID>;
@@ -153,9 +155,9 @@ import java.util.ArrayList;
 %pragma(java) modulebase="Controller"
 
 %pragma(java) modulecode=%{
-  // will contains all registered JavaViews to prevent garbage-collection 
+  // will contains all registered JavaViews to prevent garbage-collection
   private static ArrayList<View> references = new ArrayList<View>();
-  
+
   private static long add_reference(View v) {
     references.add(v);
     return View.getCPtr(v);
