@@ -584,6 +584,7 @@ void ConfigVariable::deleteThread(__threadKey _key)
 ** \{
 */
 
+// pause
 int ConfigVariable::m_iPauseLevel = 0;
 std::list<int> ConfigVariable::m_listScope;
 

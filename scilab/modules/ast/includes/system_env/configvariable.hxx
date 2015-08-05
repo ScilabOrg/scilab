@@ -290,7 +290,7 @@ public :
     static DynamicLibraryStr* getDynamicLibrary(int _iDynamicLibraryIndex);
     static bool isDynamicLibrary(int _iDynamicLibraryIndex);
 
-    /* Entry point functions */
+    /* Entry pointfunctions */
     static std::list<EntryPointStr*>* getEntryPointList();
     static void addEntryPoint(EntryPointStr* _pEP);
     static void removeEntryPoint(int _iEntryPointIndex);
