@@ -2,8 +2,12 @@
         =================================================================
 
 
-(please remove this line when adding the first changed item...)
+Forgot changes (move this part in section 5.5.2 => 6.0.0-alpha-1 ???)
+===============
 
+bug_14044 : MALLOC.h remaned sci_malloc.h
+bug_14043 : Gateway C prototype modified from int sci_...(char *fname, unsigned long l) to sci_...(char *fname, void* pvApiCtx).
+            Variable name have to be exactly "pvApyCtx" in case where macros are used in the gateway.
 
 
 
