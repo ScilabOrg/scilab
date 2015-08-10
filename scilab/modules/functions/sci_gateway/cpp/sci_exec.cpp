@@ -78,7 +78,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         }
         else
         {
-            promptMode = 0;
+            promptMode = -1;
         }
     }
 
