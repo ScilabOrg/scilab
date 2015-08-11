@@ -147,6 +147,19 @@ void Parser::parse(const wchar_t *command)
     FREE(pstCommand);
 }
 
+bool Parser::stopOnFirstError(void)
+{
+    return ParserSingleInstance::stopOnFirstError();
+}
+void Parser::enableStopOnFirstError(void)
+{
+    ParserSingleInstance::enableStopOnFirstError();
+}
+void Parser::disableStopOnFirstError(void)
+{
+    ParserSingleInstance::disableStopOnFirstError();
+}
+
 /** \brief parse the given file command */
 void ParserSingleInstance::parse(const char *command)
 {
@@ -251,6 +264,11 @@ std::wstring& ParserSingleInstance::getErrorMessage(void)
 
 void ParserSingleInstance::appendErrorMessage(std::wstring message)
 {
+    if (ParserSingleInstance::stopOnFirstError() && _error_message.empty() == false)
+    {
+        return;
+    }
+
     _error_message += message;
 }
 
@@ -270,7 +288,7 @@ std::wstring ParserSingleInstance::_file_name;
 std::wstring ParserSingleInstance::_prog_name;
 std::wstring ParserSingleInstance::_error_message;
 bool ParserSingleInstance::_strict_mode = false;
-bool ParserSingleInstance::_stop_on_first_error = false;
+bool ParserSingleInstance::_stop_on_first_error = true;
 ast::Exp* ParserSingleInstance::_the_program = NULL;
 Parser::ParserStatus ParserSingleInstance::_exit_status = Parser::Succeded;
 std::list<Parser::ControlStatus> ParserSingleInstance::_control_status;

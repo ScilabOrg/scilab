@@ -29,7 +29,6 @@ public :
 
     static void pushControlStatus(Parser::ControlStatus control_status)
     {
-        //std::cout << "Push front : " << control_status << std::endl;
         _control_status.push_front(control_status);
     }
 
@@ -37,8 +36,6 @@ public :
     {
         if (!_control_status.empty())
         {
-            //std::cout << "Pop front" << std::endl;
-            //std::cout << "size = " << _control_status.size() << std::endl;
             _control_status.pop_front();
         }
     }
@@ -127,7 +124,7 @@ public :
     */
     static const std::wstring getProgName(void)
     {
-        return L"Scilab6";
+        return L"Scilab";
     }
     static void setProgName(const std::wstring& progName)
     {

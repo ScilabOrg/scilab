@@ -103,7 +103,7 @@
     {                                                           \
         if(ParserSingleInstance::stopOnFirstError())            \
         {                                                       \
-            return ParserSingleInstance::getExitStatus();       \
+            ParserSingleInstance::setExitStatus(Parser::ParserStatus::Failed);       \
         }                                                       \
     }
 
