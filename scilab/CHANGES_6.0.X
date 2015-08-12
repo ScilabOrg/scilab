@@ -2,6 +2,7 @@
         =================================================================
 
 
+<<<<<<< HEAD
 Scilab Bug Fixes
 ================
 
@@ -10,6 +11,8 @@ Scilab Bug Fixes
 * Bug #13750 fixed - Calling ss2ss function with flag = 2 returned an error.
 
 * Bug #13780 fixed - size with two input and output arguments did not return an error.
+
+* Bug #13843 fixed - Scilab crashed when polarplot and plot2d were called with wrong strf value.
 
 * Bug #13872 fixed - Non regression test added for unique function (the indices returned were wrong)
 
