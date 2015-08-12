@@ -2,7 +2,11 @@
         =================================================================
 
 
-(please remove this line when adding the first changed item...)
+
+Scilab Bug Fixes
+================
+
+* Bug #13843 fixed - Scilab crashed when polarplot and plot2d were called with wrong strf value.
 
 
 
