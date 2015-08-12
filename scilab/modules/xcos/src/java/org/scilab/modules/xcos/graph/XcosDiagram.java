@@ -61,7 +61,6 @@ import org.scilab.modules.xcos.Controller;
 import org.scilab.modules.xcos.JavaController;
 import org.scilab.modules.xcos.Kind;
 import org.scilab.modules.xcos.ObjectProperties;
-import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
@@ -904,6 +903,7 @@ public class XcosDiagram extends ScilabGraph {
             BasicPort src = (BasicPort) source;
             BasicLink link = null;
 
+            final Controller controller = new Controller();
             if (src.getType() == Type.EXPLICIT) {
                 link = new ExplicitLink();
             } else if (src.getType() == Type.IMPLICIT) {
@@ -911,6 +911,17 @@ public class XcosDiagram extends ScilabGraph {
             } else {
                 link = new CommandControlLink();
             }
+
+            // Relate the link & the diagram together at model-level
+            controller.setObjectProperty(link.getID(), Kind.LINK, ObjectProperties.PARENT_DIAGRAM, getID());
+            VectorOfScicosID children = new VectorOfScicosID();
+            controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.CHILDREN, children);
+            children.add(link.getID());
+            controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.CHILDREN, children);
+
+            // Relate the link and the port
+            // FIXME: src.getID() is NOT the right value here. It is the number of the block
+            controller.setObjectProperty(link.getID(), Kind.LINK, ObjectProperties.SOURCE_PORT, src.getID());
 
             // allocate the associated geometry
             link.setGeometry(new mxGeometry());

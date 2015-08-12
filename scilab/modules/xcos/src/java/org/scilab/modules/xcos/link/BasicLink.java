@@ -18,6 +18,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.ScilabGraphUniqueObject;
 import org.scilab.modules.graph.actions.DeleteAction;
@@ -26,8 +28,15 @@ import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.contextmenu.ScilabContextMenu;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfDouble;
+import org.scilab.modules.xcos.XcosView;
 import org.scilab.modules.xcos.actions.EditFormatAction;
 import org.scilab.modules.xcos.block.actions.BorderColorAction;
+import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
 import org.scilab.modules.xcos.link.actions.StyleHorizontalAction;
 import org.scilab.modules.xcos.link.actions.StyleStraightAction;
 import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
@@ -56,6 +65,25 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
     private transient int ordering;
 
     /**
+     * The link id in the model
+     */
+    private long id = 0;
+
+    /**
+     * @return the id
+     */
+    public long getID() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setID(long id) {
+        this.id = id;
+    }
+
+    /**
      * Default constructor
      *
      * @param style
@@ -63,6 +91,42 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
      */
     public BasicLink(String style) {
         super();
+        // Create a link in the Scilab console and retrieve its model id
+        final ScilabDirectHandler handler = ScilabDirectHandler.acquire();
+        if (handler == null) {
+            return;
+        }
+
+        try {
+            XcosView linkView = new XcosView();
+            JavaController.register_view("linkLog", linkView);
+            ScilabInterpreterManagement.synchronousScilabExec("scicos_link();");
+            setID(linkView.getId(Kind.LINK));
+            JavaController.unregister_view(linkView);
+        } catch (final InterpreterException e) {
+            e.printStackTrace();
+        } finally {
+            handler.release();
+        }
+        // Increment the link ID so it is not deleted on the next Constructor call
+        final Controller controller = new Controller();
+        controller.referenceObject(getID());
+        setVertex(false);
+        setEdge(true);
+        setStyle(style + XcosOptions.getEdition().getEdgeStyle());
+    }
+
+    /**
+     * Constructor with id
+     *
+     * @param id
+     *            The link id in the model
+     * @param style
+     *            The style to use for this link
+     */
+    public BasicLink(String style, long id) {
+        super();
+        setID(id);
         setVertex(false);
         setEdge(true);
         setStyle(style + XcosOptions.getEdition().getEdgeStyle());
@@ -93,12 +157,37 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         }
         if (index < getGeometry().getPoints().size()) {
             getGeometry().getPoints().remove(index);
+
+            // Update the model
+            final Controller controller = new Controller();
+            VectorOfDouble points = new VectorOfDouble();
+            controller.getObjectProperty(getID(), Kind.LINK, ObjectProperties.CONTROL_POINTS, points);
+            final int nbPoints = (int) points.size() / 2;
+
+            VectorOfDouble newPoints = new VectorOfDouble(nbPoints - 2);
+            // Copy all values except the removed point
+            int j = 0; // Iterator on 'points'
+            for (int i = 0; i < index - 2; ++i, ++j) {
+                newPoints.set(i, points.get(j));
+            }
+            for (int i = index; i < nbPoints + index - 2; ++i, ++j) {
+                newPoints.set(i, points.get(j));
+            }
+            for (int i = nbPoints + index; i < nbPoints * 2; ++i, ++j) {
+                newPoints.set(i, points.get(j));
+            }
+            controller.setObjectProperty(getID(), Kind.LINK, ObjectProperties.CONTROL_POINTS, newPoints);
         }
     }
 
     /** Remove all the points */
     private void removePoints() {
         getGeometry().setPoints(new ArrayList<mxPoint>());
+
+        // Update the model
+        final Controller controller = new Controller();
+        VectorOfDouble points = new VectorOfDouble();
+        controller.setObjectProperty(getID(), Kind.LINK, ObjectProperties.CONTROL_POINTS, points);
     }
 
     /**
@@ -206,6 +295,25 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
             getGeometry().setPoints(new ArrayList<mxPoint>());
         }
         getGeometry().getPoints().add(point);
+
+        // Update the model
+        final Controller controller = new Controller();
+        VectorOfDouble points = new VectorOfDouble();
+        controller.getObjectProperty(getID(), Kind.LINK, ObjectProperties.CONTROL_POINTS, points);
+        final int nbPoints = (int) points.size() / 2;
+
+        VectorOfDouble newPoints = new VectorOfDouble(points.size() + 2);
+        // Copy all values and add the new point
+        int j = 0; // Iterator on 'points'
+        for (int i = 0; i < nbPoints; ++i, ++j) {
+            newPoints.set(i, points.get(j));
+        }
+        newPoints.set(nbPoints, x);
+        for (int i = nbPoints + 1; i < 2 * nbPoints + 1; ++i, ++j) {
+            newPoints.set(i, points.get(j));
+        }
+        newPoints.set(2 * nbPoints + 1, y);
+        controller.setObjectProperty(getID(), Kind.LINK, ObjectProperties.CONTROL_POINTS, newPoints);
     }
 
     /**
@@ -334,7 +442,7 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
 
     /** Invert the source and target of the link */
     public void invertDirection() {
-        // invert source and destination and all points.
+        // Invert source and destination and all points.
         mxICell linkSource = getSource();
         mxICell linkTarget = getTarget();
         List<mxPoint> points = getGeometry().getPoints();

@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
+import org.scilab.modules.xcos.link.BasicLink;
 
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
@@ -184,23 +185,25 @@ public class ConnectionHandler extends mxConnectionHandler {
             final double x = graph.snap(e.getX());
             final double y = graph.snap(e.getY());
 
-            // we are during a link creation on an invalid area
+            // We are during a link creation on an invalid area
             mxICell cell = (mxICell) connectPreview.getPreviewState().getCell();
 
-            // allocate points if applicable
+            // Allocate points if applicable
             List<mxPoint> points = cell.getGeometry().getPoints();
             if (points == null) {
                 points = new ArrayList<mxPoint>();
                 cell.getGeometry().setPoints(points);
             }
 
-            // scale and set the point
-            // extracted from mxConnectPreview#transformScreenPoint
+            // Scale and set the point
+            // Extracted from mxConnectPreview#transformScreenPoint
             final mxPoint tr = graph.getView().getTranslate();
             final double scale = graph.getView().getScale();
-            points.add(new mxPoint(graph.snap(x / scale - tr.getX()), graph.snap(y / scale - tr.getY())));
+            // To update the model as well as the view, use the BasicLink method
+            BasicLink link = (BasicLink) cell;
+            link.addPoint(graph.snap(x / scale - tr.getX()), graph.snap(y / scale - tr.getY()));
 
-            // update the preview and set the flag
+            // Update the preview and set the flag
             connectPreview.update(e, null, x, y);
             multiPointLinkStarted = true;
 
@@ -212,7 +215,7 @@ public class ConnectionHandler extends mxConnectionHandler {
     }
 
     /**
-     * Only chain up when the multi point link feature is disable, drag
+     * Only chain up when the multi point link feature is disabled, drag
      * otherwise.
      *
      * @param e
@@ -229,7 +232,7 @@ public class ConnectionHandler extends mxConnectionHandler {
     }
 
     /**
-     * Only chain up when multi point link feature is disable.
+     * Only chain up when multi point link feature is disabled.
      *
      * This will not update the first point on multi point link creation.
      *
