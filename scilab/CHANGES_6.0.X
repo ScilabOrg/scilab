@@ -7,6 +7,8 @@ Scilab Bug Fixes
 
 * Bug #13709 fixed - unique function sometimes returned wrong index values.
 
+* Bug #13780 fixed - size with two input and output arguments did not return an error.
+
 
 
 
