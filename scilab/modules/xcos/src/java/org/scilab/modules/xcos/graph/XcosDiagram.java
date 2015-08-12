@@ -61,7 +61,6 @@ import org.scilab.modules.xcos.Controller;
 import org.scilab.modules.xcos.JavaController;
 import org.scilab.modules.xcos.Kind;
 import org.scilab.modules.xcos.ObjectProperties;
-import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
@@ -904,6 +903,7 @@ public class XcosDiagram extends ScilabGraph {
             BasicPort src = (BasicPort) source;
             BasicLink link = null;
 
+            final Controller controller = new Controller();
             if (src.getType() == Type.EXPLICIT) {
                 link = new ExplicitLink();
             } else if (src.getType() == Type.IMPLICIT) {
@@ -911,6 +911,17 @@ public class XcosDiagram extends ScilabGraph {
             } else {
                 link = new CommandControlLink();
             }
+
+            // Relate the link and the port together at model-level
+            controller.setObjectProperty(link.getID(), Kind.LINK, ObjectProperties.SOURCE_PORT, src.getID());
+            controller.setObjectProperty(src.getID(), Kind.PORT, ObjectProperties.CONNECTED_SIGNALS, link.getID());
+
+            // Relate the link & the diagram
+            controller.setObjectProperty(link.getID(), Kind.LINK, ObjectProperties.PARENT_DIAGRAM, getID());
+            VectorOfScicosID children = new VectorOfScicosID();
+            controller.getObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.CHILDREN, children);
+            children.add(link.getID());
+            controller.setObjectProperty(getID(), Kind.DIAGRAM, ObjectProperties.CHILDREN, children);
 
             // allocate the associated geometry
             link.setGeometry(new mxGeometry());
@@ -986,6 +997,7 @@ public class XcosDiagram extends ScilabGraph {
 
         // ExplicitOutput -> ExplicitInput
         if (source instanceof ExplicitOutputPort && target instanceof ExplicitInputPort && cell instanceof ExplicitLink) {
+            // FIXME: do the link creation and connection to ports/diagram at model level here instead of in separate files?
             return super.addCell(cell, parent, index, source, target);
         }
         // ExplicitInput -> ExplicitOutput
@@ -1182,7 +1194,6 @@ public class XcosDiagram extends ScilabGraph {
      */
     public void connect(BasicPort src, BasicPort trg, List<mxPoint> points, mxPoint orig) {
         mxGeometry geometry;
-
         /*
          * Add the link with a default geometry
          */

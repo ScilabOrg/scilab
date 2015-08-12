@@ -17,8 +17,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.scilab.modules.xcos.Controller;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
+import org.scilab.modules.xcos.link.BasicLink;
+import org.scilab.modules.xcos.port.BasicPort;
 
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
@@ -71,6 +76,23 @@ public class ConnectionHandler extends mxConnectionHandler {
                             if (createTarget) {
                                 error = null;
                             }
+                        } else {
+                            // Connect the link and the port at model level
+                            BasicPort src_port = (BasicPort) source.getCell();
+                            BasicPort dest_port = (BasicPort) cell;
+                            final Controller controller = new Controller();
+                            long[] linkID = {0};
+                            //System.out.println("a");
+                            //System.out.println(src_port.getID());
+                            controller.getObjectProperty(src_port.getID(), Kind.PORT, ObjectProperties.CONNECTED_SIGNALS, linkID);
+
+                            //System.out.println("b");
+                            //System.out.println(linkID[0]);
+                            //System.out.println(dest_port.getID());
+                            controller.setObjectProperty(linkID[0], Kind.LINK, ObjectProperties.DESTINATION_PORT, dest_port.getID());
+                            //System.out.println("c");
+                            controller.setObjectProperty(dest_port.getID(), Kind.PORT, ObjectProperties.CONNECTED_SIGNALS, linkID[0]);
+                            //System.out.println("d");
                         }
                     }
                 } else if (!isValidSource(cell)) {
@@ -184,23 +206,25 @@ public class ConnectionHandler extends mxConnectionHandler {
             final double x = graph.snap(e.getX());
             final double y = graph.snap(e.getY());
 
-            // we are during a link creation on an invalid area
+            // We are during a link creation on an invalid area
             mxICell cell = (mxICell) connectPreview.getPreviewState().getCell();
 
-            // allocate points if applicable
+            // Allocate points if applicable
             List<mxPoint> points = cell.getGeometry().getPoints();
             if (points == null) {
                 points = new ArrayList<mxPoint>();
                 cell.getGeometry().setPoints(points);
             }
 
-            // scale and set the point
-            // extracted from mxConnectPreview#transformScreenPoint
+            // Scale and set the point
+            // Extracted from mxConnectPreview#transformScreenPoint
             final mxPoint tr = graph.getView().getTranslate();
             final double scale = graph.getView().getScale();
-            points.add(new mxPoint(graph.snap(x / scale - tr.getX()), graph.snap(y / scale - tr.getY())));
+            // To update the model as well as the view, use the BasicLink method
+            BasicLink link = (BasicLink) cell;
+            link.addPoint(graph.snap(x / scale - tr.getX()), graph.snap(y / scale - tr.getY()));
 
-            // update the preview and set the flag
+            // Update the preview and set the flag
             connectPreview.update(e, null, x, y);
             multiPointLinkStarted = true;
 
@@ -212,7 +236,7 @@ public class ConnectionHandler extends mxConnectionHandler {
     }
 
     /**
-     * Only chain up when the multi point link feature is disable, drag
+     * Only chain up when the multi point link feature is disabled, drag
      * otherwise.
      *
      * @param e
@@ -229,7 +253,7 @@ public class ConnectionHandler extends mxConnectionHandler {
     }
 
     /**
-     * Only chain up when multi point link feature is disable.
+     * Only chain up when multi point link feature is disabled.
      *
      * This will not update the first point on multi point link creation.
      *
