@@ -2,8 +2,10 @@
         =================================================================
 
 
-(please remove this line when adding the first changed item...)
+Scilab Bug Fixes
+================
 
+* Bug #14025 fixed - head_comments did not take into account compiled functions.
 
 
 
