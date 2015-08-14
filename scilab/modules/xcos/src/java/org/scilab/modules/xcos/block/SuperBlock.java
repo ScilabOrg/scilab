@@ -165,7 +165,7 @@ public final class SuperBlock extends BasicBlock {
          */
         final ScilabType rpar = new DiagramElement().encode(child);
         super.setRealParameters(rpar);
-        hasAValidRpar = true;
+        //hasAValidRpar = true;
 
         return super.getRealParameters();
     }

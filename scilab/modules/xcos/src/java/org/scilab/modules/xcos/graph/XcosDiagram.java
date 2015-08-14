@@ -978,6 +978,10 @@ public class XcosDiagram extends ScilabGraph {
 
         // already connected edge or normal block
         if (source == null && target == null) {
+            System.out.println("0");
+            // FIXME: add the block to the diagram here? or manage superfluous clone here?
+            // No because when dragging a block, addCell is only called once, whereas invoke (current) twice, which is necessary because 2 diagrams.
+            // This is called once to add the block to INTERNAL_GRAPH
             return super.addCell(cell, parent, index, source, target);
         }
 

@@ -287,7 +287,7 @@ public final class SuperBlockDiagram extends XcosDiagram implements Serializable
             final SuperBlockDiagram graph = ((SuperBlockDiagram) arg0);
             final SuperBlock block = graph.getContainer();
             if (block != null) {
-                block.invalidateRpar();
+                //block.invalidateRpar();
             }
         }
     }

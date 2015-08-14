@@ -21,7 +21,6 @@ import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
-import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.Controller;
 import org.scilab.modules.xcos.Kind;
@@ -30,9 +29,7 @@ import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BasicBlock.SimulationFunctionType;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongElementException;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongStructureException;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongTypeException;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
@@ -57,6 +54,9 @@ final class BlockModelElement extends BlockPartsElement {
     private static final int STATE_INDEX = DATA_FIELD_NAMES.indexOf("state");
     private static final int FIRING_INDEX = DATA_FIELD_NAMES.indexOf("firing");
     private static final int DEPENDU_INDEX = DATA_FIELD_NAMES.indexOf("dep_ut");
+
+    /** Mutable field to easily get the data through methods */
+    private ScilabMList data = null;
 
     /**
      * Default constructor
@@ -484,6 +484,13 @@ final class BlockModelElement extends BlockPartsElement {
         element.add(new ScilabList()); // equations
         element.add(new ScilabString("")); // uid
         return element;
+    }
+
+
+    @Override
+    public BasicBlock decode(ScilabType element, BasicBlock into) throws ScicosFormatException {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
 // CSON: ClassDataAbstractionCoupling

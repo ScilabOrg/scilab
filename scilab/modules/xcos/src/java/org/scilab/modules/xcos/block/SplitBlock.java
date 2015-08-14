@@ -54,21 +54,21 @@ public final class SplitBlock extends BasicBlock {
      */
     public void addConnection(BasicPort source) {
         if (source.getType() == Type.EXPLICIT) {
-            addPort(new ExplicitInputPort());
-            addPort(new ExplicitOutputPort());
-            addPort(new ExplicitOutputPort());
+            addPort(new ExplicitInputPort(0));
+            addPort(new ExplicitOutputPort(0));
+            addPort(new ExplicitOutputPort(0));
 
             setInterfaceFunctionName("SPLIT_f");
         } else if (source.getType() == Type.IMPLICIT) {
-            addPort(new ImplicitInputPort());
-            addPort(new ImplicitOutputPort());
-            addPort(new ImplicitOutputPort());
+            addPort(new ImplicitInputPort(0));
+            addPort(new ImplicitOutputPort(0));
+            addPort(new ImplicitOutputPort(0));
 
             setInterfaceFunctionName("IMPSPLIT_f");
         } else {
-            addPort(new ControlPort());
-            addPort(new CommandPort());
-            addPort(new CommandPort());
+            addPort(new ControlPort(0));
+            addPort(new CommandPort(0));
+            addPort(new CommandPort(0));
 
             setInterfaceFunctionName("CLKSPLIT_f");
         }

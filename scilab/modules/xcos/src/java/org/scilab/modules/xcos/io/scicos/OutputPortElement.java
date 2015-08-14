@@ -14,7 +14,6 @@ package org.scilab.modules.xcos.io.scicos;
 
 import java.util.List;
 
-import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
@@ -24,9 +23,6 @@ import org.scilab.modules.xcos.Kind;
 import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.link.BasicLink;
-import org.scilab.modules.xcos.port.BasicPort.DataType;
-import org.scilab.modules.xcos.port.input.ExplicitInputPort;
-import org.scilab.modules.xcos.port.input.ImplicitInputPort;
 import org.scilab.modules.xcos.port.output.ExplicitOutputPort;
 import org.scilab.modules.xcos.port.output.ImplicitOutputPort;
 import org.scilab.modules.xcos.port.output.OutputPort;
@@ -274,5 +270,18 @@ public final class OutputPortElement extends AbstractElement<OutputPort> {
             data.set(MODEL_OUT_DATACOL_INDEX, new ScilabDouble());
         }
         return data;
+    }
+
+    @Override
+    public OutputPort decode(ScilabType element, OutputPort into) throws ScicosFormatException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public boolean canDecode(ScilabType element) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

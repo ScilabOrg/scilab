@@ -182,13 +182,13 @@ public class BasicBlockCodec extends XcosObjectCodec {
         }
         final BasicBlock block = (BasicBlock) obj;
 
-        block.setSimulationFunctionType(SimulationFunctionType.DEFAULT);
+        //block.setSimulationFunctionType(SimulationFunctionType.DEFAULT);
 
         String functionType = (((Element) node).getAttribute(SIMULATION_FUNCTION_TYPE));
         if (functionType != null && functionType.compareTo("") != 0) {
             SimulationFunctionType type = BasicBlock.SimulationFunctionType.valueOf(functionType);
             if (type != null) {
-                block.setSimulationFunctionType(type);
+                //block.setSimulationFunctionType(type);
             }
         }
 
@@ -198,7 +198,7 @@ public class BasicBlockCodec extends XcosObjectCodec {
             if (superBlock.getChild() != null) {
                 superBlock.getChild().setContainer(superBlock);
             }
-            superBlock.invalidateRpar();
+            //superBlock.invalidateRpar();
         }
 
         // update TextBlock due to a wrong serialization of the CSS properties

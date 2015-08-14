@@ -230,7 +230,7 @@ public final class DiagramElement extends AbstractElement<XcosDiagram> {
         final int nbOfObjs = ((ScilabList) base.get(OBJS_INDEX)).size();
         final HashMap<Integer, BasicBlock> blocks = new HashMap<Integer, BasicBlock>(nbOfObjs, 1.0f);
 
-        final BlockElement blockElement = new BlockElement(diag);
+        final BlockElement blockElement = new BlockElement(0);
         final LinkElement linkElement = new LinkElement(blocks);
         final LabelElement labelElement = new LabelElement();
 
@@ -612,7 +612,7 @@ public final class DiagramElement extends AbstractElement<XcosDiagram> {
      *            the objs field number
      */
     private void fillObjs(XcosDiagram from, int field) {
-        final BlockElement blockElement = new BlockElement(from);
+        final BlockElement blockElement = new BlockElement(0);
         final LinkElement linkElement = new LinkElement(null);
         final ScilabList data = (ScilabList) base.get(field);
 

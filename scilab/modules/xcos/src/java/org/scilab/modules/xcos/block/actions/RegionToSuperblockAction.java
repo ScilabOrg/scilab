@@ -8,7 +8,6 @@
 
 package org.scilab.modules.xcos.block.actions;
 
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +41,6 @@ import org.scilab.modules.xcos.port.output.OutputPort;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
-import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxICell;
@@ -385,7 +383,7 @@ public class RegionToSuperblockAction extends VertexSelectionDependantAction {
              */
             childGraph.installListeners();
             childGraph.installSuperBlockListeners();
-            superBlock.invalidateRpar();
+            //superBlock.invalidateRpar();
             superBlock.updateExportedPort();
 
             /*

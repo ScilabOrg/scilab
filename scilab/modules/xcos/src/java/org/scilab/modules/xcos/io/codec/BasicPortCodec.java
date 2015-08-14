@@ -70,17 +70,17 @@ public class BasicPortCodec extends XcosObjectCodec {
      * Register all the know codecs on the {@link mxCodecRegistry}
      */
     public static void register() {
-        XcosObjectCodec explicitOutputPortCodec = new BasicPortCodec(new ExplicitOutputPort(), IGNORED_FIELDS, REFS, null);
+        XcosObjectCodec explicitOutputPortCodec = new BasicPortCodec(new ExplicitOutputPort(0), IGNORED_FIELDS, REFS, null);
         mxCodecRegistry.register(explicitOutputPortCodec);
-        XcosObjectCodec explicitInputPortCodec = new BasicPortCodec(new ExplicitInputPort(), IGNORED_FIELDS, REFS, null);
+        XcosObjectCodec explicitInputPortCodec = new BasicPortCodec(new ExplicitInputPort(0), IGNORED_FIELDS, REFS, null);
         mxCodecRegistry.register(explicitInputPortCodec);
-        XcosObjectCodec implicitOutputPortCodec = new BasicPortCodec(new ImplicitOutputPort(), IGNORED_FIELDS, REFS, null);
+        XcosObjectCodec implicitOutputPortCodec = new BasicPortCodec(new ImplicitOutputPort(0), IGNORED_FIELDS, REFS, null);
         mxCodecRegistry.register(implicitOutputPortCodec);
-        XcosObjectCodec implicitInputPortCodec = new BasicPortCodec(new ImplicitInputPort(), IGNORED_FIELDS, REFS, null);
+        XcosObjectCodec implicitInputPortCodec = new BasicPortCodec(new ImplicitInputPort(0), IGNORED_FIELDS, REFS, null);
         mxCodecRegistry.register(implicitInputPortCodec);
-        XcosObjectCodec commandPortCodec = new BasicPortCodec(new CommandPort(), IGNORED_FIELDS, REFS, null);
+        XcosObjectCodec commandPortCodec = new BasicPortCodec(new CommandPort(0), IGNORED_FIELDS, REFS, null);
         mxCodecRegistry.register(commandPortCodec);
-        XcosObjectCodec controlPortCodec = new BasicPortCodec(new ControlPort(), IGNORED_FIELDS, REFS, null);
+        XcosObjectCodec controlPortCodec = new BasicPortCodec(new ControlPort(0), IGNORED_FIELDS, REFS, null);
         mxCodecRegistry.register(controlPortCodec);
         mxCodecRegistry.register(new mxObjectCodec(Orientation.EAST));
     }

@@ -23,7 +23,6 @@ import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
-import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.Controller;
 import org.scilab.modules.xcos.Kind;
@@ -31,15 +30,11 @@ import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongElementException;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongStructureException;
-import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongTypeException;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxConstants;
 
 /**
@@ -67,6 +62,12 @@ final class BlockGraphicElement extends BlockPartsElement {
 
     private static final int GRAPHICS_INSTRUCTION_SIZE = 8;
     private static final double DEFAULT_SIZE_FACTOR = 20.0;
+
+    /** Mutable field to easily get the data through methods */
+    private ScilabMList data = null;
+
+    /** In-progress decoded diagram */
+    private final XcosDiagram diag = null;
 
     /** Size factor use to scale Xcos-Scicos dimensions */
     private final double sizeFactor;

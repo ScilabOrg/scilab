@@ -206,7 +206,7 @@ public class SetContextDialog extends JDialog {
                  */
                 if (rootGraph instanceof SuperBlockDiagram) {
                     SuperBlockDiagram superBlockDiagram = (SuperBlockDiagram) rootGraph;
-                    superBlockDiagram.getContainer().invalidateRpar();
+                    //superBlockDiagram.getContainer().invalidateRpar();
                 }
             }
         });
