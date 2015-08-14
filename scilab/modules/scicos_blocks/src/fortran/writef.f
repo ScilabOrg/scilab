@@ -77,7 +77,7 @@ c     file opening
          lfil=ipar(1)
          call cvstr(lfil,ipar(5),buf,1)
          lfmt=ipar(2)
-         lunit=0
+         lunit=10000
          if(lfmt.gt.0) then
             mode(1)=003
             mode(2)=0

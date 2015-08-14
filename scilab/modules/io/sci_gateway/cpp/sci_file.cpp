@@ -200,7 +200,7 @@ types::Function::ReturnValue sci_file(types::typed_list &in, int _iRetCount, typ
         }
 
         piMode[0] = iStatus + 10 * (iAccess + 10 * iForm);
-        int lunit = 0; // file unit. 0 mean we open the file by this name.
+        int lunit = 10000; // file unit. 10000 mean we open the file by this name.(0 correspond to stderr file)
         char* pstFilename = wide_string_to_UTF8(pSPath->get(0));
         int iErr = C2F(clunit)(&lunit, pstFilename, piMode, (int)strlen(pstFilename));
         if (iErr)

@@ -85,7 +85,7 @@ c     file opening
             buf(i:i)=char(ipar(4+i))
  5       continue
          lfmt=ipar(2)
-         lunit=0
+         lunit=10000
          if(lfmt.gt.0) then
             mode(1)=001
             mode(2)=0

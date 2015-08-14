@@ -55,7 +55,7 @@ bool is_of_type(const std::string & Str)
 /*--------------------------------------------------------------------------*/
 Function::ReturnValue sci_read(typed_list &in, int _iRetCount, typed_list &out)
 {
-    int iID = 0;
+    int iID = 10000;
     int iAcces = 0;
     int iRhs = static_cast<int>(in.size());
     char* pstFormat = NULL;

@@ -63,9 +63,9 @@ c ----------
 c close file
 c ----------
 c
-      if ( lunit.lt.0 ) then
+      if ( lunit.le.0 ) then
 c     .  preserve permanent files
-         if (lunit.eq.-5.or.lunit.eq.-6) goto 100
+         if (lunit.eq.0.or.lunit.eq.-5.or.lunit.eq.-6) goto 100
 c     .  close file and put it out of the table
          call getfiletype(-lunit,ltype,info)
          if(info.eq.0) then
@@ -118,7 +118,7 @@ c
             acc='sequential'
          endif
 c
-         if ( lunit.ne.0 ) then
+         if ( lunit.ne.10000 ) then
 c     .     file is defined directly by its logical unit
             call getfileinfo(lunit,ifa,iswap,ltype,mode,buf,lb,info)
             if(info.eq.2) then
