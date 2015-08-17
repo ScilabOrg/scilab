@@ -7,6 +7,8 @@ Scilab Bug Fixes
 
 * Bug #13709 fixed - unique function sometimes returned wrong index values.
 
+* Bug #13750 fixed - Calling ss2ss function with flag = 2 returned an error.
+
 * Bug #13872 fixed - Non regression test added for unique function (the indices returned were wrong)
 
 * Bug #14020 fixed - Incorrect carriage return ascii code.
