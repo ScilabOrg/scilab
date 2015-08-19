@@ -115,31 +115,20 @@ Function::ReturnValue sci_mgetl(typed_list &in, int _iRetCount, typed_list &out)
         return Function::Error;
     }
 
-    switch (iFileID)
+    types::File* pFile = FileManager::getFile(iFileID);
+    // file opened with fortran open function or is standart in/out
+    if (pFile == NULL || pFile->getFileType() != 2)
     {
-        case 0: // stderr
-        case 6: // stdout
-            Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mgetl", iFileID);
-            return types::Function::Error;
-        default :
-        {
-            types::File* pFile = FileManager::getFile(iFileID);
-            // file opened with fortran open function
-            if (pFile == NULL || pFile->getFileType() == 1)
-            {
-                Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mgetl", iFileID);
-                return types::Function::Error;
-            }
+        Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mgetl", iFileID);
+        return types::Function::Error;
+    }
 
-            wcReadedStrings = mgetl(iFileID, iLinesExcepted, &iLinesRead, &iErr);
+    wcReadedStrings = mgetl(iFileID, iLinesExcepted, &iLinesRead, &iErr);
 
-            switch (iErr)
-            {
-                case MGETL_MEMORY_ALLOCATION_ERROR :
-                    break;
-
-            }
-        }
+    if (iErr == MGETL_MEMORY_ALLOCATION_ERROR)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "mgetl");
+        return types::Function::Error;
     }
 
     if (wcReadedStrings && iLinesRead > 0)

@@ -82,6 +82,7 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
     }
 
     iFile = static_cast<int>(in[size - 2]->getAs<types::Double>()->get(0));
+    std::cout << "iFile " << iFile << std::endl;
     switch (iFile)
     {
         case 0: // stderr
@@ -96,6 +97,7 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
     StringConvertW(wcsFormat);
 
     types::File* pFile = FileManager::getFile(iFile);
+    std::cout << "type " << pFile->getFileType() << std::endl;
     if (pFile == NULL)
     {
         Scierror(999, _("%s: Cannot read file %d.\n"), "mfscanf", iFile);

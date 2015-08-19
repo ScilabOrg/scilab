@@ -67,6 +67,7 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
     switch (iFile)
     {
         case 0: // stderr
+        case 5: // stdin
         case 6: // stdout
             Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mgetstr", iFile);
             return types::Function::Error;

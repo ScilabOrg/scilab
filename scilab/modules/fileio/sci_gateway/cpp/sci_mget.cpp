@@ -88,24 +88,14 @@ Function::ReturnValue sci_mget(typed_list &in, int _iRetCount, typed_list &out)
     Double* pD = new Double(1, iSize);
     pData = pD->getReal();
 
-    switch (iFile)
-    {
-        case 0: // stderr
-        case 6: // stdout
-            FREE(pstType);
-            Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mget", iFile);
-            return types::Function::Error;
-    }
-
     types::File* pFile = FileManager::getFile(iFile);
-    // file opened with fortran open function
-    if (pFile == NULL || pFile->getFileType() == 1)
+    // file opened with fortran open function or is standart in/out
+    if (pFile == NULL || pFile->getFileType() != 2)
     {
         FREE(pstType);
         Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mget", iFile);
         return types::Function::Error;
     }
-
 
     C2F(mget)(&iFile, pData, &iSize, pstType, &iErr);
     FREE(pstType);
