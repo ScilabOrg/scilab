@@ -9,21 +9,21 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 *
 */
-/*------------------------------------------------------------------*/
-#ifndef __ARCHIVE_EXTRACT_H__
-#define __ARCHIVE_EXTRACT_H__
+/*--------------------------------------------------------------------------*/
+#ifndef __ARCHIVE_LIST_H__
+#define __ARCHIVE_LIST_H__
 
 #include "dynlib_fileio.h"
 
 /**
 * Returns a list of files in the archive
 * @param[filename] The absolute or relative path to the archive.
-* @param[perm_flag] The flag for the permissions
+* @param[size] The size of the list
 * @param[error] The error code for error detection
-* @return returns a 0 on success and -1 on failure
+* @return returns a pointer to a matrix containing the file names.
 */
 
-FILEIO_IMPEXP int archive_extract(char *filename, int perm_flag, int *error);
+FILEIO_IMPEXP char** archiveList(char *filename, int *size, int *error);
 
 
 #endif

@@ -19,7 +19,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-int archive_compress(char *archive_name, char **file_list, int size, char *arg_list, int *error)
+int archiveCompress(char *archive_name, char **file_list, int size, char *arg_list, int *error)
 {
     int i = 0;
     int j = strlen(arg_list);

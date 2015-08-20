@@ -58,9 +58,9 @@ src/c/fprintfMat.c \
 src/c/createtempfilename.c \
 src/c/dlManager.c \
 src/c/convert_tools.c \
-src/c/archive_list.c \
-src/c/archive_extract.c \
-src/c/archive_compress.c
+src/c/archiveList.c \
+src/c/archiveExtract.c \
+src/c/archiveCompress.c
 
 GATEWAY_SOURCES = \
 sci_gateway/c/gw_fileio.c \
@@ -111,9 +111,9 @@ sci_gateway/c/sci_mputl.c \
 sci_gateway/c/sci_tempname.c \
 sci_gateway/c/sci_getURL.c \
 sci_gateway/c/sci_splitURL.c \
-sci_gateway/c/sci_archive_list.c \
-sci_gateway/c/sci_archive_extract.c \
-sci_gateway/c/sci_archive_compress.c \
+sci_gateway/c/sci_archiveList.c \
+sci_gateway/c/sci_archiveExtract.c \
+sci_gateway/c/sci_archiveCompress.c \
 sci_gateway/c/sci_getURLheader.c \
 sci_gateway/c/sci_postURL.c
 

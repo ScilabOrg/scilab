@@ -20,7 +20,7 @@
 #include<string.h>
 #include<unistd.h>
 
-int archive_extract(char *filename, int perm_flag, int* error)
+int archiveExtract(char *filename, int perm_flag, int* error)
 {
     *error = 0;
     int flags;

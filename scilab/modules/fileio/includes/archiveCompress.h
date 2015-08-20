@@ -9,21 +9,21 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 *
 */
-/*--------------------------------------------------------------------------*/
-#ifndef __ARCHIVE_LIST_H__
-#define __ARCHIVE_LIST_H__
+/*------------------------------------------------------------------*/
+#ifndef __ARCHIVE_COMPRESS_H__
+#define __ARCHIVE_COMPRESS_H__
 
 #include "dynlib_fileio.h"
 
 /**
 * Returns a list of files in the archive
-* @param[filename] The absolute or relative path to the archive.
-* @param[size] The size of the list
-* @param[error] The error code for error detection
-* @return returns a pointer to a matrix containing the file names.
+* @param[filename] The archive name
+* @param[file_list] Space seperated file list
+* @param[arg_list] The argument for the format of the archive
+* @return returns a 0 on success and -1 on failure
 */
 
-FILEIO_IMPEXP char** archive_list(char *filename, int *size, int *error);
+FILEIO_IMPEXP int archiveCompress(char *archive_name, char **file_list, int size, char *arg_list, int *error);
 
 
 #endif

@@ -18,7 +18,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "PATH_MAX.h"
-#include "archive_extract.h"
+#include "archiveExtract.h"
 #include "freeArrayOfString.h"
 #include "expandPathVariable.h"
 #ifdef _MSC_VER
@@ -29,7 +29,7 @@
 #include "createdirectory.h"
 #include "scicurdir.h"
 /*--------------------------------------------------------------------------*/
-int sci_archive_extract(char *fname, unsigned long fname_len)
+int sci_archiveExtract(char *fname, unsigned long fname_len)
 {
     SciErr sciErr;
     BOOL perm_flag = FALSE; /* default */
@@ -180,11 +180,11 @@ int sci_archive_extract(char *fname, unsigned long fname_len)
                }
                    if(perm_flag == FALSE)
                {
-                   result = archive_extract(pathextended,0,&error);
+                   result = archiveExtract(pathextended,0,&error);
                }
                    else if(perm_flag == TRUE)
                {
-                   result = archive_extract(pathextended,1,&error);
+                   result = archiveExtract(pathextended,1,&error);
                }
                    if(error == 1)
                {

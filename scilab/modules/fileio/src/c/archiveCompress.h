@@ -10,8 +10,8 @@
 *
 */
 
-#ifndef __ARCHIVE_EXTRACT_H__
-#define __ARCHIVE_EXTRACT_H__
+#ifndef __ARCHIVE_COMPRESS_H__
+#define __ARCHIVE_COMPRESS_H__
 
 #include<sys/types.h>
 #include<sys/stat.h>
@@ -23,6 +23,6 @@
 #include<string.h>
 #include<unistd.h>
 
-int archive_extract(char *filename, int perm_flag, int* error);
+int archiveCompress(char *archive_name, char **file_list, int size, char *arg_list, int *error);
 
 #endif

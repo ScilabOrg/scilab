@@ -68,9 +68,9 @@ static gw_generic_table Tab[] =
     {sci_tempname, "tempname"},
     {sci_getURL, "getURL"},
     {sci_splitURL, "splitURL"},
-    {sci_archive_list, "archiveList"},
-    {sci_archive_extract, "archiveExtract"},
-    {sci_archive_compress, "archiveCompress"},
+    {sci_archiveList, "archiveList"},
+    {sci_archiveExtract, "archiveExtract"},
+    {sci_archiveCompress, "archiveCompress"},
     {sci_getURLheader, "getURLheader"},
     {sci_postURL, "postURL"}
 };

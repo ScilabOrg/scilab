@@ -10,20 +10,20 @@
 *
 */
 /*------------------------------------------------------------------*/
-#ifndef __ARCHIVE_COMPRESS_H__
-#define __ARCHIVE_COMPRESS_H__
+#ifndef __ARCHIVE_EXTRACT_H__
+#define __ARCHIVE_EXTRACT_H__
 
 #include "dynlib_fileio.h"
 
 /**
 * Returns a list of files in the archive
-* @param[filename] The archive name
-* @param[file_list] Space seperated file list
-* @param[arg_list] The argument for the format of the archive
+* @param[filename] The absolute or relative path to the archive.
+* @param[perm_flag] The flag for the permissions
+* @param[error] The error code for error detection
 * @return returns a 0 on success and -1 on failure
 */
 
-FILEIO_IMPEXP int archive_compress(char *archive_name, char **file_list, int size, char *arg_list, int *error);
+FILEIO_IMPEXP int archiveExtract(char *filename, int perm_flag, int *error);
 
 
 #endif
