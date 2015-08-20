@@ -38,24 +38,25 @@ char** archive_list(char *filename, int *size, int *error)
 
 
     while (archive_read_next_header(a, &entry) == ARCHIVE_OK)
-    {   //Iterating over the archive header to get filenames
+    {
+        //Iterating over the archive header to get filenames
         *size = *size + 1;
-        if((*size) == 1)
+        if ((*size) == 1)
         {
-            file_list = (char**)MALLOC(sizeof(char*)*(*size));
+            file_list = (char**)MALLOC(sizeof(char*) * (*size));
         }
         else
         {
-            file_list = (char**)REALLOC(file_list,sizeof(char*)*(*size));
+            file_list = (char**)REALLOC(file_list, sizeof(char*) * (*size));
         }
-        file_list[(*size)-1] = (char*)MALLOC(sizeof(char)*1024);
-        file_list[(*size)-1] = NULL;
-        file_list[(*size)-1] = strdup(archive_entry_pathname(entry));
+        file_list[(*size) - 1] = (char*)MALLOC(sizeof(char) * 1024);
+        file_list[(*size) - 1] = NULL;
+        file_list[(*size) - 1] = strdup(archive_entry_pathname(entry));
         archive_read_data_skip(a);
     }
 
 
-    r = archive_read_free(a); 
+    r = archive_read_free(a);
     if (r != ARCHIVE_OK) //If the archive struct could not be freed properly
     {
         *error = 2;

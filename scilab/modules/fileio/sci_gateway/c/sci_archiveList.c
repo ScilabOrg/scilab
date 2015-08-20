@@ -18,14 +18,14 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "PATH_MAX.h"
-#include "archive_list.h"
+#include "archiveList.h"
 #include "freeArrayOfString.h"
 #include "expandPathVariable.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
 /*--------------------------------------------------------------------------*/
-int sci_archive_list(char *fname, unsigned long fname_len)
+int sci_archiveList(char *fname, unsigned long fname_len)
 {
     SciErr sciErr;
     int *piAddressVarOne = NULL;
@@ -72,17 +72,17 @@ int sci_archive_list(char *fname, unsigned long fname_len)
     cols = 1;
     fileList = NULL;
     pathextended = expandPathVariable(pStVarOne[0]);
-    fileList = (char**)(archive_list(pathextended,&rows,&error));
+    fileList = (char**)(archive_list(pathextended, &rows, &error));
     freeAllocatedMatrixOfString(mOne, nOne, pStVarOne);
-    if(error == 1)
+    if (error == 1)
     {
         Scierror(999, _("%s: Sorry the archive could not be opened\n"), fname);
         return 0;
     }
-    else if(error == 2)
+    else if (error == 2)
     {
-	    Scierror(999, _("%s: Sorry the archive could not be closed.\n"), fname);
-	    return 0;
+        Scierror(999, _("%s: Sorry the archive could not be closed.\n"), fname);
+        return 0;
     }
     CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &rows, &cols, fileList);
     LhsVar(1) = Rhs + 1;

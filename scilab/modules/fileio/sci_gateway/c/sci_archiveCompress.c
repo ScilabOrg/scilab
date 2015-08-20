@@ -27,9 +27,9 @@
 #include "isdir.h"
 #include "createdirectory.h"
 #include "scicurdir.h"
-#include "archive_compress.h"
+#include "archiveCompress.h"
 /*--------------------------------------------------------------------------*/
-int sci_archive_compress(char *fname, unsigned long fname_len)
+int sci_archiveCompress(char *fname, unsigned long fname_len)
 {
     SciErr sciErr;
     int *piAddressVarOne = NULL;

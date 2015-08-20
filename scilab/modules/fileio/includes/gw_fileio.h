@@ -63,9 +63,9 @@ int sci_mputl(char *fname, unsigned long fname_len);
 int sci_tempname(char *fname, unsigned long fname_len);
 int sci_getURL(char *fname, unsigned long fname_len);
 int sci_splitURL(char *fname, unsigned long fname_len);
-int sci_archive_list(char *fname, unsigned long fname_len);
-int sci_archive_extract(char *fname, unsigned long fname_len);
-int sci_archive_compress(char *fname, unsigned long fname_len);
+int sci_archiveList(char *fname, unsigned long fname_len);
+int sci_archiveExtract(char *fname, unsigned long fname_len);
+int sci_archiveCompress(char *fname, unsigned long fname_len);
 int sci_getURLheader(char *fname, unsigned long fname_len);
 int sci_postURL(char *fname, unsigned long fname_len);
 /*--------------------------------------------------------------------------*/
