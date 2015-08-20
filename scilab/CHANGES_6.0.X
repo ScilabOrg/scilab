@@ -25,6 +25,8 @@ Scilab Bug Fixes
 
 * Bug #14058 fixed - Scilab crashed with 'file("close", file())' instruction
 
+* Bug #14093 fixed - atanh returns NaN for values with an absolute value greater than 1
+
 
             Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
             =========================================================
