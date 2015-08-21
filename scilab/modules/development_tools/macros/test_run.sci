@@ -78,6 +78,9 @@ function test_run_result = test_run(varargin)
         params.wanted_mode  = assign_option(option_mat, "mode_nwni", "NWNI", params.wanted_mode);
         option_mat          = clean_option(option_mat, "mode_nwni");
 
+        params.wanted_mode  = assign_option(option_mat, "mode_nwni_profiling", ["NWNI" "PROFILING"], params.wanted_mode);
+        option_mat          = clean_option(option_mat, "mode_nwni_profiling");
+
         // Reference
         params.reference    = assign_option(option_mat, "no_check_ref", "skip", params.reference);
         option_mat          = clean_option(option_mat, "no_check_ref");
@@ -618,7 +621,7 @@ function status = test_single(_module, _testPath, _testName)
     end
 
     if ~isempty(grep(sciFile, "<-- TEST WITH GRAPHIC -->")) then
-        if _module.wanted_mode == "NWNI" then
+        if or(_module.wanted_mode == "NWNI") then
             status.id = 10;
             status.message = "skipped: Test with graphic";
             return;
@@ -648,7 +651,7 @@ function status = test_single(_module, _testPath, _testName)
     clear MPITestPos
 
     if ~isempty(grep(sciFile, "<-- XCOS TEST -->")) then
-        if _module.wanted_mode == "NWNI" then
+        if or(_module.wanted_mode == "NWNI") then
             status.id = 10;
             status.message = "skipped: Test with xcos";
             return;
@@ -771,6 +774,9 @@ function status = test_single(_module, _testPath, _testName)
     elseif _module.wanted_mode == "NWNI" then
         winbin = "scilex.exe";
         mode_arg = "-nwni";
+    elseif _module.wanted_mode == ["NWNI" "PROFILING"] then
+        winbin = "scilex.exe";
+        mode_arg = "-nwni -profiling";
     else
         if execMode == "NWNI" then
             winbin = "scilex.exe";
@@ -909,6 +915,15 @@ function status = test_single(_module, _testPath, _testName)
                 end
             end
         end
+
+        // FIXME not tested yet
+        if mode_arg == "-nwni -profiling" then
+            txt = mgetl(tmp_err);
+            if grep(txt($), "ERROR SUMMARY: 0 errors from 0 contexts") then
+                deletefile(tmp_err);
+            end
+        end
+
 
         tmp_errfile_info = fileinfo(tmp_err);
 
