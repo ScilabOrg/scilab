@@ -132,7 +132,7 @@ public class PaletteManagerPanel extends JSplitPane {
      */
     public void addRecentltyUsedBlock(PaletteBlock block) {
         PaletteNode currentNode = (PaletteNode) tree.getLastSelectedPathComponent();
-        if (currentNode.getName().equals(RECENTLY_USED_BLOCKS)) {
+        if (currentNode != null && currentNode.getName().equals(RECENTLY_USED_BLOCKS)) {
             return;
         }
 
@@ -173,6 +173,7 @@ public class PaletteManagerPanel extends JSplitPane {
      * Zoom
      * @param newSize new paletteblocksize enum
      */
+    // CSOFF: CyclomaticComplexity
     private void zoom(PaletteBlockSize newSize) {
         if (newSize == null || newSize == currentSize) {
             return;
