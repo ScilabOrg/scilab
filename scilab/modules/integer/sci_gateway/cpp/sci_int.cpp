@@ -30,6 +30,21 @@ void convert_int(U* _pIn, int _iSize, T* _pOut)
     }
 }
 
+/* Template specialization to override O2 optimization:
+ * that impedes the correct computation below
+ * (char) 2^31 + 1 == 1
+ */
+template <class T>
+void convert_int(double * _pIn, int _iSize, T* _pOut)
+{
+    long long llTmp = 0;
+    for (int i = 0 ; i < _iSize ; i++)
+    {
+        llTmp = (long long) _pIn[i];
+        _pOut[i] = (T)llTmp;
+    }
+}
+
 template <class T>
 void convertInt(types::InternalType* _pIn, T* _pOut)
 {

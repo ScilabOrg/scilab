@@ -29,6 +29,8 @@ Scilab Bug Fixes
 
 * Bug #14058 fixed - Scilab crashed with 'file("close", file())' instruction
 
+* Bug #14077 fixed - Double over 2^31+1 were not properly cast in int8, int16 and int32
+
 
             Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
             =========================================================
