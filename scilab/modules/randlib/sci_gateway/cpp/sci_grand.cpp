@@ -76,7 +76,7 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         return types::Function::Error;
     }
 
-    // *** find the mothod string. ***
+    // *** find the method string. ***
     for (int i = 0; i < in.size(); i++)
     {
         if (in[i]->isString())
@@ -88,11 +88,19 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
         }
     }
 
-    if ((iStrPos == 0) && (in[0]->isString() == false))
+    if (pStrMethod == NULL)
     {
-        ast::ExecVisitor exec;
-        std::wstring wstFuncName = L"%" + in[0]->getShortTypeStr() + L"_grand";
-        return Overload::call(wstFuncName, in, _iRetCount, out, &exec);
+        for (int i = 0; i < in.size(); i++)
+        {
+            if (!in[i]->isDouble())
+            {
+                ast::ExecVisitor exec;
+                std::wstring wstFuncName = L"%" + in[0]->getShortTypeStr() + L"_grand";
+                return Overload::call(wstFuncName, in, _iRetCount, out, &exec);
+            }
+        }
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "grand", in.size() + 1);
+        return types::Function::Error;
     }
 
     int iDims = iStrPos > 1 ? iStrPos : 2;
