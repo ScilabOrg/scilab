@@ -22,6 +22,7 @@ Xcos
 * Bug #13906 fixed - It is now possible to navigate through the Palette browser with the arrow keys.
 * Bug #12453 fixed - The left panel of the palette browser keeps its size when some category is enabled or disabled.
 * Bug #10326 fixed - Adds a search engine for the palette browser.
+* Bug #13907 fixed - Avoids the gray background on the right panel of the palette Browser.
 
 Compilation
 ============
