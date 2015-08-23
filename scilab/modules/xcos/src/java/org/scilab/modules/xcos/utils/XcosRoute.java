@@ -48,7 +48,7 @@ public class XcosRoute {
         mxICell targetCell = link.getTarget();
         Object[] allOtherCells = getAllOtherCells(allCells, link, sourceCell, targetCell);
         if (sourceCell != null && targetCell != null) {
-            boolean isGetRoute = this.computeRoute(link, allOtherCells, graph);
+            boolean isGetRoute = this.computeRoute(sourceCell, targetCell, allOtherCells, graph);
             if (isGetRoute) {
                 List<mxPoint> list = this.getNonRedundantPoints();
                 mxGeometry geometry = new mxGeometry();
@@ -66,14 +66,13 @@ public class XcosRoute {
      * Get the turning points for the optimal route. If the straight route is the optimal route,
      * return null.
      *
-     * @param link
+     * @param sourceCell
+     * @param targetCell
      * @param allCells
      * @return list of turning points
      */
-    private boolean computeRoute(BasicLink link, Object[] allCells, XcosDiagram graph) {
+    protected boolean computeRoute(mxICell sourceCell, mxICell targetCell, Object[] allCells, XcosDiagram graph) {
         listRoute.clear();
-        mxICell sourceCell = link.getSource();
-        mxICell targetCell = link.getTarget();
         // if the link is not connected with BasicPort.
         if (!(sourceCell instanceof BasicPort) || !(targetCell instanceof BasicPort)) {
             return false;
@@ -124,10 +123,10 @@ public class XcosRoute {
         }
         // re-calculate the orientation for the SplitBlock.
         if (sourceCell.getParent() instanceof SplitBlock) {
-            sourcePortOrien = this.getNewOrientation(sourceCell, srcx, srcy, targetCell, tgtx, tgty, link, graph);
+            sourcePortOrien = this.getNewOrientation(sourceCell, srcx, srcy, targetCell, tgtx, tgty, graph);
         }
         if (targetCell.getParent() instanceof SplitBlock) {
-            targetPortOrien = this.getNewOrientation(targetCell, tgtx, tgty, sourceCell, srcx, srcy, link, graph);
+            targetPortOrien = this.getNewOrientation(targetCell, tgtx, tgty, sourceCell, srcx, srcy, graph);
         }
         sourcePoint = getPointAwayPort(sourceCell, srcx, srcy, sourcePortOrien, allCells, graph);
         targetPoint = getPointAwayPort(targetCell, tgtx, tgty, targetPortOrien, allCells, graph);
@@ -277,12 +276,11 @@ public class XcosRoute {
      * @param otherCell
      * @param ox
      * @param oy
-     * @param link
      * @param graph
      * @return
      */
     private Orientation getNewOrientation(mxICell cell, double cx, double cy, mxICell otherCell, double ox,
-                                          double oy, BasicLink link, XcosDiagram graph) {
+                                          double oy, XcosDiagram graph) {
         Orientation orientation = Orientation.EAST;
         if (cell.getParent() instanceof SplitBlock) {
             SplitBlock block = (SplitBlock) cell.getParent();
@@ -441,7 +439,7 @@ public class XcosRoute {
      *            SplitBlock, too.
      * @return a new array of all objects excluding selves
      */
-    private Object[] getAllOtherCells(Object[] all, Object... self) {
+    protected Object[] getAllOtherCells(Object[] all, Object... self) {
         List<Object> listNotObs = new ArrayList<Object>(0);
         listNotObs.addAll(Arrays.asList(self));
         for (Object obj : self) {

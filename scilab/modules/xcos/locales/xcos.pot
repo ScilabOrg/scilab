@@ -89,7 +89,7 @@ msgstr ""
 
 #
 # File: scilab_fake_localization_file.c, line:
-# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 
+# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 295
 msgid "Optimal"
 msgstr ""
 
