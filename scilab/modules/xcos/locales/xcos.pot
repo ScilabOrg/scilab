@@ -1154,6 +1154,16 @@ msgid "Middle"
 msgstr ""
 
 #
+# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 296
+msgid "Blocks Auto Position"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 297
+msgid "Blocks Position Split Blocks"
+msgstr "Split Blocks - Auto Position"
+
+#
 # File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 201
 msgid "Border Color"
 msgstr ""

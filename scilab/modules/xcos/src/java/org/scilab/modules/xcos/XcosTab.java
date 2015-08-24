@@ -93,6 +93,7 @@ import org.scilab.modules.xcos.block.actions.CodeGenerationAction;
 import org.scilab.modules.xcos.block.actions.FilledColorAction;
 import org.scilab.modules.xcos.block.actions.FlipAction;
 import org.scilab.modules.xcos.block.actions.MirrorAction;
+import org.scilab.modules.xcos.block.actions.PositionSplitBlockAction;
 import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
 import org.scilab.modules.xcos.block.actions.RotateAction;
 import org.scilab.modules.xcos.block.actions.ViewDetailsAction;
@@ -138,6 +139,7 @@ public class XcosTab extends SwingScilabDockablePanel implements SimpleTab {
     private Menu simulate;
     private Menu format;
     private Menu alignMenu;
+    private Menu blockPosition;
     private Menu linkStyle;
     private Menu tools;
     private Menu help;
@@ -476,6 +478,12 @@ public class XcosTab extends SwingScilabDockablePanel implements SimpleTab {
         format.add(alignMenu);
         format.addSeparator();
 
+        blockPosition = ScilabMenu.createMenu();
+        blockPosition.setText(XcosMessages.BLOCKS_AUTO_POSITION);
+        blockPosition.add(PositionSplitBlockAction.createMenu(diagram));
+        format.add(blockPosition);
+        format.addSeparator();
+
         format.add(EditFormatAction.createMenu(diagram));
         format.add(BorderColorAction.createMenu(diagram));
         format.add(FilledColorAction.createMenu(diagram));
@@ -535,7 +543,7 @@ public class XcosTab extends SwingScilabDockablePanel implements SimpleTab {
      * Populate recent files menu according to xcos preferences
      *
      * @param recent
-     * 			recent files menu
+     *                  recent files menu
      */
     private void populateRecentMenu(final Menu recent) {
         final ConfigurationManager manager = ConfigurationManager.getInstance();

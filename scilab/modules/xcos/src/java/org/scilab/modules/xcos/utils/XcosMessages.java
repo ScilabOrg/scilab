@@ -293,6 +293,8 @@ public final class XcosMessages {
 
     /* Automatic Layout */
     public static final String LINK_STYLE_OPTIMAL = Messages.gettext("Optimal");
+    public static final String BLOCKS_AUTO_POSITION = Messages.gettext("Blocks Auto Position");
+    public static final String BLOCKS_POSITION_SPLIT_BLOCKS = Messages.gettext("Blocks Position Split Blocks");
 
     // CSON: JavadocVariable
     // CSON: LineLength
