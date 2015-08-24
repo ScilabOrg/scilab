@@ -8,6 +8,6 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 
 
-function r=iscell(S)
-    r=typeof(S)=="ce"
+function r = iscell(S)
+    r = typeof(S)=="cell";
 endfunction
