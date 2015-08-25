@@ -1889,6 +1889,8 @@ extern "C"
 static int comment_level = 0;
 static int paren_level = 0;
 static int last_token = 0;
+static int exit_status = PARSE_ERROR;
+static int str_opener_column = 0;
 static std::string current_file;
 static std::string program_name;
 
@@ -1897,7 +1899,7 @@ static std::string pstBuffer;
 extern void yyerror(std::string);
 
 #define YY_USER_ACTION                          \
- yylloc.first_column = yylloc.last_column;yylloc.last_column += yyleng;
+    yylloc.first_column = yylloc.last_column; yylloc.last_column += yyleng;
 //yylloc.last_column += yyleng;
 
 /* -*- Verbose Special Debug -*- */
@@ -2814,7 +2816,7 @@ do_action:	/* This label is used only to access EOF actions. */
 #ifdef TOKENDEV
                         std::cout << "--> [DEBUG] FLOATING : " << yytext << std::endl;
 #endif
-                        scan_step();
+                        //scan_step();
                         return scan_throw(VARFLOAT);
                     }
                     YY_BREAK
@@ -2825,7 +2827,7 @@ do_action:	/* This label is used only to access EOF actions. */
 #ifdef TOKENDEV
                         std::cout << "--> [DEBUG] FLOATING : " << yytext << std::endl;
 #endif
-                        scan_step();
+                        //scan_step();
                         return scan_throw(VARFLOAT);
                     }
                     YY_BREAK
@@ -2847,7 +2849,7 @@ do_action:	/* This label is used only to access EOF actions. */
 #ifdef TOKENDEV
                         std::cout << "--> [DEBUG] LITTLE : " << yytext << std::endl;
 #endif
-                        scan_step();
+                        //  scan_step();
                         return scan_throw(NUM);
                     }
                     YY_BREAK
@@ -2893,6 +2895,7 @@ do_action:	/* This label is used only to access EOF actions. */
                     YY_RULE_SETUP
                     {
                         pstBuffer.clear();
+                        str_opener_column = yylloc.first_column;
                         yy_push_state(DOUBLESTRING);
                     }
                     YY_BREAK
@@ -2918,6 +2921,7 @@ do_action:	/* This label is used only to access EOF actions. */
                         else
                         {
                             pstBuffer.clear();
+                            str_opener_column = yylloc.first_column;
                             yy_push_state(SIMPLESTRING);
                         }
                     }
@@ -3328,7 +3332,7 @@ do_action:	/* This label is used only to access EOF actions. */
                     YY_RULE_SETUP
                     {
                         yy_pop_state();
-                        scan_step();
+                        //scan_step();
                         wchar_t *pwstBuffer = to_wide_string(pstBuffer.c_str());
                         if (pstBuffer.c_str() != NULL && pwstBuffer == NULL)
                         {
@@ -3343,6 +3347,7 @@ do_action:	/* This label is used only to access EOF actions. */
                         yylval.str = new std::wstring(pwstBuffer);
                         pstBuffer.clear();
                         FREE(pwstBuffer);
+                        yylloc.first_column = str_opener_column;
                         return scan_throw(STR);
                     }
                     YY_BREAK
@@ -3359,6 +3364,8 @@ do_action:	/* This label is used only to access EOF actions. */
                     /* rule 120 can match eol */
                     YY_RULE_SETUP
                     {
+                        yylloc.last_line += 1;
+                        yylloc.last_column = 1;
                         /* Do nothing... Just skip */
                     }
                     YY_BREAK
@@ -3386,7 +3393,7 @@ do_action:	/* This label is used only to access EOF actions. */
                 case 123:
                     YY_RULE_SETUP
                     {
-                        scan_step();
+                        //scan_step();
                         pstBuffer += yytext;
                     }
                     YY_BREAK
@@ -3419,7 +3426,7 @@ do_action:	/* This label is used only to access EOF actions. */
                     YY_RULE_SETUP
                     {
                         yy_pop_state();
-                        scan_step();
+                        //scan_step();
                         wchar_t *pwstBuffer = to_wide_string(pstBuffer.c_str());
                         if (pstBuffer.c_str() != NULL && pwstBuffer == NULL)
                         {
@@ -3434,6 +3441,7 @@ do_action:	/* This label is used only to access EOF actions. */
                         yylval.str = new std::wstring(pwstBuffer);
                         pstBuffer.clear();
                         FREE(pwstBuffer);
+                        yylloc.first_column = str_opener_column;
                         return scan_throw(STR);
                     }
                     YY_BREAK
@@ -3450,6 +3458,8 @@ do_action:	/* This label is used only to access EOF actions. */
                     /* rule 130 can match eol */
                     YY_RULE_SETUP
                     {
+                        yylloc.last_line += 1;
+                        yylloc.last_column = 1;
                         /* Do nothing... Just skip */
                     }
                     YY_BREAK
@@ -3477,7 +3487,7 @@ do_action:	/* This label is used only to access EOF actions. */
                 case 133:
                     YY_RULE_SETUP
                     {
-                        scan_step();
+                        //scan_step();
                         pstBuffer += yytext;
                     }
                     YY_BREAK
