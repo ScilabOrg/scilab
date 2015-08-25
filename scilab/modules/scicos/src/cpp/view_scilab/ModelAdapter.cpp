@@ -920,19 +920,10 @@ struct rpar
                 return false;
             }
 
-            // Translate 'v' to an DiagramAdapter ; copy if needed
-            DiagramAdapter* diagram;
-            if (v->getRef() > 1)
-            {
-                diagram = v->clone()->getAs<DiagramAdapter>();
-            }
-            else
-            {
-                diagram = v->getAs<DiagramAdapter>();
-            }
+            DiagramAdapter* diagram = v->getAs<DiagramAdapter>();
             adaptor.setDiagram(diagram);
 
-            // set the diagram children as block children ; referencing them
+            // Set the diagram children as block children
             std::vector<ScicosID> diagramChildren;
             controller.getObjectProperty(diagram->getAdaptee()->id(), DIAGRAM, CHILDREN, diagramChildren);
             if (diagramChildren.empty())
@@ -943,32 +934,37 @@ struct rpar
             std::vector<ScicosID> oldDiagramChildren;
             controller.getObjectProperty(adaptor.getAdaptee()->id(), BLOCK, CHILDREN, oldDiagramChildren);
 
-            controller.setObjectProperty(adaptor.getAdaptee()->id(), BLOCK, CHILDREN, diagramChildren);
+            std::sort(oldDiagramChildren.begin(), oldDiagramChildren.end());
+            std::vector<ScicosID> clonedChildren;
+            for (const ScicosID id : diagramChildren)
             {
-                std::sort(oldDiagramChildren.begin(), oldDiagramChildren.end());
-                for (const ScicosID id : diagramChildren)
+                if (id != 0 && !std::binary_search(oldDiagramChildren.begin(), oldDiagramChildren.end(), id))
                 {
-                    if (id != 0 && !std::binary_search(oldDiagramChildren.begin(), oldDiagramChildren.end(), id))
-                    {
-                        auto o = controller.getObject(id);
-                        controller.setObjectProperty(o->id(), o->kind(), PARENT_BLOCK, adaptor.getAdaptee()->id());
+                    ScicosID cloneID = controller.cloneObject(id, true);
+                    auto o = controller.getObject(cloneID);
+                    controller.setObjectProperty(o->id(), o->kind(), PARENT_BLOCK, adaptor.getAdaptee()->id());
 
-                        controller.referenceObject(id);
-                    }
-                }
-
-                std::sort(diagramChildren.begin(), diagramChildren.end());
-                for (const ScicosID id : oldDiagramChildren)
-                {
-                    if (id != 0 && !std::binary_search(diagramChildren.begin(), diagramChildren.end(), id))
-                    {
-                        auto o = controller.getObject(id);
-                        controller.setObjectProperty(o->id(), o->kind(), PARENT_BLOCK, ScicosID());
-
-                        controller.deleteObject(id);
-                    }
+                    clonedChildren.push_back(cloneID);
                 }
             }
+            controller.setObjectProperty(adaptor.getAdaptee()->id(), BLOCK, CHILDREN, clonedChildren);
+
+            std::sort(diagramChildren.begin(), diagramChildren.end());
+            for (const ScicosID id : oldDiagramChildren)
+            {
+                if (id != 0 && !std::binary_search(diagramChildren.begin(), diagramChildren.end(), id))
+                {
+                    auto o = controller.getObject(id);
+                    controller.setObjectProperty(o->id(), o->kind(), PARENT_BLOCK, ScicosID());
+
+                    controller.deleteObject(id);
+                }
+            }
+
+            // Save the context
+            std::vector<std::string> context;
+            controller.getObjectProperty(diagram->getAdaptee()->id(), DIAGRAM, DIAGRAM_CONTEXT, context);
+            controller.setObjectProperty(adaptor.getAdaptee()->id(), BLOCK, DIAGRAM_CONTEXT, context);
 
             // Link the Superblock ports to their inner "port blocks"
             return setInnerBlocksRefs(adaptor, diagramChildren, controller);
@@ -1984,7 +1980,7 @@ DiagramAdapter* ModelAdapter::getDiagram() const
 
 void ModelAdapter::setDiagram(DiagramAdapter* diagramAdapter)
 {
-    // does not increment reference as this adapter does not own the DiagramAdapter
+    // Does not increment reference as this adapter does not own the DiagramAdapter
     m_diagramAdapter = diagramAdapter;
 }
 
