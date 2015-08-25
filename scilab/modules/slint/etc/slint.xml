@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <Redefinition enable="true"/>
+    <Variables enable="true"/>
+    <FunctionName enable="true" namePattern="[a-z]*" minLength="-1" maxLength="-1"/>
+    <FunctionArgs enable="true"/>
+    <UselessArg enable="true"/>
+    <UselessRet enable="true"/>
+    <VariableName enable="true" namePattern="[a-zA-Z0-9]*" minLength="-1" maxLength="-1"/>
+    <SingleInstr enable="true"/>
+    <EmptyBlock enable="true"/>
+    <SemicolonAtEOL enable="true"/>
+    <MopenMclose enable="true" checkError="true"/>
+    <McCabe enable="true" max="30"/>
+    <Decimal enable="true" character="e" checkDot="true"/>
+    <Printf enable="true"/>
+    <LineLength enable="true" max="80"/>
+    <LinesCount enable="true" max="200"/>
+    <Todo enable="true"/>
+    <NaN enable="true"/>
+    <EqEq enable="true"/>
+    <UselessOp enable="true"/>
+    <UnreachableCode enable="true"/>
+    <Deprecated enable="true"/>
+    <Select enable="true"/>
+    <ImplicitList enable="true"/>
+    <Struct enable="true" fieldPattern="[a-z]*"  minLength="-1" maxLength="-1"/>
+    <LoadSave enable="true"/>
+    <OldNot enable="true"/>
+    <SpacesAroundOp enable="true"/>
+    <SpacesInArgs enable="true"/>
+    <BreaksInLoop enable="true" maxBreaks="1" maxContinues="1"/>
+    <NestedBlocks enable="true" max="5"/>
+    <BracketedExp enable="true"/>
+    <NotNot enable="true"/>
+    <IllegalCalls enable="true">
+        <keyword name="pause"/>
+        <keyword name="abort"/>
+        <keyword name="quit"/>
+        <keyword name="exit"/>
+    </IllegalCalls>
+</configuration>
