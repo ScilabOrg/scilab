@@ -4,7 +4,9 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-
+//
+// <-- TEST WITH GRAPHIC -->
+//
 // Unitary tests for Scilab Java pushbuttons
 
 // Exec tests common to all uicontrols

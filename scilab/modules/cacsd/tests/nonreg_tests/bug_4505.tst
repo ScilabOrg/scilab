@@ -5,9 +5,11 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-// <-- Non-regression test for bug 4505 -->
-//
+
 // <-- ENGLISH IMPOSED -->
+// <-- TEST WITH GRAPHIC -->
+
+// <-- Non-regression test for bug 4505 -->
 //
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=4505

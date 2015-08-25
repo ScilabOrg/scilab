@@ -5,6 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
+// <-- TEST WITH GRAPHIC -->
 // <-- Unit-test for color in marks -->
 //
 // <-- Bugzilla URL -->
@@ -12,7 +13,7 @@
 //
 // <-- Short Description -->
 // Tests that the marks can be coloured in 2D plots with offset and stride set
-// 
+//
 // <-- INTERACTIVE TEST -->
 
 x = (1:100);
@@ -48,4 +49,4 @@ pl_1.mark_size = 20;
 pl_1.colors = grand(1, 100, "uin", 1, 32);
 drawnow();
 rand("uniform");
- 
+
