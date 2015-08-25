@@ -26,13 +26,14 @@ static int comment_level = 0;
 static int paren_level = 0;
 static int last_token = 0;
 static int exit_status = PARSE_ERROR;
+static int str_opener_column = 0;
 static std::string current_file;
 static std::string program_name;
 
 static std::string *pstBuffer;
 
 #define YY_USER_ACTION                          \
- yylloc.first_column = yylloc.last_column;yylloc.last_column += yyleng;
+    yylloc.first_column = yylloc.last_column; yylloc.last_column += yyleng;
 //yylloc.last_column += yyleng;
 
 /* -*- Verbose Special Debug -*- */
@@ -643,6 +644,7 @@ assign			"="
 
 <INITIAL,MATRIX,SHELLMODE>{dquote}		{
   pstBuffer = new std::string();
+  str_opener_column = yylloc.first_column;
   yy_push_state(DOUBLESTRING);
 }
 
@@ -667,6 +669,7 @@ assign			"="
   else
   {
       pstBuffer = new std::string();
+      str_opener_column = yylloc.first_column;
       yy_push_state(SIMPLESTRING);
   }
 }
@@ -1002,7 +1005,7 @@ assign			"="
 
   {quote}					{
     yy_pop_state();
-    scan_step();
+    //scan_step();
     wchar_t *pwstBuffer = to_wide_string(pstBuffer->c_str());
     if (pstBuffer->c_str() != NULL && pwstBuffer == NULL)
     {
@@ -1015,6 +1018,7 @@ assign			"="
     yylval.str = new std::wstring(pwstBuffer);
     delete pstBuffer;
     FREE(pwstBuffer);
+    yylloc.first_column = str_opener_column;
     return scan_throw(STR);
   }
 
@@ -1025,6 +1029,8 @@ assign			"="
   }
 
   {next}{newline}           {
+      yylloc.last_line += 1;
+      yylloc.last_column = 1;
       /* Do nothing... Just skip */
   }
 
@@ -1044,7 +1050,7 @@ assign			"="
 
   {in_string}						|
   .                                                     {
-    scan_step();
+      //scan_step();
     *pstBuffer += yytext;
   }
 }
@@ -1070,7 +1076,7 @@ assign			"="
 
   {dquote}                      {
     yy_pop_state();
-    scan_step();
+    //scan_step();
     wchar_t *pwstBuffer = to_wide_string(pstBuffer->c_str());
     if (pstBuffer->c_str() != NULL && pwstBuffer == NULL)
     {
@@ -1083,6 +1089,7 @@ assign			"="
     yylval.str = new std::wstring(pwstBuffer);
     delete pstBuffer;
     FREE(pwstBuffer);
+    yylloc.first_column = str_opener_column;
     return scan_throw(STR);
   }
 
@@ -1093,6 +1100,8 @@ assign			"="
   }
 
   {next}{newline}           {
+      yylloc.last_line += 1;
+      yylloc.last_column = 1;
       /* Do nothing... Just skip */
   }
 
@@ -1112,7 +1121,7 @@ assign			"="
 
   {in_string}         |
   .                   {
-   scan_step();
+      //scan_step();
    *pstBuffer += yytext;
   }
 }
