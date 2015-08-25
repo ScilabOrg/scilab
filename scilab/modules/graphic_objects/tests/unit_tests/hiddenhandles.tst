@@ -5,6 +5,8 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// <-- TEST WITH GRAPHIC -->
+//
 // <-- Simple test hidden handles using the MVC implementation -->
 
 c = get(0); // Get console handle

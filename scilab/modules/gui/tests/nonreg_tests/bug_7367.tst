@@ -5,8 +5,9 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
+// <-- TEST WITH GRAPHIC -->
+//
 // <-- Non-regression test for bug 7367 -->
-// <-- TEST WITH GRPAHIC -->
 //
 // <-- Bugzilla URL -->
 // http://bugzilla.scilab.org/show_bug.cgi?id=7367
