@@ -1002,7 +1002,7 @@ assign			"="
 
   {quote}					{
     yy_pop_state();
-    scan_step();
+    //scan_step();
     wchar_t *pwstBuffer = to_wide_string(pstBuffer->c_str());
     if (pstBuffer->c_str() != NULL && pwstBuffer == NULL)
     {
@@ -1015,6 +1015,7 @@ assign			"="
     yylval.str = new std::wstring(pwstBuffer);
     delete pstBuffer;
     FREE(pwstBuffer);
+    yylloc.first_column = yylloc.last_column - yylval.str->size() - 2;
     return scan_throw(STR);
   }
 
@@ -1044,7 +1045,7 @@ assign			"="
 
   {in_string}						|
   .                                                     {
-    scan_step();
+      //scan_step();
     *pstBuffer += yytext;
   }
 }
@@ -1070,7 +1071,7 @@ assign			"="
 
   {dquote}                      {
     yy_pop_state();
-    scan_step();
+    //scan_step();
     wchar_t *pwstBuffer = to_wide_string(pstBuffer->c_str());
     if (pstBuffer->c_str() != NULL && pwstBuffer == NULL)
     {
@@ -1083,6 +1084,7 @@ assign			"="
     yylval.str = new std::wstring(pwstBuffer);
     delete pstBuffer;
     FREE(pwstBuffer);
+    yylloc.first_column = yylloc.last_column - yylval.str->size() - 2;
     return scan_throw(STR);
   }
 
@@ -1112,7 +1114,7 @@ assign			"="
 
   {in_string}         |
   .                   {
-   scan_step();
+      //scan_step();
    *pstBuffer += yytext;
   }
 }
