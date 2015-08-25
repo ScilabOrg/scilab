@@ -17,10 +17,10 @@
 #include <vector>
 
 #include "internal.hxx"
-#include "list.hxx"
 
 #include "adapters_utilities.hxx"
 #include "BaseAdapter.hxx"
+#include "BlockAdapter.hxx"
 #include "model/Diagram.hxx"
 
 namespace org_scilab_modules_scicos
@@ -43,22 +43,24 @@ public:
     std::wstring getTypeStr();
     std::wstring getShortTypeStr();
 
-    types::List* getListObjects() const;
-    void setListObjects(types::List* v);
-
     std::vector<link_t> getFrom() const;
     void setFrom(const std::vector<link_t>& from);
     std::vector<link_t> getTo() const;
     void setTo(const std::vector<link_t>& to);
 
+    std::vector<BlockAdapter*> getBlocks() const;
+    void setBlocks(const std::vector<BlockAdapter*>& blocks);
+
     types::InternalType* getContribContent() const;
     void setContribContent(types::InternalType* v);
 
 private:
-    types::List* list_objects;
-
+    // Infos for the child links
     std::vector<link_t> from_vec;
     std::vector<link_t> to_vec;
+
+    // Infos for the child blocks
+    std::vector<BlockAdapter*> child_blocks;
 
     types::InternalType* contrib_content;
 };
