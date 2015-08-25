@@ -1,6 +1,17 @@
         Changes between version 6.0.0-alpha-1 and 6.0.0-alpha-2 of Scilab
         =================================================================
 
+Deprecated Behaviors
+=====================
+* Function without output argument cannot be call in assignation expression
+
+    function foo()
+        //...
+    endfunction
+
+    val = foo() //return error
+
+
 
 Scilab Bug Fixes
 ================
