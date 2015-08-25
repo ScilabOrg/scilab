@@ -3319,7 +3319,7 @@ do_action:	/* This label is used only to access EOF actions. */
                     YY_RULE_SETUP
                     {
                         yy_pop_state();
-                        scan_step();
+                        //scan_step();
                         wchar_t *pwstBuffer = to_wide_string(pstBuffer->c_str());
                         if (pstBuffer->c_str() != NULL && pwstBuffer == NULL)
                         {
@@ -3332,6 +3332,7 @@ do_action:	/* This label is used only to access EOF actions. */
                         yylval.str = new std::wstring(pwstBuffer);
                         delete pstBuffer;
                         FREE(pwstBuffer);
+                        yylloc.first_column = yylloc.last_column - yylval.str->size() - 2;
                         return scan_throw(STR);
                     }
                     YY_BREAK
@@ -3372,7 +3373,7 @@ do_action:	/* This label is used only to access EOF actions. */
                 case 123:
                     YY_RULE_SETUP
                     {
-                        scan_step();
+                        //scan_step();
                         *pstBuffer += yytext;
                     }
                     YY_BREAK
@@ -3405,7 +3406,7 @@ do_action:	/* This label is used only to access EOF actions. */
                     YY_RULE_SETUP
                     {
                         yy_pop_state();
-                        scan_step();
+                        //scan_step();
                         wchar_t *pwstBuffer = to_wide_string(pstBuffer->c_str());
                         if (pstBuffer->c_str() != NULL && pwstBuffer == NULL)
                         {
@@ -3418,6 +3419,7 @@ do_action:	/* This label is used only to access EOF actions. */
                         yylval.str = new std::wstring(pwstBuffer);
                         delete pstBuffer;
                         FREE(pwstBuffer);
+                        yylloc.first_column = yylloc.last_column - yylval.str->size() - 2;
                         return scan_throw(STR);
                     }
                     YY_BREAK
@@ -3458,7 +3460,7 @@ do_action:	/* This label is used only to access EOF actions. */
                 case 133:
                     YY_RULE_SETUP
                     {
-                        scan_step();
+                        //scan_step();
                         *pstBuffer += yytext;
                     }
                     YY_BREAK
