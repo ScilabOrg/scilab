@@ -1152,7 +1152,7 @@ function t=fmtuser_data(d)
     elseif or(td==16) then
         t=typeof(d)+" "+strcat(string(size(d)),"x"),
     elseif or(td==17) then
-        if typeof(d)=="ce" then
+        if typeof(d)=="cell" then
             t="cell "+strcat(string(size(d)),"x"),
         elseif typeof(d)=="st" then
             T=getfield(1,d)

@@ -193,17 +193,17 @@ function str = prettyprint(a, exportFormat, delimiter, processByElement, isWrapp
         a1=getfield(1,a);
         select a1(1)
             //Cell type
-        case "ce" then
-            dim = double(a.dims);
+        case "cell" then
+            dim = double(size(a));
             L = length(dim);
             if L >= 3 then
-                str = unknown_type("ce",a,exportFormat);
+                str = unknown_type("cell",a,exportFormat);
                 return;
             end
             str = emptystr(dim(1),dim(2));
             for i = 1:dim(1) do
                 for j = 1:dim(2) do
-                    str(i,j) = prettyprint(a(i,j).entries,exportFormat,delimiter,%F,%F);
+                    str(i,j) = prettyprint(a{i,j},exportFormat,delimiter,%F,%F);
                 end
             end
         else

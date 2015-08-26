@@ -32,7 +32,7 @@ function r=mtlb_isa(OBJ,class)
     case "double"
         r=type(OBJ)==1
     case "cell"
-        r=typeof(OBJ)=="ce"
+        r=typeof(OBJ)=="cell"
     case "struct"
         r=typeof(OBJ)=="st"
     case "function_handle"

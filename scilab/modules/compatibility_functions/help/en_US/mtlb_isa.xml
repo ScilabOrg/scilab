@@ -73,7 +73,7 @@
             <listitem>
                 <para>
                     If <literal>class</literal> is equal to "cell",
-                    <literal>mtlb_isa(OBJ,class)</literal> may be replaced by <literal>typeof(OBJ)=="ce"</literal>
+                    <literal>mtlb_isa(OBJ,class)</literal> may be replaced by <literal>typeof(OBJ)=="cell"</literal>
                 </para>
             </listitem>
             <listitem>

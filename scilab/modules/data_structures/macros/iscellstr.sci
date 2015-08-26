@@ -18,10 +18,10 @@ function   bool=iscellstr(c)
         if isempty(c) then
             bool=%F;
         else
-            if typeof(c)=="ce"
+            if typeof(c)=="cell"
                 bool=%T;
                 for i=1:size(c,"*")
-                    if typeof(c(i).entries)<>"string" then
+                    if typeof(c{i})<>"string" then
                         bool=%F;
                         break
                     end
