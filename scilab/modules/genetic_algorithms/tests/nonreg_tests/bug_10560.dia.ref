@@ -1,0 +1,86 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- NO CHECK REF -->
+//
+// <-- Non-regression test for bug 10560 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=10560
+//
+// <-- Short Description -->
+// genetic algorithms demos failed
+ierr = exec("SCI/modules/genetic_algorithms/demos/GAdemo.sce", "errcatch", -1);
+GA : Optimisation en cours, veuillez patienter...
+optim_ga : itération 1 / 10 
+    valeur min / max trouvée = -1.840835 / -0.181030
+optim_ga : itération 2 / 10 
+    valeur min / max trouvée = -1.971707 / -0.841912
+optim_ga : itération 3 / 10 
+    valeur min / max trouvée = -1.995951 / -1.255860
+optim_ga : itération 4 / 10 
+    valeur min / max trouvée = -1.995951 / -1.568431
+optim_ga : itération 5 / 10 
+    valeur min / max trouvée = -1.999427 / -1.781067
+optim_ga : itération 6 / 10 
+    valeur min / max trouvée = -1.999691 / -1.923777
+optim_ga : itération 7 / 10 
+    valeur min / max trouvée = -1.999884 / -1.986323
+optim_ga : itération 8 / 10 
+    valeur min / max trouvée = -1.999907 / -1.996478
+optim_ga : itération 9 / 10 
+    valeur min / max trouvée = -1.999990 / -1.998582
+optim_ga : itération 10 / 10 
+    valeur min / max trouvée = -1.999995 / -1.999597
+plotting init population ...
+plotting result population ...
+Genetic Algorithm: 10 points from pop_opt
+Individual 1: x(1) = -0.000195 x(2) = -0.000127 -> f = -1.999995
+Individual 2: x(1) = -0.000269 x(2) = -0.000131 -> f = -1.999992
+Individual 3: x(1) = 0.000007 x(2) = 0.000234 -> f = -1.999991
+Individual 4: x(1) = 0.000261 x(2) = -0.000180 -> f = -1.999990
+Individual 5: x(1) = 0.000261 x(2) = -0.000180 -> f = -1.999990
+Individual 6: x(1) = 0.000006 x(2) = -0.000306 -> f = -1.999985
+Individual 7: x(1) = 0.000427 x(2) = 0.000117 -> f = -1.999984
+Individual 8: x(1) = -0.000490 x(2) = -0.000171 -> f = -1.999978
+Individual 9: x(1) = 0.000147 x(2) = -0.000405 -> f = -1.999972
+Individual 10: x(1) = 0.000498 x(2) = -0.000262 -> f = -1.999971
+GA : Optimisation en cours, veuillez patienter...
+optim_ga : itération 1 / 10 
+    valeur min / max trouvée = -1.773103 / -0.052915
+optim_ga : itération 2 / 10 
+    valeur min / max trouvée = -1.819012 / -0.930655
+optim_ga : itération 3 / 10 
+    valeur min / max trouvée = -1.910037 / -1.376304
+optim_ga : itération 4 / 10 
+    valeur min / max trouvée = -1.976401 / -1.570628
+optim_ga : itération 5 / 10 
+    valeur min / max trouvée = -1.976401 / -1.710408
+optim_ga : itération 6 / 10 
+    valeur min / max trouvée = -1.996372 / -1.799685
+optim_ga : itération 7 / 10 
+    valeur min / max trouvée = -1.996372 / -1.863445
+optim_ga : itération 8 / 10 
+    valeur min / max trouvée = -1.996372 / -1.910037
+optim_ga : itération 9 / 10 
+    valeur min / max trouvée = -1.996372 / -1.949584
+optim_ga : itération 10 / 10 
+    valeur min / max trouvée = -1.996372 / -1.969556
+plotting init population ...
+plotting result population ...
+Genetic Algorithm - binary: 10 points from pop_opt
+Individual 1: x(1) = -0.003922 x(2) = -0.003922 -> f = -1.996372
+Individual 2: x(1) = -0.003922 x(2) = -0.003922 -> f = -1.996372
+Individual 3: x(1) = 0.003922 x(2) = 0.003922 -> f = -1.996372
+Individual 4: x(1) = -0.003922 x(2) = 0.003922 -> f = -1.996372
+Individual 5: x(1) = -0.003922 x(2) = -0.003922 -> f = -1.996372
+Individual 6: x(1) = 0.003922 x(2) = 0.003922 -> f = -1.996372
+Individual 7: x(1) = 0.003922 x(2) = 0.003922 -> f = -1.996372
+Individual 8: x(1) = 0.003922 x(2) = 0.003922 -> f = -1.996372
+Individual 9: x(1) = -0.003922 x(2) = -0.003922 -> f = -1.996372
+Individual 10: x(1) = -0.003922 x(2) = 0.003922 -> f = -1.996372
+assert_checkequal(ierr, 0);
