@@ -110,7 +110,6 @@ bool Macro::toString(std::wostringstream& ostr)
     // get macro name
     wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
     ostr.str(L"");
-
     ostr << L"[";
 
     // output arguments [a,b,c] = ....
@@ -367,7 +366,8 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
     else
     {
         //normal output management
-        for (std::list<symbol::Variable*>::iterator i = m_outputArgs->begin(); i != m_outputArgs->end() && _iRetCount; ++i, --_iRetCount)
+        int iPos = 1;
+        for (std::list<symbol::Variable*>::iterator i = m_outputArgs->begin(); i != m_outputArgs->end() && _iRetCount; ++i, --_iRetCount, iPos++)
         {
             InternalType * pIT = pContext->get(*i);
             if (pIT)
@@ -386,9 +386,11 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
                 out.clear();
                 cleanCall(pContext, oldVal);
 
-                char* pst = wide_string_to_UTF8((*i)->getSymbol().getName().c_str());
-                Scierror(999, _("Undefined variable %s.\n"), pst);
-                FREE(pst);
+                char* pstArgName = wide_string_to_UTF8((*i)->getSymbol().getName().c_str());
+                char* pstMacroName = wide_string_to_UTF8(getName().c_str());
+                Scierror(999, _("Undefined variable '%s' at position %d of output arguments of function '%s'.\n"), pstArgName, iPos, pstMacroName);
+                FREE(pstArgName);
+                FREE(pstMacroName);
                 return Callable::Error;
             }
         }
