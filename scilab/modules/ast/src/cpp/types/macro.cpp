@@ -108,9 +108,17 @@ ast::SeqExp* Macro::getBody(void)
 bool Macro::toString(std::wostringstream& ostr)
 {
     // get macro name
-    wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
-    ostr.str(L"");
+    wchar_t* wcsVarName = NULL;
+    if (ostr.str() == SPACES_LIST)
+    {
+        wcsVarName = os_wcsdup(getName().c_str());
+    }
+    else
+    {
+        wcsVarName = os_wcsdup(ostr.str().c_str());
+    }
 
+    ostr.str(L"");
     ostr << L"[";
 
     // output arguments [a,b,c] = ....
