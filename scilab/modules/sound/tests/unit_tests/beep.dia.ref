@@ -1,3 +1,4 @@
+//<-- CLI SHELL MODE -->
 old = beep();
 if beep('on') <> 'on' then bugmes();quit;end;
 if beep('off') <> 'off' then bugmes();quit;end;

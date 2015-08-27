@@ -1,3 +1,4 @@
+//<-- CLI SHELL MODE -->
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2014 - Scilab Enterprises - Bruno JOFRET
@@ -6,7 +7,7 @@
 // =============================================================================
 
 // <-- TEST WITH ATOMS -->
-//
+// <-- ENGLISH IMPOSED -->
 // <-- LINUX ONLY -->
 //
 // <-- Non-regression test for bug 13674 -->
