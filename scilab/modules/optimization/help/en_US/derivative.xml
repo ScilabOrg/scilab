@@ -451,7 +451,7 @@
             Still, in general, we expect that <literal>numderivative</literal> is more accurate.
             It is not easy to get the same step in <literal>numderivative</literal> as in <literal>derivative</literal>,
             because the choice of the step depends on the degree of
-            differenciation (Jacobian or Hessian) and the order of the formula.
+            differentiation (Jacobian or Hessian) and the order of the formula.
         </para>
     </refsection>
 </refentry>
