@@ -107,6 +107,13 @@
     ast::SimpleVar*             t_simple_var;
 }
 
+%destructor { delete $$; } <*>
+%destructor { } <number>
+%destructor { for (auto e : *$$) delete e; delete $$; } <t_list_var>
+%destructor { for (auto e : *$$) delete e; delete $$; } <t_list_exp>
+%destructor { for (auto e : *$$) delete e; delete $$; } <t_list_case>
+%destructor { for (auto e : *$$) delete e; delete $$; } <t_list_mline>
+
 %token YYEOF    0	"end of file"
 
 %token DOTS		"line break"

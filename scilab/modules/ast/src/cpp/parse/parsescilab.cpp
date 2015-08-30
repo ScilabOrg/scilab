@@ -710,48 +710,48 @@ static const yytype_uint8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-    0,   319,   319,   320,   321,   329,   343,   346,   351,   357,
-    363,   377,   387,   395,   404,   422,   423,   424,   425,   426,
-    427,   435,   436,   437,   438,   439,   440,   441,   442,   443,
-    444,   445,   446,   447,   448,   449,   462,   467,   483,   484,
-    489,   494,   499,   500,   501,   502,   503,   509,   510,   511,
-    512,   520,   522,   533,   534,   535,   536,   559,   563,   567,
-    571,   575,   580,   585,   590,   595,   600,   604,   608,   612,
-    616,   635,   646,   654,   663,   672,   683,   691,   700,   709,
-    720,   728,   737,   746,   757,   765,   774,   783,   794,   802,
-    811,   820,   831,   839,   848,   864,   872,   873,   874,   882,
-    887,   899,   900,   901,   902,   903,   911,   916,   930,   931,
-    939,   944,   957,   958,   959,   961,   962,   963,   965,   966,
-    967,   969,   970,   971,   973,   974,   975,   977,   978,   979,
-    981,   982,   983,   985,   986,   987,   989,   990,   991,   993,
-    994,   995,  1003,  1009,  1015,  1016,  1017,  1018,  1019,  1020,
-    1021,  1022,  1023,  1024,  1025,  1026,  1027,  1028,  1029,  1030,
-    1039,  1040,  1042,  1043,  1045,  1046,  1047,  1048,  1049,  1050,
-    1051,  1052,  1054,  1055,  1056,  1057,  1058,  1059,  1060,  1061,
-    1063,  1064,  1065,  1066,  1067,  1068,  1069,  1070,  1078,  1079,
-    1087,  1088,  1089,  1097,  1098,  1099,  1100,  1101,  1106,  1107,
-    1108,  1113,  1117,  1121,  1122,  1123,  1124,  1125,  1126,  1127,
-    1128,  1129,  1130,  1131,  1132,  1133,  1134,  1135,  1136,  1144,
-    1148,  1152,  1157,  1162,  1167,  1178,  1179,  1180,  1184,  1188,
-    1193,  1198,  1199,  1208,  1209,  1210,  1214,  1218,  1223,  1228,
-    1229,  1237,  1241,  1254,  1255,  1256,  1257,  1265,  1266,  1274,
-    1278,  1282,  1286,  1290,  1294,  1298,  1302,  1313,  1314,  1322,
-    1323,  1324,  1325,  1327,  1328,  1330,  1331,  1340,  1341,  1342,
-    1347,  1348,  1349,  1354,  1355,  1356,  1357,  1364,  1373,  1374,
-    1384,  1392,  1397,  1411,  1416,  1432,  1433,  1434,  1435,  1436,
-    1444,  1445,  1446,  1447,  1448,  1449,  1457,  1458,  1459,  1460,
-    1461,  1462,  1470,  1475,  1488,  1503,  1504,  1514,  1515,  1533,
-    1534,  1542,  1543,  1544,  1545,  1546,  1547,  1548,  1556,  1557,
-    1565,  1566,  1567,  1568,  1569,  1577,  1581,  1585,  1589,  1593,
-    1597,  1604,  1609,  1623,  1624,  1625,  1626,  1627,  1628,  1629,
-    1630,  1631,  1632,  1633,  1634,  1642,  1643,  1651,  1652,  1661,
-    1662,  1663,  1664,  1665,  1666,  1667,  1668,  1672,  1677,  1691,
-    1699,  1704,  1718,  1719,  1720,  1721,  1722,  1723,  1724,  1725,
-    1726,  1727,  1728,  1729,  1730,  1731,  1732,  1733,  1734,  1735,
-    1743,  1744,  1758,  1763,  1768,  1773,  1778,  1785,  1799,  1800,
-    1801,  1808,  1809,  1817,  1818,  1826,  1827,  1828,  1829,  1830,
-    1831,  1832,  1833,  1834,  1835,  1836,  1837,  1838,  1839,  1840,
-    1841,  1842,  1843,  1844,  1845
+    0,   326,   326,   327,   328,   336,   350,   353,   358,   364,
+    370,   384,   394,   402,   411,   429,   430,   431,   432,   433,
+    434,   442,   443,   444,   445,   446,   447,   448,   449,   450,
+    451,   452,   453,   454,   455,   456,   469,   474,   490,   491,
+    496,   501,   506,   507,   508,   509,   510,   516,   517,   518,
+    519,   527,   529,   540,   541,   542,   543,   566,   570,   574,
+    578,   582,   587,   592,   597,   602,   607,   611,   615,   619,
+    623,   642,   653,   661,   670,   679,   690,   698,   707,   716,
+    727,   735,   744,   753,   764,   772,   781,   790,   801,   809,
+    818,   827,   838,   846,   855,   871,   879,   880,   881,   889,
+    894,   906,   907,   908,   909,   910,   918,   923,   937,   938,
+    946,   951,   964,   965,   966,   968,   969,   970,   972,   973,
+    974,   976,   977,   978,   980,   981,   982,   984,   985,   986,
+    988,   989,   990,   992,   993,   994,   996,   997,   998,  1000,
+    1001,  1002,  1010,  1016,  1022,  1023,  1024,  1025,  1026,  1027,
+    1028,  1029,  1030,  1031,  1032,  1033,  1034,  1035,  1036,  1037,
+    1046,  1047,  1049,  1050,  1052,  1053,  1054,  1055,  1056,  1057,
+    1058,  1059,  1061,  1062,  1063,  1064,  1065,  1066,  1067,  1068,
+    1070,  1071,  1072,  1073,  1074,  1075,  1076,  1077,  1085,  1086,
+    1094,  1095,  1096,  1104,  1105,  1106,  1107,  1108,  1113,  1114,
+    1115,  1120,  1124,  1128,  1129,  1130,  1131,  1132,  1133,  1134,
+    1135,  1136,  1137,  1138,  1139,  1140,  1141,  1142,  1143,  1151,
+    1155,  1159,  1164,  1169,  1174,  1185,  1186,  1187,  1191,  1195,
+    1200,  1205,  1206,  1215,  1216,  1217,  1221,  1225,  1230,  1235,
+    1236,  1244,  1248,  1261,  1262,  1263,  1264,  1272,  1273,  1281,
+    1285,  1289,  1293,  1297,  1301,  1305,  1309,  1320,  1321,  1329,
+    1330,  1331,  1332,  1334,  1335,  1337,  1338,  1347,  1348,  1349,
+    1354,  1355,  1356,  1361,  1362,  1363,  1364,  1371,  1380,  1381,
+    1391,  1399,  1404,  1418,  1423,  1439,  1440,  1441,  1442,  1443,
+    1451,  1452,  1453,  1454,  1455,  1456,  1464,  1465,  1466,  1467,
+    1468,  1469,  1477,  1482,  1495,  1510,  1511,  1521,  1522,  1540,
+    1541,  1549,  1550,  1551,  1552,  1553,  1554,  1555,  1563,  1564,
+    1572,  1573,  1574,  1575,  1576,  1584,  1588,  1592,  1596,  1600,
+    1604,  1611,  1616,  1630,  1631,  1632,  1633,  1634,  1635,  1636,
+    1637,  1638,  1639,  1640,  1641,  1649,  1650,  1658,  1659,  1668,
+    1669,  1670,  1671,  1672,  1673,  1674,  1675,  1679,  1684,  1698,
+    1706,  1711,  1725,  1726,  1727,  1728,  1729,  1730,  1731,  1732,
+    1733,  1734,  1735,  1736,  1737,  1738,  1739,  1740,  1741,  1742,
+    1750,  1751,  1765,  1770,  1775,  1780,  1785,  1792,  1806,  1807,
+    1808,  1815,  1816,  1824,  1825,  1833,  1834,  1835,  1836,  1837,
+    1838,  1839,  1840,  1841,  1842,  1843,  1844,  1845,  1846,  1847,
+    1848,  1849,  1850,  1851,  1852
 };
 #endif
 
@@ -2238,7 +2238,7 @@ yytnamerr (char *yyres, const char *yystr)
                     {
                         goto do_not_strip_quotes;
                     }
-                    /* Fall through.  */
+                /* Fall through.  */
                 default:
                     if (yyres)
                     {
@@ -2425,7 +2425,490 @@ yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, YYLTYPE *yylocatio
     YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
 
     YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-    YYUSE (yytype);
+    switch (yytype)
+    {
+        case 70: /* "string"  */
+
+        {
+            delete ((*yyvaluep).str);
+        }
+
+        break;
+
+        case 71: /* "identifier"  */
+
+        {
+            delete ((*yyvaluep).str);
+        }
+
+        break;
+
+        case 72: /* "integer"  */
+
+        { }
+
+        break;
+
+        case 73: /* "float"  */
+
+        { }
+
+        break;
+
+        case 74: /* "number"  */
+
+        { }
+
+        break;
+
+        case 75: /* "path"  */
+
+        {
+            delete ((*yyvaluep).path);
+        }
+
+        break;
+
+        case 76: /* "line comment"  */
+
+        {
+            delete ((*yyvaluep).comment);
+        }
+
+        break;
+
+        case 77: /* "block comment"  */
+
+        {
+            delete ((*yyvaluep).comment);
+        }
+
+        break;
+
+        case 87: /* expressions  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 88: /* recursiveExpression  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_exp))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_exp);
+        }
+
+        break;
+
+        case 89: /* expressionLineBreak  */
+
+        {
+            delete ((*yyvaluep).mute);
+        }
+
+        break;
+
+        case 90: /* expression  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 91: /* implicitFunctionCall  */
+
+        {
+            delete ((*yyvaluep).t_call_exp);
+        }
+
+        break;
+
+        case 92: /* implicitCallable  */
+
+        {
+            delete ((*yyvaluep).t_string_exp);
+        }
+
+        break;
+
+        case 93: /* functionCall  */
+
+        {
+            delete ((*yyvaluep).t_call_exp);
+        }
+
+        break;
+
+        case 94: /* simpleFunctionCall  */
+
+        {
+            delete ((*yyvaluep).t_call_exp);
+        }
+
+        break;
+
+        case 95: /* functionArgs  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_exp))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_exp);
+        }
+
+        break;
+
+        case 96: /* functionDeclaration  */
+
+        {
+            delete ((*yyvaluep).t_function_dec);
+        }
+
+        break;
+
+        case 97: /* functionDeclarationReturns  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_var))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_var);
+        }
+
+        break;
+
+        case 98: /* functionDeclarationArguments  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_var))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_var);
+        }
+
+        break;
+
+        case 99: /* idList  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_var))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_var);
+        }
+
+        break;
+
+        case 101: /* functionBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 102: /* condition  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 103: /* comparison  */
+
+        {
+            delete ((*yyvaluep).t_op_exp);
+        }
+
+        break;
+
+        case 104: /* rightComparable  */
+
+        {
+            delete ((*yyvaluep).t_op_exp);
+        }
+
+        break;
+
+        case 105: /* operation  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 106: /* rightOperand  */
+
+        {
+            delete ((*yyvaluep).t_op_exp);
+        }
+
+        break;
+
+        case 107: /* listableBegin  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 108: /* listableEnd  */
+
+        {
+            delete ((*yyvaluep).t_implicit_list);
+        }
+
+        break;
+
+        case 109: /* variable  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 110: /* variableFields  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_exp))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_exp);
+        }
+
+        break;
+
+        case 111: /* cell  */
+
+        {
+            delete ((*yyvaluep).t_cell_exp);
+        }
+
+        break;
+
+        case 112: /* matrix  */
+
+        {
+            delete ((*yyvaluep).t_matrix_exp);
+        }
+
+        break;
+
+        case 113: /* matrixOrCellLines  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_mline))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_mline);
+        }
+
+        break;
+
+        case 115: /* matrixOrCellLine  */
+
+        {
+            delete ((*yyvaluep).t_matrixline_exp);
+        }
+
+        break;
+
+        case 116: /* matrixOrCellColumns  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_exp))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_exp);
+        }
+
+        break;
+
+        case 118: /* variableDeclaration  */
+
+        {
+            delete ((*yyvaluep).t_assign_exp);
+        }
+
+        break;
+
+        case 119: /* assignable  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 120: /* multipleResults  */
+
+        {
+            delete ((*yyvaluep).t_assignlist_exp);
+        }
+
+        break;
+
+        case 121: /* ifControl  */
+
+        {
+            delete ((*yyvaluep).t_if_exp);
+        }
+
+        break;
+
+        case 122: /* thenBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 123: /* elseBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 127: /* elseIfControl  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 128: /* selectControl  */
+
+        {
+            delete ((*yyvaluep).t_select_exp);
+        }
+
+        break;
+
+        case 131: /* selectable  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 133: /* casesControl  */
+
+        {
+            for (auto e : * ((*yyvaluep).t_list_case))
+            {
+                delete e;
+            }
+            delete ((*yyvaluep).t_list_case);
+        }
+
+        break;
+
+        case 134: /* caseBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 136: /* forControl  */
+
+        {
+            delete ((*yyvaluep).t_for_exp);
+        }
+
+        break;
+
+        case 137: /* forIterator  */
+
+        {
+            delete ((*yyvaluep).t_exp);
+        }
+
+        break;
+
+        case 139: /* forBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 140: /* whileControl  */
+
+        {
+            delete ((*yyvaluep).t_while_exp);
+        }
+
+        break;
+
+        case 141: /* whileBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 143: /* tryControl  */
+
+        {
+            delete ((*yyvaluep).t_try_exp);
+        }
+
+        break;
+
+        case 144: /* catchBody  */
+
+        {
+            delete ((*yyvaluep).t_seq_exp);
+        }
+
+        break;
+
+        case 145: /* returnControl  */
+
+        {
+            delete ((*yyvaluep).t_return_exp);
+        }
+
+        break;
+
+        case 148: /* keywords  */
+
+        {
+            delete ((*yyvaluep).t_simple_var);
+        }
+
+        break;
+
+
+        default:
+            break;
+    }
     YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
