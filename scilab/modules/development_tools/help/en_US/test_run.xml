@@ -398,6 +398,7 @@
 test_run();
 test_run([]);
 test_run([],[]);
+test_run([],"*");
 
 // Test one or several module
 // =============================================

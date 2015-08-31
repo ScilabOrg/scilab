@@ -183,9 +183,9 @@ function test_run_result = test_run(varargin)
         end
 
     elseif (rhs == 1) ..
-        | ((rhs == 2) & (varargin(2)==[])) ..
-        | ((rhs == 3) & (varargin(2)==[])) ..
-        | ((rhs == 4) & (varargin(2)==[])) ..
+        | ((rhs == 2) & (varargin(2)==[] || varargin(2)=="*")) ..
+        | ((rhs == 3) & (varargin(2)==[] || varargin(2)=="*")) ..
+        | ((rhs == 4) & (varargin(2)==[] || varargin(2)=="*")) ..
         | ( ~ isempty(params.skip_mat)) then
 
         // One input argument
