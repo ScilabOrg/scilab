@@ -1959,6 +1959,13 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
         //check types compatibilties
         if (_pVar->isDouble() && _pInsert->isDouble())
         {
+            // case m=1; m()=1;
+            if (_pArgs == NULL || _pArgs->size() == 0)
+            {
+                std::wostringstream os;
+                os << _W("Wrong insertion : Cannot insert without arguments.");
+                throw ast::InternalError(os.str(), 999, e.getLocation());
+            }
             pRet = _pVar->getAs<Double>()->insert(_pArgs, _pInsert);
         }
         else if (_pVar->isDouble() && _pInsert->isSparse())
