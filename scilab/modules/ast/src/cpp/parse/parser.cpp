@@ -35,6 +35,7 @@ extern "C"
 }
 
 extern FILE*    yyin;
+extern int      yyrestart(FILE*);
 extern int      yyparse();
 extern int      yydebug;
 extern int      yylex_destroy();
@@ -101,6 +102,7 @@ void ParserSingleInstance::parseFile(const std::wstring& fileName, const std::ws
     ParserSingleInstance::setExitStatus(Parser::Succeded);
     ParserSingleInstance::resetControlStatus();
     ParserSingleInstance::resetErrorMessage();
+    yyrestart(yyin);
     yyparse();
     fclose(yyin);
 }
@@ -211,6 +213,7 @@ void ParserSingleInstance::parse(const char *command)
     ParserSingleInstance::resetControlStatus();
     ParserSingleInstance::resetErrorMessage();
 
+    yyrestart(yyin);
     yyparse();
 
     fclose(yyin);

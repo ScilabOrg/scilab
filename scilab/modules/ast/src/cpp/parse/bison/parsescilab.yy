@@ -454,6 +454,7 @@ functionDeclaration				{ $$ = $1; }
 | returnControl					{ $$ = $1; }
 | COMMENT					{ $$ = new ast::CommentExp(@$, $1); }
 | error						{
+  YYABORT;
   $$ = new ast::CommentExp(@$, new std::wstring(L"@@ ERROR RECOVERY @@"));
   StopOnError();
   }
@@ -1362,6 +1363,7 @@ variable DOT ID			%prec UPLEVEL		{ $$ = new ast::FieldExp(@$, *$1, *new ast::Sim
 | multipleResults					{ $$ = $1; }
 | variable LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); }
 | functionCall LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); }
+| variable error {delete $1;YYABORT;StopOnError();$$ = new ast::CommentExp(@$, new std::wstring(L"@@ ERROR RECOVERY @@"));}
 ;
 
 /*
