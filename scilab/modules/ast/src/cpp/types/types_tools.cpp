@@ -589,6 +589,89 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
             }
             pCurrentArg = pDbl;
         }
+        else if (pIT->isInt())
+        {
+            if (pIT->getType() == InternalType::ScilabInt8)
+            {
+                Int8* pI = pIT->getAs<Int8>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabInt16)
+            {
+                Int16* pI = pIT->getAs<Int16>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabInt32)
+            {
+                Int32* pI = pIT->getAs<Int32>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabInt64)
+            {
+                Int64* pI = pIT->getAs<Int64>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabUInt8)
+            {
+                UInt8* pI = pIT->getAs<UInt8>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabUInt16)
+            {
+                UInt16* pI = pIT->getAs<UInt16>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabUInt32)
+            {
+                UInt32* pI = pIT->getAs<UInt32>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+            else if (pIT->getType() == InternalType::ScilabUInt64)
+            {
+                UInt64* pI = pIT->getAs<UInt64>();
+                pCurrentArg = new Double(1, pI->getSize());
+                double* pdbl = pCurrentArg->get();
+                for (int l = 0; l < pI->getSize(); l++)
+                {
+                    pdbl[l] = static_cast<double>(pI->get(l));
+                }
+            }
+        }
 
         if (bDeleteNeeded)
         {
