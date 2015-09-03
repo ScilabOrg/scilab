@@ -63,6 +63,7 @@ int sci_xcosDiagramToScilab(char *fname, void *pvApiCtx)
     if (iRows1 != 1 || iCols1 != 1)
     {
         Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
+        return 0;
     }
 
     //get xcos filename length
@@ -79,6 +80,7 @@ int sci_xcosDiagramToScilab(char *fname, void *pvApiCtx)
     sciErr = getMatrixOfString(pvApiCtx, piAddr1, &iRows1, &iCols1, &iLen1, &pstXcosFile);
     if (sciErr.iErr)
     {
+        FREE(pstXcosFile);
         printError(&sciErr, 0);
         Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 1);
         return 0;
