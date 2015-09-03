@@ -312,9 +312,11 @@ types::Function::ReturnValue sci_cumprod(types::typed_list &in, int _iRetCount, 
         }
         else
         {
-            pPolyOut = new types::Polynom(pPolyIn->getVariableName(), pPolyIn->getDims(), pPolyIn->getDimsArray());
+            int* piRanks = new int[pPolyIn->getSize()];
+            pPolyOut = new types::Polynom(pPolyIn->getVariableName(), pPolyIn->getDims(), pPolyIn->getDimsArray(), piRanks);
             pPolyOut->setComplex(pPolyIn->isComplex());
             cumprod(pPolyIn, iOrientation, pPolyOut);
+            delete[] piRanks;
         }
     }
 
