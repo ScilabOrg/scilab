@@ -241,8 +241,20 @@ Function::ReturnValue sci_genlib(typed_list &in, int _iRetCount, typed_list &out
             parser.parseFile(stFullPath, ConfigVariable::getSCIPath());
             if (parser.getExitStatus() !=  Parser::Succeded)
             {
-                scilabWriteW(parser.getErrorMessage());
-                sciprint(_("%ls: Error in file %ls.\n"), L"genlib", stFullPath.data());
+                if (_iRetCount != 4)
+                {
+                    std::wstring wstrErr = parser.getErrorMessage();
+
+                    wchar_t errmsg[256];
+                    os_swprintf(errmsg, 256, _W("%ls: Error in file %ls.\n").c_str(), L"genlib", stFullPath.data());
+                    wstrErr += errmsg;
+
+                    char* str = wide_string_to_UTF8(wstrErr.c_str());
+                    Scierror(999, str);
+                    FREE(str);
+                    return Function::Error;
+                }
+
                 failed_files.push_back(stFullPath);
                 succes = 0;
                 continue;
