@@ -12,7 +12,6 @@
 /*--------------------------------------------------------------------------*/
 #include "configvariable.hxx"
 #include "callable.hxx"
-#include "execvisitor.hxx"
 #include "double.hxx"
 #include "bool.hxx"
 
@@ -38,17 +37,16 @@ int schur_dgees(double* _real, double* _img)
 
     if (pCall)
     {
-        typed_list in;
-        typed_list out;
-        optional_list opt;
+        types::typed_list in;
+        types::typed_list out;
+        types::optional_list opt;
         int iRetCount = 1;
-        ast::ExecVisitor execFunc;
-
+        
         types::Double* pDbl = new types::Double(*_real, *_img);
         pDbl->IncreaseRef();
         in.push_back(pDbl);
 
-        bool bOk = pCall->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
+        bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
         pDbl->DecreaseRef();
         delete pDbl;
         pDbl = NULL;
@@ -102,12 +100,11 @@ int schur_dgges(double* _real, double* _img, double* _beta)
 
     if (pCall)
     {
-        typed_list in;
-        typed_list out;
-        optional_list opt;
+        types::typed_list in;
+        types::typed_list out;
+        types::optional_list opt;
         int iRetCount = 1;
-        ast::ExecVisitor execFunc;
-
+        
         types::Double* pDblAlpha = new types::Double(*_real, *_img);
         pDblAlpha->IncreaseRef();
         types::Double* pDblBeta  = new types::Double(*_beta);
@@ -115,7 +112,7 @@ int schur_dgges(double* _real, double* _img, double* _beta)
         in.push_back(pDblAlpha);
         in.push_back(pDblBeta);
 
-        bool bOk = pCall->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
+        bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
         pDblAlpha->DecreaseRef();
         delete pDblAlpha;
         pDblAlpha = NULL;
@@ -171,17 +168,16 @@ int schur_zgees(doublecomplex* _complex)
 
     if (pCall)
     {
-        typed_list in;
-        typed_list out;
-        optional_list opt;
+        types::typed_list in;
+        types::typed_list out;
+        types::optional_list opt;
         int iRetCount = 1;
-        ast::ExecVisitor execFunc;
-
+        
         types::Double* pDbl = new types::Double(_complex->r, _complex->i);
         pDbl->IncreaseRef();
         in.push_back(pDbl);
 
-        bool bOk = pCall->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
+        bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
         pDbl->DecreaseRef();
         delete pDbl;
         pDbl = NULL;
@@ -241,12 +237,11 @@ int schur_zgges(doublecomplex* _alpha, doublecomplex* _beta)
 
     if (pCall)
     {
-        typed_list in;
-        typed_list out;
-        optional_list opt;
+        types::typed_list in;
+        types::typed_list out;
+        types::optional_list opt;
         int iRetCount = 1;
-        ast::ExecVisitor execFunc;
-
+        
         types::Double* pDblAlpha = new types::Double(_alpha->r, _alpha->i);
         pDblAlpha->IncreaseRef();
         types::Double* pDblBeta  = new types::Double(_beta->r, _beta->i);
@@ -254,7 +249,7 @@ int schur_zgges(doublecomplex* _alpha, doublecomplex* _beta)
         in.push_back(pDblAlpha);
         in.push_back(pDblBeta);
 
-        bool bOk = pCall->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
+        bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
         pDblAlpha->DecreaseRef();
         delete pDblAlpha;
         pDblAlpha = NULL;

@@ -14,6 +14,7 @@
 #include "runner.hxx"
 #include "threadmanagement.hxx"
 #include "configvariable.hxx"
+#include "debugmanager.hxx"
 
 extern "C"
 {
@@ -33,6 +34,7 @@ void StaticRunner::launch()
     Runner* runMe = getRunner();
     // set if the current comment is interruptible
     setInterruptibleCommand(runMe->isInterruptible());
+    debugger::DebuggerMagager* manager = debugger::DebuggerMagager::getInstance();
 
     try
     {
@@ -69,6 +71,8 @@ void StaticRunner::launch()
             ThreadManagement::SendConsoleExecDoneSignal();
         }
 
+        //clean debugger step flag if debugger is not interrupted ( end of debug )
+        manager->resetStep();
         delete runMe;
         throw ia;
     }
@@ -95,6 +99,8 @@ void StaticRunner::launch()
         ThreadManagement::SendConsoleExecDoneSignal();
     }
 
+    //clean debugger step flag if debugger is not interrupted ( end of debug )
+    manager->resetStep();
     delete runMe;
 }
 
@@ -126,7 +132,7 @@ bool StaticRunner::isInterruptibleCommand()
     return m_bInterruptibleCommand;
 }
 
-void StaticRunner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor,
+void StaticRunner::execAndWait(ast::Exp* _theProgram, ast::RunVisitor *_visitor,
                                bool _isPrioritaryThread, bool _isInterruptible, bool _isConsoleCommand)
 {
     if (isRunnerAvailable())
@@ -145,7 +151,7 @@ void StaticRunner::execAndWait(ast::Exp* _theProgram, ast::ExecVisitor *_visitor
     ThreadManagement::WaitForAwakeRunnerSignal();
 }
 
-void StaticRunner::exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
+void StaticRunner::exec(ast::Exp* _theProgram, ast::RunVisitor *_visitor)
 {
     Runner *runMe = new Runner(_theProgram, _visitor);
     setRunner(runMe);

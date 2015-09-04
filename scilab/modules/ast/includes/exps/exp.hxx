@@ -32,10 +32,10 @@ typedef std::vector<Exp *> exps_t;
 /** \brief Abstract an Expression node. */
 class Exp : public Ast
 {
-
+public:
     /** \name Ctor & dtor.
     ** \{ */
-public:
+
     /** \brief Construct an Expression node.
     ** \param location scanner position informations */
     Exp (const Location& location)
@@ -250,7 +250,7 @@ public:
         FUNCTIONDEC,
         LISTEXP,
         OPTIMIZEDEXP,
-	MEMFILLEXP,
+        MEMFILLEXP,
         DAXPYEXP,
         STRINGSELECTEXP,
         TABLEINTSELECTEXP,
@@ -343,6 +343,11 @@ public:
     }
 
     inline virtual bool isAssignExp() const
+    {
+        return false;
+    }
+
+    inline virtual bool isControlExp() const
     {
         return false;
     }
@@ -556,6 +561,7 @@ public:
     {
         return _exps;
     }
+
 
 private:
     bool _verbose;
