@@ -32,8 +32,8 @@ void TreeVisitor::visit(const SeqExp  &e)
     int last_line = -1;
     for (auto it : e.getExps())
     {
-        int fisrt = it->getLocation().first_line;
-        while (last_line != -1 && last_line < it->getLocation().first_line)
+        int first = it->getLocation().first_line;
+        while (last_line != -1 && last_line < first)
         {
             lst->append(getEOL());
             ++last_line;
@@ -78,9 +78,7 @@ void TreeVisitor::visit(const SeqExp  &e)
             tl->append(lhs);
             lhs->killMe();
             //endsymbol
-            tmp = getVerbose(*it);
-            tl->append(tmp);
-            tmp->killMe();
+            tl->append(getVerbose(*it));
             lst->append(tl);
             tl->killMe();
         }
@@ -127,12 +125,12 @@ void TreeVisitor::visit(const BoolExp &e)
     l = createConst(exec.getResult());
 }
 
-void TreeVisitor::visit(const DollarVar &e)
+void TreeVisitor::visit(const DollarVar &/*e*/)
 {
     l = createVar(L"$");
 }
 
-void TreeVisitor::visit(const ColonVar &e)
+void TreeVisitor::visit(const ColonVar &/*e*/)
 {
     l = createVar(L":");
 }
@@ -165,9 +163,7 @@ void TreeVisitor::visit(const MatrixExp &e)
         {
             sub->append(ope);
             ope->killMe();
-            types::InternalType* tmp = new types::String(L"cc");
-            sub->append(tmp);
-            tmp->killMe();
+            sub->append(new types::String(L"cc"));
 
             //create a new operation
             //put previous stage in lhs and
@@ -178,7 +174,7 @@ void TreeVisitor::visit(const MatrixExp &e)
             sub->killMe();
             //add EOL
             //subcolcatOperands->append(getEOL());
-            tmp = getList();
+            types::InternalType* tmp = getList();
             subcolcatOperands->append(tmp);
             tmp->killMe();
 
@@ -196,9 +192,7 @@ void TreeVisitor::visit(const MatrixExp &e)
     }
     sub->append(ope);
     ope->killMe();
-    types::InternalType* tmp = new types::String(L"cc");
-    sub->append(tmp);
-    tmp->killMe();
+    sub->append(new types::String(L"cc"));
     l = sub;
 }
 
@@ -215,7 +209,6 @@ void TreeVisitor::visit(const MatrixLineExp &e)
     types::List* ope = new types::List();
 
     int idx = 0;
-    int last_line = -1;
     for (auto it : columns)
     {
         it->accept(*this);
@@ -224,9 +217,7 @@ void TreeVisitor::visit(const MatrixLineExp &e)
         {
             sub->append(ope);
             ope->killMe();
-            types::InternalType* tmp = new types::String(L"rc");
-            sub->append(tmp);
-            tmp->killMe();
+            sub->append(new types::String(L"rc"));
             //create a new operation
             //put previous stage in lhs and
             //result in rhs
@@ -234,7 +225,7 @@ void TreeVisitor::visit(const MatrixLineExp &e)
             types::List* l2 = new types::List();
             l2->append(sub);
             sub->killMe();
-            tmp = getList();
+            types::InternalType* tmp = getList();
             l2->append(tmp);
             tmp->killMe();
 
@@ -254,9 +245,7 @@ void TreeVisitor::visit(const MatrixLineExp &e)
 
     sub->append(ope);
     ope->killMe();
-    types::InternalType* tmp = new types::String(L"rc");
-    sub->append(tmp);
-    tmp->killMe();
+    sub->append(new types::String(L"rc"));
     l = sub;
 }
 
@@ -359,7 +348,6 @@ void TreeVisitor::visit(const OpExp &e)
     }
 
     ope->append(tmp);
-    tmp->killMe();
     l = ope;
 }
 
@@ -367,15 +355,21 @@ void TreeVisitor::visit(const LogicalOpExp &e)
 {
     types::List* ope = createOperation();
     types::List* sub = new types::List();
+    types::List* tmplst = nullptr;
 
     if (e.getOper() != OpExp::unaryMinus)
     {
         e.getLeft().accept(*this);
-        sub->append(getList());
+        tmplst = getList();
+        sub->append(tmplst);
+        tmplst->killMe();
     }
     e.getRight().accept(*this);
-    sub->append(getList());
+    tmplst = getList();
+    sub->append(tmplst);
+    tmplst->killMe();
     ope->append(sub);
+    sub->killMe();
 
     types::InternalType* tmp = nullptr;
     switch (e.getOper())
@@ -398,7 +392,6 @@ void TreeVisitor::visit(const LogicalOpExp &e)
     }
 
     ope->append(tmp);
-    tmp->killMe();
     l = ope;
 }
 
@@ -486,9 +479,8 @@ void TreeVisitor::visit(const AssignExp &e)
 
     //expression : what to assign
     e.getRightExp().accept(*this);
-    types::InternalType* tmp = getList();
+    types::List* tmp = getList();
     assign->append(tmp);
-    tmp->killMe();
 
     double* dlhs = NULL;
     if (e.getRightExp().isCallExp())
@@ -497,6 +489,8 @@ void TreeVisitor::visit(const AssignExp &e)
         types::Double* lhsnb = tl->get(tl->getSize() - 1)->getAs<types::Double>();
         dlhs = lhsnb->get();
     }
+
+    tmp->killMe();
 
     //lhs : who to assign
     Exp& left = e.getLeftExp();
@@ -573,7 +567,6 @@ void TreeVisitor::visit(const AssignExp &e)
             dlhs[0] = static_cast<double>(lst->getExps().size());
         }
 
-
         assign->append(lhs);
         lhs->killMe();
     }
@@ -592,7 +585,9 @@ void TreeVisitor::visit(const AssignExp &e)
         if (field->getTail()->isSimpleVar())
         {
             SimpleVar* pVar = field->getTail()->getAs<SimpleVar>();
-            lhs->append(createConst(new types::String(pVar->getSymbol().getName().c_str())));
+            tmp = createConst(new types::String(pVar->getSymbol().getName().c_str()));
+            lhs->append(tmp);
+            tmp->killMe();
         }
         else
         {
@@ -607,9 +602,11 @@ void TreeVisitor::visit(const AssignExp &e)
         lhs->killMe();
         //operator
         ins->append(new types::String(L"ins"));
-        types::List* tmp = new types::List();
+        tmp = new types::List();
         tmp->append(ins);
+        ins->killMe();
         assign->append(tmp);
+        tmp->killMe();
     }
 
     //verbose ?
@@ -635,10 +632,13 @@ void TreeVisitor::visit(const CallExp &e)
     for (auto arg : args)
     {
         arg->accept(*this);
-        rhs->append(getList());
+        types::List* tmp = getList();
+        rhs->append(tmp);
+        tmp->killMe();
     }
 
     call->append(rhs);
+    rhs->killMe();
 
     //name
     call->append(new types::String(e.getName().getAs<SimpleVar>()->getSymbol().getName().c_str()));
@@ -665,18 +665,22 @@ void TreeVisitor::visit(const ForExp &e)
     //expression
     //create a AssignExp to call visitor it
     VarDec* vardec = e.getVardec().getAs<VarDec>();
-    SimpleVar* var = new SimpleVar(*vardec->getLocation().clone(), vardec->getSymbol());
+    SimpleVar* var = new SimpleVar(vardec->getLocation(), vardec->getSymbol());
     Exp* init = vardec->getInit().clone();
-    AssignExp* assign = new AssignExp(*vardec->getLocation().clone(), *var, *init);
+    AssignExp* assign = new AssignExp(vardec->getLocation(), *var, *init);
     assign->setVerbose(true);
 
     assign->accept(*this);
-    f->append(getList());
+    types::List* tmp = getList();
+    f->append(tmp);
+    tmp->killMe();
     delete assign;
 
     //statements
     e.getBody().accept(*this);
-    f->append(getList());
+    tmp = getList();
+    f->append(tmp);
+    tmp->killMe();
     l = f;
 }
 
@@ -687,21 +691,28 @@ void TreeVisitor::visit(const FieldExp &e)
 
     //function or varname
     e.getHead()->accept(*this);
-    ope->append(getList());
+    types::List* tmp = getList();
+    ope->append(tmp);
+    tmp->killMe();
 
     //arguments
     if (e.getTail()->isSimpleVar())
     {
         const SimpleVar* pVar = e.getTail()->getAs<SimpleVar>();
-        ope->append(createConst(new types::String(pVar->getSymbol().getName().c_str())));
+        tmp = createConst(new types::String(pVar->getSymbol().getName().c_str()));
+        ope->append(tmp);
+        tmp->killMe();
     }
     else
     {
-        ope->append(getList());
+        tmp = getList();
+        ope->append(tmp);
+        tmp->killMe();
     }
 
     //operator
     ext->append(ope);
+    ope->killMe();
     ext->append(new types::String(L"ext"));
     l = ext;
 }
@@ -719,11 +730,15 @@ void TreeVisitor::visit(const TryCatchExp &e)
 
     //trystat
     e.getTry().accept(*this);
-    tc->append(getList());
+    types::List* tmp = getList();
+    tc->append(tmp);
+    tmp->killMe();
 
     //catchstat
     e.getCatch().accept(*this);
-    tc->append(getList());
+    tmp = getList();
+    tc->append(tmp);
+    tmp->killMe();
 
     l = tc;
 }
@@ -741,20 +756,24 @@ void TreeVisitor::visit(const WhileExp &e)
 
     //expression
     e.getTest().accept(*this);
-    w->append(getList());
+    types::List* tmp = getList();
+    w->append(tmp);
+    tmp->killMe();
 
     //statements
     e.getBody().accept(*this);
-    w->append(getList());
+    tmp = getList();
+    w->append(tmp);
+    tmp->killMe();
     l = w;
 }
 
-void TreeVisitor::visit(const ContinueExp &e)
+void TreeVisitor::visit(const ContinueExp &/*e*/)
 {
     l = createVar(L"continue");
 }
 
-void TreeVisitor::visit(const BreakExp &e)
+void TreeVisitor::visit(const BreakExp &/*e*/)
 {
     l = createVar(L"break");
 }
@@ -771,19 +790,20 @@ void TreeVisitor::visit(const ReturnExp &e)
         types::List* ope = new types::List();
 
         //function or varname
-        types::InternalType* tmp = new types::String(L"return");
-        ope->append(tmp);
-        tmp->killMe();
+        ope->append(new types::String(L"return"));
 
         //arguments
         for (auto arg : e.getExp().getAs<ArrayListExp>()->getExps())
         {
             arg->accept(*this);
-            ope->append(getList());
+            types::List* tmp = getList();
+            ope->append(tmp);
+            tmp->killMe();
         }
 
         //operator
         ext->append(ope);
+        ope->killMe();
         ext->append(new types::String(L"ext"));
         l = ext;
     }
@@ -804,10 +824,12 @@ void TreeVisitor::visit(const SelectExp &e)
     //expression
     types::List* cond = new types::List();
     e.getSelect()->accept(*this);
-    cond->append(getList());
+    types::List* tmp = getList();
+    cond->append(tmp);
+    tmp->killMe();
     cond->append(getEOL());
     select->append(cond);
-
+    cond->killMe();
 
     //cases
     types::List* lcases = new types::List();
@@ -815,16 +837,21 @@ void TreeVisitor::visit(const SelectExp &e)
     for (auto c : cases)
     {
         c->accept(*this);
-        lcases->append(getList());
+        tmp = getList();
+        lcases->append(tmp);
+        tmp->killMe();
     }
 
     select->append(lcases);
+    lcases->killMe();
 
     //default
     if (e.hasDefault())
     {
         e.getDefaultCase()->accept(*this);
-        select->append(getList());
+        tmp = getList();
+        select->append(tmp);
+        tmp->killMe();
     }
     else
     {
@@ -847,11 +874,15 @@ void TreeVisitor::visit(const CaseExp &e)
 
     //expression
     e.getTest()->accept(*this);
-    c->append(getList());
+    types::List* tmp = getList();
+    c->append(tmp);
+    tmp->killMe();
 
     //then
     e.getBody()->accept(*this);
-    c->append(getList());
+    tmp = getList();
+    c->append(tmp);
+    tmp->killMe();
 
     l = c;
 }
@@ -862,19 +893,20 @@ void TreeVisitor::visit(const ArrayListExp  &e)
     types::List* ope = new types::List();
 
     //function or varname
-    types::InternalType* tmp = new types::String(L"");
-    ope->append(tmp);
-    tmp->killMe();
+    ope->append(new types::String(L""));
 
     //arguments
     for (auto arg : e.getExps())
     {
         arg->accept(*this);
-        ope->append(getList());
+        types::List* tmp = getList();
+        ope->append(tmp);
+        tmp->killMe();
     }
 
     //operator
     ext->append(ope);
+    ope->killMe();
     ext->append(new types::String(L"ext"));
     l = ext;
 }
@@ -886,10 +918,13 @@ void TreeVisitor::visit(const NotExp  &e)
 
     //function or varname
     e.getExp().accept(*this);
-    ope->append(getList());
+    types::List* tmp = getList();
+    ope->append(tmp);
+    tmp->killMe();
 
     //operator
     ext->append(ope);
+    ope->killMe();
     ext->append(new types::String(L"~"));
     l = ext;
 }
@@ -901,10 +936,13 @@ void TreeVisitor::visit(const TransposeExp  &e)
 
     //function or varname
     e.getExp().accept(*this);
-    ope->append(getList());
+    types::List* tmp = getList();
+    ope->append(tmp);
+    tmp->killMe();
 
     //operator
     ext->append(ope);
+    ope->killMe();
     ext->append(new types::String(L"'"));
     l = ext;
 }
@@ -990,9 +1028,7 @@ types::InternalType* TreeVisitor::getEOL()
     }
 
     eol = new types::List();
-    types::InternalType* tmp = new types::String(L"EOL");
-    eol->append(tmp);
-    tmp->killMe();
+    eol->append(new types::String(L"EOL"));
     return eol;
 }
 
@@ -1003,10 +1039,7 @@ types::List* TreeVisitor::createVar(const std::wstring& str)
     varstr->set(0, L"variable");
     varstr->set(1, L"name");
     var->append(varstr);
-    varstr->killMe();
-    types::InternalType* tmp = new types::String(str.c_str());
-    var->append(tmp);
-    tmp->killMe();
+    var->append(new types::String(str.c_str()));
     return var;
 }
 
