@@ -10,25 +10,25 @@
  *
  */
 
-#include "debugvisitor.hxx"
+#include "prettyprintvisitor.hxx"
 
 
 namespace ast
 {
 static int level = -1;
 
-void DebugVisitor::DEBUG_START_NODE(const ast::Ast& e)
+void PrettyPrintVisitor::DEBUG_START_NODE(const ast::Ast& e)
 {
     *ostr << L"(" << e.getNodeNumber() << L") ";
     ++level;
 }
 
-void DebugVisitor::DEBUG_END_NODE(void)
+void PrettyPrintVisitor::DEBUG_END_NODE(void)
 {
     --level;
 }
 
-void DebugVisitor::DEBUG(wstring str)
+void PrettyPrintVisitor::DEBUG(wstring str)
 {
     for (int i = 0 ; i < level; ++i)
     {
@@ -41,7 +41,7 @@ void DebugVisitor::DEBUG(wstring str)
     *ostr << str << endl;
 }
 
-void DebugVisitor::DEBUG(wstring str, const Exp &e)
+void PrettyPrintVisitor::DEBUG(wstring str, const Exp &e)
 {
     for (int i = 0 ; i < level; ++i)
     {
@@ -56,11 +56,11 @@ void DebugVisitor::DEBUG(wstring str, const Exp &e)
     Location loc = e.getLocation();
     *ostr << L" @(" << loc.first_line << L"." << loc.first_column << L" -> ";
     *ostr << loc.last_line << L"." << loc.last_column << L")";
-    //*ostr << L" Deco(" << e.getDecorator() << L")" << endl;
+    *ostr << L" Deco(" << e.getDecorator() << L")" << endl;
 }
 
 
-void DebugVisitor::visit (const MatrixExp &e)
+void PrettyPrintVisitor::visit (const MatrixExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec MatrixExp", e);
@@ -72,7 +72,7 @@ void DebugVisitor::visit (const MatrixExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const MatrixLineExp &e)
+void PrettyPrintVisitor::visit (const MatrixLineExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec MatrixLineExp", e);
@@ -84,7 +84,7 @@ void DebugVisitor::visit (const MatrixLineExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const CellExp &e)
+void PrettyPrintVisitor::visit (const CellExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec CellExp", e);
@@ -96,7 +96,7 @@ void DebugVisitor::visit (const CellExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const StringExp &e)
+void PrettyPrintVisitor::visit (const StringExp &e)
 {
     DEBUG_START_NODE(e);
     wostringstream stream;
@@ -112,14 +112,14 @@ void DebugVisitor::visit (const StringExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const CommentExp &e)
+void PrettyPrintVisitor::visit (const CommentExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec CommentExp : " + e.getComment(), e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const DoubleExp  &e)
+void PrettyPrintVisitor::visit (const DoubleExp  &e)
 {
     DEBUG_START_NODE(e);
     wostringstream stream;
@@ -146,7 +146,7 @@ void DebugVisitor::visit (const DoubleExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const BoolExp  &e)
+void PrettyPrintVisitor::visit (const BoolExp  &e)
 {
     DEBUG_START_NODE(e);
     wostringstream stream;
@@ -162,49 +162,49 @@ void DebugVisitor::visit (const BoolExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const NilExp &e)
+void PrettyPrintVisitor::visit (const NilExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec NilExp", e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const SimpleVar &e)
+void PrettyPrintVisitor::visit (const SimpleVar &e)
 {
     std::wstring ty;
-    analysis::TIType type = e.getDecorator().getResult().getType();
-    if (type.type != analysis::TIType::UNKNOWN)
-    {
-        if (type.isscalar())
-        {
-            ty = L" (" + analysis::TIType::toString(type.type) + L")";
-        }
-        else
-        {
-            ty = L" (" + analysis::TIType::toString(type.type) + L"*)";
-        }
-    }
+    //analysis::TIType type = e.getDecorator().getResult().getType();
+    //if (type.type != analysis::TIType::UNKNOWN)
+    //{
+    //    if (type.isscalar())
+    //    {
+    //        ty = L" (" + analysis::TIType::toString(type.type) + L")";
+    //    }
+    //    else
+    //    {
+    //        ty = L" (" + analysis::TIType::toString(type.type) + L"*)";
+    //    }
+    //}
 
     DEBUG_START_NODE(e);
     DEBUG(L"Exec SimpleVar : " + e.getSymbol().getName() + ty, e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const ColonVar &e)
+void PrettyPrintVisitor::visit (const ColonVar &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ColonVar", e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const DollarVar &e)
+void PrettyPrintVisitor::visit (const DollarVar &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec DollarVar", e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const ArrayListVar &e)
+void PrettyPrintVisitor::visit (const ArrayListVar &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ArrayListVar", e);
@@ -216,7 +216,7 @@ void DebugVisitor::visit (const ArrayListVar &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const FieldExp &e)
+void PrettyPrintVisitor::visit (const FieldExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec FieldExp", e);
@@ -225,7 +225,7 @@ void DebugVisitor::visit (const FieldExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const OpExp &e)
+void PrettyPrintVisitor::visit(const OpExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec OpExp", e);
@@ -234,7 +234,7 @@ void DebugVisitor::visit(const OpExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const LogicalOpExp &e)
+void PrettyPrintVisitor::visit(const LogicalOpExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec LogicalOpExp", e);
@@ -243,7 +243,7 @@ void DebugVisitor::visit(const LogicalOpExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const AssignExp  &e)
+void PrettyPrintVisitor::visit (const AssignExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec AssignExp", e);
@@ -252,7 +252,7 @@ void DebugVisitor::visit (const AssignExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const CellCallExp &e)
+void PrettyPrintVisitor::visit(const CellCallExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec CellCallExp", e);
@@ -267,7 +267,7 @@ void DebugVisitor::visit(const CellCallExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const CallExp &e)
+void PrettyPrintVisitor::visit(const CallExp &e)
 {
     std::wstring str;
 
@@ -284,7 +284,7 @@ void DebugVisitor::visit(const CallExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const IfExp  &e)
+void PrettyPrintVisitor::visit (const IfExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec IfExp", e);
@@ -297,7 +297,7 @@ void DebugVisitor::visit (const IfExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const TryCatchExp  &e)
+void PrettyPrintVisitor::visit (const TryCatchExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec TryCatchExp", e);
@@ -306,7 +306,7 @@ void DebugVisitor::visit (const TryCatchExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const WhileExp  &e)
+void PrettyPrintVisitor::visit (const WhileExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec WhileExp", e);
@@ -315,7 +315,7 @@ void DebugVisitor::visit (const WhileExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const ForExp  &e)
+void PrettyPrintVisitor::visit (const ForExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ForExp", e);
@@ -324,21 +324,21 @@ void DebugVisitor::visit (const ForExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const ContinueExp &e)
+void PrettyPrintVisitor::visit (const ContinueExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ContinueExp", e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const BreakExp &e)
+void PrettyPrintVisitor::visit (const BreakExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec BreakExp", e);
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const ReturnExp &e)
+void PrettyPrintVisitor::visit (const ReturnExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ReturnExp", e);
@@ -349,7 +349,7 @@ void DebugVisitor::visit (const ReturnExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const SelectExp &e)
+void PrettyPrintVisitor::visit (const SelectExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec SelectExp", e);
@@ -368,7 +368,7 @@ void DebugVisitor::visit (const SelectExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const CaseExp &e)
+void PrettyPrintVisitor::visit (const CaseExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec CaseExp", e);
@@ -377,7 +377,7 @@ void DebugVisitor::visit (const CaseExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const SeqExp  &e)
+void PrettyPrintVisitor::visit (const SeqExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec SeqExp", e);
@@ -388,7 +388,7 @@ void DebugVisitor::visit (const SeqExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const ArrayListExp  &e)
+void PrettyPrintVisitor::visit (const ArrayListExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ArrayListExp", e);
@@ -399,7 +399,7 @@ void DebugVisitor::visit (const ArrayListExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const AssignListExp  &e)
+void PrettyPrintVisitor::visit (const AssignListExp  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec AssignListExp", e);
@@ -410,7 +410,7 @@ void DebugVisitor::visit (const AssignListExp  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const NotExp &e)
+void PrettyPrintVisitor::visit (const NotExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec NotExp", e);
@@ -418,7 +418,7 @@ void DebugVisitor::visit (const NotExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const TransposeExp &e)
+void PrettyPrintVisitor::visit (const TransposeExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec TransposeExp", e);
@@ -426,7 +426,7 @@ void DebugVisitor::visit (const TransposeExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const VarDec  &e)
+void PrettyPrintVisitor::visit (const VarDec  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec VarDec", e);
@@ -437,7 +437,7 @@ void DebugVisitor::visit (const VarDec  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit (const FunctionDec  &e)
+void PrettyPrintVisitor::visit (const FunctionDec  &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec FunctionDec", e);
@@ -458,7 +458,7 @@ void DebugVisitor::visit (const FunctionDec  &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const ListExp &e)
+void PrettyPrintVisitor::visit(const ListExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec ListExp", e);
@@ -468,12 +468,12 @@ void DebugVisitor::visit(const ListExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const OptimizedExp &e)
+void PrettyPrintVisitor::visit(const OptimizedExp &e)
 {
     e.getOriginal()->accept(*this);
 }
 
-void DebugVisitor::visit(const MemfillExp &e)
+void PrettyPrintVisitor::visit(const MemfillExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec MemfillExp", e);
@@ -488,7 +488,7 @@ void DebugVisitor::visit(const MemfillExp &e)
     DEBUG_END_NODE();
 }
 
-void DebugVisitor::visit(const DAXPYExp &e)
+void PrettyPrintVisitor::visit(const DAXPYExp &e)
 {
     DEBUG_START_NODE(e);
     DEBUG(L"Exec DAXPYExp", e);
@@ -500,12 +500,12 @@ void DebugVisitor::visit(const DAXPYExp &e)
     //e.getOriginal()->accept(*this);
 }
 
-void DebugVisitor::visit(const IntSelectExp & e)
+void PrettyPrintVisitor::visit(const IntSelectExp & e)
 {
     e.getOriginal()->accept(*this);
 }
 
-void DebugVisitor::visit(const StringSelectExp & e)
+void PrettyPrintVisitor::visit(const StringSelectExp & e)
 {
     e.getOriginal()->accept(*this);
 }

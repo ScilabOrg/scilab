@@ -1839,7 +1839,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                     in.push_back(_pInsert);
 
                     Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
-                    Callable::ReturnValue ret = pCall->call(in, opt, 1, out, &exec);
+                    Callable::ReturnValue ret = pCall->call(in, opt, 1, out);
                     if (ret == Callable::OK)
                     {
                         pOut = _pVar;
@@ -2367,7 +2367,7 @@ InternalType* insertionCall(const ast::Exp& e, typed_list* _pArgs, InternalType*
                 Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
                 if (pCall)
                 {
-                    Callable::ReturnValue ret = pCall->call(in, opt, 1, out, &exec);
+                    Callable::ReturnValue ret = pCall->call(in, opt, 1, out);
                     if (ret == Callable::OK)
                     {
                         pRet = _pVar;

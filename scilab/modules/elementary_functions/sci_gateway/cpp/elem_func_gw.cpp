@@ -19,7 +19,6 @@
 #include "elem_func_gw.hxx"
 #include "context.hxx"
 #include "overload.hxx"
-#include "execvisitor.hxx"
 #include "Scierror.h"
 #include "localization.h"
 #include "charEncoding.h"
@@ -125,14 +124,14 @@ bool getDimsFromArguments(types::typed_list& in, const std::string& _pstName, in
         {
             if (in[0]->isSparse())
             {
-                Sparse* sp = in[0]->getAs<Sparse>();
+                types::Sparse* sp = in[0]->getAs<types::Sparse>();
                 *_iDims = sp->getDims();
                 *_piDims = sp->getDimsArray();
                 return true;
             }
             else if (in[0]->isSparseBool())
             {
-                SparseBool* sp = in[0]->getAs<SparseBool>();
+                types::SparseBool* sp = in[0]->getAs<types::SparseBool>();
                 *_iDims = sp->getDims();
                 *_piDims = sp->getDimsArray();
                 return true;
@@ -140,7 +139,7 @@ bool getDimsFromArguments(types::typed_list& in, const std::string& _pstName, in
             return false;
         }
 
-        GenericType* pIn = in[0]->getAs<GenericType>();
+        types::GenericType* pIn = in[0]->getAs<types::GenericType>();
         *_iDims = pIn->getDims();
         *_piDims = pIn->getDimsArray();
 

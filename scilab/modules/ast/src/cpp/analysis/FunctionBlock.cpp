@@ -10,7 +10,7 @@
  *
  */
 
-#include "debugvisitor.hxx"
+#include "prettyprintvisitor.hxx"
 #include "printvisitor.hxx"
 
 #include "data/DataManager.hxx"
@@ -274,7 +274,7 @@ std::wostream & operator<<(std::wostream & out, const FunctionBlock & fblock)
     //ast::PrintVisitor pv(out, true, false);
     //fblock.exp->accept(pv);
 
-    ast::DebugVisitor dv(out);
+    ast::PrettyPrintVisitor dv(out);
     fblock.exp->accept(dv);
 
     return out;

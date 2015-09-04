@@ -30,12 +30,12 @@ public:
     /**
      */
     static types::Function::ReturnValue generateNameAndCall(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
-            types::typed_list &out, ast::ConstVisitor *_execMe = nullptr, bool _isOperator = false);
+            types::typed_list &out, bool _isOperator = false);
 
     /**
      */
     static types::Function::ReturnValue call(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
-            types::typed_list &out, ast::ConstVisitor *_execMe = nullptr, bool _isOperator = false);
+            types::typed_list &out, bool _isOperator = false);
 
     static std::wstring getNameFromOper(const int);
 
