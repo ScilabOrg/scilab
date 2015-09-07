@@ -79,12 +79,14 @@ void C2F(lufact1)(double *val, int *lln, int *col, int *n, int *nel,
     fmat = spCreate(*n, 0, &error);
     if (error != spOKAY)
     {
+        spDestroy(fmat);
         *ierr = 1;
         return;
     }
     *fmatindex = addluptr (fmat);
     if ( *fmatindex == -1)
     {
+        spDestroy(fmat);
         *ierr = 1;
         return;
     }
@@ -107,6 +109,7 @@ void C2F(lufact1)(double *val, int *lln, int *col, int *n, int *nel,
 
         if (pelement == 0)
         {
+            spDestroy(fmat);
             *ierr = 2;
             return;
         }
@@ -136,7 +139,7 @@ void C2F(lufact1)(double *val, int *lln, int *col, int *n, int *nel,
             *ierr = -2; /* matrix is singular at precision level */
             break;
     }
-
+    spDestroy(fmat);
 }
 
 /*
