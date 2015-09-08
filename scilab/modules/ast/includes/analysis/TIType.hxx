@@ -25,164 +25,164 @@
 
 namespace analysis
 {
-    struct TIType
+struct TIType
+{
+    static const std::wstring _boolean_, _ce_, _constant_, _fptr_, _function_, _int16_, _int32_, _int64_, _int8_, _library_, _list_, _mlist_, _polynomial_, _sparse_, _st_, _string_, _tlist_, _uint16_, _uint32_, _uint64_, _uint8_, _unknown_;
+
+    enum Type { EMPTY = 0, BOOLEAN, COMPLEX, CELL, DOUBLE, FUNCTION, INT16, INT32, INT64, INT8, LIST, LIBRARY, MACRO, MACROFILE, MLIST, POLYNOMIAL, STRING, SPARSE, STRUCT, TLIST, UNKNOWN, UINT16, UINT32, UINT64, UINT8, COUNT };
+    Type type;
+    SymbolicDimension rows;
+    SymbolicDimension cols;
+    bool scalar;
+
+    TIType(const Type _type = UNKNOWN) : type(_type), scalar(true) { }
+    TIType(GVN & gvn) : type(UNKNOWN), rows(gvn, 0.), cols(gvn, 0.), scalar(false) { }
+    TIType(GVN & gvn, const Type _type) : type(_type), rows(gvn, _type == EMPTY ? 0 : 1), cols(gvn, _type == EMPTY ? 0 : 1), scalar(_type != EMPTY) { }
+    TIType(GVN & gvn, const Type _type, const int _rows, const int _cols) : type(_type), rows(gvn, _rows), cols(gvn, _cols), scalar(_rows == 1 && _cols == 1) { }
+    TIType(GVN & gvn, Type _type, const SymbolicDimension & _rows, const SymbolicDimension & _cols) : type(_type), rows(_rows), cols(_cols), scalar(_rows == 1 && _cols == 1) { }
+    TIType(GVN & gvn, const Type _type, const bool _scalar) : type(_type), rows(gvn, _scalar ? 1 : -1), cols(gvn, _scalar ? 1 : -1), scalar(_scalar) { }
+
+    inline bool hasValidDims() const
     {
-        static const std::wstring _boolean_, _ce_, _constant_, _fptr_, _function_, _int16_, _int32_, _int64_, _int8_, _library_, _list_, _mlist_, _polynomial_, _sparse_, _st_, _string_, _tlist_, _uint16_, _uint32_, _uint64_, _uint8_, _unknown_;
-        
-        enum Type { EMPTY = 0, BOOLEAN, COMPLEX, CELL, DOUBLE, FUNCTION, INT16, INT32, INT64, INT8, LIST, LIBRARY, MACRO, MACROFILE, MLIST, POLYNOMIAL, STRING, SPARSE, STRUCT, TLIST, UNKNOWN, UINT16, UINT32, UINT64, UINT8, COUNT };
-        Type type;
-	SymbolicDimension rows;
-	SymbolicDimension cols;
-        bool scalar;
+        return rows != -2 && cols != -2;
+    }
 
-	TIType(const Type _type = UNKNOWN) : type(_type), scalar(true) { }
-        TIType(GVN & gvn) : type(UNKNOWN), rows(gvn, 0.), cols(gvn, 0.), scalar(false) { }
-        TIType(GVN & gvn, const Type _type) : type(_type), rows(gvn, _type == EMPTY ? 0 : 1), cols(gvn, _type == EMPTY ? 0 : 1), scalar(_type != EMPTY) { }
-	TIType(GVN & gvn, const Type _type, const int _rows, const int _cols) : type(_type), rows(gvn, _rows), cols(gvn, _cols), scalar(_rows == 1 && _cols == 1) { }
-	TIType(GVN & gvn, Type _type, const SymbolicDimension & _rows, const SymbolicDimension & _cols) : type(_type), rows(_rows), cols(_cols), scalar(_rows == 1 && _cols == 1) { }
-	TIType(GVN & gvn, const Type _type, const bool _scalar) : type(_type), rows(gvn, _scalar ? 1. : -1.), cols(gvn, _scalar ? 1. : -1.), scalar(_scalar) { }
+    inline bool hasInvalidDims() const
+    {
+        return rows == -2;
+    }
 
-	inline bool hasValidDims() const
-	{
-	    return rows != -2 && cols != -2;
-	}
+    inline TIType asUnknownMatrix()
+    {
+        return TIType(*rows.getGVN(), type, false);
+    }
 
-	inline bool hasInvalidDims() const
-	{
-	    return rows == -2;
-	}
+    inline bool isscalar() const
+    {
+        return scalar;
+    }
 
-	inline TIType asUnknownMatrix()
-	{
-	    return TIType(*rows.getGVN(), type, false);
-	}
+    inline void invalidScalar()
+    {
+        scalar = rows == 1 && cols == 1;
+    }
 
-        inline bool isscalar() const
+    inline bool iscomplex() const
+    {
+        return type == COMPLEX;
+    }
+
+    inline bool isreal() const
+    {
+        return type == DOUBLE;
+    }
+
+    inline bool isintegral() const
+    {
+        return type == BOOLEAN || type == INT8 || type == INT16 || type == INT32 || type == INT64 || type == UINT8 || type == UINT16 || type == UINT32 || type == UINT64;
+    }
+
+    inline bool ismatrix() const
+    {
+        return type != CELL && type != FUNCTION && type != LIST && type != LIBRARY && type != MACRO && type != MACROFILE && type != MLIST && type != STRUCT && type != TLIST && type != UNKNOWN;
+    }
+
+    inline bool issigned() const
+    {
+        return type != UINT8 && type != UINT16 && type != UINT32 && type != UINT64;
+    }
+
+    inline bool isfloating() const
+    {
+        return type == DOUBLE || type == COMPLEX;
+    }
+
+    inline bool isKnownDims() const
+    {
+        return rows.isValid() && cols.isValid();
+    }
+
+    inline bool isUnknownDims() const
+    {
+        return !isKnownDims();
+    }
+
+    inline bool isknown() const
+    {
+        return type != UNKNOWN;
+    }
+
+    inline bool isunknown() const
+    {
+        return type == UNKNOWN;
+    }
+
+    inline bool isConstantDims() const
+    {
+        return rows.isConstant() && cols.isConstant();
+    }
+
+    inline void swapDims()
+    {
+        GVN::Value * r = rows.getValue();
+        rows.setValue(cols.getValue());
+        cols.setValue(r);
+    }
+
+    inline std::size_t hashPureType() const
+    {
+        return isscalar() ? type : (type + TIType::COUNT + 1);
+    }
+
+    inline bool operator==(const TIType & r) const
+    {
+        return type == r.type && scalar == r.scalar && rows == r.rows && cols == r.cols;
+    }
+
+    inline bool operator!=(const TIType & r) const
+    {
+        return !(*this == r);
+    }
+
+    inline void merge(const TIType & type)
+    {
+        if (this->type == DOUBLE && type.type == COMPLEX)
         {
-            return scalar;
+            this->type = COMPLEX;
         }
-
-        inline void invalidScalar()
+        else if ((this->type != COMPLEX || type.type != DOUBLE) && this->type != type.type)
         {
-            scalar = rows == 1 && cols == 1;
+            this->type = UNKNOWN;
+            rows.setValue(0.);
+            cols.setValue(0.);
         }
-
-        inline bool iscomplex() const
+        else if ((!scalar || !type.scalar) && (rows != type.rows || cols != type.cols))
         {
-            return type == COMPLEX;
-        }
-
-        inline bool isreal() const
-        {
-            return type == DOUBLE;
-        }
-
-        inline bool isintegral() const
-        {
-            return type == BOOLEAN || type == INT8 || type == INT16 || type == INT32 || type == INT64 || type == UINT8 || type == UINT16 || type == UINT32 || type == UINT64;
-        }
-
-        inline bool ismatrix() const
-        {
-            return type != CELL && type != FUNCTION && type != LIST && type != LIBRARY && type != MACRO && type != MACROFILE && type != MLIST && type != STRUCT && type != TLIST && type != UNKNOWN;
-        }
-
-        inline bool issigned() const
-        {
-            return type != UINT8 && type != UINT16 && type != UINT32 && type != UINT64;
-        }
-
-	inline bool isfloating() const
-	{
-	    return type == DOUBLE || type == COMPLEX;
-	}
-
-        inline bool isKnownDims() const
-        {
-            return rows.isValid() && cols.isValid();
-        }
-
-        inline bool isUnknownDims() const
-        {
-            return !isKnownDims();
-        }
-
-        inline bool isknown() const
-        {
-            return type != UNKNOWN;
-        }
-
-        inline bool isunknown() const
-        {
-            return type == UNKNOWN;
-        }
-
-        inline bool isConstantDims() const
-        {
-            return rows.isConstant() && cols.isConstant();
-        }
-
-        inline void swapDims()
-        {
-            GVN::Value * r = rows.getValue();
-            rows.setValue(cols.getValue());
-            cols.setValue(r);
-        }
-
-	inline std::size_t hashPureType() const
-	{
-            return isscalar() ? type : (type + TIType::COUNT + 1);
-	}
-
-        inline bool operator==(const TIType & r) const
-        {
-            return type == r.type && scalar == r.scalar && rows == r.rows && cols == r.cols;
-        }
-
-        inline bool operator!=(const TIType & r) const
-        {
-            return !(*this == r);
-        }
-
-	inline void merge(const TIType & type)
-        {
-            if (this->type == DOUBLE && type.type == COMPLEX)
+            if (rows != type.rows)
             {
-		this->type = COMPLEX;
+                rows.setValue(rows.getGVN()->getValue());
             }
-	    else if ((this->type != COMPLEX || type.type != DOUBLE) && this->type != type.type) 
-	    {
-		this->type = UNKNOWN;
-		rows.setValue(0.);
-		cols.setValue(0.);
-	    }
-	    else if ((!scalar || !type.scalar) && (rows != type.rows || cols != type.cols))
-	    {
-		if (rows != type.rows)
-		{
-		    rows.setValue(rows.getGVN()->getValue());
-		}
-		if (cols != type.cols)
-		{
-		    cols.setValue(cols.getGVN()->getValue());
-		}
-		scalar = false;
-	    }
-	    /*else if ((!scalar || !type.scalar) && (rows != type.rows || cols != type.cols))
-	    {
-		rows.invalid();
-		cols.invalid();
-		scalar = false;
-	    }*/
-	}
-
-	template<typename> static Type getTI();
-
-        inline std::string get_mangling() const
-        {
-            const bool kd = isKnownDims();
-            switch (type)
+            if (cols != type.cols)
             {
+                cols.setValue(cols.getGVN()->getValue());
+            }
+            scalar = false;
+        }
+        /*else if ((!scalar || !type.scalar) && (rows != type.rows || cols != type.cols))
+        {
+        rows.invalid();
+        cols.invalid();
+        scalar = false;
+        }*/
+    }
+
+    template<typename> static Type getTI();
+
+    inline std::string get_mangling() const
+    {
+        const bool kd = isKnownDims();
+        switch (type)
+        {
             case EMPTY :
                 return "E";
             case BOOLEAN :
@@ -235,13 +235,13 @@ namespace analysis
                 return kd ? (scalar ? "S_ui8" : "M_ui8") : "U_ui8";
             default :
                 return "??";
-            }
         }
+    }
 
-        inline static std::string get_mangling(const TIType::Type ty, const bool scalar)
+    inline static std::string get_mangling(const TIType::Type ty, const bool scalar)
+    {
+        switch (ty)
         {
-            switch (ty)
-            {
             case EMPTY :
                 return "E";
             case BOOLEAN :
@@ -294,64 +294,64 @@ namespace analysis
                 return scalar ? "S_ui8" : "M_ui8";
             default :
                 return "??";
-            }
         }
+    }
 
-        inline static std::string get_unary_mangling(const std::string & pre, const TIType & l)
+    inline static std::string get_unary_mangling(const std::string & pre, const TIType & l)
+    {
+        return pre + "_" + l.get_mangling();
+    }
+
+    inline static std::string get_binary_mangling(const std::string & pre, const TIType & l, const TIType & r)
+    {
+        return pre + "_" + l.get_mangling() + "_" + r.get_mangling();
+    }
+
+    inline static std::string get_mangling(const std::string & pre, const std::vector<TIType> & types)
+    {
+        std::string s(pre);
+        for (std::vector<TIType>::const_iterator i = types.begin(), end = types.end(); i != end; ++i)
         {
-            return pre + "_" + l.get_mangling();
+            s += "_" + i->get_mangling();
         }
+        return s;
+    }
 
-        inline static std::string get_binary_mangling(const std::string & pre, const TIType & l, const TIType & r)
+    inline static unsigned int get_base_size(const Type type)
+    {
+        switch (type)
         {
-            return pre + "_" + l.get_mangling() + "_" + r.get_mangling();
-        }
-
-        inline static std::string get_mangling(const std::string & pre, const std::vector<TIType> & types)
-        {
-	    std::string s(pre);
-	    for (std::vector<TIType>::const_iterator i = types.begin(), end = types.end(); i != end; ++i)
-	    {
-		s += "_" + i->get_mangling();
-	    }
-            return s;
-        }
-
-        inline static unsigned int get_base_size(const Type type)
-        {
-            switch (type)
-            {
             case EMPTY :
                 return sizeof(double);
             case BOOLEAN :
                 return sizeof(int);
             case DOUBLE :
                 return sizeof(double);
-	    case INT8 :
-		return sizeof(int8_t);
-	    case INT16 :
-		return sizeof(int16_t);
+            case INT8 :
+                return sizeof(int8_t);
+            case INT16 :
+                return sizeof(int16_t);
             case INT32 :
-		return sizeof(int32_t);
+                return sizeof(int32_t);
             case INT64 :
-		return sizeof(int64_t);
-	    case UINT8 :
-		return sizeof(uint8_t);
-	    case UINT16 :
-		return sizeof(uint16_t);
+                return sizeof(int64_t);
+            case UINT8 :
+                return sizeof(uint8_t);
+            case UINT16 :
+                return sizeof(uint16_t);
             case UINT32 :
-		return sizeof(uint32_t);
+                return sizeof(uint32_t);
             case UINT64 :
-		return sizeof(uint64_t);
+                return sizeof(uint64_t);
             default :
                 return 0;
-            }
         }
+    }
 
-        inline static std::wstring toString(Type t)
+    inline static std::wstring toString(Type t)
+    {
+        switch (t)
         {
-            switch (t)
-            {
             case EMPTY :
                 return L"[]";
             case BOOLEAN :
@@ -404,18 +404,18 @@ namespace analysis
                 return L"uint8";
             default :
                 return L"unknown";
-            }
         }
+    }
 
-        inline const std::wstring & getScilabString() const
-        {
-            return getScilabString(type);
-        }
+    inline const std::wstring & getScilabString() const
+    {
+        return getScilabString(type);
+    }
 
-        inline static const std::wstring & getScilabString(Type t)
+    inline static const std::wstring & getScilabString(Type t)
+    {
+        switch (t)
         {
-            switch (t)
-            {
             case EMPTY :
                 return _constant_;
             case BOOLEAN :
@@ -468,18 +468,18 @@ namespace analysis
                 return _uint8_;
             default :
                 return _unknown_;
-            }
         }
+    }
 
-        inline int getScilabCode() const
-        {
-            return getScilabCode(type);
-        }
+    inline int getScilabCode() const
+    {
+        return getScilabCode(type);
+    }
 
-        inline static int getScilabCode(Type t)
+    inline static int getScilabCode(Type t)
+    {
+        switch (t)
         {
-            switch (t)
-            {
             case EMPTY :
                 return 1;
             case BOOLEAN :
@@ -532,13 +532,13 @@ namespace analysis
                 return 8;
             default :
                 return -1;
-            }
         }
+    }
 
-	friend std::wostream & operator<<(std::wostream & out, const TIType & type)
+    friend std::wostream & operator<<(std::wostream & out, const TIType & type)
+    {
+        switch (type.type)
         {
-            switch (type.type)
-            {
             case EMPTY :
                 out << L"[]";
                 break;
@@ -616,48 +616,78 @@ namespace analysis
                 break;
             default :
                 break;
-            }
-
-            if (type.type != EMPTY && type.type != UNKNOWN)
-            {
-                if (type.isUnknownDims())
-                {
-                    out << L"[?, ?]";
-                }
-                else
-                {
-                    out << L"[" << type.rows << L", " << type.cols << L"]";
-                }
-	    }
-
-            return out;
         }
-    };
 
-    template<> inline TIType::Type TIType::getTI<bool>() { return TIType::BOOLEAN; }
-    template<> inline TIType::Type TIType::getTI<double>() { return TIType::DOUBLE; }
-    template<> inline TIType::Type TIType::getTI<int16_t>() { return TIType::INT16; }
-    template<> inline TIType::Type TIType::getTI<int32_t>() { return TIType::INT32; }
-    template<> inline TIType::Type TIType::getTI<int64_t>() { return TIType::INT64; }
-    template<> inline TIType::Type TIType::getTI<int8_t>() { return TIType::INT8; }
-    template<> inline TIType::Type TIType::getTI<uint16_t>() { return TIType::UINT16; }
-    template<> inline TIType::Type TIType::getTI<uint32_t>() { return TIType::UINT32; }
-    template<> inline TIType::Type TIType::getTI<uint64_t>() { return TIType::UINT64; }
-    template<> inline TIType::Type TIType::getTI<uint8_t>() { return TIType::UINT8; }
+        if (type.type != EMPTY && type.type != UNKNOWN)
+        {
+            if (type.isUnknownDims())
+            {
+                out << L"[?, ?]";
+            }
+            else
+            {
+                out << L"[" << type.rows << L", " << type.cols << L"]";
+            }
+        }
+
+        return out;
+    }
+};
+
+template<> inline TIType::Type TIType::getTI<bool>()
+{
+    return TIType::BOOLEAN;
+}
+template<> inline TIType::Type TIType::getTI<double>()
+{
+    return TIType::DOUBLE;
+}
+template<> inline TIType::Type TIType::getTI<int16_t>()
+{
+    return TIType::INT16;
+}
+template<> inline TIType::Type TIType::getTI<int32_t>()
+{
+    return TIType::INT32;
+}
+template<> inline TIType::Type TIType::getTI<int64_t>()
+{
+    return TIType::INT64;
+}
+template<> inline TIType::Type TIType::getTI<int8_t>()
+{
+    return TIType::INT8;
+}
+template<> inline TIType::Type TIType::getTI<uint16_t>()
+{
+    return TIType::UINT16;
+}
+template<> inline TIType::Type TIType::getTI<uint32_t>()
+{
+    return TIType::UINT32;
+}
+template<> inline TIType::Type TIType::getTI<uint64_t>()
+{
+    return TIType::UINT64;
+}
+template<> inline TIType::Type TIType::getTI<uint8_t>()
+{
+    return TIType::UINT8;
+}
 
 } // namespace analysis
 
 namespace std
 {
-    // useful to be able to put TIType in unorderd_set for example.
-    template<>
-    struct hash<analysis::TIType>
+// useful to be able to put TIType in unorderd_set for example.
+template<>
+struct hash<analysis::TIType>
+{
+    inline size_t operator()(const analysis::TIType & t) const
     {
-	inline size_t operator()(const analysis::TIType & t) const
-	    {
-		return 0;//tools::hash_combine(t.type, t.rows, t.cols);
-	    }
-    };
+        return 0;//tools::hash_combine(t.type, t.rows, t.cols);
+    }
+};
 } // namespace std
 
 #endif // __TITYPE_HXX__
