@@ -53,6 +53,8 @@ Scilab Bug Fixes
 
 * Bug #14095 fixed - Scilab crashed when a .fig file was loaded with loadmatfile function.
 
+* Bug #14105 fixed - New block comments /*...*/ feature was not documented.
+
 * Bug #14107 fixed - lstcat of a string and a list did not produce consistent results.
 
 
