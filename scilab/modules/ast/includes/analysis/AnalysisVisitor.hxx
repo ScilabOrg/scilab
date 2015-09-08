@@ -621,8 +621,9 @@ private:
     void visit(ast::SeqExp & e)
     {
         logger.log(L"SeqExp", e.getLocation());
-        ast::exps_t::const_iterator i = e.getExps().begin();
-        ast::exps_t::const_iterator end = e.getExps().end();
+        ast::exps_t & exps = e.getExps();
+        ast::exps_t::const_iterator i = exps.begin();
+        ast::exps_t::const_iterator end = exps.end();
         for (; i != end; ++i)
         {
             ast::Exp * exp = *i;
@@ -655,7 +656,13 @@ private:
             ++i;
             if (i != end)
             {
-                e.getExps().erase(i, end);
+                unsigned int cnt = 0;
+                for (; i != end; ++i)
+                {
+                    delete *i;
+                    ++cnt;
+                }
+                exps.resize(exps.size() - cnt);
             }
         }
     }
