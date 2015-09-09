@@ -110,11 +110,10 @@ void StaticRunner::launch()
             ConfigVariable::setPromptMode(iOldPromptMode);
         }
 
-        scilabErrorW(se.GetErrorMessage().c_str());
-        scilabErrorW(L"\n");
         std::wostringstream ostr;
         ConfigVariable::whereErrorToString(ostr);
         scilabErrorW(ostr.str().c_str());
+        scilabErrorW(se.GetErrorMessage().c_str());
         ConfigVariable::resetWhereError();
     }
     catch (const ast::InternalAbort& ia)
