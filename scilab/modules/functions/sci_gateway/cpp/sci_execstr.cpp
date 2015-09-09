@@ -139,6 +139,10 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
         pstCommand[iPos] = 0;
     }
 
+    // add execstr in list of macro called
+    // to manage line displayed when error occured.
+    ConfigVariable::macroFirstLine_begin(1);
+
     ThreadManagement::LockParser();
     parser.parse(pstCommand);
     FREE(pstCommand);
@@ -152,6 +156,7 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
             ConfigVariable::setLastErrorMessage(parser.getErrorMessage());
             ConfigVariable::setLastErrorNumber(999);
             ThreadManagement::UnlockParser();
+            ConfigVariable::macroFirstLine_end();
             return Function::OK;
         }
         else
@@ -160,6 +165,7 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
             Scierror(999, "%s", pst);
             FREE(pst);
             ThreadManagement::UnlockParser();
+            ConfigVariable::macroFirstLine_end();
             return Function::Error;
         }
     }
@@ -203,10 +209,6 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
     }
 
     ast::SeqExp* pSeqExp = pExp->getAs<SeqExp>();
-
-    // add execstr in list of macro called
-    // to manage line displayed when error occured.
-    ConfigVariable::macroFirstLine_begin(1);
 
     try
     {
