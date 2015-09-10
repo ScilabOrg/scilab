@@ -74,5 +74,19 @@ Adapters::adapters_index_t Adapters::lookup_by_typename(const std::wstring& name
     return INVALID_ADAPTER;
 }
 
+
+const std::wstring& Adapters::get_typename(Adapters::adapters_index_t kind)
+{
+    for (auto it : adapters)
+    {
+        if (it.kind == kind)
+        {
+            return it.name;
+        }
+    }
+
+    return L"";
+}
+
 } /* namespace view_scilab */
 } /* namespace org_scilab_modules_scicos */

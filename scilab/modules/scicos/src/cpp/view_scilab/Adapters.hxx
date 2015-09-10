@@ -46,6 +46,7 @@ public:
     static Adapters& instance();
 
     adapters_index_t lookup_by_typename(const std::wstring& name);
+    const std::wstring& get_typename(adapters_index_t index);
 
 private:
 
