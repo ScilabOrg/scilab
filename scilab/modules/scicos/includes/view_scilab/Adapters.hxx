@@ -13,8 +13,12 @@
 #ifndef ADAPTERS_HXX_
 #define ADAPTERS_HXX_
 
+#include <utility>
 #include <vector>
 #include <string>
+
+#include "internal.hxx"
+#include "model/BaseObject.hxx"
 
 namespace org_scilab_modules_scicos
 {
@@ -46,6 +50,8 @@ public:
     static Adapters& instance();
 
     adapters_index_t lookup_by_typename(const std::wstring& name);
+    std::wstring get_typename(adapters_index_t index);
+    const model::BaseObject* descriptor(types::InternalType* v);
 
 private:
 
