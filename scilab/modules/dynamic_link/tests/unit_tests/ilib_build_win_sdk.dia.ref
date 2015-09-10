@@ -1,0 +1,45 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- WINDOWS ONLY -->
+// <-- CLI SHELL MODE -->
+//
+// Checks dynamic link on a code using Windows SDK
+source = [
+'#define __USE_DEPRECATED_STACK_FUNCTIONS__'
+'#include ""windows.h""'
+'#include ""stack-c.h""'
+'int sci_getWindowsDirectory(char *fname) {'
+'  char *pstOut;'
+'  char cBuf[MAX_PATH];'
+'  int m, n;'
+'  CheckRhs(0, 0);'
+'  CheckLhs(0, 1);'
+'  GetWindowsDirectoryA(cBuf, MAX_PATH);'
+'  m = (int) strlen(cBuf);'
+'  n = 1;'
+'  pstOut = (char*) &cBuf[0];'
+'  CreateVarFromPtr(Rhs+1, STRING_DATATYPE, &m, &n, &pstOut);'
+'  LhsVar(1) = Rhs+1;'
+'  return 0;'
+'}'
+];
+test_dir = fullfile(TMPDIR, 'ilib_build_win_sdk');
+mkdir(test_dir);
+mputl(source, fullfile(test_dir, 'ilib_build_win_sdk.c'));
+orig_path = pwd();
+chdir(test_dir);
+ilib_verbose(0);
+ilib_build('test_c_lib', ['getWindowsDirectory', 'sci_getWindowsDirectory'], ['ilib_build_win_sdk.c'], []);
+!NMAKE : fatal error U1073: don't know how to make 'Debug/ilib_build_wi!
+!n_sdk.obj'                                                            !
+!                                                                      !
+!Stop.                                                                 !
+ilib_compile : Erreur à l'exécution de Makelib.mak.
+at line    39 of function dlwCompile   ( SCI\modules\dynamic_link\macros\windows\dlwCompile.sci line 48 )
+at line    57 of function ilib_compile ( SCI\modules\dynamic_link\macros\ilib_compile.sci line 70 )
+at line   115 of function ilib_build   ( SCI\modules\dynamic_link\macros\ilib_build.sci line 125 )
+at line    53 of executed file TMPDIR\ilib_build_win_sdk.tst
