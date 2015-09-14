@@ -1044,7 +1044,7 @@ bool ConfigVariable::getEndProcessing()
 ** ieee
 ** \{
 */
-int ConfigVariable::m_iIeee = 0;
+int ConfigVariable::m_iIeee = 1;
 
 void ConfigVariable::setIeee(int _iIeee)
 {

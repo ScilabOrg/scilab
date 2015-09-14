@@ -6,6 +6,13 @@ New Features
 
 * valgrind error detection added to test_run (Linux Only)
 
+
+Modified Functions
+===================
+
+* ieee: the initial mode value is now setted to 1.
+
+
 Deprecated Behaviors
 =====================
 
