@@ -18,6 +18,8 @@
 //  matrix does not have the same effect. It makes me believe it is a bug 
 //  in the try-catch primitive.
 
+m_ieee = ieee();
+ieee(0);
 function x=foo
   x=%t	
   try
@@ -38,3 +40,5 @@ endfunction
 
 if ~foo() then pause,end
 if ~rf() then pause,end
+
+ieee(m_ieee);

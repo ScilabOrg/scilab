@@ -1,6 +1,10 @@
         Changes between version 6.0.0-alpha-1 and 6.0.0-alpha-2 of Scilab
         =================================================================
 
+Modified Functions
+===================
+
+* ieee: the initial mode value is now setted to 1.
 
 Scilab Bug Fixes
 ================
