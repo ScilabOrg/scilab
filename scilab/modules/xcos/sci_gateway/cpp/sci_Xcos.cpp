@@ -85,9 +85,11 @@ types::Function::ReturnValue sci_Xcos(types::typed_list &in, int _iRetCount, typ
             if (callXcos(funname, file, ScicosID()))
             {
                 FREE(c_str);
+                FREE(file);
                 return types::Function::Error;
             }
             FREE(c_str);
+            FREE(file);
         }
 
         return types::Function::OK;
@@ -149,12 +151,14 @@ types::Function::ReturnValue sci_Xcos(types::typed_list &in, int _iRetCount, typ
             return types::Function::Error;
         }
 
-        if (callXcos(funname, c_str, o->id()))
+        if (callXcos(funname, file, o->id()))
         {
             FREE(c_str);
+            FREE(file);
             return types::Function::Error;
         }
         FREE(c_str);
+        FREE(file);
         return types::Function::OK;
     }
     /*
@@ -181,11 +185,6 @@ static int callXcos(char *fname, char* file, long diagramId)
 
         Scierror(999, "%s: %s\n", fname,
                  exception.getJavaDescription().c_str());
-
-        if (file)
-        {
-            FREE(file);
-        }
         return 1;
     }
     catch (GiwsException::JniException &exception)
@@ -195,17 +194,7 @@ static int callXcos(char *fname, char* file, long diagramId)
         std::cerr << exception.getJavaStackTrace() << std::endl;
 
         Scierror(999, "%s: %s\n", fname, exception.whatStr().c_str());
-
-        if (file)
-        {
-            FREE(file);
-        }
         return 1;
-    }
-
-    if (file)
-    {
-        FREE(file);
     }
     return 0;
 }
