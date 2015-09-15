@@ -53,7 +53,8 @@ public class XcosDelegates {
         diag.installListeners();
 
         final XcosFileType filetype = XcosFileType.findFileType(xcosFile);
-        filetype.load(xcosFile, diag);
+        // FIXME load file
+        // filetype.load(xcosFile, diag);
 
         final mxGraphComponent graphComponent = diag.getAsComponent();
 
