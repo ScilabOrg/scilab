@@ -23,12 +23,12 @@ DiaryList::~DiaryList()
     closeAllDiaries();
 }
 /*--------------------------------------------------------------------------*/
-int DiaryList::openDiary(std::wstring _wfilename, bool autorename)
+int DiaryList::openDiary(const std::wstring& _wfilename, bool autorename)
 {
     return openDiary(_wfilename, 0, autorename);
 }
 /*--------------------------------------------------------------------------*/
-int DiaryList::openDiary(std::wstring _wfilename, int _mode, bool autorename)
+int DiaryList::openDiary(const std::wstring& _wfilename, int _mode, bool autorename)
 {
     int ID = -1;
     Diary newDiary(_wfilename, _mode, findFreeID(), autorename);
@@ -115,7 +115,7 @@ std::list<std::wstring> DiaryList::getFilenames()
     return wFilenames;
 }
 /*--------------------------------------------------------------------------*/
-void DiaryList::write(std::wstring _wstr, bool bInput)
+void DiaryList::write(const std::wstring& _wstr, bool bInput)
 {
     std::list<Diary>::iterator i;
     for ( i = LSTDIARY.begin(); i != LSTDIARY.end(); i++)
@@ -124,7 +124,7 @@ void DiaryList::write(std::wstring _wstr, bool bInput)
     }
 }
 /*--------------------------------------------------------------------------*/
-void DiaryList::writeln(std::wstring _wstr, bool bInput)
+void DiaryList::writeln(const std::wstring& _wstr, bool bInput)
 {
     std::list<Diary>::iterator i;
     for ( i = LSTDIARY.begin(); i != LSTDIARY.end(); i++)
@@ -146,7 +146,7 @@ bool DiaryList::exists(int ID_diary)
     return false;
 }
 /*--------------------------------------------------------------------------*/
-bool DiaryList::exists(std::wstring _wfilename)
+bool DiaryList::exists(const std::wstring& _wfilename)
 {
     std::list<Diary>::iterator i;
     for ( i = LSTDIARY.begin(); i != LSTDIARY.end(); i++)
@@ -234,7 +234,7 @@ bool DiaryList::getSuspendWrite(int  ID_diary)
     return false;
 }
 /*--------------------------------------------------------------------------*/
-int DiaryList::getID(std::wstring _wfilename)
+int DiaryList::getID(const std::wstring& _wfilename)
 {
     std::list<Diary>::iterator i;
     for ( i = LSTDIARY.begin(); i != LSTDIARY.end(); i++)
