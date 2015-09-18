@@ -61,6 +61,6 @@ public class XcosDelegates {
         ImageIO.write(image, "png", imageFile);
 
 
-        controller.deleteObject(diag.getUId());
+        controller.deleteObject(diag.getUID());
     }
 }
