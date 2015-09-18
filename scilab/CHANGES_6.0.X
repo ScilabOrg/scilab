@@ -17,6 +17,8 @@ Scilab Bug Fixes
 
 * Bug #14150 fixed - The Windows SDK was not found on Windows 8.1.
 
+* Bug #14028 fixed - force flag of genlib did not rebuild bin file.
+
 * Bug #14024 fixed - Print of macrofile display a debug message
                      instead of macro prototype.
 
