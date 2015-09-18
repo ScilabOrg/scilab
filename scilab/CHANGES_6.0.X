@@ -17,6 +17,9 @@ Scilab Bug Fixes
 
 * Bug #14150 fixed - The Windows SDK was not found on Windows 8.1.
 
+* Bug #14024 fixed - Print of macrofile display a debug message
+                     instead of macro prototype.
+
 * Bug #13709 fixed - unique function sometimes returned wrong index values.
 
 * Bug #13750 fixed - Calling ss2ss function with flag = 2 returned an error.
