@@ -249,14 +249,14 @@ public class XcosDiagram extends ScilabGraph {
 
                 final int value1;
                 if (data1.size() >= 1) {
-                    value1 = (int) data1.get(0);
+                    value1 = data1.get(0);
                 } else {
                     value1 = 0;
                 }
 
                 final int value2;
                 if (data2.size() >= 1) {
-                    value2 = (int) data2.get(0);
+                    value2 = data2.get(0);
                 } else {
                     value2 = 0;
                 }

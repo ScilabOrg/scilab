@@ -119,6 +119,7 @@ public final class Xcos {
      * Instance data
      */
     private final Map<Long, Collection<XcosDiagram>> diagrams;
+    private XcosView view;
     private BrowserView browser;
     private boolean onDiagramIteration = false;
     private String lastError = null;
@@ -159,7 +160,9 @@ public final class Xcos {
          */
         diagrams = new HashMap<Long, Collection<XcosDiagram>>();
 
-        // allocate and install the view on demand to avoid any cost
+        view = new XcosView();
+        JavaController.register_view(Xcos.class.getSimpleName(), view);
+        // allocate and install the browser view on demand to avoid any cost
         browser = null;
 
         /*
@@ -185,13 +188,17 @@ public final class Xcos {
             this.factory = factory;
         }
         ScilabTabFactory.getInstance().addTabFactory(this.factory);
+
+
     }
 
     protected void finalize() throws Throwable {
         if (browser != null) {
             JavaController.unregister_view(browser);
         }
-    };
+
+        JavaController.unregister_view(view);
+    }
 
     /**
      * Check the dependencies and the version dependencies.
@@ -497,6 +504,13 @@ public final class Xcos {
      */
     public void setLastError(String error) {
         this.lastError = error;
+    }
+
+    /**
+     * @return the Xcos view
+     */
+    public XcosView getXcosView() {
+        return view;
     }
 
     /**

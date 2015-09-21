@@ -142,7 +142,7 @@ public class XcosCell extends ScilabGraphUniqueObject {
             case ANNOTATION:
             case BLOCK:
             case PORT:
-                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.STYLE, String.valueOf(value));
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.STYLE, String.valueOf(style));
                 break;
             default:
                 break;

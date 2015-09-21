@@ -147,6 +147,7 @@ public final class BlockFactory {
         // Not specific block
         if (block == null) {
             block = new BasicBlock(uid);
+            block.setStyle(interfaceFunction[0]);
         }
 
         return block;

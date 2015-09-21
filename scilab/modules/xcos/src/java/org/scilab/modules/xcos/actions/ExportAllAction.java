@@ -182,7 +182,7 @@ public final class ExportAllAction extends DefaultAction {
         final VectorOfScicosID children = new VectorOfScicosID();
         controller.getObjectProperty(uid, kind, ObjectProperties.CHILDREN, children);
 
-        final int len = (int) children.size();
+        final int len = children.size();
         for (int i = 0; i < len ; i++) {
             String[] interfaceFunction = new String[1];
             long currentUID = children.get(i);

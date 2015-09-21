@@ -290,11 +290,11 @@ public class BasicBlock extends XcosCell implements Serializable {
         /*
          * Retrieve the parent
          */
-        long[] parentBlock = new long[0];
-        long[] parentDiagram = new long[0];
+        long[] parentBlock = new long[1];
+        long[] parentDiagram = new long[1];
         JavaController controller = new JavaController();
-        controller.getObjectProperty(getUID(), Kind.BLOCK, ObjectProperties.PARENT_BLOCK, parentBlock);
-        controller.getObjectProperty(getUID(), Kind.BLOCK, ObjectProperties.PARENT_DIAGRAM, parentDiagram);
+        controller.getObjectProperty(getUID(), getKind(), ObjectProperties.PARENT_BLOCK, parentBlock);
+        controller.getObjectProperty(getUID(), getKind(), ObjectProperties.PARENT_DIAGRAM, parentDiagram);
 
         final long parent;
         final Kind kind;
@@ -564,12 +564,12 @@ public class BasicBlock extends XcosCell implements Serializable {
         JavaController controller = new JavaController();
 
         String[] interfaceFunctionName = new String[1];
-        controller.getObjectProperty(getUID(), Kind.BLOCK, ObjectProperties.INTERFACE_FUNCTION, interfaceFunctionName);
+        controller.getObjectProperty(getUID(), getKind(), ObjectProperties.INTERFACE_FUNCTION, interfaceFunctionName);
         String[] simulationFunctionName = new String[1];
-        controller.getObjectProperty(getUID(), Kind.BLOCK, ObjectProperties.SIM_FUNCTION_NAME, simulationFunctionName);
+        controller.getObjectProperty(getUID(), getKind(), ObjectProperties.SIM_FUNCTION_NAME, simulationFunctionName);
 
         result.append("Block Name : " + interfaceFunctionName[0] + ScilabGraphConstants.HTML_NEWLINE);
-        result.append("Simulation : " + simulationFunctionName[1] + ScilabGraphConstants.HTML_NEWLINE);
+        result.append("Simulation : " + simulationFunctionName[0] + ScilabGraphConstants.HTML_NEWLINE);
 
         //        if (getParentDiagram() instanceof PaletteDiagram) {
         //            if (getIntegerParameters() != null) {
