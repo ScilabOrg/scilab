@@ -60,6 +60,7 @@ void DebugVisitor::print(const std::wstring& str, const Exp &e)
     {
         *ostr << L" Deco(" << e.getDecorator() << L")";
     }
+    *ostr << std::endl;
 }
 
 
