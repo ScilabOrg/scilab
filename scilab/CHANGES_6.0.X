@@ -33,6 +33,8 @@ Scilab Bug Fixes
 
 * Bug #13907 fixed - Avoids the gray background on the right panel of the palette Browser.
 
+* Bug #13911 fixed - Allow several commas after catch keyword.
+
 * Bug #13944 fixed - The menu "Toolboxes" was missing.
 
 * Bug #14020 fixed - Incorrect carriage return ascii code.

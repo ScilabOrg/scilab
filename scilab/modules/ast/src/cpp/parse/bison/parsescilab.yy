@@ -1778,17 +1778,8 @@ expressions                     {
             $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
             $$ = $1;
                                 }
-| EOL expressions               {
-            $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
-            $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
-            $$ = $2;
-                                }
-| SEMI expressions              {
-            $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
-            $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
-            $$ = $2;
-                                }
-| COMMA expressions             {
+| expressionLineBreak expressions               {
+            delete $1;
             $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
             $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
             $$ = $2;
