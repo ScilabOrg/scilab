@@ -142,7 +142,7 @@ public class XcosCell extends ScilabGraphUniqueObject {
             case ANNOTATION:
             case BLOCK:
             case PORT:
-                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.STYLE, String.valueOf(value));
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.STYLE, String.valueOf(style));
                 break;
             default:
                 break;
@@ -368,6 +368,10 @@ public class XcosCell extends ScilabGraphUniqueObject {
 
     }
 
+    /*
+     * Override methods from Object
+     */
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         JavaController controller = new JavaController();
@@ -377,6 +381,7 @@ public class XcosCell extends ScilabGraphUniqueObject {
         return c;
     }
 
+    @Override
     protected void finalize() throws Throwable {
         JavaController controller = new JavaController();
         controller.deleteObject(getUID());
