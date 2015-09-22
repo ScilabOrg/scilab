@@ -25,6 +25,7 @@
 #include "adapters_utilities.hxx"
 #include "Controller.hxx"
 #include "LinkAdapter.hxx"
+#include "controller_helpers.hxx"
 #include "model/Link.hxx"
 #include "model/Port.hxx"
 
@@ -72,6 +73,7 @@ struct xx
 
         if (v->getType() != types::InternalType::ScilabDouble)
         {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s: Real matrix object.\n"), "xx");
             return false;
         }
 
@@ -129,6 +131,7 @@ struct yy
 
         if (v->getType() != types::InternalType::ScilabDouble)
         {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s: Real matrix object.\n"), "yy");
             return false;
         }
 
@@ -181,12 +184,14 @@ struct id
     {
         if (v->getType() != types::InternalType::ScilabString)
         {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s: String matrix expected.\n"), "id");
             return false;
         }
 
         types::String* current = v->getAs<types::String>();
         if (current->getSize() != 1)
         {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong dimension for field %s: %d-by-%d expected.\n"), "id", 1, 1);
             return false;
         }
 
@@ -225,12 +230,14 @@ struct thick
 
         if (v->getType() != types::InternalType::ScilabDouble)
         {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s: Real matrix expected.\n"), "thick");
             return false;
         }
 
         types::Double* current = v->getAs<types::Double>();
         if (current->getSize() != 2)
         {
+            get_or_allocate_logger()->log(LOG_ERROR, _("Wrong dimension for field %s: %d-by-%d expected.\n"), "thick", 2, 1);
             return false;
         }
 
