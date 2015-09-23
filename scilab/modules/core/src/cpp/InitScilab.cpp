@@ -268,8 +268,21 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     //load gateways
     LoadModules();
 
+    //variables are needed by loadModules but must be in SCOPE_CONSOLE under protection
+    //remove (W)SCI/SCIHOME/HOME/TMPDIR
+    symbol::Context::getInstance()->remove(symbol::Symbol(L"SCI"));
+    symbol::Context::getInstance()->remove(symbol::Symbol(L"WSCI"));
+    symbol::Context::getInstance()->remove(symbol::Symbol(L"SCIHOME"));
+    symbol::Context::getInstance()->remove(symbol::Symbol(L"home"));
+    symbol::Context::getInstance()->remove(symbol::Symbol(L"TMPDIR"));
+
     //open a scope for macros
     symbol::Context::getInstance()->scope_begin();
+
+    Add_All_Variables();
+    SetScilabVariables();
+
+    symbol::Context::getInstance()->protect();
     //execute scilab.start
     if (_pSEI->iNoStart == 0)
     {
@@ -277,7 +290,7 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     }
 
     //open console scope
-    symbol::Context::getInstance()->scope_begin();
+    //symbol::Context::getInstance()->scope_begin();
 
     ConfigVariable::setStartProcessing(false);
 
@@ -370,7 +383,7 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     clearScilabPreferences();
 
     //close console scope
-    symbol::Context::getInstance()->scope_end();
+    //symbol::Context::getInstance()->scope_end();
 
     //execute scilab.quit
     if (_pSEI->pstFile)
@@ -900,7 +913,7 @@ static int InitializeEnvironnement(void)
     ConfigVariable::setConsoleWidth(75);
     ConfigVariable::setFormatSize(10);
     ConfigVariable::setFormatMode(1);
-    Add_All_Variables();
+    //Add_All_Variables();
     FileManager::initialize();
     initOperationArray();
     return 0;
