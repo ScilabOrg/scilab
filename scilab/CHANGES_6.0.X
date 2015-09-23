@@ -61,6 +61,8 @@ Scilab Bug Fixes
 
 * Bug #14107 fixed - lstcat of a string and a list did not produce consistent results.
 
+* Bug #14159 fixed - Matplot crashed Scilab on boolean input.
+
 
             Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
             =========================================================
