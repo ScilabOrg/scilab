@@ -59,6 +59,8 @@ Scilab Bug Fixes
 
 * Bug #14095 fixed - Scilab crashed when a .fig file was loaded with loadmatfile function.
 
+* Bug #14097 fixed - genlib no more adds a separator at the end of the lib path if it is not given in the directory path.
+
 * Bug #14107 fixed - lstcat of a string and a list did not produce consistent results.
 
 * Bug #14109 fixed - lsq function crashed Scilab when Scilab version depended on mkl library.
