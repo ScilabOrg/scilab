@@ -13,45 +13,168 @@
 
 #include "debugvisitor.hxx"
 
+#ifdef _MSC_VER
+
+#include "Windows.h"
+
+static WORD GetConsoleTextAttribute(HANDLE h)
+{
+    CONSOLE_SCREEN_BUFFER_INFO info;
+    GetConsoleScreenBufferInfo(h, &info);
+    return info.wAttributes;
+}
+
+WORD OutputReverse(WORD c)
+{
+
+    const WORD foreground_mask = FOREGROUND_BLUE | FOREGROUND_GREEN |
+                                 FOREGROUND_RED | FOREGROUND_INTENSITY;
+    const WORD background_mask = BACKGROUND_BLUE | BACKGROUND_GREEN |
+                                 BACKGROUND_RED | BACKGROUND_INTENSITY;
+    const WORD color_mask = foreground_mask | background_mask;
+
+    WORD new_attributes =
+        ((c & FOREGROUND_BLUE) ? BACKGROUND_BLUE : 0) |
+        ((c & FOREGROUND_GREEN) ? BACKGROUND_GREEN : 0) |
+        ((c & FOREGROUND_RED) ? BACKGROUND_RED : 0) |
+        ((c & FOREGROUND_INTENSITY) ? BACKGROUND_INTENSITY : 0) |
+        ((c & BACKGROUND_BLUE) ? FOREGROUND_BLUE : 0) |
+        ((c & BACKGROUND_GREEN) ? FOREGROUND_GREEN : 0) |
+        ((c & BACKGROUND_RED) ? FOREGROUND_RED : 0) |
+        ((c & BACKGROUND_INTENSITY) ? FOREGROUND_INTENSITY : 0) |
+        0;
+    return ((c & ~color_mask) | (new_attributes & color_mask));
+}
+
+std::wostream& operator<<(std::wostream& os, const TermColor& c)
+{
+    HANDLE h = GetStdHandle(STD_ERROR_HANDLE);
+    WORD color = 0;
+
+    switch (c)
+    {
+        default:
+        case NORMAL:
+            color = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED;
+            break;
+        case BOLD:
+            color = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            break;
+        case RED:
+            color = FOREGROUND_RED | FOREGROUND_INTENSITY;
+            break;
+        case GREEN:
+            color = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+            break;
+        case YELLOW:
+            color = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            break;
+        case BLUE:
+            color = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+            break;
+        case MAGENTA:
+            color = FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            break;
+        case CYAN:
+            color = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+            break;
+        case WHITE:
+            color = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            break;
+        case RESET:
+        {
+            color = 0;
+            if (ConfigVariable::getScilabMode() != SCILAB_NWNI)
+            {
+                color = BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY;
+            }
+            else
+            {
+                color = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED;
+            }
+
+            SetConsoleTextAttribute(h, color);
+            return os;
+        }
+    }
+
+    if (ConfigVariable::getScilabMode() != SCILAB_NWNI)
+    {
+        color = OutputReverse(color);
+        color |= BACKGROUND_INTENSITY;
+    }
+
+    SetConsoleTextAttribute(h, color);
+
+    return os;
+}
+
+#else
+const std::wstring clNORMAL = L"\033[0m";
+const std::wstring clBOLD = L"\033[1m";
+const std::wstring clRED = L"\033[31m";
+const std::wstring clGREEN = L"\033[32m";
+const std::wstring clYELLOW = L"\033[33m";
+const std::wstring clBLUE = L"\033[34m";
+const std::wstring clMAGENTA = L"\033[35m";
+const std::wstring clCYAN = L"\033[36m";
+const std::wstring clWHITE = L"\033[37m";
+
+std::wostream& operator<<(std::wostream& os, const TermColor& c)
+{
+    switch (c)
+    {
+        case NORMAL:
+        case RESET:
+            os << clNORMAL;
+            break;
+        case BOLD:
+            os << clBOLD;
+            break;
+        case RED:
+            os << clRED;
+            break;
+        case GREEN:
+            os << clGREEN;
+            break;
+        case YELLOW:
+            os << clYELLOW;
+            break;
+        case BLUE:
+            os << clBLUE;
+            break;
+        case MAGENTA:
+            os << clMAGENTA;
+            break;
+        case CYAN:
+            os << clCYAN;
+            break;
+        case WHITE:
+            os << clWHITE;
+            break;
+    }
+    return os;
+}
+
+#endif
 
 namespace ast
 {
 static int level = -1;
 
-#ifndef _MSC_VER
-const std::wstring DebugVisitor::NORMAL = L"\033[0m";
-const std::wstring DebugVisitor::BOLD = L"\033[1m";
-const std::wstring DebugVisitor::RED = L"\033[31m";
-const std::wstring DebugVisitor::GREEN = L"\033[32m";
-const std::wstring DebugVisitor::YELLOW = L"\033[33m";
-const std::wstring DebugVisitor::BLUE = L"\033[34m";
-const std::wstring DebugVisitor::MAGENTA = L"\033[35m";
-const std::wstring DebugVisitor::CYAN = L"\033[36m";
-const std::wstring DebugVisitor::WHITE = L"\033[37m";
-#else
-const std::wstring DebugVisitor::NORMAL = L"";
-const std::wstring DebugVisitor::BOLD = L"";
-const std::wstring DebugVisitor::RED = L"";
-const std::wstring DebugVisitor::GREEN = L"";
-const std::wstring DebugVisitor::YELLOW = L"";
-const std::wstring DebugVisitor::BLUE = L"";
-const std::wstring DebugVisitor::MAGENTA = L"";
-const std::wstring DebugVisitor::CYAN = L"";
-const std::wstring DebugVisitor::WHITE = L"";
-#endif
-
 void DebugVisitor::START_NODE(const ast::Ast & e)
 {
-    *ostr << L"(" << e.getNodeNumber() << L") ";
+    *ostr << NORMAL << L"(" << e.getNodeNumber() << L") ";
     ++level;
 }
 
 void DebugVisitor::END_NODE(void)
 {
     --level;
+    *ostr << RESET;
 }
 
-void DebugVisitor::print(const std::wstring & str)
+void DebugVisitor::print(const TermColor& c, const std::wstring & str)
 {
     for (int i = 0 ; i < level; ++i)
     {
@@ -68,8 +191,8 @@ void DebugVisitor::print(const Location & loc)
 {
     if (colored)
     {
-        *ostr << L"@(" << YELLOW << loc.first_line << L"." << BOLD << loc.first_column << NORMAL << L" -> "
-              << YELLOW << loc.last_line << L"." << BOLD << loc.last_column << NORMAL << L")";
+        *ostr << L"@(" << YELLOW << loc.first_line << L"." << MAGENTA << loc.first_column << NORMAL << L" -> "
+              << YELLOW << loc.last_line << L"." << MAGENTA << loc.last_column << NORMAL << L")";
     }
     else
     {
@@ -78,7 +201,7 @@ void DebugVisitor::print(const Location & loc)
     }
 }
 
-void DebugVisitor::print(const std::wstring & pre, const Location & loc, const std::wstring & post, const std::wstring & deco)
+void DebugVisitor::print(const TermColor& cpre, const std::wstring & pre, const Location & loc, const TermColor& cpost, const std::wstring & post, const TermColor& cdeco, const std::wstring & deco)
 {
     for (int i = 0 ; i < level; ++i)
     {
@@ -89,47 +212,40 @@ void DebugVisitor::print(const std::wstring & pre, const Location & loc, const s
         *ostr << L"|_./ ";
     }
 
-    *ostr << pre << L' ';
+    *ostr << cpre << pre << NORMAL << L' ';
     print(loc);
 
     if (!post.empty())
     {
-        *ostr << L" : " << post;
+        *ostr << L" : " << cpost << post << NORMAL;
     }
     if (!deco.empty())
     {
-        *ostr << L' ' << deco;
+        *ostr << L' ' << cdeco << deco << NORMAL;
     }
     *ostr << std::endl;
 }
 
-void DebugVisitor::print(const std::wstring & str, const Exp & e)
+void DebugVisitor::print(const TermColor& c, const std::wstring & str, const Exp & e)
 {
     std::wstring expType;
-    if (colored)
-    {
-        expType = BOLD + e.getTypeString() + NORMAL;
-    }
-    else
-    {
-        expType = e.getTypeString();
-    }
+    expType = e.getTypeString();
 
     if (printDecoration)
     {
         std::wostringstream wos;
         wos << L"Deco(" << e.getDecorator() << L")";
-        print(expType, e.getLocation(), str, wos.str());
+        print(BOLD, expType, e.getLocation(), c, str, NORMAL, wos.str());
     }
     else
     {
-        print(expType, e.getLocation(), str, L"");
+        print(BOLD, expType, e.getLocation(), c, str, NORMAL, L"");
     }
 }
 
 void DebugVisitor::print(const Exp & e)
 {
-    print(L"", e);
+    print(NORMAL, L"", e);
 }
 
 void DebugVisitor::visit(const MatrixExp & e)
@@ -180,28 +296,15 @@ void DebugVisitor::visit(const StringExp & e)
     {
         stream << e.getValue();
     }
-    if (colored)
-    {
-        print(RED + stream.str() + NORMAL, e);
-    }
-    else
-    {
-        print(stream.str(), e);
-    }
+
+    print(RED, stream.str(), e);
     END_NODE();
 }
 
 void DebugVisitor::visit(const CommentExp & e)
 {
     START_NODE(e);
-    if (colored)
-    {
-        print(GREEN + e.getComment() + NORMAL, e);
-    }
-    else
-    {
-        print(e.getComment(), e);
-    }
+    print(GREEN, e.getComment(), e);
     END_NODE();
 }
 
@@ -228,14 +331,8 @@ void DebugVisitor::visit(const DoubleExp & e)
     {
         stream << e.getValue();
     }
-    if (colored)
-    {
-        print(RED + stream.str() + NORMAL, e);
-    }
-    else
-    {
-        print(stream.str(), e);
-    }
+
+    print(RED, stream.str(), e);
     END_NODE();
 }
 
@@ -251,14 +348,8 @@ void DebugVisitor::visit(const BoolExp & e)
     {
         stream << e.getValue();
     }
-    if (colored)
-    {
-        print(RED + stream.str() + NORMAL, e);
-    }
-    else
-    {
-        print(stream.str(), e);
-    }
+
+    print(RED, stream.str(), e);
     END_NODE();
 }
 
@@ -273,14 +364,7 @@ void DebugVisitor::visit(const SimpleVar & e)
 {
     START_NODE(e);
     std::wstring str;
-    if (colored)
-    {
-        str = RED + e.getSymbol().getName() + NORMAL;
-    }
-    else
-    {
-        str = e.getSymbol().getName();
-    }
+    str = e.getSymbol().getName();
     if (printDecoration)
     {
         std::wstring ty;
@@ -298,7 +382,7 @@ void DebugVisitor::visit(const SimpleVar & e)
         }
         str += ty;
     }
-    print(str, e);
+    print(RED, str, e);
 
     END_NODE();
 }
@@ -540,21 +624,13 @@ void DebugVisitor::visit(const TransposeExp & e)
 void DebugVisitor::visit(const VarDec & e)
 {
     std::wstring sym, name;
-    if (colored)
-    {
-        sym = BOLD + L"Symbol" + NORMAL;
-        name = RED + e.getSymbol().getName() + NORMAL;
-    }
-    else
-    {
-        sym = L"Symbol";
-        name = e.getSymbol().getName();
-    }
+    sym = L"Symbol";
+    name = e.getSymbol().getName();
 
     START_NODE(e);
     print(e);
     START_NODE(e);
-    print(sym, e.getLocation(), name, L"");
+    print(BOLD, sym, e.getLocation(), RED, name, NORMAL, L"");
     END_NODE();
     e.getInit().accept(*this);
     END_NODE();

@@ -23,6 +23,22 @@
 #include "alldec.hxx"
 #include "alltypes.hxx"
 
+enum TermColor
+{
+    NORMAL,
+    BOLD,
+    RED,
+    GREEN,
+    YELLOW,
+    BLUE,
+    MAGENTA,
+    CYAN,
+    WHITE,
+    RESET
+};
+
+std::wostream& operator<<(std::wostream& os, const TermColor& t);
+
 namespace ast
 {
 class EXTERN_AST DebugVisitor : public GenVisitor<const_kind>
@@ -30,11 +46,7 @@ class EXTERN_AST DebugVisitor : public GenVisitor<const_kind>
 public:
     DebugVisitor(std::wostream & my_ostr = std::wcerr, const bool _printDecoration = false, const bool _colored = false) : ostr(&my_ostr),
         printDecoration(_printDecoration),
-#ifdef _MSC_VER
-        colored(false)
-#else
         colored(_colored)
-#endif
     { }
 
     /** \name Visit Matrix Expressions nodes.
@@ -162,21 +174,11 @@ private:
 
     void START_NODE(const ast::Ast & e);
     void END_NODE(void);
-    void print(const std::wstring & pre, const Location & loc, const std::wstring & post, const std::wstring & deco);
-    void print(const std::wstring & str);
-    void print(const std::wstring & str, const Exp & e);
+    void print(const TermColor& cpre, const std::wstring & pre, const Location & loc, const TermColor& cpost, const std::wstring & post, const TermColor& cdeco, const std::wstring & deco);
+    void print(const TermColor& c, const std::wstring & str);
+    void print(const TermColor& c, const std::wstring & str, const Exp & e);
     void print(const Exp & e);
     void print(const Location & loc);
-
-    static const std::wstring NORMAL;
-    static const std::wstring BOLD;
-    static const std::wstring RED;
-    static const std::wstring GREEN;
-    static const std::wstring YELLOW;
-    static const std::wstring BLUE;
-    static const std::wstring MAGENTA;
-    static const std::wstring CYAN;
-    static const std::wstring WHITE;
 };
 }
 #endif // !AST_DEBUGVISITOR_HXX
