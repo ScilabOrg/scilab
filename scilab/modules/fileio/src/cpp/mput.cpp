@@ -205,5 +205,75 @@ void C2F(mput) (int *fd, double *res, int *n, char *type, int *ierr)
     }
 }
 /*--------------------------------------------------------------------------*/
+/* write data without conversion (res is supposed to have type type) */
+void C2F(mputnc) (int *fd, void * res, int *n1, char *type, int *ierr)
+{
+    char c1, c2;
+    int i, n;
+    FILE *fa;
+    n = *n1;
+    *ierr = 0;
+    types::File *pFile = FileManager::getFile(*fd);
+    if (pFile && pFile->getFiledesc())
+    {
+        if (getWarningMode())
+        {
+            sciprint(_("%s: No input file associated to logical unit %d.\n"), "mput", *fd);
+        }
+        *ierr = 3;
+        return;
+    }
 
-
+    fa = pFile->getFiledesc();
+    int swap = pFile->getFileSwap(); // used in MGET_GEN_NC => MGET_NC
+    c1 = (strlen(type) > 1) ? type[1] : ' ';
+    c2 = (strlen(type) > 2) ? type[2] : ' ';
+    switch (type[0])
+    {
+        case 'i':
+            MPUT_GEN_NC(int, c1);
+            break;
+        case 'l':
+            MPUT_GEN_NC(long long, c1);
+            break;
+        case 's':
+            MPUT_GEN_NC(short, c1);
+            break;
+        case 'c':
+            MPUT_CHAR_NC(char);
+            break;
+        case 'd':
+            MPUT_GEN_NC(double, c1);
+            break;
+        case 'f':
+            MPUT_GEN_NC(float, c1);
+            break;
+        case 'u':
+            switch (c1)
+            {
+                case 'i':
+                    MPUT_GEN_NC(unsigned int, c2);
+                    break;
+                case 'l':
+                    MPUT_GEN_NC(unsigned long long, c2);
+                    break;
+                case 's':
+                    MPUT_GEN_NC(unsigned short, c2);
+                    break;
+                case ' ':
+                    MPUT_GEN_NC(unsigned int, ' ');
+                    break;
+                case 'c':
+                    MPUT_CHAR_NC(unsigned char);
+                    break;
+                default:
+                    *ierr = 1;
+                    return;
+            }
+            break;
+        default:
+            *ierr = 1;
+            break;
+    }
+}
+/*--------------------------------------------------------------------------*/
