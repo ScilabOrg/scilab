@@ -40,136 +40,136 @@ extern "C"
 class EXTERN_AST ConfigVariable
 {
     //module list
-private :
+private:
     static std::list<std::wstring> m_ModuleList;
 
-public :
+public:
     static void setModuleList(std::list<std::wstring>& _module_list);
     static std::list<std::wstring> getModuleList();
 
 
     //SCI
-private :
+private:
     static std::wstring m_SCIPath;
 
-public :
+public:
     static void setSCIPath(const std::wstring& _SCIPath);
     static std::wstring& getSCIPath();
 
     //SCIHOME
-private :
+private:
     static std::wstring m_SCIHOME;
 
-public :
+public:
     static void setSCIHOME(const std::wstring& _m_SCIHOME);
     static std::wstring& getSCIHOME();
 
     //TMPDIR
-private :
+private:
     static std::wstring m_TMPDIR;
 
-public :
+public:
     static void setTMPDIR(const std::wstring& _TMPDIR);
     static std::wstring& getTMPDIR();
 
     // Force Quit
-private :
+private:
     static bool m_bForceQuit;
 
-public :
+public:
     static void setForceQuit(bool _bForceQuit);
     static bool getForceQuit(void);
 
     // Exit Status
-private :
+private:
     static int m_iExitStatus;
 
-public :
+public:
     static void setExitStatus(int _iExitStatus);
     static int getExitStatus(void);
 
     // Digit precision, ex format function
-private :
+private:
     static int m_iFormatSize;
 
-public :
+public:
     static void setFormatSize(int _iFormatSize);
     static int getFormatSize(void);
 
     // printf format ( 0 -> "e", 1 -> "v")
-private :
+private:
     static int m_iFormatMode;
 
-public :
+public:
     static void setFormatMode(int _iFormatMode);
     static int getFormatMode(void);
 
 
     // Screen console width
-private :
+private:
     static int m_iConsoleWidth;
 
-public :
+public:
     static void setConsoleWidth(int _iConsoleWidth);
     static int getConsoleWidth(void);
 
     // Screen console lines
-private :
+private:
     static int m_iConsoleLines;
 
-public :
+public:
     static void setConsoleLines(int _iConsoleLines);
     static int getConsoleLines(void);
 
     // Scilab mode
-private :
+private:
     static int m_iScilabMode;
 
-public :
+public:
     static void setScilabMode(int _iScilabMode);
     static int getScilabMode(void);
 
     //Warning mode
-private :
+private:
     static bool m_bWarningMode;
 
-public :
+public:
     static void setWarningMode(bool _bWarningMode);
     static bool getWarningMode(void);
 
     //HOME
-private :
+private:
     static std::wstring m_HOME;
 
-public :
+public:
     static void setHOME(const std::wstring& _m_HOME);
     static std::wstring& getHOME();
 
     //Clear last error information
-public :
+public:
     static void setLastErrorClear(void);
 
     //Clear last error information
-private :
+private:
     static bool m_bLastErrorCall;
-public :
+public:
     static void setLastErrorCall(void);
     static void clearLastError(void);
 
     //Last Error Message
-private :
+private:
     static std::wstring m_wstError;
 
-public :
+public:
     static void setLastErrorMessage(const std::wstring& _wstError);
     static std::wstring& getLastErrorMessage();
 
     //Last Error ID
-private :
+private:
     static int m_iError;
     static bool m_bError;
 
-public :
+public:
     static void setLastErrorNumber(int _iError);
     static int getLastErrorNumber();
     static void setError();
@@ -177,23 +177,23 @@ public :
     static void resetError();
 
     //Last Error Line
-private :
+private:
     static int m_iErrorLine;
 
-public :
+public:
     static void setLastErrorLine(int _iLine);
     static int getLastErrorLine();
 
     //Last Error Function
-private :
+private:
     static std::wstring m_wstErrorFunction;
 
-public :
+public:
     static void setLastErrorFunction(const std::wstring& _wstFunction);
     static std::wstring& getLastErrorFunction();
 
     //Prompt Mode and Silent error
-public :
+public:
     /*
     Prompt mode
     normal = 0,
@@ -208,15 +208,15 @@ public :
     /*
        show = 0
        silent = 1
-    */
-private :
+       */
+private:
     static int m_iPromptMode;
     static int m_iSilentError;
 
     //set before function call to know status of e.isVerbose in functions
     static bool m_bVerbose;
 
-public :
+public:
     static void setPromptMode(int _iPromptMode);
     static int getPromptMode(void);
     static bool isPromptShow(void);
@@ -229,9 +229,9 @@ public :
 
     //Thread List
 
-private :
+private:
     static std::list<types::ThreadId*> m_threadList;
-public :
+public:
 
     static types::ThreadId* getThread(__threadKey _key);
     static types::ThreadId* getLastRunningThread();
@@ -243,11 +243,11 @@ public :
     static void deleteThread(__threadKey _key);
 
     // Pause level
-private :
+private:
     static int m_iPauseLevel;
     static std::list<int> m_listScope;
 
-public :
+public:
     static void IncreasePauseLevel();
     static void DecreasePauseLevel();
     static int getPauseLevel();
@@ -270,10 +270,10 @@ public :
         bool bOK;                       /** flag set to TRUE if entrypoint can be used **/
     } EntryPointStr;
 
-private :
+private:
     static std::list<EntryPointStr*> m_EntryPointList;
     static std::vector<DynamicLibraryStr*> m_DynLibList;
-public :
+public:
 
     /* tools fucntions */
     static void setLibraryName(DynamicLibraryStr* _pDynamicLibrary, wchar_t* _pwstLibraryName);
@@ -300,9 +300,9 @@ public :
     static std::vector<std::wstring> getEntryPointNameList();
 
     //dynamic modules
-private :
+private:
     static std::map<std::wstring, DynLibHandle> m_DynModules;
-public :
+public:
     static void addDynModule(const std::wstring& _name, DynLibHandle _lib);
     static void removeDynModule(const std::wstring& _name);
     static DynLibHandle getDynModule(const std::wstring& _name);
@@ -311,11 +311,11 @@ public :
     static void cleanDynModule();
 
     // Command Line Arguments
-private :
+private:
     static std::vector<std::wstring> m_Args;
     static bool m_bTimed;
     static bool m_bSerialize;
-public :
+public:
     static void setCommandLineArgs(int _iArgs, char** _pstArgs);
     static wchar_t** getCommandLineArgs(int* _piCount);
     static bool getTimed();
@@ -324,19 +324,19 @@ public :
     static void setSerialize(bool _bSerialize);
 
     //schur function
-private :
+private:
     static types::Callable* m_schurFunction;
 
-public :
+public:
     static void setSchurFunction(types::Callable* _schurFunction);
     static types::Callable* getSchurFunction();
 
     //grand (module randlib)
-private :
+private:
     static int m_currentBaseGen;
     static int m_currentClcg4;
 
-public :
+public:
     static void setCurrentBaseGen(int _currentBaseGen);
     static int getCurrentBaseGen();
 
@@ -344,42 +344,42 @@ public :
     static int getCurrentClcg4();
 
     //Start and end finish flag
-private :
+private:
     static bool m_bStartProcessing;
     static bool m_bEndProcessing;
 
-public :
+public:
     static void setStartProcessing(bool _bStartProcessing);
     static bool getStartProcessing();
     static void setEndProcessing(bool _bEndFinished);
     static bool getEndProcessing();
 
     // ieee
-private :
+private:
     static int m_iIeee;
 
-public :
+public:
     static void setIeee(int _iIeee);
     static int getIeee();
 
     // simp mode
-private :
+private:
     static int m_iSimpMode;
 
-public :
+public:
     static void setSimpMode(int _iSimpMode);
     static int getSimpMode();
 
     // funcprot mode
-private :
+private:
     static int m_iFuncprot;
 
-public :
+public:
     static void setFuncprot(int _iFuncprot);
     static int getFuncprot();
 
     // where
-public :
+public:
     struct WhereEntry
     {
         int m_line;
@@ -401,15 +401,15 @@ public :
     static int getMacroFirstLines();
     static void setFileNameToLastWhere(const std::wstring& _fileName);
     static void whereErrorToString(std::wostringstream &ostr);
-private :
+private:
     static std::vector<WhereEntry> m_Where;
     static std::vector<WhereEntry> m_WhereError;
     static std::vector<int> m_FirstMacroLine;
 
     //module called with variable by reference
-private :
+private:
     static std::list<std::wstring> m_ReferenceModules;
-public :
+public:
     static bool checkReferenceModule(const std::wstring& _module);
     static void addReferenceModule(const std::wstring& _module);
     static void removeReferenceModule(const std::wstring& _module);
@@ -417,9 +417,9 @@ public :
 
     //analyzer options
 
-private :
+private:
     static int m_analyzerOptions;
-public :
+public:
     static void setAnalyzerOptions(int _val);
     static int getAnalyzerOptions(void);
 
@@ -458,6 +458,17 @@ public:
     static void setScilabCommand(int _isciCmd);
     static int isScilabCommand();
 
+private:
+    static int recursionLimit;
+    static int recursionLevel;
+public :
+    static int getRecursionLimit();
+    static int setRecursionLimit(int val);
+
+    static int getRecursionLevel();
+    static void resetRecursionLevel();
+    static bool increaseRecursion();
+    static void decreaseRecursion();
 };
 
 #endif /* !__CONFIGVARIABLE_HXX__ */

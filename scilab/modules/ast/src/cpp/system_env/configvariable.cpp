@@ -1443,3 +1443,49 @@ int ConfigVariable::isScilabCommand()
 /*
 ** \}
 */
+
+#ifdef _DEBUG
+int ConfigVariable::recursionLimit = 25;
+#else
+int ConfigVariable::recursionLimit = 1000;
+#endif
+int ConfigVariable::recursionLevel = 0;
+
+int ConfigVariable::getRecursionLimit()
+{
+    return recursionLimit;
+}
+
+int ConfigVariable::setRecursionLimit(int val)
+{
+    int old = recursionLimit;
+    recursionLimit = std::max(10, val);
+    return old;
+}
+
+int ConfigVariable::getRecursionLevel()
+{
+    return recursionLevel;
+}
+
+bool ConfigVariable::increaseRecursion()
+{
+    if (recursionLevel < recursionLimit)
+    {
+        ++recursionLevel;
+        return true;
+    }
+
+    return false;
+}
+
+void ConfigVariable::decreaseRecursion()
+{
+    //recursionLevel = std::max(--recursionLevel, 0);
+    --recursionLevel;
+}
+
+void ConfigVariable::resetRecursionLevel()
+{
+    recursionLevel = 0;
+}
