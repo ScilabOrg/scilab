@@ -196,3 +196,8 @@ int getForceQuit()
 {
     return ConfigVariable::getForceQuit();
 }
+
+int setRecursionLimit(int val)
+{
+    return ConfigVariable::setRecursionLimit(val);
+}

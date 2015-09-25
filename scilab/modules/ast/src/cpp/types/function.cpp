@@ -30,7 +30,6 @@ extern "C"
 #include "sci_malloc.h"
 #include "os_string.h"
 #include "lasterror.h"
-#include "configvariable_interface.h"
 #include "dynamic_module.h"
 }
 

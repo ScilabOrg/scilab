@@ -32,6 +32,7 @@ void StaticRunner::launch()
     // set if the current comment is interruptible
     setInterruptibleCommand(runMe->isInterruptible());
 
+    int oldMode = ConfigVariable::getPromptMode();
     try
     {
         runMe->getProgram()->accept(*(runMe->getVisitor()));
@@ -69,6 +70,42 @@ void StaticRunner::launch()
 
         delete runMe;
         throw ia;
+    }
+    catch (const ast::RecursionException& re)
+    {
+        // management of pause
+        if (ConfigVariable::getPauseLevel())
+        {
+            ConfigVariable::DecreasePauseLevel();
+            delete runMe;
+            throw re;
+        }
+
+        // close all scope before return to console scope
+        symbol::Context* pCtx = symbol::Context::getInstance();
+        while (pCtx->getScopeLevel() != SCOPE_CONSOLE)
+        {
+            pCtx->scope_end();
+        }
+
+        ConfigVariable::resetRecursionLevel();
+
+        //print msg about recursion limit and trigger an error
+        wchar_t sz[1024];
+        os_swprintf(sz, 1024, L"Recursion limit reached (%d).\nYou can use recursionlimit function to ajust it.\n", ConfigVariable::getRecursionLimit());
+        scilabErrorW(sz);
+        scilabErrorW(L"\n");
+
+        ConfigVariable::resetWhereError();
+        ConfigVariable::setPromptMode(oldMode);
+
+        if (runMe->isConsoleCommand())
+        {
+            ThreadManagement::SendConsoleExecDoneSignal();
+        }
+
+        delete runMe;
+        throw re;
     }
 
     if (getScilabMode() != SCILAB_NWNI && getScilabMode() != SCILAB_API)
