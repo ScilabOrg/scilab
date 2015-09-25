@@ -128,7 +128,9 @@ extern "C"
 
             if (!isScalar(pvApiCtx, piAddr))
             {
-                language = wide_string_to_UTF8(getlanguage());
+                const wchar_t* pwstLang = getlanguage();
+                language = wide_string_to_UTF8(pwstLang);
+                free((wchar_t*)pwstLang);
             }
             else
             {

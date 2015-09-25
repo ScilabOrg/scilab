@@ -37,7 +37,9 @@ types::Function::ReturnValue sci_getlanguage(types::typed_list &in, int _piRetCo
         return types::Function::Error;
     }
 
-    out.push_back(new types::String(getlanguage()));
+    const wchar_t* pwstLang = getlanguage();
+    out.push_back(new types::String(pwstLang));
+    free((wchar_t*)pwstLang);
 
     return types::Function::OK;
 }
