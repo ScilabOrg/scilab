@@ -26,23 +26,18 @@
 void InitializePreferences(int useCWD)
 {
     const ScilabPreferences * prefs = getScilabPreferences();
-    int ieee = 0;
-    int lines = 0;
-    int cols = 0;
-    int formatWidth = 0;
-    int historyLines = 0;
 
     // Set ieee
     if (prefs->ieee)
     {
-        ieee = atoi(prefs->ieee);
+        int ieee = atoi(prefs->ieee);
         setieee(ieee);
     }
 
     // Set format
     if (prefs->formatWidth && prefs->format)
     {
-        formatWidth = (int)atof(prefs->formatWidth);
+        int formatWidth = (int)atof(prefs->formatWidth);
         formatWidth = Max(0, formatWidth);
         formatWidth = Min(25, formatWidth);
         setformat(prefs->format, formatWidth);
@@ -57,7 +52,7 @@ void InitializePreferences(int useCWD)
             {
                 InitializeHistoryManager();
                 setFilenameScilabHistory((char*)prefs->historyFile);
-                historyLines = (int)atof(prefs->historyLines);
+                int historyLines = (int)atof(prefs->historyLines);
                 if (historyLines > 0)
                 {
                     setSizeMaxScilabHistory(historyLines);
@@ -76,8 +71,8 @@ void InitializePreferences(int useCWD)
         if (stricmp(prefs->adaptToDisplay, "true"))
         {
             // it is not true so ...
-            lines = (int)atof(prefs->linesToDisplay);
-            cols = (int)atof(prefs->columnsToDisplay);
+            int lines = (int)atof(prefs->linesToDisplay);
+            int cols = (int)atof(prefs->columnsToDisplay);
             setConsoleLines(lines);
             setConsoleWidth(cols);
         }
@@ -99,6 +94,14 @@ void InitializePreferences(int useCWD)
             }
         }
     }
+
+    //recursion limit
+    if (prefs->recursionlimit)
+    {
+        int recursionlimit = atoi(prefs->recursionlimit);
+        setRecursionLimit(recursionlimit);
+    }
+
 
     clearScilabPreferences();
 }

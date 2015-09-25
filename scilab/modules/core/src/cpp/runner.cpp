@@ -20,6 +20,7 @@ extern "C"
 #include "BrowseVarManager.h"
 #include "FileBrowserChDir.h"
 #include "scicurdir.h"
+#include "Scierror.h"
 }
 
 std::atomic<Runner*> StaticRunner::m_RunMe(nullptr);
@@ -32,9 +33,47 @@ void StaticRunner::launch()
     // set if the current comment is interruptible
     setInterruptibleCommand(runMe->isInterruptible());
 
+    int oldMode = ConfigVariable::getPromptMode();
     try
     {
-        runMe->getProgram()->accept(*(runMe->getVisitor()));
+        symbol::Context* pCtx = symbol::Context::getInstance();
+        int scope = pCtx->getScopeLevel();
+        int level = ConfigVariable::getRecursionLevel();
+        try
+        {
+            runMe->getProgram()->accept(*(runMe->getVisitor()));
+        }
+        catch (const ast::RecursionException& re)
+        {
+            // management of pause
+            if (ConfigVariable::getPauseLevel())
+            {
+                ConfigVariable::DecreasePauseLevel();
+                delete runMe;
+                throw re;
+            }
+
+            //close opened scope during try
+            while (pCtx->getScopeLevel() > scope)
+            {
+                pCtx->scope_end();
+            }
+
+            //decrease recursion to init value and close where
+            while (ConfigVariable::getRecursionLevel() > level)
+            {
+                ConfigVariable::where_end();
+                ConfigVariable::decreaseRecursion();
+            }
+
+            ConfigVariable::resetWhereError();
+            ConfigVariable::setPromptMode(oldMode);
+
+            //print msg about recursion limit and trigger an error
+            wchar_t sz[1024];
+            os_swprintf(sz, 1024, _W("Recursion limit reached (%d).\n").data(), ConfigVariable::getRecursionLimit());
+            throw ast::InternalError(sz);
+        }
     }
     catch (const ast::InternalError& se)
     {
