@@ -196,9 +196,25 @@ function bOK = generateAdditionnalIss()
     dir_list = fullpath(ATOMS_DIR + filesep() + dir_list);
     dir_list = dir_list(isdir(dir_list) == %t);
 
+    fid = mopen(fullpath(SCI + "\contrib\external_modules.iss"), "w");
+    
     // remove default modules
     list_default_ATOMS = ["xcos_toolbox_skeleton", "toolbox_skeleton"];
     dir_list(grep(dir_list, list_default_ATOMS)) = [];
+    
+    //find own tbx.iss
+    remove_list = [];
+    for i = 1 : size(dir_list, "*")
+        name = dir_list(i) + filesep() + basename(dir_list(i)) + ".iss";
+        if fileinfo(name) <> [] then
+            ISS = "#include """ + name + """";
+            mputl(ISS, fid);
+            remove_list($+1) = i;
+        end
+    end
+    
+    dir_list(remove_list) = [];
+    
     if dir_list <> [] then
         name_list = basename(dir_list);
         ISS = "Source: contrib\" + name_list  +"\*.*; DestDir: {app}\contrib\" + name_list + "; Flags: recursesubdirs; Components: {#COMPN_SCILAB}";
@@ -206,7 +222,8 @@ function bOK = generateAdditionnalIss()
     else
         ISS = "";
     end
-    bOK = mputl(ISS, fullpath(SCI + "\contrib\external_modules.iss"));
+    bOK = mputl(ISS, fid);
+    mclose(fid);
 endfunction
 //------------------------------------------------------------------------------
 // Main
