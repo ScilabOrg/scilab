@@ -11,6 +11,8 @@
  *
  */
 
+#include <memory>
+
 #include "runner.hxx"
 #include "threadmanagement.hxx"
 #include "configvariable.hxx"
