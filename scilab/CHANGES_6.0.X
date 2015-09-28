@@ -43,6 +43,8 @@ Scilab Bug Fixes
 
 * Bug #14025 fixed - head_comments did not take into account compiled functions.
 
+* Bug #14030 fixed - Linear algebra demo crashed due to a bad delete in schur implementation and free a NULL pointer in fft implementation. 
+
 * Bug #14036 fixed - tag and user_data properties were not displayed and not documented for light entity.
 
 * Bug #14038 fixed - Encoded integers were no longer accepted for list extraction.
