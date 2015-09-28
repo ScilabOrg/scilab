@@ -286,12 +286,11 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     if (file == NULL || promptMode == 0 || promptMode == 2)
     {
         ast::SeqExp* pSeqExp = pExp->getAs<ast::SeqExp>();
+        ast::ConstVisitor* exec = ConfigVariable::getDefaultVisitor();
 
         try
         {
-            ast::ConstVisitor* exec = ConfigVariable::getDefaultVisitor();
             pSeqExp->accept(*exec);
-            delete exec;
         }
         catch (const ast::InternalAbort& ia)
         {
@@ -301,7 +300,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
                 delete file;
                 delete pExp;
             }
-
+            delete exec;
             throw ia;
         }
         catch (const ast::InternalError& ie)
@@ -317,12 +316,15 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
 
                 ConfigVariable::setPromptMode(oldVal);
                 ConfigVariable::setExecutedFileID(0);
+                delete exec;
                 throw ie;
             }
 
             ConfigVariable::resetWhereError();
             iErr = ConfigVariable::getLastErrorNumber();
         }
+
+        delete exec;
     }
     else
     {
@@ -365,10 +367,10 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             someExps->assign(j, k);
             k--;
             ast::SeqExp seqExp(Location((*j)->getLocation().first_line,
-                (*k)->getLocation().last_line,
-                (*j)->getLocation().first_column,
-                (*k)->getLocation().last_column),
-                *someExps);
+                                        (*k)->getLocation().last_line,
+                                        (*j)->getLocation().first_column,
+                                        (*k)->getLocation().last_column),
+                               *someExps);
 
             j = k;
 

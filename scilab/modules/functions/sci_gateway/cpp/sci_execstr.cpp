@@ -200,17 +200,17 @@ types::Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, 
     // add execstr in list of macro called
     // to manage line displayed when error occured.
     ConfigVariable::macroFirstLine_begin(1);
+    ast::ConstVisitor* run = ConfigVariable::getDefaultVisitor();
 
     try
     {
-        ast::ConstVisitor* run = ConfigVariable::getDefaultVisitor();
         pSeqExp->accept(*run);
-        delete run;
     }
     catch (const ast::InternalError& ie)
     {
         if (bErrCatch == false)
         {
+            delete run;
             delete pExp;
             ConfigVariable::macroFirstLine_end();
             ConfigVariable::setPromptMode(iPromptMode);
@@ -225,6 +225,8 @@ types::Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, 
         ConfigVariable::resetWhereError();
         iErr = ConfigVariable::getLastErrorNumber();
     }
+
+    delete run;
 
     if (bErrCatch)
     {

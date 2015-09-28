@@ -307,23 +307,29 @@ Callable::ReturnValue Macro::call(typed_list &in, optional_list &opt, int _iRetC
 
     //save current prompt mode
     int oldVal = ConfigVariable::getPromptMode();
+    ast::ConstVisitor* exec = ConfigVariable::getDefaultVisitor();
     try
     {
         ConfigVariable::setPromptMode(-1);
-        m_body->accept(*ConfigVariable::getDefaultVisitor());
+        m_body->accept(*exec);
         //restore previous prompt mode
         ConfigVariable::setPromptMode(oldVal);
     }
     catch (const ast::InternalError& ie)
     {
         cleanCall(pContext, oldVal);
+        delete exec;
         throw ie;
     }
     catch (const ast::InternalAbort& ia)
     {
         cleanCall(pContext, oldVal);
+        delete exec;
         throw ia;
     }
+
+    delete exec;
+
     // Normally, seqexp throws only SM so no need to catch SErr
 
     //varargout management
