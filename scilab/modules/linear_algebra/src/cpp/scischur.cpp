@@ -19,6 +19,7 @@
 #include "double.hxx"
 #include "bool.hxx"
 #include "function.hxx"
+#include "commentexp.hxx"
 
 extern "C"
 {
@@ -30,7 +31,7 @@ int schur_sb02mw(double* _real, double* _img)
 {
     return dpythags(*_real, *_img) < 1 ? 1 : 0;
 }
-int schur_sb02mv(double* _real, double* _img)
+int schur_sb02mv(double* _real, double* /*_img*/)
 {
     /* original Fortran code does not use _img aka IEIG (SB02MV = REIG.LT.ZERO) */
     return *_real < 0 ? 1 : 0;
@@ -38,61 +39,73 @@ int schur_sb02mv(double* _real, double* _img)
 int schur_dgees(double* _real, double* _img)
 {
     types::Callable* pCall = ConfigVariable::getSchurFunction();
+    if(pCall == NULL)
+    {
+        return 0;
+    }
+
+    char errorMsg[256];
     int iRet = 0;
 
-    if (pCall)
+    types::typed_list in;
+    types::typed_list out;
+    types::optional_list opt;
+    int iRetCount = 1;
+
+    types::Double* pDbl = new types::Double(*_real, *_img);
+    pDbl->IncreaseRef();
+    in.push_back(pDbl);
+
+    try
     {
-        types::typed_list in;
-        types::typed_list out;
-        types::optional_list opt;
-        int iRetCount = 1;
-
-        types::Double* pDbl = new types::Double(*_real, *_img);
-        pDbl->IncreaseRef();
-        in.push_back(pDbl);
-
-        bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
-        pDbl->DecreaseRef();
-        delete pDbl;
-        pDbl = NULL;
-
-        if (bOk == false)
-        {
-            return 0;
-        }
-
-        if (out.size() != 1)
-        {
-            return 0;
-        }
-
-        if (out[0]->isDouble())
-        {
-            types::Double* pDblOut = out[0]->getAs<types::Double>();
-            iRet = pDblOut->get(0) == 0 ? 0 : 1;
-            delete pDblOut;
-            pDblOut = NULL;
-
-            return iRet;
-        }
-        else if (out[0]->isBool())
-        {
-            types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
-            iRet = pBoolOut->get(0) == 0 ? 0 : 1;
-            delete pBoolOut;
-            pBoolOut = NULL;
-
-            return iRet;
-        }
+        // new std::wstring(L"") is delete in destructor of ast::CommentExp
+        pCall->invoke(in, opt, iRetCount, out, ast::CommentExp(Location(), new std::wstring(L"")));
     }
-    return 0;
+    catch (const ast::InternalAbort& ia)
+    {
+        pDbl->DecreaseRef();
+        pDbl->killMe();
+        throw ia;
+    }
+    catch (const ast::InternalError& ie)
+    {
+        pDbl->DecreaseRef();
+        pDbl->killMe();
+        throw ie;
+    }
+
+    pDbl->DecreaseRef();
+    pDbl->killMe();
+
+    if (out.size() != 1)
+    {
+        char* pstrName = wide_string_to_UTF8(pCall->getName().c_str());
+        sprintf(errorMsg, _("%s: Wrong number of output argument(s): %d expected.\n"), pstrName, iRetCount);
+        FREE(pstrName);
+        throw ast::InternalError(errorMsg);
+    }
+
+    if (out[0]->isDouble())
+    {
+        types::Double* pDblOut = out[0]->getAs<types::Double>();
+        iRet = pDblOut->get(0) == 0 ? 0 : 1;
+        pDblOut->killMe();
+    }
+    else if (out[0]->isBool())
+    {
+        types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
+        iRet = pBoolOut->get(0) == 0 ? 0 : 1;
+        pBoolOut->killMe();
+    }
+
+    return iRet;
 }
 
 int schur_sb02ox(double* _real, double* _img, double* _beta) // discrete
 {
     return dpythags(*_real, *_img) < fabs(*_beta) ? 1 : 0;
 }
-int schur_sb02ow(double* _real, double* _img, double* _beta) // continu
+int schur_sb02ow(double* _real, double* /*_img*/, double* _beta) // continu
 {
     return  (*_real < 0 && *_beta > 0) ||
             ((*_real > 0 && *_beta < 0) &&
@@ -101,10 +114,29 @@ int schur_sb02ow(double* _real, double* _img, double* _beta) // continu
 int schur_dgges(double* _real, double* _img, double* _beta)
 {
     types::Callable* pCall = ConfigVariable::getSchurFunction();
+    char errorMsg[256];
     int iRet = 0;
 
-    if (pCall)
+    types::typed_list in;
+    types::typed_list out;
+    types::optional_list opt;
+    int iRetCount = 1;
+
+    types::Double* pDblAlpha = new types::Double(*_real, *_img);
+    pDblAlpha->IncreaseRef();
+    types::Double* pDblBeta  = new types::Double(*_beta);
+    pDblBeta->IncreaseRef();
+    in.push_back(pDblAlpha);
+    in.push_back(pDblBeta);
+
+    try
     {
+        // new std::wstring(L"") is delete in destructor of ast::CommentExp
+        pCall->invoke(in, opt, iRetCount, out, ast::CommentExp(Location(), new std::wstring(L"")));
+    }
+    catch (const ast::InternalAbort& ia)
+    {
+<<<<<<< HEAD
         types::typed_list in;
         types::typed_list out;
         types::optional_list opt;
@@ -118,44 +150,50 @@ int schur_dgges(double* _real, double* _img, double* _beta)
         in.push_back(pDblBeta);
 
         bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
+=======
+>>>>>>> fa75c3e... * Bug #14030 fixed - schur fixed about bad delete and error management.
         pDblAlpha->DecreaseRef();
-        delete pDblAlpha;
-        pDblAlpha = NULL;
+        pDblAlpha->killMe();
         pDblBeta->DecreaseRef();
-        delete pDblBeta;
-        pDblBeta = NULL;
-
-        if (bOk == false)
-        {
-            return 0;
-        }
-
-        if (out.size() != 1)
-        {
-            return 0;
-        }
-
-        if (out[0]->isDouble())
-        {
-            types::Double* pDblOut = out[0]->getAs<types::Double>();
-            iRet = pDblOut->get(0) == 0 ? 0 : 1;
-            delete pDblOut;
-            pDblOut = NULL;
-
-            return iRet;
-        }
-        else if (out[0]->isBool())
-        {
-            types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
-            iRet = pBoolOut->get(0) == 0 ? 0 : 1;
-            delete pBoolOut;
-            pBoolOut = NULL;
-
-            return iRet;
-        }
+        pDblBeta->killMe();
+        throw ia;
+    }
+    catch (const ast::InternalError& ie)
+    {
+        pDblAlpha->DecreaseRef();
+        pDblAlpha->killMe();
+        pDblBeta->DecreaseRef();
+        pDblBeta->killMe();
+        throw ie;
     }
 
-    return 0;
+    pDblAlpha->DecreaseRef();
+    pDblAlpha->killMe();
+    pDblBeta->DecreaseRef();
+    pDblBeta->killMe();
+
+    if (out.size() != 1)
+    {
+        char* pstrName = wide_string_to_UTF8(pCall->getName().c_str());
+        sprintf(errorMsg, _("%s: Wrong number of output argument(s): %d expected.\n"), pstrName, iRetCount);
+        FREE(pstrName);
+        throw ast::InternalError(errorMsg);
+    }
+
+    if (out[0]->isDouble())
+    {
+        types::Double* pDblOut = out[0]->getAs<types::Double>();
+        iRet = pDblOut->get(0) == 0 ? 0 : 1;
+        pDblOut->killMe();
+    }
+    else if (out[0]->isBool())
+    {
+        types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
+        iRet = pBoolOut->get(0) == 0 ? 0 : 1;
+        pBoolOut->killMe();
+    }
+
+    return iRet;
 }
 
 int schur_zb02mw(doublecomplex* _complex)
@@ -169,10 +207,26 @@ int schur_zb02mv(doublecomplex* _complex)
 int schur_zgees(doublecomplex* _complex)
 {
     types::Callable* pCall = ConfigVariable::getSchurFunction();
+    char errorMsg[256];
     int iRet = 0;
 
-    if (pCall)
+    types::typed_list in;
+    types::typed_list out;
+    types::optional_list opt;
+    int iRetCount = 1;
+
+    types::Double* pDbl = new types::Double(_complex->r, _complex->i);
+    pDbl->IncreaseRef();
+    in.push_back(pDbl);
+
+    try
     {
+        // new std::wstring(L"") is delete in destructor of ast::CommentExp
+        pCall->invoke(in, opt, iRetCount, out, ast::CommentExp(Location(), new std::wstring(L"")));
+    }
+    catch (const ast::InternalAbort& ia)
+    {
+<<<<<<< HEAD
         types::typed_list in;
         types::typed_list out;
         types::optional_list opt;
@@ -183,40 +237,44 @@ int schur_zgees(doublecomplex* _complex)
         in.push_back(pDbl);
 
         bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
+=======
+>>>>>>> fa75c3e... * Bug #14030 fixed - schur fixed about bad delete and error management.
         pDbl->DecreaseRef();
-        delete pDbl;
-        pDbl = NULL;
-
-        if (bOk == false)
-        {
-            return 0;
-        }
-
-        if (out.size() != 1)
-        {
-            return 0;
-        }
-
-        if (out[0]->isDouble())
-        {
-            types::Double* pDblOut = out[0]->getAs<types::Double>();
-            iRet = pDblOut->get(0) == 0 ? 0 : 1;
-            delete pDblOut;
-            pDblOut = NULL;
-
-            return iRet;
-        }
-        else if (out[0]->isBool())
-        {
-            types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
-            iRet = pBoolOut->get(0) == 0 ? 0 : 1;
-            delete pBoolOut;
-            pBoolOut = NULL;
-
-            return iRet;
-        }
+        pDbl->killMe();
+        throw ia;
     }
-    return 0;
+    catch (const ast::InternalError& ie)
+    {
+        pDbl->DecreaseRef();
+        pDbl->killMe();
+        throw ie;
+    }
+
+    pDbl->DecreaseRef();
+    pDbl->killMe();
+
+    if (out.size() != 1)
+    {
+        char* pstrName = wide_string_to_UTF8(pCall->getName().c_str());
+        sprintf(errorMsg, _("%s: Wrong number of output argument(s): %d expected.\n"), pstrName, iRetCount);
+        FREE(pstrName);
+        throw ast::InternalError(errorMsg);
+    }
+
+    if (out[0]->isDouble())
+    {
+        types::Double* pDblOut = out[0]->getAs<types::Double>();
+        iRet = pDblOut->get(0) == 0 ? 0 : 1;
+        pDblOut->killMe();
+    }
+    else if (out[0]->isBool())
+    {
+        types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
+        iRet = pBoolOut->get(0) == 0 ? 0 : 1;
+        pBoolOut->killMe();
+    }
+
+    return iRet;
 }
 
 int schur_zb02ox(doublecomplex* _alpha, doublecomplex* _beta) // discrete
@@ -238,10 +296,29 @@ int schur_zb02ow(doublecomplex* _alpha, doublecomplex* _beta) // continu
 int schur_zgges(doublecomplex* _alpha, doublecomplex* _beta)
 {
     types::Callable* pCall = ConfigVariable::getSchurFunction();
+    char errorMsg[256];
     int iRet = 0;
 
-    if (pCall)
+    types::typed_list in;
+    types::typed_list out;
+    types::optional_list opt;
+    int iRetCount = 1;
+
+    types::Double* pDblAlpha = new types::Double(_alpha->r, _alpha->i);
+    pDblAlpha->IncreaseRef();
+    types::Double* pDblBeta  = new types::Double(_beta->r, _beta->i);
+    pDblBeta->IncreaseRef();
+    in.push_back(pDblAlpha);
+    in.push_back(pDblBeta);
+
+    try
     {
+        // new std::wstring(L"") is delete in destructor of ast::CommentExp
+        pCall->invoke(in, opt, iRetCount, out, ast::CommentExp(Location(), new std::wstring(L"")));
+    }
+    catch (const ast::InternalAbort& ia)
+    {
+<<<<<<< HEAD
         types::typed_list in;
         types::typed_list out;
         types::optional_list opt;
@@ -255,42 +332,49 @@ int schur_zgges(doublecomplex* _alpha, doublecomplex* _beta)
         in.push_back(pDblBeta);
 
         bool bOk = pCall->call(in, opt, iRetCount, out) == types::Function::OK;
+=======
+>>>>>>> fa75c3e... * Bug #14030 fixed - schur fixed about bad delete and error management.
         pDblAlpha->DecreaseRef();
-        delete pDblAlpha;
-        pDblAlpha = NULL;
+        pDblAlpha->killMe();
         pDblBeta->DecreaseRef();
-        delete pDblBeta;
-        pDblBeta = NULL;
-
-        if (bOk == false)
-        {
-            return 0;
-        }
-
-        if (out.size() != 1)
-        {
-            return 0;
-        }
-
-        if (out[0]->isDouble())
-        {
-            types::Double* pDblOut = out[0]->getAs<types::Double>();
-            iRet = pDblOut->get(0) == 0 ? 0 : 1;
-            delete pDblOut;
-            pDblOut = NULL;
-
-            return iRet;
-        }
-        else if (out[0]->isBool())
-        {
-            types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
-            iRet = pBoolOut->get(0) == 0 ? 0 : 1;
-            delete pBoolOut;
-            pBoolOut = NULL;
-
-            return iRet;
-        }
+        pDblBeta->killMe();
+        throw ia;
     }
-    return 0;
+    catch (const ast::InternalError& ie)
+    {
+        pDblAlpha->DecreaseRef();
+        pDblAlpha->killMe();
+        pDblBeta->DecreaseRef();
+        pDblBeta->killMe();
+        throw ie;
+    }
+
+    pDblAlpha->DecreaseRef();
+    pDblAlpha->killMe();
+    pDblBeta->DecreaseRef();
+    pDblBeta->killMe();
+
+    if (out.size() != 1)
+    {
+        char* pstrName = wide_string_to_UTF8(pCall->getName().c_str());
+        sprintf(errorMsg, _("%s: Wrong number of output argument(s): %d expected.\n"), pstrName, iRetCount);
+        FREE(pstrName);
+        throw ast::InternalError(errorMsg);
+    }
+
+    if (out[0]->isDouble())
+    {
+        types::Double* pDblOut = out[0]->getAs<types::Double>();
+        iRet = pDblOut->get(0) == 0 ? 0 : 1;
+        pDblOut->killMe();
+    }
+    else if (out[0]->isBool())
+    {
+        types::Bool* pBoolOut = out[0]->getAs<types::Bool>();
+        iRet = pBoolOut->get(0) == 0 ? 0 : 1;
+        pBoolOut->killMe();
+    }
+
+    return iRet;
 }
 
