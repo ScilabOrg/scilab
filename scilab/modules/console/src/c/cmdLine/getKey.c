@@ -33,6 +33,7 @@
 #include "autoCompletionCli.h"
 #include "tohome.h"
 #include "localization.h"
+#include "storeCommand.h"
 
 /* Set new token in order to get string changement in history */
 static void updateTokenInScilabHistory(wchar_t ** commandLine)
@@ -239,6 +240,13 @@ static void getKey(wchar_t ** commandLine, unsigned int *cursorLocation)
             gotoLeft(*commandLine, cursorLocation);
             break;
         case CTRL_D:
+            if(**commandLine == L'\0')
+            {
+                printf("CTRL_D |%ls|\n", L"exit");
+                StorePrioritaryCommand("exit");
+                return;
+            }
+
             rmChar(*commandLine, SCI_DELETE, cursorLocation);
             updateTokenInScilabHistory(commandLine);
             break;
