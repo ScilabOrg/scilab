@@ -376,11 +376,12 @@ public class XcosCell extends ScilabGraphUniqueObject {
     public Object clone() throws CloneNotSupportedException {
         JavaController controller = new JavaController();
         XcosCell c = (XcosCell) super.clone();
-        c.uid = controller.cloneObject(getUID(), false);
+        c.uid = controller.cloneObject(getUID(), false, false);
         c.kind = getKind();
         return c;
     }
 
+    @Override
     protected void finalize() throws Throwable {
         JavaController controller = new JavaController();
         controller.deleteObject(getUID());
