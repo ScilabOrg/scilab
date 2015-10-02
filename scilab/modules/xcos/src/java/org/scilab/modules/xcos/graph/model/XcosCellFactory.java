@@ -564,11 +564,11 @@ public final class XcosCellFactory {
          */
         VectorOfDouble controlPoints = new VectorOfDouble();
         controller.getObjectProperty(uid, kind, ObjectProperties.CONTROL_POINTS, controlPoints);
-        final int controlPointsLen = controlPoints.size() / 2;
+        final int nbPoints = controlPoints.size() / 2;
 
-        ArrayList<mxPoint> points = new ArrayList<>(controlPointsLen);
-        for (int i = 0 ; i < controlPointsLen; i++) {
-            points.add(new mxPoint(controlPoints.get(i), controlPoints.get(i + controlPointsLen)));
+        ArrayList<mxPoint> points = new ArrayList<>(nbPoints);
+        for (int i = 0 ; i < nbPoints; i++) {
+            points.add(new mxPoint(controlPoints.get(2 * i), controlPoints.get(2 * i + 1)));
         }
 
         mxGeometry geom = new mxGeometry();
