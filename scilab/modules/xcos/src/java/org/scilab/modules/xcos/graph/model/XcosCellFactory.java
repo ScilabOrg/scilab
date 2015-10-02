@@ -91,8 +91,6 @@ public final class XcosCellFactory {
         SUPER_f(SuperBlock.class),
         /** @see AfficheBlock */
         AFFICH_m(AfficheBlock.class),
-        /** @see AfficheBlock */
-        AFFICH_f(AfficheBlock.class),
         /** @see ExplicitInBlock */
         IN_f(ExplicitInBlock.class),
         /** @see ExplicitOutBlock */
@@ -360,7 +358,19 @@ public final class XcosCellFactory {
     private static BasicBlock createBlock(final JavaController controller, BlockInterFunction func, String interfaceFunction) {
         BasicBlock block;
         try {
-            synchronousScilabExec("xcosCellCreated(" + interfaceFunction + "(\"define\")); ");
+            if (BlockInterFunction.BASIC_BLOCK.name().equals(interfaceFunction)) {
+                // deliver all the MVC speed for the casual case
+                lastCreated = new ScicosObjectOwner(controller.createObject(Kind.BLOCK), Kind.BLOCK);
+            } else {
+                // allocate an empty block that will be filled later
+                synchronousScilabExec("xcosCellCreated(" + interfaceFunction + "(\"define\")); ");
+            }
+
+            // defensive programming
+            if (lastCreated == null) {
+                System.err.println("XcosCellFactory#createBlock : unable to allocate " + interfaceFunction);
+                return null;
+            }
 
             if (EnumSet.of(Kind.BLOCK, Kind.ANNOTATION).contains(lastCreated.getKind())) {
                 block = createBlock(controller, func, interfaceFunction, lastCreated.getUID());

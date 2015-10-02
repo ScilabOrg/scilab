@@ -12,6 +12,8 @@
 
 package org.scilab.modules.xcos.port;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.JavaController;
@@ -124,6 +126,10 @@ public abstract class BasicPort extends XcosCell {
         setStyle(style);
         setGeometry(new mxGeometry(0, 0, DEFAULT_PORTSIZE, DEFAULT_PORTSIZE));
         setOrientation(orientation);
+
+        boolean isImplicit = getType() == Type.IMPLICIT;
+        JavaController controller = new JavaController();
+        controller.setObjectProperty(uid, Kind.PORT, ObjectProperties.IMPLICIT, isImplicit);
     }
 
     /**

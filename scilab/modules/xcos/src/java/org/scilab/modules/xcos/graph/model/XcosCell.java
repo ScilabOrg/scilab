@@ -15,8 +15,8 @@ import com.mxgraph.model.mxICell;
 public class XcosCell extends ScilabGraphUniqueObject {
     private static final long serialVersionUID = 1L;
 
-    private long uid;
-    private Kind kind;
+    private transient long uid;
+    private transient Kind kind;
 
     /**
      * Construct an Xcos graphical object.
@@ -29,6 +29,11 @@ public class XcosCell extends ScilabGraphUniqueObject {
     public XcosCell(long uid, Kind kind) {
         this.uid = uid;
         this.kind = kind;
+
+        // defensive programming
+        if (uid == 0l) {
+            throw new IllegalArgumentException();
+        }
 
         JavaController controller = new JavaController();
         controller.referenceObject(uid);
@@ -86,7 +91,16 @@ public class XcosCell extends ScilabGraphUniqueObject {
 
         JavaController controller = new JavaController();
         switch (getKind()) {
+            case ANNOTATION:
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.UID, id);
+                break;
             case BLOCK:
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.UID, id);
+                break;
+            case LINK:
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.UID, id);
+                break;
+            case PORT:
                 controller.setObjectProperty(getUID(), getKind(), ObjectProperties.UID, id);
                 break;
             default:
@@ -367,6 +381,12 @@ public class XcosCell extends ScilabGraphUniqueObject {
         XcosCell c = (XcosCell) super.clone();
         c.uid = controller.cloneObject(getUID(), false);
         c.kind = getKind();
+
+        // defensive programming
+        if (c.uid == 0) {
+            throw new IllegalStateException();
+        }
+
         return c;
     }
 
