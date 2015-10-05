@@ -466,7 +466,7 @@ int RDivideSparseByDouble(types::Sparse* _pSp, types::Double* _pDouble, Internal
 
     if (_pDouble->isIdentity())
     {
-        *_pSpOut    = new Sparse(*_pSp);
+        *_pSpOut = new Sparse(*_pSp);
         return 0;
     }
 
@@ -561,10 +561,12 @@ int RDivideSparseByDouble(types::Sparse* _pSp, types::Double* _pDouble, Internal
                 return iResultat;
             }
             std::complex<double> cplx(ppDblGet->get(0), ppDblGet->getImg(0));
-            pSpTemp->set(iPositVal[i], cplx, true);
+            pSpTemp->set(iPositVal[i], cplx, false);
             delete ppDblGet;
         }
     }
+
+    pSpTemp->finalize();
 
     delete[] Col;
     delete[] Row;
@@ -582,9 +584,6 @@ int RDivideSparseByDouble(types::Sparse* _pSp, types::Double* _pDouble, Internal
     *_pSpOut = pSpTemp;
     return 0;
 }
-
-
-
 
 int DotRDivideDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut)
 {
