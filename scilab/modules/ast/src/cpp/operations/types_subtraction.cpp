@@ -2667,13 +2667,44 @@ template<> InternalType* sub_M_M<Sparse, Double, Double>(Sparse* _pL, Double* _p
     return pOut;
 }
 
-//[] - sp
+//[] - sp or eye - sp
 template<> InternalType* sub_M_M<Double, Sparse, Sparse>(Double* _pL, Sparse* _pR)
 {
-    return sub_M_M<Sparse, Double, Sparse>(_pR, _pL);
+    Sparse* pOut = NULL;
+    if (_pL->isIdentity())
+    {
+        //convert to _pL
+        Sparse* pS = new Sparse(_pR->getRows(), _pR->getCols(), _pL->isComplex());
+        if (pS->isComplex())
+        {
+            int size = std::min(_pR->getRows(), _pR->getCols());
+            for (int i = 0; i < size; i++)
+            {
+                pS->set(i, i, std::complex<double>(_pL->get(0), _pL->getImg(0)), false);
+            }
+        }
+        else
+        {
+            int size = std::min(_pR->getRows(), _pR->getCols());
+            for (int i = 0; i < size; i++)
+            {
+                pS->set(i, i, _pL->get(0), false);
+            }
+        }
+
+        pS->finalize();
+        pOut = pS->substract(*_pR);
+        delete pS;
+        return pOut;
+    }
+    else
+    {
+        //is []
+        return _pL;
+    }
 }
 
-//sp - []
+//sp - [] or sp - eye
 template<> InternalType* sub_M_M<Sparse, Double, Sparse>(Sparse* _pL, Double* _pR)
 {
     Sparse* pOut = NULL;
@@ -2684,21 +2715,22 @@ template<> InternalType* sub_M_M<Sparse, Double, Sparse>(Sparse* _pL, Double* _p
         if (pS->isComplex())
         {
             int size = std::min(_pL->getRows(), _pL->getCols());
-            for (int i = 0 ; i < size ; i++)
+            for (int i = 0; i < size; i++)
             {
-                pS->set(i, i, std::complex<double>(_pR->get(0), _pR->getImg(0)));
+                pS->set(i, i, std::complex<double>(_pR->get(0), _pR->getImg(0)), false);
             }
         }
         else
         {
             int size = std::min(_pL->getRows(), _pL->getCols());
-            for (int i = 0 ; i < size ; i++)
+            for (int i = 0; i < size; i++)
             {
-                pS->set(i, i, _pR->get(0));
+                pS->set(i, i, _pR->get(0), false);
             }
         }
 
-        //AddSparseToSparse(_pL, pS, (Sparse**)pOut);
+        pS->finalize();
+        pOut = _pL->substract(*pS);
         delete pS;
         return pOut;
     }
