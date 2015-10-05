@@ -14,6 +14,14 @@ Deprecated Behaviors
 
 * <-- JVM NOT MANDATORY --> is obsolete, use <-- CLI SHELL MODE --> instead.
 
+Dependencies
+=============
+
+* Apache xmlgraphics stack upgraded to the latest versions :
+  - xmlgraphics-commons 2.0
+  - Batik 1.8
+  - FOP 2.0
+
 
 Scilab Bug Fixes
 ================
