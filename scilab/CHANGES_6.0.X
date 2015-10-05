@@ -71,6 +71,8 @@ Scilab Bug Fixes
 
 * Bug #14150 fixed - The Windows SDK was not found on Windows 8.1.
 
+* Bug #14157 fixed - Insert of big set in sparse was very slow.
+
 
             Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
             =========================================================
