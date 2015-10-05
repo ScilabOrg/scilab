@@ -2654,7 +2654,7 @@ template<> InternalType* sub_M_M<Sparse, Double, Sparse>(Sparse* _pL, Double* _p
             int size = std::min(_pL->getRows(), _pL->getCols());
             for (int i = 0 ; i < size ; i++)
             {
-                pS->set(i, i, std::complex<double>(_pR->get(0), _pR->getImg(0)));
+                pS->set(i, i, std::complex<double>(_pR->get(0), _pR->getImg(0)), false);
             }
         }
         else
@@ -2662,12 +2662,12 @@ template<> InternalType* sub_M_M<Sparse, Double, Sparse>(Sparse* _pL, Double* _p
             int size = std::min(_pL->getRows(), _pL->getCols());
             for (int i = 0 ; i < size ; i++)
             {
-                pS->set(i, i, _pR->get(0));
+                pS->set(i, i, _pR->get(0), false);
             }
         }
 
-        //AddSparseToSparse(_pL, pS, (Sparse**)pOut);
         delete pS;
+        pOut->finalize();
         return pOut;
     }
     else
