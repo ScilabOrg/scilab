@@ -15,64 +15,45 @@ For a high-level overview of the changes in this release, please consult the "Wh
 
 * Bug #14257 fixed - English spelling in messages and in comments.
 
+Dependencies
+=============
+
+* Apache xmlgraphics stack upgraded to the latest versions :
+  - xmlgraphics-commons 2.0
+  - Batik 1.8
+  - FOP 2.0
 
 
         Changes between version 6.0.0-alpha-1 and 6.0.0-alpha-2
         =======================================================
 
 New Features
-============
+=============
 
-* Scilab now includes a full-featured debugger, with ability to run Scilab scripts or functions step-by-step, to put (conditional) breakpoint, in particular break only when an exception is set. Run "help debug" for more information.
+* valgrind error detection added to test_run (Linux Only)
 
-* A new profiler and coverage tool has been added.
-  It replaces the "profile" function (which is still there but not working, and will be removed in the final release).
-  It produces HTML report for the time spent (profile) on each line. Example of use:
-
-     covStart(isempty) // instruments the "isempty" macro; instrumenting a whole library can be done with: covStart("elementary_functions")
-     for i=1:1e5; isempty(i); end // execute some code - this will be profiled
-     covWrite("html", "TMPDIR/coverage") // write the profiling/coverage report as "report.html" in the folder specified as second parameter
-     covStop(); // stop the profiling
-
-  A function to merge multiple profiler/coverage is provided too: covMerge([ list_of_files_to_merge], file_to_merge_to).
-  The API will change before the release; the current API is mostly to get feedback from the community.
-
-* A "lint"-like command, slint, has been added, for code static analysis: it detects unclear, risky or suspicious code.
-  Usage: slint("<sci filename>"). It is not documented yet.
-
-Other feature changes
-=====================
-
-* Valgrind error detection added to test_run (on Linux only)
-
-* Addition or subtraction with an empty matrix now return an empty matrix.
-
-* SSE2, Streaming SIMD Extensions 2 support is now mandatory to run Scilab on Linux i686.
-
-* A call stack limit has been introduced. Default maximum depth is setup to 1000 and
+* Introduction of a call stack limit. Default maximum depth is setup to 1000 and
   can be changed by new function recursionlimit or by preferences interface.
 
-* The floating point exception mode (ieee) is now set to 2 by default: floating point exceptions now produce "Inf" or "Nan",
-  and do not cause any error. The previous behavior can be recalled by simply calling: ieee(0)
+Deprecated Behaviors
+=====================
 
-API modification
+* <-- JVM NOT MANDATORY --> is obsolete, use <-- CLI SHELL MODE --> instead.
+
+
+Scilab Bug Fixes
 ================
 
-* User-defined functions written in C (gateways) must now use the "pvApiCtx" name for their second parameter, for example:
-
-     int sci_Levkov(char *fname, void* pvApiCtx)
-
- instead of any "unsigned long l". This is now requires for some macros, such as Rhs(), to work. 
- (Although not strictly an API change, it may require gateway code to be modified).
-
-Bug Fixes
-=========
-
-* Bug #11511 fixed - error() did non accept string matrix (non regression test).
-
-* Bug #12044 fixed - Adding or substracting the empty matrix now return an empty matrix.
-
 * Bug #12928 fixed - int functions with %nan and %inf return wrong values.
+
+* Bug #14059 fixed - Lack of performance on deletion of matrix elements.
+
+* Bug #14055 fixed - overload on matrix concatenation did not called with [].
+
+* Bug #14028 fixed - force flag of genlib did not rebuild bin file.
+
+* Bug #14024 fixed - Print of macrofile display a debug message
+                     instead of macro prototype.
 
 * Bug #13709 fixed - unique function sometimes returned wrong index values.
 
@@ -84,48 +65,23 @@ Bug Fixes
 
 * Bug #13853 fixed - plzr() returned wrong results for discrete-time systems with a numeric time step.
 
-* Bug #13862 fixed - There was no lazy evaluation of 'or' operands in 'if' tests.
-
-* Bug #13864 fixed - macro %l_isequal was useless in Scilab 6.
-
 * Bug #13872 fixed - Non regression test added for unique function (the indices returned were wrong)
 
 * Bug #13890 fixed - getd did not return loaded symbols in previous scope.
 
-* Bug #13893 fixed - simp() function did not set a rational denominator at 1 when numerator was equal to zero.
-
 * Bug #13894 fixed - Default working directory of the previous session did not work.
 
-* Bug #13903 fixed - get_function_path() returned a path with a missing file separator.
-
 * Bug #13907 fixed - Avoids the gray background on the right panel of the palette Browser.
-
-* Bug #13908 fixed - part(text, n:$) was very slow.
-
-* Bug #13919 fixed - Scilab parsed "hidden" as a reserved keyword but it is not used.
-
-* Bug #13920 fixed - `getscilabkeywords` help page should be in the "Scilab keywords" section.
-
-* Bug #13931 fixed - handle "aarch64" processor for some Linux distribution.
 
 * Bug #13944 fixed - The menu "Toolboxes" was missing.
 
 * Bug #13983 fixed - who_user returned wrong values.
 
-* Bug #13990 fixed - `gettext` did not manage the added '_W' macro.
-
 * Bug #14020 fixed - Incorrect carriage return ascii code.
-
-* Bug #14022 fixed - getscilabkeywords() was KO (+gateway what() added).
 
 * Bug #14023 fixed - It was not possible to concatenate cells.
 
-* Bug #14024 fixed - Print of macrofile display a debug message
-                     instead of macro prototype.
-
 * Bug #14025 fixed - head_comments did not take into account compiled functions.
-
-* Bug #14028 fixed - force flag of genlib did not rebuild bin file.
 
 * Bug #14036 fixed - tag and user_data properties were not displayed and not documented for light entity.
 
@@ -137,15 +93,9 @@ Bug Fixes
 
 * Bug #14049 fixed - genlib hangs if an unexpected endfunction occurs.
 
-* Bug #14055 fixed - overload on matrix concatenation did not called with [].
-
 * Bug #14057 fixed - grand(m,n) returned a wrong error and grand(m,n,p) called an overloading function instead of returning an error.
 
 * Bug #14058 fixed - Scilab crashed with 'file("close", file())' instruction
-
-* Bug #14059 fixed - Lack of performance on deletion of matrix elements.
-
-* Bug #14065 fixed - Change "java size" in points in graphics font help page.
 
 * Bug #14082 fixed - m=1; m()=1; made Scilab crash.
 
@@ -153,19 +103,11 @@ Bug Fixes
 
 * Bug #14095 fixed - Scilab crashed when a .fig file was loaded with loadmatfile function.
 
-* Bug #14097 fixed - genlib no more adds a separator at the end of the lib path if it is not given in the directory path.
-
-* Bug #14105 fixed - New block comments /*...*/ feature was not documented.
-
 * Bug #14107 fixed - lstcat of a string and a list did not produce consistent results.
 
 * Bug #14109 fixed - lsq function crashed Scilab when Scilab version depended on mkl library.
 
 * Bug #14113 fixed - Scilab 6 did not detect infinite loop.
-
-* Bug #14135 fixed - crash when running "Graphics -> Matplot -> Java Image" demonstration.
-
-* Bug #14141 fixed - recursive insertion: gcf().attribute=value => "Wrong insertion : function or macro are not expected".
 
 * Bug #14144 fixed - Scilab crashed with int64(2^63).
 
@@ -175,44 +117,20 @@ Bug Fixes
 
 * Bug #14156 fixed - mfscanf returned an empty matrix when datafile contained a header.
 
-* Bug #14159 fixed - Matplot crashed Scilab on boolean input.
 
-* Bug #14187 fixed - fscanfMat failed to read format %d, %i and %f.
-
-* Bug #14199 fixed - sqrt returned wrong dimension results on matrix with more than dimensions.
-
-* Bug #14203 fixed - Improve some error messages, some help pages and some comments.
-
-* Bug #14204 fixed - dec2bin ( dec2base ) must show a better error message for too large values.
-
-* Bug #14205 fixed - Console crash when assigning uint32 numbers to double matrix.
-
-* Bug #14209 fixed - 1:245 created infinite loop.
-
-* Bug #14212 fixed - Scilab 6 did not load array of struct from Scilab 5.5 files correctly
-
-* Bug #14223 fixed - det returned an error when it is used with a singular matrix.
-
-* Bug #14225 fixed - command-line option "-quit" should set the processs Exit status
-
-* Bug #14232 fixed - Typos in Xcos.
+            Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
+            =========================================================
 
 
 
+This file details the technical changes done in Scilab 6.0.0-alpha-1 release.
 
-        Changes between version 5.5.2 and 6.0.0-alpha-1
-        ===============================================
+For a more complete overview of the changes in this release, please consult the "What's new" page of the help, by simply typing "help" in Scilab console.
 
 
-Main new Features
-=================
 
-* New language parser and interpreter. See the help for more details.
-
-* Support for bigger data sets: dynamic memory usage. No need for "stacksize" anymore. See the help for more details.
-
-Other feature additions
-=======================
+New Features
+=============
 
 * scatter/scatter3 plot with different mark colors is now available.
 
@@ -397,8 +315,8 @@ Deprecated Behaviors
 * (a=b) executed like a == b is now deprecated and returns an error.
 
 
-Bug Fixes
-=========
+Scilab Bug Fixes
+================
 
 * Bug #6064 fixed - scatter function did not exist in Scilab.
 
@@ -441,17 +359,14 @@ Bug Fixes
 
 * Bug #13972 fixed - Wildcard ('*') was not managed in printf expressions.
 
-* Bug #14043 fixed - Gateway C prototype changed from int sci_...(char *fname, unsigned long l)
-                     to sci_...(char *fname, void* pvApiCtx). Variable name has to be 
-                     exactly "pvApyCtx" when macros are used in a gateway. (1)
-
-* Bug #14044 fixed - MALLOC.h is now renamed to sci_malloc.h. (1)
-
-(1) originally not documented in the alpha 1 release.
 
 Known issues
 =============
 
 * Xcos does not work in this version.
+
+* Debugging capabilities are not yet replugged.
+
+* Profiling capabilities are not yet replugged.
 
 * This version will start in English by default.
