@@ -203,6 +203,8 @@ Bug Fixes
 
 * Bug #14156 fixed - mfscanf returned an empty matrix when datafile contained a header.
 
+* Bug #14157 fixed - Insert of big set in sparse was very slow.
+
 * Bug #14159 fixed - Matplot crashed Scilab on boolean input.
 
 * Bug #14187 fixed - fscanfMat failed to read format %d, %i and %f.
