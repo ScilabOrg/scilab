@@ -8,4 +8,5 @@ Scierror
 msgs_
 sciprint
 scivprint
-
+scilabForcedWriteW
+scilabForcedWrite
