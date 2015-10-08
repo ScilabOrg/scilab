@@ -49,6 +49,20 @@ void printLine(const std::string& _stPrompt, const std::string& _stLine, bool _b
 std::string printExp(std::ifstream& _File, ast::Exp* _pExp, const std::string& _stPrompt, int* _piLine /* in/out */, int* _piCol /* in/out */, std::string& _stPreviousBuffer);
 std::string getExpression(const std::string& _stFile, ast::Exp* _pExp);
 
+void closeFile(std::ifstream* file, int fileId, const std::wstring& wstFile)
+{
+    if (file)
+    {
+        file->close();
+        delete file;
+    }
+
+    // Check if file has not already been closed (for ex mclose('all') in function)
+    if (FileManager::isOpened(wstFile))
+    {
+        mclose(fileId);
+    }
+}
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
@@ -158,8 +172,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         /*fake call to mopen to show file within file()*/
         if (mopen(pwstTemp, L"r", 0, &iID) != MOPEN_NO_ERROR)
         {
-            file->close();
-            delete file;
+            closeFile(file, iID, wstFile);
             FREE(pwstTemp);
             Scierror(999, _("%s: Cannot open file %s.\n"), "exec", stFile.data());
             return types::Function::Error;
@@ -170,8 +183,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         FREE(pwstTemp);
         if (parser.getExitStatus() !=  Parser::Succeded)
         {
-            file->close();
-            delete file;
+            closeFile(file, iID, wstFile);
             if (bErrCatch)
             {
                 out.push_back(new types::Double(999));
@@ -180,11 +192,6 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
                 ConfigVariable::setLastErrorMessage(parser.getErrorMessage());
                 ConfigVariable::setLastErrorNumber(999);
                 delete parser.getTree();
-                // Check if file has not already been closed (for ex mclose('all') in function)
-                if (FileManager::isOpened(wstFile.data()) == true)
-                {
-                    mclose(iID);
-                }
                 ThreadManagement::UnlockParser();
                 return types::Function::OK;
             }
@@ -194,11 +201,6 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             FREE(pst);
 
             delete parser.getTree();
-            // Check if file has not already been closed (for ex mclose('all') in function)
-            if (FileManager::isOpened(wstFile.data()) == true)
-            {
-                mclose(iID);
-            }
             ThreadManagement::UnlockParser();
             return types::Function::Error;
         }
@@ -320,26 +322,14 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         }
         catch (const ast::InternalAbort& ia)
         {
-            if (file)
-            {
-                file->close();
-                delete file;
-                delete pExp;
-            }
-
+            closeFile(file, iID, wstFile);
             throw ia;
         }
         catch (const ast::InternalError& ie)
         {
             if (bErrCatch == false)
             {
-                if (file)
-                {
-                    file->close();
-                    delete file;
-                    delete pExp;
-                }
-
+                closeFile(file, iID, wstFile);
                 ConfigVariable::setPromptMode(oldVal);
                 ConfigVariable::setExecutedFileID(0);
                 throw ie;
@@ -435,15 +425,8 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
                 if (file)
                 {
                     delete pExp;
-                    // Check if file has not already been closed (for ex mclose('all') in function)
-                    if (FileManager::isOpened(wstFile.data()) == true)
-                    {
-                        mclose(iID);
-                    }
-                    file->close();
-                    delete file;
+                    closeFile(file, iID, wstFile);
                 }
-
                 //restore previous prompt mode
                 ConfigVariable::setPromptMode(oldVal);
 
@@ -472,13 +455,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
                     if (file)
                     {
                         delete pExp;
-                        // Check if file has not already been closed (for ex mclose('all') in function)
-                        if (FileManager::isOpened(wstFile.data()) == true)
-                        {
-                            mclose(iID);
-                        }
-                        file->close();
-                        delete file;
+                        closeFile(file, iID, wstFile);
                     }
 
                     //restore previous prompt mode
@@ -527,14 +504,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     if (file)
     {
         delete pExp;
-        // Check if file has not already been closed (for ex mclose('all') in function)
-        if (FileManager::isOpened(wstFile.data()) == true)
-        {
-            mclose(iID);
-        }
-
-        file->close();
-        delete file;
+        closeFile(file, iID, wstFile);
     }
 
     return types::Function::OK;
