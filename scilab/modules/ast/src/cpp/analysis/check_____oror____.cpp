@@ -51,14 +51,26 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
                 }
                 case TIType::BOOLEAN :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 case TIType::COMPLEX :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 case TIType::DOUBLE :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 default :
@@ -76,14 +88,26 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
                 }
                 case TIType::BOOLEAN :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 case TIType::COMPLEX :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::BOOLEAN, 1, 1);
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 case TIType::DOUBLE :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::BOOLEAN, 1, 1);
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 default :
@@ -101,14 +125,26 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
                 }
                 case TIType::BOOLEAN :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 case TIType::COMPLEX :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::BOOLEAN, 1, 1);
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 case TIType::DOUBLE :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::BOOLEAN, 1, 1);
+                    }
                     return TIType(gvn, TIType::BOOLEAN, -2, -2);
                 }
                 default :
@@ -122,34 +158,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT16, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::INT32, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT16, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT16, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 default :
@@ -163,34 +231,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT32, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT32, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT32, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT32, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT32, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 default :
@@ -204,34 +304,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT64, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT64, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT64, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 default :
@@ -245,34 +377,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::INT16, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::INT32, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::INT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::INT8, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT8, -2, -2);
                 }
                 default :
@@ -286,34 +450,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT32, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT64, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 default :
@@ -327,34 +523,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT64, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 default :
@@ -368,34 +596,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 default :
@@ -409,34 +669,66 @@ TIType Checkers::check_____oror____(GVN & gvn, const TIType & in0, const TIType 
             {
                 case TIType::INT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT16, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::INT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT32, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::INT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return TIType(gvn, TIType::UINT64, 1, 1);
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::INT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT8, -2, -2);
                 }
                 case TIType::UINT16 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT16, -2, -2);
                 }
                 case TIType::UINT32 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT32, -2, -2);
                 }
                 case TIType::UINT64 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in1;
+                    }
                     return TIType(gvn, TIType::UINT64, -2, -2);
                 }
                 case TIType::UINT8 :
                 {
+                    if (in0.rows == 1 && in0.cols == 1 && in1.rows == 1 && in1.cols == 1)
+                    {
+                        return in0;
+                    }
                     return TIType(gvn, TIType::UINT8, -2, -2);
                 }
                 default :
