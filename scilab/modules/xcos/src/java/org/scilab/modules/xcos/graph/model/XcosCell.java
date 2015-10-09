@@ -117,12 +117,10 @@ public class XcosCell extends ScilabGraphUniqueObject {
                 break;
             }
             case LINK: {
-                VectorOfDouble v = new VectorOfDouble(4);
+                VectorOfDouble v = new VectorOfDouble(2);
                 v.set(0, geometry.getX());
                 v.set(1, geometry.getY());
-                v.set(2, geometry.getWidth());
-                v.set(3, geometry.getHeight());
-                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.GEOMETRY, v);
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.CONTROL_POINTS, v);
                 break;
             }
             default:

@@ -17,7 +17,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.block.BasicBlock;
+import org.scilab.modules.xcos.graph.model.XcosCell;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
 
 import com.mxgraph.model.mxICell;
@@ -204,8 +208,33 @@ public class ConnectionHandler extends mxConnectionHandler {
             connectPreview.update(e, null, x, y);
             multiPointLinkStarted = true;
 
+            // Save the coordinates in the model
+            JavaController controller = new JavaController();
+            VectorOfDouble v = new VectorOfDouble();
+            controller.getObjectProperty(((XcosCell) cell).getUID(), ((XcosCell) cell).getKind(), ObjectProperties.CONTROL_POINTS, v);
+            v.add(x);
+            v.add(y);
+            controller.setObjectProperty(((XcosCell) cell).getUID(), ((XcosCell) cell).getKind(), ObjectProperties.CONTROL_POINTS, v);
+
             e.consume();
         } else {
+            if (marker.hasValidState()) {
+                final mxGraph graph = graphComponent.getGraph();
+                final double x = graph.snap(e.getX());
+                final double y = graph.snap(e.getY());
+
+                // We are ending a link creation on an valid port
+                mxICell cell = (mxICell) connectPreview.getPreviewState().getCell();
+
+                // Save the coordinates in the model
+                JavaController controller = new JavaController();
+                VectorOfDouble v = new VectorOfDouble();
+                controller.getObjectProperty(((XcosCell) cell).getUID(), ((XcosCell) cell).getKind(), ObjectProperties.CONTROL_POINTS, v);
+                v.add(x);
+                v.add(y);
+                controller.setObjectProperty(((XcosCell) cell).getUID(), ((XcosCell) cell).getKind(), ObjectProperties.CONTROL_POINTS, v);
+            }
+
             multiPointLinkStarted = false;
             super.mouseReleased(e);
         }
