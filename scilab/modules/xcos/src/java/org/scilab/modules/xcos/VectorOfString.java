@@ -47,6 +47,10 @@ public class VectorOfString {
         JavaControllerJNI.VectorOfString_ensureCapacity(swigCPtr, this, n);
     }
 
+    public void resize(long n) {
+        JavaControllerJNI.VectorOfString_resize(swigCPtr, this, n);
+    }
+
     public int size() {
         return JavaControllerJNI.VectorOfString_size(swigCPtr, this);
     }
@@ -85,10 +89,6 @@ public class VectorOfString {
 
     public boolean remove(String val) {
         return JavaControllerJNI.VectorOfString_remove(swigCPtr, this, val);
-    }
-
-    public String toString() {
-        return JavaControllerJNI.VectorOfString_toString(swigCPtr, this);
     }
 
 }

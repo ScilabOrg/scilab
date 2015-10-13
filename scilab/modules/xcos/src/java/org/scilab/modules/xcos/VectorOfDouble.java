@@ -47,6 +47,10 @@ public class VectorOfDouble {
         JavaControllerJNI.VectorOfDouble_ensureCapacity(swigCPtr, this, n);
     }
 
+    public void resize(long n) {
+        JavaControllerJNI.VectorOfDouble_resize(swigCPtr, this, n);
+    }
+
     public int size() {
         return JavaControllerJNI.VectorOfDouble_size(swigCPtr, this);
     }
@@ -85,10 +89,6 @@ public class VectorOfDouble {
 
     public boolean remove(double val) {
         return JavaControllerJNI.VectorOfDouble_remove(swigCPtr, this, val);
-    }
-
-    public String toString() {
-        return JavaControllerJNI.VectorOfDouble_toString(swigCPtr, this);
     }
 
 }

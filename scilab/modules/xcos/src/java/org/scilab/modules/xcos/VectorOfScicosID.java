@@ -47,6 +47,10 @@ public class VectorOfScicosID {
         JavaControllerJNI.VectorOfScicosID_ensureCapacity(swigCPtr, this, n);
     }
 
+    public void resize(long n) {
+        JavaControllerJNI.VectorOfScicosID_resize(swigCPtr, this, n);
+    }
+
     public int size() {
         return JavaControllerJNI.VectorOfScicosID_size(swigCPtr, this);
     }
@@ -85,10 +89,6 @@ public class VectorOfScicosID {
 
     public boolean remove(long val) {
         return JavaControllerJNI.VectorOfScicosID_remove(swigCPtr, this, val);
-    }
-
-    public String toString() {
-        return JavaControllerJNI.VectorOfScicosID_toString(swigCPtr, this);
     }
 
 }

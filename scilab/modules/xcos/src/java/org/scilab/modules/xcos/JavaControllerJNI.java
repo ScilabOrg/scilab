@@ -50,6 +50,7 @@ public class JavaControllerJNI {
     public final static native long new_VectorOfInt__SWIG_0();
     public final static native long new_VectorOfInt__SWIG_1(long jarg1);
     public final static native void VectorOfInt_ensureCapacity(long jarg1, VectorOfInt jarg1_, long jarg2);
+    public final static native void VectorOfInt_resize(long jarg1, VectorOfInt jarg1_, long jarg2);
     public final static native int VectorOfInt_size(long jarg1, VectorOfInt jarg1_);
     public final static native boolean VectorOfInt_isEmpty(long jarg1, VectorOfInt jarg1_);
     public final static native void VectorOfInt_clear(long jarg1, VectorOfInt jarg1_);
@@ -60,14 +61,12 @@ public class JavaControllerJNI {
     public final static native void VectorOfInt_set(long jarg1, VectorOfInt jarg1_, int jarg2, int jarg3);
     public final static native void VectorOfInt_add__SWIG_1(long jarg1, VectorOfInt jarg1_, int jarg2, int jarg3);
     public final static native boolean VectorOfInt_remove(long jarg1, VectorOfInt jarg1_, int jarg2);
-    public final static native String VectorOfInt_toString(long jarg1, VectorOfInt jarg1_);
     public final static native void delete_VectorOfInt(long jarg1);
     public final static native long new_VectorOfBool__SWIG_0();
     public final static native long new_VectorOfBool__SWIG_1(long jarg1);
-    public final static native long VectorOfBool_size(long jarg1, VectorOfBool jarg1_);
-    public final static native long VectorOfBool_capacity(long jarg1, VectorOfBool jarg1_);
     public final static native void VectorOfBool_ensureCapacity(long jarg1, VectorOfBool jarg1_, long jarg2);
     public final static native void VectorOfBool_resize(long jarg1, VectorOfBool jarg1_, long jarg2);
+    public final static native int VectorOfBool_size(long jarg1, VectorOfBool jarg1_);
     public final static native boolean VectorOfBool_isEmpty(long jarg1, VectorOfBool jarg1_);
     public final static native void VectorOfBool_clear(long jarg1, VectorOfBool jarg1_);
     public final static native void VectorOfBool_add__SWIG_0(long jarg1, VectorOfBool jarg1_, boolean jarg2);
@@ -79,6 +78,7 @@ public class JavaControllerJNI {
     public final static native long new_VectorOfDouble__SWIG_0();
     public final static native long new_VectorOfDouble__SWIG_1(long jarg1);
     public final static native void VectorOfDouble_ensureCapacity(long jarg1, VectorOfDouble jarg1_, long jarg2);
+    public final static native void VectorOfDouble_resize(long jarg1, VectorOfDouble jarg1_, long jarg2);
     public final static native int VectorOfDouble_size(long jarg1, VectorOfDouble jarg1_);
     public final static native boolean VectorOfDouble_isEmpty(long jarg1, VectorOfDouble jarg1_);
     public final static native void VectorOfDouble_clear(long jarg1, VectorOfDouble jarg1_);
@@ -89,11 +89,11 @@ public class JavaControllerJNI {
     public final static native void VectorOfDouble_set(long jarg1, VectorOfDouble jarg1_, int jarg2, double jarg3);
     public final static native void VectorOfDouble_add__SWIG_1(long jarg1, VectorOfDouble jarg1_, int jarg2, double jarg3);
     public final static native boolean VectorOfDouble_remove(long jarg1, VectorOfDouble jarg1_, double jarg2);
-    public final static native String VectorOfDouble_toString(long jarg1, VectorOfDouble jarg1_);
     public final static native void delete_VectorOfDouble(long jarg1);
     public final static native long new_VectorOfString__SWIG_0();
     public final static native long new_VectorOfString__SWIG_1(long jarg1);
     public final static native void VectorOfString_ensureCapacity(long jarg1, VectorOfString jarg1_, long jarg2);
+    public final static native void VectorOfString_resize(long jarg1, VectorOfString jarg1_, long jarg2);
     public final static native int VectorOfString_size(long jarg1, VectorOfString jarg1_);
     public final static native boolean VectorOfString_isEmpty(long jarg1, VectorOfString jarg1_);
     public final static native void VectorOfString_clear(long jarg1, VectorOfString jarg1_);
@@ -104,11 +104,11 @@ public class JavaControllerJNI {
     public final static native void VectorOfString_set(long jarg1, VectorOfString jarg1_, int jarg2, String jarg3);
     public final static native void VectorOfString_add__SWIG_1(long jarg1, VectorOfString jarg1_, int jarg2, String jarg3);
     public final static native boolean VectorOfString_remove(long jarg1, VectorOfString jarg1_, String jarg2);
-    public final static native String VectorOfString_toString(long jarg1, VectorOfString jarg1_);
     public final static native void delete_VectorOfString(long jarg1);
     public final static native long new_VectorOfScicosID__SWIG_0();
     public final static native long new_VectorOfScicosID__SWIG_1(long jarg1);
     public final static native void VectorOfScicosID_ensureCapacity(long jarg1, VectorOfScicosID jarg1_, long jarg2);
+    public final static native void VectorOfScicosID_resize(long jarg1, VectorOfScicosID jarg1_, long jarg2);
     public final static native int VectorOfScicosID_size(long jarg1, VectorOfScicosID jarg1_);
     public final static native boolean VectorOfScicosID_isEmpty(long jarg1, VectorOfScicosID jarg1_);
     public final static native void VectorOfScicosID_clear(long jarg1, VectorOfScicosID jarg1_);
@@ -119,7 +119,6 @@ public class JavaControllerJNI {
     public final static native void VectorOfScicosID_set(long jarg1, VectorOfScicosID jarg1_, int jarg2, long jarg3);
     public final static native void VectorOfScicosID_add__SWIG_1(long jarg1, VectorOfScicosID jarg1_, int jarg2, long jarg3);
     public final static native boolean VectorOfScicosID_remove(long jarg1, VectorOfScicosID jarg1_, long jarg2);
-    public final static native String VectorOfScicosID_toString(long jarg1, VectorOfScicosID jarg1_);
     public final static native void delete_VectorOfScicosID(long jarg1);
     public final static native void register_view(String jarg1, long jarg2, View jarg2_);
     public final static native void unregister_view(long jarg1, View jarg1_);
