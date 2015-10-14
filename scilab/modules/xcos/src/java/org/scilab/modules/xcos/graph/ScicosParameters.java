@@ -128,6 +128,11 @@ public class ScicosParameters implements Serializable, Cloneable {
         XcosOptions.getSimulation();
     }
 
+    /** @return the shared diagram ID */
+    public long getDiagramID() {
+        return diagramId;
+    }
+
     /**
      * Returns the properties values
      * @param controller the controller instance

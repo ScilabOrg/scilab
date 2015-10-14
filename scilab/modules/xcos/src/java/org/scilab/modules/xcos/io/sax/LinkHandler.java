@@ -24,8 +24,6 @@ import org.scilab.modules.xcos.link.explicit.ExplicitLink;
 import org.scilab.modules.xcos.link.implicit.ImplicitLink;
 import org.xml.sax.Attributes;
 
-import net.sf.saxon.type.UnresolvedReferenceException;
-
 class LinkHandler implements ScilabHandler {
 
     private final SAXHandler saxHandler;

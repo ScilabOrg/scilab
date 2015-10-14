@@ -29,8 +29,11 @@ import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.VectorOfDouble;
 import org.scilab.modules.xcos.VectorOfString;
+import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.graph.model.ScicosObjectOwner;
 import org.scilab.modules.xcos.graph.model.XcosCell;
+import org.scilab.modules.xcos.io.scicos.DiagramElement;
+import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.xml.sax.Attributes;
 
 import com.mxgraph.model.mxGeometry;
@@ -395,8 +398,13 @@ class RawDataHandler implements ScilabHandler {
                             return;
                         }
                         XcosCell cell = (XcosCell) parent;
-                        if (!(fieldValue.value instanceof ScilabDouble)) {
-                            // FIXME decode the rpar as a subdiagram using the legacy decoders
+                        if (fieldValue.value instanceof ScilabMList) {
+                            // CORNER CASE for partially decoded sub-diagram hierarchy
+                            // decode the rpar as a subdiagram using the legacy decoders
+                            try {
+                                new DiagramElement(saxHandler.controller).decode((ScilabMList) fieldValue.value, new XcosDiagram(cell.getUID(), cell.getKind()));
+                            } catch (ScicosFormatException e) {
+                            }
                             return;
                         }
                         ScilabDouble value = (ScilabDouble) fieldValue.value;
