@@ -958,7 +958,6 @@ InternalType* ArrayOf<T>::remove(typed_list* _pArgs)
     {
         pOut = createEmpty(iDims, piNewDims, m_pImgData != NULL);
 
-        delete[] piNewDims;
         //find a way to copy existing data to new variable ...
         int iNewPos = 0;
         int* piIndexes = new int[iOrigDims];
@@ -1000,6 +999,7 @@ InternalType* ArrayOf<T>::remove(typed_list* _pArgs)
         delete[] piViewDims;
     }
 
+    delete[] piNewDims;
     //free pArg content
     cleanIndexesArguments(_pArgs, &pArg);
 
