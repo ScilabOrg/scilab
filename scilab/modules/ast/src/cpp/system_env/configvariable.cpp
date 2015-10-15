@@ -458,6 +458,18 @@ bool ConfigVariable::isPromptShow(void)
     }
 }
 
+bool ConfigVariable::isVariableShow(void)
+{
+    if ( m_iPromptMode == 2)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void ConfigVariable::setSilentError(int _iSilentError)
 {
     m_iSilentError = _iSilentError;

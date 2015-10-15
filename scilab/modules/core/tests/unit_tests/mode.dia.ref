@@ -27,4 +27,49 @@ r = test_mode_foo(ref);
 if r <> ref then bugmes();quit;end
 ref = 2;
 mode(ref);
- 
+ mode :
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ mode :
+m  = 
+    2.
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ mode :
+m  = 
+    2.
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ a  = 
+    56.
+ ans  =
+    12.
+ mode :
+ a  = 
+    56.
+ ans  =
+    12.
