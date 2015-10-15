@@ -39,6 +39,8 @@ Scilab Bug Fixes
 
 * Bug #13853 fixed - plzr() returned wrong results for discrete-time systems with a numeric time step.
 
+* Bug #13864 fixed - macro %l_isequal was useless in Scilab 6.
+
 * Bug #13872 fixed - Non regression test added for unique function (the indices returned were wrong)
 
 * Bug #13890 fixed - getd did not return loaded symbols in previous scope.
