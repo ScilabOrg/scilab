@@ -225,12 +225,12 @@ private :
 
 public :
     static void setPromptMode(int _iPromptMode);
-    static int getPromptMode(void);
+    static int  getPromptMode(void);
     static bool isPromptShow(void);
     static bool isEmptyLineShow(void);
-
+    static bool isVariableShow(void);
     static void setSilentError(int _iSilentError);
-    static int getSilentError(void);
+    static int  getSilentError(void);
     static void setVerbose(bool _bVerbose);
     static bool getVerbose(void);
 
