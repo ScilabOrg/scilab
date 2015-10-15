@@ -112,7 +112,7 @@ void RunVisitorT<T>::visitprivate(const SimpleVar & e)
     setResult(pI);
     if (pI != nullptr)
     {
-        if (e.isVerbose() && pI->isCallable() == false && ConfigVariable::isPromptShow())
+        if (e.isVerbose() && pI->isCallable() == false && ConfigVariable::isPromptShow() && ConfigVariable::isVariableShow())
         {
             std::wostringstream ostr;
             ostr << e.getSymbol().getName() << L"  = ";

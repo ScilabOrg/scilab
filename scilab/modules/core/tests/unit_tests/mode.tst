@@ -5,20 +5,20 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 function a = test_mode_foo(level_mode)
-  mode(level_mode);
-  a = mode();
+    mode(level_mode);
+    a = mode();
 endfunction
 
-ierr = execstr('mode(7.2);','errcatch');
+ierr = execstr("mode(7.2);","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('mode(''ffo'');','errcatch');
+ierr = execstr("mode(''ffo'');","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('mode([1 2]);','errcatch');
+ierr = execstr("mode([1 2]);","errcatch");
 if ierr <> 999 then pause,end
 
-ierr = execstr('mode(%t);','errcatch');
+ierr = execstr("mode(%t);","errcatch");
 if ierr <> 999 then pause,end
 
 ref = -1;
@@ -37,4 +37,34 @@ ref = 2;
 mode(ref);
 if ref <> mode() then pause,end
 
+
+function testmode(m)
+    mode(m)
+    // mode comment
+    disp("mode :")
+    m
+    m;
+    a=56
+    b=12;
+    b(1)
+    b(1);
+endfunction
+
+
+testmode(0)
+testmode(-1)
+testmode(2)
+testmode(1)
+testmode(3)
+
+m=0;
+exec(testmode)
+m=-1;
+exec(testmode)
+m=2;
+exec(testmode)
+m=1;
+exec(testmode)
+m=3;
+exec(testmode)
 
