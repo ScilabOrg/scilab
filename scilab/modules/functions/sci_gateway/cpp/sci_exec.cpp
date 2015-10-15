@@ -359,12 +359,17 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
 
         for (ast::exps_t::iterator j = LExp.begin(), itEnd = LExp.end() ; j != itEnd; ++j)
         {
-            // printf some exp
             ast::exps_t::iterator k = j;
+
+            // printf some exp
             int iLastLine = (*j)->getLocation().last_line;
             do
             {
-                str = printExp(*file, *k, stPrompt, &iCurrentLine, &iCurrentCol, str);
+                // mode can be modified in the executed script
+                if (ConfigVariable::getPromptMode() != 0)
+                {
+                    str = printExp(*file, *k, stPrompt, &iCurrentLine, &iCurrentCol, str);
+                }
                 iLastLine = (*k)->getLocation().last_line;
                 k++;
             }
