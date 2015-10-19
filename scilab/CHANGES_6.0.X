@@ -117,6 +117,8 @@ Scilab Bug Fixes
 
 * Bug #14199 fixed - sqrt returned wrong dimension results on matrix with more than dimensions.
 
+* Bug #14204 fixed - dec2bin ( dec2base ) must show a better error message for too large values.
+
 
             Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
             =========================================================
