@@ -15,6 +15,14 @@ package org.scilab.modules.external_objects_java;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.LongBuffer;
+import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,11 +35,12 @@ import java.util.logging.Level;
  *
  * @author Calixte DENIZET
  */
-@SuppressWarnings(value = {"unchecked", "serial"})
+@SuppressWarnings(value = { "unchecked", "serial" })
 public final class ScilabJavaArray {
 
     static final Map<Class, Class> mappings = new HashMap<Class, Class>(8);
     private static final Map<String, Class> baseType = new HashMap<String, Class>(8);
+    static final Map<Class, Class> bufferMappings = new HashMap<Class, Class>(7);
 
     static {
         mappings.put(Double.class, double.class);
@@ -51,13 +60,25 @@ public final class ScilabJavaArray {
         baseType.put("float", float.class);
         baseType.put("char", char.class);
         baseType.put("byte", byte.class);
+
+        bufferMappings.put(DoubleBuffer.class, double.class);
+        bufferMappings.put(IntBuffer.class, int.class);
+        bufferMappings.put(ShortBuffer.class, short.class);
+        bufferMappings.put(ByteBuffer.class, byte.class);
+        bufferMappings.put(CharBuffer.class, char.class);
+        bufferMappings.put(LongBuffer.class, long.class);
+        bufferMappings.put(FloatBuffer.class, float.class);
     }
 
     /**
      * Create a wrapper for a Java Array object
-     * @param className the class to use
-     * @param dims the dimensions of the resulting array
-     * @param the id of the array
+     *
+     * @param className
+     *            the class to use
+     * @param dims
+     *            the dimensions of the resulting array
+     * @param the
+     *            id of the array
      */
     public static int newInstance(String className, int[] dims) throws ScilabJavaException {
         Class cl = null;
@@ -96,8 +117,11 @@ public final class ScilabJavaArray {
 
     /**
      * Get an element in an array
-     * @param array the array
-     * @param index the index of the element to get
+     *
+     * @param array
+     *            the array
+     * @param index
+     *            the index of the element to get
      * @return the element
      */
     public static Object get(Object array, int[] index) throws ScilabJavaException {
@@ -126,9 +150,13 @@ public final class ScilabJavaArray {
 
     /**
      * Set an element in an array
-     * @param array the array
-     * @param index the index of the element to set
-     * @param x the element
+     *
+     * @param array
+     *            the array
+     * @param index
+     *            the index of the element to set
+     * @param x
+     *            the element
      */
     public static void set(Object array, int[] index, Object x) throws ScilabJavaException {
         Object obj = array;
@@ -178,7 +206,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Double array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static double[] toPrimitive(final Double[] a) {
@@ -192,7 +222,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Float array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static float[] toPrimitive(final Float[] a) {
@@ -206,7 +238,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox an Integer array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static int[] toPrimitive(final Integer[] a) {
@@ -220,7 +254,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Character array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static char[] toPrimitive(final Character[] a) {
@@ -234,7 +270,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Double array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static byte[] toPrimitive(final Byte[] a) {
@@ -248,7 +286,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Short array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static short[] toPrimitive(final Short[] a) {
@@ -262,7 +302,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Long array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static long[] toPrimitive(final Long[] a) {
@@ -276,7 +318,9 @@ public final class ScilabJavaArray {
 
     /**
      * Unbox a Boolean array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return an unboxed array
      */
     public static boolean[] toPrimitive(final Boolean[] a) {
@@ -289,9 +333,11 @@ public final class ScilabJavaArray {
     }
 
     /**
-     * Convert a Double (or other type of the same kind) multiarray into a primitive double multiarray.
-     * (Take care: it is not a high performance function !!! if you have a better implementation, send it to me...)
-     * @param the array to convert, allowed types are: Double, Float, Integer, Character, Byte, Boolean, Short, Long
+     * Convert a Double (or other type of the same kind) multiarray into a primitive double multiarray. (Take care: it is not a high performance function !!! if you have a better implementation, send
+     * it to me...)
+     *
+     * @param the
+     *            array to convert, allowed types are: Double, Float, Integer, Character, Byte, Boolean, Short, Long
      * @return the primitive array.
      */
     public static Object toPrimitive(final Object a) {
@@ -319,9 +365,13 @@ public final class ScilabJavaArray {
 
     /**
      * Recursively convert an array Double[][][] into an array double[][][]
-     * @param a the array
-     * @param pos the position in the array types
-     * @param types an array containing the intermediate array class (see getPrimClass)
+     *
+     * @param a
+     *            the array
+     * @param pos
+     *            the position in the array types
+     * @param types
+     *            an array containing the intermediate array class (see getPrimClass)
      * @return the converted array
      */
     private static Object toPrimitive(final Object a, int pos, Class[] types) {
@@ -357,7 +407,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a double array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Double[] fromPrimitive(final double[] a) {
@@ -371,7 +423,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a float array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Float[] fromPrimitive(final float[] a) {
@@ -385,7 +439,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box an int array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Integer[] fromPrimitive(final int[] a) {
@@ -399,7 +455,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a char array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Character[] fromPrimitive(final char[] a) {
@@ -413,7 +471,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a double array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Byte[] fromPrimitive(final byte[] a) {
@@ -427,7 +487,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a short array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Short[] fromPrimitive(final short[] a) {
@@ -441,7 +503,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a long array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Long[] fromPrimitive(final long[] a) {
@@ -455,7 +519,9 @@ public final class ScilabJavaArray {
 
     /**
      * Box a boolean array
-     * @param a an array
+     *
+     * @param a
+     *            an array
      * @return a boxed array
      */
     public static Boolean[] fromPrimitive(final boolean[] a) {
@@ -468,9 +534,11 @@ public final class ScilabJavaArray {
     }
 
     /**
-     * Convert a double (or other type of the same kind) multiarray into a primitive Double multiarray.
-     * (Take care: it is not a high performance function !!! if you have a better implementation, send it to me...)
-     * @param the array to convert, allowed types are: double, float, int, char, byte, boolean, short, long
+     * Convert a double (or other type of the same kind) multiarray into a primitive Double multiarray. (Take care: it is not a high performance function !!! if you have a better implementation, send
+     * it to me...)
+     *
+     * @param the
+     *            array to convert, allowed types are: double, float, int, char, byte, boolean, short, long
      * @return the primitive array.
      */
     public static Object fromPrimitive(final Object a) {
@@ -498,9 +566,13 @@ public final class ScilabJavaArray {
 
     /**
      * Recursively convert an array double[][][] into an array Double[][][]
-     * @param a the array
-     * @param pos the position in the array types
-     * @param types an array containing the intermediate array class (see getPrimClass)
+     *
+     * @param a
+     *            the array
+     * @param pos
+     *            the position in the array types
+     * @param types
+     *            an array containing the intermediate array class (see getPrimClass)
      * @return the converted array
      */
     private static Object fromPrimitive(final Object a, int pos, Class[] types) {
@@ -527,7 +599,9 @@ public final class ScilabJavaArray {
 
     /**
      * Get array base type
-     * @param c the Class
+     *
+     * @param c
+     *            the Class
      * @return the base
      */
     public static Class getArrayBaseType(Class c) {
@@ -541,7 +615,9 @@ public final class ScilabJavaArray {
 
     /**
      * Get array info: base Class and number of dimensions
-     * @param c the Class
+     *
+     * @param c
+     *            the Class
      * @return info
      */
     public static Object[] getArrayInfo(Class c) {
@@ -552,12 +628,14 @@ public final class ScilabJavaArray {
             dims++;
         }
 
-        return new Object[] {base, new Integer(dims)};
+        return new Object[] { base, new Integer(dims) };
     }
 
     /**
      * Get an array of primitive arrays classes. For example, double[][][][] will give {Double[], Double[][], Double[][][]}.
-     * @param c the base class
+     *
+     * @param c
+     *            the base class
      * @return an array of classes
      */
     private static Class[] getFromPrimClasses(Class c) {
@@ -586,7 +664,9 @@ public final class ScilabJavaArray {
 
     /**
      * Get an array of primitive arrays classes. For example, Double[][][][] will give {double[], double[][], double[][][]}.
-     * @param c the base class
+     *
+     * @param c
+     *            the base class
      * @return an array of classes
      */
     private static Class[] getPrimClasses(Class c) {
@@ -615,7 +695,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static byte[] toOneDim(byte[][] x) {
@@ -634,7 +716,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static short[] toOneDim(short[][] x) {
@@ -653,7 +737,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static int[] toOneDim(int[][] x) {
@@ -672,7 +758,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static long[] toOneDim(long[][] x) {
@@ -691,7 +779,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static float[] toOneDim(float[][] x) {
@@ -710,7 +800,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static double[] toOneDim(double[][] x) {
@@ -729,7 +821,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     public static char[] toOneDim(char[][] x) {
@@ -748,7 +842,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a bi-dimensional array into one-dim one
-     * @param x the bi-dim array
+     *
+     * @param x
+     *            the bi-dim array
      * @return a one-dim array
      */
     static Object toOneDim(Object x) {
@@ -780,7 +876,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a one-dimensional array into bi-dim one
-     * @param x the one-dim array
+     *
+     * @param x
+     *            the one-dim array
      * @return a bi-dim array
      */
     static Object toBiDim(Object x) {
@@ -792,7 +890,9 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a one-dimensional array into bi-dim one
-     * @param x the one-dim array
+     *
+     * @param x
+     *            the one-dim array
      * @return a bi-dim array
      */
     static Object singleToOneDim(Class base, Object x) {
@@ -804,6 +904,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static double[] toDoubleArray(List<Double> l) {
@@ -818,6 +919,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static float[] toFloatArray(List<Float> l) {
@@ -832,6 +934,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static byte[] toByteArray(List<Byte> l) {
@@ -846,6 +949,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static short[] toShortArray(List<Short> l) {
@@ -860,6 +964,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static int[] toIntArray(List<Integer> l) {
@@ -874,6 +979,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static long[] toLongArray(List<Long> l) {
@@ -888,6 +994,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static String[] toStringArray(List<String> l) {
@@ -896,6 +1003,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static boolean[] toBooleanArray(List<Boolean> l) {
@@ -910,6 +1018,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static char[] toCharArray(List<Character> l) {
@@ -924,6 +1033,7 @@ public final class ScilabJavaArray {
 
     /**
      * Convert a list to an array of primitive type
+     *
      * @return an array
      */
     public static List toList(Object obj) {
@@ -951,5 +1061,33 @@ public final class ScilabJavaArray {
         l.add(obj);
 
         return l;
+    }
+
+    /**
+     * Convert a buffer to a native array
+     *
+     * @param l
+     *            the buffer
+     * @return the array (back-ed or copied from the buffer)
+     */
+    public static Object toArray(Buffer b) {
+        Object arr;
+
+        if (b.hasArray()) {
+            arr = b.array();
+        } else {
+            // we have to copy things but the `get` method is not available on a Buffer
+            // call it by reflection
+            Class<? extends Buffer> klass = b.getClass();
+            arr = Array.newInstance(bufferMappings.get(klass), b.capacity());
+            try {
+                Method method = klass.getMethod("get", arr.getClass());
+                method.invoke(b, arr);
+            } catch (ReflectiveOperationException e) {
+                arr = b;
+            }
+        }
+
+        return arr;
     }
 }

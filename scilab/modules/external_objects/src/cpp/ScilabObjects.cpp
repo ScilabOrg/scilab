@@ -705,7 +705,7 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
                 getArgumentId(pvItem, childrenIds.data(), false, false, envId, pvApiCtx);
             }
 
-            returnId = wrapper.wrapList(length, childrenIds.data());
+            returnId = wrapper.wrapList(childrenIds.front(), childrenIds.data() + 1);
             tmpvars[++tmpvars[0]] = returnId;
 
             return returnId;
