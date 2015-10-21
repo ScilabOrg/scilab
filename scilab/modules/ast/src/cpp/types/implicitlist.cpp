@@ -335,8 +335,13 @@ bool ImplicitList::toString(std::wostringstream& ostr)
 {
     if (isComputable())
     {
+        bool ret = false;
         types::InternalType* pIT = extractFullMatrix();
-        bool ret = pIT->toString(ostr);
+        while (ret == false)
+        {
+            ret = pIT->toString(ostr);
+        }
+        
         delete pIT;
         return ret;
     }
