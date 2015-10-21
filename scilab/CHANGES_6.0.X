@@ -120,6 +120,8 @@ Scilab Bug Fixes
 
 * Bug #14199 fixed - sqrt returned wrong dimension results on matrix with more than dimensions.
 
+* Bug #14209 fixed - 1:245 created infinite loop.
+
 
             Changes between version 5.5.2 and 6.0.0-alpha-1 of Scilab
             =========================================================
