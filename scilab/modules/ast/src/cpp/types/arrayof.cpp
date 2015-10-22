@@ -894,11 +894,12 @@ InternalType* ArrayOf<T>::remove(typed_list* _pArgs)
         }
     }
 
+    delete[] piNewDims;
+
     if (iNewDimSize == 0)
     {
         //free pArg content
         cleanIndexesArguments(_pArgs, &pArg);
-        delete[] piNewDims;
         return createEmpty();
     }
 
