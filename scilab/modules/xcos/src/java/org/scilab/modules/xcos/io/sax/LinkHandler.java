@@ -30,7 +30,7 @@ class LinkHandler implements ScilabHandler {
 
     /**
      * Default constructor
-     * 
+     *
      * @param saxHandler
      *            the shared sax handler
      */
@@ -45,20 +45,20 @@ class LinkHandler implements ScilabHandler {
         final long uid = saxHandler.controller.createObject(Kind.LINK);
 
         switch (found) {
-        case CommandControlLink:
-            link = new CommandControlLink(uid);
-            saxHandler.controller.setObjectProperty(uid, Kind.LINK, ObjectProperties.KIND, -1);
-            break;
-        case ExplicitLink:
-            link = new ExplicitLink(uid);
-            saxHandler.controller.setObjectProperty(uid, Kind.LINK, ObjectProperties.KIND, 1);
-            break;
-        case ImplicitLink:
-            link = new ImplicitLink(uid);
-            saxHandler.controller.setObjectProperty(uid, Kind.LINK, ObjectProperties.KIND, 2);
-            break;
-        default:
-            throw new IllegalArgumentException();
+            case CommandControlLink:
+                link = new CommandControlLink(uid);
+                saxHandler.controller.setObjectProperty(uid, Kind.LINK, ObjectProperties.KIND, -1);
+                break;
+            case ExplicitLink:
+                link = new ExplicitLink(uid);
+                saxHandler.controller.setObjectProperty(uid, Kind.LINK, ObjectProperties.KIND, 1);
+                break;
+            case ImplicitLink:
+                link = new ImplicitLink(uid);
+                saxHandler.controller.setObjectProperty(uid, Kind.LINK, ObjectProperties.KIND, 2);
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
 
         /*

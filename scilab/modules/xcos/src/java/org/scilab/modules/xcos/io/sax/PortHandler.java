@@ -37,6 +37,7 @@ class PortHandler implements ScilabHandler {
         this.saxHandler = saxHandler;
     }
 
+    @Override
     public BasicPort startElement(HandledElement found, Attributes atts) {
         BasicPort port;
         ObjectProperties relatedProperty;
@@ -143,6 +144,7 @@ class PortHandler implements ScilabHandler {
         return port;
     }
 
+    @Override
     public void endElement(HandledElement found) {
     }
 }
