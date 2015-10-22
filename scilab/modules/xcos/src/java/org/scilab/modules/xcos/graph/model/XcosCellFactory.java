@@ -18,9 +18,8 @@ import static org.scilab.modules.action_binding.highlevel.ScilabInterpreterManag
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
@@ -51,6 +50,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxPoint;
+import com.sun.org.apache.xpath.internal.axes.ChildIterator;
 
 /**
  * Ease the creation of any {@link Kind} of graphical object
@@ -135,7 +135,7 @@ public final class XcosCellFactory {
          * Allocation some pre-sized stash data
          */
         final ArrayList<BasicLink> links = new ArrayList<>(childrenLen / 2);
-        final ArrayList<BasicPort> ports = new ArrayList<>(childrenLen);
+        final HashMap<Long, BasicPort> ports = new HashMap<>(childrenLen);
 
         /*
          * Create the XcosCell objects and store some of them for later use
@@ -151,8 +151,11 @@ public final class XcosCellFactory {
                     BasicBlock b = createBlock(controller, uid, kind);
                     cells[i] = b;
                     BlockPositioning.updatePortsPosition(diagram, b);
-                    b.getTypedChildrenIndexes(BasicPort.class).stream().map(index -> b.getChildAt(index)).filter(c -> c instanceof BasicPort)
-                    .forEach(c -> ports.add((BasicPort) c));
+                    b.getTypedChildrenIndexes(BasicPort.class).stream()
+                    .map(index -> b.getChildAt(index))
+                    .filter(c -> c instanceof BasicPort)
+                    .map(c -> (BasicPort) c)
+                    .forEach(c -> ports.put(c.getUID(), c));
                     break;
                 case LINK:
                     BasicLink l = createLink(controller, uid, kind);
@@ -167,8 +170,6 @@ public final class XcosCellFactory {
         /*
          * Relink the links on the XcosCell part
          */
-        Comparator<XcosCell> compare = (c1, c2) -> (int) (c1.getUID() - c2.getUID());
-        Collections.sort(ports, compare);
         for (BasicLink l : links) {
             long[] src = new long[1];
             controller.getObjectProperty(l.getUID(), l.getKind(), ObjectProperties.SOURCE_PORT, src);
@@ -176,18 +177,20 @@ public final class XcosCellFactory {
             long[] dest = new long[1];
             controller.getObjectProperty(l.getUID(), l.getKind(), ObjectProperties.DESTINATION_PORT, dest);
 
-            int srcIndex = Collections.binarySearch(ports, new XcosCell(src[0], Kind.PORT), compare);
-            if (srcIndex >= 0) {
-                l.setSource(ports.get(srcIndex));
+            BasicPort srcPort = ports.get(src[0]);
+            if (srcPort != null) {
+                l.setSource(srcPort);
             } else {
-                throw new IllegalStateException();
+                //          	  FIXME Commented for the alpha release
+                //              throw new IllegalStateException();
             }
 
-            int destIndex = Collections.binarySearch(ports, new XcosCell(dest[0], Kind.PORT), compare);
-            if (destIndex >= 0) {
-                l.setTarget(ports.get(destIndex));
+            BasicPort destPort = ports.get(dest[0]);;
+            if (destPort != null) {
+                l.setTarget(destPort);
             } else {
-                throw new IllegalStateException();
+                //            	  FIXME Commented for the alpha release
+                //                throw new IllegalStateException();
             }
         }
 
@@ -316,6 +319,12 @@ public final class XcosCellFactory {
          */
         insertPortChildren(controller, block);
 
+        String[] strUID = new String[1];
+        controller.getObjectProperty(block.getUID(), block.getKind(), ObjectProperties.UID, strUID);
+        if (!strUID[0].isEmpty()) {
+            block.setId(strUID[0]);
+        }
+
         String[] style = new String[1];
         controller.getObjectProperty(block.getUID(), block.getKind(), ObjectProperties.STYLE, style);
         if (style[0].isEmpty()) {
@@ -401,9 +410,10 @@ public final class XcosCellFactory {
         VectorOfScicosID modelChildren = new VectorOfScicosID();
         controller.getObjectProperty(parent.getUID(), parent.getKind(), property, modelChildren);
 
-        mxICell[] children = new mxICell[modelChildren.size()];
+        XcosCell[] children = new XcosCell[modelChildren.size()];
         for (int i = 0; i < children.length; i++) {
-            children[i] = createPort(controller, modelChildren.get(i), property);
+            XcosCell child = createPort(controller, modelChildren.get(i), property);
+            children[i] = child;
         }
         Arrays.stream(children).forEach(c -> parent.insert(c));
     }
@@ -425,30 +435,47 @@ public final class XcosCellFactory {
      * @return a newly allocated port
      */
     private static final BasicPort createPort(final JavaController controller, long uid, final ObjectProperties property) {
+        BasicPort port;
         boolean[] isImplicit = { false };
 
         switch (property) {
             case INPUTS:
                 controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.IMPLICIT, isImplicit);
                 if (isImplicit[0]) {
-                    return new ImplicitInputPort(uid);
+                    port = new ImplicitInputPort(uid);
                 } else {
-                    return new ExplicitInputPort(uid);
+                    port = new ExplicitInputPort(uid);
                 }
+                break;
             case OUTPUTS:
                 controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.IMPLICIT, isImplicit);
                 if (isImplicit[0]) {
-                    return new ImplicitOutputPort(uid);
+                    port = new ImplicitOutputPort(uid);
                 } else {
-                    return new ExplicitOutputPort(uid);
+                    port = new ExplicitOutputPort(uid);
                 }
+                break;
             case EVENT_INPUTS:
-                return new ControlPort(uid);
+                port = new ControlPort(uid);
+                break;
             case EVENT_OUTPUTS:
-                return new CommandPort(uid);
+                port = new CommandPort(uid);
+                break;
             default:
                 return null;
         }
+
+        /*
+         * Setup JGraphX properties
+         */
+
+        String[] childUID = new String[1];
+        controller.getObjectProperty(port.getUID(), port.getKind(), ObjectProperties.UID, childUID);
+        if (!childUID[0].isEmpty()) {
+            port.setId(childUID[0]);
+        }
+
+        return port;
     }
 
     /*
@@ -477,6 +504,13 @@ public final class XcosCellFactory {
         /*
          * Synchronize model information back to the JGraphX data
          */
+
+        String[] strUID = new String[1];
+        controller.getObjectProperty(uid, kind, ObjectProperties.UID, strUID);
+        if (!strUID[0].isEmpty()) {
+            link.setId(strUID[0]);
+        }
+
         VectorOfDouble controlPoints = new VectorOfDouble();
         controller.getObjectProperty(uid, kind, ObjectProperties.CONTROL_POINTS, controlPoints);
         final int pointsLen = controlPoints.size() / 2;

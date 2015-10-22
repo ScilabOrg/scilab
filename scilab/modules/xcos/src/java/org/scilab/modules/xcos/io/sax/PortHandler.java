@@ -16,6 +16,7 @@ import org.scilab.modules.xcos.Kind;
 import org.scilab.modules.xcos.ObjectProperties;
 import org.scilab.modules.xcos.VectorOfInt;
 import org.scilab.modules.xcos.VectorOfScicosID;
+import org.scilab.modules.xcos.graph.model.XcosCell;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
@@ -82,6 +83,7 @@ class PortHandler implements ScilabHandler {
 
         v = atts.getValue("id");
         if (v != null) {
+            port.setId(v);
             saxHandler.allChildren.peek().put(v, uid);
         }
 
@@ -139,6 +141,25 @@ class PortHandler implements ScilabHandler {
 
         saxHandler.controller.setObjectProperty(uid, Kind.PORT, ObjectProperties.SOURCE_BLOCK, parent);
         saxHandler.controller.setObjectProperty(parent, Kind.BLOCK, relatedProperty, associatedPorts);
+
+        /*
+         * Associate to the link if possible (reverse linking)
+         */
+        v = atts.getValue("as");
+        if (v != null) {
+            ObjectProperties opposite = null;
+            if ("source".equals(v)) {
+                opposite = ObjectProperties.SOURCE_PORT;
+            } else if ("target".equals(v)) {
+                opposite = ObjectProperties.DESTINATION_PORT;
+            }
+
+            XcosCell cell = saxHandler.lookupForParentXcosCellElement();
+            if (cell.getKind() == Kind.LINK) {
+                saxHandler.controller.setObjectProperty(cell.getUID(), cell.getKind(), opposite, port.getUID());
+                saxHandler.controller.setObjectProperty(port.getUID(), port.getKind(), ObjectProperties.CONNECTED_SIGNALS, cell.getUID());
+            }
+        }
 
         return port;
     }

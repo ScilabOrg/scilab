@@ -53,17 +53,17 @@ public class SAXHandler extends DefaultHandler {
             this.associatedPropertyIndex = associatedPropertyIndex;
         }
 
-        public void resolve(JavaController controller, long v) {
+        public void resolve(JavaController controller, long v, Kind kind) {
             controller.setObjectProperty(owner.getUID(), owner.getKind(), property, v);
 
             if (associatedProperty != null) {
                 VectorOfScicosID associated = new VectorOfScicosID();
-                controller.getObjectProperty(owner.getUID(), owner.getKind(), associatedProperty, associated);
+                controller.getObjectProperty(v, kind, associatedProperty, associated);
 
                 associated.resize(associatedPropertyIndex + 1);
                 associated.set(associatedPropertyIndex, v);
 
-                controller.setObjectProperty(owner.getUID(), owner.getKind(), associatedProperty, associated);
+                controller.setObjectProperty(v, kind, associatedProperty, associated);
             }
         }
     }
