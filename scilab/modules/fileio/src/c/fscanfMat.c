@@ -579,8 +579,37 @@ static double *getDoubleValuesInLine(char *line,
             dValues = (double*)MALLOC(sizeof(double) * nbColumnsMax);
             for (i = 0; i < nbColumnsMax; i++)
             {
+                int ierr = 0;
                 double dValue = 0.;
-                int ierr = sscanf(splittedStr[i], format, &dValue);
+                int pch = strchr(format, "%");
+                switch (format[pch+1])
+                {
+                    case 'd' :
+                    case 'i' :
+                    {
+                        int tmp = 0;
+                        ierr = sscanf(splittedStr[i], format, &tmp);
+                        dValue = tmp;
+                        break;
+                    }
+                    case 'e' :
+                    case 'g' :
+                    case 'f' :
+                    {
+                        float tmp = 0.;
+                        ierr = sscanf(splittedStr[i], format, &tmp);
+                        dValue = tmp;
+                        break;
+                    }
+                    case 'l' :
+                    {
+                        double tmp = 0.;
+                        ierr = sscanf(splittedStr[i], format, &tmp);
+                        dValue = tmp;
+                        break;
+                    }
+                }
+
                 if ((ierr != 0) && (ierr != EOF))
                 {
                     dValues[i] = dValue;
