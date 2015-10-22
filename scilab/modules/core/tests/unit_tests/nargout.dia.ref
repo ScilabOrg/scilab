@@ -1,0 +1,34 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Short Description -->
+// Unit test for nargout
+function varargout = test(a,b)
+    if nargout == 1 then
+        varargout(1) = nargout;
+    elseif nargout == 2 then
+        varargout(1) = nargout;
+        varargout(2) = 1;
+    elseif nargout == 3 then
+        varargout(1) = nargout;
+        varargout(2) = 1;
+        varargout(3) = 2;
+    elseif nargout > 3 then
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "test", 1, 3));
+    end
+endfunction
+res = test(1,2);
+assert_checkequal(res, 1);
+assert_checkequal(test(1,2), 1);
+[res, res2] = test(1,2);
+assert_checkequal(res, 2);
+[res, res2, res3] = test(1,2);
+assert_checkequal(res, 3);
+errmsg = msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "test", 1, 3);
+assert_checkerror("[res, res2, res3, res4]=test(1,2)", errmsg);

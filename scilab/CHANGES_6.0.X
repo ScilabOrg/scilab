@@ -102,6 +102,8 @@ Scilab Bug Fixes
 
 * Bug #14109 fixed - lsq function crashed Scilab when Scilab version depended on mkl library.
 
+* Bug #14110 fixed - nargin and nargout were not documented.
+
 * Bug #14113 fixed - Scilab 6 did not detect infinite loop.
 
 * Bug #14135 fixed - crash when running "Graphics -> Matplot -> Java Image" demonstration.

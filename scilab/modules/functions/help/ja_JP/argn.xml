@@ -92,7 +92,12 @@ endfunction
                 <link linkend="varargin">varargin</link>
                 
             </member>
-            
+            <member>
+                <link linkend="nargin">nargin</link>
+            </member>
+            <member>
+                <link linkend="nargout">nargout</link>
+            </member>
         </simplelist>
         
     </refsection>

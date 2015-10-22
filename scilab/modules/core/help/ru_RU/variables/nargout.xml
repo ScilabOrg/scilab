@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="nargout" xml:lang="ru">
+    <refnamediv>
+        <refname>nargout</refname>
+        <refpurpose>Variable containing the number of output arguments of the function
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            In a function, the <function>nargout</function> variable returns the number of output arguments of this function.
+        </para>
+        <para>
+            Note that, if no output argument is explicitly mentioned, <function>nargout</function> will return 1. See example below.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+function [res1, res2] =test1(a,b)
+    if nargin ~= 2 then
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "test1", 2));
+    end
+    if nargout == 1 then
+        res1 = a+b;
+    elseif nargout == 2 then
+        res1 = a+b;
+        res2 = a-b;
+    end
+    disp(nargout);
+endfunction
+res = test1(1,2);
+test1(1,2); // no output argument is explicitly mentioned
+[res1, res2] = test1(1,2);
+[res1, res2, res3] = test1(1,2); // Error
+
+// Another example, with optional output arguments
+function varargout = test2(a,b)
+    if nargin ~= 2 then
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "test2", 2));
+    end
+    if nargout == 1 then
+        varargout(1) = a+b;
+    elseif nargout == 2 then
+        varargout(1) = a+b;
+        varargout(2) = a-b;
+    else
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "test2", 1, 2));
+    end
+    disp(nargout);
+endfunction
+res = test2(1,2);
+test2(1,2); // no output argument is explicitly mentioned
+[res1, res2] = test2(1,2);
+[res1, res2, res3] = test2(1,2); // Error
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="nargin">nargin</link>
+            </member>
+            <member>
+                <link linkend="argn">argn</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>Variable <function>nargout</function> introduced.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>

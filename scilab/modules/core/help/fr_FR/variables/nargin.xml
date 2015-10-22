@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="nargin" xml:lang="fr">
+    <refnamediv>
+        <refname>nargin</refname>
+        <refpurpose>Variable contenant le nombre d'arguments d'entrée de la fonction appelée
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Dans une fonction, la variable <function>nargin</function> renvoie le nombre d'arguments d'entrée de cette dernière.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Exemples</title>
+        <programlisting role="example"><![CDATA[
+function res=test1(a,b)
+    if nargin ~= 2 then
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "test1", 2));
+    end
+    disp(nargin);
+    res = a+b;
+endfunction
+test1(1,2);
+test1(); // Erreur
+
+// Autre exemple avec des arguments optionnels
+function res = test2(a,b, varargin)
+    if nargin == 3 then
+        c = varargin(1);
+        d = 1;
+    elseif nargin == 4 then
+        c = varargin(1);
+        d = varargin(2);
+    else
+        error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "test2", 3, 4));
+    end
+    disp(nargin);
+    res = a*b+c*d;
+endfunction
+test2(1,2,3);
+test2(1,2,3,4);
+test2(1,2); // Erreur
+        ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>Voir aussi</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="nargout">nargout</link>
+            </member>
+            <member>
+                <link linkend="argn">argn</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>Historique</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revremark>Variable <function>nargin</function> ajoutée.</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
