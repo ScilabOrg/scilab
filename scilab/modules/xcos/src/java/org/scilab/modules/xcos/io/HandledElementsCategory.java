@@ -10,15 +10,8 @@
  *
  */
 
-package org.scilab.modules.xcos.io.sax;
+package org.scilab.modules.xcos.io;
 
-import org.scilab.modules.xcos.io.HandledElement;
-import org.xml.sax.Attributes;
-
-/**
- * Common interface to decode specific content
- */
-interface ScilabHandler {
-    Object startElement(HandledElement found, Attributes atts);
-    void endElement(HandledElement found);
+public enum HandledElementsCategory {
+    JGRAPHX, BLOCK, LINK, PORT, RAW_DATA, CUSTOM
 }

@@ -32,6 +32,7 @@ import org.scilab.modules.xcos.VectorOfString;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.graph.model.ScicosObjectOwner;
 import org.scilab.modules.xcos.graph.model.XcosCell;
+import org.scilab.modules.xcos.io.HandledElement;
 import org.scilab.modules.xcos.io.ScilabTypeCoder;
 import org.scilab.modules.xcos.io.scicos.DiagramElement;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
@@ -61,7 +62,7 @@ class RawDataHandler implements ScilabHandler {
         }
     }
 
-    private final SAXHandler saxHandler;
+    private final XcosSAXHandler saxHandler;
     private final Map<String, ObjectProperties> propertyMap;
 
     /**
@@ -70,7 +71,7 @@ class RawDataHandler implements ScilabHandler {
      * @param saxHandler
      *            the shared sax handler
      */
-    RawDataHandler(SAXHandler saxHandler) {
+    RawDataHandler(XcosSAXHandler saxHandler) {
         this.saxHandler = saxHandler;
 
         Map<String, ObjectProperties> localPropertyMap = new HashMap<>();
@@ -124,7 +125,9 @@ class RawDataHandler implements ScilabHandler {
                     position = Integer.valueOf(v);
                 }
 
-                if (binary && (0 <= position && position < saxHandler.dictionary.size())) {
+                if (binary &&
+                        saxHandler.dictionary != null &&
+                        (0 <= position && position < saxHandler.dictionary.size())) {
                     return new RawDataDescriptor(propertyMap.get(as), found, null, saxHandler.dictionary.get(position));
                 }
 

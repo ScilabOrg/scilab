@@ -9,16 +9,20 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
+package org.scilab.modules.xcos.io.writer;
 
-package org.scilab.modules.xcos.io.sax;
+import org.scilab.modules.xcos.Kind;
 
-import org.scilab.modules.xcos.io.HandledElement;
-import org.xml.sax.Attributes;
+public class LinkWriter extends ScilabWriter {
 
-/**
- * Common interface to decode specific content
- */
-interface ScilabHandler {
-    Object startElement(HandledElement found, Attributes atts);
-    void endElement(HandledElement found);
+    public LinkWriter(XcosWriter writer) {
+        super(writer);
+    }
+
+    @Override
+    public void write(long uid, Kind kind) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
