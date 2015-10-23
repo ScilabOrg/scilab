@@ -13,14 +13,13 @@
 package org.scilab.modules.xcos.io;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
+import java.nio.DoubleBuffer;
+import java.nio.LongBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.scilab.modules.types.ScilabBoolean;
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabInteger;
@@ -32,6 +31,7 @@ import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.types.ScilabTypeEnum;
 import org.scilab.modules.xcos.VectorOfDouble;
+import org.scilab.modules.xcos.VectorOfScicosID;
 
 /**
  * Encode and decode using a var2vec / vec2var compatible encoding.
@@ -77,7 +77,17 @@ public class ScilabTypeCoder {
             value = var;
         }
 
-        return encode(value, new VectorOfDouble());
+        //        System.err.print("var2vec:");
+        //        System.err.print(var.toString());
+        //        System.err.print(":");
+
+        VectorOfDouble vec = new VectorOfDouble();
+        encode(value, vec);
+
+        //        System.err.print(toString(vec));
+        //        System.err.println();
+
+        return vec;
     }
 
     @SuppressWarnings("unchecked")
@@ -125,9 +135,9 @@ public class ScilabTypeCoder {
 
         // specific flag for managing the complex case
         if (var.isReal()) {
-            vec.add(0);
+            vec.add(0f);
         } else {
-            vec.add(1);
+            vec.add(1f);
         }
 
         // push the data
@@ -307,8 +317,8 @@ public class ScilabTypeCoder {
         }
         if (matrix != null) {
             vec.add(2);
-            vec.add(matrix.getWidth());
             vec.add(matrix.getHeight());
+            vec.add(matrix.getWidth());
         } else if (list != null) {
             vec.add(list.size());
         } else {
@@ -330,8 +340,17 @@ public class ScilabTypeCoder {
     public ScilabType vec2var(VectorOfDouble vec) {
         position = 0;
 
+        //        System.err.print("vec2var:");
+        //        System.err.print(toString(vec));
+        //        System.err.print(":");
+
         ScilabType var = decodeHeader(vec);
-        return decode(vec, var);
+        decode(vec, var);
+
+        //        System.err.print(var.toString());
+        //        System.err.println();
+
+        return var;
     }
 
     @SuppressWarnings("unchecked")
@@ -518,6 +537,7 @@ public class ScilabTypeCoder {
             case sci_matrix:
             case sci_boolean:
             case sci_strings:
+                position++; // n-Dims not managed
                 height = (int) vec.get(position++);
                 width = (int) vec.get(position++);
                 break;
@@ -543,31 +563,46 @@ public class ScilabTypeCoder {
         // allocate the right type with the decoded properties
         switch (type) {
             case sci_matrix:
-                return new ScilabDouble(new double[height][width], imagData);
-            case sci_boolean:
-                return new ScilabBoolean(new boolean[height][width]);
-            case sci_ints:
-                switch (ScilabIntegerTypeEnum.swigToEnum(precision)) {
-                    case sci_int8:
-                        return new ScilabInteger(new byte[height][width], false);
-                    case sci_int16:
-                        return new ScilabInteger(new short[height][width], false);
-                    case sci_int32:
-                        return new ScilabInteger(new int[height][width], false);
-                    case sci_int64:
-                        return new ScilabInteger(new long[height][width], false);
-                    case sci_uint8:
-                        return new ScilabInteger(new byte[height][width], true);
-                    case sci_uint16:
-                        return new ScilabInteger(new short[height][width], true);
-                    case sci_uint32:
-                        return new ScilabInteger(new int[height][width], true);
-                    case sci_uint64:
-                        return new ScilabInteger(new long[height][width], true);
-
+                if (height * width == 0) {
+                    return new ScilabDouble();
+                } else {
+                    return new ScilabDouble(new double[height][width], imagData);
                 }
+            case sci_boolean:
+                if (height * width == 0) {
+                    return new ScilabBoolean();
+                } else {
+                    return new ScilabBoolean(new boolean[height][width]);
+                }
+            case sci_ints:
+                if (height * width == 0) {
+                    return new ScilabInteger();
+                } else
+                    switch (ScilabIntegerTypeEnum.swigToEnum(precision)) {
+                        case sci_int8:
+                            return new ScilabInteger(new byte[height][width], false);
+                        case sci_int16:
+                            return new ScilabInteger(new short[height][width], false);
+                        case sci_int32:
+                            return new ScilabInteger(new int[height][width], false);
+                        case sci_int64:
+                            return new ScilabInteger(new long[height][width], false);
+                        case sci_uint8:
+                            return new ScilabInteger(new byte[height][width], true);
+                        case sci_uint16:
+                            return new ScilabInteger(new short[height][width], true);
+                        case sci_uint32:
+                            return new ScilabInteger(new int[height][width], true);
+                        case sci_uint64:
+                            return new ScilabInteger(new long[height][width], true);
+
+                    }
             case sci_strings:
-                return new ScilabString(new String[height][width]);
+                if (height * width == 0) {
+                    return new ScilabString();
+                } else {
+                    return new ScilabString(new String[height][width]);
+                }
             case sci_list:
                 return new ScilabList(Collections.nCopies(listLen, null));
             case sci_mlist:
@@ -578,5 +613,31 @@ public class ScilabTypeCoder {
                 throw new IllegalArgumentException();
 
         }
+    }
+
+    /**
+     * Utility to display a vec on debug
+     *
+     * @param vec the vector to convert
+     * @return a representative string
+     */
+    private static String toString(VectorOfDouble vec) {
+        int len = vec.size();
+        double[] copy = new double[len];
+        DoubleBuffer.wrap(copy).put(vec.asByteBuffer(0, len).asDoubleBuffer());
+        return Arrays.toString(copy);
+    }
+
+    /**
+     * Utility to display a vec on debug
+     *
+     * @param vec the vector to convert
+     * @return a representative string
+     */
+    private static String toString(VectorOfScicosID vec) {
+        int len = vec.size();
+        long[] copy = new long[len];
+        LongBuffer.wrap(copy).put(vec.asByteBuffer(0, len).asLongBuffer());
+        return Arrays.toString(copy);
     }
 }
