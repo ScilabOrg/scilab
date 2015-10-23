@@ -131,6 +131,10 @@ public final class UiDataMessages {
     public static final String SELECTDIR = Messages.gettext("Select a directory");
     public static final String RUNFILTER = Messages.gettext("Run filter");
 
+    public static final String NEWS_FEED = Messages.gettext("News feed");
+    public static final String NEWS_FEED_UNAVAILABLE = Messages.gettext("News feed unavailable.");
+    public static final String NEWS_FEED_CONFIGURATION_ERROR = Messages.gettext("News feed configuration error.");
+
     /** This class is a static singleton, thus it must not be instantiated */
     private UiDataMessages() { }
 
