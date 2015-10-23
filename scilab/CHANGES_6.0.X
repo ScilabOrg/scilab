@@ -21,6 +21,8 @@ Deprecated Behaviors
 Scilab Bug Fixes
 ================
 
+* Bug #10334 fixed - Non regression test for performance regression with for loop.
+
 * Bug #12928 fixed - int functions with %nan and %inf return wrong values.
 
 * Bug #13709 fixed - unique function sometimes returned wrong index values.

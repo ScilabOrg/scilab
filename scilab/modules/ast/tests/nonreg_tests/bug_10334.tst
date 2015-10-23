@@ -1,0 +1,32 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 10334 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/10334
+//
+// <-- Short Description -->
+// Performance regression between Scilab 6 and 5 with for loop
+
+n=1;
+na=1000;
+A=rand(na,na);
+b=rand(na,1);
+tic();
+for ib=1:n
+    [ia ja]=size(A);
+    c=zeros(ia,1);
+    for i=1:ia
+        for j=1:ja
+            c(i)=A(i,j)*b(j);
+        end
+    end
+end
+t = toc();
+assert_checktrue(t < 12);
