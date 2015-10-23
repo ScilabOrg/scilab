@@ -272,7 +272,11 @@ public final class XcosCellFactory {
 
     private static BasicBlock createBlock(final JavaController controller, long uid, Kind kind) {
         String[] interfaceFunction = new String[1];
-        controller.getObjectProperty(uid, kind, ObjectProperties.INTERFACE_FUNCTION, interfaceFunction);
+        if (kind == Kind.BLOCK) {
+            controller.getObjectProperty(uid, kind, ObjectProperties.INTERFACE_FUNCTION, interfaceFunction);
+        } else { // ANNOTATION
+            interfaceFunction[0] = "TEXT_f";
+        }
 
         final BlockInterFunction func = lookForInterfunction(interfaceFunction[0]);
 
@@ -317,8 +321,12 @@ public final class XcosCellFactory {
 
         /*
          * Synchronize model information back to the JGraphX data
+         *
+         * Annotations have no inputs/outputs
          */
-        insertPortChildren(controller, block);
+        if (block.getKind() == Kind.BLOCK) {
+            insertPortChildren(controller, block);
+        }
 
         String[] strUID = new String[1];
         controller.getObjectProperty(block.getUID(), block.getKind(), ObjectProperties.UID, strUID);
