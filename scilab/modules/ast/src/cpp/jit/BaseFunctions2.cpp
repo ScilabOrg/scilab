@@ -85,51 +85,56 @@ extern "C"
 
     void printI8(const int8_t x)
     {
-	std::wcerr << "Int8: " << (int64_t)x << std::endl;
+        std::wcerr << "Int8: " << (int64_t)x << std::endl;
     }
-    
+
     void printUI8(const uint8_t x)
     {
-	std::wcerr << "UInt8: " << (uint64_t)x << std::endl;
+        std::wcerr << "UInt8: " << (uint64_t)x << std::endl;
     }
 
     void printI16(const int16_t x)
     {
-	std::wcerr << "Int16: " << (int64_t)x << std::endl;
+        std::wcerr << "Int16: " << (int64_t)x << std::endl;
     }
-    
+
     void printUI16(const uint16_t x)
     {
-	std::wcerr << "UInt16: " << (uint64_t)x << std::endl;
+        std::wcerr << "UInt16: " << (uint64_t)x << std::endl;
     }
 
     void printI32(const int32_t x)
     {
-	std::wcerr << "Int32: " << (int64_t)x << std::endl;
+        std::wcerr << "Int32: " << (int64_t)x << std::endl;
     }
-    
+
     void printUI32(const uint32_t x)
     {
-	std::wcerr << "UInt32: " << (uint64_t)x << std::endl;
+        std::wcerr << "UInt32: " << (uint64_t)x << std::endl;
     }
 
     void printI64(const int64_t x)
     {
-	std::wcerr << "Int64: " << x << std::endl;
+        std::wcerr << "Int64: " << x << std::endl;
     }
-    
+
     void printUI64(const uint64_t x)
     {
-	std::wcerr << "UInt64: " << x << std::endl;
+        std::wcerr << "UInt64: " << x << std::endl;
     }
 
     void printB(const int32_t x)
     {
-	std::wcerr << "Bool: " << (x != 0) << std::endl;
+        std::wcerr << "Bool: " << (x != 0) << std::endl;
     }
 
     void printD(const double x)
     {
-	std::wcerr << "Dble: " << x << std::endl;
+        std::wcerr << "Dble: " << x << std::endl;
+    }
+
+    void printPtr(const uint8_t * x)
+    {
+        std::wcerr << "Ptr: " << (void *)x << "  " << (uintptr_t)x << std::endl;
     }
 }
