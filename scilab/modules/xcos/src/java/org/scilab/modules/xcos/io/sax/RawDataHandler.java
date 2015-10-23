@@ -421,11 +421,20 @@ class RawDataHandler implements ScilabHandler {
                             }
                             return;
                         }
-                        ScilabDouble value = (ScilabDouble) fieldValue.value;
 
-                        VectorOfDouble vec = new VectorOfDouble(value.getHeight());
-                        for (int i = 0; i < value.getHeight(); i++) {
-                            vec.set(i, value.getRealElement(i, 0));
+                        VectorOfDouble vec;
+                        if (fieldValue.value instanceof ScilabString) {
+                            /*
+                             * This seems to be a corner-case used for code generation on ScicosLab
+                             */
+                            vec = new VectorOfDouble(0);
+                        } else {
+                            ScilabDouble value = (ScilabDouble) fieldValue.value;
+
+                            vec = new VectorOfDouble(value.getHeight());
+                            for (int i = 0; i < value.getHeight(); i++) {
+                                vec.set(i, value.getRealElement(i, 0));
+                            }
                         }
 
                         saxHandler.controller.setObjectProperty(cell.getUID(), cell.getKind(), fieldValue.as, vec);
