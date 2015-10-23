@@ -1409,6 +1409,35 @@ SWIGEXPORT jlong JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controll
 }
 
 
+SWIGEXPORT void JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1sortAndFillKind(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
+  std::vector< ScicosID > arg2 ;
+  std::vector< int > arg3 ;
+  std::vector< ScicosID > *argp2 ;
+  std::vector< int > *argp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
+  argp2 = *(std::vector< ScicosID > **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< ScicosID >");
+    return ;
+  }
+  arg2 = *argp2; 
+  argp3 = *(std::vector< int > **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< int >");
+    return ;
+  }
+  arg3 = *argp3; 
+  (arg1)->sortAndFillKind(arg2,arg3);
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1getObjectProperty_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jintArray jarg5) {
   jboolean jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;

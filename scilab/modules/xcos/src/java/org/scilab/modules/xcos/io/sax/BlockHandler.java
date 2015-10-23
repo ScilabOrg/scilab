@@ -34,17 +34,18 @@ import org.scilab.modules.xcos.block.positionning.RoundBlock;
 import org.scilab.modules.xcos.block.positionning.Summation;
 import org.scilab.modules.xcos.block.positionning.VoltageSensorBlock;
 import org.scilab.modules.xcos.graph.model.BlockInterFunction;
+import org.scilab.modules.xcos.io.HandledElement;
 import org.xml.sax.Attributes;
 
 class BlockHandler implements ScilabHandler {
 
-    private final SAXHandler saxHandler;
+    private final XcosSAXHandler saxHandler;
 
     /**
      * Default constructor
      * @param saxHandler the shared sax handler
      */
-    BlockHandler(SAXHandler saxHandler) {
+    BlockHandler(XcosSAXHandler saxHandler) {
         this.saxHandler = saxHandler;
     }
 

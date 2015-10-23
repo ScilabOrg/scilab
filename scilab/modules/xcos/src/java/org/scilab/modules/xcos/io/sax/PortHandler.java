@@ -20,7 +20,8 @@ import org.scilab.modules.xcos.VectorOfInt;
 import org.scilab.modules.xcos.VectorOfScicosID;
 import org.scilab.modules.xcos.graph.model.ScicosObjectOwner;
 import org.scilab.modules.xcos.graph.model.XcosCell;
-import org.scilab.modules.xcos.io.sax.SAXHandler.UnresolvedReference;
+import org.scilab.modules.xcos.io.HandledElement;
+import org.scilab.modules.xcos.io.sax.XcosSAXHandler.UnresolvedReference;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
@@ -32,13 +33,13 @@ import org.xml.sax.Attributes;
 
 class PortHandler implements ScilabHandler {
 
-    private final SAXHandler saxHandler;
+    private final XcosSAXHandler saxHandler;
 
     /**
      * Default constructor
      * @param saxHandler the shared sax handler
      */
-    PortHandler(SAXHandler saxHandler) {
+    PortHandler(XcosSAXHandler saxHandler) {
         this.saxHandler = saxHandler;
     }
 

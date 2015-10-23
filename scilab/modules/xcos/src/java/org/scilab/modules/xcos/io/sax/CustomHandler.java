@@ -26,14 +26,15 @@ import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.model.ScicosObjectOwner;
 import org.scilab.modules.xcos.graph.model.XcosCell;
 import org.scilab.modules.xcos.graph.model.XcosCellFactory;
-import org.scilab.modules.xcos.io.sax.SAXHandler.UnresolvedReference;
+import org.scilab.modules.xcos.io.HandledElement;
+import org.scilab.modules.xcos.io.sax.XcosSAXHandler.UnresolvedReference;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.Orientation;
 import org.xml.sax.Attributes;
 
 class CustomHandler implements ScilabHandler {
 
-    private final SAXHandler saxHandler;
+    private final XcosSAXHandler saxHandler;
 
     /**
      * Default constructor
@@ -41,7 +42,7 @@ class CustomHandler implements ScilabHandler {
      * @param saxHandler
      *            the shared sax handler
      */
-    CustomHandler(SAXHandler saxHandler) {
+    CustomHandler(XcosSAXHandler saxHandler) {
         this.saxHandler = saxHandler;
     }
 

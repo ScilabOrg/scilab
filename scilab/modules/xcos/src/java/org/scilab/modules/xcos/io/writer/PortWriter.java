@@ -9,9 +9,20 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
+package org.scilab.modules.xcos.io.writer;
 
-package org.scilab.modules.xcos.io.sax;
+import org.scilab.modules.xcos.Kind;
 
-enum HandledElementsCategory {
-    JGRAPHX, BLOCK, LINK, PORT, RAW_DATA, CUSTOM
+public class PortWriter extends ScilabWriter {
+
+    public PortWriter(XcosWriter writer) {
+        super(writer);
+    }
+
+    @Override
+    public void write(long uid, Kind kind) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
