@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<newsfeed>
+   <url>http://www.scilab.org/rss/feed/news</url>
+   <newsChangeTimeInterval>30</newsChangeTimeInterval>
+   <feedUpdateTimeInterval>14400</feedUpdateTimeInterval>
+</newsfeed>
