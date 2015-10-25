@@ -19,6 +19,7 @@ namespace ast {
 template<class T>
 void RunVisitorT<T>::visitprivate(const MatrixExp &e)
 {
+    coverage::CoverModule::invokeAndStartChrono(e);
     try
     {
         exps_t::const_iterator row;
@@ -30,6 +31,7 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
         if (lines.size() == 0)
         {
             setResult(types::Double::Empty());
+	    coverage::CoverModule::invokeAndStartChrono(e);
             return;
         }
 
@@ -47,6 +49,7 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 {
                     setResult(types::Double::Empty());
                 }
+		coverage::CoverModule::invokeAndStartChrono(e);
                 return;
             }
         }
@@ -409,8 +412,10 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
     catch (const InternalError& error)
     {
         setResult(NULL);
+	coverage::CoverModule::invokeAndStartChrono(e);
         throw error;
     }
+    coverage::CoverModule::invokeAndStartChrono(e);
 }
 
 template<class T>

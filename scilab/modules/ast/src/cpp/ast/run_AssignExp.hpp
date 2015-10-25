@@ -16,6 +16,7 @@ namespace ast {
     template<class T>
     void RunVisitorT<T>::visitprivate(const AssignExp  &e)
     {
+	coverage::CoverModule::invokeAndStartChrono(e);
         symbol::Context* ctx = symbol::Context::getInstance();
         /*Create local exec visitor*/
         try
@@ -79,6 +80,7 @@ namespace ast {
                     }
 
                     setResult(NULL);
+		    coverage::CoverModule::stopChrono(e);
                     return;
                 }
 
@@ -121,6 +123,7 @@ namespace ast {
                     ostrName << wstrName;
                     VariableToString(pIT, ostrName.str().c_str());
                 }
+		coverage::CoverModule::stopChrono(e);
                 return;
             }
 
@@ -209,7 +212,8 @@ namespace ast {
                     os << _W("Invalid Index.\n");
                     throw ast::InternalError(os.str(), 999, e.getRightExp().getLocation());
                 }
-
+		
+		coverage::CoverModule::stopChrono(e);
                 return;
             }
 
@@ -366,6 +370,8 @@ namespace ast {
                 }
 
                 clearResult();
+		coverage::CoverModule::stopChrono(e);
+		
                 return;
             }
 
@@ -421,6 +427,7 @@ namespace ast {
 
                 delete[] pIT;
                 exec.clearResult();
+		coverage::CoverModule::stopChrono(e);
                 return;
             }
 
@@ -505,6 +512,7 @@ namespace ast {
                 }
 
                 clearResult();
+		coverage::CoverModule::stopChrono(e);
                 return;
             }
 
@@ -515,8 +523,11 @@ namespace ast {
         }
         catch (const InternalError& error)
         {
+	    coverage::CoverModule::stopChrono(e);
             throw error;
         }
+
+	coverage::CoverModule::stopChrono(e);
     }
 
 } /* namespace ast */
