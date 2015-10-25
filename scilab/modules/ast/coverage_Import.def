@@ -1,0 +1,7 @@
+LIBRARY    coverage.dll
+
+
+EXPORTS
+CoverModule_invoke
+CoverModule_invokeAndStartChrono
+CoverModule_stopChrono
