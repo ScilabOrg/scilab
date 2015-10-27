@@ -44,9 +44,22 @@ class PortHandler implements ScilabHandler {
 
     @Override
     public BasicPort startElement(HandledElement found, Attributes atts) {
+        String v;
         BasicPort port;
         ObjectProperties relatedProperty;
-        final long uid = saxHandler.controller.createObject(Kind.PORT);
+
+        /*
+         * First, check if the port has already been defined. Otherwise, create the object in the model
+         */
+        v = atts.getValue("id");
+        long uid = 0;
+        if (v != null) {
+            if (saxHandler.allChildren.peek().containsKey(v)) {
+                uid = saxHandler.allChildren.peek().get(v);
+            } else {
+                uid = saxHandler.controller.createObject(Kind.PORT);
+            }
+        }
 
         /*
          * Allocate the port with the right class to set default properties
@@ -84,8 +97,6 @@ class PortHandler implements ScilabHandler {
         /*
          * Setup the properties
          */
-        String v;
-
         v = atts.getValue("id");
         if (v != null) {
             port.setId(v);
