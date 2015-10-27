@@ -11,7 +11,7 @@
  *
  */
 
-#include "types_gw.hxx"
+#include "core_gw.hxx"
 #include "function.hxx"
 #include "tlist.hxx"
 #include "sci_tlist_or_mlist.hxx"
