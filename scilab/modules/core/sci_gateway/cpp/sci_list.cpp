@@ -10,7 +10,7 @@
  *
  */
 
-#include "types_gw.hxx"
+#include "core_gw.hxx"
 #include "list.hxx"
 #include "function.hxx"
 
@@ -18,7 +18,7 @@ types::Function::ReturnValue sci_list(types::typed_list &in, int _piRetCount, ty
 {
     types::List *pRetVal = new types::List();
 
-    for (const auto& it : in)
+    for (const auto & it : in)
     {
         pRetVal->append((it));
     }
