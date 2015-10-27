@@ -17,6 +17,7 @@ Deprecated Behaviors
 
 * <-- JVM NOT MANDATORY --> is obsolete, use <-- CLI SHELL MODE --> instead.
 
+* operations with empty matrix now retrun an empty matrix.
 
 Scilab Bug Fixes
 ================
