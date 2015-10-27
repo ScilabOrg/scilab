@@ -23,6 +23,11 @@ extern "C"
 
 types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
+    symbol::Context* pContext = symbol::Context::getInstance();
+
+    static symbol::Variable* nargin = pContext->getOrCreate(symbol::Symbol(L"nargin"));
+    static symbol::Variable* nargout = pContext->getOrCreate(symbol::Symbol(L"nargout"));
+
     int iRhs = static_cast<int>(in.size());
     //check input arguments
     if (iRhs > 1)
@@ -38,38 +43,10 @@ types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, typ
         return types::Function::Error;
     }
 
-    //check input arguments types
-    for (int i = 0 ; i < in.size() ; i++)
-    {
-        if (in[i]->isDouble() == false)
-        {
-            Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), "argn", i + 1);
-            return types::Function::Error;
-        }
-        else
-        {
-            if (in[i]->getAs<types::Double>()->getSize() != 1)
-            {
-                Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), "argn", i + 1);
-                return types::Function::Error;
-            }
-            else
-            {
-                if (in[i]->getAs<types::Double>()->isComplex())
-                {
-                    Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), "argn", i + 1);
-                    return types::Function::Error;
-                }
-            }
-        }
-    }
+    types::InternalType* pIn = nargin->empty() ? nullptr : nargin->top()->m_pIT;
+    types::InternalType* pOut = nargout->empty() ? nullptr : nargout->top()->m_pIT;
 
-    symbol::Context* pContext = symbol::Context::getInstance();
-
-    types::InternalType* pIn = pContext->get(symbol::Symbol(L"nargin"));
-    types::InternalType* pOut = pContext->get(symbol::Symbol(L"nargout"));
-
-    if (pIn == NULL || pOut == NULL)
+    if (pIn == nullptr || pOut == nullptr)
     {
         out.push_back(types::Double::Empty());
         if (_iRetCount == 2)
@@ -79,45 +56,66 @@ types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, typ
     }
     else
     {
-        if (iRhs == 0 && _iRetCount == 1)
+        switch (iRhs)
         {
-            //arng() returns lhs
-            out.push_back(pOut);
-        }
-        else if (iRhs == 0 && _iRetCount == 2)
-        {
-            //[a,b] = arng() returns lhs and rhs
-            out.push_back(pOut);
-            out.push_back(pIn);
-        }
-        else if (iRhs == 1)
-        {
-            //argn(x)
-            double dblVal = in[0]->getAs<types::Double>()->getReal(0, 0);
-            if (dblVal == 1)
+            case 0:
             {
-                //x == 1 returns lhs
-                out.push_back(pOut);
-            }
-            else if (dblVal == 2)
-            {
-                //x == 2returns rhs
-                out.push_back(pIn);
-            }
-            else if (dblVal == 0)
-            {
-                //x == 0 returns lhs
-                out.push_back(pOut);
-                if (_iRetCount == 2)
+                if (_iRetCount == 1)
                 {
-                    //[a,b] = argn(0) returns lhs ans rhs
+                    //argn() returns lhs
+                    out.push_back(pOut);
+                }
+                else// if (_iRetCount == 2)
+                {
+                    //[a,b] = argn() returns lhs and rhs
+                    out.push_back(pOut);
                     out.push_back(pIn);
                 }
+
+                break;
             }
-            else
+            case 1:
             {
-                Scierror(999, _("%s: Wrong value for input argument #%d: '%s', '%s' or '%s'.\n"), "argn", 1, "0", "1", "2");
-                return types::Function::Error;
+                //check input argument types
+                types::Double* input = in[0]->getAs<types::Double>();
+                if (input->getId() != types::InternalType::IdScalarDouble)
+                {
+                    Scierror(999, _("%s: Wrong type for input argument #%d: A real scalar expected.\n"), "argn", 1);
+                    return types::Function::Error;
+                }
+
+                int val = static_cast<int>(input->get()[0]);
+                switch (val)
+                {
+                    case 1:
+                    {
+                        //returns lhs
+                        out.push_back(pOut);
+                        break;
+                    }
+                    case 2:
+                    {
+                        //returns rhs
+                        out.push_back(pIn);
+                        break;
+                    }
+                    case 0:
+                    {
+                        //returns lhs
+                        out.push_back(pOut);
+                        if (_iRetCount == 2)
+                        {
+                            //[a,b] = argn(0) returns lhs ans rhs
+                            out.push_back(pIn);
+                        }
+                        break;
+                    }
+                    default:
+                    {
+                        Scierror(999, _("%s: Wrong value for input argument #%d: '%s', '%s' or '%s'.\n"), "argn", 1, "0", "1", "2");
+                        return types::Function::Error;
+                    }
+                }
             }
         }
     }
