@@ -17,6 +17,7 @@
 #include "output/SLintXmlResult.hxx"
 #include "output/cnes/CNESResult.hxx"
 #include "checkers/SLintChecker.hxx"
+#include "FileException.hxx"
 #include "SLint.hxx"
 #include "SciFile.hxx"
 #include "UTF8.hxx"
@@ -60,6 +61,7 @@ CNESResult::CNESResult(types::String * conf, const std::wstring & id, const std:
     {
         delete out;
         out = nullptr;
+        throw FileException(fullpath, L"Can\'t open it.");
     }
     else
     {
