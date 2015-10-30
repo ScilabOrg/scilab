@@ -448,12 +448,12 @@ private:
         return SUCCESS;
     }
 
-    void getEquations(std::vector<std::string>& data) const
+    void getEquations(std::vector<double>& data) const
     {
         data = m_equations;
     }
 
-    update_status_t setEquations(const std::vector<std::string>& data)
+    update_status_t setEquations(const std::vector<double>& data)
     {
         if (data == m_equations)
         {
@@ -725,7 +725,7 @@ private:
     std::string m_style;
     std::vector<int> m_nzcross;
     std::vector<int> m_nmode;
-    std::vector<std::string> m_equations;
+    std::vector<double> m_equations;
     std::string m_uid;
 
     Descriptor m_sim;
