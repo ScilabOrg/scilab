@@ -2302,5 +2302,4 @@ int isNamedMListType(void* _pvCtx, const char* _pstName)
 {
     return checkNamedVarType(_pvCtx, _pstName, sci_mlist);
 }
-
 /*--------------------------------------------------------------------------*/
