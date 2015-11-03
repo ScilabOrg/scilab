@@ -506,10 +506,6 @@ public final class Xcos {
                 addDiagram(diag.getUID(), diag);
             }
         }
-
-        if (diag != null) {
-            diag.updateTabTitle();
-        }
     }
 
     /**
@@ -593,6 +589,26 @@ public final class Xcos {
         // insert the diagram
         diags.add(diag);
     }
+
+    /**
+     * Add a diagram to the opened  list
+     *
+     * This method manage both super-block and root diagrams.
+     * @param diag the diagram to add
+     */
+    public void addDiagram(final XcosDiagram diag) {
+        if (diag.getKind() == Kind.DIAGRAM) {
+            addDiagram(diag.getUID(), diag);
+        } else {
+            long[] root = new long[1];
+            new JavaController().getObjectProperty(diag.getUID(), diag.getKind(), ObjectProperties.PARENT_DIAGRAM, root);
+
+            addDiagram(root[0], diag);
+        }
+
+    }
+
+
 
     /**
      * Create a diagram collections (sorted List)
@@ -687,6 +703,8 @@ public final class Xcos {
         final boolean wasLastOpenedForFile = openedDiagrams(rootDiagram[0]).size() <= 1;
         if (wasLastOpenedForFile) {
             diagrams.remove(rootDiagram[0]);
+        } else {
+            diagrams.get(rootDiagram[0]).remove(graph);
         }
 
         if (openedDiagrams().size() <= 0) {
