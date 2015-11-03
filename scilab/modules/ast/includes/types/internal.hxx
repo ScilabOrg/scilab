@@ -61,7 +61,7 @@ class EXTERN_AST InternalType
 public :
     enum ScilabType
     {
-        ScilabNull, //no type, no data, nothing !
+        ScilabNull = 0, //no type, no data, nothing !
         /* Internal Type */
         ScilabInternal,
         /* Generic Types */

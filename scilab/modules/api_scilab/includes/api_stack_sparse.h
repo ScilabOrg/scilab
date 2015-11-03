@@ -9,11 +9,11 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 
-#ifndef __SPARSE_API__
-#define __SPARSE_API__
+#ifndef __STACK_SPARSE_API__
+#define __STACK_SPARSE_API__
 
 #if !defined(__INTERNAL_API_SCILAB__)
-#error Do not include api_sparse.h. Include api_scilab.h instead.
+#error Do not include api_stack_sparse.h. Include api_scilab.h instead.
 #endif
 
 #ifdef __cplusplus
@@ -252,4 +252,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* __SPARSE_API__ */
+#endif /* __STACK_SPARSE_API__ */
