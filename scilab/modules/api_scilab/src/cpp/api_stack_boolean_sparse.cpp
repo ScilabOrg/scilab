@@ -25,7 +25,7 @@ extern "C"
 #include "call_scilab.h"
 #include "core_math.h"
 #include "api_internal_common.h"
-#include "api_boolean_sparse.h"
+#include "api_stack_boolean_sparse.h"
 #include "api_internal_boolean_sparse.h"
 #include "localization.h"
 }
