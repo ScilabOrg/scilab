@@ -23,9 +23,9 @@
         </refsection>
         <title>Calling Sequence</title>
         <para>Input argument profile:</para>
-        <synopsis>SciErr createPointer(void* _pvCtx, int _iVar, void* _pvPtr)</synopsis>
+        <synopsis>SciErr createPointer(void* _pvCtx, int _iVar, const void* _pvPtr)</synopsis>
         <para>Named variable profile:</para>
-        <synopsis>SciErr createNamedPointer(void* _pvCtx, const char* _pstName, void** _pvPtr)</synopsis>
+        <synopsis>SciErr createNamedPointer(void* _pvCtx, const char* _pstName, void const** _pvPtr)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -150,7 +150,7 @@ int read_pointer(char *fname,unsigned long fname_len)
 	{//read mode
 		int iType			= 0;
 		int* piAddr			= NULL;
-		void* pvPtr			= NULL;
+		const void* pvPtr	= NULL;
 		double* pdblData	= NULL;
 		sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
 		if(sciErr.iErr)
