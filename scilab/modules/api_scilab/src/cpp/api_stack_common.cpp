@@ -20,6 +20,7 @@
 #include "gatewaystruct.hxx"
 #include "double.hxx"
 #include "polynom.hxx"
+#include "list.hxx"
 #include "overload.hxx"
 #include "context.hxx"
 #include "symbol.hxx"

@@ -870,4 +870,3 @@ void freeAllocatedMatrixOfWideString(int _iRows, int _iCols, wchar_t** _pwstData
     }
     FREE(_pwstData);
 }
-/*--------------------------------------------------------------------------*/
