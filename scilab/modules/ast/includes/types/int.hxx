@@ -483,6 +483,7 @@ private :
         const static bool value = true;
     };
 
+    public:
     bool isInt8()
     {
         return is_same_int<T, char>::value;
