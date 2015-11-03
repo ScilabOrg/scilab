@@ -9,18 +9,16 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 
-#ifndef __BOOLEAN_SPARSE_API__
-#define __BOOLEAN_SPARSE_API__
+#ifndef __STACK_BOOLEAN_SPARSE_API__
+#define __STACK_BOOLEAN_SPARSE_API__
 
 #if !defined(__INTERNAL_API_SCILAB__)
-#error Do not include api_boolean_sparse.h. Include api_scilab.h instead.
+#error Do not include api_stack_boolean_sparse.h. Include api_scilab.h instead.
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "dynlib_api_scilab.h"
 
     /*******************************/
     /*   boolean sparse functions  */
@@ -135,4 +133,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* __BOOLEAN_SPARSE_API__ */
+#endif /* __STACK_BOOLEAN_SPARSE_API__ */
