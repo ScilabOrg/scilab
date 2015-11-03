@@ -9,18 +9,18 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 
-#ifndef __HYPERMAT_API__
-#define __HYPERMAT_API__
+#ifndef __STACK_HYPERMAT_API__
+#define __STACK_HYPERMAT_API__
 
 #if !defined(__INTERNAL_API_SCILAB__)
-#error Do not include api_hypermat.h. Include api_scilab.h instead.
+#error Do not include api_stack_hypermat.h. Include api_scilab.h instead.
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "api_common.h"
+#include "api_stack_common.h"
 
 /**************************************/
 /*   Hypermatrices matrix functions   */
@@ -347,4 +347,4 @@ SciErr createHypermatOfUnsignedInteger64(void *_pvCtx, int _iVar, int * _dims, i
 #ifdef __cplusplus
 }
 #endif
-#endif /* __HYPERMAT_API__ */
+#endif /* __STACK_HYPERMAT_API__ */
