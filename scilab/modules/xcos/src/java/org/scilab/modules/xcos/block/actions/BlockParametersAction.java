@@ -13,14 +13,25 @@
 
 package org.scilab.modules.xcos.block.actions;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.VertexSelectionDependantAction;
 import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfScicosID;
+import org.scilab.modules.xcos.Xcos;
+import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.graph.model.BlockInterFunction;
+import org.scilab.modules.xcos.graph.model.XcosCell;
+import org.scilab.modules.xcos.graph.model.XcosCellFactory;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -66,12 +77,37 @@ public class BlockParametersAction extends VertexSelectionDependantAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (((XcosDiagram) getGraph(null)).getSelectionCell() != null) {
-            XcosDiagram diagram = (XcosDiagram) getGraph(null);
+        XcosDiagram diag = (XcosDiagram) getGraph(null);
+        Object selectedCell = diag.getSelectionCell();
+        if (selectedCell != null && selectedCell instanceof XcosCell) {
+            XcosCell cell = (XcosCell) selectedCell;
 
-            // FIXME implement something using the XcosView
-            //            ((BasicBlock) diagram.getSelectionCell()).openBlockSettings(diagram
-            //                    .getContext());
+            if (cell.getKind() != Kind.BLOCK) {
+                return;
+            }
+
+            JavaController controller = new JavaController();
+
+            String[] interfaceFunction = new String[1];
+            controller.getObjectProperty(cell.getUID(), cell.getKind(), ObjectProperties.INTERFACE_FUNCTION, interfaceFunction);
+
+            BlockInterFunction func = XcosCellFactory.lookForInterfunction(interfaceFunction[0]);
+            if (func.equals(BlockInterFunction.SUPER_f)) {
+                // this is a super-block, open it
+                XcosDiagram sub = new XcosDiagram(cell.getUID(), cell.getKind());
+
+                XcosTab.restore(sub, true);
+                Xcos.getInstance().addDiagram(sub);
+            } else {
+                // open the parameters of the block
+                diag.setCellsLocked(true);
+                diag.getAsComponent().getGraphControl().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+
+
+            }
+
+
         }
     }
 
