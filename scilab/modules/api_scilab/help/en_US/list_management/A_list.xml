@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2015  - Scilab Enterprises - Antoine ELIAS
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="api_list" xml:lang="en">
+    <refnamediv>
+        <refname>API list-type functions</refname>
+        <para>This page lists all the functions to manipulate Scilab native lists.</para>
+        <para></para>
+    </refnamediv>
+    <refsynopsisdiv>
+        <literal><link linkend="scilabVar"><command>scilabVar</command></link> <varname>scilab_createList</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env)</literal>
+        <para>Create a list.</para>
+        <para></para>
+        <literal><link linkend="scilabVar"><command>scilabVar</command></link> <varname>scilab_createTList</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env)</literal>
+        <para>Create a tlist.</para>
+        <para></para>
+        <literal><link linkend="scilabVar"><command>scilabVar</command></link> <varname>scilab_createMList</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env)</literal>
+        <para>Create a mlist.</para>
+        <para></para>
+        <literal><link linkend="scilabVar"><command>scilabVar</command></link> <varname>scilab_getListItem</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, int index)</literal>
+        <para>Get item at position <varname>index</varname> from list-type variable <varname>var</varname>.</para>
+        <para></para>
+        <literal><link linkend="scilabStatus"><command>scilabStatus</command></link> <varname>scilab_setListItem</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, int index, const <link linkend="scilabVar"><command>scilabVar</command></link> val)</literal>
+        <para>set item <varname>val</varname> at position <varname>index</varname> in list-type variable <varname>var</varname>.</para>
+        <para></para>
+        <literal>int <varname>scilab_getTListFieldNames</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const wchar_t*** fieldnames)</literal>
+        <para>Get fields names of tlist variable <varname>var</varname> and return size.</para>
+        <para></para>
+        <literal><link linkend="scilabVar"><command>scilabVar</command></link> <varname>scilab_getTListField</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const wchar_t* field)</literal>
+        <para>Get <varname>field</varname> value of tlist variable <varname>var</varname>.</para>
+        <para></para>
+        <literal><link linkend="scilabStatus"><command>scilabStatus</command></link> <varname>scilab_setTListField</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const wchar_t* field, const <link linkend="scilabVar"><command>scilabVar</command></link> val)</literal>
+        <para>Set <varname>field</varname> value of tlist variable <varname>var</varname>.</para>
+        <para></para>
+        <literal>int <varname>scilab_getTMistFieldNames</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const wchar_t*** fieldnames)</literal>
+        <para>Get fields names of mlist variable <varname>var</varname> and return size.</para>
+        <para></para>
+        <literal><link linkend="scilabVar"><command>scilabVar</command></link> <varname>scilab_getMListField</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const wchar_t* field)</literal>
+        <para>Get <varname>field</varname> value of mlist variable <varname>var</varname>.</para>
+        <para></para>
+        <literal><link linkend="scilabStatus"><command>scilabStatus</command></link> <varname>scilab_setMListField</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const wchar_t* field, const <link linkend="scilabVar"><command>scilabVar</command></link> val)</literal>
+        <para>Set <varname>field</varname> value of mlist variable <varname>var</varname>.</para>
+        <para></para>
+        <literal><link linkend="scilabStatus"><command>scilabStatus</command></link> <varname>scilab_appendToList</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, const <link linkend="scilabVar"><command>scilabVar</command></link> val)</literal>
+        <para>Add <varname>val</varname> at the end of list-type <varname>var</varname>.</para>
+        <para></para>
+        <literal>int <varname>scilab_isDefined</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, int index)</literal>
+        <para>Return 1 is item at position <varname>index</varname> is defined.</para>
+        <para></para>
+        <literal>int <varname>scilab_isUndefined</varname>(<link linkend="scilabEnv"><command>scilabEnv</command></link> env, <link linkend="scilabVar"><command>scilabVar</command></link> var, int index)</literal>
+        <para>Return 1 is item at position <varname>index</varname> is undefined.</para>
+        <para></para>
+        </refsynopsisdiv>
+</refentry>
