@@ -7,8 +7,6 @@
 //
 // <-- CLI SHELL MODE -->
 //
-// <-- INTERACTIVE TEST -->
-//
 // <-- Non-regression test for bug 12426 -->
 //
 // <-- Bugzilla URL -->

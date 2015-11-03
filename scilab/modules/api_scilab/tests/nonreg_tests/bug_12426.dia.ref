@@ -1,0 +1,22 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Simon MARCHETTO
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 12426 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=12426
+//
+// <-- Short Description -->
+// By using addErrorMessage, random string error can be displayed.
+// exec SCI/modules/api_scilab/tests/nonreg_tests/bug_12426.tst
+ilib_verbose(0);
+directory = get_absolute_file_path("bug_12426.tst");
+exec(directory + "/build_bug_12426_gateway.sce");
+at line    34 of executed file TMPDIR/bug_12426.tst
+exec : Impossible d'ouvrir le fichier TMPDIR//build_bug_12426_gateway.sce.
