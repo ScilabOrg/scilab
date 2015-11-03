@@ -13,11 +13,11 @@
  * still available and supported in Scilab 6.
  */
 
-#ifndef __HANDLE_API__
-#define __HANDLE_API__
+#ifndef __STACK_HANDLE_API__
+#define __STACK_HANDLE_API__
 
 #if !defined(__INTERNAL_API_SCILAB__)
-#error Do not include api_handle.h. Include api_scilab.h instead.
+#error Do not include api_stack_handle.h. Include api_scilab.h instead.
 #endif
 #ifdef __cplusplus
 extern "C" {
@@ -81,4 +81,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* !__HANDLE_API__ */
+#endif /* !__STACK_HANDLE_API__ */

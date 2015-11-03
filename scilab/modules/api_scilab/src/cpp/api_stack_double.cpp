@@ -755,4 +755,3 @@ static int createCommonMatrixDoubleFromInteger(void* _pvCtx, int _iVar, int _iCo
     return 0;
 }
 /*--------------------------------------------------------------------------*/
-

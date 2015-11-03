@@ -30,4 +30,10 @@
     <gateway name="sci_librarieslist"       function="librarieslist"        type="1" />
     <gateway name="sci_testGVN"             function="testGVN"              type="1" />
     <gateway name="sci_testAnalysis"        function="testAnalysis"         type="1" />
+    <gateway name="sci_api_empty"           function="api_empty"            type="4" />
+    <gateway name="sci_api_work"            function="api_work"             type="4" />
+    <gateway name="sci_api_old_empty"       function="api_old_empty"        type="0" />
+    <gateway name="sci_api_old_work"        function="api_old_work"         type="0" />
+    <gateway name="sci_api_cpp_empty"       function="api_cpp_empty"        type="1" />
+    <gateway name="sci_api_cpp_work"        function="api_cpp_work"         type="1" />
 </module>
