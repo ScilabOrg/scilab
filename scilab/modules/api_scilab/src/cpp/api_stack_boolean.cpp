@@ -313,4 +313,3 @@ int createNamedScalarBoolean(void* _pvCtx, const char* _pstName, int _iBool)
     return 0;
 }
 /*--------------------------------------------------------------------------*/
-
