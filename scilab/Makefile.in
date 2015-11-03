@@ -121,10 +121,8 @@ bin_PROGRAMS = scilab-bin$(EXEEXT) scilab-cli-bin$(EXEEXT)
 # std::nothrow for instance) but it seems to be the only acceptable
 # solution for now.
 #
-@USE_STATIC_SYSTEM_LIB_TRUE@am__append_2 = -static-libstdc++ -static-libgcc
-# -static-libgfortran
-@USE_STATIC_SYSTEM_LIB_TRUE@am__append_3 = -static-libstdc++ -static-libgcc
-#-static-libgfortran
+@USE_STATIC_SYSTEM_LIB_TRUE@am__append_2 = -rdynamic -static-libstdc++ -static-libgcc -static-libgfortran
+@USE_STATIC_SYSTEM_LIB_TRUE@am__append_3 = -rdynamic -static-libstdc++ -static-libgcc -static-libgfortran
 # Clang (for example) needs an explicit reference to the lib
 @USE_STATIC_SYSTEM_LIB_FALSE@am__append_4 = -lstdc++
 # -static-libgfortran
