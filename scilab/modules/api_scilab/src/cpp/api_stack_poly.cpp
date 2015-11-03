@@ -599,3 +599,4 @@ void freeAllocatedMatrixOfComplexPoly(int _iRows, int _iCols, int* _piNbCoef, do
     }
     FREE(_pdblImg);
 }
+/*--------------------------------------------------------------------------*/

@@ -9,11 +9,11 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  */
 
-#ifndef __POINTER_API__
-#define __POINTER_API__
+#ifndef __STACK_POINTER_API__
+#define __STACK_POINTER_API__
 
 #if !defined(__INTERNAL_API_SCILAB__)
-#error Do not include api_pointer.h. Include api_scilab.h instead.
+#error Do not include api_stack_pointer.h. Include api_scilab.h instead.
 #endif
 
 #ifdef __cplusplus
@@ -73,4 +73,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* __POINTER_API__ */
+#endif /* __STACK_POINTER_API__ */

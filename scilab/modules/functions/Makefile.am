@@ -14,7 +14,10 @@ GATEWAY_CPP_SOURCES =  \
     sci_gateway/cpp/sci_libraryinfo.cpp \
     sci_gateway/cpp/sci_librarieslist.cpp \
     sci_gateway/cpp/sci_testGVN.cpp \
-    sci_gateway/cpp/sci_testAnalysis.cpp
+    sci_gateway/cpp/sci_testAnalysis.cpp \
+    sci_gateway/cpp/sci_api_cpp_test.cpp \
+    sci_gateway/c/sci_api_test.c
+    
 
 libscifunctions_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \

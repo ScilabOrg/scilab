@@ -832,8 +832,8 @@ SciErr createCommonNamedMatrixOfInteger(void* _pvCtx, const char* _pstName, int 
             pUInt64->set((unsigned long long*)_pvData);
             pIT = pUInt64;
             break;
+        }
     }
-}
 
     if (pIT == NULL)
     {
