@@ -1751,6 +1751,7 @@ public class XcosDiagram extends ScilabGraph {
         }
         setTitle(name.substring(0, name.lastIndexOf('.')));
         setModified(false);
+        updateTabTitle();
 
         fireEvent(new mxEventObject(mxEvent.ROOT));
 

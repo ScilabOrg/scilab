@@ -13,14 +13,30 @@
 
 package org.scilab.modules.xcos.block.actions;
 
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.VertexSelectionDependantAction;
 import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.xcos.JavaController;
+import org.scilab.modules.xcos.Kind;
+import org.scilab.modules.xcos.ObjectProperties;
+import org.scilab.modules.xcos.VectorOfScicosID;
+import org.scilab.modules.xcos.Xcos;
+import org.scilab.modules.xcos.XcosTab;
+import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.graph.model.BlockInterFunction;
+import org.scilab.modules.xcos.graph.model.XcosCell;
+import org.scilab.modules.xcos.graph.model.XcosCellFactory;
+import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -66,12 +82,81 @@ public class BlockParametersAction extends VertexSelectionDependantAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (((XcosDiagram) getGraph(null)).getSelectionCell() != null) {
-            XcosDiagram diagram = (XcosDiagram) getGraph(null);
+        XcosDiagram graph = (XcosDiagram) getGraph(null);
+        Object selectedCell = graph.getSelectionCell();
+        if (selectedCell != null && selectedCell instanceof XcosCell) {
+            XcosCell cell = (XcosCell) selectedCell;
 
-            // FIXME implement something using the XcosView
-            //            ((BasicBlock) diagram.getSelectionCell()).openBlockSettings(diagram
-            //                    .getContext());
+            if (cell.getKind() != Kind.BLOCK) {
+                return;
+            }
+
+            JavaController controller = new JavaController();
+
+            String[] interfaceFunction = new String[1];
+            controller.getObjectProperty(cell.getUID(), cell.getKind(), ObjectProperties.INTERFACE_FUNCTION, interfaceFunction);
+
+            BlockInterFunction func = XcosCellFactory.lookForInterfunction(interfaceFunction[0]);
+            if (func.equals(BlockInterFunction.SUPER_f)) {
+                // this is a super-block, open it
+                XcosDiagram sub = new XcosDiagram(cell.getUID(), cell.getKind());
+
+                XcosTab.restore(sub, true);
+                Xcos.getInstance().addDiagram(sub);
+            } else {
+                BasicBlock block = (BasicBlock) cell;
+                // prevent to open twice
+                if (block.isLocked()) {
+                    return;
+                }
+
+                graph.setCellsLocked(true);
+                graph.getAsComponent().getGraphControl().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+                try {
+
+                    final ActionListener action = new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            graph.getView().clear(this, true, true);
+
+                            // Now read new Block
+                            graph.getModel().beginUpdate();
+                            try {
+                                final BasicBlock modifiedBlock = handler.readBlock();
+                                updateBlockSettings(modifiedBlock);
+
+                                graph.fireEvent(new mxEventObject(XcosEvent.ADD_PORTS, XcosConstants.EVENT_BLOCK_UPDATED, BasicBlock.this));
+                            } catch (ScicosFormatException ex) {
+                                LOG.severe(ex.toString());
+                            } finally {
+                                graph.getModel().endUpdate();
+                                setLocked(false);
+
+                                handler.release();
+
+                                graph.getAsComponent().getGraphControl().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                                graph.setCellsLocked(false);
+                            }
+                        }
+                    };
+
+                    block.setLocked(true);
+                    ScilabInterpreterManagement.asynchronousScilabExec(action, "blk = xcosBlockInterface", getInterfaceFunctionName().toCharArray(), "set",
+                            ScilabDirectHandler.BLK.toCharArray(), ScilabDirectHandler.CONTEXT.toCharArray());
+                } catch (InterpreterException e) {
+                    LOG.severe(e.toString());
+                    block.setLocked(false);
+
+                    handler.release();
+
+                    graph.getAsComponent().getGraphControl().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    graph.setCellsLocked(false);
+                }
+            }
+
+
         }
     }
 
