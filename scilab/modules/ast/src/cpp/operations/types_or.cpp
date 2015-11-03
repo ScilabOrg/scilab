@@ -450,7 +450,7 @@ int BoolOrBool(Bool* _pL, Bool** _pOut)
     {
         if (_pL->get(i) == 0)
         {
-            //call non shorcut opearion
+            //call non shortcut opearion
             *_pOut = NULL;
             return 0;
         }
@@ -466,7 +466,7 @@ int DoubleOrDouble(Double* _pL, Bool** _pOut)
     {
         if (_pL->get(i) == 0)
         {
-            //call non shorcut operation
+            //call non shortcut operation
             *_pOut = NULL;
             return 0;
         }
@@ -483,7 +483,7 @@ static int IntOrInt(K* _pL, Bool** _pOut)
     {
         if (_pL->get(i) == 0)
         {
-            //call non shorcut opearion
+            //call non shortcut opearion
             *_pOut = NULL;
             return 0;
         }
