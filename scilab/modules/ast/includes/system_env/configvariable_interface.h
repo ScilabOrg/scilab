@@ -27,61 +27,61 @@ typedef enum
     SCILAB_NWNI /* Scilab in command line without any graphics. What not mandataroy here */
 } scilabMode;
 
-EXTERN_AST int getSimpMode(void);
-EXTERN_AST void setSimpMode(int);
-EXTERN_AST int getStartProcessing();
-EXTERN_AST int getEndProcessing();
+AST_IMPEXP int getSimpMode(void);
+AST_IMPEXP void setSimpMode(int);
+AST_IMPEXP int getStartProcessing();
+AST_IMPEXP int getEndProcessing();
 
-EXTERN_AST void setFormatSize(int _iFormatSize);
-EXTERN_AST int getFormatSize(void);
-EXTERN_AST void setFormatMode(int _iFormatMode);
-EXTERN_AST int getFormatMode(void);
-EXTERN_AST void setConsoleWidth(int _iConsoleWidth);
-EXTERN_AST int getConsoleWidth(void);
-EXTERN_AST void setConsoleLines(int _iConsoleLines);
-EXTERN_AST int getConsoleLines(void);
+AST_IMPEXP void setFormatSize(int _iFormatSize);
+AST_IMPEXP int getFormatSize(void);
+AST_IMPEXP void setFormatMode(int _iFormatMode);
+AST_IMPEXP int getFormatMode(void);
+AST_IMPEXP void setConsoleWidth(int _iConsoleWidth);
+AST_IMPEXP int getConsoleWidth(void);
+AST_IMPEXP void setConsoleLines(int _iConsoleLines);
+AST_IMPEXP int getConsoleLines(void);
 
-EXTERN_AST int getPromptMode(void);
-EXTERN_AST void setPromptMode(int _iMode);
-EXTERN_AST int isSilentError(void);
-EXTERN_AST void setSilentError(int _iSilent);
-EXTERN_AST int isPrintInput();
-EXTERN_AST void setPrintInput(int);
-EXTERN_AST int isPrintOutput();
-EXTERN_AST void setPrintOutput(int);
-EXTERN_AST int isPrintCompact();
-EXTERN_AST void setPrintCompact(int);
-EXTERN_AST int isPrintInteractive();
-EXTERN_AST void setPrintInteractive(int);
+AST_IMPEXP int getPromptMode(void);
+AST_IMPEXP void setPromptMode(int _iMode);
+AST_IMPEXP int isSilentError(void);
+AST_IMPEXP void setSilentError(int _iSilent);
+AST_IMPEXP int isPrintInput();
+AST_IMPEXP void setPrintInput(int);
+AST_IMPEXP int isPrintOutput();
+AST_IMPEXP void setPrintOutput(int);
+AST_IMPEXP int isPrintCompact();
+AST_IMPEXP void setPrintCompact(int);
+AST_IMPEXP int isPrintInteractive();
+AST_IMPEXP void setPrintInteractive(int);
 
-EXTERN_AST int getieee(void);
-EXTERN_AST void setieee(int);
+AST_IMPEXP int getieee(void);
+AST_IMPEXP void setieee(int);
 
-EXTERN_AST scilabMode getScilabMode(void);
-EXTERN_AST void setScilabMode(scilabMode newmode);
-EXTERN_AST const char * getScilabModeString(void);
+AST_IMPEXP scilabMode getScilabMode(void);
+AST_IMPEXP void setScilabMode(scilabMode newmode);
+AST_IMPEXP const char * getScilabModeString(void);
 
-EXTERN_AST int getWarningMode(void);
-EXTERN_AST void setWarningMode(int _iMode);
-EXTERN_AST int getWarningStop(void);
-EXTERN_AST void setWarningStop(int _iMode);
+AST_IMPEXP int getWarningMode(void);
+AST_IMPEXP void setWarningMode(int _iMode);
+AST_IMPEXP int getWarningStop(void);
+AST_IMPEXP void setWarningStop(int _iMode);
 
-EXTERN_AST int checkReferenceModule(const wchar_t* _module);
-EXTERN_AST void addReferenceModule(const wchar_t* _module);
-EXTERN_AST void removeReferenceModule(const wchar_t* _module);
+AST_IMPEXP int checkReferenceModule(const wchar_t* _module);
+AST_IMPEXP void addReferenceModule(const wchar_t* _module);
+AST_IMPEXP void removeReferenceModule(const wchar_t* _module);
 
-EXTERN_AST int getForceQuit();
+AST_IMPEXP int getForceQuit();
 
-EXTERN_AST int getEntryPointPosition(wchar_t* _pwstEntryPointName);
+AST_IMPEXP int getEntryPointPosition(wchar_t* _pwstEntryPointName);
 typedef void(*dynlib_ptr)();
-EXTERN_AST dynlib_ptr getEntryPointFromPosition(int position);
+AST_IMPEXP dynlib_ptr getEntryPointFromPosition(int position);
 
-EXTERN_AST int isEnableDebug();
-EXTERN_AST int isDebugInterrupted();
+AST_IMPEXP int isEnableDebug();
+AST_IMPEXP int isDebugInterrupted();
 
-EXTERN_AST int isExecutionBreak();
-EXTERN_AST void setExecutionBreak();
-EXTERN_AST void resetExecutionBreak();
+AST_IMPEXP int isExecutionBreak();
+AST_IMPEXP void setExecutionBreak();
+AST_IMPEXP void resetExecutionBreak();
 
-EXTERN_AST int setRecursionLimit(int);
+AST_IMPEXP int setRecursionLimit(int);
 #endif /* !__CONFIGVARIABLE_INTERFACE_H__ */

@@ -17,31 +17,34 @@
 #include <stdarg.h>
 #include <wchar.h>
 
+#include "dynlib_output_stream.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 #include "BOOL.h"
 
-    /**
-     * Print
-     * @param fmt Format of the format string
-     * @param ...
-     */
-    void sciprint(const char *fmt, ...);
-    //void sciprintW(wchar_t* fmt, ...);
+/**
+ * Print
+ * @param fmt Format of the format string
+ * @param ...
+ */
+OUTPUT_STREAM_IMPEXP
+void sciprint(const char *fmt, ...);
+//void sciprintW(wchar_t* fmt, ...);
 
 
-    /**
-    * Print: works as sciprint
-    * difference is that the argument list is a pointer to a list of arguments
-    * @param fmt Format of the format string
-    * @param[in] fmt
-    * @param[in] va_list
-    * @return nb characters
-    */
-
-    int scivprint(const char* fmt, va_list args);
-    //int scivprintW(wchar_t* fmt, va_list args);
+/**
+* Print: works as sciprint
+* difference is that the argument list is a pointer to a list of arguments
+* @param fmt Format of the format string
+* @param[in] fmt
+* @param[in] va_list
+* @return nb characters
+*/
+OUTPUT_STREAM_IMPEXP
+int scivprint(const char* fmt, va_list args);
+//int scivprintW(wchar_t* fmt, va_list args);
 
 #ifdef __cplusplus
 }

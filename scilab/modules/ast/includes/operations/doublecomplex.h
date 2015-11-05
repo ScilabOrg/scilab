@@ -26,11 +26,11 @@ typedef struct
 
 /*Tools to convert memory matrix storage from C to Z and Z to C*/
 // vGetPointerFromDoubleComplex : set the real and imaginary part of an target array from a source doublecomplex array
-EXTERN_AST void vGetPointerFromDoubleComplex(const doublecomplex *_poComplex, int _iSize, double *_pdblReal, double *_pdblImg);
+AST_IMPEXP void vGetPointerFromDoubleComplex(const doublecomplex *_poComplex, int _iSize, double *_pdblReal, double *_pdblImg);
 // oGetDoubleComplexFromPointer : returns a target doublecomplex constructed from the source real and imaginary parts.
-EXTERN_AST doublecomplex* oGetDoubleComplexFromPointer(double *_pdblReal, double *_pdblImg, int _iSize);
+AST_IMPEXP doublecomplex* oGetDoubleComplexFromPointer(double *_pdblReal, double *_pdblImg, int _iSize);
 // vFreeDoubleComplexFromPointer free a pointer allocated by oGetDoubleComplexFromPointer
-EXTERN_AST void vFreeDoubleComplexFromPointer(doublecomplex *_poComplex);
+AST_IMPEXP void vFreeDoubleComplexFromPointer(doublecomplex *_poComplex);
 
 
 #endif /* __DOUBLECOMPLEX_H__ */

@@ -21,7 +21,11 @@
 #define DYNAMIC_LINK_GW_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define DYNAMIC_LINK_GW_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define DYNAMIC_LINK_GW_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_DYNAMIC_LINK_GW_H__ */

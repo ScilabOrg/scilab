@@ -30,7 +30,7 @@ namespace types
 /*
 ** Type
 */
-class EXTERN_AST ImplicitList : public InternalType
+class AST_IMPEXP ImplicitList : public InternalType
 {
 protected :
     InternalType*		        m_poStart;

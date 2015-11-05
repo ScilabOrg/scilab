@@ -15,84 +15,84 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST int iMultiComplexMatrixByComplexMatrix(
+AST_IMPEXP int iMultiComplexMatrixByComplexMatrix(
     double *_pdblReal1,		double *_pdblImg1, int _iRows1, int _iCols1,
     double *_pdblReal2,		double *_pdblImg2, int _iRows2, int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut);
 
-EXTERN_AST int iMultiRealMatrixByRealMatrix(
+AST_IMPEXP int iMultiRealMatrixByRealMatrix(
     double *_pdblReal1,	int _iRows1, int _iCols1,
     double *_pdblReal2,	int _iRows2, int _iCols2,
     double *_pdblRealOut);
 
-EXTERN_AST int iMultiRealMatrixByComplexMatrix(
+AST_IMPEXP int iMultiRealMatrixByComplexMatrix(
     double *_pdblReal1,		int _iRows1, int _iCols1,
     double *_pdblReal2,		double *_pdblImg2, int _iRows2, int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut);
 
-EXTERN_AST int iMultiComplexMatrixByRealMatrix(
+AST_IMPEXP int iMultiComplexMatrixByRealMatrix(
     double *_pdblReal1,		double *_pdblImg1,	int _iRows1, int _iCols1,
     double *_pdblReal2,		int _iRows2, int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut);
 
-EXTERN_AST int iMultiRealScalarByRealMatrix(
+AST_IMPEXP int iMultiRealScalarByRealMatrix(
     double _dblReal1,
     double *_pdblReal2,	int _iRows2, int _iCols2,
     double *_pdblRealOut);
 
-EXTERN_AST int iMultiRealScalarByComplexMatrix(
+AST_IMPEXP int iMultiRealScalarByComplexMatrix(
     double _dblReal1,
     double *_pdblReal2,	double *_pdblImg2, int _iRows2, int _iCols2,
     double *_pdblRealOut, double *_pdblImgOut);
 
-EXTERN_AST int iMultiComplexScalarByRealMatrix(
+AST_IMPEXP int iMultiComplexScalarByRealMatrix(
     double _dblReal1,		double _dblImg1,
     double *_pdblReal2,		int _iRows2, int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut);
 
-EXTERN_AST int iMultiComplexScalarByComplexMatrix(
+AST_IMPEXP int iMultiComplexScalarByComplexMatrix(
     double _dblReal1,		double _dblImg1,
     double *_pdblReal2,		double *_pdblImg2, int _iRows2, int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut);
 
 
 /*polynomial multiplications*/
-EXTERN_AST int iMultiScilabPolynomByScilabPolynom(
+AST_IMPEXP int iMultiScilabPolynomByScilabPolynom(
     double *_pdblReal1,	int _iRank1,
     double *_pdblReal2,	int _iRank2,
     double *_pdblRealOut, int _iRankOut);
 
-EXTERN_AST int iMultiComplexPolyByScilabPolynom(
+AST_IMPEXP int iMultiComplexPolyByScilabPolynom(
     double *_pdblReal1,	double *_pdblImg1, int _iRank1,
     double *_pdblReal2,	int _iRank2,
     double *_pdblRealOut, double *_pdblImgOut, int _iRankOut);
 
-EXTERN_AST int iMultiScilabPolynomByComplexPoly(
+AST_IMPEXP int iMultiScilabPolynomByComplexPoly(
     double *_pdblReal1,	int _iRank1,
     double *_pdblReal2,	double *_pdblImg2, int _iRank2,
     double *_pdblRealOut, double *_pdblImgOut, int _iRankOut);
 
-EXTERN_AST int iMultiComplexPolyByComplexPoly(
+AST_IMPEXP int iMultiComplexPolyByComplexPoly(
     double *_pdblReal1,	double *_pdblImg1, int _iRank1,
     double *_pdblReal2,	double *_pdblImg2, int _iRank2,
     double *_pdblRealOut, double *_pdblImgOut, int _iRankOut);
 
-EXTERN_AST int iDotMultiplyRealMatrixByRealMatrix(
+AST_IMPEXP int iDotMultiplyRealMatrixByRealMatrix(
     double* _pdblReal1,
     double* _pdblReal2,
     double* _pdblRealOut, int _iRowsOut, int _iColsOut);
 
-EXTERN_AST int iDotMultiplyRealMatrixByComplexMatrix(
+AST_IMPEXP int iDotMultiplyRealMatrixByComplexMatrix(
     double* _pdblReal1,
     double* _pdblReal2, double* _pdblImg2,
     double* _pdblRealOut, double* _pdblImgOut, int _iRowsOut, int _iColsOut);
 
-EXTERN_AST int iDotMultiplyComplexMatrixByRealMatrix(
+AST_IMPEXP int iDotMultiplyComplexMatrixByRealMatrix(
     double* _pdblReal1, double* _pdblImg1,
     double* _pdblReal2,
     double* _pdblRealOut, double* _pdblImgOut, int _iRowsOut, int _iColsOut);
 
-EXTERN_AST int iDotMultiplyComplexMatrixByComplexMatrix(
+AST_IMPEXP int iDotMultiplyComplexMatrixByComplexMatrix(
     double* _pdblReal1, double* _pdblImg1,
     double* _pdblReal2, double* _pdblImg2,
     double* _pdblRealOut, double* _pdblImgOut, int _iRowsOut, int _iColsOut);

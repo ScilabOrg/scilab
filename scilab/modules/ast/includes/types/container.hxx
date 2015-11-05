@@ -17,7 +17,7 @@
 
 namespace types
 {
-class EXTERN_AST Container : public GenericType
+class AST_IMPEXP Container : public GenericType
 {
 
 public :

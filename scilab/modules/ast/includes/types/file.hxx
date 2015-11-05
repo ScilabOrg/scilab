@@ -17,7 +17,7 @@
 
 namespace types
 {
-class EXTERN_AST File
+class AST_IMPEXP File
 {
 public :
     File();

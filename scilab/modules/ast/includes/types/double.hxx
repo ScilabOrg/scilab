@@ -28,7 +28,7 @@
 
 namespace types
 {
-class EXTERN_AST Double : public ArrayOf<double>
+class AST_IMPEXP Double : public ArrayOf<double>
 {
 public :
     virtual						~Double();

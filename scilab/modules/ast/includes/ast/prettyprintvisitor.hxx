@@ -40,7 +40,7 @@ enum TermColor
 
 namespace ast
 {
-class EXTERN_AST PrettyPrintVisitor : public GenVisitor<const_kind>
+class AST_IMPEXP PrettyPrintVisitor : public GenVisitor<const_kind>
 {
 public:
     PrettyPrintVisitor(std::wostream & my_ostr = std::wcerr, const bool _printDecoration = false, const bool _colored = false) :
@@ -187,6 +187,5 @@ private:
 
 
 };
-
 }
 #endif // !AST_DEBUGVISITOR_HXX

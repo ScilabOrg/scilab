@@ -21,7 +21,11 @@
 #define CORE_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define CORE_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define CORE_IMPEXP
+#endif
 #endif
 
 

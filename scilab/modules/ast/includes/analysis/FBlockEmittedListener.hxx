@@ -18,7 +18,7 @@
 namespace analysis
 {
 
-class EXTERN_AST FBlockEmittedListener
+class AST_IMPEXP FBlockEmittedListener
 {
 
 public:

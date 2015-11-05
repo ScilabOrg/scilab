@@ -33,7 +33,7 @@
 
 namespace types
 {
-class EXTERN_AST Polynom : public ArrayOf<SinglePoly*>
+class AST_IMPEXP Polynom : public ArrayOf<SinglePoly*>
 {
 public :
     Polynom();
@@ -61,7 +61,7 @@ public :
     {
         return isScalar() ? isComplex() ? IdScalarPolynomComplex
                : IdScalarPolynom
-       : isComplex() ? IdPolynomComplex
+               : isComplex() ? IdPolynomComplex
                : IdPolynom;
     }
 

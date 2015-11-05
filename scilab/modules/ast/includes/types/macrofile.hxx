@@ -20,7 +20,7 @@
 
 namespace types
 {
-class EXTERN_AST MacroFile : public Callable
+class AST_IMPEXP MacroFile : public Callable
 {
 public :
     MacroFile(): Callable() {};

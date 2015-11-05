@@ -21,7 +21,11 @@
 #define COMMONS_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define COMMONS_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define COMMONS_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_COMMONS_H__ */

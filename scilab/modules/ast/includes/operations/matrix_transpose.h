@@ -17,27 +17,27 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST void vTransposeRealMatrix(
+AST_IMPEXP void vTransposeRealMatrix(
     double *_pdblRealIn,
     int _iRowsIn, int _iColsIn,
     double *_pdblRealOut);
 
-EXTERN_AST void vTransposeComplexMatrix(
+AST_IMPEXP void vTransposeComplexMatrix(
     double *_pdblRealIn, double *_pdblImgIn,
     int _iRowsIn, int _iColsIn,
     double *_pdblRealOut, double *_pdblImgOut, int _iConjugate);
 
-EXTERN_AST void vTransposeDoubleComplexMatrix(
+AST_IMPEXP void vTransposeDoubleComplexMatrix(
     doublecomplex *_poIn,
     int _iRowsIn, int _iColsIn,
     doublecomplex *_poOut, int _iConjugate);
 
-EXTERN_AST void vPretransposeRealMatrix(
+AST_IMPEXP void vPretransposeRealMatrix(
     double *_pdblRealIn,
     int _iRowsIn, int _iColsIn,
     double *_pdblRealOut);
 
-EXTERN_AST void vPretransposeComplexMatrix(
+AST_IMPEXP void vPretransposeComplexMatrix(
     double *_pdblRealIn, double *_pdblImgIn,
     int _iRowsIn, int _iColsIn,
     double *_pdblRealOut, double *_pdblImgOut);

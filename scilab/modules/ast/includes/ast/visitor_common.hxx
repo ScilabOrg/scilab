@@ -59,8 +59,8 @@ types::InternalType* callOverload(const std::wstring& strType, types::InternalTy
 
 types::InternalType* insertionCall(const ast::Exp& e, types::typed_list* _pArgs, types::InternalType* _pVar, types::InternalType* _pInsert);
 
-EXTERN_AST void callOnPrompt(void);
-EXTERN_AST ast::Exp* callTyper(ast::Exp* _tree, std::wstring _msg = std::wstring(L""));
+AST_IMPEXP void callOnPrompt(void);
+AST_IMPEXP ast::Exp* callTyper(ast::Exp* _tree, std::wstring _msg = std::wstring(L""));
 
 void printLine(const std::string& _stPrompt, const std::string& _stLine, bool _bLF);
 std::string printExp(std::ifstream& _File, ast::Exp* _pExp, const std::string& _stPrompt, int* _piLine /* in/out */, int* _piCol /* in/out */, std::string& _stPreviousBuffer);

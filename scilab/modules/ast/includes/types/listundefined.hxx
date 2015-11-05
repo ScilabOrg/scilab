@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST ListUndefined : public ListOperation
+class AST_IMPEXP ListUndefined : public ListOperation
 {
 public :
     ListUndefined(): ListOperation() {};

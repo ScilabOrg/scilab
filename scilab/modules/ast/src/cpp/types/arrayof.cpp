@@ -1693,17 +1693,17 @@ int ArrayOf<T>::getInvokeNbOut()
 
 
 // used to allow definition of ArrayOf methode in this cpp file.
-template class EXTERN_AST ArrayOf < char >;
-template class EXTERN_AST ArrayOf < unsigned char >;
-template class EXTERN_AST ArrayOf < short >;
-template class EXTERN_AST ArrayOf < unsigned short >;
-template class EXTERN_AST ArrayOf < int >;
-template class EXTERN_AST ArrayOf < unsigned int >;
-template class EXTERN_AST ArrayOf < long long >;
-template class EXTERN_AST ArrayOf < unsigned long long >;
-template class EXTERN_AST ArrayOf < double >;
-template class EXTERN_AST ArrayOf < wchar_t* >;
-template class EXTERN_AST ArrayOf < SinglePoly* >;
-template class EXTERN_AST ArrayOf < SingleStruct* >;
-template class EXTERN_AST ArrayOf < InternalType* >; // Cell
+template class AST_IMPEXP ArrayOf < char >;
+template class AST_IMPEXP ArrayOf < unsigned char >;
+template class AST_IMPEXP ArrayOf < short >;
+template class AST_IMPEXP ArrayOf < unsigned short >;
+template class AST_IMPEXP ArrayOf < int >;
+template class AST_IMPEXP ArrayOf < unsigned int >;
+template class AST_IMPEXP ArrayOf < long long >;
+template class AST_IMPEXP ArrayOf < unsigned long long >;
+template class AST_IMPEXP ArrayOf < double >;
+template class AST_IMPEXP ArrayOf < wchar_t* >;
+template class AST_IMPEXP ArrayOf < SinglePoly* >;
+template class AST_IMPEXP ArrayOf < SingleStruct* >;
+template class AST_IMPEXP ArrayOf < InternalType* >; // Cell
 }

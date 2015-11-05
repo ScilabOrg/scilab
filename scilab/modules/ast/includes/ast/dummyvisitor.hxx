@@ -25,7 +25,7 @@
 
 namespace ast
 {
-class EXTERN_AST DummyVisitor : public ConstVisitor
+class AST_IMPEXP DummyVisitor : public ConstVisitor
 {
 protected:
     DummyVisitor() {}

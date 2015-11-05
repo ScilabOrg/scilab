@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST ListDelete : public ListOperation
+class AST_IMPEXP ListDelete : public ListOperation
 {
 public :
     ListDelete(): ListOperation() {};

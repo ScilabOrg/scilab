@@ -13,8 +13,15 @@
 #ifndef __SETFORMAT_H__
 #define __SETFORMAT_H__
 
+#include "dynlib_core.h"
+
+CORE_IMPEXP
 void setformat(const char * format, int width);
+
+CORE_IMPEXP
 const char * getformat();
+
+CORE_IMPEXP
 int getformatwidth();
 
 #endif // __SETFORMAT_H__

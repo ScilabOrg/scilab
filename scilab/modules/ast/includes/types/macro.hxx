@@ -23,7 +23,7 @@
 
 namespace types
 {
-class EXTERN_AST Macro : public Callable
+class AST_IMPEXP Macro : public Callable
 {
 public :
     Macro() : Callable(),

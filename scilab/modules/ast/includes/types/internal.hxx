@@ -56,7 +56,7 @@ class InternalType;
 typedef std::vector<InternalType *> typed_list;
 typedef std::unordered_map<std::wstring, InternalType *> optional_list;
 
-class EXTERN_AST InternalType
+class AST_IMPEXP InternalType
 {
 public :
     enum ScilabType

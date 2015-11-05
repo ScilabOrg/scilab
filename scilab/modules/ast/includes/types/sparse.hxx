@@ -38,7 +38,7 @@ struct SparseBool;
 /**
    Sparse is a wrapper over Eigen sparse matrices templates for either double or std::complex<double> values.
  */
-struct EXTERN_AST Sparse : GenericType
+struct AST_IMPEXP Sparse : GenericType
 {
     virtual ~Sparse();
     /* @param src: Double matrix to copy into a new sparse matrix
@@ -482,7 +482,7 @@ void neg(const int r, const int c, const T * const in, Eigen::SparseMatrix<bool,
 /*
   Implement sparse boolean matrix
  */
-struct EXTERN_AST SparseBool : GenericType
+struct AST_IMPEXP SparseBool : GenericType
 {
     virtual ~SparseBool();
     /* @param src: Bool matrix to copy into a new sparse matrix

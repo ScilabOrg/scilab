@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST List : public Container
+class AST_IMPEXP List : public Container
 {
 public :
     List();

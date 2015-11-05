@@ -9,7 +9,10 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
+
+#include "dynlib_tclsci.h"
 #include "tclsci_gw.hxx"
+
 extern "C"
 {
 #include "BOOL.h"
@@ -22,7 +25,7 @@ extern "C"
 }
 
 /*--------------------------------------------------------------------------*/
-int TclsciModule::Load()
+TCLSCI_IMPEXP int TclsciModule::Load()
 {
     return 0;
 }
@@ -31,52 +34,52 @@ int TclsciModule::Load()
 extern "C"
 {
     /*--------------------------------------------------------------------------*/
-    int CloseTCLsci(void)
+    TCLSCI_IMPEXP int CloseTCLsci(void)
     {
         return 0;
     }
     /*--------------------------------------------------------------------------*/
-    BOOL Set_TCL_LIBRARY_PATH(char *DefaultPath)
+    TCLSCI_IMPEXP BOOL Set_TCL_LIBRARY_PATH(char *DefaultPath)
     {
         return TRUE;
     }
     /*--------------------------------------------------------------------------*/
-    BOOL Set_TK_LIBRARY_PATH(char *DefaultPath)
+    TCLSCI_IMPEXP BOOL Set_TK_LIBRARY_PATH(char *DefaultPath)
     {
         return TRUE;
     }
     /*--------------------------------------------------------------------------*/
-    int gw_tclsci(void)
+    TCLSCI_IMPEXP int gw_tclsci(void)
     {
         Scierror(999, _("Scilab TCL/TK module not installed.\n"));
         return 0;
     }
     /*--------------------------------------------------------------------------*/
-    void initTCLTK(void)
+    TCLSCI_IMPEXP void initTCLTK(void)
     {
     }
     /*--------------------------------------------------------------------------*/
-    int sciDestroyGed( int figureId )
+    TCLSCI_IMPEXP int sciDestroyGed( int figureId )
     {
         return 1;
     }
     /*--------------------------------------------------------------------------*/
-    int isGedOpenedOn( int figureId )
+    TCLSCI_IMPEXP int isGedOpenedOn( int figureId )
     {
         return FALSE;
     }
     /*--------------------------------------------------------------------------*/
-    int setenvtcl(char *string, char *value)
+    TCLSCI_IMPEXP int setenvtcl(char *string, char *value)
     {
         return TRUE;
     }
     /*--------------------------------------------------------------------------*/
-    BOOL InitializeTclTk(void)
+    TCLSCI_IMPEXP BOOL InitializeTclTk(void)
     {
         return FALSE;
     }
     /*--------------------------------------------------------------------------*/
-    BOOL TerminateTclTk(void)
+    TCLSCI_IMPEXP BOOL TerminateTclTk(void)
     {
         return TRUE;
     }

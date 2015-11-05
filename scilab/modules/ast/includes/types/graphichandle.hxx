@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST GraphicHandle : public ArrayOf<long long>
+class AST_IMPEXP GraphicHandle : public ArrayOf<long long>
 {
 public :
     GraphicHandle(long long _handle);

@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST MList : public TList
+class AST_IMPEXP MList : public TList
 {
 public :
     MList() : TList() {}

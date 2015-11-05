@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST ListInsert : public ListOperation
+class AST_IMPEXP ListInsert : public ListOperation
 {
 public :
     ListInsert(InternalType* _pIT);

@@ -31,7 +31,7 @@ namespace analysis
 class AnalysisVisitor;
 class DataManager;
 
-class EXTERN_AST Block
+class AST_IMPEXP Block
 {
 
     friend class DataManager;

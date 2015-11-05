@@ -22,7 +22,7 @@
 
 namespace types
 {
-class EXTERN_AST GatewayStruct
+class AST_IMPEXP GatewayStruct
 {
 public :
     types::typed_list*      m_pIn;
@@ -38,7 +38,7 @@ public :
     ~GatewayStruct() {};
 };
 
-struct EXTERN_AST GatewayCStruct
+struct AST_IMPEXP GatewayCStruct
 {
     std::string     name;
     std::wstring    lasterror;

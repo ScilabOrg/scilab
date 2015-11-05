@@ -29,7 +29,7 @@ namespace analysis
 
 class FunctionBlock;
 
-class EXTERN_AST ConstraintManager
+class AST_IMPEXP ConstraintManager
 {
 
 public:

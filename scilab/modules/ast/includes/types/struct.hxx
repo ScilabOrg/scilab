@@ -24,7 +24,7 @@ extern "C"
 
 namespace types
 {
-class EXTERN_AST Struct : public ArrayOf<SingleStruct*>
+class AST_IMPEXP Struct : public ArrayOf<SingleStruct*>
 {
 public :
     ~Struct();

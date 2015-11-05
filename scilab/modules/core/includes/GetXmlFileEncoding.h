@@ -11,13 +11,17 @@
  */
 #ifndef __GETXMLFILEENCODING_H__
 #define __GETXMLFILEENCODING_H__
+
 #include <string.h>
+
+#include "dynlib_core.h"
 
 /**
 * Get xml file encoding
 * @param filename
 * @return a string as UTF-8
 */
+CORE_IMPEXP
 char *GetXmlFileEncoding(const char *filename);
 
 #endif /* __GETXMLFILEENCODING_H__ */

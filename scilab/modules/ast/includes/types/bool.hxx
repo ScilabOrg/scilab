@@ -23,10 +23,11 @@
 #define __BOOL_HXX__
 
 #include "arrayof.hxx"
+#include "dynlib_ast.h"
 
 namespace types
 {
-class EXTERN_AST Bool : public ArrayOf<int>
+class AST_IMPEXP Bool : public ArrayOf<int>
 {
 public :
     static Bool* True()
@@ -106,3 +107,4 @@ private :
 template class types::ArrayOf<int>;//Bool
 #endif
 #endif /* !__BOOL_HXX__ */
+

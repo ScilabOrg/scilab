@@ -17,6 +17,7 @@
 #include <dlfcn.h>
 #include <wchar.h>
 #include "BOOL.h" /* BOOL */
+#include "dynlib_dynamic_link.h"
 
 typedef void * DynLibHandle;
 typedef void * DynLibFuncPtr;
@@ -33,6 +34,7 @@ typedef void * DynLibFuncPtr;
 * @param Handle to the loaded library
 * @return BOOL If the function succeeds, the return value is nonzero
 */
+DYNAMIC_LINK_IMPEXP
 BOOL FreeDynLibrary(DynLibHandle hInstance);
 
 /**
@@ -41,6 +43,7 @@ BOOL FreeDynLibrary(DynLibHandle hInstance);
 * @param string that specifies the function
 * @return a pointer
 */
+DYNAMIC_LINK_IMPEXP
 DynLibFuncPtr GetDynLibFuncPtr(DynLibHandle hInstance, const char *funcName);
 
 /**
@@ -79,7 +82,9 @@ typedef enum
 * @param[in] generated dynamic lib name type
 * @return name of dynamic library
 */
+DYNAMIC_LINK_IMPEXP
 wchar_t* buildModuleDynLibraryNameW(const wchar_t* _pwstModuleName, dynlib_name_format _iType);
+DYNAMIC_LINK_IMPEXP
 char* buildModuleDynLibraryName(const char* _pstModuleName, dynlib_name_format _iType);
 
 #endif /* __unix // guard against mis-compilation */

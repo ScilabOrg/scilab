@@ -21,7 +21,11 @@
 #define SCINOTES_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define SCINOTES_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define SCINOTES_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_SCINOTES_H__ */

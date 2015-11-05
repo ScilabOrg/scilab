@@ -30,6 +30,8 @@
 #include <sys/types.h>          /* getpid */
 #include <unistd.h>             /* gethostname */
 
+#include "dynlib_core.h"
+
 #include "csignal.h"
 #include "localization.h"
 #include "backtrace.h"
@@ -42,6 +44,7 @@
 #include "initConsoleMode.h"
 #include "exit_status.hxx"
 
+CORE_IMPEXP
 jmp_buf ScilabJmpEnv;
 
 /*----------------------------------------------------------------------------

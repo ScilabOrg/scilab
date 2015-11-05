@@ -45,7 +45,7 @@
 namespace analysis
 {
 
-class EXTERN_AST AnalysisVisitor : public ast::Visitor, public Chrono
+class AST_IMPEXP AnalysisVisitor : public ast::Visitor, public Chrono
 {
 
 public:

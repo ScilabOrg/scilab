@@ -24,7 +24,7 @@ extern "C"
 
 namespace debugger
 {
-class EXTERN_AST AbstractDebugger
+class AST_IMPEXP AbstractDebugger
 {
 public:
     AbstractDebugger() {}

@@ -51,18 +51,18 @@ typedef struct __DOUBLE_FORMAT__
 
 /*double*/
 //void getDoubleFormat(double _dblVal, int *_piWidth, int *_piPrec, bool* _pExp);
-EXTERN_AST void getDoubleFormat(double _dblVal, DoubleFormat* _pDF);
+AST_IMPEXP void getDoubleFormat(double _dblVal, DoubleFormat* _pDF);
 //void getComplexFormat(double _dblR, double _dblI, int *_piTotalWidth, int *_piWidthR, int *_piWidthI, int *_piPrecR, int *_piPrecI, bool* _pExpR, bool* _pExpI);
-EXTERN_AST void getComplexFormat(double _dblR, double _dblI, int *_piTotalWidth, DoubleFormat* _pDFR, DoubleFormat* _pDFI);
+AST_IMPEXP void getComplexFormat(double _dblR, double _dblI, int *_piTotalWidth, DoubleFormat* _pDFR, DoubleFormat* _pDFI);
 
 //addDoubleValue(int _iWidth, int _iPrec, bool _bExp, bool _bPrintPoint = true, bool _bPrintPlusSign = false, bool _bPrintOne = true, bool _bPaddSign = true, int _iSignLen = 2);
-EXTERN_AST void addDoubleValue(std::wostringstream *_postr, double _dblVal, DoubleFormat* _pDF);
-EXTERN_AST void addDoubleComplexValue(std::wostringstream *_postr, double _dblR, double _dblI, int _iTotalLen, DoubleFormat* _pDFR, DoubleFormat* _pDFI);
+AST_IMPEXP void addDoubleValue(std::wostringstream *_postr, double _dblVal, DoubleFormat* _pDF);
+AST_IMPEXP void addDoubleComplexValue(std::wostringstream *_postr, double _dblR, double _dblI, int _iTotalLen, DoubleFormat* _pDFR, DoubleFormat* _pDFI);
 
 /*Common*/
-EXTERN_AST void configureStream(std::wostringstream *_postr, int _iWidth, int _iPrec, char _cFill);
-EXTERN_AST void addSpaces(std::wostringstream *_postr, int _iSpace);
-void addColumnString(std::wostringstream& ostr, int _iFrom, int _iTo);
+AST_IMPEXP void configureStream(std::wostringstream *_postr, int _iWidth, int _iPrec, char _cFill);
+AST_IMPEXP void addSpaces(std::wostringstream *_postr, int _iSpace);
+AST_IMPEXP void addColumnString(std::wostringstream& ostr, int _iFrom, int _iTo);
 
 /*int*/
 /*

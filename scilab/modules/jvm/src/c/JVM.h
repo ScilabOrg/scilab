@@ -16,6 +16,7 @@
 #define __JVM_H__
 
 #include <jni.h>
+#include "dynlib_jvm.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,7 +40,7 @@ extern "C" {
      * Returns the current JNIEnv of Scilab
      * @return The JNI environnement of Scilab
      */
-    JNIEnv *getScilabJNIEnv(void);
+    JVM_IMPEXP JNIEnv *getScilabJNIEnv(void);
 
 #ifdef __cplusplus
 }

@@ -18,21 +18,21 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST wchar_t *getSCIHOMEW(void);
-EXTERN_AST char *getSCIHOME(void);
+AST_IMPEXP wchar_t *getSCIHOMEW(void);
+AST_IMPEXP char *getSCIHOME(void);
 
-EXTERN_AST void setSCIHOMEW(const wchar_t* _sci_path);
-EXTERN_AST void setSCIHOME(const char* _sci_path);
+AST_IMPEXP void setSCIHOMEW(const wchar_t* _sci_path);
+AST_IMPEXP void setSCIHOME(const char* _sci_path);
 
-EXTERN_AST wchar_t* computeSCIHOMEW();
-EXTERN_AST char* computeSCIHOME();
+AST_IMPEXP wchar_t* computeSCIHOMEW();
+AST_IMPEXP char* computeSCIHOME();
 
-EXTERN_AST wchar_t* getenvSCIHOMEW(void);
-EXTERN_AST char* getenvSCIHOME(void);
+AST_IMPEXP wchar_t* getenvSCIHOMEW(void);
+AST_IMPEXP char* getenvSCIHOME(void);
 
-EXTERN_AST void putenvSCIHOMEW(const wchar_t* _sci_path);
-EXTERN_AST void putenvSCIHOME(const char* _sci_path);
+AST_IMPEXP void putenvSCIHOMEW(const wchar_t* _sci_path);
+AST_IMPEXP void putenvSCIHOME(const char* _sci_path);
 
-EXTERN_AST void defineSCIHOME();
+AST_IMPEXP void defineSCIHOME();
 
 #endif // ! __SCI_HOME_H__

@@ -27,18 +27,18 @@
 #define UNIX_SEPATATOR '/'
 #define WINDOWS_SEPATATOR '\\'
 
-EXTERN_AST bool IsTheGoodShell(void);
-EXTERN_AST bool Set_Shell(void);
-EXTERN_AST void Set_SOME_ENVIRONMENTS_VARIABLES_FOR_SCILAB(void);
-EXTERN_AST void SciEnvForWindows(void);
-EXTERN_AST void SetScilabEnvironmentVariables(char *DefaultSCIPATH);
-EXTERN_AST bool convertSlash(const char *path_in, char *path_out, bool slashToAntislash);
-EXTERN_AST bool AntislashToSlash(const char *pathwindows, char *pathunix);
-EXTERN_AST bool SlashToAntislash(const char *pathwindows, char *pathunix);
-EXTERN_AST bool isdir(const char * path);
-EXTERN_AST bool createdirectory(const char *path);
-EXTERN_AST bool isDrive(const char *strname);
-EXTERN_AST void SetScilabEnvironment(void);
-EXTERN_AST void SetScilabVariables(void);
-EXTERN_AST int SciEnvForOthers(void);
+AST_IMPEXP bool IsTheGoodShell(void);
+AST_IMPEXP bool Set_Shell(void);
+AST_IMPEXP void Set_SOME_ENVIRONMENTS_VARIABLES_FOR_SCILAB(void);
+AST_IMPEXP void SciEnvForWindows(void);
+AST_IMPEXP void SetScilabEnvironmentVariables(char *DefaultSCIPATH);
+AST_IMPEXP bool convertSlash(const char *path_in, char *path_out, bool slashToAntislash);
+AST_IMPEXP bool AntislashToSlash(const char *pathwindows, char *pathunix);
+AST_IMPEXP bool SlashToAntislash(const char *pathwindows, char *pathunix);
+AST_IMPEXP bool isdir(const char * path);
+AST_IMPEXP bool createdirectory(const char *path);
+AST_IMPEXP bool isDrive(const char *strname);
+AST_IMPEXP void SetScilabEnvironment(void);
+AST_IMPEXP void SetScilabVariables(void);
+AST_IMPEXP int SciEnvForOthers(void);
 

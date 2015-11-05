@@ -29,7 +29,7 @@ namespace types
 /*
 ** Type
 */
-class EXTERN_AST GenericType : public InternalType
+class AST_IMPEXP GenericType : public InternalType
 {
 
 protected :

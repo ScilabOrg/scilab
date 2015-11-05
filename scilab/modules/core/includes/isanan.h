@@ -13,12 +13,14 @@
 #define __ISANAN_H__
 
 #include "machine.h" /* C2F */
+#include "dynlib_core.h"
 
 /**
 * testing Nan returns 1 if a Nan is found and 0 elsewhere
 * @param value to check
 * @return 1 if a Nan is found and 0 elsewhere
 */
+CORE_IMPEXP
 int C2F(isanan)(double *x);
 
 #endif /* __ISANAN_H__ */

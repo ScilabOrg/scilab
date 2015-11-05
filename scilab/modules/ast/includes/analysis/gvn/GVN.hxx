@@ -38,7 +38,7 @@ namespace analysis
  * For information, the GVN::Value are stored in unordered_map (or multimap) or list.
  *
  */
-class EXTERN_AST GVN
+class AST_IMPEXP GVN
 {
 
 public:
@@ -198,7 +198,7 @@ public:
     /**
      * \brief Overload of the operator << for GVN
      */
-    EXTERN_AST friend std::wostream & operator<<(std::wostream & out, const GVN & gvn);
+    AST_IMPEXP friend std::wostream & operator<<(std::wostream & out, const GVN & gvn);
 
 private:
 

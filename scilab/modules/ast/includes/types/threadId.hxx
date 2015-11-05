@@ -22,7 +22,7 @@ extern "C"
 
 namespace types
 {
-class EXTERN_AST ThreadId : public InternalType
+class AST_IMPEXP ThreadId : public InternalType
 {
 public :
     ThreadId(__threadId _id, __threadKey _key);
