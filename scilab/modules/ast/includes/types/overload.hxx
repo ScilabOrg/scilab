@@ -16,7 +16,7 @@
 #include "function.hxx"
 #include "visitor.hxx"
 
-class EXTERN_AST Overload
+class AST_IMPEXP Overload
 {
 
 public:

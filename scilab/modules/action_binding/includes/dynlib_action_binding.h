@@ -21,7 +21,11 @@
 #define ACTION_BINDING_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define ACTION_BINDING_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define ACTION_BINDING_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_ACTION_BINDING_H__ */

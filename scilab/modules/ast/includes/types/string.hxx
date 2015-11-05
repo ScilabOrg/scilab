@@ -31,7 +31,7 @@
 
 namespace types
 {
-class EXTERN_AST String : public ArrayOf<wchar_t*>
+class AST_IMPEXP String : public ArrayOf<wchar_t*>
 {
 public :
     String(int _iRows, int _iCols);

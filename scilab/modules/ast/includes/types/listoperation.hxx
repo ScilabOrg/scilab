@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST ListOperation : public InternalType
+class AST_IMPEXP ListOperation : public InternalType
 {
 public :
     ListOperation(): InternalType() {};

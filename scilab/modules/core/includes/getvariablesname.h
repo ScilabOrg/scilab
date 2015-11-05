@@ -13,6 +13,7 @@
 #define __GETVARIABLESNAME_H__
 
 #include "BOOL.h" /* BOOL */
+#include "dynlib_core.h"
 
 /**
 * get names of all variables (global+local) on scilab
@@ -20,6 +21,7 @@
 * @param[in] BOOL to sort output
 * @return an array of strings
 */
+CORE_IMPEXP
 char **getVariablesName(int *sizearray, BOOL sorted);
 
 #endif /*__GETVARIABLESNAME_H__ */

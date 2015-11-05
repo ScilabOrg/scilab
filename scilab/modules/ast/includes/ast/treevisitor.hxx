@@ -20,11 +20,11 @@
 
 namespace ast
 {
-class EXTERN_AST TreeVisitor : public DummyVisitor
+class AST_IMPEXP TreeVisitor : public DummyVisitor
 {
 public:
     TreeVisitor() : l(nullptr), eol(nullptr) {}
-    ~TreeVisitor() 
+    ~TreeVisitor()
     {
         eol->killMe();
         l->killMe();

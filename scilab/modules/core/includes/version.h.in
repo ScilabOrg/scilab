@@ -12,6 +12,8 @@
 #ifndef SCI_VERSION_H
 #define SCI_VERSION_H
 
+#include "dynlib_core.h"
+
 #define SCI_VERSION_MAJOR @SCILAB_VERSION_MAJOR@
 #define SCI_VERSION_MINOR @SCILAB_VERSION_MINOR@
 #define SCI_VERSION_MAINTENANCE @SCILAB_VERSION_MAINTENANCE@
@@ -21,6 +23,7 @@
 #define SCI_VERSION_REVISION 0
 #define SCI_VERSION_TIMESTAMP 0
 
+CORE_IMPEXP
 void disp_scilab_version(void);
 
 /* for compatibility */

@@ -21,7 +21,11 @@
 #define UI_DATA_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define UI_DATA_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define UI_DATA_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_UI_DATA_H__ */

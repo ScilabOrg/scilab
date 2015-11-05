@@ -28,10 +28,10 @@
 
 namespace analysis
 {
-class AnalysisVisitor;
-class DataManager;
+class AST_IMPEXP AnalysisVisitor;
+class AST_IMPEXP DataManager;
 
-class EXTERN_AST Block
+class AST_IMPEXP Block
 {
 
     friend class DataManager;

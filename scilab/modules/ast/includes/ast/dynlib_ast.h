@@ -16,11 +16,15 @@
 
 #ifdef _MSC_VER
 #if AST_EXPORTS
-#define EXTERN_AST __declspec (dllexport)
+#define AST_IMPEXP __declspec (dllexport)
 #else
-#define EXTERN_AST __declspec (dllimport)
+#define AST_IMPEXP __declspec (dllimport)
 #endif
 #else
-#define EXTERN_AST
+#if __GNUC__ >= 4
+#define AST_IMPEXP __attribute__ ((visibility ("default")))
+#else
+#define AST_IMPEXP
+#endif
 #endif
 #endif /* !__DYNLIB_AST_H__ */

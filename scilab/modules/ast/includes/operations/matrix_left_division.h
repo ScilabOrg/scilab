@@ -15,12 +15,12 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST int	iLeftDivisionOfRealMatrix(
+AST_IMPEXP int	iLeftDivisionOfRealMatrix(
     double *_pdblReal1,		int _iRows1,	int _iCols1,
     double *_pdblReal2,		int _iRows2,	int _iCols2,
     double *_pdblRealOut,	int _iRowsOut,	int _iColsOut, double *_pdblRcond);
 
-EXTERN_AST int	iLeftDivisionOfComplexMatrix(
+AST_IMPEXP int	iLeftDivisionOfComplexMatrix(
     double *_pdblReal1,		double *_pdblImg1,		int _iRows1,	int _iCols1,
     double *_pdblReal2,		double *_pdblImg2,		int _iRows2,	int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut,	int _iRowsOut,	int _iColsOut, double *_pdblRcond);

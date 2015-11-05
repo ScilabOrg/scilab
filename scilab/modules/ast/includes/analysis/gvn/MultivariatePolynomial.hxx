@@ -35,7 +35,7 @@ namespace analysis
  * \struct MultivariatePolynomial
  * \brief Represents a multivariate polynomial
  */
-struct EXTERN_AST MultivariatePolynomial
+struct AST_IMPEXP MultivariatePolynomial
 {
     typedef std::unordered_set<MultivariateMonomial, MultivariateMonomial::Hash, MultivariateMonomial::Eq> Polynomial;
     int64_t constant;

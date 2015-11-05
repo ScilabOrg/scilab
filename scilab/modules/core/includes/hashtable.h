@@ -35,6 +35,8 @@
 #ifndef __HASHTABLE_CWC22_H__
 #define __HASHTABLE_CWC22_H__
 
+#include "dynlib_core.h"
+
 struct hashtable;
 
 /* Example of use:
@@ -102,7 +104,7 @@ struct hashtable;
  * @param   key_eq_fn       function for determining key equality
  * @return                  newly created hashtable or NULL on failure
  */
-
+CORE_IMPEXP
 struct hashtable *
 create_hashtable(unsigned int minsize,
                  unsigned int (*hashfunction) (void*),
@@ -126,7 +128,7 @@ create_hashtable(unsigned int minsize,
  * entries is reversed.
  * If in doubt, remove before insert.
  */
-
+CORE_IMPEXP
 int hashtable_insert(struct hashtable *h, void *k, void *v);
 
 #define DEFINE_HASHTABLE_INSERT(fnname, keytype, valuetype) \
@@ -143,7 +145,7 @@ int fnname (struct hashtable *h, keytype *k, valuetype *v) \
  * @param   k   the key to search for  - does not claim ownership
  * @return      the value associated with the key, or NULL if none found
  */
-
+CORE_IMPEXP
 void *
 hashtable_search(struct hashtable *h, void *k);
 
@@ -161,7 +163,7 @@ valuetype * fnname (struct hashtable *h, keytype *k) \
  * @param   k   the key to search for  - does not claim ownership
  * @return      the value associated with the key, or NULL if none found
  */
-
+CORE_IMPEXP
 void * /* returns value */
 hashtable_remove(struct hashtable *h, void *k);
 
@@ -179,6 +181,7 @@ valuetype * fnname (struct hashtable *h, keytype *k) \
  * @param   h   the hashtable
  * @return      the number of items stored in the hashtable
  */
+CORE_IMPEXP
 unsigned int hashtable_count(struct hashtable *h);
 
 
@@ -189,7 +192,7 @@ unsigned int hashtable_count(struct hashtable *h);
  * @param   h   the hashtable
  * @param       free_values     whether to call 'free' on the remaining values
  */
-
+CORE_IMPEXP
 void hashtable_destroy(struct hashtable *h, int free_values);
 
 #endif /* __HASHTABLE_CWC22_H__ */

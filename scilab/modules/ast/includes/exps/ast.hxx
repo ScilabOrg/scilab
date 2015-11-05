@@ -134,7 +134,7 @@ private:
     Location _location;
     double m_dblElapsedTime;
     size_t nodeNumber;
-    static EXTERN_AST size_t globalNodeNumber;
+    static AST_IMPEXP size_t globalNodeNumber;
 };
 
 } // namespace ast

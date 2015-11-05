@@ -14,6 +14,8 @@
 #ifndef __INITSCILAB_H__
 #define __INITSCILAB_H__
 
+#include "dynlib_core.h"
+
 #include "storeCommand.h" // command_origin_t
 
 typedef struct
@@ -46,12 +48,12 @@ typedef struct
     enum command_origin_t iCommandOrigin;
 } ScilabEngineInfo;
 
-ScilabEngineInfo* InitScilabEngineInfo();
+CORE_IMPEXP ScilabEngineInfo* InitScilabEngineInfo();
 
-int StartScilabEngine(ScilabEngineInfo* _pSEI);
-int RunScilabEngine(ScilabEngineInfo* _pSEI);
-int ExecExternalCommand(ScilabEngineInfo* _pSEI);
+CORE_IMPEXP int StartScilabEngine(ScilabEngineInfo* _pSEI);
+CORE_IMPEXP int RunScilabEngine(ScilabEngineInfo* _pSEI);
+CORE_IMPEXP int ExecExternalCommand(ScilabEngineInfo* _pSEI);
 
-void StopScilabEngine(ScilabEngineInfo* _pSEI);
+CORE_IMPEXP void StopScilabEngine(ScilabEngineInfo* _pSEI);
 
 #endif /* !__INITSCILAB_H__ */

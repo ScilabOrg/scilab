@@ -20,12 +20,13 @@
 
 #include "tools.hxx"
 #include "TITypeSignatureTuple.hxx"
+#include "dynlib_ast.h"
 
 namespace analysis
 {
 
-class MacroDef;
-class DataManager;
+class AST_IMPEXP MacroDef;
+class AST_IMPEXP DataManager;
 
 /**
  * \struct MacroSignature

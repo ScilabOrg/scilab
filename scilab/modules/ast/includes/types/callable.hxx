@@ -26,7 +26,7 @@
 
 namespace types
 {
-class EXTERN_AST Callable : public InternalType
+class AST_IMPEXP Callable : public InternalType
 {
 public :
     enum ReturnValue

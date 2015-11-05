@@ -17,20 +17,20 @@
 #include "BOOL.h"
 #include "dynlib_ast.h"
 
-EXTERN_AST int getLastErrorNumber(void);
-EXTERN_AST wchar_t* getLastErrorMessage(void);
-EXTERN_AST int getLastErrorLine(void);
-EXTERN_AST wchar_t* getLastErrorFunction(void);
+AST_IMPEXP int getLastErrorNumber(void);
+AST_IMPEXP wchar_t* getLastErrorMessage(void);
+AST_IMPEXP int getLastErrorLine(void);
+AST_IMPEXP wchar_t* getLastErrorFunction(void);
 
-EXTERN_AST void setLastErrorNumber(int _iError);
-EXTERN_AST void setLastErrorMessage(const wchar_t* _pwstError);
-EXTERN_AST void setLastErrorLine(int _iLine);
-EXTERN_AST void setLastErrorFunction(const wchar_t* _pwstFunction);
+AST_IMPEXP void setLastErrorNumber(int _iError);
+AST_IMPEXP void setLastErrorMessage(const wchar_t* _pwstError);
+AST_IMPEXP void setLastErrorLine(int _iLine);
+AST_IMPEXP void setLastErrorFunction(const wchar_t* _pwstFunction);
 
-EXTERN_AST void setLastError(int _iError, const wchar_t* _pwstError, int _iLine, const wchar_t* _pwstFunction);
+AST_IMPEXP void setLastError(int _iError, const wchar_t* _pwstError, int _iLine, const wchar_t* _pwstFunction);
 
-EXTERN_AST void SetError();
-EXTERN_AST int isError();
-EXTERN_AST void resetError();
+AST_IMPEXP void SetError();
+AST_IMPEXP int isError();
+AST_IMPEXP void resetError();
 
 #endif // ! __SCI_LASTERROR_H__

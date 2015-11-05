@@ -12,11 +12,14 @@
 #ifndef __GETFUNCTIONSNAME_H__
 #define __GETFUNCTIONSNAME_H__
 
+#include "dynlib_core.h"
+
 /**
  * Return the list of the functions
  * @param[out] sizeList the size of the function list
  * @return all the functions
  */
+CORE_IMPEXP
 char **getFunctionsName(int *sizeList);
 
 /*--------------------------------------------------------------------------*/

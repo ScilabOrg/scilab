@@ -21,7 +21,11 @@
 #define DATA_STRUCTURES_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define DATA_STRUCTURES_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define DATA_STRUCTURES_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_DATA_STRUCTURES_H__ */

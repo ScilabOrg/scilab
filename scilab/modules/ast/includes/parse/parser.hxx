@@ -26,7 +26,7 @@ extern "C"
 #include "dynlib_ast.h"
 }
 
-class EXTERN_AST Parser
+class AST_IMPEXP Parser
 {
 public:
     Parser() :

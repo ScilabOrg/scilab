@@ -28,7 +28,7 @@
 
 namespace types
 {
-class EXTERN_AST Colon : public ImplicitList
+class AST_IMPEXP Colon : public ImplicitList
 {
 public :
 

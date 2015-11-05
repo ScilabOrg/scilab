@@ -31,6 +31,7 @@ extern "C" {
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isHypermatType(void* _pvCtx, int* _piAddress);
 
 /**
@@ -38,6 +39,7 @@ int isHypermatType(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isHypermatComplex(void* _pvCtx, int* _piAddress);
 
 /**
@@ -45,6 +47,7 @@ int isHypermatComplex(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @param[out] _piType return the base type
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatType(void *_pvCtx, int *_piAddress, int *_piType);
 
 /**
@@ -52,6 +55,7 @@ SciErr getHypermatType(void *_pvCtx, int *_piAddress, int *_piType);
  * @param[in] _piAddress variable address
  * @param[out] _piPrecison return integer precision ( SCI_xINTx )
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfIntegerPrecision(void *_pvCtx, int *_piAddress, int *_piPrecision);
 
 /**
@@ -60,6 +64,7 @@ SciErr getHypermatOfIntegerPrecision(void *_pvCtx, int *_piAddress, int *_piPrec
  * @param[out] _dims return the dimensions
  * @param[out] _ndims return the number of dimensions
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatDimensions(void *_pvCtx, int *_piAddress, int **_dims, int *_ndims);
 
 /**
@@ -69,6 +74,7 @@ SciErr getHypermatDimensions(void *_pvCtx, int *_piAddress, int **_dims, int *_n
  * @param[out] _piVarNameLen return length of _pstVarName
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatPolyVariableName(void* _pvCtx, int* _piAddress, char* _pstVarName, int* _piVarNameLen);
 
 /**
@@ -79,6 +85,7 @@ SciErr getHypermatPolyVariableName(void* _pvCtx, int* _piAddress, char* _pstVarN
  * @param[out] _piNbCoef return number of polynomial coefficients for each element
  * @param[out] _pdblReal return real coefficients
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfPoly(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, int* _piNbCoef, double** _pdblReal);
 
 /**
@@ -90,6 +97,7 @@ SciErr getHypermatOfPoly(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims
  * @param[out] _pdblReal return real coefficients
  * @param[out] _pdblImg return imaginary coefficients
  */
+API_SCILAB_IMPEXP
 SciErr getComplexHypermatOfPoly(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
 
 /**
@@ -100,6 +108,7 @@ SciErr getComplexHypermatOfPoly(void* _pvCtx, int* _piAddress, int **_dims, int 
  * @param[out] _piLength return strings lengths
  * @param[out] _pstStrings return the strings data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfString(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, int* _piLength, char** _pstStrings);
 
 /**
@@ -110,6 +119,7 @@ SciErr getHypermatOfString(void* _pvCtx, int* _piAddress, int **_dims, int *_ndi
  * @param[out] _piLength return strings lengths
  * @param[out] _pwstStrings return the strings data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfWideString(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, int* _piLength, wchar_t** _pwstStrings);
 
 /**
@@ -119,6 +129,7 @@ SciErr getHypermatOfWideString(void* _pvCtx, int* _piAddress, int **_dims, int *
  * @param[out] _ndims return the number of dimensions
  * @param[out] _pdblReal return the double data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfDouble(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, double** _pdblReal);
 
 /**
@@ -129,6 +140,7 @@ SciErr getHypermatOfDouble(void* _pvCtx, int* _piAddress, int **_dims, int *_ndi
  * @param[out] _pdblReal return the real data
  * @param[out] _pdblImg return the imaginary data
  */
+API_SCILAB_IMPEXP
 SciErr getComplexHypermatOfDouble(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, double** _pdblReal, double** _pdblImg);
 
 /**
@@ -138,6 +150,7 @@ SciErr getComplexHypermatOfDouble(void* _pvCtx, int* _piAddress, int **_dims, in
  * @param[out] _ndims return the number of dimensions
  * @param[out] _pucData8 return the unsigned char data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfUnsignedInteger8(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, unsigned char** _pucData8);
 
 /**
@@ -147,6 +160,7 @@ SciErr getHypermatOfUnsignedInteger8(void* _pvCtx, int* _piAddress, int **_dims,
  * @param[out] _ndims return the number of dimensions
  * @param[out] _pcData8 return the char data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfInteger8(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, char** _pcData8);
 
 /**
@@ -156,6 +170,7 @@ SciErr getHypermatOfInteger8(void* _pvCtx, int* _piAddress, int **_dims, int *_n
  * @param[out] _ndims return the number of dimensions
  * @param[out] _pusData16 return the unsigned short data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfUnsignedInteger16(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, unsigned short** _pusData16);
 
 /**
@@ -165,6 +180,7 @@ SciErr getHypermatOfUnsignedInteger16(void* _pvCtx, int* _piAddress, int **_dims
  * @param[out] _ndims return the number of dimensions
  * @param[out] _psData16 return the short data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfInteger16(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, short** _psData16);
 
 /**
@@ -174,6 +190,7 @@ SciErr getHypermatOfInteger16(void* _pvCtx, int* _piAddress, int **_dims, int *_
  * @param[out] _ndims return the number of dimensions
  * @param[out] _puiData32 return the unsigned int data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfUnsignedInteger32(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, unsigned int** _puiData32);
 
 /**
@@ -183,6 +200,7 @@ SciErr getHypermatOfUnsignedInteger32(void* _pvCtx, int* _piAddress, int **_dims
  * @param[out] _ndims return the number of dimensions
  * @param[out] _piData32 return the int data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfInteger32(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, int** _piData32);
 
 /**
@@ -192,6 +210,7 @@ SciErr getHypermatOfInteger32(void* _pvCtx, int* _piAddress, int **_dims, int *_
 * @param[out] _ndims return the number of dimensions
 * @param[out] _pllData64 return the int data
 */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfInteger64(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, long long** _pllData64);
 
 /**
@@ -201,6 +220,7 @@ SciErr getHypermatOfInteger64(void* _pvCtx, int* _piAddress, int **_dims, int *_
 * @param[out] _ndims return the number of dimensions
 * @param[out] _pullData64 return the int data
 */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfUnsignedInteger64(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, unsigned long long** _pullData64);
 
 /**
@@ -210,6 +230,7 @@ SciErr getHypermatOfUnsignedInteger64(void* _pvCtx, int* _piAddress, int **_dims
  * @param[out] _ndims return the number of dimensions
  * @param[out] _piBool return the boolean data
  */
+API_SCILAB_IMPEXP
 SciErr getHypermatOfBoolean(void* _pvCtx, int* _piAddress, int **_dims, int *_ndims, int** _piBool);
 
 /**
@@ -221,6 +242,7 @@ SciErr getHypermatOfBoolean(void* _pvCtx, int* _piAddress, int **_dims, int *_nd
  * @param[in] _piNbCoef number of polynomial coefficients for each element
  * @param[in] _pdblReal pointer to real coefficients
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_dims, int _ndims, const int* _piNbCoef, const double* const* _pdblReal);
 
 /**
@@ -233,6 +255,7 @@ SciErr createHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_di
  * @param[in] _pdblReal pointer to real coefficients
  * @param[in] _pdblImg pointer to imaginary coefficients
  */
+API_SCILAB_IMPEXP
 SciErr createComplexHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_dims, int _ndims, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg);
 
 /**
@@ -242,7 +265,9 @@ SciErr createComplexHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, i
  * @param[in] _ndims the number of dimensions
  * @param[in] _pdblReal pointer to real data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfDouble(void* _pvCtx, int _iVar, int *_dims, int _ndims, const double* _pdblReal);
+API_SCILAB_IMPEXP
 SciErr allocHypermatOfDouble(void *_pvCtx, int _iVar, int * _dims, int _ndims, double** _pdblReal);
 
 /**
@@ -252,6 +277,7 @@ SciErr allocHypermatOfDouble(void *_pvCtx, int _iVar, int * _dims, int _ndims, d
  * @param[in] _ndims the number of dimensions
  * @param[in] _pdblReal pointer to real data
  */
+API_SCILAB_IMPEXP
 SciErr createComplexHypermatOfDouble(void* _pvCtx, int _iVar, int *_dims, int _ndims, const double* _pdblReal, const double* _pdblImg);
 
 /**
@@ -261,6 +287,7 @@ SciErr createComplexHypermatOfDouble(void* _pvCtx, int _iVar, int *_dims, int _n
  * @param[in] _ndims the number of dimensions
  * @param[in] _piBool pointer to boolean data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfBoolean(void* _pvCtx, int _iVar, int *_dims, int _ndims, const int* _piBool);
 
 /**
@@ -270,6 +297,7 @@ SciErr createHypermatOfBoolean(void* _pvCtx, int _iVar, int *_dims, int _ndims, 
  * @param[in] _ndims the number of dimensions
  * @param[in] _pstStrings pointer to string data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfString(void* _pvCtx, int _iVar, int *_dims, int _ndims, const char* const* _pstStrings);
 
 /**
@@ -279,6 +307,7 @@ SciErr createHypermatOfString(void* _pvCtx, int _iVar, int *_dims, int _ndims, c
  * @param[in] _ndims the number of dimensions
  * @param[in] _pcData8 pointer to char data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfInteger8(void* _pvCtx, int _iVar, int *_dims, int _ndims, const char* _pcData8);
 
 /**
@@ -288,6 +317,7 @@ SciErr createHypermatOfInteger8(void* _pvCtx, int _iVar, int *_dims, int _ndims,
  * @param[in] _ndims the number of dimensions
  * @param[in] _pucData8 pointer to unsigned char data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfUnsignedInteger8(void* _pvCtx, int _iVar, int *_dims, int _ndims, const unsigned char* _pucData8);
 
 /**
@@ -297,6 +327,7 @@ SciErr createHypermatOfUnsignedInteger8(void* _pvCtx, int _iVar, int *_dims, int
  * @param[in] _ndims the number of dimensions
  * @param[in] _psData16 pointer to short data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfInteger16(void* _pvCtx, int _iVar, int *_dims, int _ndims, const short* _psData16);
 
 /**
@@ -306,6 +337,7 @@ SciErr createHypermatOfInteger16(void* _pvCtx, int _iVar, int *_dims, int _ndims
  * @param[in] _ndims the number of dimensions
  * @param[in] _pusData16 pointer to unsigned short data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfUnsignedInteger16(void* _pvCtx, int _iVar, int *_dims, int _ndims, const unsigned short* _pusData16);
 
 /**
@@ -315,6 +347,7 @@ SciErr createHypermatOfUnsignedInteger16(void* _pvCtx, int _iVar, int *_dims, in
  * @param[in] _ndims the number of dimensions
  * @param[in] _piData32 pointer to int data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfInteger32(void* _pvCtx, int _iVar, int *_dims, int _ndims, const int* _piData32);
 
 /**
@@ -324,6 +357,7 @@ SciErr createHypermatOfInteger32(void* _pvCtx, int _iVar, int *_dims, int _ndims
  * @param[in] _ndims the number of dimensions
  * @param[in] _puiData32 pointer to unsigned int data
  */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfUnsignedInteger32(void* _pvCtx, int _iVar, int *_dims, int _ndims, const unsigned int* _puiData32);
 
 /**
@@ -333,6 +367,7 @@ SciErr createHypermatOfUnsignedInteger32(void* _pvCtx, int _iVar, int *_dims, in
 * @param[in] _ndims the number of dimensions
 * @param[in] _pllData64 pointer to unsigned int data
 */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfInteger64(void *_pvCtx, int _iVar, int * _dims, int _ndims, const long long* _pllData64);
 
 /**
@@ -342,6 +377,7 @@ SciErr createHypermatOfInteger64(void *_pvCtx, int _iVar, int * _dims, int _ndim
 * @param[in] _ndims the number of dimensions
 * @param[in] _pullData64 pointer to unsigned int data
 */
+API_SCILAB_IMPEXP
 SciErr createHypermatOfUnsignedInteger64(void *_pvCtx, int _iVar, int * _dims, int _ndims, const unsigned long long* _pullData64);
 
 #ifdef __cplusplus

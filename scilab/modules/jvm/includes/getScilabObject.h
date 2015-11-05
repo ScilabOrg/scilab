@@ -17,10 +17,13 @@
 
 #include <jni.h> /* jobject */
 
+#include "dynlib_jvm.h"
+
 /**
 * returns jobject on Scilab main
 * @return jobject
 */
+JVM_IMPEXP
 jobject getScilabObject(void);
 
 #endif /* __GETSCILABOJECT_H__ */

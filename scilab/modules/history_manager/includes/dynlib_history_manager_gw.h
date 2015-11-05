@@ -21,7 +21,11 @@
 #define HISTORY_MANAGER_GW_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define HISTORY_MANAGER_GW_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define HISTORY_MANAGER_GW_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_HISTORY_MANAGER_GW_H__ */

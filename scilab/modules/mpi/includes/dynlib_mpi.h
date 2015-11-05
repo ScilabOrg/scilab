@@ -21,7 +21,11 @@
 #define MPI_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define MPI_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define MPI_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_MPI_H__ */

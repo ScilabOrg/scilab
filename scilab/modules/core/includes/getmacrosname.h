@@ -12,12 +12,15 @@
 #ifndef __GETMACROSNAME_H__
 #define __GETMACROSNAME_H__
 
+#include "dynlib_core.h"
+
 /**
 * get scilab macros list (sorted by name)
 * macros on scilab and in libraries
 * @param[out] size of returned array
 * @return array of strings
 */
+CORE_IMPEXP
 char **getMacrosName(int *sizearray);
 
 #endif /* __GETMACROSNAME_H__ */

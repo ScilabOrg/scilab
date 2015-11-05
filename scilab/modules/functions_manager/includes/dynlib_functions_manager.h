@@ -17,5 +17,9 @@
 #define FUNCMAN_IMEXP __declspec (dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define FUNCMAN_IMEXP __attribute__ ((visibility ("default")))
+#else
 #define FUNCMAN_IMEXP
+#endif
 #endif

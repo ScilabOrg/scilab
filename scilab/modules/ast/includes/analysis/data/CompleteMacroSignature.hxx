@@ -23,6 +23,7 @@
 #include "MacroSignature.hxx"
 #include "TITypeTuple.hxx"
 #include "TITypeSignatureTuple.hxx"
+#include "dynlib_ast.h"
 
 namespace analysis
 {
@@ -33,8 +34,8 @@ struct MacroOut
     int maxVarId;
 };
 
-class AnalysisVisitor;
-class DataManager;
+class AST_IMPEXP AnalysisVisitor;
+class AST_IMPEXP DataManager;
 
 /**
  * \struct CompleteMacroSignature

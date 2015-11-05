@@ -8,6 +8,20 @@ This file details the changes between 6.0.0-alpha-1 and 6.0.0-alpha-2 of Scilab 
 For a high-level overview of the changes in this release, please consult the "What's new" page of the help, by simply typing "help" in Scilab console.
 
 
+        Changes between version 6.0.0-alpha-2 and 6.0.0-beta-1
+        =======================================================
+
+New Features
+============
+
+
+
+Other feature changes
+=====================
+
+* On Linux and OS X the number of visible symbols has been greatly reduced
+to avoid API mis-use and improve startup time.
+
 
         Changes between version 6.0.0-alpha-1 and 6.0.0-alpha-2
         =======================================================

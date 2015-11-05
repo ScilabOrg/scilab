@@ -21,7 +21,11 @@
 #define SOUND_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define SOUND_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define SOUND_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_SOUND_H__ */

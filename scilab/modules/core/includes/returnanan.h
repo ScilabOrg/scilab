@@ -11,12 +11,18 @@
  */
 #ifndef __RETURNANAN_H__
 #define __RETURNANAN_H__
+
 #include "machine.h"
+#include "dynlib_core.h"
+
 /**
  * Returns a "not a number"
  * @return the "nan"
  */
+CORE_IMPEXP
 double C2F(returnanan)(void);
+
+CORE_IMPEXP
 void C2F(returnananfortran)(double * nan);
 
 #endif /*__RETURNANAN_H__ */
