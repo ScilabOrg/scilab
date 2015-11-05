@@ -17,12 +17,12 @@
 #include <atomic>
 #include <memory>
 
+#include "dynlib_core.h"
 #include "exp.hxx"
 #include "runvisitor.hxx"
 
 extern "C"
 {
-#include "dynlib_core.h"
 #include "storeCommand.h" // command_origin_t
 }
 
@@ -89,10 +89,15 @@ private:
 
 extern "C"
 {
+    CORE_IMPEXP
     void StaticRunner_launch(void);
+    CORE_IMPEXP
     int StaticRunner_isRunnerAvailable(void);
+    CORE_IMPEXP
     int StaticRunner_isInterruptibleCommand(void);
+    CORE_IMPEXP
     void StaticRunner_setInterruptibleCommand(int val);
+    CORE_IMPEXP
     command_origin_t StaticRunner_getCommandOrigin(void);
 }
 

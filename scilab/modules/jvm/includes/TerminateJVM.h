@@ -16,11 +16,13 @@
 #define __TERMINATEJVM_H__
 
 #include "BOOL.h"
+#include "dynlib_jvm.h"
 
 /**
 * Terminate JVM
 * @return TRUE or FALSE
 */
+JVM_IMPEXP
 BOOL TerminateJVM(void);
 
 #endif /* __TERMINATEJVM_H__ */

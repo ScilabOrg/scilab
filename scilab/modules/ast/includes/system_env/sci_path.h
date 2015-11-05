@@ -17,21 +17,21 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST wchar_t* getSCIW(void);
-EXTERN_AST char* getSCI(void);
+AST_IMPEXP wchar_t* getSCIW(void);
+AST_IMPEXP char* getSCI(void);
 
-EXTERN_AST void setSCIW(const wchar_t* _sci_path);
-EXTERN_AST void setSCI(const char* _sci_path);
+AST_IMPEXP void setSCIW(const wchar_t* _sci_path);
+AST_IMPEXP void setSCI(const char* _sci_path);
 
-EXTERN_AST wchar_t* computeSCIW();
-EXTERN_AST char* computeSCI();
+AST_IMPEXP wchar_t* computeSCIW();
+AST_IMPEXP char* computeSCI();
 
-EXTERN_AST wchar_t* getenvSCIW(void);
-EXTERN_AST char* getenvSCI(void);
+AST_IMPEXP wchar_t* getenvSCIW(void);
+AST_IMPEXP char* getenvSCI(void);
 
-EXTERN_AST void putenvSCIW(const wchar_t* _sci_path);
-EXTERN_AST void putenvSCI(const char* _sci_path);
+AST_IMPEXP void putenvSCIW(const wchar_t* _sci_path);
+AST_IMPEXP void putenvSCI(const char* _sci_path);
 
-EXTERN_AST void defineSCI();
+AST_IMPEXP void defineSCI();
 
 #endif // ! __SCI_PATH_H__

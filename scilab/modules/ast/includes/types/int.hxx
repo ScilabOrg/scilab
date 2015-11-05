@@ -33,7 +33,7 @@
 namespace types
 {
 template<typename T>
-class EXTERN_AST Int : public ArrayOf<T>
+class AST_IMPEXP Int : public ArrayOf<T>
 {
 public :
 
@@ -685,7 +685,6 @@ typedef Int<unsigned short> UInt16;
 typedef Int<unsigned int> UInt32;
 typedef Int<unsigned long long> UInt64;
 
-#ifdef _MSC_VER
 template class Int<char>;
 template class Int<unsigned char>;
 template class Int<short>;
@@ -694,7 +693,6 @@ template class Int<int>;
 template class Int<unsigned int>;
 template class Int<long long>;
 template class Int<unsigned long long>;
-#endif
 }
 
 

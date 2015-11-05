@@ -15,7 +15,7 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST int iInvertMatrixM(int iRows, int iCols, double* pData, int complexArg
+AST_IMPEXP int iInvertMatrixM(int iRows, int iCols, double* pData, int complexArg
                               , double* pdblRcond);
 
 #endif /* !_INVERT_MATRIX_H_ */

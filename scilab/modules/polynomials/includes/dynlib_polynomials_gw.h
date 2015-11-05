@@ -17,5 +17,9 @@
 #define EXTERN_POLYNOMIALS_GW __declspec (dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define EXTERN_POLYNOMIALS_GW __attribute__ ((visibility ("default")))
+#else
 #define EXTERN_POLYNOMIALS_GW
+#endif
 #endif

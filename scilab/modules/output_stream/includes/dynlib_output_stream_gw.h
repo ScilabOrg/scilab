@@ -21,7 +21,11 @@
 #define OUTPUT_STREAM_IMPEXP_GW __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define OUTPUT_STREAM_IMPEXP_GW __attribute__ ((visibility ("default")))
+#else
 #define OUTPUT_STREAM_IMPEXP_GW
+#endif
 #endif
 
 #endif /* __DYNLIB_OUTPUT_STREAM_GW_H__ */

@@ -30,7 +30,7 @@ namespace analysis
  * \struct MultivariateMonomial
  * \brief Represents a multivariate monomial
  */
-struct EXTERN_AST MultivariateMonomial
+struct AST_IMPEXP MultivariateMonomial
 {
     typedef std::set<VarExp, VarExp::Compare> Monomial;
 

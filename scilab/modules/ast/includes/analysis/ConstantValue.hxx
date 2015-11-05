@@ -27,7 +27,7 @@ class InternalType;
 
 namespace analysis
 {
-class EXTERN_AST ConstantValue
+class AST_IMPEXP ConstantValue
 {
 
 public:

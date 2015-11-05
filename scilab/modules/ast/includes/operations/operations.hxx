@@ -14,4 +14,4 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST void initOperationArray();
+AST_IMPEXP void initOperationArray();

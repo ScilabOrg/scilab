@@ -21,6 +21,7 @@
 #include <vector>
 
 //#define DEBUG_DATAMANAGER
+#include "dynlib_ast.h"
 
 #include "alldec.hxx"
 #include "allexp.hxx"
@@ -39,7 +40,7 @@ class MacroDef;
 class Data;
 class Info;
 
-class DataManager
+class AST_IMPEXP DataManager
 {
     friend class Block;
 
@@ -55,7 +56,6 @@ class DataManager
 public:
 
     DataManager();
-
     ~DataManager();
 
     GVN & getGVN();

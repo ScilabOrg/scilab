@@ -19,7 +19,11 @@
 #define EXTERN_TIME_GW __declspec (dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define EXTERN_TIME_GW __attribute__ ((visibility ("default")))
+#else
 #define EXTERN_TIME_GW
+#endif
 #endif
 
 #endif /* !__DYNLIB_TIME_GW_H__ */

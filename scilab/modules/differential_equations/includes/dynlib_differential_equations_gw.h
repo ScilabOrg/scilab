@@ -21,7 +21,11 @@
 #define DIFFERENTIAL_EQUATIONS_GW_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define DIFFERENTIAL_EQUATIONS_GW_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define DIFFERENTIAL_EQUATIONS_GW_IMPEXP
+#endif
 #endif
 
 #endif /* __DIFFERENTIAL_EQUATIONS_GW_H__ */

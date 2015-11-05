@@ -15,6 +15,8 @@
 
 #include <iostream>
 
+#include "dynlib_ast.h"
+
 #include "TIType.hxx"
 #include "Data.hxx"
 #include "gvn/GVN.hxx"

@@ -21,7 +21,11 @@
 #define FILEIO_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define FILEIO_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define FILEIO_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_FILEIO_H__ */

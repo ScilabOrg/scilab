@@ -44,7 +44,7 @@ namespace symbol
  ** This allows to avoid an "strcmp()" style comparison of strings:
  ** reference comparison is much faster.
  */
-class EXTERN_AST Symbol
+class AST_IMPEXP Symbol
 {
     /** \brief Define the type "set of wstring". */
     typedef std::set < std::wstring> string_set_type;
@@ -102,7 +102,7 @@ private:
  ** \param ostr the destination output stream
  ** \param the a reference to the symbol to redirect
  */
-EXTERN_AST std::wostream& operator<< (std::wostream &ostr, const Symbol &the);
+AST_IMPEXP std::wostream& operator<< (std::wostream &ostr, const Symbol &the);
 
 /** Typedef for the list of Symbol */
 typedef std::list<const Symbol*> symbols_t;

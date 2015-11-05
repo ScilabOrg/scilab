@@ -17,7 +17,7 @@
 
 namespace ast
 {
-class EXTERN_AST ExecVisitor : public RunVisitorT<ExecVisitor>
+class AST_IMPEXP ExecVisitor : public RunVisitorT<ExecVisitor>
 {
     ExecVisitor* clone()
     {

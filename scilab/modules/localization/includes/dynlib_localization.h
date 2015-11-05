@@ -21,7 +21,11 @@
 #define LOCALIZATION_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define LOCALIZATION_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define LOCALIZATION_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_LOCALIZATION_H__ */

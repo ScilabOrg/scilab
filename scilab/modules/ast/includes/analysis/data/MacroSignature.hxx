@@ -20,6 +20,7 @@
 
 #include "tools.hxx"
 #include "TITypeSignatureTuple.hxx"
+#include "dynlib_ast.h"
 
 namespace analysis
 {

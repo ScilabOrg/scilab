@@ -33,7 +33,7 @@ struct ScopedVariable
     bool protect;
 };
 
-struct EXTERN_AST Variable
+struct AST_IMPEXP Variable
 {
     typedef std::stack<ScopedVariable*> StackVar;
 

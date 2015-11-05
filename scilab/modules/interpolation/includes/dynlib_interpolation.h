@@ -21,7 +21,11 @@
 #define INTERPOLATION_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define INTERPOLATION_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define INTERPOLATION_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_HISTORY_MANAGER_H__ */

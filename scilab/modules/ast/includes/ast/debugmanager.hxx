@@ -21,7 +21,7 @@
 
 namespace debugger
 {
-class EXTERN_AST DebuggerMagager
+class AST_IMPEXP DebuggerMagager
 {
 public :
     enum DebugAction

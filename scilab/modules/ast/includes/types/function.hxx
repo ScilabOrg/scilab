@@ -33,7 +33,7 @@ extern "C"
 
 namespace types
 {
-class EXTERN_AST Function : public Callable
+class AST_IMPEXP Function : public Callable
 {
 public :
     enum FunctionType

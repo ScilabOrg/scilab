@@ -36,12 +36,12 @@ namespace types
 {
 
 //commom function
-EXTERN_AST int computeTuples(int* _piCountDim, int _iDims, int _iCurrentDim, int* _piIndex);
-EXTERN_AST InternalType* createEmptyDouble();
-EXTERN_AST InternalType* createDoubleVector(int _iSize);
-EXTERN_AST int getIntValueFromDouble(InternalType* _pIT, int _iPos);
-EXTERN_AST double* getDoubleArrayFromDouble(InternalType* _pIT);
-EXTERN_AST bool checkArgValidity(typed_list& _pArg);
+AST_IMPEXP int computeTuples(int* _piCountDim, int _iDims, int _iCurrentDim, int* _piIndex);
+AST_IMPEXP InternalType* createEmptyDouble();
+AST_IMPEXP InternalType* createDoubleVector(int _iSize);
+AST_IMPEXP int getIntValueFromDouble(InternalType* _pIT, int _iPos);
+AST_IMPEXP double* getDoubleArrayFromDouble(InternalType* _pIT);
+AST_IMPEXP bool checkArgValidity(typed_list& _pArg);
 
 static int get_max_size(int* _piDims, int _iDims);
 

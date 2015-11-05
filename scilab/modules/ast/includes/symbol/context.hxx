@@ -32,7 +32,7 @@ namespace symbol
 
 /** \brief Define class Context.
 */
-class EXTERN_AST Context
+class AST_IMPEXP Context
 {
 public:
     typedef std::map<Symbol, Variable*> VarList;

@@ -22,7 +22,7 @@
 
 namespace types
 {
-class EXTERN_AST SingleStruct : public InternalType
+class AST_IMPEXP SingleStruct : public InternalType
 {
 public :
     SingleStruct();

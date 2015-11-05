@@ -14,11 +14,13 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "FigureList.h"
+#include "CurrentFigure.h"
 #include "returnType.h"
 #include "createGraphicObject.h"
 #include "deleteGraphicObject.h"
 #include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
+#include "HandleManagement.h"
 #ifndef _MSC_VER
 #include "configvariable_interface.h"
 #endif
@@ -104,7 +106,7 @@ int createNewFigureWithAxes(void)
     return 0;
 }
 /*--------------------------------------------------------------------------*/
-int getObjectFromHandle(void)
+int getObjectFromHandle(long handle)
 {
     return 0;
 }

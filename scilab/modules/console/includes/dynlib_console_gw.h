@@ -21,7 +21,11 @@
 #define EXTERN_CONSOLE_GW __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define EXTERN_CONSOLE_GW __attribute__ ((visibility ("default")))
+#else
 #define EXTERN_CONSOLE_GW
+#endif
 #endif
 
 #endif /* __DYNLIB_CONSOLE_GW_H__ */
