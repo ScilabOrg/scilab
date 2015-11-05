@@ -18,6 +18,8 @@
 #include <unordered_set>
 #include <vector>
 
+#include "dynlib_ast.h"
+
 #include "GVN.hxx"
 #include "tools.hxx"
 
@@ -27,7 +29,7 @@ namespace analysis
 struct MPolyConstraint;
 struct MPolyConstraintSet;
 
-struct InferenceConstraint
+struct AST_IMPEXP InferenceConstraint
 {
     enum Result
     {
@@ -79,7 +81,7 @@ struct EqualConstraint : public InferenceConstraint
     virtual void applyConstraints(const std::vector<GVN::Value *> & values) const /*override*/;
 };
 
-struct PositiveConstraint : public InferenceConstraint
+struct  PositiveConstraint : public InferenceConstraint
 {
     virtual Result check(GVN & gvn, const std::vector<GVN::Value *> & values) const /*override*/;
     virtual MPolyConstraintSet getMPConstraints(const std::vector<GVN::Value *> & values) const /*override*/;
@@ -100,7 +102,7 @@ struct GreaterConstraint : public InferenceConstraint
     virtual void applyConstraints(const std::vector<GVN::Value *> & values) const /*override*/;
 };
 
-    struct StrictGreaterConstraint : public InferenceConstraint
+struct StrictGreaterConstraint : public InferenceConstraint
 {
     virtual Result check(GVN & gvn, const std::vector<GVN::Value *> & values) const /*override*/;
     virtual MPolyConstraintSet getMPConstraints(const std::vector<GVN::Value *> & values) const /*override*/;
@@ -121,7 +123,7 @@ struct ValidRangeConstraint : public InferenceConstraint
     virtual void applyConstraints(const std::vector<GVN::Value *> & values) const /*override*/;
 };
 
-struct MPolyConstraint : public InferenceConstraint
+struct AST_IMPEXP MPolyConstraint : public InferenceConstraint
 {
     enum Kind
     {
@@ -180,7 +182,7 @@ struct MPolyConstraint : public InferenceConstraint
     friend std::wostream & operator<<(std::wostream & out, const MPolyConstraint & mpc);
 };
 
-struct MPolyConstraintSet : public InferenceConstraint
+struct AST_IMPEXP MPolyConstraintSet : public InferenceConstraint
 {
     std::unordered_set<MPolyConstraint, MPolyConstraint::Hash, MPolyConstraint::Eq> constraints;
 

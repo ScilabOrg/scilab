@@ -543,6 +543,9 @@ case "$CXX" in
         else
             DEBUG_CXXFLAGS="-DNDEBUG"
         fi
+
+        COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fvisibility=hidden"   # hide non exported DSO symbols
+
         COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     ;;
 
@@ -582,6 +585,8 @@ case "$CC" in
    else
       DEBUG_CFLAGS="-DNDEBUG"
    fi
+
+   COMPILER_CFLAGS="$COMPILER_CFLAGS -fvisibility=hidden"   # hide non exported DSO symbols
 
    COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
    # Explictly disable the as needed. It was disable by default but Ubuntu

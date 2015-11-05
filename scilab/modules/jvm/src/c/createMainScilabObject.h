@@ -15,6 +15,7 @@
 #define __CREATEMAINSCILABOBJECT_H__
 
 #include "BOOL.h" /* BOOL */
+#include "dynlib_jvm.h"
 
 /**
 * Create Scilab object (scilab main java)
@@ -26,8 +27,10 @@ BOOL finishMainScilabObject(void);
 
 BOOL executeInitialHooks(void);
 
+JVM_IMPEXP
 BOOL canCloseMainScilabObject(void);
 
+JVM_IMPEXP
 void forceCloseMainScilabObject(void);
 
 #endif /* __CREATEMAINSCILABOBJECT_H__ */

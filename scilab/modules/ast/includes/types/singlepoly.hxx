@@ -19,7 +19,7 @@
 
 namespace types
 {
-class EXTERN_AST SinglePoly : public ArrayOf<double>
+class AST_IMPEXP SinglePoly : public ArrayOf<double>
 {
 public :
     SinglePoly();

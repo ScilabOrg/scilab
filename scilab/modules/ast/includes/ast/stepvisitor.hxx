@@ -20,7 +20,7 @@
 
 namespace ast
 {
-class EXTERN_AST StepVisitor : public RunVisitorT<StepVisitor>
+class AST_IMPEXP StepVisitor : public RunVisitorT<StepVisitor>
 {
     StepVisitor* clone()
     {

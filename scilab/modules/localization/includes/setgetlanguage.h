@@ -16,20 +16,23 @@
 #define __SETGETLANGUAGE_H__
 
 #include <wchar.h>
+
+#include "dynlib_localization.h"
+
 #include "BOOL.h"
 
 /**
  * change language
  * @param lang
  */
-BOOL setlanguage(const wchar_t *lang);
+LOCALIZATION_IMPEXP BOOL setlanguage(const wchar_t *lang);
 
 
 /**
  * returns current language
  * @return
  */
-wchar_t *getlanguage(void);
+LOCALIZATION_IMPEXP wchar_t *getlanguage(void);
 
 /**
  * returns current alias

@@ -23,6 +23,7 @@
 #include "MacroSignature.hxx"
 #include "TITypeTuple.hxx"
 #include "TITypeSignatureTuple.hxx"
+#include "dynlib_ast.h"
 
 namespace analysis
 {

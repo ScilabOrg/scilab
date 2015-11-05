@@ -13,11 +13,14 @@
 #ifndef __COMMANDWORDS_H__
 #define __COMMANDWORDS_H__
 
+#include "dynlib_core.h"
+
 /**
 * get scilab command keywords
 * @param[out] size of returned array
 * @return array of strings
 */
+CORE_IMPEXP
 char **getcommandkeywords(int *sizearray);
 
 #endif /* __COMMANDWORDS_H__ */

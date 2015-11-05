@@ -21,7 +21,11 @@
 #define GUI_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define GUI_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define GUI_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_GUI_H__ */

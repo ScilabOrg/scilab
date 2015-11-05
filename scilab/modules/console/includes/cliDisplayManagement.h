@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include "BOOL.h"
+#include "dynlib_console.h"
 
 /*
  * Here you find some defines related to character display.
@@ -42,18 +43,21 @@
  * Set character display characteristic.
  * @param Characteristic to set using previous define.
  */
+CONSOLE_IMPEXP
 void setCharDisplay(char *characteristic);
 
 /**
  * Change Characters color using nCurses colors define.
  * @param color define in (n)curses.h
  */
+CONSOLE_IMPEXP
 void setForegroundColor(int color);
 
 /**
  * Change Background color using nCurses colors define.
  * @param color define in (n)curses.h
  */
+CONSOLE_IMPEXP
 void setBackgroundColor(int color);
 
 /**
@@ -61,6 +65,7 @@ void setBackgroundColor(int color);
  *
  * @return TRUE if color should be printed
  */
+CONSOLE_IMPEXP
 BOOL getCLIColor(void);
 
 /**
@@ -68,6 +73,7 @@ BOOL getCLIColor(void);
  *
  * @param CLIColor True for color, False without
  */
+CONSOLE_IMPEXP
 void setCLIColor(BOOL CLIColor);
 
 

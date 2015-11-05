@@ -16,11 +16,13 @@
 #define __LOADBACKGROUNDCLASSPATH_H__
 
 #include "BOOL.h"
+#include "dynlib_jvm.h"
 
 /**
 * load classpath in background
 * @return TRUE or FALSE
 */
+JVM_IMPEXP
 BOOL loadBackGroundClassPath(void);
 
 #endif /* __LOADBACKGROUNDCLASSPATH_H__ */

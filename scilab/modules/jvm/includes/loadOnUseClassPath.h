@@ -15,12 +15,14 @@
 #define __LOADONUSECLASSPATH_H__
 
 #include "BOOL.h" /* BOOL */
+#include "dynlib_jvm.h"
 
 /**
 * Load a serie of jar(s) matching to the tag declared in etc/classpath.xml
 * @param a new path to add
 * @return TRUE or FALSE
 */
+JVM_IMPEXP
 BOOL loadOnUseClassPath(char const* tag);
 
 #endif /* __LOADONUSECLASSPATH_H__ */

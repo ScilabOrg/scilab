@@ -16,17 +16,20 @@
 #define __INITIALIZEJVM_H__
 
 #include "BOOL.h"
+#include "dynlib_jvm.h"
 
 /**
 * Initialize JVM
 * @return TRUE or FALSE
 */
+JVM_IMPEXP
 BOOL InitializeJVM(void);
 
 /**
 * Execute initial hooks register in the class Scilab.java
 * @return TRUE or FALSE
 */
+JVM_IMPEXP
 BOOL ExecuteInitialHooks(void);
 
 #endif /* __INITIALIZEJVM_H__ */

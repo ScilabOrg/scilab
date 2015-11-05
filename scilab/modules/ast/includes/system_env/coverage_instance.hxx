@@ -28,7 +28,7 @@ namespace ast
 {
 class Exp;
 
-class EXTERN_AST CoverageInstance
+class AST_IMPEXP CoverageInstance
 {
     //coverage
 private:

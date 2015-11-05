@@ -73,7 +73,7 @@ template <typename K>
  **
  ** GenVisitor<CONSTNESS-SELECTOR> is the root class of all
  ** visitors. */
-class EXTERN_AST GenVisitor
+class AST_IMPEXP GenVisitor
 {
     /** \name Ctor & dtor.
      ** \{ */

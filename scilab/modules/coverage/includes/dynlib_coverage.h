@@ -15,13 +15,17 @@
 #define __DYNLIB_COVERAGE_H__
 
 #ifdef _MSC_VER
-#ifdef COVERAGE_EXPORTS
-#define COVERAGE_IMPEXP __declspec(dllexport)
+#if COVERAGE_EXPORTS
+#define COVERAGE_IMPEXP __declspec (dllexport)
 #else
-#define COVERAGE_IMPEXP __declspec(dllimport)
+#define COVERAGE_IMPEXP __declspec (dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define COVERAGE_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define COVERAGE_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_COVERAGE_H__ */

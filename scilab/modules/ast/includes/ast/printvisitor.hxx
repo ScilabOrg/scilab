@@ -23,7 +23,7 @@
 
 namespace ast
 {
-class EXTERN_AST PrintVisitor : public GenVisitor<const_kind>
+class AST_IMPEXP PrintVisitor : public GenVisitor<const_kind>
 {
 public:
 

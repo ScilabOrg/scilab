@@ -44,7 +44,7 @@ class ThreadId;
 class Callable;
 }
 
-class EXTERN_AST ConfigVariable
+class AST_IMPEXP ConfigVariable
 {
     //module list
 private :
@@ -422,6 +422,7 @@ private :
     static WhereVector m_Where;
     static WhereVector m_WhereError;
     static std::vector<int> m_FirstMacroLine;
+
     //module called with variable by reference
 private :
     static std::list<std::wstring> m_ReferenceModules;

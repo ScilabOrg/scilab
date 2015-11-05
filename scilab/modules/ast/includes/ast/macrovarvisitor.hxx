@@ -26,7 +26,7 @@
 
 namespace ast
 {
-class EXTERN_AST MacrovarVisitor : public DummyVisitor
+class AST_IMPEXP MacrovarVisitor : public DummyVisitor
 {
 public:
     MacrovarVisitor()

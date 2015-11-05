@@ -21,7 +21,11 @@
 #define GRAPHIC_OBJECTS_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define GRAPHIC_OBJECTS_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define GRAPHIC_OBJECTS_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_GRAPHIC_OBJECTS_H__ */

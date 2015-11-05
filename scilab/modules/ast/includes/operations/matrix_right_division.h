@@ -15,47 +15,47 @@
 
 #include "dynlib_ast.h"
 
-EXTERN_AST int	iRightDivisionOfRealMatrix(
+AST_IMPEXP int	iRightDivisionOfRealMatrix(
     double *_pdblReal1,		int _iRows1,	int _iCols1,
     double *_pdblReal2,		int _iRows2,	int _iCols2,
     double *_pdblRealOut,	int _iRowsOut,	int _iColsOut, double* _pdblRcond);
 
-EXTERN_AST int	iRightDivisionOfComplexMatrix(
+AST_IMPEXP int	iRightDivisionOfComplexMatrix(
     double *_pdblReal1,		double *_pdblImg1,		int _iRows1,	int _iCols1,
     double *_pdblReal2,		double *_pdblImg2,		int _iRows2,	int _iCols2,
     double *_pdblRealOut,	double *_pdblImgOut,	int _iRowsOut,	int _iColsOut, double *_pdblRcond);
 
-EXTERN_AST int iRightDivisionRealMatrixByRealMatrix(
+AST_IMPEXP int iRightDivisionRealMatrixByRealMatrix(
     double *_pdblReal1, int _iInc1,
     double *_pdblReal2, int _iInc2,
     double *_pdblRealOut, int _iIncOut, int _iSize);
 
-EXTERN_AST int iRightDivisionComplexByReal(
+AST_IMPEXP int iRightDivisionComplexByReal(
     double _dblReal1, double _dblImg1,
     double _dblReal2,
     double *_pdblRealOut, double *_pdblImgOut);
 
-EXTERN_AST int iRightDivisionComplexMatrixByRealMatrix(
+AST_IMPEXP int iRightDivisionComplexMatrixByRealMatrix(
     double *_pdblReal1,		double *_pdblImg1,		int _iInc1,
     double *_pdblReal2,								int _iInc2,
     double *_pdblRealOut,	double *_pdblImgOut,	int _iIncOut, int _iSize);
 
-EXTERN_AST int iRightDivisionRealByComplex(
+AST_IMPEXP int iRightDivisionRealByComplex(
     double _dblReal1,
     double _dblReal2, double _dblImg2,
     double *_pdblRealOut, double *_pdblImgOut);
 
-EXTERN_AST int iRightDivisionRealMatrixByComplexMatrix(
+AST_IMPEXP int iRightDivisionRealMatrixByComplexMatrix(
     double *_pdblReal1,								int _iInc1,
     double *_pdblReal2,		double *_pdblImg2,		int _iInc2,
     double *_pdblRealOut,	double *_pdblImgOut,	int _iIncOut, int _iSize);
 
-EXTERN_AST int iRightDivisionComplexByComplex(
+AST_IMPEXP int iRightDivisionComplexByComplex(
     double _dblReal1, double _dblImg1,
     double _dblReal2, double _dblImg2,
     double *_pdblRealOut, double *_pdblImgOut);
 
-EXTERN_AST int iRightDivisionComplexMatrixByComplexMatrix(
+AST_IMPEXP int iRightDivisionComplexMatrixByComplexMatrix(
     double *_pdblReal1,		double *_pdblImg1,		int _iInc1,
     double *_pdblReal2,		double *_pdblImg2,		int _iInc2,
     double *_pdblRealOut,	double *_pdblImgOut,	int _iIncOut, int _iSize);

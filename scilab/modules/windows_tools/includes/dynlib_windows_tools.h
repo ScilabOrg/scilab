@@ -21,7 +21,11 @@
 #define WINDOWS_TOOLS_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define WINDOWS_TOOLS_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define WINDOWS_TOOLS_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_WINDOWS_TOOLS_H__ */

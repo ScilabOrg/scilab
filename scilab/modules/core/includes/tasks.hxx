@@ -13,6 +13,8 @@
 #ifndef __TASKS_HXX__
 #define __TASKS_HXX__
 
+#include "dynlib_core.h"
+
 #include "parser.hxx"
 
 extern "C"
@@ -80,7 +82,7 @@ int execScilabQuitTask(bool _bSerialize);
 #ifdef __cplusplus
 extern "C"
 {
-ast::Exp* parseCommand(std::wstring _command);
+CORE_IMPEXP ast::Exp* parseCommand(std::wstring _command);
 }
 #endif
 

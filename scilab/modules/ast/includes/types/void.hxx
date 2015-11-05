@@ -17,7 +17,7 @@
 
 namespace types
 {
-class EXTERN_AST Void : public InternalType
+class AST_IMPEXP Void : public InternalType
 {
 public :
     Void() {};

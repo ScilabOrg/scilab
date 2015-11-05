@@ -235,7 +235,9 @@ extern "C" {
 #define API_ERROR_READ_POINTER                              12806
 
 /* error functions*/
+API_SCILAB_IMPEXP
 int addErrorMessage(SciErr* _psciErr, int _iErr, const char* _pstMsg, ...);
+API_SCILAB_IMPEXP
 int printError(SciErr* _psciErr, int _iLastMsg);
 char* getErrorMessage(SciErr _sciErr);
 

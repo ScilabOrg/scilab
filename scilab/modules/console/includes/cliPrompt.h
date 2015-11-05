@@ -14,6 +14,8 @@
 
 #include    <wchar.h>
 
+#include "dynlib_console.h"
+
 /* Token to indicate printPrompt what to do */
 
 /* Display the prompt */
@@ -27,6 +29,7 @@
  * or NULL if you don't want to saved any prompt
  * @return last saved prompt
  */
+CONSOLE_IMPEXP
 wchar_t *setPrompt(wchar_t *);
 
 /**
@@ -34,6 +37,7 @@ wchar_t *setPrompt(wchar_t *);
  * @param token to indicate if prompt must be displayed or not
  * @return size of the prompt.
  */
+CONSOLE_IMPEXP
 int printPrompt(int);
 
 #endif /* !AFF_PROMPT_H_ */

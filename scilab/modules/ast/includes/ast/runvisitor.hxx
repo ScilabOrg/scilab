@@ -34,7 +34,7 @@ extern "C" {
 
 namespace ast
 {
-class EXTERN_AST RunVisitor : public ConstVisitor
+class AST_IMPEXP RunVisitor : public ConstVisitor
 {
 public:
     RunVisitor()
@@ -288,7 +288,7 @@ protected:
 };
 
 template <class T>
-class EXTERN_AST RunVisitorT : public RunVisitor
+class AST_IMPEXP RunVisitorT : public RunVisitor
 {
 public :
     RunVisitorT() : RunVisitor()

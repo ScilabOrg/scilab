@@ -21,7 +21,11 @@
 #define SCICOS_BLOCKS_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define SCICOS_BLOCKS_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define SCICOS_BLOCKS_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_SCICOS_BLOCKS_H__ */

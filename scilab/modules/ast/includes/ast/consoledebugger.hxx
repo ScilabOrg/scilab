@@ -24,7 +24,7 @@ extern "C"
 
 namespace debugger
 {
-class EXTERN_AST ConsoleDebugger : public AbstractDebugger
+class AST_IMPEXP ConsoleDebugger : public AbstractDebugger
 {
 
     void printExp();

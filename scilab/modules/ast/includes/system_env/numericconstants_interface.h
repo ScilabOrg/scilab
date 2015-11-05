@@ -13,25 +13,25 @@
 #include "dynlib_ast.h"
 #include "machine.h"
 
-EXTERN_AST double nc_eps();
-EXTERN_AST double nc_safe_min();
-EXTERN_AST double nc_base();
-EXTERN_AST double nc_eps_machine();
-EXTERN_AST double nc_num_mantissa_digits();
-EXTERN_AST double nc_rounded();
-EXTERN_AST double nc_exp_min();
-EXTERN_AST double nc_double_min();
-EXTERN_AST double nc_exp_max();
-EXTERN_AST double nc_double_max();
+AST_IMPEXP double nc_eps();
+AST_IMPEXP double nc_safe_min();
+AST_IMPEXP double nc_base();
+AST_IMPEXP double nc_eps_machine();
+AST_IMPEXP double nc_num_mantissa_digits();
+AST_IMPEXP double nc_rounded();
+AST_IMPEXP double nc_exp_min();
+AST_IMPEXP double nc_double_min();
+AST_IMPEXP double nc_exp_max();
+AST_IMPEXP double nc_double_max();
 
 //Fortran
-EXTERN_AST double C2F(nc_eps)();
-EXTERN_AST double C2F(nc_safe_min)();
-EXTERN_AST double C2F(nc_base)();
-EXTERN_AST double C2F(nc_eps_machine)();
-EXTERN_AST double C2F(nc_num_mantissa_digits)();
-EXTERN_AST double C2F(nc_rounded)();
-EXTERN_AST double C2F(nc_exp_min)();
-EXTERN_AST double C2F(nc_double_min)();
-EXTERN_AST double C2F(nc_exp_max)();
-EXTERN_AST double C2F(nc_double_max)();
+AST_IMPEXP double C2F(nc_eps)();
+AST_IMPEXP double C2F(nc_safe_min)();
+AST_IMPEXP double C2F(nc_base)();
+AST_IMPEXP double C2F(nc_eps_machine)();
+AST_IMPEXP double C2F(nc_num_mantissa_digits)();
+AST_IMPEXP double C2F(nc_rounded)();
+AST_IMPEXP double C2F(nc_exp_min)();
+AST_IMPEXP double C2F(nc_double_min)();
+AST_IMPEXP double C2F(nc_exp_max)();
+AST_IMPEXP double C2F(nc_double_max)();
