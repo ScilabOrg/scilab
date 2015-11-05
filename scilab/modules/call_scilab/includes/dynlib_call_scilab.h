@@ -25,7 +25,11 @@
 #endif
 #endif
 #else
+#if __GNUC__ >= 4
+#define CALL_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define CALL_SCILAB_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_CALL_SCILAB_H__ */

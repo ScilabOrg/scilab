@@ -26,7 +26,7 @@
 
 namespace ast
 {
-class EXTERN_AST TimedVisitor : public RunVisitorT<TimedVisitor>
+class AST_IMPEXP TimedVisitor : public RunVisitorT<TimedVisitor>
 {
 public :
 

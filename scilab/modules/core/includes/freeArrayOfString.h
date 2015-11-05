@@ -14,6 +14,7 @@
 
 #include <wchar.h>
 
+#include "dynlib_core.h"
 #include "BOOL.h"
 
 /**
@@ -22,6 +23,7 @@
 * @param[in] dimension of ptr on char **
 * @return TRUE if free
 */
+CORE_IMPEXP
 BOOL freeArrayOfString(char **Str, int dim);
 
 /**
@@ -30,6 +32,7 @@ BOOL freeArrayOfString(char **Str, int dim);
 * @param[in] dimension of ptr on wchar_t **
 * @return TRUE if free
 */
+CORE_IMPEXP
 BOOL freeArrayOfWideString(wchar_t **wcStr, int dim);
 
 /**
@@ -38,6 +41,7 @@ BOOL freeArrayOfWideString(wchar_t **wcStr, int dim);
 * @param[in] dimension of ptr on void **
 * @return TRUE if free
 */
+CORE_IMPEXP
 BOOL freeArray(void **pArray, int dim);
 
 #endif

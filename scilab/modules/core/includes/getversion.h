@@ -15,6 +15,7 @@
 
 #include <wchar.h>
 #include "BOOL.h"
+#include "dynlib_core.h"
 
 /**
 * get Scilab Version as a int array
@@ -31,30 +32,35 @@ int *getScilabVersion(int *sizeArrayReturned);
 * get Scilab version major number
 * @return scilab version major
 */
+CORE_IMPEXP
 int getScilabVersionMajor();
 
 /**
 * get Scilab version minor number
 * @return scilab version minor
 */
+CORE_IMPEXP
 int getScilabVersionMinor();
 
 /**
 * get Scilab version maintenance number
 * @return scilab version maintenance
 */
+CORE_IMPEXP
 int getScilabVersionMaintenance();
 
 /**
 * get Scilab version timestamp number
 * @return scilab version timestamp
 */
+CORE_IMPEXP
 int getScilabVersionTimestamp();
 
 /**
 * get Scilab version as a string
 * @return scilab version
 */
+CORE_IMPEXP
 char* getScilabVersionAsString(void);
 
 /**

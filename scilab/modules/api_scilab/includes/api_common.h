@@ -52,10 +52,12 @@ typedef struct api_Ctx
 //    #endif
 //#endif
 
+#include "dynlib_api_scilab.h"
 #include "api_scilab.h"
 /* generics functions */
 
 /*Rhs*/
+API_SCILAB_IMPEXP
 int* getNbInputArgument(void* _pvCtx);
 #define nbInputArgument(PVCTX) (*getNbInputArgument(PVCTX))
 
@@ -65,6 +67,7 @@ int* getNbInputArgument(void* _pvCtx);
 #define Rhs (*getNbInputArgument(pvApiCtx))
 
 /*Lhs*/
+API_SCILAB_IMPEXP
 int* getNbOutputArgument(void* _pvCtx);
 #define nbOutputArgument(PVCTX) (*getNbOutputArgument(PVCTX))
 #ifdef Lhs
@@ -73,6 +76,7 @@ int* getNbOutputArgument(void* _pvCtx);
 #define Lhs (*getNbOutputArgument(pvApiCtx))
 
 /*PutLhs*/
+API_SCILAB_IMPEXP
 int* assignOutputVariable(void* _pvCtx, int _iVal);
 #define AssignOutputVariable(PVCTX, x) (*assignOutputVariable(PVCTX, x))
 #ifdef LhsVar
@@ -81,6 +85,7 @@ int* assignOutputVariable(void* _pvCtx, int _iVal);
 #define LhsVar(x) (*assignOutputVariable(pvApiCtx, x))
 
 /*PutLhsVar*/
+API_SCILAB_IMPEXP
 int returnArguments(void* _pvCtx);
 #define ReturnArguments(PVCTX) if (! returnArguments(PVCTX)) { return 0; }
 #ifdef PutLhsVar
@@ -94,6 +99,7 @@ int returnArguments(void* _pvCtx);
  * @param[in] _iMax : max value
  * @return if _iMin >= rhs >= _iMax
  */
+API_SCILAB_IMPEXP
 int checkInputArgument(void* _pvCtx, int _iMin, int _iMax);
 #define CheckInputArgument(ctx, min, max) \
     if(checkInputArgument(ctx, min, max) == 0) \
@@ -113,6 +119,7 @@ int checkInputArgument(void* _pvCtx, int _iMin, int _iMax);
  * @param[in] _iMin min value
  * @return if rhs >= _iMin
  */
+API_SCILAB_IMPEXP
 int checkInputArgumentAtLeast(void* _pvCtx, int _iMin);
 #define CheckInputArgumentAtLeast(ctx, min) \
     if(checkInputArgumentAtLeast(ctx, min) == 0) \
@@ -125,6 +132,7 @@ int checkInputArgumentAtLeast(void* _pvCtx, int _iMin);
  * @param[in] _iMax : max value
  * @return if rhs <= max
  */
+API_SCILAB_IMPEXP
 int checkInputArgumentAtMost(void* _pvCtx, int _iMax);
 #define CheckInputArgumentAtMost(ctx, max) \
     if(checkInputArgumentAtMost(ctx, max) == 0) \
@@ -138,6 +146,7 @@ int checkInputArgumentAtMost(void* _pvCtx, int _iMax);
  * @param[in] _iMax : max value
  * @return if _iMin >= lhs >= _iMax
  */
+API_SCILAB_IMPEXP
 int checkOutputArgument(void* _pvCtx, int _iMin, int _iMax);
 #define CheckOutputArgument(ctx, min, max) \
     if(checkOutputArgument(ctx, min, max) == 0) \
@@ -158,6 +167,7 @@ int checkOutputArgument(void* _pvCtx, int _iMin, int _iMax);
  * @param[in] _iMin min value
  * @return if lhs >= _iMin
  */
+API_SCILAB_IMPEXP
 int checkOutputArgumentAtLeast(void* _pvCtx, int _iMin);
 #define CheckOutputArgumentAtLeast(ctx, min) \
     if(checkOutputArgumentAtLeast(ctx, min) == 0) \
@@ -170,6 +180,7 @@ int checkOutputArgumentAtLeast(void* _pvCtx, int _iMin);
  * @param[in] _iMax : max value
  * @return if lhs <= max
  */
+API_SCILAB_IMPEXP
 int checkOutputArgumentAtMost(void* _pvCtx, int _iMax);
 #define CheckOutputArgumentAtMost(ctx, max) \
     if(checkOutputArgumentAtMost(ctx, max) == 0) \
@@ -177,6 +188,7 @@ int checkOutputArgumentAtMost(void* _pvCtx, int _iMax);
         return 0; \
     }
 
+API_SCILAB_IMPEXP
 int callOverloadFunction(void* _pvCtx, int _iVar, char* _pstName, unsigned int _iNameLen);
 #define CallOverloadFunction(x) callOverloadFunction(pvApiCtx, x, fname, strlen(fname))
 #ifdef OverLoad
@@ -184,6 +196,7 @@ int callOverloadFunction(void* _pvCtx, int _iVar, char* _pstName, unsigned int _
 #endif
 #define OverLoad(x) callOverloadFunction(pvApiCtx, x, fname, (unsigned int)strlen(fname))
 
+API_SCILAB_IMPEXP
 int callScilabFunction(void* _pvCtx, const char* _pstName, int _iStart, int _iLhs, int _iRhs);
 
 /**
@@ -192,6 +205,7 @@ int callScilabFunction(void* _pvCtx, const char* _pstName, int _iStart, int _iLh
  * @param[out] _piAddress return variable address
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getVarAddressFromPosition(void* _pvCtx, int _iVar, int** _piAddress);
 
 /**
@@ -200,6 +214,7 @@ SciErr getVarAddressFromPosition(void* _pvCtx, int _iVar, int** _piAddress);
  * @param[out] _pstName variable name
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getVarNameFromPosition(void* _pvCtx, int _iVar, char* _pstName);
 
 /**
@@ -208,6 +223,7 @@ SciErr getVarNameFromPosition(void* _pvCtx, int _iVar, char* _pstName);
  * @param[out] _piAddress return variable address
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getVarAddressFromName(void* _pvCtx, const char* _pstName, int** _piAddress);
 
 /**
@@ -216,6 +232,7 @@ SciErr getVarAddressFromName(void* _pvCtx, const char* _pstName, int** _piAddres
  * @param[out] _piType return variable type ( sci_matrix, sci_strings, ... )
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getVarType(void* _pvCtx, int* _piAddress, int* _piType);
 
 /**
@@ -224,6 +241,7 @@ SciErr getVarType(void* _pvCtx, int* _piAddress, int* _piType);
  * @param[out] _piType return variable type ( sci_matrix, sci_strings, ... )
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getNamedVarType(void* _pvCtx, const char* _pstName, int* _piType);
 
 /**
@@ -231,6 +249,7 @@ SciErr getNamedVarType(void* _pvCtx, const char* _pstName, int* _piType);
 * @param[in] _piAddress variable address
 * @return if complex 1 otherwise 0
 */
+API_SCILAB_IMPEXP
 int isCell(void *_pvCtx, int *_piAddress);
 
 /**
@@ -238,6 +257,7 @@ int isCell(void *_pvCtx, int *_piAddress);
 * @param[in] _piAddress variable address
 * @return if complex 1 otherwise 0
 */
+API_SCILAB_IMPEXP
 int isStruct(void *_pvCtx, int *_piAddress);
 
 /**
@@ -245,6 +265,7 @@ int isStruct(void *_pvCtx, int *_piAddress);
  * @param[in] _piAddress variable address
  * @return if complex 1 otherwise 0
  */
+API_SCILAB_IMPEXP
 int isVarComplex(void* _pvCtx, int* _piAddress);
 
 /**
@@ -252,6 +273,7 @@ int isVarComplex(void* _pvCtx, int* _piAddress);
 * @param[in] _pstName variable name
 * @return if complex 1 otherwise 0
 */
+API_SCILAB_IMPEXP
 int isNamedVarComplex(void* _pvCtx, const char *_pstName);
 
 /**
@@ -261,6 +283,7 @@ int isNamedVarComplex(void* _pvCtx, const char *_pstName);
  * @param[out] _piCols return number of cols
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getVarDimension(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols);
 
 /**
@@ -270,6 +293,7 @@ SciErr getVarDimension(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols
  * @param[out] _piCols return number of cols
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getNamedVarDimension(void* _pvCtx, const char *_pstName, int* _piRows, int* _piCols);
 
 /**
@@ -277,6 +301,7 @@ SciErr getNamedVarDimension(void* _pvCtx, const char *_pstName, int* _piRows, in
  * @param[in] _piAddress variable address
  * @return if matrix form type variable 1 otherwise 0
  */
+API_SCILAB_IMPEXP
 int isVarMatrixType(void* _pvCtx, int* _piAddress);
 
 /**
@@ -284,6 +309,7 @@ int isVarMatrixType(void* _pvCtx, int* _piAddress);
  * @param[in] _pstName variable name
  * @return if matrix form type variable 1 otherwise 0
  */
+API_SCILAB_IMPEXP
 int isNamedVarMatrixType(void* _pvCtx, const char *_pstName);
 
 /**
@@ -293,6 +319,7 @@ int isNamedVarMatrixType(void* _pvCtx, const char *_pstName);
  * @param[out] _piMode return process mode ( 0 -> All, 1 -> Row, 2 -> Col )
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getProcessMode(void* _pvCtx, int _iPos, int* _piAddRef, int *_piMode);
 
 /**
@@ -301,6 +328,7 @@ SciErr getProcessMode(void* _pvCtx, int _iPos, int* _piAddRef, int *_piMode);
  * @param[out] _piVal return value
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getDimFromVar(void* _pvCtx, int* _piAddress, int* _piVal);
 
 /**
@@ -309,6 +337,7 @@ SciErr getDimFromVar(void* _pvCtx, int* _piAddress, int* _piVal);
  * @param[out] _piVal return value
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 SciErr getDimFromNamedVar(void* _pvCtx, const char* _pstName, int* _piVal);
 
 /**
@@ -316,6 +345,7 @@ SciErr getDimFromNamedVar(void* _pvCtx, const char* _pstName, int* _piVal);
  * @param[in] _piAddress variable address
  * @return rhs value of the variable, if failed returns 0
  */
+API_SCILAB_IMPEXP
 int getRhsFromAddress(void* _pvCtx, int* _piAddress);
 
 /**
@@ -323,6 +353,7 @@ int getRhsFromAddress(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isRowVector(void* _pvCtx, int* _piAddress);
 
 /**
@@ -330,6 +361,7 @@ int isRowVector(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isColumnVector(void* _pvCtx, int* _piAddress);
 
 /**
@@ -337,6 +369,7 @@ int isColumnVector(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isVector(void* _pvCtx, int* _piAddress);
 
 /**
@@ -344,6 +377,7 @@ int isVector(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isScalar(void* _pvCtx, int* _piAddress);
 
 /**
@@ -351,6 +385,7 @@ int isScalar(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isSquareMatrix(void* _pvCtx, int* _piAddress);
 
 /**
@@ -360,6 +395,7 @@ int isSquareMatrix(void* _pvCtx, int* _piAddress);
  * @param[in] _iCols accepted number of columns ( if -1, don't check )
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int checkVarDimension(void* _pvCtx, int* _piAddress, int _iRows, int _iCols);
 
 /**
@@ -367,6 +403,7 @@ int checkVarDimension(void* _pvCtx, int* _piAddress, int _iRows, int _iCols);
  * @param[in] _iVar variable position
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int getInputArgumentType(void* _pvCtx, int _iVar);
 
 /**
@@ -375,6 +412,7 @@ int getInputArgumentType(void* _pvCtx, int _iVar);
  * @param[in] _iType variable type to check
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int checkInputArgumentType(void* _pvCtx, int _iVar, int _iType);
 
 /**
@@ -383,6 +421,7 @@ int checkInputArgumentType(void* _pvCtx, int _iVar, int _iType);
 * @param[in] _iDims number of dimension
 * @return if the operation succeeded ( 0 ) or not ( !0 )
 */
+API_SCILAB_IMPEXP
 SciErr reshapeArray(void* _pvCtx, int* _piAddress, int* _iDimsArray, int _iDims);
 
 /**
@@ -390,6 +429,7 @@ SciErr reshapeArray(void* _pvCtx, int* _piAddress, int* _iDimsArray, int _iDims)
  * @param[in] _piAddress variable address
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isEmptyMatrix(void* _pvCtx, int* _piAddress);
 
 /**
@@ -397,6 +437,7 @@ int isEmptyMatrix(void* _pvCtx, int* _piAddress);
  * @param[in] _iVar variable number
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 int createEmptyMatrix(void* _pvCtx, int _iVar);
 
 /**
@@ -404,6 +445,7 @@ int createEmptyMatrix(void* _pvCtx, int _iVar);
  * @param[in] _pstName variable name
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 int createNamedEmptyMatrix(void* _pvCtx, const char* _pstName);
 
 /**
@@ -411,6 +453,7 @@ int createNamedEmptyMatrix(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
+API_SCILAB_IMPEXP
 int isNamedVarExist(void* _pvCtx, const char* _pstName);
 
 /**
@@ -418,6 +461,7 @@ int isNamedVarExist(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isNamedRowVector(void* _pvCtx, const char* _pstName);
 
 /**
@@ -425,6 +469,7 @@ int isNamedRowVector(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isNamedColumnVector(void* _pvCtx, const char* _pstName);
 
 /**
@@ -432,6 +477,7 @@ int isNamedColumnVector(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isNamedVector(void* _pvCtx, const char* _pstName);
 
 /**
@@ -439,6 +485,7 @@ int isNamedVector(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isNamedScalar(void* _pvCtx, const char* _pstName);
 
 /**
@@ -446,6 +493,7 @@ int isNamedScalar(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isNamedSquareMatrix(void* _pvCtx, const char* _pstName);
 
 /**
@@ -453,6 +501,7 @@ int isNamedSquareMatrix(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int isNamedEmptyMatrix(void* _pvCtx, const char* _pstName);
 
 /**
@@ -460,6 +509,7 @@ int isNamedEmptyMatrix(void* _pvCtx, const char* _pstName);
  * @param[in] _pstName variable name
  * @return 1 for true and 0 for false
  */
+API_SCILAB_IMPEXP
 int deleteNamedVariable(void* _pvCtx, const char* _pstName);
 
 /**
@@ -467,6 +517,7 @@ int deleteNamedVariable(void* _pvCtx, const char* _pstName);
  * @param[in] _piAddress variable address
  * @return 1 for successand 0 for failure
  */
+API_SCILAB_IMPEXP
 int increaseValRef(void* _pvCtx, int* _piAddress);
 
 /**
@@ -474,6 +525,7 @@ int increaseValRef(void* _pvCtx, int* _piAddress);
  * @param[in] _piAddress variable address
  * @return 1 for successand 0 for failure
  */
+API_SCILAB_IMPEXP
 int decreaseValRef(void* _pvCtx, int* _piAddress);
 #ifdef __cplusplus
 }

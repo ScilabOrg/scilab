@@ -21,6 +21,7 @@
 #include <vector>
 
 //#define DEBUG_DATAMANAGER
+#include "dynlib_ast.h"
 
 #include "alldec.hxx"
 #include "allexp.hxx"
@@ -33,13 +34,13 @@
 namespace analysis
 {
 
-class AnalysisVisitor;
-class FunctionBlock;
-class MacroDef;
-class Data;
-class Info;
+class AST_IMPEXP AnalysisVisitor;
+class AST_IMPEXP FunctionBlock;
+class AST_IMPEXP MacroDef;
+class AST_IMPEXP Data;
+class AST_IMPEXP Info;
 
-class DataManager
+class AST_IMPEXP DataManager
 {
     friend class Block;
 
@@ -54,8 +55,9 @@ class DataManager
 
 public:
 
+    AST_IMPEXP
     DataManager();
-
+    AST_IMPEXP
     ~DataManager();
 
     GVN & getGVN();
@@ -73,6 +75,7 @@ public:
     Info & macrodef(ast::Exp * exp);
     std::vector<TIType> call(AnalysisVisitor & visitor, const unsigned int lhs, const symbol::Symbol & sym, std::vector<TIType> & in, ast::CallExp * callexp, uint64_t & functionId);
     void addBlock(Block::BlockKind kind, ast::Exp * exp);
+    AST_IMPEXP
     Block * getCurrent();
     void finalizeBlock();
     bool requiresAnotherTrip();
@@ -81,6 +84,7 @@ public:
     FunctionBlock * topFunction();
     void popFunction();
     TIType getType(const symbol::Symbol & sym, const bool global = false);
+    AST_IMPEXP
     Info & getInfo(const symbol::Symbol & sym);
     void reset();
     friend std::wostream & operator<<(std::wostream & out, const DataManager & dm);

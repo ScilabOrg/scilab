@@ -26,9 +26,9 @@ class Callable;
 
 namespace ast
 {
-class Exp;
+AST_IMPEXP class Exp;
 
-class EXTERN_AST CoverageInstance
+class AST_IMPEXP CoverageInstance
 {
     //coverage
 private:

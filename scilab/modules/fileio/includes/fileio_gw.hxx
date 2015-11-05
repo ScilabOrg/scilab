@@ -17,12 +17,16 @@
 
 #ifdef _MSC_VER
 #if FILEIO_GW_EXPORTS
-#define EXTERN_FILEIO_GW __declspec (dllexport)
+#define FILEIO_GW_IMPEXP __declspec (dllexport)
 #else
-#define EXTERN_FILEIO_GW __declspec (dllimport)
+#define FILEIO_GW_IMPEXP __declspec (dllimport)
 #endif
 #else
-#define EXTERN_FILEIO_GW
+#if __GNUC__ >= 4
+#define FILEIO_GW_IMPEXP __attribute__ ((visibility ("default")))
+#else
+#define FILEIO_GW_IMPEXP
+#endif
 #endif
 
 class FileioModule
@@ -32,8 +36,8 @@ private :
     ~FileioModule() {};
 
 public :
-    EXTERN_FILEIO_GW static int Load();
-    EXTERN_FILEIO_GW static int Unload()
+    FILEIO_GW_IMPEXP static int Load();
+    FILEIO_GW_IMPEXP static int Unload()
     {
         return 1;
     }

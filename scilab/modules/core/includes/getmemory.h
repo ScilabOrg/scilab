@@ -32,10 +32,13 @@
 #endif
 #endif /*GETMEMORY*/
 
+#include "dynlib_core.h"
+
 /**
  * Return the size of free memory in megabytes
  * @return the size of free memory
  */
+CORE_IMPEXP
 int getfreememory(void);
 
 
@@ -43,6 +46,7 @@ int getfreememory(void);
  * Return the size of memory in megabytes
  * @return the size of memory
  */
+CORE_IMPEXP
 int getmemorysize(void);
 
 

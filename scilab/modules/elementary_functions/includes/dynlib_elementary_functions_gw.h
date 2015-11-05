@@ -17,5 +17,9 @@
 #define EXTERN_EF_GW __declspec (dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define EXTERN_EF_GW __attribute__ ((visibility ("default")))
+#else
 #define EXTERN_EF_GW
+#endif
 #endif

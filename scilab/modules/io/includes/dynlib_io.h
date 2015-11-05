@@ -21,7 +21,11 @@
 #define IO_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define IO_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define IO_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_IO_H__ */

@@ -21,7 +21,11 @@
 #define ELEMENTARY_FUNCTIONS_IMPEXP __declspec(dllimport)
 #endif
 #else
+#if __GNUC__ >= 4
+#define ELEMENTARY_FUNCTIONS_IMPEXP __attribute__ ((visibility ("default")))
+#else
 #define ELEMENTARY_FUNCTIONS_IMPEXP
+#endif
 #endif
 
 #endif /* __DYNLIB_ELEMENTARY_FUNCTIONS_H__ */

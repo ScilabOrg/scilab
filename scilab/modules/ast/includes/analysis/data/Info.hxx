@@ -15,6 +15,8 @@
 
 #include <iostream>
 
+#include "dynlib_ast.h"
+
 #include "TIType.hxx"
 #include "Data.hxx"
 #include "gvn/GVN.hxx"
@@ -57,12 +59,12 @@ struct Info
     void addData(const bool known, const symbol::Symbol & sym);
     void addData(Data * _data, const symbol::Symbol & sym);
     SymbolicRange & getRange();
-    const SymbolicRange & getRange() const;
+    AST_IMPEXP const SymbolicRange & getRange() const;
     SymbolicDimension & getMaxIndex();
-    const SymbolicDimension & getMaxIndex() const;
+    AST_IMPEXP const SymbolicDimension & getMaxIndex() const;
     SymbolicRange & setRange(SymbolicRange & _range);
     ConstantValue & getConstant();
-    const ConstantValue & getConstant() const;
+    AST_IMPEXP const ConstantValue & getConstant() const;
     ConstantValue & setConstant(ConstantValue & val);
     bool isknown() const;
     static const symbol::Symbol & getRightSym(ast::Exp * exp);

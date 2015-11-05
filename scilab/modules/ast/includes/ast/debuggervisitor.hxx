@@ -22,7 +22,7 @@ extern "C"
 }
 namespace ast
 {
-class EXTERN_AST DebuggerVisitor : public RunVisitorT<DebuggerVisitor>
+class AST_IMPEXP DebuggerVisitor : public RunVisitorT<DebuggerVisitor>
 {
 public:
 

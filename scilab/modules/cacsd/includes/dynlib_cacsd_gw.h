@@ -15,12 +15,12 @@
 
 #ifdef _MSC_VER
 #if CACSD_GW_EXPORTS
-#define EXTERN_CACSD_GW __declspec (dllexport)
+#define CACSD_GW_IMPEXP __declspec (dllexport)
 #else
-#define EXTERN_CACSD_GW __declspec (dllimport)
+#define CACSD_GW_IMPEXP __declspec (dllimport)
 #endif
 #else
-#define EXTERN_CACSD_GW
+#define CACSD_GW_IMPEXP
 #endif
 
 #endif /* __DYNLIB_CACSD_GW_H__ */

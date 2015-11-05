@@ -22,7 +22,7 @@ extern "C"
 
 //#define DEBUG_THREAD
 
-class EXTERN_AST ThreadManagement
+class AST_IMPEXP ThreadManagement
 {
 private :
 

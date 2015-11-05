@@ -36,12 +36,12 @@ namespace types
 {
 
 //commom function
-EXTERN_AST int computeTuples(int* _piCountDim, int _iDims, int _iCurrentDim, int* _piIndex);
-EXTERN_AST InternalType* createEmptyDouble();
-EXTERN_AST InternalType* createDoubleVector(int _iSize);
-EXTERN_AST int getIntValueFromDouble(InternalType* _pIT, int _iPos);
-EXTERN_AST double* getDoubleArrayFromDouble(InternalType* _pIT);
-EXTERN_AST bool checkArgValidity(typed_list& _pArg);
+AST_IMPEXP int computeTuples(int* _piCountDim, int _iDims, int _iCurrentDim, int* _piIndex);
+AST_IMPEXP InternalType* createEmptyDouble();
+AST_IMPEXP InternalType* createDoubleVector(int _iSize);
+AST_IMPEXP int getIntValueFromDouble(InternalType* _pIT, int _iPos);
+AST_IMPEXP double* getDoubleArrayFromDouble(InternalType* _pIT);
+AST_IMPEXP bool checkArgValidity(typed_list& _pArg);
 
 static int get_max_size(int* _piDims, int _iDims);
 
@@ -194,11 +194,11 @@ public :
         return true;
     }
 
-    bool isTrue();
+    AST_IMPEXP bool isTrue();
 
     // The function is not write here because we needs to create a Bool which inherits from ArrayOf<int>
     // so it will create a cyclic dependency... so the body of the function is in bool.hxx after the Bool definition.
-    virtual bool neg(InternalType *& out);
+    AST_IMPEXP virtual bool neg(InternalType *& out);
 
     virtual bool isVector() //only one dim must be != 1
     {
@@ -383,18 +383,18 @@ public :
         return getImg(getIndex(piIndexes));
     }
 
-    InternalType* insert(typed_list* _pArgs, InternalType* _pSource);
-    static InternalType* insertNew(typed_list* _pArgs, InternalType* _pSource);
-    virtual bool append(int _iRows, int _iCols, InternalType* _poSource);
-    InternalType* remove(typed_list* _pArgs);
-    InternalType* extract(typed_list* _pArgs);
-    bool resize(int* _piDims, int _iDims);
+    AST_IMPEXP InternalType* insert(typed_list* _pArgs, InternalType* _pSource);
+    AST_IMPEXP static InternalType* insertNew(typed_list* _pArgs, InternalType* _pSource);
+    AST_IMPEXP virtual bool append(int _iRows, int _iCols, InternalType* _poSource);
+    AST_IMPEXP InternalType* remove(typed_list* _pArgs);
+    AST_IMPEXP InternalType* extract(typed_list* _pArgs);
+    AST_IMPEXP bool resize(int* _piDims, int _iDims);
 
-    virtual bool invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetCount*/, typed_list & out, const ast::Exp & e) override;
-    virtual bool isInvokable() const;
-    virtual bool hasInvokeOption() const;
-    virtual int getInvokeNbIn();
-    virtual int getInvokeNbOut();
+    AST_IMPEXP virtual bool invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetCount*/, typed_list & out, const ast::Exp & e) override;
+    AST_IMPEXP virtual bool isInvokable() const;
+    AST_IMPEXP virtual bool hasInvokeOption() const;
+    AST_IMPEXP virtual int getInvokeNbIn();
+    AST_IMPEXP virtual int getInvokeNbOut();
 
     bool reshape(int _iNewRows, int _iNewCols)
     {

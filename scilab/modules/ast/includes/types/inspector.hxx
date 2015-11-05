@@ -27,7 +27,7 @@ namespace types
 class InternalType;
 
 #ifndef NDEBUG
-class EXTERN_AST Inspector
+class AST_IMPEXP Inspector
 {
 protected :
     static std::unordered_set<InternalType*> m_vIT;

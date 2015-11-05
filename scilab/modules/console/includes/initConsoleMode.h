@@ -12,6 +12,8 @@
 #ifndef	INIT_TC_SHELL_H_
 #define	INIT_TC_SHELL_H_
 
+#include "dynlib_console.h"
+
 /* Indicate to setAttr and initConsoleMode what mode to set */
 
 /* set Canonic mode */
@@ -28,6 +30,7 @@
  * @param Mode that will be set (Canonic or Raw)
  * @return -1 in case of error, else 0.
  */
+CONSOLE_IMPEXP
 int initConsoleMode(int);
 
 /**
@@ -35,6 +38,7 @@ int initConsoleMode(int);
  * @param Mode that will be set (Canonic or Raw)
  * @return -1 in case of error, else 0.
  */
+CONSOLE_IMPEXP
 int setAttr(int bin);
 
 #endif /* !INIT_TC_SHELL_H_ */

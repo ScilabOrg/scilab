@@ -20,7 +20,7 @@
 
 namespace types
 {
-class EXTERN_AST Library : public GenericType
+class AST_IMPEXP Library : public GenericType
 {
 public :
     Library(const std::wstring& _wstPath);

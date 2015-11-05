@@ -18,7 +18,7 @@
 
 namespace types
 {
-class EXTERN_AST GatewayStruct
+class AST_IMPEXP GatewayStruct
 {
 public :
     types::typed_list*      m_pIn;

@@ -14,12 +14,8 @@
 /*--------------------------------------------------------------------------*/
 #include "Scierror.h"
 #include "gw_jvm.h"
+#include "dynlib_jvm.h"
 #include "localization.h"
-
-#ifdef _MSC_VER
-#include "getScilabObject.h"
-#include "addToClasspath.h"
-#endif
 
 /*--------------------------------------------------------------------------*/
 int gw_jvm(void)
@@ -60,24 +56,27 @@ BOOL catchIfJavaException(char *errorMsg)
 }
 #endif
 /*--------------------------------------------------------------------------*/
+JVM_IMPEXP
 BOOL InitializeJVM(void)
 {
     return FALSE;
 }
-
 /*--------------------------------------------------------------------------*/
+JVM_IMPEXP
 BOOL TerminateJVM(void)
 {
     return FALSE;
 }
 
 /*--------------------------------------------------------------------------*/
+JVM_IMPEXP
 BOOL loadBackGroundClassPath(void)
 {
     return FALSE;
 }
 
 /*--------------------------------------------------------------------------*/
+JVM_IMPEXP
 BOOL loadOnUseClassPath(char const* tag)
 {
     return FALSE;
@@ -85,6 +84,7 @@ BOOL loadOnUseClassPath(char const* tag)
 
 /*--------------------------------------------------------------------------*/
 /* BUG 10325: FORCE EXPORT canCloseMainScilabObject on Windows */
+JVM_IMPEXP
 BOOL canCloseMainScilabObject(void)
 {
     return TRUE;
@@ -92,6 +92,7 @@ BOOL canCloseMainScilabObject(void)
 
 /*--------------------------------------------------------------------------*/
 /* BUG 10325: FORCE EXPORT forceCloseMainScilabObject on Windows */
+JVM_IMPEXP
 void forceCloseMainScilabObject(void)
 {
 }
@@ -103,6 +104,7 @@ BOOL ExecuteInitialHooks(void)
 }
 
 /*--------------------------------------------------------------------------*/
+JVM_IMPEXP
 BOOL isItTheDisabledLib(void)
 {
     return TRUE;

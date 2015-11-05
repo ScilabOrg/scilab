@@ -12,6 +12,8 @@
 #ifndef GET_KEY_H_
 #define GET_KEY_H_
 
+#include "dynlib_console.h"
+
 #define CHECK_TOKEN -1
 #define CONTINUE_COMMAND 0
 #define RESET_TOKEN 0
@@ -24,6 +26,7 @@
  * Function is left when the user press enter.
  * @return command line enter by the user.
  */
+CONSOLE_IMPEXP
 char *getCmdLine(void);
 
 /**
@@ -31,14 +34,17 @@ char *getCmdLine(void);
  * @param token to set.
  * @return token saved.
  */
+CONSOLE_IMPEXP
 int setTokenInteruptExecution(int token);
 
 /**
  * Get the token to know if the line must be edited.
  * @return token saved.
  */
+CONSOLE_IMPEXP
 int getTokenInteruptExecution();
 
+CONSOLE_IMPEXP
 int getTokenInteruptExecution(void);
 
 #endif /* !GET_KEY_H_ */
