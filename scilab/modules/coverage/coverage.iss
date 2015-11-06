@@ -12,7 +12,7 @@
 ; Inno Setup Script (5.3 and more) for Scilab (UNICODE version required)
 ;
 ;--------------------------------------------------------------------------------------------------------------
-; optimization module
+; coverage module
 ;--------------------------------------------------------------------------------------------------------------
 ;
 #define COVERAGE "coverage"
@@ -26,7 +26,6 @@ Source: modules\{#COVERAGE}\sci_gateway\{#COVERAGE}_gateway.xml; DestDir: {app}\
 ;
 Source: modules\{#COVERAGE}\etc\{#COVERAGE}.quit; DestDir: {app}\modules\{#COVERAGE}\etc; Components: {#COMPN_SCILAB}
 Source: modules\{#COVERAGE}\etc\{#COVERAGE}.start; DestDir: {app}\modules\{#COVERAGE}\etc; Components: {#COMPN_SCILAB}
-Source: modules\{#COVERAGE}\etc\{#COVERAGE}.xml; DestDir: {app}\modules\{#COVERAGE}\etc; Components: {#COMPN_SCILAB}
 ;
 Source: modules\{#COVERAGE}\macros\buildmacros.sce; DestDir: {app}\modules\{#COVERAGE}\macros; Components: {#COMPN_SCILAB}
 Source: modules\{#COVERAGE}\macros\buildmacros.bat; DestDir: {app}\modules\{#COVERAGE}\macros; Components: {#COMPN_SCILAB}
