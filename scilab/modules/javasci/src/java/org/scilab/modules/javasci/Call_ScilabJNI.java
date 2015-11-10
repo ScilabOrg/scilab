@@ -29,6 +29,7 @@ class Call_ScilabJNI {
   static {
     try {
     if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        System.out.println("path: " + System.getenv("path"));
         System.loadLibrary("javasci");
     } else {
         System.loadLibrary("javasci2");
@@ -44,11 +45,13 @@ class Call_ScilabJNI {
 
   public final static native int putList(String varNmae, Object list, char type);
 
+
   public final static native int Call_ScilabOpen(String jarg1, boolean jarg2, String jarg3, int jarg4);
   public final static native boolean TerminateScilab(String jarg1);
   public final static native int SendScilabJob(String jarg1);
   public final static native int SendScilabJobs(String[] jarg1, int jarg2);
   public final static native void SetFromJavaToON();
+/*
   public final static native boolean isGraphicOpened();
   public final static native int GetLastErrorCode();
   public final static native boolean isExistingVariable(String jarg1);
@@ -71,4 +74,5 @@ class Call_ScilabJNI {
   public final static native int putBooleanSparse(String jarg1, int jarg2, int jarg3, int[] jarg4, int[] jarg6);
   public final static native int putPolynomial(String jarg1, String jarg2, double[][][] jarg3);
   public final static native int putComplexPolynomial(String jarg1, String jarg2, double[][][] jarg3, double[][][] jarg7);
+  */
 }
