@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -57,18 +57,18 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)modules\preferences\jar\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set JAVA_HOME=$(SCILAB_JDK32)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set JAVA_HOME=$(SCILAB_JDK32)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
 call ant
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set JAVA_HOME=$(SCILAB_JDK32)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
@@ -81,18 +81,18 @@ call ant clean
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)modules\preferences\jar\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">set JAVA_HOME=$(SCILAB_JDK64)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">set JAVA_HOME=$(SCILAB_JDK64)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
 call ant
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">set JAVA_HOME=$(SCILAB_JDK64)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
@@ -105,18 +105,18 @@ call ant clean
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)modules\preferences\jar\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set JAVA_HOME=$(SCILAB_JDK32)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set JAVA_HOME=$(SCILAB_JDK32)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
 call ant
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set JAVA_HOME=$(SCILAB_JDK32)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
@@ -129,18 +129,18 @@ call ant clean
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)modules\preferences\jar\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">set JAVA_HOME=$(SCILAB_JDK64)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">set JAVA_HOME=$(SCILAB_JDK64)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean
 call ant
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">set JAVA_HOME=$(SolutionDir)java\jdk
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">set JAVA_HOME=$(SCILAB_JDK64)
 set PATH=$(SolutionDir)java\ant\bin;%PATH%;
 cd ..\..
 call ant clean

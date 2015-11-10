@@ -47,7 +47,7 @@ public class testTypes {
         sci.exec("b = 'plop'");
         assertEquals(sci.getVariableType("b"), ScilabTypeEnum.sci_strings);
 
-        sci.exec("b = ['plop', plip]");
+        sci.exec("b = ['plop', 'plip']");
         assertEquals(sci.getVariableType("b"), ScilabTypeEnum.sci_strings);
 
         sci.exec("s=poly(0,'s');p=1+s+2*s^2;");

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -185,11 +185,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\ScilabToJava.cpp" />
+    <ClCompile Include="..\src\jni\getScilabVariable_wrap.c" />
     <ClCompile Include="..\src\jni\ScilabPolynomialToJava.cpp" />
     <ClCompile Include="..\src\jni\ScilabVariables.cpp" />
     <ClCompile Include="..\src\jni\ScilabVariablesRefresh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\includes\GetScilabVariable.h" />
     <ClInclude Include="..\includes\ScilabToJava.hxx" />
     <ClInclude Include="..\src\jni\ScilabPolynomialToJava.hxx" />
     <ClInclude Include="..\src\jni\ScilabVariables.hxx" />

@@ -49,10 +49,13 @@ public class testBug10801 {
             assertTrue(sci.exec("winId = winsid();"));
             assertTrue(((ScilabDouble)sci.get("winId")).equals(new ScilabDouble(0)));
             sci.close();
-            sci.open();
-            assertFalse(sci.isGraphicOpened());
-            assertTrue(sci.exec("winId = winsid()"));
-            assertTrue(((ScilabDouble)sci.get("winId")).equals(new ScilabDouble()));
+            /*
+                        sci.open();
+
+                        assertFalse(sci.isGraphicOpened());
+                        assertTrue(sci.exec("winId = winsid()"));
+                        assertTrue(((ScilabDouble)sci.get("winId")).equals(new ScilabDouble()));
+            */
             sci.close();
         } catch (Exception e) {
             System.err.print("e = " + e);
