@@ -188,6 +188,7 @@ Bug Fixes
 * Bug #14225 fixed - command-line option "-quit" should set the processs Exit status
 
 * Bug #14232 fixed - Typos in Xcos.
+* Bug #14257 fixed - Typos in the code.
 
 
 
