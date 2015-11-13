@@ -11,6 +11,7 @@
 
 package org.scilab.forge.scirenderer.ruler.graduations;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.FieldPosition;
@@ -41,6 +42,7 @@ public class UserDefinedFormat extends DecimalFormat {
         this.scale = scale;
         this.translation = translation;
         this.fallback = fallback;
+        setRoundingMode(RoundingMode.DOWN); // just a workaround to avoid DecimalFormat to call fastFormat.
     }
 
     public String getFormat() {
