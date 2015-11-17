@@ -21,7 +21,7 @@
 
 function %Text_p(annotation)
 
-    mprintf("GUI     : " + annotation.gui + "\n")
+    mprintf("GUI     : "+ annotation.gui +"\n")
 
     mprintf("Graphics: \n")
     txt = graphics2txt(annotation.graphics);
