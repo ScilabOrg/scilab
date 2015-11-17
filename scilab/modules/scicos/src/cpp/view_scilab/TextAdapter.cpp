@@ -207,6 +207,19 @@ struct graphics
         // style, if it is present
         if ((current->getSize() >= 5) && ((currentField = current->getField(style.c_str())) != nullptr))
         {
+            if (currentField->getType() == types::InternalType::ScilabDouble)
+            {
+                currentFieldDouble = currentField->getAs<types::Double>();
+                if (currentFieldDouble->getSize() != 0)
+                {
+                    get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: String matrix expected.\n"), "graphics", "style");
+                    return false;
+                }
+                std::string styleField;
+                controller.setObjectProperty(adaptee, ANNOTATION, STYLE, styleField);
+                return true;
+            }
+
             if (currentField->getType() != types::InternalType::ScilabString)
             {
                 get_or_allocate_logger()->log(LOG_ERROR, _("Wrong type for field %s.%s: String matrix expected.\n"), "graphics", "style");
