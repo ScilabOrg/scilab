@@ -2177,12 +2177,12 @@ types::InternalType* insertionCall(const ast::Exp& e, types::typed_list* _pArgs,
                 if (_pInsert->isListDelete())
                 {
                     /* Remove a field */
-                    pStruct->removeField(pS->get(0));
+                    pStruct = pStruct->removeField(pS->get(0));
                 }
                 else
                 {
                     /* Add a field */
-                    pStruct->addField(pS->get(0));
+                    pStruct = pStruct->addField(pS->get(0));
                     for (int i = 0; i < pStruct->getSize(); i++)
                     {
                         pStruct->get(i)->set(pS->get(0), _pInsert);
