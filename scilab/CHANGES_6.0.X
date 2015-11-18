@@ -13,7 +13,12 @@ For a high-level overview of the changes in this release, please consult the "Wh
         Changes between version 6.0.0-alpha-2 and 6.0.0-beta-1
         ======================================================
 
+Bug Fixes
+=========
+
 * Bug #14257 fixed - English spelling in messages and in comments.
+
+* Bug #14221 fixed - mprintf("%.1f %% \n", (0:9)') does not return the right result.
 
 * Bug #14251 fixed - `spec` leaked some memory.
 

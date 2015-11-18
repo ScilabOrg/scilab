@@ -1,0 +1,18 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for bug 14221 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/14221
+//
+// <-- Short Description -->
+// mprintf("%.1f %% \n", (0:9)') does not return the right result
+
+mprintf("%.1f %% \n", (0:9)');

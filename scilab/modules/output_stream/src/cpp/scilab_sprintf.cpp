@@ -372,10 +372,10 @@ wchar_t** scilab_sprintf(const std::string& funcname, const wchar_t* _pwstInput,
     if (token.size() > 1)
     {
         std::list<TokenDef*>::iterator it = std::next(token.begin());
-        iLoop = in[(*it)->pos]->getAs<types::GenericType>()->getRows();
-        for (; it != token.end(); ++it)
+        iLoop = in[first]->getAs<types::GenericType>()->getRows();
+        for (int i = first+1; i < in.size(); ++i)
         {
-            iLoop = std::min(iLoop, in[(*it)->pos]->getAs<types::GenericType>()->getRows());
+            iLoop = std::min(iLoop, in[i]->getAs<types::GenericType>()->getRows());
         }
 
         if (*_piNewLine || (*_piOutputRows) > 1)
