@@ -113,7 +113,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 }
             }
 
-            if (e.isVerbose() && ConfigVariable::isPromptShow())
+            if (e.isVerbose() && ConfigVariable::isPrintOutput())
             {
                 std::wstring wstrName = pVar->getSymbol().getName();
                 std::wostringstream ostr;
@@ -195,7 +195,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
 
             if (pOut != NULL)
             {
-                if (e.isVerbose() && ConfigVariable::isPromptShow())
+                if (e.isVerbose() && ConfigVariable::isPrintOutput())
                 {
                     std::wostringstream ostr;
                     ostr << L" " << *getStructNameFromExp(pCell) << L"  = " << std::endl;
@@ -357,7 +357,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 }
             }
 
-            if (e.isVerbose() && ConfigVariable::isPromptShow())
+            if (e.isVerbose() && ConfigVariable::isPrintOutput())
             {
                 std::wostringstream ostr;
                 ostr << L" " << *getStructNameFromExp(&pCall->getName()) << L"  = " << std::endl;
@@ -497,7 +497,7 @@ void RunVisitorT<T>::visitprivate(const AssignExp  &e)
                 delete i;
             }
 
-            if (e.isVerbose() && ConfigVariable::isPromptShow())
+            if (e.isVerbose() && ConfigVariable::isPrintOutput())
             {
                 const std::wstring *pstName = getStructNameFromExp(pField);
 

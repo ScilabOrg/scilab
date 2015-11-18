@@ -850,6 +850,9 @@
     <ClInclude Include="includes\system_env\coverage_instance.hxx">
       <Filter>Header Files\system_env</Filter>
     </ClInclude>
+    <ClInclude Include="src\cpp\ast\run_SeqExp.hpp">
+      <Filter>Header Files\ast</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpp\ast\expHistory.cpp">
