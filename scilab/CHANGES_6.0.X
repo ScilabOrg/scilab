@@ -15,6 +15,8 @@ For a high-level overview of the changes in this release, please consult the "Wh
 
 * Bug #13990 fixed - Windows installer did not ship all localization files.
 
+* Bug #14041 fixed - genlib crash when the file is locked by another program.
+
 * Bug #14251 fixed - `spec` leaked some memory.
 
 * Bug #14253 fixed - Insertion in a struct contained in a list fixed.
