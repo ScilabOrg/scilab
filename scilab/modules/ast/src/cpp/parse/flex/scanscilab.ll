@@ -786,12 +786,11 @@ assign			"="
    }
    else
    {
-       unput('+');
+       return scan_throw(PLUS);
    }
   }
 
   {spaces}{minus}                       {
-    unput('-');
     if (last_token != LBRACK
        && last_token != EOL
        && last_token != SEMI
@@ -799,6 +798,10 @@ assign			"="
        && paren_level == 0)
    {
        return scan_throw(COMMA);
+   }
+   else
+   {
+       return scan_throw(MINUS);
    }
   }
 
@@ -1044,7 +1047,7 @@ assign			"="
     pstBuffer.clear();
     BEGIN(INITIAL);
     yyerror("Unexpected end of file in a string.");
-    return scan_throw(FLEX_ERROR);    
+    return scan_throw(FLEX_ERROR);
   }
 
   {in_string}						|
@@ -1120,7 +1123,7 @@ assign			"="
     pstBuffer.clear();
     BEGIN(INITIAL);
     yyerror("Unexpected end of file in a string.");
-    return scan_throw(FLEX_ERROR);    
+    return scan_throw(FLEX_ERROR);
   }
 
   {in_string}         |
