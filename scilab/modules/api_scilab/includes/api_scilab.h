@@ -26,7 +26,7 @@
         - CheckLhs -> CheckOutputArgument
 */
 
-#define API_SCILAB_VERSION	3
+#define API_SCILAB_VERSION	4
 
 #define __INTERNAL_API_SCILAB__
 

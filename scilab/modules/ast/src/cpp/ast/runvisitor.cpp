@@ -1615,7 +1615,7 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
     int iFuncProt = ConfigVariable::getFuncprot();
     if (iFuncProt != 0)
     {
-        types::InternalType* pITFunc = ctx->get(((FunctionDec&)e).getStack());
+        types::InternalType* pITFunc = ctx->getCurrentLevel(((FunctionDec&)e).getStack());
         if (pITFunc && pITFunc->isCallable())
         {
             if (pITFunc->isMacroFile())
