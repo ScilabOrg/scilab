@@ -13,7 +13,11 @@
 #ifndef __DIFFERENTIALEQUATIONS_HXX__
 #define __DIFFERENTIALEQUATIONS_HXX__
 
+#include <string>
+#include <vector>
+#include <list>
 #include <map>
+
 #include "dynlib_differential_equations.h"
 #include "string.hxx"
 #include "callable.hxx"
@@ -309,7 +313,7 @@ class DIFFERENTIAL_EQUATIONS_IMPEXP DifferentialEquation
 {
     // differential equation functions
 private :
-    static DifferentialEquationFunctions* m_DifferentialEquationFunctions;
+    static std::list<DifferentialEquationFunctions*> m_DifferentialEquationFunctions;
 
 public :
     static void addDifferentialEquationFunctions(DifferentialEquationFunctions* _deFunction);
