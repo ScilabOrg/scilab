@@ -63,7 +63,7 @@ public :
     ** Clone
     ** Create a new List and Copy all values.
     */
-    InternalType*       clone();
+    Cell*               clone();
 
     bool                set(int _iRows, int _iCols, InternalType* _pIT);
     bool                set(int _iRows, int _iCols, const InternalType* _pIT);

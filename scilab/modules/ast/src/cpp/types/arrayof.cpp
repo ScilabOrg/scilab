@@ -106,19 +106,11 @@ bool checkArgValidity(typed_list& _Arg)
 }
 
 template <typename T>
-InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
+ArrayOf<T>* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
 {
-    if (getRef() > 1)
+    ArrayOf<T>* pIT = checkRef(this, &ArrayOf::insert, _pArgs, _pSource);
+    if (pIT != this)
     {
-        // An ArrayOf content in more than one Scilab variable
-        // must be cloned before to be modified.
-        ArrayOf* pClone = clone()->template getAs<ArrayOf>();
-        InternalType* pIT = pClone->insert(_pArgs, _pSource);
-        if (pIT == NULL)
-        {
-            pClone->killMe();
-        }
-
         return pIT;
     }
 
@@ -362,11 +354,10 @@ InternalType* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
     }
 
     //before resize, check input dimension
-
     if (bNeedToResize)
     {
-        bool bPass = resize(piNewDims, iNewDims);
-        if (bPass == false)
+        ArrayOf<T>* pTemp = resize(piNewDims, iNewDims);
+        if (pTemp == NULL)
         {
             delete[] piCountDim;
             delete[] piMaxDim;
@@ -690,7 +681,7 @@ InternalType* ArrayOf<T>::insertNew(typed_list* _pArgs, InternalType* _pSource)
         return NULL;
     }
     //insert values in new matrix
-    InternalType* pOut2 = pArrayOut->insert(&pArg, _pSource);
+    ArrayOf* pOut2 = pArrayOut->insert(&pArg, _pSource);
     if (pOut != pOut2)
     {
         delete pOut;
@@ -705,8 +696,14 @@ InternalType* ArrayOf<T>::insertNew(typed_list* _pArgs, InternalType* _pSource)
 }
 
 template <typename T>
-bool ArrayOf<T>::append(int _iRows, int _iCols, InternalType* _poSource)
+ArrayOf<T>* ArrayOf<T>::append(int _iRows, int _iCols, InternalType* _poSource)
 {
+    ArrayOf<T>* pIT = checkRef(this, &ArrayOf::append, _iRows, _iCols, _poSource);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
     ArrayOf * pGT = _poSource->getAs<ArrayOf>();
     int iRows = pGT->getRows();
     int iCols = pGT->getCols();
@@ -714,7 +711,7 @@ bool ArrayOf<T>::append(int _iRows, int _iCols, InternalType* _poSource)
     //insert without resize
     if (iRows + _iRows > m_iRows || iCols + _iCols > m_iCols)
     {
-        return false;
+        return NULL;
     }
 
     //Update complexity if necessary
@@ -749,7 +746,7 @@ bool ArrayOf<T>::append(int _iRows, int _iCols, InternalType* _poSource)
         }
     }
 
-    return true;
+    return this;
 }
 
 template <typename T>
@@ -1370,8 +1367,63 @@ InternalType* ArrayOf<T>::extract(typed_list* _pArgs)
 }
 
 template <typename T>
-bool ArrayOf<T>::resize(int* _piDims, int _iDims)
+ArrayOf<T>* ArrayOf<T>::reshape(int* _piDims, int _iDims)
 {
+    typedef ArrayOf<T>* (ArrayOf<T>::*reshape_t)(int*, int);
+    ArrayOf<T>* pIT = checkRef(this, (reshape_t)&ArrayOf<T>::reshape, _piDims, _iDims);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
+    int iNewSize = get_max_size(_piDims, _iDims);
+    if (iNewSize != m_iSize)
+    {
+        return NULL;
+    }
+
+    for (int i = 0 ; i < _iDims ; i++)
+    {
+        m_piDims[i] = _piDims[i];
+    }
+
+    if (_iDims == 1)
+    {
+        m_piDims[1] = 1;
+        _iDims++;
+    }
+
+    int iDims = _iDims;
+    for (int i = iDims - 1; i >= 2; --i)
+    {
+        if (m_piDims[i] == 1)
+        {
+            _iDims--;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    m_iRows = m_piDims[0];
+    m_iCols = m_piDims[1];
+    m_iSize = iNewSize;
+    m_iDims = _iDims;
+
+    return this;
+}
+
+template <typename T>
+ArrayOf<T>* ArrayOf<T>::resize(int* _piDims, int _iDims)
+{
+    typedef ArrayOf<T>* (ArrayOf<T>::*resize_t)(int*, int);
+    ArrayOf<T>* pIT = checkRef(this, (resize_t)&ArrayOf::resize, _piDims, _iDims);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
     if (_iDims == m_iDims)
     {
         bool bChange = false;
@@ -1387,7 +1439,7 @@ bool ArrayOf<T>::resize(int* _piDims, int _iDims)
         if (bChange == false)
         {
             //nothing to do
-            return true;
+            return this;
         }
     }
 
@@ -1642,7 +1694,7 @@ bool ArrayOf<T>::resize(int* _piDims, int _iDims)
     m_iRows = m_piDims[0];
     m_iCols = m_piDims[1];
     m_iSize = iNewSize;
-    return true;
+    return this;
 }
 
 template <typename T>

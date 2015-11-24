@@ -106,7 +106,7 @@ ImplicitList::ImplicitList(InternalType* _poStart, InternalType* _poStep, Intern
 #endif
 }
 
-InternalType* ImplicitList::clone()
+ImplicitList* ImplicitList::clone()
 {
     return new ImplicitList(m_poStart, m_poStep, m_poEnd);
 }

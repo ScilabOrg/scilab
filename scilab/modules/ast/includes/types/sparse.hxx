@@ -159,7 +159,7 @@ struct EXTERN_AST Sparse : GenericType
        @param _iNewCols new minimum nb of cols
        @return true upon succes, false otherwise.
      */
-    bool resize(int _iNewRows, int _iNewCols);
+    Sparse* resize(int _iNewRows, int _iNewCols);
     /* post condition: new total size must be equal to the old size.
                        Two dimensions maximum.
 
@@ -169,8 +169,8 @@ struct EXTERN_AST Sparse : GenericType
        @param _iNewDims new size for each dimension
        @return true upon succes, false otherwise.
     */
-    bool reshape(int* _piNewDims, int _iNewDims);
-    bool reshape(int _iNewRows, int _iNewCols);
+    Sparse* reshape(int* _piNewDims, int _iNewDims);
+    Sparse* reshape(int _iNewRows, int _iNewCols);
     /*
       insert _iSeqCount elements from _poSource at coords given by _piSeqCoord (max in _piMaxDim).
       coords are considered 1D if _bAsVector, 2D otherwise.
@@ -191,7 +191,7 @@ struct EXTERN_AST Sparse : GenericType
        @param _iCols col to append from
        @param _poSource src data to append
      */
-    bool append(int r, int c, types::Sparse SPARSE_CONST* src);
+    Sparse* append(int r, int c, types::Sparse SPARSE_CONST* src);
 
     /*
       extract a submatrix
@@ -525,16 +525,16 @@ struct EXTERN_AST SparseBool : GenericType
     {
         return const_cast<SparseBool const*>(this)->clone();
     }
-    bool resize(int _iNewRows, int _iNewCols);
+    SparseBool* resize(int _iNewRows, int _iNewCols);
 
-    bool reshape(int* _piNewDims, int _iNewDims);
-    bool reshape(int _iNewRows, int _iNewCols);
+    SparseBool* reshape(int* _piNewDims, int _iNewDims);
+    SparseBool* reshape(int _iNewRows, int _iNewCols);
 
     SparseBool* insert(typed_list* _pArgs, InternalType* _pSource);
     SparseBool* insert(typed_list* _pArgs, SparseBool* _pSource);
     SparseBool* remove(typed_list* _pArgs);
 
-    bool append(int _iRows, int _iCols, SparseBool SPARSE_CONST* _poSource);
+    SparseBool* append(int _iRows, int _iCols, SparseBool SPARSE_CONST* _poSource);
 
     static InternalType* insertNew(typed_list* _pArgs, InternalType* _pSource);
     SparseBool* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector) SPARSE_CONST;

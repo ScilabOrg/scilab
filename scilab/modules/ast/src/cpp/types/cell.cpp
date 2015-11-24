@@ -204,7 +204,7 @@ bool Cell::set(InternalType** _pIT)
 ** Clone
 ** Create a new Struct and Copy all values.
 */
-InternalType* Cell::clone()
+Cell* Cell::clone()
 {
     return new Cell(this);
 }
