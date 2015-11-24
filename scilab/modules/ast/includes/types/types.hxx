@@ -127,24 +127,24 @@ public :
         return NULL;
     }
 
-    virtual bool                resize(int* /*_piDims*/, int /*_iDims*/)
+    virtual InternalType*       resize(int* /*_piDims*/, int /*_iDims*/)
     {
-        return false;
+        return NULL;
     }
 
-    virtual bool                resize(int /*_iNewRows*/, int /*_iNewCols*/)
+    virtual InternalType*       resize(int /*_iNewRows*/, int /*_iNewCols*/)
     {
-        return false;
+        return NULL;
     }
 
-    virtual bool                reshape(int* /*_piDims*/, int /*_iDims*/)
+    virtual InternalType*       reshape(int* /*_piDims*/, int /*_iDims*/)
     {
-        return false;
+        return NULL;
     }
 
-    virtual bool                reshape(int /*_iNewRows*/, int /*_iNewCols*/)
+    virtual InternalType*       reshape(int /*_iNewRows*/, int /*_iNewCols*/)
     {
-        return false;
+        return NULL;
     }
 
     virtual InternalType*       insert(typed_list* /*_pArgs*/, InternalType* /*_pSource*/)
