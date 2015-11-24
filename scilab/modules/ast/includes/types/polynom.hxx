@@ -45,7 +45,7 @@ public :
     virtual                 ~Polynom();
 
     // FIXME : Should not return NULL
-    InternalType*           clone();
+    Polynom*                clone();
 
     bool                    setCoef(int _iRows, int _iCols, Double *_pdblCoef);
     bool                    setCoef(int _iIdx, Double *_pdblCoef);
@@ -86,7 +86,7 @@ public :
     Double*                 extractCoef(int _iRank);
     bool                    insertCoef(int _iRank, Double* _pCoef);
     void                    setZeros();
-    InternalType*           insert(typed_list* _pArgs, InternalType* _pSource);
+    Polynom*                insert(typed_list* _pArgs, InternalType* _pSource);
 
     bool                    set(int _iPos, SinglePoly* _pS);
     bool                    set(int _iRows, int _iCols, SinglePoly* _pS);

@@ -60,10 +60,10 @@ public :
     void                        whoAmI();
     bool                        isEmpty();
 
-    InternalType*               clone();
+    Double*                     clone();
     bool                        fillFromCol(int _iCols, Double *_poSource);
     bool                        fillFromRow(int _iRows, Double *_poSource);
-    bool                        append(int _iRows, int _iCols, InternalType* _poSource);
+    Double*                     append(int _iRows, int _iCols, InternalType* _poSource);
 
     //bool                        append(int _iRows, int _iCols, Double *_poSource);
 
@@ -135,10 +135,10 @@ public :
     inline ScilabId             getId(void)
     {
         return isIdentity() ? isComplex() ? IdIdentityComplex : IdIdentity
-               : isEmpty() ? IdEmpty
+       : isEmpty() ? IdEmpty
                : isComplex() ? isScalar() ? IdScalarDoubleComplex
                : IdDoubleComplex
-               : isScalar() ? IdScalarDouble
+       : isScalar() ? IdScalarDouble
                : IdDouble;
     }
 

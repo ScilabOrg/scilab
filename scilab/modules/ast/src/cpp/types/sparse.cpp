@@ -32,6 +32,7 @@
 #include "configvariable.hxx"
 #include "scilabWrite.hxx"
 #include "exp.hxx"
+#include "types_tools.hxx"
 
 #include "sparseOp.hxx"
 
@@ -712,15 +713,22 @@ bool Sparse::toString(std::wostringstream& ostr) const
     return true;
 }
 
-bool Sparse::resize(int _iNewRows, int _iNewCols)
+Sparse* Sparse::resize(int _iNewRows, int _iNewCols)
 {
+    typedef Sparse* (Sparse::*resize_t)(int, int);
+    Sparse* pIT = checkRef(this, (resize_t)&Sparse::resize, _iNewRows, _iNewCols);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
     if (_iNewRows <= getRows() && _iNewCols <= getCols())
     {
         //nothing to do: hence we do NOT fail
-        return true;
+        return this;
     }
 
-    bool res = false;
+    Sparse* res = NULL;
     try
     {
         if (matrixReal)
@@ -798,11 +806,11 @@ bool Sparse::resize(int _iNewRows, int _iNewCols)
         m_piDims[0] = m_iRows;
         m_piDims[1] = m_iCols;
 
-        res = true;
+        res = this;
     }
     catch (...)
     {
-        res = false;
+        res = NULL;
     }
     return res;
 }
@@ -874,16 +882,15 @@ void Sparse::toComplex()
     }
 }
 
-InternalType* Sparse::insertNew(typed_list* _pArgs, InternalType* _pSource)
+GenericType* Sparse::insertNew(typed_list* _pArgs)
 {
     typed_list pArg;
-    InternalType *pOut  = NULL;
-    Sparse* pSource = _pSource->getAs<Sparse>();
+    Sparse *pOut  = NULL;
 
     int iDims           = (int)_pArgs->size();
     int* piMaxDim       = new int[iDims];
     int* piCountDim     = new int[iDims];
-    bool bComplex       = pSource->isComplex();
+    bool bComplex       = isComplex();
     bool bUndefine      = false;
 
     //evaluate each argument and replace by appropriate value and compute the count of combinations
@@ -905,14 +912,14 @@ InternalType* Sparse::insertNew(typed_list* _pArgs, InternalType* _pSource)
     {
         //manage : and $ in creation by insertion
         int iSource         = 0;
-        int *piSourceDims   = pSource->getDimsArray();
+        int *piSourceDims   = getDimsArray();
 
         for (int i = 0 ; i < iDims ; i++)
         {
             if (pArg[i] == NULL)
             {
                 //undefine value
-                if (pSource->isScalar())
+                if (isScalar())
                 {
                     piMaxDim[i]     = 1;
                     piCountDim[i]   = 1;
@@ -958,7 +965,7 @@ InternalType* Sparse::insertNew(typed_list* _pArgs, InternalType* _pSource)
 
     if (iDims == 1)
     {
-        if (pSource->getCols() == 1)
+        if (getCols() == 1)
         {
             pOut = new Sparse(piCountDim[0], 1, bComplex);
         }
@@ -971,14 +978,11 @@ InternalType* Sparse::insertNew(typed_list* _pArgs, InternalType* _pSource)
     else
     {
         pOut = new Sparse(piMaxDim[0], piMaxDim[1], bComplex);
-        //pOut = pSource->createEmpty(iDims, piMaxDim, bComplex);
+        //pOut = createEmpty(iDims, piMaxDim, bComplex);
     }
 
-    //fill with null item
-    Sparse* pSpOut = pOut->getAs<Sparse>();
-
     //insert values in new matrix
-    InternalType* pOut2 = pSpOut->insert(&pArg, pSource);
+    Sparse* pOut2 = pOut->insert(&pArg, this);
     if (pOut != pOut2)
     {
         delete pOut;
@@ -992,6 +996,18 @@ InternalType* Sparse::insertNew(typed_list* _pArgs, InternalType* _pSource)
 
 Sparse* Sparse::insert(typed_list* _pArgs, InternalType* _pSource)
 {
+    typedef Sparse* (Sparse::*insert_t)(typed_list*, InternalType*);
+    Sparse* pIT = checkRef(this, (insert_t)&Sparse::insert, _pArgs, _pSource);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
+    if (_pSource->isSparse())
+    {
+        return insert(_pArgs, _pSource->getAs<Sparse>());
+    }
+
     bool bNeedToResize  = false;
     int iDims           = (int)_pArgs->size();
     if (iDims > 2)
@@ -1335,7 +1351,7 @@ Sparse* Sparse::insert(typed_list* _pArgs, Sparse* _pSource)
     return this;
 }
 
-Sparse* Sparse::remove(typed_list* _pArgs)
+GenericType* Sparse::remove(typed_list* _pArgs)
 {
     Sparse* pOut = NULL;
     int iDims = (int)_pArgs->size();
@@ -1567,8 +1583,14 @@ Sparse* Sparse::remove(typed_list* _pArgs)
     return pOut;
 }
 
-bool Sparse::append(int r, int c, types::Sparse SPARSE_CONST* src)
+Sparse* Sparse::append(int r, int c, types::Sparse SPARSE_CONST* src)
 {
+    Sparse* pIT = checkRef(this, &Sparse::append, r, c, src);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
     //        std::wcerr << L"to a sparse of size"<<getRows() << L","<<getCols() << L" should append @"<<r << L","<<c<< "a sparse:"<< src->toString(32,80)<<std::endl;
     if (src->isComplex())
     {
@@ -1592,13 +1614,13 @@ bool Sparse::append(int r, int c, types::Sparse SPARSE_CONST* src)
 
     finalize();
 
-    return true; // realloc is meaningless for sparse matrices
+    return this; // realloc is meaningless for sparse matrices
 }
 
 /*
 * create a new Sparse of dims according to resSize and fill it from currentSparse (along coords)
 */
-InternalType* Sparse::extract(typed_list* _pArgs)
+GenericType* Sparse::extract(typed_list* _pArgs)
 {
     Sparse* pOut        = NULL;
     int iDims           = (int)_pArgs->size();
@@ -2594,9 +2616,9 @@ SparseBool* Sparse::newEqualTo(Sparse &o)
     return ret;
 }
 
-bool Sparse::reshape(int* _piDims, int _iDims)
+Sparse* Sparse::reshape(int* _piDims, int _iDims)
 {
-    bool bOk = false;
+    Sparse* pSp = NULL;
     int iCols = 1;
 
     if (_iDims == 2)
@@ -2606,20 +2628,27 @@ bool Sparse::reshape(int* _piDims, int _iDims)
 
     if (_iDims <= 2)
     {
-        bOk = reshape(_piDims[0], iCols);
+        pSp = reshape(_piDims[0], iCols);
     }
 
-    return bOk;
+    return pSp;
 }
 
-bool Sparse::reshape(int _iNewRows, int _iNewCols)
+Sparse* Sparse::reshape(int _iNewRows, int _iNewCols)
 {
-    if (_iNewRows * _iNewCols != getRows() * getCols())
+    typedef Sparse* (Sparse::*reshape_t)(int, int);
+    Sparse* pIT = checkRef(this, (reshape_t)&Sparse::reshape, _iNewRows, _iNewCols);
+    if (pIT != this)
     {
-        return false;
+        return pIT;
     }
 
-    bool res = false;
+    if (_iNewRows * _iNewCols != getRows() * getCols())
+    {
+        return NULL;
+    }
+
+    Sparse* res = NULL;
     try
     {
         if (matrixReal)
@@ -2701,11 +2730,11 @@ bool Sparse::reshape(int _iNewRows, int _iNewCols)
 
         finalize();
 
-        res = true;
+        res = this;
     }
     catch (...)
     {
-        res = false;
+        res = NULL;
     }
     return res;
 }
@@ -2878,15 +2907,22 @@ SparseBool* SparseBool::clone(void) const
     return new SparseBool(*this);
 }
 
-bool SparseBool::resize(int _iNewRows, int _iNewCols)
+SparseBool* SparseBool::resize(int _iNewRows, int _iNewCols)
 {
+    typedef SparseBool* (SparseBool::*resize_t)(int, int);
+    SparseBool* pIT = checkRef(this, (resize_t)&SparseBool::resize, _iNewRows, _iNewCols);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
     if (_iNewRows <= getRows() && _iNewCols <= getCols())
     {
         //nothing to do: hence we do NOT fail
-        return true;
+        return this;
     }
 
-    bool res = false;
+    SparseBool* res = NULL;
     try
     {
         //item count
@@ -2920,12 +2956,11 @@ bool SparseBool::resize(int _iNewRows, int _iNewCols)
         m_piDims[0] = m_iRows;
         m_piDims[1] = m_iCols;
 
-        res = true;
-
+        res = this;
     }
     catch (...)
     {
-        res = false;
+        res = NULL;
     }
     return res;
 }
@@ -3071,6 +3106,18 @@ SparseBool* SparseBool::insert(typed_list* _pArgs, SparseBool* _pSource)
 
 SparseBool* SparseBool::insert(typed_list* _pArgs, InternalType* _pSource)
 {
+    typedef SparseBool* (SparseBool::*insert_t)(typed_list*, InternalType*);
+    SparseBool* pIT = checkRef(this, (insert_t)&SparseBool::insert, _pArgs, _pSource);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
+    if (_pSource->isSparseBool())
+    {
+        return insert(_pArgs, _pSource->getAs<SparseBool>());
+    }
+
     bool bNeedToResize  = false;
     int iDims           = (int)_pArgs->size();
     if (iDims > 2)
@@ -3205,7 +3252,7 @@ SparseBool* SparseBool::insert(typed_list* _pArgs, InternalType* _pSource)
     return this;
 }
 
-SparseBool* SparseBool::remove(typed_list* _pArgs)
+GenericType* SparseBool::remove(typed_list* _pArgs)
 {
     SparseBool* pOut = NULL;
     int iDims = (int)_pArgs->size();
@@ -3429,18 +3476,23 @@ SparseBool* SparseBool::remove(typed_list* _pArgs)
     return pOut;
 }
 
-bool SparseBool::append(int r, int c, SparseBool SPARSE_CONST* src)
+SparseBool* SparseBool::append(int r, int c, SparseBool SPARSE_CONST* src)
 {
+    SparseBool* pIT = checkRef(this, &SparseBool::append, r, c, src);
+    if (pIT != this)
+    {
+        return pIT;
+    }
+
     doAppend(*src, r, c, *matrixBool);
     finalize();
-    return true;
+    return this;
 }
 
-InternalType* SparseBool::insertNew(typed_list* _pArgs, InternalType* _pSource)
+GenericType* SparseBool::insertNew(typed_list* _pArgs)
 {
     typed_list pArg;
-    InternalType *pOut  = NULL;
-    SparseBool* pSource = _pSource->getAs<SparseBool>();
+    SparseBool *pOut  = NULL;
 
     int iDims           = (int)_pArgs->size();
     int* piMaxDim       = new int[iDims];
@@ -3466,14 +3518,14 @@ InternalType* SparseBool::insertNew(typed_list* _pArgs, InternalType* _pSource)
     {
         //manage : and $ in creation by insertion
         int iSource         = 0;
-        int *piSourceDims   = pSource->getDimsArray();
+        int *piSourceDims   = getDimsArray();
 
         for (int i = 0 ; i < iDims ; i++)
         {
             if (pArg[i] == NULL)
             {
                 //undefine value
-                if (pSource->isScalar())
+                if (isScalar())
                 {
                     piMaxDim[i]     = 1;
                     piCountDim[i]   = 1;
@@ -3519,7 +3571,7 @@ InternalType* SparseBool::insertNew(typed_list* _pArgs, InternalType* _pSource)
 
     if (iDims == 1)
     {
-        if (pSource->getCols() == 1)
+        if (getCols() == 1)
         {
             pOut = new SparseBool(piCountDim[0], 1);
         }
@@ -3534,11 +3586,8 @@ InternalType* SparseBool::insertNew(typed_list* _pArgs, InternalType* _pSource)
         pOut = new SparseBool(piMaxDim[0], piMaxDim[1]);
     }
 
-    //fill with null item
-    SparseBool* pSpOut = pOut->getAs<SparseBool>();
-
     //insert values in new matrix
-    InternalType* pOut2 = pSpOut->insert(&pArg, pSource);
+    SparseBool* pOut2 = pOut->insert(&pArg, this);
     if (pOut != pOut2)
     {
         delete pOut;
@@ -3579,7 +3628,7 @@ SparseBool* SparseBool::extract(int nbCoords, int SPARSE_CONST* coords, int SPAR
 /*
 * create a new SparseBool of dims according to resSize and fill it from currentSparseBool (along coords)
 */
-InternalType* SparseBool::extract(typed_list* _pArgs)
+GenericType* SparseBool::extract(typed_list* _pArgs)
 {
     SparseBool* pOut    = NULL;
     int iDims           = (int)_pArgs->size();
@@ -4003,9 +4052,9 @@ SparseBool* SparseBool::newLogicalAnd(SparseBool const&o) const
     return cwiseOp<std::logical_and>(*this, o);
 }
 
-bool SparseBool::reshape(int* _piDims, int _iDims)
+SparseBool* SparseBool::reshape(int* _piDims, int _iDims)
 {
-    bool bOk = false;
+    SparseBool* pSpBool = NULL;
     int iCols = 1;
 
     if (_iDims == 2)
@@ -4015,20 +4064,27 @@ bool SparseBool::reshape(int* _piDims, int _iDims)
 
     if (_iDims <= 2)
     {
-        bOk = reshape(_piDims[0], iCols);
+        pSpBool = reshape(_piDims[0], iCols);
     }
 
-    return bOk;
+    return pSpBool;
 }
 
-bool SparseBool::reshape(int _iNewRows, int _iNewCols)
+SparseBool* SparseBool::reshape(int _iNewRows, int _iNewCols)
 {
-    if (_iNewRows * _iNewCols != getRows() * getCols())
+    typedef SparseBool* (SparseBool::*reshape_t)(int, int);
+    SparseBool* pIT = checkRef(this, (reshape_t)&SparseBool::reshape, _iNewRows, _iNewCols);
+    if (pIT != this)
     {
-        return false;
+        return pIT;
     }
 
-    bool res = false;
+    if (_iNewRows * _iNewCols != getRows() * getCols())
+    {
+        return NULL;
+    }
+
+    SparseBool* res = NULL;
     try
     {
         //item count
@@ -4066,11 +4122,11 @@ bool SparseBool::reshape(int _iNewRows, int _iNewCols)
 
         finalize();
 
-        res = true;
+        res = this;
     }
     catch (...)
     {
-        res = false;
+        res = NULL;
     }
     return res;
 }

@@ -98,7 +98,7 @@ String::String(int _iRows, int _iCols, wchar_t const* const* _pstData)
 #endif
 }
 
-InternalType* String::clone()
+String* String::clone()
 {
     String *pstClone = new String(getDims(), getDimsArray());
     pstClone->set(m_pRealData);
