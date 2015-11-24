@@ -49,7 +49,7 @@ msgid "%s: Wrong number of output arguments: %d expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%ls: This feature is only used on Windows.\n"
+msgid "%ls: This feature is only supported on Windows.\n"
 msgstr ""
 
 #, c-format

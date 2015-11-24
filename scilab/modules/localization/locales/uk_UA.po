@@ -55,7 +55,7 @@ msgstr ""
 "%s: помилкова кількість вихідних параметрів: слід використовувати %d.\n"
 
 #, c-format
-msgid "%ls: This feature is only used on Windows.\n"
+msgid "%ls: This feature is only supported on Windows.\n"
 msgstr "%ls: ця можливість використовується лише у Windows.\n"
 
 #, c-format
