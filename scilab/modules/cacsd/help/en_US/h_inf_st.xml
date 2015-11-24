@@ -16,7 +16,7 @@
         <refpurpose>static H_infinity problem</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[Kopt,gamaopt]=h_inf_stat(D,r)</synopsis>
     </refsynopsisdiv>
     <refsection>

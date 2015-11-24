@@ -40,7 +40,7 @@ public class GenerateHelpFromFunctionAction extends DefaultAction {
      */
     public static final String TEMPLATE = "//\n"
                                           + "//\n"
-                                          + "// Calling Sequence\n"
+                                          + "// Synopsis\n"
                                           + "// [returnValues] = functionName(argsValues) // \n"
                                           + "// Parameters\n"
                                           + "// argsValuesOnColumn\n"

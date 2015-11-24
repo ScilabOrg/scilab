@@ -16,7 +16,7 @@
         <refpurpose>Create a tree representing an operation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>op=Operation(operator,operands,out)</synopsis>
     </refsynopsisdiv>
     <refsection>

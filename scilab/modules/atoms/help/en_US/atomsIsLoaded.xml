@@ -16,10 +16,10 @@
         <refpurpose>determines whether a module is loaded or not</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             result = atomsIsLoaded(modules)
         </synopsis>

@@ -16,7 +16,7 @@
         <refpurpose>Finds first dimension which is not 1</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[dim]=firstnonsingleton(A[,opt])</synopsis>
     </refsynopsisdiv>
     <refsection>

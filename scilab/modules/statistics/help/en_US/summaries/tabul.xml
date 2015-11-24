@@ -16,7 +16,7 @@
         <refpurpose>frequency of values of a matrix or vector</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[m]=tabul(X [,order])</synopsis>
     </refsynopsisdiv>
     <refsection>

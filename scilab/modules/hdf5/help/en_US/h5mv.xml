@@ -16,7 +16,7 @@
         <refpurpose>Move an object</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             h5mv(srcobj [, srcloc], destobj [, destloc])
             h5mv(srcobj [, srcloc], destfile, destloc)

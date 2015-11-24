@@ -16,7 +16,7 @@
         <refpurpose>poles and zeros display</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[hm]=trfmod(h [,job])</synopsis>
     </refsynopsisdiv>
     <refsection>

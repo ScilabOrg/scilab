@@ -16,7 +16,7 @@
         <refpurpose>creates a light object in the given axes</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>l=light()
             l=light(&lt;LightProperty&gt;)
             l=light(axes_handle, &lt;LightProperty&gt;)

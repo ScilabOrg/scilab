@@ -16,7 +16,7 @@
         <refpurpose>inverse image</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[X,dim]=im_inv(A,B [,tol])
             [X,dim,Y]=im_inv(A,B, [,tol])
         </synopsis>

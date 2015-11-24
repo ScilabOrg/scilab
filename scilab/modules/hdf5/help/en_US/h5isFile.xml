@@ -16,7 +16,7 @@
         <refpurpose>Check if the HDF5 object is a file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             b = h5isFile(obj)
         </synopsis>

@@ -16,7 +16,7 @@
         <refpurpose>Create a tree containing type inference data</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>tp=Type(vtype,property)</synopsis>
     </refsynopsisdiv>
     <refsection>

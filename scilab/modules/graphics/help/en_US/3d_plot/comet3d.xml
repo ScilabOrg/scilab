@@ -8,7 +8,7 @@
         <refpurpose>3D comet animated plot. </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>comet3d(z)</synopsis>
         <synopsis>comet3d(x,y,z)</synopsis>
         <synopsis>comet3d(x,y,fun)</synopsis>

@@ -17,7 +17,7 @@
         <refpurpose>multiple evaluation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[z]=feval(x,y,f)
             [z]=feval(x,f)
         </synopsis>

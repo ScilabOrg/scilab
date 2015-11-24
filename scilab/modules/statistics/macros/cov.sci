@@ -11,7 +11,7 @@
 function C = cov(varargin)
     // Covariance matrix
     //
-    // Calling Sequence
+    // Synopsis
     //   C = cov(x)
     //   C = cov(x, 0)
     //   C = cov(x, 1)

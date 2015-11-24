@@ -16,7 +16,7 @@
         <refpurpose>Update a block instance</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>xcosUpdateBlock(blk)</synopsis>
     </refsynopsisdiv>
     <refsection id="Module_xcosUpdateBlock">

@@ -16,7 +16,7 @@
         <refpurpose>Return handle of current axes. </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>a = gca()</synopsis>
     </refsynopsisdiv>
     <refsection>

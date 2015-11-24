@@ -16,7 +16,7 @@
         <refpurpose>display Scilab function header comments</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             head_comments(name)
             head_comments(name,%paths)

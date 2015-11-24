@@ -16,7 +16,7 @@
         <refpurpose>s-plane grid lines.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             sgrid()
             sgrid(zeta,wn [,colors])

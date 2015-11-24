@@ -16,7 +16,7 @@
         <refpurpose>Rational matrix derivative</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>pd=derivat(p)</synopsis>
     </refsynopsisdiv>
     <refsection>

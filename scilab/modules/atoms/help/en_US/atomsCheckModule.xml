@@ -16,7 +16,7 @@
         <refpurpose>Check the given list of ATOMS modules</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             isok = atomsCheckModule(modulenames)
             isok = atomsCheckModule(modulenames, bVerbose)

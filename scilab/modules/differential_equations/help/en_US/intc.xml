@@ -17,7 +17,7 @@
         <refpurpose>Cauchy integral</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[y  [,err]] = intc(a, b, f [,abserr [,relerr]])</synopsis>
     </refsynopsisdiv>
     <refsection>

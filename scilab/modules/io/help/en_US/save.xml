@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>save(filename [,x1,x2,...,xn])
             save(fd [,x1,x2,...,xn])
         </synopsis>

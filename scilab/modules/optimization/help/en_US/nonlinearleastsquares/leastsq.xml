@@ -17,7 +17,7 @@
         <refpurpose>Solves non-linear least squares problems</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             fopt=leastsq(fun, x0)
             fopt=leastsq(fun, x0)

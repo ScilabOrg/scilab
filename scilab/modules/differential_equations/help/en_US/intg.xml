@@ -17,7 +17,7 @@
         <refpurpose>definite integral</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[v, err [,ierr]]=intg(a, b, f [,ea [,er]])</synopsis>
     </refsynopsisdiv>
     <refsection>

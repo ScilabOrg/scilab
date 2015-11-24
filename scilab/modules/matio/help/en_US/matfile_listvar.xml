@@ -16,7 +16,7 @@
         <refpurpose>Lists variables of a Matlab binary MAT-file.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[names[, classes[, types]]] = matfile_listvar(fd)</synopsis>
     </refsynopsisdiv>
     <refsection>

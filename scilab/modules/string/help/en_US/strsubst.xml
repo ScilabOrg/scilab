@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             string_out = strsubst(string_in, searchStr, replaceStr)
             string_out = strsubst(string_in, searchStr, replaceStr, [flag])

@@ -16,7 +16,7 @@
         <refpurpose>removes singleton dimensions of a hypermatrix</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>hypOut = squeeze(hypIn)</synopsis>
     </refsynopsisdiv>
     <refsection>

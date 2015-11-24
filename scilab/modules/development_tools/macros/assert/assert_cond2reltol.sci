@@ -12,7 +12,7 @@ function rtol = assert_cond2reltol ( varargin )
     function varargout = assert_expandvar ( varargin )
         // Expand variables so that they all have the same shape.
         //
-        // Calling Sequence
+        // Synopsis
         //   ovar1 = assert_expandvar ( ivar1 )
         //   [ ovar1 , ovar2 ] = assert_expandvar ( ivar1 , ivar2 )
         //   [ ovar1 , ovar2 , ovar3 ] = assert_expandvar ( ivar1 , ivar2 , ivar3 )

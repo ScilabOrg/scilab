@@ -7,7 +7,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             [sm [,cwp]]=cspect(nlags,npoints,wtype,x [,y] [,wpar])
             [sm [,cwp]]=cspect(nlags,npoints,wtype,nx [,ny] [,wpar])

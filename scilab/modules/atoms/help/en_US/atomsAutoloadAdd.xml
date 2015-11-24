@@ -16,10 +16,10 @@
         <refpurpose>Add one or several modules to autoload</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             nbAdd = atomsAutoloadAdd(modules[,section])
         </synopsis>

@@ -16,7 +16,7 @@
         <refpurpose>Retrieve the name of the elements.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             names = xmlName(obj)
         </synopsis>

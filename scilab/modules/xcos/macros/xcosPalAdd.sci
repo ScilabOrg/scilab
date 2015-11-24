@@ -13,7 +13,7 @@
 function [status, msg] = xcosPalAdd(pal, category)
     // Add a palette to the Scilab/Xcos palette manager. Optional property can be added to set the category of the palette.
     //
-    // Calling Sequence
+    // Synopsis
     //   xcosPalAdd(pal);
     //   xcosPalAdd(pal, category);
     //   status = xcosPalAdd(pal);

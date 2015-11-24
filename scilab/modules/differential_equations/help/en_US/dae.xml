@@ -18,7 +18,7 @@
         <refpurpose>Differential algebraic equations solver</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis> y = dae(initial, t0, t, res)
             [y [,hd]] = dae(initial, t0, t [[,rtol], atol], res [,jac] [,hd])
             [y, rd] = dae("root", initial, t0, t, res, ng, surface)

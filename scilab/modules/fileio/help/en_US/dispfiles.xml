@@ -17,7 +17,7 @@
         <refpurpose>displays opened files properties</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>dispfiles([units])</synopsis>
     </refsynopsisdiv>
     <refsection>

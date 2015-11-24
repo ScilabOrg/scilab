@@ -16,7 +16,7 @@
         <refpurpose>moves file or directory</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>movefile(source, destination)
             [status, message] = movefile(source, destination)
         </synopsis>

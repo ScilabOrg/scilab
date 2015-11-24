@@ -20,7 +20,7 @@
         <refname>sprintf</refname>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>str=msprintf(format,a1,...,an);</synopsis>
     </refsynopsisdiv>
     <refsection>

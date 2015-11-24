@@ -16,10 +16,10 @@
         <refpurpose>Install one or several external modules</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             result = atomsInstall(modules[,section])
             result = atomsInstall(file)

@@ -16,7 +16,7 @@
         <refpurpose>Fisher ratio</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>f=ftest(samples)
             [f,p]=ftest(samples)
         </synopsis>

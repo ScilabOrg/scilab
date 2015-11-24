@@ -16,7 +16,7 @@
         <refpurpose>Append an element to the parent children</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             xmlAppend(parent, child)
         </synopsis>

@@ -16,7 +16,7 @@
         <refpurpose>coefficients of matrix polynomial</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[C]=coeff(Mp [,v])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>create a dialog box for the choice of options </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>num = demo_choose(fil)</synopsis>
     </refsynopsisdiv>
     <refsection>

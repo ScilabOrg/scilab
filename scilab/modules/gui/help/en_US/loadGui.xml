@@ -5,7 +5,7 @@
         <refpurpose>Load a graphic user interface from a saved file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>loadGui(filename)</synopsis>
     </refsynopsisdiv>
     <refsection>

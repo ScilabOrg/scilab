@@ -16,7 +16,7 @@
         <refpurpose>list field extraction</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[x,...] = getfield(i,l)</synopsis>
     </refsynopsisdiv>
     <refsection>

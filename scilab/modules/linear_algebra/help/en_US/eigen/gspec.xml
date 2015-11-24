@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[al,be]=gspec(A,E)
             [al,be,Z]=gspec(A,E)
         </synopsis>

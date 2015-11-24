@@ -1,7 +1,7 @@
 function [helptxt,demotxt]=bug_5413(funname,helpdir,demodir)
     // The description
     //
-    // Calling Sequence
+    // Synopsis
     // str = prettyprint(a)
     // str = prettyprint(a,format)
     //

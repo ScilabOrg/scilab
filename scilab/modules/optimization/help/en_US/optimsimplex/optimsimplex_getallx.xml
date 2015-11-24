@@ -16,7 +16,7 @@
         <refpurpose>Returns all the coordinates.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             x = optimsimplex_getallx(opt)
         </synopsis>

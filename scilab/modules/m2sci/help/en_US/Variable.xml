@@ -16,7 +16,7 @@
         <refpurpose>Create a tree representing a variable</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>var=Variable(name,infer)</synopsis>
     </refsynopsisdiv>
     <refsection>

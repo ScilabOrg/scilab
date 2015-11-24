@@ -5,7 +5,7 @@
         <refpurpose>display current instruction calling tree</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>whereami()</synopsis>
     </refsynopsisdiv>
     <refsection>

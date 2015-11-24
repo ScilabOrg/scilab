@@ -16,7 +16,7 @@
         <refpurpose>binomial distribution probabilities</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>pr=binomial(p,n)</synopsis>
     </refsynopsisdiv>
     <refsection>

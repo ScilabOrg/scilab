@@ -16,10 +16,10 @@
         <refpurpose>Show the ATOMS's version of Scilab</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             atomsVersion()
         </synopsis>

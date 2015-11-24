@@ -16,7 +16,7 @@
         <refpurpose>Drag rectangle(s) with mouse</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[final_rect,btn]=dragrect(initial_rect)</synopsis>
     </refsynopsisdiv>
     <refsection>

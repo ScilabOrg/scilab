@@ -16,7 +16,7 @@
         <refpurpose>Returns a projection point.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             [opt, p] = optimbase_proj2bnds(opt, x)
         </synopsis>

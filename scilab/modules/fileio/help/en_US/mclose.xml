@@ -17,7 +17,7 @@
         <refpurpose>closes an opened file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             err = mclose([fd])
             mclose('all')

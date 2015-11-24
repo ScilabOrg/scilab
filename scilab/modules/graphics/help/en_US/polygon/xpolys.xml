@@ -16,7 +16,7 @@
         <refpurpose>draw a set of polylines or polygons</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>xpolys(xpols,ypols,[draw])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>system factorization</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[S,Series]=sysfact(Sys,Gain,flag)</synopsis>
     </refsynopsisdiv>
     <refsection>

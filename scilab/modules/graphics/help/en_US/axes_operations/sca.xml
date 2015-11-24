@@ -16,7 +16,7 @@
         <refpurpose>set the current axes entity</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>a=sca(a)</synopsis>
     </refsynopsisdiv>
     <refsection>

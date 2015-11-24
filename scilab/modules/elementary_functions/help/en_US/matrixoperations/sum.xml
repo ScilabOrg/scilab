@@ -16,7 +16,7 @@
         <refpurpose>sum of array elements</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>y=sum(x)
             y=sum(x,orientation)
             y=sum(x,outtype)

@@ -17,7 +17,7 @@
         <refpurpose>Displays the profiling charts of a function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>plotprofile(fun)</synopsis>
     </refsynopsisdiv>
     <refsection>

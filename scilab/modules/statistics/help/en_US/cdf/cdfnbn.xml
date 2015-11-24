@@ -16,7 +16,7 @@
         <refpurpose>cumulative distribution function  negative binomial distribution</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[P,Q]=cdfnbn("PQ",S,Xn,Pr,Ompr)
             [S]=cdfnbn("S",Xn,Pr,Ompr,P,Q)
             [Xn]=cdfnbn("Xn",Pr,Ompr,P,Q,S)

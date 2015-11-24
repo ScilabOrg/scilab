@@ -16,7 +16,7 @@
         <refpurpose>Increments the number of iterations.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             opt = optimbase_incriter(opt)
         </synopsis>

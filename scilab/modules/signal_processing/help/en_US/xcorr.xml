@@ -14,7 +14,7 @@ http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
         <refpurpose>Computes discrete auto or cross correlation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[c [,lagindex]] = xcorr(x [,maxlags [,scaling]])
             [c [,lagindex]] = xcorr(x,y [,maxlags [,scaling]])
         </synopsis>

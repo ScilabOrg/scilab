@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>TCL_GetVersion()
             ret=TCL_GetVersion('numbers')
         </synopsis>

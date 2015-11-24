@@ -18,7 +18,7 @@
         <refpurpose>Launch tests</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             status = test_run()
             status = test_run(module)

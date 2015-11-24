@@ -16,7 +16,7 @@
         <refpurpose>Pretty axis graduations</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[xi,xa,np]=graduate( xmi, xma,n1,n2)
             [xi,xa,np]=graduate( xmi, xma)
         </synopsis>

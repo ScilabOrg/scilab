@@ -16,7 +16,7 @@
         <refpurpose>utility function used with lufact</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>ludel(hand)</synopsis>
     </refsynopsisdiv>
     <refsection>

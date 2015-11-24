@@ -17,7 +17,7 @@
         <refpurpose>A Simulated Annealing optimization method</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             x_best = optim_sa(x0,f,ItExt,ItInt,T0,Log,temp_law,param_temp_law,neigh_func,param_neigh_func)
             [x_best,f_best] = optim_sa(..)

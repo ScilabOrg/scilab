@@ -16,10 +16,10 @@
         <refpurpose>Get the list of modules registered to autoload</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             modules = atomsAutoloadList([section])
         </synopsis>

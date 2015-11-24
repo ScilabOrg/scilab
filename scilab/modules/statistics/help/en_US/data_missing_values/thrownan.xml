@@ -17,7 +17,7 @@
         <refpurpose>Eliminates nan values</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[nonan,numb]=thrownan(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
