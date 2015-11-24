@@ -204,7 +204,7 @@ bool Cell::set(InternalType** _pIT)
 ** Clone
 ** Create a new Struct and Copy all values.
 */
-InternalType* Cell::clone()
+Cell* Cell::clone()
 {
     return new Cell(this);
 }
@@ -443,7 +443,7 @@ Cell* Cell::insertNewCell(typed_list* _pArgs, InternalType* _pSource)
 {
     Cell* pCell = new Cell(1, 1);
     pCell->set(0, _pSource);
-    Cell* pOut = Cell::insertNew(_pArgs, pCell)->getAs<Cell>();
+    Cell* pOut = pCell->insertNew(_pArgs)->getAs<Cell>();
     return pOut;
 }
 

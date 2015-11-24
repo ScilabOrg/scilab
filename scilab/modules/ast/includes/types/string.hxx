@@ -65,7 +65,7 @@ public :
     {
         return L"c";
     }
-    InternalType*           clone();
+    String*                 clone();
 
     inline ScilabType       getType()
     {

@@ -20,10 +20,8 @@
 #include <sstream>
 #include <cstdio>
 #include "types.hxx"
-#include "types_tools.hxx"
 #include "scilabexception.hxx"
 #include "inspector.hxx"
-#include "scilabWrite.hxx"
 
 extern "C"
 {
@@ -34,14 +32,6 @@ extern "C"
 
 namespace types
 {
-
-//commom function
-EXTERN_AST int computeTuples(int* _piCountDim, int _iDims, int _iCurrentDim, int* _piIndex);
-EXTERN_AST InternalType* createEmptyDouble();
-EXTERN_AST InternalType* createDoubleVector(int _iSize);
-EXTERN_AST int getIntValueFromDouble(InternalType* _pIT, int _iPos);
-EXTERN_AST double* getDoubleArrayFromDouble(InternalType* _pIT);
-EXTERN_AST bool checkArgValidity(typed_list& _pArg);
 
 static int get_max_size(int* _piDims, int _iDims);
 
@@ -178,10 +168,7 @@ protected :
 
     virtual T               getNullValue() = 0;
     virtual ArrayOf<T>*     createEmpty(int _iDims, int* _piDims, bool _bComplex = false) = 0;
-    virtual InternalType*   createEmpty()
-    {
-        return createEmptyDouble();
-    }
+    virtual GenericType*    createEmpty();
 
     virtual T               copyValue(T _data) = 0;
     virtual T*              allocData(int _iSize) = 0;
@@ -383,12 +370,14 @@ public :
         return getImg(getIndex(piIndexes));
     }
 
-    InternalType* insert(typed_list* _pArgs, InternalType* _pSource);
-    static InternalType* insertNew(typed_list* _pArgs, InternalType* _pSource);
-    virtual bool append(int _iRows, int _iCols, InternalType* _poSource);
-    InternalType* remove(typed_list* _pArgs);
-    InternalType* extract(typed_list* _pArgs);
-    bool resize(int* _piDims, int _iDims);
+    virtual ArrayOf<T>* insert(typed_list* _pArgs, InternalType* _pSource);
+    virtual ArrayOf<T>* append(int _iRows, int _iCols, InternalType* _poSource);
+    virtual ArrayOf<T>* resize(int* _piDims, int _iDims);
+
+    // return a GenericType because of [] wich is a types::Double (can't be a ArrayOf<char>)
+    virtual GenericType* remove(typed_list* _pArgs);
+    virtual GenericType* extract(typed_list* _pArgs);
+    virtual GenericType* insertNew(typed_list* _pArgs);
 
     virtual bool invoke(typed_list & in, optional_list & /*opt*/, int /*_iRetCount*/, typed_list & out, const ast::Exp & e) override;
     virtual bool isInvokable() const;
@@ -396,53 +385,16 @@ public :
     virtual int getInvokeNbIn();
     virtual int getInvokeNbOut();
 
-    bool reshape(int _iNewRows, int _iNewCols)
+    virtual ArrayOf<T>* reshape(int _iNewRows, int _iNewCols)
     {
         int piDims[2] = {_iNewRows, _iNewCols};
         return reshape(piDims, 2);
     }
 
-    bool reshape(int* _piDims, int _iDims)
-    {
-        int iNewSize = get_max_size(_piDims, _iDims);
-        if (iNewSize != m_iSize)
-        {
-            return false;
-        }
+    virtual ArrayOf<T>* reshape(int* _piDims, int _iDims);
 
-        for (int i = 0 ; i < _iDims ; i++)
-        {
-            m_piDims[i] = _piDims[i];
-        }
 
-        if (_iDims == 1)
-        {
-            m_piDims[1] = 1;
-            _iDims++;
-        }
-
-        int iDims = _iDims;
-        for (int i = iDims - 1; i >= 2; --i)
-        {
-            if (m_piDims[i] == 1)
-            {
-                _iDims--;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        m_iRows = m_piDims[0];
-        m_iCols = m_piDims[1];
-        m_iSize = iNewSize;
-        m_iDims = _iDims;
-
-        return true;
-    }
-
-    bool resize(int _iNewRows, int _iNewCols)
+    virtual ArrayOf<T>* resize(int _iNewRows, int _iNewCols)
     {
         int piDims[2] = {_iNewRows, _iNewCols};
         return resize(piDims, 2);
@@ -465,10 +417,7 @@ public :
         return idx;
     }
 
-    void getIndexes(int _iIndex, int* _piIndexes)
-    {
-        getIndexesWithDims(_iIndex, _piIndexes, m_piDims, m_iDims);
-    }
+    void getIndexes(int _iIndex, int* _piIndexes);
 
     ArrayOf<T>* getColumnValues(int _iPos)
     {
