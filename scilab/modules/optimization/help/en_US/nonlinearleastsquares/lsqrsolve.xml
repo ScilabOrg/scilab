@@ -19,7 +19,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[x [,v [,info]]]=lsqrsolve(x0,fct,m [,stop [,diag]])
             [x [,v [,info]]]=lsqrsolve(x0,fct,m ,fjac [,stop [,diag]])
         </synopsis>

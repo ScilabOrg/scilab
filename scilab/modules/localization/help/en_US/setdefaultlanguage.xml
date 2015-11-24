@@ -16,7 +16,7 @@
         <refpurpose>sets and saves the internal LANGUAGE value.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>setdefaultlanguage(language)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -14,7 +14,7 @@
         <refpurpose>Removes a selected datatip</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             datatipRemove(polyline_handle,ind)
             datatipRemove(datatip_handle)

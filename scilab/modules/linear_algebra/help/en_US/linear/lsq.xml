@@ -16,7 +16,7 @@
         <refpurpose>linear least square problems.  </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>X=lsq(A,B [,tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

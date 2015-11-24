@@ -16,7 +16,7 @@
         <refpurpose>prompt for user input</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>x = input(message [, "string"])</synopsis>
     </refsynopsisdiv>
     <refsection>

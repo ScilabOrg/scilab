@@ -18,7 +18,7 @@ http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[S,Sn] = arma2ss(Ar)
             S = arma2ss(Ar)
         </synopsis>

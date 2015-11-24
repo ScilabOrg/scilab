@@ -16,7 +16,7 @@
         <refpurpose>Calls cost function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             [opt, f, index] = optimbase_function(opt, x, index)
             [opt, f, c, index] = optimbase_function(opt, x, index)

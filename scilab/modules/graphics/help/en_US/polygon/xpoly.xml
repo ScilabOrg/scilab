@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>xpoly(xv,yv [,dtype [,close]])</synopsis>
     </refsynopsisdiv>
     <refsection>

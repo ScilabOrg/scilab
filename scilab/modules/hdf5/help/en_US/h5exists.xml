@@ -16,7 +16,7 @@
         <refpurpose>Test the existence of named object</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             b = h5exists(obj, locations)  
             b = h5exists(obj, location, attrNames)  

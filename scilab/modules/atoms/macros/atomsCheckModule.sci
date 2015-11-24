@@ -11,7 +11,7 @@
 function isok = atomsCheckModule(modulenames, verbose)
     // Check the given list of ATOMS modules.
     //
-    // Calling Sequence
+    // Usage
     //   isok = atomsCheckModule(modulenames, verbose)
     //
     // Parameters

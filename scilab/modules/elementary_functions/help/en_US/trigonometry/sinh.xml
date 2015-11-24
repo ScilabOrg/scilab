@@ -16,7 +16,7 @@
         <refpurpose>hyperbolic sine</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[t] = sinh(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

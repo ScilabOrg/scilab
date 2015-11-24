@@ -18,7 +18,7 @@
         <refpurpose>Random numbers</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             Y = grand(m, n, "bet", A, B)
             Y = grand(m, n, "bin", N, p)

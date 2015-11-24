@@ -16,7 +16,7 @@
         <refpurpose>common denominator form</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[n,d]=cmndred(num,den)</synopsis>
     </refsynopsisdiv>
     <refsection>

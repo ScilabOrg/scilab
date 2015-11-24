@@ -16,7 +16,7 @@
         <refpurpose>spectral factor</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[W0,L]=specfact(A,B,C,D)</synopsis>
     </refsynopsisdiv>
     <refsection>

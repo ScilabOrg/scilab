@@ -16,7 +16,7 @@
         <refpurpose>(-) subtraction operator, sign changes</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             X-Y
             -Y

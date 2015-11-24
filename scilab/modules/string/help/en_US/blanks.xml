@@ -16,7 +16,7 @@
         <refpurpose>create string of blank characters</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>txt = blanks(n)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>armax identification</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[arc,resid]=armax1(r,s,q,y,u [,b0f])</synopsis>
     </refsynopsisdiv>
     <refsection>

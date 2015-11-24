@@ -7,7 +7,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[flist,compiled,profilable,called] = listfunctions([scope])</synopsis>
     </refsynopsisdiv>
     <refsection>

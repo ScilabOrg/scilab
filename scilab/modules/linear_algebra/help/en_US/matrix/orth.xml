@@ -16,7 +16,7 @@
         <refpurpose>orthogonal basis</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>Q=orth(A)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>void freeAllocatedSparseMatrix(int* _piNbItemRows, int* _piColPos, double* _pdblReal)</synopsis>
     </refsynopsisdiv>
     <refsection>

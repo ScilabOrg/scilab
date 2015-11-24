@@ -16,7 +16,7 @@
         <refpurpose>cumulative product of array elements</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y=cumprod(x)</synopsis>
         <synopsis>y=cumprod(x,orientation)</synopsis>
         <synopsis>y=cumprod(x,outtype)</synopsis>

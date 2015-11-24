@@ -18,7 +18,7 @@
         <refpurpose>non-linear optimization routine</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             fopt = optim(costf, x0)
             fopt = optim(costf [,&lt;contr&gt;],x0 [,algo] [,df0 [,mem]] [,work] [,&lt;stop&gt;] [,&lt;params&gt;] [,imp=iflag])

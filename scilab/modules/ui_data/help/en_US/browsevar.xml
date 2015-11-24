@@ -17,7 +17,7 @@
         <refpurpose>Scilab variable browser</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>browsevar()</synopsis>
     </refsynopsisdiv>
     <refsection>

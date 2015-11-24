@@ -17,7 +17,7 @@
         <refpurpose>roots of polynomials</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             x=roots(p)
             x=roots(p,algo)

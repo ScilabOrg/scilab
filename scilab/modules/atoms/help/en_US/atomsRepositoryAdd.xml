@@ -16,10 +16,10 @@
         <refpurpose>Add one or several URLs to the list of managed repositories</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Usage -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             nbAdd = atomsRepositoryAdd(url[,section])
         </synopsis>

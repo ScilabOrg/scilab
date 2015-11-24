@@ -16,7 +16,7 @@
         <refpurpose>Set the attributes name and value.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             xmlObj = xmlSetAttributes(xmlObj, nameValue)
         </synopsis>

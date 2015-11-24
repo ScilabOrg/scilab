@@ -16,7 +16,7 @@
     <refpurpose>Linear regression</refpurpose>
 </refnamediv>
 <refsynopsisdiv>
-    <title>Calling Sequence</title>
+    <title>Usage</title>
     <synopsis>[a,b,sig]=reglin(x,y)</synopsis>
 </refsynopsisdiv>
 <refsection>

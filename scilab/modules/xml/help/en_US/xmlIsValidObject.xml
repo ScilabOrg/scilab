@@ -16,7 +16,7 @@
         <refpurpose>Test the existence of a XML object</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             exists = xmlIsValidObject(obj)
         </synopsis>

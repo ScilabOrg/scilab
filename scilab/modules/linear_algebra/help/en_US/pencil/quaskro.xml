@@ -16,7 +16,7 @@
         <refpurpose>quasi-Kronecker form</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[Q,Z,Qd,Zd,numbeps,numbeta]=quaskro(F)
             [Q,Z,Qd,Zd,numbeps,numbeta]=quaskro(E,A)
             [Q,Z,Qd,Zd,numbeps,numbeta]=quaskro(F,tol)

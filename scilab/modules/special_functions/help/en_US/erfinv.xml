@@ -17,7 +17,7 @@
         <refpurpose>inverse error function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y = erfinv(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

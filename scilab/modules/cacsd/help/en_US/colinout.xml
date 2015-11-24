@@ -16,7 +16,7 @@
         <refpurpose>inner-outer factorization</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[Inn,X,Gbar]=colinout(G)</synopsis>
     </refsynopsisdiv>
     <refsection>

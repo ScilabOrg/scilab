@@ -16,7 +16,7 @@
         <refpurpose>Opens a Matlab binary MAT-file.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>fd = matfile_open(filename[, mode[, version]])</synopsis>
     </refsynopsisdiv>
     <refsection>

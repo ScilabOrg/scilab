@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>plot2d3([logflags,] x,y,[style,strf,leg,rect,nax])
             plot232(y)
             plot2d3(x,y &lt;,opt_args&gt;)

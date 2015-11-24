@@ -16,7 +16,7 @@
         <refpurpose>converts in a character array</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             y = char(x)
             y = char(st1, st2, st3,...)

@@ -16,7 +16,7 @@
         <refpurpose>descriptor to transfer function conversion</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[S]=des2tf(sl)
             [Bfs,Bis,chis]=des2tf(sl)
         </synopsis>

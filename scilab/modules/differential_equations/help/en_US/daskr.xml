@@ -16,7 +16,7 @@
         <refpurpose>DAE solver with zero crossing</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[r, nn [, hd]] = daskr(x0, t0, t [, atol [, rtol]], res [, jac], ng, surf [, info [, psol] [, pjac]] [, hd])</synopsis>
     </refsynopsisdiv>
     <refsection>

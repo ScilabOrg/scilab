@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>int isBooleanType(void* _pvCtx, int* _piAddress)</synopsis>
         <synopsis>int isNamedBooleanType(void* _pvCtx, const char* _pstName)</synopsis>
     </refsynopsisdiv>

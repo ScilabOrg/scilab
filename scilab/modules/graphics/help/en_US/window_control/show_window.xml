@@ -16,7 +16,7 @@
         <refpurpose>raises a graphics window</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>show_window([figure])</synopsis>
     </refsynopsisdiv>
     <refsection>

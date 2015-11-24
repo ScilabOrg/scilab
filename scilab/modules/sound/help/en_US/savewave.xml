@@ -16,7 +16,7 @@
         <refpurpose>save data into a sound wav file.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>savewave(filename,x [, rate , nbits]);</synopsis>
     </refsynopsisdiv>
     <refsection>

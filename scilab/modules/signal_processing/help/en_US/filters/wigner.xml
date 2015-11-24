@@ -5,7 +5,7 @@
         <refpurpose>'time-frequency' wigner spectrum</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[tab]=wigner(x,h,deltat,zp)</synopsis>
     </refsynopsisdiv>
     <refsection>

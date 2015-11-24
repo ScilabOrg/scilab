@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>TCL_SetVar(varname, value [,interp])</synopsis>
     </refsynopsisdiv>
     <refsection>

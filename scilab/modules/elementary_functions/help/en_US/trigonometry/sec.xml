@@ -16,7 +16,7 @@
         <refpurpose>computes the element-wise secant of the argument</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y = sec(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

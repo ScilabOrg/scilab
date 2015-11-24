@@ -16,7 +16,7 @@
         <refpurpose>Computes the variance.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             v = optimsimplex_fvvariance(opt)
         </synopsis>

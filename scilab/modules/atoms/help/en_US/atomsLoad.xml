@@ -17,7 +17,7 @@
         <refpurpose>Load one or several external modules</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             result = atomsLoad(name)
             result = atomsLoad(name, version)

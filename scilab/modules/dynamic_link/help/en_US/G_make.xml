@@ -16,7 +16,7 @@
         <refpurpose>call make or nmake</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>Rfiles=G_make(files,dllname)</synopsis>
     </refsynopsisdiv>
     <refsection>

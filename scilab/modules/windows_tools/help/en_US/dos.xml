@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>bOK=dos(command-name)
             bOK=dos(command-name,'-echo')
             [output,bOK]=dos(command-name)

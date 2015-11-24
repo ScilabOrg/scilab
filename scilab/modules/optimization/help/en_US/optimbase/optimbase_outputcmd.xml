@@ -16,7 +16,7 @@
         <refpurpose>Calls back user's output command.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             stop = optimbase_outputcmd(opt, state, data)
         </synopsis>

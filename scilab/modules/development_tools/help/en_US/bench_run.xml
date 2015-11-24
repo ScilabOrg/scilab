@@ -16,7 +16,7 @@
         <refpurpose>Launch benchmark tests</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             bench_run()
             bench_run(module[,test_name[,options]])

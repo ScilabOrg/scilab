@@ -16,10 +16,10 @@
         <refpurpose>Get the list of managed repositories</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Usage -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             repositories = atomsRepositoryList([section])
         </synopsis>

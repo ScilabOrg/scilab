@@ -16,7 +16,7 @@
         <refpurpose>zero length string</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>s = emptystr()
             s = emptystr(a)
             s = emptystr(m, n)

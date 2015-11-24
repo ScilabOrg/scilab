@@ -16,7 +16,7 @@
         <refpurpose>displays current scilab history</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>displayhistory()</synopsis>
     </refsynopsisdiv>
     <refsection>

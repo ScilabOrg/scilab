@@ -16,7 +16,7 @@
         <refpurpose>object type</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[t]=typeof(object)</synopsis>
     </refsynopsisdiv>
     <refsection>

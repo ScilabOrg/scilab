@@ -19,7 +19,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             flag = assert_checkerror ( instr , expectedmsg )
             flag = assert_checkerror ( instr , expectedmsg , expectederrnb )

@@ -16,7 +16,7 @@
         <refpurpose>balancing (nonnegative) pair of matrices</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[T [,siz]]=equil1(P,Q [,tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

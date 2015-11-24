@@ -16,7 +16,7 @@
         <refpurpose>Sylvester equation.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>sylv(A, B, C, flag)</synopsis>
     </refsynopsisdiv>
     <refsection>

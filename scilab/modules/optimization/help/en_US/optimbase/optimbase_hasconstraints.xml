@@ -16,7 +16,7 @@
         <refpurpose>Checks if the constraints are specified.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             [opt, hascons] = optimbase_hasbounds(opt)
         </synopsis>

@@ -5,7 +5,7 @@
         <refpurpose>keyword for conditional execution</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             if expr1 then
             statements

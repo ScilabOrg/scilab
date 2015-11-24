@@ -18,7 +18,7 @@
         <refpurpose>Returns the profiling results of a function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>c = profile(fun)</synopsis>
     </refsynopsisdiv>
     <refsection>

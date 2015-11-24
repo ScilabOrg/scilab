@@ -16,7 +16,7 @@
         <refpurpose>parallel calls to a function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[R1[,…,Rm]]=parallel_run(A1[,…,Ak], f[,types][,dims], p)</synopsis>
     </refsynopsisdiv>
     <refsection>

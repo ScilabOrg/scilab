@@ -16,10 +16,10 @@
         <refpurpose>Get the list of loaded external modules</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Usage -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             loaded = atomsGetLoaded()
         </synopsis>

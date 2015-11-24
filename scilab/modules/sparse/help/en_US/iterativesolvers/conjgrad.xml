@@ -16,7 +16,7 @@
         <refpurpose>conjugate gradient solvers</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             [x, flag, err, iter, res] = conjgrad(A, b [, method [, tol [, maxIter [, M [, M2 [, x0 [, verbose]]]]]]])
             [x, flag, err, iter, res] = conjgrad(A, b [, method [, key=value,...]])

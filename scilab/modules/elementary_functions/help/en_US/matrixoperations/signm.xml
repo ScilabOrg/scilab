@@ -16,7 +16,7 @@
         <refpurpose>matrix signum function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>X=signm(A)</synopsis>
     </refsynopsisdiv>
     <refsection>

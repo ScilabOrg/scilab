@@ -16,7 +16,7 @@
         <refpurpose>checks if a variable is a cell array</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>bool = iscell(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>Returns the history value.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             value = optimbase_histget(opt, iter, key)
         </synopsis>

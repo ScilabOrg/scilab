@@ -16,7 +16,7 @@
         <refpurpose>minimal balanced realization</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>slb=minreal(sl [,tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

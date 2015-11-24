@@ -16,7 +16,7 @@
         <refpurpose>Returns all the data contained in the simplex object.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             simplex = optimsimplex_getall(opt)
         </synopsis>

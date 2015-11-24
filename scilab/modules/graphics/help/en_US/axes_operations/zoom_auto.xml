@@ -22,7 +22,7 @@
     
     
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             zoom_auto()
             zoom_auto(h)

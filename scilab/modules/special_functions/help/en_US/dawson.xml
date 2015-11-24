@@ -16,7 +16,7 @@
         <refpurpose>Compute the Dawson (scaled imaginary error) function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y = dawson(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

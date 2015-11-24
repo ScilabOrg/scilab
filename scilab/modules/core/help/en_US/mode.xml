@@ -16,7 +16,7 @@
         <refpurpose>select a mode in an exec-file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>mode(k)
             k = mode()
         </synopsis>

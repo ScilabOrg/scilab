@@ -16,7 +16,7 @@
         <refpurpose>Black-Nichols diagram of a linear dynamical system</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             black( sl,[fmin,fmax] [,step] [,comments] )
             black( sl,frq [,comments] )

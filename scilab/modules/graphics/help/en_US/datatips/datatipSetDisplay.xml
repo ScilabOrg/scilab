@@ -14,7 +14,7 @@
         <refpurpose>Set the function used to compute the datatip string. </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             datatipSetDisplay(handle,"fun")
             datatipSetDisplay(handle, fun)

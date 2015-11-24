@@ -17,7 +17,7 @@
         <refpurpose>Check that two files are equal.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             flag = assert_checkfilesequal ( filecomp , fileref )
             flag = assert_checkfilesequal ( filecomp , fileref , compfun )

@@ -18,7 +18,7 @@
         <refpurpose>Wrap a Scilab variable into a Java one if possible</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             [jw_1, jw_2, ...] = jwrap(sc_1 [, sc_2 [, sc_3 [,... ]]])
         </synopsis>

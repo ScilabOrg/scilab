@@ -16,7 +16,7 @@
         <refpurpose>sum and intersection of subspaces</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[Xp,dima,dimb,dim]=spantwo(A,B, [tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

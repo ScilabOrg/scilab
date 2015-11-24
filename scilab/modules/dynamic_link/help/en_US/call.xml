@@ -17,7 +17,7 @@
         <refpurpose>Fortran or C user routines call</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>// long form 'out' is present
             [y1,...,yk] = call("ident",x1,px1,"tx1",...,xn,pxn,"txn","out",[ny1,my1],py1,"ty1",...,[nyl,myl],pyl,"tyl")
             // short form : no 'out' parameter

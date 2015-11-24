@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>matfile2sci(mat_file_path,sci_file_path[, overwrite])</synopsis>
     </refsynopsisdiv>
     <refsection>

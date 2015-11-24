@@ -17,7 +17,7 @@
         <refpurpose>Kronecker product (.*.)</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>kron(A,B)
             A.*.B
         </synopsis>
