@@ -903,7 +903,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                     }
 
                     // resize current struct
-                    pStruct->resize(pEH->getArgsDimsArray(), pEH->getArgsDims());
+                    pStruct = pStruct->resize(pEH->getArgsDimsArray(), pEH->getArgsDims());
+                    pEH->setCurrent(pStruct);
                 }
 
                 // create field in parent if it not exist
@@ -1011,7 +1012,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                         int iNewSize = pEH->getSizeFromArgs();
                         if (pTL->getSize() < iNewSize)
                         {
-                            pTL->set(iNewSize - 1, new types::ListUndefined());
+                            pTL = pTL->set(iNewSize - 1, new types::ListUndefined());
+                            pEH->setCurrent(pTL);
                         }
 
                         // update pArgs variables with new argument computed in getSizeFromArgs
@@ -1166,7 +1168,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                             int iNewSize = pEH->getSizeFromArgs();
                             if (pL->getSize() < iNewSize)
                             {
-                                pL->set(iNewSize - 1, new types::ListUndefined());
+                                pL = pL->set(iNewSize - 1, new types::ListUndefined());
+                                pEH->setCurrent(pL);
                             }
 
                             types::Double* pDblArgs = (*pEH->getArgs())[0]->getAs<types::Double>();
@@ -1351,7 +1354,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                                 }
 
                                 // resize current Cell
-                                pCell->resize(pEH->getArgsDimsArray(), pEH->getArgsDims());
+                                pCell = pCell->resize(pEH->getArgsDimsArray(), pEH->getArgsDims())->getAs<types::Cell>();
+                                pEH->setCurrent(pCell);
                             }
 
                             types::InternalType* pIT = pCell->extract(pEH->getArgs());
@@ -1374,7 +1378,8 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                                 }
 
                                 // resize current Cell
-                                pCell->resize(pEH->getArgsDimsArray(), pEH->getArgsDims());
+                                pCell = pCell->resize(pEH->getArgsDimsArray(), pEH->getArgsDims())->getAs<types::Cell>();
+                                pEH->setCurrent(pCell);
                             }
 
                             types::InternalType* pIT = pCell->extract(pEH->getArgs());
@@ -1621,44 +1626,18 @@ types::InternalType* evaluateFields(const ast::Exp* _pExp, std::list<ExpHistory*
                         types::TList* pTL = pParent->getAs<types::TList>();
                         if (pParentArgs)
                         {
-                            // In case where pTL is in several scilab variable,
-                            // we have to clone it for keep the other variables unchanged.
-                            if (pTL->getRef() > 1)
-                            {
-                                pTL = pTL->clone()->getAs<types::TList>();
-                            }
-
-                            pTL->set(pEH->getWhereReinsert(), pEH->getCurrent());
-
-                            if (pEH->getParent()->setCurrent(pTL))
-                            {
-                                pEH->getParent()->setReinsertion();
-                                pEH->resetReinsertion();
-                            }
-
+                            pTL = pTL->set(pEH->getWhereReinsert(), pEH->getCurrent());
+                            pEHParent->setCurrent(pTL);
                             evalFields.pop_back();
-                            delete pEH;
+							delete pEH;
                             continue;
                         }
                         else
                         {
                             if (pTL->exists(pEH->getExpAsString()))
                             {
-                                // In case where pTL is in several scilab variable,
-                                // we have to clone it for keep the other variables unchanged.
-                                if (pTL->getRef() > 1)
-                                {
-                                    pTL = pTL->clone()->getAs<types::TList>();
-                                }
-
-                                pTL->set(pEH->getExpAsString(), pEH->getCurrent());
-
-                                if (pEH->getParent()->setCurrent(pTL))
-                                {
-                                    pEH->getParent()->setReinsertion();
-                                    pEH->resetReinsertion();
-                                }
-
+                                pTL = pTL->set(pEH->getExpAsString(), pEH->getCurrent());
+                                pEHParent->setCurrent(pTL);
                                 evalFields.pop_back();
                                 delete pEH;
                                 continue;
@@ -2199,13 +2178,18 @@ types::InternalType* insertionCall(const ast::Exp& e, types::typed_list* _pArgs,
                 if (_pInsert->isStruct())
                 {
                     types::String* pStrFieldsName = pStruct->getFieldNames();
-                    types::Struct* pStructInsert = _pInsert->clone()->getAs<types::Struct>();
+                    types::Struct* pStructInsert = _pInsert->getAs<types::Struct>();
                     types::String* pStrInsertFieldsName = pStructInsert->getFieldNames();
                     types::Struct* pStructRet = NULL;
 
                     // if not an empty struct
                     if (pStrFieldsName)
                     {
+                        if (_pInsert->getRef() > 1)
+                        {
+                            pStructInsert = _pInsert->clone()->getAs<types::Struct>();
+                        }
+
                         // insert fields of pStruct in pStructInsert
                         for (int i = pStrFieldsName->getSize(); i > 0; i--)
                         {
@@ -2244,8 +2228,6 @@ types::InternalType* insertionCall(const ast::Exp& e, types::typed_list* _pArgs,
                     // insert elements in following pArgs
                     pRet = pStruct->insert(_pArgs, pStructInsert);
                     pStructRet = pRet->getAs<types::Struct>();
-
-                    pStructInsert->killMe();
 
                     // insert fields of pStructInsert in pRet
                     for (int i = 0; i < pStrInsertFieldsName->getSize(); i++)
@@ -2293,8 +2275,7 @@ types::InternalType* insertionCall(const ast::Exp& e, types::typed_list* _pArgs,
 
                     if (pTL->exists(pS->get(0)))
                     {
-                        pTL->set(pS->get(0), _pInsert);
-                        pRet = pTL;
+                        pRet = pTL->set(pS->get(0), _pInsert);
                     }
                     else
                     {

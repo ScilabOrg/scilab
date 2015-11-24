@@ -978,7 +978,7 @@ void Polynom::deleteData(SinglePoly* data)
 }
 
 //overload to check variable name and call arrayof<>::insert after
-InternalType* Polynom::insert(typed_list* _pArgs, InternalType* _pSource)
+Polynom* Polynom::insert(typed_list* _pArgs, InternalType* _pSource)
 {
     Polynom* p = _pSource->getAs<Polynom>();
     if (p->getVariableName() != getVariableName())
@@ -990,7 +990,8 @@ InternalType* Polynom::insert(typed_list* _pArgs, InternalType* _pSource)
         FREE(pwstError);
         throw ast::InternalError(wstError);
     }
-    return ArrayOf<SinglePoly*>::insert(_pArgs, _pSource);
+
+    return ArrayOf<SinglePoly*>::insert(_pArgs, _pSource)->getAs<Polynom>();
 }
 
 Polynom* Polynom::Dollar()
