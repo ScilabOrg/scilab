@@ -16,7 +16,7 @@
         <refpurpose>string matrix ASCII conversions</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             a = asciimat(txt)
             txt = asciimat(a)

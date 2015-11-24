@@ -16,7 +16,7 @@
         <refpurpose>polynomial matrix long division</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[x]=ldiv(n,d,k)</synopsis>
     </refsynopsisdiv>
     <refsection>

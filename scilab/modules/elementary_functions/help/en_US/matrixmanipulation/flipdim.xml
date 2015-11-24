@@ -17,7 +17,7 @@
         <refpurpose>flip x block components along a given dimension</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y = flipdim(x, dim [,sb])</synopsis>
     </refsynopsisdiv>
     <refsection>

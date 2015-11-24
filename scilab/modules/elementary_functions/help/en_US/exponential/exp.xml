@@ -16,7 +16,7 @@
         <refpurpose>element-wise exponential</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>exp(X)</synopsis>
     </refsynopsisdiv>
     <refsection>

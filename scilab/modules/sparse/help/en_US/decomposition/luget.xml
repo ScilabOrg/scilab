@@ -16,7 +16,7 @@
         <refpurpose>extraction of sparse LU factors</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[P,L,U,Q]=luget(hand)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>OK=TCL_ExistArray(arrayname [,interp])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>determinant of polynomial matrix</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>res=determ(W [,k])</synopsis>
     </refsynopsisdiv>
     <refsection>

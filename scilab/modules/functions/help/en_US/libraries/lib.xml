@@ -16,7 +16,7 @@
         <refpurpose>library definition</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>namelib = lib('lib-dir')</synopsis>
     </refsynopsisdiv>
     <refsection>

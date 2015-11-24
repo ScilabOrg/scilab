@@ -5,7 +5,7 @@
         <refpurpose>show "about scilab" dialog box</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>about()</synopsis>
     </refsynopsisdiv>
     <refsection>

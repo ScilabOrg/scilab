@@ -16,7 +16,7 @@
         <refpurpose>set environments variables for Microsoft C Compiler.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>bOK=configure_msvc()</synopsis>
     </refsynopsisdiv>
     <refsection>

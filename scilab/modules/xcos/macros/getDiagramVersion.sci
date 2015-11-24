@@ -13,7 +13,7 @@
 function version = getDiagramVersion(diagram)
     // Return the current diagram version
     //
-    // Calling Sequence
+    // Usage
     //  version = getDiagramVersion(diagram)
     //
     // Parameters

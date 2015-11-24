@@ -16,7 +16,7 @@
         <refpurpose>Scilab Graphic Editor</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>ged(action, fignum)</synopsis>
     </refsynopsisdiv>
     <refsection>

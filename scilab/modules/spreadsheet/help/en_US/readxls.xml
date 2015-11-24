@@ -17,7 +17,7 @@
         <refpurpose>reads an Excel file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>sheets = readxls(file_path)</synopsis>
     </refsynopsisdiv>
     <refsection>

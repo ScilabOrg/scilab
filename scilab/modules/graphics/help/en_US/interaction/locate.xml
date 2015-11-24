@@ -17,7 +17,7 @@
         <refpurpose>mouse selection of a set of points</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>x=locate([n,flag])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>Floating point rational approximation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[N,D]=rat(X [,tol])
             Y=rat(X [,tol])
         </synopsis>

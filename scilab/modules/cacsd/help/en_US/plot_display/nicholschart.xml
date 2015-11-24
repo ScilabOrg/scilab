@@ -16,7 +16,7 @@
         <refpurpose>Nichols chart</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>nicholschart([modules] [,args] [,colors])</synopsis>
         <synopsis/>
     </refsynopsisdiv>

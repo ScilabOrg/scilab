@@ -16,7 +16,7 @@
         <refpurpose>Close a HDF5 object</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             h5close([obj_1 [, obj_2 [, ...]]])
         </synopsis>

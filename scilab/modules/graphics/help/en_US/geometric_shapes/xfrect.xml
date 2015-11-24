@@ -16,7 +16,7 @@
         <refpurpose>fill a rectangle</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>xfrect(x,y,w,h)
             xfrect(rect) // rect =[x,y,w,h]
         </synopsis>

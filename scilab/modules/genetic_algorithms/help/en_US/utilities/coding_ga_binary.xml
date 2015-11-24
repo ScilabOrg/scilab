@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>pop_out = coding_ga_binary(pop_in,direction,param)</synopsis>
     </refsynopsisdiv>
     <refsection>

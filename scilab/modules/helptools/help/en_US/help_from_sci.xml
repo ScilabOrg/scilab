@@ -10,7 +10,7 @@
         <refpurpose>Generate help files and demo files from the head comments section of a .sci source file.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             help_from_sci() // generate an empty function template
             helptxt = help_from_sci() // generate an empty function template
@@ -78,7 +78,7 @@
         </para>
         <para>
             The remaining comments are formatted according to the following (optional) headlines:
-            "Calling Sequence", "Parameters", "Description", "Examples", "See also", "Used functions",
+            "Usage", "Parameters", "Description", "Examples", "See also", "Used functions",
             "Authors" and "Bibliography".
         </para>
         <para>
@@ -86,7 +86,7 @@
             <itemizedlist>
                 <listitem>
                     <para>
-                        <literal>Calling Sequence</literal> - one example pr. line.
+                        <literal>Usage</literal> - one example pr. line.
                     </para>
                 </listitem>
                 <listitem>

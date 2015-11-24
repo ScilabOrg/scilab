@@ -25,7 +25,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             x = mget([n, type, fd])
             x = mgeti([n, type, fd])

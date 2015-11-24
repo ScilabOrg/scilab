@@ -16,7 +16,7 @@
         <refpurpose>Computes the directions.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             m = optimsimplex_dirmat(opt)
         </synopsis>

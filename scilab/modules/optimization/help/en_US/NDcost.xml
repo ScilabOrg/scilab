@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[f,g,ind]=NDcost(x,ind,fun,varargin)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -15,7 +15,7 @@
         <refpurpose>Read comma-separated value file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             M = csvRead(filename)
             M = csvRead(filename, separator)

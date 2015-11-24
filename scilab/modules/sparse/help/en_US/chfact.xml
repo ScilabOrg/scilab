@@ -16,7 +16,7 @@
         <refpurpose>sparse Cholesky factorization</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>spcho=chfact(A)</synopsis>
     </refsynopsisdiv>
     <refsection>

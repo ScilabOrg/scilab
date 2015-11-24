@@ -17,7 +17,7 @@
         <refpurpose>check if symbol loaded with dynamic link</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>c_link(routine_name)
             [test, ilib] = c_link(routine_name)
             test = c_link(routine_name,num)

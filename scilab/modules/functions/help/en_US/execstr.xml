@@ -16,7 +16,7 @@
         <refpurpose>execute Scilab code in strings</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>execstr(instr)
             ierr = execstr(instr,'errcatch' [,msg])
         </synopsis>

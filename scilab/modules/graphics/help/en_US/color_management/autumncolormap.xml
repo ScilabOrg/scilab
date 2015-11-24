@@ -16,7 +16,7 @@
         <refpurpose>red through orange to yellow colormap</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>cmap=autumncolormap(n)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>The Very Fast Simulated Annealing acceptation function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>Level = accept_func_vfsa(F_current, F_neigh, T)</synopsis>
     </refsynopsisdiv>
     <refsection>

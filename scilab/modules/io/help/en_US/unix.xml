@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>stat=unix(command-name)</synopsis>
     </refsynopsisdiv>
     <refsection>

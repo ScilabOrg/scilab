@@ -16,7 +16,7 @@
         <refpurpose>Write a XML document in a file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             xmlWrite(doc [, filename] [, indent])
             xmlWrite(doc [, indent])

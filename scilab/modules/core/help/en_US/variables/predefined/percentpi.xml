@@ -16,7 +16,7 @@
         <refpurpose>ratio of circle's circumference to its diameter</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>%pi</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[v [,ka,kb]]=intersect(a,b)</synopsis>
         <synopsis>[v [,ka,kb]]=intersect(a,b,orient)</synopsis>
     </refsynopsisdiv>

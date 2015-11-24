@@ -16,10 +16,10 @@
         <refpurpose>Update one or several external modules</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Usage -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             result = atomsUpdate()
             result = atomsUpdate(name[,section]])

@@ -16,7 +16,7 @@
         <refpurpose>frequency phase plot</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             phaseplot(sl)
             phaseplot(sl,fmin,fmax [,step] [,comments] )

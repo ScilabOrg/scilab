@@ -16,7 +16,7 @@
         <refpurpose>toggle rational simplification</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>mod=simp_mode()
             simp_mode(mod)
         </synopsis>

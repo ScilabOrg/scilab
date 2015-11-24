@@ -17,7 +17,7 @@
         <refpurpose>gets long path name</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             longpath = getlongpathname(shortpath)
             [longpath, bOK] = getlongpathname(shortpath)

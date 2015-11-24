@@ -16,7 +16,7 @@
         <refpurpose>matrix made of ones</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y=ones(m1,m2,...)
             y=ones(x)
             y=ones()

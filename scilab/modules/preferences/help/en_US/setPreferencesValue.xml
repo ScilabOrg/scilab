@@ -16,7 +16,7 @@
         <refpurpose>Set preferences value</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             setPreferencesValue(xpath, key_value [, doc])
         </synopsis>

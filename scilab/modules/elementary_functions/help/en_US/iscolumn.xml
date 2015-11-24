@@ -16,7 +16,7 @@
         <refpurpose>check if a variable is a column</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>t=iscolumn(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

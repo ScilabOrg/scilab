@@ -16,7 +16,7 @@
         <refpurpose>concatenates character strings</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             txt = strcat(strings [,string_added])
             txt = strcat(strings [,string_added, ["flag"]])

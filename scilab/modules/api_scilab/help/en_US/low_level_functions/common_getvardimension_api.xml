@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <para>Input argument profile:</para>
         <synopsis>SciErr getVarDimension(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols)</synopsis>
         <para>Named variable profile:</para>

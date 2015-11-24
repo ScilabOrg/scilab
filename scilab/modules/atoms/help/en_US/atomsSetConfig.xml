@@ -17,7 +17,7 @@
         <refpurpose>Manage ATOMS system parameters</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             result = atomsSetConfig(parameter, value)
         </synopsis>

@@ -7,7 +7,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             layout_options = createLayoutOptions(constType, varargin)
         </synopsis>

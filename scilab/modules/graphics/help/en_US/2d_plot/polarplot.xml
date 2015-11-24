@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>polarplot(theta,rho,[style,strf,leg,rect])
             polarplot(theta,rho,&lt;opt_args&gt;)
         </synopsis>

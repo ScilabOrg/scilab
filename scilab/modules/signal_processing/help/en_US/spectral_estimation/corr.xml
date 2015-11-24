@@ -5,7 +5,7 @@
         <refpurpose>correlation, covariance</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[cov,Mean]=corr(x,[y],nlags)
             [cov,Mean]=corr('fft',xmacro,[ymacro],n,sect)
             

@@ -16,7 +16,7 @@
         <refpurpose>Open the Scilab history browser</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>browsehistory()</synopsis>
     </refsynopsisdiv>
     <refsection>

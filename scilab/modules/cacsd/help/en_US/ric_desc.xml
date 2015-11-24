@@ -16,7 +16,7 @@
         <refpurpose>Riccati equation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>X=ric_desc(H [,E))
             [X1,X2,zero]=ric_desc(H [,E])
         </synopsis>

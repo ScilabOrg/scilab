@@ -17,7 +17,7 @@
         <refpurpose>Outputs the function profiling results to the console</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>showprofile(fun)</synopsis>
     </refsynopsisdiv>
     <refsection>

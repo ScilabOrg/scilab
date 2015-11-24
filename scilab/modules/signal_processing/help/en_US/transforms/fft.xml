@@ -26,7 +26,7 @@
         <refpurpose>fast Fourier transform.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>X=fft(A [,sign] [,option])
             X=fft(A,sign,selection  [,option])
             X=fft(A,sign,dims,incr [,option] )

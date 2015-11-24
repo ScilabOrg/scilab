@@ -17,7 +17,7 @@
         <refpurpose>open a graphics export session</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             xinit(FileName)
             xinit()

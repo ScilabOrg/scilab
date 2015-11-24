@@ -16,10 +16,10 @@
         <refpurpose>Restore the configuration from the backup file</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Usage -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             atomsRestoreConfig()
         </synopsis>

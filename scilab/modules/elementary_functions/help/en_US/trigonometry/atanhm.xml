@@ -16,7 +16,7 @@
         <refpurpose>matrix hyperbolic tangent inverse</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>t=atanhm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

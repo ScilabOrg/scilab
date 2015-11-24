@@ -17,7 +17,7 @@
         <refpurpose>round towards zero</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y=fix(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

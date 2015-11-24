@@ -15,7 +15,7 @@
         <refpurpose>Disables the profiling of a function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>remove_profiling(funname)</synopsis>
     </refsynopsisdiv>
     <refsection>

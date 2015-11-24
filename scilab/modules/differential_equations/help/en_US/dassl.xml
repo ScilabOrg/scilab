@@ -17,7 +17,7 @@
         <refpurpose>differential algebraic equation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[r [,hd]]=dassl(x0,t0,t [,atol,[rtol]],res [,jac] [,info] [,hd])</synopsis>
     </refsynopsisdiv>
     <refsection>

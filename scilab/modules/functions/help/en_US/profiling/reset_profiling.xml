@@ -15,7 +15,7 @@
         <refpurpose>Resets profiling counters  of a function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>reset_profiling(funname)</synopsis>
     </refsynopsisdiv>
     <refsection>

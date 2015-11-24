@@ -14,7 +14,7 @@
 function importScicosPal(palFiles, outPath)
     // Export all palettes to a path as H5 files
     //
-    // Calling Sequence
+    // Usage
     //   importScicosPal(palFiles, outPath);
     //
     // Parameters

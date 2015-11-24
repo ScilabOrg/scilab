@@ -16,7 +16,7 @@
         <refpurpose>random pencil</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>F=randpencil(eps,infi,fin,eta)</synopsis>
     </refsynopsisdiv>
     <refsection>

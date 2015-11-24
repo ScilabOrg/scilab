@@ -16,7 +16,7 @@
         <refpurpose>Hessenberg form</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>H = hess(A)
             [U,H] = hess(A)
         </synopsis>

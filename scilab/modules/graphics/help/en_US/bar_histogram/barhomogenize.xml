@@ -16,7 +16,7 @@
         <refpurpose>homogenize all the bars included in the current working axes</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>barhomogenize()
             barhomogenize([h[,'style'[,'width']]])
         </synopsis>

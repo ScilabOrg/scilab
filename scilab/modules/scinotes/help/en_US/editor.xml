@@ -16,7 +16,7 @@
         <refpurpose>Call the text editor as defined in the preferences</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             editor(...)
         </synopsis>

@@ -17,7 +17,7 @@
         <refpurpose>ショートパス名を取得 (Windows専用)</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>shortpath=getshortgpathname(longpath)
             [shortpath,bOK]=getshortpathname(longpath)
         </synopsis>

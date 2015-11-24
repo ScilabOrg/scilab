@@ -16,7 +16,7 @@
         <refpurpose>Launch the examples found in help pages.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             example_run()
             example_run(moduleNames)

@@ -16,7 +16,7 @@
         <refpurpose>detect if you have a C compiler.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>bOK=haveacompiler()</synopsis>
     </refsynopsisdiv>
     <refsection>

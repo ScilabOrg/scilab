@@ -16,7 +16,7 @@
         <refpurpose>Mount a file on a group</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             h5mount(obj, location, fileobj)
         </synopsis>

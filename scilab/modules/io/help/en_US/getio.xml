@@ -16,7 +16,7 @@
         <refpurpose>get Scilab input/output logical units</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>ios=getio()</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -17,7 +17,7 @@
         <refpurpose>resets binary file access errors</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>flag = mclearerr([fd])</synopsis>
     </refsynopsisdiv>
     <refsection>

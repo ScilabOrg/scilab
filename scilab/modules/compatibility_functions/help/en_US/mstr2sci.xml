@@ -16,7 +16,7 @@
         <refpurpose>character string matrix to character matrix conversion</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>a=mstr2sci(txt)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>Open the Scilab file browser</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>filebrowser()</synopsis>
     </refsynopsisdiv>
     <refsection>

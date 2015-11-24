@@ -16,10 +16,10 @@
         <refpurpose>Remove one or several modules</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Usage -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>
             result = atomsRemove(modules[,section][,delete])
         </synopsis>

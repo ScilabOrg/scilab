@@ -16,7 +16,7 @@
         <refpurpose>evaluation of a matrix of strings</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>[H] = eval(Z)</synopsis>
     </refsynopsisdiv>
     <refsection>

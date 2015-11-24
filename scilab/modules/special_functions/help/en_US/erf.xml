@@ -16,7 +16,7 @@
         <refpurpose>The error function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>y = erf(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>fac3d(x,y,z,[theta,alpha,leg,flag,ebox])
             fac3d1(x,y,z,[theta,alpha,leg,flag,ebox])
         </synopsis>

@@ -16,7 +16,7 @@
         <refpurpose>returns string reversed</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>res = strrev(str1)</synopsis>
     </refsynopsisdiv>
     <refsection>

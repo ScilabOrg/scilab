@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>P = mtlb_legendre(n,X)
             P = mtlb_legendre(n,X[,normflag])
         </synopsis>

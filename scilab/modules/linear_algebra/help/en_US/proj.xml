@@ -16,7 +16,7 @@
         <refpurpose>projection</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>P = proj(X1,X2)</synopsis>
     </refsynopsisdiv>
     <refsection>

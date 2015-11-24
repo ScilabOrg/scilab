@@ -20,7 +20,7 @@
     
     <refsynopsisdiv>
         
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         
         <synopsis>perl('perlfile')
             

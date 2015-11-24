@@ -9,7 +9,7 @@
         <refpurpose>subtraction from C</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>a = c_sub(b,c)</synopsis>
     </refsynopsisdiv>
     <refsection>

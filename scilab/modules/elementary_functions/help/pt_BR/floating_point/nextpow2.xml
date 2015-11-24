@@ -16,7 +16,7 @@
         <refpurpose>próxima potência de 2 mais alta </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>t=nextpow2(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

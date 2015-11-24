@@ -16,7 +16,7 @@
         <refpurpose>beta function (Euler integral of the first kind)</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>z = beta(x,y)</synopsis>
     </refsynopsisdiv>
     <refsection>

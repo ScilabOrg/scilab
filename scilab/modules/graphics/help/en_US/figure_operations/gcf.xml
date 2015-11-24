@@ -16,7 +16,7 @@
         <refpurpose>Return handle of current graphic window.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Usage</title>
         <synopsis>h = gcf()</synopsis>
     </refsynopsisdiv>
     <refsection>
