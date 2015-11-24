@@ -76,7 +76,7 @@ Bool::Bool(int _iDims, int* _piDims)
 #endif
 }
 
-InternalType* Bool::clone()
+Bool* Bool::clone()
 {
     Bool *pbClone =  new Bool(getDims(), getDimsArray());
     pbClone->set(get());
