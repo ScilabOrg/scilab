@@ -129,7 +129,7 @@ bool Function::toString(std::wostringstream& ostr)
     return true;
 }
 
-InternalType* Function::clone()
+Function* Function::clone()
 {
     IncreaseRef();
     return this;
@@ -157,7 +157,7 @@ OptFunction::OptFunction(OptFunction* _pWrapFunction)
     m_pLoadDeps = _pWrapFunction->getDeps();
 }
 
-InternalType* OptFunction::clone()
+OptFunction* OptFunction::clone()
 {
     return new OptFunction(this);
 }
@@ -200,7 +200,7 @@ WrapFunction::WrapFunction(WrapFunction* _pWrapFunction)
     m_pLoadDeps = _pWrapFunction->getDeps();
 }
 
-InternalType* WrapFunction::clone()
+WrapFunction* WrapFunction::clone()
 {
     return new WrapFunction(this);
 }
@@ -356,7 +356,7 @@ WrapMexFunction::WrapMexFunction(WrapMexFunction* _pWrapFunction)
     m_pLoadDeps = _pWrapFunction->getDeps();
 }
 
-InternalType* WrapMexFunction::clone()
+WrapMexFunction* WrapMexFunction::clone()
 {
     return new WrapMexFunction(this);
 }

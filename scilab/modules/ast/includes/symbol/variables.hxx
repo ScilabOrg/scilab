@@ -19,6 +19,7 @@
 #include "internal.hxx"
 #include "double.hxx"
 #include "dynlib_ast.h"
+#include "callable.hxx"
 
 namespace symbol
 {
