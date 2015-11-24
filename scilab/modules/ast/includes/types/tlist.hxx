@@ -48,8 +48,8 @@ public :
     bool                            exists(const std::wstring& _sKey);
     InternalType*                   getField(const std::wstring& _sKey);
     int                             getIndexFromString(const std::wstring& _sKey);
-    bool                            set(const std::wstring& _sKey, InternalType* _pIT);
-    bool                            set(const int _iIndex, InternalType* _pIT);
+    List*                           set(const std::wstring& _sKey, InternalType* _pIT);
+    List*                           set(const int _iIndex, InternalType* _pIT);
 
     using List::extract; // to avoid this extract to hide extract in list
     bool                            extract(const std::wstring& name, InternalType *& out);

@@ -278,12 +278,12 @@ std::wstring TList::getShortTypeStr()
     return getTypeStr();
 }
 
-bool TList::set(const std::wstring& _sKey, InternalType* _pIT)
+List* TList::set(const std::wstring& _sKey, InternalType* _pIT)
 {
     return List::set(getIndexFromString(_sKey), _pIT);
 }
 
-bool TList::set(const int _iIndex, InternalType* _pIT)
+List* TList::set(const int _iIndex, InternalType* _pIT)
 {
     return List::set(_iIndex, _pIT);
 }
