@@ -54,7 +54,7 @@ public :
     ~Function();
 
     //FIXME : Should not return NULL
-    InternalType*           clone();
+    virtual Function*       clone();
 
     static Function*        createFunction(const std::wstring& _wstName, GW_FUNC _pFunc, const std::wstring& _wstModule);
     static Function*        createFunction(const std::wstring& _wstName, GW_FUNC_OPT _pFunc, const std::wstring& _wstModule);
@@ -125,7 +125,7 @@ public :
     OptFunction(const std::wstring& _wstName, GW_FUNC_OPT _pFunc, LOAD_DEPS _pLoadDeps, const std::wstring& _wstModule);
 
     Callable::ReturnValue   call(typed_list &in, optional_list &opt, int _iRetCount, typed_list &out) override;
-    InternalType*           clone();
+    OptFunction*            clone();
 
     GW_FUNC_OPT             getFunc()
     {
@@ -145,7 +145,7 @@ public :
     WrapFunction(const std::wstring& _wstName, OLDGW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, const std::wstring& _wstModule);
 
     Callable::ReturnValue   call(typed_list &in, optional_list &opt, int _iRetCount, typed_list &out) override;
-    InternalType*           clone();
+    WrapFunction*           clone();
 
     OLDGW_FUNC              getFunc()
     {
@@ -164,7 +164,7 @@ public :
     WrapMexFunction(const std::wstring& _wstName, MEXGW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, const std::wstring& _wstModule);
 
     Callable::ReturnValue call(typed_list &in, optional_list &opt, int _iRetCount, typed_list &out) override;
-    InternalType*           clone();
+    WrapMexFunction*        clone();
 
     MEXGW_FUNC              getFunc()
     {
