@@ -16,10 +16,10 @@
         <refpurpose>Make a backup of the configuration file</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             atomsSaveConfig([force])
         </synopsis>

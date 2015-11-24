@@ -16,7 +16,7 @@
         <refpurpose>Evans root locus</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>evans(H [,kmax])</synopsis>
     </refsynopsisdiv>
     <refsection>

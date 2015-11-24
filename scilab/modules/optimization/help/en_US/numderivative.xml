@@ -27,7 +27,7 @@
         <refpurpose>approximate derivatives of a function (Jacobian or Hessian)</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             J = numderivative(f, x)
             J = numderivative(f, x, h)

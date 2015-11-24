@@ -16,7 +16,7 @@
         <refpurpose>test the presence of a compileur </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>status = demo_compiler()</synopsis>
     </refsynopsisdiv>
     <refsection>

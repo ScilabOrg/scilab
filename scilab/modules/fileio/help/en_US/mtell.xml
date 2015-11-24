@@ -17,7 +17,7 @@
         <refpurpose>Returns the offset of the current byte relative to the beginning of a file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>mtell([fd])</synopsis>
     </refsynopsisdiv>
     <refsection>

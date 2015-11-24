@@ -17,7 +17,7 @@
         <refpurpose>convert a set of Matlab M-files directories to Scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>translatepaths(dirs_path [,res_path])</synopsis>
     </refsynopsisdiv>
     <refsection>

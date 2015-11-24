@@ -16,7 +16,7 @@
         <refpurpose>Draw a waitbar</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>winH=waitbar(x)
             winH=waitbar(x,mes)
             winH=waitbar(mes)

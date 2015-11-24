@@ -17,7 +17,7 @@
         <refpurpose>LU factorization with pivoting</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[L,U]= lu(A)
             [L,U,E]= lu(A)
         </synopsis>

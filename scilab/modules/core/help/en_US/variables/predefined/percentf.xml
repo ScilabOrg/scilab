@@ -16,7 +16,7 @@
         <refpurpose>Boolean variable for false.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>%f or %F</synopsis>
     </refsynopsisdiv>
     <refsection>

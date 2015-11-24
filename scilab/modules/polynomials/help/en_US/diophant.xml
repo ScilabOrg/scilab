@@ -16,7 +16,7 @@
         <refpurpose>diophantine (Bezout) equation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[x,err]=diophant(p1p2,b)</synopsis>
     </refsynopsisdiv>
     <refsection>

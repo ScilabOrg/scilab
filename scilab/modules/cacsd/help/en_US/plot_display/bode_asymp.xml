@@ -17,7 +17,7 @@
         <refpurpose>Bode plot asymptote</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             bode_asymp(sl, [wmin, wmax])
         </synopsis>

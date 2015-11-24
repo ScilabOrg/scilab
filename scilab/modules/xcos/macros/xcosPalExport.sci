@@ -20,7 +20,7 @@
 function [status, msg] = xcosPalExport(pal, path)
     // Export a palette instance to a path.
     //
-    // Calling Sequence
+    // Synopsis
     //   xcosPalExport(pal, path);
     //   status = xcosPalExport(pal, path);
     //   [status, message] = xcosPalExport(pal, path);

@@ -17,7 +17,7 @@
         <refpurpose>convert from base b to decimal</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>d=base2dec(s,b)</synopsis>
     </refsynopsisdiv>
     <refsection>

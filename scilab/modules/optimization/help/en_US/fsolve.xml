@@ -17,7 +17,7 @@
         <refpurpose>find a zero of a system of n nonlinear functions</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[x [,v [,info]]]=fsolve(x0,fct [,fjac] [,tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

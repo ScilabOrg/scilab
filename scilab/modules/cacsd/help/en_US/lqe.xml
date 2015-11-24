@@ -16,7 +16,7 @@
         <refpurpose>linear quadratic estimator (Kalman Filter)  </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[K,X]=lqe(P21)</synopsis>
     </refsynopsisdiv>
     <refsection>

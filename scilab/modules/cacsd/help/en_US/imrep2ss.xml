@@ -16,7 +16,7 @@
         <refpurpose>state-space realization of an impulse response</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[sl]=imrep2ss(v [,deg])</synopsis>
     </refsynopsisdiv>
     <refsection>

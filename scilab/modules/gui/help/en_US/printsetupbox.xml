@@ -16,7 +16,7 @@
         <refpurpose>Display print dialog box.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             printsetupbox()
             status=printsetupbox()

@@ -15,7 +15,7 @@
         <refpurpose>given a function returns the "bytecode" of a function in a Scilab array and conversely. </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             x = bytecode(f)
             f = bytecode(x)

@@ -19,7 +19,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             x_neigh = neigh_func_default(x_current,T)
             x_neigh = neigh_func_default(x_current,T,param)

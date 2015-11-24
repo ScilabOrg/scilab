@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             Matplot(a, [strf, rect, nax])
             Matplot(a, &lt;opt_args&gt;)

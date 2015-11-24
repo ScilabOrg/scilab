@@ -14,7 +14,7 @@
         <refpurpose>Move a specified datatip using the mouse.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>datatipMove(tip_handle)</synopsis>
     </refsynopsisdiv>
     <refsection>

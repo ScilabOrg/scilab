@@ -16,7 +16,7 @@
         <refpurpose>Check if the HDF5 object is a group</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             b = h5isGroup(obj)
         </synopsis>

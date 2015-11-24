@@ -16,7 +16,7 @@
         <refpurpose>creates a cell array of empty matrices</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             c = cell()
             c = cell(m1)

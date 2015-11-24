@@ -16,7 +16,7 @@
         <refpurpose>The gamma function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>y = gamma(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

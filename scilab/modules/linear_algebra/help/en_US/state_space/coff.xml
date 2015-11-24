@@ -16,7 +16,7 @@
         <refpurpose>resolvent (cofactor method)  </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[N,d]=coff(M [,var])</synopsis>
     </refsynopsisdiv>
     <refsection>

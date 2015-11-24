@@ -16,7 +16,7 @@
         <refpurpose>generates ASCII definition of a Scilab function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>txt = tree2code(tree, prettyprint)</synopsis>
     </refsynopsisdiv>
     <refsection>

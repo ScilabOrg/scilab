@@ -16,7 +16,7 @@
         <refpurpose>Read a XML stream from a local or distant file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             doc = xmlRead(path [, encoding] [, validateDTD])
         </synopsis>

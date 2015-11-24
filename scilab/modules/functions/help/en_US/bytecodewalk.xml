@@ -8,7 +8,7 @@
         <refpurpose>walk in function bytecode applying transformation. </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>c1 = bytecodewalk(code,query,job)</synopsis>
     </refsynopsisdiv>
     <refsection>

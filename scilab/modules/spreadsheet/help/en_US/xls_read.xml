@@ -17,7 +17,7 @@
         <refpurpose>reads a sheet in an Excel file</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[Value,TextInd] = xls_read(fd,Sheetpos)</synopsis>
     </refsynopsisdiv>
     <refsection>

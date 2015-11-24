@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>plotframe(rect,tics,[arg_opt1,arg_opt2,arg_opt3])
             plotframe(rect,&lt;opts_args&gt;)
         </synopsis>

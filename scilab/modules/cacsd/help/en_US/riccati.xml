@@ -16,7 +16,7 @@
         <refpurpose>Riccati equation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>X=riccati(A,B,C,dom,[typ])
             [X1,X2]=riccati(A,B,C,dom,[typ])
         </synopsis>

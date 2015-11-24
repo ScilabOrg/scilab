@@ -17,7 +17,7 @@
         <refpurpose>convert from hexadecimal to decimal</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>d=hex2dec(h)</synopsis>
     </refsynopsisdiv>
     <refsection>

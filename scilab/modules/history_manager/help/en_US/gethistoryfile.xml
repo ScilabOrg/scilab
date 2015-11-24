@@ -16,7 +16,7 @@
         <refpurpose>get filename used for scilab's history</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>filename = gethistoryfile()</synopsis>
     </refsynopsisdiv>
     <refsection>

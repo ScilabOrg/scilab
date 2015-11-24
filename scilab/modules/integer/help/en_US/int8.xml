@@ -36,7 +36,7 @@
         <refpurpose> conversion to 4 bytes unsigned integer representation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>y = int8(X)
             y = int16(X)
             y = int32(X)

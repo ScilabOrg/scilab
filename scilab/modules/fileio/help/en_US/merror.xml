@@ -17,7 +17,7 @@
         <refpurpose>tests the file access errors indicator</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             err = merror([fd])      
             [err, msg] = merror([fd])

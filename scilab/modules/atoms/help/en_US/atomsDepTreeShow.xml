@@ -16,10 +16,10 @@
         <refpurpose>Show the dependency tree of a module</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             atomsDepTreeShow(module)
         </synopsis>

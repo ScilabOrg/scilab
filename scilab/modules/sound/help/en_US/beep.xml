@@ -16,7 +16,7 @@
         <refpurpose>Produce a beep sound</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>beep();
             beep('on')
             beep('off')

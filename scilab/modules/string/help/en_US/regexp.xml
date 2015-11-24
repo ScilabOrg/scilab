@@ -23,7 +23,7 @@ xml:id="regexp" xml:lang="en">
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             [start] = regexp(input, pattern, [flag])
             [start, final] = regexp(input, pattern, [flag])

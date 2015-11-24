@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>int createScalarHandle(void* _pvCtx, int _iVar, long long _llHandle)</synopsis>
     </refsynopsisdiv>
     <refsection>

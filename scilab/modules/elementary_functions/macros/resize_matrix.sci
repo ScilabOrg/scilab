@@ -13,7 +13,7 @@
 
 function mat = resize_matrix(mat, varargin)
 
-    // Calling Sequence:
+    // Synopsis:
     //     resize_matrix(M, nRows, nCols )
     //     resize_matrix(M, [nRows nCols] )
     //     resize_matrix(M, newSizes )

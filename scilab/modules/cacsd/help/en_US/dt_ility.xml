@@ -16,7 +16,7 @@
         <refpurpose>detectability test</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[k, [n [,U [,Sld ] ] ]]=dt_ility(Sl [,tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>[ordered] Schur decomposition of matrix and pencils</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[U,T] = schur(A)
             [U,dim [,T] ]=schur(A,flag)
             [U,dim [,T] ]=schur(A,extern1)

@@ -17,7 +17,7 @@
         <refpurpose>A simple output function used for logging purposes</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>stop = output_ga_default(gen_index, nb_generation, Pop, FObj_Pop, param)</synopsis>
     </refsynopsisdiv>
     <refsection>

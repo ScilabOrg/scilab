@@ -16,7 +16,7 @@
         <refpurpose>spectral factorization of continuous time dynamical systems</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>gm=fspec(g)</synopsis>
     </refsynopsisdiv>
     <refsection>

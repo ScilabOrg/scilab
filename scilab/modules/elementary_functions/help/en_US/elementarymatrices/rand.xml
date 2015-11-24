@@ -17,7 +17,7 @@
         <refpurpose>Random numbers</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             r = rand()
             r = rand(m1,m2,...)

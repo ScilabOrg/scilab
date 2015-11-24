@@ -16,7 +16,7 @@
         <refpurpose>Complex conjugate</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[y]=conj(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose> Scilab linear state space function definition</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>lsslist()
             lsslist(A, B, C, X0, dt)
         </synopsis>

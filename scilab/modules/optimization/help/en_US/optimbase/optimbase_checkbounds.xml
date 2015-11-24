@@ -16,7 +16,7 @@
         <refpurpose>Checks the bounds.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             opt = optimbase_checkbounds(opt)
         </synopsis>

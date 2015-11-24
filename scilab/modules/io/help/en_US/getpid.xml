@@ -16,7 +16,7 @@
         <refpurpose>get Scilab process identificator</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>id=getpid()</synopsis>
     </refsynopsisdiv>
     <refsection>

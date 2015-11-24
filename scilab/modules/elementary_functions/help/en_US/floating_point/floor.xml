@@ -17,7 +17,7 @@
         <refpurpose>round down</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>y=floor(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

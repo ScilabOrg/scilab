@@ -16,7 +16,7 @@
         <refpurpose>bilinear transform</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[sl1]=cls2dls(sl,T [,fp])</synopsis>
     </refsynopsisdiv>
     <refsection>

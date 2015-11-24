@@ -16,7 +16,7 @@
         <refpurpose>product of array elements</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>y=prod(x)
             y=prod(x,orientation)
             y=prod(x,outtype)

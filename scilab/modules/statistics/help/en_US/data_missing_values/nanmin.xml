@@ -16,7 +16,7 @@
         <refpurpose>min  (ignoring Nan's) </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[m,index]=nanmin(x)
             [m,index]=nanmin(x,'r')
             [m,index]=nanmin(x,'c')

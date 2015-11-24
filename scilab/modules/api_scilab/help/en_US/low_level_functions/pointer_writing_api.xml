@@ -21,7 +21,7 @@
         <refsection>
             Create from existing data.
         </refsection>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <para>Input argument profile:</para>
         <synopsis>SciErr createPointer(void* _pvCtx, int _iVar, void* _pvPtr)</synopsis>
         <para>Named variable profile:</para>
@@ -76,7 +76,7 @@
         <refsection>
             Write directly in Scilab memory.
         </refsection>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>SciErr allocPointer(void* _pvCtx, int _iVar, void** _pvPtr)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>searches keywords in Scilab help</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>apropos(key)
             apropos(regexp)
         </synopsis>

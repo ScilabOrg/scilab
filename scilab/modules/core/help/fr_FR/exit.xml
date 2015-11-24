@@ -16,7 +16,7 @@
         <refpurpose>Termine la session courante de scilab</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>exit
             exit(n)
         </synopsis>

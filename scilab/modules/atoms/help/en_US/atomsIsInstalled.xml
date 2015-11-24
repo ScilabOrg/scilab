@@ -16,10 +16,10 @@
         <refpurpose>Determines whether the module is installed. Returns true if the module is installed, false otherwise.</refpurpose>
     </refnamediv>
     <!-- ===================================================================== -->
-    <!-- Calling Sequence -->
+    <!-- Synopsis -->
     <!-- ===================================================================== -->
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             res = atomsIsInstalled(modules[,section])
         </synopsis>

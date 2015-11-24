@@ -16,7 +16,7 @@
         <refpurpose>Create a tree representing a constant</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>const=Cste(value)</synopsis>
     </refsynopsisdiv>
     <refsection>

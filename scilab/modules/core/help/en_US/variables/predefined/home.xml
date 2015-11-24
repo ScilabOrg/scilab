@@ -16,7 +16,7 @@
         <refpurpose>Gives the user directory.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>home</synopsis>
     </refsynopsisdiv>
     <refsection>

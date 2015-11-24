@@ -22,7 +22,7 @@
         <refpurpose>set fftw wisdom</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>set_fftw_wisdom(txt)</synopsis>
     </refsynopsisdiv>
     <refsection>

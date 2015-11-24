@@ -16,7 +16,7 @@
         <refpurpose>displays variables</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>disp(x1,[x2,...xn])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>unknown input observer</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[UIobs,J,N]=ui_observer(Sys,reject,C1,D1)
             [UIobs,J,N]=ui_observer(Sys,reject,C1,D1,flag,alfa,beta)
         </synopsis>

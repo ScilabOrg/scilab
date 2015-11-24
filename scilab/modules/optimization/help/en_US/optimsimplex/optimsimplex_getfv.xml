@@ -16,7 +16,7 @@
         <refpurpose>Returns the function value at given index.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             fv = optimsimplex_getfv(opt, ive)
         </synopsis>

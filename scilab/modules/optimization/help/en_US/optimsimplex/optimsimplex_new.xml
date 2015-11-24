@@ -16,7 +16,7 @@
         <refpurpose>Creates a new simplex object.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             newobj = optimsimplex_new([coords, [fun]])
             [newobj, data] = optimsimplex_new(coords, fun, data)

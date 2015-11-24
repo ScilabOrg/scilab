@@ -16,7 +16,7 @@
         <refpurpose>black to a light copper tone colormap</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>cmap=coppercolormap(n)</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>add lines to current history.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>addhistory(string)
             addhistory(string_matrix)
         </synopsis>

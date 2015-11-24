@@ -16,7 +16,7 @@
         <refpurpose>linear index to matrix subscript values</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[i1,i2,..] =ind2sub(dims,I)
             Mi = ind2sub(dims,I)
         </synopsis>

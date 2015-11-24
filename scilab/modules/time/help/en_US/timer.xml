@@ -16,7 +16,7 @@
         <refpurpose>cpu time</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>timer()</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>Compress a list of block-diagonal symmetric matrices.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             CA = pack(A,blocksizes)
             [CA,sel] = pack(A,blocksizes)

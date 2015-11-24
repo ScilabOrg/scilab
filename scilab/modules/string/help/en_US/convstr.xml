@@ -16,7 +16,7 @@
         <refpurpose>case conversion</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[y] = convstr(str, [flag])</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>The default Simulated Annealing acceptation function.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>Level = accept_func_default(F_current, F_neigh, T)</synopsis>
     </refsynopsisdiv>
     <refsection>

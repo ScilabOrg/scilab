@@ -16,7 +16,7 @@
         <refpurpose>minimal realization</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[slc]=minss( sl [,tol])</synopsis>
     </refsynopsisdiv>
     <refsection>

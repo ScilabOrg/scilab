@@ -17,7 +17,7 @@
         <refpurpose>converts sparse matrix into adjacency form</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             [xadj,iadj,v]=sp2adj(A)
         </synopsis>

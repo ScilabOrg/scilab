@@ -17,7 +17,7 @@
         <refpurpose>differential algebraic equation</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>y=impl([type],y0,ydot0,t0,t [,atol, [rtol]],res,adda [,jac])</synopsis>
     </refsynopsisdiv>
     <refsection>

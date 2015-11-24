@@ -17,7 +17,7 @@
         <refpurpose>fill a polygon</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>xfpoly(xv,yv,[fill])</synopsis>
     </refsynopsisdiv>
     <refsection>

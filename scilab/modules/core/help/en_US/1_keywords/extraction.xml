@@ -5,7 +5,7 @@
         <refpurpose>matrix and list entry extraction</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             x(i)
             x(i,j)

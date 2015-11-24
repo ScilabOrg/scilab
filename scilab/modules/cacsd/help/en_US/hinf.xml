@@ -16,7 +16,7 @@
         <refpurpose>H_infinity design of continuous-time systems</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[AK,BK,CK,DK,(RCOND)] = hinf(A,B,C,D,ncon,nmeas,gamma)</synopsis>
     </refsynopsisdiv>
     <refsection>

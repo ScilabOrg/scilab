@@ -16,7 +16,7 @@
         <refpurpose>Get all open XML documents or all open XML Validation files.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             list = xmlGetOpenDocs()
         </synopsis>

@@ -17,7 +17,7 @@
         <refpurpose>Solves a linear optimization problem.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             xopt=karmarkar(Aeq,beq,c)
             xopt=karmarkar(Aeq,beq,c,x0)

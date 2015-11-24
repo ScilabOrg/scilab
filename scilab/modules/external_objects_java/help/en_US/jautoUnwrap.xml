@@ -18,7 +18,7 @@
         <refpurpose>Unwrap automatically returned values</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             autoUnwrap = jautoUnwrap()
             jautoUnwrap(autoUnwrap)

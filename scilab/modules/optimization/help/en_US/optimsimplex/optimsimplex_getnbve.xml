@@ -16,7 +16,7 @@
         <refpurpose>Gets the number of vertices of the simplex.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             nbve = optimsimplex_getnbve(opt)
         </synopsis>

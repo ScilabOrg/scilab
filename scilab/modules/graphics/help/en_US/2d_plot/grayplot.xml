@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>grayplot(x,y,z,[strf,rect,nax])
             grayplot(x,y,z,&lt;opt_args&gt;)
         </synopsis>

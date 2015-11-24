@@ -18,7 +18,7 @@
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>mtlb_axis(X)
             mtlb_axis(st)
             mtlb_axis(axeshandle, ...)

@@ -16,7 +16,7 @@
         <refpurpose>check that characters of a string are alphanumerics</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>res = isalphanum(str)</synopsis>
     </refsynopsisdiv>
     <refsection>

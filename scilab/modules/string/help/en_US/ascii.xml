@@ -16,7 +16,7 @@
         <refpurpose>string ASCII conversions</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>a = ascii(txt)
             txt = ascii(a)
         </synopsis>

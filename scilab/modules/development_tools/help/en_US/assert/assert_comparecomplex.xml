@@ -17,7 +17,7 @@
         <refpurpose>Compare complex numbers with a tolerance.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             order = assert_comparecomplex ( a , b )
             order = assert_comparecomplex ( a , b , reltol )

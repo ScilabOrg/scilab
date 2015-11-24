@@ -16,7 +16,7 @@
         <refpurpose>Householder orthogonal reflexion matrix</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>u=householder(v [,w])</synopsis>
     </refsynopsisdiv>
     <refsection>

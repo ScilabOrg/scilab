@@ -16,7 +16,7 @@
         <refpurpose>Scinotes: Embedded Scilab text editor</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             scinotes()
             scinotes(file)

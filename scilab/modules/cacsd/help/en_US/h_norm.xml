@@ -16,7 +16,7 @@
         <refpurpose>H-infinity norm</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[hinfnorm [,frequency]]=h_norm(sl [,rerr])</synopsis>
     </refsynopsisdiv>
     <refsection>

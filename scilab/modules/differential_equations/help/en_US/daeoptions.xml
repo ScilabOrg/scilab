@@ -18,7 +18,7 @@
         <refpurpose>set options for dae solver</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>daeoptions()</synopsis>
     </refsynopsisdiv>
     <refsection>

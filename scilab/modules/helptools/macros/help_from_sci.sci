@@ -13,7 +13,7 @@
 function [helptxt,demotxt]=help_from_sci(funname,helpdir,demodir)
     // Generate help files and demo files from the head comments section of a .sci source file.
     //
-    // Calling Sequence
+    // Synopsis
     //  help_from_sci() // generate an empty function template
     //  helptxt = help_from_sci() // generate an empty function template
     //  help_from_sci(funname,helpdir) // generate helpdir/funname.xml from funname.sci.
@@ -40,12 +40,12 @@ function [helptxt,demotxt]=help_from_sci(funname,helpdir,demodir)
     //  of the function.
     //
     //  The remaining comments are formatted according to the following (optional) headlines:
-    //  "Calling Sequence", "Parameters", "Description", "Examples", "See also", "Used functions",
+    //  "Synopsis", "Parameters", "Description", "Examples", "See also", "Used functions",
     //  "Authors" and "Bibliography".
     //
     //  The following guidelines should be used when writing the source code comments:
     //  <itemizedlist>
-    //    <listitem><para><literal>Calling Sequence</literal> - one example pr. line.</para></listitem>
+    //    <listitem><para><literal>Synopsis</literal> - one example pr. line.</para></listitem>
     //    <listitem><para><literal>Parameters</literal> - separate parameter name and
     //    description by a ":". Keep the description of each parameter on the same line.</para></listitem>
     //    <listitem><para><literal>Description</literal> - formatting of the text can be done
@@ -94,7 +94,7 @@ function [helptxt,demotxt]=help_from_sci(funname,helpdir,demodir)
         "function [z] = function_template(x,y)"
         "// Short description on the first line following the function header."
         "//"
-        "// Calling Sequence"
+        "// Synopsis"
         "//   [z] = template_function(x,y) // calling examples, one pr. line"
         "//"
         "// Parameters"
@@ -284,7 +284,7 @@ function [helptxt,demotxt]=help_from_sci(funname,helpdir,demodir)
             [add_txt, doing] = change_activity(doing, in);
             helptxt = [helptxt; add_txt];
         else
-            if doing == "Calling Sequence" then
+            if doing == "Synopsis" then
                 helptxt = [helptxt;"   " + in];
             elseif doing == "Parameters" then
                 i = strindex(in, ":");
@@ -424,7 +424,7 @@ function [txt, doing] = change_activity(currently_doing, start_doing)
 
     select convstr(start_doing, "u"),
     case "CALLING SEQUENCE"
-        txt = [txt; ""; "<refsynopsisdiv>"; "   <title>Calling Sequence</title>"; "   <synopsis>"];
+        txt = [txt; ""; "<refsynopsisdiv>"; "   <title>Synopsis</title>"; "   <synopsis>"];
     case "PARAMETERS"
         txt = [txt; ""; "<refsection>"; "   <title>Parameters</title>"; "   <variablelist>"];
     case "DESCRIPTION"

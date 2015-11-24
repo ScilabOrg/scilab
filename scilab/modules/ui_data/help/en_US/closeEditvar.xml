@@ -16,7 +16,7 @@
         <refpurpose>Close the variable editor</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>closeEditvar</synopsis>
     </refsynopsisdiv>
     <refsection>

@@ -16,7 +16,7 @@
         <refpurpose>removing poles and zeros at infinity</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[Stmp,Ws]=colregul(Sl,alfa,beta)</synopsis>
     </refsynopsisdiv>
     <refsection>

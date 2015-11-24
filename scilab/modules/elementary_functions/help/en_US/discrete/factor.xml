@@ -16,7 +16,7 @@
         <refpurpose>factor function</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>[y]=factor(x)</synopsis>
     </refsynopsisdiv>
     <refsection>

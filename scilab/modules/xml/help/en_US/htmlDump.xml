@@ -16,7 +16,7 @@
         <refpurpose>Dump a HTML document</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>
             str = htmlDump(xmlDoc [, indent])
         </synopsis>

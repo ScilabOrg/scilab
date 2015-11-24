@@ -17,7 +17,7 @@
         <refpurpose>converts a path to an OS path format.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <title>Calling Sequence</title>
+        <title>Synopsis</title>
         <synopsis>paths = pathconvert(paths [,flagtrail [,flagexpand [,type]]])</synopsis>
     </refsynopsisdiv>
     <refsection>
