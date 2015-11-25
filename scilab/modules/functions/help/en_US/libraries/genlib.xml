@@ -73,7 +73,7 @@
             specified by the <literal>Names</literal> argument), <literal>genlib</literal> executes a
             <literal>exec</literal> and saves the functions to the corresponding <literal>.bin</literal>
             file.  The <literal>.sci</literal> file must not contain anything but Scilab
-            functions.  If a <literal>.bin</literal> file is newer than the associated
+            functions. If a <literal>.bin</literal> file is newer than the associated
             <literal>.sci</literal> file, <literal>genlib</literal> does not translate and save the file.
         </para>
         <para>
@@ -103,8 +103,8 @@
         <para>
             Scilab tacitly assumes that file <literal>foo.sci</literal> defines at least a
             function named <literal>foo</literal>. If subsidiary functions are included,
-            they are made known to Scilab only after the function <literal>foo</literal>
-            had been referenced.
+            they are visible only by the main function, so there are no risks
+            to have conflicts because of several files with sub-functions with the same name.
         </para>
     </refsection>
     <refsection role="see also">

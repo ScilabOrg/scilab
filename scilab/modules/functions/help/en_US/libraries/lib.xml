@@ -63,6 +63,10 @@
         <para>
             Scilab tacitly assumes that each xxxx.bin file defines a  variable named <literal>xxxx</literal>.
         </para>
+        <para>
+            Moreover, If subsidiary functions are included, they are visible only by the main function, so there are no risks
+            to have conflicts because of several files with sub-functions with the same name.
+        </para>
     </refsection>
     <refsection>
         <title>Examples</title>
