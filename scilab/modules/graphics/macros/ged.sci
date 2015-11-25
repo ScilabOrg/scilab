@@ -8,6 +8,10 @@
 
 function ged(k,win)
 
+    if getos() == "Darwin" then
+        error(msprintf(gettext("%s: Tcl/Tk interface not available on MacOSX.\n"), "ged"));
+    end
+
     if ~%tk then
         warning(msprintf(gettext("Tcl/Tk interface not installed.")));
         return
