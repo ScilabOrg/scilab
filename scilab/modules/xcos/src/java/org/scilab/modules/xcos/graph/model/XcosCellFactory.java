@@ -145,7 +145,6 @@ public final class XcosCellFactory {
          */
         VectorOfScicosID children = new VectorOfScicosID();
         controller.getObjectProperty(diagram.getUID(), diagram.getKind(), ObjectProperties.CHILDREN, children);
-        controller.setObjectProperty(diagram.getUID(), diagram.getKind(), ObjectProperties.CHILDREN, new VectorOfScicosID());
         final int childrenLen = children.size();
 
         /*
@@ -209,6 +208,7 @@ public final class XcosCellFactory {
             }
         }
 
+        // re-add the children cells
         diagram.addCells(cells);
     }
 
@@ -476,6 +476,7 @@ public final class XcosCellFactory {
             XcosCell child = createPort(controller, modelChildren.get(i), property);
             children[i] = child;
         }
+
         Arrays.stream(children).forEach(c -> parent.insert(c));
     }
 

@@ -239,6 +239,88 @@ public class XcosCell extends ScilabGraphUniqueObject {
     /*
      * (non-Javadoc)
      *
+     * @see com.mxgraph.model.mxCell#removeFromParent()
+     */
+    @Override
+    public void removeFromParent() {
+        JavaController controller = new JavaController();
+        switch (getKind()) {
+            case ANNOTATION:
+            case BLOCK:
+            case LINK: {
+                /*
+                 * Retrieve the parent
+                 */
+                long[] parent = new long[1];
+                Kind parentKind = Kind.BLOCK;
+                ObjectProperties prop = ObjectProperties.PARENT_BLOCK;
+                controller.getObjectProperty(getUID(), getKind(), prop, parent);
+                if (parent[0] == 0l) {
+                    parentKind = Kind.DIAGRAM;
+                    prop = ObjectProperties.PARENT_DIAGRAM;
+                    controller.getObjectProperty(getUID(), getKind(), prop, parent);
+                }
+
+                /*
+                 * If there is a parent, clear it
+                 */
+                if (parent[0] == 0l) {
+                    VectorOfScicosID children = new VectorOfScicosID();
+                    controller.getObjectProperty(parent[0], parentKind, ObjectProperties.CHILDREN, children);
+                    children.remove(getUID());
+                    controller.setObjectProperty(parent[0], parentKind, ObjectProperties.CHILDREN, children);
+
+                    controller.setObjectProperty(getUID(), getKind(), prop, 0l);
+                }
+                break;
+            }
+            case PORT: {
+                long[] parent = new long[1];
+                Kind parentKind = Kind.BLOCK;
+                controller.getObjectProperty(getUID(), getKind(), ObjectProperties.SOURCE_BLOCK, parent);
+
+                int[] portKind = new int[1];
+                controller.getObjectProperty(getUID(), getKind(), ObjectProperties.PORT_KIND, portKind);
+                ObjectProperties property = relatedPortKindProperty(portKind[0]);
+
+                VectorOfScicosID ports = new VectorOfScicosID();
+                controller.getObjectProperty(parent[0], parentKind, property, ports);
+                ports.remove(getUID());
+                controller.setObjectProperty(parent[0], parentKind, property, ports);
+
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.SOURCE_BLOCK, 0l);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    private ObjectProperties relatedPortKindProperty(int portKind) {
+        ObjectProperties property;
+        switch (PortKind.values()[portKind]) {
+            case PORT_IN:
+                property = ObjectProperties.INPUTS;
+                break;
+            case PORT_OUT:
+                property = ObjectProperties.OUTPUTS;
+                break;
+            case PORT_EIN:
+                property = ObjectProperties.EVENT_INPUTS;
+                break;
+            case PORT_EOUT:
+                property = ObjectProperties.EVENT_OUTPUTS;
+                break;
+            default:
+                property = null;
+                break;
+        }
+        return property;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see com.mxgraph.model.mxCell#setParent(com.mxgraph.model.mxICell)
      */
     @Override
@@ -339,24 +421,8 @@ public class XcosCell extends ScilabGraphUniqueObject {
         controller.getObjectProperty(c.getUID(), c.getKind(), ObjectProperties.PORT_KIND, v);
 
         VectorOfScicosID children = new VectorOfScicosID();
-        final ObjectProperties property;
-        switch (PortKind.values()[v[0]]) {
-            case PORT_IN:
-                property = ObjectProperties.INPUTS;
-                break;
-            case PORT_OUT:
-                property = ObjectProperties.OUTPUTS;
-                break;
-            case PORT_EIN:
-                property = ObjectProperties.EVENT_INPUTS;
-                break;
-            case PORT_EOUT:
-                property = ObjectProperties.EVENT_OUTPUTS;
-                break;
-            default:
-                property = null;
-                break;
-        }
+        final ObjectProperties property = relatedPortKindProperty(v[0]);
+
 
         // FIXME manage the index argument, possibly by counting the JGraphX children by kind
         if (property != null) {
