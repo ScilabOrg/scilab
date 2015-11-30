@@ -9,6 +9,7 @@
         <synopsis>warning('string')
             warning('off')
             warning('on')
+            warning('stop')
             mode = warning('query')
         </synopsis>
     </refsynopsisdiv>
@@ -25,12 +26,17 @@
             <literal>'off'</literal> disables warning messages.
         </para>
         <para>
-            <literal>'query'</literal> gets state <literal>'on'</literal> or <literal>'off'</literal>.
+            <literal>'stop'</literal> enables warning messages and stops execution when a warning is encountered.
+        </para>
+        <para>
+            <literal>'query'</literal> gets state <literal>'on'</literal>, <literal>'off'</literal> or <literal>'stop'</literal>.
         </para>
     </refsection>
     <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[ 
+w_flag = warning("query"); // remembering the warning flag
+
 warning('on') 
 warning('this is a warning')
 warning('off')
@@ -39,6 +45,17 @@ warning('query')
 warning('on')
 // Example with a localized message
 warning(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"myFunction",2));
+
+// Setting warning stop
+warning("stop")
+
+try
+    warning("this is a warning");
+catch
+lasterror() // Warning message is considered an error
+end
+
+warning(w_flag); // resetting the warning flag
  ]]></programlisting>
     </refsection>
     <refsection role="see also">
