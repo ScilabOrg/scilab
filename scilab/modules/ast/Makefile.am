@@ -74,6 +74,7 @@ src/cpp/system_env/setenvvar.cpp \
 src/cpp/system_env/threadmanagement.cpp \
 src/cpp/system_env/numericconstants.cpp \
 src/cpp/system_env/numericconstants_interface.cpp \
+src/cpp/system_env/coverage_instance.cpp \
 src/cpp/types/addfunction.cpp \
 src/cpp/types/internal.cpp \
 src/cpp/types/arrayof.cpp \
@@ -335,10 +336,11 @@ libsciast_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/io/includes \
 	-I$(top_srcdir)/modules/fileio/includes \
 	-I$(top_srcdir)/modules/special_functions/src/cpp \
+	-I$(top_srcdir)/modules/coverage/includes \
 	$(LLVM_INCLUDE) \
 	$(LLVM_CPPFLAGS) \
 	$(LLVM_LDFLAGS) \
-        $(LLVM_LIBS) \
+    $(LLVM_LIBS) \
 	$(EIGEN_CPPFLAGS) \
 	$(AM_CPPFLAGS)
 

@@ -99,7 +99,9 @@ namespace std {
                 void* buffer = nullptr;
                 int size = int(self->size()) ;
                 if (i>=0 && i<size) {
-                    buffer = ((char*) self->data()) + i;
+                    buffer = self->data() + i;
+                } else if (i==0 && size == 0) {
+                    buffer = self->data();
                 } else {
                     throw std::out_of_range("vector index out of range");
                 }
@@ -256,7 +258,7 @@ namespace std {
 %ignore org_scilab_modules_scicos::Controller::register_view;
 %include "../scicos/includes/Controller.hxx";
 
-// Instanciate templates mapped to Java
+// Instantiate templates mapped to Java
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<int>;
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<bool>;
 %template(getObjectProperty) org_scilab_modules_scicos::Controller::getObjectProperty<double>;
