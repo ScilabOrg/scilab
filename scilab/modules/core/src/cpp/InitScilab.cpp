@@ -263,7 +263,12 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     C2F(setprlev) (&pause);
 
     //load gateways
-    LoadModules();
+    if (LoadModules() == false)
+    {
+        //clear opened files
+        FileManager::destroy();
+        return 1;
+    }
 
     //variables are needed by loadModules but must be in SCOPE_CONSOLE under protection
     //remove (W)SCI/SCIHOME/HOME/TMPDIR
@@ -283,7 +288,11 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     //execute scilab.start
     if (_pSEI->iNoStart == 0)
     {
-        execScilabStartTask(_pSEI->iSerialize != 0);
+        int ierr = execScilabStartTask(_pSEI->iSerialize != 0);
+        if (ierr)
+        {
+            return ierr;
+        }
     }
 
     //open console scope
@@ -385,6 +394,10 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     //close console scope
     //symbol::Context::getInstance()->scope_end();
 
+    // close macros scope before close dynamic library.
+    // all pointers allocated by a dynamic library have to be free before dlclose.
+    symbol::Context::getInstance()->scope_end();
+
     //execute scilab.quit
     if (_pSEI->pstFile)
     {
@@ -402,9 +415,6 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
         //call all modules.quit
         EndModules();
     }
-
-    //close macros scope
-    symbol::Context::getInstance()->scope_end();
 
     //close gateways scope
     symbol::Context::getInstance()->scope_end();
@@ -824,6 +834,7 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
     ThreadManagement::SetThreadKey( __GetCurrentThreadKey(), threadKeyCommand, threadKeyConsole);
 #endif // DEBUG_THREAD
 
+    int iRet = 0;
     do
     {
         // wait for available runner
@@ -831,21 +842,24 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
 
         try
         {
-            StaticRunner::launch();
+            iRet = StaticRunner::launch();
         }
         catch (const ast::InternalAbort& /*ia*/)
         {
             // go out when exit/quit is called
+            iRet = ConfigVariable::getExitStatus();
         }
-        catch (const ast::RecursionException& /*ia*/)
+        catch (const ast::RecursionException& /*re*/)
         {
             // go out when exit/quit is called
+            iRet = 1;
         }
+
         ThreadManagement::SendAwakeRunnerSignal();
     }
     while (ConfigVariable::getForceQuit() == false);
 
-    return ConfigVariable::getExitStatus();
+    return iRet;
 }
 
 /*
@@ -899,67 +913,12 @@ static int batchMain(ScilabEngineInfo* _pSEI)
 
 /*
 ** -*- stateView
-** Used to show parser state.
-** Find if we are stuck within some control structure.
 */
 static void stateShow(Parser::ControlStatus status)
 {
-    switch (status)
+    if (status != Parser::AllControlClosed)
     {
-        //case Parser::WithinFor:
-        //    SetTemporaryPrompt("-for       ->");
-        //    break;
-        //case Parser::WithinWhile:
-        //    SetTemporaryPrompt("-while     ->");
-        //    break;
-        //case Parser::WithinIf:
-        //    SetTemporaryPrompt("-if        ->");
-        //    break;
-        //case Parser::WithinElse:
-        //    SetTemporaryPrompt("-else      ->");
-        //    break;
-        //case Parser::WithinElseIf:
-        //    SetTemporaryPrompt("-elseif    ->");
-        //    break;
-        //case Parser::WithinTry:
-        //    SetTemporaryPrompt("-try       ->");
-        //    break;
-        //case Parser::WithinCatch:
-        //    SetTemporaryPrompt("-catch     ->");
-        //    break;
-        //case Parser::WithinFunction:
-        //    SetTemporaryPrompt("-function  ->");
-        //    break;
-        //case Parser::WithinSelect:
-        //    SetTemporaryPrompt("-select    ->");
-        //    break;
-        //case Parser::WithinCase:
-        //    SetTemporaryPrompt("-case      ->");
-        //    break;
-        //case Parser::WithinSwitch:
-        //    SetTemporaryPrompt("-switch    ->");
-        //    break;
-        //case Parser::WithinOtherwise:
-        //    SetTemporaryPrompt("-otherwise ->");
-        //    break;
-        //case Parser::WithinMatrix:
-        //    SetTemporaryPrompt("- [        ->");
-        //    break;
-        //case Parser::WithinCell:
-        //    SetTemporaryPrompt("- {        ->");
-        //    break;
-        //case Parser::WithinBlockComment:
-        //    SetTemporaryPrompt("- /*       ->");
-        //    break;
-        //case Parser::WithinDots:
-        //    SetTemporaryPrompt("- ...      ->");
-        //    break;
-        default :
-            SetTemporaryPrompt("  > ");
-            break;
-        case Parser::AllControlClosed:
-            //ClearTemporaryPrompt();
-            break;
+        SetTemporaryPrompt("  > ");
     }
 }
 
