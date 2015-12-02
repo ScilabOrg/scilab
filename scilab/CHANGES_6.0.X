@@ -15,6 +15,8 @@ For a high-level overview of the changes in this release, please consult the "Wh
 
 * Bug #13298 fixed - Static analysis bugs detected by PVS-Studio fixed.
 
+* Bug #13974 fixed - isoview(xmin, xmax, ymin, ymax) was unhandy.
+
 * Bug #13986 fixed - setdefaultlanguage did not set value correctly in Windows registry.
 
 * Bug #13990 fixed - Windows installer did not ship all localization files.

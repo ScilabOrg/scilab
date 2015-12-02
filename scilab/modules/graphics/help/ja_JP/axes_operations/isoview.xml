@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-
  * Copyright (C) INRIA - Serge Steer
-
+ * Copyright (C) 2015 - Samuel GOUGEON
  * 
-
  * This file must be used under the terms of the CeCILL.
-
  * This source file is licensed as described in the file COPYING, which
-
  * you should have received as part of this distribution.  The terms
-
  * are also available at    
-
  * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
-
  *
-
  -->
 
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org"  xml:lang="ja" xml:id="isoview">
+    
+    
     
     <refnamediv>
         
@@ -32,107 +25,405 @@
         
     </refnamediv>
     
+    
+    
     <refsynopsisdiv>
         
         <title>呼び出し手順</title>
         
-        <synopsis>isoview(xmin,xmax,ymin,ymax)</synopsis>
+        <synopsis>isoview
+            
+            isoview on
+            
+            isoview off
+            
+            isoview(idAxes [,"on"|"off"])
+            
+            isoview(idFigure [,"on"|"off"])
+            
+            isoview(xmin, xmax, ymin, ymax [,zmin, zmax] [,"on"|"off"])
+            
+            isoview(xmin, xmax, ymin, ymax [,zmin, zmax], idAxes [,"on"|"off"])
+            
+            isoview(xmin, xmax, ymin, ymax [,zmin, zmax], idFigure [,"on"|"off"])
+            
+        </synopsis>
         
     </refsynopsisdiv>
     
-    <refsection>
+    
+    
+    <refsection role="arguments">
         
         <title>引数</title>
         
-        <variablelist>
+        <variablelist>            
             
             <varlistentry>
                 
-                <term>xmin,xmax,ymin,ymax</term>
+                <term>"on" | "off" | &lt;none&gt;</term>
                 
-                <listitem>
-                    
-                    <para>実数値</para>
+                <listitem>Enables or disables or switches the isometric rendering for all considered axes.
                     
                 </listitem>
                 
             </varlistentry>
             
+            <varlistentry>
+                
+                <term>idAxes</term>
+                
+                <listitem>
+                    
+                    <para>Axes handle or vector of Axes handles. All these axes are processed. 
+                        
+                        By default, the current axes are processed.
+                    </para>
+                    
+                    <note>For handles of sub-axes components, the parent axes are considered.</note>
+                    
+                </listitem>
+                
+            </varlistentry>
+            
+            <varlistentry>
+                
+                <term>idFigure</term>
+                
+                <listitem>
+                    
+                    <para>Handle of a figure. All Axes of this figure will are processed.</para>
+                    
+                </listitem>
+                
+            </varlistentry>
+            
+            <varlistentry>
+                
+                <term>xmin, xmax, ymin, ymax [, zmin, zmax]</term>
+                
+                <listitem>
+                    
+                    <para>
+                        four or six real values: new axes bounds. Using <literal>%nan</literal> 
+                        
+                        keeps a bound unchanged.
+                    </para>
+                    
+                </listitem>
+                
+            </varlistentry>
+            
+            
         </variablelist>
         
     </refsection>
     
-    <refsection>
+    
+    
+    <refsection role="description">
         
         <title>説明</title>
         
         <para>
             
-            この関数は廃止予定であり, ウインドウのリサイズが可能な plot2d の
+            <literal>isoview</literal> is primarily used to set or relax isometric rendering scales 
             
-            <literal>frameflag=4</literal> オプションの使用を推奨します.
+            on the x, y (and z) axes, without changing the size of the graphic window.
             
         </para>
         
         <para>
+            When in addition <literal>xmin, xmax, ymin, ymax, zmin, zmax</literal> are provided, 
             
-            <literal>isoview</literal> は x および y 軸を等軸スケール
+            the targeted axes are priorly resized to fit these new data bounds along their along x, y (and z) axes,
             
-            とするために使用されます.
+            as <function>replot(..)</function> would do it. <literal>zmin, zmax</literal> are ignored
             
-            この関数は,グラフィックウインドウの大きさを変更しません.
-            
-            矩形 
-            
-            <literal>xmin, xmax, ymin, ymax</literal> はグラフィックウインドウの
-            
-            計算上のフレーム内に保持されます.
-            
-            <literal>isoview</literal> はカレントのグラフィックのスケールを設定し,
-            
-            カレントのグラフィックのスケールを指定するグラフィックルーチン
-            
-            (例えば<literal>plot2d</literal>の<literal>strf="x0z"</literal>)と組み合わせて
-            
-            使用できます.
+            for 2D axes laying among targeted ones.
             
         </para>
         
+        <para>
+            <literal>isoview()</literal> or simply <literal>isoview</literal> switches the isoview 
+            
+            status of the current axes, and keeps its current bounds: isometric scales are set whenever
+            
+            they were free, or scales are relaxed whenever they were isometric.
+        </para>
+        
+        <para>
+            <literal>isoview("on")</literal> or <literal>isoview on</literal> sets isometric scales
+            
+            for the current axes.
+        </para>
+        
+        <para>
+            <literal>isoview("off")</literal> or <literal>isoview off</literal> relaxes x, y (and z)
+            
+            scales for the current axes.
+        </para>
+        
+        <para>
+            <literal>isoview(.. idAxes..)</literal> runs on each axes listed in the vector of 
+            
+            graphic handles <varname>idAxes</varname>:
+            
+            <itemizedlist>
+                
+                <listitem>
+                    If <varname>idAxes(i)</varname> is of Axes type, it is considered as is.
+                </listitem>
+                
+                <listitem>
+                    If <varname>idAxes(i)</varname> is the handle of a sub-axes component
+                    
+                    (such as a polyline, a compound, etc), its hosting axes is considered.
+                </listitem>
+                
+                <listitem>
+                    If <varname>idAxes(i)</varname> is a figure's handle, it is ignored
+                </listitem>
+                
+            </itemizedlist>
+            
+        </para>
+        
+        <para>
+            <literal>isoview(.. idFigure..)</literal> runs on each axes of the figure identified 
+            
+            by its handle <varname>idFigure</varname>.
+            
+        </para>
+        
+        <para>
+            <literal>isoview(xmin, xmax, ymin, ymax[,zmin, zmax] ...)</literal> sets bounds of 
+            
+            every targeted axes to given values, in addition to setting or relaxing axes scales for 
+            
+            isometric rendering. The data area will span the given ranges. If they are provided,
+            
+            <varname>zmin, zmax</varname> are assigned only for axes in view="3d" mode.
+            
+        </para>
+        
+        
+        <note>
+            The current axes is still the same after calling <literal>isoview(..)</literal>.
+        </note>
+        
+        <note>
+            <literal>isoview</literal> can be used in conjunction with graphics routines which 
+            
+            request the current graphics scale (for instance <literal>strf="x0z"</literal> in 
+            
+            <literal>plot2d</literal>).
+            
+        </note>
+        
+        <note>
+            The <literal>plot2d(...,frameflag=4)</literal> option isoviews the parent axes
+            
+            at call time.
+            
+        </note>
+        
     </refsection>
     
-    <refsection>
+    
+    
+    <refsection role="examples">
         
         <title>例</title>
         
         <programlisting role="example"><![CDATA[ 
+t = [0:0.1:2*%pi]';
+clf
+nc = 3;
+subplot(2,nc,1)
+plot2d(cos(t),sin(t))
+xtitle("True circle")
+a1 = gca();
+subplot(2,nc,nc+1)
+plot2d(cos(t),sin(t))
+isoview
 
-t=[0:0.1:2*%pi]';
+subplot(2,nc,2)
+plot2d(7*cos(t),2*sin(t))
+xtitle("True ellipse")
+a2 = gca();
+subplot(2,nc,nc+2)
+plot2d(7*cos(t),2*sin(t))
+isoview
 
-plot2d(sin(t),cos(t))
+// plot of a sphere using facets computed by eval3dp
+deff("[x,y,z] = sph(alp,tet)",["x = r*cos(alp).*cos(tet)+orig(1)*ones(tet)"; ..
+      "y = r*cos(alp).*sin(tet)+orig(2)*ones(tet)"; ..
+      "z = r*sin(alp)+orig(3)*ones(tet)"]); 
+r = 3; orig = [0 0 0]; 
+[xx,yy,zz] = eval3dp(sph,linspace(-%pi/2,%pi/2,40),linspace(0,%pi*2,40)); 
+subplot(2,nc,3)
+plot3d(xx, yy, zz, alpha=60, flag=[color("green") 8 4])
+xtitle("True sphere")
+a3 = gca();
+subplot(2,nc,nc+3)
+plot3d(xx, yy, zz, alpha=60, flag=[color("green") 8 4])
+isoview
 
-clf()
+// Switching isoview status for all axes
+isoview(gcf())
 
-isoview(-1,1,-1,1)
+// Forcing isoview for all axes of the current figure
+isoview(gcf(), "on")
 
-plot2d(sin(t),cos(t),1,"001")
+// Relaxing isoview for the current axes
+isoview off
 
-
-
-plot2d(sin(t),cos(t),frameflag=4)
-
+// Setting isoview for top axes
+isoview(gcf(),"off")
+isoview([a1 a2 a3], "on")
  ]]></programlisting>
         
         <scilab:image>
             
-            t=[0:0.1:2*%pi]';
+            t = [0:0.1:2*%pi]';
             
-            isoview(-1,1,-1,1)
+            clf
             
-            plot2d(sin(t),cos(t),1,"001")
+            f = gcf();
+            
+            f.axes_size = [850 400];
+            
+            nc = 3;
+            
+            subplot(2,nc,1)
+            
+            plot2d(cos(t),sin(t))
+            
+            xtitle("True circle")
+            
+            a1 = gca();
+            
+            subplot(2,nc,nc+1)
+            
+            plot2d(cos(t),sin(t))
+            
+            isoview
+            
+            
+            
+            subplot(2,nc,2)
+            
+            plot2d(7*cos(t),2*sin(t))
+            
+            xtitle("True ellipse")
+            
+            a2 = gca();
+            
+            subplot(2,nc,nc+2)
+            
+            plot2d(7*cos(t),2*sin(t))
+            
+            isoview
+            
+            
+            
+            // plot of a sphere using facets computed by eval3dp
+            
+            deff("[x,y,z] = sph(alp,tet)",["x = r*cos(alp).*cos(tet)+orig(1)*ones(tet)"; ..
+            
+            "y = r*cos(alp).*sin(tet)+orig(2)*ones(tet)"; ..
+            
+            "z = r*sin(alp)+orig(3)*ones(tet)"]); 
+            
+            r = 3; orig = [0 0 0]; 
+            
+            [xx,yy,zz] = eval3dp(sph,linspace(-%pi/2,%pi/2,40),linspace(0,%pi*2,40)); 
+            
+            subplot(2,nc,3)
+            
+            plot3d(xx, yy, zz, alpha=60, flag=[color("green") 8 4])
+            
+            xtitle("True sphere")
+            
+            a3 = gca();
+            
+            subplot(2,nc,nc+3)
+            
+            plot3d(xx, yy, zz, alpha=60, flag=[color("green") 8 4])
+            
+            isoview
+            
+        </scilab:image>
+        
+        <programlisting role="example"><![CDATA[ 
+r = linspace(1,10,200);
+t = r*3;
+scf()
+subplot(2,2,1)
+plot2d(r.*sin(t),r.*cos(t))
+xtitle("plot2d(..)")
+subplot(2,2,2)
+plot2d(r.*sin(t),r.*cos(t))
+replot([-6, %nan, 6, 5])
+xtitle("+ replot([-6, %nan, 6, 5])")
+
+subplot(2,2,3)
+plot2d(r.*sin(t),r.*cos(t),frameflag=4)
+xtitle("with frameflag=4")
+
+// isoview allows to reframe the axes, as replot() would do it.
+subplot(2,2,4)
+plot2d(r.*sin(t),r.*cos(t))
+xtitle("+ isoview(-6, 6, %nan, 5)")
+isoview(-6, 6, %nan, 5)
+ ]]></programlisting>
+        
+        <scilab:image>
+            
+            r = linspace(1,10,200);
+            
+            t = r*3;
+            
+            scf();
+            
+            subplot(2,2,1)
+            
+            plot2d(r.*sin(t),r.*cos(t))
+            
+            xtitle("plot2d(..)")
+            
+            subplot(2,2,2)
+            
+            plot2d(r.*sin(t),r.*cos(t))
+            
+            replot([-6, %nan, 6, 5])
+            
+            xtitle("+ replot([-6, %nan, 6, 5])")
+            
+            
+            
+            subplot(2,2,3)
+            
+            plot2d(r.*sin(t),r.*cos(t),frameflag=4)
+            
+            xtitle("with frameflag=4")
+            
+            
+            
+            subplot(2,2,4)
+            
+            plot2d(r.*sin(t),r.*cos(t))
+            
+            xtitle("+ isoview(-6, 6, %nan, 5)")
+            
+            isoview(-6, 6, %nan, 5)
             
         </scilab:image>
         
     </refsection>
+    
+    
     
     <refsection role="see also">
         
@@ -148,7 +439,13 @@ plot2d(sin(t),cos(t),frameflag=4)
             
             <member>
                 
-                <link linkend="xsetech">xsetech</link>
+                <link linkend="replot">replot</link>
+                
+            </member>
+            
+            <member>
+                
+                <link linkend="axes_properties">Axes properties</link>
                 
             </member>
             
@@ -156,5 +453,41 @@ plot2d(sin(t),cos(t),frameflag=4)
         
     </refsection>
     
+    
+    
+    <refsection role="history">
+        
+        <title>履歴</title>
+        
+        <revhistory>
+            
+            <revision>
+                
+                <revnumber>5.6.0</revnumber>
+                
+                <revdescription>
+                    
+                    <itemizedlist>
+                        
+                        <listitem>input parameters &lt;none&gt;, "on", "off" added.</listitem>
+                        
+                        <listitem>input parameters idAxes, idFigure added.</listitem>
+                        
+                        <listitem>input parameters zmin, zmax added.</listitem>
+                        
+                        <listitem>%nan can now be used to keep some bounds unchanged.</listitem>
+                        
+                    </itemizedlist>
+                    
+                </revdescription>
+                
+            </revision>
+            
+        </revhistory>
+        
+    </refsection>
+    
 </refentry>
+
+
 
