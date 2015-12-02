@@ -14,7 +14,7 @@ package org.scilab.forge.scirenderer.implementation.jogl.utils;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.appearance.Color;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  *

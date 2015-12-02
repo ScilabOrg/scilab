@@ -13,7 +13,7 @@ package org.scilab.forge.scirenderer.implementation.jogl.buffers;
 
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 

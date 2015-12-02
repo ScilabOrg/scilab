@@ -11,7 +11,7 @@
 
 package org.scilab.forge.scirenderer.implementation.jogl.lightning;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 import org.scilab.forge.scirenderer.implementation.jogl.utils.GLShortCuts;
 import org.scilab.forge.scirenderer.lightning.Light;

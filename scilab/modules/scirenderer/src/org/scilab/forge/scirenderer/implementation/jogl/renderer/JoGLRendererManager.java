@@ -15,7 +15,7 @@ import org.scilab.forge.scirenderer.implementation.jogl.JoGLDrawingTools;
 import org.scilab.forge.scirenderer.renderer.Renderer;
 import org.scilab.forge.scirenderer.renderer.RendererManager;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;

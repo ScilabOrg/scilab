@@ -11,7 +11,7 @@
 
 package org.scilab.forge.scirenderer.implementation.jogl;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * This class store current OpenGl context capacity.

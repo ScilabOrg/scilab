@@ -16,7 +16,7 @@ import org.scilab.forge.scirenderer.implementation.jogl.JoGLDrawingTools;
 import org.scilab.forge.scirenderer.picking.PickingTools;
 import org.scilab.forge.scirenderer.tranformations.Vector3d;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import java.awt.Point;
 import java.nio.FloatBuffer;
 

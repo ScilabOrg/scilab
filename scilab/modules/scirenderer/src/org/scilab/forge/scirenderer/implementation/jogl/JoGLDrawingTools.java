@@ -30,7 +30,7 @@ import org.scilab.forge.scirenderer.tranformations.TransformationManagerImpl;
 import org.scilab.forge.scirenderer.tranformations.TransformationManagerListener;
 import org.scilab.forge.scirenderer.tranformations.Vector3d;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  *

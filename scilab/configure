@@ -15265,7 +15265,7 @@ EOF
 
     CLASSPATH=$ac_java_classpath
     export CLASSPATH
-    cmd="$JAVA conftestSharedChecker jogl2 javax.media.opengl.glu.GLUnurbs $jar_resolved   "
+    cmd="$JAVA conftestSharedChecker jogl2 jogamp.opengl.x11.glx.GLX $jar_resolved   "
     if (echo $cmd >&5 ; eval $cmd >conftestSharedChecker.java.output 2>&5); then
         PACKAGE_JAR_FILE=$(tail -n 1 conftestSharedChecker.java.output);
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PACKAGE_JAR_FILE" >&5
@@ -15277,10 +15277,10 @@ $as_echo "$PACKAGE_JAR_FILE" >&6; }
       { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
       if test "" = "yes"; then
-         { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Could not find or use the Java package/jar jogl2 used by Scilab 3D rendering - Version 2.0 (looking for package javax.media.opengl.glu.GLUnurbs)" >&5
-$as_echo "$as_me: WARNING: Could not find or use the Java package/jar jogl2 used by Scilab 3D rendering - Version 2.0 (looking for package javax.media.opengl.glu.GLUnurbs)" >&2;}
+         { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Could not find or use the Java package/jar jogl2 used by Scilab 3D rendering - Version 2.3 (looking for package jogamp.opengl.x11.glx.GLX)" >&5
+$as_echo "$as_me: WARNING: Could not find or use the Java package/jar jogl2 used by Scilab 3D rendering - Version 2.3 (looking for package jogamp.opengl.x11.glx.GLX)" >&2;}
       else
-          as_fn_error $? "Could not find or use the Java package/jar jogl2 used by Scilab 3D rendering - Version 2.0 (looking for package javax.media.opengl.glu.GLUnurbs)" "$LINENO" 5
+          as_fn_error $? "Could not find or use the Java package/jar jogl2 used by Scilab 3D rendering - Version 2.3 (looking for package jogamp.opengl.x11.glx.GLX)" "$LINENO" 5
       fi
     fi
     if test -f conftestSharedChecker.java.output; then
@@ -15291,8 +15291,8 @@ $as_echo "$as_me: WARNING: Could not find or use the Java package/jar jogl2 used
 
 
 
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking minimal version (Specification-Version 2.2) of jogl2" >&5
-$as_echo_n "checking minimal version (Specification-Version 2.2) of jogl2... " >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking minimal version (Specification-Version 2.3) of jogl2" >&5
+$as_echo_n "checking minimal version (Specification-Version 2.3) of jogl2... " >&6; }
     export JARFILE=$JOGL2;
     if test "x" == "x"; then
 
@@ -15305,7 +15305,7 @@ import java.util.jar.JarFile;
 
 public class conftest {
     public static void main(String[] argv) {
-        String minVersion="2.2";
+        String minVersion="2.3";
         try {
             String version = new JarFile(System.getenv("JARFILE")).getManifest().getMainAttributes().getValue("Specification-Version");
             System.out.println(version);
@@ -15358,7 +15358,7 @@ EOF
                    STDOUT=`cat conftest.java.output`
                 fi
                 echo "configure: CLASSPATH was $CLASSPATH" >&5
-                  as_fn_error $? "Wrong version of jogl2. Expected at least 2.2. Found $STDOUT" "$LINENO" 5
+                  as_fn_error $? "Wrong version of jogl2. Expected at least 2.3. Found $STDOUT" "$LINENO" 5
                             fi
         fi
         if test -f conftest.java.output; then
@@ -15368,7 +15368,7 @@ EOF
         echo "configure: failed program was:" >&5
         cat conftest.java >&5
         echo "configure: CLASSPATH was $CLASSPATH" >&5
-          as_fn_error $? "Wrong version of jogl2. Expected at least 2.2. Found $STDOUT" "$LINENO" 5
+          as_fn_error $? "Wrong version of jogl2. Expected at least 2.3. Found $STDOUT" "$LINENO" 5
             fi
 
     else
@@ -15382,7 +15382,7 @@ import java.util.jar.JarFile;
 
 public class conftest {
     public static void main(String[] argv) {
-        String minVersion="2.2";
+        String minVersion="2.3";
         try {
             String version = new JarFile(System.getenv("JARFILE")).getManifest().getMainAttributes().getValue("Specification-Version");
             System.out.println("Specification-Version" + ": " + version);
@@ -15752,7 +15752,7 @@ EOF
 
     CLASSPATH=$ac_java_classpath
     export CLASSPATH
-    cmd="$JAVA conftestSharedChecker gluegen2-rt jogamp.common.os.MachineDescriptionRuntime $jar_resolved   "
+    cmd="$JAVA conftestSharedChecker gluegen2-rt com.jogamp.common.os.Platform $jar_resolved   "
     if (echo $cmd >&5 ; eval $cmd >conftestSharedChecker.java.output 2>&5); then
         PACKAGE_JAR_FILE=$(tail -n 1 conftestSharedChecker.java.output);
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PACKAGE_JAR_FILE" >&5
@@ -15764,10 +15764,10 @@ $as_echo "$PACKAGE_JAR_FILE" >&6; }
       { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
       if test "" = "yes"; then
-         { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Could not find or use the Java package/jar gluegen2-rt used by Scilab 3D rendering (looking for package jogamp.common.os.MachineDescriptionRuntime)" >&5
-$as_echo "$as_me: WARNING: Could not find or use the Java package/jar gluegen2-rt used by Scilab 3D rendering (looking for package jogamp.common.os.MachineDescriptionRuntime)" >&2;}
+         { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Could not find or use the Java package/jar gluegen2-rt used by Scilab 3D rendering (looking for package com.jogamp.common.os.Platform)" >&5
+$as_echo "$as_me: WARNING: Could not find or use the Java package/jar gluegen2-rt used by Scilab 3D rendering (looking for package com.jogamp.common.os.Platform)" >&2;}
       else
-          as_fn_error $? "Could not find or use the Java package/jar gluegen2-rt used by Scilab 3D rendering (looking for package jogamp.common.os.MachineDescriptionRuntime)" "$LINENO" 5
+          as_fn_error $? "Could not find or use the Java package/jar gluegen2-rt used by Scilab 3D rendering (looking for package com.jogamp.common.os.Platform)" "$LINENO" 5
       fi
     fi
     if test -f conftestSharedChecker.java.output; then

@@ -14,7 +14,7 @@ package org.scilab.modules.gui.canvas;
 
 import java.awt.image.BufferedImage;
 
-import javax.media.opengl.GL;
+import com.jogamp.opengl.GL;
 
 import org.scilab.modules.gui.dockable.Dockable;
 

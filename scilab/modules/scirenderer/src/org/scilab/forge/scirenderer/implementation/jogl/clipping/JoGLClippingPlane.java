@@ -17,7 +17,7 @@ import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.Vector4d;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * @author Pierre Lando

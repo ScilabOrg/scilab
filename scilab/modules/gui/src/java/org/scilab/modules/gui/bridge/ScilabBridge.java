@@ -20,7 +20,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 
-import javax.media.opengl.GL;
+import com.jogamp.opengl.GL;
 
 import org.scilab.modules.gui.canvas.Canvas;
 import org.scilab.modules.gui.canvas.ScilabCanvas;

@@ -32,8 +32,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GLAutoDrawable;
 import javax.swing.JPanel;
 
 import org.scilab.forge.scirenderer.Canvas;

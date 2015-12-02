@@ -29,11 +29,11 @@ import org.scilab.forge.scirenderer.tranformations.TransformationManager;
 import org.scilab.forge.scirenderer.tranformations.Vector3d;
 
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GL2ES1;
-import javax.media.opengl.GL2GL3;
-import javax.media.opengl.GLProfile;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GL2ES1;
+import com.jogamp.opengl.GL2GL3;
+import com.jogamp.opengl.GLProfile;
 import java.awt.Dimension;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
