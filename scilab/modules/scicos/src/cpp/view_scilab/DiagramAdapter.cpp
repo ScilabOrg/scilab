@@ -107,8 +107,11 @@ struct objs
                     if (adaptor.getListObjects()->getSize() != 0)
                     {
                         BlockAdapter* oldBlock = adaptor.getListObjects()->get(i)->getAs<BlockAdapter>();
+                        //if (!oldBlock->getFrom().empty())
+                        //{
                         block->setFrom(oldBlock->getFrom());
                         block->setTo(oldBlock->getTo());
+                        //}
                         block->setListObjects(oldBlock->getListObjects());
                         block->setContribContent(oldBlock->getContribContent());
                     }
@@ -119,9 +122,12 @@ struct objs
                     LinkAdapter* link = new LinkAdapter(controller, static_cast<model::Link*>(o));
                     if (adaptor.getListObjects()->getSize() != 0)
                     {
-                        link->setFrom(adaptor.getFrom()[link_i]);
-                        link->setTo(adaptor.getTo()[link_i]);
-                        link_i++;
+                        if (!adaptor.getFrom().empty())
+                        {
+                            link->setFrom(adaptor.getFrom()[link_i]);
+                            link->setTo(adaptor.getTo()[link_i]);
+                            link_i++;
+                        }
                     }
                     ret->append(link);
                     break;

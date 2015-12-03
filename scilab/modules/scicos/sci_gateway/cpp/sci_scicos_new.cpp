@@ -11,16 +11,18 @@
  */
 
 #include <string>
+#include <vector>
 #include <sstream>
 
 #include "gw_scicos.hxx"
 
 #include "types.hxx"
+#include "internal.hxx"
 #include "int.hxx"
 #include "string.hxx"
+#include "list.hxx"
 #include "tlist.hxx"
 #include "mlist.hxx"
-#include "list.hxx"
 #include "function.hxx"
 
 #include "view_scilab/Adapters.hxx"
@@ -38,6 +40,7 @@
 
 #include "utilities.hxx"
 #include "Controller.hxx"
+#include "model/BaseObject.hxx"
 #include "model/Annotation.hxx"
 #include "model/Block.hxx"
 #include "model/Diagram.hxx"
@@ -286,8 +289,49 @@ static types::Function::ReturnValue get(types::GenericType* UIDs, int _iRetCount
         switch (o->kind())
         {
             case DIAGRAM:
-                out.push_back(new view_scilab::DiagramAdapter(controller, static_cast<model::Diagram*>(controller.referenceObject(o))));
+            {
+                view_scilab::DiagramAdapter* adapter = new view_scilab::DiagramAdapter(controller, static_cast<model::Diagram*>(controller.referenceObject(o)));
+                std::vector<ScicosID> children;
+                controller.getObjectProperty(adapter->getAdaptee()->id(), adapter->getAdaptee()->kind(), CHILDREN, children);
+                types::List* listObjects = new types::List();
+                std::vector<link_t> from_content;
+                std::vector<link_t> to_content;
+                for (const ScicosID & id : children)
+                {
+                    model::BaseObject* child = controller.getObject(id);
+                    types::InternalType* childAdapter;
+                    switch (child->kind())
+                    {
+                        case BLOCK:
+                        {
+                            //FIXME: really referenceObject??
+                            //FIXME: need to setFrom & setTo??
+                            childAdapter = new view_scilab::BlockAdapter(controller, static_cast<model::Block*>(controller.referenceObject(child)));
+                            break;
+                        }
+                        case LINK:
+                        {
+                            //FIXME: really referenceObject??
+                            //FIXME: need to setFrom & setTo??
+                            std::cout << "linkA " << std::endl;
+                            childAdapter = new view_scilab::LinkAdapter(controller, static_cast<model::Link*>(controller.referenceObject(child)));
+                            from_content.push_back(childAdapter->getAs<view_scilab::LinkAdapter>()->getFrom());
+                            to_content.push_back(childAdapter->getAs<view_scilab::LinkAdapter>()->getTo());
+                            std::cout << "linkA 2 " << std::endl;
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                    listObjects->append(childAdapter);
+                }
+                adapter->setFrom(from_content);
+                adapter->setTo(to_content);
+                adapter->setListObjects(listObjects);
+
+                out.push_back(adapter);
                 break;
+            }
             case BLOCK:
                 out.push_back(new view_scilab::BlockAdapter(controller, static_cast<model::Block*>(controller.referenceObject(o))));
                 break;
