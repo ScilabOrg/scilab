@@ -237,6 +237,8 @@ static bool read_short_data(int dataset, VarInfo6& info)
     FREE(ctype);
     info.ctype = type;
 
+    bool closeAsList = false;
+
     if (type == g_SCILAB_CLASS_DOUBLE)
     {
         info.type = sci_matrix;
@@ -247,14 +249,17 @@ static bool read_short_data(int dataset, VarInfo6& info)
     }
     else if (type == g_SCILAB_CLASS_LIST)
     {
+        closeAsList = true;
         info.type = sci_list;
     }
     else if (type == g_SCILAB_CLASS_TLIST)
     {
+        closeAsList = true;
         info.type = sci_tlist;
     }
     else if (type == g_SCILAB_CLASS_MLIST)
     {
+        closeAsList = true;
         info.type = sci_mlist;
     }
     else if (type == g_SCILAB_CLASS_BOOLEAN)
@@ -287,10 +292,12 @@ static bool read_short_data(int dataset, VarInfo6& info)
     }
     else if (type == g_SCILAB_CLASS_STRUCT)
     {
+        closeAsList = true;
         info.type = sci_mlist;
     }
     else if (type == g_SCILAB_CLASS_CELL)
     {
+        closeAsList = true;
         info.type = sci_mlist;
     }
     else if (type == g_SCILAB_CLASS_HANDLE)
@@ -311,6 +318,14 @@ static bool read_short_data(int dataset, VarInfo6& info)
         return false;
     }
 
+    if (closeAsList)
+    {
+        closeList6(dataset);
+    }
+    else
+    {
+        closeDataSet(dataset);
+    }
     return true;
 }
 
