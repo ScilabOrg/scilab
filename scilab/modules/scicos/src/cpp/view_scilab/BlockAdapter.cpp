@@ -70,25 +70,68 @@ struct model
         controller.getObjectProperty(adaptor.getAdaptee()->id(), BLOCK, CHILDREN, children);
         if (!children.empty())
         {
-            Controller neededController = const_cast<Controller&>(controller);
-            ScicosID newDiag = neededController.createObject(DIAGRAM);
-            subDiagram = new DiagramAdapter(controller, static_cast<org_scilab_modules_scicos::model::Diagram*>(controller.getObject(newDiag)));
-            neededController.setObjectProperty(newDiag, DIAGRAM, CHILDREN, children);
-
-            for (const ScicosID id : children)
+            if (adaptor.getListObjects()->getSize() > 0)
             {
-                auto o = controller.getObject(id);
-                neededController.setObjectProperty(o->id(), o->kind(), PARENT_DIAGRAM, newDiag);
-                neededController.referenceObject(o->id());
-            }
-            subDiagram->setFrom(adaptor.getFrom());
-            subDiagram->setTo(adaptor.getTo());
-            subDiagram->setListObjects(adaptor.getListObjects());
-            subDiagram->setContribContent(adaptor.getContribContent());
+                Controller neededController = const_cast<Controller&>(controller);
+                ScicosID newDiag = neededController.createObject(DIAGRAM);
+                subDiagram = new DiagramAdapter(controller, static_cast<org_scilab_modules_scicos::model::Diagram*>(controller.getObject(newDiag)));
+                neededController.setObjectProperty(newDiag, DIAGRAM, CHILDREN, children);
 
-            std::vector<std::string> context;
-            controller.getObjectProperty(adaptor.getAdaptee()->id(), BLOCK, DIAGRAM_CONTEXT, context);
-            neededController.setObjectProperty(newDiag, DIAGRAM, DIAGRAM_CONTEXT, context);
+                for (const ScicosID id : children)
+                {
+                    auto o = controller.getObject(id);
+                    neededController.setObjectProperty(o->id(), o->kind(), PARENT_DIAGRAM, newDiag);
+                    neededController.referenceObject(o->id());
+                }
+                subDiagram->setFrom(adaptor.getFrom());
+                subDiagram->setTo(adaptor.getTo());
+                subDiagram->setListObjects(adaptor.getListObjects());
+                subDiagram->setContribContent(adaptor.getContribContent());
+
+                std::vector<std::string> context;
+                controller.getObjectProperty(adaptor.getAdaptee()->id(), BLOCK, DIAGRAM_CONTEXT, context);
+                neededController.setObjectProperty(newDiag, DIAGRAM, DIAGRAM_CONTEXT, context);
+            }
+            else
+            {
+                // The children adapters list has not been set yet. Create it, update the adapter and return.
+                types::List* listObjects = new types::List();
+                std::vector<link_t> from;
+                std::vector<link_t> to;
+                for (const ScicosID id : children)
+                {
+                    auto o = controller.getObject(id);
+
+                    switch (o->kind())
+                    {
+                        case ANNOTATION :
+                            listObjects->append(new TextAdapter(controller, static_cast<org_scilab_modules_scicos::model::Annotation*>(o)));
+                            break;
+                        case BLOCK :
+                        {
+                            BlockAdapter* block = new BlockAdapter(controller, static_cast<org_scilab_modules_scicos::model::Block*>(o));
+                            //std::wstring Model = L"Model";
+                            //typename property<BlockAdapter>::props_t_it found = std::lower_bound(property<BlockAdapter>::fields.begin(), property<BlockAdapter>::fields.end(), Model);
+                            //if (found != property<BlockAdapter>::fields.end())
+                            //{
+                            //    found->get(*block, controller);
+                            //}
+                            listObjects->append(block);
+                            break;
+                        }
+                        default : // LINK
+                            LinkAdapter* link = new LinkAdapter(controller, static_cast<org_scilab_modules_scicos::model::Link*>(o));
+                            from.push_back(link->getFrom());
+                            to.push_back(link->getTo());
+                            listObjects->append(link);
+                            break;
+                    }
+                }
+                const_cast<BlockAdapter&>(adaptor).setFrom(from);
+                const_cast<BlockAdapter&>(adaptor).setTo(to);
+                const_cast<BlockAdapter&>(adaptor).setListObjects(listObjects);
+                return nullptr;
+            }
         }
 
         ModelAdapter localAdaptor(controller, controller.referenceObject(adaptor.getAdaptee()), subDiagram);
