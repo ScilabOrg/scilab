@@ -438,6 +438,10 @@ endfunction
 
 function uni=merge_mat(m1,m2)
     // for  m1 and m2 with two columns containing >=0 values
+    if isempty(m1) & isempty(m2) then
+        uni=[];
+        return;
+    end
     uni=[m1;m2]
     n=max(uni(:,2))+1;
     [j,ind]=unique(uni(:,1)*n+uni(:,2))
@@ -502,7 +506,11 @@ function ok=is_alg_event_loop(typ_l,clkconnect)
     while i<=n
         i=i+1
         oldvec=vec  // not optimal to use large v
-        vec(lclkconnect(:,2))=vec(lclkconnect(:,1))+1
+        if isempty(vec(lclkconnect(:,1))) then
+            vec(lclkconnect(:,2))=1
+        else
+            vec(lclkconnect(:,2))=vec(lclkconnect(:,1))+1
+        end
         if and(vec==oldvec) then
             ok=%t
             return
@@ -1065,7 +1073,11 @@ function [ordclk,iord,oord,zord,typ_z,ok]=scheduler(inpptr,outptr,clkptr,execlk_
     //Donc les blocks indiques sont des blocks susceptibles de produire
     //des discontinuites quand l'evenement se produit
     maX=max([ext_cord1(:,2);ordclk(:,2)])+1;
-    cordX=ext_cord1(:,1)*maX+ext_cord1(:,2);
+    if isempty(ext_cord1) then
+        cordX = [];
+    else
+        cordX=ext_cord1(:,1)*maX+ext_cord1(:,2);
+    end
 
     // 1: important; 0:non
     //n=clkptr(nblk+1)-1 //nb d'evenement
@@ -2406,7 +2418,11 @@ function  [r,ok]=newc_tree3(vec,dep_u,dep_uptr,typ_l)
 endfunction
 
 function  [r,ok]=new_tree4(vec,outoin,outoinptr,typ_r)
-    nd=zeros(size(vec,"*"),(max(outoin(:,2))+1));
+    if isempty(outoin) then
+        nd=zeros(size(vec,"*"),1);
+    else
+        nd=zeros(size(vec,"*"),(max(outoin(:,2))+1));
+    end
     ddd=zeros(typ_r);ddd(typ_r)=1;
     [r1,r2]=sci_tree4(vec,outoin,outoinptr,nd,ddd)
     r=[r1',r2']
@@ -2414,7 +2430,11 @@ function  [r,ok]=new_tree4(vec,outoin,outoinptr,typ_r)
 endfunction
 
 function  [r,ok]=newc_tree4(vec,outoin,outoinptr,typ_r)
-    nd=zeros(size(vec,"*"),(max(outoin(:,2))+1));
+    if isempty(outoin) then
+        nd=zeros(size(vec,"*"),1);
+    else
+        nd=zeros(size(vec,"*"),(max(outoin(:,2))+1));
+    end
     ddd=zeros(typ_r);ddd(typ_r)=1;
     [r1,r2]=ctree4(vec,outoin,outoinptr,nd,ddd)
     r=[r1',r2']
@@ -2423,6 +2443,11 @@ endfunction
 
 function [critev]=critical_events(connectmat,clkconnect,dep_t,typ_r,..
     typ_l,typ_zx,outoin,outoinptr,clkptr)
+
+    if isempty(clkconnect) then
+        critev = [];
+        return
+    end
 
     typ_c=typ_l<>typ_l;
     typ_r=typ_r|dep_t
