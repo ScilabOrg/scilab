@@ -11,7 +11,9 @@
  */
 package org.scilab.modules.xcos.io.writer;
 
-import java.util.UUID;
+import java.io.DataInput;
+import java.io.IOException;
+import java.rmi.server.UID;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -86,7 +88,9 @@ public class CustomWriter extends ScilabWriter {
 
                 // write the graphical part and children
                 shared.controller.getObjectProperty(uid, kind, ObjectProperties.CHILDREN, children);
-                writeDiagramAndSuperDiagramContent(uid, kind, children);
+                String zeroUID = new UID((short) 0).toString();
+                shared.uniqueUIDs.add(zeroUID);
+                writeDiagramAndSuperDiagramContent(uid, kind, children, zeroUID);
 
                 shared.stream.writeEndElement();
                 shared.stream.writeEndDocument();
@@ -99,7 +103,7 @@ public class CustomWriter extends ScilabWriter {
                 if (children.size() > 0) {
                     shared.stream.writeStartElement(HandledElement.SuperBlockDiagram.name());
                     shared.stream.writeAttribute("as", "child");
-                    writeDiagramAndSuperDiagramContent(uid, kind, children);
+                    writeDiagramAndSuperDiagramContent(uid, kind, children, shared.layers.peek());
                     shared.stream.writeEndElement(); // SuperBlockDiagram
                 }
                 break;
@@ -111,7 +115,7 @@ public class CustomWriter extends ScilabWriter {
         }
     }
 
-    private void writeDiagramAndSuperDiagramContent(long uid, Kind kind, VectorOfScicosID children) throws XMLStreamException {
+    private void writeDiagramAndSuperDiagramContent(long uid, Kind kind, VectorOfScicosID children, String parentUID) throws XMLStreamException {
         VectorOfInt colors = new VectorOfInt();
         shared.controller.getObjectProperty(uid, kind, ObjectProperties.COLOR, colors);
         shared.stream.writeAttribute("background", Integer.toString(colors.get(0)));
@@ -126,19 +130,32 @@ public class CustomWriter extends ScilabWriter {
          */
         shared.rawDataWriter.write(uid, kind);
 
-        UUID root = UUID.randomUUID();
-        UUID layer = UUID.randomUUID();
-        shared.layers.push(layer.toString());
+        /*
+         * Generate uniques but predictables UIDs
+         */
+        String[] parent = parentUID.split(":");
+        long uidCounter = 1;
+        String rootUID = parent[0] + ":" + Long.toString(Long.parseLong(parent[1], 16) + uidCounter, 16) + ":" + parent[2];
+        for (; shared.uniqueUIDs.contains(rootUID); uidCounter++) {
+            rootUID = parent[0] + ":" + Long.toString(Long.parseLong(parent[1], 16) + uidCounter, 16) + ":" + parent[2];
+        }
+        shared.uniqueUIDs.add(rootUID);
+        String layerUID = parent[0] + ":" + Long.toString(Long.parseLong(parent[1], 16) + uidCounter, 16) + ":" + parent[2];
+        for (; shared.uniqueUIDs.contains(layerUID); uidCounter++) {
+            layerUID = parent[0] + ":" + Long.toString(Long.parseLong(parent[1], 16) + uidCounter, 16) + ":" + parent[2];
+        }
+        shared.uniqueUIDs.add(layerUID);
+        shared.layers.push(layerUID);
 
         // children header
         shared.stream.writeStartElement("mxGraphModel");
         shared.stream.writeAttribute("as", "model");
         shared.stream.writeStartElement("root");
         shared.stream.writeEmptyElement("mxCell");
-        shared.stream.writeAttribute("id", root.toString());
+        shared.stream.writeAttribute("id", rootUID);
         shared.stream.writeEmptyElement("mxCell");
-        shared.stream.writeAttribute("id", shared.layers.peek());
-        shared.stream.writeAttribute("parent", root.toString());
+        shared.stream.writeAttribute("id", layerUID);
+        shared.stream.writeAttribute("parent", rootUID);
 
         // loop on all children, encode the blocks and ports then the links
         VectorOfInt kinds = new VectorOfInt();
@@ -156,7 +173,7 @@ public class CustomWriter extends ScilabWriter {
         shared.stream.writeEndElement(); // mxGraphModel
         shared.stream.writeEmptyElement("mxCell");
         shared.stream.writeAttribute("as", "defaultParent");
-        shared.stream.writeAttribute("id", layer.toString());
-        shared.stream.writeAttribute("parent", root.toString());
+        shared.stream.writeAttribute("id", layerUID);
+        shared.stream.writeAttribute("parent", rootUID);
     }
 }

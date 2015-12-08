@@ -100,7 +100,7 @@ public class XcosSAXHandler extends DefaultHandler {
 
     /** Contains the decoded parent' node (as an in-depth view of decoded elements) */
     Stack<Object> parents = new Stack<>();
-    /** Mapping of UUID JGraphX strings to an MVC decoded object */
+    /** Mapping of UID JGraphX strings to an MVC decoded object */
     Stack<HashMap<String, Long>> allChildren = new Stack<>();
     /** List of unresolved references that will be resolved at {@link HandledElement#XcosDiagram} or {@link HandledElement#SuperBlockDiagram} ending */
     HashMap<String, ArrayList<UnresolvedReference>> unresolvedReferences = new HashMap<>();
