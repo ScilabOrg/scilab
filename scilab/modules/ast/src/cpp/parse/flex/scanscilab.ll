@@ -40,7 +40,7 @@ extern void yyerror(std::string);
 
 /* -*- Verbose Special Debug -*- */
 //#define DEV
-//#define TOKENDEV
+#define TOKENDEV
 
 #ifdef DEV
 #define DEBUG(x) std::cout << "[DEBUG] " << x << std::endl;
@@ -1044,7 +1044,7 @@ assign			"="
     pstBuffer.clear();
     BEGIN(INITIAL);
     yyerror("Unexpected end of file in a string.");
-    return scan_throw(FLEX_ERROR);    
+    return scan_throw(FLEX_ERROR);
   }
 
   {in_string}						|
@@ -1120,7 +1120,7 @@ assign			"="
     pstBuffer.clear();
     BEGIN(INITIAL);
     yyerror("Unexpected end of file in a string.");
-    return scan_throw(FLEX_ERROR);    
+    return scan_throw(FLEX_ERROR);
   }
 
   {in_string}         |
