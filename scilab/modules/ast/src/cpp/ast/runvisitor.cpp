@@ -920,6 +920,10 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
     {
         //return(x)
 
+        if (e.getParent() == nullptr || e.getParent()->isAssignExp() == false)
+        {
+            throw InternalError(_W("\'return\' or \'resume\' expression must assign variable.\n"), 999, e.getLocation());
+        }
         //in case of CallExp, we can return only one values
         int iSaveExpectedSize = getExpectedSize();
         setExpectedSize(1);
@@ -935,6 +939,8 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
         setExpectedSize(iSaveExpectedSize);
         const_cast<ReturnExp*>(&e)->setReturn();
     }
+
+    CoverageInstance::stopChrono((void*)&e);
 }
 
 template <class T>
