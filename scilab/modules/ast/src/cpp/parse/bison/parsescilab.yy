@@ -34,6 +34,60 @@
 #include "charEncoding.h"
 #include "sci_malloc.h"
 
+//#define DEBUG_RULES
+#ifdef DEBUG_RULES
+    #include <iomanip>
+    std::list<std::pair<std::string, std::string>> rules;
+#endif
+
+static void print_rules(std::string _parent, std::string _rules)
+{
+#ifdef DEBUG_RULES
+    rules.emplace_front(_parent, _rules);
+
+    if(_parent == "program")
+    {
+        std::list<std::pair<std::string, std::string>> last;
+        std::cout <<  "--- RULES ---" << std::endl;
+        std::cout <<  "|_./ " << _parent << " : " << _rules << std::endl;
+        last.emplace_back(rules.front());
+        rules.pop_front();
+
+        int spaces = 5; // 5 is the size of "|_./ "
+        for(auto r : rules)
+        {
+            size_t pos = last.back().second.find(r.first);
+            if (pos == std::string::npos)
+            {
+                while(pos == std::string::npos)
+                {
+                        spaces -= 2;
+                        last.pop_back();
+                        if(last.empty())
+                        {
+                            break;
+                        }
+                        pos = last.back().second.find(r.first);
+                }
+
+                if(last.empty() == false)
+                {
+                    last.back().second.erase(pos, r.first.length());
+                }
+            }
+
+            spaces += 2;
+
+            std::setfill(" ");
+            std::cout << std::setw(spaces) << "|_./ " << r.first << " : " << r.second << std::endl;
+            last.emplace_back(r);
+        }
+
+        rules.clear();
+    }
+#endif
+}
+
 #define StopOnError()                                           \
     {                                                           \
         if(ParserSingleInstance::stopOnFirstError())            \
@@ -335,22 +389,24 @@
 */
 /* Root of the Abstract Syntax Tree */
 program:
-expressions                     { SetTree($1); }
-| EOL expressions 		{ SetTree($2); }
+expressions                     { SetTree($1); print_rules("program", "expressions");}
+| EOL expressions 		        { SetTree($2); print_rules("program", "EOL expressions");}
 | expressionLineBreak           {
-                                  ast::exps_t* tmp = new ast::exps_t;
-                                  #ifdef BUILD_DEBUG_AST
-                                      tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty body");
-                                  #endif
-                                  SetTree(new ast::SeqExp(@$, *tmp));
-				  delete $1;
+                                    print_rules("program", "expressionLineBreak");
+                                    ast::exps_t* tmp = new ast::exps_t;
+                                    #ifdef BUILD_DEBUG_AST
+                                        tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty body");
+                                    #endif
+                                    SetTree(new ast::SeqExp(@$, *tmp));
+                                    delete $1;
                                 }
 | /* Epsilon */                 {
-                                  ast::exps_t* tmp = new ast::exps_t;
-                                  #ifdef BUILD_DEBUG_AST
-                                      tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty body")));
-                                  #endif
-                                  SetTree(new ast::SeqExp(@$, *tmp));
+                                    print_rules("program", "Epsilon");
+                                    ast::exps_t* tmp = new ast::exps_t;
+                                    #ifdef BUILD_DEBUG_AST
+                                        tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty body")));
+                                    #endif
+                                    SetTree(new ast::SeqExp(@$, *tmp));
                                 }
 ;
 
@@ -360,26 +416,31 @@ expressions                     { SetTree($1); }
 /* List of expression or single instruction */
 expressions :
 recursiveExpression                             {
+                                                  print_rules("expressions", "recursiveExpression");
                                                   $$ = new ast::SeqExp(@$, *$1);
                                                 }
 | recursiveExpression expression                {
+                                                  print_rules("expressions", "recursiveExpression expression");
                                                   $2->setVerbose(true);
                                                   $1->push_back($2);
                                                   $$ = new ast::SeqExp(@$, *$1);
                                                 }
 | recursiveExpression expression COMMENT        {
+                                                  print_rules("expressions", "recursiveExpression expression COMMENT");
                                                   $2->setVerbose(true);
                                                   $1->push_back($2);
                                                   $1->push_back(new ast::CommentExp(@3, $3));
                                                   $$ = new ast::SeqExp(@$, *$1);
                                                 }
 | expression                                    {
+                                                  print_rules("expressions", "expression");
                                                   ast::exps_t* tmp = new ast::exps_t;
                                                   $1->setVerbose(true);
                                                   tmp->push_back($1);
                                                   $$ = new ast::SeqExp(@$, *tmp);
                                                 }
 | expression COMMENT                            {
+                                                  print_rules("expressions", "expression COMMENT");
                                                   ast::exps_t* tmp = new ast::exps_t;
                                                   $1->setVerbose(true);
                                                   tmp->push_back($1);
@@ -394,6 +455,7 @@ recursiveExpression                             {
 /* List of instructions. _MUST_BE_ left recursive Rule */
 recursiveExpression :
 recursiveExpression expression expressionLineBreak	{
+                              print_rules("recursiveExpression", "recursiveExpression expression expressionLineBreak");
 							  $2->setVerbose($3->bVerbose);
 							  $1->push_back($2);
 							  $$ = $1;
@@ -404,6 +466,7 @@ recursiveExpression expression expressionLineBreak	{
 			      delete $3;
 							}
 | recursiveExpression expression COMMENT expressionLineBreak {
+                              print_rules("recursiveExpression", "recursiveExpression expression COMMENT expressionLineBreak");
 							  $2->setVerbose($4->bVerbose);
 							  $1->push_back($2);
                               @3.columns($4->iNbBreaker);
@@ -412,6 +475,7 @@ recursiveExpression expression expressionLineBreak	{
 							  delete $4;
 							}
 | expression COMMENT expressionLineBreak		{
+                              print_rules("recursiveExpression", "expression COMMENT expressionLineBreak");
 							  ast::exps_t* tmp = new ast::exps_t;
                               @2.columns($3->iNbBreaker);
 							  $1->setVerbose($3->bVerbose);
@@ -421,6 +485,7 @@ recursiveExpression expression expressionLineBreak	{
 							  delete $3;
 							}
 | expression expressionLineBreak			{
+                              print_rules("recursiveExpression", "expression expressionLineBreak");
 							  ast::exps_t* tmp = new ast::exps_t;
 							  $1->setVerbose($2->bVerbose);
 							  tmp->push_back($1);
@@ -438,12 +503,12 @@ recursiveExpression expression expressionLineBreak	{
 */
 /* Fake Rule : How can we be sure this is the end of an instruction. */
 expressionLineBreak :
-SEMI                            { $$ = new LineBreakStr(); $$->bVerbose = false; $$->iNbBreaker = @1.last_column; }
-| COMMA                         { $$ = new LineBreakStr(); $$->bVerbose = true; $$->iNbBreaker = @1.last_column; }
-| EOL                           { $$ = new LineBreakStr(); $$->bVerbose = true; $$->iNbBreaker = 0; }
-| expressionLineBreak SEMI      { $$ = $1; $$->bVerbose = false || $1->bVerbose; $$->iNbBreaker = @2.last_column; }
-| expressionLineBreak COMMA     { $$ = $1; $$->iNbBreaker = @2.last_column; }
-| expressionLineBreak EOL       { $$ = $1; }
+SEMI                            { $$ = new LineBreakStr(); $$->bVerbose = false; $$->iNbBreaker = @1.last_column;print_rules("expressionLineBreak", "SEMI"); }
+| COMMA                         { $$ = new LineBreakStr(); $$->bVerbose = true; $$->iNbBreaker = @1.last_column;print_rules("expressionLineBreak", "COMMA"); }
+| EOL                           { $$ = new LineBreakStr(); $$->bVerbose = true; $$->iNbBreaker = 0;print_rules("expressionLineBreak", "expressionLineBreak SEMI"); }
+| expressionLineBreak SEMI      { $$ = $1; $$->bVerbose = false || $1->bVerbose; $$->iNbBreaker = @2.last_column;print_rules("expressionLineBreak", "SEMI"); }
+| expressionLineBreak COMMA     { $$ = $1; $$->iNbBreaker = @2.last_column;print_rules("expressionLineBreak", "expressionLineBreak COMMA"); }
+| expressionLineBreak EOL       { $$ = $1;print_rules("expressionLineBreak", "expressionLineBreak EOL"); }
 ;
 
 /*
@@ -451,23 +516,24 @@ SEMI                            { $$ = new LineBreakStr(); $$->bVerbose = false;
 */
 /* Expression or Instruction : quite similar. */
 expression :
-functionDeclaration				{ $$ = $1; }
-| functionCall			%prec TOPLEVEL	{ $$ = $1; }
-| variableDeclaration				{ $$ = $1; }
-| ifControl					{ $$ = $1; }
-| selectControl					{ $$ = $1; }
-| forControl					{ $$ = $1; }
-| whileControl					{ $$ = $1; }
-| tryControl					{ $$ = $1; }
-| variable			%prec TOPLEVEL	{ $$ = $1; }
-| implicitFunctionCall		%prec TOPLEVEL	{ $$ = $1; }
-| BREAK						{ $$ = new ast::BreakExp(@$); }
-| CONTINUE					{ $$ = new ast::ContinueExp(@$); }
-| returnControl					{ $$ = $1; }
-| COMMENT					{ $$ = new ast::CommentExp(@$, $1); }
+functionDeclaration				        { $$ = $1; print_rules("expression", "functionDeclaration");}
+| functionCall			%prec TOPLEVEL	{ $$ = $1; print_rules("expression", "functionCall");}
+| variableDeclaration				    { $$ = $1; print_rules("expression", "variableDeclaration");}
+| ifControl					            { $$ = $1; print_rules("expression", "ifControl");}
+| selectControl					        { $$ = $1; print_rules("expression", "selectControl");}
+| forControl					        { $$ = $1; print_rules("expression", "forControl");}
+| whileControl					        { $$ = $1; print_rules("expression", "whileControl");}
+| tryControl					        { $$ = $1; print_rules("expression", "tryControl");}
+| variable			    %prec TOPLEVEL  { $$ = $1; print_rules("expression", "variable");}
+| implicitFunctionCall  %prec TOPLEVEL	{ $$ = $1; print_rules("expression", "implicitFunctionCall");}
+| BREAK						            { $$ = new ast::BreakExp(@$); print_rules("expression", "BREAK");}
+| CONTINUE					            { $$ = new ast::ContinueExp(@$); print_rules("expression", "CONTINUE");}
+| returnControl					        { $$ = $1; print_rules("expression", "returnControl");}
+| COMMENT					            { $$ = new ast::CommentExp(@$, $1); print_rules("expression", "COMMENT");}
 | error					        {
-  $$ = new ast::CommentExp(@$, new std::wstring(L"@@ ERROR RECOVERY @@"));
-  StopOnError();
+    print_rules("expression", "error");
+    $$ = new ast::CommentExp(@$, new std::wstring(L"@@ ERROR RECOVERY @@"));
+    StopOnError();
   }
 ;
 
@@ -479,11 +545,13 @@ functionDeclaration				{ $$ = $1; }
 implicitFunctionCall :
 /* FIXME : Add arguments to call */
 implicitFunctionCall implicitCallable		{
+                          print_rules("implicitFunctionCall", "implicitFunctionCall implicitCallable");
 						  $1->addArg($2);
 						  $1->setLocation(@$);
                           $$ = $1;
 						}
 | ID implicitCallable				{
+                          print_rules("implicitFunctionCall", "ID implicitCallable");
 						  ast::exps_t* tmp = new ast::exps_t;
 						  tmp->push_back($2);
 						  $$ = new ast::CallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *tmp);
@@ -498,33 +566,37 @@ implicitFunctionCall implicitCallable		{
 ** Describe 'bar', 'titi' that can be more complex.
 */
 implicitCallable :
-ID						{ $$ = new ast::StringExp(@$, *$1); delete $1;}
+ID						{ $$ = new ast::StringExp(@$, *$1); delete $1;print_rules("implicitCallable", "ID");}
 | VARINT					{
+                          print_rules("implicitCallable", "VARINT");
 						  std::wstringstream tmp;
 						  tmp << $1;
 						  $$ = new ast::StringExp(@$, tmp.str());
 						}
 | NUM						{
+                          print_rules("implicitCallable", "NUM");
 						  std::wstringstream tmp;
 						  tmp << $1;
 						  $$ = new ast::StringExp(@$, tmp.str());
 						}
 | VARFLOAT					{
+                          print_rules("implicitCallable", "VARFLOAT");
 						  std::wstringstream tmp;
 						  tmp << $1;
 						  $$ = new ast::StringExp(@$, tmp.str());
 						}
-| STR						{ $$ = new ast::StringExp(@$, *$1); delete $1;}
-| DOLLAR					{ $$ = new ast::StringExp(@$, std::wstring(L"$")); }
-| BOOLTRUE					{ $$ = new ast::StringExp(@$, std::wstring(L"%t")); }
-| BOOLFALSE					{ $$ = new ast::StringExp(@$, std::wstring(L"%f")); }
+| STR						{ $$ = new ast::StringExp(@$, *$1); delete $1;print_rules("implicitCallable", "STR");}
+| DOLLAR					{ $$ = new ast::StringExp(@$, std::wstring(L"$")); print_rules("implicitCallable", "DOLLAR");}
+| BOOLTRUE					{ $$ = new ast::StringExp(@$, std::wstring(L"%t")); print_rules("implicitCallable", "BOOLTRUE");}
+| BOOLFALSE					{ $$ = new ast::StringExp(@$, std::wstring(L"%f")); print_rules("implicitCallable", "BOOLFALSE");}
 | implicitCallable DOT ID			{
+                          print_rules("implicitCallable", "implicitCallable DOT ID");
 						  std::wstringstream tmp;
 						  tmp << $1->getValue() << "." << *$3;
 						  $$ = new ast::StringExp(@$, tmp.str());
 						  delete $3;
 						}
-| PATH						{ $$ = new ast::StringExp(@$, *$1); delete $1;}
+| PATH						{ $$ = new ast::StringExp(@$, *$1); delete $1;print_rules("implicitCallable", "PATH");}
 ;
 
 /*
@@ -532,9 +604,9 @@ ID						{ $$ = new ast::StringExp(@$, *$1); delete $1;}
 */
 /* How to call a function or a cell extraction */
 functionCall :
-simpleFunctionCall			{ $$ = $1; }
-//| recursiveFunctionCall		%prec FUNCTIONCALL	{ $$ = $1; }
-| LPAREN functionCall RPAREN	{ $$ = $2; }
+simpleFunctionCall			{ $$ = $1; print_rules("functionCall", "simpleFunctionCall");}
+//| recursiveFunctionCall		%prec FUNCTIONCALL	{ $$ = $1; print_rules("functionCall", "recursiveFunctionCall");}
+| LPAREN functionCall RPAREN	{ $$ = $2; print_rules("functionCall", "LPAREN functionCall RPAREN");}
 ;
 
 /*
@@ -545,10 +617,10 @@ simpleFunctionCall			{ $$ = $1; }
 */
 simpleFunctionCall :
 
-ID LPAREN functionArgs RPAREN				{ $$ = new ast::CallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *$3); delete $1;}
-| ID LBRACE functionArgs RBRACE				{ $$ = new ast::CellCallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *$3); delete $1;}
-| ID LPAREN RPAREN				            { $$ = new ast::CallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *new ast::exps_t); delete $1;}
-| ID LBRACE RBRACE				            { $$ = new ast::CellCallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *new ast::exps_t); delete $1;}
+ID LPAREN functionArgs RPAREN				{ $$ = new ast::CallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *$3); delete $1;print_rules("simpleFunctionCall", "ID LPAREN functionArgs RPAREN");}
+| ID LBRACE functionArgs RBRACE				{ $$ = new ast::CellCallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *$3); delete $1;print_rules("simpleFunctionCall", "ID LBRACE functionArgs RBRACE");}
+| ID LPAREN RPAREN				            { $$ = new ast::CallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *new ast::exps_t); delete $1;print_rules("simpleFunctionCall", "ID LPAREN RPAREN");}
+| ID LBRACE RBRACE				            { $$ = new ast::CellCallExp(@$, *new ast::SimpleVar(@1, symbol::Symbol(*$1)), *new ast::exps_t); delete $1;print_rules("simpleFunctionCall", "ID LBRACE RBRACE");}
 ;
 
 /*
@@ -571,67 +643,20 @@ ID LPAREN functionArgs RPAREN				{ $$ = new ast::CallExp(@$, *new ast::SimpleVar
 */
 /* What can be use in a function call */
 functionArgs :
-variable			{
-				  $$ = new ast::exps_t;
-				  $$->push_back($1);
-				}
-| functionCall			{
-				  $$ = new ast::exps_t;
-				  $$->push_back($1);
-				}
-| COLON				{
-				  $$ = new ast::exps_t;
-				  $$->push_back(new ast::ColonVar(@1));
-				}
-| variableDeclaration		{
-				  $$ = new ast::exps_t;
-				  $$->push_back($1);
-				}
-| COMMA {
-                  $$ = new ast::exps_t;
-				  $$->push_back(new ast::NilExp(@1));
-				  $$->push_back(new ast::NilExp(@1));
-                  }
-| COMMA variable	{
-				  $$ = new ast::exps_t;
-				  $$->push_back(new ast::NilExp(@1));
-                  $$->push_back($2);
-				}
-| COMMA functionCall {
-				  $$ = new ast::exps_t;
-				  $$->push_back(new ast::NilExp(@1));
-                  $$->push_back($2);
-				}
-| COMMA COLON	{
-				  $$ = new ast::exps_t;
-				  $$->push_back(new ast::NilExp(@1));
-                  $$->push_back(new ast::ColonVar(@2));
-				}
-| COMMA variableDeclaration {
-				  $$ = new ast::exps_t;
-				  $$->push_back(new ast::NilExp(@1));
-                  $$->push_back($2);
-				}
-| functionArgs COMMA {
-                  $1->push_back(new ast::NilExp(@2));
-				  $$ = $1;
-				}
-| functionArgs COMMA variable	{
-				  $1->push_back($3);
-				  $$ = $1;
-				}
-| functionArgs COMMA functionCall {
-				  $1->push_back($3);
-				  $$ = $1;
-				}
-| functionArgs COMMA COLON	{
-				  $1->push_back(new ast::ColonVar(@1));
-			      $$ = $1;
-				}
-| functionArgs COMMA variableDeclaration {
-				  $1->push_back($3);
-				  $$ = $1;
-				}
+variable			                        {$$ = new ast::exps_t;$$->push_back($1);print_rules("functionArgs", "variable");}
+| functionCall			                    {$$ = new ast::exps_t;$$->push_back($1);print_rules("functionArgs", "functionCall");}
+| COLON				                        {$$ = new ast::exps_t;$$->push_back(new ast::ColonVar(@1));print_rules("functionArgs", "COLON");}
+| variableDeclaration                       {$$ = new ast::exps_t;$$->push_back($1);print_rules("functionArgs", "variableDeclaration");}
+| COMMA                                     {$$ = new ast::exps_t;$$->push_back(new ast::NilExp(@1));$$->push_back(new ast::NilExp(@1));print_rules("functionArgs", "COMMA");}
+| COMMA variable	                        {$$ = new ast::exps_t;$$->push_back(new ast::NilExp(@1));$$->push_back($2);print_rules("functionArgs", "COMMA variable");}
+| COMMA functionCall                        {$$ = new ast::exps_t;$$->push_back(new ast::NilExp(@1));$$->push_back($2);print_rules("functionArgs", "COMMA functionCall");}
+| COMMA COLON	                            {$$ = new ast::exps_t;$$->push_back(new ast::NilExp(@1));$$->push_back(new ast::ColonVar(@2));print_rules("functionArgs", "COMMA COLON");}
+| COMMA variableDeclaration                 {$$ = new ast::exps_t;$$->push_back(new ast::NilExp(@1));$$->push_back($2);print_rules("functionArgs", "COMMA variableDeclaration");}
+| functionArgs COMMA                        {$1->push_back(new ast::NilExp(@2));$$ = $1;print_rules("functionArgs", "functionArgs COMMA");}
+| functionArgs COMMA variable	            {$1->push_back($3);$$ = $1;print_rules("functionArgs", "functionArgs COMMA variable");}
+| functionArgs COMMA functionCall           {$1->push_back($3);$$ = $1;print_rules("functionArgs", "functionArgs COMMA functionCall");}
+| functionArgs COMMA COLON	                {$1->push_back(new ast::ColonVar(@1));$$ = $1;print_rules("functionArgs", "functionArgs COMMA COLON");}
+| functionArgs COMMA variableDeclaration    {$1->push_back($3);$$ = $1;print_rules("functionArgs", "functionArgs COMMA variableDeclaration");}
 //| functionArgs COMMA {
 //                  $1->push_back(new ast::NilExp(@2));
 //				  $$ = $1;
@@ -648,6 +673,7 @@ variable			{
 /* How to declare a function */
 functionDeclaration :
 FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
+                  print_rules("functionDeclaration", "FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION");
 				  ast::exps_t* tmp = new ast::exps_t;
 				  tmp->push_back(new ast::SimpleVar(@2, symbol::Symbol(*$2)));
 				  $$ = new ast::FunctionDec(@$,
@@ -659,6 +685,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $4;
 				}
 | FUNCTION LBRACK functionDeclarationReturns RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
+                  print_rules("functionDeclaration", "FUNCTION LBRACK functionDeclarationReturns RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION");
 				  $$ = new ast::FunctionDec(@$,
 							    symbol::Symbol(*$6),
 							    *new ast::ArrayListVar(@7, *$7),
@@ -667,6 +694,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $6;
 				}
 | FUNCTION LBRACK RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
+                  print_rules("functionDeclaration", "FUNCTION LBRACK RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION");
 				  ast::exps_t* tmp = new ast::exps_t;
 				  $$ = new ast::FunctionDec(@$,
 							    symbol::Symbol(*$5),
@@ -676,6 +704,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $5;
 				}
 | FUNCTION ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION {
+                  print_rules("functionDeclaration", "FUNCTION ID functionDeclarationArguments functionDeclarationBreak functionBody ENDFUNCTION");
 				  ast::exps_t* tmp = new ast::exps_t;
 				  $$ = new ast::FunctionDec(@$,
 							    symbol::Symbol(*$2),
@@ -685,6 +714,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $2;
 				}
 | FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END {
+                  print_rules("functionDeclaration", "FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END ");
 				  ast::exps_t* tmp = new ast::exps_t;
 				  tmp->push_back(new ast::SimpleVar(@2, symbol::Symbol(*$2)));
 				  $$ = new ast::FunctionDec(@$,
@@ -696,6 +726,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $4;
 				}
 | FUNCTION LBRACK functionDeclarationReturns RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END {
+                  print_rules("functionDeclaration", "FUNCTION LBRACK functionDeclarationReturns RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END");
 				  $$ = new ast::FunctionDec(@$,
 							    symbol::Symbol(*$6),
 							    *new ast::ArrayListVar(@7, *$7),
@@ -704,6 +735,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $6;
 				}
 | FUNCTION LBRACK RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END {
+                  print_rules("functionDeclaration", "FUNCTION LBRACK RBRACK ASSIGN ID functionDeclarationArguments functionDeclarationBreak functionBody END");
 				  ast::exps_t* tmp = new ast::exps_t;
 				  $$ = new ast::FunctionDec(@$,
 							    symbol::Symbol(*$5),
@@ -713,6 +745,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 				  delete $5;
 				}
 | FUNCTION ID functionDeclarationArguments functionDeclarationBreak functionBody END {
+                  print_rules("functionDeclaration", "FUNCTION ID functionDeclarationArguments functionDeclarationBreak functionBody END");
 				  ast::exps_t* tmp = new ast::exps_t;
 				  $$ = new ast::FunctionDec(@$,
 							    symbol::Symbol(*$2),
@@ -728,7 +761,7 @@ FUNCTION ID ASSIGN ID functionDeclarationArguments functionDeclarationBreak func
 */
 /* Simple Forward to idList */
 functionDeclarationReturns :
-idList				{ $$ = $1; }
+idList				{ $$ = $1; print_rules("functionDeclarationReturns", "idList");}
 ;
 
 /*
@@ -736,9 +769,9 @@ idList				{ $$ = $1; }
 */
 /* Arguments passed to a function in it's declaration. */
 functionDeclarationArguments :
-LPAREN idList RPAREN		{ $$ = $2; }
-| LPAREN RPAREN			{ $$ = new ast::exps_t;	}
-| /* Epsilon */			{ $$ = new ast::exps_t;	}
+LPAREN idList RPAREN		{ $$ = $2; print_rules("functionDeclarationArguments", "LPAREN idList RPAREN");}
+| LPAREN RPAREN			{ $$ = new ast::exps_t;	print_rules("functionDeclarationArguments", "LPAREN RPAREN");}
+| /* Epsilon */			{ $$ = new ast::exps_t;	print_rules("functionDeclarationArguments", "Epsilon");}
 ;
 
 /*
@@ -747,11 +780,13 @@ LPAREN idList RPAREN		{ $$ = $2; }
 /* ID (,ID)* */
 idList:
 idList COMMA ID			{
+                  print_rules("idList", "idList COMMA ID");
 				  $1->push_back(new ast::SimpleVar(@3, symbol::Symbol(*$3)));
 				  delete $3;
 				  $$ = $1;
 				}
 | ID				{
+                  print_rules("idList", "ID");
 				  $$ = new ast::exps_t;
 				  $$->push_back(new ast::SimpleVar(@$, symbol::Symbol(*$1)));
 				  delete $1;
@@ -763,11 +798,11 @@ idList COMMA ID			{
 */
 /* Fake Rule : How can we be sure this is the 'function' prototype ending */
 functionDeclarationBreak :
-lineEnd				{ /* !! Do Nothing !! */ }
-| SEMI				{ /* !! Do Nothing !! */ }
-| SEMI EOL			{ /* !! Do Nothing !! */ }
-| COMMA				{ /* !! Do Nothing !! */ }
-| COMMA EOL			{ /* !! Do Nothing !! */ }
+lineEnd				{ /* !! Do Nothing !! */ print_rules("functionDeclarationBreak", "lineEnd");}
+| SEMI				{ /* !! Do Nothing !! */ print_rules("functionDeclarationBreak", "SEMI");}
+| SEMI EOL			{ /* !! Do Nothing !! */ print_rules("functionDeclarationBreak", "SEMI EOL");}
+| COMMA				{ /* !! Do Nothing !! */ print_rules("functionDeclarationBreak", "COMMA");}
+| COMMA EOL			{ /* !! Do Nothing !! */ print_rules("functionDeclarationBreak", "COMMA EOL");}
 ;
 
 /*
@@ -776,17 +811,19 @@ lineEnd				{ /* !! Do Nothing !! */ }
 /* What may content a function */
 functionBody :
 expressions			{
+                        print_rules("functionBody", "expressions");
                         $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
                         $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
                         $$ = $1;
                     }
 | /* Epsilon */		{
-				  ast::exps_t* tmp = new ast::exps_t;
-				  #ifdef BUILD_DEBUG_AST
-				    tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty function body")));
-				  #endif
-				  $$ = new ast::SeqExp(@$, *tmp);
-				}
+                        print_rules("functionBody", "Epsilon");
+                        ast::exps_t* tmp = new ast::exps_t;
+                        #ifdef BUILD_DEBUG_AST
+                            tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty function body")));
+                        #endif
+                        $$ = new ast::SeqExp(@$, *tmp);
+                    }
 ;
 
 /*
@@ -794,8 +831,8 @@ expressions			{
 */
 /* Condition for tests in Control Loop */
 condition :
-functionCall	%prec HIGHLEVEL		{ $$ = $1; }
-| variable	%prec HIGHLEVEL		{ $$ = $1; }
+functionCall	%prec HIGHLEVEL		{ $$ = $1; print_rules("condition", "functionCall");}
+| variable	%prec HIGHLEVEL		{ $$ = $1; print_rules("condition", "variable");}
 ;
 
 /*
@@ -804,12 +841,14 @@ functionCall	%prec HIGHLEVEL		{ $$ = $1; }
 /* a way to compare two expressions */
 comparison :
 variable rightComparable		{
+                      print_rules("comparison", "variable rightComparable");
 					  delete &($2->getLeft());
 					  $2->setLeft(*$1);
 					  $2->setLocation(@$);
 					  $$ = $2;
 					}
 | functionCall rightComparable		{
+                      print_rules("comparison", "functionCall rightComparable");
 					  delete &($2->getLeft());
 					  $2->setLeft(*$1);
 					  $2->setLocation(@$);
@@ -823,45 +862,45 @@ variable rightComparable		{
 /* rightComparable for comparison */
 rightComparable :
 /* & */
-AND variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalAnd, *$2); }
-| AND functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalAnd, *$2); }
-| AND COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalAnd, * new ast::ColonVar(@$)); }
+AND variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalAnd, *$2); print_rules("rightComparable", "AND variable");}
+| AND functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalAnd, *$2); print_rules("rightComparable", "AND functionCall");}
+| AND COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalAnd, * new ast::ColonVar(@$)); print_rules("rightComparable", "AND COLON");}
 /* && */
-| ANDAND variable			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutAnd, *$2); }
-| ANDAND functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutAnd, *$2); }
-| ANDAND COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutAnd, * new ast::ColonVar(@$)); }
+| ANDAND variable			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutAnd, *$2); print_rules("rightComparable", "ANDAND variable");}
+| ANDAND functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutAnd, *$2); print_rules("rightComparable", "ANDAND functionCall");}
+| ANDAND COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutAnd, * new ast::ColonVar(@$)); print_rules("rightComparable", "ANDAND COLON");}
 /* | */
-| OR variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalOr, *$2); }
-| OR functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalOr, *$2); }
-| OR COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalOr, * new ast::ColonVar(@$)); }
+| OR variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalOr, *$2); print_rules("rightComparable", "OR variable");}
+| OR functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalOr, *$2); print_rules("rightComparable", "OR functionCall");}
+| OR COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalOr, * new ast::ColonVar(@$)); print_rules("rightComparable", "OR COLON");}
 /* || */
-| OROR variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutOr, *$2); }
-| OROR functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutOr, *$2); }
-| OROR COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutOr, * new ast::ColonVar(@$)); }
+| OROR variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutOr, *$2); print_rules("rightComparable", "OROR variable");}
+| OROR functionCall			{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutOr, *$2); print_rules("rightComparable", "OROR functionCall");}
+| OROR COLON				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::LogicalOpExp::logicalShortCutOr, * new ast::ColonVar(@$)); print_rules("rightComparable", "OROR COLON");}
 /* == */
-| EQ variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::eq, *$2); }
-| EQ functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::eq, *$2); }
-| EQ COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::eq, * new ast::ColonVar(@$)); }
+| EQ variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::eq, *$2); print_rules("rightComparable", "EQ variable");}
+| EQ functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::eq, *$2); print_rules("rightComparable", "EQ functionCall");}
+| EQ COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::eq, * new ast::ColonVar(@$)); print_rules("rightComparable", "EQ COLON");}
 /* ~= */
-| NE variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ne, *$2); }
-| NE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ne, *$2); }
-| NE COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ne, * new ast::ColonVar(@$)); }
+| NE variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ne, *$2); print_rules("rightComparable", "NE variable");}
+| NE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ne, *$2); print_rules("rightComparable", "NE functionCall");}
+| NE COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ne, * new ast::ColonVar(@$)); print_rules("rightComparable", "NE COLON");}
 /* > */
-| GT variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::gt, *$2); }
-| GT functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::gt, *$2); }
-| GT COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::gt, * new ast::ColonVar(@$)); }
+| GT variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::gt, *$2); print_rules("rightComparable", "GT variable");}
+| GT functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::gt, *$2); print_rules("rightComparable", "GT functionCall");}
+| GT COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::gt, * new ast::ColonVar(@$)); print_rules("rightComparable", "GT COLON");}
 /* < */
-| LT variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::lt, *$2); }
-| LT functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::lt, *$2); }
-| LT COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::lt, * new ast::ColonVar(@$)); }
+| LT variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::lt, *$2); print_rules("rightComparable", "LT variable");}
+| LT functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::lt, *$2); print_rules("rightComparable", "LT functionCall");}
+| LT COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::lt, * new ast::ColonVar(@$)); print_rules("rightComparable", "LT COLON");}
 /* >= */
-| GE variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ge, *$2); }
-| GE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ge, *$2); }
-| GE COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ge, * new ast::ColonVar(@$)); }
+| GE variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ge, *$2); print_rules("rightComparable", "GE variable");}
+| GE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ge, *$2); print_rules("rightComparable", "GE functionCall");}
+| GE COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ge, * new ast::ColonVar(@$)); print_rules("rightComparable", "GE COLON");}
 /* <= */
-| LE variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::le, *$2); }
-| LE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::le, *$2); }
-| LE COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::le, * new ast::ColonVar(@$)); }
+| LE variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::le, *$2); print_rules("rightComparable", "LE variable");}
+| LE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::le, *$2); print_rules("rightComparable", "LE functionCall");}
+| LE COLON				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::le, * new ast::ColonVar(@$)); print_rules("rightComparable", "LE COLON");}
 ;
 
 /*
@@ -870,33 +909,35 @@ AND variable				{ $$ = new ast::LogicalOpExp(@$, *new ast::CommentExp(@$, new st
 /* Operations */
 operation :
 variable rightOperand			{
+                      print_rules("operation", "rightOperand");
 					  delete &($2->getLeft());
 					  $2->setLeft(*$1);
 					  $2->setLocation(@$);
 					  $$ = $2;
 					}
 | functionCall rightOperand		{
+                      print_rules("operation", "functionCall rightOperand");
 					  delete &($2->getLeft());
 					  $2->setLeft(*$1);
 					  $2->setLocation(@$);
 					  $$ = $2;
 					}
-| MINUS variable        %prec UMINUS    { if ($2->isDoubleExp()) { $$ = $2->getAs<ast::DoubleExp>()->neg(); } else { $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); } }
-| MINUS functionCall    %prec UMINUS    { $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); }
-| PLUS variable				            { $$ = $2; }
-| PLUS functionCall			            { $$ = $2; }
-| variable POWER variable		        { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); }
-| variable POWER functionCall		    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); }
-| functionCall POWER variable		    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); }
-| functionCall POWER functionCall	    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); }
-| variable DOTPOWER variable		    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); }
-| variable DOTPOWER functionCall	    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); }
-| functionCall DOTPOWER variable	    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); }
-| functionCall DOTPOWER functionCall	{ $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); }
-| variable QUOTE			            { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_Conjugate_); }
-| variable DOTQUOTE			            { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_NonConjugate_); }
-| functionCall QUOTE			        { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_Conjugate_); }
-| functionCall DOTQUOTE			        { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_NonConjugate_); }
+| MINUS variable        %prec UMINUS    { if ($2->isDoubleExp()) { $$ = $2->getAs<ast::DoubleExp>()->neg(); } else { $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); } print_rules("operation", "MINUS variable");}
+| MINUS functionCall    %prec UMINUS    { $$ = new ast::OpExp(@$, *new ast::DoubleExp(@$, 0.0), ast::OpExp::unaryMinus, *$2); print_rules("operation", "MINUS functionCall");}
+| PLUS variable				            { $$ = $2; print_rules("operation", "PLUS variable");}
+| PLUS functionCall			            { $$ = $2; print_rules("operation", "PLUS functionCall");}
+| variable POWER variable		        { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); print_rules("operation", "variable POWER variable");}
+| variable POWER functionCall		    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); print_rules("operation", "variable POWER functionCall");}
+| functionCall POWER variable		    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); print_rules("operation", "functionCall POWER variable");}
+| functionCall POWER functionCall	    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::power, *$3); print_rules("operation", "functionCall POWER functionCall");}
+| variable DOTPOWER variable		    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); print_rules("operation", "variable DOTPOWER variable");}
+| variable DOTPOWER functionCall	    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); print_rules("operation", "variable DOTPOWER functionCall");}
+| functionCall DOTPOWER variable	    { $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); print_rules("operation", "functionCall DOTPOWER variable");}
+| functionCall DOTPOWER functionCall	{ $$ = new ast::OpExp(@$, *$1, ast::OpExp::dotpower, *$3); print_rules("operation", "functionCall DOTPOWER functionCall");}
+| variable QUOTE			            { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_Conjugate_); print_rules("operation", "variable QUOTE");}
+| variable DOTQUOTE			            { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_NonConjugate_); print_rules("operation", "variable DOTQUOTE");}
+| functionCall QUOTE			        { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_Conjugate_); print_rules("operation", "functionCall QUOTE");}
+| functionCall DOTQUOTE			        { $$ = new ast::TransposeExp(@$, *$1, ast::TransposeExp::_NonConjugate_); print_rules("operation", "functionCall DOTQUOTE");}
 ;
 
 /*
@@ -905,38 +946,38 @@ variable rightOperand			{
 /* rightOperand for operation */
 rightOperand :
 /*   '+'   '.+'   '.+.'?   */
-PLUS variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::plus, *$2); }
-| PLUS functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::plus, *$2); }
+PLUS variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::plus, *$2); print_rules("rightOperand", "PLUS variable");}
+| PLUS functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::plus, *$2); print_rules("rightOperand", "PLUS functionCall");}
 /*   '-'   '.-'   */
-| MINUS variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::minus, *$2); }
-| MINUS functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::minus, *$2); }
+| MINUS variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::minus, *$2); print_rules("rightOperand", "MINUS variable");}
+| MINUS functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::minus, *$2); print_rules("rightOperand", "MINUS functionCall");}
 /*   '*'   '.*'   '.*.'   '*.'   */
-| TIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::times, *$2); }
-| TIMES functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::times, *$2); }
-| DOTTIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dottimes, *$2); }
-| DOTTIMES functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dottimes, *$2); }
-| KRONTIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::krontimes, *$2); }
-| KRONTIMES functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::krontimes, *$2); }
-| CONTROLTIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controltimes, *$2); }
-| CONTROLTIMES functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controltimes, *$2); }
+| TIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::times, *$2); print_rules("rightOperand", "TIMES variable");}
+| TIMES functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::times, *$2); print_rules("rightOperand", "TIMES functionCall");}
+| DOTTIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dottimes, *$2); print_rules("rightOperand", "DOTTIMES variable");}
+| DOTTIMES functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dottimes, *$2); print_rules("rightOperand", "DOTTIMES functionCall");}
+| KRONTIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::krontimes, *$2); print_rules("rightOperand", "KRONTIMES variable");}
+| KRONTIMES functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::krontimes, *$2); print_rules("rightOperand", "KRONTIMES functionCall");}
+| CONTROLTIMES variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controltimes, *$2); print_rules("rightOperand", "CONTROLTIMES variable");}
+| CONTROLTIMES functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controltimes, *$2); print_rules("rightOperand", "CONTROLTIMES functionCall	");}
 /*   '/'   './'   './.'   '/.'   */
-| RDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::rdivide, *$2); }
-| RDIVIDE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::rdivide, *$2); }
-| DOTRDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotrdivide, *$2); }
-| DOTRDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotrdivide, *$2); }
-| KRONRDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronrdivide, *$2); }
-| KRONRDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronrdivide, *$2); }
-| CONTROLRDIVIDE variable		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlrdivide, *$2); }
-| CONTROLRDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlrdivide, *$2); }
+| RDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::rdivide, *$2); print_rules("rightOperand", "RDIVIDE variable");}
+| RDIVIDE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::rdivide, *$2); print_rules("rightOperand", "RDIVIDE functionCall");}
+| DOTRDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotrdivide, *$2); print_rules("rightOperand", "DOTRDIVIDE variable");}
+| DOTRDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotrdivide, *$2); print_rules("rightOperand", "DOTRDIVIDE functionCall");}
+| KRONRDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronrdivide, *$2); print_rules("rightOperand", "KRONRDIVIDE variable");}
+| KRONRDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronrdivide, *$2); print_rules("rightOperand", "KRONRDIVIDE functionCall");}
+| CONTROLRDIVIDE variable		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlrdivide, *$2); print_rules("rightOperand", "CONTROLRDIVIDE variable");}
+| CONTROLRDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlrdivide, *$2); print_rules("rightOperand", "CONTROLRDIVIDE functionCall");}
 /*   '\'   '.\'   '.\.'   '\.'   */
-| LDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ldivide, *$2); }
-| LDIVIDE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ldivide, *$2); }
-| DOTLDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotldivide, *$2); }
-| DOTLDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotldivide, *$2); }
-| KRONLDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronldivide, *$2); }
-| KRONLDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronldivide, *$2); }
-| CONTROLLDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlldivide, *$2); }
-| CONTROLLDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlldivide, *$2); }
+| LDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ldivide, *$2); print_rules("rightOperand", "LDIVIDE variable");}
+| LDIVIDE functionCall			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::ldivide, *$2); print_rules("rightOperand", "LDIVIDE functionCall");}
+| DOTLDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotldivide, *$2); print_rules("rightOperand", "DOTLDIVIDE variable");}
+| DOTLDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::dotldivide, *$2); print_rules("rightOperand", "DOTLDIVIDE functionCall");}
+| KRONLDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronldivide, *$2); print_rules("rightOperand", "KRONLDIVIDE variable");}
+| KRONLDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::kronldivide, *$2); print_rules("rightOperand", "KRONLDIVIDE functionCall");}
+| CONTROLLDIVIDE variable			{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlldivide, *$2); print_rules("rightOperand", "CONTROLLDIVIDE variable");}
+| CONTROLLDIVIDE functionCall		{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), ast::OpExp::controlldivide, *$2); print_rules("rightOperand", "CONTROLLDIVIDE functionCall");}
 ;
 
 /*
@@ -944,8 +985,8 @@ PLUS variable				{ $$ = new ast::OpExp(@$, *new ast::CommentExp(@$, new std::wst
 */
 /* May have no stride in the list, assume it is 1. */
 listableBegin :
-COLON variable				{ $$ = $2; }
-| COLON functionCall			{ $$ = $2; }
+COLON variable				{ $$ = $2; print_rules("listableBegin", "COLON variable");}
+| COLON functionCall			{ $$ = $2; print_rules("listableBegin", "COLON functionCall");}
 ;
 
 /*
@@ -953,9 +994,9 @@ COLON variable				{ $$ = $2; }
 */
 /* Stride parameter or not. */
 listableEnd :
-listableBegin COLON variable		{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), *$1, *$3, true); }
-| listableBegin COLON functionCall	{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), *$1, *$3, true); }
-| listableBegin %prec LISTABLE		{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), *new ast::DoubleExp(@$, 1.0), *$1); }
+listableBegin COLON variable		{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), *$1, *$3, true); print_rules("listableEnd", "listableBegin COLON variable");}
+| listableBegin COLON functionCall	{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), *$1, *$3, true); print_rules("listableEnd", "listableBegin COLON functionCall");}
+| listableBegin %prec LISTABLE		{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@$, new std::wstring(L"Should not stay in that state")), *new ast::DoubleExp(@$, 1.0), *$1); print_rules("listableEnd", "listableBegin ");}
 ;
 
 /*
@@ -963,46 +1004,50 @@ listableBegin COLON variable		{ $$ = new ast::ListExp(@$, *new ast::CommentExp(@
 */
 /* Variables */
 variable :
-NOT variable				%prec NOT	{ $$ = new ast::NotExp(@$, *$2); }
-| NOT functionCall			%prec NOT	{ $$ = new ast::NotExp(@$, *$2); }
-| variable DOT ID			%prec UPLEVEL	{ $$ = new ast::FieldExp(@$, *$1, *new ast::SimpleVar(@$, symbol::Symbol(*$3))); delete $3;}
-| variable DOT keywords 	%prec UPLEVEL	{ $$ = new ast::FieldExp(@$, *$1, *$3); }
+NOT variable				%prec NOT	{ $$ = new ast::NotExp(@$, *$2); print_rules("variable", "NOT variable");}
+| NOT functionCall			%prec NOT	{ $$ = new ast::NotExp(@$, *$2); print_rules("variable", "NOT functionCall");}
+| variable DOT ID			%prec UPLEVEL	{ $$ = new ast::FieldExp(@$, *$1, *new ast::SimpleVar(@$, symbol::Symbol(*$3))); delete $3;print_rules("variable", "variable DOT ID");}
+| variable DOT keywords 	%prec UPLEVEL	{ $$ = new ast::FieldExp(@$, *$1, *$3); print_rules("variable", "variable DOT keywords");}
 | variable DOT functionCall				{
+                                print_rules("variable", "variable DOT functionCall");
 							  $3->setName(new ast::FieldExp(@$, *$1, $3->getName()));
 							  $3->setLocation(@$);
 							  $$ = $3;
 }
-| functionCall DOT variable				{ $$ = new ast::FieldExp(@$, *$1, *$3); }
-| functionCall DOT keywords				{ $$ = new ast::FieldExp(@$, *$1, *$3); }
+| functionCall DOT variable				{ $$ = new ast::FieldExp(@$, *$1, *$3); print_rules("variable", "functionCall DOT variable");}
+| functionCall DOT keywords				{ $$ = new ast::FieldExp(@$, *$1, *$3); print_rules("variable", "functionCall DOT keywords");}
 | functionCall DOT functionCall				{
+                                print_rules("variable", "functionCall DOT functionCall");
 							  $3->setName(new ast::FieldExp(@$, *$1, $3->getName()));
 							  $3->setLocation(@$);
 							  $$ = $3;
 }
 | variable listableEnd					{
+    print_rules("variable", "variable listableEnd");
     $$ = new ast::ListExp(@$, *$1, *($2->getStep().clone()), *($2->getEnd().clone()), $2->hasExplicitStep());
     delete($2);
 }
 | functionCall listableEnd		%prec UPLEVEL	{
+    print_rules("variable", "functionCall listableEnd");
     $$ = new ast::ListExp(@$, *$1, *($2->getStep().clone()), *($2->getEnd().clone()), $2->hasExplicitStep());
     delete($2);
 }
-| matrix						{ $$ = $1; }
-| cell							{ $$ = $1; }
-| operation				%prec UPLEVEL		{ $$ = $1; }
-| ID					%prec LISTABLE	{ $$ = new ast::SimpleVar(@$, symbol::Symbol(*$1)); delete $1;}
-| VARINT				%prec LISTABLE	{ $$ = new ast::DoubleExp(@$, $1); }
-| NUM					%prec LISTABLE	{ $$ = new ast::DoubleExp(@$, $1); }
-| VARFLOAT						{ $$ = new ast::DoubleExp(@$, $1); }
-| STR							{ $$ = new ast::StringExp(@$, *$1); delete $1;}
-| DOLLAR						{ $$ = new ast::DollarVar(@$); }
-| BOOLTRUE				%prec BOOLTRUE	{ $$ = new ast::BoolExp(@$, true); }
-| BOOLFALSE				%prec BOOLFALSE	{ $$ = new ast::BoolExp(@$, false); }
-| LPAREN variable RPAREN				{ $$ = $2; }
-| LPAREN variableFields RPAREN				{ $$ = new ast::ArrayListExp(@$, *$2); }
-| comparison						{ $$ = $1; }
-| variable LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); }
-| functionCall LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); }
+| matrix						{ $$ = $1; print_rules("variable", "matrix");}
+| cell							{ $$ = $1; print_rules("variable", "cell");}
+| operation				%prec UPLEVEL		{ $$ = $1; print_rules("variable", "operation");}
+| ID					%prec LISTABLE	{ $$ = new ast::SimpleVar(@$, symbol::Symbol(*$1)); delete $1;print_rules("variable", "ID");}
+| VARINT				%prec LISTABLE	{ $$ = new ast::DoubleExp(@$, $1); print_rules("variable", "VARINT");}
+| NUM					%prec LISTABLE	{ $$ = new ast::DoubleExp(@$, $1); print_rules("variable", "NUM");}
+| VARFLOAT						{ $$ = new ast::DoubleExp(@$, $1); print_rules("variable", "VARFLOAT");}
+| STR							{ $$ = new ast::StringExp(@$, *$1); delete $1;print_rules("variable", "STR");}
+| DOLLAR						{ $$ = new ast::DollarVar(@$); print_rules("variable", "DOLLAR");}
+| BOOLTRUE				%prec BOOLTRUE	{ $$ = new ast::BoolExp(@$, true); print_rules("variable", "BOOLTRUE");}
+| BOOLFALSE				%prec BOOLFALSE	{ $$ = new ast::BoolExp(@$, false); print_rules("variable", "BOOLFALSE");}
+| LPAREN variable RPAREN				{ $$ = $2; print_rules("variable", "LPAREN variable RPAREN");}
+| LPAREN variableFields RPAREN				{ $$ = new ast::ArrayListExp(@$, *$2); print_rules("variable", "LPAREN variableFields RPAREN");}
+| comparison						{ $$ = $1; print_rules("variable", "comparison");}
+| variable LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); print_rules("variable", "variable LPAREN functionArgs RPAREN");}
+| functionCall LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); print_rules("variable", "functionCall LPAREN functionArgs RPAREN");}
 ;
 
 /*
@@ -1011,29 +1056,35 @@ NOT variable				%prec NOT	{ $$ = new ast::NotExp(@$, *$2); }
 /* variable (, variable)+ */
 variableFields :
 variableFields COMMA variable		{
+                    print_rules("variableFields", "variableFields COMMA variable");
 					  $1->push_back($3);
 					  $$ = $1;
 					}
 | variableFields COMMA functionCall	{
+                    print_rules("variableFields", "variableFields COMMA functionCall");
 					  $1->push_back($3);
 					  $$ = $1;
 					}
 | variable COMMA variable		{
+                      print_rules("variableFields", "variable COMMA variable");
 					  $$ = new ast::exps_t;
 					  $$->push_back($1);
 					  $$->push_back($3);
 					}
 | functionCall COMMA functionCall	{
+                      print_rules("variableFields", "functionCall COMMA functionCall");
 					  $$ = new ast::exps_t;
 					  $$->push_back($1);
 					  $$->push_back($3);
 					}
 | functionCall COMMA variable		{
+                      print_rules("variableFields", "functionCall COMMA variable");
 					  $$ = new ast::exps_t;
 					  $$->push_back($1);
 					  $$->push_back($3);
 					}
 | variable COMMA functionCall		{
+                      print_rules("variableFields", "variable COMMA functionCall");
 					  $$ = new ast::exps_t;
 					  $$->push_back($1);
 					  $$->push_back($3);
@@ -1044,28 +1095,32 @@ variableFields COMMA variable		{
 ** -*- CELL -*-
 */
 cell :
-LBRACE matrixOrCellLines RBRACE					{ $$ = new ast::CellExp(@$, *$2); }
-| LBRACE EOL matrixOrCellLines RBRACE			{ $$ = new ast::CellExp(@$, *$3); }
+LBRACE matrixOrCellLines RBRACE					{ $$ = new ast::CellExp(@$, *$2); print_rules("cell", "LBRACE matrixOrCellLines RBRACE");}
+| LBRACE EOL matrixOrCellLines RBRACE			{ $$ = new ast::CellExp(@$, *$3); print_rules("cell", "variable COMMA functionCall");}
 | LBRACE matrixOrCellLines matrixOrCellColumns RBRACE			{
+                                  print_rules("cell", "LBRACE matrixOrCellLines matrixOrCellColumns RBRACE");
 								  $2->push_back(new ast::MatrixLineExp(@3, *$3));
 								  $$ = new ast::CellExp(@$, *$2);
 								}
 | LBRACE EOL matrixOrCellLines matrixOrCellColumns RBRACE		{
+                                  print_rules("cell", "LBRACE EOL matrixOrCellLines matrixOrCellColumns RBRACE");
 								  $3->push_back(new ast::MatrixLineExp(@4, *$4));
 								  $$ = new ast::CellExp(@$, *$3);
 								}
 | LBRACE matrixOrCellColumns RBRACE					{
+                                  print_rules("cell", "LBRACE matrixOrCellColumns RBRACE");
 								  ast::exps_t* tmp = new ast::exps_t;
 								  tmp->push_back(new ast::MatrixLineExp(@2, *$2));
 								  $$ = new ast::CellExp(@$, *tmp);
 								}
 | LBRACE EOL matrixOrCellColumns RBRACE				{
+                                  print_rules("cell", "LBRACE EOL matrixOrCellColumns RBRACE");
 								  ast::exps_t* tmp = new ast::exps_t;
 								  tmp->push_back(new ast::MatrixLineExp(@3, *$3));
 								  $$ = new ast::CellExp(@$, *tmp);
                                 }
-| LBRACE EOL RBRACE						{ ast::exps_t* tmp = new ast::exps_t;$$ = new ast::CellExp(@$, *tmp); }
-| LBRACE RBRACE							{ ast::exps_t* tmp = new ast::exps_t;$$ = new ast::CellExp(@$, *tmp); }
+| LBRACE EOL RBRACE						{ ast::exps_t* tmp = new ast::exps_t;$$ = new ast::CellExp(@$, *tmp); print_rules("cell", "LBRACE EOL RBRACE");}
+| LBRACE RBRACE							{ ast::exps_t* tmp = new ast::exps_t;$$ = new ast::CellExp(@$, *tmp); print_rules("cell", "LBRACE RBRACE");}
 ;
 
 
@@ -1074,28 +1129,14 @@ LBRACE matrixOrCellLines RBRACE					{ $$ = new ast::CellExp(@$, *$2); }
 */
 /* How Matrix are written */
 matrix :
-LBRACK matrixOrCellLines RBRACK					{ $$ = new ast::MatrixExp(@$, *$2); }
-| LBRACK EOL matrixOrCellLines RBRACK				{ $$ = new ast::MatrixExp(@$, *$3); }
-| LBRACK matrixOrCellLines matrixOrCellColumns RBRACK			{
-								  $2->push_back(new ast::MatrixLineExp(@3, *$3));
-								  $$ = new ast::MatrixExp(@$, *$2);
-								}
-| LBRACK EOL matrixOrCellLines matrixOrCellColumns RBRACK		{
-								  $3->push_back(new ast::MatrixLineExp(@4, *$4));
-								  $$ = new ast::MatrixExp(@$, *$3);
-								}
-| LBRACK matrixOrCellColumns RBRACK					{
-								  ast::exps_t* tmp = new ast::exps_t;
-								  tmp->push_back(new ast::MatrixLineExp(@2, *$2));
-								  $$ = new ast::MatrixExp(@$, *tmp);
-								}
-| LBRACK EOL matrixOrCellColumns RBRACK				{
-								  ast::exps_t* tmp = new ast::exps_t;
-								  tmp->push_back(new ast::MatrixLineExp(@3, *$3));
-								  $$ = new ast::MatrixExp(@$, *tmp);
-								}
-| LBRACK EOL RBRACK						{ ast::exps_t* tmp = new ast::exps_t;$$ = new ast::MatrixExp(@$, *tmp); }
-| LBRACK RBRACK							{ ast::exps_t* tmp = new ast::exps_t;$$ = new ast::MatrixExp(@$, *tmp); }
+LBRACK matrixOrCellLines RBRACK					            {$$ = new ast::MatrixExp(@$, *$2); print_rules("matrix", "LBRACK matrixOrCellLines RBRACK");}
+| LBRACK EOL matrixOrCellLines RBRACK				        {$$ = new ast::MatrixExp(@$, *$3); print_rules("matrix", "LBRACK EOL matrixOrCellLines RBRACK");}
+| LBRACK matrixOrCellLines matrixOrCellColumns RBRACK	    {$2->push_back(new ast::MatrixLineExp(@3, *$3));$$ = new ast::MatrixExp(@$, *$2);print_rules("matrix", "LBRACK matrixOrCellLines matrixOrCellColumns RBRACK");}
+| LBRACK EOL matrixOrCellLines matrixOrCellColumns RBRACK   {$3->push_back(new ast::MatrixLineExp(@4, *$4));$$ = new ast::MatrixExp(@$, *$3);print_rules("matrix", "BRACK EOL matrixOrCellLines matrixOrCellColumns RBRACK");}
+| LBRACK matrixOrCellColumns RBRACK					        {ast::exps_t* tmp = new ast::exps_t;tmp->push_back(new ast::MatrixLineExp(@2, *$2));$$ = new ast::MatrixExp(@$, *tmp);print_rules("matrix", "LBRACK matrixOrCellColumns RBRACK");}
+| LBRACK EOL matrixOrCellColumns RBRACK				        {ast::exps_t* tmp = new ast::exps_t;tmp->push_back(new ast::MatrixLineExp(@3, *$3));$$ = new ast::MatrixExp(@$, *tmp);print_rules("matrix", "LBRACK EOL matrixOrCellColumns RBRACK");}
+| LBRACK EOL RBRACK						                    {ast::exps_t* tmp = new ast::exps_t;$$ = new ast::MatrixExp(@$, *tmp); print_rules("matrix", "LBRACK EOL RBRACK");}
+| LBRACK RBRACK							                    {ast::exps_t* tmp = new ast::exps_t;$$ = new ast::MatrixExp(@$, *tmp); print_rules("matrix", "LBRACK RBRACK");}
 ;
 
 /*
@@ -1103,14 +1144,8 @@ LBRACK matrixOrCellLines RBRACK					{ $$ = new ast::MatrixExp(@$, *$2); }
 */
 /* Matrix or Cell Lines : matrixOrCellLine (matrixOrCellline)* */
 matrixOrCellLines :
-matrixOrCellLines matrixOrCellLine	{
-					  $1->push_back($2);
-					  $$ = $1;
-					}
-| matrixOrCellLine			{
-					  $$ = new ast::exps_t;
-					  $$->push_back($1);
-					}
+matrixOrCellLines matrixOrCellLine	{$1->push_back($2);$$ = $1;print_rules("matrixOrCellLines", "matrixOrCellLines matrixOrCellLine");}
+| matrixOrCellLine			{$$ = new ast::exps_t;$$->push_back($1);print_rules("matrixOrCellLines", "matrixOrCellLine");}
 //| matrixOrCellLines lineEnd {}
 //| COMMENT EOL {}
 ;
@@ -1120,10 +1155,10 @@ matrixOrCellLines matrixOrCellLine	{
 */
 /* Fake Rule : How can we be sure this is a line ending in a Matrix/Cell */
 matrixOrCellLineBreak :
-SEMI                            { /* !! Do Nothing !! */ }
-| EOL                           { /* !! Do Nothing !! */ }
-| matrixOrCellLineBreak EOL     { /* !! Do Nothing !! */ }
-| matrixOrCellLineBreak SEMI    { /* !! Do Nothing !! */ }
+SEMI                            { /* !! Do Nothing !! */ print_rules("matrixOrCellLineBreak", "SEMI");}
+| EOL                           { /* !! Do Nothing !! */ print_rules("matrixOrCellLineBreak", "EOL");}
+| matrixOrCellLineBreak EOL     { /* !! Do Nothing !! */ print_rules("matrixOrCellLineBreak", "matrixOrCellLineBreak EOL");}
+| matrixOrCellLineBreak SEMI    { /* !! Do Nothing !! */ print_rules("matrixOrCellLineBreak", "matrixOrCellLineBreak SEMI");}
 ;
 
 /*
@@ -1131,8 +1166,8 @@ SEMI                            { /* !! Do Nothing !! */ }
 */
 /* Some matrix/cell columns with a special matrix/cell line break at the end */
 matrixOrCellLine :
-matrixOrCellColumns matrixOrCellLineBreak                               { $$ = new ast::MatrixLineExp(@$, *$1); }
-| matrixOrCellColumns matrixOrCellColumnsBreak matrixOrCellLineBreak	{ $$ = new ast::MatrixLineExp(@$, *$1); }
+matrixOrCellColumns matrixOrCellLineBreak                               { $$ = new ast::MatrixLineExp(@$, *$1); print_rules("matrixOrCellLine", "matrixOrCellColumns matrixOrCellLineBreak ");}
+| matrixOrCellColumns matrixOrCellColumnsBreak matrixOrCellLineBreak	{ $$ = new ast::MatrixLineExp(@$, *$1); print_rules("matrixOrCellLine", "matrixOrCellColumns matrixOrCellColumnsBreak matrixOrCellLineBreak");}
 ;
 
 /*
@@ -1140,38 +1175,14 @@ matrixOrCellColumns matrixOrCellLineBreak                               { $$ = n
 */
 /* Matrix or Cell Columns : [variable|functinoCall] ([,|][variable|functionCall])* */
 matrixOrCellColumns :
-matrixOrCellColumns matrixOrCellColumnsBreak variable       %prec HIGHLEVEL {
-                                                                                $1->push_back($3);
-                                                                                $$ = $1;
-                                                                            }
-| matrixOrCellColumns matrixOrCellColumnsBreak functionCall	%prec HIGHLEVEL {
-                                                                                $1->push_back($3);
-                                                                                $$ = $1;
-                                                                            }
-| matrixOrCellColumns variable                              %prec HIGHLEVEL {
-                                                                                $1->push_back($2);
-                                                                                $$ = $1;
-                                                                            }
-| matrixOrCellColumns functionCall                          %prec HIGHLEVEL {
-                                                                                $1->push_back($2);
-                                                                                $$ = $1;
-                                                                            }
-| matrixOrCellColumns COMMENT                               %prec HIGHLEVEL {
-                                                                                $1->push_back(new ast::CommentExp(@2, $2));
-                                                                                $$ = $1;
-                                                                            }
-| variable                                                  %prec HIGHLEVEL {
-                                                                                $$ = new ast::exps_t;
-                                                                                $$->push_back($1);
-                                                                            }
-| functionCall                                              %prec HIGHLEVEL {
-                                                                                $$ = new ast::exps_t;
-                                                                                $$->push_back($1);
-                                                                            }
-| COMMENT                                                                   {
-                                                                                $$ = new ast::exps_t;
-                                                                                $$->push_back(new ast::CommentExp(@$, $1));
-                                                                            }
+matrixOrCellColumns matrixOrCellColumnsBreak variable       %prec HIGHLEVEL {$1->push_back($3);$$ = $1;print_rules("matrixOrCellColumns", "matrixOrCellColumns matrixOrCellColumnsBreak variable");}
+| matrixOrCellColumns matrixOrCellColumnsBreak functionCall	%prec HIGHLEVEL {$1->push_back($3);$$ = $1;print_rules("matrixOrCellColumns", "matrixOrCellColumns matrixOrCellColumnsBreak functionCall");}
+| matrixOrCellColumns variable                              %prec HIGHLEVEL {$1->push_back($2);$$ = $1;print_rules("matrixOrCellColumns", "matrixOrCellColumns variable");}
+| matrixOrCellColumns functionCall                          %prec HIGHLEVEL {$1->push_back($2);$$ = $1;print_rules("matrixOrCellColumns", "matrixOrCellColumns functionCall");}
+| matrixOrCellColumns COMMENT                               %prec HIGHLEVEL {$1->push_back(new ast::CommentExp(@2, $2));$$ = $1;print_rules("matrixOrCellColumns", "matrixOrCellColumns COMMENT");}
+| variable                                                  %prec HIGHLEVEL {$$ = new ast::exps_t;$$->push_back($1);print_rules("matrixOrCellColumns", "variable");}
+| functionCall                                              %prec HIGHLEVEL {$$ = new ast::exps_t;$$->push_back($1);print_rules("matrixOrCellColumns", "functionCall");}
+| COMMENT                                                                   {$$ = new ast::exps_t;$$->push_back(new ast::CommentExp(@$, $1));print_rules("matrixOrCellColumns", "COMMENT");}
 ;
 
 /*
@@ -1179,8 +1190,8 @@ matrixOrCellColumns matrixOrCellColumnsBreak variable       %prec HIGHLEVEL {
 */
 /* How to tell the column is now ended. */
 matrixOrCellColumnsBreak :
-matrixOrCellColumnsBreak COMMA					{ /* !! Do Nothing !! */ }
-| COMMA								{ /* !! Do Nothing !! */ }
+matrixOrCellColumnsBreak COMMA  { /* !! Do Nothing !! */ print_rules("matrixOrCellColumnsBreak", "matrixOrCellColumnsBreak COMMA");}
+| COMMA                         { /* !! Do Nothing !! */ print_rules("matrixOrCellColumnsBreak", "COMMA");}
 ;
 
 /*
@@ -1188,16 +1199,16 @@ matrixOrCellColumnsBreak COMMA					{ /* !! Do Nothing !! */ }
 */
 /* How to declare a new variable */
 variableDeclaration :
-assignable ASSIGN variable		%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); }
-| assignable ASSIGN functionCall	%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); }
-| functionCall ASSIGN variable		%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); }
-| functionCall ASSIGN functionCall	%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); }
+assignable ASSIGN variable		%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); print_rules("variableDeclaration", "assignable ASSIGN variable");}
+| assignable ASSIGN functionCall	%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); print_rules("variableDeclaration", "assignable ASSIGN functionCall");}
+| functionCall ASSIGN variable		%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); print_rules("variableDeclaration", "functionCall ASSIGN variable");}
+| functionCall ASSIGN functionCall	%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *$3); print_rules("variableDeclaration", "functionCall ASSIGN functionCall");}
 // --> Sugar Syntax for ':' meaning eye .* 1
-| assignable ASSIGN COLON				{ $$ = new ast::AssignExp(@$, *$1, *new ast::ColonVar(@3)); }
-| functionCall ASSIGN COLON				{ $$ = new ast::AssignExp(@$, *$1, *new ast::ColonVar(@3)); }
+| assignable ASSIGN COLON				{ $$ = new ast::AssignExp(@$, *$1, *new ast::ColonVar(@3)); print_rules("variableDeclaration", "assignable ASSIGN COLON");}
+| functionCall ASSIGN COLON				{ $$ = new ast::AssignExp(@$, *$1, *new ast::ColonVar(@3)); print_rules("variableDeclaration", "functionCall ASSIGN COLON");}
 // --> Strange Syntax : a = return (x)
-| assignable ASSIGN returnControl			{ $$ = new ast::AssignExp(@$, *$1, *$3); }
-| functionCall ASSIGN returnControl			{ $$ = new ast::AssignExp(@$, *$1, *$3); }
+| assignable ASSIGN returnControl			{ $$ = new ast::AssignExp(@$, *$1, *$3); print_rules("variableDeclaration", "assignable ASSIGN returnControl");}
+| functionCall ASSIGN returnControl			{ $$ = new ast::AssignExp(@$, *$1, *$3); print_rules("variableDeclaration", "functionCall ASSIGN returnControl");}
 ;
 
 
@@ -1206,31 +1217,23 @@ assignable ASSIGN variable		%prec HIGHLEVEL { $$ = new ast::AssignExp(@$, *$1, *
 */
 /* What we can assign something to. */
 assignable :
-variable DOT ID			%prec UPLEVEL		{ $$ = new ast::FieldExp(@$, *$1, *new ast::SimpleVar(@$, symbol::Symbol(*$3))); delete $3;}
-| variable DOT keywords	%prec UPLEVEL		{ $$ = new ast::FieldExp(@$, *$1, *$3); }
-| variable DOT functionCall                 {
-                                                $3->setName(new ast::FieldExp(@$, *$1, $3->getName()));
-                                                $3->setLocation(@$);
-                                                $$ = $3;
-                                            }
-| functionCall DOT variable				{ $$ = new ast::FieldExp(@$, *$1, *$3); }
-| functionCall DOT keywords				{ $$ = new ast::FieldExp(@$, *$1, *$3); }
-| functionCall DOT functionCall				{
-							  $3->setName(new ast::FieldExp(@$, *$1, $3->getName()));
-							  $3->setLocation(@$);
-							  $$ = $3;
-                                            }
-| ID					%prec LISTABLE	{ $$ = new ast::SimpleVar(@$, symbol::Symbol(*$1)); delete $1;}
-| multipleResults					{ $$ = $1; }
-| variable LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); }
-| functionCall LPAREN functionArgs RPAREN { $$ = new ast::CallExp(@$, *$1, *$3); }
+variable DOT ID			%prec UPLEVEL		{ $$ = new ast::FieldExp(@$, *$1, *new ast::SimpleVar(@$, symbol::Symbol(*$3))); delete $3;print_rules("assignable", "variable DOT ID");}
+| variable DOT keywords	%prec UPLEVEL		{ $$ = new ast::FieldExp(@$, *$1, *$3); print_rules("assignable", "variable DOT keywords");}
+| variable DOT functionCall                 {$3->setName(new ast::FieldExp(@$, *$1, $3->getName()));$3->setLocation(@$);$$ = $3;print_rules("assignable", "variable DOT functionCall");}
+| functionCall DOT variable				    { $$ = new ast::FieldExp(@$, *$1, *$3); print_rules("assignable", "functionCall DOT variable");}
+| functionCall DOT keywords				    { $$ = new ast::FieldExp(@$, *$1, *$3); print_rules("assignable", "functionCall DOT keywords");}
+| functionCall DOT functionCall				{$3->setName(new ast::FieldExp(@$, *$1, $3->getName()));$3->setLocation(@$);$$ = $3;print_rules("assignable", "functionCall DOT functionCall");}
+| ID					%prec LISTABLE	    { $$ = new ast::SimpleVar(@$, symbol::Symbol(*$1)); delete $1;print_rules("assignable", "ID");}
+| multipleResults					        { $$ = $1; print_rules("assignable", "multipleResults");}
+| variable LPAREN functionArgs RPAREN       { $$ = new ast::CallExp(@$, *$1, *$3); print_rules("assignable", "ariable LPAREN functionArgs RPAREN");}
+| functionCall LPAREN functionArgs RPAREN   { $$ = new ast::CallExp(@$, *$1, *$3); print_rules("assignable", "functionCall LPAREN functionArgs RPAREN");}
 ;
 
 /*
 ** -*- MULTIPLE RESULTS -*-
 */
 multipleResults :
-LBRACK matrixOrCellColumns RBRACK			{ $$ = new ast::AssignListExp(@$, *$2); }
+LBRACK matrixOrCellColumns RBRACK			{ $$ = new ast::AssignListExp(@$, *$2); print_rules("multipleResults", "LBRACK matrixOrCellColumns RBRACK");}
 ;
 
 
@@ -1239,7 +1242,7 @@ LBRACK matrixOrCellColumns RBRACK			{ $$ = new ast::AssignListExp(@$, *$2); }
 */
 /* If Then Else End control block */
 ifControl :
-IF condition then thenBody END                          { $$ = new ast::IfExp(@$, *$2, *$4); }
+IF condition then thenBody END                          { $$ = new ast::IfExp(@$, *$2, *$4); print_rules("ifControl", "IF condition then thenBody END");}
 | IF condition then thenBody else elseBody END          {
     if ($6 != NULL)
     {
@@ -1249,8 +1252,9 @@ IF condition then thenBody END                          { $$ = new ast::IfExp(@$
     {
        $$ = new ast::IfExp(@$, *$2, *$4);
     }
+    print_rules("ifControl", "IF condition then thenBody else elseBody END");
     }
-| IF condition then thenBody elseIfControl END          { $$ = new ast::IfExp(@$, *$2, *$4, *$5); }
+| IF condition then thenBody elseIfControl END          { $$ = new ast::IfExp(@$, *$2, *$4, *$5); print_rules("ifControl", "IF condition then thenBody elseIfControl END");}
 ;
 
 /*
@@ -1259,11 +1263,13 @@ IF condition then thenBody END                          { $$ = new ast::IfExp(@$
 /* Instructions that can be managed inside THEN */
 thenBody :
 expressions     {
+            print_rules("thenBody", "expressions");
             $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
             $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
             $$ = $1;
                 }
 | /* Epsilon */ {
+    print_rules("thenBody", "Epsilon");
     ast::exps_t* tmp = new ast::exps_t;
     #ifdef BUILD_DEBUG_AST
     tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty then body")));
@@ -1278,6 +1284,7 @@ expressions     {
 /* Instructions that can be managed inside ELSE */
 elseBody :
 expressions         {
+            print_rules("elseBody", "expressions");
             $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
             $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
             $$ = $1;
@@ -1290,6 +1297,7 @@ expressions         {
                                         #else
                                             $$ = NULL;
                                         #endif
+                                        print_rules("elseBody", "Epsilon");
                                         }
 ;
 
@@ -1298,11 +1306,11 @@ expressions         {
 */
 /* Fake Rule : How can we be sure this is the 'if' condition ending */
 ifConditionBreak :
-SEMI							{ /* !! Do Nothing !! */ }
-| SEMI EOL						{ /* !! Do Nothing !! */ }
-| COMMA							{ /* !! Do Nothing !! */ }
-| COMMA EOL						{ /* !! Do Nothing !! */ }
-| EOL							{ /* !! Do Nothing !! */ }
+SEMI							{ /* !! Do Nothing !! */ print_rules("ifConditionBreak", "SEMI");}
+| SEMI EOL						{ /* !! Do Nothing !! */ print_rules("ifConditionBreak", "SEMI EOL");}
+| COMMA							{ /* !! Do Nothing !! */ print_rules("ifConditionBreak", "COMMA");}
+| COMMA EOL						{ /* !! Do Nothing !! */ print_rules("ifConditionBreak", "COMMA EOL");}
+| EOL							{ /* !! Do Nothing !! */ print_rules("ifConditionBreak", "EOL");}
 ;
 
 /*
@@ -1310,12 +1318,12 @@ SEMI							{ /* !! Do Nothing !! */ }
 */
 /* Fake Rule : Only for lazy syntax */
 then :
-THEN							{ /* !! Do Nothing !! */ }
-| ifConditionBreak THEN					{ /* !! Do Nothing !! */ }
-| ifConditionBreak THEN EOL				{ /* !! Do Nothing !! */ }
-| THEN ifConditionBreak					{ /* !! Do Nothing !! */ }
-| ifConditionBreak					{ /* !! Do Nothing !! */ }
-| /* Epsilon */						{ /* !! Do Nothing !! */ }
+THEN                            { /* !! Do Nothing !! */ print_rules("then", "THEN");}
+| ifConditionBreak THEN         { /* !! Do Nothing !! */ print_rules("then", "ifConditionBreak THEN");}
+| ifConditionBreak THEN EOL     { /* !! Do Nothing !! */ print_rules("then", "ifConditionBreak THEN EOL");}
+| THEN ifConditionBreak         { /* !! Do Nothing !! */ print_rules("then", "THEN ifConditionBreak");}
+| ifConditionBreak              { /* !! Do Nothing !! */ print_rules("then", "ifConditionBreak");}
+| /* Epsilon */                 { /* !! Do Nothing !! */ print_rules("then", "Epsilon");}
 ;
 
 /*
@@ -1323,12 +1331,12 @@ THEN							{ /* !! Do Nothing !! */ }
 */
 /* Fake Rule : Only for lazy syntax */
 else :
-ELSE							{ /* !! Do Nothing !! */ }
-| ELSE COMMA						{ /* !! Do Nothing !! */ }
-| ELSE SEMI						{ /* !! Do Nothing !! */ }
-| ELSE EOL						{ /* !! Do Nothing !! */ }
-| ELSE COMMA EOL					{ /* !! Do Nothing !! */ }
-| ELSE SEMI EOL						{ /* !! Do Nothing !! */ }
+ELSE                { /* !! Do Nothing !! */ print_rules("else", "ELSE");}
+| ELSE COMMA        { /* !! Do Nothing !! */ print_rules("else", "ELSE COMMA");}
+| ELSE SEMI         { /* !! Do Nothing !! */ print_rules("else", "ELSE SEMI");}
+| ELSE EOL          { /* !! Do Nothing !! */ print_rules("else", "ELSE EOL");}
+| ELSE COMMA EOL    { /* !! Do Nothing !! */ print_rules("else", "ELSE COMMA EOL");}
+| ELSE SEMI EOL     { /* !! Do Nothing !! */ print_rules("else", "ELSE SEMI EOL");}
 ;
 
 /*
@@ -1337,11 +1345,13 @@ ELSE							{ /* !! Do Nothing !! */ }
 /* else if ... then ... */
 elseIfControl :
 ELSEIF condition then thenBody						{
+                                        print_rules("elseIfControl", "ELSEIF condition then thenBody");
 										ast::exps_t* tmp = new ast::exps_t;
 										tmp->push_back(new ast::IfExp(@$, *$2, *$4));
 										$$ = new ast::SeqExp(@$, *tmp);
 									}
 | ELSEIF condition then thenBody else elseBody				{
+                                        print_rules("elseIfControl", "ELSEIF condition then thenBody else elseBody");
 										ast::exps_t* tmp = new ast::exps_t;
 										if( $6 == NULL)
                                         {
@@ -1355,13 +1365,14 @@ ELSEIF condition then thenBody						{
 
 									}
 | ELSEIF condition then thenBody elseIfControl				{
+                                        print_rules("elseIfControl", "ELSEIF condition then thenBody elseIfControl");
 										ast::exps_t* tmp = new ast::exps_t;
 										tmp->push_back(new ast::IfExp(@$, *$2, *$4, *$5));
 										$$ = new ast::SeqExp(@$, *tmp);
 									}
 ;
 
-//| ELSEIF condition then thenBody else elseBody elseIfControl		{ $$ = new ast::CommentExp(@$, new std::wstring("!! FIXME !! Elseif additionnal control ??")); }
+//| ELSEIF condition then thenBody else elseBody elseIfControl		{ $$ = new ast::CommentExp(@$, new std::wstring("!! FIXME !! Elseif additionnal control ??"));}
 
 
 /*
@@ -1369,7 +1380,7 @@ ELSEIF condition then thenBody						{
 */
 /* Select Case Then End control block */
 selectControl :
-select selectable selectConditionBreak casesControl END									{ $$ = new ast::SelectExp(@$, *$2, *$4); }
+select selectable selectConditionBreak casesControl END									{ $$ = new ast::SelectExp(@$, *$2, *$4); print_rules("selectControl", "select selectable selectConditionBreak casesControl END");}
 | select selectable selectConditionBreak casesControl defaultCase elseBody END			{
                                         if($6 == NULL)
                                         {
@@ -1379,8 +1390,9 @@ select selectable selectConditionBreak casesControl END									{ $$ = new ast::
                                         {
                                             $$ = new ast::SelectExp(@$, *$2, *$4, *$6);
                                         }
+                                        print_rules("selectControl", "select selectable selectConditionBreak casesControl defaultCase elseBody END");
                                     }
-| select selectable COMMENT selectConditionBreak casesControl END						{ $$ = new ast::SelectExp(@$, *$2, *$5); delete $3;}
+| select selectable COMMENT selectConditionBreak casesControl END						{ $$ = new ast::SelectExp(@$, *$2, *$5); delete $3;print_rules("selectControl", "select selectable COMMENT selectConditionBreak casesControl END");}
 | select selectable COMMENT selectConditionBreak casesControl defaultCase elseBody END	{
                                         if($7 == NULL)
                                         {
@@ -1391,6 +1403,7 @@ select selectable selectConditionBreak casesControl END									{ $$ = new ast::
                                             $$ = new ast::SelectExp(@$, *$2, *$5, *$7);
                                         }
                                         delete $3;
+                                        print_rules("selectControl", "select selectable COMMENT selectConditionBreak casesControl defaultCase elseBody END");
                                     }
 ;
 
@@ -1399,8 +1412,8 @@ select selectable selectConditionBreak casesControl END									{ $$ = new ast::
 */
 /* Fake Rule : Only for lazy syntax */
 select :
-SELECT					{ /* !! Do Nothing !! */ }
-| SWITCH				{ /* !! Do Nothing !! */ }
+SELECT					{ /* !! Do Nothing !! */ print_rules("select", "SELECT");}
+| SWITCH				{ /* !! Do Nothing !! */ print_rules("select", "SWITCH");}
 ;
 
 /*
@@ -1408,13 +1421,13 @@ SELECT					{ /* !! Do Nothing !! */ }
 */
 /* Fake Rule : Only for lazy syntax */
 defaultCase :
-else								{ /* !! Do Nothing !! */ }
-| OTHERWISE							{ /* !! Do Nothing !! */ }
-| OTHERWISE COMMA					{ /* !! Do Nothing !! */ }
-| OTHERWISE SEMI					{ /* !! Do Nothing !! */ }
-| OTHERWISE EOL						{ /* !! Do Nothing !! */ }
-| OTHERWISE COMMA EOL				{ /* !! Do Nothing !! */ }
-| OTHERWISE SEMI EOL				{ /* !! Do Nothing !! */ }
+else								{ /* !! Do Nothing !! */ print_rules("defaultCase", "else");}
+| OTHERWISE							{ /* !! Do Nothing !! */ print_rules("defaultCase", "OTHERWISE");}
+| OTHERWISE COMMA					{ /* !! Do Nothing !! */ print_rules("defaultCase", "OTHERWISE COMMA");}
+| OTHERWISE SEMI					{ /* !! Do Nothing !! */ print_rules("defaultCase", "OTHERWISE SEMI");}
+| OTHERWISE EOL						{ /* !! Do Nothing !! */ print_rules("defaultCase", "OTHERWISE EOL");}
+| OTHERWISE COMMA EOL				{ /* !! Do Nothing !! */ print_rules("defaultCase", "OTHERWISE COMMA EOL");}
+| OTHERWISE SEMI EOL				{ /* !! Do Nothing !! */ print_rules("defaultCase", "OTHERWISE SEMI EOL");}
 ;
 
 /*
@@ -1422,8 +1435,8 @@ else								{ /* !! Do Nothing !! */ }
 */
 /* On what can a select bloc be switch. */
 selectable :
-variable				{ $$ = $1; }
-| functionCall			{ $$ = $1; }
+variable				{ $$ = $1; print_rules("selectable", "variable");}
+| functionCall			{ $$ = $1; print_rules("selectable", "functionCall");}
 ;
 
 /*
@@ -1431,11 +1444,11 @@ variable				{ $$ = $1; }
 */
 /* Fake Rule : How can we be sure this is the 'select' condition ending. */
 selectConditionBreak :
-EOL								{ /* !! Do Nothing !! */ }
-| COMMA EOL						{ /* !! Do Nothing !! */ }
-| SEMI EOL						{ /* !! Do Nothing !! */ }
-| COMMA							{ /* !! Do Nothing !! */ }
-| SEMI							{ /* !! Do Nothing !! */ }
+EOL								{ /* !! Do Nothing !! */ print_rules("selectConditionBreak", "EOL");}
+| COMMA EOL						{ /* !! Do Nothing !! */ print_rules("selectConditionBreak", "COMMA EOL");}
+| SEMI EOL						{ /* !! Do Nothing !! */ print_rules("selectConditionBreak", "SEMI EOL");}
+| COMMA							{ /* !! Do Nothing !! */ print_rules("selectConditionBreak", "COMMA");}
+| SEMI							{ /* !! Do Nothing !! */ print_rules("selectConditionBreak", "SEMI");}
 ;
 
 /*
@@ -1443,39 +1456,23 @@ EOL								{ /* !! Do Nothing !! */ }
 */
 /* (Case ... Then ...)+ control block */
 casesControl :
-CASE variable caseControlBreak caseBody							{
-																  $$ = new ast::exps_t;
-																  $$->push_back(new ast::CaseExp(@$, *$2, *$4));
-																}
-| CASE functionCall caseControlBreak caseBody					{
-																  $$ = new ast::exps_t;
-																  $$->push_back(new ast::CaseExp(@$, *$2, *$4));
-																}
-| comments CASE variable caseControlBreak caseBody				{
-																  $$ = new ast::exps_t;
-																  $$->push_back(new ast::CaseExp(@$, *$3, *$5));
-																}
-| comments CASE functionCall caseControlBreak caseBody          {
-																  $$ = new ast::exps_t;
-																  $$->push_back(new ast::CaseExp(@$, *$3, *$5));
-																}
-| casesControl CASE variable caseControlBreak caseBody			{
-																  $1->push_back(new ast::CaseExp(@$, *$3, *$5));
-																  $$ = $1;
-																}
-| casesControl CASE functionCall caseControlBreak caseBody		{
-																  $1->push_back(new ast::CaseExp(@$, *$3, *$5));
-																  $$ = $1;
-																}
+CASE variable caseControlBreak caseBody							{$$ = new ast::exps_t;$$->push_back(new ast::CaseExp(@$, *$2, *$4));print_rules("casesControl", "CASE variable caseControlBreak caseBody");}
+| CASE functionCall caseControlBreak caseBody					{$$ = new ast::exps_t;$$->push_back(new ast::CaseExp(@$, *$2, *$4));print_rules("casesControl", "CASE functionCall caseControlBreak caseBody");}
+| comments CASE variable caseControlBreak caseBody				{$$ = new ast::exps_t;$$->push_back(new ast::CaseExp(@$, *$3, *$5));print_rules("casesControl", "comments CASE variable caseControlBreak caseBody");}
+| comments CASE functionCall caseControlBreak caseBody          {$$ = new ast::exps_t;$$->push_back(new ast::CaseExp(@$, *$3, *$5));print_rules("casesControl", "comments CASE functionCall caseControlBreak caseBody");}
+| casesControl CASE variable caseControlBreak caseBody			{$1->push_back(new ast::CaseExp(@$, *$3, *$5));$$ = $1;print_rules("casesControl", "casesControl CASE variable caseControlBreak caseBody");}
+| casesControl CASE functionCall caseControlBreak caseBody		{$1->push_back(new ast::CaseExp(@$, *$3, *$5));$$ = $1;print_rules("casesControl", "casesControl CASE functionCall caseControlBreak caseBody");}
 ;
 
 caseBody :
 expressions				{
-            $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
-            $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
-            $$ = $1;
+                            print_rules("caseBody", "expressions");
+                            $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
+                            $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
+                            $$ = $1;
                         }
 | /* Epsilon */			{
+                            print_rules("caseBody", "Epsilon");
                             ast::exps_t* tmp = new ast::exps_t;
                             #ifdef BUILD_DEBUG_AST
                                 tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty case body")));
@@ -1489,18 +1486,18 @@ expressions				{
 */
 /* Fake Rule : How can we be sure this is the 'case' ending */
 caseControlBreak :
-THEN						{ /* !! Do Nothing !! */ }
-| COMMA						{ /* !! Do Nothing !! */ }
-| SEMI						{ /* !! Do Nothing !! */ }
-| EOL						{ /* !! Do Nothing !! */ }
-| THEN EOL					{ /* !! Do Nothing !! */ }
-| COMMA EOL					{ /* !! Do Nothing !! */ }
-| SEMI EOL					{ /* !! Do Nothing !! */ }
-| THEN COMMA				{ /* !! Do Nothing !! */ }
-| THEN COMMA EOL			{ /* !! Do Nothing !! */ }
-| THEN SEMI					{ /* !! Do Nothing !! */ }
-| THEN SEMI EOL				{ /* !! Do Nothing !! */ }
-| /* Epsilon */		%prec CONTROLBREAK		{ /* !! Do Nothing !! */ }
+THEN						{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "THEN");}
+| COMMA						{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "COMMA");}
+| SEMI						{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "SEMI");}
+| EOL						{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "EOL");}
+| THEN EOL					{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "THEN EOL");}
+| COMMA EOL					{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "COMMA EOL");}
+| SEMI EOL					{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "SEMI EOL");}
+| THEN COMMA				{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "THEN COMMA");}
+| THEN COMMA EOL			{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "THEN COMMA EOL");}
+| THEN SEMI					{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "THEN SEMI");}
+| THEN SEMI EOL				{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "THEN SEMI EOL");}
+| /* Epsilon */		%prec CONTROLBREAK		{ /* !! Do Nothing !! */ print_rules("caseControlBreak", "Epsilon");}
 ;
 
 /*
@@ -1508,8 +1505,8 @@ THEN						{ /* !! Do Nothing !! */ }
 */
 /* For ... End control block */
 forControl :
-FOR ID ASSIGN forIterator forConditionBreak forBody END			{ $$ = new ast::ForExp(@$, *new ast::VarDec(@3, symbol::Symbol(*$2), *$4), *$6); delete $2;}
-| FOR LPAREN ID ASSIGN forIterator RPAREN forConditionBreak forBody END { $$ = new ast::ForExp(@$, *new ast::VarDec(@4, symbol::Symbol(*$3), *$5), *$8); delete $3;}
+FOR ID ASSIGN forIterator forConditionBreak forBody END			{ $$ = new ast::ForExp(@$, *new ast::VarDec(@3, symbol::Symbol(*$2), *$4), *$6); delete $2;print_rules("forControl", "FOR ID ASSIGN forIterator forConditionBreak forBody END	");}
+| FOR LPAREN ID ASSIGN forIterator RPAREN forConditionBreak forBody END { $$ = new ast::ForExp(@$, *new ast::VarDec(@4, symbol::Symbol(*$3), *$5), *$8); delete $3;print_rules("forControl", "FOR LPAREN ID ASSIGN forIterator RPAREN forConditionBreak forBody END");}
 ;
 
 /*
@@ -1517,8 +1514,8 @@ FOR ID ASSIGN forIterator forConditionBreak forBody END			{ $$ = new ast::ForExp
 */
 /* For loop variable to tell the number of iterations. */
 forIterator :
-functionCall		%prec UPLEVEL		{ $$ = $1; }
-| variable		%prec UPLEVEL		{ $$ = $1; }
+functionCall		%prec UPLEVEL		{ $$ = $1; print_rules("forIterator", "functionCall");}
+| variable		%prec UPLEVEL		{ $$ = $1; print_rules("forIterator", "variable");}
 ;
 
 
@@ -1527,29 +1524,31 @@ functionCall		%prec UPLEVEL		{ $$ = $1; }
 */
 /* Fake Rule : How can we be sure this is the 'for' condition ending. */
 forConditionBreak :
-EOL						{ /* !! Do Nothing !! */ }
-| SEMI						{ /* !! Do Nothing !! */ }
-| SEMI EOL					{ /* !! Do Nothing !! */ }
-| COMMA						{ /* !! Do Nothing !! */ }
-| COMMA EOL					{ /* !! Do Nothing !! */ }
-| DO						{ /* !! Do Nothing !! */ }
-| DO EOL					{ /* !! Do Nothing !! */ }
-| /* Epsilon */					{ /* !! Do Nothing !! */ }
+EOL						    { /* !! Do Nothing !! */ print_rules("forConditionBreak", "EOL");}
+| SEMI						{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "SEMI");}
+| SEMI EOL					{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "SEMI EOL");}
+| COMMA						{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "COMMA");}
+| COMMA EOL					{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "COMMA EOL");}
+| DO						{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "DO");}
+| DO EOL					{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "DO EOL");}
+| /* Epsilon */				{ /* !! Do Nothing !! */ print_rules("forConditionBreak", "Epsilon");}
 ;
 
 forBody :
 expressions			{
-            $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
-            $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
-            $$ = $1;
+                        print_rules("forBody", "expressions");
+                        $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
+                        $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
+                        $$ = $1;
                     }
-| /* Epsilon */			{
-                    ast::exps_t* tmp = new ast::exps_t;
-                    #ifdef BUILD_DEBUG_AST
-                        tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty for body")));
-                    #endif
-                    $$ = new ast::SeqExp(@$, *tmp);
-				}
+| /* Epsilon */     {
+                        print_rules("forBody", "Epsilon");
+                        ast::exps_t* tmp = new ast::exps_t;
+                        #ifdef BUILD_DEBUG_AST
+                            tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty for body")));
+                        #endif
+                        $$ = new ast::SeqExp(@$, *tmp);
+                    }
 ;
 
 /*
@@ -1557,7 +1556,7 @@ expressions			{
 */
 /* while ... End control block. */
 whileControl :
-WHILE condition whileConditionBreak whileBody END	{ $$ = new ast::WhileExp(@$, *$2, *$4); }
+WHILE condition whileConditionBreak whileBody END	{ $$ = new ast::WhileExp(@$, *$2, *$4); print_rules("whileControl", "WHILE condition whileConditionBreak whileBody END");}
 ;
 
 /*
@@ -1565,18 +1564,20 @@ WHILE condition whileConditionBreak whileBody END	{ $$ = new ast::WhileExp(@$, *
 */
 /* Which instructions can be used in a while loop. */
 whileBody :
-expressions             {
-            $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
-            $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
-            $$ = $1;
-                        }
-| /* Epsilon */			{
-                            ast::exps_t* tmp = new ast::exps_t;
-                            #ifdef BUILD_DEBUG_AST
-                                tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty while body")));
-                            #endif
-                            $$ = new ast::SeqExp(@$, *tmp);
-                        }
+expressions         {
+                        print_rules("whileBody", "expressions");
+                        $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
+                        $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
+                        $$ = $1;
+                    }
+| /* Epsilon */     {
+                        print_rules("whileBody", "Epsilon");
+                        ast::exps_t* tmp = new ast::exps_t;
+                        #ifdef BUILD_DEBUG_AST
+                            tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty while body")));
+                        #endif
+                        $$ = new ast::SeqExp(@$, *tmp);
+                    }
 ;
 
 /*
@@ -1584,24 +1585,24 @@ expressions             {
 */
 /* Fake Rule : How can we be sure this is the 'while' condition ending. */
 whileConditionBreak :
-COMMA                   { /* !! Do Nothing !! */ }
-| SEMI                  { /* !! Do Nothing !! */ }
-| DO                    { /* !! Do Nothing !! */ }
-| DO COMMA              { /* !! Do Nothing !! */ }
-| DO SEMI               { /* !! Do Nothing !! */ }
-| THEN                  { /* !! Do Nothing !! */ }
-| THEN COMMA            { /* !! Do Nothing !! */ }
-| THEN SEMI             { /* !! Do Nothing !! */ }
-| COMMENT EOL           { delete $1;/* !! Do Nothing !! */ }
-| EOL                   { /* !! Do Nothing !! */ }
-| COMMA EOL             { /* !! Do Nothing !! */ }
-| SEMI EOL              { /* !! Do Nothing !! */ }
-| DO EOL                { /* !! Do Nothing !! */ }
-| DO COMMA EOL          { /* !! Do Nothing !! */ }
-| DO SEMI EOL           { /* !! Do Nothing !! */ }
-| THEN EOL              { /* !! Do Nothing !! */ }
-| THEN COMMA EOL        { /* !! Do Nothing !! */ }
-| THEN SEMI EOL         { /* !! Do Nothing !! */ }
+COMMA                   { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "COMMA");}
+| SEMI                  { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "SEMI");}
+| DO                    { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "DO");}
+| DO COMMA              { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "DO COMMA");}
+| DO SEMI               { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "DO SEMI");}
+| THEN                  { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "THEN");}
+| THEN COMMA            { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "THEN COMMA");}
+| THEN SEMI             { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "THEN SEMI");}
+| COMMENT EOL           { delete $1;/* !! Do Nothing !! */ print_rules("whileConditionBreak", "COMMENT EOL");}
+| EOL                   { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "EOL");}
+| COMMA EOL             { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "COMMA EOL");}
+| SEMI EOL              { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "SEMI EOL");}
+| DO EOL                { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "SEMI EOL");}
+| DO COMMA EOL          { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "DO COMMA EOL");}
+| DO SEMI EOL           { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "DO SEMI EOL");}
+| THEN EOL              { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "THEN EOL");}
+| THEN COMMA EOL        { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "THEN COMMA EOL");}
+| THEN SEMI EOL         { /* !! Do Nothing !! */ print_rules("whileConditionBreak", "THEN SEMI EOL");}
 ;
 
 /*
@@ -1609,14 +1610,15 @@ COMMA                   { /* !! Do Nothing !! */ }
 */
 /* try ... catch ... end control block. */
 tryControl :
-TRY catchBody CATCH catchBody END               { $$ =new ast::TryCatchExp(@$, *$2, *$4); }
-| TRY catchBody END                             {
-                                                    ast::exps_t* tmp = new ast::exps_t;
-                                                    #ifdef BUILD_DEBUG_AST
-                                                        tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty catch body")));
-                                                    #endif
-                                                    $$ = new ast::TryCatchExp(@$, *$2, *new ast::SeqExp(@$, *tmp));
-                                                }
+TRY catchBody CATCH catchBody END   { $$ =new ast::TryCatchExp(@$, *$2, *$4); print_rules("tryControl", "TRY catchBody CATCH catchBody END");}
+| TRY catchBody END                 {
+                                        print_rules("tryControl", "TRY catchBody END");
+                                        ast::exps_t* tmp = new ast::exps_t;
+                                        #ifdef BUILD_DEBUG_AST
+                                            tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty catch body")));
+                                        #endif
+                                        $$ = new ast::TryCatchExp(@$, *$2, *new ast::SeqExp(@$, *tmp));
+                                    }
 ;
 
 /*
@@ -1624,40 +1626,46 @@ TRY catchBody CATCH catchBody END               { $$ =new ast::TryCatchExp(@$, *
 */
 /* Wich instructions can be used in a catch control. */
 catchBody :
-expressions                     {
-            $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
-            $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
-            $$ = $1;
-                                }
-| EOL expressions               {
-            $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
-            $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
-            $$ = $2;
-                                }
-| SEMI expressions              {
-            $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
-            $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
-            $$ = $2;
-                                }
-| COMMA expressions             {
-            $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
-            $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
-            $$ = $2;
-                                }
-| EOL                           {
-                                    ast::exps_t* tmp = new ast::exps_t;
-                                    #ifdef BUILD_DEBUG_AST
-                                        tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty catch body")));
-                                    #endif
-                                    $$ = new ast::SeqExp(@$, *tmp);
-                                }
-| /* Epsilon */                 {
-                                    ast::exps_t* tmp = new ast::exps_t;
-                                    #ifdef BUILD_DEBUG_AST
-                                        tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty catch body")));
-                                    #endif
-                                    $$ = new ast::SeqExp(@$, *tmp);
-                                }
+expressions         {
+                        print_rules("catchBody", "expressions");
+                        $1->getLocation().last_line = $1->getExps().back()->getLocation().last_line;
+                        $1->getLocation().last_column = $1->getExps().back()->getLocation().last_column;
+                        $$ = $1;
+                    }
+| EOL expressions   {
+                        print_rules("catchBody", "EOL expressions");
+                        $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
+                        $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
+                        $$ = $2;
+                    }
+| SEMI expressions  {
+                        print_rules("catchBody", "SEMI expressions");
+                        $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
+                        $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
+                        $$ = $2;
+                    }
+| COMMA expressions {
+                        print_rules("catchBody", "COMMA expressions");
+                        $2->getLocation().last_line = $2->getExps().back()->getLocation().last_line;
+                        $2->getLocation().last_column = $2->getExps().back()->getLocation().last_column;
+                        $$ = $2;
+                    }
+| EOL               {
+                        print_rules("catchBody", "EOL");
+                        ast::exps_t* tmp = new ast::exps_t;
+                        #ifdef BUILD_DEBUG_AST
+                            tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty catch body")));
+                        #endif
+                        $$ = new ast::SeqExp(@$, *tmp);
+                    }
+| /* Epsilon */     {
+                        print_rules("catchBody", "Epsilon");
+                        ast::exps_t* tmp = new ast::exps_t;
+                        #ifdef BUILD_DEBUG_AST
+                            tmp->push_back(new ast::CommentExp(@$, new std::wstring(L"Empty catch body")));
+                        #endif
+                        $$ = new ast::SeqExp(@$, *tmp);
+                    }
 ;
 
 /*
@@ -1665,17 +1673,17 @@ expressions                     {
 */
 /* Make a break in a function or make the variable getting one scope up. */
 returnControl :
-RETURN				{ $$ = new ast::ReturnExp(@$); }
-| RETURN variable   { $$ = new ast::ReturnExp(@$, $2); }
-| RETURN functionCall   { $$ = new ast::ReturnExp(@$, $2); }
+RETURN				    { $$ = new ast::ReturnExp(@$); print_rules("returnControl", "RETURN");}
+| RETURN variable       { $$ = new ast::ReturnExp(@$, $2); print_rules("returnControl", "RETURN variable");}
+| RETURN functionCall   { $$ = new ast::ReturnExp(@$, $2); print_rules("returnControl", "RETURN functionCall");}
 ;
 
 /*
 ** -*- COMMENTS -*-
 */
 comments :
-COMMENT EOL { delete $1; }
-| comments COMMENT EOL { delete $2; }
+COMMENT EOL { delete $1; print_rules("comments", "COMMENT EOL");}
+| comments COMMENT EOL { delete $2; print_rules("comments", "comments COMMENT EOL");}
 ;
 
 /*
@@ -1683,8 +1691,8 @@ COMMENT EOL { delete $1; }
 */
 /* Comment can be added also to end a line */
 lineEnd :
-EOL
-| COMMENT EOL { delete $1; }
+EOL             { print_rules("lineEnd", "EOL");}
+| COMMENT EOL   { delete $1; print_rules("lineEnd", "COMMENT EOL");}
 ;
 
 /*
@@ -1692,24 +1700,24 @@ EOL
 */
 /* Some token can be used as fields var.if var.then */
 keywords :
-IF              { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"if")); }
-| THEN          { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"then")); }
-| ELSE          { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"else")); }
-| ELSEIF        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"elseif")); }
-| END           { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"end")); }
-| SELECT        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"select")); }
-| SWITCH        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"switch")); }
-| OTHERWISE     { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"otherwise")); }
-| CASE          { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"case")); }
-| FUNCTION      { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"function")); }
-| ENDFUNCTION   { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"endfunction")); }
-| FOR           { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"for")); }
-| WHILE         { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"while")); }
-| DO            { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"do")); }
-| BREAK         { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"break")); }
-| TRY           { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"try")); }
-| CATCH         { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"catch")); }
-| RETURN        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"return")); }
+IF              { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"if"));           print_rules("keywords", "IF");}
+| THEN          { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"then"));         print_rules("keywords", "THEN");}
+| ELSE          { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"else"));         print_rules("keywords", "ELSE");}
+| ELSEIF        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"elseif"));       print_rules("keywords", "ELSEIF");}
+| END           { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"end"));          print_rules("keywords", "END");}
+| SELECT        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"select"));       print_rules("keywords", "SELECT");}
+| SWITCH        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"switch"));       print_rules("keywords", "SWITCH");}
+| OTHERWISE     { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"otherwise"));    print_rules("keywords", "OTHERWISE");}
+| CASE          { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"case"));         print_rules("keywords", "CASE");}
+| FUNCTION      { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"function"));     print_rules("keywords", "FUNCTION");}
+| ENDFUNCTION   { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"endfunction"));  print_rules("keywords", "ENDFUNCTION");}
+| FOR           { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"for"));          print_rules("keywords", "FOR");}
+| WHILE         { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"while"));        print_rules("keywords", "WHILE");}
+| DO            { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"do"));           print_rules("keywords", "DO");}
+| BREAK         { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"break"));        print_rules("keywords", "BREAK");}
+| TRY           { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"try"));          print_rules("keywords", "TRY");}
+| CATCH         { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"catch"));        print_rules("keywords", "CATCH");}
+| RETURN        { $$ = new ast::SimpleVar(@$, symbol::Symbol(L"return"));       print_rules("keywords", "RETURN");}
 ;
 
 %%
@@ -1720,7 +1728,7 @@ bool endsWith(const std::string & str, const std::string & end)
     {
 	return false;
     }
-    
+
     return std::equal(end.rbegin(), end.rend(), str.rbegin());
 }
 
@@ -1735,3 +1743,4 @@ void yyerror(std::string msg) {
         FREE(pstMsg);
     }
 }
+
