@@ -178,9 +178,17 @@ assert_checkequal(x1-x2, int8(X1-X2));
 assert_checkequal(-x1, int8(-X1));
 X2 = []; x2 = [];
 assert_checkequal(x1+x2, int8(X1+X2));
+operation +: Warning adding a matrix with the empty matrix will give an empty matrix result.
+operation +: Warning adding a matrix with the empty matrix will give an empty matrix result.
 assert_checkequal(x1-x2, int8(X1-X2));
+operation -: Warning adding a matrix with the empty matrix will give an empty matrix result.
+operation -: Warning adding a matrix with the empty matrix will give an empty matrix result.
 assert_checkequal(x2+x1, int8(X2+X1));
+operation +: Warning adding a matrix with the empty matrix will give an empty matrix result.
+operation +: Warning adding a matrix with the empty matrix will give an empty matrix result.
 assert_checkequal(x2-x1, int8(X2-X1));
+operation -: Warning adding a matrix with the empty matrix will give an empty matrix result.
+operation -: Warning adding a matrix with the empty matrix will give an empty matrix result.
 //multiplication
 X1 = 1;X2 = 7;x1 = int8(X1);x2 = int8(X2);
 assert_checkequal(x1 * x2, int8(X1 * X2));
