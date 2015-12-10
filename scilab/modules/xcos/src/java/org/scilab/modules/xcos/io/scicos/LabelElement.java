@@ -13,6 +13,7 @@
 
 package org.scilab.modules.xcos.io.scicos;
 
+import com.mxgraph.model.mxGeometry;
 import static java.util.Arrays.asList;
 
 import java.util.List;
@@ -70,7 +71,7 @@ public final class LabelElement extends AbstractElement<TextBlock> {
         validate();
 
         if (into == null) {
-            block = new TextBlock(controller.createObject(Kind.ANNOTATION));
+            block = new TextBlock(controller, controller.createObject(Kind.ANNOTATION), Kind.ANNOTATION, "Text", null, "", "");
         }
 
         block = beforeDecode(element, block);

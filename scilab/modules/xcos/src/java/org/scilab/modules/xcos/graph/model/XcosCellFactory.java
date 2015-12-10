@@ -50,6 +50,7 @@ import org.scilab.modules.xcos.utils.BlockPositioning;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxPoint;
+import java.lang.reflect.Constructor;
 import java.util.EnumMap;
 import org.scilab.modules.xcos.block.SplitBlock;
 import org.scilab.modules.xcos.block.positionning.RoundBlock;
@@ -121,7 +122,10 @@ public final class XcosCellFactory {
 
             ScicosObjectOwner last = getLastCreated();
             if (last.getKind() == Kind.DIAGRAM) {
-                diagram = new XcosDiagram(last.getUID(), last.getKind());
+                String[] strUID = new String[1];
+                controller.getObjectProperty(last.getUID(), last.getKind(), ObjectProperties.UID, strUID);
+
+                diagram = new XcosDiagram(controller, last.getUID(), last.getKind(), strUID[0]);
                 insertChildren(controller, diagram);
             } else {
                 diagram = null;
@@ -335,6 +339,14 @@ public final class XcosCellFactory {
      * @return A new instance of a block.
      */
     public static BasicBlock createBlock(final JavaController controller, BlockInterFunction func, String interfaceFunction, long uid, Kind kind) {
+
+        final EnumMap<ObjectProperties, Integer> properties = new EnumMap<>(ObjectProperties.class);
+        properties.put(ObjectProperties.INPUTS, 0);
+        properties.put(ObjectProperties.OUTPUTS, 0);
+        properties.put(ObjectProperties.EVENT_INPUTS, 0);
+        properties.put(ObjectProperties.EVENT_OUTPUTS, 0);
+
+
         /*
          * Retrieve the JGraphX data before cell creation
          */
@@ -343,6 +355,9 @@ public final class XcosCellFactory {
 
         String[] style = new String[1];
         controller.getObjectProperty(uid, kind, ObjectProperties.STYLE, style);
+        if (style[0].isEmpty()) {
+            style[0] = interfaceFunction;
+        }
 
         String value;
         if (kind == Kind.ANNOTATION) {
@@ -358,43 +373,6 @@ public final class XcosCellFactory {
         VectorOfDouble geom = new VectorOfDouble(4);
         controller.getObjectProperty(uid, kind, ObjectProperties.GEOMETRY, geom);
 
-        /*
-         * Instanciate the block
-         */
-        BasicBlock block = null;
-        try {
-            block = func.getKlass().getConstructor(Long.TYPE).newInstance(uid);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-                     | SecurityException e) {
-            // Something goes wrong, print it.
-            e.printStackTrace();
-            return block;
-        }
-
-        /*
-         * Synchronize model information back to the JGraphX data
-         *
-         * Annotations have no inputs/outputs
-         */
-        EnumMap<ObjectProperties, Integer> properties = new EnumMap<>(ObjectProperties.class);
-        properties.put(ObjectProperties.INPUTS, 0);
-        properties.put(ObjectProperties.OUTPUTS, 0);
-        properties.put(ObjectProperties.EVENT_INPUTS, 0);
-        properties.put(ObjectProperties.EVENT_OUTPUTS, 0);
-        if (block.getKind() == Kind.BLOCK) {
-            insertPortChildren(controller, properties, block);
-        }
-
-        block.setId(strUID[0]);
-
-        if (style[0].isEmpty()) {
-            block.setStyle(interfaceFunction);
-        } else {
-            block.setStyle(style[0]);
-        }
-
-        block.setValue(value);
-
         double x = geom.get(0);
         double y = geom.get(1);
         double w = geom.get(2);
@@ -407,9 +385,9 @@ public final class XcosCellFactory {
          *   * generic case : layout the ports per kind per block-side
          */
         boolean convertGeometry;
-        if ((block instanceof SplitBlock)) {
+        if (func.getKlass().equals(SplitBlock.class)) {
             convertGeometry = false;
-        } else if (block instanceof RoundBlock) {
+        } else if (func.getKlass().equals(RoundBlock.class)) {
             int numberOfPorts = properties.get(ObjectProperties.INPUTS) +
                                 properties.get(ObjectProperties.OUTPUTS) +
                                 properties.get(ObjectProperties.EVENT_INPUTS) +
@@ -431,9 +409,31 @@ public final class XcosCellFactory {
              */
             y = -y - h;
         }
+        mxGeometry geometry = new mxGeometry(x, y, w, h);
 
+        /*
+         * Instanciate the block
+         */
+        BasicBlock block = null;
+        try {
+            Constructor<? extends BasicBlock> cstr = func.getKlass().getConstructor(JavaController.class, Long.TYPE, Kind.class, Object.class, mxGeometry.class, String.class, String.class);
+            block = cstr.newInstance(controller, uid, kind, value, geometry, style[0], strUID[0]);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                     | SecurityException e) {
+            // Something goes wrong, print it.
+            e.printStackTrace();
+            return block;
+        }
 
-        block.setGeometry(new mxGeometry(x, y, w, h));
+        /*
+         * Synchronize model information back to the JGraphX data
+         *
+         * Annotations have no inputs/outputs
+         */
+
+        if (block.getKind() == Kind.BLOCK) {
+            insertPortChildren(controller, properties, block);
+        }
 
         return block;
     }
@@ -544,28 +544,37 @@ public final class XcosCellFactory {
         BasicPort port;
         boolean[] isImplicit = { false };
 
+        String[] strUID = new String[] { "" };
+        controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.UID, strUID);
+
+        String[] style = new String[] { "" };
+        controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.STYLE, style);
+
+        String[] value = new String[] { "" };
+        controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.LABEL, value);
+
         switch (property) {
             case INPUTS:
                 controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.IMPLICIT, isImplicit);
                 if (isImplicit[0]) {
-                    port = new ImplicitInputPort(uid);
+                    port = new ImplicitInputPort(controller, uid, Kind.PORT, value[0], style[0], strUID[0]);
                 } else {
-                    port = new ExplicitInputPort(uid);
+                    port = new ExplicitInputPort(controller, uid, Kind.PORT, value[0], style[0], strUID[0]);
                 }
                 break;
             case OUTPUTS:
                 controller.getObjectProperty(uid, Kind.PORT, ObjectProperties.IMPLICIT, isImplicit);
                 if (isImplicit[0]) {
-                    port = new ImplicitOutputPort(uid);
+                    port = new ImplicitOutputPort(controller, uid, Kind.PORT, value[0], style[0], strUID[0]);
                 } else {
-                    port = new ExplicitOutputPort(uid);
+                    port = new ExplicitOutputPort(controller, uid, Kind.PORT, value[0], style[0], strUID[0]);
                 }
                 break;
             case EVENT_INPUTS:
-                port = new ControlPort(uid);
+                port = new ControlPort(controller, uid, Kind.PORT, value[0], style[0], strUID[0]);
                 break;
             case EVENT_OUTPUTS:
-                port = new CommandPort(uid);
+                port = new CommandPort(controller, uid, Kind.PORT, value[0], style[0], strUID[0]);
                 break;
             default:
                 return null;
@@ -574,12 +583,6 @@ public final class XcosCellFactory {
         /*
          * Setup JGraphX properties
          */
-
-        String[] childUID = new String[1];
-        controller.getObjectProperty(port.getUID(), port.getKind(), ObjectProperties.UID, childUID);
-        if (!childUID[0].isEmpty()) {
-            port.setId(childUID[0]);
-        }
 
         return port;
     }
@@ -592,30 +595,18 @@ public final class XcosCellFactory {
         int[] type = new int[1];
         controller.getObjectProperty(uid, kind, ObjectProperties.KIND, type);
 
-        BasicLink link;
-        switch (type[0]) {
-            case -1:
-                link = new CommandControlLink(uid);
-                break;
-            case 1:
-                link = new ExplicitLink(uid);
-                break;
-            case 2:
-                link = new ImplicitLink(uid);
-                break;
-            default:
-                return null;
-        }
-
         /*
          * Synchronize model information back to the JGraphX data
          */
 
-        String[] strUID = new String[1];
+        String[] value = new String[] { "" };
+        controller.getObjectProperty(uid, kind, ObjectProperties.LABEL, value);
+
+        String[] style = new String[] { "" };
+        controller.getObjectProperty(uid, kind, ObjectProperties.STYLE, style);
+
+        String[] strUID = new String[] { "" };
         controller.getObjectProperty(uid, kind, ObjectProperties.UID, strUID);
-        if (!strUID[0].isEmpty()) {
-            link.setId(strUID[0]);
-        }
 
         VectorOfDouble controlPoints = new VectorOfDouble();
         controller.getObjectProperty(uid, kind, ObjectProperties.CONTROL_POINTS, controlPoints);
@@ -636,8 +627,25 @@ public final class XcosCellFactory {
         i++;
 
         geom.setPoints(points);
-        link.setGeometry(geom);
+
+        /*
+         * Allocate the link
+         */
+        BasicLink link;
+        switch (type[0]) {
+            case -1:
+                link = new CommandControlLink(controller, uid, kind, value[0], geom, style[0], strUID[0]);
+                break;
+            case 1:
+                link = new ExplicitLink(controller, uid, kind, value[0], geom, style[0], strUID[0]);
+                break;
+            case 2:
+                link = new ImplicitLink(controller, uid, kind, value[0], geom, style[0], strUID[0]);
+                break;
+            default:
+                return null;
+        }
+
         return link;
     }
-
 }

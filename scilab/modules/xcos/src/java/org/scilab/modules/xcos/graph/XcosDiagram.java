@@ -141,15 +141,17 @@ public class XcosDiagram extends ScilabGraph {
     /**
      * Constructor
      *
-     * @param withVisibleFeatures
-     *            true if the visible features should be activated, false otherwise. Disable it on encode/decode leads to a huge performance gain.
+     * @param controller the shared controller
+     * @param diagramId the diagram MVC ID
+     * @param kind DIAGRAM or BLOCK for a root diagram or a super-block
+     * @param uid the string UID that will be used on the default parent
      */
-    public XcosDiagram(final long diagramId, final Kind kind) {
+    public XcosDiagram(final JavaController controller, final long diagramId, final Kind kind, String uid) {
         super(new mxGraphModel(), Xcos.getInstance().getStyleSheet());
 
         // add the default parent (the JGraphX layer)
-        XcosCell parent = new XcosCell(diagramId, kind);
-        new JavaController().referenceObject(diagramId);
+        XcosCell parent = new XcosCell(controller, diagramId, kind, null, null, null, uid);
+        controller.referenceObject(diagramId);
         ((mxICell) getModel().getRoot()).insert(parent);
         setDefaultParent(parent);
 
@@ -654,11 +656,11 @@ public class XcosDiagram extends ScilabGraph {
 
             long uid = controller.createObject(Kind.LINK);
             if (src.getType() == Type.EXPLICIT) {
-                link = new ExplicitLink(uid);
+                link = new ExplicitLink(controller, uid, Kind.LINK, value, null, style, id);
             } else if (src.getType() == Type.IMPLICIT) {
-                link = new ImplicitLink(uid);
+                link = new ImplicitLink(controller, uid, Kind.LINK, value, null, style, id);
             } else {
-                link = new CommandControlLink(uid);
+                link = new CommandControlLink(controller, uid, Kind.LINK, value, null, style, id);
             }
 
             // allocate the associated geometry
