@@ -27,11 +27,11 @@ For a high-level overview of the changes in this release, please consult the "Wh
 
 * Bug #14181 fixed - Calling intg (or integrate) in a function that is being integrated failed.
 
+* Bug #14249 fixed - ctrl-c can be used to stop writing control expression.
+
 * Bug #14251 fixed - `spec` leaked some memory.
 
 * Bug #14253 fixed - Insertion in a struct contained in a list fixed.
-
-* Bug #14257 fixed - English spelling in messages and in comments.
 
 * Bug #14257 fixed - English spelling in messages and in comments.
 
