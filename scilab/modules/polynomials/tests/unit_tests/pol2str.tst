@@ -6,7 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
-
+warning("off"); // TODO: to remove when no warning on 1+[]
 assert_checkequal(pol2str(%z), "z");
 assert_checkequal(pol2str([%z %z]), ["z", "z"]);
 
