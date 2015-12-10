@@ -150,7 +150,7 @@ function [frq, bnds, splitf] = calfrq(h, fmin, fmax)
     end
 
     // check for nearly multiple singularities
-    if pp <> [] then
+    if pp <> [] && size(pp, "*") > 1 then
         dpp = pp(2:$)-pp(1:$-1)
         keq = find(abs(dpp)<2*epss)
         if keq <> [] then pp(keq) = [], end

@@ -38,6 +38,10 @@ function i = modulo(n, m)
     end
 
     // --------------------------  Processing ----------------------------
+    if isempty(n) || isempty(m)
+        i = []
+        return
+    end
 
     if or(mt==[1 8]) & mt==nt then
         ms = size(m)

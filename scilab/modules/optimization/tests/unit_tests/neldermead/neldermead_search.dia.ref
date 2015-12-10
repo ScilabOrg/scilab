@@ -33,6 +33,7 @@ function [ f , c , index ] = optimtestcase ( x , index )
     c = [c1 c2 c3]
   end
 endfunction
+warning("off");
 //
 // Test search with various error cases
 //

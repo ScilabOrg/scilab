@@ -57,11 +57,15 @@ function i = pmodulo(n, m)
         i = n - floor(n ./ m) .* m
         k = find(i<0)           // this may occur for encoded integers
         if length(m)>1 then
-            i(k) = i(k) + m(k)
+            if ~isempty(k)
+                i(k) = i(k) + m(k)
+            end
             i = iconvert(i, inttype(n))
             i = matrix(i, ms)
         else
-            i(k) = i(k) + m
+            if ~isempty(k)
+                i(k) = i(k) + m
+            end
             i = iconvert(i, inttype(n))
             i = matrix(i, ns)
         end

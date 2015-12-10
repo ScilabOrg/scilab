@@ -44,7 +44,7 @@ assert_checkerror("nthroot(-2, -2)", refMsg);
 assert_checkfalse(execstr("nthroot(-2, 2)",      "errcatch") == 0);
 refMsg = msprintf(_("%s: If x is negative, then n must contain odd integers only.\n"), "nthroot");
 assert_checkerror("nthroot(-2, 2)", refMsg);
-assert_checktrue(nthroot(3, []) == 3);
+assert_checktrue(nthroot(3, []) == []);
 // 2. Singular Values
 // ==================
 assert_checkalmostequal(nthroot(2   ,-2), 0.7071068, 1.e-5);

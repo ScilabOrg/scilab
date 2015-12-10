@@ -14,6 +14,7 @@ endfunction
 //
 // Test basic verbose
 //
+warning("off");
 opt = optimbase_new ();
 computed = optimbase_cget(opt,"-verbose");
 assert_checkequal ( computed , 0 );

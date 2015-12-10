@@ -9,7 +9,7 @@
 
 // <-- CLI SHELL MODE -->
 
-// unit tests for nthroot() function 
+// unit tests for nthroot() function
 // =============================================================================
 // Run with test_run('elementary_functions', 'nthroot', ['no_check_error_output'])
 
@@ -49,7 +49,7 @@ assert_checkfalse(execstr("nthroot(-2, 2)",      "errcatch") == 0);
 refMsg = msprintf(_("%s: If x is negative, then n must contain odd integers only.\n"), "nthroot");
 assert_checkerror("nthroot(-2, 2)", refMsg);
 
-assert_checktrue(nthroot(3, []) == 3);
+assert_checktrue(nthroot(3, []) == []);
 
 // 2. Singular Values
 // ==================

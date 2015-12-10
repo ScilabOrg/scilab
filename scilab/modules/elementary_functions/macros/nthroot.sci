@@ -30,6 +30,11 @@ function y = nthroot(x,n)
         error(msprintf(gettext("%s: Wrong sizes for input argument #%d and #%d: Same sizes expected.\n"),"nthroot", 1, 2));
     end
 
+    if isempty(x) || isempty(n)
+        y = []
+        return
+    end
+
     reste = modulo(n,2);
     // Making 'reste' one element
     if (size(n,"*")>1) then
@@ -58,22 +63,32 @@ function y = nthroot(x,n)
         // If n ~=0 and n ~= %nan
     elseif (or(n~=0) & ~isnan(n)) then
         // If x = 0 and n is negative and n i~= %nan
-        [m1,m2] = size(x(find(x==0 & n<0 & ~isinf(n))));
-        y(find(x==0 & n<0 & ~isinf(n))) = (x(find(x==0 & n<0 & ~isinf(n)))+ones(m1,m2)) .*%inf;
+        [m1,m2] = size( x(find(x==0 & n<0 & ~isinf(n))) );
+        idx_inf = find(x==0 & n<0 & ~isinf(n));
+        if ~isempty(idx_inf)
+            y(idx_inf) = ( x(idx_inf) + ones(m1,m2) ) .* %inf;
+        end
+        idx_zero_pos = find(x==0 & (n>0 |isinf(n)));
+        idx_x_neg = find(x<0);
         if (size(n,"*") == 1) then
             // If x = 0 and n is positive and n ~= %nan
-            y(find(x==0 & (n>0 |isinf(n)))) = x(find(x==0 & (n>0 |isinf(n)))).^(1 ./n(find(n<>0)));
+            idx_n = find(n<>0);
+            y(idx_zero_pos) = x(idx_zero_pos) .^ (1 ./ n(idx_n));
             // If x is positive
-            y(find(x>0)) = x(find(x>0)).^(1 ./n(find(n<>0)));
+            idx_x_pos = find(x>0);
+            y(idx_x_pos) = x(idx_x_pos) .^ (1 ./n(idx_n));
             // If x is negative
-            y(find(x<0)) = sign(x(find(x<0))).*(abs(x(find(x<0)))).^(1 ./n(find(n<>0)));
+            y(idx_x_neg) = sign(x(idx_x_neg)) .* (abs(x(idx_x_neg))) .^ (1 ./ n(idx_n));
         else
             // If x = 0 and n is positive and n ~= %nan
-            y(find(x==0 & (n>0 |isinf(n)))) = x(find(x==0 & (n>0 |isinf(n)))).^(1 ./n(find(x==0 & n<>0)));
+            idx_zero_diff = find(x==0 & n<>0);
+            y(idx_zero_pos) = x(idx_zero_pos) .^ (1 ./n(idx_zero_diff));
             // If x is positive
-            y(find(x>0 & n<>0)) = x(find(x>0 & n<>0)).^(1 ./n(find(x>0 & n<>0)));
+            idx_pos_diff = find(x>0 & n<>0);
+            y(idx_pos_diff) = x(idx_pos_diff) .^ (1 ./n(idx_pos_diff));
             // If x is negative
-            y(find(x<0 & n<>0)) = sign(x(find(x<0 & n<>0))).*(abs(x(find(x<0)))).^(1 ./n(find(x<0 & n<>0)));
+            idx_neg_diff = find(x<0 & n<>0);
+            y(idx_neg_diff) = sign(x(idx_neg_diff)) .* (abs(x(idx_x_neg))) .^ (1 ./n(idx_neg_diff));
         end
     end
 

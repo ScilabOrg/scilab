@@ -73,6 +73,8 @@ Other feature changes
 
 * Addition or subtraction with an empty matrix now return an empty matrix.
 
+* nthroot and modulo on empty matrices now return the empty matrix
+
 * SSE2, Streaming SIMD Extensions 2 support is now mandatory to run Scilab on Linux i686.
 
 * A call stack limit has been introduced. Default maximum depth is setup to 1000 and
