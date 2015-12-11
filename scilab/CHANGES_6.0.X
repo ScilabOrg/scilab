@@ -49,7 +49,9 @@ Dependencies
 New Features
 ============
 
-* Scilab now includes a full-featured debugger, with ability to run Scilab scripts or functions step-by-step, to put (conditional) breakpoint, in particular break only when an exception is set. Run "help debug" for more information.
+* Scilab now includes a full-featured debugger.
+  In the debugger, you run Scilab scripts or functions step-by-step, define (conditional) breakpoint, in particular break only when an exception is set... Run "help debug" for more information.
+  The debugger, however, is only accessible from the command line: in particular, it is not integrated with the editor. Please contact us if you would be interested in contributing (in code or in funding) to the development of this functionality.
 
 * A new profiler and coverage tool has been added.
   It replaces the "profile" function (which is still there but not working, and will be removed in the final release).
