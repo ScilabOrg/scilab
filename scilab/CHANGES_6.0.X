@@ -31,7 +31,7 @@ For a high-level overview of the changes in this release, please consult the "Wh
 
 * Bug #14253 fixed - Insertion in a struct contained in a list fixed.
 
-* Bug #14257 fixed - English spelling in messages and in comments.
+* Bug #14255 fixed - fftw without MKL leaked in internal withMKL function.
 
 * Bug #14257 fixed - English spelling in messages and in comments.
 
