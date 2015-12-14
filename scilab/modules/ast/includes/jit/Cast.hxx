@@ -29,6 +29,41 @@ public:
         return v->getType()->isIntegerTy() ? __Cast<T, std::is_integral<T>::value, true>::get(v, sgn, jit) : __Cast<T, std::is_integral<T>::value, false>::get(v, sgn, jit);
     }
 
+    inline static llvm::Value * castC(llvm::Value * v, const bool vsgn, llvm::Type * type, const bool sgn, JITVisitor & jit)
+    {
+        llvm::Type * vt = v->getType();
+        if (vt == type)
+        {
+            return v;
+        }
+        else
+        {
+            llvm::IRBuilder<> & builder = jit.getBuilder();
+            if (vt->isIntegerTy())
+            {
+                if (type->isIntegerTy())
+                {
+                    if (vt->getIntegerBitWidth() > type->getIntegerBitWidth())
+                    {
+                        return builder.CreateTrunc(v, type);
+                    }
+                    else
+                    {
+                        return vsgn ? builder.CreateSExt(v, type) : builder.CreateZExt(v, type);
+                    }
+                }
+                else
+                {
+                    return vsgn ? builder.CreateSIToFP(v, type) : builder.CreateUIToFP(v, type);
+                }
+            }
+            else if (type->isIntegerTy())
+            {
+                return vsgn ? builder.CreateSIToFP(v, type) : builder.CreateUIToFP(v, type);
+            }
+        }
+    }
+
     /**
      * Promote value according to Scilab's rules:
      *  - int_X+int_Y => int_max(X,Y)

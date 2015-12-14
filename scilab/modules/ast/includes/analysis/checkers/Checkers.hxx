@@ -62,7 +62,7 @@ class Checkers
     typedef std::unordered_map<__NName, __Infos, __Hasher> CheckersMap;
     static CheckersMap map;
     static TIType (*ARGS0[6])(GVN &);
-    static TIType (*ARGS1[54])(GVN &, const TIType &);
+    static TIType (*ARGS1[55])(GVN &, const TIType &);
     static TIType (*ARGS2[10])(GVN &, const TIType &, const TIType &);
     static TIType (*ARGS3[1])(GVN &, const TIType &, const TIType &, const TIType &);
 
@@ -129,6 +129,7 @@ public:
     static TIType check_sin(GVN & gvn, const TIType & in0);
     static TIType check_round(GVN & gvn, const TIType & in0);
     static TIType check_____krontimes____(GVN & gvn, const TIType & in0, const TIType & in1);
+    static TIType check_real(GVN & gvn, const TIType & in0);
     static TIType check_int32(GVN & gvn, const TIType & in0);
     static TIType check_____gt____(GVN & gvn, const TIType & in0, const TIType & in1);
     static TIType check_inttype(GVN & gvn, const TIType & in0);

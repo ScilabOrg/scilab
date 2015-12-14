@@ -70,12 +70,7 @@ bool JITZeros::invoke(const ast::Exp & e, const std::vector<analysis::TIType> & 
     llvm::Value * rc = builder.CreateMul(r, c);
     rc = Cast::cast<int64_t>(rc, false, jit);
     llvm::Value * size = builder.CreateMul(rc, jit.getConstant<int64_t>(sizeof(double)));
-    llvm::Function * __new = static_cast<llvm::Function *>(module.getOrInsertFunction("new", llvm::FunctionType::get(jit.getTy<int8_t *>(), llvm::ArrayRef<llvm::Type *>(jit.getTy<uint64_t>()), false)));
-    //__new->addFnAttr(llvm::Attribute::NoAlias);
-    __new->addAttribute(0, llvm::Attribute::NoAlias);
-    //llvm::Value * __aligned_malloc = module.getOrInsertFunction("aligned_alloc", llvm::FunctionType::get(jit.getTy<int8_t *>(), llvm::ArrayRef<llvm::Type *>((llvm::Type *[]){ jit.getTy<int64_t>(), jit.getTy<int64_t>()}), false));
-    llvm::CallInst * alloc = builder.CreateCall(__new, size);
-    alloc->addAttribute(0, llvm::Attribute::NoAlias);
+    llvm::Value * alloc = jit.callNew(size);
     //llvm::Value * alloc = builder.CreateCall2(__aligned_malloc, jit.getConstant<int64_t>(sizeof(double)), size);
     llvm::Value * dbl_alloc = builder.CreateBitCast(alloc, jit.getTy<double *>());
     llvm::Type * types[] = {jit.getTy<int8_t *>(), jit.getTy<uint64_t>()};

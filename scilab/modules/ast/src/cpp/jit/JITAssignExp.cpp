@@ -17,18 +17,40 @@
 namespace jit
 {
 
-    void JITVisitor::visit(const ast::AssignExp & e)
+void JITVisitor::visit(const ast::AssignExp & e)
+{
+    if (e.getLeftExp().isSimpleVar()) // A = ...
     {
-        if (e.getLeftExp().isSimpleVar()) // A = ...
+        const ast::Exp & rExp = e.getRightExp();
+        const symbol::Symbol & Lsym = static_cast<ast::SimpleVar &>(e.getLeftExp()).getSymbol();
+        if (rExp.isSimpleVar())
         {
-            const ast::Exp & rExp = e.getRightExp();
-            const symbol::Symbol & Lsym = static_cast<ast::SimpleVar &>(e.getLeftExp()).getSymbol();
-            if (rExp.isSimpleVar())
+            // A = B so we just share the data
+            const symbol::Symbol & Rsym = static_cast<const ast::SimpleVar &>(rExp).getSymbol();
+            JITScilabPtr & Lvalue = getVariable(Lsym, e.getLeftExp());
+            JITScilabPtr & Rvalue = getVariable(Rsym, rExp);
+            Lvalue->storeRows(*this, Rvalue->loadRows(*this));
+            Lvalue->storeCols(*this, Rvalue->loadCols(*this));
+            Lvalue->storeData(*this, Rvalue->loadData(*this));
+            if (rExp.getDecorator().getResult().getType().type == analysis::TIType::COMPLEX)
             {
-                // A = B so we just share the data
-                const symbol::Symbol & Rsym = static_cast<const ast::SimpleVar &>(rExp).getSymbol();
-                JITScilabPtr & Lvalue = variables.find(Lsym)->second;
-                JITScilabPtr & Rvalue = variables.find(Rsym)->second;
+                Lvalue->storeImag(*this, Rvalue->loadImag(*this));
+            }
+            /*if (e.getLeftExp().getDecorator().getResult().isAnInt())
+            {
+                const analysis::TIType & ty = e.getLeftExp().getDecorator().getResult().getType();
+                JITScilabPtr & ptr = getVariable(Lsym, ty);
+                ptr->storeData(*this, Cast::castC(i, false, getTy(ty), ty.issigned(), *this));
+                }*/
+        }
+        else
+        {
+            rExp.accept(*this);
+            // A = foo(...)...
+            if (!rExp.isCallExp())// && !rExp.isMemfillExp())
+            {
+                JITScilabPtr & Lvalue = getVariable(Lsym, e.getLeftExp());
+                JITScilabPtr & Rvalue = getResult();
                 Lvalue->storeRows(*this, Rvalue->loadRows(*this));
                 Lvalue->storeCols(*this, Rvalue->loadCols(*this));
                 Lvalue->storeData(*this, Rvalue->loadData(*this));
@@ -37,79 +59,64 @@ namespace jit
                     Lvalue->storeImag(*this, Rvalue->loadImag(*this));
                 }
             }
-            else
+        }
+    }
+    else if (e.getLeftExp().isCallExp()) // A(12) = ...
+    {
+        ast::CallExp & ce = static_cast<ast::CallExp &>(e.getLeftExp());
+        if (ce.getName().isSimpleVar())
+        {
+            // We have an insertion
+            /**
+             *  Several possibilities:
+             *    i) A(I) = B(I): usually in Scilab that means:
+             *       temp = B(I) and then A(I) = temp
+             *       If we infered that the ext/ins is safe we can make a for loop:
+             *          for k = 1:size(I,'*'), A(I(k)) = B(I(k)), end
+             *    ii) A(I) = fun(I): in the general case we should try to devectorize the expression
+             *    iii) A(i) = B(i): no problem
+             */
+            const ast::SimpleVar & var = static_cast<ast::SimpleVar &>(ce.getName());
+            const symbol::Symbol & symL = var.getSymbol();
+            // TODO: handle safe vs no safe
+            if ((true || e.getDecorator().safe) && ce.getDecorator().getResult().getType().isscalar())
             {
-                rExp.accept(*this);
-                // A = foo(...)...
-                if (!rExp.isCallExp())// && !rExp.isMemfillExp())
+                const analysis::TIType & ty = var.getDecorator().getResult().getType();
+                if (ty.isscalar())
                 {
-                    JITScilabPtr & Lvalue = variables.find(Lsym)->second;
+                    JITScilabPtr & Lvalue = getVariable(symL, var);
+                    e.getRightExp().accept(*this);
                     JITScilabPtr & Rvalue = getResult();
-                    Lvalue->storeRows(*this, Rvalue->loadRows(*this));
-                    Lvalue->storeCols(*this, Rvalue->loadCols(*this));
                     Lvalue->storeData(*this, Rvalue->loadData(*this));
-                    if (rExp.getDecorator().getResult().getType().type == analysis::TIType::COMPLEX)
+                    if (ty.type == analysis::TIType::COMPLEX)
                     {
                         Lvalue->storeImag(*this, Rvalue->loadImag(*this));
                     }
                 }
-            }
-        }
-        else if (e.getLeftExp().isCallExp()) // A(12) = ...
-        {
-            ast::CallExp & ce = static_cast<ast::CallExp &>(e.getLeftExp());
-            if (ce.getName().isSimpleVar())
-            {
-                // We have an insertion
-                /**
-                 *  Several possibilities:
-                 *    i) A(I) = B(I): usually in Scilab that means:
-                 *       temp = B(I) and then A(I) = temp
-                 *       If we infered that the ext/ins is safe we can make a for loop:
-                 *          for k = 1:size(I,'*'), A(I(k)) = B(I(k)), end
-                 *    ii) A(I) = fun(I): in the general case we should try to devectorize the expression
-                 *    iii) A(i) = B(i): no problem
-                 */
-                const ast::SimpleVar & var = static_cast<ast::SimpleVar &>(ce.getName());
-                const symbol::Symbol & symL = var.getSymbol();
-                if (e.getDecorator().safe && ce.getDecorator().getResult().getType().isscalar())
+                else
                 {
-                    const analysis::TIType & ty = var.getDecorator().getResult().getType();
-                    if (ty.isscalar())
+                    if (e.getRightExp().isCallExp())
                     {
-                        JITScilabPtr & Lvalue = variables.find(symL)->second;
                         e.getRightExp().accept(*this);
-                        JITScilabPtr & Rvalue = getResult();
-                        Lvalue->storeData(*this, Rvalue->loadData(*this));
-                        if (ty.type == analysis::TIType::COMPLEX)
-                        {
-                            Lvalue->storeImag(*this, Rvalue->loadImag(*this));
-                        }
                     }
                     else
                     {
-			if (e.getRightExp().isCallExp())
-			{
-			    e.getRightExp().accept(*this);
-			}
-			else
-			{
-			    llvm::Value * ptr = getPtrFromIndex(ce);
-			    e.getRightExp().accept(*this);
-			    builder.CreateStore(getResult()->loadData(*this), ptr);
-			}
-		    }
+                        llvm::Value * ptr = getPtrFromIndex(ce);
+                        e.getRightExp().accept(*this);
+                        builder.CreateStore(getResult()->loadData(*this), ptr);
+                    }
                 }
             }
         }
-        else if (e.getLeftExp().isAssignListExp()) // [A, B] = ...
+    }
+    else if (e.getLeftExp().isAssignListExp()) // [A, B] = ...
+    {
+        ast::AssignListExp & ale = static_cast<ast::AssignListExp &>(e.getLeftExp());
+        if (e.getRightExp().isCallExp())
         {
-            ast::AssignListExp & ale = static_cast<ast::AssignListExp &>(e.getLeftExp());
-            if (e.getRightExp().isCallExp())
-            {
-                e.getRightExp().accept(*this);
-            }
+            e.getRightExp().accept(*this);
         }
     }
+}
 
 }

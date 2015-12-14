@@ -10,8 +10,10 @@
  *
  */
 
+#include <iostream>
 #include <system_error>
 
+#include "llvm/Bitcode/ReaderWriter.h"
 #include "llvm/Support/FormattedStream.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 #include "llvm/Analysis/TargetTransformInfo.h"
@@ -26,7 +28,6 @@
 #include "calls/FunctionSignature.hxx"
 #include "alltypes.hxx"
 #include "ScilabJITEventListener.hxx"
-#include "UTF8.hxx"
 
 #define TIME_LLVM 0
 
@@ -35,6 +36,7 @@ namespace jit
 const bool JITVisitor::__init__ = InitializeLLVM();
 
 JITVisitor::JITVisitor() : ast::ConstVisitor(),
+    ppv(std::wcerr, true, true),
     context(llvm::getGlobalContext()),
     module(new llvm::Module("JIT0", context)),
     target(nullptr),
@@ -78,7 +80,13 @@ void JITVisitor::run()
 
 void JITVisitor::dump() const
 {
-    module->dump();
+    //module->dump();
+    std::error_code error;
+    llvm::raw_fd_ostream stream("/tmp/scilab.ll", error, llvm::sys::fs::OpenFlags::F_None);
+    //bool unbuffered = false;
+    //llvm::raw_ostream ro(unbuffered);
+    //llvm::WriteBitcodeToFile(module, stream);
+    module->print(stream, nullptr);
 }
 
 void JITVisitor::runOptimizationPasses()
@@ -137,6 +145,29 @@ void JITVisitor::compile()
             f.deleteBody();
         }
     }
+}
+
+llvm::Value * JITVisitor::callNew(llvm::Value * size)
+{
+    //static int64_t dbg = 0;
+    //llvm::Function * _dbg = static_cast<llvm::Function *>(module->getOrInsertFunction("jit_debug", llvm::FunctionType::get(getTy<void>(), getTy<int64_t>(), false)));
+    //builder.CreateCall(_dbg, getConstant<int64_t>(dbg++));
+
+    llvm::Function * __new = static_cast<llvm::Function *>(module->getOrInsertFunction("jit_new", llvm::FunctionType::get(getTy<int8_t *>(), getTy<uint64_t>(), false)));
+    __new->addAttribute(0, llvm::Attribute::NoAlias);
+    llvm::CallInst * alloc = builder.CreateCall(__new, size);
+    alloc->addAttribute(0, llvm::Attribute::NoAlias);
+
+    return alloc;
+}
+
+void JITVisitor::callMemcpy(llvm::Value * dest, llvm::Value * src, llvm::Value * alignment, llvm::Value * size)
+{
+    llvm::Type * memcpy_types[] = { getTy<int8_t *>(), getTy<int8_t *>(), getTy<int64_t>() };
+    llvm::Value * __memcpy = llvm::Intrinsic::getDeclaration(module, llvm::Intrinsic::memcpy, memcpy_types);
+    llvm::Value * memcpy_args[] = { dest, src, size, alignment, getBool(false) };
+
+    builder.CreateCall(__memcpy, memcpy_args);
 }
 
 JITScilabPtr & JITVisitor::getCpxRValue()
@@ -228,12 +259,18 @@ void JITVisitor::CreateBr(llvm::BasicBlock * bb)
 
 void JITVisitor::visit(const ast::SimpleVar & e)
 {
-    setResult(variables.find(e.getSymbol())->second);
-}
-
-void JITVisitor::visit(const ast::DollarVar & e)
-{
-
+    /*const analysis::Result & res = e.getDecorator().getResult();
+    const std::wstring name = res.isAnInt() ? getMangledNameW(e.getSymbol(), analysis::TIType::INT64, true) : getMangledNameW(e.getSymbol(), res.getType());
+    auto i = variables.find(name);
+    if (i == variables.end())
+    {
+    std::wcerr << L"Problem with variable " << name << L": not found." << std::endl;;
+    }
+    else
+    {
+    setResult(i->second);
+    }*/
+    setResult(getVariable(e.getSymbol(), e));
 }
 
 void JITVisitor::visit(const ast::ColonVar & e)
@@ -312,6 +349,72 @@ void JITVisitor::visit(const ast::FunctionDec & e)
 void JITVisitor::visit(const ast::ListExp & e)
 {
 
+}
+
+JITScilabPtr & JITVisitor::getVariable(const std::wstring & name, const analysis::TIType::Type type, const bool scalar)
+{
+    auto i = variables.find(getMangledNameW(name, type, scalar));
+    if (i == variables.end())
+    {
+        std::wcerr << L"Problem with variable " << getMangledNameW(name, type, scalar) << L": not found." << std::endl;
+    }
+    else
+    {
+        return i->second;
+    }
+}
+
+JITScilabPtr & JITVisitor::getVariable(const std::wstring & name, const analysis::TIType & type)
+{
+    auto i = variables.find(getMangledNameW(name, type));
+    if (i == variables.end())
+    {
+        std::wcerr << L"Problem with variable " << getMangledNameW(name, type) << L": not found." << std::endl;
+    }
+    else
+    {
+        return i->second;
+    }
+}
+
+JITScilabPtr & JITVisitor::getVariable(const symbol::Symbol & sym, const ast::Exp & e)
+{
+    const analysis::Result & res = e.getDecorator().getResult();
+    if (res.isAnInt())
+    {
+        std::wstring name = getMangledNameW(sym, analysis::TIType::INT64, true);
+        auto i = variables.find(name);
+        if (i == variables.end())
+        {
+            name = getMangledNameW(sym, res.getType());
+            i = variables.find(name);
+            if (i == variables.end())
+            {
+                std::wcerr << L"Problem with variable " << name << L": not found.";
+            }
+            else
+            {
+                return i->second;
+            }
+        }
+        else
+        {
+            return i->second;
+        }
+    }
+    else
+    {
+        const std::wstring name = getMangledNameW(sym, res.getType());
+        auto i = variables.find(name);
+        if (i == variables.end())
+        {
+            std::wcerr << L"Problem with variable " << name << L": not found.";
+        }
+        else
+        {
+            return i->second;
+        }
+    }
 }
 
 llvm::Type * JITVisitor::getType(const analysis::TIType::Type ty, const bool scalar)
@@ -593,23 +696,28 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
     {
         const analysis::TIType::Type ty = in.tl.type;
         const bool scalar = in.tl.isScalar();
-        const std::string argName = scilab::UTF8::toUTF8(in.sym.getName());
         if (scalar)
         {
+            const std::wstring name = getMangledNameW(in.sym, ty, true);
+            const std::string _name = scilab::UTF8::toUTF8(name);
+
             if (ty == analysis::TIType::COMPLEX)
             {
                 llvm::Value * re = ai++;
                 llvm::Value * im = ai++;
 
-                variables.emplace(in.sym, getScalar(re, im, ty, true, argName));
+                variables.emplace(name, getScalar(re, im, ty, true, _name));
             }
             else
             {
-                variables.emplace(in.sym, getScalar(ai++, ty, true, argName));
+                variables.emplace(name, getScalar(ai++, ty, true, _name));
             }
         }
         else
         {
+            const std::wstring name = getMangledNameW(in.sym, ty, false);
+            const std::string _name = scilab::UTF8::toUTF8(name);
+
             if (ty == analysis::TIType::COMPLEX)
             {
                 llvm::Value * re = ai++;
@@ -617,7 +725,7 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
                 llvm::Value * R = ai++;
                 llvm::Value * C = ai++;
                 llvm::Value * RC = ai++;
-                variables.emplace(in.sym, getMatrix(re, im, R, C, RC, ty, true, argName));
+                variables.emplace(name, getMatrix(re, im, R, C, RC, ty, true, _name));
             }
             else
             {
@@ -625,7 +733,7 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
                 llvm::Value * R = ai++;
                 llvm::Value * C = ai++;
                 llvm::Value * RC = ai++;
-                variables.emplace(in.sym, getMatrix(M, R, C, RC, ty, true, argName));
+                variables.emplace(name, getMatrix(M, R, C, RC, ty, true, _name));
             }
         }
     }
@@ -637,7 +745,10 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
         const std::string name(out.sym.getName().begin(), out.sym.getName().end());
         if (scalar)
         {
-            JITScilabPtr & ptr = variables.emplace(out.sym, getScalar(ty, /* isAnInt */ false, name)).first->second;
+            const std::wstring name = getMangledNameW(out.sym, ty, true);
+            const std::string _name = scilab::UTF8::toUTF8(name);
+
+            JITScilabPtr & ptr = variables.emplace(name, getScalar(ty, /* isAnInt */ false, _name)).first->second;
             builder.SetInsertPoint(returnBlock);
             if (ty == analysis::TIType::COMPLEX)
             {
@@ -655,7 +766,10 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
         }
         else
         {
-            JITScilabPtr & ptr = variables.emplace(out.sym, getMatrix(ty, name)).first->second;
+            const std::wstring name = getMangledNameW(out.sym, ty, false);
+            const std::string _name = scilab::UTF8::toUTF8(name);
+
+            JITScilabPtr & ptr = variables.emplace(name, getMatrix(ty, _name)).first->second;
             builder.SetInsertPoint(returnBlock);
             if (ty == analysis::TIType::COMPLEX)
             {
@@ -690,16 +804,28 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
     const analysis::tools::SymbolMap<analysis::LocalInfo> & locals = fblock.getTypesLocals();
     for (const auto & local : locals)
     {
-        const std::string name(local.first.getName().begin(), local.first.getName().end());
-        for (const auto & ty : local.second.set)
+        const std::wstring & wname = local.first.getName();
+        for (const auto & tl : local.second.set)
         {
-            if (ty.isScalar())
+            if (tl.isAnInt)
             {
-                variables.emplace(local.first, getScalar(ty, name));
+                const std::wstring name = getMangledNameW(wname, analysis::TIType::INT64, true);
+                const std::string _name = scilab::UTF8::toUTF8(name);
+                variables.emplace(name, getScalar(tl, _name));
             }
             else
             {
-                variables.emplace(local.first, getMatrix(ty, name));
+                const std::wstring name = getMangledNameW(wname, tl.type, tl.isScalar());
+                const std::string _name = scilab::UTF8::toUTF8(name);
+
+                if (tl.isScalar())
+                {
+                    variables.emplace(name, getScalar(tl, _name));
+                }
+                else
+                {
+                    variables.emplace(name, getMatrix(tl, _name));
+                }
             }
         }
     }
@@ -713,7 +839,7 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
     }
     if (total >= 0)
     {
-        temps.resize(total + 1);
+        temps.resize(total + 1000);
         temps[0] = JITScilabPtr(nullptr);
         unsigned int id = 0;
         for (const auto & p : temporaries)
@@ -725,6 +851,7 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
                 const std::string name = std::to_string(id++) + "_tmp";
                 if (ty.isScalar())
                 {
+                    //std::wcerr << L"temps=" << temps.size() << "::" << stack.top() + 1 << std::endl;
                     temps[stack.top() + 1] = getScalar(ty, name);
                 }
                 else
@@ -740,7 +867,6 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
 
     builder.SetInsertPoint(mainBlock);
 
-
     //Debug::printI64(*this, variables.find(symbol::Symbol(L"a"))->second->loadRows(*this));
 
     fblock.getExp()->accept(*this);
@@ -749,6 +875,8 @@ void JITVisitor::action(analysis::FunctionBlock & fblock)
     builder.CreateRetVoid();
 
     closeEntryBlock();
+
+    //dump();
 
     addFunction(function->getName().str(), function);
 

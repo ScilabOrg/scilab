@@ -199,13 +199,13 @@ TIType Checkers::check_____power____(GVN & gvn, const TIType & in0, const TIType
                 {
                     if (in0.cols == in0.rows && in1.rows == 1 && in1.cols == 1)
                     {
-                        return TIType(gvn, TIType::COMPLEX, in0.rows, in0.rows);
+                        return TIType(gvn, TIType::DOUBLE, in0.rows, in0.rows);
                     }
                     if (in0.rows == 1 && in0.cols == 1)
                     {
-                        return TIType(gvn, TIType::COMPLEX, in1.rows, in1.cols);
+                        return TIType(gvn, TIType::DOUBLE, in1.rows, in1.cols);
                     }
-                    return TIType(gvn, TIType::COMPLEX, -2, -2);
+                    return TIType(gvn, TIType::DOUBLE, -2, -2);
                 }
                 case TIType::INT16 :
                 {

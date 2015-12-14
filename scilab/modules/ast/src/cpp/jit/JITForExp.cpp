@@ -300,7 +300,7 @@ void JITVisitor::visit(const ast::ForExp & e)
                     }
                     else
                     {
-                        //promoteSyms(e);
+                        promoteSyms(e);
                     }
                     builder.CreateBr(loop);
                     hasPre = true;
@@ -326,8 +326,10 @@ void JITVisitor::visit(const ast::ForExp & e)
             }
 
             i->addIncoming(start, cur_block);
-            JITScilabPtr & it = variables.find(symIterator)->second;
+            //const analysis::TIType & ty = vd.getDecorator().getResult().getType();
+            JITScilabPtr & it = getVariable(symIterator, vd);
             it->storeData(*this, i);
+            //it->storeData(*this, Cast::castC(i, false, getTy(ty), ty.issigned(), *this));
 
             // Visit the loop body
             e.getBody().accept(*this);
@@ -384,9 +386,7 @@ void JITVisitor::visit(const ast::ForExp & e)
             }
 
             i->addIncoming(i_step, cond);
-
             builder.CreateCondBr(cmp_i1, loop, after);
-
             builder.SetInsertPoint(after);
         }
     }
@@ -396,51 +396,42 @@ void JITVisitor::cloneSyms(const ast::Exp & e)
 {
     llvm::Type * types[] = { getTy<int8_t *>(), getTy<int8_t *>(), getTy<int64_t>(), getTy<int32_t>(), getTy<bool>() };
     llvm::Value * __memcpy = llvm::Intrinsic::getDeclaration(module, llvm::Intrinsic::memcpy, types);
-    llvm::Function * __new = static_cast<llvm::Function *>(module->getOrInsertFunction("new", llvm::FunctionType::get(getTy<int8_t *>(), llvm::ArrayRef<llvm::Type *>(getTy<uint64_t>()), false)));
 
     for (const auto & sym : e.getDecorator().getLoopDecoration()->getClone())
     {
         // TODO: bad stuff here: we must add the mangling to the name !!
-        JITScilabPtr & ptr = variables.find(sym)->second;
+        JITScilabPtr & ptr = variables.find(sym.getName())->second;
         llvm::Value * x = ptr->loadData(*this);
         llvm::Value * r = ptr->loadRows(*this);
         llvm::Value * c = ptr->loadCols(*this);
         llvm::Value * rc = builder.CreateMul(r, c);
         llvm::Value * size = builder.CreateMul(rc, getConstant<int64_t>(getTySizeInBytes(x)));
-        llvm::CallInst * dest = builder.CreateCall(__new, size);
-        dest->addAttribute(0, llvm::Attribute::NoAlias);
+        llvm::Value * dest = callNew(size);
         llvm::Value * src = builder.CreateBitCast(x, getTy<int8_t *>());
         llvm::Value * memcpy_args[] = { dest, src, size, getConstant<int64_t>(getTySizeInBytes(x)), getBool(false) };
         builder.CreateCall(__memcpy, memcpy_args);
         ptr->storeData(*this, dest);
     }
+}
 
-    /*    if (const analysis::Clone * cl = e.getDecorator().getClone())
+void JITVisitor::promoteSyms(const ast::Exp & e)
+{
+    for (const auto & promotion : e.getDecorator().getLoopDecoration()->getPromotion())
+    {
+        const symbol::Symbol & sym = promotion.first;
+        const analysis::TIType & first = promotion.second.first;
+        const analysis::TIType & second = promotion.second.second;
+
+        if ((first.type == second.type) && (first.type == analysis::TIType::DOUBLE) && first.isscalar())
         {
-            if (!cl->get().empty())
-            {
-                llvm::Type * types[] = { getTy<int8_t *>(), getTy<int8_t *>(), getTy<int64_t>(), getTy<int32_t>(), getTy<bool>() };
-                llvm::Value * __memcpy = llvm::Intrinsic::getDeclaration(module, llvm::Intrinsic::memcpy, types);
-                llvm::Function * __new = static_cast<llvm::Function *>(module->getOrInsertFunction("new", llvm::FunctionType::get(getTy<int8_t *>(), llvm::ArrayRef<llvm::Type *>(getTy<uint64_t>()), false)));
-                __new->addAttribute(0, llvm::Attribute::NoAlias);
+            // promote double_int64 into a double
+            JITScilabPtr & ptr_first = getVariable(sym.getName(), analysis::TIType::INT64, true);
+            JITScilabPtr & ptr_second = getVariable(sym.getName(), first);
 
-                for (const auto & sym : cl->get())
-                {
-                    JITScilabPtr & ptr = variables.find(sym)->second;
-                    llvm::Value * x = ptr->loadData(*this);
-                    llvm::Value * r = ptr->loadRows(*this);
-                    llvm::Value * c = ptr->loadCols(*this);
-                    llvm::Value * rc = builder.CreateMul(r, c);
-                    llvm::Value * size = builder.CreateMul(rc, getConstant<int64_t>(getTySizeInBytes(x)));
-                    llvm::CallInst * dest = builder.CreateCall(__new, size);
-                    dest->addAttribute(0, llvm::Attribute::NoAlias);
-                    llvm::Value * src = builder.CreateBitCast(x, getTy<int8_t *>());
-                    llvm::Value * memcpy_args[] = { dest, src, size, getConstant<int64_t>(getTySizeInBytes(x)), getBool(false) };
-                    builder.CreateCall(__memcpy, memcpy_args);
-                    ptr->storeData(*this, dest);
-                }
-            }
-    	}*/
-
+            llvm::Value * v = ptr_first->loadData(*this);
+            Cast::castInt64(v, *this);
+            ptr_second->storeData(*this, v);
+        }
+    }
 }
 }

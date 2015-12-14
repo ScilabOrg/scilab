@@ -88,10 +88,7 @@ void JITVisitor::visit(const ast::MemfillExp & e)
         llvm::Value * rc = builder.CreateMul(r, c);
         rc = Cast::cast<int64_t>(rc, false, *this);
         llvm::Value * size = builder.CreateMul(rc, getConstant<int64_t>(sizeof(double)));
-        llvm::Function * __new = static_cast<llvm::Function *>(module.getOrInsertFunction("new", llvm::FunctionType::get(getTy<int8_t *>(), llvm::ArrayRef<llvm::Type *>(getTy<uint64_t>()), false)));
-        __new->addAttribute(0, llvm::Attribute::NoAlias);
-        llvm::CallInst * alloc = builder.CreateCall(__new, size);
-        alloc->addAttribute(0, llvm::Attribute::NoAlias);
+        llvm::Value * alloc = callNew(size);
         llvm::Value * dbl_alloc = builder.CreateBitCast(alloc, getTy<double *>());
 
         if (isZero)
@@ -134,7 +131,7 @@ void JITVisitor::visit(const ast::MemfillExp & e)
             if (ae.getLeftExp().isSimpleVar()) // A = ...
             {
                 const symbol::Symbol & Lsym = static_cast<const ast::SimpleVar &>(ae.getLeftExp()).getSymbol();
-                Lptr = variables.find(Lsym)->second;
+                Lptr = getVariable(Lsym.getName(), ae.getLeftExp().getDecorator().getResult().getType());
             }
         }
         else

@@ -31,6 +31,7 @@
 #include "calls/JITCeil.hxx"
 #include "calls/JITRound.hxx"
 #include "calls/JITTicToc.hxx"
+#include "calls/JITLength.hxx"
 
 namespace jit
 {
@@ -44,12 +45,12 @@ bool JITCall::call(const ast::CallExp & e, std::vector<analysis::TIType> & types
     const analysis::TIType & funTy = var.getDecorator().getResult().getType();
     if (funTy.ismatrix())
     {
-        // we have an extraction
-        if (e.getDecorator().safe)
+        // TODO: we have an extraction
+        if (true || e.getDecorator().safe)
         {
             if (var.getDecorator().getResult().getType().isscalar())
             {
-                const JITScilabPtr & ptr = jit.getVariables().find(var.getSymbol())->second;
+                const JITScilabPtr & ptr = jit.getVariables().find(var.getSymbol().getName())->second;
                 if (out.empty())
                 {
                     out.emplace_back(ptr);
@@ -101,6 +102,7 @@ JITCall::FunMap JITCall::init()
     map.emplace(L"tic", std::shared_ptr<JITCall>(new JITTic()));
     map.emplace(L"toc", std::shared_ptr<JITCall>(new JITToc()));
     map.emplace(L"size", std::shared_ptr<JITCall>(new JITSize()));
+    map.emplace(L"length", std::shared_ptr<JITCall>(new JITLength()));
     map.emplace(L"zeros", std::shared_ptr<JITCall>(new JITZeros()));
     map.emplace(L"sin", std::shared_ptr<JITCall>(new JITOptimizedCall1("sin", {{ analysis::TIType::COMPLEX, "csin" }}, llvm::Intrinsic::sin)));
     map.emplace(L"cos", std::shared_ptr<JITCall>(new JITOptimizedCall1("cos", {{ analysis::TIType::COMPLEX, "ccos" }}, llvm::Intrinsic::cos)));

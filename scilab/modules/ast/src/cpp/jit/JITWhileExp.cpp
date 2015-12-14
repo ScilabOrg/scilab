@@ -18,33 +18,49 @@
 namespace jit
 {
 
-    void JITVisitor::visit(const ast::WhileExp & e)
+void JITVisitor::visit(const ast::WhileExp & e)
+{
+    llvm::LLVMContext & context = getContext();
+    llvm::IRBuilder<> & builder = getBuilder();
+    llvm::BasicBlock * condBlock = llvm::BasicBlock::Create(context, "while_cond", function);
+    llvm::BasicBlock * trueBlock = llvm::BasicBlock::Create(context, "while_loop", function);
+    llvm::BasicBlock * falseBlock = llvm::BasicBlock::Create(context, "while_after", function);
+    blocks.emplace(condBlock, falseBlock);
+
+    if (const analysis::LoopDecoration * ld = e.getDecorator().getLoopDecoration())
     {
-	llvm::LLVMContext & context = getContext();
-	llvm::IRBuilder<> & builder = getBuilder();
-	llvm::BasicBlock * condBlock = llvm::BasicBlock::Create(context, "while_cond", function);
-	llvm::BasicBlock * trueBlock = llvm::BasicBlock::Create(context, "while_loop", function);
-	llvm::BasicBlock * falseBlock = llvm::BasicBlock::Create(context, "while_after", function);
-	blocks.emplace(condBlock, falseBlock);
-
-	CreateBr(condBlock);
-	builder.SetInsertPoint(condBlock);
-	ShortcutEval se(*this, trueBlock, falseBlock);
-	e.getTest().accept(se);
-
-	JITScilabPtr & L = se.getResult();
-	if (L.get())
-	{
-	    llvm::Value * v = builder.CreateTrunc(L->loadData(*this), getTy<bool>());
-	    builder.CreateCondBr(v, trueBlock, falseBlock);
-	}
-
-	builder.SetInsertPoint(trueBlock);
-	e.getBody().accept(*this);
-	CreateBr(condBlock);
-	builder.SetInsertPoint(falseBlock);
-
-	blocks.pop();
+        if (!ld->getClone().empty() || !ld->getPromotion().empty())
+        {
+            if (!ld->getClone().empty())
+            {
+                cloneSyms(e); // code in JITForExp.cpp
+            }
+            else
+            {
+                promoteSyms(e); // code in JITForExp.cpp
+            }
+            //builder.CreateBr(condBlock);
+        }
     }
-    
+
+    CreateBr(condBlock);
+    builder.SetInsertPoint(condBlock);
+    ShortcutEval se(*this, trueBlock, falseBlock);
+    e.getTest().accept(se);
+
+    JITScilabPtr & L = se.getResult();
+    if (L.get())
+    {
+        llvm::Value * v = builder.CreateTrunc(L->loadData(*this), getTy<bool>());
+        builder.CreateCondBr(v, trueBlock, falseBlock);
+    }
+
+    builder.SetInsertPoint(trueBlock);
+    e.getBody().accept(*this);
+    CreateBr(condBlock);
+    builder.SetInsertPoint(falseBlock);
+
+    blocks.pop();
+}
+
 }

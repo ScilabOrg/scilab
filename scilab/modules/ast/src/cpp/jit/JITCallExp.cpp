@@ -36,7 +36,7 @@ void JITVisitor::visit(const ast::CallExp & e)
                     std::vector<analysis::TIType> typesOut;
                     typesOut.emplace_back(ae.getLeftExp().getDecorator().getResult().getType());
                     std::vector<JITScilabPtr> out;
-                    out.emplace_back(variables.find(Lsym)->second);
+                    out.emplace_back(getVariable(Lsym, ae.getLeftExp()));
                     JITCall::call(e, typesOut, out, *this);
                 }
                 else if (ae.getLeftExp().isAssignListExp()) // [A, B] = ...
@@ -52,8 +52,8 @@ void JITVisitor::visit(const ast::CallExp & e)
                         if (exp->isSimpleVar())
                         {
                             const symbol::Symbol & Lsym = static_cast<const ast::SimpleVar *>(exp)->getSymbol();
-                            out.emplace_back(variables.find(Lsym)->second);
                             typesOut.emplace_back(exp->getDecorator().getResult().getType());
+                            out.emplace_back(getVariable(Lsym.getName(), typesOut.back()));
                         }
                     }
                     JITCall::call(e, typesOut, out, *this);

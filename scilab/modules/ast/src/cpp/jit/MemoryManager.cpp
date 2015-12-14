@@ -71,9 +71,18 @@ uint8_t * MemoryManager::allocateDataSection(uintptr_t Size, unsigned Alignment,
 
 char * MYNEW(std::size_t size)
 {
-    std::cout << "NEW=" << size << std::endl;
+    //std::cout << "NEW=" << size << std::endl;
+    if (size >= 100000000)
+    {
+        throw std::exception();
+    }
     char * p =  new char[size];
     return p;
+}
+
+void jit_debug(int64_t n)
+{
+    std::cout << "n=" << n << std::endl;
 }
 
 void MYDGEMM(char * n, char * n1, int * x_r, int * y_c, int * x_c, double * one, double * x, int * x_r_1, double * y, int * x_c_1, double * zero, double * o, int * x_r_2)
@@ -96,8 +105,9 @@ MemoryManager::SymbolsAddressMap MemoryManager::init()
 #else
     addSymbol(sam, "delete", (void(*)(void *)noexcept)operator delete[]);
 #endif
-    addSymbol(sam, "new", (void * (*)(size_t))operator new[]);
-    //addSymbol(sam, "new", (void * (*)(size_t))MYNEW);
+    //addSymbol(sam, "jit_new", (void * (*)(size_t))operator new[]);
+    addSymbol(sam, "jit_new", (void * (*)(size_t))MYNEW);
+    addSymbol(sam, "jit_debug", jit_debug);
     addSymbol(sam, "MyDGEMM", MYDGEMM);
 
     // TODO: maybe we should get directly the pointer of the ConfigVariable::m_iIeee

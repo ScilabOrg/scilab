@@ -54,12 +54,15 @@
 #include "AnalysisVisitor.hxx"
 #include "JITInfo.hxx"
 #include "Debug.hxx"
+#include "UTF8.hxx"
 
 #include "calls/JITBinOpCall.hxx"
 #include "calls/JITUnaryOpCall.hxx"
 #include "calls/JITShortcutBinOpCall.hxx"
 
 #include "dynlib_ast.h"
+
+#include "prettyprintvisitor.hxx"
 
 namespace jit
 {
@@ -69,6 +72,8 @@ typedef std::shared_ptr<JITScilabVal> JITScilabPtr;
 
 class EXTERN_AST JITVisitor : public ast::ConstVisitor, public analysis::FBlockEmittedListener
 {
+
+    ast::PrettyPrintVisitor ppv;
 
     struct OutContainer
     {
@@ -98,7 +103,7 @@ class EXTERN_AST JITVisitor : public ast::ConstVisitor, public analysis::FBlockE
         OutContainer(const analysis::TIType::Type _type) : type(_type) { }
     };
 
-    typedef std::map<symbol::Symbol, JITScilabPtr> JITSymbolMap;
+    typedef std::unordered_map<std::wstring, JITScilabPtr> JITSymbolMap;
 
     static const bool __init__;
 
@@ -478,8 +483,9 @@ public:
         return variables;
     }
 
+    void callMemcpy(llvm::Value * dest, llvm::Value * src, llvm::Value * alignment, llvm::Value * size);
+    llvm::Value * callNew(llvm::Value * size);
     void makeCallFromScilab(const uint64_t functionId, const types::typed_list & in, types::typed_list & out);
-
     JITScilabPtr getScalar(llvm::Value * const value, const analysis::TIType::Type ty, const bool alloc = false, const std::string & name = "");
     JITScilabPtr getCreatedScalar(llvm::Value * const value, const analysis::TIType::Type ty, const bool alloc = false, const std::string & name = "");
     JITScilabPtr getScalar(llvm::Value * const re, llvm::Value * const im, const analysis::TIType::Type ty, const bool alloc = false, const std::string & name = "");
@@ -490,6 +496,9 @@ public:
     JITScilabPtr getMatrix(llvm::Value * const re, llvm::Value * const im, llvm::Value * const rows, llvm::Value * const cols, llvm::Value * const refCount, const analysis::TIType::Type ty, const bool alloc, const std::string & name);
     JITScilabPtr getMatrix(const analysis::TIType::Type ty, const std::string & name, const bool init = false);
     JITScilabPtr getMatrix(const analysis::TypeLocal & ty, const std::string & name, const bool init = false);
+    JITScilabPtr & getVariable(const symbol::Symbol & sym, const ast::Exp & e);
+    JITScilabPtr & getVariable(const std::wstring & name, const analysis::TIType & type);
+    JITScilabPtr & getVariable(const std::wstring & name, const analysis::TIType::Type type, const bool scalar);
     llvm::Value * getPtrFromIndex(const ast::CallExp & ce);
     void reset();
     void compile();
@@ -497,6 +506,36 @@ public:
     llvm::FunctionType * getFunctionType(const analysis::TIType & out, const std::vector<const analysis::TIType *> & types);
 
 private:
+
+    inline std::wstring getMangledNameW(const std::wstring & name, const analysis::TIType::Type ty, const bool scalar)
+    {
+        return name + L"_" + analysis::TIType::get_manglingW(ty, scalar);
+    }
+
+    inline std::wstring getMangledNameW(const symbol::Symbol & sym, const analysis::TIType & ty, const bool scalar)
+    {
+        return getMangledNameW(sym.getName(), ty.type, scalar);
+    }
+
+    inline std::wstring getMangledNameW(const std::wstring & name, const analysis::TIType & ty)
+    {
+        return analysis::TIType::get_unary_manglingW(name, ty);
+    }
+
+    inline std::string getMangledName(const std::string & name, const analysis::TIType & ty)
+    {
+        return analysis::TIType::get_unary_mangling(name, ty);
+    }
+
+    inline std::wstring getMangledNameW(const symbol::Symbol & sym, const analysis::TIType & ty)
+    {
+        return getMangledNameW(sym.getName(), ty);
+    }
+
+    inline std::string getMangledName(const symbol::Symbol & sym, const analysis::TIType & ty)
+    {
+        return scilab::UTF8::toUTF8(getMangledNameW(sym.getName(), ty));
+    }
 
     inline std::vector<JITScilabPtr> & getLHSContainer()
     {
@@ -589,6 +628,7 @@ private:
     llvm::Type * getType(const analysis::TIType::Type ty, const bool scalar);
     void runOptimizationPasses();
     void cloneSyms(const ast::Exp & e);
+    void promoteSyms(const ast::Exp & e);
     void makeSwitch(const ast::IntSelectExp & e, const std::map<int64_t, ast::Exp *> & map);
     void CreateBr(llvm::BasicBlock * bb);
     void closeEntryBlock();

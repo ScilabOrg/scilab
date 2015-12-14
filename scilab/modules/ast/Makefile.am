@@ -250,6 +250,7 @@ src/cpp/analysis/check_sum.cpp \
 src/cpp/analysis/check_____ldivide____.cpp \
 src/cpp/analysis/check_acos.cpp \
 src/cpp/analysis/check_____dottimes____.cpp \
+src/cpp/analysis/check_real.cpp \
 src/cpp/jit/JITVisitor.cpp \
 src/cpp/jit/Jitter.cpp \
 src/cpp/jit/JITComplexVal.cpp \
@@ -258,6 +259,7 @@ src/cpp/jit/JITCallExp.cpp \
 src/cpp/jit/JITForExp.cpp \
 src/cpp/jit/JITCall.cpp \
 src/cpp/jit/JITSize.cpp \
+src/cpp/jit/JITLength.cpp \
 src/cpp/jit/JITZeros.cpp \
 src/cpp/jit/JITBinOpCall.cpp \
 src/cpp/jit/JITUnaryOpCall.cpp \
@@ -271,6 +273,7 @@ src/cpp/jit/JITWhileExp.cpp \
 src/cpp/jit/JITBreakContinueExps.cpp \
 src/cpp/jit/JITSelectExp.cpp \
 src/cpp/jit/JITIntSelectExp.cpp \
+src/cpp/jit/JITDollarVar.cpp \
 src/cpp/jit/JITOptimizedCall1.cpp \
 src/cpp/jit/JITMemfillExp.cpp \
 src/cpp/jit/JITMatrixExp.cpp \
