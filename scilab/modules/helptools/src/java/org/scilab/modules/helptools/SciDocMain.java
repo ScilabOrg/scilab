@@ -155,7 +155,7 @@ public final class SciDocMain {
                     break;
                 case PDF:
                 case PS:
-                    converter = new FopConverter(this);
+                    converter = new FODocbookTagConverter(this);
                     break;
                 default:
                     System.err.printf("%s is not a supported format.\n", format);
