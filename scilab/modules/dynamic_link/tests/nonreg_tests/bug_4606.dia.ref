@@ -31,5 +31,5 @@ exec('loader.sce');
 a=linspace(0,%pi,10);
 b=5;
 y1=call('fooc',a,2,'d',b,3,'d',size(a,1),4,'i',size(a,2),5,'i','out',size(a),1,'d');
-y1-(sin(a)+b);
+assert_checkalmostequal(y1, sin(a) + b);
 exec('cleaner.sce');
