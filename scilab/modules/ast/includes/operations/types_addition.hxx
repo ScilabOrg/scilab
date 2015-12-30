@@ -130,11 +130,11 @@ template<typename T, typename O> inline static void add(T* l, size_t size, T* r,
 }
 
 //string version
-inline static void add(wchar_t** l, size_t size, wchar_t** r, int* length , wchar_t** o)
+inline static void add(char** l, size_t size, char** r, int* length , char** o)
 {
     for (size_t i = 0; i < size ; ++i)
     {
-        os_swprintf(o[i], length[i], L"%ls%ls", l[i], r[i]);
+        os_sprintf(o[i], length[i], "%s%s", l[i], r[i]);
     }
 }
 
@@ -208,11 +208,11 @@ template<typename T, typename U, typename O> inline static void add(T* l, size_t
 }
 
 //string version
-inline static void add(wchar_t** l, size_t size, wchar_t* r, int* length , wchar_t** o)
+inline static void add(char** l, size_t size, char* r, int* length , char** o)
 {
     for (size_t i = 0; i < size ; ++i)
     {
-        os_swprintf(o[i], length[i], L"%ls%ls", l[i], r);
+        os_sprintf(o[i], length[i], "%s%s", l[i], r);
     }
 }
 
@@ -257,11 +257,11 @@ template<typename T, typename U, typename O> inline static void add(T l, size_t 
 }
 
 //string version
-inline static void add(wchar_t* l, size_t size, wchar_t** r, int* length , wchar_t** o)
+inline static void add(char* l, size_t size, char** r, int* length , char** o)
 {
     for (size_t i = 0; i < size ; ++i)
     {
-        os_swprintf(o[i], length[i], L"%ls%ls", l, r[i]);
+        os_sprintf(o[i], length[i], "%s%s", l, r[i]);
     }
 }
 
@@ -309,9 +309,9 @@ template<typename T, typename U, typename O> inline static void add(T l, U r, O*
 }
 
 //string version
-inline static void add(wchar_t* l, wchar_t* r, int length , wchar_t* o)
+inline static void add(char* l, char* r, int length , char* o)
 {
-    os_swprintf(o, length, L"%ls%ls", l, r);
+    os_sprintf(o, length, "%s%s", l, r);
 }
 
 //x1C + x1C
