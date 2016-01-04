@@ -147,7 +147,7 @@ if grep('aabbabc'                                 ,'/a{1,}b{1,}c/'              
 if grep('abcabc'                                  ,'/a.+?c/'                               ,'r') <>  1   then bugmes();quit;end
 if grep('cde'                                     ,'/[^ab]*/'                              ,'r') <>  1   then bugmes();quit;end
 if grep(''                                        ,'/abc/'                                 ,'r') <>  []  then bugmes();quit;end
-if grep(''                                        ,'/a*/'                                  ,'r') <>  []  then bugmes();quit;end
+if grep(''                                        ,'/a+/'                                  ,'r') <>  []  then bugmes();quit;end
 if grep('e'                                       ,'/a|b|c|d|e/'                           ,'r') <>  1   then bugmes();quit;end
 if grep('abcdefg'                                 ,'/abcd*efg/'                            ,'r') <>  1   then bugmes();quit;end
 if grep('xabyabbbz'                               ,'/ab*/'                                 ,'r') <>  1   then bugmes();quit;end
@@ -234,7 +234,7 @@ if grep('ABCABC'                                  ,'/a.*?c/i'                   
 if grep('ABCABC'                                  ,'/a.{0,5}?c/i'                          ,'r') <>  1   then bugmes();quit;end
 if grep('CDE'                                     ,'/[^ab]*/i'                             ,'r') <>  1   then bugmes();quit;end
 if grep(''                                        ,'/abc/i'                                ,'r') <>  []  then bugmes();quit;end
-if grep(''                                        ,'/a*/i'                                 ,'r') <>  []  then bugmes();quit;end
+if grep(''                                        ,'/a+/i'                                 ,'r') <>  []  then bugmes();quit;end
 if grep('E'                                       ,'/a|b|c|d|e/i'                          ,'r') <>  1   then bugmes();quit;end
 if grep('ABCDEFG'                                 ,'/abcd*efg/i'                           ,'r') <>  1   then bugmes();quit;end
 if grep('XABYABBBZ'                               ,'/ab*/i'                                ,'r') <>  1   then bugmes();quit;end
@@ -482,7 +482,7 @@ if grep('ab'                                      ,'/(^|a)b/'                   
 if grep('abcab'                                   ,'/(\w)?(abc)\1b/'                       ,'r') <>  []  then bugmes();quit;end
 if grep('a,b,c'                                   ,'/^(?:.,){2}c/'                         ,'r') <>  1   then bugmes();quit;end
 if grep('a,b,c'                                   ,'/^(?:[^,]*,){2}c/'                     ,'r') <>  1   then bugmes();quit;end
-if grep(''                                        ,'/(?i)/'                                ,'r') <>  []  then bugmes();quit;end
+if grep(''                                        ,'/(?i)/'                                ,'r') <>  1  then bugmes();quit;end
 if grep('a'+lf+'xb'+lf                            ,'/(?!\A)x/m'                            ,'r') <>  1   then bugmes();quit;end
 if grep('123'+lf+'abcabcabcabc'+lf                ,'/^.{9}abc.*\n/m'                       ,'r') <>  1   then bugmes();quit;end
 if grep('a'                                       ,'/^(a)?(?(1)a|b)+$/'                    ,'r') <>  []  then bugmes();quit;end
