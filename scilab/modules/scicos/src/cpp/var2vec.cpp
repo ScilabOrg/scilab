@@ -269,7 +269,7 @@ bool var2vec(types::InternalType* in, std::vector<double> &out)
     getVarType(nullptr, (int*) in, &iType);
     switch (iType)
     {
-            // Reuse scicos model encoding for 'model.opar' and 'model.odstate' fields
+        // Reuse scicos model encoding for 'model.opar' and 'model.odstate' fields
         case sci_matrix  :
             encode(in->getAs<types::Double>(), out);
             break;
@@ -301,6 +301,9 @@ bool var2vec(types::InternalType* in, std::vector<double> &out)
                 case types::InternalType::ScilabUInt64 :
                     encode(in->getAs<types::UInt64>(), out);
                     break;
+                default:
+                    // should never happen
+                    return false;
             }
             break;
         case sci_boolean :
@@ -327,6 +330,10 @@ bool var2vec(types::InternalType* in, std::vector<double> &out)
                     //encode(in->getAs<types::Struct>(), out);
                     Scierror(999, _("%s: Wrong type for input argument #%d: %s, %s, %s, %s or %s type.\n"), var2vecName.c_str(), 1, "Double", "Integer", "Boolean", "String", "List");
                     return false;
+                default:
+                    Scierror(999, _("%s: Wrong type for input argument #%d: %s, %s, %s, %s or %s type.\n"), var2vecName.c_str(), 1, "Double", "Integer", "Boolean", "String", "List");
+                    return false;
+
             }
             break;
 
