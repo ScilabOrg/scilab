@@ -36,14 +36,15 @@ void setScilabInputMethod(SCILAB_INPUT_METHOD reader)
 
 void C2F(scilabread)(char* strRead, int len)
 {
-    char* str = scilabRead();
+    scilabRead();
+    char* str = ConfigVariable::getConsoleReadStr();
     int size = std::min(static_cast<int>(strlen(str)), len - 1);
     strncpy(strRead, str, size);
     strRead[size] = '\0';
     FREE(str);
 }
 
-char *scilabRead()
+int scilabRead()
 {
     ThreadManagement::LockScilabRead();
     if (getScilabMode() == SCILAB_STD)
@@ -77,7 +78,8 @@ char *scilabRead()
     FREE(pwstIn);
 
     ConfigVariable::setConsoleReadStr(pstTemp);
+    int isSciCmd = ConfigVariable::isScilabCommand();
     ThreadManagement::UnlockScilabRead();
 
-    return pstTemp;
+    return isSciCmd;
 }
