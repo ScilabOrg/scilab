@@ -65,33 +65,8 @@ public:
         return static_cast<T*>(getObject(uid));
     }
 
-    template<typename T>
-    bool getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, T& v) const
-    {
-        while (m_instance.onModelStructuralModification.test_and_set(std::memory_order_acquire))  // acquire lock
-            ; // spin
-        bool ret = m_instance.model.getObjectProperty(uid, k, p, v);
-        m_instance.onModelStructuralModification.clear(std::memory_order_release); // unlock
-        return ret;
-    };
-
-    template<typename T>
-    update_status_t setObjectProperty(const ScicosID& uid, kind_t k, object_properties_t p, T v)
-    {
-        while (m_instance.onModelStructuralModification.test_and_set(std::memory_order_acquire))  // acquire lock
-            ; // spin
-        update_status_t status = m_instance.model.setObjectProperty(uid, k, p, v);
-        m_instance.onModelStructuralModification.clear(std::memory_order_release); // unlock
-
-        while (m_instance.onViewsStructuralModification.test_and_set(std::memory_order_acquire))  // acquire lock
-            ; // spin
-        for (view_set_t::iterator iter = m_instance.allViews.begin(); iter != m_instance.allViews.end(); ++iter)
-        {
-            (*iter)->propertyUpdated(uid, k, p, status);
-        }
-        m_instance.onViewsStructuralModification.clear(std::memory_order_release); // unlock
-        return status;
-    }
+    template<typename T> bool getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, T& v) const;
+    template<typename T> update_status_t setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, T v);
 
 private:
 
@@ -134,6 +109,32 @@ private:
     void unlink(ScicosID uid, kind_t k, object_properties_t uid_prop, object_properties_t ref_prop);
     void deleteVector(ScicosID uid, kind_t k, object_properties_t uid_prop);
 };
+
+#if ! defined SWIG /* SWIG does not support extern template parsing, templates are explicitly instanciated on the swig file */
+
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, double& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, int& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, bool& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std::string& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, ScicosID& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std::vector<double>& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std::vector<int>& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std::vector<bool>& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std::vector< std::string >& v) const;
+extern template bool Controller::getObjectProperty(ScicosID uid, kind_t k, object_properties_t p, std::vector<ScicosID>& v) const;
+
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, double v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, int v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, bool v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, ScicosID v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::string& v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector<double>& v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector<int>& v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector<bool>& v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector< std::string >& v);
+extern template update_status_t Controller::setObjectProperty(ScicosID uid, kind_t k, object_properties_t p, const std::vector<ScicosID>& v);
+
+#endif /* SWIG */
 
 } /* namespace org_scilab_modules_scicos */
 
