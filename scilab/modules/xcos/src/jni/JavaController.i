@@ -275,11 +275,11 @@ namespace std {
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<double>;
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<std::string>;
 %template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty<ScicosID>;
-%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<int> >;
-%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<bool> >;
-%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<double> >;
-%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<std::string> >;
-%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<ScicosID> >;
+%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<int> const& >;
+%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<bool> const& >;
+%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<double> const& >;
+%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<std::string> const& >;
+%template(setObjectProperty) org_scilab_modules_scicos::Controller::setObjectProperty< std::vector<ScicosID> const& >;
 
 /*
  * Template instanciation

@@ -1787,23 +1787,21 @@ SWIGEXPORT jboolean JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Contr
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jint jarg5) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
   int arg5 ;
-  ScicosID temp2 ;
   update_status_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
   arg5 = (int)jarg5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< int >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< int >(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1812,23 +1810,21 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jboolean jarg5) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
   bool arg5 ;
-  ScicosID temp2 ;
   update_status_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
   arg5 = jarg5 ? true : false; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< bool >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< bool >(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1837,23 +1833,21 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jdouble jarg5) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
   double arg5 ;
-  ScicosID temp2 ;
   update_status_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
   arg5 = (double)jarg5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< double >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< double >(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1862,19 +1856,17 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jstring jarg5) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
   std::string arg5 ;
-  ScicosID temp2 ;
   update_status_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
   if(!jarg5) {
@@ -1885,7 +1877,7 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
   if (!arg5_pstr) return 0;
   (&arg5)->assign(arg5_pstr);
   jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::string >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::string >(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1894,23 +1886,21 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jlong jarg5) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
   long long arg5 ;
-  ScicosID temp2 ;
   update_status_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
   arg5 = (long long)jarg5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< ScicosID >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< ScicosID >(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1919,12 +1909,10 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_16(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
-  std::vector< int > arg5 ;
-  ScicosID temp2 ;
-  std::vector< int > *argp5 ;
+  std::vector< int > *arg5 = 0 ;
   update_status_t result;
   
   (void)jenv;
@@ -1932,17 +1920,15 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
   (void)jarg1_;
   (void)jarg5_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
-  argp5 = *(std::vector< int > **)&jarg5; 
-  if (!argp5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< int >");
+  arg5 = *(std::vector< int > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< int > const & reference is null");
     return 0;
-  }
-  arg5 = *argp5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< int > >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  } 
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< int > const & >(arg2,arg3,arg4,(std::vector< int > const &)*arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1951,12 +1937,10 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_17(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
-  std::vector< bool > arg5 ;
-  ScicosID temp2 ;
-  std::vector< bool > *argp5 ;
+  std::vector< bool > *arg5 = 0 ;
   update_status_t result;
   
   (void)jenv;
@@ -1964,17 +1948,15 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
   (void)jarg1_;
   (void)jarg5_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
-  argp5 = *(std::vector< bool > **)&jarg5; 
-  if (!argp5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< bool >");
+  arg5 = *(std::vector< bool > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< bool > const & reference is null");
     return 0;
-  }
-  arg5 = *argp5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< bool > >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  } 
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< bool > const & >(arg2,arg3,arg4,(std::vector< bool > const &)*arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -1983,12 +1965,10 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_18(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
-  std::vector< double > arg5 ;
-  ScicosID temp2 ;
-  std::vector< double > *argp5 ;
+  std::vector< double > *arg5 = 0 ;
   update_status_t result;
   
   (void)jenv;
@@ -1996,17 +1976,15 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
   (void)jarg1_;
   (void)jarg5_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
-  argp5 = *(std::vector< double > **)&jarg5; 
-  if (!argp5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< double >");
+  arg5 = *(std::vector< double > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< double > const & reference is null");
     return 0;
-  }
-  arg5 = *argp5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< double > >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  } 
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< double > const & >(arg2,arg3,arg4,(std::vector< double > const &)*arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -2015,12 +1993,10 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_19(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
-  std::vector< std::string > arg5 ;
-  ScicosID temp2 ;
-  std::vector< std::string > *argp5 ;
+  std::vector< std::string > *arg5 = 0 ;
   update_status_t result;
   
   (void)jenv;
@@ -2028,17 +2004,15 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
   (void)jarg1_;
   (void)jarg5_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
-  argp5 = *(std::vector< std::string > **)&jarg5; 
-  if (!argp5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< std::string >");
+  arg5 = *(std::vector< std::string > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< std::string > const & reference is null");
     return 0;
-  }
-  arg5 = *argp5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< std::string > >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  } 
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< std::string > const & >(arg2,arg3,arg4,(std::vector< std::string > const &)*arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -2047,12 +2021,10 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controller_1setObjectProperty_1_1SWIG_110(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
   jint jresult = 0 ;
   org_scilab_modules_scicos::Controller *arg1 = (org_scilab_modules_scicos::Controller *) 0 ;
-  ScicosID *arg2 = 0 ;
+  ScicosID arg2 ;
   kind_t arg3 ;
   object_properties_t arg4 ;
-  std::vector< long long > arg5 ;
-  ScicosID temp2 ;
-  std::vector< long long > *argp5 ;
+  std::vector< long long > *arg5 = 0 ;
   update_status_t result;
   
   (void)jenv;
@@ -2060,17 +2032,15 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaControllerJNI_Controlle
   (void)jarg1_;
   (void)jarg5_;
   arg1 = *(org_scilab_modules_scicos::Controller **)&jarg1; 
-  temp2 = (ScicosID)jarg2; 
-  arg2 = &temp2; 
+  arg2 = (ScicosID)jarg2; 
   arg3 = (kind_t)jarg3; 
   arg4 = (object_properties_t)jarg4; 
-  argp5 = *(std::vector< long long > **)&jarg5; 
-  if (!argp5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null std::vector< long long >");
+  arg5 = *(std::vector< long long > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< long long > const & reference is null");
     return 0;
-  }
-  arg5 = *argp5; 
-  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< ScicosID > >((ScicosID const &)*arg2,arg3,arg4,arg5);
+  } 
+  result = (update_status_t)(arg1)->SWIGTEMPLATEDISAMBIGUATOR setObjectProperty< std::vector< ScicosID > const & >(arg2,arg3,arg4,(std::vector< long long > const &)*arg5);
   jresult = (jint)result; 
   return jresult;
 }
