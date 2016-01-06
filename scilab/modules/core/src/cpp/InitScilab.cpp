@@ -633,12 +633,10 @@ void* scilabReadAndStore(void* param)
             //set prompt value
             C2F(setprlev) (&pause);
 
-            ConfigVariable::setScilabCommand(1);
-            scilabRead();
-            if (ConfigVariable::isScilabCommand() == 0)
+            if (scilabRead() == 0)
             {
-                // happens when the return of scilabRead is used
-                // in other thread (ie: call mscanf in a callback)
+                // happens when the return of scilabRead must not be interpreted by Scilab.
+                // ie: mscanf, step by step execution (mode 4 or 7)
                 ThreadManagement::WaitForConsoleExecDoneSignal();
                 continue;
             }
@@ -646,6 +644,9 @@ void* scilabReadAndStore(void* param)
             char* pstRead = ConfigVariable::getConsoleReadStr();
             if (command == NULL)
             {
+                //if (pstRead == NULL)
+                //    break;
+
                 command = pstRead;
                 if (strcmp(command, "") == 0)
                 {
