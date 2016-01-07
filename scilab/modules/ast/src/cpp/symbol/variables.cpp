@@ -99,7 +99,7 @@ bool Variable::put(types::InternalType* _pIT, int _iLevel)
                 int iFuncProt = ConfigVariable::getFuncprot();
                 if (iFuncProt != 0)
                 {
-                    bool bEquals = false;
+                    bool bEquals = true;
                     if (pIT && pIT->isCallable())
                     {
                         if (pIT->isMacroFile())
@@ -396,21 +396,21 @@ int Variables::getFunctionList(std::list<types::Callable *>& lst, std::wstring _
 {
     for (auto var : vars)
     {
-	if (var.second->empty())
-	{
-	    continue;
-	}
-	
-	if ((var.second->top()->m_iLevel == _iLevel || _iLevel == 1) && var.second->top()->m_pIT->isCallable())
-	{
-	    types::Callable * pCall = var.second->top()->m_pIT->getAs<types::Callable>();
-	    if (_stModuleName == L"" || _stModuleName == pCall->getModule())
-	    {
-		lst.push_back(pCall);
-	    }
-	}
+        if (var.second->empty())
+        {
+            continue;
+        }
+
+        if ((var.second->top()->m_iLevel == _iLevel || _iLevel == 1) && var.second->top()->m_pIT->isCallable())
+        {
+            types::Callable * pCall = var.second->top()->m_pIT->getAs<types::Callable>();
+            if (_stModuleName == L"" || _stModuleName == pCall->getModule())
+            {
+                lst.push_back(pCall);
+            }
+        }
     }
-    
+
     return static_cast<int>(lst.size());
 }
 
