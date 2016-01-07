@@ -174,7 +174,7 @@ public class Scilab {
                         lookAndFeel.setSystemLookAndFeel();
                     }
                 }
-            } catch (java.lang.NoClassDefFoundError exception) {
+            } catch (Exception exception) {
                 System.err.println("Could not initialize graphics Environment");
                 System.err.println("Scilab Graphical option may not be working correctly.");
                 System.err.println("An error occurred: " + exception.getLocalizedMessage());
