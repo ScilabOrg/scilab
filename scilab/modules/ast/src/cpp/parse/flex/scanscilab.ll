@@ -819,6 +819,50 @@ assign			"="
     return scan_throw(FLEX_ERROR);
   }
 
+  {spaces}{next}{newline} {
+      if (last_token == ID
+          || last_token == RPAREN
+          || last_token == QUOTE
+          || last_token == VARINT
+          || last_token == VARFLOAT
+          || last_token == NUM)
+      {
+          yylloc.last_line += 1;
+          yylloc.last_column = 1;
+          scan_step();
+          return scan_throw(COMMA);
+      }
+      else
+      {
+          yylloc.last_line += 1;
+          yylloc.last_column = 1;
+          scan_step();
+          scan_throw(EOL);
+      }
+  }
+
+  {next}{newline}{spaces} {
+      if (last_token == ID
+          || last_token == RPAREN
+          || last_token == QUOTE
+          || last_token == VARINT
+          || last_token == VARFLOAT
+          || last_token == NUM)
+      {
+          yylloc.last_line += 1;
+          yylloc.last_column = 1;
+          scan_step();
+          return scan_throw(COMMA);
+      }
+      else
+      {
+          yylloc.last_line += 1;
+          yylloc.last_column = 1;
+          scan_step();
+          scan_throw(EOL);
+      }
+  }
+
   {next}{spaces}*{newline}          {
       /* Just do nothing */
       yylloc.last_line += 1;
