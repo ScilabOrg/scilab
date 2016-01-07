@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Allan CORNET
  * Copyright (C) 2007 - INRIA - Sylvestre Ledru
+ * Copyright (C) 2015 - Scilab Enterprises - Clement DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,11 +14,20 @@
 
 package org.scilab.modules.gui.utils;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.awt.font.TextAttribute;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * Class used to modify look and feel in Scilab GUIs
@@ -27,6 +37,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class LookAndFeelManager {
 
     private static UIManager.LookAndFeelInfo[] availableLookAndFeels = UIManager.getInstalledLookAndFeels();
+
+    private transient Font defaultFont;
+    private transient Font defaultMonospacedFont;
+
     private boolean ret;
 
     /**
@@ -89,6 +103,9 @@ public class LookAndFeelManager {
                 public void run() {
                     try {
                         UIManager.setLookAndFeel(lookandfeel);
+                        registerEmbeddedFonts();
+                        initComponentDefaults(UIManager.getDefaults());
+
                         ret = true;
                     } catch (UnsupportedLookAndFeelException e) {
                         System.err.println("Cannot find this look and feel:");
@@ -102,6 +119,12 @@ public class LookAndFeelManager {
                     } catch (InstantiationException e) {
                         System.err.println("Instantiation error while setting the Look And Feel:");
                         System.err.println(e.getLocalizedMessage());
+                    } catch (FontFormatException e) {
+                        System.err.println("Invalid Font format:");
+                        System.err.println(e.getLocalizedMessage());
+                    } catch (IOException e) {
+                        System.err.println("Unable to open Font:");
+                        System.err.println(e.getLocalizedMessage());
                     }
                 }
             });
@@ -111,6 +134,106 @@ public class LookAndFeelManager {
         }
 
         return ret;
+    }
+
+    /**
+     * Register the shipped fonts or use the system ones on Linux
+     */
+    private void registerEmbeddedFonts() throws FontFormatException, IOException {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        File[] possibleDirs = {
+            new File(System.getenv("SCI"), "/../fonts/google-droid"),   // binary version
+            new File(System.getenv("SCI"), "/desktop"),                 // dev. version
+        };
+
+        // detect existing dir
+        File dir = null;
+        for (File d : possibleDirs) {
+            if (d.isDirectory()) { // also check if it exists implicitly
+                dir = d;
+                break;
+            }
+        }
+        if (dir == null) {
+            return;
+        }
+
+        // register fonts
+        final Float size = 5f;
+        File f;
+        f  = new File(dir, "DroidSans.ttf");
+        if (f.canRead()) {
+            Font base = Font.createFont(Font.TRUETYPE_FONT, f);
+
+            Font derived = base.deriveFont(size);
+            ge.registerFont(derived);
+            defaultFont = derived;
+        }
+
+        f  = new File(dir, "DroidSans-Bold.ttf");
+        if (f.canRead()) {
+            Font base = Font.createFont(Font.TRUETYPE_FONT, f);
+
+            Font derived = base.deriveFont(size);
+            ge.registerFont(derived);
+        }
+
+        f  = new File(dir, "DroidSansMono.ttf");
+        if (f.canRead()) {
+            Font base = Font.createFont(Font.TRUETYPE_FONT, f);
+
+            Font derived = base.deriveFont(size);
+            ge.registerFont(derived);
+            defaultMonospacedFont = derived;
+        }
+
+    }
+
+    /**
+     * Override some defaults previously set in GTKLookAndFell#initComponentDefaults(UIDefaults)
+     *
+     * @param table the default settings
+     */
+    private void initComponentDefaults(UIDefaults table) {
+        final FontUIResource defaultFontUIResource = new FontUIResource(defaultFont);
+        final FontUIResource defaultMonospacedFontUIResource = new FontUIResource(defaultMonospacedFont);
+
+        table.put("Button.font", defaultFontUIResource);
+        table.put("CheckBox.font", defaultFontUIResource);
+        table.put("CheckBoxMenuItem.font", defaultFontUIResource);
+        table.put("ColorChooser.font", defaultFontUIResource);
+        table.put("ComboBox.font", defaultFontUIResource);
+        table.put("EditorPane.font", defaultFontUIResource);
+        table.put("FormattedTextField.font", defaultFontUIResource);
+        table.put("Label.font", defaultFontUIResource);
+        table.put("List.font", defaultFontUIResource);
+        table.put("Menu.font", defaultFontUIResource);
+        table.put("List.font", defaultFontUIResource);
+        table.put("Menu.font", defaultFontUIResource);
+        table.put("MenuBar.font", defaultFontUIResource);
+        table.put("MenuItem.font", defaultFontUIResource);
+        table.put("OptionPane.font", defaultFontUIResource);
+        table.put("Panel.font", defaultFontUIResource);
+        table.put("PasswordField.font", defaultFontUIResource);
+        table.put("PopupMenu.font", defaultFontUIResource);
+        table.put("ProgressBar.font", defaultFontUIResource);
+        table.put("RadioButton.font", defaultFontUIResource);
+        table.put("RadioButtonMenuItem.font", defaultFontUIResource);
+        table.put("ScrollPane.font", defaultFontUIResource);
+        table.put("Spinner.font", defaultFontUIResource);
+        table.put("TabbedPane.font", defaultFontUIResource);
+        table.put("Table.font", defaultFontUIResource);
+        table.put("TableHeader.font", defaultFontUIResource);
+        table.put("TextArea.font", defaultFontUIResource);
+        table.put("TextField.font", defaultFontUIResource);
+        table.put("TextPane.font", defaultFontUIResource);
+        table.put("ToggleButton.font", defaultFontUIResource);
+        table.put("ToolBar.font", defaultFontUIResource);
+        table.put("ToolTip.font", defaultFontUIResource);
+        table.put("Tree.font", defaultFontUIResource);
+        table.put("Viewport.font", defaultFontUIResource);
+        table.put("TitledBorder.font", defaultFontUIResource);
     }
 
     /**
