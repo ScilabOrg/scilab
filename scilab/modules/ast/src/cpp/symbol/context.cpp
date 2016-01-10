@@ -353,6 +353,20 @@ bool Context::put(Variable* _var, types::InternalType* _pIT)
 bool Context::put(const Symbol& _key, types::InternalType* _pIT)
 {
     Variable* var = variables.getOrCreate(_key);
+
+    if (var->empty())
+    {
+        //box is empty, chekc if a macro from a library have this name.
+        //in ths case, add it to context before set new value.
+        types::InternalType* pIT = get(_key);
+        if (pIT && (pIT->isMacroFile() || pIT->isMacro()))
+        {
+            //
+            put(var, pIT);
+            return put(var, _pIT);
+        }
+    }
+
     return put(var, _pIT);
 }
 
