@@ -184,7 +184,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 
         return 0;
     }
-    else if (bScalar1 && _pDouble2->getDims() == 2)
+    else if (bScalar1 && _pDouble2->getDims() == 2 && _pDouble2->isVector())
     {
         //s ^ []
         *_pDoubleOut = new Double(_pDouble2->getRows(), _pDouble2->getCols(), true);
@@ -223,6 +223,12 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
             (*_pDoubleOut)->setComplex(false);
         }
 
+        return 0;
+    }
+    else if (bScalar1 && _pDouble2->getDims())
+    {
+        // s ^ Matrix
+        // call overload %s_pow
         return 0;
     }
 

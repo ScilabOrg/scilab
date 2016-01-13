@@ -42,13 +42,13 @@ assert_checkalmostequal(C ^ c, [-27.051150278703-%i*25.062777693306, 12.96168928
 
 // double ^ DOUBLE
 //r ^ R
-assert_checkequal(r ^ R, [2,4;8,16]);
+assert_checkalmostequal(r ^ R, expm(log(r) * R));
 //r ^ C
-assert_checkalmostequal(r ^ C, [ 0.3669139494866+%i*1.9660554808225,-3.7307483073443+%i*1.4427463627567;-4.2053829899227-%i*6.8054943911569, 11.836965865504-%i*10.765047101564]);
+assert_checkalmostequal(r ^ C, expm(log(r) * C));
 //c ^ R
-assert_checkequal(c ^ R, [ 1+%i*2,-3+%i*4;-11-%i*2,-7-%i*24]);
+assert_checkalmostequal(c ^ R, expm(log(c) * R));
 //c ^ C
-assert_checkalmostequal(c ^ C, [-0.2225171568018+%i*0.1007091311361, 0.0393715559770-%i*0.0448190190488;-0.0042471622281+%i*0.0139380758833,-0.0004586250484-%i*0.0035291890346]);
+assert_checkalmostequal(c ^ C, expm(log(c) * C));
 
 
 //POLY
