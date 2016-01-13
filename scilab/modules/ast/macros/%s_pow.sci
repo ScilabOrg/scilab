@@ -22,6 +22,12 @@ function x=%s_pow(a,p)
     //!
     [m,n]=size(a)
     [mp,np]=size(p)
+    if (m*n==1 & mp<>np) then
+        error(msprintf(_("%s: Wrong size for input argument #%d: Square matrix expected.\n"), "%s_pow", 2));
+    end
+    if (mp*np == 1 & m<>n) then
+        error(msprintf(_("%s: Wrong size for input argument #%d: Square matrix expected.\n"), "%s_pow", 1));
+    end
     if m*n==1&mp==np then  //a^P
         flag=or(p<>p')
         r=and(imag(p)==0)&imag(a)==0
@@ -67,6 +73,6 @@ function x=%s_pow(a,p)
             x=real(x);
         end
     else
-        error(43)
+        error(msprintf(_("Not implemented in scilab...\n")));
     end
 endfunction
