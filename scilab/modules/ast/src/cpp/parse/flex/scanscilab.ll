@@ -670,8 +670,8 @@ assign			"="
 
 
 <INITIAL,MATRIX>{spaces}		{
-  scan_step();
-  scan_throw(SPACES);
+        scan_step();
+        scan_throw(SPACES);
 }
 
 
@@ -756,7 +756,6 @@ assign			"="
       scan_throw(EOL);
   }
 
-
   {rbrack}				{
     DEBUG("yy_pop_state()");
     yy_pop_state();
@@ -788,7 +787,7 @@ assign			"="
        && last_token != EOL
        && last_token != SEMI
        && last_token != COMMA
-	&& paren_levels.top() == 0)
+      && paren_levels.top() == 0)
    {
        return scan_throw(COMMA);
    }
@@ -806,7 +805,7 @@ assign			"="
        && last_token != EOL
        && last_token != SEMI
        && last_token != COMMA
-	&& paren_levels.top() == 0)
+       && paren_levels.top() == 0)
    {
        return scan_throw(COMMA);
    }
@@ -822,22 +821,31 @@ assign			"="
   }
 
   {next}{spaces}*{newline}          {
-      /* Just do nothing */
       yylloc.last_line += 1;
       yylloc.last_column = 1;
-      if(last_token == SPACES)
-      {
-        unput(' ');
-      }
-
       scan_step();
   }
 
-  {next}{spaces}*{startcomment}          {
-      /* Just do nothing */
-      pstBuffer.clear();
-      yy_push_state(LINECOMMENT);
-      scan_throw(DOTS);
+  {next}{spaces}*{startcomment}.*{newline}          {
+      yylloc.last_line += 1;
+      yylloc.last_column = 1;
+      scan_step();
+  }
+
+  {spaces}{next}{spaces}*{newline}          {
+      yylloc.last_line += 1;
+      yylloc.last_column = 1;
+      scan_step();
+      unput(' ');
+      yylloc.last_column--;
+  }
+
+  {spaces}{next}{spaces}*{startcomment}.*{newline}          {
+      yylloc.last_line += 1;
+      yylloc.last_column = 1;
+      scan_step();
+      unput(' ');
+      yylloc.last_column--;
   }
 
   <<EOF>>       {
