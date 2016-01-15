@@ -288,6 +288,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
 
     ast::SeqExp* pSeqExp = pExp->getAs<ast::SeqExp>();
     pSeqExp->setExecFrom(ast::SeqExp::EXEC);
+    pSeqExp->setReturnable();
     std::unique_ptr<ast::ConstVisitor> exec(ConfigVariable::getDefaultVisitor());
 
     try
