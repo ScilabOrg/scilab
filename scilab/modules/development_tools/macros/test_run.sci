@@ -1017,7 +1017,7 @@ function status = test_single(_module, _testPath, _testName)
     end
 
 
-    if grep(dia_tmp,"error on test")<>[] then
+    if grep(dia_tmp,"error on test")<>[] || grep(dia_tmp, "of function assert_generror") <> [] then
         details = [ checkthefile(tmp_dia); ..
         launchthecommand(testFile) ];
         status.id = 2;
