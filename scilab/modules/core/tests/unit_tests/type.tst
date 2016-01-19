@@ -31,13 +31,6 @@ if type(sparse([1,2;4,5;3,10],[1,2,3])) <> 5 then pause,end
 // boolean sparse <-> 6
 if type(sparse([1,2;4,5;3,10], [%t,%t, %t])) <> 6 then pause,end
 
-// matlab sparse <-> 7
-X=sparse(rand(2,2));
-Y=mtlb_sparse(X);
-if type(Y) <> 7 then pause,end
-clear X;
-clear Y;
-
 // int <-> 8
 if type(int8(0)) <> 8 then pause,end
 if type(uint8(0)) <> 8 then pause,end
