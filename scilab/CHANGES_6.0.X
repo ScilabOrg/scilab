@@ -116,6 +116,9 @@ Other feature changes
 * The floating point exception mode (ieee) is now set to 2 by default: floating point exceptions now produce "Inf" or "Nan",
   and do not cause any error. The previous behavior can be recalled by simply calling: ieee(0)
 
+* Input argument of typename function have been removed and the fonctionnality with.
+
+
 API modification
 ================
 
