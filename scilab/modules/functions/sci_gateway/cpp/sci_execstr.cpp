@@ -22,6 +22,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <setjmp.h>
 
 extern "C"
 {
@@ -31,7 +32,15 @@ extern "C"
 #include "sciprint.h"
 #include "localization.h"
 #include "os_string.h"
+
+#ifdef _MSC_VER
+    jmp_buf ScilabExecJmpEnv;
+#else
+    extern jmp_buf ScilabExecJmpEnv;
+#endif
+
 }
+
 
 #define MUTE_FLAG       L"n"
 #define NO_MUTE_FLAG    L"m"
@@ -203,11 +212,24 @@ types::Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, 
 
     ast::SeqExp* pSeqExp = pExp->getAs<ast::SeqExp>();
     std::unique_ptr<ast::ConstVisitor> run(ConfigVariable::getDefaultVisitor());
+
     try
     {
         symbol::Context* pCtx = symbol::Context::getInstance();
         int scope = pCtx->getScopeLevel();
         int level = ConfigVariable::getRecursionLevel();
+
+        if (bErrCatch && ConfigVariable::getStartProcessing() == false)
+        {
+            std::cout << "setjmp" << std::endl;
+            int val = setjmp(ScilabExecJmpEnv);
+            if (val)
+            {
+                std::cout << "throw jump! jump !" << std::endl;
+                throw ast::InternalError("jump ! jump !");
+            }
+        }
+        std::cout << "exec something" << std::endl;
         try
         {
             pSeqExp->accept(*run);

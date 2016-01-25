@@ -333,6 +333,7 @@ int main(int argc, char *argv[])
     }
     else
     {
+        std::cout << "go out of scilab !!!!" << std::endl;
         // We probably had a segfault so print error
         std::wcerr << getLastErrorMessage() << std::endl;
         return val;

@@ -43,6 +43,7 @@
 #include "exit_status.hxx"
 
 jmp_buf ScilabJmpEnv;
+jmp_buf ScilabExecJmpEnv;
 
 /*----------------------------------------------------------------------------
  * Handle a fatal signal (such as SIGFPE or SIGSEGV)
@@ -418,7 +419,7 @@ static void sig_fatal(int signum, siginfo_t * info, void *p)
         setCharDisplay(DISP_RESET);
     }
 
-    longjmp(ScilabJmpEnv, HUGE_ERROR);
+    longjmp(ScilabExecJmpEnv, HUGE_ERROR);
 }
 
 void base_error_init(void)
