@@ -27,7 +27,7 @@ extern "C"
 #include "Thread_Wrapper.h"
 }
 
-typedef enum EnumCommand
+enum EnumCommand
 {
     AbortCommand,
     BreakCommand,
@@ -514,16 +514,16 @@ void print_help()
     sciprint(_("debug commands : \n"));
     sciprint("  h                            : %s.\n", _("show this help"));
     sciprint("  help                         : %s.\n", _("open debug documentation page"));
-    sciprint("\n");                          
+    sciprint("\n");
     sciprint("  (q)uit                       : %s.\n", _("stop debugging"));
     sciprint("  (w)here or bt                : %s.\n", _("show callstack"));
-    sciprint("\n");                          
+    sciprint("\n");
     sciprint("  (e)xec cmd                   : %s.\n", _("execute cmd"));
     sciprint("  (r)un cmd                    : %s.\n", _("execute cmd"));
-    sciprint("\n");                          
+    sciprint("\n");
     sciprint("  (d)isp var                   : %s.\n", _("display variable"));
     sciprint("  (p)rint var                  : %s.\n", _("display variable"));
-    sciprint("\n");                          
+    sciprint("\n");
     sciprint("  (c)ontinue                   : %s.\n", _("continue execution"));
     sciprint("  (a)bort                      : %s.\n", _("abort execution"));
     sciprint("  step(n)ext or next           : %s.\n", _("continue to next statement"));
