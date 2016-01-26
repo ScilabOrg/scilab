@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-08 22:04+0000\n"
+"PO-Revision-Date: 2016-01-08 03:29+0000\n"
 "Last-Translator: Ramiro Pereira de Magalhães <ramiro.p.magalhaes@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Generator: Launchpad (build 17902)\n"
 "Language: pt_BR\n"
 
 #, c-format
@@ -23,11 +23,13 @@ msgstr "%s: Não foi possível ler argumento de entrada #%d.\n"
 
 #, c-format
 msgid "%s: Wrong type for argument #%d: Real scalar expected.\n"
-msgstr "%s: Tipo incorreto para o argumento %d: esperava-se um escalar real.\n"
+msgstr ""
+"%s: Tipo incorreto para o argumento %d: esperava-se um escalar real.\n"
 
 #, c-format
 msgid "%s: Wrong size for argument #%d: Real scalar expected.\n"
-msgstr "%s: Tamanho errado para o argumento %d: esperava-se um escalar real.\n"
+msgstr ""
+"%s: Tamanho errado para o argumento %d: esperava-se um escalar real.\n"
 
 #, c-format
 msgid "%s: No more memory.\n"
@@ -157,6 +159,9 @@ msgstr ""
 msgid "show this help"
 msgstr ""
 
+msgid "open debug documentation page"
+msgstr ""
+
 msgid "stop debugging"
 msgstr ""
 
@@ -164,6 +169,9 @@ msgid "show callstack"
 msgstr ""
 
 msgid "execute cmd"
+msgstr ""
+
+msgid "display variable"
 msgstr ""
 
 msgid "continue execution"
@@ -181,7 +189,7 @@ msgstr ""
 msgid "step outside function"
 msgstr ""
 
-msgid "set a breakpoint"
+msgid "add a breakpoint"
 msgstr ""
 
 msgid "delete all breakpoints"
@@ -208,7 +216,7 @@ msgstr ""
 msgid "show a specific breakpoint"
 msgstr ""
 
-msgid "  for more details, help debug.\n"
+msgid "  for more details, show help page.\n"
 msgstr ""
 
 #, c-format
@@ -261,7 +269,8 @@ msgid "%s: Wrong type for input argument #%d: An integer expected."
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: a String or Integer expected.\n"
+msgid ""
+"%s: Wrong type for input argument #%d: a String or Integer expected.\n"
 msgstr ""
 
 #, c-format
@@ -328,6 +337,12 @@ msgid "%s: Wrong size for input argument #%d: a string expected.\n"
 msgstr ""
 
 #, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: struct array or tlist or mlist "
+"expected.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: Boolean vector expected.\n"
 msgstr ""
 
@@ -336,7 +351,29 @@ msgid "%s: Wrong type for input argument #%d: macro expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong value for input argument #%d: Valid function name expected.\n"
+msgid "%s: Wrong size for input arguments: more than %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for output arguments: %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong input arguments: Dimensions given as first argument do not match "
+"specified cell contents.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A vector expected.\n"
+msgstr ""
+
+msgid "Pause mode: enter empty lines to continue.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: Valid function name expected.\n"
 msgstr ""
 
 #, c-format
@@ -352,7 +389,8 @@ msgid "%s: Wrong size for input argument #%d: string expected."
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"
+msgid ""
+"%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"
 msgstr ""
 
 #, c-format
@@ -368,7 +406,27 @@ msgid "%s: Wrong type for input argument #%d: String or integer expected.\n"
 msgstr ""
 
 #, c-format
+msgid "%s: Wrong number of input argument(s): An even number is expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Field names must be strings.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Arguments must be scalar or must have same dimensions.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Can not create a %s with input argument #%d.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Insert a new type is not managed.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: '%s' expected .\n"
 msgstr ""
 
 #, c-format
@@ -483,7 +541,8 @@ msgstr "Informações sobre a versão Scilab."
 msgid "Debugger is on a breakpoint\n"
 msgstr ""
 
-msgid "(c)ontinue or (a)bort current execution before execute a new command\n"
+msgid ""
+"(c)ontinue or (a)bort current execution before execute a new command\n"
 msgstr ""
 
 msgid ""
@@ -620,12 +679,6 @@ msgstr "%s: Incapaz de localizar Perl.\n"
 #, c-format
 msgid "%s: System error: Command executed: %s"
 msgstr "%s: Erro de sistema: Comando executado: %s"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: At least %d expected.\n"
-msgstr ""
-"%s: Quantidade incorreta de argumentos de entrada: esperava-se pelo menos "
-"%d.\n"
 
 msgid "Scilab Version: "
 msgstr ""

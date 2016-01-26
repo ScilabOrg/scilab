@@ -14,12 +14,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Generator: Launchpad (build 17902)\n"
 "Language: ru\n"
 
 #, c-format
 msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
-msgstr "%s: Неверное количество выходных аргументов: ожидалось от %d до %d.\n"
+msgstr ""
+"%s: Неверное количество выходных аргументов: ожидалось от %d до %d.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A real scalar expected.\n"
@@ -32,7 +33,8 @@ msgstr ""
 "%s: Неверный размер входного аргумента №%d: ожидается вещественный скаляр.\n"
 
 #, c-format
-msgid "%s: Wrong value for input argument #%d: A polynomial '%ls' expected.\n"
+msgid ""
+"%s: Wrong value for input argument #%d: A polynomial '%ls' expected.\n"
 msgstr ""
 "%s: Неверное значение входного аргумента №%d: ожидался полином '%ls'.\n"
 
@@ -161,7 +163,8 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong size for input argument #%d: Same size expected.\n"
-msgstr "%s: Неверный размер входного аргумента №%d: ожидался тот же размер.\n"
+msgstr ""
+"%s: Неверный размер входного аргумента №%d: ожидался тот же размер.\n"
 
 #, c-format
 msgid ""
@@ -202,7 +205,8 @@ msgid "%s: Wrong size for input argument #%d: A polynomial expected.\n"
 msgstr "%s: Неверный размер входного параметра №%d: ожидался полином.\n"
 
 #, c-format
-msgid "%s: Wrong size for input argument #%d: A rational fraction expected.\n"
+msgid ""
+"%s: Wrong size for input argument #%d: A rational fraction expected.\n"
 msgstr ""
 "%s: Неверный размер входного параметра №%d: ожидалась рациональная дробь.\n"
 
@@ -238,7 +242,8 @@ msgstr "%s: Неверный тип входного параметра №%d.\n
 
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A row vector expected.\n"
-msgstr "%s: Неверный размер входного параметра №%d: ожидался вектор-строка.\n"
+msgstr ""
+"%s: Неверный размер входного параметра №%d: ожидался вектор-строка.\n"
 
 #, c-format
 msgid "%s: incompatible input arguments %d and %d\n"
@@ -251,7 +256,8 @@ msgstr ""
 "{%s}.\n"
 
 #, c-format
-msgid "%s: Wrong type for argument #%d: Real Matrix of Polynomials expected.\n"
+msgid ""
+"%s: Wrong type for argument #%d: Real Matrix of Polynomials expected.\n"
 msgstr ""
 "%s: Неверный тип аргумента №%d: ожидалась вещественная матрица полиномов.\n"
 

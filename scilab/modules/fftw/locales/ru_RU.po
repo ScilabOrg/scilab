@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Generator: Launchpad (build 17902)\n"
 "Language: ru\n"
 
 #, c-format
@@ -104,7 +104,8 @@ msgstr ""
 "%s: Неверный размер входного аргумента №%d: должен быть между %d и %d.\n"
 
 #, c-format
-msgid "%s: Wrong values for input argument #%d: Positive integers expected.\n"
+msgid ""
+"%s: Wrong values for input argument #%d: Positive integers expected.\n"
 msgstr ""
 "%s:Неверные значения входного аргумента №%d: ожидались положительные целые "
 "числа.\n"
@@ -133,11 +134,13 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Must be less than %d.\n"
-msgstr "%s: Неверные значения входного аргумента №%d: должны быть меньше %d.\n"
+msgstr ""
+"%s: Неверные значения входного аргумента №%d: должны быть меньше %d.\n"
 
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Must be a divisor of %d.\n"
-msgstr "%s: Неверные значения входного аргумента №%d: должны быть кратны %d.\n"
+msgstr ""
+"%s: Неверные значения входного аргумента №%d: должны быть кратны %d.\n"
 
 #, c-format
 msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
@@ -166,7 +169,8 @@ msgstr "Вы выбрали установку Scilab с модулем fftw."
 msgid "This module requires: "
 msgstr "Этот модуль требует: "
 
-msgid "Scilab will use standard fft by default until you install this library."
+msgid ""
+"Scilab will use standard fft by default until you install this library."
 msgstr ""
 "Scilab будет использовать по умолчанию стандартное быстрое преобразование "
 "Фурье до тех пор, пока вы не установите эту библиотеку."
