@@ -10,135 +10,132 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 68
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 76
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 91
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 107
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 141
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 158
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 168
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 192
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 212
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 248
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 295
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 317
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 72
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 80
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 95
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 111
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 145
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 162
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 172
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 196
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 216
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 252
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 299
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 321
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 82
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 323
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 333
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 86
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 327
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 337
 #, c-format
 msgid "%s: Wrong type for argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 98
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 115
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 125
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 201
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 222
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 234
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 102
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 119
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 129
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 205
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 226
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 238
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 176
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 180
 #, c-format
 msgid "%s: Wrong type for argument #%d: Real matrix or 'readonly' expected.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 285
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 289
 #, c-format
 msgid "%s: Wrong type for argument #%d: Real matrix expected.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 303
+# File: modules/scinotes/sci_gateway/cpp/sci_scinotes.cpp, line: 307
 #, c-format
 msgid ""
 "%s: Wrong size for input arguments #%d and #%d: Same dimensions expected.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/actions/SciNotesCompletionAction.java, line: 313
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/actions/SciNotesCompletionAction.java, line: 317
 msgid "Graphics handle field"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/actions/SciNotesCompletionAction.java, line: 318
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/actions/SciNotesCompletionAction.java, line: 322
 msgid "No help"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 30
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 144
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 213
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 34
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 148
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 217
 msgid "SciNotes"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 31
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 35
 msgid "Error while reading the String"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 32
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 36
 msgid "The configuration file has been corrupted and reset to default one."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 34
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 38
 #, c-format
 msgid "File not found: %s"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 35
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 39
 #, c-format
 msgid "I/O error: %s"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 36
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 40
 #, c-format
 msgid "The file %s has been modified by an other program. Reload it ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 39
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 43
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 105
 msgid "File"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 40
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 44
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 2
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 106
 msgid "New"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 41
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 45
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 3
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 107
 msgid "Open"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 42
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 46
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 10
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 103
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 114
@@ -147,7 +144,7 @@ msgid "Open function source file"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 43
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 47
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 11
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 104
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 115
@@ -156,143 +153,143 @@ msgid "Open URL"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 44
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 48
 msgid "Source of '"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 45
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 49
 msgid "Recent Files"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 46
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 50
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 12
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 116
 msgid "Save"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 47
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 51
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 13
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 117
 msgid "Save as"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 48
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 52
 msgid "The file could not be created, check the path"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 49
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 53
 msgid "The file is not writable so it is opened in read-only mode"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 50
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 54
 msgid "You do not have the permissions to write this file"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 51
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 55
 msgid "You do not have the permissions to read this file"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 56
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 60
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 14
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 118
 msgid "Save All"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 57
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 61
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 17
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 121
 msgid "Page Setup"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 58
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 62
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 18
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 122
 msgid "Print Preview"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 59
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 63
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 19
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 123
 msgid "Print"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 60
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 64
 msgid "An error occurred when exporting the code using FOP"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 61
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 65
 msgid "An error occurred when printing"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 62
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 66
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 20
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 124
 msgid "Close"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 63
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 67
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 21
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 125
 msgid "Close All"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 64
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 68
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 22
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 126
 msgid "Close All But This"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 65
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 69
 msgid "Exit"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 66
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 70
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 87
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 191
 msgid "?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 69
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 73
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 24
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 128
 msgid "Edit"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 70
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 74
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 25
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 129
 msgid "Undo"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 71
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 75
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 26
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 130
 msgid "Redo"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 72
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 76
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 27
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 98
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 131
@@ -301,7 +298,7 @@ msgid "Cut"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 73
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 77
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 28
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 97
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 132
@@ -310,7 +307,7 @@ msgid "Copy"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 74
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 78
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 30
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 99
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 134
@@ -319,7 +316,7 @@ msgid "Paste"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 75
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 79
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 35
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 95
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 139
@@ -328,47 +325,47 @@ msgid "Select All"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 76
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 80
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 31
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 135
 msgid "Delete"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 79
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 83
 msgid "Tools"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 80
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 84
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 55
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 159
 msgid "Comment Selection"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 81
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 85
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 56
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 160
 msgid "Uncomment Selection"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 82
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 86
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 50
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 154
 msgid "Shift Right"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 83
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 87
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 51
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 155
 msgid "Shift Left"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 84
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 88
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 52
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 101
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 156
@@ -377,629 +374,629 @@ msgid "Correct Indentation"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 85
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 89
 msgid "Help on typing"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 86
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 90
 msgid "Generate help from function"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 87
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 91
 msgid "Clone tab in a new window"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 88
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 92
 msgid "Clone and close tab in a new window"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 89
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 93
 msgid "Remove trailing whitespaces"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 92
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 96
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 37
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 141
 msgid "Search"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 93
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 97
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 38
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 142
 msgid "Find/Replace"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 94
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 98
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 39
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 143
 msgid "Find Next"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 95
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 99
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 40
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 144
 msgid "Find Previous"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 96
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 100
 msgid "Goto line"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 99
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 103
 msgid "View"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 100
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 104
 msgid "Show/Hide ToolBar"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 101
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 105
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 73
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 177
 msgid "Highlight current line"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 102
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 106
 msgid "Word Wrap"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 103
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 107
 msgid "Whereami Line Numbering"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 104
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 108
 msgid "Normal Line Numbering"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 105
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 109
 msgid "No Line Numbering"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 107
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 111
 msgid "Set Colors"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 108
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 112
 msgid "Set Font"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 109
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 113
 msgid "Reset default font"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 111
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 115
 msgid "Split horizontally"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 112
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 116
 msgid "Split vertically"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 113
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 117
 msgid "No split"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 116
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 120
 msgid "Document"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 117
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 121
 msgid "Syntax Type"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 118
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 122
 msgid "Scilab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 121
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 125
 msgid "Encoding"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 122
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 126
 msgid "Colorize"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 123
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 127
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 74
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 178
 msgid "Enable Auto Reformat"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 124
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 128
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 64
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 168
 msgid "Line Endings"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 125
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 129
 msgid "Auto (Default)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 126
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 130
 msgid "Windows/DOS (CR + LF)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 127
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 131
 msgid "Mac Classic (CR)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 128
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 132
 msgid "Unix (LF)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 131
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 135
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 81
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 185
 msgid "Execute"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 132
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 136
 msgid "Load Into Scilab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 133
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 137
 msgid "Evaluate Selection"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 134
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 138
 msgid "Evaluate from beginning..."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 135
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 139
 msgid "Execute File Into Scilab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 138
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 142
 msgid "SciNotes help"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 139
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 143
 msgid "Help on the current keyword"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 140
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 144
 msgid "Help on the selected text"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 141
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 145
 msgid "Help on selected text or keyword"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 142
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 146
 msgid "Help about '"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 143
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 147
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 90
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 194
 msgid "About"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 147
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 151
 msgid "Find:"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 148
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 152
 msgid "Find"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 149
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 153
 msgid "Replace/Find"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 150
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 154
 msgid "Replace With :"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 151
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 155
 msgid "Direction"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 152
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 156
 msgid "Forward"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 153
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 157
 msgid "Backward"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 154
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 158
 msgid "Scope"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 155
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 159
 msgid "All"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 156
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 160
 msgid "Selected lines"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 157
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 161
 msgid "Select from caret"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 158
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 162
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 62
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 166
 msgid "Options"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 159
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 163
 msgid "Case sensitive"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 160
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 164
 msgid "Circular search"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 161
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 165
 msgid "Restart the search from the beginning"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 162
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 166
 msgid "Whole word"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 163
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 167
 msgid "Regular expressions"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 164
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 168
 msgid "Replace"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 165
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 169
 msgid "Replace All"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 166
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 170
 #, c-format
 msgid "Invalid regular expression : %s"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 167
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 171
 msgid "You have passed the end of the document"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 168
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 172
 msgid "You have passed the beginning of the document"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 169
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 173
 msgid "You have reached the end of the document"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 170
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 174
 msgid "You have reached the beginning of the document"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 171
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 175
 #, c-format
 msgid "String %s not found"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 173
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 177
 #, c-format
 msgid "The file %s does not exist. Do you want to create it?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 174
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 178
 msgid "close this tab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 175
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 179
 msgid "This file"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 176
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 180
 #, c-format
 msgid "The file %s has been modified since last save. Save it?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 177
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 181
 #, c-format
 msgid "The file %s has been modified by another program ! Overwrite it ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 178
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 182
 msgid "Warning: the file has been modified by another program !"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 179
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 183
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 8
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 112
 msgid "Reload"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 180
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 184
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 15
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 119
 msgid "Overwrite"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 181
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 185
 msgid "Ignore"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 182
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 186
 msgid "Replace File?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 183
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 187
 msgid "File already exists"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 184
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 188
 msgid "Untitled "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 185
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 189
 msgid "Ok"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 186
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 190
 msgid "Apply & Reindent"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 187
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 191
 msgid "Cancel"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 188
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 192
 msgid "Default"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 189
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 193
 msgid "Next tab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 190
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 194
 msgid "Previous tab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 191
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 195
 msgid ""
 "You need to save your modifications before executing this file into Scilab."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 192
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 196
 msgid ""
 "This file is very long. \"Execute File Into Scilab\" could be better.\n"
 "Are you sure to continue ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 195
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 199
 msgid "Enter line number"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 196
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 200
 msgid "This file is a binary, saving it will result in a corrupt file."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 199
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 203
 msgid "Loading"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 200
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 204
 msgid "Colorization canceled"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 201
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 205
 msgid "Binary file: read-only mode"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 202
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 206
 msgid "Read-only mode"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 203
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 207
 msgid "Press CTRL and move the mouse over the link to activate it"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 204
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 208
 msgid "Open in the navigator the URL "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 205
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 209
 msgid "Mail to "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 206
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 210
 msgid "Open the source of the macro "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 207
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 211
 msgid "Show the definition of the macro "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 208
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 212
 #, c-format
 msgid "Line %s, Column %s. Function '%s' at Line %s."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 209
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 213
 msgid "Unknown function"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 210
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 214
 #, c-format
 msgid "Line %s, Column %s."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 214
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 218
 msgid "Copyright (c)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 216
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 220
 msgid "SciNotes error"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 217
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 221
 msgid "The file could not be saved."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 218
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 222
 msgid "The file could not be converted."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 219
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 223
 #, c-format
 msgid "%s is a directory."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 220
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 224
 msgid "Your modifications will be lost, change encoding anyway?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 221
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 225
 msgid "Continue ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 222
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 226
 msgid "Cannot load \"scinotesConfiguration.xml\""
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 224
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 228
 msgid "Could not find the console nor the InterpreterManagement."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 225
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 229
 msgid "Could not find the temporary file."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 226
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 230
 msgid "No text selected."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 227
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 231
 msgid "No text to execute."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 228
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 232
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 94
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 198
 msgid "Complete"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 229
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 233
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 79
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 93
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 183
@@ -1008,390 +1005,390 @@ msgid "Copy selection in a new tab"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 231
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 235
 #, c-format
 msgid ""
 "The file encoding is actually %s and it will be saved in using %s. Continue ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 232
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 236
 msgid "Encoding problems"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 233
-msgid "Cannot guess the file encoding."
-msgstr ""
-
-#
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 235
-#, c-format
-msgid "Cannot save the file %s... stop the backup process"
-msgstr ""
-
-#
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 236
-msgid "Backup finished..."
-msgstr ""
-
-#
 # File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 237
-#, c-format
-msgid "The directory %s does not exist. Do you want to create it?"
-msgstr ""
-
-#
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 238
-#, c-format
-msgid "The directory %s cannot be created. Please check your access rights."
+msgid "Cannot guess the file encoding."
 msgstr ""
 
 #
 # File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 239
 #, c-format
-msgid "Impossible to write a file in %s. Please check your access rights."
+msgid "Cannot save the file %s... stop the backup process"
 msgstr ""
 
 #
 # File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 240
-#, c-format
-msgid "Invalid directory name: %s."
+msgid "Backup finished..."
 msgstr ""
 
 #
 # File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 241
-msgid "SciNotes autosave"
+#, c-format
+msgid "The directory %s does not exist. Do you want to create it?"
+msgstr ""
+
+#
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 242
+#, c-format
+msgid "The directory %s cannot be created. Please check your access rights."
 msgstr ""
 
 #
 # File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 243
 #, c-format
+msgid "Impossible to write a file in %s. Please check your access rights."
+msgstr ""
+
+#
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 244
+#, c-format
+msgid "Invalid directory name: %s."
+msgstr ""
+
+#
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 245
+msgid "SciNotes autosave"
+msgstr ""
+
+#
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 247
+#, c-format
 msgid "%s occurences found."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 248
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 252
 msgid "Change Colors"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 253
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 257
 msgid "Cursor Color"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 254
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 258
 msgid "Background Color"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 255
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 259
 msgid "Change Color"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 256
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 260
 msgid "Italic"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 257
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 261
 msgid "Strike Through"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 258
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 262
 msgid "Preview"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 259
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 263
 msgid "Underline"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 260
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 264
 msgid "Settings"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 261
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 265
 msgid "Color"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 262
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 266
 msgid "Bold"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 267
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 271
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 48
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 152
 msgid "Code Navigator"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 268
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 272
 msgid "Absolute"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 269
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 273
 msgid "Relative"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 270
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 274
 msgid "Go to line: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 271
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 275
 msgid "Numeration"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 272
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 276
 msgid "Alphabetic order"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 273
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 277
 msgid "Natural order"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 274
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 278
 msgid "Order"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 275
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 279
 msgid "Functions"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 276
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 280
 msgid "Anchors"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 281
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 285
 msgid "Anchor's name: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 282
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 286
 msgid "Set an anchor"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 283
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 287
 msgid "Anchor: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 288
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 292
 msgid "Open source file of the function:"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 289
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 293
 msgid "Open source"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 294
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 298
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 299
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 303
 msgid "Restore files from your last SciNotes session ?"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 300
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 304
 msgid "Restore the last sessions"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 305
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 309
 msgid "Configure Tabulation"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 306
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 310
 msgid "Tab style"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 307
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 311
 msgid "Use spaces"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 308
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 312
 msgid "Length"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 309
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 313
 msgid "Tab representation"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 310
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1275
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1838
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 314
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1283
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1846
 msgid "Horizontal rule"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 311
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1281
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1844
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 315
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1289
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1852
 msgid "Vertical rule"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 312
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 316
 msgid "Double chevrons"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 314
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 318
 msgid "Copy full path"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 319
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 323
 msgid "Exact"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 324
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 328
 msgid "Search Files..."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 325
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 329
 msgid "Search in Files..."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 326
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 330
 #, c-format
 msgid "<html>%s <i>(%s matches)</i></html>"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 327
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 331
 #, c-format
 msgid "<html>%s <i>(%s match)</i></html>"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 328
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 332
 #, c-format
 msgid "Elapsed time: %s sec."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 329
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 333
 msgid "Base directory:"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 330
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 334
 msgid "Recursive"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 331
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 335
 msgid "File pattern"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 332
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 336
 msgid "(* for any string and ? for any character)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 333
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 337
 msgid "(~ for user home dir. and SCI for Scilab base dir.)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 334
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 338
 msgid "Word pattern"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 335
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 339
 msgid "Read file line by line"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 336
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 340
 msgid "Choose..."
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 337
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 341
 msgid "Stop"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 338
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 342
 msgid "Regex"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 339
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 343
 msgid "Word"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 340
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 344
 msgid "Case-sensitivity (Word)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 341
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 345
 msgid "Case-sensitivity (File name)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 342
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 346
 msgid "Recursive search"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 343
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 347
 msgid "Line by line"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 344
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 348
 msgid "Regular expression (Word)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 345
+# File: modules/scinotes/src/java/org/scilab/modules/scinotes/utils/SciNotesMessages.java, line: 349
 msgid "Choose the search base directory"
 msgstr ""
 
 #
-# File: modules/scinotes/src/noscinotes/noscinotes.c, line: 22
+# File: modules/scinotes/src/noscinotes/noscinotes.c, line: 26
 #, c-format
 msgid "Scilab '%s' module disabled in -nogui or -nwni mode.\n"
 msgstr ""
 
 #
-# File: modules/scinotes/src/noscinotes/noscinotes.c, line: 26
+# File: modules/scinotes/src/noscinotes/noscinotes.c, line: 30
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr ""
@@ -1591,8 +1588,8 @@ msgstr ""
 #
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 68
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 172
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 986
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1549
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 994
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1557
 msgid "Scinotes General settings"
 msgstr ""
 
@@ -1701,388 +1698,388 @@ msgid "Evaluate Selection with echo;Evaluate until the caret, with echo"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 860
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 887
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 868
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 895
 msgid "Display"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 865
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 892
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 873
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 900
 msgid "Header"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 876
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 903
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 884
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 911
 msgid "Autosave"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 913
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1476
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 921
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1484
 msgid "Editor"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 916
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1479
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 924
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1487
 msgid "Use Scinotes"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 936
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1499
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 944
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1507
 msgid "External editor: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 955
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1518
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 963
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1526
 msgid "(Don't forget to quote path containing white spaces)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 965
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1528
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 973
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1536
 msgid "Scilab command: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 991
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1554
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 999
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1562
 msgid "Restore previous session on start-up"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 998
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1561
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1006
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1569
 msgid "Add carriage return at the end of the file."
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1002
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1565
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1010
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1573
 msgid "Number of recently opened files to display: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1017
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1580
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1025
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1588
 msgid "Default file encoding: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1029
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1592
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1037
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1600
 msgid "Default End-Of-Line: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1066
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1629
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1074
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1637
 msgid "Completion"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1067
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1630
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1075
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1638
 msgid "Auto-complete brackets when cursor is at the end of a line"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1077
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1640
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1085
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1648
 msgid "General display options"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1079
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1642
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1087
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1650
 msgid "Highlight current line: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1092
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1655
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1100
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1663
 msgid "Show line numbers: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1098
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1661
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1106
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1669
 msgid "Local numbering"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1104
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1667
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1112
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1675
 msgid "Normal"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1110
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1673
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1118
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1681
 msgid "Wrap lines"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1116
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1679
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1124
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1687
 msgid "Background color: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1123
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1686
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1131
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1694
 msgid "Cursor color: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1134
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1697
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1142
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1705
 msgid "Keywords"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1136
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1699
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1144
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1707
 msgid "Enable keywords colorization"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1143
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1706
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1151
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1714
 msgid "Set syntax Colors"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1146
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1709
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1154
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1717
 msgid "Highlight corresponding brackets"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1152
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1196
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1715
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1759
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1160
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1204
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1723
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1767
 msgid "Color: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1159
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1203
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1722
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1766
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1167
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1211
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1730
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1774
 msgid "Highlight on mouse over"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1165
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1209
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1728
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1772
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1173
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1217
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1736
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1780
 msgid "Style: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1171
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1215
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1734
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1778
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1179
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1223
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1742
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1786
 msgid "Filled"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1176
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1220
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1739
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1783
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1184
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1228
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1747
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1791
 msgid "Framed"
-msgstr ""
-
-#
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1181
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1744
-msgid "Underlined"
 msgstr ""
 
 #
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1189
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1752
+msgid "Underlined"
+msgstr ""
+
+#
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1197
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1760
 msgid "Highlight corresponding keywords (e.g. if ... end)"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1232
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1795
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1240
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1803
 msgid "Tabulation and Indentation"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1234
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1797
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1242
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1805
 msgid "Tabulation size: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1250
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1813
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1258
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1821
 msgid "Use space"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1267
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1830
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1275
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1838
 msgid "Representation: "
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1269
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1832
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1277
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1840
 msgid "Chevrons"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1287
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1850
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1295
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1858
 msgid "Enable auto indentation"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1293
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1856
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1301
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1864
 msgid "Indent size: "
-msgstr ""
-
-#
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1315
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1878
-msgid "Enable autosave in Scinotes"
 msgstr ""
 
 #
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1323
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1886
+msgid "Enable autosave in Scinotes"
+msgstr ""
+
+#
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1331
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1894
 msgid "Save options"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1325
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1888
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1333
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1896
 msgid "Save every "
-msgstr ""
-
-#
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1340
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1903
-msgid " minutes "
 msgstr ""
 
 #
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1348
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1911
+msgid " minutes "
+msgstr ""
+
+#
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1356
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1919
 msgid "Close options"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1349
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1912
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1357
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1920
 msgid "Delete automatically saved files"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1359
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1922
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1367
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1930
 msgid "Filename"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1361
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1924
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1369
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1932
 msgid "Append filename with: "
-msgstr ""
-
-#
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1379
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1942
-#, c-format
-msgid "(%date can be used to be replaced by the current date)"
 msgstr ""
 
 #
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1387
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1950
+#, c-format
+msgid "(%date can be used to be replaced by the current date)"
+msgstr ""
+
+#
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1395
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1958
 msgid "Replace extension with: "
-msgstr ""
-
-#
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1410
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1973
-msgid "Location"
-msgstr ""
-
-#
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1412
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1975
-msgid "Source file directory"
 msgstr ""
 
 #
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1418
 # File: modules/scinotes/src/scinotes_fake_xml.c, line: 1981
+msgid "Location"
+msgstr ""
+
+#
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1420
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1983
+msgid "Source file directory"
+msgstr ""
+
+#
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1426
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1989
 msgid "Single directory"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1427
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1990
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1435
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1998
 msgid "Choose an autosave directory"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1445
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 2008
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1453
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 2016
 msgid "Default header"
 msgstr ""
 
 #
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1447
-# File: modules/scinotes/src/scinotes_fake_xml.c, line: 2010
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 1455
+# File: modules/scinotes/src/scinotes_fake_xml.c, line: 2018
 msgid "Add a default header to new file"
 msgstr ""
 
-# File: modules/scinotes/macros/edit_error.sci, line: 19
+# File: modules/scinotes/macros/edit_error.sci, line: 23
 msgid "The last error did not occur inside a Scilab macro."
 msgstr ""
 
 #
-# File: modules/scinotes/macros/edit_error.sci, line: 24
+# File: modules/scinotes/macros/edit_error.sci, line: 28
 msgid " on line "
 msgstr ""
 
 #
-# File: modules/scinotes/macros/edit_error.sci, line: 24
+# File: modules/scinotes/macros/edit_error.sci, line: 28
 msgid "Opening file "
 msgstr ""
 
 #
-# File: modules/scinotes/macros/edit_error.sci, line: 25
+# File: modules/scinotes/macros/edit_error.sci, line: 29
 msgid " of the source file of the function "
 msgstr ""
 
 #
-# File: modules/scinotes/macros/edit_error.sci, line: 27
+# File: modules/scinotes/macros/edit_error.sci, line: 31
 msgid "The source file of the function "
 msgstr ""
 
 #
-# File: modules/scinotes/macros/edit_error.sci, line: 28
+# File: modules/scinotes/macros/edit_error.sci, line: 32
 msgid " was not found in any library path"
 msgstr ""
 
 #
-# File: modules/scinotes/macros/edit_error.sci, line: 32
+# File: modules/scinotes/macros/edit_error.sci, line: 36
 msgid "There is no recorded error"
 msgstr ""

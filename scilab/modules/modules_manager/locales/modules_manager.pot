@@ -10,70 +10,33 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 21
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 13
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 25
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 17
 #, c-format
 msgid "%s: Wrong number of input arguments: At least %d expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 24
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 28
 #, c-format
 msgid "%s: Wrong number of input arguments: At most %d expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 30
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 41
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 49
-# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 27
-# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 41
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 38
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 71
-# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 27
-# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 38
-# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 26
-# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 37
-# File: modules/modules_manager/macros/tbx_build_help.sci, line: 28
-# File: modules/modules_manager/macros/tbx_build_help.sci, line: 42
-# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 27
-# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 42
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 28
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 42
-# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 26
-# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 26
-# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 41
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 17
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 25
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 42
-# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 26
-# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 48
-# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 26
-# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 38
-# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 26
-# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 26
-# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 38
-# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 23
-# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 27
-#, c-format
-msgid "%s: Wrong type for input argument #%d: string expected.\n"
-msgstr ""
-
-#
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 33
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 52
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 34
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 45
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 53
 # File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 31
 # File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 45
 # File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 42
 # File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 75
+# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 31
 # File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 42
+# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 30
 # File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 41
 # File: modules/modules_manager/macros/tbx_build_help.sci, line: 32
 # File: modules/modules_manager/macros/tbx_build_help.sci, line: 46
@@ -84,9 +47,9 @@ msgstr ""
 # File: modules/modules_manager/macros/tbx_build_localization.sci, line: 30
 # File: modules/modules_manager/macros/tbx_build_macros.sci, line: 30
 # File: modules/modules_manager/macros/tbx_build_macros.sci, line: 45
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 20
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 28
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 45
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 21
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 29
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 46
 # File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 30
 # File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 52
 # File: modules/modules_manager/macros/tbx_builder_help.sci, line: 30
@@ -94,85 +57,119 @@ msgstr ""
 # File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 30
 # File: modules/modules_manager/macros/tbx_builder_src.sci, line: 30
 # File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 42
+# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 27
+# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 31
+#, c-format
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+
+#
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 37
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 56
+# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 35
+# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 49
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 46
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 79
+# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 46
+# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 45
+# File: modules/modules_manager/macros/tbx_build_help.sci, line: 36
+# File: modules/modules_manager/macros/tbx_build_help.sci, line: 50
+# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 35
+# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 50
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 36
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 50
+# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 34
+# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 34
+# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 49
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 24
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 32
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 49
+# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 34
+# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 56
+# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 34
+# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 46
+# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 34
+# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 34
+# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 46
 #, c-format
 msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 36
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 55
-# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 49
-# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 46
-# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 45
-# File: modules/modules_manager/macros/tbx_build_help.sci, line: 50
-# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 50
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 50
-# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 34
-# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 42
-# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 49
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 31
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 51
-# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 34
-# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 56
-# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 66
-# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 34
-# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 46
-# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 56
-# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 34
-# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 34
-# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 46
-# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 56
-# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 31
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 40
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 59
+# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 53
+# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 50
+# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 49
+# File: modules/modules_manager/macros/tbx_build_help.sci, line: 54
+# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 54
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 54
+# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 38
+# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 46
+# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 53
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 35
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 55
+# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 38
+# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 60
+# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 70
+# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 38
+# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 50
+# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 60
+# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 38
+# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 38
+# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 50
+# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 60
+# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 35
 #, c-format
 msgid "%s: The directory '%s' doesn't exist or is not read accessible.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 58
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 62
 msgid "Building blocks...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 91
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 95
 #, c-format
 msgid "%s: Unable to export %s to %s.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 102
+# File: modules/modules_manager/macros/tbx_build_blocks.sci, line: 106
 #, c-format
 msgid "%s: Unable to export %s to %s .\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 20
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 31
-# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 20
-# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 19
-# File: modules/modules_manager/macros/tbx_build_help.sci, line: 21
-# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 20
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 21
-# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 15
-# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 19
-# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 30
-# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 20
-# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 20
+# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 24
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 35
+# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 24
+# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 23
+# File: modules/modules_manager/macros/tbx_build_help.sci, line: 25
+# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 24
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 25
+# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 19
+# File: modules/modules_manager/macros/tbx_build_macros.sci, line: 23
+# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 34
+# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 24
+# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 24
 #, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 55
+# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 59
 msgid "Generating cleaner.sce...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 101
-# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 81
-# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 89
-# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 66
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 73
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 97
+# File: modules/modules_manager/macros/tbx_build_cleaner.sci, line: 105
+# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 85
+# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 93
+# File: modules/modules_manager/macros/tbx_build_help_loader.sci, line: 70
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 77
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 101
 #, c-format
 msgid ""
 "%s: The file %s cannot been created, please check if you have write access "
@@ -180,20 +177,20 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 49
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 60
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 53
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 64
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A matrix of strings expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 53
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 57
 #, c-format
 msgid "%s: Wrong size for input argument #%d: At most %d rows expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 79
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 83
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: The directory '%s' doesn't exist or "
@@ -201,121 +198,121 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 83
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 87
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Can't go to '%s'.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 137
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 141
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 141
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 145
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 157
+# File: modules/modules_manager/macros/tbx_build_gateway.sci, line: 161
 #, c-format
 msgid "%s: Can't go to directory '%s'.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 52
+# File: modules/modules_manager/macros/tbx_build_gateway_clean.sci, line: 56
 msgid "Generating cleaner_gateway.sce...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 51
+# File: modules/modules_manager/macros/tbx_build_gateway_loader.sci, line: 55
 msgid "Generating loader_gateway.sce...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_help.sci, line: 58
+# File: modules/modules_manager/macros/tbx_build_help.sci, line: 62
 #, c-format
 msgid "%s: documentation cannot be built in this scilab mode: %s.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 56
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 60
 msgid "Generating loader.sce...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 76
+# File: modules/modules_manager/macros/tbx_build_loader.sci, line: 80
 msgid "Generating unloader.sce...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 19
-# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 36
-# File: modules/modules_manager/macros/tbx_builder.sci, line: 14
-# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 37
-# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 27
-# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 27
+# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 23
+# File: modules/modules_manager/macros/tbx_build_pal_loader.sci, line: 40
+# File: modules/modules_manager/macros/tbx_builder.sci, line: 18
+# File: modules/modules_manager/macros/tbx_builder_gateway_lang.sci, line: 41
+# File: modules/modules_manager/macros/tbx_builder_help_lang.sci, line: 31
+# File: modules/modules_manager/macros/tbx_builder_src_lang.sci, line: 31
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A string array expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 54
+# File: modules/modules_manager/macros/tbx_build_localization.sci, line: 58
 msgid "Generating localization\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder.sci, line: 20
+# File: modules/modules_manager/macros/tbx_builder.sci, line: 24
 #, c-format
 msgid "%s: The file '%s' doesn't exist or is not read accessible.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 19
-# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 19
-# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 19
-# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 19
+# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 23
+# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 23
+# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 23
+# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 23
 #, c-format
 msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 40
+# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 44
 #, c-format
 msgid "%s: This module required a C compiler and it has not been found.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 44
+# File: modules/modules_manager/macros/tbx_builder_gateway.sci, line: 48
 msgid "Building gateway...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 38
+# File: modules/modules_manager/macros/tbx_builder_help.sci, line: 42
 msgid "Building help...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 37
+# File: modules/modules_manager/macros/tbx_builder_macros.sci, line: 41
 msgid "Building macros...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 40
+# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 44
 #, c-format
 msgid ""
 "%s: This module requires a C or Fortran compiler and it has not been found.\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 44
+# File: modules/modules_manager/macros/tbx_builder_src.sci, line: 48
 msgid "Building sources...\n"
 msgstr ""
 
 #
-# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 15
+# File: modules/modules_manager/macros/tbx_generate_pofile.sci, line: 19
 #, c-format
 msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
 msgstr ""

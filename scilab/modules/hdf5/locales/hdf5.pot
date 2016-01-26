@@ -10,645 +10,642 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 53
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 88
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 136
-# File: modules/hdf5/sci_gateway/cpp/sci_h5close.cpp, line: 59
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 63
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 100
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 137
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 191
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 67
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 102
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 125
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 139
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 155
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 184
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 199
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 221
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 45
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 67
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 61
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 85
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 63
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 100
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 132
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 50
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 75
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 53
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 76
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 101
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 56
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 75
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 101
-# File: modules/hdf5/sci_gateway/cpp/sci_h5isfoo.cpp, line: 44
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 60
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 105
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 128
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 143
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 166
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 51
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 73
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 96
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 133
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 67
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 104
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 134
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 178
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 225
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 58
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 96
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 121
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 50
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 73
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 96
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 63
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 100
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 143
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 197
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 51
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 77
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 108
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 139
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 181
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 70
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 121
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 187
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 55
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 100
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 131
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 56
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 99
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 43
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 66
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 88
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 123
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 148
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 180
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 117
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 42
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_p.cpp, line: 42
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 57
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 92
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 140
+# File: modules/hdf5/sci_gateway/cpp/sci_h5close.cpp, line: 63
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 67
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 104
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 141
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 195
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 71
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 106
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 129
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 143
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 159
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 188
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 203
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 225
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 49
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 71
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 65
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 89
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 67
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 104
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 136
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 54
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 79
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 57
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 80
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 105
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 60
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 79
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 105
+# File: modules/hdf5/sci_gateway/cpp/sci_h5isfoo.cpp, line: 48
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 64
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 109
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 132
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 147
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 170
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 55
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 77
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 100
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 137
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 71
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 108
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 138
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 182
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 229
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 62
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 100
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 125
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 54
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 77
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 100
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 67
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 104
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 147
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 201
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 55
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 81
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 112
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 143
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 185
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 74
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 125
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 191
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 59
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 104
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 135
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 60
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 103
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 47
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 70
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 92
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 127
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 152
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 184
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 121
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 46
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_p.cpp, line: 46
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 62
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 72
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 109
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 146
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 76
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 94
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 72
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 59
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 62
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 65
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 69
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 59
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 105
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 72
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 109
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 152
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 64
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 65
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 52
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 97
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 130
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 49
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 66
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 76
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 113
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 150
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 80
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 98
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 76
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 63
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 66
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 69
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 73
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 63
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 109
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 76
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 113
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 156
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 68
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 69
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 56
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 101
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 134
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 53
 #, c-format
 msgid "%s: Invalid H5Object.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 70
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 84
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 85
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 73
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 105
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 74
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 88
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 89
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 77
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 109
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string or H5Object expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 76
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 100
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 123
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 148
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 86
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 123
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 160
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 203
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 90
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 114
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 169
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 233
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 73
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 125
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 86
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 112
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 146
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 87
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 88
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 113
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 87
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 113
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 91
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 117
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 180
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 85
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 119
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 147
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 157
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 90
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 116
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 157
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 192
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 202
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 239
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 249
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 81
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 108
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 133
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 85
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 86
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 129
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 166
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 209
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 63
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 89
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 120
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 153
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 169
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 193
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 99
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 129
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 78
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 112
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 143
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 78
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 135
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 162
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 77
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 102
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 80
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 104
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 127
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 152
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 90
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 127
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 164
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 207
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 94
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 118
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 173
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 237
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 77
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 129
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 90
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 116
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 150
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 91
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 92
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 117
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 91
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 117
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 95
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 121
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 184
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 89
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 123
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 151
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 161
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 94
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 120
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 161
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 196
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 206
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 243
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 253
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 85
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 112
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 137
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 89
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 90
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 133
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 170
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 213
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 67
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 93
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 124
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 157
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 173
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 197
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 103
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 133
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 82
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 116
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 147
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 82
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 139
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 166
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 81
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 106
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 94
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 117
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 80
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 117
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 154
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 197
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 108
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 73
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 67
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 119
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 80
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 106
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 139
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 82
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 81
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 107
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 113
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 84
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 110
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 151
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 75
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 102
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 127
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 80
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 123
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 160
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 203
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 57
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 83
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 114
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 93
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 72
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 106
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 137
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 105
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 72
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 129
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 98
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 121
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 84
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 121
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 158
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 201
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 112
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 77
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 71
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 123
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 84
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 110
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 143
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 86
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 85
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 111
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 117
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 88
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 114
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 155
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 79
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 106
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 131
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 84
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 127
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 164
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 207
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 61
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 87
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 118
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 97
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 76
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 110
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 141
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 109
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 76
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 133
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 142
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 156
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_file_version.cpp, line: 43
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_is_file.cpp, line: 49
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 42
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 91
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 87
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 46
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 89
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 128
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 85
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 144
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 89
-# File: modules/hdf5/src/cpp/listvar_in_hdf5_v1.cpp, line: 84
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 146
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 160
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_file_version.cpp, line: 47
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_is_file.cpp, line: 53
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 46
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 95
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 91
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 50
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 93
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 132
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 89
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 148
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 93
+# File: modules/hdf5/src/cpp/listvar_in_hdf5_v1.cpp, line: 88
 #, c-format
 msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 169
-# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 239
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 289
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 89
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 106
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 146
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 161
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 177
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 100
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 126
-# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 132
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 209
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 191
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 299
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 169
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 121
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 248
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 220
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 230
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 235
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 165
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 142
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 91
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 256
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 65
+# File: modules/hdf5/sci_gateway/cpp/sci_h5attr.cpp, line: 173
+# File: modules/hdf5/sci_gateway/cpp/sci_h5cp.cpp, line: 243
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 293
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 93
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 110
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 150
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dump.cpp, line: 165
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 181
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 104
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 130
+# File: modules/hdf5/sci_gateway/cpp/sci_h5group.cpp, line: 136
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 213
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 195
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 303
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 173
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 125
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 252
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 224
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 234
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 239
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 169
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 146
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 95
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 260
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 69
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5close.cpp, line: 82
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 68
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 66
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 65
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 58
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 140
+# File: modules/hdf5/sci_gateway/cpp/sci_h5close.cpp, line: 86
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 72
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 70
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 69
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mount.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_h5umount.cpp, line: 62
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 144
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A H5Object expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5close.cpp, line: 88
+# File: modules/hdf5/sci_gateway/cpp/sci_h5close.cpp, line: 92
 #, c-format
 msgid "%s: Cannot remove H5Object.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 131
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 191
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 135
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 195
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A double matrix expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 145
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 149
 #, c-format
 msgid "%s: Wrong size for input argument #%d: Five row vector expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 163
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 227
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 167
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 231
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A single string expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 205
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 209
 #, c-format
 msgid "%s: Wrong size for input argument #%d: six row vector expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 211
+# File: modules/hdf5/sci_gateway/cpp/sci_h5dataset.cpp, line: 215
 #, c-format
 msgid "%s: Wrong size for input argument #%d: %d column vector expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 54
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 60
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 76
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 67
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_p.cpp, line: 64
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 58
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 64
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 80
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ls.cpp, line: 71
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_p.cpp, line: 68
 #, c-format
 msgid "%s: Can not print H5Object: invalid object.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 60
+# File: modules/hdf5/sci_gateway/cpp/sci_h5delete.cpp, line: 64
 #, c-format
 msgid "%s: Wrong type for input argument #%d: a H5Object expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 119
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 123
 #, c-format
 msgid "%s: Wrong size for argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 194
-# File: modules/hdf5/sci_gateway/cpp/sci_h5isfoo.cpp, line: 74
+# File: modules/hdf5/sci_gateway/cpp/sci_h5exists.cpp, line: 198
+# File: modules/hdf5/sci_gateway/cpp/sci_h5isfoo.cpp, line: 78
 #, c-format
 msgid "%s: Can not create output argument.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 65
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 69
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A HDF5 object expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 81
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 147
+# File: modules/hdf5/sci_gateway/cpp/sci_h5flush.cpp, line: 85
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 151
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 107
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 139
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 184
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 231
+# File: modules/hdf5/sci_gateway/cpp/sci_h5get.cpp, line: 111
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 143
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 188
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 235
 #, c-format
 msgid "%s: Wrong size for input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 135
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 175
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 211
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 211
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 139
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 179
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 215
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 215
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Real row vector expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 149
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 157
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 195
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 188
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 153
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 161
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 199
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 192
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: Real row or column vector expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 173
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 177
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Row array of strings expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 188
+# File: modules/hdf5/sci_gateway/cpp/sci_h5label.cpp, line: 192
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: A row or column vector expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 105
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 143
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 109
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 147
 #, c-format
 msgid "%s: Can not use H5Object: invalid object.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 166
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 215
-# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 259
+# File: modules/hdf5/sci_gateway/cpp/sci_h5link.cpp, line: 170
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 219
+# File: modules/hdf5/sci_gateway/cpp/sci_h5ln.cpp, line: 263
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string or boolean expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 117
+# File: modules/hdf5/sci_gateway/cpp/sci_h5mv.cpp, line: 121
 #, c-format
 msgid "%s: Invalid number of arguments: more than %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 95
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 99
 #, c-format
 msgid "%s: Invalid access mode: %s.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 130
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 134
 #, c-format
 msgid "%s: Invalid number of input arguments.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 163
-# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 187
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 167
+# File: modules/hdf5/sci_gateway/cpp/sci_h5open.cpp, line: 191
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A double expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 87
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 146
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 91
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 150
 #, c-format
 msgid "%s: Invalid number of input argument.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 110
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 114
 #, c-format
 msgid "%s: Invalid path: cannot be empty.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 140
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 144
 #, c-format
 msgid "%s: Second argument must be a dataset name.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 167
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 205
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 200
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 171
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 209
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 204
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: Same size as the data expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 218
-# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 218
+# File: modules/hdf5/sci_gateway/cpp/sci_h5read.cpp, line: 222
+# File: modules/hdf5/sci_gateway/cpp/sci_h5write.cpp, line: 222
 #, c-format
 msgid "%s: Argument 'count' is missing.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 89
+# File: modules/hdf5/sci_gateway/cpp/sci_h5readattr.cpp, line: 93
 #, c-format
 msgid "%s: Invalid number of argument(s): %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 88
+# File: modules/hdf5/sci_gateway/cpp/sci_h5rm.cpp, line: 92
 #, c-format
 msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_file_version.cpp, line: 37
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 36
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 40
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 83
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 86
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_file_version.cpp, line: 41
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 40
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 44
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 87
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 90
 #, c-format
 msgid "%s: Wrong number of input argument(s): at least %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_file_version.cpp, line: 56
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 55
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 99
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 101
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 89
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 99
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 94
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 102
-# File: modules/hdf5/src/cpp/listvar_in_hdf5_v1.cpp, line: 93
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_file_version.cpp, line: 60
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 59
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 103
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 105
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 93
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 103
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 98
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 106
+# File: modules/hdf5/src/cpp/listvar_in_hdf5_v1.cpp, line: 97
 #, c-format
 msgid "%s: Unable to open file: %s\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 79
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 116
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 121
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 110
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar.cpp, line: 83
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 120
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 125
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 114
 #, c-format
 msgid "%s: Wrong SOD file format version. Max Expected: %d Found: %d\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 319
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 310
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 422
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 272
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 296
-# File: modules/hdf5/src/cpp/listvar_in_hdf5_v1.cpp, line: 290
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v2.cpp, line: 323
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 314
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 426
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v1.cpp, line: 276
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v2.cpp, line: 300
+# File: modules/hdf5/src/cpp/listvar_in_hdf5_v1.cpp, line: 294
 #, c-format
 msgid "%s: Invalid HDF5 Scilab format.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 74
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 78
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 80
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_listvar_v3.cpp, line: 84
 #, c-format
 msgid "%s: Wrong number of output argument(s): %d to %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 59
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 63
 #, c-format
 msgid "%s: Unable to open file: '%s'.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 73
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 77
 #, c-format
 msgid "%s: %s is not a valid lib file.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 76
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 80
 msgid "Redefining permanent variable.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 131
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load.cpp, line: 135
 #, c-format
 msgid "%s: Unable to load '%s'\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 111
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 180
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 115
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 184
 #, c-format
 msgid "%s: Wrong SOD file format version. Expected: %d Found: %d\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 126
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 146
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 130
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_load_v3.cpp, line: 150
 #, c-format
 msgid "%s: Unable to load '%s'.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 92
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 138
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 96
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 142
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A String expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 152
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 156
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Defined variable expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 195
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 199
 #, c-format
 msgid "%s: Wrong value for input argument #%d: \"%s\" is a directory"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 199
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 203
 #, c-format
 msgid "%s: Cannot open file %s.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 215
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 219
 #, c-format
 msgid "%s: Unable to delete existing variable \"%s\".\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 222
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 226
 #, c-format
 msgid ""
 "%s: Variable '%s' already exists in file '%s'\n"
@@ -656,43 +653,43 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 232
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 236
 #, c-format
 msgid "%s: Unable to export variable '%s' in file '%s'.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 241
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 245
 #, c-format
 msgid "%s: Unable to update Scilab version in \"%s\"."
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 248
+# File: modules/hdf5/sci_gateway/cpp/sci_hdf5_save.cpp, line: 252
 #, c-format
 msgid "%s: Unable to update HDF5 format version in \"%s\"."
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 45
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 49
 #, c-format
 msgid "%s: Wrong number of input arguments: More than %d expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 64
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 68
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string or double expected.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 72
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 76
 #, c-format
 msgid "%s: Only one field can be requested.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 178
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_e.cpp, line: 182
 #, c-format
 msgid ""
 "%s: Error in retrieving field content:\n"
@@ -700,880 +697,880 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 55
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_fieldnames.cpp, line: 59
 #, c-format
 msgid "%s: Not an H5 Compound object.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_p.cpp, line: 53
+# File: modules/hdf5/sci_gateway/cpp/sci_percent_H5Object_p.cpp, line: 57
 #, c-format
 msgid "%s: Can not print H5Object.\n"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ArrayData.cpp, line: 65
-# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 100
-# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 77
-# File: modules/hdf5/src/cpp/H5VlenData.cpp, line: 54
+# File: modules/hdf5/src/cpp/H5ArrayData.cpp, line: 69
+# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 104
+# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 81
+# File: modules/hdf5/src/cpp/H5VlenData.cpp, line: 58
 msgid "Invalid index."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ArrayData.cpp, line: 77
-# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 127
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 251
-# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 149
-# File: modules/hdf5/src/cpp/H5VlenData.cpp, line: 70
+# File: modules/hdf5/src/cpp/H5ArrayData.cpp, line: 81
+# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 131
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 255
+# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 153
+# File: modules/hdf5/src/cpp/H5VlenData.cpp, line: 74
 msgid "Dimensions"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 24
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 30
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 28
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 34
 #, c-format
 msgid "Cannot open attribute: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 57
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 61
 msgid "Cannot get the attribute type"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 68
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 72
 msgid "Cannot get the attribute dataspace"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 132
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 238
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 136
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 242
 msgid "Error in retrieving data."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 183
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 187
 #, c-format
 msgid "Attribute %s already exists."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 189
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 193
 msgid "Cannot create a new attribute."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 196
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 200
 msgid "Cannot write data in the attribute."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 214
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 223
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 218
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 227
 msgid "Cannot copy the attribute"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 244
+# File: modules/hdf5/src/cpp/H5Attribute.cpp, line: 248
 msgid "Cannot read attribute data."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 38
+# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 42
 msgid "Cannot get the size of attribute list."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 72
-# File: modules/hdf5/src/cpp/H5GroupsList.cpp, line: 71
-# File: modules/hdf5/src/cpp/H5LinksList.cpp, line: 51
+# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 76
+# File: modules/hdf5/src/cpp/H5GroupsList.cpp, line: 75
+# File: modules/hdf5/src/cpp/H5LinksList.cpp, line: 55
 #, c-format
 msgid "Invalid index %d: must be between 0 and %d."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 84
+# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 88
 #, c-format
 msgid "Cannot open attribute at position %d."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 120
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 142
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 100
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 229
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 115
+# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 124
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 146
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 104
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 233
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 119
 msgid "Filename"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 121
+# File: modules/hdf5/src/cpp/H5AttributesList.cpp, line: 125
 msgid "Number of elements"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5BasicData.hxx, line: 136
+# File: modules/hdf5/src/cpp/H5BasicData.hxx, line: 140
 msgid "Cannot copy data to an empty pointer"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5BasicData.hxx, line: 238
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 388
+# File: modules/hdf5/src/cpp/H5BasicData.hxx, line: 242
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 392
 msgid "Wrong dimensions."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 84
+# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 88
 #, c-format
 msgid "Invalid field name: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 146
+# File: modules/hdf5/src/cpp/H5CompoundData.cpp, line: 150
 msgid "Fields Names"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Data.hxx, line: 89
-# File: modules/hdf5/src/cpp/H5Data.hxx, line: 95
-# File: modules/hdf5/src/cpp/H5Data.hxx, line: 102
-# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 26
-# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 32
-# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 40
-# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 49
+# File: modules/hdf5/src/cpp/H5Data.hxx, line: 93
+# File: modules/hdf5/src/cpp/H5Data.hxx, line: 99
+# File: modules/hdf5/src/cpp/H5Data.hxx, line: 106
+# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 30
+# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 36
+# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 44
+# File: modules/hdf5/src/cpp/H5DataConverter.cpp, line: 53
 msgid "Cannot create an hypermatrix on the stack"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 30
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 34
 msgid "Cannot get the data type"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 114
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 118
 msgid "Unknown integer datatype."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 128
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 132
 msgid "Unknown floating-point datatype."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 154
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 158
 msgid "Bitfield is too big"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 224
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 227
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 228
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 231
 msgid "Cannot get data from an unknown data type."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 300
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 304
 msgid "Memory to allocate is too big"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 325
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 337
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 329
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 341
 msgid "Cannot allocate memory to get the data"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 369
+# File: modules/hdf5/src/cpp/H5DataFactory.cpp, line: 373
 msgid "Cannot retrieve the data from the attribute"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 27
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 31
 #, c-format
 msgid "Cannot open the given dataset %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 64
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 75
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 176
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 356
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 68
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 79
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 180
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 360
 #, c-format
 msgid "Cannot get the dataspace associated with dataset named %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 100
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 104
 msgid "Invalid layout"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 187
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 191
 #, c-format
 msgid "Only %d dimensions."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 300
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 304
 msgid "Cannot list dataset attributes."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 348
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 352
 #, c-format
 msgid "Cannot open the dataset: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 370
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 374
 msgid "Invalid source space"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 375
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 434
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 379
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 438
 msgid "Invalid target space"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 396
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 400
 msgid "Cannot modify maximum dimensions."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 403
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 407
 #, c-format
 msgid "Cannot modify dimension %d."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 448
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 452
 #, c-format
 msgid "Cannot set the chunk dimensions: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 461
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 465
 #, c-format
 msgid "Cannot create the dataset: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 468
+# File: modules/hdf5/src/cpp/H5Dataset.cpp, line: 472
 msgid "Cannot write data in the dataset."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 50
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 234
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 54
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 238
 msgid "unknown dataspace"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 86
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 90
 msgid "Unknown dataspace: cannot get its dimensions"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 97
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 101
 msgid "Cannot select all."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 113
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 124
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 384
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 117
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 128
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 388
 msgid "Cannot create an array of integer on the stack."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 136
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 77
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 93
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 361
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 66
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 122
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 134
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 62
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 74
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 801
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 813
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 836
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 140
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 81
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 97
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 365
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 70
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 126
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 138
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 66
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 78
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 805
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 817
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 840
 msgid "Cannot create a string on the stack."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 194
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 198
 msgid "Unknown dataspace"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 252
+# File: modules/hdf5/src/cpp/H5Dataspace.cpp, line: 256
 msgid "Extents"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 65
+# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 69
 msgid "Invalid selection rank."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 92
-# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 99
-# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 116
-# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 122
+# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 96
+# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 103
+# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 120
+# File: modules/hdf5/src/cpp/H5Dataspace.hxx, line: 126
 msgid "Invalid selection."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 81
+# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 85
 msgid "Cannot get the current stack of errors."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 111
+# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 115
 msgid "HDF5 description"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 128
+# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 132
 msgid "Exception thrown in file"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 128
+# File: modules/hdf5/src/cpp/H5Exception.hxx, line: 132
 msgid "at line"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 30
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 28
-# File: modules/hdf5/src/cpp/H5Link.cpp, line: 49
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 28
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 34
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 32
+# File: modules/hdf5/src/cpp/H5Link.cpp, line: 53
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 32
 msgid "Cannot get the link info"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 38
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 47
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 35
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 42
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 51
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 39
 msgid "Cannot get the link target"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 143
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 101
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 116
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 147
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 105
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 120
 msgid "Link type"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 144
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 102
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 117
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 148
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 106
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 121
 msgid "Link name"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 145
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 103
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 118
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 149
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 107
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 122
 msgid "Link path"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 146
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 150
 msgid "Link target file"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 147
+# File: modules/hdf5/src/cpp/H5ExternalLink.cpp, line: 151
 msgid "Link target path"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 35
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 39
 msgid "Invalid hdf5 file: empty filename."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 43
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 57
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 47
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 61
 #, c-format
 msgid "Invalid hdf5 file: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 49
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 63
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 91
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 53
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 67
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 95
 #, c-format
 msgid "Cannot open the given hdf5 file: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 72
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 80
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 113
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 76
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 84
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 117
 #, c-format
 msgid "Cannot create the given hdf5 file: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 102
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 106
 #, c-format
 msgid ""
 "Cannot open the file: %s, an empty file with the same name already exists."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 105
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 109
 #, c-format
 msgid "Cannot append the file (not HDF5): %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 118
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 122
 msgid "Invalid flag."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 124
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 270
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 128
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 274
 #, c-format
 msgid "Invalid path: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 181
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 185
 msgid "Cannot set 'core' as driver."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 204
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 208
 #, c-format
 msgid "Invalid filename: must contain a '%d'."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 217
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 221
 msgid "Cannot set 'family' as driver."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 261
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 265
 msgid "Error in flushing the file."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 297
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 439
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 301
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 443
 #, c-format
 msgid "Cannot retrieve file size: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 308
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 312
 #, c-format
 msgid "Cannot retrieve file version: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 372
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 824
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 847
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 376
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 828
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 851
 msgid "Cannot create an integer on the stack."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5File.cpp, line: 396
+# File: modules/hdf5/src/cpp/H5File.cpp, line: 400
 #, c-format
 msgid "Invalid field %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 30
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 34
 #, c-format
 msgid "Cannot open the group %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 100
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 104
 msgid "Cannot get the links number"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 213
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 217
 msgid "Cannot create a column of strings on the stack."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 241
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 245
 msgid "Cannot list group links."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 248
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 252
 msgid "Cannot list group attributes."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 320
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 494
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 324
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 498
 msgid "Cannot list group contents"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 465
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 469
 #, c-format
 msgid "The group already exists: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Group.cpp, line: 471
+# File: modules/hdf5/src/cpp/H5Group.cpp, line: 475
 #, c-format
 msgid "Cannot create the group: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5GroupsList.cpp, line: 31
-# File: modules/hdf5/src/cpp/H5GroupsList.cpp, line: 78
+# File: modules/hdf5/src/cpp/H5GroupsList.cpp, line: 35
+# File: modules/hdf5/src/cpp/H5GroupsList.cpp, line: 82
 msgid "Cannot get the number of groups."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 34
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 38
 msgid "Cannot get linked object"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 104
+# File: modules/hdf5/src/cpp/H5HardLink.cpp, line: 108
 msgid "Link target name"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Link.cpp, line: 26
+# File: modules/hdf5/src/cpp/H5Link.cpp, line: 30
 #, c-format
 msgid "The link %s does not exist."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Link.cpp, line: 65
+# File: modules/hdf5/src/cpp/H5Link.cpp, line: 69
 #, c-format
 msgid "Invalid link type: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5LinksList.cpp, line: 28
+# File: modules/hdf5/src/cpp/H5LinksList.cpp, line: 32
 msgid "Cannot get the number of links."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ListObject.hxx, line: 48
-# File: modules/hdf5/src/cpp/H5Object.hxx, line: 239
-# File: modules/hdf5/src/cpp/H5Object.hxx, line: 244
-# File: modules/hdf5/src/cpp/H5Object.hxx, line: 249
+# File: modules/hdf5/src/cpp/H5ListObject.hxx, line: 52
+# File: modules/hdf5/src/cpp/H5Object.hxx, line: 243
+# File: modules/hdf5/src/cpp/H5Object.hxx, line: 248
+# File: modules/hdf5/src/cpp/H5Object.hxx, line: 253
 msgid "Invalid operation"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 57
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 61
 #, c-format
 msgid "Invalid index at position %d"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 187
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 191
 msgid "Cannot get the number of objects."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 230
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 234
 msgid "Parent group name"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 231
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 235
 msgid "Parent group path"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 232
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 236
 msgid "Elements type"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 233
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 237
 msgid "Size"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 260
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 264
 #, c-format
 msgid "Invalid index: %d."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 288
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 292
 #, c-format
 msgid "Cannot get object at position %d."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 300
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 306
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 279
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 289
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 322
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 335
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 342
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 348
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 304
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 310
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 283
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 293
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 326
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 339
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 346
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 352
 #, c-format
 msgid "Invalid name: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 314
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 304
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 363
+# File: modules/hdf5/src/cpp/H5NamedObjectsList.hxx, line: 318
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 308
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 367
 msgid "Invalid HDF5 object"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 140
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 144
 #, c-format
 msgid "Invalid field: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 159
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 165
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 171
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 186
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 192
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 198
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 163
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 169
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 175
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 190
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 196
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 202
 msgid "Cannot create a mlist on the stack."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 224
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 228
 msgid "Cannot list names."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 239
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 243
 msgid "Cannot retrieve information about the object"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Object.cpp, line: 258
-# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 111
-# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 219
+# File: modules/hdf5/src/cpp/H5Object.cpp, line: 262
+# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 115
+# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 223
 msgid "Unknown HDF5 object"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Object.hxx, line: 166
+# File: modules/hdf5/src/cpp/H5Object.hxx, line: 170
 msgid "Cannot retrieve numeric index."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Options.hxx, line: 59
-# File: modules/hdf5/src/cpp/H5Options.hxx, line: 72
+# File: modules/hdf5/src/cpp/H5Options.hxx, line: 63
+# File: modules/hdf5/src/cpp/H5Options.hxx, line: 76
 msgid "Invalid option: must be C or FORTRAN."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 87
+# File: modules/hdf5/src/cpp/H5ReferenceData.cpp, line: 91
 msgid "Cannot open object at the given position."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 119
+# File: modules/hdf5/src/cpp/H5SoftLink.cpp, line: 123
 msgid "Link target"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5StringData.cpp, line: 64
+# File: modules/hdf5/src/cpp/H5StringData.cpp, line: 68
 msgid "Cannot free the memory associated with String data"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 25
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 29
 #, c-format
 msgid "Invalid H5Type name: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 727
-# File: modules/hdf5/src/cpp/H5Type.cpp, line: 1686
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 731
+# File: modules/hdf5/src/cpp/H5Type.cpp, line: 1690
 msgid "Unknown datatype"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 53
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 57
 msgid "Cannot get H5Object id"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 238
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 242
 msgid "Invalid object: not a dataset."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 313
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 317
 msgid "Cannot remove a file."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 324
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 328
 msgid "Cannot remove root element."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 331
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 335
 #, c-format
 msgid "The name doesn't exist: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 337
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 341
 #, c-format
 msgid "Cannot remove the attribute: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 346
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 350
 #, c-format
 msgid "Cannot remove the link: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 380
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 426
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 384
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 430
 #, c-format
 msgid "The link already exists: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 396
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 400
 #, c-format
 msgid "Cannot create the hard link: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 400
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 404
 #, c-format
 msgid "Cannot create the soft link: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 415
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 419
 #, c-format
 msgid "Cannot create a hard link to the external object: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 432
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 436
 #, c-format
 msgid "Cannot create the external link: %s."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 529
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 533
 msgid "Cannot copy object."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 659
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 663
 msgid "Invalid filter"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 789
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 793
 msgid "Can only label a dataset"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 879
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 883
 msgid "Target object is not a file"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 884
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 904
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 888
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 908
 msgid "Invalid location"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 889
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 893
 #, c-format
 msgid "Invalid location: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 895
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 899
 #, c-format
 msgid "Cannot mount the file: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 910
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 914
 #, c-format
 msgid "Cannot unmount the file at location: %s"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 922
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 926
 #, c-format
 msgid "Can not read input argument #%d."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 941
-# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 1084
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 945
+# File: modules/hdf5/src/cpp/HDF5Scilab.cpp, line: 1088
 #, c-format
 msgid "%s: Datatype not handled for now."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 157
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 161
 #, c-format
 msgid "Invalid rank, must be in the interval [0, %d]."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 172
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 176
 msgid "No converter found for the specified target datatype."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 179
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 226
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 183
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 230
 msgid "Cannot create a new dataspace."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 204
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 208
 msgid "Invalid target dataspace."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 328
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 332
 msgid "Cannot create the target type."
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 359
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 363
 msgid "Incompatible dimensions"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 380
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 384
 msgid "References must be given as strings"
 msgstr ""
 
 #
-# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 393
+# File: modules/hdf5/src/cpp/HDF5Scilab.hxx, line: 397
 #, c-format
 msgid "Invalid path: %s."
 msgstr ""

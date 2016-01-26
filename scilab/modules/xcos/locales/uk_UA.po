@@ -4,19 +4,22 @@
 #
 # Yuri Chornoivan <yurchor@gmail.com>, 2010.
 # Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012.
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-23 05:49+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
-"Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-10-23 01:49-0400\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"X-Generator: Zanata 3.8.2\n"
 "Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
@@ -43,24 +46,24 @@ msgstr ""
 "%s: помилковий розмір вхідного параметра №%d: слід використовувати рядок.\n"
 
 #, c-format
-msgid "%s: Can not read input argument #%d.\n"
-msgstr "%s: не вдалося прочитати вхідний параметр №%d.\n"
-
-#, c-format
-msgid "%s: Memory allocation error.\n"
-msgstr "%s: помилка під час спроби виділення пам’яті.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
 msgstr ""
-"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
-"«boolean».\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
 "«string».\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: не вдалося прочитати вхідний параметр №%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
+"«boolean».\n"
 
 #, c-format
 msgid ""
@@ -361,6 +364,9 @@ msgstr "Звичайний 100%"
 msgid "Palette browser"
 msgstr "Перегляд палітри"
 
+msgid "tree_show(scs_m)"
+msgstr ""
+
 msgid "Diagram browser"
 msgstr "Перегляд діаграми"
 
@@ -602,9 +608,6 @@ msgstr "Не позначено жодного блоку"
 msgid "Export to XML"
 msgstr "Експортувати до XML"
 
-msgid "Export in progress"
-msgstr "Триває експортування"
-
 msgid "Import from XML"
 msgstr "Імпортувати з XML"
 
@@ -743,9 +746,8 @@ msgstr "Для створення коду слід позначити супе�
 msgid "Simulation in progress"
 msgstr "Виконується моделювання"
 
-msgid ""
-"Compilation in progress, results will be stored in the 'scicos_cpr' variable"
-msgstr "Виконується збирання, результати буде збережено у змінній «scicos_cpr»"
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
+msgstr ""
 
 msgid "Generate SuperBlock, please wait"
 msgstr "Створення суперблоку, зачекайте"
@@ -1020,11 +1022,6 @@ msgstr ""
 "рядків.\n"
 
 #, c-format
-msgid "%s: Wrong number of output arguments: %d expected.\n"
-msgstr ""
-"%s: помилкова кількість вихідних параметрів: слід використовувати %d.\n"
-
-#, c-format
 msgid "%s: Wrong type for input argument %s: palette type expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра %s: слід використовувати тип палітри.\n"
@@ -1079,10 +1076,6 @@ msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра %s: слід використовувати рядок або "
 "структуру (struct).\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: %d expected.\n"
-msgstr "%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument %s: full path string expected.\n"
@@ -1175,8 +1168,8 @@ msgstr "Завершення"
 msgid "ReInitialization"
 msgstr "Повторна ініціалізація"
 
-msgid "Continous states properties update"
-msgstr "Неперервне оновлення властивостей станів"
+msgid "Continuous states properties update"
+msgstr ""
 
 msgid "Zero crossing surfaces computation"
 msgstr "Визначення перетину поверхонь з нульовими площинами"

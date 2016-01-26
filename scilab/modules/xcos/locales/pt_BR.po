@@ -2,20 +2,21 @@
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-08 22:02+0000\n"
-"Last-Translator: Ramiro Pereira de Magalhães <ramiro.p.magalhaes@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2015-10-08 06:02-0400\n"
+"Last-Translator: Ramiro Pereira de Magalhães <ramiro.p.magalhaes@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"X-Generator: Zanata 3.8.2\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
@@ -38,23 +39,23 @@ msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Can not read input argument #%d.\n"
-msgstr "%s: Não foi possível ler argumento de entrada #%d.\n"
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr ""
 
 #, c-format
-msgid "%s: Memory allocation error.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
+"%s: Tipo incorreto para o argumento de entrada #%d: esperava-se um string.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: Não foi possível ler argumento de entrada #%d.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 "%s: Tipo incorreto para o argumento de entrada #%d: esperava-se um "
 "booleano.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: string expected.\n"
-msgstr ""
-"%s: Tipo incorreto para o argumento de entrada #%d: esperava-se um string.\n"
 
 #, c-format
 msgid ""
@@ -356,6 +357,9 @@ msgstr "Normal 100%"
 msgid "Palette browser"
 msgstr "Navegador de paleta"
 
+msgid "tree_show(scs_m)"
+msgstr ""
+
 msgid "Diagram browser"
 msgstr "Navegador de diagrama"
 
@@ -595,9 +599,6 @@ msgstr "Nenhum bloco selecionado"
 msgid "Export to XML"
 msgstr "Exportar para XML"
 
-msgid "Export in progress"
-msgstr "Exportação em andamento"
-
 msgid "Import from XML"
 msgstr "Importar de XML"
 
@@ -741,11 +742,8 @@ msgstr "Um SuperBloco deve ser selecionado para gerar código"
 msgid "Simulation in progress"
 msgstr "Simulação em andamento"
 
-msgid ""
-"Compilation in progress, results will be stored in the 'scicos_cpr' variable"
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
 msgstr ""
-"Compilação em progresso, os resultados serão armazenados na variável "
-"\"scicos_cpr\""
 
 msgid "Generate SuperBlock, please wait"
 msgstr "Gerando SuperBloco, aguarde, por favor."
@@ -1017,10 +1015,6 @@ msgstr ""
 "textos.\n"
 
 #, c-format
-msgid "%s: Wrong number of output arguments: %d expected.\n"
-msgstr "%s: Quantidade incorreta de argumentos de saída: esperava-se %d.\n"
-
-#, c-format
 msgid "%s: Wrong type for input argument %s: palette type expected.\n"
 msgstr ""
 "%s: Tipo incorreto para o argumento de entrada %s: esperava-se uma paleta.\n"
@@ -1076,10 +1070,6 @@ msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
 msgstr ""
 "%s: Tipo incorreto para o argumento de entrada %s: esperava-se um texto ou "
 "uma estrutura.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: %d expected.\n"
-msgstr "%s: Quantidade incorreta de argumentos de entrada: esperava-se %d.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument %s: full path string expected.\n"
@@ -1168,7 +1158,7 @@ msgstr ""
 msgid "ReInitialization"
 msgstr ""
 
-msgid "Continous states properties update"
+msgid "Continuous states properties update"
 msgstr ""
 
 msgid "Zero crossing surfaces computation"

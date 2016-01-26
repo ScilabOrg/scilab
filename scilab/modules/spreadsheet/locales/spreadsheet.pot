@@ -10,88 +10,85 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 72
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 137
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 288
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 76
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 141
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 292
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 83
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 146
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 87
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 150
 #, c-format
 msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 95
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 158
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 451
-# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 141
-# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 291
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 303
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 330
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 368
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 394
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 412
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 445
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 471
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 491
-# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 78
-# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 103
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 202
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 225
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 255
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 276
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 295
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 308
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 331
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 110
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 99
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 162
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 455
+# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 145
+# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 295
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 307
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 334
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 372
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 398
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 416
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 449
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 475
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 495
+# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 82
+# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 107
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 206
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 229
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 259
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 280
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 299
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 312
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 335
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 114
 #, c-format
 msgid "%s: Memory allocation error.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 191
-# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 266
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 195
+# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 270
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A double expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 201
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 205
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A double expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 236
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 240
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 246
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 250
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 424
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 428
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A matrix of double expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 442
+# File: modules/spreadsheet/sci_gateway/c/gw_csv_helpers.c, line: 446
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: A matrix of double, with integer "
@@ -99,7 +96,7 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 230
+# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 234
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: '%s', '%s', '%s', '%s', '%s' or '%s' "
@@ -107,14 +104,14 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 283
+# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 287
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: A double (value %d to %d) expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 365
+# File: modules/spreadsheet/sci_gateway/c/sci_csvDefault.c, line: 369
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: '%s', '%s', '%s' , '%s', '%s', '%s', "
@@ -122,118 +119,118 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 92
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 77
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 96
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 81
 #, c-format
 msgid "%s: Wrong size for input argument #%d: Four entries expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 99
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 84
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 103
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 88
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: A column or row vector expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 110
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 95
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 114
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 99
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Inconsistent range.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 171
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 175
 #, c-format
 msgid "%s: Wrong size for input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 196
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 112
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 133
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 200
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 116
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 137
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' string expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 270
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 274
 #, c-format
 msgid "%s: Wrong value for input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 276
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 181
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 268
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 280
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 185
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 272
 #, c-format
 msgid "%s: separator and decimal must have different values.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 299
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 364
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 303
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 368
 #, c-format
 msgid "%s: Range row or/and column left indice(s) out of bounds.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 326
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 402
-# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 74
-# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 110
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 221
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 283
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 330
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 406
+# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 78
+# File: modules/spreadsheet/sci_gateway/c/sci_csvStringToDouble.c, line: 114
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 225
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 287
 #, c-format
 msgid "%s: can not convert data.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 459
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 463
 #, c-format
 msgid "%s: %s does not exist.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 465
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 280
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 469
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 284
 #, c-format
 msgid "%s: can not open file %s.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 477
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 481
 #, c-format
 msgid "%s: can not read file %s: Error in the column structure\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 484
+# File: modules/spreadsheet/sci_gateway/c/sci_csvRead.c, line: 488
 #, c-format
 msgid "%s: can not read file %s.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 161
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 165
 #, c-format
 msgid "%s: Wrong size for input argument #%d: String vector expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 314
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 318
 #, c-format
 msgid "%s: can not read text: Error in the column structure\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 324
+# File: modules/spreadsheet/sci_gateway/c/sci_csvTextScan.c, line: 328
 #, c-format
 msgid "%s: can not read text.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 82
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 86
 #, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: A 1-by-n or m-by-1 array of strings "
@@ -241,26 +238,26 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 102
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 106
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: A double (value 1 to 17) expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 127
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 131
 #, c-format
 msgid "%s: Not supported format %s.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 150
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 154
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 228
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 232
 #, c-format
 msgid ""
 "%s: Wrong type for input argument #%d: A matrix of string or a matrix of "
@@ -268,128 +265,128 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 286
+# File: modules/spreadsheet/sci_gateway/c/sci_csvWrite.c, line: 290
 #, c-format
 msgid "%s: error.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 74
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 47
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 78
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 51
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 81
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 54
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 85
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 58
 #, c-format
 msgid "%s: Wrong number of output argument(s): %d expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 89
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 93
 #, c-format
 msgid "%s: Wrong type for input argument #%d : string expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 120
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 124
 #, c-format
 msgid "The file %s does not exist.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 149
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 153
 #, c-format
 msgid "%s: The file %s does not exist.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 157
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 161
 #, c-format
 msgid "%s: File %s is not an ole2 file.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 161
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 185
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 165
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 189
 #, c-format
 msgid "%s: Cannot open file %s.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 181
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 185
 #, c-format
 msgid "There is no xls stream in the ole2 file %ls.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 190
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 194
 #, c-format
 msgid "%s: invalid filename.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 194
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 198
 #, c-format
 msgid "%s: invalid status.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 224
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 228
 #, c-format
 msgid "%s: Not an ole2 file.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 229
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 233
 #, c-format
 msgid "%s: The file has no Workbook directory.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 234
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 97
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 238
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 101
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 239
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 243
 #, c-format
 msgid "%s: Incorrect or corrupted file.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 244
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_open.cpp, line: 248
 #, c-format
 msgid "%s: Only BIFF8 file format is handled.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 62
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 70
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 79
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 87
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 66
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 74
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 83
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 91
 #, c-format
 msgid "%s: Wrong type for input argument #%d : A scalar expected.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 100
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 104
 #, c-format
 msgid "%s: Failed to read expected data, may be invalid xls file.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 103
+# File: modules/spreadsheet/sci_gateway/cpp/sci_xls_read.cpp, line: 107
 #, c-format
 msgid "%s: End of file.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/src/c/csvRead.c, line: 380
+# File: modules/spreadsheet/src/c/csvRead.c, line: 384
 #, c-format
 msgid ""
 "%s: Inconsistency found in the columns. At line %d, found %d columns while "
@@ -397,7 +394,7 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/spreadsheet/src/c/csvRead.c, line: 380
+# File: modules/spreadsheet/src/c/csvRead.c, line: 384
 msgid "Warning"
 msgstr ""
 
@@ -615,6 +612,6 @@ msgid "ripOLE: decoding of %s resulted in error %d.\n"
 msgstr ""
 
 #
-# File: modules/spreadsheet/src/nospreadsheet/nospreadsheet.c, line: 20
+# File: modules/spreadsheet/src/nospreadsheet/nospreadsheet.c, line: 24
 msgid "Scilab spreadsheet module not installed.\n"
 msgstr ""

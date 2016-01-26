@@ -2,20 +2,21 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-08 22:07+0000\n"
-"Last-Translator: Scilab.team <Unknown>\n"
-"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-10-08 06:07-0400\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"X-Generator: Zanata 3.8.2\n"
 "Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
@@ -38,22 +39,22 @@ msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Can not read input argument #%d.\n"
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Memory allocation error.\n"
+msgid "%s: Wrong type for input argument #%d: string expected.\n"
+msgstr ""
+"%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
 "%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un booleano.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: string expected.\n"
-msgstr ""
-"%s: Tipo incorrecto del argumento de entrada #%d: Se esperaba un string.\n"
 
 #, c-format
 msgid ""
@@ -354,6 +355,9 @@ msgstr "Normal 100%"
 msgid "Palette browser"
 msgstr "Explorador de paletas"
 
+msgid "tree_show(scs_m)"
+msgstr ""
+
 msgid "Diagram browser"
 msgstr "Explorador de diagramas"
 
@@ -589,9 +593,6 @@ msgstr "No hay ningún bloque seleccionado"
 msgid "Export to XML"
 msgstr ""
 
-msgid "Export in progress"
-msgstr "Realizando exportación"
-
 msgid "Import from XML"
 msgstr ""
 
@@ -736,8 +737,7 @@ msgstr "Debe seleccionarse un SuperBloque para generar código"
 msgid "Simulation in progress"
 msgstr "Simulación en progreso"
 
-msgid ""
-"Compilation in progress, results will be stored in the 'scicos_cpr' variable"
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
 msgstr ""
 
 msgid "Generate SuperBlock, please wait"
@@ -1005,10 +1005,6 @@ msgstr ""
 "strings.\n"
 
 #, c-format
-msgid "%s: Wrong number of output arguments: %d expected.\n"
-msgstr "%s: Número incorrecto de argumentos de salida: Se esperaban %d.\n"
-
-#, c-format
 msgid "%s: Wrong type for input argument %s: palette type expected.\n"
 msgstr ""
 "%s: Tipo del argumento de entrada %s incorrecto: Se esperaba una paleta.\n"
@@ -1062,10 +1058,6 @@ msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
 msgstr ""
 "%s: Tipo del argumento de entrada %s incorrecto: Se esperaba un string o un "
 "struct.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: %d expected.\n"
-msgstr "%s Número incorrecto de argumentos de entrada: Se esperaban %d\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument %s: full path string expected.\n"
@@ -1151,7 +1143,7 @@ msgstr ""
 msgid "ReInitialization"
 msgstr ""
 
-msgid "Continous states properties update"
+msgid "Continuous states properties update"
 msgstr ""
 
 msgid "Zero crossing surfaces computation"

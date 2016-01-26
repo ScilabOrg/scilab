@@ -2,22 +2,23 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-08 22:05+0000\n"
-"Last-Translator: Scilab.team <Unknown>\n"
-"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-10-08 06:05-0400\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
+"X-Generator: Zanata 3.8.2\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #, c-format
 msgid "%s: Memory allocation error.\n"
@@ -217,10 +218,6 @@ msgstr ""
 "%s: 入力引数 #%d の型が間違っています: ハンドルの行列を指定してください.\n"
 
 #, c-format
-msgid "%s: Can not read input argument #%d.\n"
-msgstr "%s: 入力引数 #%d を読み込めません.\n"
-
-#, c-format
 msgid "%s: Wrong type for input argument #%d: A graphic handle expected.\n"
 msgstr ""
 "%s: 入力引数 #%d の型が間違っています: グラフィックのハンドルを指定してくださ"
@@ -231,6 +228,10 @@ msgid "%s: Wrong type for input argument #%d: Vector %s or %s expected.\n"
 msgstr ""
 "%s: 入力引数 #%d の型が間違っています: ベクトル %s または %sを指定してくださ"
 "い.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: 入力引数 #%d を読み込めません.\n"
 
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A graphic handle expected.\n"
@@ -1430,6 +1431,10 @@ msgstr ""
 msgid "Parent property can not be modified directly.\n"
 msgstr "親プロパティは、直接に修正することができません。\n"
 
+#, c-format
+msgid "Wrong size for '%s' property: Row vector of size %d expected.\n"
+msgstr ""
+
 #
 # File: src/c/getHandleProperty/set_axes_bounds_property.c, line: 48
 # File: src/c/getHandleProperty/set_margins_property.c, line: 49
@@ -2086,6 +2091,9 @@ msgid ""
 msgstr ""
 "%s: 入力引数の値が間違っていますt: '%s', '%s', '%s', '%s', '%s', '%s', '%s' "
 "または '%s' を指定してください.\n"
+
+msgid "The ged function is not available on MacOSX."
+msgstr ""
 
 msgid "Tcl/Tk interface not installed."
 msgstr "Tcl/Tkインターフェイスはインストールされていません."

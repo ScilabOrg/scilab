@@ -10,198 +10,195 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/fftw/sci_gateway/c/sci_disposefftwlibrary.c, line: 38
-# File: modules/fftw/sci_gateway/c/sci_fftwlibraryisloaded.c, line: 35
-# File: modules/fftw/sci_gateway/c/sci_loadfftwlibrary.c, line: 67
+# File: modules/fftw/sci_gateway/c/sci_disposefftwlibrary.c, line: 42
+# File: modules/fftw/sci_gateway/c/sci_fftwlibraryisloaded.c, line: 39
+# File: modules/fftw/sci_gateway/c/sci_loadfftwlibrary.c, line: 71
 #, c-format
 msgid "%s: Memory allocation error.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 154
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 158
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A int32 expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 171
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 184
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 175
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 188
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 240
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 244
 #, c-format
 msgid "%s: Wrong values for input argument #%d: FFTW flag expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 259
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 334
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 567
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 606
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 263
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 338
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 571
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 610
 #, c-format
 msgid "%s: Wrong type for input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 265
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 269
 #, c-format
 msgid "%s: Wrong size for input argument #%d: %d-by-%d matrix expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 277
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 289
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 296
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 319
-# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 327
-# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 75
-# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 96
-# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 123
-# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 142
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 241
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 290
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 323
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 354
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 281
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 293
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 300
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 323
+# File: modules/fftw/sci_gateway/c/sci_fftw_flags.c, line: 331
+# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 79
+# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 100
+# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 127
+# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 146
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 245
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 294
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 327
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 358
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 46
-# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 50
+# File: modules/fftw/sci_gateway/c/sci_get_fftw_wisdom.c, line: 50
+# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 54
 #, c-format
 msgid "%s: MKL fftw library does not implement wisdom functions yet.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_loadfftwlibrary.c, line: 41
-# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 66
+# File: modules/fftw/sci_gateway/c/sci_loadfftwlibrary.c, line: 45
+# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 70
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 118
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 69
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 77
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 124
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 157
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 174
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 188
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 238
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 73
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 122
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 156
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 173
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 187
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 247
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 88
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 469
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 79
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 253
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 383
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 442
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 659
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 669
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 738
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 802
+# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 122
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 73
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 81
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 128
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 161
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 178
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 192
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 242
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 77
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 126
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 160
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 177
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 191
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 251
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 92
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 473
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 83
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 257
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 387
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 446
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 663
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 673
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 742
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 806
 #, c-format
 msgid "%s: Cannot allocate more memory.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 137
+# File: modules/fftw/sci_gateway/c/sci_set_fftw_wisdom.c, line: 141
 #, c-format
 msgid "%s: Wrong value for input argument #%d: a valid wisdom expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 129
-# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 164
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 127
-# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 163
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 245
-# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 294
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 133
+# File: modules/fftw/sci_gateway/cpp/sci_dct.cpp, line: 168
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 131
+# File: modules/fftw/sci_gateway/cpp/sci_dst.cpp, line: 167
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 249
+# File: modules/fftw/sci_gateway/cpp/sci_fftw.cpp, line: 298
 #, c-format
 msgid "%s: Creation of requested fftw plan failed.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 53
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 57
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 59
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 63
 #, c-format
 msgid "%s: Wrong number of output argument(s): %d expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 89
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 93
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A scalar expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 96
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 100
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 103
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 107
 #, c-format
 msgid "%s: Wrong value for input argument #%d: %d or %d expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 137
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 166
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 141
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 170
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 183
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 187
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 344
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 348
 #, c-format
 msgid "%s: Wrong size for input argument #%d: Must be between %d and %d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 355
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 629
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 359
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 633
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Positive integers expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 363
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 367
 #, c-format
 msgid ""
 "%s: Wrong values for input argument #%d: Elements must be less than %d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 371
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 649
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 375
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 653
 #, c-format
 msgid ""
 "%s: Wrong values for input argument #%d: Elements must be in increasing "
@@ -209,65 +206,65 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 579
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 583
 #, c-format
 msgid ""
 "%s: Wrong values for input argument #%d: Elements must be greater than %d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 589
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 593
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Must be less than %d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 597
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 601
 #, c-format
 msgid "%s: Wrong values for input argument #%d: Must be a divisor of %d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 616
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 620
 #, c-format
 msgid "%s: Incompatible input arguments #%d and #%d: Same sizes expected.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 640
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 644
 #, c-format
 msgid ""
 "%s: Wrong values for input argument #%d: Elements must be divisors of %d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 697
-# File: modules/fftw/src/cpp/fftw_common.cpp, line: 719
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 701
+# File: modules/fftw/src/cpp/fftw_common.cpp, line: 723
 #, c-format
 msgid "%s: Incompatible input arguments #%d and #%d.\n"
 msgstr ""
 
 #
-# File: modules/fftw/src/nofftw/nofftw.cpp, line: 27
+# File: modules/fftw/src/nofftw/nofftw.cpp, line: 31
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr ""
 
-# File: modules/fftw/etc/fftw.start, line: 34
+# File: modules/fftw/etc/fftw.start, line: 38
 msgid "You chose to install Scilab with the fftw module."
 msgstr ""
 
 #
-# File: modules/fftw/etc/fftw.start, line: 35
+# File: modules/fftw/etc/fftw.start, line: 39
 msgid "This module requires: "
 msgstr ""
 
 #
-# File: modules/fftw/etc/fftw.start, line: 36
+# File: modules/fftw/etc/fftw.start, line: 40
 msgid "Scilab will use standard fft by default until you install this library."
 msgstr ""
 
 #
-# File: modules/fftw/etc/fftw.start, line: 37
+# File: modules/fftw/etc/fftw.start, line: 41
 msgid "See help fftw for more information."
 msgstr ""

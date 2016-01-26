@@ -10,72 +10,69 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 52
-# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 60
-# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 72
-# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 52
-# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 60
-# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 72
+# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 56
+# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 64
+# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 76
+# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 56
+# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 64
+# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 76
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 79
+# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 83
 #, c-format
 msgid "%s: Could not add URL to system classloader : %s.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 90
-# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 90
+# File: modules/jvm/sci_gateway/c/sci_javaclasspath.c, line: 94
+# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 94
 #, c-format
 msgid "%s: Wrong type for input argument #%d: String expected.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 79
+# File: modules/jvm/sci_gateway/c/sci_javalibrarypath.c, line: 83
 #, c-format
 msgid "%s: Could not add path to java.library.path: %s.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/cpp/sci_system_getproperty.cpp, line: 32
+# File: modules/jvm/sci_gateway/cpp/sci_system_getproperty.cpp, line: 36
 #, c-format
 msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/cpp/sci_system_getproperty.cpp, line: 38
-# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 41
+# File: modules/jvm/sci_gateway/cpp/sci_system_getproperty.cpp, line: 42
+# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 45
 #, c-format
 msgid "%s: Wrong number of output arguments: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/cpp/sci_system_getproperty.cpp, line: 44
-# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 47
-# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 53
+# File: modules/jvm/sci_gateway/cpp/sci_system_getproperty.cpp, line: 48
+# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 51
+# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 57
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A String expected.\n"
 msgstr ""
 
 #
-# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 35
+# File: modules/jvm/sci_gateway/cpp/sci_system_setproperty.cpp, line: 39
 #, c-format
 msgid "%s: Wrong number of input arguments: at %d expected.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/InitializeJVM.c, line: 48
-# File: modules/jvm/src/c/InitializeJVM.c, line: 50
+# File: modules/jvm/src/c/InitializeJVM.c, line: 52
+# File: modules/jvm/src/c/InitializeJVM.c, line: 54
 #, c-format
 msgid ""
 "\n"
@@ -83,18 +80,18 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/InitializeJVM.c, line: 48
-# File: modules/jvm/src/c/InitializeJVM.c, line: 75
-# File: modules/jvm/src/c/JVM.c, line: 101
-# File: modules/jvm/src/c/JVM.c, line: 120
-# File: modules/jvm/src/c/JVM.c, line: 192
-# File: modules/jvm/src/c/JVM.c, line: 226
-# File: modules/jvm/src/c/JVM.c, line: 265
+# File: modules/jvm/src/c/InitializeJVM.c, line: 52
+# File: modules/jvm/src/c/InitializeJVM.c, line: 79
+# File: modules/jvm/src/c/JVM.c, line: 105
+# File: modules/jvm/src/c/JVM.c, line: 124
+# File: modules/jvm/src/c/JVM.c, line: 196
+# File: modules/jvm/src/c/JVM.c, line: 230
+# File: modules/jvm/src/c/JVM.c, line: 269
 msgid "Error"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/InitializeJVM.c, line: 60
+# File: modules/jvm/src/c/InitializeJVM.c, line: 64
 msgid ""
 "\n"
 "Scilab cannot create Scilab Java Main-Class (we have not been able to find "
@@ -103,29 +100,29 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/InitializeJVM.c, line: 64
+# File: modules/jvm/src/c/InitializeJVM.c, line: 68
 msgid ""
 "If Scilab is used from Java, make sure that your IDE (ex: Netbeans, etc) is "
 "not adding extra dependencies which could not be found at runtime.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/InitializeJVM.c, line: 139
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 34
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 80
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 118
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 152
+# File: modules/jvm/src/c/InitializeJVM.c, line: 143
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 38
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 84
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 122
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 156
 msgid "Could not access to the Main Scilab Class:\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/InitializeJVM.c, line: 148
+# File: modules/jvm/src/c/InitializeJVM.c, line: 152
 msgid "Cannot execute initial hooks. Error:\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 101
-# File: modules/jvm/src/c/JVM.c, line: 104
+# File: modules/jvm/src/c/JVM.c, line: 105
+# File: modules/jvm/src/c/JVM.c, line: 108
 #, c-format
 msgid ""
 "\n"
@@ -133,8 +130,8 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 119
-# File: modules/jvm/src/c/JVM.c, line: 124
+# File: modules/jvm/src/c/JVM.c, line: 123
+# File: modules/jvm/src/c/JVM.c, line: 128
 #, c-format
 msgid ""
 "\n"
@@ -143,7 +140,7 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 148
+# File: modules/jvm/src/c/JVM.c, line: 152
 #, c-format
 msgid ""
 "\n"
@@ -152,7 +149,7 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 157
+# File: modules/jvm/src/c/JVM.c, line: 161
 #, c-format
 msgid ""
 "\n"
@@ -160,13 +157,13 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 158
+# File: modules/jvm/src/c/JVM.c, line: 162
 #, c-format
 msgid "Error: %s\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 159
+# File: modules/jvm/src/c/JVM.c, line: 163
 #, c-format
 msgid ""
 "If you are using a binary version of Scilab, please report a bug http://"
@@ -174,7 +171,7 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 160
+# File: modules/jvm/src/c/JVM.c, line: 164
 #, c-format
 msgid ""
 "If you are using a self-built version of Scilab, update the script bin/"
@@ -182,13 +179,13 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 162
+# File: modules/jvm/src/c/JVM.c, line: 166
 #, c-format
 msgid "The problem might be related to SELinux. Try to deactivate it.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 163
+# File: modules/jvm/src/c/JVM.c, line: 167
 #, c-format
 msgid ""
 "Please also check that you are not trying to run Scilab 64 bits on a 32 bits "
@@ -196,7 +193,7 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 198
+# File: modules/jvm/src/c/JVM.c, line: 202
 #, c-format
 msgid ""
 "\n"
@@ -204,8 +201,8 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 226
-# File: modules/jvm/src/c/JVM.c, line: 228
+# File: modules/jvm/src/c/JVM.c, line: 230
+# File: modules/jvm/src/c/JVM.c, line: 232
 #, c-format
 msgid ""
 "\n"
@@ -213,20 +210,20 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 240
+# File: modules/jvm/src/c/JVM.c, line: 244
 #, c-format
 msgid "Error in the creation of the Java VM: %s\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 246
+# File: modules/jvm/src/c/JVM.c, line: 250
 #, c-format
 msgid "Options:\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM.c, line: 265
-# File: modules/jvm/src/c/JVM.c, line: 268
+# File: modules/jvm/src/c/JVM.c, line: 269
+# File: modules/jvm/src/c/JVM.c, line: 272
 #, c-format
 msgid ""
 "\n"
@@ -234,80 +231,80 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 136
+# File: modules/jvm/src/c/JVM_commons.c, line: 140
 msgid "Unknown JNI error"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 139
+# File: modules/jvm/src/c/JVM_commons.c, line: 143
 msgid "Thread detached from the VM"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 142
+# File: modules/jvm/src/c/JVM_commons.c, line: 146
 msgid "JNI version error"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 147
+# File: modules/jvm/src/c/JVM_commons.c, line: 151
 msgid "JNI: not enough memory"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 153
+# File: modules/jvm/src/c/JVM_commons.c, line: 157
 msgid "VM already created"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 159
+# File: modules/jvm/src/c/JVM_commons.c, line: 163
 msgid "JNI: invalid arguments"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/JVM_commons.c, line: 163
+# File: modules/jvm/src/c/JVM_commons.c, line: 167
 msgid "Undefined error code in the JNI. Weird problem"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/addToClasspath.c, line: 54
+# File: modules/jvm/src/c/addToClasspath.c, line: 58
 #, c-format
 msgid "Warning: Could not find Java package '%s'.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 39
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 43
 msgid "Could not access to the constructor of the Main Scilab Class:\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 44
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 49
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 48
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 53
 msgid "Could not create a Scilab main class. Error:\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 89
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 93
 msgid "Cannot execute final hooks. Error:\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 127
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 131
 msgid "Error with Scilab.canClose():\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/createMainScilabObject.c, line: 161
+# File: modules/jvm/src/c/createMainScilabObject.c, line: 165
 msgid "Error with Scilab.forceClose():\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/getJvmOptions.c, line: 64
+# File: modules/jvm/src/c/getJvmOptions.c, line: 68
 #, c-format
 msgid "Error: Could not parse file %s.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/getJvmOptions.c, line: 186
+# File: modules/jvm/src/c/getJvmOptions.c, line: 190
 #, c-format
 msgid ""
 "Error: Not a valid configuration file %s (encoding not '%s') Encoding '%s' "
@@ -315,23 +312,23 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/loadClasspath.c, line: 86
-# File: modules/jvm/src/c/loadLibrarypath.c, line: 58
-# File: modules/jvm/src/c/loadOnUseClassPath.c, line: 60
+# File: modules/jvm/src/c/loadClasspath.c, line: 90
+# File: modules/jvm/src/c/loadLibrarypath.c, line: 62
+# File: modules/jvm/src/c/loadOnUseClassPath.c, line: 64
 #, c-format
 msgid "Error: could not parse file %s\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/loadClasspath.c, line: 182
-# File: modules/jvm/src/c/loadLibrarypath.c, line: 129
-# File: modules/jvm/src/c/loadOnUseClassPath.c, line: 121
+# File: modules/jvm/src/c/loadClasspath.c, line: 186
+# File: modules/jvm/src/c/loadLibrarypath.c, line: 133
+# File: modules/jvm/src/c/loadOnUseClassPath.c, line: 125
 #, c-format
 msgid "Wrong format for %s.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/loadClasspath.c, line: 201
+# File: modules/jvm/src/c/loadClasspath.c, line: 205
 #, c-format
 msgid ""
 "Error : Not a valid classpath file %s (encoding not 'utf-8') Encoding '%s' "
@@ -339,14 +336,14 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/loadClasspath.c, line: 211
-# File: modules/jvm/src/c/loadOnUseClassPath.c, line: 140
+# File: modules/jvm/src/c/loadClasspath.c, line: 215
+# File: modules/jvm/src/c/loadOnUseClassPath.c, line: 144
 #, c-format
 msgid "Warning: could not find classpath declaration file %s.\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/c/loadClasspath.c, line: 215
+# File: modules/jvm/src/c/loadClasspath.c, line: 219
 #, c-format
 msgid ""
 "Some problems during the loading of the Java libraries occurred.\n"
@@ -355,13 +352,13 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/jvm/src/c/loadLibrarypath.c, line: 144
+# File: modules/jvm/src/c/loadLibrarypath.c, line: 148
 #, c-format
 msgid ""
 "Error : Not a valid path file %s (encoding not 'utf-8') Encoding '%s' found\n"
 msgstr ""
 
 #
-# File: modules/jvm/src/nojvm/nojvm.c, line: 27
+# File: modules/jvm/src/nojvm/nojvm.c, line: 31
 msgid "Scilab Java module not installed.\n"
 msgstr ""

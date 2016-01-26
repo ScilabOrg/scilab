@@ -2,20 +2,22 @@
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-26 16:47+0000\n"
-"Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-10-26 12:47-0400\n"
+"Last-Translator: Stanislav V. Kroter <krotersv@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"X-Generator: Zanata 3.8.2\n"
 "Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #, c-format
 msgid "%s: Can not read input argument #%d.\n"
@@ -151,6 +153,9 @@ msgstr "команды отладки : \n"
 msgid "show this help"
 msgstr "показать данную справку"
 
+msgid "open debug documentation page"
+msgstr ""
+
 msgid "stop debugging"
 msgstr "остановить отладку"
 
@@ -159,6 +164,9 @@ msgstr "показать стек вызова"
 
 msgid "execute cmd"
 msgstr "выполнить cmd"
+
+msgid "display variable"
+msgstr ""
 
 msgid "continue execution"
 msgstr "продолжить исполнение"
@@ -175,8 +183,8 @@ msgstr "шаг внутрь функции"
 msgid "step outside function"
 msgstr "шаг наружу функции"
 
-msgid "set a breakpoint"
-msgstr "установить точку останова"
+msgid "add a breakpoint"
+msgstr ""
 
 msgid "delete all breakpoints"
 msgstr "удалить все точки останова"
@@ -202,8 +210,8 @@ msgstr "показать все точки останова"
 msgid "show a specific breakpoint"
 msgstr "показать определённую точку останова"
 
-msgid "  for more details, help debug.\n"
-msgstr "  для подробностей, help debug.\n"
+msgid "  for more details, show help page.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
@@ -320,6 +328,12 @@ msgid "%s: Wrong size for input argument #%d: a string expected.\n"
 msgstr "%s: Неверный размер входного аргумента №%d: ожидалась строка.\n"
 
 #, c-format
+msgid ""
+"%s: Wrong type for input argument #%d: struct array or tlist or mlist "
+"expected.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: Boolean vector expected.\n"
 msgstr ""
 "%s: Неверный тип входного аргумента №%d: ожидался вектор логических "
@@ -328,6 +342,27 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong type for input argument #%d: macro expected.\n"
 msgstr "%s: Неверный тип входного аргумента №%d: ожидался макрос.\n"
+
+#, c-format
+msgid "%s: Wrong size for input arguments: more than %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for output arguments: %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong input arguments: Dimensions given as first argument do not match "
+"specified cell contents.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A vector expected.\n"
+msgstr ""
+
+msgid "Pause mode: enter empty lines to continue.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Valid function name expected.\n"
@@ -369,7 +404,27 @@ msgstr ""
 "целочисленное значение.\n"
 
 #, c-format
+msgid "%s: Wrong number of input argument(s): An even number is expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Field names must be strings.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Arguments must be scalar or must have same dimensions.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Can not create a %s with input argument #%d.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Insert a new type is not managed.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong values for input argument #%d: '%s' expected .\n"
 msgstr ""
 
 #, c-format
@@ -522,8 +577,8 @@ msgstr ""
 msgid "Scilab Enterprises\n"
 msgstr "Scilab Enterprises\n"
 
-msgid "Copyright (c) 2011-2015 (Scilab Enterprises)\n"
-msgstr "Авторское право (c) 2011-2015 (Scilab Enterprises)\n"
+msgid "Copyright (c) 2011-2016 (Scilab Enterprises)\n"
+msgstr ""
 
 msgid "Copyright (c) 1989-2012 (INRIA)\n"
 msgstr "Авторское право (c) 1989-2012 (INRIA)\n"
@@ -634,11 +689,6 @@ msgstr "%s: Perl не найден.\n"
 #, c-format
 msgid "%s: System error: Command executed: %s"
 msgstr "%s: Системная ошибка: выполняемая команда: %s"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: At least %d expected.\n"
-msgstr ""
-"%s: Неверное количество входных параметров: ожидалось как минимум %d.\n"
 
 msgid "Scilab Version: "
 msgstr "Версия Scilab: "

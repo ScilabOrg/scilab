@@ -10,53 +10,50 @@ msgstr ""
 "Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"Last-Translator: François Granade <francois.granade@scilab-enterprises.com>\n"
-"Language-Team: Scilab Localization <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2016-01-25 15:00+0100\n"
 
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 100
-# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 52
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 104
+# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 56
 #, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 118
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 140
-# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 73
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 122
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 144
+# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 77
 #, c-format
 msgid "%s: Wrong value for input argument #%d: 'errcatch' expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 128
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 132
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A integer expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 150
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 154
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A integer or string expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 178
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 182
 #, c-format
 msgid "%s: Cannot open file %s.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 247
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 251
 #, c-format
 msgid "%s: Unable to parse macro '%s'"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 264
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 268
 #, c-format
 msgid ""
 "%s: Wrong type for input argument #%d: A macro without varargin and "
@@ -64,105 +61,105 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 323
-# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 232
+# File: modules/functions/sci_gateway/cpp/sci_exec.cpp, line: 328
+# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 236
 #, c-format
 msgid "Recursion limit reached (%d).\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 99
+# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 103
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 114
+# File: modules/functions/sci_gateway/cpp/sci_execstr.cpp, line: 118
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Vector of strings expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_getCurrentThreadId.cpp, line: 30
-# File: modules/functions/sci_gateway/cpp/sci_getThreads.cpp, line: 28
-# File: modules/functions/sci_gateway/cpp/sci_macrovar.cpp, line: 42
-# File: modules/functions/sci_gateway/cpp/sci_testGVN.cpp, line: 42
+# File: modules/functions/sci_gateway/cpp/sci_getCurrentThreadId.cpp, line: 34
+# File: modules/functions/sci_gateway/cpp/sci_getThreads.cpp, line: 32
+# File: modules/functions/sci_gateway/cpp/sci_macrovar.cpp, line: 46
+# File: modules/functions/sci_gateway/cpp/sci_testGVN.cpp, line: 46
 #, c-format
 msgid "%s: Wrong number of input arguments: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_getCurrentThreadId.cpp, line: 36
-# File: modules/functions/sci_gateway/cpp/sci_getThreads.cpp, line: 34
-# File: modules/functions/sci_gateway/cpp/sci_macrovar.cpp, line: 48
+# File: modules/functions/sci_gateway/cpp/sci_getCurrentThreadId.cpp, line: 40
+# File: modules/functions/sci_gateway/cpp/sci_getThreads.cpp, line: 38
+# File: modules/functions/sci_gateway/cpp/sci_macrovar.cpp, line: 52
 #, c-format
 msgid "%s: Wrong number of output arguments: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 39
-# File: modules/functions/sci_gateway/cpp/sci_whereis.cpp, line: 37
+# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 43
+# File: modules/functions/sci_gateway/cpp/sci_whereis.cpp, line: 41
 #, c-format
 msgid "%s: Wrong number of output argument(s): %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 45
-# File: modules/functions/sci_gateway/cpp/sci_whereis.cpp, line: 47
+# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 49
+# File: modules/functions/sci_gateway/cpp/sci_whereis.cpp, line: 51
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A String expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 52
+# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 56
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A String expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 60
+# File: modules/functions/sci_gateway/cpp/sci_libraryinfo.cpp, line: 64
 #, c-format
 msgid "%s: Invalid library %s.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_macrovar.cpp, line: 67
+# File: modules/functions/sci_gateway/cpp/sci_macrovar.cpp, line: 71
 #, c-format
 msgid "%s: Wrong type for input arguments: macro expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/sci_gateway/cpp/sci_testAnalysis.cpp, line: 39
+# File: modules/functions/sci_gateway/cpp/sci_testAnalysis.cpp, line: 43
 #, c-format
 msgid "%s: Wrong number of input arguments: at least %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/bytecode.sci, line: 37
+# File: modules/functions/macros/bytecode.sci, line: 41
 #, c-format
 msgid "%s: Wrong type for input argument #%d.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/bytecodewalk.sci, line: 167
+# File: modules/functions/macros/bytecodewalk.sci, line: 171
 #, c-format
 msgid "%s: obsolete op-code %d.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/check_gateways.sci, line: 18
+# File: modules/functions/macros/check_gateways.sci, line: 22
 #, c-format
 msgid "Checking: %s.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/check_gateways.sci, line: 28
+# File: modules/functions/macros/check_gateways.sci, line: 32
 #, c-format
 msgid "%s: Please check: %s\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/check_gateways.sci, line: 31
+# File: modules/functions/macros/check_gateways.sci, line: 35
 #, c-format
 msgid "%s: File %s doesn't exist.\n"
 msgstr ""
@@ -174,165 +171,165 @@ msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/get_function_path.sci, line: 18
+# File: modules/functions/macros/get_function_path.sci, line: 22
 #, c-format
 msgid "%s: Wrong number of input argument: %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/get_function_path.sci, line: 26
+# File: modules/functions/macros/get_function_path.sci, line: 30
 #, c-format
 msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/getd.sci, line: 42
+# File: modules/functions/macros/getd.sci, line: 46
 #, c-format
 msgid "%s: I cannot find any files with extension %s in %s\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/getd.sci, line: 52
+# File: modules/functions/macros/getd.sci, line: 56
 #, c-format
 msgid "%s: Incorrect function in file %s.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/head_comments.sci, line: 14
-# File: modules/functions/macros/recompilefunction.sci, line: 12
+# File: modules/functions/macros/head_comments.sci, line: 18
+# File: modules/functions/macros/recompilefunction.sci, line: 16
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/head_comments.sci, line: 18
+# File: modules/functions/macros/head_comments.sci, line: 22
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A character string expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/head_comments.sci, line: 22
+# File: modules/functions/macros/head_comments.sci, line: 26
 #, c-format
 msgid "%s: Undefined variable %s.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/head_comments.sci, line: 26
+# File: modules/functions/macros/head_comments.sci, line: 30
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: Name of a Scilab function expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/head_comments.sci, line: 50
+# File: modules/functions/macros/head_comments.sci, line: 54
 msgid "No comment available."
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 48
+# File: modules/functions/macros/plotprofile.sci, line: 52
 #, c-format
 msgid "%s: Wrong values for input argument: No profile data in the function\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 79
+# File: modules/functions/macros/plotprofile.sci, line: 83
 msgid "Complexity"
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 94
+# File: modules/functions/macros/plotprofile.sci, line: 98
 msgid "Tools"
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 95
+# File: modules/functions/macros/plotprofile.sci, line: 99
 msgid "Edit"
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 96
+# File: modules/functions/macros/plotprofile.sci, line: 100
 msgid "?"
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 98
+# File: modules/functions/macros/plotprofile.sci, line: 102
 msgid "Exit"
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 101
+# File: modules/functions/macros/plotprofile.sci, line: 105
 msgid "Click to get corresponding line, move with a-z."
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 156
+# File: modules/functions/macros/plotprofile.sci, line: 160
 #, c-format
 msgid "line %s [%s call, %s sec] :: "
 msgstr ""
 
 #
-# File: modules/functions/macros/plotprofile.sci, line: 158
+# File: modules/functions/macros/plotprofile.sci, line: 162
 #, c-format
 msgid "line %s [%s calls, %s sec] :: "
 msgstr ""
 
 #
-# File: modules/functions/macros/profile.sci, line: 25
+# File: modules/functions/macros/profile.sci, line: 29
 #, c-format
 msgid "%s: The function has not been built for profiling"
 msgstr ""
 
 #
-# File: modules/functions/macros/recompilefunction.sci, line: 17
+# File: modules/functions/macros/recompilefunction.sci, line: 21
 #, c-format
 msgid "No variable named: %s.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/recompilefunction.sci, line: 22
+# File: modules/functions/macros/recompilefunction.sci, line: 26
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: A Scilab function name is expected.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/recompilefunction.sci, line: 27
+# File: modules/functions/macros/recompilefunction.sci, line: 31
 #, c-format
 msgid "%s is already noncompiled.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/recompilefunction.sci, line: 43
+# File: modules/functions/macros/recompilefunction.sci, line: 47
 #, c-format
 msgid "%s is already compiled.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/recompilefunction.sci, line: 47
+# File: modules/functions/macros/recompilefunction.sci, line: 51
 #, c-format
 msgid "%s is already compiled for profiling.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/warnobsolete.sci, line: 21
+# File: modules/functions/macros/warnobsolete.sci, line: 25
 #, c-format
 msgid "%s: Private function: cannot access to this function directly.\n"
 msgstr ""
 
 #
-# File: modules/functions/macros/warnobsolete.sci, line: 24
+# File: modules/functions/macros/warnobsolete.sci, line: 28
 #, c-format
 msgid "Feature %s is obsolete."
 msgstr ""
 
 #
-# File: modules/functions/macros/warnobsolete.sci, line: 26
+# File: modules/functions/macros/warnobsolete.sci, line: 30
 #, c-format
 msgid "Please use %s instead."
 msgstr ""
 
 #
-# File: modules/functions/macros/warnobsolete.sci, line: 29
+# File: modules/functions/macros/warnobsolete.sci, line: 33
 #, c-format
 msgid "This feature will be permanently removed in Scilab %s"
 msgstr ""

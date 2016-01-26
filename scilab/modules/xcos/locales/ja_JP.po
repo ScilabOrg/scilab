@@ -2,28 +2,23 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-08 22:07+0000\n"
-"Last-Translator: Scilab.team <Unknown>\n"
-"Language-Team: Japanese <zz-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-10-08 06:07-0400\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Japanese <zz-saito@guitar.ocn.ne.jp>\n"
+"X-Generator: Zanata 3.8.2\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
-
-msgid "Signal Processing"
-msgstr "信号処理"
-
-msgid "Discrete time systems"
-msgstr "離散時間システム"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
@@ -46,20 +41,20 @@ msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Can not read input argument #%d.\n"
-msgstr "%s: 入力引数 #%d を読み込めません.\n"
-
-#, c-format
-msgid "%s: Memory allocation error.\n"
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
 msgstr ""
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
-msgstr "%s: 入力引数 #%d の型が間違っています: 論理値を指定してください.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列を指定してください.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: 入力引数 #%d を読み込めません.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 論理値を指定してください.\n"
 
 #, c-format
 msgid ""
@@ -355,6 +350,9 @@ msgstr "標準 100%"
 msgid "Palette browser"
 msgstr "パレット ブラウザー"
 
+msgid "tree_show(scs_m)"
+msgstr ""
+
 msgid "Diagram browser"
 msgstr "ダイアグラム ブラウザ"
 
@@ -472,6 +470,9 @@ msgstr "不連続"
 msgid "Lookup Tables"
 msgstr "ルックアップ・テーブル"
 
+msgid "Signal Processing"
+msgstr "信号処理"
+
 msgid "Zero crossing detection"
 msgstr "ゼロクロス検出"
 
@@ -492,6 +493,9 @@ msgstr "ポートとサブシステム"
 
 msgid "Annotations"
 msgstr "注釈"
+
+msgid "Discrete time systems"
+msgstr "離散時間システム"
 
 msgid "Event handling"
 msgstr "イベント・ハンドリング"
@@ -586,9 +590,6 @@ msgstr "ブロックが選択されていません"
 
 msgid "Export to XML"
 msgstr "XMLにエキスポート"
-
-msgid "Export in progress"
-msgstr "エキスポートが進行中です"
 
 msgid "Import from XML"
 msgstr "XMLをインポート"
@@ -730,9 +731,8 @@ msgstr "コードを生成するにはスーパーブロックを指定する必
 msgid "Simulation in progress"
 msgstr "シミュレーション実行中"
 
-msgid ""
-"Compilation in progress, results will be stored in the 'scicos_cpr' variable"
-msgstr "コンパイル中, 結果は 'scicos_cpr'に保存されます"
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
+msgstr ""
 
 msgid "Generate SuperBlock, please wait"
 msgstr "SuperBlockを生成中, お待ちください"
@@ -993,10 +993,6 @@ msgstr ""
 "%s: 入力引数 %s の型が間違っています:文字列のベクトルを指定してください.\n"
 
 #, c-format
-msgid "%s: Wrong number of output arguments: %d expected.\n"
-msgstr "%s: 出力引数の数が間違っています: %d 個の引数を指定してください.\n"
-
-#, c-format
 msgid "%s: Wrong type for input argument %s: palette type expected.\n"
 msgstr "%s: 入力引数 %s の型が間違っています: パレット型を指定してください.\n"
 
@@ -1047,10 +1043,6 @@ msgstr "%s: イメージ %s を作成できません.\n"
 msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
 msgstr ""
 "%s: 入力引数 %s の型が間違っています: 文字列または構造体を指定してください.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: %d expected.\n"
-msgstr "%s: 入力引数の数が間違っています: %d 個の引数を指定してください.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument %s: full path string expected.\n"
@@ -1139,8 +1131,8 @@ msgstr "終了中"
 msgid "ReInitialization"
 msgstr "最初期化"
 
-msgid "Continous states properties update"
-msgstr "連続状態量プロパティ更新"
+msgid "Continuous states properties update"
+msgstr ""
 
 msgid "Zero crossing surfaces computation"
 msgstr "ゼロ交差局面の計算"

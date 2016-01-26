@@ -2,19 +2,21 @@
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
+"Project-Id-Version: Scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2013-04-16 17:44+0100\n"
-"PO-Revision-Date: 2015-10-08 22:00+0000\n"
-"Last-Translator: Scilab.team <Unknown>\n"
-"Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-10-08 06:00-0400\n"
+"Last-Translator: Scilab.team <Unknown>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"X-Generator: Zanata 3.8.2\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
@@ -37,20 +39,20 @@ msgid "%s: Wrong size for input argument #%d: string expected.\n"
 msgstr ""
 
 #, c-format
-msgid "%s: Can not read input argument #%d.\n"
-msgstr "%s: Nelze přečíst vstupní argument #%d.\n"
-
-#, c-format
-msgid "%s: Memory allocation error.\n"
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
 msgstr ""
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
-msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván boolean.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: string expected.\n"
 msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván řetězec.\n"
+
+#, c-format
+msgid "%s: Can not read input argument #%d.\n"
+msgstr "%s: Nelze přečíst vstupní argument #%d.\n"
+
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
+msgstr "%s: Špatný typ vstupního argumentu #%d: Očekáván boolean.\n"
 
 #, c-format
 msgid ""
@@ -351,6 +353,9 @@ msgstr "Normální 100%"
 msgid "Palette browser"
 msgstr "Průzkumník palet"
 
+msgid "tree_show(scs_m)"
+msgstr ""
+
 msgid "Diagram browser"
 msgstr "Prohlížeč grafu"
 
@@ -590,9 +595,6 @@ msgstr "Není vybrán žádný blok"
 msgid "Export to XML"
 msgstr "Exportovat do XML"
 
-msgid "Export in progress"
-msgstr "Probíhá export"
-
 msgid "Import from XML"
 msgstr "Importovat do XML"
 
@@ -735,9 +737,8 @@ msgstr "SuberBlok musí být pro vytvoření kódu zvolen"
 msgid "Simulation in progress"
 msgstr "Probíhá simulace"
 
-msgid ""
-"Compilation in progress, results will be stored in the 'scicos_cpr' variable"
-msgstr "Probíhá kompilace, výsledky budou uloženy v proměnné 'scicos_cpr'"
+msgid "Compilation in progress, results will be stored in the 'cpr' variable"
+msgstr ""
 
 msgid "Generate SuperBlock, please wait"
 msgstr "Vytvářím SuperBlok, čekejte prosím"
@@ -989,10 +990,6 @@ msgid "%s: Wrong type for input argument %s: string vector expected.\n"
 msgstr "%s: Špatný typ argumentu %s: očekáván vektor řetězce.\n"
 
 #, c-format
-msgid "%s: Wrong number of output arguments: %d expected.\n"
-msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d.\n"
-
-#, c-format
 msgid "%s: Wrong type for input argument %s: palette type expected.\n"
 msgstr "%s: Špatný typ argumentu %s: očekáván typ palety.\n"
 
@@ -1040,10 +1037,6 @@ msgstr "%s: Nelze vytvořit obrázek %s.\n"
 #, c-format
 msgid "%s: Wrong type for input argument %s: string or struct expected.\n"
 msgstr "%s: Špatný typ argumentu %s: očekáván řetězec nebo struktura.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: %d expected.\n"
-msgstr "%s: Špatný počet vstupních argumentů: očekáváno %d.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument %s: full path string expected.\n"
@@ -1128,7 +1121,7 @@ msgstr ""
 msgid "ReInitialization"
 msgstr ""
 
-msgid "Continous states properties update"
+msgid "Continuous states properties update"
 msgstr ""
 
 msgid "Zero crossing surfaces computation"

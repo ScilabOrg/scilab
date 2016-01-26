@@ -2,19 +2,21 @@
 # Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the scilab package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
-#
+# Clément DAVID <c.david86@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: scilab\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: Scilab\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2015-08-17 11:20+0100\n"
-"PO-Revision-Date: 2015-11-11 15:03+0000\n"
-"Last-Translator: Rui Hirokawa <Unknown>\n"
-"Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 17865)\n"
+"PO-Revision-Date: 2015-11-11 10:03-0500\n"
+"Last-Translator: Rui Hirokawa <Unknown>\n"
+"Language-Team: Japanese <ja@li.org>\n"
+"X-Generator: Zanata 3.8.2\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 msgid "Warning :\n"
 msgstr "警告:\n"
@@ -42,6 +44,10 @@ msgid "debugger stop on error in function %ls line %d\n"
 msgstr ""
 
 msgid "Leave debugger.\n"
+msgstr ""
+
+#, c-format
+msgid "Undefined variable: %s\n"
 msgstr ""
 
 msgid "inconsistent row/column dimensions\n"
@@ -72,13 +78,11 @@ msgstr ""
 msgid "%s: function is disabled in debug mode.\n"
 msgstr ""
 
-#, c-format
-msgid "%ls: Can not transpose multiple elements.\n"
+msgid "With input arguments, return / resume expects output arguments.\n"
 msgstr ""
 
 #, c-format
-msgid ""
-"Warning : redefining function: %s. Use funcprot(0) to avoid this message"
+msgid "%ls: Can not transpose multiple elements.\n"
 msgstr ""
 
 #, c-format
@@ -94,7 +98,7 @@ msgstr ""
 msgid "Recursion limit reached (%d).\n"
 msgstr ""
 
-msgid "Unknow expression"
+msgid "Unknown expression"
 msgstr ""
 
 msgid "Error in overload function: "
@@ -140,6 +144,11 @@ msgstr ""
 msgid "Inconsistent row/column dimensions.\n"
 msgstr ""
 
+msgid ""
+"operation +: Warning adding a matrix with the empty matrix will give an "
+"empty matrix result.\n"
+msgstr ""
+
 msgid "variables don't have the same formal variable"
 msgstr ""
 
@@ -159,9 +168,6 @@ msgstr ""
 
 #, c-format
 msgid "Operator / : Error %d not yet managed.\n"
-msgstr ""
-
-msgid "Invalid exponent.\n"
 msgstr ""
 
 msgid "Warning : division by zero...\n"
@@ -189,8 +195,19 @@ msgstr ""
 msgid "Operator \\ : Error %d not yet managed.\n"
 msgstr ""
 
+msgid "Invalid exponent.\n"
+msgstr ""
+
+msgid ""
+"operation -: Warning adding a matrix with the empty matrix will give an "
+"empty matrix result.\n"
+msgstr ""
+
 #, c-format
 msgid "%ls: Cannot open file %ls.\n"
+msgstr ""
+
+msgid "Error: "
 msgstr ""
 
 msgid "Your variables are:"
@@ -205,6 +222,11 @@ msgid " and   %10d variables out of %10d.\n"
 msgstr ""
 
 msgid "Your global variables are:"
+msgstr ""
+
+#, c-format
+msgid ""
+"Warning : redefining function: %s. Use funcprot(0) to avoid this message"
 msgstr ""
 
 msgid "in builtin "
