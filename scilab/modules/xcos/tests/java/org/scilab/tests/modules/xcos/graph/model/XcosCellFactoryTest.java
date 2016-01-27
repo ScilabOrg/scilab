@@ -17,6 +17,7 @@ import java.util.EnumSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.xcos.JavaController;
 import org.scilab.modules.xcos.Kind;
 import org.scilab.modules.xcos.block.BasicBlock;
@@ -33,10 +34,9 @@ public class XcosCellFactoryTest {
     }
 
     @Test
-    public void createOneSpecificBlock() {
+    public void createOneSpecificBlock() throws ScilabInterpreterManagement.InterpreterException {
         final String interfaceFunction = "BIGSOM_f";
-        BasicBlock blk = XcosCellFactory.createBlock(controller, XcosCellFactory.lookForInterfunction(interfaceFunction), interfaceFunction,
-                         controller.createObject(Kind.BLOCK));
+        BasicBlock blk = XcosCellFactory.createBlock(interfaceFunction);
 
         assert blk.getStyle().contains(interfaceFunction);
     }
