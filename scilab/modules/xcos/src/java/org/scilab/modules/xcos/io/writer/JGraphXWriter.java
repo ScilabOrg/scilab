@@ -52,6 +52,7 @@ public class JGraphXWriter extends ScilabWriter {
                     shared.stream.writeAttribute("as", "sourcePoint");
                     shared.stream.writeAttribute("x", Double.toString(vDouble.get(2 * i)));
                     shared.stream.writeAttribute("y", Double.toString(vDouble.get(2 * i + 1)));
+                    i++;
                 }
 
                 shared.stream.writeStartElement("Array");
@@ -68,6 +69,7 @@ public class JGraphXWriter extends ScilabWriter {
                     shared.stream.writeAttribute("as", "targetPoint");
                     shared.stream.writeAttribute("x", Double.toString(vDouble.get(2 * i)));
                     shared.stream.writeAttribute("y", Double.toString(vDouble.get(2 * i + 1)));
+                    i++;
                 }
 
                 shared.stream.writeEndElement(); // mxGeometry
