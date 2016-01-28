@@ -1,7 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
-//
-// Copyright (C) 2012 - 2016 - Scilab Enterprises
+// Copyright (C) 2015 - Samuel GOUGEON
 //
 // This file is hereby licensed under the terms of the GNU GPL v2.0,
 // pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -9,9 +8,8 @@
 // and continues to be available under such terms.
 // For more information, see the COPYING file which you should have received
 // along with this program.
-// === LICENSE_END ===
 
-// This function is designed to call the godd "editor" according the values in
+// This function is designed to call the good "editor" according the values in
 // the preferences file.
 // This function can take any type of arguments.
 function editor(varargin)
@@ -33,6 +31,11 @@ function editor(varargin)
         xmlDelete(doc);
         if ~isempty(varargin) then
             cmd = cmd + " """ + string(varargin(1)) + """";
+        end
+        if getos()=="Windows"
+            cmd = "start """" "+cmd
+        else
+            cmd = cmd + " &"
         end
         unix_w(cmd);
     else
@@ -69,3 +72,4 @@ function cmd = makeCommand(name, args)
     end
     cmd = cmd + ")";
 endfunction
+
