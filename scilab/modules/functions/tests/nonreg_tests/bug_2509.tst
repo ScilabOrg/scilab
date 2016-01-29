@@ -21,15 +21,15 @@ prot=funcprot();funcprot(0);
 
 
 //uncompiled macros
-deff('foo','a=aaaa','n')
+deff('foo','a=aaaa')
 if execstr('foo()','errcatch')<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
 if l<>2|f<>'foo' then pause,end
 
-try, 
+try,
   foo();
-catch 
-  [str,n,l,f]=lasterror(%t); 
+catch
+  [str,n,l,f]=lasterror(%t);
   if l<>2|f<>'foo' then pause,end;
 end
 
@@ -43,10 +43,10 @@ if execstr('foo()','errcatch')<>4 then pause,end
 [str,n,l,f]=lasterror(%t);
 if l<>2|f<>'foo' then pause,end
 
-try, 
+try,
   foo();
-catch 
-  [str,n,l,f]=lasterror(%t); 
+catch
+  [str,n,l,f]=lasterror(%t);
   if l<>2|f<>'foo' then pause,end;
 end
 

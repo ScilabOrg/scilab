@@ -14,20 +14,20 @@
 // execstr forgets to store the function name and line number when in the errcatch mode
 prot=funcprot();funcprot(0);
 //uncompiled macros
-deff('foo','a=aaaa','n')
+deff('foo','a=aaaa')
 if execstr('foo()','errcatch')<>4 then bugmes();quit;end
 [str,n,l,f]=lasterror(%t);
 if l<>2|f<>'foo' then bugmes();quit;end
-try, 
+try,
   foo();
-catch 
-  [str,n,l,f]=lasterror(%t); 
+catch
+  [str,n,l,f]=lasterror(%t);
   if l<>2|f<>'foo' then bugmes();quit;end;
 end
 if exec(foo,'errcatch')<>4 then bugmes();quit;end
- 
- 
- 
+
+
+
 a=aaaa
 [str,n,l,f]=lasterror(%t);
 if l<>2|f<>'foo' then bugmes();quit;end
@@ -36,14 +36,14 @@ deff('foo','a=aaaa')
 if execstr('foo()','errcatch')<>4 then bugmes();quit;end
 [str,n,l,f]=lasterror(%t);
 if l<>2|f<>'foo' then bugmes();quit;end
-try, 
+try,
   foo();
-catch 
-  [str,n,l,f]=lasterror(%t); 
+catch
+  [str,n,l,f]=lasterror(%t);
   if l<>2|f<>'foo' then bugmes();quit;end;
 end
 if exec(foo,'errcatch')<>4 then bugmes();quit;end
- 
+
 [str,n,l,f]=lasterror(%t);
 if l<>2|f<>'foo' then bugmes();quit;end
 //scripts
