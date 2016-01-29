@@ -121,6 +121,8 @@ Other feature changes
 * The floating point exception mode (ieee) is now set to 2 by default: floating point exceptions now produce "Inf" or "Nan",
   and do not cause any error. The previous behavior can be recalled by simply calling: ieee(0)
 
+ * The third argument of deff function have been removed, because there is no distinction between compiled/non-compiled function in scilab 6 and the profiling is manage otherwise.
+
 API modification
 ================
 
