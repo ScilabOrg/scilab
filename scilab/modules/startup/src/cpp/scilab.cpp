@@ -35,8 +35,10 @@ extern "C"
 #include "version.h"
 #include "sci_malloc.h"
 #include "lasterror.h"
+#include "getpipeline.h"
 
     extern char *getCmdLine(void);
+
 #ifdef _MSC_VER
     jmp_buf ScilabJmpEnv;
 #else
@@ -315,6 +317,18 @@ int main(int argc, char *argv[])
     setScilabInputMethod(&getCmdLine);
     setScilabOutputMethod(&TermPrintf);
 #endif // defined(WITHOUT_GUI)
+
+#ifdef _MSC_VER
+    /* if file descriptor returned is -2 stdin is not associated with an input stream */
+    /* example : echo plot3d | scilex -nw -e */
+    if (!isatty(_fileno(stdin)) && (_fileno(stdin) != -2))
+#else
+    if (!isatty(fileno(stdin)))
+#endif
+    {
+        // We are in a pipe
+        setScilabInputMethod(&getPipeLine);
+    }
 
     if (pSEI->iShowVersion == 1)
     {
