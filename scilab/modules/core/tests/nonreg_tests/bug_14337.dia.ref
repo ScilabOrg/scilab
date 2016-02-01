@@ -1,0 +1,22 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2015 - Scilab Enterprises - Cedric Delamarre
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 14337 -->
+//
+// <-- CLI SHELL MODE -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/14337
+//
+// <-- Short Description -->
+// piping one command using a shell pipepine ( "|" ) works, but scilab segfaults at exit
+if getos() == "Windows"
+    ierr = host("echo exit(42) | "+ WSCI + "\bin\scilex -ns");
+else
+    ierr = host("echo ""exit(42)"" | " + SCI+"/bin/scilab-cli -ns");
+end
+assert_checkequal(ierr, 42);
