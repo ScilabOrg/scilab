@@ -39,6 +39,7 @@
 #include "execvisitor.hxx"
 #include "debugmanager.hxx"
 #include "consoledebugger.hxx"
+#include "isatty.hxx"
 
 extern "C"
 {
@@ -148,6 +149,16 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     if (_pSEI->pstExec && strcmp(_pSEI->pstExec, "") == 0)
     {
         _pSEI->pstExec = NULL;
+    }
+
+    if (!isatty(fileno(stdin)))
+    {
+        // We are in a pipe.
+        // Read stdin and considers it as a "-quit -e" argument of Scilab.
+        scilabRead();
+        char* pstRead = ConfigVariable::getConsoleReadStr();
+        _pSEI->pstExec = pstRead;
+        _pSEI->iForceQuit = 1;
     }
 
     // ignore -quit if -e or -f are not given
