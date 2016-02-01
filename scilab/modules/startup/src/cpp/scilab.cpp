@@ -35,8 +35,10 @@ extern "C"
 #include "version.h"
 #include "sci_malloc.h"
 #include "lasterror.h"
+#include "getpipeline.h"
 
     extern char *getCmdLine(void);
+
 #ifdef _MSC_VER
     jmp_buf ScilabJmpEnv;
 #else
@@ -315,6 +317,12 @@ int main(int argc, char *argv[])
     setScilabInputMethod(&getCmdLine);
     setScilabOutputMethod(&TermPrintf);
 #endif // defined(WITHOUT_GUI)
+
+    if (isatty(fileno(stdin)) == false)
+    {
+        // We are in a pipe
+        setScilabInputMethod(&getPipeLine);
+    }
 
     if (pSEI->iShowVersion == 1)
     {
