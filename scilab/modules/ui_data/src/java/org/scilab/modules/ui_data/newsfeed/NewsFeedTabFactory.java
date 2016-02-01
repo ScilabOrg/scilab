@@ -42,9 +42,13 @@ public class NewsFeedTabFactory extends AbstractScilabTabFactory {
     }
 
     public SwingScilabDockablePanel getTab(String uuid) {
-        NewsFeedTab newsFeedTab = NewsFeedTab.getInstance();
-        ScilabTabFactory.getInstance().addToCache(newsFeedTab);
-        return newsFeedTab;
+        if (isAValidUUID(uuid)) {
+            NewsFeedTab newsFeedTab = NewsFeedTab.getInstance();
+            ScilabTabFactory.getInstance().addToCache(newsFeedTab);
+            return newsFeedTab;
+        } else {
+            return null;
+        }
     }
 
     public String getPackage() {
