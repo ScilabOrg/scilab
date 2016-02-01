@@ -35,7 +35,8 @@ types::Function::ReturnValue sci_lsq(types::typed_list &in, int _iRetCount, type
     types::Double* pDblResult   = NULL;
     double* pData[2]            = {NULL, NULL};
     double* pResult             = NULL;
-    double* pdTol               = NULL;
+    //double* pdTol               = NULL;
+	double dblTol = 0.;
     bool bComplexArgs           = false;
     int iRank                   = 0;
 
@@ -57,7 +58,9 @@ types::Function::ReturnValue sci_lsq(types::typed_list &in, int _iRetCount, type
         return Overload::call(wstFuncName, in, _iRetCount, out);
     }
 
-    if (in.size() == 2)
+	pDbl[0] = in[0]->getAs<types::Double>()->clone()->getAs<types::Double>();
+
+    if (in.size() <=  3)
     {
         if ((in[1]->isDouble() == false))
         {
@@ -74,10 +77,12 @@ types::Function::ReturnValue sci_lsq(types::typed_list &in, int _iRetCount, type
             Scierror(256, _("%s: Wrong type for input argument #%d: A Real expected.\n"), "lsq", 3);
             return types::Function::Error;
         }
-        *pdTol = in[2]->getAs<types::Double>()->get(0);
-    }
 
-    pDbl[0] = in[0]->getAs<types::Double>()->clone()->getAs<types::Double>();
+		 dblTol = in[2]->getAs<types::Double>()->get(0);
+        //double tol = in[2]->getAs<types::Double>()->get(0);
+		//pdTol[0] = in[2]->getAs<types::Double>()->get(0);
+		//pdTol = &dblTol;
+    }
 
     if (pDbl[0]->getRows() != pDbl[1]->getRows())
     {
@@ -133,7 +138,7 @@ types::Function::ReturnValue sci_lsq(types::typed_list &in, int _iRetCount, type
         pResult = pDblResult->get();
     }
 
-    int iRet = iLsqM(pData[0], pDbl[0]->getRows(), pDbl[0]->getCols(), pData[1], pDbl[1]->getCols(), bComplexArgs, pResult, pdTol, ((_iRetCount == 2) ? &iRank : NULL));
+    int iRet = iLsqM(pData[0], pDbl[0]->getRows(), pDbl[0]->getCols(), pData[1], pDbl[1]->getCols(), bComplexArgs, pResult, dblTol, ((_iRetCount == 2) ? &iRank : NULL));
 
     if (iRet != 0)
     {

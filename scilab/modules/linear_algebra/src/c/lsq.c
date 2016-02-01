@@ -106,7 +106,7 @@ static doublecomplex* allocZgelsyWorkspace(int rows, int cols, int nRhs, int* al
     return ret;
 }
 /* part of API. cf lsq.h */
-int iLsqM(double* pData1, int iRows, int iCols, double* pData2, int iNRhs, int complexArgs, double* pResult, double* pTreshold, int* piRank)
+int iLsqM(double* pData1, int iRows, int iCols, double* pData2, int iNRhs, int complexArgs, double* pResult, double pTreshold, int* piRank)
 {
     int ret = 0;
     double* pRwork = NULL;
@@ -115,7 +115,7 @@ int iLsqM(double* pData1, int iRows, int iCols, double* pData2, int iNRhs, int c
     int* pPivot = NULL;
     int worksize = 0 ;
     int unusedRank;
-    double const treshold = pTreshold ? *pTreshold : sqrt(nc_eps());
+    double const treshold = pTreshold ? pTreshold : sqrt(nc_eps());
 
     if ( (pRwork = (double*)( complexArgs ? (double*)MALLOC(2 * iCols * sizeof(double)) : allocDgelsyWorkspace(iRows, iCols, iNRhs, &worksize)))
             && (pXb = (double*)MALLOC(Max(iRows, iCols) * iNRhs * (complexArgs ? sizeof(doublecomplex) : sizeof(double))))

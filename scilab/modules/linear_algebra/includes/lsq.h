@@ -32,15 +32,15 @@
  * @param pResult double[complex]* out: iCols x nRhs solution matrix data
  *
  * in :
- * @param pTreshold double* in: treshold used to compute the effective rank of the matrix. Using pass-by-pointer because it is optional.
- * if NULL, then default value of sqrt(epsilon) is used.
+ * @param pTreshold double in: treshold used to compute the effective rank of the matrix. It is optional.
+ * if 0, then default value of sqrt(epsilon) is used.
  *
  * out :
  * @param piRank int* out: effective rank of input matrix. if NULL, the result is not returned.
  *
  */
 
-LINEAR_ALGEBRA_IMPEXP int iLsqM(double* pMatrix, int iRows, int iCols, double* pRhs, int iNRhs, int complexArgs, double* pResult, double* pTreshold, int* piRank);
+LINEAR_ALGEBRA_IMPEXP int iLsqM(double* pMatrix, int iRows, int iCols, double* pRhs, int iNRhs, int complexArgs, double* pResult, double pTreshold, int* piRank);
 
 
 #endif
