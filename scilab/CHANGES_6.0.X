@@ -39,6 +39,8 @@ earlier versions:
 Bug Fixes
 =========
 
+* Bug #2835 fixed - On negative "initial event", EVTDLY_c took no notice of the input.
+
 * Bug #13918 fixed - Unmanaged operations on hypermatrix did not call overload functions.
 
 * Bug #13298 fixed - Static analysis bugs detected by PVS-Studio fixed.
