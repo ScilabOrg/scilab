@@ -135,6 +135,7 @@ ScilabEngineInfo* InitScilabEngineInfo()
     pSEI->iForceQuit = 0;           // management of -quit argument
     pSEI->iCommandOrigin = NONE;
 
+    pSEI->iCodeAction = -1; //default value, no code action ( used on windows by file associations -O -X -P arguments)
     return pSEI;
 }
 
