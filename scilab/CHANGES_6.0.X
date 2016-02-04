@@ -83,6 +83,8 @@ Bug Fixes
 
 * Bug #14331 fixed - The third argument of lsq crashed Scilab.
 
+* Bug #14348 fixed - Scilab did not open sce/sci file in scilab from Windows explorer.
+
 Dependencies
 =============
 
