@@ -15,6 +15,12 @@
 
 package org.scilab.modules.ui_data.filebrowser;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.filechooser.FileSystemView;
+import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.gui.bridge.tab.SwingScilabDockablePanel;
 import org.scilab.modules.gui.bridge.toolbar.SwingScilabToolBar;
 import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
@@ -27,7 +33,9 @@ import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ScilabToolBar;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
+import org.scilab.modules.ui_data.FileBrowser;
 import org.scilab.modules.ui_data.actions.HelpAction;
+import org.scilab.modules.ui_data.filebrowser.actions.ChangeToAnyDirAction;
 import org.scilab.modules.ui_data.filebrowser.actions.CloseAction;
 import org.scilab.modules.ui_data.filebrowser.actions.GoToHomeAction;
 import org.scilab.modules.ui_data.filebrowser.actions.GoToSCIAction;
@@ -62,8 +70,11 @@ public final class SwingScilabFileBrowser extends SwingScilabDockablePanel {
         stb.add(GoToHomeAction.createButton());
         stb.add(GoToSCIAction.createButton());
         stb.addSeparator();
+        for (File path : File.listRoots()) {
+            stb.add(ChangeToAnyDirAction.createButton(path));
+        }
+        stb.addSeparator();
         stb.add(HelpAction.createButton(UiDataMessages.HELP));
-
         addToolBar(toolBar);
         setContentPane(filebrowser);
         WindowsConfigurationManager.restorationFinished(this);

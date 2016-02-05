@@ -15,8 +15,7 @@
 
 package org.scilab.modules.ui_data.filebrowser;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -46,33 +45,10 @@ public class ScilabFileSelectorPanel extends JPanel {
      * Init the panel contents
      */
     private void init() {
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         JButton changeDirButton = ((ChangeCWDAction) table.getActionMap().get("cwd")).createButton();
-        JButton upDirButton = ((ChangeCWDAction) table.getActionMap().get("cwd")).createParentDirButton();
 
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(changeDirButton, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridwidth = gbc.gridheight = 1;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(table.getComboBox(), gbc);
-
-        gbc.gridx = 2;
-        gbc.gridwidth = gbc.gridheight = 1;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(upDirButton, gbc);
+        add(changeDirButton, BorderLayout.WEST);
+        add(table.getComboBox(), BorderLayout.CENTER);
     }
 }

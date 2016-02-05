@@ -74,8 +74,6 @@ public class ScilabFileSelectorComboBox extends JComboBox implements DocumentLis
 
     /**
      * Default constructor
-     * @param baseDir the base directory to open
-     * @param validation the callback to execute when the user valids the directory
      */
     public ScilabFileSelectorComboBox() {
         super();
@@ -486,7 +484,7 @@ public class ScilabFileSelectorComboBox extends JComboBox implements DocumentLis
                     }
                 });
             } else {
-                set = new TreeSet<String>();
+                set = new TreeSet<>();
             }
             for (File f : files) {
                 String extra = File.separator;

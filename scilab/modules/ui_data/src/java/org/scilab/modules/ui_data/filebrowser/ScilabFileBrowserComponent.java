@@ -31,8 +31,6 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings(value = { "serial" })
 public class ScilabFileBrowserComponent extends JPanel {
 
-    private static final int GAP = 3;
-
     private SwingScilabFileBrowser filebrowser;
     private SwingScilabTreeTable stt;
 
@@ -41,7 +39,6 @@ public class ScilabFileBrowserComponent extends JPanel {
      */
     public ScilabFileBrowserComponent() {
         super(new BorderLayout());
-        setBorder(new EmptyBorder(GAP, GAP, GAP, GAP));
         ScilabFileSelectorComboBox combobox = new ScilabFileSelectorComboBox();
         stt = new SwingScilabTreeTable(new ScilabFileBrowserModel(), combobox);
         Color bg = Color.WHITE;
