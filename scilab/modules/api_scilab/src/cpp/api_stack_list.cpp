@@ -108,8 +108,10 @@ SciErr getListItemNumber(void* _pvCtx, int* _piAddress, int* _piNbItem)
     switch (iType)
     {
         case sci_list :
+            break;
         case sci_tlist :
             *_piNbItem = pL->getSize();
+            break;
         case sci_mlist :
             // an mlist can also be a struct in Scilab 5 do not manage it in this API
             if (pIT->isStruct())
